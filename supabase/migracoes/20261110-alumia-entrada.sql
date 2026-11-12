@@ -9,13 +9,15 @@
 -- linhas (interno.rede_aba): sem o código do aplicativo autenticador, senha roubada não abre nada.
 --
 -- A trava só vale depois de a coordenação ligar (interno.alumia_entrada_ligar(true), uma linha no SQL Editor), para o banco não
--- trancar ninguém antes de o site novo estar no ar. Ao ligar, quem já era membro da Alumia fica aprovado ("ja_membro").
+-- trancar ninguém antes de o site novo estar no ar. Ao ligar PELA PRIMEIRA VEZ, quem já era membro da Alumia fica aprovado
+-- ("ja_membro") e o instante fica gravado (ligada_em). Desligar e ligar de novo não aprova mais ninguém: quem aderiu depois
+-- daquele instante passa pela triagem (docs/rede/ENTRADA.md).
 -- O Fediverso não passa por aqui: o que vem de fora segue a moderação da federação (bloquear servidor ou ator, ocultar o post);
 -- as rotas da federação usam a chave de serviço (interno.servico()) e não são trancadas.
 --
 -- Privacidade: nada de lista de pessoas para quem não é da triagem; a fila mostra codinome, o motivo escrito pela pessoa e há
--- quantos dias a conta existe (nunca e-mail, nome civil ou IP). O motivo do pedido some 30 dias depois da decisão (LGPD art. 15
--- e 16: guardar só pelo tempo necessário). Tudo em interno, com RLS e sem permissão direta; as funções conferem o papel e a sessão.
+-- quantos dias a conta existe (nunca e-mail, nome civil ou IP). O motivo do pedido e o motivo da decisão somem 30 dias depois da
+-- decisão, numa faxina diária (LGPD art. 15 e 16: guardar só pelo tempo necessário). Tudo em interno, com RLS e sem permissão direta; as funções conferem o papel e a sessão.
 --
 -- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Roda DEPOIS das migrações da Alumia de 09 e 10/11.
 -- O mesmo bloco está no fim do install.sql. Teste: npm run testar:alumia-entrada.
@@ -89,14 +91,19 @@ create or replace function interno.alumia_triagem_pode() returns boolean languag
   select auth.uid() is not null and interno.aal2() and (interno.coord() or interno.tem('mediacao'))
 $$;
 
-/** Quem já era membro da Alumia (18+ e consentimento em vigor) entra aprovado. Só roda enquanto a trava está desligada, e ao ligar. */
+/**
+ * Quem já era membro da Alumia (18+ e consentimento em vigor) entra aprovado. Depois que a trava foi ligada uma vez (ligada_em),
+ * só vale para quem consentiu ANTES daquele instante: quem aderiu depois (inclusive com a trava desligada de novo) não é
+ * "quem já era" e passa pela triagem.
+ */
 create or replace function interno.alumia_aprovar_quem_ja_era() returns integer language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v_n integer;
+declare v_n integer; v_corte timestamptz := (select (valor ->> 'ligada_em')::timestamptz from configuracoes where chave = 'alumia_entrada');
 begin
   insert into alumia_entrada (usuario, situacao, origem, pedido_em, decidido_em)
   select f.id, 'aprovada', 'ja_membro', now(), now() from perfis f
   where f.rede_18 and not f.suspenso and f.rede_consentimento is not null
-    and exists (select 1 from rede_consentimentos c where c.usuario = f.id and c.versao = f.rede_consentimento and c.revogado_em is null)
+    and exists (select 1 from rede_consentimentos c where c.usuario = f.id and c.versao = f.rede_consentimento and c.revogado_em is null
+                  and (v_corte is null or c.criado_em < v_corte))
   on conflict (usuario) do nothing;
   get diagnostics v_n = row_count;
   return v_n;
@@ -107,14 +114,26 @@ begin
   if not interno.alumia_exigida() then perform interno.alumia_aprovar_quem_ja_era(); end if;
 end $$;
 
-/** Liga (ou desliga) a trava. Só pelo SQL Editor (dono do banco): select interno.alumia_entrada_ligar(true); */
+/**
+ * Liga (ou desliga) a trava. Só pelo SQL Editor (dono do banco): select interno.alumia_entrada_ligar(true);
+ * Só aprova "quem já era" quando a trava estava DESLIGADA antes da chamada; rodar de novo com ela ligada não aprova ninguém.
+ * Na primeira vez grava o instante (ligada_em), que nunca mais muda. Ao ligar, as portas das funções da rede são conferidas de
+ * novo (interno.alumia_trancar, de 20261112-alumia-portas.sql): função criada depois não fica aberta.
+ */
 create or replace function interno.alumia_entrada_ligar(p_ligar boolean default true) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v_n integer := 0;
+declare v_n integer := 0; v_liga boolean := coalesce(p_ligar, false); v_antes boolean := interno.alumia_exigida(); v_portas jsonb;
 begin
-  if coalesce(p_ligar, false) then v_n := interno.alumia_aprovar_quem_ja_era(); end if;
-  insert into configuracoes (chave, valor) values ('alumia_entrada', jsonb_build_object('exigir', coalesce(p_ligar, false)))
-    on conflict (chave) do update set valor = configuracoes.valor || jsonb_build_object('exigir', coalesce(p_ligar, false));
-  return jsonb_build_object('exigir', coalesce(p_ligar, false), 'aprovados_agora', v_n);
+  if v_liga and not v_antes then v_n := interno.alumia_aprovar_quem_ja_era(); end if;
+  if v_liga and to_regprocedure('interno.alumia_trancar()') is not null then
+    execute 'select interno.alumia_trancar()' into v_portas;
+    -- Função da rede que não pôde ser trancada: a trava não liga com porta aberta.
+    if jsonb_array_length(v_portas -> 'abertas') > 0 then raise exception 'alumia_entrada_ligar: função sem porta: %', v_portas -> 'abertas'; end if;
+  end if;
+  insert into configuracoes (chave, valor)
+    values ('alumia_entrada', jsonb_build_object('exigir', v_liga) || case when v_liga then jsonb_build_object('ligada_em', now()) else '{}'::jsonb end)
+    on conflict (chave) do update set valor = configuracoes.valor || jsonb_build_object('exigir', v_liga)
+      || case when v_liga and not (configuracoes.valor ? 'ligada_em') then jsonb_build_object('ligada_em', now()) else '{}'::jsonb end;
+  return jsonb_build_object('exigir', v_liga, 'aprovados_agora', v_n, 'portas', v_portas);
 end $$;
 
 -- 3. A trava nas funções da rede ────────────────────────────────────────────────────────────────────────────────────────────
@@ -214,6 +233,14 @@ begin
     v_motivo := interno.txt(p_motivo, 'motivo', 10, 500);
     if regexp_replace(v_motivo, '[\s.\-()/]', '', 'g') ~ '\d{8,}' or v_motivo ~* '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}' then perform interno.erro('dado_pessoal'); end if;
   end if;
+  -- A ficha entra antes do consentimento: com a trava ligada, rede_aderir só grava para quem tem ficha (ou já é aprovada).
+  if v_sit <> 'aprovada' then
+    insert into alumia_entrada (usuario, situacao, origem, motivo_pedido, pedido_em, tentativas)
+    values (v, 'em_analise', 'cadastro', v_motivo, now(), 1)
+    on conflict (usuario) do update set situacao = 'em_analise', motivo_pedido = excluded.motivo_pedido, pedido_em = now(),
+      tentativas = least(alumia_entrada.tentativas + case when alumia_entrada.situacao = 'em_analise' then 0 else 1 end, 99),
+      decidido_em = null, decidido_por = null, motivo_decisao = null;
+  end if;
   -- O codinome: o mesmo de sempre não chama a regra de novo (nem gasta o limite dela).
   select * into f from perfis where id = v;
   v_nome := btrim(regexp_replace(coalesce(p_codinome, ''), '\s+', ' ', 'g'));
@@ -223,24 +250,38 @@ begin
           and exists (select 1 from rede_consentimentos c where c.usuario = v and c.versao = p_versao and c.revogado_em is null)) then
     perform public.rede_aderir(p_maior, p_versao);
   end if;
-  if v_sit <> 'aprovada' then
-    insert into alumia_entrada (usuario, situacao, origem, motivo_pedido, pedido_em, tentativas)
-    values (v, 'em_analise', 'cadastro', v_motivo, now(), 1)
-    on conflict (usuario) do update set situacao = 'em_analise', motivo_pedido = excluded.motivo_pedido, pedido_em = now(),
-      tentativas = least(alumia_entrada.tentativas + case when alumia_entrada.situacao = 'em_analise' then 0 else 1 end, 99),
-      decidido_em = null, decidido_por = null, motivo_decisao = null;
-  end if;
   perform interno.registrar('alumia_pedir', '', jsonb_build_object('direto', v_sit = 'aprovada'));
   return public.alumia_entrada_eu();
 end $$;
 
 -- 5. A triagem (painel) ─────────────────────────────────────────────────────────────────────────────────────────────────────
 
-/** Quantos pedidos esperam (o número do menu do painel). Só a triagem; para os outros, nulo. */
+/** Quantos pedidos esperam (o número do menu do painel; conta suspensa não entra, como na fila). Só a triagem; para os outros, nulo. */
 create or replace function public.alumia_triagem_contagem() returns integer language plpgsql stable security definer set search_path = interno, pg_temp as $$
 begin
   if not interno.alumia_triagem_pode() then return null; end if;
-  return (select count(*)::integer from alumia_entrada where situacao = 'em_analise');
+  return (select count(*)::integer from alumia_entrada e join perfis f on f.id = e.usuario where e.situacao = 'em_analise' and not f.suspenso);
+end $$;
+
+/**
+ * A faxina diária: 30 dias depois da decisão somem o motivo do pedido e o motivo da decisão (a pessoa já pode pedir de novo e o
+ * registro de atividades guarda só que houve a decisão). Roda pelo agendador do banco, sem depender de alguém abrir a fila.
+ */
+create or replace function interno.alumia_entrada_faxina() returns integer language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_n integer;
+begin
+  update alumia_entrada set motivo_pedido = null, motivo_decisao = null
+  where (motivo_pedido is not null or motivo_decisao is not null) and decidido_em < now() - interval '30 days';
+  get diagnostics v_n = row_count;
+  return v_n;
+end $$;
+
+do $$
+begin
+  if exists (select 1 from pg_extension where extname = 'pg_cron') then
+    perform cron.schedule('alumia-entrada-faxina', '23 5 * * *', 'select interno.alumia_entrada_faxina()');
+  end if;
+exception when others then null;
 end $$;
 
 /**
@@ -252,8 +293,6 @@ create or replace function public.alumia_triagem_fila() returns jsonb language p
 begin
   if not interno.alumia_triagem_pode() then perform interno.erro('sem_permissao'); end if;
   perform interno.limite('alumia_triagem_ler', 240, 60);
-  -- O motivo de quem já foi decidido some 30 dias depois (o pedido não precisa mais dele).
-  update alumia_entrada set motivo_pedido = null where motivo_pedido is not null and decidido_em < now() - interval '30 days';
   return jsonb_build_object(
     'pendentes', coalesce((select jsonb_agg(x.j order by x.pedido_em) from (
       select e.pedido_em, jsonb_build_object(
@@ -269,8 +308,9 @@ begin
 end $$;
 
 /**
- * Aprovar ou recusar um pedido (também tirar a aprovação de quem já entrou: recusar com o motivo). Recusar pede o motivo (10 a
- * 500 letras), que a pessoa recebe no aviso. Ninguém decide o próprio pedido. Vai ao registro de atividades.
+ * Aprovar ou recusar um pedido. Recusar pede o motivo (10 a 500 letras), que a pessoa recebe no aviso. Ninguém decide o próprio
+ * pedido. Decisão já tomada só muda pela coordenação ou vice-coordenação (a mediação decide o que está em análise, uma vez), e
+ * a aprovação de quem tem papel na casa não se tira por aqui (tira-se o papel antes, no painel). Vai ao registro de atividades.
  */
 create or replace function public.alumia_triagem_decidir(p_id uuid, p_aprovar boolean, p_motivo text default '') returns jsonb
 language plpgsql volatile security definer set search_path = interno, pg_temp as $$
@@ -281,6 +321,10 @@ begin
   select * into e from alumia_entrada where id = p_id for update;
   if not found then perform interno.erro('nao_encontrado'); end if;
   if e.usuario = v then perform interno.erro('proprio_pedido'); end if;
+  if e.situacao <> 'em_analise' and not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if e.situacao = 'aprovada' and not coalesce(p_aprovar, false) and exists (select 1 from papeis pa where pa.usuario = e.usuario) then
+    perform interno.erro('sem_permissao');
+  end if;
   if coalesce(p_aprovar, false) then
     v_motivo := nullif(btrim(coalesce(p_motivo, '')), '');
     if v_motivo is not null then v_motivo := interno.txt(v_motivo, 'motivo', 1, 500); end if;
@@ -299,14 +343,14 @@ end $$;
 
 -- 6. Permissões ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
 revoke all on function interno.alumia_exigida(), interno.alumia_situacao(uuid), interno.alumia_aprovada(uuid), interno.alumia_sessao_ok(),
-  interno.alumia_triagem_pode(), interno.alumia_aprovar_quem_ja_era(), interno.alumia_entrada_ligar(boolean) from public;
+  interno.alumia_triagem_pode(), interno.alumia_aprovar_quem_ja_era(), interno.alumia_entrada_ligar(boolean), interno.alumia_entrada_faxina() from public;
 revoke all on function public.alumia_entrada_eu(), public.alumia_entrada_pedir(text, text, boolean, integer, boolean), public.alumia_triagem_contagem(),
   public.alumia_triagem_fila(), public.alumia_triagem_decidir(uuid, boolean, text) from public;
 do $$
 begin
   if exists (select 1 from pg_roles where rolname = 'anon') then
     revoke all on function interno.alumia_exigida(), interno.alumia_situacao(uuid), interno.alumia_aprovada(uuid), interno.alumia_sessao_ok(),
-      interno.alumia_triagem_pode(), interno.alumia_aprovar_quem_ja_era(), interno.alumia_entrada_ligar(boolean) from anon, authenticated;
+      interno.alumia_triagem_pode(), interno.alumia_aprovar_quem_ja_era(), interno.alumia_entrada_ligar(boolean), interno.alumia_entrada_faxina() from anon, authenticated;
     revoke all on function public.alumia_entrada_pedir(text, text, boolean, integer, boolean), public.alumia_triagem_contagem(),
       public.alumia_triagem_fila(), public.alumia_triagem_decidir(uuid, boolean, text) from anon;
     grant execute on function public.alumia_entrada_eu() to anon, authenticated, service_role;

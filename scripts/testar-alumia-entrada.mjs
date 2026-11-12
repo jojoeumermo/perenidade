@@ -8,6 +8,9 @@
 // aberta; a fila só para a triagem com aal2 e sem e-mail nem id de conta; ninguém decide o próprio pedido; aprovar na Alumia
 // não dá a Escola; recusar pede motivo; o motivo do pedido some 30 dias depois da decisão.
 // No fim, o login único de ponta a ponta: a rota /api/sessao/ponte de verdade contra as contas de teste (scripts/backend-local.mjs).
+// Depois, as portas (supabase/migracoes/20261112-alumia-portas.sql): o ataque da conta nova que segue e lê os posts de seguidores,
+// a varredura do pg_proc (toda função public.rede_* e alumia_* chamada sem aprovação e sem o segundo fator), quem fura a fila
+// aderindo direto, a triagem que não vira arma, e o freio da ponte no banco.
 // Uso: npm run testar:alumia-entrada
 import fs from "node:fs";
 import path from "node:path";
@@ -54,6 +57,12 @@ ok("toda função nova é security definer com search_path fixo", (() => {
 ok("nenhuma permissão direta na tabela para anon/authenticated", !/grant [a-z, ]+ on (table )?interno\./i.test(sql));
 ok("a tabela nasce com RLS", /alter table interno\.alumia_entrada enable row level security/.test(sql));
 ok("a fila nunca devolve e-mail", !/'email'/.test(sql.slice(sql.indexOf("alumia_triagem_fila"))));
+const portas = ler("supabase/migracoes/20261112-alumia-portas.sql");
+ok("as portas estão coladas no FIM do install.sql, depois da entrada", noFimDoInstall(portas, ler("supabase/install.sql")) && ler("supabase/install.sql").lastIndexOf("alumia_trancar()") > ler("supabase/install.sql").lastIndexOf("create or replace function public.alumia_entrada_eu"));
+ok("portas: toda função nova é security definer com search_path fixo (menos a lista de exceções, que não lê nada)", (() => {
+  const funcoes = portas.match(/create or replace function [^(]+\([\s\S]*?\$\$/g) ?? [];
+  return funcoes.length >= 9 && funcoes.every((f) => /security definer set search_path = interno, pg_temp/.test(f) || /interno\.alumia_porta_aberta/.test(f));
+})());
 
 // ═══════════════════ 1. Banco ═══════════════════
 const banco = await criarBanco();
@@ -79,6 +88,8 @@ await dono("insert into interno.rede_consentimentos (usuario, versao) values ($1
 
 await espera("a migração instala de novo sobre o install.sql (idempotente)", () => exec(sql));
 await espera("e uma terceira vez sem estrago", () => exec(sql));
+await espera("as portas instalam de novo depois da entrada (idempotente)", () => exec(portas));
+await espera("e uma terceira vez sem estrago", () => exec(portas));
 await espera("quem já era membro ficou aprovado (ja_membro)", async () => (await dono("select situacao, origem from interno.alumia_entrada where usuario = $1", [P.antiga])).rows[0], (r) => r?.situacao === "aprovada" && r.origem === "ja_membro");
 await espera("com a trava desligada, visitante lê a linha aberta como antes", () => rpc(visitante(), "rede_linha", { p_aba: "geral" }), (r) => Array.isArray(r?.itens));
 await espera("com a trava desligada, a antiga lê 'tudo' mesmo sem aal2", () => rpc(como(P.antiga), "rede_linha", { p_aba: "tudo" }), (r) => Array.isArray(r?.itens));
@@ -160,11 +171,14 @@ await espera("nova2 aprovada com o segundo fator lê", () => rpc(como(P.nova2, "
 await espera("aprovar na Alumia não dá a Escola", () => rpc(como(P.nova2, "aal2"), "escola_eu"), (r) => r.militante === false);
 await espera("a militante continua na Escola", () => rpc(como(P.militante, "aal2"), "escola_eu"), (r) => r.militante === true);
 await espera("a decisão foi ao registro", async () => (await dono("select count(*)::int as n from interno.auditoria where acao = 'alumia_triagem'")).rows[0], (r) => r.n === 2);
-await espera("o motivo do pedido some 30 dias depois da decisão", async () => {
+await espera("o motivo do pedido e o da decisão somem 30 dias depois, pela faxina (abrir a fila não apaga nada)", async () => {
   await dono("update interno.alumia_entrada set decidido_em = now() - interval '40 days' where usuario = $1", [P.nova2]);
+  await dono("update interno.alumia_entrada set motivo_decisao = 'Motivo antigo da decisão.' where usuario = $1", [P.nova2]);
   await rpc(como(P.mediador, "aal2"), "alumia_triagem_fila");
-  return (await dono("select motivo_pedido from interno.alumia_entrada where usuario = $1", [P.nova2])).rows[0];
-}, (r) => r.motivo_pedido === null);
+  const aindaLa = (await dono("select motivo_pedido from interno.alumia_entrada where usuario = $1", [P.nova2])).rows[0].motivo_pedido;
+  const n = (await dono("select interno.alumia_entrada_faxina() as n")).rows[0].n;
+  return { aindaLa, n, ...(await dono("select motivo_pedido, motivo_decisao from interno.alumia_entrada where usuario = $1", [P.nova2])).rows[0] };
+}, (r) => typeof r.aindaLa === "string" && r.n === 1 && r.motivo_pedido === null && r.motivo_decisao === null);
 await espera("tirar a aprovação (recusar quem já entrou) tranca de novo", async () => {
   const f = await rpc(como(P.coord, "aal2"), "alumia_triagem_fila");
   const id = (await dono("select id from interno.alumia_entrada where usuario = $1", [P.nova2])).rows[0].id;
@@ -175,10 +189,178 @@ await espera("conta suspensa aparece como suspensa", async () => {
   await dono("update interno.perfis set suspenso = true where id = $1", [P.curiosa]);
   return (await dono("select interno.alumia_situacao($1) as s", [P.curiosa])).rows[0].s;
 }, (s) => s === "suspensa");
+// ═══════════════════ 1b. As portas (20261112-alumia-portas.sql), com a trava LIGADA ═══════════════════
+// O ataque que os revisores provaram: conta nova, sem pedido e sem o segundo fator, abria o perfil de uma pessoa, seguia e lia os
+// posts "só para seguidores" pelas funções da Rede de antes, que não passavam por rede2_membro nem por rede_aba.
+for (const nome of ["controle", "intrusa", "furona"]) {
+  P[nome] = await criarUsuario(`${nome}@entrada.local`, `Pessoa ${nome}`);
+  await rpc(como(P[nome]), "eu");
+}
+await dono("update auth.users set created_at = now() - interval '30 days'");
+await dono("update interno.rede_niveis set imagens = 4, links = 50, posts_dia = 5000").catch(() => undefined);
+await dono("update interno.perfis set rede_codinome = 'Controle da Ocupação', rede_codinome_ok = true, rede_handle = 'controle', rede_18 = true, rede_consentimento = 1 where id = $1", [P.controle]);
+await dono("insert into interno.rede_consentimentos (usuario, versao) values ($1, 1) on conflict do nothing", [P.controle]);
+await dono("insert into interno.alumia_entrada (usuario, situacao, origem, decidido_em) values ($1, 'aprovada', 'cadastro', now()) on conflict (usuario) do update set situacao = 'aprovada'", [P.controle]);
+const segredo = await espera("a conta de controle (aprovada, com o segundo fator) publica só para seguidores", () => rpc(como(P.controle, "aal2"), "rede_publicar", { p: { texto: "SEGREDO da ocupação: a reunião é na quinta.", publico: "seguidores" } }), (r) => typeof r?.id === "string");
+await dono("insert into interno.rede_seguindo (quem, segue) values ($1, $2) on conflict do nothing", [P.antiga, P.controle]);
+for (const aal of ["aal1", "aal2"]) {
+  await recusa(`ataque (${aal}): conta sem pedido não abre o perfil de ninguém`, () => rpc(como(P.intrusa, aal), "rede_perfil_de", { p_handle: "controle" }), "alumia_entrada");
+  await recusa(`ataque (${aal}): conta sem pedido não segue ninguém`, () => rpc(como(P.intrusa, aal), "rede_seguir", { p_usuario: P.controle, p_sim: true }), "alumia_entrada");
+  await recusa(`ataque (${aal}): conta sem pedido não lê a linha do perfil (Rede de antes)`, () => rpc(como(P.intrusa, aal), "rede_linha", { p_modo: "perfil", p_usuario: P.controle }), "alumia_entrada");
+  await recusa(`ataque (${aal}): conta sem pedido não busca`, () => rpc(como(P.intrusa, aal), "rede_buscar", { p_termo: "SEGREDO" }), "alumia_entrada");
+  await recusa(`ataque (${aal}): conta sem pedido não conta novos (Rede de antes)`, () => rpc(como(P.intrusa, aal), "rede_novos", { p_desde: new Date(0).toISOString() }), "alumia_entrada");
+}
+await recusa("ataque: visitante não abre perfil pelo id", () => rpc(visitante(), "rede_perfil", { p_usuario: P.controle }), "alumia_entrada");
+await recusa("ataque: aprovada sem o segundo fator (senha roubada) não segue", () => rpc(como(P.antiga), "rede_seguir", { p_usuario: P.controle, p_sim: true }), "alumia_entrada");
+await espera("ataque: mesmo com a linha de 'seguir' já gravada, quem não é aprovada não vê o post de seguidores", async () => {
+  await dono("insert into interno.rede_seguindo (quem, segue) values ($1, $2) on conflict do nothing", [P.intrusa, P.controle]);
+  await dono("update interno.perfis set rede_18 = true, rede_consentimento = 1 where id = $1", [P.intrusa]);
+  const ve = async (quem) => (await dono("select interno.rede2_pode_ver(p, $2) as v from interno.rede_posts p where p.id = $1", [segredo.id, quem])).rows[0].v;
+  const r = [await ve(P.intrusa), await ve(P.antiga)];
+  await dono("delete from interno.rede_seguindo where quem = $1", [P.intrusa]);
+  await dono("update interno.perfis set rede_18 = false, rede_consentimento = null where id = $1", [P.intrusa]);
+  return r;
+}, ([intrusa, antiga]) => intrusa === false && antiga === true);
+await espera("a seguidora aprovada, com o segundo fator, lê o post (a porta não tranca quem é de dentro)", () => rpc(como(P.antiga, "aal2"), "rede_buscar", { p_termo: "SEGREDO" }), (r) => JSON.stringify(r).includes("SEGREDO"));
+
+// A regra, função por função: lê o pg_proc e chama CADA public.rede_* / alumia_* que anon ou authenticated podem chamar, como
+// (i) conta não aprovada com o segundo fator, (ii) conta aprovada SEM o segundo fator e (iii) visitante. Fora da lista curta de
+// exceções, todas têm de recusar com "alumia_entrada" (as três de regra de arquivo respondem falso). Função nova não nasce aberta.
+const ABERTAS = ["alumia_entrada_eu()", "alumia_entrada_pedir(p_codinome text, p_motivo text, p_maior boolean, p_versao integer, p_aceite boolean)",
+  "alumia_triagem_contagem()", "alumia_triagem_decidir(p_id uuid, p_aprovar boolean, p_motivo text)", "alumia_triagem_fila()",
+  "rede_aderir(p_maior boolean, p_versao integer)", "rede_aderir(p_maior boolean, p_versao integer, p_fediverso boolean)", "rede_alumia_versao()",
+  "rede_antigo(p_tipo text, p_antigo text)", "rede_codinome_definir(p_codinome text)", "rede_confirmar_idade()", "rede_confirmar_idade(p_maior boolean)",
+  "rede_eu()", "rede_fed_situacao()", "rede_linha(p_aba text, p_cursor text, p_limite integer)", "rede_novos(p_aba text, p_desde timestamp with time zone)", "rede_situacao()"];
+const SO_FALSO = ["rede_pub_midia_pode", "rede_pub_pode_enviar", "rede_story_pode"];
+const funcoesDaRede = async () => (await dono(`
+  select p.proname as nome, pg_get_function_identity_arguments(p.oid) as args, p.prosrc ~ 'interno\\.alumia_(porta|passa)\\(\\)' as porta,
+    has_function_privilege('anon', p.oid, 'execute') as anon, has_function_privilege('authenticated', p.oid, 'execute') as aut
+  from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+  where n.nspname = 'public' and p.prokind = 'f' and (p.proname like 'rede\\_%' or p.proname like 'alumia\\_%')
+    and (has_function_privilege('anon', p.oid, 'execute') or has_function_privilege('authenticated', p.oid, 'execute'))
+  order by 1, 2`)).rows;
+const valorDe = (tipo) => {
+  if (/\[\]$/.test(tipo)) return "{}";
+  if (tipo === "uuid") return "00000000-0000-4000-8000-00000000abcd";
+  if (/^(integer|smallint|bigint|numeric|double precision|real)$/.test(tipo)) return 1;
+  if (tipo === "boolean") return true;
+  if (/^jsonb?$/.test(tipo)) return {};
+  if (/^(timestamp|date)/.test(tipo)) return new Date(0).toISOString();
+  return "x";
+};
+const argumentosDe = (args) => Object.fromEntries(args.split(", ").filter((a) => a && !/^OUT /.test(a)).map((a) => {
+  const [nome, ...tipo] = a.replace(/^(IN|INOUT|VARIADIC) /, "").split(" ");
+  return [nome, valorDe(tipo.join(" "))];
+}));
+{
+  const todas = await funcoesDaRede();
+  ok("portas: a varredura achou as funções da rede (mais de 300)", todas.length > 300);
+  ok("portas: sem a porta só ficam as exceções escritas (nem uma a mais, nem uma a menos)", todas.filter((f) => !f.porta).map((f) => `${f.nome}(${f.args})`).sort().join("\n") === [...ABERTAS].sort().join("\n"));
+  const furos = [];
+  for (const f of todas.filter((x) => x.porta)) {
+    const chamadas = [["não aprovada com aal2", como(P.intrusa, "aal2"), f.aut], ["aprovada sem aal2", como(P.antiga), f.aut], ["visitante", visitante(), f.anon]];
+    for (const [quem, sessao, pode] of chamadas) {
+      if (!pode) continue;
+      try {
+        const r = await rpc(sessao, f.nome, argumentosDe(f.args));
+        if (!(SO_FALSO.includes(f.nome) && r === false)) furos.push(`${f.nome}(${f.args}) respondeu a ${quem}: ${JSON.stringify(r)?.slice(0, 80)}`);
+      } catch (erro) {
+        const m = String(erro.message);
+        if (!m.includes("alumia_entrada")) furos.push(`${f.nome}(${f.args}) para ${quem}: ${m.slice(0, 80)}`);
+      }
+    }
+  }
+  ok(`portas: toda função da rede recusa quem não passou pela entrada (${furos.slice(0, 6).join(" | ")}${furos.length > 6 ? ` … e mais ${furos.length - 6}` : ""})`, furos.length === 0);
+}
+await espera("portas: função nova em plpgsql nasce aberta, e a regra tranca", async () => {
+  await exec(`create or replace function public.rede_teste_nova() returns text language plpgsql security definer set search_path = interno, pg_temp as $f$ begin return 'aberta'; end $f$;
+    create or replace function public.rede_teste_sql(p_x integer) returns integer language sql stable security definer set search_path = interno, pg_temp as $f$ select p_x + 1 $f$;
+    grant execute on function public.rede_teste_nova(), public.rede_teste_sql(integer) to anon, authenticated;`);
+  const antes = await rpc(como(P.intrusa), "rede_teste_nova");
+  const r = (await dono("select interno.alumia_trancar() as r")).rows[0].r;
+  return [antes, r];
+}, ([antes, r]) => antes === "aberta" && r.trancadas === 2 && r.abertas.length === 0);
+await recusa("portas: depois da regra, a função nova recusa", () => rpc(como(P.intrusa), "rede_teste_nova"), "alumia_entrada");
+await recusa("portas: a função nova em SQL também", () => rpc(visitante(), "rede_teste_sql", { p_x: 1 }), "alumia_entrada");
+await espera("portas: e segue respondendo a quem é de dentro", () => rpc(como(P.antiga, "aal2"), "rede_teste_sql", { p_x: 1 }), (r) => r === 2);
+await espera("portas: rodar a regra de novo não mexe em nada", async () => (await dono("select interno.alumia_trancar() as r")).rows[0].r, (r) => r.trancadas === 0 && r.abertas.length === 0);
+await espera("portas: função que a regra não consegue trancar aparece em 'abertas'", async () => {
+  await exec(`create or replace function public.rede_teste_lista() returns setof integer language sql stable as $f$ select 1 $f$; grant execute on function public.rede_teste_lista() to authenticated;`);
+  return (await dono("select interno.alumia_trancar() as r")).rows[0].r;
+}, (r) => r.abertas.join() === "rede_teste_lista()");
+await recusa("portas: e a trava não liga com porta aberta", () => dono("select interno.alumia_entrada_ligar(true)"), "sem porta");
+await exec("drop function public.rede_teste_lista(); drop function public.rede_teste_nova(); drop function public.rede_teste_sql(integer);");
+await espera("portas: o próprio banco (agendador, SQL Editor) continua passando", async () => (await dono("select public.rede_avisos() as a, public.rede_pub_agendados_rodar() as b")).rows[0], (r) => Array.isArray(r.a));
+await espera("portas: a chave de serviço passa", () => rpc(servico, "rede_mod_niveis"), (r) => Array.isArray(r));
+
+// ── quem fura a fila ──
+await recusa("fura-fila: com a trava ligada, consentir direto (sem pedido) é recusado", () => rpc(como(P.furona), "rede_aderir", { p_maior: true, p_versao: 1 }), "alumia_entrada");
+await recusa("fura-fila: e pela função com o Fediverso também", () => rpc(como(P.furona), "rede_aderir", { p_maior: true, p_versao: 1, p_fediverso: false }), "alumia_entrada");
+await espera("fura-fila: ligar de novo com a trava já ligada não aprova ninguém", async () => (await dono("select interno.alumia_entrada_ligar(true) as r")).rows[0].r, (r) => r.aprovados_agora === 0 && r.exigir === true);
+await espera("fura-fila: desligar, aderir pelo caminho antigo e ligar de novo NÃO aprova", async () => {
+  const antes = (await dono("select valor ->> 'ligada_em' as t from interno.configuracoes where chave = 'alumia_entrada'")).rows[0].t;
+  await dono("select interno.alumia_entrada_ligar(false)");
+  await rpc(como(P.furona), "rede_codinome_definir", { p_codinome: "Furona da Fila" });
+  await rpc(como(P.furona), "rede_aderir", { p_maior: true, p_versao: 1 });
+  const r = (await dono("select interno.alumia_entrada_ligar(true) as r")).rows[0].r;
+  const depois = (await dono("select valor ->> 'ligada_em' as t from interno.configuracoes where chave = 'alumia_entrada'")).rows[0].t;
+  return [r, (await dono("select interno.alumia_situacao($1) as s", [P.furona])).rows[0].s, antes, depois];
+}, ([r, s, antes, depois]) => r.aprovados_agora === 0 && s === "sem_pedido" && typeof antes === "string" && antes === depois);
+await recusa("fura-fila: e ela continua do lado de fora", () => rpc(como(P.furona, "aal2"), "rede_linha", { p_aba: "tudo" }), "alumia_entrada");
+await espera("fura-fila: pelo pedido de verdade ela entra na fila", () => rpc(como(P.furona), "alumia_entrada_pedir", { p_codinome: "Furona da Fila", p_motivo: "Agora peço do jeito certo, pela fila.", p_maior: true, p_versao: 1, p_aceite: true }), (r) => r.situacao === "em_analise");
+
+// ── a triagem não vira arma ──
+{
+  const fichaDe = async (quem) => (await dono("select id from interno.alumia_entrada where usuario = $1", [P[quem]])).rows[0]?.id;
+  await recusa("triagem: a mediação não vira uma decisão já tomada", async () => rpc(como(P.mediador, "aal2"), "alumia_triagem_decidir", { p_id: await fichaDe("nova2"), p_aprovar: true, p_motivo: "" }), "sem_permissao");
+  await recusa("triagem: a mediação não tira a aprovação de quem já entrou", async () => rpc(como(P.mediador, "aal2"), "alumia_triagem_decidir", { p_id: await fichaDe("controle"), p_aprovar: false, p_motivo: "Quero expulsar esta pessoa da rede." }), "sem_permissao");
+  await espera("triagem: a coordenação aprova o pedido do mediador", async () => rpc(como(P.coord, "aal2"), "alumia_triagem_decidir", { p_id: await fichaDe("mediador"), p_aprovar: true, p_motivo: "" }), (r) => r.situacao === "aprovada");
+  await recusa("triagem: nem a coordenação tira por aqui a aprovação de quem tem papel", async () => rpc(como(P.coord, "aal2"), "alumia_triagem_decidir", { p_id: await fichaDe("mediador"), p_aprovar: false, p_motivo: "Tentativa de expulsar a mediação." }), "sem_permissao");
+  await espera("triagem: a contagem não conta conta suspensa (como a fila)", async () => {
+    await dono("insert into interno.alumia_entrada (usuario, situacao, motivo_pedido) values ($1, 'em_analise', 'Pedido de conta que depois foi suspensa.') on conflict (usuario) do nothing", [P.curiosa]);
+    const fila = await rpc(como(P.coord, "aal2"), "alumia_triagem_fila");
+    return [await rpc(como(P.coord, "aal2"), "alumia_triagem_contagem"), fila.pendentes.length];
+  }, ([n, naFila]) => n === naFila && n === 2);
+}
+
+// ── a ponte: freio e registro no banco ──
+await recusa("ponte no banco: conta comum não chama", () => rpc(como(P.antiga, "aal2"), "alumia_ponte_passar", { p_conta: P.antiga, p_destino: "alumia" }), "permission denied");
+await espera("ponte no banco: 6 códigos por conta a cada 10 minutos, o sétimo não", async () => {
+  await dono("delete from interno.limites where chave like 'alumia_ponte:%'");
+  const r = [];
+  for (let i = 0; i < 7; i++) r.push(await rpc(servico, "alumia_ponte_passar", { p_conta: P.antiga, p_destino: i % 2 ? "escola" : "alumia" }));
+  return r;
+}, (r) => r.join() === "true,true,true,true,true,true,false");
+await espera("ponte no banco: o freio é por conta, e conta suspensa não passa", async () => [await rpc(servico, "alumia_ponte_passar", { p_conta: P.controle, p_destino: "alumia" }), await rpc(servico, "alumia_ponte_passar", { p_conta: P.curiosa, p_destino: "alumia" })], ([a, b]) => a === true && b === false);
+await espera("ponte no banco: cada código vai ao registro, só com a conta e o destino", async () => (await dono("select quem, alvo, detalhes from interno.auditoria where acao = 'ponte' order by id")).rows, (l) => l.length === 7 && l.every((x) => ["alumia", "escola"].includes(x.alvo) && JSON.stringify(x.detalhes) === "{}"));
+await dono("delete from interno.limites where chave like 'alumia_ponte:%'");
+
 await espera("desligar a trava devolve tudo como era", async () => {
   await dono("select interno.alumia_entrada_ligar(false)");
   return rpc(visitante(), "rede_linha", { p_aba: "c:geral" });
 }, (r) => Array.isArray(r?.itens));
+await espera("com a trava desligada, as funções com a porta respondem como antes (conta sem aprovação abre perfil)", () => rpc(como(P.intrusa), "rede_perfil_de", { p_handle: "controle" }), (r) => r?.handle === "controle" || r?.perfil?.handle === "controle" || JSON.stringify(r).includes("controle"));
+await espera("e a migração da entrada, rodada com a trava desligada, não aprova quem aderiu depois de a trava ter sido ligada", async () => {
+  await dono("delete from interno.alumia_entrada where usuario = $1", [P.furona]);
+  await exec(sql);
+  await exec(portas);
+  return (await dono("select interno.alumia_situacao($1) as s", [P.furona])).rows[0].s;
+}, (s) => s === "sem_pedido");
+
+// ── aplicativo autenticador novo: a conta fica sabendo ──
+await espera("autenticador novo: quando passa a valer, a pessoa recebe o aviso de conta (uma vez)", async () => {
+  await exec("create table if not exists auth.mfa_factors (id uuid primary key default gen_random_uuid(), user_id uuid not null, status text not null default 'unverified', created_at timestamptz not null default now())");
+  await exec(portas);
+  const avisos = async () => (await dono("select count(*)::int as n from interno.avisos where para = $1 and categoria = 'conta' and texto like 'Um aplicativo autenticador novo%'", [P.antiga])).rows[0].n;
+  await dono("insert into auth.mfa_factors (user_id) values ($1)", [P.antiga]);
+  const semValer = await avisos();
+  await dono("update auth.mfa_factors set status = 'verified' where user_id = $1", [P.antiga]);
+  const valendo = await avisos();
+  await dono("update auth.mfa_factors set status = 'verified' where user_id = $1", [P.antiga]);
+  const r = [semValer, valendo, await avisos()];
+  await exec("drop table auth.mfa_factors");
+  return r;
+}, (r) => r.join() === "0,1,1");
 
 // ═══════════════════ 2. A ponte de sessão (lógica pura) ═══════════════════
 ok("ponte: o site de alumia.institutolucia.org é institutolucia.org", origemDoSite("https://alumia.institutolucia.org") === "https://institutolucia.org");
