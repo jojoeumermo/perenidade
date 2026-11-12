@@ -4,9 +4,12 @@
 # neste computador. Roda no Windows (PowerShell), com a chave SSH do Instituto (~/.ssh/contabo_lucia).
 # Para cada chave: cole o valor (botão direito ou Ctrl+V) e aperte Enter. Enter vazio mantém o valor que já estiver lá.
 # Depois de gravar, a VPS reinicia o site com as chaves novas em até 2 minutos, sem tirar o site do ar.
-$vps = "root@<IP da VPS>"
-$chave = "$env:USERPROFILE\.ssh\contabo_lucia"
+# O endereço da VPS não fica no repositório (público). Use o apelido "lucia-vps" do ~/.ssh/config (com IP, porta e chave)
+# ou defina LUCIA_VPS antes de rodar.
+$vps = if ($env:LUCIA_VPS) { $env:LUCIA_VPS } else { "lucia-vps" }
 $nomes = @(
+  @{ n = "CLOUDFLARE_ACCOUNT_ID"; d = "Cloudflare: ID da conta (Enter mantém o que já está na VPS)" },
+  @{ n = "CF_ZONE_ID"; d = "Cloudflare: ID da zona institutolucia.org (Enter mantém)" },
   @{ n = "GOOGLE_FACTCHECK_KEY"; d = "Google Fact Check (checagens de fatos)" },
   @{ n = "CLOUDFLARE_ANALYTICS_TOKEN"; d = "Cloudflare: token de leitura do Analytics (aula ao vivo)" },
   @{ n = "CLOUDFLARE_TURN_KEY_ID"; d = "Cloudflare TURN: Key ID (aula ao vivo)" },
@@ -26,7 +29,7 @@ $nomes = @(
   @{ n = "CEREBRAS_API_KEY"; d = "Assistente do site: Cerebras, plano gratuito (cloud.cerebras.ai)" },
   @{ n = "OPENROUTER_API_KEY"; d = "Assistente do site: OpenRouter, modelos :free (openrouter.ai/keys)" }
 )
-$linhas = @("CLOUDFLARE_ACCOUNT_ID=<id da conta Cloudflare>", "CF_ZONE_ID=<id da zona Cloudflare>", "GITHUB_PUBLICAR_REPO=jojoeumermo/perenidade")
+$linhas = @("GITHUB_PUBLICAR_REPO=jojoeumermo/perenidade")
 Write-Host ""
 Write-Host "Cole cada chave e aperte Enter. Ela NAO aparece na tela. Enter vazio = manter a que ja esta na VPS." -ForegroundColor Yellow
 Write-Host ""
@@ -53,7 +56,7 @@ install -m 600 "$novo" "$f"
 echo "Chaves gravadas na VPS: $(grep -c '=' "$f") linhas."
 systemctl start lucia-atualizar.service || true
 '@
-($linhas -join "`n") | ssh -p 22222 -i $chave -o BatchMode=yes $vps $remoto.Replace("`r", "")
+($linhas -join "`n") | ssh -o BatchMode=yes $vps $remoto.Replace("`r", "")
 $linhas = $null
 Write-Host ""
 Write-Host "Pronto. Pode voltar para a conversa." -ForegroundColor Green
