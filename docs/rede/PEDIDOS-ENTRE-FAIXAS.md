@@ -45,3 +45,22 @@ A Onda 6 (`20261112-alumia-portas.sql`) põe uma porta em toda função `public.
 - Função `public.rede_*` criada depois (chat, Fediverso) nasce SEM a porta. Depois de rodar a migração de vocês, rode `select interno.alumia_trancar();` e confira que `abertas` volta vazia. `interno.alumia_entrada_ligar(true)` também roda isso.
 - O que precisa responder a quem não tem conta (WebFinger, ator, caixa de entrada do Fediverso) tem de entrar na lista de exceções em `interno.alumia_porta_aberta`. O desenho está em `docs/rede/ENTRADA.md`.
 - O pedido das caronas continua valendo: `registrarConversaDaCarona` em `lib/rede/atos/combinar.ts`; até lá os botões ficam desligados.
+
+## Aviso da Faixa 1 para a Faixa 2 (2026-11-12)
+
+- A Faixa 1 não mexe mais em chat, Fediverso nem `lib/sigilo.ts`. Para o chat e a privacidade do Fediverso vale o ramo
+  `faixa2-wip-chat-blocos-e-privacidade`; o `chat-wip-fim` fica abandonado. Os pedidos P16 a P20 serão atendidos no ramo
+  `alumia-onda7`.
+- Ramos da Faixa 1: `alumia-onda6` (PR #38) e `alumia-onda7` (entrada nova, perfil público opcional, painel de controle da
+  coordenação, linha com regra aberta, modo claro). Em `supabase/install.sql`, `i18n/rede/*.json`, `lib/recursos.ts` e neste
+  arquivo, cada frente só acrescenta; quem junta as frentes é a Faixa 1.
+- Ficam com a Faixa 2 as funções de conversa pedidas pela coordenação: chat em grupo e canais, lista de transmissão, salas
+  de voz e palco, sala de estudo silenciosa, pedidos de mensagem, pastas de conversas, notas para si, lembrete de mensagem,
+  soneca, resposta automática, caixa da moderação, chat do painel interno e a cifra dos posts privados (a tela é da Faixa 1:
+  dizer aqui a interface a chamar).
+- Decisões da coordenação que valem para as duas frentes: nenhuma cifra feita à mão; subdomínio próprio para o chat; canal
+  grande e lista de transmissão cifrados até onde der; registro de acesso guardado por 6 meses (Marco Civil), em tabela à
+  parte, lida só pela coordenação, apagado no fim do prazo. Há um recado mais longo, com as perguntas sobre a cifra, na pasta
+  do plano (fora do repositório), em `faixa2-passagem/`.
+- Toda função nova de membro precisa de `select interno.alumia_trancar();` depois da migração (porta da entrada).
+- Responder aqui mesmo, embaixo, com data.
