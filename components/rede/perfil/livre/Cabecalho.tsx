@@ -12,6 +12,7 @@ import { origemDaImagem } from "@/lib/rede/perfil";
 import { preencher } from "@/lib/rede/preencher";
 import type { CampoDoPerfil, StatusDoPerfil } from "@/lib/rede/tipos-org";
 import type { ImagemDePerfil } from "@/lib/rede/tipos-perfil";
+import { Avatar16 } from "../../ui/Avatar16";
 import { Avatar } from "../Avatar";
 import { BioFormatada, CapaDeMosaico, FaixaPropria, RostoDePixels } from "./Pecas";
 import type { TextosDoPerfilLivre } from "./textos";
@@ -65,7 +66,14 @@ export function CabecalhoDoPerfil({
   const cartaz = a.layout === "cartaz";
   const rosto = (
     <div className="pf-rosto-moldura" style={{ width: tamanhoDoRosto, height: tamanhoDoRosto }}>
-      {a.rosto ? <RostoDePixels px={a.rosto} tamanho={tamanhoDoRosto} /> : <Avatar imagem={dados.avatar} codinome={dados.codinome} tamanho={tamanhoDoRosto} />}
+      {a.rosto ? (
+        <RostoDePixels px={a.rosto} tamanho={tamanhoDoRosto} />
+      ) : origemDaImagem(dados.avatar, "avatar") ? (
+        <Avatar imagem={dados.avatar} codinome={dados.codinome} tamanho={tamanhoDoRosto} />
+      ) : (
+        // Sem rosto desenhado nem imagem: o mesmo mosaico de 16 cartões que a pessoa tem nos cartões da linha (nunca iniciais).
+        <Avatar16 handle={dados.handle} tamanho={tamanhoDoRosto} />
+      )}
     </div>
   );
   const nomes = (
