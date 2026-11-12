@@ -153,6 +153,13 @@ const common = [
   ...(reporting ? [{ key: "Reporting-Endpoints", value: `sentinela="${reporting}"` }] : []),
 ];
 
+// Os cabeçalhos do quadro da ponte: os mesmos da casa, MENOS os três que impedem um subdomínio de embutir ou de ler o quadro
+// (X-Frame-Options, Cross-Origin-Opener-Policy e Cross-Origin-Resource-Policy). Quem pode embutir é a política da ponte que diz.
+const cabecalhosDaPonte = [
+  ...common.filter((c) => !["X-Frame-Options", "Cross-Origin-Opener-Policy", "Cross-Origin-Resource-Policy", "Referrer-Policy"].includes(c.key)),
+  { key: "Referrer-Policy", value: "no-referrer" },
+];
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   // Endereço que nenhuma rota atende ganha a página de app/global-not-found.tsx: o layout do site vive dentro de
@@ -220,10 +227,13 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
-      { source: "/((?!workers/).*)", headers: [{ key: "Content-Security-Policy", value: pages }, ...common] },
+      // O quadro da ponte fica FORA da regra geral: ele precisa ser embutido por alumia. e escola. (frame-ancestors na política
+      // própria, abaixo), e a regra geral manda X-Frame-Options: SAMEORIGIN. Navegador atual ignora o X-Frame-Options quando há
+      // frame-ancestors, mas a ponte não pode depender disso.
+      { source: "/((?!workers/|api/sessao/ponte(?:/|$)).*)", headers: [{ key: "Content-Security-Policy", value: pages }, ...common] },
       { source: "/workers/:path*", headers: [{ key: "Content-Security-Policy", value: workers }, ...common] },
       // O quadro da ponte de sessão: só os subdomínios embutem, só o próprio script roda, nada vai para o cache.
-      { source: "/api/sessao/ponte/:resto*", headers: [{ key: "Content-Security-Policy", value: politicaDaPonte }, { key: "Cache-Control", value: "private, no-store" }] },
+      { source: "/api/sessao/ponte/:resto*", headers: [{ key: "Content-Security-Policy", value: politicaDaPonte }, { key: "Cache-Control", value: "private, no-store" }, ...cabecalhosDaPonte] },
       // Os interpretadores são grandes e mudam raramente: o navegador pode guardá-los por uma semana.
       { source: "/(pyodide|php|typescript|lua|ruby|jscpp)/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=604800" }] },
       // Vozes naturais do "Ouvir a aula" (npm run vozes:baixar): a versão está no nome da pasta (kokoro-1939ad2/,
