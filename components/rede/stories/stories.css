@@ -834,6 +834,11 @@
 [data-al="2"] .al-st-tipo[aria-disabled="true"] { opacity: 0.38; cursor: not-allowed; filter: saturate(0.4); }
 [data-al="2"] .al-st-tipo[aria-disabled="true"]:active { transform: none; }
 @media (min-width: 1024px) { [data-al="2"] .al-st-tipo { font-size: 13px; padding-inline: 4px; } }
+/* O rótulo nunca encosta na borda do azulejo ("Comunidade" e "#Campanha" encostavam): 5 px de cada lado, letra um ponto
+   menor e mais estreita, e o que ainda sobrar fica dentro do azulejo. */
+[data-al="2"] .al-st-tipo { padding-inline: 5px; overflow: hidden; }
+[data-al="2"] .al-st-tipo-nome { font-size: 11px; font-stretch: 78%; font-variation-settings: "wdth" 78; }
+@media (min-width: 1024px) { [data-al="2"] .al-st-tipo { padding-inline: 6px; } [data-al="2"] .al-st-tipo-nome { font-size: 12px; } }
 [data-al="2"] .al-st-titulo-linha { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 [data-al="2"] .al-st-titulo-linha .al-st-titulo-secao { margin-bottom: 0; }
 [data-al="2"] .al-st-conta {
@@ -857,6 +862,8 @@
 }
 [data-al="2"] .al-st-destaques-compactos summary::-webkit-details-marker { display: none; }
 [data-al="2"] .al-st-destaques-titulo { font-weight: 800; color: var(--al-texto); }
+/* Na página da comunidade o título da fileira ganha o mesmo respiro lateral de 16 px do resto da página. */
+[data-al="2"] .al-st-faixa-comunidade > .al-st-destaques-titulo { margin: 0 0 8px; padding: 0 16px; font-size: 14px; }
 [data-al="2"] .al-st-destaques-conta { color: var(--al-texto-3); font-size: 13px; }
 [data-al="2"] .al-st-destaques-rostos { display: inline-flex; margin-left: auto; }
 [data-al="2"] .al-st-destaques-rostos > span { width: 18px; height: 18px; border-radius: 999px; border: 2px solid var(--al-fundo); margin-left: -6px; }
@@ -1165,6 +1172,13 @@
   background: var(--al-superficie, transparent); cursor: pointer; transition: transform 0.2s cubic-bezier(0.2, 1.5, 0.4, 1);
 }
 [data-al="2"] .al-fg-decor-botao .al-fg-decor { width: 100%; animation: none; filter: none; }
+/* No azulejo de escolher, nada vaza para o vizinho, e o carimbo escuro ("PRESENTE!") é desenhado em dourado: escuro sobre o
+   azulejo escuro não se lia. No story ele continua na cor de tinta. */
+[data-al="2"] .al-fg-decor-botao { overflow: hidden; }
+[data-al="2"] .al-fg-decor-botao .al-fg-decor svg { overflow: hidden; }
+[data-al="2"] .al-fg-decor-botao .al-fg-decor[data-nome="carimbo-presente"] rect { stroke: var(--al-dourado, #ffc21a); }
+[data-al="2"] .al-fg-decor-botao .al-fg-decor[data-nome="carimbo-presente"] text { fill: var(--al-dourado, #ffc21a); }
+[data-al="2"] .al-fg-decor-botao .al-fg-decor[data-nome="carimbo-presente"] path { stroke: var(--al-superficie, #1a1815); }
 [data-al="2"] .al-fg-decor-botao:hover:not([aria-disabled]) { transform: rotate(-4deg) scale(1.06); }
 [data-al="2"] .al-fg-decor-botao[aria-disabled] { opacity: 0.45; cursor: not-allowed; }
 [data-al="2"] .al-fg-decor-botao:focus-visible { outline: 3px solid var(--al-dourado, #ffc21a); outline-offset: 2px; }
@@ -1200,10 +1214,17 @@
 [data-al="2"] .al-st-arrumar-item-bloco { display: grid; gap: 8px; min-width: 0; }
 [data-al="2"] .al-st-arrumar-item { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 14px; border: 1px solid var(--al-linha); transition: transform 0.25s cubic-bezier(0.2, 1.2, 0.4, 1); }
 [data-al="2"] .al-st-arrumar-item[data-aberto="sim"] { border-color: var(--al-dourado, #ffc21a); }
-[data-al="2"] .al-st-arrumar-item > .al-st-arrumar-nome { flex: 1; min-width: 0; display: grid; gap: 4px; }
-[data-al="2"] .al-st-arrumar-item input[type="text"] { min-height: 40px; border-radius: 10px; border: 1px solid var(--al-linha); background: transparent; color: inherit; padding: 0 10px; font: inherit; font-weight: 800; }
-[data-al="2"] .al-st-arrumar-setas { display: flex; gap: 4px; }
-[data-al="2"] .al-st-arrumar-setas button { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--al-linha); background: transparent; color: inherit; cursor: pointer; font-size: 18px; }
+[data-al="2"] .al-st-arrumar-item > .al-st-arrumar-nome { flex: 1 1 0; min-width: 0; display: grid; gap: 4px; }
+/* A capa pequena da linha é sempre um círculo (no computador a regra da capa grande a esticava em oval). */
+[data-al="2"] .al-st-arrumar-item > .al-st-destaque-capa-p { width: 44px; height: 44px; aspect-ratio: 1; flex: none; }
+/* O campo encolhe com a linha (um <input> tem largura própria de 20 letras e empurrava as setas para fora da caixa). */
+[data-al="2"] .al-st-arrumar-item input[type="text"] { width: 100%; min-width: 0; box-sizing: border-box; min-height: 44px; border-radius: 10px; border: 1px solid var(--al-linha); background: transparent; color: inherit; padding: 0 10px; font: inherit; font-weight: 800; }
+[data-al="2"] .al-st-arrumar-setas { display: flex; gap: 4px; flex: none; }
+@media (max-width: 420px) {
+  [data-al="2"] .al-st-arrumar-item { flex-wrap: wrap; }
+  [data-al="2"] .al-st-arrumar-setas { flex: 1 0 100%; justify-content: flex-end; }
+}
+[data-al="2"] .al-st-arrumar-setas button { width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--al-linha); background: transparent; color: inherit; cursor: pointer; font-size: 18px; }
 [data-al="2"] .al-st-arrumar-setas button:disabled { opacity: 0.35; cursor: default; }
 [data-al="2"] .al-st-arrumar-detalhe { display: grid; gap: 10px; padding: 10px; border-radius: 14px; background: var(--al-superficie, rgba(0, 0, 0, 0.05)); }
 [data-al="2"] .al-st-arrumar-stories { display: flex; gap: 8px; overflow-x: auto; margin: 0; padding: 2px; list-style: none; }

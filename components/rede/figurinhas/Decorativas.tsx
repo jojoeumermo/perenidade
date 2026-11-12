@@ -64,11 +64,14 @@ function Desenho({ nome, t }: { nome: NomeDecorativo; t: T }) {
       const texto = nome === "carimbo-luta" ? t.textos["carimbo-luta"] : t.textos["carimbo-presente"];
       const cor = nome === "carimbo-luta" ? VERMELHO : NOITE;
       const pequeno = [...texto].length > 12;
+      // O texto cabe sempre dentro da moldura (170 de largura útil), qualquer que seja a fonte que o aparelho tiver: sem a
+      // condensada, "A LUTA CONTINUA" passava dos dois lados. textLength aperta as letras só o que for preciso.
+      const largura = Math.min(156, Math.round([...texto].length * (pequeno ? 25 : 34) * 0.5));
       return (
         <svg viewBox="0 0 200 90" aria-hidden>
           <rect x="6" y="6" width="188" height="78" rx="10" fill="none" stroke={cor} strokeWidth="6" strokeDasharray="2 0" />
           <rect x="15" y="15" width="170" height="60" rx="6" fill="none" stroke={cor} strokeWidth="2.5" />
-          <text x="100" y={pequeno ? 55 : 58} textAnchor="middle" fontFamily="'Saira Extra Condensed','Arial Narrow',sans-serif" fontWeight="900" fontSize={pequeno ? 25 : 34} fill={cor} letterSpacing="1.5">
+          <text x="100" y={pequeno ? 55 : 58} textAnchor="middle" fontFamily="'Saira Extra Condensed','Arial Narrow',sans-serif" fontWeight="900" fontSize={pequeno ? 25 : 34} fill={cor} textLength={largura} lengthAdjust="spacingAndGlyphs">
             {texto}
           </text>
           {/* A tinta falhada do carimbo de borracha. */}
