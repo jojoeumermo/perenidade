@@ -139,6 +139,8 @@
     "nao_encontrado": "This conversation no longer exists.",
     "texto_grande": "The message is too long.",
     "sem_indexeddb": "This browser does not keep the key (private mode?). Messages work only while the tab stays open.",
-    "dm_exige_comparar": "Compare the safety code again before sending."
+    "dm_exige_comparar": "Compare the safety code again before sending.",
+    "dm_aguardando": "The other person hasn't opened this conversation on their device yet. Once they do, you can write.",
+    "historico_travado": "The history is locked. Enter the lock password to open it."
   }
 }

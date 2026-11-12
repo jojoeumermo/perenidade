@@ -2,7 +2,7 @@
 "use client";
 
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { abrirMensagens, abrirSessao, confiarNaIdentidade, depoisDeBuraco, enviarTexto, type Eu, type MensagemAberta, ordemDaConversa, type Sessao } from "@/lib/rede/chat-chaveiro";
+import { abrirSessao, apagarConversa, apagarMensagem, confiarNaIdentidade, depoisDeBuraco, enviarTexto, type Eu, type MensagemAberta, mensagensDaConversa, ordemDaConversa, type Sessao, trocarSenhaDeEntrega } from "@/lib/rede/chat-chaveiro";
 import { codigoDeSeguranca, MAX_CARACTERES, textoCabe } from "@/lib/rede/chat-privado";
 import { aoApagarTudoDoChat } from "@/lib/rede/chat/gaveta";
 import { codigoComMetadeEscondida, conferirMetadeDe, conferirQr, metadeDaOutraPessoa } from "@/lib/rede/chat/verificacao";
@@ -131,18 +131,17 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
 
   const buscar = useCallback(
     async (atual: Sessao, substituir = false) => {
-      const lista = await chat.mensagens(atual.conversa);
-      // Mensagem numa versão que este aparelho ainda não tem: a chave virou; abre a sessão de novo.
-      let usada = atual;
-      if (lista.some((m) => m.versao > atual.versao)) {
-        usada = await abrirSessao(eu, atual.conversa, atual.outro, atual);
+      // O histórico mora neste aparelho: busca a caixa selada, guarda o que chegou e lê daqui.
+      const abertas = await mensagensDaConversa(atual);
+      // A outra pessoa ainda não tinha mandado o aperto de mão: confere de novo (ele pode ter chegado agora).
+      if (atual.aguardandoOutro) {
+        const usada = await abrirSessao(eu, atual.conversa, atual.outro, atual);
         sessaoRef.current = usada;
         setSessao(usada);
       }
-      const abertas = await abrirMensagens(usada, lista);
       if (substituir) {
         setMensagens([...abertas].sort((a, b) => a.criado_em.localeCompare(b.criado_em)));
-        setTemMais(lista.length >= 50);
+        setTemMais(abertas.length >= 100);
       } else juntar(abertas);
     },
     [eu, juntar],
@@ -217,9 +216,9 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
     const atual = sessaoRef.current;
     if (!atual || !mensagens.length) return;
     try {
-      const lista = await chat.mensagens(atual.conversa, mensagens[0].criado_em);
-      juntar(await abrirMensagens(atual, lista));
-      setTemMais(lista.length >= 50);
+      const lista = await mensagensDaConversa(atual, mensagens[0].criado_em);
+      juntar(lista);
+      setTemMais(lista.length >= 100);
     } catch (e) {
       setErro(erroDoChat(t, s, e));
     }
@@ -232,7 +231,7 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
     setOcupado(true);
     setErro("");
     try {
-      const usada = await enviarTexto(atual, texto);
+      const usada = await enviarTexto(atual, texto, { prazoDias: prazo });
       if (usada !== atual) {
         sessaoRef.current = usada;
         setSessao(usada);
@@ -403,6 +402,8 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
               onClick={() =>
                 void agir(async () => {
                   await chat.bloquear(conversa.com.id, !bloqueio);
+                  // Bloquear troca a senha da minha caixa: quem foi bloqueado não deixa mais nada nela.
+                  if (!bloqueio) await trocarSenhaDeEntrega(eu);
                   setBloqueio(!bloqueio);
                 }, bloqueio ? undefined : t.acoes.bloquearConfirma)
               }
@@ -413,7 +414,7 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
             <button type="button" disabled={ocupado} onClick={() => { setDenunciando(true); setOpcoes(false); }} className={botaoLeve}>
               {t.acoes.denunciar}
             </button>
-            <button type="button" disabled={ocupado} onClick={() => void agir(async () => { await chat.apagar(conversa.id); aoApagar(); }, t.acoes.apagarConfirma)} className={botaoPerigo}>
+            <button type="button" disabled={ocupado} onClick={() => void agir(async () => { await apagarConversa(sessaoRef.current, eu, conversa.id); aoApagar(); }, t.acoes.apagarConfirma)} className={botaoPerigo}>
               {t.acoes.apagar}
             </button>
           </div>
@@ -506,7 +507,7 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
                             className="underline"
                             onClick={() =>
                               void agir(async () => {
-                                await chat.apagarMensagem(m.id);
+                                if (sessaoRef.current) await apagarMensagem(sessaoRef.current, m.id);
                                 setMensagens((atual) => atual.filter((x) => x.id !== m.id));
                               }, t.conversa.apagarMensagemConfirma)
                             }

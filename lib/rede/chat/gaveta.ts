@@ -340,6 +340,12 @@ export async function apagarTudoDoChat(limiteMs = 400): Promise<void> {
     }
     if (typeof indexedDB === "undefined") return;
     apagarLojasDaBiblioteca(lojasAbertas);
+    // O histórico das conversas neste aparelho (lib/rede/chat/historico.ts).
+    try {
+      indexedDB.deleteDatabase("lucia-alumia-historico");
+    } catch {
+      // segue
+    }
     await new Promise<void>((pronto) => {
       const relogio = setTimeout(pronto, limiteMs);
       const fim = () => {

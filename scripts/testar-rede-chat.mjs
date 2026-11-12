@@ -340,7 +340,10 @@ await espera("entre 7 e 8 dias o banco ainda aceita (folga), mas o aparelho já 
   return [precisaDeVersaoNova(2, true, new Date(em).toISOString()), !!(await enviarAB(corpoV2b)).id];
 }, (r) => r[0] === true && r[1] === true);
 await dono("update interno.rede_dm_conversas set versao_em = now() where id = $1", [conversaAB.id]);
-await espera("o chaveiro confere a idade da versão no envio, não só ao abrir a conversa", async () => ler("lib/rede/chat-chaveiro.ts"), (t) => /export async function enviarTexto[\s\S]{0,700}precisaDeVersaoNova\(atual\.versao, true, atual\.versaoEm\)/.test(t));
+// Com a biblioteca do Matrix, a chave anda a cada mensagem (Olm): a idade da versão da conversa não conta mais no envio. O que o
+// chaveiro confere no envio é a identidade (nada sai com ela trocada) e o aperto de mão da outra pessoa.
+await espera("o chaveiro não envia com a identidade trocada nem antes do aperto de mão da outra pessoa", async () => ler("lib/rede/chat-chaveiro.ts"),
+  (t) => /export async function enviarTexto[\s\S]{0,900}if \(sessao\.mudou\) throw erroDoChat/.test(t) && /if \(!olm \|\| !conhecida\?\.entrega\) throw erroDoChat\("dm_aguardando"\)/.test(t));
 
 // Faxina certa (sem sorteio): embrulho de versão antiga some quando não há mais mensagem viva daquela versão.
 const embrulhosDaVersao = async (v) => (await um("select count(*)::int as n from interno.rede_dm_embrulhos where conversa = $1 and versao = $2", [conversaAB.id, v])).n;
@@ -467,7 +470,10 @@ await espera("as funções do chat não chamam o registro de atividades nem avis
 const telas = fs.readdirSync(new URL("../components/rede/chat", import.meta.url)).map((f) => `components/rede/chat/${f}`);
 const pecas = fs.readdirSync(new URL("../lib/rede/chat", import.meta.url)).map((f) => `lib/rede/chat/${f}`);
 await espera("as telas e o chaveiro do chat não escrevem nada no console", async () => [...telas, ...pecas, "lib/rede/chat-privado.ts", "lib/rede/chat-chaveiro.ts", "lib/rede/cliente-chat.ts"].filter((f) => /console\.(log|info|warn|error|debug)/.test(ler(f))), (l) => l.length === 0);
-await espera("as telas do chat não chamam nenhum serviço de fora (sem fetch direto)", async () => [...telas, ...pecas, "lib/rede/chat-chaveiro.ts", "lib/rede/cliente-chat.ts"].filter((f) => /\bfetch\(|https?:\/\//.test(ler(f).replace(/^\/\/.*$/gm, ""))), (l) => l.length === 0);
+await espera("as telas do chat não chamam nenhum serviço de fora (sem fetch direto)", async () => [...telas, ...pecas, "lib/rede/chat-chaveiro.ts"].filter((f) => /\bfetch\(|https?:\/\//.test(ler(f).replace(/^\/\/.*$/gm, ""))), (l) => l.length === 0);
+// O único fetch do cliente do chat é o depósito na caixa selada, no próprio serviço (sem a sessão da conta, sem cookie, sem referência).
+await espera("o cliente do chat só faz fetch para o próprio serviço, no depósito selado", async () => ler("lib/rede/cliente-chat.ts").replace(/^\/\/.*$/gm, ""),
+  (t) => (t.match(/\bfetch\(/g) ?? []).length === 1 && /fetch\(`\$\{url\}\/rest\/v1\/rpc\/rede_sel_depositar`/.test(t) && /credentials: "omit"/.test(t) && !/https?:\/\//.test(t));
 
 // ── Pequenas regras do texto ──
 await espera("texto vazio não vai; texto grande demais não vai", async () => [textoCabe("   "), textoCabe("oi"), textoCabe("x".repeat(MAX_CARACTERES + 1)), textoCabe("🌱".repeat(MAX_CARACTERES))], (r) => r[0] === false && r[1] === true && r[2] === false && r[3] === true);
@@ -898,7 +904,7 @@ await espera("identidade trocada de quem estava verificado: a marca cai, o envio
   (r) => /sessao\.exigeComparar = !!conhecida\?\.verificado;\s*sessao\.verificado = false;/.test(r[0])
     && /if \(sessao\.exigeComparar && !verificado\) throw erroDoChat\("dm_exige_comparar"\)/.test(r[0])
     && /if \(!esperada \|\| identidade !== esperada\) throw erroDoChat\("dm_identidade_mudou"\)/.test(r[0])
-    && /s\.exigeComparar \? "dm_exige_comparar" : "dm_sem_chave"/.test(r[0])
+    && /sessao\.exigeComparar \? "dm_exige_comparar" : "dm_sem_chave"/.test(r[0])
     && /sessao\.exigeComparar \? \([\s\S]{0,400}<CompararDeNovo[^>]*minhaMetade=\{paraComparar\.minhaMetade\}[^>]*aoConferir=\{\(\) => void confiar\(true, paraComparar\.identidade\)\}/.test(r[1])
     && (r[1].match(/confiar\(false\)/g) ?? []).length === 1 && /disabled=\{ocupado \|\| !textoCabe\(texto\) \|\| !!sessao\.mudou\}/.test(r[1]));
 await espera("outra chave no servidor para a própria conta: a tela explica o risco e pede o \"entendi\" antes de criar chave nova", async () => [ler("components/rede/chat/Tela.tsx"), ler("lib/rede/chat-chaveiro.ts")],

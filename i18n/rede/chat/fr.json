@@ -139,6 +139,8 @@
     "nao_encontrado": "Cette conversation n'existe plus.",
     "texto_grande": "Le message est trop long.",
     "sem_indexeddb": "Ce navigateur ne garde pas la clé (mode privé ?). Le chat ne fonctionne que tant que l'onglet reste ouvert.",
-    "dm_exige_comparar": "Comparez à nouveau le code de sécurité avant d'envoyer."
+    "dm_exige_comparar": "Comparez à nouveau le code de sécurité avant d'envoyer.",
+    "dm_aguardando": "L'autre personne n'a pas encore ouvert cette conversation sur son appareil. Dès qu'elle le fera, vous pourrez écrire.",
+    "historico_travado": "L'historique est verrouillé. Saisissez le mot de passe du verrou pour l'ouvrir."
   }
 }

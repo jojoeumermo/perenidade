@@ -94,7 +94,44 @@ export function criarClienteDoChat(c: Chamar) {
       receber: () => c<{ eventos: { id: number; sender: string; type: string; content: unknown }[]; unicas: number; reserva_usada: boolean }>("rede_olm_receber"),
       confirmar: (ate: number) => c<{ apagados: number }>("rede_olm_confirmar", { p_ate: ate }),
     },
+    /** A caixa selada (supabase/migracoes/20261113-chat-selado.sql; lib/rede/chat/selado.ts). */
+    sel: {
+      publicarEntrega: (resumos: string[]) => c<{ ok: true }>("rede_sel_entrega_publicar", { p_resumos: resumos }),
+      receber: () => c<{ id: number; envelope: string; dia: string }[]>("rede_sel_receber"),
+      confirmar: (ate: number) => c<{ apagados: number }>("rede_sel_confirmar", { p_ate: ate }),
+      /** Deixa o envelope SEM a sessão da conta (como visitante): o banco não fica sabendo nem qual conta mandou. */
+      depositar: (para: string, senha: string, envelope: string) => depositarSemConta(c, para, senha, envelope),
+    },
   };
+}
+
+/**
+ * O depósito na caixa selada vai pela chave pública do serviço, sem a sessão de quem está na conta. Na prévia e nos testes
+ * (sem serviço), vai pelo `c` de sempre.
+ */
+async function depositarSemConta(c: Chamar, para: string, senha: string, envelope: string): Promise<{ ok: true }> {
+  const url = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\/$/, "");
+  const chave = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
+  const argumentos = { p_para: para, p_senha: senha, p_envelope: envelope };
+  if (!url || !chave || typeof fetch === "undefined") return c<{ ok: true }>("rede_sel_depositar", argumentos);
+  let resposta: Response;
+  try {
+    resposta = await fetch(`${url}/rest/v1/rpc/rede_sel_depositar`, {
+      method: "POST",
+      headers: { apikey: chave, Authorization: `Bearer ${chave}`, "Content-Type": "application/json" },
+      body: JSON.stringify(argumentos),
+      credentials: "omit",
+      referrerPolicy: "no-referrer",
+    });
+  } catch {
+    throw Object.assign(new Error("sem_conexao"), { code: "sem_conexao" });
+  }
+  const corpo = (await resposta.json().catch(() => null)) as { message?: string } | { ok: true } | null;
+  if (!resposta.ok) {
+    const codigo = String((corpo as { message?: string } | null)?.message ?? "sem_conexao").replace(/^.*?(dm_fechada|muitos_pedidos|invalido:[a-z_]+).*$/, "$1");
+    throw Object.assign(new Error(codigo), { code: codigo });
+  }
+  return corpo as { ok: true };
 }
 
 /** O dublê como uma forma de chamar (prévia e testes): um respiro como a rede de verdade e cópias, nunca o estado do dublê. */

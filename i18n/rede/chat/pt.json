@@ -138,6 +138,8 @@
     "nao_encontrado": "Esta conversa não existe mais.",
     "texto_grande": "A mensagem é longa demais.",
     "sem_indexeddb": "Este navegador não guarda a chave (modo privado?). O chat funciona só enquanto a aba estiver aberta.",
-    "dm_exige_comparar": "Compare o código de segurança de novo antes de enviar."
+    "dm_exige_comparar": "Compare o código de segurança de novo antes de enviar.",
+    "dm_aguardando": "A outra pessoa ainda não abriu esta conversa no aparelho dela. Assim que abrir, dá para escrever.",
+    "historico_travado": "O histórico está travado. Digite a senha da trava para abrir."
   }
 }

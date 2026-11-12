@@ -139,6 +139,8 @@
     "nao_encontrado": "这个对话已不存在。",
     "texto_grande": "消息太长了。",
     "sem_indexeddb": "这个浏览器不保存密钥（隐私模式？）。私信只在标签页打开时可用。",
-    "dm_exige_comparar": "发送前请重新比对安全码。"
+    "dm_exige_comparar": "发送前请重新比对安全码。",
+    "dm_aguardando": "对方还没有在自己的设备上打开这个对话。对方打开后就可以发消息了。",
+    "historico_travado": "历史记录已锁定。请输入锁定密码打开。"
   }
 }
