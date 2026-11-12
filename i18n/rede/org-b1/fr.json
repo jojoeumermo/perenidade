@@ -213,7 +213,7 @@
     "copiado": "Lien copié.",
     "validade": "Valable jusqu'au {data} · {n} utilisations",
     "imprimir": "Imprimer l'affiche",
-    "chama": { "apagado": "lanterne éteinte : seulement la fondatrice", "brasa": "braise : les premières personnes sont arrivées", "plena": "pleine flamme : 3 personnes ou plus" },
+    "chama": { "apagado": "lanterne éteinte : seulement la fondatrice", "brasa": "braise : le noyau commence", "plena": "pleine flamme : 3 personnes ou plus" },
     "entrarComConvite": "Vous arrivez avec une invitation pour une section de cette organisation.",
     "usarConvite": "Rejoindre la section",
     "entrou": "Vous avez rejoint la section.",

@@ -212,7 +212,7 @@
     "copiado": "Link copiado.",
     "validade": "Vale até {data} · {n} usos",
     "imprimir": "Imprimir o cartaz",
-    "chama": { "apagado": "lampião apagado: só quem fundou", "brasa": "brasa: chegaram as primeiras pessoas", "plena": "chama plena: 3 pessoas ou mais" },
+    "chama": { "apagado": "lampião apagado: só quem fundou", "brasa": "brasa: o núcleo está começando", "plena": "chama plena: 3 pessoas ou mais" },
     "entrarComConvite": "Você chegou com um convite para um núcleo desta organização.",
     "usarConvite": "Entrar no núcleo",
     "entrou": "Você entrou no núcleo.",

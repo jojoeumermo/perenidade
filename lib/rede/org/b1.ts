@@ -67,6 +67,7 @@ export interface LancamentoDoCaixa { id: string; tipo: "entrada" | "saida"; cent
 export interface CaixaDaOrg { id: string; nome: string; tipo: TipoDeCaixa; pix: string | null; link: string | null; nucleo: string | null; saldo: number; entradas: number; saidas: number; esperando: number | null; lancamentos: LancamentoDoCaixa[] }
 export interface CaixasDaOrg { dentro: boolean; tesouraria: boolean; gerencio: boolean; caixas: CaixaDaOrg[] }
 
+/** O banco devolve só "brasa" (menos de 3 pessoas além de quem fundou) ou "plena"; "apagado" é do banco de antes. */
 export type Chama = "apagado" | "brasa" | "plena";
 export interface ConviteDoLampiao { codigo: string; validade: string; usos: number }
 export interface PedidoDeLampiao {

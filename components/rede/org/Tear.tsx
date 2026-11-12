@@ -278,8 +278,8 @@ const PASSOS_DO_LAMPIAO = 5;
 /**
  * Fundar um núcleo em 5 passos, e tudo é guardado: nome e cidade ESCRITA (e o estado, opcional), pauta da 1ª reunião, o cartaz
  * (e se o núcleo entra no mapa: padrão NÃO), o convite com validade e limite de usos (só o hash fica no banco; o código aparece
- * uma vez, aqui) e a primeira tarefa. No fim, o cartaz com o QR do convite, para imprimir. O lampião nasce apagado, ganha brasa
- * com a 1ª pessoa e chama plena com a 3ª (o banco calcula; nunca o número).
+ * uma vez, aqui) e a primeira tarefa. No fim, o cartaz com o QR do convite, para imprimir. O lampião nasce em brasa e ganha chama
+ * plena com a 3ª pessoa além de quem fundou (o banco calcula, com atraso de até 15 minutos; nunca o número, nem 1 ou 2).
  */
 export function AcendaUmLampiao({ lang, handle, criar, s }: { lang: string; handle: string; criar: (p: PedidoDeLampiao) => Promise<{ id: string; convite: ConviteDoLampiao | null }>; s?: TextosDaRede }) {
   const t = useTextosDoPerfilLivre(lang);

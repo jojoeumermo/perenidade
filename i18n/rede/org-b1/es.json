@@ -213,7 +213,7 @@
     "copiado": "Enlace copiado.",
     "validade": "Vale hasta {data} · {n} usos",
     "imprimir": "Imprimir el cartel",
-    "chama": { "apagado": "farol apagado: solo quien fundó", "brasa": "brasa: llegaron las primeras personas", "plena": "llama plena: 3 personas o más" },
+    "chama": { "apagado": "farol apagado: solo quien fundó", "brasa": "brasa: el núcleo está empezando", "plena": "llama plena: 3 personas o más" },
     "entrarComConvite": "Llegaste con una invitación para un núcleo de esta organización.",
     "usarConvite": "Entrar al núcleo",
     "entrou": "Entraste al núcleo.",

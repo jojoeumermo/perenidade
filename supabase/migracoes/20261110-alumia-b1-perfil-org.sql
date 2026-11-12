@@ -14,7 +14,8 @@
 --   5. Caixa transparente: livro-caixa com foto da nota (o aparelho borra e tira o EXIF antes de mandar), duplo carimbo CONFERIDO
 --      por duas pessoas de tesouraria diferentes e saldo público só do que foi conferido. Não há pagamento dentro da Alumia.
 --   6. Acenda um lampião completo: pauta da 1ª reunião e primeira tarefa guardadas, convite com validade e limite de usos (o mesmo
---      rede_convites, só o hash), a chama (apagado → brasa → plena com a 3ª pessoa) e o mapa por estado, com a opção de ficar fora.
+--      rede_convites, só o hash), a chama (brasa → plena com a 3ª pessoa além de quem fundou, no marco de 15 minutos; abaixo de 3
+--      é sempre "brasa", sem distinguir 0, 1 ou 2) e o mapa por estado, com a opção de ficar fora.
 --   7. A plenária lida de novo (fila viva) e o Tear ligado à decisão: o fio nasce de uma consulta fechada ou de uma ata, a função
 --      é uma função de verdade e o prazo vencido avisa quem ocupa a função.
 --   8. Diretório das organizações com selo, por tipo e cidade escrita, sem contagem de pessoas.
@@ -285,11 +286,32 @@ create or replace function interno.alumia_org_mesa(p_quem uuid, p_org uuid) retu
   select interno.alumia_org_gere(p_quem, p_org) or interno.alumia_org_funcao_tem(p_quem, p_org, 'mesa')
 $$;
 
-/** A chama de um núcleo: apagado (só quem fundou), brasa (1 ou 2 pessoas a mais), plena (3 ou mais a mais). Nunca o número. */
+/**
+ * A chama de um núcleo, em DUAS faixas só: "brasa" (menos de 3 pessoas além de quem fundou, sem distinguir 0, 1 ou 2: contagem só
+ * a partir de 3) e "plena" (3 ou mais além de quem fundou). Nunca o número. Conta quem estava no núcleo no último marco
+ * (interno.rede_contagem_marco, o mesmo atraso do mosaico dos atos; a migração 20261110-alumia-b1-atos.sql roda antes): quem
+ * recarrega o perfil não vê a chama mudar no instante em que alguém entra ou sai (filiação a núcleo é dado sensível).
+ */
 create or replace function interno.alumia_chama(p_nucleo uuid) returns text language sql stable security definer set search_path = interno, pg_temp as $$
-  select case when n <= 1 then 'apagado' when n <= 3 then 'brasa' else 'plena' end
-  from (select count(*) as n from rede_nucleo_membros m join perfis f on f.id = m.usuario where m.nucleo = p_nucleo and not f.suspenso) x
+  select case when
+    (select count(*) from rede_nucleo_membros m join perfis f on f.id = m.usuario
+      where m.nucleo = p_nucleo and not f.suspenso and m.entrou_em <= interno.rede_contagem_marco())
+    + (select count(*) from rede_contagem_saidas s where s.alvo = p_nucleo
+        and s.entrou_em <= interno.rede_contagem_marco() and s.saiu_em > interno.rede_contagem_marco())
+    >= 4 then 'plena' else 'brasa' end
 $$;
+
+/** Quem sai do núcleo deixa só o intervalo, sem a pessoa (se já contava no marco). Núcleo apagado (cascata) não deixa nada. */
+create or replace function interno.alumia_nucleo_saiu() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if old.entrou_em <= interno.rede_contagem_marco() and exists (select 1 from rede_nucleos where id = old.nucleo) then
+    insert into rede_contagem_saidas (alvo, entrou_em) values (old.nucleo, old.entrou_em);
+  end if;
+  if random() < 0.05 then delete from rede_contagem_saidas where saiu_em < now() - interval '1 hour'; end if;
+  return old;
+end $$;
+drop trigger if exists alumia_nucleo_saiu on interno.rede_nucleo_membros;
+create trigger alumia_nucleo_saiu after delete on interno.rede_nucleo_membros for each row execute function interno.alumia_nucleo_saiu();
 
 /** Uma proporção em passos de 10 % (para baixo), como o mosaico acende. */
 create or replace function interno.alumia_passo10(p_n bigint, p_total bigint) returns numeric language sql immutable set search_path = interno, pg_temp as $$
@@ -1227,7 +1249,7 @@ declare f text;
 begin
   foreach f in array array[
     'interno.alumia_org_dentro(uuid, uuid)', 'interno.alumia_org_funcao_tem(uuid, uuid, text)', 'interno.alumia_org_mesa(uuid, uuid)',
-    'interno.alumia_chama(uuid)', 'interno.alumia_passo10(bigint, bigint)', 'interno.alumia_sem_dado_pessoal(text, text)', 'interno.alumia_org_vista(uuid, uuid)',
+    'interno.alumia_chama(uuid)', 'interno.alumia_nucleo_saiu()', 'interno.alumia_passo10(bigint, bigint)', 'interno.alumia_sem_dado_pessoal(text, text)', 'interno.alumia_org_vista(uuid, uuid)',
     'interno.alumia_eleicao_avancar(uuid)', 'interno.alumia_eleicao_json(interno.rede_org_eleicoes, uuid)', 'interno.alumia_sinais(uuid)',
     'interno.alumia_ata_json(interno.rede_org_atas, uuid)', 'interno.alumia_ata_texto(uuid)',
     'interno.alumia_caixa_json(interno.rede_org_caixas, uuid, boolean, boolean)', 'interno.alumia_org_rotina()',
