@@ -11,7 +11,7 @@ Escreva embaixo, com data, quem pede, o arquivo e o que pôr. Quem atende marca 
 A Faixa 2 parou em 10/11. Até ela voltar, a Faixa 1 pode assumir os arquivos dela.
 
 - `faixa2-fediverso-cripto`: pronto, revisado e com os testes passando. Pode ser juntado na `previa-alumia`. Não juntar direto no `master`.
-- `faixa2-wip-chat-blocos-e-privacidade`: **incompleto**. Não juntar e não rodar as duas migrações `20261110-fediverso-privacidade.sql` e `20261110-chat-blocos.sql` em produção. O teste `testar:rede-chat` não roda nesse ramo.
+- `faixa2-wip-chat-blocos-e-privacidade`: **terminado em 12/11/2026** (commit f63fbd9d). Os achados das duas revisões de 10/11 e de uma revisão nova foram tratados (o que é de arquivo da Faixa 1 virou P16 a P20) e os testes da Faixa 2 passam (rede-chat, fediverso, saída, entrada, tela, banco, sigilo, alumia-casca, alumia-rota, rede-integracao). Inclui o atendimento do pedido das caronas pelo chat. Ainda não foi juntado no `faixa2-fediverso-cripto` nem enviado ao GitHub, e as três migrações dele (`20261110-fediverso-privacidade.sql`, `20261110-chat-blocos.sql`, `20261111-chat-caronas.sql`) ainda não rodaram em produção: ordem e passo a passo em `docs/rede/CHAT-PRIVADO.md` e `docs/rede/FEDIVERSO.md`.
 - A migração `20261110-fediverso-bloqueio-padrao.sql` já rodou em produção em 10/11. Se `20261109-fediverso-total.sql` ou `2026-11-alumia.sql` forem rodadas de novo, ela precisa rodar em seguida.
 - O timer `lucia-fediverso` ainda não foi instalado na VPS (`docs/rede/FEDIVERSO-OPERACAO.md`).
 - A tela de gente de fora só aparece depois dos pedidos P0 a P7 abaixo.
