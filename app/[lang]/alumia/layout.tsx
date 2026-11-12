@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { Archivo, EB_Garamond } from "next/font/google";
 import { MolduraDaAlumia } from "@/components/rede/MolduraDaAlumia";
+import { EmConstrucao } from "@/components/rede/EmConstrucao";
 import { PortaoDaAlumia } from "@/components/rede/entrada/PortaoDaAlumia";
 import { ComAlumia2 } from "@/components/rede/conversa/Alumia2";
 import { loadLang } from "@/i18n";
@@ -30,6 +31,9 @@ const garamond = EB_Garamond({ subsets: ["latin", "latin-ext"], style: ["italic"
  */
 export default async function LayoutDaAlumia({ children, params }: LayoutProps<"/[lang]/alumia">) {
   const { lang } = await loadLang(params);
+  // Recurso "alumia-aberta" (só pelo nome): enquanto as ondas de construção não terminam, a Alumia inteira, em qualquer endereço,
+  // mostra só o aviso. Nenhuma tela, nenhum dado e nenhuma chamada ao banco da rede saem daqui.
+  if (!ligado("alumia-aberta")) return <EmConstrucao lang={lang} className={archivo.variable} site={alumiaComEndereco ? `${site.url}/${lang}` : `/${lang}`} />;
   // Recurso "alumia-entrada" (só pelo nome): sem conta aprovada e sem o segundo fator, a Alumia mostra só a entrada (o portão
   // decide no navegador, onde mora a sessão; o banco confere de novo). Desligado, nada muda.
   const conteudo = ligado("alumia-entrada") ? (
