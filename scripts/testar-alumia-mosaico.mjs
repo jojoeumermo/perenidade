@@ -206,7 +206,8 @@ for (const p of [null, 0.35, 48]) {
 {
   const css = (await import("node:fs")).readFileSync(path.join(raiz, "styles/alumia-tokens.css"), "utf8");
   const bloco = (seletor) => {
-    const i = css.indexOf(`${seletor} {`);
+    // O seletor no começo da linha, sozinho ou seguido de outros (a pele dos painéis do site entra na mesma regra).
+    const i = css.search(new RegExp(`^${seletor.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(,[^{]*)? \\{`, "m"));
     return i < 0 ? "" : css.slice(i, css.indexOf("}", i));
   };
   const token = (b, nome) => (b.match(new RegExp(`--${nome}:[ ]*(#[0-9a-fA-F]{6})`)) ?? [])[1];
