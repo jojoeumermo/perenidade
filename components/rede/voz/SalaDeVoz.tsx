@@ -65,7 +65,10 @@ export function SalaDeVoz({ t, eu, grupo, sala, nomes }: { t: TextosDoChat["voz"
     <section className="space-y-3 rounded-xl border border-rule p-4 text-sm" aria-label={t.titulo}>
       <p className="font-semibold">{t.titulo}</p>
       <p className="text-ink-soft">{t.explica}</p>
-      {!aberta ? (
+      {!aberta && typeof window !== "undefined" && window.location.hostname.endsWith(".onion") ? (
+        // Pelo Tor, a voz (UDP) não passa pelo Tor: o servidor de retransmissão veria o endereço de quem fala. Aqui, só texto.
+        <p role="note" className="font-semibold">{t.pelOnion}</p>
+      ) : !aberta ? (
         <button type="button" disabled={ocupado} onClick={() => void entrar()} className="min-h-11 rounded-full bg-[#1f1a14] px-4 text-[#f6efe2]">{t.entrar}</button>
       ) : (
         <>

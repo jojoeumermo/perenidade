@@ -195,7 +195,8 @@
       "nao_encontrado": "Seuls les membres du groupe entrent dans le salon.",
       "NotAllowedError": "Le micro n'a pas été autorisé.",
       "outro": "Impossible d'entrer dans le salon."
-    }
+    },
+    "pelOnion": "Par Tor, le salon vocal reste fermé : la voix ne passe pas par Tor, et le serveur relais verrait votre adresse réseau. Utilisez le texte."
   },
   "organizar": {
     "soAqui": "Organiser (seulement sur cet appareil ; l'autre personne ne le sait jamais) :",

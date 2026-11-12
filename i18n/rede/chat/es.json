@@ -195,7 +195,8 @@
       "nao_encontrado": "Solo quien es del grupo entra en la sala.",
       "NotAllowedError": "No se permitió el micrófono.",
       "outro": "No se pudo entrar en la sala."
-    }
+    },
+    "pelOnion": "Por Tor, la sala de voz queda cerrada: la voz no pasa por Tor y el servidor de retransmisión vería tu dirección de red. Usa el texto."
   },
   "organizar": {
     "soAqui": "Organizar (solo en este dispositivo; la otra persona nunca lo sabe):",

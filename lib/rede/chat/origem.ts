@@ -15,10 +15,17 @@ export const CHAT_URL = (process.env.NEXT_PUBLIC_CHAT_URL ?? "").trim().replace(
 
 const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"];
 
+/**
+ * O endereço .onion do chat (NEXT_PUBLIC_CHAT_ONION, só o nome, sem "http://"). Com ele, as respostas do chat levam o cabeçalho
+ * Onion-Location: o Navegador Tor oferece abrir o chat pelo serviço onion (docs/rede/ONION.md).
+ */
+export const CHAT_ONION = /^[a-z2-7]{56}\.onion$/.test((process.env.NEXT_PUBLIC_CHAT_ONION ?? "").trim()) ? (process.env.NEXT_PUBLIC_CHAT_ONION ?? "").trim() : "";
+
 /** O pedido chegou no endereço do chat? */
 export function hostDoChat(host: string | null | undefined): boolean {
   const h = (host ?? "").toLowerCase().split(":")[0];
-  return h.startsWith("conversas.") || (CHAT_URL !== "" && h === new URL(CHAT_URL).hostname);
+  // O serviço onion (docs/rede/ONION.md) também é só do chat.
+  return h.startsWith("conversas.") || h.endsWith(".onion") || (CHAT_URL !== "" && h === new URL(CHAT_URL).hostname);
 }
 
 export type DecisaoNoChat = { tipo: "reescrever"; destino: string } | { tipo: "seguir" } | { tipo: "chat"; destino: string } | { tipo: "site"; destino: string };

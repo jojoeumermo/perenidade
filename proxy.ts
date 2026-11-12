@@ -4,7 +4,7 @@ import { defaultLocale, locales } from "@/i18n/config";
 import { type EstadoDaInterdicao, fechado, lerEstado, semIdioma, semInterdicao } from "@/lib/interdicao";
 import { caminhoDoSiteParaEscola, ESCOLA_URL, escolaComEndereco, hostDaEscola, rotaNaEscola, siteVistoDaEscola } from "@/lib/escola/endereco";
 import { caminhoDoSiteParaAlumia, hostDaAlumia, rotaNaAlumia } from "@/lib/rede/alumia";
-import { caminhoDoSiteParaOChat, hostDoChat, novoNonce, politicaDoChat, rotaNoChat } from "@/lib/rede/chat/origem";
+import { CHAT_ONION, caminhoDoSiteParaOChat, hostDoChat, novoNonce, politicaDoChat, rotaNoChat } from "@/lib/rede/chat/origem";
 import { destinoDireto, destinoNovo, pedidoAntigo } from "@/lib/rede/antigos";
 import { caminhoNovoDaAlumia } from "@/lib/rede/rota-alumia";
 import { ligado } from "@/lib/recursos";
@@ -182,6 +182,8 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     resposta.headers.set("Content-Security-Policy", politica);
     resposta.headers.set("Cache-Control", "private, no-store");
     resposta.headers.set("X-Robots-Tag", "noindex");
+    // Fora do Tor, o Navegador Tor oferece abrir o mesmo endereço pelo serviço onion.
+    if (CHAT_ONION && !hostDoPedido.endsWith(".onion")) resposta.headers.set("Onion-Location", `http://${CHAT_ONION}${pathname}`);
     return resposta;
   }
   const paraOChat = caminhoDoSiteParaOChat(pathname, request.nextUrl.search);

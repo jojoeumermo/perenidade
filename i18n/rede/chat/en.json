@@ -195,7 +195,8 @@
       "nao_encontrado": "Only group members can join the room.",
       "NotAllowedError": "The microphone wasn't allowed.",
       "outro": "Couldn't join the room."
-    }
+    },
+    "pelOnion": "Over Tor, the voice room stays closed: voice doesn't go through Tor, and the relay server would see your network address. Use text."
   },
   "organizar": {
     "soAqui": "Organize (only on this device; the other person never knows):",
