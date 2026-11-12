@@ -76,6 +76,13 @@
   },
   "servidor": {
     "lembrete24h": "Reminder: an act you confirmed starts in less than 24 hours.",
-    "lembrete2h": "Reminder: an act you confirmed starts in less than 2 hours."
+    "lembrete2h": "Reminder: an act you confirmed starts in less than 2 hours.",
+    "mencaoStory": "You were mentioned in a story (it disappears in 24 h).",
+    "perguntaRespondida": "Your question was answered on Alumia.",
+    "storiesMencionaramN": "Stories mentioned the community {comunidade} today ({n} stories). They show on the community page while they are live.",
+    "storiesMencionaram": "Stories mentioned the community {comunidade} today. They show on the community page while they are live.",
+    "funcaoIndicada": "You were nominated for the role “{funcao}” in “{org}”, until {data}. It only counts, and only shows to other people, if you accept it on the organization page.",
+    "funcaoEleita": "You were elected to the role “{funcao}” in “{org}”, until {data}.",
+    "encaminhamentoVencido": "The follow-up “{texto}” of “{org}” is past its deadline. Open the Loom to mark it done or agree on a new deadline."
   }
 }

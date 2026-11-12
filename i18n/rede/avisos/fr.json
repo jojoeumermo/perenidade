@@ -76,6 +76,13 @@
   },
   "servidor": {
     "lembrete24h": "Rappel : une action que vous avez confirmée commence dans moins de 24 heures.",
-    "lembrete2h": "Rappel : une action que vous avez confirmée commence dans moins de 2 heures."
+    "lembrete2h": "Rappel : une action que vous avez confirmée commence dans moins de 2 heures.",
+    "mencaoStory": "Vous avez été mentionnée dans une story (elle disparaît en 24 h).",
+    "perguntaRespondida": "Votre question a reçu une réponse sur Alumia.",
+    "storiesMencionaramN": "Des stories ont mentionné la communauté {comunidade} aujourd’hui ({n} stories). Elles apparaissent sur la page de la communauté tant qu’elles sont en ligne.",
+    "storiesMencionaram": "Des stories ont mentionné la communauté {comunidade} aujourd’hui. Elles apparaissent sur la page de la communauté tant qu’elles sont en ligne.",
+    "funcaoIndicada": "Vous avez été proposée pour la fonction « {funcao} » dans « {org} », jusqu’au {data}. Elle ne vaut, et n’apparaît aux autres, que si vous l’acceptez sur la page de l’organisation.",
+    "funcaoEleita": "Vous avez été élue à la fonction « {funcao} » dans « {org} », jusqu’au {data}.",
+    "encaminhamentoVencido": "La suite à donner « {texto} » de « {org} » a dépassé son délai. Ouvrez le Métier à tisser pour la marquer comme faite ou convenir d’un nouveau délai."
   }
 }

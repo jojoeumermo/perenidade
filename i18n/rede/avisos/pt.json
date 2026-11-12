@@ -75,6 +75,13 @@
   },
   "servidor": {
     "lembrete24h": "Lembrete: um ato que você confirmou começa em menos de 24 horas.",
-    "lembrete2h": "Lembrete: um ato que você confirmou começa em menos de 2 horas."
+    "lembrete2h": "Lembrete: um ato que você confirmou começa em menos de 2 horas.",
+    "mencaoStory": "Você foi mencionada num story (some em 24 h).",
+    "perguntaRespondida": "Sua pergunta foi respondida na Alumia.",
+    "storiesMencionaramN": "Stories mencionaram a comunidade {comunidade} hoje ({n} stories). Eles aparecem na página da comunidade enquanto estiverem no ar.",
+    "storiesMencionaram": "Stories mencionaram a comunidade {comunidade} hoje. Eles aparecem na página da comunidade enquanto estiverem no ar.",
+    "funcaoIndicada": "Você foi indicada para a função “{funcao}” em “{org}”, até {data}. Ela só vale, e só aparece para as outras pessoas, se você aceitar pela página da organização.",
+    "funcaoEleita": "Você foi eleita para a função “{funcao}” em “{org}”, até {data}.",
+    "encaminhamentoVencido": "O encaminhamento “{texto}” de “{org}” passou do prazo. Abra o Tear para marcar como cumprido ou combinar novo prazo."
   }
 }

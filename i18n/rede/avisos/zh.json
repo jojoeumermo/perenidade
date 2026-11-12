@@ -76,6 +76,13 @@
   },
   "servidor": {
     "lembrete24h": "提醒：你确认参加的行动将在 24 小时内开始。",
-    "lembrete2h": "提醒：你确认参加的行动将在 2 小时内开始。"
+    "lembrete2h": "提醒：你确认参加的行动将在 2 小时内开始。",
+    "mencaoStory": "有人在快拍中提到了你（24 小时后消失）。",
+    "perguntaRespondida": "你的提问已在 Alumia 得到回答。",
+    "storiesMencionaramN": "今天有快拍提到了社区 {comunidade}（{n} 条）。它们在线期间会显示在社区页面上。",
+    "storiesMencionaram": "今天有快拍提到了社区 {comunidade}。它们在线期间会显示在社区页面上。",
+    "funcaoIndicada": "你被提名担任“{org}”的“{funcao}”职务，任期至 {data}。只有你在组织页面接受后，它才生效并对其他人可见。",
+    "funcaoEleita": "你当选“{org}”的“{funcao}”职务，任期至 {data}。",
+    "encaminhamentoVencido": "“{org}”的待办事项“{texto}”已过期限。请打开织机，标记为已完成或商定新期限。"
   }
 }
