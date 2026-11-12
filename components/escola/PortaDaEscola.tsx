@@ -2,10 +2,12 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import type { Locale } from "@/i18n/config";
 import type { TextosDaFormacaoBase } from "@/i18n/escola/formacao-base";
 import { useEscola } from "@/lib/escola/acesso";
 import { publicaDaEscola } from "@/lib/escola/rotas";
+import { trazerSessaoDoSite } from "@/lib/sessao/cliente-ponte";
 import { Casca } from "./casca/Casca";
 import { PortaPublica } from "./porta/PortaPublica";
 import { PortaVermelha } from "./porta/PortaVermelha";
@@ -31,6 +33,11 @@ import { PortaVermelha } from "./porta/PortaVermelha";
 export function PortaDaEscola({ lang, t, children }: { lang: Locale; t: Pick<TextosDaFormacaoBase, "porta" | "casca">; children: React.ReactNode }) {
   const caminho = usePathname() ?? "";
   const escola = useEscola();
+  // Login único (lib/sessao/ponte.ts): no endereço próprio da Escola, sem sessão aqui, tenta trazer a entrada do site do instituto
+  // uma vez por aba (uma sessão NOVA deste endereço; nada de token em endereço). Trazida, useEscola confere a militância de novo.
+  useEffect(() => {
+    if (escola.estado === "sem-conta") void trazerSessaoDoSite();
+  }, [escola.estado]);
   // As páginas abertas (o chamado, o manifesto e o entrar) abrem para todo mundo, sempre no desenho da Escola: quem já é
   // militante as lê dentro da casca; os outros, na moldura da porta (PortaPublica), sem cair no papel claro do site.
   if (publicaDaEscola(caminho.replace(/^\/[a-z]{2}(?=\/|$)/, "") || "/") && escola.estado !== "militante") {

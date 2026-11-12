@@ -186,6 +186,15 @@ export const GUIAS: Record<string, Guia> = {
     ],
     dica: "Documento de pessoa (CPF, RG) nunca entra. Selo dado pode ser retirado, com motivo registrado.",
   },
+  "alumia-entrada": {
+    paraQue: "Decidir quem entra na Alumia, que é fechada: sem conta aprovada ninguém vê a rede.",
+    passos: [
+      { titulo: "Leia o pedido", texto: "Cada pedido mostra o codinome, o que a pessoa escreveu e há quantos dias a conta existe. Conta criada há minutos com texto vazio de sentido costuma ser robô ou curioso." },
+      { titulo: "Aprove ou recuse", texto: "Aprovar libera a Alumia; antes de ver a rede a pessoa liga o aplicativo autenticador. Recusar pede o motivo, que a pessoa lê; ela pode pedir de novo depois de 30 dias." },
+      { titulo: "Tirar o acesso", texto: "Nos decididos, recusar quem já foi aprovado tranca a Alumia para essa conta na hora." },
+    ],
+    dica: "Coordenação e militantes da Escola entram direto. Aprovar na Alumia não dá a Escola. O Fediverso tem moderação própria: servidor ou pessoa de fora se bloqueia lá, não aqui.",
+  },
   "rede-semeadura": {
     paraQue: "Acompanhar a semeadura da Alumia (docs/rede/SEMEAR.md) sem inventar nada: ver onde já há conversa real e onde falta gente moderando.",
     passos: [
