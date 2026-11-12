@@ -73,7 +73,11 @@ async function salvarCifrado(r: RascunhoDoServidor) {
  */
 const soComB1 = (pedido: PedidoPublicar) => Boolean(pedido.enquete?.so_no_fim || pedido.enquete?.embaralhar);
 
-/** Publica com os campos da B1 (quem pode citar, enquete avançada); um banco sem a B1 recebe o pedido de antes. */
+/**
+ * Publica com os campos da B1 (quem pode citar, enquete avançada); um banco sem a B1 recebe o pedido de antes. Nesse banco a
+ * citação segue aberta a todos, e por isso a linha "quem pode citar" nem aparece (citaNoBanco): a tela não promete o que o banco
+ * não cumpre.
+ */
 async function publicarComB1(pedido: PedidoPublicar): Promise<Post> {
   try {
     return await redePub.publicarMais(pedido);
@@ -172,6 +176,17 @@ export function EscreverDaAlumia2({
       setCorpo(r.corpo);
     },
   });
+
+  // "Quem pode citar" só aparece quando o banco cumpre (a B1 no ar). Na prévia, aparece (é o dublê).
+  const [citaNoBanco, setCitaNoBanco] = useState(previa);
+  useEffect(() => {
+    if (resposta || previa) return;
+    let vivo = true;
+    void redePub.cumpreQuemCita().then((sim) => vivo && setCitaNoBanco(sim));
+    return () => {
+      vivo = false;
+    };
+  }, [resposta, previa]);
 
   // As comunidades onde a pessoa pode publicar (Onde publicar). Na prévia, as das pranchas.
   useEffect(() => {
@@ -838,8 +853,9 @@ export function EscreverDaAlumia2({
                   escolhido={pub.respondeQuem}
                   aoEscolher={(v) => pub.setRespondeQuem(v as RespondeQuem)}
                 />
-                {tipo !== "ato" && (
+                {tipo !== "ato" && citaNoBanco && (
                   // Quem pode citar (repostar com comentário): padrão "ninguém"; o banco confere em qualquer caminho que cite.
+                  // Com o banco ainda sem a B1 a linha não aparece (lá a citação é aberta a todos).
                   <Escolha
                     icone={<Icone nome="repostar" className="h-5 w-5" />}
                     rotulo={t.b1.quemCita}

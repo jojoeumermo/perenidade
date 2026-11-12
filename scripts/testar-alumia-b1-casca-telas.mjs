@@ -154,6 +154,15 @@ const escrever = ler("components/rede/publicar/alumia2/EscreverDaAlumia2.tsx");
 const cartao = ler("components/rede/publicar/alumia2/CartaoDaAlumia2.tsx");
 await espera("o Escrever manda o aviso de conteúdo e quem pode citar", () => extras.includes("campos.aviso = aviso.trim()") && extras.includes("campos.citar_quem = citarQuem"));
 await espera("o Escrever publica pelo rede_pub_publicar_mais e agenda pelo rede_pub_agendar_mais", () => escrever.includes("redePub.publicarMais(") && escrever.includes("redePub.agendarMais("));
+// Site novo, banco de antes: "quem pode citar" (padrão "ninguém") seria tirado do pedido em silêncio. A linha só aparece quando
+// o banco cumpre.
+await espera("'quem pode citar' só aparece quando o banco tem a B1", async () => {
+  const { criarClientePublicar } = await import("../lib/rede/cliente-publicar.ts");
+  const com = (resposta) => criarClientePublicar(async (f) => { if (f !== "rede_alumia_versao") throw new Error(f); return resposta(); }).cumpreQuemCita();
+  const r = [await com(() => 3), await com(() => 2), await com(() => { throw Object.assign(new Error("banco_desatualizado"), { code: "banco_desatualizado" }); }),
+    escrever.includes('{tipo !== "ato" && citaNoBanco && (') && escrever.includes("redePub.cumpreQuemCita()")];
+  return r[0] === true && r[1] === false && r[2] === false && r[3] === true;
+});
 await espera("o rascunho na conta só sai cifrado e só com a chave ligada", () => escrever.includes("salvarCifrado(rascunhoAtual)") && !escrever.includes("redePub.salvarRascunho(rascunhoAtual)") && escrever.includes("!naConta"));
 await espera("rascunho de ato nunca vai à conta", () => /tipo === "ato"\) \{\s*if \(rascunhoTemTexto/.test(escrever));
 await espera("o cartão cobre texto e imagem com o aviso e tem o citar", () => cartao.includes("al2-cw-coberto") && cartao.includes("CitarNoCartao"));
