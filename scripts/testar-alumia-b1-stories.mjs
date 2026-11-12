@@ -9,7 +9,7 @@
 // Uso: npm run testar:alumia-b1-stories
 import fs from "node:fs";
 import { criarBanco } from "./banco-local.mjs";
-import { criarClienteDeStories } from "../lib/rede/cliente-stories.ts";
+import { criarClienteDeStories, RODA_SEM_BANCO } from "../lib/rede/cliente-stories.ts";
 
 let certos = 0;
 const falhas = [];
@@ -53,6 +53,35 @@ const ler = (rel) => fs.readFileSync(new URL(`../${rel}`, import.meta.url), "utf
   const r = recorteValido({ x: -1, y: 0.5, largura: 2, altura: 0.2 });
   ok("o recorte fica dentro da foto e com tamanho mínimo", r.x === 0 && r.largura === 1 && r.altura >= 0.2 && r.y + r.altura <= 1);
   ok("as proporções do recorte incluem a do story (9:16) e a livre", PROPORCOES.some((p) => p.id === "9:16") && PROPORCOES.some((p) => p.id === "livre"));
+}
+
+// ═══════════════════ 1b. Site novo, banco de antes: "só a roda" não cai no "proximos" antigo ═══════════════════
+// O ataque (sem querer): o banco ainda sem a B1 aceita "proximos" e mostra o story a TODOS os que se seguem mutuamente. O cliente
+// confere que a roda existe ANTES de publicar; sem ela, nada é publicado.
+{
+  const pedido = { publico: "proximos", fundo: { tipo: "listras", cor: "azul" }, texto: "SÓ PRA RODA", legenda: null, imagem: null, alt: null, post_ref: null, figurinhas: [] };
+  const feitas = [];
+  const semB1 = criarClienteDeStories(async (f) => {
+    feitas.push(f);
+    if (f === "rede_roda") throw Object.assign(new Error("banco_desatualizado"), { code: "banco_desatualizado" });
+    return { id: "x", expira_em: "" };
+  }, async () => "", async () => ({}));
+  await recusa("banco sem a roda: 'só a roda' é recusado", () => semB1.publicar(pedido), RODA_SEM_BANCO);
+  ok("…e o story NÃO chega ao rede_story_publicar de antes", !feitas.includes("rede_story_publicar"));
+  feitas.length = 0;
+  await espera("banco sem a roda: os outros públicos publicam como sempre", () => semB1.publicar({ ...pedido, publico: "seguidores" }), (r) => r.id === "x" && feitas.join() === "rede_story_publicar");
+  const outroErro = criarClienteDeStories(async (f) => {
+    if (f === "rede_roda") throw Object.assign(new Error("limite"), { code: "limite" });
+    feitas.push(f);
+    return { id: "x", expira_em: "" };
+  }, async () => "", async () => ({}));
+  feitas.length = 0;
+  await recusa("outro erro ao conferir a roda sobe como está (e também não publica)", () => outroErro.publicar(pedido), "limite");
+  ok("…sem publicar", feitas.length === 0);
+  const comB1 = criarClienteDeStories(async (f) => (feitas.push(f), f === "rede_roda" ? [] : { id: "y", expira_em: "" }), async () => "", async () => ({}));
+  await espera("banco com a roda: confere e publica", () => comB1.publicar(pedido), (r) => r.id === "y" && feitas.join() === "rede_roda,rede_story_publicar");
+  ok("a tela de criar avisa que nada foi publicado", ler("components/rede/stories/Criar.tsx").includes("if (m === RODA_SEM_BANCO) return setErro(t.b1.roda.semBanco);"));
+  for (const l of ["pt", "en", "es", "fr", "ru", "zh"]) ok(`o aviso da roda sem banco existe (${l})`, !!JSON.parse(ler(`i18n/rede/stories/${l}.json`)).b1.roda.semBanco);
 }
 
 // ═══════════════════ 2. O banco ═══════════════════

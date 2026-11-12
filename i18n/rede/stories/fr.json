@@ -552,6 +552,7 @@
       "tirar": "Retirer {nome} du cercle",
       "vazia": "Ton cercle est vide : une story pour le cercle n'atteint personne.",
       "gerenciar": "Qui est dans le cercle",
+      "semBanco": "Le serveur n’a pas encore le cercle de confiance. La story n’a PAS été publiée. Choisissez un autre public ou réessayez plus tard.",
       "contaN": {
         "one": "{n} personne",
         "few": "{n} personnes",

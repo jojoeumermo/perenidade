@@ -17,7 +17,7 @@ import {
   transformacaoNeutra, transformacaoValida, VIDEO_ORIGINAL_MAXIMO, type FiltroDoStory, type TracoDoStory, type Transformacao,
 } from "@/lib/rede/stories/midia";
 import { alternarFigurinha, corDaLetraEmHex, estiloDoTexto, linkSeguro, PALETA_DO_STORY, posicaoInicial, tamanhoDoTexto } from "@/lib/rede/stories/visual";
-import type { ClienteDeStories } from "@/lib/rede/cliente-stories";
+import { RODA_SEM_BANCO, type ClienteDeStories } from "@/lib/rede/cliente-stories";
 import type { TextosDosStories } from "@/lib/rede/textos-stories";
 import {
   CORES_DA_LETRA, CORES_DO_STORY, LIMITES_DO_STORY, PUBLICOS_DO_STORY, TIPOS_DE_FIGURINHA,
@@ -546,6 +546,8 @@ export function Criar({
       setProgresso(null);
       const m = e instanceof Error ? e.message : "";
       if (m === "cancelado") return setErro(t.criar.erroMidia.cancelado);
+      // O banco ainda não tem a roda de confiança: nada foi publicado (o "proximos" de antes iria a todos os que se seguem).
+      if (m === RODA_SEM_BANCO) return setErro(t.b1.roda.semBanco);
       if (m === "sem_gravador") return setErro(t.criar.erroMidia.semGravador);
       if (m === "grande") return setErro(midia?.tipo === "video" ? t.criar.erroMidia.videoGrande : t.criar.erro.grande);
       if (m === "invalida") return setErro(midia?.tipo === "video" ? t.criar.erroMidia.video : t.criar.erro.invalida);

@@ -10,11 +10,15 @@
 // aparelho (lib/rede/stories/aparelho.ts). Resposta, reação, voto e "me avise" vão só para a autora (os dois últimos nem
 // para ela: ela vê só a soma, a partir de 3).
 import { chamar, type Chamar } from "./cliente";
+import { faltaFuncaoNoBanco } from "./reserva";
 import type {
   AtoParaContagem, CartaoDoPost, ComunidadeParaMencao, CorDoStory, DestaqueDeStories, FaixaDeStories, FigurinhaEnquete, GrupoDaFaixa, ItemDaCaixa,
   PedidoDeStory, PessoaDaRoda, ReacaoDoStory, RespostaDoStory, Story,
 } from "./tipos-stories";
 import type { CategoriaDeDenuncia } from "./tipos-moderacao";
+
+/** A mensagem do erro de publicar "só para a roda" num banco que ainda não tem a roda de confiança (nada é publicado). */
+export const RODA_SEM_BANCO = "roda_sem_banco";
 
 /** O depósito privado dos stories (§5): caminho "<uid>/<id>.webp", leitura só por endereço assinado de vida curta. */
 export const DEPOSITO_DOS_STORIES = "rede-stories";
@@ -95,7 +99,19 @@ export function criarClienteDeStories(
     faixa: () => c<FaixaDeStories>("rede_story_faixa"),
     abrir: (handle) => c<Story[]>("rede_story_abrir", { p_handle: handle }).then((l) => comEnderecos(l, assinar)),
     meus: () => c<Story[]>("rede_story_meus").then((l) => comEnderecos(l, assinar)),
-    publicar: (pedido) => c<{ id: string; expira_em: string }>("rede_story_publicar", { p: pedido }),
+    publicar: async (pedido) => {
+      // "Só a roda" só existe no banco com a B1 (20261110-alumia-b1-stories.sql). O rede_story_publicar de antes aceita "proximos"
+      // e mostraria o story a TODOS os que se seguem mutuamente: sem a roda no banco, o story não é publicado (a tela avisa).
+      if (pedido.publico === "proximos") {
+        try {
+          await c<PessoaDaRoda[]>("rede_roda");
+        } catch (e) {
+          if (faltaFuncaoNoBanco(e)) throw new Error(RODA_SEM_BANCO);
+          throw e;
+        }
+      }
+      return c<{ id: string; expira_em: string }>("rede_story_publicar", { p: pedido });
+    },
     apagar: (id) => c<{ apagado: boolean }>("rede_story_apagar", { p_id: id }),
     responder: (id, texto) => c<{ ok: boolean }>("rede_story_responder", { p_id: id, p_texto: texto }),
     reagir: (id, reacao) => c<{ ok: boolean }>("rede_story_reagir", { p_id: id, p_reacao: reacao }),

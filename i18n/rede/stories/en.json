@@ -552,6 +552,7 @@
       "tirar": "Remove {nome} from the circle",
       "vazia": "Your circle is empty: a circle story reaches no one.",
       "gerenciar": "Who is in the circle",
+      "semBanco": "The server does not have the circle of trust yet. The story was NOT published. Choose another audience or try again later.",
       "contaN": {
         "one": "{n} person",
         "few": "{n} people",

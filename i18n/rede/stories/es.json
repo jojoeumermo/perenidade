@@ -552,6 +552,7 @@
       "tirar": "Quitar a {nome} de la rueda",
       "vazia": "Tu rueda está vacía: una historia para la rueda no llega a nadie.",
       "gerenciar": "Quién está en la rueda",
+      "semBanco": "El servidor todavía no tiene la rueda de confianza. La historia NO se publicó. Elige otro público o inténtalo más tarde.",
       "contaN": {
         "one": "{n} persona",
         "few": "{n} personas",
