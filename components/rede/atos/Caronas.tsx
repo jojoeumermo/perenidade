@@ -142,6 +142,11 @@ export function Caronas({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
           {codigoDoErro(estado.erro) === "generico" ? t.tela.erro : frase(t, estado.erro)}
         </p>
       ) : null}
+      {!chatPronto && estado.fase === "pronto" && lista.some((k) => !k.minha) ? (
+        <p id={idEmBreve} className="al-q-ajuda al-q-nota-topo">
+          {t.caronas.combinarEmBreve}
+        </p>
+      ) : null}
       {estado.fase === "pronto" ? (
         <div className="al-q-colunas" ref={corpo}>
           {grupos.map((g) => {
@@ -197,16 +202,12 @@ export function Caronas({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
                           </div>
                           <div className="al-q-botoes">
                             {!k.minha ? (
-                              <Botao
-                                tamanho="p"
-                                variante="contorno"
-                                disabled={!chatPronto}
-                                aria-describedby={!chatPronto ? idEmBreve : undefined}
-                                title={chatPronto ? t.caronas.combinarAjuda : t.caronas.combinarEmBreve}
-                                onClick={() => void combinar(k)}
-                              >
-                                {t.caronas.combinar}
-                              </Botao>
+                              // Sem o chat das caronas, nada de botão morto em cada cartão: a nota única no alto do quadro explica.
+                              chatPronto ? (
+                                <Botao tamanho="p" variante="contorno" title={t.caronas.combinarAjuda} onClick={() => void combinar(k)}>
+                                  {t.caronas.combinar}
+                                </Botao>
+                              ) : null
                             ) : (
                               <>
                                 {/* Sem número (null) o "−" não tem de onde tirar: só o "+" começa a contar. */}
@@ -290,11 +291,6 @@ export function Caronas({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
             );
           })}
         </div>
-      ) : null}
-      {!chatPronto && estado.fase === "pronto" && lista.some((k) => !k.minha) ? (
-        <p id={idEmBreve} className="al-q-ajuda">
-          {t.caronas.combinarEmBreve}
-        </p>
       ) : null}
       {estado.fase === "pronto" && !fechado ? (
         form ? (

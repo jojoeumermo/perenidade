@@ -57,12 +57,16 @@ export default function TelaDosAtos({ lang, situacao, aoEscrever }: PropsDaTelaD
   // espera a lista nova chegar ("esperar" → "sim") e foca o título do primeiro ato (ou o topo da lista, se não houver ato).
   const focarTitulo = useRef<Foco>("nao");
   const focarCampo = useRef(false);
+  const podeSeguir = useRef(situacao.logado || PREVIA_DOS_ATOS);
 
   useEffect(() => {
     queueMicrotask(() => {
       const c = cidadeGuardada();
       setCidade(c ? nomeDaCidade(c) : null);
       setRascunho(c ? nomeDaCidade(c) : "");
+      // Sem cidade guardada, quem tem conta abre em "Seguindo" (que já tem atos): "Perto" seria um campo e uma tela vazia.
+      // "Perto" continua a um toque, com o campo da cidade no alto.
+      if (!c && podeSeguir.current) setFiltro("seguindo");
       setLida(true);
     });
   }, []);
