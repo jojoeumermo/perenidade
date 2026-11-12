@@ -121,7 +121,7 @@ const ler = (...p) => fs.readFileSync(new URL(`../${p.join("/")}`, import.meta.u
   const css = ler("styles", "alumia.css") + ler("styles", "alumia-tokens.css");
   ok("conta: o menu do computador abre ao lado do menu", /\.al2-menu-pe \.al2-conta-menu \{\s*left: calc\(100% \+ 13px\)/.test(css));
   ok("prévia: um aviso só (os das áreas somem com a faixa da casca)", css.includes(".al2:has(> .al2-aviso-previa) :is(.al3-previa, .al-atos-previa, .al-st-previa"));
-  ok("tema: a Alumia segue escura com o tema claro do site", /\[data-al="2"\]:not\(\[data-al-tema="claro"\]\) \{\s*--parchment: #141310;/.test(css));
+  ok("tema: a Alumia segue escura com o tema claro do site", /\[data-al="2"\]:not\(\[data-al-tema="claro"\]\)[^{}]*\{\s*--parchment: #141310;/.test(css));
   ok("contraste: carimbo confirmado e botão + puros no alto contraste", css.includes(":root[data-contrast] [data-al=\"2\"] .al2-mais { background: #ffd400; color: #000000;") && css.includes("--al-vermelho-sobre-escuro: #ff4f3a"));
   ok("movimento: o painel para com prefers-reduced-motion", /prefers-reduced-motion: reduce\)[^}]*\.al2-painel-mais/.test(css));
   ok("em construção: sem marca repetida dentro da casca", !ler("components", "rede", "onda5", "EmConstrucao.tsx").includes("<Lampiao"));
