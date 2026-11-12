@@ -36219,6 +36219,8 @@ end $$;
 -- (20261109-alumia-f4.sql) e do perfil livre (20261110-alumia-perfil.sql). NÃO rodar em produção sem o Jonathan.
 --
 -- Regras (PLANO-ALUMIA §5): tudo em `interno` com RLS ligada e nenhuma permissão direta nas tabelas; acesso só por função
+-- Organização SEM selo só aparece para membro da Rede (18+ com consentimento): rede_org_perfil e também funções, atas, caixa,
+-- plenária e atos devolvem nulo a visitante e a conta logada que ainda não é membro.
 -- security definer com search_path = interno, pg_temp; cada função confere quem chama (membro da Rede, bloqueio, gestor, função,
 -- núcleo da organização) e o limite de uso (interno.limite).
 --
@@ -36537,7 +36539,7 @@ declare v uuid := auth.uid(); o uuid := interno.alumia_org_de(p_handle); v_dentr
 begin
   perform interno.limite('alumia_org_ler', 300, 10);
   if o is null or interno.rede_bloqueado(v, o) then return null; end if;
-  if v is null and not exists (select 1 from rede_orgs where perfil = o and verificada_em is not null) then return null; end if;
+  if not interno.rede2_membro(v) and not exists (select 1 from rede_orgs where perfil = o and verificada_em is not null) then return null; end if;
   v_dentro := interno.alumia_org_dentro(v, o);
   v_gere := coalesce(interno.alumia_org_gere(v, o), false);
   return jsonb_build_object(
@@ -36825,7 +36827,7 @@ declare v uuid := auth.uid(); o uuid := interno.alumia_org_de(p_handle);
 begin
   perform interno.limite('alumia_org_ler', 300, 10);
   if o is null or interno.rede_bloqueado(v, o) then return null; end if;
-  if v is null and not exists (select 1 from rede_orgs where perfil = o and verificada_em is not null) then return null; end if;
+  if not interno.rede2_membro(v) and not exists (select 1 from rede_orgs where perfil = o and verificada_em is not null) then return null; end if;
   return jsonb_build_object('mesa', interno.alumia_org_mesa(v, o), 'dentro', interno.alumia_org_dentro(v, o),
     'atas', coalesce((select jsonb_agg(j order by (j ->> 'situacao') = 'aberta' desc, j ->> 'abertaEm' desc) from (
       select interno.alumia_ata_json(a, v) as j from (
@@ -36840,7 +36842,7 @@ begin
   perform interno.limite('alumia_org_ata_ler', 600, 10);
   select * into a from rede_org_atas where id = p_id;
   if not found or interno.rede_bloqueado(v, a.org) then return null; end if;
-  if v is null and not exists (select 1 from rede_orgs where perfil = a.org and verificada_em is not null) then return null; end if;
+  if not interno.rede2_membro(v) and not exists (select 1 from rede_orgs where perfil = a.org and verificada_em is not null) then return null; end if;
   return interno.alumia_ata_json(a, v);
 end $$;
 
@@ -37065,7 +37067,7 @@ declare v uuid := auth.uid(); o uuid := interno.alumia_org_de(p_handle); v_dentr
 begin
   perform interno.limite('alumia_org_ler', 300, 10);
   if o is null or interno.rede_bloqueado(v, o) then return null; end if;
-  if v is null and not exists (select 1 from rede_orgs where perfil = o and verificada_em is not null) then return null; end if;
+  if not interno.rede2_membro(v) and not exists (select 1 from rede_orgs where perfil = o and verificada_em is not null) then return null; end if;
   v_dentro := interno.alumia_org_dentro(v, o);
   v_tes := interno.alumia_org_funcao_tem(v, o, 'caixa');
   return jsonb_build_object('dentro', v_dentro, 'tesouraria', v_tes, 'gerencio', interno.alumia_org_gere(v, o),
@@ -37080,7 +37082,9 @@ begin
   if o is null or not (interno.alumia_org_gere(v, o) or interno.alumia_org_funcao_tem(v, o, 'caixa')) then perform interno.erro('sem_permissao'); end if;
   perform interno.limite('alumia_org_caixa', 30, 1440);
   if (select count(*) from rede_org_caixas where org = o) >= 20 then perform interno.erro('limite'); end if;
-  if v_pix ~ '^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$' or v_pix ~ '\(?\d{2}\)?\s?9\d{4}[-\s]?\d{4}' or v_pix ~* '@' then perform interno.erro('dado_pessoal'); end if;
+  -- CPF em qualquer lugar do texto ("CPF 123.456.789-00", ou o CPF seguido de um nome), não só sozinho: 11 dígitos que não fazem
+  -- parte de um número maior (o CNPJ, com 14, continua passando).
+  if v_pix ~ '(^|[^0-9])\d{3}\.?\d{3}\.?\d{3}-?\d{2}([^0-9]|$)' or v_pix ~ '\(?\d{2}\)?\s?9\d{4}[-\s]?\d{4}' or v_pix ~* '@' then perform interno.erro('dado_pessoal'); end if;
   if nullif(p ->> 'nucleo', '') is not null then
     begin v_nucleo := (p ->> 'nucleo')::uuid; exception when others then perform interno.erro('invalido:nucleo'); end;
     if not exists (select 1 from rede_nucleos where id = v_nucleo and org = o) then perform interno.erro('invalido:nucleo'); end if;
@@ -37284,7 +37288,7 @@ begin
   perform interno.limite('alumia_org_plenaria_ler', 600, 10);
   select * into p from rede_plenarias where id = p_id;
   if not found or interno.rede_bloqueado(v, p.org) or exists (select 1 from perfis where id = p.org and suspenso) then return null; end if;
-  if v is null and not exists (select 1 from rede_orgs where perfil = p.org and verificada_em is not null) then return null; end if;
+  if not interno.rede2_membro(v) and not exists (select 1 from rede_orgs where perfil = p.org and verificada_em is not null) then return null; end if;
   return interno.alumia_plenaria_json(p, v, interno.rede2_membro(v));
 end $$;
 
@@ -37396,7 +37400,7 @@ declare v uuid := auth.uid(); o uuid := interno.alumia_org_de(p_handle);
 begin
   perform interno.limite('alumia_org_ler', 300, 10);
   if o is null or interno.rede_bloqueado(v, o) then return null; end if;
-  if v is null and not exists (select 1 from rede_orgs where perfil = o and verificada_em is not null) then return null; end if;
+  if not interno.rede2_membro(v) and not exists (select 1 from rede_orgs where perfil = o and verificada_em is not null) then return null; end if;
   return coalesce((select jsonb_agg(interno.rede_ato_json(x.p, x.c, v) order by x.futuro desc, case when x.futuro then x.inicio end, x.inicio desc)
     from (select p, c, c.inicio, c.inicio > now() - interval '6 hours' as futuro
           from rede_chamados c join rede_posts p on p.id = c.post

@@ -289,11 +289,16 @@ let TES, MESA, COM;
 {
   await recusa("membro comum não abre caixa", () => rpc(A("m1"), "rede_org_caixa_criar", { p_handle: "lume", p: { nome: "Fundo de greve", tipo: "greve" } }), "sem_permissao");
   await recusa("Pix com CPF de pessoa é recusado", () => rpc(A("t1"), "rede_org_caixa_criar", { p_handle: "lume", p: { nome: "Fundo de greve", tipo: "greve", pix: "123.456.789-09" } }), "dado_pessoal");
+  // O ataque: o CPF de uma pessoa entra no campo Pix com um rótulo na frente ou um nome atrás, e fica à vista de visitante.
+  for (const pix of ["CPF 123.456.789-09", "123.456.789-09 Maria", "cpf: 12345678909", "chave 123456789-09."]) {
+    await recusa(`Pix com CPF no meio do texto é recusado (${pix})`, () => rpc(A("t1"), "rede_org_caixa_criar", { p_handle: "lume", p: { nome: "Fundo de greve", tipo: "greve", pix } }), "dado_pessoal");
+  }
   const c = await espera("a tesouraria abre o fundo de greve (Pix da organização como texto)", () => rpc(A("t1"), "rede_org_caixa_criar", { p_handle: "lume", p: { nome: "Fundo de greve", tipo: "greve", pix: "12.345.678/0001-90", link: "https://exemplo.org/doar" } }), (x) => x.caixas.length === 1 && x.tesouraria === true);
   const CX = c?.caixas[0]?.id;
-  await recusa("a dona (sem função de tesouraria) não lança", () => rpc(A("dona"), "rede_org_caixa_lancar", { p_caixa: CX, p: { tipo: "entrada", centavos: "5000", descricao: "Rifa", dia: new Date().toISOString().slice(0, 10) } }), "sem_permissao");
-  await recusa("descrição com nome e CPF de doador", () => rpc(A("t1"), "rede_org_caixa_lancar", { p_caixa: CX, p: { tipo: "entrada", centavos: "5000", descricao: "Doação CPF 123.456.789-09", dia: new Date().toISOString().slice(0, 10) } }), "dado_pessoal");
-  const hoje = new Date().toISOString().slice(0, 10);
+  // O dia de hoje é o do banco (perto da meia-noite UTC o relógio do Node já virou o dia e o banco, no fuso local, ainda não).
+  const hoje = (await um("select current_date::text as d")).d;
+  await recusa("a dona (sem função de tesouraria) não lança", () => rpc(A("dona"), "rede_org_caixa_lancar", { p_caixa: CX, p: { tipo: "entrada", centavos: "5000", descricao: "Rifa", dia: hoje } }), "sem_permissao");
+  await recusa("descrição com nome e CPF de doador", () => rpc(A("t1"), "rede_org_caixa_lancar", { p_caixa: CX, p: { tipo: "entrada", centavos: "5000", descricao: "Doação CPF 123.456.789-09", dia: hoje } }), "dado_pessoal");
   const comExif = Buffer.concat([Buffer.from([0xff, 0xd8, 0xff, 0xe1]), Buffer.from("Exif\0\0"), Buffer.alloc(200, 1)]).toString("base64");
   await recusa("foto da nota com EXIF é recusada", () => rpc(A("t1"), "rede_org_caixa_lancar", { p_caixa: CX, p: { tipo: "saida", centavos: "100", descricao: "Faixa", dia: hoje, nota: comExif, mime: "image/jpeg" } }), "invalido:nota");
   const webp = Buffer.concat([Buffer.from("RIFF"), Buffer.from([0, 1, 0, 0]), Buffer.from("WEBPVP8 "), Buffer.alloc(200, 7)]).toString("base64");
@@ -355,6 +360,23 @@ let TES, MESA, COM;
 
 // ═══════════════════ 8. Permissões ═══════════════════
 {
+  // O ataque: conta logada que NÃO é membro da Rede (sem 18+ nem consentimento) lê funções, atas, caixa, plenária e atos de uma
+  // organização sem selo, cujo perfil ela não pode abrir.
+  const naoMembro = await criarUsuario("naomembro@b1org.local", "naomembro");
+  await rpc(como(naoMembro), "eu");
+  const ataId = (await um("select id from interno.rede_org_atas where org = $1 and situacao = 'fechada' limit 1", [P.org]))?.id;
+  const plId = (await um("select id from interno.rede_plenarias where org = $1 limit 1", [P.org]))?.id;
+  const seis = (quem) => Promise.all([
+    rpc(quem, "rede_org_funcoes", { p_handle: "lume" }), rpc(quem, "rede_org_atas", { p_handle: "lume" }), rpc(quem, "rede_org_ata", { p_id: ataId }),
+    rpc(quem, "rede_org_caixa", { p_handle: "lume" }), rpc(quem, "rede_org_plenaria", { p_id: plId }), rpc(quem, "rede_org_atos", { p_handle: "lume" })]);
+  await espera("com selo, quem não é membro lê o que é público (como o visitante)", () => seis(como(naoMembro)), (l) => ataId && plId && l.every((x) => x !== null));
+  await dono("update interno.rede_orgs set verificada_em = null where perfil = $1", [P.org]);
+  await espera("SEM selo, conta logada que não é membro não abre o perfil…", () => rpc(como(naoMembro), "rede_org_perfil", { p_handle: "lume" }), (x) => x === null);
+  await espera("…nem funções, atas, ata, caixa, plenária e atos", () => seis(como(naoMembro)), (l) => l.length === 6 && l.every((x) => x === null));
+  await espera("…nem o visitante", () => seis(visitante()), (l) => l.every((x) => x === null));
+  await espera("membro da Rede continua lendo a organização sem selo", () => seis(A("fora")), (l) => l.every((x) => x !== null));
+  await dono("update interno.rede_orgs set verificada_em = now() where perfil = $1", [P.org]);
+
   await recusa("visitante não abre ata", () => rpc(visitante(), "rede_org_ata_abrir", { p_handle: "lume", p: { titulo: "X", pontos: ["a"] } }), "permission denied");
   await recusa("visitante não lança no caixa", () => rpc(visitante(), "rede_org_caixa_lancar", { p_caixa: "00000000-0000-0000-0000-000000000001", p: {} }), "permission denied");
   await espera("ninguém de fora do banco chama as ajudas internas nem a rotina", () => um("select has_function_privilege('authenticated', 'interno.alumia_org_rotina()', 'execute') a, has_function_privilege('anon', 'interno.alumia_ata_json(interno.rede_org_atas, uuid)', 'execute') b"), (x) => x.a === false && x.b === false);
