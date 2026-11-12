@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// O cofre da Escola neste aparelho (docs/auditoria/ESCOLA-2026-11-09.md, risco 6). O que a Escola guarda só no aparelho
+// O cofre da Escola neste aparelho (auditoria da Escola de 9/11, risco 6; relatório guardado fora do repositório). O que a Escola guarda só no aparelho
 // (as chaves "lucia:escola-privado:*": conversas do assistente, o trabalho, o diário, as fichas, os ensaios) fica cifrado
 // com AES-GCM. A chave sai de uma frase que só a pessoa sabe (PBKDF2-SHA-256, 600 mil voltas) e NUNCA é guardada: mora só
 // na memória da aba, não pode ser exportada, e some ao recarregar, ao fechar a aba ou depois de 15 minutos parada.

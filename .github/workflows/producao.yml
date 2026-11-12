@@ -132,7 +132,7 @@ jobs:
         if: vars.COOLIFY_URL == '' && steps.versao.outputs.montar == 'sim'
         env:
           TOKEN: ${{ secrets.CF_TOKEN_CACHE }}
-          ZONA: ${{ vars.CF_ZONE_ID }}
+          ZONA: ${{ secrets.CF_ZONE_ID || vars.CF_ZONE_ID }}  # segredo: aparece como *** no registro público
         run: |
           set -euo pipefail
           # A VPS confere a imagem a cada 2 minutos e leva alguns minutos para subir a versão nova. Antes, este passo
