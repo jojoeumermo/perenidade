@@ -394,7 +394,7 @@ export function CartaoDaAlumia2({
 
       {antesDasAcoes}
 
-      <div className="-ml-1.5 mt-2 flex flex-wrap items-center gap-x-0.5 sm:gap-x-2">
+      <div className="al2-acoes -ml-1.5 mt-2 flex flex-wrap items-center gap-x-0.5 sm:gap-x-2">
         {logado && !post.travado && aoResponder ? (
           <button type="button" className="al2-acao" onClick={() => aoResponder(post)} aria-label={`${t.cartao.responder} · ${preencher(t.cartao.respostas, { n: post.respostas })}`}>
             <Icone nome="responder" className="h-[18px] w-[18px]" />

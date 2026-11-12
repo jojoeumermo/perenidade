@@ -188,6 +188,12 @@ body:has([data-al="2"]) { background: var(--al-fundo, #0f0e0d); }
   font-family: var(--al-fonte); font-size: 0.8125rem; font-weight: 600; text-decoration: none;
 }
 @media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-acao:hover { color: var(--al-texto); background: var(--al-superficie); } }
+/* No celular a fileira de ações usa a largura toda do cartão: começa embaixo do rosto (40 px + 12 px de vão) e distribui os
+   botões de ponta a ponta. Antes ela começava depois do rosto, não cabia, e o "mais ações" caía sozinho numa segunda linha. */
+@media (max-width: 480px) {
+  [data-al="2"] .al2-acoes { justify-content: space-between; column-gap: 0; }
+  [data-al="2"] .al2-cartao[data-abre] .al2-acoes { margin-left: -58px; }
+}
 [data-al="2"] .al2-acao:disabled { cursor: not-allowed; opacity: 0.55; }
 [data-al="2"] .al2-acao[aria-pressed="true"] { color: var(--al-vermelho); }
 [data-al="2"] .al2-acao-acender[aria-pressed="true"] svg { fill: currentColor; }
