@@ -213,7 +213,7 @@
     "copiado": "Link copied.",
     "validade": "Valid until {data} · {n} uses",
     "imprimir": "Print the poster",
-    "chama": { "apagado": "lamp unlit: only the founder", "brasa": "ember: the first people arrived", "plena": "full flame: 3 people or more" },
+    "chama": { "apagado": "lamp unlit: only the founder", "brasa": "ember: the group is just starting", "plena": "full flame: 3 people or more" },
     "entrarComConvite": "You arrived with an invitation to one of this organization's chapters.",
     "usarConvite": "Join the chapter",
     "entrou": "You joined the chapter.",

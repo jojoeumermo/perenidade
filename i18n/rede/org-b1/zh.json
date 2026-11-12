@@ -213,7 +213,7 @@
     "copiado": "链接已复制。",
     "validade": "有效期至 {data} · 可用 {n} 次",
     "imprimir": "打印海报",
-    "chama": { "apagado": "灯未亮：只有创建者", "brasa": "火种：第一批人来了", "plena": "火焰正旺：3 人以上" },
+    "chama": { "apagado": "灯未亮：只有创建者", "brasa": "火种：小组刚刚起步", "plena": "火焰正旺：3 人以上" },
     "entrarComConvite": "你带着这个组织某个小组的邀请来到这里。",
     "usarConvite": "加入小组",
     "entrou": "你已加入小组。",

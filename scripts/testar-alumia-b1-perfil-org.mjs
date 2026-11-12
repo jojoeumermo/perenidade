@@ -109,11 +109,31 @@ let NUC;
   NUC = r?.id;
   await espera("o convite guarda só o hash (o código não fica no banco)", () => um("select count(*)::int n from interno.rede_convites where nucleo = $1 and token_hash <> $2 and usos_max = 5", [NUC, r?.convite?.codigo]), (x) => x.n === 1);
   await espera("a pauta e a tarefa ficam guardadas", () => um("select org_pauta, org_tarefa, org_uf, org_no_mapa from interno.rede_nucleos where id = $1", [NUC]), (x) => x.org_pauta.startsWith("1. Quem") && x.org_tarefa === "Colar 20 cartazes" && x.org_uf === "SP" && x.org_no_mapa === false);
-  await espera("só quem fundou: a chama está apagada", () => rpc(A("m1"), "rede_org_perfil", { p_handle: "lume" }), (o) => o.nucleos[0].chama === "apagado" && o.nucleos[0].pauta === null && o.nucleos[0].mapa === null);
+  // Faz o tempo andar: quem entrou (e quem saiu) recua 20 minutos, para cair antes do último marco.
+  const passarMarco = async () => {
+    await dono("update interno.rede_nucleo_membros set entrou_em = entrou_em - interval '20 minutes'");
+    await dono("update interno.rede_contagem_saidas set entrou_em = entrou_em - interval '20 minutes', saiu_em = saiu_em - interval '20 minutes'");
+  };
+  const chamaDe = async (quem) => (await rpc(quem, "rede_org_perfil", { p_handle: "lume" })).nucleos[0].chama;
+  await espera("só quem fundou: brasa (abaixo de 3 é sempre o mesmo valor)", () => rpc(A("m1"), "rede_org_perfil", { p_handle: "lume" }), (o) => o.nucleos[0].chama === "brasa" && o.nucleos[0].pauta === null && o.nucleos[0].mapa === null);
   await espera("m1 entra pelo convite", () => rpc(A("m1"), "rede_fix_convite_usar", { p_codigo: r?.convite?.codigo }), (x) => x.ok !== false);
-  await espera("com a 1ª pessoa, brasa", () => rpc(A("m1"), "rede_org_perfil", { p_handle: "lume" }), (o) => o.nucleos[0].chama === "brasa" && o.nucleos[0].pauta?.startsWith("1. Quem") && o.nucleos[0].tarefa === "Colar 20 cartazes");
-  for (const n of ["m2", "m3"]) await rpc(A(n), "rede_fix_convite_usar", { p_codigo: r?.convite?.codigo });
+  await passarMarco();
+  // O ataque: quem recarrega o perfil (até visitante) não pode perceber a 1ª nem a 2ª pessoa entrando no núcleo.
+  await espera("com a 1ª pessoa, a chama NÃO muda (nem depois do marco)", () => rpc(A("m1"), "rede_org_perfil", { p_handle: "lume" }), (o) => o.nucleos[0].chama === "brasa" && o.nucleos[0].pauta?.startsWith("1. Quem") && o.nucleos[0].tarefa === "Colar 20 cartazes");
+  await rpc(A("m2"), "rede_fix_convite_usar", { p_codigo: r?.convite?.codigo });
+  await passarMarco();
+  await espera("com a 2ª pessoa, também não (visitante vê o mesmo de antes)", () => chamaDe(visitante()), (c) => c === "brasa");
+  await rpc(A("m3"), "rede_fix_convite_usar", { p_codigo: r?.convite?.codigo });
+  await espera("a 3ª pessoa entra: no mesmo marco a chama ainda não muda", () => chamaDe(visitante()), (c) => c === "brasa");
+  await passarMarco();
   await espera("com a 3ª pessoa, chama plena (sem o número)", () => rpc(visitante(), "rede_org_perfil", { p_handle: "lume" }), (o) => o.nucleos[0].chama === "plena" && o.nucleos[0].pauta === null && !JSON.stringify(o).includes("\"membros\""));
+  await dono("delete from interno.rede_nucleo_membros where nucleo = $1 and usuario = $2", [NUC, P.m3]);
+  await espera("alguém sai: a chama não cai na hora (a saída só conta no próximo marco)", () => chamaDe(visitante()), (c) => c === "plena");
+  await espera("…e a saída não guarda a pessoa, só o intervalo", () => um("select count(*)::int n from interno.rede_contagem_saidas where alvo = $1", [NUC]), (x) => x.n === 1);
+  await passarMarco();
+  await espera("no marco seguinte, com 2 além de quem fundou, volta a brasa", () => chamaDe(visitante()), (c) => c === "brasa");
+  await dono("insert into interno.rede_nucleo_membros (nucleo, usuario, papel) values ($1, $2, 'membro')", [NUC, P.m3]);
+  await passarMarco();
   await espera("fora do mapa por padrão: o mapa está vazio", () => rpc(visitante(), "rede_org_mapa"), (m) => Array.isArray(m) && m.length === 0);
   await recusa("membro comum não põe no mapa", () => rpc(A("m1"), "rede_org_nucleo_mapa", { p_nucleo: NUC, p_sim: true }), "sem_permissao");
   await espera("a dona põe no mapa", () => rpc(A("dona"), "rede_org_nucleo_mapa", { p_nucleo: NUC, p_sim: true }), (x) => x.mapa === true && x.chama === "plena");
