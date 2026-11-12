@@ -20,8 +20,11 @@ CC BY-SA 4.0 (LICENSE-CONTEUDO.md).
 | hanzi-writer-data (só para gerar os dados; não vai para o navegador) | 2.0.1 | Arphic Public License |
 | dictionary-pt (só para copiar o dicionário) | 4.0.0 | LGPL-3.0 ou MPL-2.0 (dicionário), MIT (pacote) |
 | jsQR (lê o QR pela câmera do "Levar o progresso", só quando o navegador não tem leitor nativo; carregado sob demanda) | 1.4.0 | Apache-2.0 |
-| @matrix-org/matrix-sdk-crypto-wasm (a cifra do chat privado da Alumia, etapa B3: docs/rede/CHAT-PRIVADO.md; versão exata, ainda sem uso no código) | 19.0.1 | Apache-2.0 |
-| @noble/post-quantum (ML-KEM-768 dos posts restritos cifrados: docs/rede/POSTS-RESTRITOS.md; versão exata; traz @noble/curves, @noble/hashes e @noble/ciphers 2.4.0, MIT) | 0.7.1 | MIT |
+| @matrix-org/matrix-sdk-crypto-wasm (a cifra do chat privado da Alumia: Olm e Megolm, por dentro o vodozemac; docs/rede/CHAT-PRIVADO.md; versão exata; carregado só quando o chat abre) | 19.0.1 | Apache-2.0 |
+| ts-mls (MLS, RFC 9420, dos grupos cifrados: docs/rede/POSTS-RESTRITOS.md; versão exata; carregado só quando um grupo cifrado é usado) | 1.6.4 | MIT |
+| @hpke/core, @hpke/common, @hpke/dhkem-x25519, @hpke/hybridkem-x-wing, @hpke/chacha20poly1305 (HPKE do ts-mls; X-Wing = X25519 + ML-KEM-768) | 1.9.0, 1.13.0, 1.8.x, 0.7.0, 1.8.0 | MIT |
+| mlkem (ML-KEM do X-Wing) | 2.7.0 | MIT |
+| @noble/post-quantum, @noble/curves, @noble/hashes, @noble/ciphers (usados pelo ts-mls; versões exatas) | 0.5.2, 2.0.1, 2.0.1, 2.1.1 | MIT |
 
 ## Vozes naturais do "Ouvir a aula" (public/vozes, fora do Git)
 

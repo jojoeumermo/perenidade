@@ -572,3 +572,10 @@ A cifra, o banco das chaves e o chaveiro do aparelho estão prontos e testados (
 5. **Textos** dos custos, em `docs/rede/POSTS-RESTRITOS.md` ("Custos que a tela precisa dizer").
 
 Se não atender: nada muda; os posts restritos seguem em texto aberto no banco, como hoje.
+
+**Atualização 13/11/2026 (Faixa 2):** a cifra passou a ser **MLS** (RFC 9420, biblioteca `ts-mls`, suíte híbrida X-Wing contra
+computador quântico). A interface para as telas é a mesma (`criarChaveiroDeGrupo`, `preparar`, `cifrar`, `abrir`, `esquecer`),
+com três diferenças: o corpo agora é `p2.<época>.<vetor>.<cifrado>` (até ~11 mil caracteres, como antes); a `guarda` é chave →
+valor (use `guardaNoNavegador()`); e `cifrar` pode recusar com `grupo_suspeito` (alguém do grupo apareceu com outra chave: a tela
+diz "Não dá para escrever neste grupo agora: a chave de alguém mudou" e não publica). A migração é
+`20261113-rede-grupos-mls.sql`, no lugar da `20261112-rede-grupos-cifrados.sql` (que saiu: nunca rodou em produção).

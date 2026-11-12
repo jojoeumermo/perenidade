@@ -11,7 +11,7 @@ descrito abaixo). O passo a passo está no fim deste documento.
 Pedido da coordenação (T19): "o chat privado no Alumia", com "TODAS as regras de segurança possíveis", "a mesma tecnologia que já
 temos no chat interno", "nada pode vazar, nem de dentro nem de fora", seguindo a LGPD. Em 10/11/2026 o chat foi endurecido
 (mensagens em blocos de tamanho fixo, sem assinatura, com repetição e ordem conferidas, chave com prazo também no banco), sem
-trocar de tecnologia. Uma biblioteca de sigilo para a frente (a do Matrix) fica para uma etapa posterior.
+trocar de tecnologia. Em 13/11/2026 a cifra passou para a biblioteca do Matrix (veja "A tecnologia").
 
 ## Onde fica
 
@@ -41,28 +41,30 @@ Componentes próprios (`components/rede/chat/`), carregados só quando a tela é
 
 ## A tecnologia
 
-A base é a das conversas da equipe (`lib/sigilo.ts`, `docs/RELATORIO-CHAT-E-CARGOS.md`, `npm run testar:sigilo`): WebCrypto puro,
-sem biblioteca de fora.
+**Desde 13/11/2026 a cifra é a da biblioteca do Matrix** (`@matrix-org/matrix-sdk-crypto-wasm` 19.0.1, a do Element; por dentro,
+o vodozemac, auditado), em `lib/rede/chat/olm.ts`. Nada de cifra feita à mão no caminho das mensagens. Migração:
+`supabase/migracoes/20261113-chat-olm.sql` (depois da `20261110-chat-blocos.sql`); teste: `npm run testar:chat-olm`.
 
-- **Chave do aparelho:** par ECDH P-256 criado no navegador, parte privada **não exportável** (o próprio navegador não deixa
-  ler), guardada no IndexedDB.
-- **Identidade:** par ECDSA P-256, também não exportável, que **assina (certifica) a chave do aparelho**, e só ela. O banco
-  guarda só as partes públicas e o certificado.
-- **Chave da conversa:** AES-GCM-256, uma por versão, **embrulhada** (ECDH + HKDF-SHA-256 + AES-GCM) para a chave de cada um dos
-  dois participantes. O embrulho é amarrado à conversa, à versão, a quem recebe e à versão da chave de quem recebe. O aparelho só
-  embrulha para chave certificada pela identidade em que ele confia.
-- **Confiar na primeira vez, avisar quando mudar:** o aparelho guarda a identidade de cada pessoa com quem conversou. Se ela
-  mudar, a conversa avisa e **não entrega chave nem envia nada** até a pessoa confirmar (veja "Identidade trocada").
-- **Contextos próprios** (`alumia-dm:…`): nada assinado ou cifrado no chat da Alumia serve nas conversas da equipe, nem o contrário.
-- **Chave do aparelho fixada:** o aparelho guarda, além da identidade, a chave do aparelho de cada pessoa. Neste chat as duas
-  nascem juntas, então chave nova com a identidade de sempre nunca é legítima: a conversa retém tudo e não oferece botão de aceitar.
+- **Olm** (Double Ratchet, o mesmo desenho do Signal) entre os dois aparelhos: entrega as chaves das sessões. O banco só guarda a
+  chave pública do aparelho, as chaves de uso único e uma caixa de recados cifrados (`rede_olm_*`), e só entrega a chave do
+  aparelho de alguém a quem tem conversa aberta com a pessoa, sem bloqueio.
+- **Megolm** nas mensagens: cada mensagem tem chave própria, que anda para a frente e não volta (**sigilo para a frente**). Cada
+  versão da conversa é uma sessão nova; dentro de uma versão, a sessão troca sozinha a cada 100 mensagens ou 7 dias.
+- **Identidade:** a chave ed25519 do aparelho (o banco guarda `"o" + chave`). O código de segurança e o QR são calculados dela.
+  "Confiar na primeira vez, avisar quando mudar" continua igual: o aparelho só entrega chave ao aparelho cuja identidade ele já
+  conhece da pessoa, e só abre mensagem cuja sessão veio desse aparelho, direto (nada encaminhado por terceiro).
+- **Formato "m1":** `m1.<versão>.<sessão>.<cifrado Megolm>`. Por dentro vai o mesmo bloco de tamanho fixo do "c3" (identificador,
+  contador, "até onde eu já tinha recebido" e o texto), então repetição, buraco e ordem continuam sendo notados como antes, e o
+  tamanho no banco continua em sete faixas fixas (723, 1192, 2088, 3923, 7550, 11198 ou 14846 caracteres no cifrado). O banco
+  recusa qualquer outro tamanho e, de conta que já está na biblioteca, recusa "c3".
+- **No aparelho:** as sessões da biblioteca ficam num IndexedDB dela (`lucia-alumia-olm-<conta>`), **cifrado** com uma senha que
+  ninguém guarda: ela é calculada, a cada abertura, por uma chave HMAC **não exportável** deste aparelho. O "Sair rápido" apaga
+  esse banco junto com o do chat.
+- **WebAssembly:** a biblioteca é WebAssembly; a política de segurança das páginas ganhou `'wasm-unsafe-eval'` (só compilar
+  WebAssembly; não libera `eval` de JavaScript).
 
-**O que um script na página consegue (e o "não exportável" não impede).** Se um script malicioso rodar UMA vez na página da
-Alumia (XSS), ele usa as chaves sem precisar copiá-las: tira o segredo ECDH de cada contato (`deriveBits`) e, com ele e os dados
-do banco, abre embrulhos passados e futuros sem voltar ao aparelho, até alguém reativar o chat; faz a identidade assinar um
-certificado para uma chave dele; e lê as chaves de conversa da memória da aba. "Não exportável" só impede levar a chave embora
-em bytes. A defesa contra isso é não haver script de fora na página (a CSP do site) e, adiante, o sigilo para a frente da etapa
-da biblioteca do Matrix (Olm), em que cada mensagem tem chave própria.
+O texto abaixo descreve o formato "c3" anterior, que fica no banco **só para leitura** até vencer (as contas que ativarem o chat
+de novo passam para a biblioteca). As regras de bloco, ordem, repetição, rotação e identidade trocada valem iguais para o "m1".
 
 ### O formato das mensagens: "c3"
 
