@@ -11,6 +11,20 @@ import { Avatar16 } from "../ui/Avatar16";
 import { preencherStory, useClienteDosStories, useTextosDosStories } from "./usar";
 import { Visor } from "./Visor";
 
+/** Junta os grupos da mesma autora (pelo @), somando os stories e ficando com o instante do mais novo. */
+function juntarPorAutora(grupos: GrupoDaFaixa[]): GrupoDaFaixa[] {
+  const porHandle = new Map<string, GrupoDaFaixa>();
+  for (const g of grupos) {
+    const ja = porHandle.get(g.autora.handle);
+    if (!ja) porHandle.set(g.autora.handle, { ...g, ids: [...g.ids] });
+    else {
+      ja.ids = [...new Set([...ja.ids, ...g.ids])];
+      if (g.ultimo_em > ja.ultimo_em) ja.ultimo_em = g.ultimo_em;
+    }
+  }
+  return [...porHandle.values()];
+}
+
 /**
  * "Stories que falam desta comunidade" (B1): na página da comunidade, as bolinhas de quem tem story no ar que a menciona (ou que
  * foi publicado só para ela). O banco (rede_story_da_comunidade) devolve só os que EU posso ver, e nada em comunidade fechada
@@ -40,14 +54,15 @@ export default function StoriesDaComunidade({ lang, situacao, slug }: { lang: st
     };
   }, [cliente, logado, slug, versao]);
 
-  const grupos = estado?.slug === slug ? estado.grupos : [];
+  // Uma bolinha por pessoa: dois stories da mesma autora viram um grupo só (antes saíam duas bolinhas iguais, com a mesma chave).
+  const grupos = juntarPorAutora(estado?.slug === slug ? estado.grupos : []);
   if (!t || !cliente || !logado || grupos.length === 0) return null;
 
   const fila = grupos.map((g) => g.autora.handle);
   const autoras = Object.fromEntries(grupos.map((g) => [g.autora.handle, g.autora]));
 
   return (
-    <section className="al-st-faixa" aria-label={t.b1.comunidade.faixa}>
+    <section className="al-st-faixa al-st-faixa-comunidade" aria-label={t.b1.comunidade.faixa}>
       <h2 className="al-st-destaques-titulo">{t.b1.comunidade.faixa}</h2>
       <ul className="al-st-faixa-trilho">
         {grupos.map((g) => {
