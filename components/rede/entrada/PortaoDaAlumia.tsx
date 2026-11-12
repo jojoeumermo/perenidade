@@ -16,6 +16,7 @@ import { type ReactNode, useCallback, useEffect, useState } from "react";
 import type { Locale } from "@/i18n/config";
 import { BackendError, getClient, hasBackend, hasSession, rpc, signOut } from "@/lib/backend";
 import { useCadastro } from "@/lib/cadastro";
+import { previaDaAlumiaLigada } from "@/lib/rede/conversa/exemplos";
 import type { FiguraDaEntrada } from "@/lib/rede/entrada/figuras";
 import type { TextosDaEntrada } from "@/lib/rede/entrada/textos";
 import { pararPonte, ponteDisponivel, trazerSessaoDoSite } from "@/lib/sessao/cliente-ponte";
@@ -55,6 +56,25 @@ type Fase =
 /** Telas da Alumia que abrem sem conta: o que guardamos e a transparência (informação pública sobre a própria rede). */
 const LIVRES = /\/(o-que-guardamos|transparencia)\/?$/;
 
+/** A fase pedida no endereço da prévia; nula para o que não é uma das telas sem banco. */
+function faseDaPrevia(nome: string | null): Fase | null {
+  const eu: EuNaEntrada = { logado: true, situacao: "sem_pedido", codinome: "Faísca", regras_versao: 1, pedido_em: new Date(Date.now() - 2 * 86_400_000).toISOString() };
+  switch (nome) {
+    case "fora":
+    case "suspensa":
+    case "atualizando":
+      return { f: nome };
+    case "pedido":
+      return { f: "pedido", eu: { ...eu, codinome: null } };
+    case "analise":
+      return { f: "analise", eu: { ...eu, situacao: "em_analise" } };
+    case "recusada":
+      return { f: "recusada", pode: false, eu: { ...eu, situacao: "recusada", motivo_recusa: "Pedido de exemplo, sem relação com a organização.", pedir_de_novo_em: new Date(Date.now() + 20 * 86_400_000).toISOString() } };
+    default:
+      return null;
+  }
+}
+
 export function PortaoDaAlumia({ lang, t, figuras, site: siteDoServidor, children }: { lang: Locale; t: TextosDaEntrada; figuras: FiguraDaEntrada[]; site: string; children: ReactNode }) {
   const caminho = usePathname() ?? "";
   // O endereço do site só se acerta no navegador (no host alumia.* sem a variável, "/pt" seria a própria Alumia).
@@ -68,7 +88,12 @@ export function PortaoDaAlumia({ lang, t, figuras, site: siteDoServidor, childre
     let vivo = true;
     const ir = (x: Fase) => vivo && setFase(x);
     async function conferir() {
-      if (!hasBackend) return ir({ f: "sem-servico" });
+      if (!hasBackend) {
+        // Na prévia com dados de exemplo (NEXT_PUBLIC_ALUMIA_PREVIA=sim) não há banco: "?portao=fora" (ou pedido, analise,
+        // recusada, suspensa, atualizando) mostra a tela pedida, para conferir os formulários. Nada é enviado.
+        const pedida = previaDaAlumiaLigada() ? faseDaPrevia(new URLSearchParams(window.location.search).get("portao")) : null;
+        return ir(pedida ?? { f: "sem-servico" });
+      }
       const url = window.location.hash + window.location.search;
       // A volta de um link do e-mail (confirmar a conta, senha nova): o cliente lê a sessão do endereço.
       if (/access_token=|code=|type=recovery|token_hash=/.test(url)) {
@@ -179,7 +204,16 @@ export function PortaoDaAlumia({ lang, t, figuras, site: siteDoServidor, childre
     case "fora":
       return <Landing lang={lang} t={t} figuras={figuras} site={site} aoEntrar={conferirDeNovo} />;
     case "sem-servico":
-      return sozinho(<Mensagem tipo="info">{t.semServico}</Mensagem>);
+      return sozinho(
+        <>
+          <h1 className="ale-cond ale-cartao-titulo">{t.semServicoTitulo}</h1>
+          <p className="ale-cartao-texto">{t.semServico}</p>
+          <div className="ale-form">
+            <button type="button" className="ale-botao ale-botao-contorno" onClick={conferirDeNovo}>{t.tentar}</button>
+            <a className="ale-link" href={site}>{t.voltar}</a>
+          </div>
+        </>,
+      );
     case "atualizando":
       return sozinho(
         <>

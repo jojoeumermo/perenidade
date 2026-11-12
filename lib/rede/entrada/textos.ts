@@ -55,6 +55,7 @@ export interface TextosDaEntrada {
   ponte: string;
   atualizando: string;
   tentar: string;
+  semServicoTitulo: string;
   semServico: string;
   sair: string;
   conferir: string;
@@ -175,6 +176,7 @@ const pt: TextosDaEntrada = {
   ponte: "Trazendo a sua entrada do site do instituto…",
   atualizando: "A Alumia está sendo atualizada. Tente de novo daqui a pouco.",
   tentar: "Tentar de novo",
+  semServicoTitulo: "Voltamos já",
   semServico: "As contas estão fora do ar agora. O resto do site continua aberto.",
   sair: "Sair da conta",
   conferir: "Conferir de novo",
@@ -294,6 +296,7 @@ const en: TextosDaEntrada = {
   ponte: "Bringing your sign-in from the institute site…",
   atualizando: "Alumia is being updated. Try again shortly.",
   tentar: "Try again",
+  semServicoTitulo: "Back soon",
   semServico: "Accounts are offline right now. The rest of the site remains open.",
   sair: "Sign out",
   conferir: "Check again",
@@ -412,6 +415,7 @@ const es: TextosDaEntrada = {
   ponte: "Trayendo tu entrada desde el sitio del instituto…",
   atualizando: "Alumia se está actualizando. Inténtalo en un rato.",
   tentar: "Intentar de nuevo",
+  semServicoTitulo: "Volvemos enseguida",
   semServico: "Las cuentas están fuera de servicio ahora. El resto del sitio sigue abierto.",
   sair: "Salir de la cuenta",
   conferir: "Comprobar de nuevo",
@@ -530,6 +534,7 @@ const fr: TextosDaEntrada = {
   ponte: "Récupération de votre connexion depuis le site de l'institut…",
   atualizando: "Alumia est en cours de mise à jour. Réessayez dans un instant.",
   tentar: "Réessayer",
+  semServicoTitulo: "De retour bientôt",
   semServico: "Les comptes sont hors ligne pour le moment. Le reste du site reste ouvert.",
   sair: "Se déconnecter",
   conferir: "Vérifier à nouveau",
@@ -648,6 +653,7 @@ const ru: TextosDaEntrada = {
   ponte: "Переносим вход с сайта института…",
   atualizando: "Alumia обновляется. Попробуйте чуть позже.",
   tentar: "Попробовать снова",
+  semServicoTitulo: "Скоро вернёмся",
   semServico: "Аккаунты сейчас недоступны. Остальной сайт открыт.",
   sair: "Выйти",
   conferir: "Проверить снова",
@@ -766,6 +772,7 @@ const zh: TextosDaEntrada = {
   ponte: "正在从研究所网站带来你的登录…",
   atualizando: "Alumia 正在更新，请稍后再试。",
   tentar: "重试",
+  semServicoTitulo: "马上回来",
   semServico: "账号服务暂时不可用。网站其他部分仍然开放。",
   sair: "退出账号",
   conferir: "再次查看",

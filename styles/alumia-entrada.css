@@ -26,6 +26,8 @@
   position: relative;
   isolation: isolate;
   min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
   overflow-x: clip;
   background: var(--ale-fundo);
   color: var(--ale-texto);
@@ -670,9 +672,11 @@
 
 /* Os créditos das imagens. */
 .ale-creditos {
+  width: 100%;
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 16px 40px;
+  /* No pé da página, sempre: a margem de cima automática empurra para baixo o que sobrar de altura. */
+  margin: auto auto 0;
+  padding: 24px 16px 28px;
   color: var(--ale-texto-3);
   font-size: 14px;
 }
