@@ -103,6 +103,8 @@ export function TextoAberto({ aberto, antiga = false }: { aberto: Aberto | null 
         <span className="mt-1 block border-l-2 border-[var(--pn-erro)] pl-2 text-xs font-semibold not-italic text-[var(--pn-erro)]">Não foi possível verificar o autor desta mensagem: a assinatura não confere com a identidade de quem aparece como autor.</span>
       )}
       {aberto.autoria === "sem_identidade" && <span className="mt-1 block text-[0.65rem] not-italic opacity-70">Autor ainda sem identidade conhecida neste aparelho.</span>}
+      {/* Mensagem nova sem a assinatura do autor: quem tem a chave da conversa e escreve no banco poderia tê-la posto em nome de outro. */}
+      {aberto.autoria === "sem_assinatura" && <span className="mt-1 block text-[0.65rem] font-semibold not-italic opacity-80">Mensagem sem assinatura do autor: não dá para confirmar quem escreveu.</span>}
     </>
   );
 }

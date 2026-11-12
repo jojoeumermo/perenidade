@@ -226,6 +226,25 @@ export const certificarAparelho = (identidade: Identidade, usuario: string, publ
 export const aparelhoCertificado = (identidadePublica: string, usuario: string, publica: string, certificado: string | null) =>
   certificado ? verificar(identidadePublica, certificado, contextoDoAparelho(usuario, publica)) : Promise.resolve(false);
 
+/**
+ * De que chaves de aparelho um embrulho de chave de conversa pode vir: a deste aparelho e a de cada aparelho CERTIFICADO pela
+ * identidade que este aparelho conhece da pessoa dona dele (`identidadeDe` devolve nulo para quem não se conhece). Quem só
+ * escreve no banco não tem uma identidade aceita para certificar uma chave sua: o embrulho que ele fizer não é aberto
+ * (lib/chaveiro.ts, carregar).
+ */
+export async function origensDeEmbrulho(
+  propria: string,
+  aparelhos: readonly { usuario: string; publica: string; certificado: string | null }[],
+  identidadeDe: (usuario: string) => string | null,
+): Promise<Set<string>> {
+  const origens = new Set<string>([propria]);
+  for (const a of aparelhos) {
+    const identidade = identidadeDe(a.usuario);
+    if (identidade && (await aparelhoCertificado(identidade, a.usuario, a.publica, a.certificado))) origens.add(a.publica);
+  }
+  return origens;
+}
+
 // ── Assinatura do autor em cada mensagem ──
 
 const amarraDaAssinatura = (contexto: string, versao: number, texto: string) => `mensagem:${contexto}:v${versao}:${texto}`;

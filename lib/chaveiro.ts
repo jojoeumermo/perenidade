@@ -11,7 +11,7 @@ import { BackendError, rpc } from "./backend";
 import {
   abrirCopia, abrirPedido, abrirTexto, aparelhoCertificado, assinarTexto, type Autoria, certificarAparelho, cifrar, contextoDaIdentidade, contextoDoEmbrulho, type Copia,
   decifrar, deBase64, desembrulhar, desembrulharBytes, embrulhar, embrulharBytes, exportarChave, exportarIdentidade, type Identidade, importarChave, importarIdentidade,
-  novaChave, novaIdentidade, novoAparelho, novoCodigo, paraBase64, type Selado, selarCopia, selarPedido, versaoDe,
+  novaChave, novaIdentidade, novoAparelho, novoCodigo, origensDeEmbrulho, paraBase64, type Selado, selarCopia, selarPedido, versaoDe,
 } from "./sigilo";
 
 export type Estado = "aprovado" | "pendente";
@@ -519,8 +519,18 @@ export class Chaveiro {
       const chaves = await rpc<Chaves>("chat_chaves", { p_conversa: conversa, p_aparelho: this.aparelho });
       for (const pessoa of chaves.identidades) await this.aceitarIdentidade(pessoa.usuario, pessoa.assina);
       const abertas = this.versoes.get(conversa) ?? new Map<number, CryptoKey>();
+      // De quem um embrulho pode vir: deste aparelho, ou de um aparelho CERTIFICADO pela identidade que este aparelho conhece de
+      // alguém da conversa. Sem isso, quem escreve no banco criava uma versão nova embrulhada com uma chave dele, este aparelho a
+      // abria e passava a cifrar com ela (injeção de chave, docs/rede/CHAT-PRIVADO.md). Embrulho de outra origem não é aberto e é
+      // devolvido: um colega com aparelho certificado repassa aquela versão de novo (é o caso de quem saiu da conversa e tinha
+      // embrulhado versões antigas).
+      const origens = await origensDeEmbrulho(this.publica, chaves.aparelhos, (usuario) => this.identidadeDe(usuario));
       for (const item of chaves.minhas) {
         if (abertas.has(item.versao)) continue;
+        if (!origens.has(item.de_publica)) {
+          await rpc("chat_chaves_recusar", { p_aparelho: this.aparelho, p_conversa: conversa, p_versao: item.versao }).catch(() => undefined);
+          continue;
+        }
         const chave = await desembrulhar(item.embrulho, this.privada, item.de_publica, contextoDoEmbrulho(conversa, item.versao, this.aparelho));
         if (chave) abertas.set(item.versao, chave);
         // Embrulho que não abre (feito errado ou adulterado): devolve, para alguém da conversa repassar de novo.

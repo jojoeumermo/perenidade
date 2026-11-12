@@ -6,7 +6,7 @@ import {
   abrirCopia, abrirPedido, abrirTexto, aparelhoCertificado, assinarTexto, certificarAparelho, chaveDeRecuperacaoValida, cifrar, codigoDeSeguranca, codigoEmGrupos,
   contextoDaConversa, contextoDaIdentidade, contextoDoEmbrulho, contextoDoMural, decifrar, desembrulhar, desembrulharBytes, embrulhar, embrulharBytes, exportarChave,
   exportarIdentidade, FORMATO_CODIGO, FORMATO_PUBLICA, importarChave, importarIdentidade, lerPublica, lerQrDaSeguranca, lerQrDoPedido, novaChave, novaChaveDeRecuperacao,
-  novaIdentidade, novoAparelho, novoCodigo, qrDaSeguranca, qrDoPedido, selarCopia, selarPedido, versaoDe,
+  novaIdentidade, novoAparelho, novoCodigo, origensDeEmbrulho, qrDaSeguranca, qrDoPedido, selarCopia, selarPedido, versaoDe,
 } from "../lib/sigilo.ts";
 
 let certos = 0;
@@ -180,6 +180,33 @@ await confere("com a chave de recuperação, a cópia abre e a identidade e as c
 });
 await confere("chave de recuperação errada não abre a cópia", async () => (await abrirCopia(novaChaveDeRecuperacao(), contaDaAna, selada)) === null);
 await confere("cópia de outra conta não abre", async () => (await abrirCopia(frase, crypto.randomUUID(), selada)) === null);
+
+// ── Injeção de chave no chat da equipe (lib/chaveiro.ts, carregar): só abre embrulho de aparelho certificado ──
+{
+  const meu = await novoAparelho();
+  const daBia = await novoAparelho();
+  const daIntrusa = await novoAparelho();
+  const semCertificado = await novoAparelho();
+  const conhecidas = { ana: idAna.publica, bia: idBia.publica };
+  const aparelhos = [
+    { usuario: "bia", publica: daBia.publica, certificado: await certificarAparelho(idBia, "bia", daBia.publica) },
+    // Quem escreve no banco põe um aparelho seu na conversa, em nome da Bia, certificado por uma identidade que não é a dela.
+    { usuario: "bia", publica: daIntrusa.publica, certificado: await certificarAparelho(idIntrusa, "bia", daIntrusa.publica) },
+    { usuario: "bia", publica: semCertificado.publica, certificado: null },
+    // Ou de alguém que este aparelho nunca viu (sem identidade conhecida): também não.
+    { usuario: "fantasma", publica: (await novoAparelho()).publica, certificado: await certificarAparelho(idIntrusa, "fantasma", "x") },
+  ];
+  const origens = await origensDeEmbrulho(meu.publica, aparelhos, (u) => conhecidas[u] ?? null);
+  await confere("injeção de chave: o embrulho só pode vir deste aparelho ou de um aparelho certificado pela identidade conhecida da pessoa", async () =>
+    origens.has(meu.publica) && origens.has(daBia.publica) && !origens.has(daIntrusa.publica) && !origens.has(semCertificado.publica) && origens.size === 2);
+  // A chave da conversa embrulhada pela intrusa abre com a chave do aparelho (a cifra deixa), mas o chaveiro nem tenta: a origem não está na lista.
+  await confere("o embrulho da intrusa abriria (a cifra não sabe de quem é): por isso a conferência da origem é que segura", async () => {
+    const chave = await novaChave();
+    const embrulho = await embrulhar(chave, daIntrusa.privada, meu.publica, contextoDoEmbrulho("conv", 9, "meu-aparelho"));
+    const aberta = await desembrulhar(embrulho, meu.privada, daIntrusa.publica, contextoDoEmbrulho("conv", 9, "meu-aparelho"));
+    return aberta !== null && !origens.has(daIntrusa.publica);
+  });
+}
 
 console.log(`${certos} conferências certas${falhas.length ? `, ${falhas.length} com problema.` : "."}`);
 for (const falha of falhas) console.log(`  ✗ ${falha}`);

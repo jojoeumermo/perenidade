@@ -84,6 +84,12 @@ Tudo está em `supabase/install.sql`, **aditivo e idempotente**: rodar o arquivo
 - Ler mensagens, legendas, arquivos, enquetes, eventos, votos, citações, prévias de link: tudo cifrado no aparelho com chaves que nunca saem dele em claro. Conferido por teste: fora os avisos do sistema, nenhuma linha das tabelas das conversas tem texto aberto.
 - **Fazer os aparelhos entregarem chaves a um aparelho falso:** cada aparelho só embrulha chave para aparelho cujo certificado é assinado pela identidade da pessoa, e a identidade é guardada no aparelho de cada colega na primeira vez que é vista. Um aparelho inventado pelo servidor não tem certificado válido; um certificado copiado de outro aparelho não bate com a chave pública. Testes: "aparelho falso registrado pelo banco não recebe chave", "certificado copiado não vale", "identidade trocada no banco gera aviso e retém chaves de quem verificou".
 - Forjar mensagem em nome de alguém: a assinatura por mensagem não confere, e a tela avisa.
+- **Injetar uma chave de conversa sua** (conserto de 12/11/2026, `lib/chaveiro.ts`, `carregar`): antes, o aparelho abria qualquer
+  embrulho que o banco entregasse, com a chave pública que o próprio banco dizia ser de quem embrulhou. Quem escrevesse no banco
+  criava uma versão nova embrulhada com uma chave dele, e os aparelhos passavam a cifrar com ela. Agora o embrulho só é aberto se
+  veio deste aparelho ou de um aparelho certificado pela identidade conhecida de alguém da conversa (`origensDeEmbrulho`, em
+  `lib/sigilo.ts`; teste em `npm run testar:sigilo`). O de outra origem é devolvido e um colega repassa a versão de novo.
+- Mensagem nova **sem** assinatura (o rebaixamento) agora aparece com aviso, em vez de passar calada.
 - Buscar links ou transcrever áudio: nada disso existe no servidor.
 
 **O que a nova superfície adiciona e como foi tratado:** arquivos (tipo conferido pelos bytes, fotos redesenhadas, DOCX em quadro isolado, PDF no leitor do navegador, limites nos dois lados); menções e formatação (tudo vira texto/elementos, nunca HTML); relato à coordenação (texto aberto no servidor, mas só o que a pessoa escolheu, com aviso claro antes; limite de dez relatos por dia por pessoa; somem em um ano).
