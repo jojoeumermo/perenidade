@@ -455,6 +455,87 @@ await espera("as rotas que servem documentos a outros servidores (ator, post, co
   return rotasDeLeitura.filter((f) => !/const recusado = await conferirLeitor\(pedido\);\s*if \(recusado\) return recusado;/.test(fs.readFileSync(new URL(`../${f}`, import.meta.url), "utf8")));
 }, (l) => l.length === 0);
 
+// ── RFC 9421 (HTTP Message Signatures) na entrada ──
+const { createHash: hash9421, createSign: assinador9421, generateKeyPairSync: par9421, sign: assinarCru } = await import("node:crypto");
+/** Monta e assina um pedido RFC 9421 À MÃO (sem usar o código que está sendo testado), com a chave RSA da Bia. */
+function pedido9421(atividade, { cobrir = ["@method", "@target-uri", "content-digest"], criado = Math.floor(Date.now() / 1000), digestErrado = false, alg = "rsa-v1_5-sha256" } = {}) {
+  const corpo = JSON.stringify(atividade);
+  const host = new URL(BASE).host;
+  const cab = {
+    host,
+    date: new Date().toUTCString(),
+    "content-type": "application/activity+json",
+    "content-digest": `sha-256=:${hash9421("sha256").update(digestErrado ? `${corpo} ` : corpo).digest("base64")}:`,
+  };
+  const valores = { "@method": "POST", "@target-uri": `https://${host}${CAMINHO}`, "@authority": host, "@path": CAMINHO, "content-digest": cab["content-digest"] };
+  const params = `(${cobrir.map((c) => `"${c}"`).join(" ")});created=${criado};keyid="${BIA}#main-key";alg="${alg}"`;
+  const base = [...cobrir.map((c) => `"${c}": ${valores[c]}`), `"@signature-params": ${params}`].join("\n");
+  const assinatura = assinador9421("sha256").update(base).sign(chaves.bia.privada, "base64");
+  return { corpo, cab: { ...cab, "signature-input": `sig1=${params}`, signature: `sig1=:${assinatura}:` } };
+}
+const receber9421 = ({ corpo, cab }) => receber("POST", CAMINHO, leitor(cab), new TextEncoder().encode(corpo), {});
+await espera("RFC 9421: uma nota assinada só no formato novo (rsa-v1_5-sha256, com Content-Digest) passa a assinatura", async () => {
+  const n = novaNota();
+  const r = await receber9421(pedido9421(criar(n)));
+  return [r.status, r.motivo];
+}, (r) => r[0] === 202 && !["sem_assinatura", "assinatura_invalida", "chave_desconhecida", "cabecalhos_faltando"].includes(r[1]));
+await espera("RFC 9421: corpo trocado, Content-Digest fora da assinatura, data velha, algoritmo errado e destino não coberto são recusados", async () => {
+  const n = novaNota();
+  const certo = pedido9421(criar(n));
+  const trocado = await receber9421({ ...certo, corpo: certo.corpo.replace("Olá", "Oi!") });
+  const digest = await receber9421(pedido9421(criar(novaNota()), { digestErrado: true }));
+  const semDigest = await receber9421(pedido9421(criar(novaNota()), { cobrir: ["@method", "@target-uri"] }));
+  const velha = await receber9421(pedido9421(criar(novaNota()), { criado: Math.floor(Date.now() / 1000) - 13 * 3600 }));
+  const alg = await receber9421(pedido9421(criar(novaNota()), { alg: "hmac-sha256" }));
+  const semDestino = await receber9421(pedido9421(criar(novaNota()), { cobrir: ["@method", "content-digest"] }));
+  return [trocado, digest, semDigest, velha, alg, semDestino].map((r) => `${r.status}:${r.motivo}`);
+}, (r) => r.join() === "401:digest_diferente,401:digest_diferente,401:cabecalhos_faltando,401:data_fora_da_janela,401:algoritmo,401:cabecalhos_faltando");
+await espera("RFC 9421 com Ed25519 e RSA-PSS: confere com a chave certa e recusa com a errada", async () => {
+  const { conferirAssinatura9421 } = await import("../lib/rede/fediverso/assinatura.ts");
+  const ed = par9421("ed25519", { publicKeyEncoding: { type: "spki", format: "pem" }, privateKeyEncoding: { type: "pkcs8", format: "pem" } });
+  const outra = par9421("ed25519", { publicKeyEncoding: { type: "spki", format: "pem" }, privateKeyEncoding: { type: "pkcs8", format: "pem" } });
+  const criado = Math.floor(Date.now() / 1000);
+  const host = new URL(BASE).host;
+  const params = `("@method" "@authority" "@path");created=${criado};keyid="https://ed.teste/actor#ed"`;
+  const base = `"@method": GET\n"@authority": ${host}\n"@path": /api/fediverso/u/autora\n"@signature-params": ${params}`;
+  const sig = assinarCru(null, Buffer.from(base), ed.privateKey).toString("base64");
+  const cab = { host, "signature-input": `x=${params}`, signature: `x=:${sig}:` };
+  const ler = (nome) => cab[nome] ?? null;
+  const a = conferirAssinatura9421({ metodo: "GET", caminho: "/api/fediverso/u/autora", ler, chavePublica: ed.publicKey });
+  const b = conferirAssinatura9421({ metodo: "GET", caminho: "/api/fediverso/u/autora", ler, chavePublica: outra.publicKey });
+  const outroCaminho = conferirAssinatura9421({ metodo: "GET", caminho: "/api/fediverso/u/outra", ler, chavePublica: ed.publicKey });
+  return [a.ok, b.ok ? "ok" : b.motivo, outroCaminho.ok ? "ok" : outroCaminho.motivo];
+}, (r) => r.join() === "true,assinatura_invalida,assinatura_invalida");
+
+await espera("Move: quem daqui seguia a conta antiga passa a seguir a nova (que declara a antiga em alsoKnownAs) e deixa a antiga", async () => {
+  const NOVA = "https://nova.teste/users/bia";
+  rede.docs.set(NOVA, { ...atorDoc(NOVA, chaves.bia.publica), alsoKnownAs: [BIA] });
+  const seguires = [];
+  const guardadas = { seguir: acoes.seguir };
+  acoes.seguir = (p) => { seguires.push(`${p.perfil}:${p.ator === NOVA ? "nova" : p.ator === BIA ? "antiga" : p.ator}:${p.sim}`); return { ok: true }; };
+  funcoesDaPessoa.rede_fed_mudanca_servidor = (c) => (c.p_segredo === SEGREDO && c.p_acao === "quem_segue" && c.p.ator === BIA ? ["perfil-1", "perfil-2"] : new Response(JSON.stringify({ message: "sem_permissao" }), { status: 400 }));
+  try {
+    const r = await enviar({ "@context": AS, id: "https://remota.teste/move/1", type: "Move", actor: BIA, object: BIA, target: NOVA });
+    return [r.motivo, seguires.join(" ")];
+  } finally {
+    acoes.seguir = guardadas.seguir;
+    delete funcoesDaPessoa.rede_fed_mudanca_servidor;
+  }
+}, (r) => r[0] === "mudou:2" && r[1] === "perfil-1:nova:true perfil-1:antiga:false perfil-2:nova:true perfil-2:antiga:false");
+await espera("Move não confirmado (o ator novo não declara o antigo), de outra pessoa ou para instância bloqueada: ninguém muda", async () => {
+  const FALSA = "https://falsa.teste/users/bia";
+  rede.docs.set(FALSA, { ...atorDoc(FALSA, chaves.bia.publica), alsoKnownAs: [] });
+  db.bloqueados.add("bloqueada.teste");
+  try {
+    const a = await enviar({ "@context": AS, id: "https://remota.teste/move/2", type: "Move", actor: BIA, object: BIA, target: FALSA });
+    const b = await enviar({ "@context": AS, id: "https://remota.teste/move/3", type: "Move", actor: BIA, object: "https://remota.teste/users/outra", target: FALSA });
+    const c = await enviar({ "@context": AS, id: "https://remota.teste/move/4", type: "Move", actor: BIA, object: BIA, target: "https://bloqueada.teste/users/bia" });
+    return [a.motivo, b.motivo, c.motivo];
+  } finally {
+    db.bloqueados.delete("bloqueada.teste");
+  }
+}, (r) => r.join() === "mudanca_nao_confirmada,ignorado,instancia_bloqueada");
+
 await espera("Flag (vinda do ator da instância): vira denúncia na mediação, só com os alvos daqui e o comentário", async () => {
   const r = await enviar({ "@context": AS, id: "https://remota.teste/flags/1", type: "Flag", actor: INST, object: [`${BASE}/api/fediverso/u/autora`, URL_POST_LOCAL, "https://outra.teste/users/x"], content: "Spam <b>repetido</b>" }, { quem: INST, chave: chaves.inst.privada });
   const d = db.denuncias.at(-1);
@@ -965,6 +1046,23 @@ const conferirEntrega = (e, publica) => conferirAssinatura({ metodo: "POST", cam
 const keyId = (e) => /keyId="([^"]+)"/.exec(e?.cab?.Signature ?? "")?.[1];
 const feito = (id) => db.feitos.find((x) => x.id === id);
 
+await espera("Update(Person): o perfil mudou e sai o documento do ator inteiro, assinado pela pessoa, para a caixa do seguidor; de outra pessoa, não sai", async () => {
+  rede.entregas = [];
+  rede.post = () => ({ status: 202 });
+  const certo = item("update", "https://remota.teste/inbox", {}, "ator:autora");
+  const deOutra = item("update", "https://remota.teste/inbox", {}, "ator:outra");
+  db.fila.push(certo, deOutra);
+  await entrega.processarFila(200);
+  const e = rede.entregas.find((x) => x.corpo.type === "Update" && x.corpo.object?.type === "Person");
+  return [
+    e?.corpo.actor === `${BASE}/api/fediverso/u/autora`,
+    e?.corpo.object?.id === `${BASE}/api/fediverso/u/autora`,
+    e?.corpo.object?.publicKey?.publicKeyPem === autora.publica,
+    e ? conferirEntrega(e, autora.publica) : false,
+    rede.entregas.filter((x) => x.corpo.type === "Update").length,
+    Boolean(feito(deOutra.id)),
+  ];
+}, (r) => r.join() === "true,true,true,true,1,true");
 await espera("like, undo-like, announce, undo-announce, block e undo-block saem assinados pela pessoa; cada Undo repete o id do original", async () => {
   rede.entregas = [];
   rede.post = () => ({ status: 202 });

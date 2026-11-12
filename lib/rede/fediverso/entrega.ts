@@ -19,7 +19,7 @@
 import { createHash, randomUUID } from "node:crypto";
 import { assinarPedido } from "./assinatura";
 import * as documentos from "./documentos";
-import { atividadeCreate, atividadeDelete, atividadeFollow, atividadeResposta, atividadeUndoFollow, atividadeUpdate, CONTEXTO, PUBLICO, type PostFederado } from "./documentos";
+import { atividadeCreate, atividadeDelete, atividadeFollow, atividadeResposta, atividadeUndoFollow, atividadeUpdate, atividadeUpdateDoAtor, CONTEXTO, documentoDoAtor, imagemDoBanco, PUBLICO, type PostFederado } from "./documentos";
 import type { EnderecosDaFederacao } from "./enderecos";
 import { pedirAoFediverso } from "./http";
 import { abrirChave, atorComChaves, banco, chaveDaInstancia, comunidadeComChaves, fed, modoTotal } from "./servidor";
@@ -128,6 +128,23 @@ function slugDe(item: ItemDaFila): string | null {
 /** Monta a atividade de um item; nulo quando ela não deve mais sair (o post deixou de poder sair, por exemplo). */
 async function montar(item: ItemDaFila): Promise<Atividade | null> {
   const c = construtores;
+  // O perfil da pessoa mudou (20261112-fediverso-perfil-e-mudanca.sql): o documento do ator, montado agora, como a rota do ator.
+  if (item.tipo === "update" && item.objeto.startsWith("ator:")) {
+    const handle = item.objeto.slice(5);
+    if (!handle || handle !== item.handle) return null;
+    const a = await atorComChaves(handle).catch(() => null);
+    if (!a || a.estado !== "ligado" || !a.chave_publica) return null;
+    const x = a as typeof a & { avatar_url?: string | null; capa_url?: string | null; discoverable?: boolean | null; trancado?: boolean | null };
+    const doc = documentoDoAtor(fed, {
+      handle,
+      nome: a.nome ?? handle,
+      bio: a.bio ?? "",
+      ligado_em: a.ligado_em ?? null,
+      chave_publica: a.chave_publica,
+      ...(modoTotal() ? { avatar: imagemDoBanco(fed, x.avatar_url), capa: imagemDoBanco(fed, x.capa_url), discoverable: x.discoverable === true, trancado: x.trancado === true } : {}),
+    }, modoTotal() ? undefined : { total: false, grupos: false });
+    return atividadeUpdateDoAtor(fed, handle, doc as Record<string, unknown>) as unknown as Atividade;
+  }
   if (item.tipo === "create" || item.tipo === "update") {
     const post = await banco<PostFederado | { apagado: true } | null>("post", { id: item.objeto });
     if (!post || "apagado" in post) return null;

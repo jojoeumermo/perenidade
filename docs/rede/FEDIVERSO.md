@@ -280,9 +280,16 @@ Teste: `npm run testar:fediverso-banco` (seção "Privacidade").
   coleções, comunidade, WebFinger, NodeInfo) recusam com 403 quem diz vir de um domínio bloqueado. O domínio vem do `keyId` da
   assinatura (cavage ou RFC 9421) ou do endereço no User-Agent (`conferirLeitor`, em `lib/rede/fediverso/rotas.ts`). Quem não
   diz de onde vem continua lendo o que é público, como qualquer visitante: a Alumia não exige leitura assinada de todos.
-- **Ainda não tratados:** assinatura RFC 9421 na entrada (só cavage é conferida: quem mandar só 9421 recebe 401), `Move` (conta
-  que muda de servidor), `Update(Person)` saindo quando o perfil daqui muda, reação com emoji guardada como emoji (vira curtida) e
-  o que sai segue o formato do Mastodon (post como `Note`).
+- **Assinatura RFC 9421 na entrada** (HTTP Message Signatures, `Signature-Input` e `Content-Digest`): conferida ao lado da
+  cavage, com `rsa-v1_5-sha256`, `rsa-pss-sha512` e `ed25519`, exigindo o método, o destino e, num POST, o `content-digest`
+  (`conferirAssinatura9421`, em `lib/rede/fediverso/assinatura.ts`). O que sai continua assinado em cavage, que todos leem.
+- **`Move` entrando:** quando uma conta de fora muda de servidor, e o ator novo declara o antigo em `alsoKnownAs`, quem daqui
+  seguia a antiga passa a seguir a nova e deixa a antiga, pelas ações de sempre e com os bloqueios valendo.
+- **`Update(Person)` saindo:** quando muda o que sai no ator (codinome conferido, bio, rosto ou capa da galeria), os seguidores
+  de fora recebem o documento novo. Fica no máximo um pendente por pessoa
+  (`supabase/migracoes/20261112-fediverso-perfil-e-mudanca.sql`).
+- **De propósito, como está:** reação com emoji (Misskey, Pleroma) entra como curtida, sem guardar o emoji, porque é um dado a
+  menos. `Dislike` é ignorado. O que sai segue o formato do Mastodon (post como `Note`), que todo o Fediverso lê.
 
 Arquivos: `lib/rede/fediverso/tela/{tipos,cliente,exemplos,textos,html,linha}.ts`, `components/rede/fediverso/`, `i18n/rede/fediverso/*.json`.
 Teste: `npm run testar:fediverso-tela` (bateria de XSS, `href` escondido em outro atributo, caracteres de direção, link que

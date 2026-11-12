@@ -1094,6 +1094,41 @@ await espera("imagem de instância bloqueada nem entra na fila, e a que já esta
   return (await um("select count(*)::int as n from interno.rede_fed_midia where url like 'https://ruim2.teste/%'")).n;
 }, (n) => n === 0);
 
+// 10. Perfil e mudança (B6) ───────────────────────────────────────────────────────────────────────────────────────────
+// (supabase/migracoes/20261112-fediverso-perfil-e-mudanca.sql). O mesmo bloco está no fim do install.sql.
+const perfilEMudanca = lerTexto("supabase/migracoes/20261112-fediverso-perfil-e-mudanca.sql");
+await espera("o install.sql traz a migração do perfil e da mudança idêntica ao arquivo, e ela roda de novo sem erro", async () => {
+  await banco.exclusivo(() => banco.pg.exec(perfilEMudanca));
+  await banco.exclusivo(() => banco.pg.exec(perfilEMudanca));
+  return install.includes(perfilEMudanca.trim());
+});
+const updatesDaEva = () => um("select count(*)::int as n, count(*) filter (where feito_em is null)::int as pendentes from interno.rede_fed_fila where perfil = $1 and tipo = 'update' and objeto = 'ator:eva'", [pessoas.eva]);
+await espera("o perfil da Eva mudou (bio): um Update do ator vai para cada caixa de seguidor, com o objeto 'ator:eva'", async () => {
+  await dono("update interno.rede_fed_fila set feito_em = now() where perfil = $1 and tipo = 'update' and objeto = 'ator:eva'", [pessoas.eva]);
+  const antes = (await updatesDaEva()).n;
+  await dono("update interno.perfis set rede_bio = 'Bio nova da Eva' where id = $1", [pessoas.eva]);
+  const r = await updatesDaEva();
+  return [r.n - antes, r.pendentes];
+}, ([novos, pendentes]) => novos >= 1 && pendentes === novos);
+await espera("várias edições seguidas não enchem a fila: com um Update esperando, nada novo entra", async () => {
+  const antes = (await updatesDaEva()).n;
+  await dono("update interno.perfis set rede_bio = 'Outra bio' where id = $1", [pessoas.eva]);
+  await dono("update interno.perfis set rede_avatar = 'a03' where id = $1", [pessoas.eva]);
+  return (await updatesDaEva()).n - antes;
+}, (n) => n === 0);
+await espera("mudar o que não sai no ator (e quem não ligou a federação) não manda nada", async () => {
+  await dono("update interno.rede_fed_fila set feito_em = now() where tipo = 'update' and objeto like 'ator:%'");
+  const antes = (await um("select count(*)::int as n from interno.rede_fed_fila where tipo = 'update' and objeto like 'ator:%'")).n;
+  await dono("update interno.perfis set suspenso = suspenso where id = $1", [pessoas.eva]);
+  await dono("update interno.perfis set rede_bio = 'Bio do Hugo' where id = $1", [pessoas.hugo]);
+  return (await um("select count(*)::int as n from interno.rede_fed_fila where tipo = 'update' and objeto like 'ator:%'")).n - antes;
+}, (n) => n === 0);
+await espera("Move: o banco diz quem daqui segue o ator antigo (com o segredo); sem segredo, nada", async () => {
+  const quem = await rpc(anon, "rede_fed_mudanca_servidor", { p_segredo: SEGREDO, p_acao: "quem_segue", p: { ator: LIA } });
+  const sem = await rpc(anon, "rede_fed_mudanca_servidor", { p_segredo: "x".repeat(40), p_acao: "quem_segue", p: { ator: LIA } }).then(() => "passou", (e) => e.message);
+  return [Array.isArray(quem) && quem.includes(pessoas.eva), sem.includes("sem_permissao")];
+}, (r) => r.join() === "true,true");
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const f of falhas) console.log(`  ✗ ${f}`);
 process.exit(falhas.length ? 1 : 0);
