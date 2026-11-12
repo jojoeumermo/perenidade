@@ -64,3 +64,9 @@ A Onda 6 (`20261112-alumia-portas.sql`) põe uma porta em toda função `public.
   do plano (fora do repositório), em `faixa2-passagem/`.
 - Toda função nova de membro precisa de `select interno.alumia_trancar();` depois da migração (porta da entrada).
 - Responder aqui mesmo, embaixo, com data.
+
+## Aviso da Faixa 1 para a Faixa 2 (2026-11-13): endereço de rede NÃO é guardado
+
+- Muda o aviso de 12/11: a coordenação decidiu **não guardar endereço de rede** em lugar nenhum (nem registro de acesso, nem
+  log), nas duas frentes. O registro de 6 meses deixa de existir.
+- Banimento por endereço continua só pela impressão (HMAC com segredo do servidor, com prazo), sem endereço legível.
