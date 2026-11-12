@@ -2,6 +2,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Botao } from "../ui/Botao";
+import { EstadoDaAlumia } from "../ui/Estado";
+import { Icone } from "../publicar/alumia2/icones";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { redeMod } from "@/lib/rede/cliente-moderacao";
 import { preencher } from "@/lib/rede/preencher";
@@ -38,7 +41,7 @@ export default function TelaSilenciados({ lang, s, situacao }: PropsDaTelaDoPaco
   }, [situacao.logado, rodada, s]);
 
   if (!situacao.logado) return <p className="px-[18px] py-8 font-sans text-ink-soft">{sm?.entreParaVer ?? s.estados.carregando}</p>;
-  if (!sm || !conta) return erro ? <p role="alert" className="px-[18px] py-8 font-sans text-oxblood">{erro}</p> : <p className="px-[18px] py-8 font-sans" role="status">{s.estados.carregando}</p>;
+  if (!sm || !conta) return erro ? <EstadoDaAlumia erro titulo={sm?.silenciados.titulo} texto={erro}><Botao variante="claro" pilula icone={<Icone nome="desfazer" />} onClick={() => window.location.reload()}>{s.estados.tentar}</Botao></EstadoDaAlumia> : <p className="px-[18px] py-8 font-sans" role="status">{s.estados.carregando}</p>;
   const tipos = sm.silenciados.tipo as Record<string, string>;
 
   async function desfazer(id: string) {

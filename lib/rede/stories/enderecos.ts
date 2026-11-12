@@ -17,10 +17,31 @@ export const enderecosDosStories = {
     `/${lang}/alumia/stories?ver=${encodeURIComponent(handle)}${i && i > 0 ? `&i=${Math.floor(i)}` : ""}`,
   /** O "criar"; com um post, é o "Pôr no story" daquele post. */
   criar: (lang: string, post?: string | null) => `/${lang}/alumia/stories?criar=1${post && ID.test(post) ? `&post=${post}` : ""}`,
+  /** O "criar" com uma resposta à minha pergunta (do story `de`), para publicar sem o nome de quem respondeu. */
+  criarComResposta: (lang: string, de: string, resposta: string) =>
+    `/${lang}/alumia/stories?criar=1${ID.test(de) || EXEMPLO.test(de) ? `&de=${de}` : ""}${ID.test(resposta) || EXEMPLO.test(resposta) ? `&resposta=${resposta}` : ""}`,
+  /** O "criar" da corrente ("Adicionar o seu"): já com a mesma #campanha. */
+  criarNaCorrente: (lang: string, tag: string) => `/${lang}/alumia/stories?criar=1${TAG.test(tag) ? `&campanha=${tag}` : ""}`,
 } as const;
 
+/** Um id dos exemplos da prévia ("ex-meu-1", "ex-resp-1"). */
+const EXEMPLO = /^ex-[a-z0-9-]{1,40}$/;
+const TAG = /^[a-z0-9_]{2,40}$/;
+
+/** O que mais o "criar" pode trazer no endereço (a resposta a publicar, a #campanha da corrente). Fora do formato: nulo. */
+export function lerExtrasDoCriar(busca: URLSearchParams | { get(chave: string): string | null }): { de: string | null; resposta: string | null; campanha: string | null } {
+  const de = busca.get("de");
+  const resposta = busca.get("resposta");
+  const campanha = busca.get("campanha")?.replace(/^#/, "").toLowerCase() ?? null;
+  return {
+    de: de && (ID.test(de) || EXEMPLO.test(de)) ? de : null,
+    resposta: resposta && (ID.test(resposta) || EXEMPLO.test(resposta)) ? resposta : null,
+    campanha: campanha && TAG.test(campanha) ? campanha : null,
+  };
+}
+
 /** As chaves da busca que dizem o que está aberto por cima (as outras, como ?aba=, ficam como estão). */
-export const CHAVES_DOS_STORIES = ["ver", "i", "criar", "post", "destaque"] as const;
+export const CHAVES_DOS_STORIES = ["ver", "i", "criar", "post", "destaque", "de", "resposta", "campanha"] as const;
 
 /** O que o endereço pede (lido da busca): abrir alguém, um destaque, criar, ou só a faixa. Valores fora do formato são ignorados. */
 export function lerPedidoDoEndereco(busca: URLSearchParams | { get(chave: string): string | null }): {

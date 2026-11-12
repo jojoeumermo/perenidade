@@ -5,7 +5,7 @@
 // do back-end existir. Fora da prévia este arquivo nem é baixado (lib/rede/cliente-stories.ts importa sob demanda).
 // Codinomes e organizações de exemplo, nenhuma pessoa real. Sem "@/" de propósito (roda no Node nos testes).
 import type { ClienteDeStories } from "../cliente-stories";
-import type { AutoraDoStory, DestaqueDeStories, FigurinhaEnquete, PedidoDeStory, Story } from "../tipos-stories";
+import type { AutoraDoStory, DestaqueDeStories, FigurinhaEnquete, PedidoDeStory, PessoaDaRoda, Story } from "../tipos-stories";
 import { LIMITES_DO_STORY } from "../tipos-stories";
 
 const H = 60 * 60 * 1000;
@@ -245,5 +245,64 @@ export function criarClienteDaPrevia(relogio: () => number = Date.now): ClienteD
       if (i >= 0) destaques.splice(i, 1);
       return espera({ apagado: i >= 0 });
     },
+    ordenarDestaques: (ids) => {
+      const meusD = destaques.filter((x) => x.autora === "voce");
+      const outros = destaques.filter((x) => x.autora !== "voce");
+      meusD.sort((a, b) => (ids.indexOf(a.d.id) + 1 || 99) - (ids.indexOf(b.d.id) + 1 || 99));
+      destaques.splice(0, destaques.length, ...outros, ...meusD);
+      return espera({ ok: true });
+    },
+    ordenarNoDestaque: (destaque, ids) => {
+      const alvo = destaques.find((x) => x.d.id === destaque && x.autora === "voce");
+      alvo?.stories.sort((a, b) => (ids.indexOf(a.id) + 1 || 99) - (ids.indexOf(b.id) + 1 || 99));
+      return espera({ ok: true });
+    },
+    capaDoDestaque: (destaque, story) => {
+      const alvo = destaques.find((x) => x.d.id === destaque && x.autora === "voce");
+      const s = alvo?.stories.find((x) => x.id === story);
+      if (alvo) {
+        alvo.d.capa_story = story;
+        alvo.d.capa = s && s.fundo.tipo === "imagem" ? { tipo: "imagem", url: s.fundo.url } : null;
+      }
+      return espera({ ok: true });
+    },
+    trocarMidia: (story, caminho) => {
+      for (const s of [...meus, ...destaques.flatMap((x) => x.stories)]) {
+        if (s.id === story && s.fundo.tipo === "imagem") s.fundo = { ...s.fundo, url: caminho.replace(/^previa:/, "") };
+      }
+      return espera({ ok: true });
+    },
+    post: (id) =>
+      espera(
+        id.includes("ato")
+          ? { tipo: "ato" as const, id, autora: todos[0].autora, titulo: "Passe Livre Já", inicio: new Date(relogio() + 2 * 24 * H).toISOString(), cidade: "São Paulo", situacao: "confirmado" as const }
+          : { tipo: "post" as const, id, autora: todos[1].autora, texto: "A assembleia aprovou a greve por tempo indeterminado. Todo mundo na praça amanhã!", criado_em: new Date(relogio() - 3 * H).toISOString() },
+      ),
+    responderPergunta: () => espera({ ok: true }),
+    respostas: () =>
+      espera([
+        { id: "ex-resp-1", texto: "Água, protetor e a faixa do núcleo!", criado_em: new Date(relogio() - 20 * MIN).toISOString(), pergunta: true, de: todos[1].autora },
+        { id: "ex-resp-2", texto: "Tô dentro, levo mais duas pessoas.", criado_em: new Date(relogio() - 50 * MIN).toISOString(), pergunta: false, de: todos[2].autora },
+      ]),
+    caixa: () => espera(meus.filter(noAr).slice(0, 3).map((s) => ({ id: s.id, texto: s.texto, cor: s.fundo.cor, criado_em: s.criado_em, expira_em: s.expira_em, n: 2, perguntas: 1, ultima: new Date(relogio() - 20 * MIN).toISOString() }))),
+    vou: (_ato, sim) => espera({ vou_eu: sim }),
+    roda: () => espera([...roda]),
+    mudarRoda: (handle, sim) => {
+      const h = handle.replace(/^@/, "").toLowerCase();
+      const i = roda.findIndex((x) => x.handle === h);
+      if (sim && i < 0) {
+        const a = todos.find((s) => s.autora.handle === h)?.autora;
+        if (!a) return Promise.reject(new Error("nao_encontrado"));
+        roda.push({ handle: a.handle, nome: a.nome, cor: a.cor ?? null });
+      } else if (!sim && i >= 0) roda.splice(i, 1);
+      return espera([...roda]);
+    },
+    daComunidade: () => {
+      const vivos = todos.filter(noAr).slice(0, 2);
+      return espera(vivos.map((s) => ({ autora: s.autora, ids: [s.id], ultimo_em: s.criado_em })));
+    },
   };
 }
+
+/** A roda de confiança da prévia (só na memória desta aba). */
+const roda: PessoaDaRoda[] = [];

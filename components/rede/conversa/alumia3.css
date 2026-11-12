@@ -103,9 +103,17 @@
 [data-al="2"] .al3-menu[hidden] { display: none; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-menu { border: 2px solid var(--al-texto); box-shadow: none; }
 
-[data-al="2"] .al3-abas { display: flex; border-bottom: 1px solid var(--al-linha); background: var(--al-fundo); }
+/* As abas têm a largura do próprio nome, com respiro, e a fileira rola de lado quando não cabem (6 abas a 390 px ficavam com
+   61 px cada e "Perguntas" encostava em "Sobre"). Com espaço sobrando, crescem por igual. */
+[data-al="2"] .al3-abas { display: flex; border-bottom: 1px solid var(--al-linha); background: var(--al-fundo); overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; }
+[data-al="2"] .al3-abas::-webkit-scrollbar { display: none; }
+@media (max-width: 480px) {
+  /* O degradê do "tem mais" à direita; o espaço no fim deixa a última aba sair de baixo dele. */
+  [data-al="2"] .al3-abas { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); }
+  [data-al="2"] .al3-abas::after { content: ""; flex: 0 0 24px; }
+}
 [data-al="2"] .al3-aba {
-  flex: 1; min-height: 52px; background: none; border: 0; border-bottom: 3px solid transparent; color: var(--al-texto-3);
+  flex: 1 0 auto; padding: 0 16px; white-space: nowrap; min-height: 52px; background: none; border: 0; border-bottom: 3px solid transparent; color: var(--al-texto-3);
   font: inherit; font-weight: 700; font-size: 1.05rem; cursor: pointer;
 }
 [data-al="2"] .al3-aba[aria-selected="true"] { color: var(--al-texto); font-weight: 800; border-bottom-color: var(--al3-cor, var(--al-com-1)); }
@@ -227,6 +235,14 @@
 }
 [data-al="2"] .al3-barra h1 { margin: 0; font-size: 2.1rem; }
 [data-al="2"] .al3-barra-conta { margin: 0 0 0 auto; color: var(--al-texto-3); font-size: 1rem; }
+/* No celular a barra não cabe numa linha (o "31 respostas" quebrava em duas e o último botão passava da tela): o título
+   encolhe, a contagem desce para baixo dele e os dois botões ficam à direita, dentro dos 16 px de margem. */
+@media (max-width: 480px) {
+  [data-al="2"] .al3-barra { flex-wrap: wrap; row-gap: 0; column-gap: 0.5rem; }
+  [data-al="2"] .al3-barra h1 { flex: 1 1 0; min-width: 0; font-size: 1.75rem; }
+  [data-al="2"] .al3-barra-conta { order: 9; flex: 0 0 100%; box-sizing: border-box; margin: -0.35rem 0 0.15rem; padding-left: calc(44px + 0.5rem); font-size: 0.9rem; white-space: nowrap; }
+  [data-al="2"] .al3-barra .al3-sino { margin-right: 0; }
+}
 @media (prefers-reduced-motion: no-preference) { [data-al="2"] .al3-barra-conta { animation: al3-entra 0.35s var(--al3-mola) backwards; } }
 [data-al="2"] .al3-voltar {
   display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; border-radius: 999px; color: var(--al-texto);
@@ -435,6 +451,7 @@
 [data-al="2"] .al3-tela .rounded-xl.border { border-color: var(--al-superficie-2); background: var(--al-superficie); border-radius: var(--al-raio); }
 [data-al="2"] .al3-tela :is(button, a)[class*="bg-[#c21f16]"] { background: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); border-radius: 12px; }
 [data-al="2"] .al3-tela :is(button, a)[class*="bg-[#c21f16]"]:hover { filter: brightness(0.92); }
+[data-al="2"] .al3-tela :is(button, a)[class*="bg-[#c21f16]"][class~="rounded-full"] { border-radius: var(--al-raio-pilula); }
 [data-al="2"] .al3-tela [class*="border-b-[3px]"] { border-bottom-color: var(--al-vermelho); }
 [data-al="2"] .al3-tela :is(input, select, textarea) { background: var(--al-superficie); color: var(--al-texto); border-color: var(--al-superficie-2); }
 [data-al="2"] .al3-tela :is(input, textarea)::placeholder { color: var(--al-texto-3); opacity: 1; }

@@ -7,6 +7,7 @@
 // Sem "@/" de propósito (roda no Node nos testes).
 import { proporcaoDoMosaico } from "../mosaico";
 import { elosDaCorrente } from "./corrente";
+import { dubleDosQuadros } from "./exemplos-quadros";
 import { COMUNIDADES_DE_EXEMPLO } from "../publicar/exemplos-alumia2";
 import type { Ato, Corrente, EstadoDoFarol, FarolDoAto, FiltroDosAtos, OrgQuePosso, PaginaDeAtos, PedidoDeMudanca, RespostaDoVou } from "../tipos-atos";
 
@@ -220,6 +221,8 @@ export function criarDuble(estado: EstadoDoDuble = { atos: atosDeExemplo(), faro
   };
   const porData = (a: { ato: Ato }, b: { ato: Ato }) => a.ato.inicio.localeCompare(b.ato.inicio);
   return {
+    // B1: tarefas, caronas, petição, meta e link (lib/rede/atos/exemplos-quadros.ts).
+    ...dubleDosQuadros(achar),
     rede_atos(a: { p_filtro?: FiltroDosAtos; p_cidade?: string | null; p_comunidade?: string | null }): PaginaDeAtos {
       let lista = [...estado.atos].sort(porData);
       if (a.p_comunidade) lista = lista.filter((x) => x.ato.comunidade?.slug === a.p_comunidade);
@@ -265,7 +268,8 @@ export function criarDuble(estado: EstadoDoDuble = { atos: atosDeExemplo(), faro
         vou_eu: false,
         meu: true,
         respostas: 0,
-        link_apoio: null,
+        link_apoio: texto("link_apoio") || null,
+        meta: typeof p.meta === "number" ? p.meta : null,
       };
       estado.atos.push({ ato, confirmados: 0 });
       return comProporcao(estado.atos[estado.atos.length - 1]);

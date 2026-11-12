@@ -23,8 +23,11 @@ export function AtosPerto({ lang }: ContextoDoEncaixe) {
     return ouvirCidade(() => setCidade(cidadeGuardada()));
   }, []);
   const { estado } = useListaDeAtos("perto", { cidade: cidade ?? null, ligado: !!cidade });
+  // Sem cidade escrita, o bloco não fica só com uma frase: mostra os próximos atos de quem a pessoa segue, com o nome "Seguindo".
+  const { estado: deQuemSigo } = useListaDeAtos("seguindo", { ligado: cidade === null });
   if (!t) return null;
   const itens = estado.fase === "pronto" ? estado.dados.slice(0, 3) : [];
+  const seguidos = cidade === null && deQuemSigo.fase === "pronto" ? deQuemSigo.dados.slice(0, 3) : [];
   return (
     <section className="al-atos-perto" aria-labelledby="al-atos-perto-titulo">
       <div className="al-atos-perto-cabeca">
@@ -36,7 +39,17 @@ export function AtosPerto({ lang }: ContextoDoEncaixe) {
         </Link>
       </div>
       {cidade === null ? (
-        <p className="al-atos-ajuda">{t.perto.semCidade}</p>
+        <>
+          <p className="al-atos-ajuda">{t.perto.semCidade}</p>
+          {seguidos.length > 0 ? (
+            <>
+              <p className="al-atos-perto-rotulo">{t.tela.seguindo}</p>
+              {seguidos.map((a) => (
+                <ItemDoAto key={a.id} ato={a} t={t} lang={lang} />
+              ))}
+            </>
+          ) : null}
+        </>
       ) : estado.fase === "pronto" && itens.length === 0 ? (
         <p className="al-atos-ajuda">{t.perto.vazio}</p>
       ) : (

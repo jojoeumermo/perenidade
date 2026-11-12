@@ -9,24 +9,29 @@ import { rede } from "@/lib/rede/cliente";
 import { comunidades } from "@/lib/rede/cliente-comunidades";
 import { paginaDeExemplo, postsDeExemplo } from "@/lib/rede/conversa/exemplos";
 import { preencher } from "@/lib/rede/preencher";
+import { comReserva } from "@/lib/rede/reserva";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDaAlumia3 } from "@/lib/rede/textos-conversa";
 import type { TextosDeComunidades } from "@/lib/rede/textos-comunidades";
 import { enderecos, type Comunidade, type Post, type Situacao } from "@/lib/rede/tipos";
 import { corDaComunidadeNova, enderecosCom, postsDaSemana, type PaginaDaComunidade, type SituacaoNaComunidade } from "@/lib/rede/tipos-comunidades";
 import { totalVisivel } from "@/lib/rede/tipos-conversa";
+import { CaixaDePerguntas } from "../b1/CaixaDePerguntas";
+import { useTextosB1 } from "../b1/base";
 import { ENCAIXES } from "../encaixes";
-import { textoDoErro } from "../erros";
+import { codigoDoErro, textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { useTextosMod } from "../moderacao/base";
 import { FormularioDeDenuncia } from "../moderacao/FormularioDeDenuncia";
+import { StoriesDaComunidade } from "../stories/encaixe";
+import { WikiDaComunidade } from "./WikiDaComunidade";
 import { CartaoDeAula, Confirmar, FaixaDaPrevia, IconeAlfinete, IconeMais, IconeVoltar, PostCompacto, previa, Torradas, useTextosAlumia3, useTorrada } from "../conversa/base3";
 import { MOLA_PULO, pular, semMovimento, useRegua } from "../conversa/movimento";
 
 // As ferramentas da moderação só chegam ao navegador de quem modera (e só quando abre a aba Sobre).
 const Moderar = dynamic(() => import("./Moderar"), { ssr: false });
 
-type AbaDaComunidade = "posts" | "atos" | "aulas" | "sobre";
+type AbaDaComunidade = "posts" | "atos" | "aulas" | "wiki" | "perguntas" | "sobre";
 
 /**
  * A página da comunidade na Alumia nova (prancha celular-comunidade; PLANO-ALUMIA §3 e §8 F3): capa na cor da comunidade com
@@ -55,7 +60,24 @@ export function PaginaDaComunidadeAlumia({
   const t = useTextosAlumia3(lang);
   const [estado, setEstado] = useState<{ slug: string; dado: PaginaDaComunidade | null; erro: string } | null>(null);
   const [versao, setVersao] = useState(0);
-  const [aba, setAba] = useState<AbaDaComunidade>("posts");
+  // /alumia/c/<slug>/wiki abre direto na aba Wiki (o endereço próprio da wiki, para compartilhar a cartilha).
+  const [aba, setAbaCrua] = useState<AbaDaComunidade>(() => (typeof window !== "undefined" && /\/wiki\/?$/.test(window.location.pathname) ? "wiki" : "posts"));
+  const tb = useTextosB1(lang);
+  const setAba = useCallback(
+    (nova: AbaDaComunidade) => {
+      setAbaCrua(nova);
+      // O endereço acompanha a aba Wiki (sem recarregar e sem entrar no histórico a cada toque).
+      try {
+        const base = enderecos.comunidade(lang, slug);
+        const atual = window.location.pathname;
+        if (nova === "wiki" && !/\/wiki\/?$/.test(atual)) window.history.replaceState(window.history.state, "", `${base}/wiki`);
+        else if (nova !== "wiki" && /\/wiki\/?$/.test(atual)) window.history.replaceState(window.history.state, "", base);
+      } catch {
+        // sem history (prévia em quadro): só a aba muda
+      }
+    },
+    [lang, slug],
+  );
   const [minha, setMinha] = useState<{ slug: string; valor: SituacaoNaComunidade } | null>(null);
   const torradas = useTorrada();
   const avisar = torradas.mostrar;
@@ -102,12 +124,16 @@ export function PaginaDaComunidadeAlumia({
   useEffect(() => {
     let vivo = true;
     // rede_alumia_com_pagina (20261109-alumia-f3.sql): a página de hoje + "N posts esta semana", agregado e nulo abaixo de 3. Banco
-    // sem a migração da F3 ainda: cai na página de hoje (sem a contagem, que aparece como "poucos").
+    // sem a migração da F3 ainda (e SÓ nesse caso): cai na página de hoje, sem a contagem. Limite, conta suspensa, sem permissão e
+    // não encontrada vão direto para a tela (lib/rede/reserva.ts), sem uma segunda chamada que gastaria a cota de novo.
     // Na prévia, a comunidade do slug (com nome, cor e descrição dela); slug que não existe: nulo, e a tela diz "não encontrada".
-    const pedir = previa() ? Promise.resolve(paginaDeExemplo(slug)) : comunidades.paginaAlumia(slug).catch(() => comunidades.pagina(slug));
+    const pedir = previa()
+      ? Promise.resolve(paginaDeExemplo(slug))
+      : comReserva(() => comunidades.paginaAlumia(slug), () => comunidades.pagina(slug));
     pedir
       .then((dado) => vivo && setEstado({ slug, dado, erro: "" }))
-      .catch((e) => vivo && setEstado({ slug, dado: null, erro: textoDoErro(s, e) }));
+      // "Não encontrada" (não existe, é fechada para a pessoa): a tela própria de 404, a mesma nos dois casos (sem dizer qual).
+      .catch((e) => vivo && setEstado({ slug, dado: null, erro: codigoDoErro(e) === "nao_encontrado" ? "" : textoDoErro(s, e) }));
     return () => {
       vivo = false;
     };
@@ -211,6 +237,7 @@ export function PaginaDaComunidadeAlumia({
     ["posts", t.comunidade.posts],
     ["atos", t.comunidade.atos],
     ["aulas", t.comunidade.aulas],
+    ...(tb ? ([["wiki", tb.wiki.aba], ["perguntas", tb.perguntas.aba]] as [AbaDaComunidade, string][]) : []),
     ["sobre", t.comunidade.sobre],
   ];
 
@@ -308,6 +335,9 @@ export function PaginaDaComunidadeAlumia({
         voltarPara={entrarRef}
       />
 
+      {/* Os stories no ar que falam desta comunidade (só os que a pessoa pode ver); sem nenhum, não aparece nada. */}
+      <StoriesDaComunidade lang={lang} situacao={situacao} slug={comunidade.slug} />
+
       <div className={`al3-cor-${cor}`}>
         <div role="tablist" aria-label={t.comunidade.abas} className="al3-abas" ref={abasRef}>
           <span className="al3-abas-linha" aria-hidden />
@@ -395,6 +425,14 @@ export function PaginaDaComunidadeAlumia({
                 ))}
               </div>
             ))}
+        </div>
+        <div role="tabpanel" id="al3-painel-wiki" aria-labelledby="al3-aba-wiki" hidden={aba !== "wiki"} className="al3-painel">
+          {aba === "wiki" && <WikiDaComunidade slug={comunidade.slug} lang={lang} s={s} situacao={situacao} aoAvisar={(texto, erro) => avisar({ texto, erro })} />}
+        </div>
+        <div role="tabpanel" id="al3-painel-perguntas" aria-labelledby="al3-aba-perguntas" hidden={aba !== "perguntas"} className="al3-painel">
+          {aba === "perguntas" && (
+            <CaixaDePerguntas alvo={{ slug: comunidade.slug }} nome={comunidade.nome} lang={lang} s={s} situacao={situacao} aoAvisar={(texto, erro) => avisar({ texto, erro })} />
+          )}
         </div>
         <div role="tabpanel" id="al3-painel-sobre" aria-labelledby="al3-aba-sobre" hidden={aba !== "sobre"} className="al3-painel">
           {aba === "sobre" && (

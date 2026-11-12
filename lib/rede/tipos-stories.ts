@@ -10,9 +10,12 @@
 //   - resposta, reação e voto vão só para a autora; a soma da enquete só a autora vê, agregada e a partir de 3;
 //   - story nunca vai ao Fediverso e some em 24 h (expira_em).
 
-/** Quem vê o story (o banco tem o mesmo check): quem me segue, a comunidade da Alumia (membros) ou só os próximos. */
-export type PublicoDoStory = "seguidores" | "membros" | "proximos";
-export const PUBLICOS_DO_STORY: readonly PublicoDoStory[] = ["seguidores", "membros", "proximos"];
+/**
+ * Quem vê o story (o banco tem o mesmo check): quem me segue, a comunidade da Alumia (membros), a minha RODA DE CONFIANÇA
+ * ("proximos": a lista pessoal e privada, não "seguir um ao outro") ou só os membros de UMA comunidade minha.
+ */
+export type PublicoDoStory = "seguidores" | "membros" | "proximos" | "comunidade";
+export const PUBLICOS_DO_STORY: readonly PublicoDoStory[] = ["seguidores", "membros", "proximos", "comunidade"];
 
 /** As 6 cores de fundo da prancha "criar story" (as listras da faixa tecida). */
 export type CorDoStory = "azul" | "vermelho" | "dourado" | "verde" | "rosa" | "noite";
@@ -62,9 +65,31 @@ export interface EstiloDoStory {
   caixa?: "nenhuma" | "caixa";
 }
 
-/** As figurinhas: as 4 da prancha e a menção de comunidade. */
-export type TipoDeFigurinha = "contagem" | "pergunta" | "enquete" | "link" | "comunidade";
-export const TIPOS_DE_FIGURINHA: readonly TipoDeFigurinha[] = ["contagem", "pergunta", "enquete", "link", "comunidade"];
+/**
+ * As figurinhas: as 4 da prancha, a menção de comunidade e as do B1 ("vou" no ato, menção a pessoa, #campanha e a "resposta" à
+ * pergunta, que só nasce de uma resposta que chegou), mais as decorativas da Alumia (lista fechada, desenhadas no aparelho).
+ */
+export type TipoInterativo = "contagem" | "pergunta" | "enquete" | "link" | "comunidade" | "vou" | "pessoa" | "campanha" | "resposta";
+export type TipoDeFigurinha = TipoInterativo | "decorativa";
+/** As interativas que a autora liga pelos botões do "criar" (a "resposta" vem da caixa de respostas). */
+export type TipoDoBotao = Exclude<TipoInterativo, "resposta">;
+export const TIPOS_DE_FIGURINHA: readonly TipoDoBotao[] = ["contagem", "pergunta", "enquete", "link", "comunidade", "vou", "pessoa", "campanha"];
+
+/** As figurinhas decorativas da Alumia (o banco aceita só estes nomes; o desenho é components/rede/figurinhas/Decorativas.tsx). */
+export const DECORATIVAS = ["punho", "lampiao", "megafone", "faixa", "carimbo-luta", "carimbo-presente", "estrela", "flor"] as const;
+export type NomeDecorativo = (typeof DECORATIVAS)[number];
+
+/** A música opcional do vídeo: gerada no aparelho (lib/rede/stories/musica.ts), sem arquivo de fora e sem serviço de terceiros. */
+export const MUSICAS_DO_STORY = ["batucada", "marcha", "ciranda", "tambor"] as const;
+export type MusicaDoStory = (typeof MUSICAS_DO_STORY)[number];
+
+/** Uma legenda do vídeo (feita e aprovada pela autora): de `de` a `ate` (ms); "grande" = texto no meio da tela, não embaixo. */
+export interface LegendaDoVideo {
+  de: number;
+  ate: number;
+  texto: string;
+  grande?: boolean;
+}
 
 /** Contagem regressiva para um ato (lê o ato da F2 só pelo id). */
 export interface FigurinhaContagem {
@@ -121,7 +146,116 @@ export interface PosicaoDaFigurinha {
   escala: number;
 }
 
-export type Figurinha = (FigurinhaContagem | FigurinhaPergunta | FigurinhaEnquete | FigurinhaLink | FigurinhaComunidade) & { pos?: PosicaoDaFigurinha | null };
+/** Decorativa: só o desenho (punho, lampião, megafone…). */
+export interface FigurinhaDecorativa {
+  tipo: "decorativa";
+  nome: NomeDecorativo;
+}
+
+/** Uma resposta à minha pergunta, publicada num story novo: a pergunta e a resposta, NUNCA quem respondeu. */
+export interface FigurinhaResposta {
+  tipo: "resposta";
+  pergunta: string;
+  texto: string;
+  /** Só no pedido: o id da resposta (o banco busca o texto de novo e confere que a pergunta é minha). */
+  resposta?: string;
+}
+
+/** "Vou": confirmar presença no ato direto do story (a mesma confirmação da página do ato). */
+export interface FigurinhaVou {
+  tipo: "vou";
+  /** Nulo se quem vê não pode ver o ato (ou ele sumiu). */
+  ato: string | null;
+  titulo: string;
+  inicio: string;
+  cidade?: string | null;
+  vou_eu?: boolean;
+  /** Quantas pessoas vão, só a partir de 3 (de 10 para cima, arredondado de 5 em 5). */
+  total?: number | null;
+  encerrado?: boolean;
+}
+
+/** Menção a uma pessoa da Alumia (o @ e o codinome; nulo se há bloqueio ou a conta sumiu). */
+export interface FigurinhaPessoa {
+  tipo: "pessoa";
+  handle: string | null;
+  nome: string;
+}
+
+/** #campanha; com `corrente`, quem vê pode "Adicionar o seu" (um story seu com a mesma #). */
+export interface FigurinhaCampanha {
+  tipo: "campanha";
+  tag: string;
+  corrente: boolean;
+  /** Quantas pessoas entraram na corrente (stories no ar), só a partir de 3. */
+  total?: number | null;
+}
+
+export type Figurinha = (
+  | FigurinhaContagem
+  | FigurinhaPergunta
+  | FigurinhaEnquete
+  | FigurinhaLink
+  | FigurinhaComunidade
+  | FigurinhaDecorativa
+  | FigurinhaResposta
+  | FigurinhaVou
+  | FigurinhaPessoa
+  | FigurinhaCampanha
+) & { pos?: PosicaoDaFigurinha | null };
+
+/** O cartão do post ou do ato de onde o story veio ("Pôr no story"), como quem vê pode vê-lo. */
+export type CartaoDoPost =
+  | { tipo: "post"; id: string; autora: AutoraDoStory | null; texto: string; criado_em: string; aviso?: string | null }
+  | {
+      tipo: "ato";
+      id: string;
+      autora: AutoraDoStory | null;
+      titulo: string;
+      inicio: string;
+      /** Só a cidade (nunca o ponto exato do ato num story). */
+      cidade: string;
+      tipo_do_ato?: string;
+      situacao: "confirmado" | "adiado" | "cancelado";
+    }
+  | { tipo: "indisponivel"; id: null };
+
+/** As reações do story, para a autora: só totais, e só a partir de 3 ("poucas" abaixo disso). Nunca quem. */
+export interface ReacoesDoStory {
+  total: number | null;
+  poucas: boolean;
+  por: { punho: number | null; chama: number | null; coracao: number | null };
+}
+
+/** Uma resposta que chegou a um story meu (como numa mensagem direta: quem mandou escolheu falar comigo). */
+export interface RespostaDoStory {
+  id: string;
+  texto: string;
+  criado_em: string;
+  /** Veio da figurinha de pergunta (aí pode virar um story novo, sem o nome). */
+  pergunta: boolean;
+  /** Nulo se há bloqueio ou a conta saiu da Alumia. */
+  de: AutoraDoStory | null;
+}
+
+/** Um story meu na caixa de respostas. */
+export interface ItemDaCaixa {
+  id: string;
+  texto: string;
+  cor: CorDoStory;
+  criado_em: string;
+  expira_em: string;
+  n: number;
+  perguntas: number;
+  ultima: string;
+}
+
+/** Uma pessoa da minha roda de confiança (só eu vejo a lista). */
+export interface PessoaDaRoda {
+  handle: string;
+  nome: string;
+  cor?: 1 | 2 | 3 | 4 | 5 | null;
+}
 
 /** Uma comunidade que posso mencionar (as minhas). */
 export interface ComunidadeParaMencao {
@@ -156,6 +290,18 @@ export interface Story {
   estilo?: EstiloDoStory;
   /** Só para a autora: os destaques onde este story está guardado. */
   destaques?: string[] | null;
+  /** O post ou o ato de onde veio ("Pôr no story"). */
+  post?: CartaoDoPost | null;
+  /** Público "comunidade": qual. */
+  comunidade?: { slug: string; nome: string } | null;
+  /** As legendas do vídeo (aprovadas pela autora). */
+  legendas?: LegendaDoVideo[] | null;
+  /** A música da Alumia que foi misturada no vídeo (só o nome, para a etiqueta). */
+  musica?: MusicaDoStory | null;
+  /** Só para a autora: quantas respostas chegaram (mensagens, não pessoas). */
+  respostas?: number | null;
+  /** Só para a autora: as reações, só a partir de 3. */
+  reacoes?: ReacoesDoStory | null;
 }
 
 /** Uma bolinha da faixa: os stories de uma autora, do mais antigo para o mais novo (só os ids; o conteúdo vem ao abrir). */
@@ -188,8 +334,10 @@ export interface PedidoDeStory {
   legenda: string | null;
   /** O caminho no depósito rede-stories ("<uid>/<id>.webp" ou ".mp4/.webm") quando há mídia; o envio vem antes (enviarImagem). */
   imagem: string | null;
-  /** Só com fundo "video": a duração e se vai com som. */
-  video?: { duracao_ms: number; som: boolean } | null;
+  /** Só com fundo "video": a duração, se vai com som, a música da Alumia e as legendas. */
+  video?: { duracao_ms: number; som: boolean; musica?: MusicaDoStory | null; legendas?: LegendaDoVideo[] } | null;
+  /** Público "comunidade": o slug (de uma comunidade em que sou membro ativa). */
+  comunidade?: string | null;
   estilo?: EstiloDoStory;
   /** O texto alternativo da imagem (a pessoa escreve; sem ele, "Imagem do story"). */
   alt: string | null;
@@ -209,8 +357,10 @@ export interface DestaqueDeStories {
   cor: CorDoStory;
   /** Quantos stories EU posso ver nele (nunca quantas pessoas viram). */
   n: number;
-  /** A capa: a primeira imagem (endereço assinado, pedido pelo cliente), ou nula (aí a cor). */
+  /** A capa: a escolhida pela dona ou a primeira imagem (endereço assinado, pedido pelo cliente), ou nula (aí a cor). */
   capa?: { caminho?: string; tipo: "imagem"; url?: string } | null;
+  /** Só para a dona: o story escolhido como capa (nulo = a primeira foto). */
+  capa_story?: string | null;
 }
 
 /** Limites (o banco confere de novo). */
@@ -221,7 +371,12 @@ export const LIMITES_DO_STORY = {
   pergunta: 90,
   opcao: 24,
   rotuloDoLink: 40,
+  /** Interativas (as decorativas contam à parte). */
   figurinhas: 3,
+  decorativas: 3,
+  roda: 150,
+  legendas: 40,
+  legendaDoVideo: 120,
   /** 24 h, em ms. */
   vida: 24 * 60 * 60 * 1000,
   /** O vídeo: até 60 s e 20 MB depois de regravado no aparelho. */

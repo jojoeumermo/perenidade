@@ -47,6 +47,7 @@ export const RECURSOS = {
   "alumia-modo-ato": "Alumia: modo ato, Fui detido, Estou bem e as telas de segurança pessoal (aparelhos, identidades). Precisa de rede-v2 e alumia-2",
   "alumia-org": "Alumia: organizações com selo (não é apoio do Instituto), consultas à base, plenárias e prestação de contas. Precisa de rede-v2 e alumia-2",
   "alumia-chat-grupo": "Alumia: conversa cifrada de ponta a ponta do núcleo (grupo). Precisa de rede-v2 e alumia-2",
+  "alumia-entrada": "Alumia fechada: sem conta aprovada ninguém vê a rede. Tela própria de entrar e criar conta, triagem da coordenação e da mediação no painel e segundo fator obrigatório. Precisa do SQL 20261110-alumia-entrada.sql e, no banco, de interno.alumia_entrada_ligar(true)",
 } as const;
 
 export type Recurso = keyof typeof RECURSOS;
@@ -80,7 +81,7 @@ export const PADRAO: readonly Recurso[] = [
 ];
 
 /** Recursos que "todos" não liga: só ligam com o nome na lista. */
-export const SO_PELO_NOME: readonly Recurso[] = ["escola", "vale-o-escrito", "rede-v2", "fediverso-total", "fediverso-grupos", "alumia-2", "alumia-stories", "alumia-modo-ato", "alumia-org", "alumia-chat-grupo", "alumia-proximas"];
+export const SO_PELO_NOME: readonly Recurso[] = ["escola", "vale-o-escrito", "rede-v2", "fediverso-total", "fediverso-grupos", "alumia-2", "alumia-stories", "alumia-modo-ato", "alumia-org", "alumia-chat-grupo", "alumia-proximas", "alumia-entrada"];
 
 /**
  * Recursos EM PAUSA: prontos e testados, mas desligados por decisão da coordenação (T08, 06/11/2026: "deixa desativado pelo

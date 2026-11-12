@@ -12,6 +12,8 @@ import type { TextosDeComunidades } from "@/lib/rede/textos-comunidades";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { FaixaDaPrevia, previa, useTextosAlumia3 } from "../conversa/base3";
+import { Icone } from "../publicar/alumia2/icones";
+import { Botao, LinkBotao } from "../ui/Botao";
 import { AcoesDaComunidade } from "./AcoesDaComunidade";
 import { erroCom, textosDe, useCarregar } from "./util";
 // O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
@@ -36,7 +38,7 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const sc = textosDe(s);
   const t3 = useTextosAlumia3(lang);
   // Na prévia, as comunidades de exemplo (as mesmas de Explorar e de "Comunidades ativas"); a Passe Livre já tem a Faísca dentro.
-  const { dado, erro, pronto } = useCarregar(
+  const { dado, erro, pronto, recarregar } = useCarregar(
     () => (previa() ? Promise.resolve({ itens: listaDeExemplo().map((c) => (c.slug === "passe-livre-sp" ? { ...c, situacao: "membro" as const } : c)) }) : comunidades.lista()),
     "lista",
   );
@@ -62,7 +64,13 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
         <header className="border-b border-rule px-[18px] py-4">
           <h1 className="al3-cond al3-titulo-tela">{sc.lista.titulo}</h1>
         </header>
-        <p role="alert" className="px-[18px] py-8 text-ink-soft">{erro ? erroCom(s, sc, erro) : s.estados.erro}</p>
+        <div role="alert" className="al2-aviso-erro mx-4 my-6">
+          <Icone nome="alerta" />
+          <p>{erro ? erroCom(s, sc, erro) : s.estados.erro}</p>
+          <Botao variante="claro" tamanho="p" pilula icone={<Icone nome="desfazer" />} onClick={recarregar}>
+            {s.estados.tentar}
+          </Botao>
+        </div>
       </div>
     );
   }
@@ -90,29 +98,29 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
           ainda não entrou na Alumia: UM convite, em vez da mesma frase repetida em cada cartão. */}
       {!situacao.logado && <p className="mx-[18px] mt-3 rounded-xl bg-parchment-deep p-3 text-sm">{l.conviteTexto}</p>}
       {situacao.logado && !pode && (
-        <section className="m-3 overflow-hidden rounded-[18px] border-[1.5px] border-ink bg-[#1f1a14] text-[#f4ecd8]" aria-labelledby="vitrine-convite">
-          <div className="alumia-convite-faixa h-1.5" aria-hidden />
-          <div className="flex flex-wrap items-center gap-3 p-4">
+        <section className="al2-convite-entrar" aria-labelledby="vitrine-convite">
+          <div className="flex flex-wrap items-center gap-3">
             <div className="min-w-0 flex-1 basis-64">
-              <h2 id="vitrine-convite" className="font-serif text-lg font-extrabold">{l.conviteTitulo}</h2>
-              <p className="mt-1 text-sm opacity-90">{l.conviteTexto}</p>
+              <h2 id="vitrine-convite" className="al-cond text-[1.9rem]">{l.conviteTitulo}</h2>
+              <p className="mt-2 text-sm text-[var(--al-texto-2)]">{l.conviteTexto}</p>
             </div>
-            <Link href={enderecos.linha(lang)} className="alumia-botao inline-flex min-h-11 items-center rounded-full bg-[#c21f16] px-5 font-bold text-white hover:bg-white hover:text-[#1f1a14]">
+            <LinkBotao href={enderecos.linha(lang)} variante="primario" pilula className="al2-aperta">
               {l.conviteBotao}
-            </Link>
+            </LinkBotao>
           </div>
         </section>
       )}
 
       <div className="space-y-3 border-b border-rule px-[18px] py-3">
-        <div role="search">
+        <div role="search" className="al3-busca">
+          <Icone nome="lupa" className="h-5 w-5 shrink-0" />
           <label htmlFor="vitrine-busca" className="sr-only">{l.buscar}</label>
-          <input id="vitrine-busca" type="search" value={busca} onChange={(e) => setBusca(e.target.value)} placeholder={l.buscar} className="min-h-11 w-full rounded-full border border-rule bg-folha px-4" />
+          <input id="vitrine-busca" type="search" value={busca} onChange={(e) => setBusca(e.target.value)} placeholder={l.buscar} className="min-h-11 w-full" />
         </div>
         <fieldset className="flex flex-wrap items-center gap-2 text-sm">
           <legend className="sr-only">{l.filtro}</legend>
           {(["todas", ...ORDEM] as const).map((c) => (
-            <label key={c} className={`inline-flex min-h-9 cursor-pointer items-center rounded-full border-[1.5px] px-3 font-bold has-focus-visible:outline-2 ${categoria === c ? "border-ink bg-[#1f1a14] text-[#f4ecd8]" : "border-rule hover:border-ink"}`}>
+            <label key={c} className="al2-chip">
               <input type="radio" name="vitrine-categoria" value={c} checked={categoria === c} onChange={() => setCategoria(c)} className="sr-only" />
               {c === "todas" ? l.todas : nomes[c]}
             </label>
@@ -138,8 +146,8 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
         return (
           <details key={`${cat}-${aberta}`} open={aberta} className="group border-b border-rule">
             <summary className="flex min-h-12 cursor-pointer list-none items-center gap-2 px-[18px] py-3 [&::-webkit-details-marker]:hidden">
-              <span aria-hidden className="text-[#c21f16] transition-transform group-open:rotate-90">▸</span>
-              <h2 className="font-serif text-xl font-semibold">{nomes[cat]}</h2>
+              <span aria-hidden className="text-[var(--al-vermelho-sobre-escuro)] transition-transform group-open:rotate-90">▸</span>
+              <h2 className="al-cond text-[1.6rem]">{nomes[cat]}</h2>
               <span className="rounded-full bg-parchment-deep px-2 text-sm font-bold">{daqui.length}</span>
             </summary>
             <ul className="grid gap-3 px-3 pb-4 sm:grid-cols-2">
@@ -184,10 +192,12 @@ function Cartao({
           ? preencher(l.semana, { posts: i.posts_7d, pessoas: i.pessoas_7d })
           : preencher(l.semanaPoucas, { posts: i.posts_7d });
   return (
-    <article style={cor ? ({ "--cor-da-comunidade": cor } as React.CSSProperties) : undefined} className={`alumia-vitrine-cartao al3-vitrine-cartao al3-cor-${corDaComunidadeNova(i.slug, i.cor)} flex h-full flex-col rounded-[18px] border-[1.5px] border-rule bg-folha p-4`}>
-      <div className="flex items-start gap-2">
-        <h3 className="min-w-0 flex-1 font-serif text-lg font-bold leading-snug">
-          {i.amostra ? i.nome : <Link href={enderecos.comunidade(lang, i.slug)} className="underline decoration-1 underline-offset-2 hover:decoration-2">{i.nome}</Link>}
+    <article style={cor ? ({ "--cor-da-comunidade": cor } as React.CSSProperties) : undefined} className={`al2-cartao-com al3-cor-${corDaComunidadeNova(i.slug, i.cor)} flex h-full flex-col p-4`}>
+      <div className="flex items-start gap-3">
+        {/* O anel da cor da comunidade (prancha: "Comunidades ativas"), no lugar da tira grossa em cima. */}
+        <span aria-hidden className="al3-anel mt-0.5" />
+        <h3 className="min-w-0 flex-1 text-lg font-extrabold leading-snug">
+          {i.amostra ? i.nome : <Link href={enderecos.comunidade(lang, i.slug)} className="al2-nome-link">{i.nome}</Link>}
         </h3>
         <span title={sc.tipo[i.tipo]} className="shrink-0 rounded-full border border-current px-2 text-[0.7rem] font-bold uppercase leading-5 tracking-wider text-ink-soft">
           {i.amostra ? l.amostraSelo : l.tipoCurto[i.tipo]}

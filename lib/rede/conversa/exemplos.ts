@@ -353,7 +353,8 @@ function arvoreDoPostDeComunidade(id: string, agora: number): Arvore | null {
  * nunca a conversa de outro post.
  */
 export function arvoreDeExemplo(id: string, agora: number = Date.now()): Arvore | null {
-  if (id === ID.lia) return arvoreDaLia(id, agora);
+  // O cartão da Lia no Início ("exemplo-lia") abre a mesma conversa das pranchas.
+  if (id === ID.lia || id === "exemplo-lia") return arvoreDaLia(id, agora);
   return arvoreDoAto(id, agora) ?? arvoreDoPostDeComunidade(id, agora);
 }
 

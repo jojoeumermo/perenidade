@@ -12,6 +12,7 @@ import { LinkBotao } from "../ui/Botao";
 import { Carimbo } from "../ui/Carimbo";
 import { Faixa } from "../ui/Faixa";
 import { Lampiao } from "../ui/Lampiao";
+import { DiretorioDasOrganizacoes, MapaDosLampioes } from "./b1/Diretorio";
 import { BotoesDoSiteDaOrg } from "./BotoesDoSite";
 import { BarrasDaConsulta, CartaoAoVivo, ListaDeNucleos } from "./partes";
 import "./org.css";
@@ -227,6 +228,10 @@ export function ConteudoParaOrganizacoes({ t, lang, naCasca = false }: { t: Text
             {p.pedirOSelo}
           </LinkBotao>
         </aside>
+
+        {/* B1: o diretório das organizações com selo e o mapa dos lampiões (leem o banco no navegador). */}
+        <DiretorioDasOrganizacoes lang={lang} tipos={t.tipos} />
+        <MapaDosLampioes lang={lang} aoAcender={enderecosDaOrg.selo(lang)} />
       </div>
     </div>
   );

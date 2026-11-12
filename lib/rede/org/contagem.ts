@@ -69,3 +69,9 @@ export function linkSeguro(url: string | null | undefined): string | null {
     return null;
   }
 }
+
+/** "Atualizada agora" nos primeiros segundos; depois "Atualizada há N s" (nunca "há 0 s"). `ms` é o tempo desde a última leitura. */
+export function haQuanto(textos: { atualizada: string; atualizadaAgora: string }, ms: number): string {
+  const s = Math.max(0, Math.round(ms / 1000));
+  return s < 3 ? textos.atualizadaAgora : textos.atualizada.replace("{s}", String(s));
+}

@@ -248,6 +248,24 @@ export async function iniciar({ silencioso = false } = {}) {
           return json(res, 200, sessao(await usuarioPorId(dados.sub), "aal2"));
         }
       }
+      // ── Login único (app/api/sessao/ponte): o código de uma vez de um link mágico, gerado com a chave de serviço, e a troca dele
+      // por uma sessão nova (verifyOtp com token_hash). Vale 5 minutos e uma vez só, como no serviço real.
+      if (url.pathname === "/auth/v1/admin/generate_link" && req.method === "POST") {
+        if (portador(req)?.role !== "service_role") return json(res, 401, { error_code: "not_admin", msg: "User not allowed" });
+        const u = await usuarioPorEmail(corpo.email);
+        if (!u || corpo.type !== "magiclink") return json(res, 404, { error_code: "user_not_found", msg: "User not found" });
+        const hash = crypto.randomBytes(28).toString("hex");
+        links.set(`otp:${hash}`, { id: u.id, ate: Date.now() + 300_000 });
+        return json(res, 200, { ...usuarioJson(u), action_link: "", email_otp: "", hashed_token: hash, verification_type: "magiclink", redirect_to: "" });
+      }
+      if (url.pathname === "/auth/v1/verify" && req.method === "POST" && corpo.token_hash) {
+        const chave = `otp:${String(corpo.token_hash)}`;
+        const otp = links.get(chave);
+        links.delete(chave);
+        const u = otp && otp.ate > Date.now() ? await usuarioPorId(otp.id) : null;
+        if (!u) return json(res, 403, { error_code: "otp_expired", msg: "Email link is invalid or has expired" });
+        return json(res, 200, sessao(u));
+      }
       if (url.pathname === "/auth/v1/logout" && req.method === "POST") {
         res.writeHead(204);
         return res.end();

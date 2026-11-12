@@ -9,12 +9,17 @@ import { anelEmCss, barrasDoProgresso, duracaoNaTela, estiloDoTexto, PALETA_DO_S
 import type { ClienteDeStories } from "@/lib/rede/cliente-stories";
 import type { TextosDosStories } from "@/lib/rede/textos-stories";
 import { CATEGORIAS_DE_DENUNCIA, type CategoriaDeDenuncia } from "@/lib/rede/tipos-moderacao";
-import { LIMITES_DO_STORY, REACOES_DO_STORY, type AutoraDoStory, type Figurinha, type FigurinhaEnquete, type ReacaoDoStory, type Story } from "@/lib/rede/tipos-stories";
+import { LIMITES_DO_STORY, REACOES_DO_STORY, type AutoraDoStory, type Figurinha, type FigurinhaEnquete, type FigurinhaVou, type ReacaoDoStory, type Story } from "@/lib/rede/tipos-stories";
 import { ComunidadeVer } from "../figurinhas/Comunidade";
 import { ContagemVer } from "../figurinhas/Contagem";
 import { EnqueteVer } from "../figurinhas/Enquete";
 import { LinkVer } from "../figurinhas/Link";
 import { PerguntaVer } from "../figurinhas/Pergunta";
+import { DecorativaVer } from "../figurinhas/Decorativas";
+import { CampanhaVer, PessoaVer, RespostaVer, VouVer } from "../figurinhas/Novas";
+import { legendaNoTempo } from "@/lib/rede/stories/legendas";
+import { CartaoDoPostNoStory } from "./CartaoDoPost";
+import { CaixaDeRespostas, ResumoDaAutora } from "./Respostas";
 import { Avatar16 } from "../ui/Avatar16";
 import { estiloDaPosicao } from "./FigurinhaSolta";
 import { FundoDoStory, estiloDaTela } from "./FundoDoStory";
@@ -25,10 +30,12 @@ import { avisarDestaques, codigoDoErro, focarNoGrupo, indiceDaSeta, larguraDaTel
 /** As reações da prancha (conjunto fechado, sem emoji livre: PLANO-ALUMIA §12). */
 const DESENHO_DA_REACAO: Record<ReacaoDoStory, string> = { punho: "✊", chama: "\u{1F525}", coracao: "❤️" };
 
-type Caixa = null | "menu" | "denunciar" | "apagar" | "guardar";
+type Caixa = null | "menu" | "denunciar" | "apagar" | "guardar" | "respostas";
 
 /** O som vale para a sessão inteira (só na memória deste aparelho, como no Instagram: ligou uma vez, fica ligado). */
 const somDaSessao = { mudo: false };
+/** As legendas do vídeo começam ligadas (a acessibilidade de quem vê sem som); desligar vale para a sessão. */
+const legendasDaSessao = { ligadas: true };
 /** A chave de cada festa de reação (só para o React saber que é outra). */
 const contagemDeExplosoes = { n: 0 };
 const novaExplosao = () => ++contagemDeExplosoes.n;
@@ -91,6 +98,7 @@ export function Visor({
   aoFechar,
   aoMudou,
   aoTrocar,
+  noStory = null,
 }: {
   t: TextosDosStories;
   cliente: ClienteDeStories;
@@ -109,6 +117,8 @@ export function Visor({
   aoMudou?: () => void;
   /** Passou para outra pessoa ou outro story: o endereço acompanha (?ver=<handle>&i=<i>), para recarregar e compartilhar. */
   aoTrocar?: (handle: string, i: number) => void;
+  /** Abrir já neste story (um dos meus) com a caixa de respostas aberta (a caixa geral da tela dos stories). */
+  noStory?: string | null;
 }) {
   const [quem, setQuem] = useState(handle);
   const [stories, setStories] = useState<Story[] | null>(null);
@@ -130,6 +140,11 @@ export function Visor({
   const [somBloqueado, setSomBloqueado] = useState(false);
   const [esperando, setEsperando] = useState(false);
   const [trocando, setTrocando] = useState(false);
+  const [legendasLigadas, setLegendasLigadasAgora] = useState(legendasDaSessao.ligadas);
+  const setLegendasLigadas = (sim: boolean) => {
+    legendasDaSessao.ligadas = sim;
+    setLegendasLigadasAgora(sim);
+  };
   const agora = useAgora(15_000);
   const raiz = useRef<HTMLDivElement>(null);
   const palco = useRef<HTMLDivElement>(null);
@@ -195,6 +210,13 @@ export function Visor({
         if (!vivo) return;
         setStories(lista);
         setErro(null);
+        if (noStory) {
+          const k = lista.findIndex((x) => x.id === noStory);
+          if (k >= 0) {
+            setI(k);
+            setCaixa("respostas");
+          }
+        }
         // A tela de verdade já tem o story: a face do cubo que cobria a troca sai.
         setFace(null);
       })
@@ -206,6 +228,8 @@ export function Visor({
     return () => {
       vivo = false;
     };
+    // noStory só vale na primeira leitura (quem abriu pela caixa).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cliente, quem, idDoDestaque]);
 
   // No destaque não há prazo (o banco já mandou só o que eu posso ver); nos outros, só o que ainda está no ar.
@@ -463,6 +487,7 @@ export function Visor({
     else if (caixa === "denunciar") r.querySelector<HTMLElement>(".al-st-caixa input[type=radio]")?.focus();
     else if (caixa === "apagar") r.querySelector<HTMLElement>(".al-st-caixa .al-botao")?.focus();
     else if (caixa === "guardar") r.querySelector<HTMLElement>(".al-st-guardar button, .al-st-guardar input")?.focus();
+    else if (caixa === "respostas") r.querySelector<HTMLElement>(".al-st-caixa-respostas button")?.focus();
     else if (antes) botaoMais.current?.focus();
   }, [caixa]);
 
@@ -498,6 +523,22 @@ export function Visor({
     }
   }
 
+  /** A resposta à figurinha de pergunta: vai só para a autora, marcada como "da pergunta" (ela pode publicar sem o meu nome). */
+  async function enviarRespostaDaPergunta(texto: string): Promise<boolean> {
+    if (!atual) return false;
+    setOcupado(true);
+    try {
+      await cliente.responderPergunta(atual.id, texto.slice(0, LIMITES_DO_STORY.resposta));
+      avisar(preencherStory(t.visor.enviado, { nome }));
+      return true;
+    } catch {
+      avisar(t.visor.erroAoEnviar);
+      return false;
+    } finally {
+      setOcupado(false);
+    }
+  }
+
   async function reagir(r: ReacaoDoStory) {
     if (!atual || ocupado) return;
     setOcupado(true);
@@ -515,7 +556,7 @@ export function Visor({
     }
   }
 
-  function trocarFigurinha(id: string, nova: Partial<FigurinhaEnquete> | { avisar: boolean }, tipo: "enquete" | "contagem") {
+  function trocarFigurinha(id: string, nova: Partial<FigurinhaEnquete> | { avisar: boolean } | Partial<FigurinhaVou>, tipo: "enquete" | "contagem" | "vou") {
     setStories((lista) =>
       lista?.map((s) => (s.id !== id ? s : { ...s, figurinhas: s.figurinhas.map((f) => (f.tipo === tipo ? ({ ...f, ...nova } as typeof f) : f)) })) ?? null,
     );
@@ -540,6 +581,22 @@ export function Visor({
     try {
       const r = await cliente.avisar(atual.id, sim);
       trocarFigurinha(atual.id, { avisar: r.avisar }, "contagem");
+    } catch {
+      avisar(t.visor.erroAoEnviar);
+    } finally {
+      setOcupado(false);
+    }
+  }
+
+  /** "Vou" pela figurinha: a mesma confirmação da página do ato. O total volta do banco ao reabrir (só a partir de 3). */
+  async function vou(sim: boolean) {
+    if (!atual) return;
+    const f = atual.figurinhas.find((x) => x.tipo === "vou");
+    if (!f || f.tipo !== "vou" || !f.ato) return;
+    setOcupado(true);
+    try {
+      const r = await cliente.vou(f.ato, sim);
+      trocarFigurinha(atual.id, { vou_eu: r.vou_eu }, "vou");
     } catch {
       avisar(t.visor.erroAoEnviar);
     } finally {
@@ -727,12 +784,23 @@ export function Visor({
     ) : f.tipo === "enquete" ? (
       <EnqueteVer key={k} f={f} t={t.figurinha.enquete} nome={chamada} meu={meu} ocupado={ocupado} aoVotar={votar} />
     ) : f.tipo === "pergunta" ? (
-      <PerguntaVer key={k} texto={f.texto} t={t.figurinha.pergunta} nome={chamada} meu={meu} enviar={enviarResposta} aoFoco={setDigitando} />
+      <PerguntaVer key={k} texto={f.texto} t={t.figurinha.pergunta} nome={chamada} meu={meu} enviar={enviarRespostaDaPergunta} aoFoco={setDigitando} />
     ) : f.tipo === "comunidade" ? (
       <ComunidadeVer key={k} slug={f.slug} nome={f.nome} lang={lang} t={t.figurinha.comunidade} />
+    ) : f.tipo === "decorativa" ? (
+      <DecorativaVer key={k} nome={f.nome} t={t.b1.decorativas} />
+    ) : f.tipo === "resposta" ? (
+      <RespostaVer key={k} pergunta={f.pergunta} texto={f.texto} t={t.b1} />
+    ) : f.tipo === "vou" ? (
+      <VouVer key={k} f={f} t={t.b1} lang={lang} meu={meu} ocupado={ocupado} aoVou={meu ? null : (sim) => void vou(sim)} />
+    ) : f.tipo === "pessoa" ? (
+      <PessoaVer key={k} handle={f.handle} nome={f.nome} t={t.b1} lang={lang} />
+    ) : f.tipo === "campanha" ? (
+      <CampanhaVer key={k} f={f} t={t.b1} lang={lang} meu={meu} />
     ) : (
       <LinkVer key={k} url={f.url} rotulo={f.rotulo} t={t.figurinha.link} />
     );
+  const legendaAgora = atual?.legendas && ehVideo && legendasLigadas ? legendaNoTempo(atual.legendas, fracao * duracao) : null;
 
   return (
     <div
@@ -860,9 +928,29 @@ export function Visor({
                   {atual ? (meu && !destaque ? t.visor.seu : nome) : <><span className="sr-only">{t.visor.carregando}</span><span className="al-st-esqueleto-nome" aria-hidden /></>}
                   {quandoTexto ? <span> · {quandoTexto}</span> : null}
                 </strong>
-                {destaque ? <small>{preencherStory(t.visor.destaque, { titulo: destaque.titulo })}</small> : atual ? <small>{t.visor.publico[atual.publico]}</small> : null}
+                {destaque ? (
+                  <small>{preencherStory(t.visor.destaque, { titulo: destaque.titulo })}</small>
+                ) : atual?.publico === "proximos" && atual.meu ? (
+                  // O selo da roda só aparece no MEU story: quem está na roda não fica sabendo (o banco nem conta a ela).
+                  <small className="al-st-selo-roda">{t.b1.visor.roda}</small>
+                ) : atual?.publico === "comunidade" && atual.comunidade ? (
+                  <small className="al-st-selo-comunidade">{preencherStory(t.b1.visor.comunidade, { nome: atual.comunidade.nome })}</small>
+                ) : atual ? (
+                  <small>{t.visor.publico[atual.publico === "proximos" && !atual.meu ? "seguidores" : atual.publico]}</small>
+                ) : null}
               </span>
             </div>
+            {ehVideo && atual?.legendas?.length ? (
+              <button
+                type="button"
+                className="al-st-icone al-st-icone-cc"
+                aria-label={legendasLigadas ? t.b1.visor.legendasDesligar : t.b1.visor.legendasLigar}
+                aria-pressed={legendasLigadas}
+                onClick={() => setLegendasLigadas(!legendasLigadas)}
+              >
+                <span aria-hidden>CC</span>
+              </button>
+            ) : null}
             {ehVideo ? (
               temSom ? (
                 <button type="button" className="al-st-icone" aria-label={mudo || somBloqueado ? t.visor.som : t.visor.mudo} aria-pressed={!(mudo || somBloqueado)} onClick={() => setMudo(!(mudo || somBloqueado) )}>
@@ -909,6 +997,16 @@ export function Visor({
             </button>
           ) : null}
           {ehVideo && esperando && !pausado ? <span className="al-st-girando" role="status" aria-label={t.visor.carregandoVideo} /> : null}
+          {atual?.musica && ehVideo ? (
+            <p className="al-st-musica">
+              <span aria-hidden>♪</span> {preencherStory(t.b1.visor.musica, { nome: t.b1.musica.nomes[atual.musica] ?? atual.musica })}
+            </p>
+          ) : null}
+          {legendaAgora ? (
+            <p key={legendaAgora.de} className="al-st-legenda-video" data-grande={legendaAgora.grande ? "sim" : "nao"}>
+              <span>{legendaAgora.texto}</span>
+            </p>
+          ) : null}
 
           {/* Toque: esquerda volta, direita avança, segurar pausa. Atrás do texto e das figurinhas. */}
           {(["esq", "dir"] as const).map((lado) => (
@@ -955,6 +1053,7 @@ export function Visor({
                 </h2>
               ) : null}
               {atual.legenda ? <p className="al-st-tarja">{atual.legenda}</p> : null}
+              {atual.post ? <CartaoDoPostNoStory cartao={atual.post} t={t.b1.post} lang={lang} /> : null}
               {atual.figurinhas.length > 0 && !figurinhasSoltas ? <div className="al-st-figurinhas">{atual.figurinhas.map(figurinhaNaTela)}</div> : null}
             </div>
           ) : (
@@ -1048,6 +1147,8 @@ export function Visor({
               t={t}
               cliente={cliente}
               story={atual}
+              lang={lang}
+              aoTrocarFoto={(url) => setStories((lista) => lista?.map((s) => (s.id === atual.id && s.fundo.tipo === "imagem" ? { ...s, fundo: { ...s.fundo, url } } : s)) ?? null)}
               aoFechar={() => setCaixa(null)}
               aoGuardar={(texto, d) => {
                 setStories((lista) => lista?.map((s) => (s.id === atual.id ? { ...s, destaques: [...(s.destaques ?? []), d] } : s)) ?? null);
@@ -1058,6 +1159,8 @@ export function Visor({
               }}
             />
           ) : null}
+
+          {caixa === "respostas" && atual && meu ? <CaixaDeRespostas t={t} cliente={cliente} lang={lang} story={atual.id} aoFechar={() => setCaixa(null)} /> : null}
 
           {caixa === "denunciar" ? (
             <form
@@ -1121,9 +1224,9 @@ export function Visor({
 
       <div className="al-st-rodape" hidden={!atual}>
         {!atual ? null : meu || destaque ? (
-          <p className="al-st-dica" style={{ margin: "0 6px", color: "inherit" }}>
-            {meu ? t.visor.respostasChegam : null}
-          </p>
+          meu ? (
+            <ResumoDaAutora t={t} lang={lang} respostas={atual.respostas} reacoes={atual.reacoes} aoAbrir={() => setCaixa("respostas")} />
+          ) : null
         ) : null}
         {atual && !meu ? (
           <>

@@ -8,7 +8,7 @@
 //
 // Privacidade (PLANO-ALUMIA §6; LGPD art. 5º, II e art. 11): sem contagem de seguidores, sem lista de quem segue, de quem é de um
 // núcleo ou de quem votou; pessoas na sala só agregadas e a partir de 3; quem cuida da conta nunca aparece.
-import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode, type RefObject } from "react";
 import { dataCurta } from "@/lib/rede/org/contagem";
 import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaOrg } from "@/lib/rede/textos-org";
@@ -21,7 +21,13 @@ import { Abas } from "./Abas";
 import { type AcoesDaOrg, BlocoDaPlenaria, CartaoDaConsulta, ComoVotamos, NucleosDaOrg } from "./Blocos";
 import { type AcoesDeGestor, CuidarDaOrg } from "./CuidarDaOrg";
 import { SeloDaOrg, SeloPequeno } from "./partes";
-import { AcendaUmLampiao, TearDeEncaminhamentos } from "./Tear";
+import { AcendaUmLampiao, PlacarDoTear, TearDeEncaminhamentos } from "./Tear";
+import { AtasDaOrganizacao } from "./b1/AtaViva";
+import { AtosDaOrganizacao } from "./b1/AtosDaOrg";
+import { CaixaTransparente } from "./b1/Caixa";
+import { ConviteDoLink } from "./b1/Convite";
+import { FuncoesDaOrganizacao } from "./b1/Funcoes";
+import { clienteOrgB1 } from "@/lib/rede/cliente-org-b1";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import "./org.css";
 
@@ -40,19 +46,41 @@ export interface PropsDoPerfilDaOrg {
   atos?: ReactNode;
   /** Aba aberta de início ("nucleos" rola até os núcleos). */
   abaInicial?: string | null;
+  /** O que as frentes penduram acima das abas (a fileira de destaques dos stories, components/rede/perfil/FileiraDoPerfil.tsx). */
+  acimaDasAbas?: ReactNode;
   /** O aviso de cima (o perfil de exemplo põe "Dados ilustrativos"). */
   aviso?: ReactNode;
   /** As ações de quem gerencia (só no perfil de verdade; aparecem só quando o banco diz `gerencio`). */
   cuidar?: AcoesDeGestor;
   /** Depois de uma ação de quem gerencia: recarregar o perfil. */
   aoMudar?: () => void;
+  /**
+   * O perfil de verdade (B1): liga as partes que leem o banco por conta própria (Ata Viva, funções e eleições, caixa, atos da
+   * organização, convite pelo link). O perfil de exemplo da página para organizações deixa desligado.
+   */
+  vivo?: boolean;
 }
 
-export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInicial, aviso, cuidar, aoMudar, s }: PropsDoPerfilDaOrg) {
+/**
+ * As abas do perfil: as cinco da prancha e "Núcleos" (núcleos, funções, eleições e o Lampião). Antes esses blocos ficavam DEPOIS
+ * do painel de qualquer aba, e trocar de aba só mudava um trecho no meio de uma página muito longa.
+ */
+const ABAS_DO_PERFIL = [...ABAS_DA_ORG, "nucleos"] as const;
+type AbaDoPerfil = AbaDaOrg | "nucleos";
+
+/** Rola até o bloco dos núcleos e leva o foco a ele; espera um instante porque o bloco só existe depois de a aba trocar. */
+function levarAosNucleos(nucleos: RefObject<HTMLElement | null>, abas: RefObject<HTMLDivElement | null>) {
+  window.setTimeout(() => {
+    (nucleos.current ?? abas.current)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    nucleos.current?.focus({ preventScroll: true });
+  }, 0);
+}
+
+export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInicial, aviso, cuidar, aoMudar, s, vivo = false, acimaDasAbas = null }: PropsDoPerfilDaOrg) {
   const tp = t.perfil;
   const id = useId();
-  const inicial = (ABAS_DA_ORG as readonly string[]).includes(abaInicial ?? "") ? (abaInicial as AbaDaOrg) : "posts";
-  const [aba, setAba] = useState<AbaDaOrg>(inicial);
+  const inicial = (ABAS_DO_PERFIL as readonly string[]).includes(abaInicial ?? "") ? (abaInicial as AbaDoPerfil) : "posts";
+  const [aba, setAba] = useState<AbaDoPerfil>(inicial);
   const [sigo, setSigo] = useState(org.sigo);
   const [sino, setSino] = useState(org.sino);
   const [ocupado, setOcupado] = useState(false);
@@ -60,13 +88,22 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
   const nucleosRef = useRef<HTMLElement>(null);
   const abasRef = useRef<HTMLDivElement>(null);
 
+  // "Ver os núcleos" abre a aba e leva o foco ao bloco (que só existe depois de a aba trocar).
   const verNucleos = () => {
-    nucleosRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    nucleosRef.current?.focus({ preventScroll: true });
+    setAba("nucleos");
+    levarAosNucleos(nucleosRef, abasRef);
   };
 
+  // Se a aba pedida de fora mudar para "nucleos" com o perfil já na tela, a aba troca aqui, durante a renderização (na
+  // primeira vez o estado já nasce nela); o efeito abaixo só cuida de rolar e de levar o foco.
+  const [abaPedida, setAbaPedida] = useState(abaInicial);
+  if (abaPedida !== abaInicial) {
+    setAbaPedida(abaInicial);
+    if (abaInicial === "nucleos") setAba("nucleos");
+  }
+
   useEffect(() => {
-    if (abaInicial === "nucleos") verNucleos();
+    if (abaInicial === "nucleos") levarAosNucleos(nucleosRef, abasRef);
     else if (abaInicial && abaInicial !== "posts") abasRef.current?.scrollIntoView({ block: "start" });
   }, [abaInicial]);
 
@@ -86,27 +123,62 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
   const aoVivo = org.plenarias.find((p) => p.aoVivo) ?? null;
   const abertas = org.consultas.filter((c) => c.situacao === "aberta");
 
-  const painel: Record<AbaDaOrg, ReactNode> = {
+  const painel: Record<AbaDoPerfil, ReactNode> = {
     posts,
-    atos: atos ?? <p className="al-painel-vazio">{tp.vazioAtos}</p>,
-    contas: <ComoVotamos votacoes={org.votacoes} t={t} lang={lang} />,
+    atos: atos ?? (vivo ? <AtosDaOrganizacao handle={org.handle} lang={lang} vazio={tp.vazioAtos} /> : <p className="al-painel-vazio">{tp.vazioAtos}</p>),
+    contas: (
+      <>
+        {vivo ? <PlacarDoTear handle={org.handle} lang={lang} /> : null}
+        <ComoVotamos votacoes={org.votacoes} t={t} lang={lang} />
+        {vivo ? <CaixaTransparente handle={org.handle} lang={lang} /> : null}
+        <TearDeEncaminhamentos handle={org.handle} lang={lang} s={s} consultas={org.consultas} />
+      </>
+    ),
     consultas:
       org.consultas.length === 0 ? (
         <p className="al-painel-vazio">{t.consulta.vazio}</p>
       ) : (
         org.consultas.map((c) => <CartaoDaConsulta key={c.id} c={c} t={t} lang={lang} acoes={acoes} aoVerNucleos={verNucleos} />)
       ),
-    plenarias:
-      org.plenarias.length === 0 ? (
-        <p className="al-painel-vazio">{t.plenaria.vazio}</p>
-      ) : (
-        org.plenarias.map((p) => <BlocoDaPlenaria key={p.id} p={p} t={t} lang={lang} acoes={acoes} podePerguntar={membro} />)
-      ),
+    plenarias: (
+      <>
+        {org.plenarias.length === 0 ? (
+          <p className="al-painel-vazio">{t.plenaria.vazio}</p>
+        ) : (
+          org.plenarias.map((p) => <BlocoDaPlenaria key={p.id} p={p} t={t} lang={lang} acoes={acoes} podePerguntar={membro} />)
+        )}
+        {vivo ? <AtasDaOrganizacao handle={org.handle} lang={lang} plenarias={org.plenarias.map((p) => ({ id: p.id, titulo: p.titulo }))} /> : null}
+      </>
+    ),
+    nucleos: (
+      <>
+        <section ref={nucleosRef} tabIndex={-1} className="al-perfil-bloco" aria-labelledby={`${id}-nucleos`} id="al-org-nucleos">
+          <h2 id={`${id}-nucleos`} className="al-cond">
+            {tp.nucleos.titulo}
+          </h2>
+          <NucleosDaOrg nucleos={org.nucleos} t={t} acoes={acoes} podeEntrar={membro} lang={lang} gerencio={vivo && org.gerencio} />
+        </section>
+        {vivo ? <FuncoesDaOrganizacao handle={org.handle} lang={lang} /> : null}
+        {org.gerencio && cuidar ? (
+          <AcendaUmLampiao
+            lang={lang}
+            handle={org.handle}
+            s={s}
+            criar={(p) =>
+              vivo
+                ? clienteOrgB1().acenderLampiao(org.handle, p).then((r) => (aoMudar?.(), r))
+                : cuidar.criarNucleo(p).then((r) => (aoMudar?.(), { id: (r as { id?: string })?.id ?? "", convite: null }))
+            }
+          />
+        ) : null}
+      </>
+    ),
   };
 
   return (
     <div className="al-perfil al-perfil-org">
       {aviso}
+      {vivo ? <ConviteDoLink lang={lang} membro={membro} aoEntrar={() => aoMudar?.()} /> : null}
       <div className="al-perfil-org-grade">
         <div className="al-perfil-org-principal">
           <div className="al-perfil-capa">
@@ -134,6 +206,7 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
             {org.bio ? <p className="al-perfil-bio">{org.bio}</p> : null}
             <div className="al-perfil-acoes">
               <Botao
+                pilula
                 variante={sigo ? "claro" : "primario"}
                 pressionado={sigo}
                 disabled={!membro || ocupado}
@@ -141,10 +214,10 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
               >
                 {sigo ? tp.seguindo : tp.seguir}
               </Botao>
-              <Botao variante={sino ? "claro" : "contorno"} pressionado={sino} disabled={!membro || ocupado} onClick={() => void mudar(() => acoes.sino(!sino), (r) => setSino(r.sino))} title={tp.sinoAjuda}>
+              <Botao pilula variante={sino ? "claro" : "contorno"} pressionado={sino} disabled={!membro || ocupado} onClick={() => void mudar(() => acoes.sino(!sino), (r) => setSino(r.sino))} title={tp.sinoAjuda}>
                 {tp.sino}
               </Botao>
-              <Botao variante="contorno" onClick={verNucleos} disabled={org.nucleos.length === 0}>
+              <Botao pilula variante="contorno" onClick={verNucleos} disabled={org.nucleos.length === 0}>
                 {tp.entrarNucleo}
               </Botao>
             </div>
@@ -166,27 +239,22 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
             </section>
           ) : null}
 
-          <Abas ref={abasRef} id={id} abas={ABAS_DA_ORG} atual={aba} aoMudar={setAba} rotulos={tp.abas} rotulo={preencher(tp.abas.rotulo, { codinome: org.codinome })} />
+          {acimaDasAbas}
+          <Abas ref={abasRef} id={id} abas={ABAS_DO_PERFIL} atual={aba} aoMudar={setAba} rotulos={{ ...tp.abas, nucleos: tp.nucleos.titulo }} rotulo={preencher(tp.abas.rotulo, { codinome: org.codinome })} />
           <div id={`${id}-painel`} role="tabpanel" aria-labelledby={`${id}-aba-${aba}`} className="al-painel">
             {painel[aba]}
           </div>
         </div>
 
-        <aside className="al-perfil-org-lado">
-          {aoVivo && aba !== "plenarias" ? (
+        {/* A plenária ao vivo acompanha as outras abas. No computador, quando a coluna da direita da casca já mostra o mesmo
+            "Ao vivo agora", este some (org.css): o cartão não aparece duas vezes. */}
+        {aoVivo && aba !== "plenarias" ? (
+          <aside className="al-perfil-org-lado al-perfil-org-aovivo">
             <section className="al-perfil-bloco" aria-label={t.plenaria.aoVivo}>
               <BlocoDaPlenaria p={aoVivo} t={t} lang={lang} acoes={acoes} podePerguntar={membro} />
             </section>
-          ) : null}
-          <section ref={nucleosRef} tabIndex={-1} className="al-perfil-bloco" aria-labelledby={`${id}-nucleos`} id="al-org-nucleos">
-            <h2 id={`${id}-nucleos`} className="al-cond">
-              {tp.nucleos.titulo}
-            </h2>
-            <NucleosDaOrg nucleos={org.nucleos} t={t} acoes={acoes} podeEntrar={membro} />
-          </section>
-          <TearDeEncaminhamentos handle={org.handle} lang={lang} s={s} />
-          {org.gerencio && cuidar ? <AcendaUmLampiao lang={lang} s={s} criar={(p) => cuidar.criarNucleo(p).then((r) => (aoMudar?.(), r))} /> : null}
-        </aside>
+          </aside>
+        ) : null}
       </div>
     </div>
   );

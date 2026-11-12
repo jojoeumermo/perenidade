@@ -56,18 +56,25 @@
       "pergunta": "Question",
       "enquete": "Sondage",
       "link": "Lien",
-      "comunidade": "Communauté"
+      "comunidade": "Communauté",
+      "vou": "J'y vais",
+      "pessoa": "@ Personne",
+      "campanha": "#Campagne",
+      "resposta": "Réponse",
+      "decorativa": "Décor"
     },
     "quemVe": "Qui voit",
     "publico": {
       "seguidores": "Abonnés",
       "membros": "Communauté",
-      "proximos": "Proches"
+      "proximos": "Cercle",
+      "comunidade": "Une communauté"
     },
     "publicoAjuda": {
       "seguidores": "Seulement vos abonnés.",
       "membros": "Les membres d'Alumia.",
-      "proximos": "Seulement les personnes que vous suivez et qui vous suivent."
+      "proximos": "Seulement ton cercle de confiance (la liste que toi seul·e vois).",
+      "comunidade": "Seulement les membres de la communauté choisie."
     },
     "regra": "Disparaît en 24 h. Ne va pas sur le Fédivers. Personne ne voit qui a regardé.",
     "galeria": "Galerie",
@@ -232,7 +239,8 @@
     "publico": {
       "seguidores": "Pour mes abonnés",
       "membros": "Pour la communauté",
-      "proximos": "Pour les proches"
+      "proximos": "Cercle seulement",
+      "comunidade": "Pour une communauté"
     },
     "agora": "maintenant",
     "min": "{n} min",
@@ -361,5 +369,278 @@
     "titulo": "Stories",
     "lede": "Les stories des personnes que vous suivez et de vos communautés. Touchez un cercle pour voir, ou « Votre story » pour créer la vôtre.",
     "inicio": "Voir le fil d’Accueil"
+  },
+  "b1": {
+    "fileira": {
+      "post": "Post",
+      "ato": "Action",
+      "abrirPost": "Ouvrir la story à la une {titulo}",
+      "arrumar": "Ranger les stories à la une",
+      "rotulo": "À la une de {nome}"
+    },
+    "arrumar": {
+      "titulo": "Ranger les stories à la une",
+      "ajuda": "Cet ordre s'affiche sur ton profil. Utilise les flèches ou les boutons.",
+      "subir": "Monter {titulo}",
+      "descer": "Descendre {titulo}",
+      "nome": "Nom",
+      "capa": "Couverture",
+      "capaPrimeira": "La première photo",
+      "capaEscolhida": "La photo que vous avez choisie",
+      "vazio": "Vous n’avez pas encore de stories à la une. Gardez une story à la une pour qu’elle apparaisse ici.",
+      "erroCarregar": "Chargement impossible. Fermez et réessayez.",
+      "semFoto": "Sans photo : la couverture prend la couleur.",
+      "stories": "Stories de cette sélection",
+      "storyN": "Story {n}",
+      "subirStory": "Monter la story {n}",
+      "descerStory": "Descendre la story {n}",
+      "apagar": "Supprimer cette sélection",
+      "salvar": "Enregistrer",
+      "salvo": "Sélections rangées.",
+      "erro": "Impossible d'enregistrer. Réessaie.",
+      "carregando": "Chargement…",
+      "escolher": "Choisis une sélection à ranger"
+    },
+    "borrar": {
+      "pergunta": "Cette photo restera sur ton profil après 24 h. Y a-t-il le visage de quelqu'un qui ne veut pas apparaître ?",
+      "borrar": "Flouter les visages",
+      "assim": "Garder ainsi",
+      "refazendo": "La photo est refaite sur l'appareil…",
+      "erro": "Impossible de refaire la photo. Elle n'a pas été gardée.",
+      "feito": "Photo floutée et gardée.",
+      "noCriar": "Flouter les visages",
+      "noCriarAjuda": "Protège les personnes présentes à l'action (LGPD art. 11 : l'opinion politique est une donnée sensible).",
+      "borradas": "{n} zones floutées",
+      "video": "Flouter dans la vidéo",
+      "videoAjuda": "Marque les visages sur cette image. Le flou reste au même endroit toute la vidéo : vérifie l'aperçu."
+    },
+    "post": {
+      "verPost": "Voir le post",
+      "verAto": "Voir l'action",
+      "indisponivel": "Ce post n'est plus disponible.",
+      "de": "Post de {nome}",
+      "atoDe": "Action de {nome}",
+      "situacao": {
+        "confirmado": "Confirmée",
+        "adiado": "Reportée",
+        "cancelado": "Annulée"
+      },
+      "vaiJunto": "Va avec la story : la carte du post, avec le lien.",
+      "carregando": "Chargement du post…",
+      "soCidade": "La story montre seulement la ville, jamais le point de rendez-vous."
+    },
+    "visor": {
+      "roda": "Cercle seulement",
+      "comunidade": "Seulement pour {nome}",
+      "legendas": "Sous-titres",
+      "legendasLigar": "Activer les sous-titres",
+      "legendasDesligar": "Désactiver les sous-titres",
+      "musica": "Musique d'Alumia : {nome}",
+      "respostasN": {
+        "one": "{n} réponse",
+        "few": "{n} réponses",
+        "many": "{n} réponses",
+        "other": "{n} réponses"
+      },
+      "verRespostas": "Voir les réponses",
+      "semRespostas": "Pas encore de réponse.",
+      "reacoesN": {
+        "one": "{n} réaction",
+        "few": "{n} réactions",
+        "many": "{n} réactions",
+        "other": "{n} réactions"
+      },
+      "reacoesPoucas": "Peu de réactions : le total apparaît à partir de 3.",
+      "reacoesPor": "{punho} ✊ · {chama} 🔥 · {coracao} ❤️",
+      "soVoce": "Toi seul·e vois ces chiffres."
+    },
+    "respostas": {
+      "titulo": "Réponses",
+      "ajuda": "Qui a répondu a choisi de parler seulement avec toi. Si tu publies une réponse, le nom de l'expéditeur n'y figure pas.",
+      "daPergunta": "Réponse à la question",
+      "publicar": "Publier dans une story",
+      "conversar": "Répondre dans la conversation",
+      "semNome": "Compte indisponible",
+      "fechar": "Fermer",
+      "caixa": "Réponses à tes stories",
+      "caixaVazia": "Quand quelqu'un répond à une de tes stories, ça apparaît ici.",
+      "abrir": "Voir les réponses à « {texto} »",
+      "mensagensN": {
+        "one": "{n} message",
+        "few": "{n} messages",
+        "many": "{n} messages",
+        "other": "{n} messages"
+      },
+      "perguntasN": {
+        "one": "{n} à la question",
+        "few": "{n} à la question",
+        "many": "{n} à la question",
+        "other": "{n} à la question"
+      },
+      "semTexto": "Story sans texte",
+      "carregando": "Chargement…"
+    },
+    "vou": {
+      "rotulo": "J'y vais",
+      "eu": "J'y vais",
+      "voce": "Tu y vas",
+      "desfazer": "Je n'y vais plus",
+      "totalN": {
+        "one": "{n} y va",
+        "few": "{n} y vont",
+        "many": "{n} y vont",
+        "other": "{n} y vont"
+      },
+      "poucas": "Confirme et appelle plus de monde",
+      "encerrado": "Cette action est passée",
+      "escolher": "Quelle action ?",
+      "nenhum": "Aucune action à venir à relayer.",
+      "carregando": "Recherche d'actions…",
+      "ajuda": "Toucher confirme la présence, comme sur la page de l'action. Personne ne voit qui y va."
+    },
+    "pessoa": {
+      "rotulo": "Mention",
+      "campo": "@ de la personne",
+      "ajuda": "Elle reçoit un avis. Une personne qui t'a bloqué·e ne peut pas être mentionnée.",
+      "abrir": "Ouvrir le profil de {nome}",
+      "sumiu": "Compte indisponible"
+    },
+    "campanha": {
+      "rotulo": "Campagne",
+      "campo": "#campagne",
+      "corrente": "Chaîne : qui regarde peut « Ajouter le sien »",
+      "adicionar": "Ajouter le sien",
+      "totalN": {
+        "one": "{n} personne dans la chaîne",
+        "few": "{n} personnes dans la chaîne",
+        "many": "{n} personnes dans la chaîne",
+        "other": "{n} personnes dans la chaîne"
+      },
+      "ajuda": "Seulement des lettres sans accent, des chiffres et _ (2 à 40)."
+    },
+    "resposta": {
+      "rotulo": "Réponse",
+      "publicada": "Une réponse à ma question"
+    },
+    "decorativas": {
+      "titulo": "Décors d'Alumia",
+      "ajuda": "Jusqu'à 3 par story. Dessinés ici, rien téléchargé de l'extérieur.",
+      "limite": "3 décors au maximum.",
+      "tirar": "Retirer {nome}",
+      "mover": "Déplacer {nome}",
+      "nomes": {
+        "punho": "Poing levé",
+        "lampiao": "Lanterne",
+        "megafone": "Mégaphone",
+        "faixa": "Banderole de manif",
+        "carimbo-luta": "Tampon « La lutte continue »",
+        "carimbo-presente": "Tampon « Présent·e ! »",
+        "estrela": "Étoile",
+        "flor": "Fleur"
+      },
+      "textos": {
+        "faixa": "LUTTE",
+        "carimbo-luta": "LA LUTTE CONTINUE",
+        "carimbo-presente": "PRÉSENT·E !"
+      }
+    },
+    "roda": {
+      "titulo": "Cercle de confiance",
+      "ajuda": "Toi seul·e vois cette liste. Personne n'est prévenu d'y entrer ou d'en sortir, et personne ne sait dans quels cercles il est.",
+      "campo": "@ de quelqu'un de confiance",
+      "por": "Ajouter au cercle",
+      "tirar": "Retirer {nome} du cercle",
+      "vazia": "Ton cercle est vide : une story pour le cercle n'atteint personne.",
+      "gerenciar": "Qui est dans le cercle",
+      "semBanco": "Le serveur n’a pas encore le cercle de confiance. La story n’a PAS été publiée. Choisissez un autre public ou réessayez plus tard.",
+      "contaN": {
+        "one": "{n} personne",
+        "few": "{n} personnes",
+        "many": "{n} personnes",
+        "other": "{n} personnes"
+      },
+      "naoAchada": "Impossible de trouver ce @ (ou il y a un blocage).",
+      "fechar": "Fermer"
+    },
+    "comunidade": {
+      "escolher": "Quelle communauté ?",
+      "nenhuma": "Tu n'es encore membre d'aucune communauté.",
+      "faixa": "Stories qui parlent de cette communauté",
+      "abrir": "Voir les stories de {nome}"
+    },
+    "legendas": {
+      "titulo": "Sous-titres",
+      "ajuda": "Écris ce qui est dit. Sans le son, le sous-titre est ce que les gens lisent.",
+      "nova": "Sous-titre à partir de {tempo}",
+      "texto": "Texte du sous-titre {n}",
+      "grande": "Au milieu de l'écran",
+      "tirar": "Retirer le sous-titre {n}",
+      "de": "De",
+      "ate": "À",
+      "gerar": "Générer sur l'appareil",
+      "gerando": "Écoute de la vidéo…",
+      "gerarAjuda": "Reconnaît la parole ici même, sans envoyer l'audio dehors. Vérifie chaque passage.",
+      "semGerar": "Ce navigateur ne reconnaît pas la parole sans envoyer l'audio dehors : écris les sous-titres.",
+      "aprovar": "J'ai vérifié les sous-titres",
+      "falta": "Vérifie les sous-titres générés avant de publier.",
+      "nenhumaFala": "Aucune parole trouvée dans la vidéo."
+    },
+    "musica": {
+      "titulo": "Musique",
+      "nenhuma": "Sans musique",
+      "nomes": {
+        "batucada": "Batucada",
+        "marcha": "Marche",
+        "ciranda": "Ciranda",
+        "tambor": "Tambour"
+      },
+      "ajuda": "Faite ici sur l'appareil. Rien n'est téléchargé et personne ne sait ce que tu as écouté.",
+      "ouvir": "Écouter {nome}",
+      "parar": "Arrêter"
+    },
+    "recortar": {
+      "botao": "Recadrer",
+      "titulo": "Recadrer la photo",
+      "proporcao": "Format",
+      "livre": "Libre",
+      "giro": "Pivoter (degrés)",
+      "aplicar": "Appliquer",
+      "cancelar": "Annuler",
+      "moldura": "Cadre du recadrage. Les flèches le déplacent ; Maj avec les flèches change la taille.",
+      "canto": "Changer la taille du recadrage"
+    },
+    "desenho": {
+      "refazer": "Rétablir",
+      "borracha": "Gomme",
+      "borrachaAjuda": "Passe le doigt sur un trait pour l'effacer."
+    },
+    "texto2": {
+      "botao": "Un autre texte",
+      "rotulo": "Texte en plus",
+      "campo": "Texte en plus (jusqu'à 60 lettres)",
+      "tirar": "Retirer le texte en plus"
+    },
+    "sequencia": {
+      "varios": "En choisir plusieurs",
+      "ajuda": "Jusqu'à 10 photos ou vidéos : chacune devient une story, dans l'ordre.",
+      "n": "{i} sur {n}",
+      "pular": "Passer celle-ci",
+      "proximo": "Suivante",
+      "partes": "Vidéo de {s} s : part en {n} stories de 60 s max.",
+      "publicandoN": "Publication {i} sur {n}…",
+      "feitoN": {
+        "one": "{n} story publiée.",
+        "few": "{n} stories publiées.",
+        "many": "{n} stories publiées.",
+        "other": "{n} stories publiées."
+      }
+    },
+    "progresso": {
+      "enviandoBytes": "Envoi… {feito} sur {total}"
+    },
+    "ato": {
+      "porNoStory": "Mettre en story",
+      "ajuda": "Crée une story avec la carte de cette action (date et ville ; disparaît en 24 h)"
+    }
   }
 }

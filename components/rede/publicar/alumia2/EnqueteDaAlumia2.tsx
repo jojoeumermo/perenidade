@@ -30,7 +30,8 @@ function daquiA(iso: string, lang: string): string {
 
 /**
  * A enquete com barras da prancha (computador-inicio: "10h ▇▇▇ 42% · 61 votos · fecha em 1 dia"). Voto secreto: só totais, e só
- * para quem já pode vê-los (quem votou, quem fez a enquete ou depois do prazo, regra do banco). Abaixo de 3 votos o total não
+ * para quem já pode vê-los (quem votou, quem fez a enquete ou depois do prazo, regra do banco; com "resultado só no fim", só depois
+ * do prazo, para todo mundo). Embaralhada, a ordem já vem do banco, própria de cada pessoa. Abaixo de 3 votos o total não
  * aparece ("poucos votos"): com tão pouca gente, o número diria quem votou (PLANO-ALUMIA §6.1; LGPD art. 11, opinião política).
  */
 export function EnqueteDaAlumia2({ postId, inicial, t, tp, s, lang, logado }: { postId: string; inicial: EnqueteDoPost; t: TextosAlumia2; tp: TextosPublicar; s: TextosDaRede; lang: string; logado: boolean }) {
@@ -106,6 +107,8 @@ export function EnqueteDaAlumia2({ postId, inicial, t, tp, s, lang, logado }: { 
         {total !== null && (total >= 3 ? preencher(t.enquete.votos, { n: total.toLocaleString(lang) }) : t.enquete.poucos)}
         {total !== null && " · "}
         {e.encerrada ? t.enquete.encerrada : preencher(t.enquete.fecha, { quando: daquiA(e.prazo, lang) })}
+        {/* B1: "resultado só no fim" — nem quem votou nem quem fez vê a parcial (em assembleia, a parcial puxa o voto). */}
+        {e.so_no_fim && !e.encerrada && ` · ${t.b1.resultadoNoFim}`}
         <span className="sr-only"> {t.enquete.secreto}</span>
       </p>
       {erro && <p role="alert" className="text-sm text-oxblood">{erro}</p>}

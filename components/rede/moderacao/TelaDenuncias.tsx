@@ -2,6 +2,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Botao } from "../ui/Botao";
+import { EstadoDaAlumia } from "../ui/Estado";
+import { Icone } from "../publicar/alumia2/icones";
 import Link from "@/components/Link";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { redeMod } from "@/lib/rede/cliente-moderacao";
@@ -85,8 +88,8 @@ export default function TelaDenuncias({ lang, s, situacao }: PropsDaTelaDoPacote
     };
   }, [situacao.logado, rodada, s]);
 
-  if (!situacao.logado) return <p className="px-[18px] py-8 font-sans text-ink-soft">{sm?.entreParaVer ?? s.estados.carregando}</p>;
-  if (erro) return <p role="alert" className="px-[18px] py-8 font-sans text-oxblood">{erro}</p>;
+  if (!situacao.logado) return sm ? <EstadoDaAlumia icone="cadeado" titulo={sm.decisoes.titulo} texto={sm.entreParaVer} /> : <p className="px-[18px] py-8 font-sans text-ink-soft">{s.estados.carregando}</p>;
+  if (erro) return <EstadoDaAlumia erro titulo={sm?.decisoes.titulo} texto={erro}><Botao variante="claro" pilula icone={<Icone nome="desfazer" />} onClick={() => window.location.reload()}>{s.estados.tentar}</Botao></EstadoDaAlumia>;
   if (!sm || !minhas || !decisoes) return <p className="px-[18px] py-8 font-sans" role="status">{s.estados.carregando}</p>;
   const categorias = sm.categorias as Record<string, { rotulo: string }>;
   const andamento = sm.decisoes.andamento as Record<string, string>;

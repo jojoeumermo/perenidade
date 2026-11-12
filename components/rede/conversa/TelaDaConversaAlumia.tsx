@@ -7,6 +7,10 @@ import { rede } from "@/lib/rede/cliente";
 import { conversa } from "@/lib/rede/cliente-conversa";
 import { arvoreDeExemplo, postDeExemplo } from "@/lib/rede/conversa/exemplos";
 import { preencher } from "@/lib/rede/preencher";
+import { comReserva, faltaFuncaoNoBanco } from "@/lib/rede/reserva";
+import { marcarLido } from "@/lib/rede/tipos-b1";
+import { LembrarMaisTarde } from "../b1/Lembrar";
+import { NotasDeContexto } from "./NotasDeContexto";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDaAlumia3 } from "@/lib/rede/textos-conversa";
 import { enderecos, type Post, type Situacao } from "@/lib/rede/tipos";
@@ -31,6 +35,7 @@ import { useAlumia2 } from "../publicar/alumia2/contexto";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { Avatar16 } from "../ui/Avatar16";
+import { NaoExiste } from "../ui/NaoExiste";
 import {
   BotaoAcender,
   BotaoSalvar,
@@ -52,8 +57,9 @@ import {
 import { pular, trazerParaVista, useFlip, useRegua } from "./movimento";
 
 /**
- * Na prévia: o post de exemplo pelo id (o link permanente dos cartões do Início e do perfil abre o PRÓPRIO post, sem respostas
- * inventadas para ele); um id desconhecido mostra a conversa das pranchas.
+ * Na prévia: o post de exemplo pelo id (o link permanente dos cartões do Início e do perfil abre o PRÓPRIO post). O cartão da Lia
+ * traz a conversa das pranchas; os outros não têm respostas escritas, então o contador deles zera aqui (a lista e o número
+ * nunca se contradizem).
  */
 async function arvoreDaPrevia(id: string): Promise<Arvore | null> {
   const base = arvoreDeExemplo(id);
@@ -68,8 +74,8 @@ async function arvoreDaPrevia(id: string): Promise<Arvore | null> {
     ordem: base?.ordem ?? "antigas",
     mais: false,
     ...base,
-    post: { ...post, servidor: null },
-    respostas: [],
+    post: { ...post, servidor: null, respostas: base ? post.respostas : 0, na_conversa: base ? (base.post.na_conversa ?? null) : null, reacoes: base?.post.reacoes ?? post.reacoes, aceita: base?.post.aceita ?? post.aceita },
+    respostas: (base?.respostas ?? []).map((r) => ({ ...r, raiz, resposta_a: r.resposta_a === base?.post.id ? post.id : r.resposta_a })),
     raiz,
     pode_aceitar: false,
     pode_sintese: false,
@@ -116,8 +122,9 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
 
   useEffect(() => {
     let vivo = true;
-    // Banco sem a migração da F3 ainda: a árvore de hoje (sem reações; "ajudou" pelo `aceita` da dúvida).
-    const pedir = previa() ? arvoreDaPrevia(id) : conversa.alumia(id, ordem).catch(() => conversa.arvore(id, ordem));
+    // Banco sem a migração da F3 ainda (e só nesse caso, lib/rede/reserva.ts): a árvore de hoje (sem reações; "ajudou" pelo
+    // `aceita` da dúvida). Limite, conta suspensa, sem permissão e não encontrada aparecem na tela, sem segunda chamada.
+    const pedir = previa() ? arvoreDaPrevia(id) : comReserva(() => conversa.alumia(id, ordem), () => conversa.arvore(id, ordem));
     pedir
       .then((dado) => {
         if (!vivo) return;
@@ -132,6 +139,10 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
   }, [id, ordem, chave, s]);
 
   const aoErro = useCallback((e: unknown) => avisar({ texto: textoDoErro(s, e), erro: true }), [s, avisar]);
+  // "Leu antes de compartilhar?" (B1): abrir a conversa marca o post como lido NESTE aparelho (nada vai ao servidor).
+  useEffect(() => {
+    marcarLido(id);
+  }, [id]);
   const dado = estado?.dado ?? null;
   // A cascata de entrada vale só para a primeira abertura: depois disso o fio fica "assentado" e trocar a ordem usa só o FLIP.
   const temFio = Boolean(dado && dado.respostas.length > 0);
@@ -148,22 +159,25 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
 
   if (!t || !estado) return <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={3} />;
   if (!dado) {
+    // Não existe (ou não pode ver): o estado da casa, com caminho de volta. "Tentar de novo" fica só para falha de rede.
+    if (!estado.erro || estado.erro === s.estados.naoEncontrado) return <NaoExiste lang={lang} texto={s.estados.naoEncontrado} />;
     return (
       <div className="al3 al3-vazio" role="alert">
-        <p>{estado.erro || s.estados.naoEncontrado}</p>
+        <p>{estado.erro}</p>
         <button type="button" className="al-botao al-botao-contorno al-botao-m" onClick={() => setVersao((n) => n + 1)}>
           {s.estados.tentar}
         </button>
       </div>
     );
   }
-  const post = dado.post;
+  // O número do alto ("31 respostas") e o contador do post aberto saem da mesma conta: a conversa inteira.
+  const total = dado.post.na_conversa ?? dado.post.respostas;
+  const post = dado.post.respostas === total ? dado.post : { ...dado.post, respostas: total };
   const raizPost = post.id === dado.raiz ? post : dado.acima.find((p) => p.id === dado.raiz) ?? null;
   // A marca nova (só da autora) quando o banco a manda; na prévia, o `aceita` dos exemplos.
   const aceitaId = dado.ajudou !== undefined ? dado.ajudou : raizPost?.aceita ?? null;
   const genero = generoDoAjudou(dado.pronomes_da_raiz);
   const seloAjudou = genero === "a" ? t.conversa.ajudouA : genero === "o" ? t.conversa.ajudouO : t.conversa.ajudouQuem;
-  const total = post.na_conversa ?? post.respostas;
   const podeResponder = situacao.logado && situacao.membro && !post.travado;
   const destino = alvo ?? post;
   const podeAjudou = previa() ? raizPost?.meu === true : dado.pode_ajudou === true;
@@ -244,6 +258,7 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
         <h1 className="al3-cond">{t.conversa.titulo}</h1>
         <p className="al3-barra-conta" key={total}>{total === 1 ? t.comum.respostaUma : preencher(t.comum.respostas, { n: total })}</p>
         {situacao.logado && situacao.membro && <SeguirConversa raiz={dado.raiz} t={t} aoErro={aoErro} aoAvisar={(texto) => avisar({ texto })} />}
+        {situacao.logado && situacao.membro && <LembrarMaisTarde post={post.id} lang={lang} s={s} aoAvisar={(texto, erro) => avisar({ texto, erro })} />}
       </div>
 
       {post.id !== dado.raiz && (
@@ -273,6 +288,9 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
         <PostAberto post={post} lang={lang} t={t} logado={situacao.logado} aoErro={aoErro} aoAvisar={(texto) => avisar({ texto })} />
       )}
 
+      {/* Notas de contexto (B1): a que aparece fica logo abaixo do post, com a fonte; a regra a um toque. */}
+      <NotasDeContexto post={post.id} lang={lang} s={s} situacao={situacao} aoAvisar={(texto, erro) => avisar({ texto, erro })} />
+
       <Torradas estado={torradas} />
 
       <div className="al3-ordem" role="group" aria-label={t.conversa.ordem} ref={ordemRef}>
@@ -282,7 +300,15 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
       </div>
 
       <section aria-label={t.conversa.titulo} aria-busy={estado.chave !== chave}>
-        {nos.length === 0 ? (
+        {nos.length === 0 && total > 0 ? (
+          // O contador diz que há respostas e a lista veio vazia: é falha de carga, nunca "ninguém respondeu".
+          <div className="al3-vazio" role="status">
+            <p>{s.estados.erro}</p>
+            <button type="button" className="al-botao al-botao-contorno al-botao-m" onClick={() => setVersao((n) => n + 1)}>
+              {s.estados.tentar}
+            </button>
+          </div>
+        ) : nos.length === 0 ? (
           <p className="al3-vazio">{t.conversa.nenhuma}</p>
         ) : (
           <ol className="al3-fio" ref={fio}>
@@ -337,14 +363,24 @@ function SeguirConversa({ raiz, t, aoErro, aoAvisar }: { raiz: string; t: Textos
   const [seguindo, setSeguindo] = useState<boolean | null>(previa() ? false : null);
   const [ocupado, setOcupado] = useState(false);
   const botao = useRef<HTMLButtonElement>(null);
+  // O aviso de erro do carregamento, sem refazer a consulta a cada desenho.
+  const avisarErro = useRef(aoErro);
+  useEffect(() => {
+    avisarErro.current = aoErro;
+  });
   useEffect(() => {
     if (previa()) return;
     let vivo = true;
     conversa
       .seguindo(raiz)
       .then((r) => vivo && setSeguindo(r.conversa === true))
-      // Banco sem a migração ainda: o sininho não aparece (não promete o que não faz).
-      .catch(() => vivo && setSeguindo(null));
+      // Banco sem a migração ainda: o sininho não aparece (não promete o que não faz). Outro erro (limite, conta suspensa): também
+      // não aparece, mas a pessoa fica sabendo o motivo.
+      .catch((e) => {
+        if (!vivo) return;
+        setSeguindo(null);
+        if (!faltaFuncaoNoBanco(e)) avisarErro.current(e);
+      });
     return () => {
       vivo = false;
     };

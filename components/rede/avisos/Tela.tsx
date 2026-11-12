@@ -284,7 +284,7 @@ function ListaDeAvisos({ t, lang, s }: { t: TextosDeAvisos; lang: string; s: Pro
         <ol aria-label={l.rotulo} className="al3-avisos">
           {itens.map((item, i) => {
             const href = destino(lang, item);
-            const frase = fraseDoAviso(item, frases, l.reserva);
+            const frase = fraseDoAviso(item, frases, l.reserva, t.servidor);
             // O rosto em mosaico de quem fez (só o primeiro codinome do grupo, que a frase já diz; nunca a lista) com o ícone do tipo
             // no canto; sem ninguém (apoio, moderação, ato), só o ícone.
             const quem = item.tipo === "apoio" ? null : (item.atores[0] ?? null);
@@ -403,6 +403,12 @@ const CAMINHO_DO_AVISO: Record<TipoDeAviso | "conta", string> = {
   chamado: "M5 21V4M5 4h11l-2 4 2 4H5",
   nucleo: "M12 3l9 5-9 5-9-5zM3 13l9 5 9-5",
   moderacao: "M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z",
+  // B1: conversa seguida (o sininho), ajudou (o visto), ato (a bandeira com o farol), reação a story (o anel), lembrete (o relógio).
+  conversa_seguida: "M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0",
+  ajudou: "M4 12.5l5 5L20 6.5",
+  ato: "M5 21V4M5 4h11l-2 4 2 4H5M19 3v3M21.5 5.5l-2 1",
+  reacao_story: "M12 3a9 9 0 1 0 9 9M12 3a9 9 0 0 1 9 9M12 8.5l1.1 2.3 2.4.3-1.8 1.7.5 2.4-2.2-1.2-2.2 1.2.5-2.4-1.8-1.7 2.4-.3z",
+  lembrete: "M12 7v5l3 2M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z",
   conta: "M12 8v5M12 16.5v.5M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z",
 };
 function IconeDoAviso({ tipo }: { tipo: TipoDeAviso | null }) {
