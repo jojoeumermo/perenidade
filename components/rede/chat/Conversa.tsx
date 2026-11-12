@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { abrirMensagens, abrirSessao, confiarNaIdentidade, depoisDeBuraco, enviarTexto, type MensagemAberta, ordemDaConversa, type Sessao } from "@/lib/rede/chat-chaveiro";
 import { codigoDeSeguranca, type Eu, MAX_CARACTERES, textoCabe } from "@/lib/rede/chat-privado";
 import { aoApagarTudoDoChat } from "@/lib/rede/chat/gaveta";
@@ -32,8 +32,11 @@ function quandoSome(lang: string, expira: string): string {
 function Grupos({ grupos, rotulo }: { grupos: string[]; rotulo: string }) {
   return (
     <p className="max-w-[15rem] font-mono text-base leading-relaxed tracking-wide" aria-label={rotulo}>
+      {/* O espaço entre os grupos: leitor de tela e "copiar" recebem grupos de cinco, não sessenta números colados. */}
       {grupos.map((grupo, i) => (
-        <span key={i} className="inline-block w-[4.6rem]">{grupo}</span>
+        <Fragment key={i}>
+          <span className="inline-block w-[4.4rem]">{grupo}</span>{i < grupos.length - 1 ? " " : ""}
+        </Fragment>
       ))}
     </p>
   );

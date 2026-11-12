@@ -300,7 +300,8 @@ export default function Fediverso({ lang, s, situacao, params }: PropsDaTelaDoPa
               <>
                 {/* O endereço completo vem do banco (domínio curto no modo total); sem ele, o de antes. */}
                 <p className="mt-2 break-all text-lg font-bold">{fed.endereco || `@${fed.handle}${dominioDaqui ? `@${dominioDaqui}` : ""}`}</p>
-                <p className="mt-1 text-sm text-ink-soft">{preencher(f.ligadaDesde, { quando: dataCurta(lang, fed.desde) })}</p>
+                {/* Sem a data (registro antigo, ou a prévia), a frase não aparece: nada de "Ligada desde ." */}
+                {dataCurta(lang, fed.desde) && <p className="mt-1 text-sm text-ink-soft">{preencher(f.ligadaDesde, { quando: dataCurta(lang, fed.desde) })}</p>}
                 <p className="mt-1 text-sm text-ink-soft">{preencher(f.numeros, { seguidores: fed.seguidores ?? 0, seguindo: fed.seguindo ?? 0 })}</p>
                 {novo && tf && (
                   // Descoberta: desligada até a pessoa ligar; vale para buscas e diretórios de outros servidores.

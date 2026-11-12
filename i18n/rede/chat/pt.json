@@ -42,7 +42,7 @@
     "semChaveDoOutro": "A outra pessoa ainda não ativou o chat. Quando ativar, vocês podem escrever.",
     "aguarde": "Preparando a chave da conversa…",
     "vazio": "Nenhuma mensagem. Lembrete: nunca mande endereço, documento ou senha, nem aqui.",
-    "expira": "some em {quando}",
+    "expira": "some {quando}",
     "autoriaInvalida": "A assinatura desta mensagem não confere.",
     "mudou": "A chave de segurança de {nome} mudou. Pode ser um aparelho novo, ou alguém tentando se passar pela pessoa. Confirme por outro canal antes de seguir.",
     "confirmar": "Confio na chave nova",
