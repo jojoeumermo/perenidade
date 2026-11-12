@@ -1035,6 +1035,65 @@ await espera("produção de 10/11 (com o interruptor e o Threads liberado): a mi
   ];
 }, ([nao, d, c, n]) => nao === true && d === "brid.gy,threads.com,threads.net" && c === false && n === 0);
 
+// 9. Imagens guardadas na chegada (P12) ────────────────────────────────────────────────────────────────────────────────
+// (supabase/migracoes/20261112-fediverso-midia-guardada.sql). O mesmo bloco está no fim do install.sql.
+const midiaGuardada = lerTexto("supabase/migracoes/20261112-fediverso-midia-guardada.sql");
+const midiaSrv = (acao, p = {}) => rpc(anon, "rede_fed_midia_servidor", { p_segredo: SEGREDO, p_acao: acao, p });
+const sha = (u) => import("node:crypto").then(({ createHash }) => createHash("sha256").update(u, "utf8").digest("hex"));
+await espera("o install.sql traz a migração das imagens idêntica ao arquivo, e ela roda de novo sem erro", async () => {
+  await banco.exclusivo(() => banco.pg.exec(midiaGuardada));
+  await banco.exclusivo(() => banco.pg.exec(midiaGuardada));
+  return install.includes(midiaGuardada.trim()) && install.indexOf(midiaGuardada.trim()) > install.indexOf(privacidade.trim());
+});
+const NOTA_COM_IMAGEM = `${LONGE}/notes/com-imagem`;
+const IMG1 = `${LONGE}/m/1.png`;
+const IMG2 = `${LONGE}/m/2.jpg`;
+await espera("nota de fora com imagens: as imagens entram na fila (vídeo não), com a hora sorteada entre 1 e 15 minutos", async () => {
+  await dono("insert into interno.rede_fed_recebidos (id, ator, texto, midia) values ($1, $2, 'com imagens', $3::jsonb)",
+    [NOTA_COM_IMAGEM, LIA, JSON.stringify([{ url: IMG1, tipo: "image/png" }, { url: IMG2 }, { url: `${LONGE}/m/v.mp4`, tipo: "video/mp4" }])]);
+  const r = (await dono("select url, nota, extract(epoch from buscar_apos - now())::int as daqui, guardada_em, chave from interno.rede_fed_midia where nota = $1 order by url", [NOTA_COM_IMAGEM])).rows;
+  return [r.map((x) => x.url).join(), r.every((x) => x.daqui >= 55 && x.daqui <= 905 && x.guardada_em === null), r[0]?.chave === (await sha(IMG1))];
+}, (r) => r[0] === [IMG1, IMG2].join() && r[1] === true && r[2] === true);
+await espera("o avatar de quem o banco conhece também entra na fila (a origem é o ator)", async () => um("select count(*)::int as n from interno.rede_fed_midia where ator = $1 and url = $2", [LIA, `${LONGE}/rostos/lia.png`]), (r) => r.n === 1);
+await espera("antes da hora, nada é entregue ao site; o banco diz 'pendente'", async () => [await midiaSrv("pendentes", { limite: 50 }), (await midiaSrv("estado", { chave: await sha(IMG1) })).estado],
+  ([l, e]) => !l.some((x) => x.url === IMG1) && e === "pendente");
+await recusa("sem o segredo, nada sai", () => rpc(anon, "rede_fed_midia_servidor", { p_segredo: "x".repeat(40), p_acao: "pendentes", p: {} }), "sem_permissao");
+await espera("a tabela das imagens não abre para ninguém de fora", async () => um("select has_table_privilege('anon', 'interno.rede_fed_midia', 'select') as a, has_table_privilege('authenticated', 'interno.rede_fed_midia', 'select') as b"), (r) => r.a === false && r.b === false);
+await espera("na hora, o site recebe as duas; guardar uma, falhar a outra três vezes: 'guardada' e 'falhou'", async () => {
+  await dono("update interno.rede_fed_midia set buscar_apos = now() - interval '1 second' where nota = $1", [NOTA_COM_IMAGEM]);
+  const l = await midiaSrv("pendentes", { limite: 50 });
+  const c1 = await sha(IMG1);
+  const c2 = await sha(IMG2);
+  await midiaSrv("guardada", { chave: c1, ok: true, bytes: 1234 });
+  for (let i = 0; i < 3; i++) {
+    await dono("update interno.rede_fed_midia set buscar_apos = now() - interval '1 second' where chave = $1", [c2]);
+    await midiaSrv("guardada", { chave: c2, ok: false });
+  }
+  return [l.filter((x) => x.url === IMG1 || x.url === IMG2).length, (await midiaSrv("estado", { chave: c1 })).estado, (await midiaSrv("estado", { chave: c2 })).estado, (await midiaSrv("estado", { chave: "0".repeat(64) })).estado];
+}, (r) => r.join() === "2,guardada,falhou,desconhecida");
+await espera("passado o teto de espaço, nada novo é entregue para guardar", async () => {
+  await dono("update interno.rede_fed_midia set buscar_apos = now() - interval '1 second' where guardada_em is null");
+  return [(await midiaSrv("pendentes", { limite: 50, teto_bytes: 1000 })).length, (await midiaSrv("pendentes", { limite: 50 })).length > 0];
+}, (r) => r[0] === 0 && r[1] === true);
+await espera("a nota venceu: a faxina tira as imagens dela e devolve só a chave da que estava guardada (o site apaga o arquivo)", async () => {
+  await dono("delete from interno.rede_fed_recebidos where id = $1", [NOTA_COM_IMAGEM]);
+  const chaves = await midiaSrv("faxina", { limite: 50 });
+  const sobrou = (await um("select count(*)::int as n from interno.rede_fed_midia where nota = $1", [NOTA_COM_IMAGEM])).n;
+  return [chaves.includes(await sha(IMG1)), chaves.includes(await sha(IMG2)), sobrou];
+}, (r) => r.join() === "true,false,0");
+await espera("o avatar trocado sai na faxina; o avatar atual fica", async () => {
+  await dono("update interno.rede_fed_remotos set avatar = $2 where ator = $1", [LIA, `${LONGE}/rostos/lia-nova.png`]);
+  await midiaSrv("faxina", { limite: 50 });
+  return (await dono("select url from interno.rede_fed_midia where ator = $1 order by url", [LIA])).rows.map((x) => x.url).join();
+}, (u) => u === `${LONGE}/rostos/lia-nova.png`);
+await espera("imagem de instância bloqueada nem entra na fila, e a que já estava sai na faxina", async () => {
+  await dono("insert into interno.rede_fed_midia (chave, url, nota, buscar_apos) values ($1, 'https://ruim2.teste/x.png', null, now())", [await sha("https://ruim2.teste/x.png")]);
+  await dono("insert into interno.rede_fed_bloqueados (dominio, motivo) values ('ruim2.teste', 'teste') on conflict do nothing");
+  await dono("select interno.rede_fed_midia_enfileirar('https://ruim2.teste/y.png', 'https://ruim2.teste/n', null)");
+  await midiaSrv("faxina", { limite: 50 });
+  return (await um("select count(*)::int as n from interno.rede_fed_midia where url like 'https://ruim2.teste/%'")).n;
+}, (n) => n === 0);
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const f of falhas) console.log(`  ✗ ${f}`);
 process.exit(falhas.length ? 1 : 0);

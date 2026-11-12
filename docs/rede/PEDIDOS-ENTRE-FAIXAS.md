@@ -410,7 +410,11 @@ Se não atender: nada muda na tela; o dado continua indo no JSON.
 
 #### P12 · 2026-11-10 · Faixa 2 pede · SQL e depósito (próxima migração): guardar a mídia de fora quando a nota chega
 
-**Situação (10/11/2026): continua aberto.** A migração `20261110-fediverso-privacidade.sql` não trata disto (ficou de fora de
+**Situação (12/11/2026): FEITO pela Faixa 2, sem pedir nada à Faixa 1.** As imagens ficam no disco da VPS (não no Storage: o
+plano gratuito do Supabase tem 1 GB). Migração `20261112-fediverso-midia-guardada.sql`, `lib/rede/fediverso/midia-guardada.ts`,
+a rota-proxy e a de entrega, e `infra/contabo/atualizar.sh` (a pasta montada no contêiner). Detalhe em `docs/rede/FEDIVERSO.md`.
+
+**Situação anterior (10/11/2026): continuava aberto.** A migração `20261110-fediverso-privacidade.sql` não trata disto (ficou de fora de
 propósito). O que ela já deixa pronto para este pedido: a nota impulsionada por quem alguém daqui segue passa a ficar guardada,
 então a mídia dela entra na mesma conta quando o depósito existir. Continua faltando o lugar no depósito, a coluna com o caminho
 guardado e a faxina.

@@ -7,6 +7,7 @@
 // 6 chamadas por minuto por endereço (a VPS chama sem endereço de visitante e conta como um só: 2 por minuto).
 import { conferirTeto } from "@/lib/rede/fediverso/rotas";
 import { LIMITE_TOTAL, processarFila } from "@/lib/rede/fediverso/entrega";
+import { guardarPendentes } from "@/lib/rede/fediverso/midia-guardada";
 import { modoTotal } from "@/lib/rede/fediverso/servidor";
 
 export const runtime = "nodejs";
@@ -18,5 +19,8 @@ export async function POST(pedido: Request) {
   // No modo "fediverso-total", até 200 por chamada (10 de cada vez, 2 por domínio, com circuito); fora dele, 40, como sempre.
   const r = await processarFila(modoTotal() ? LIMITE_TOTAL : 40).catch(() => null);
   if (!r) return Response.json({ ok: false }, { status: 503, headers: { "Cache-Control": "no-store" } });
-  return Response.json({ ok: true, ...r }, { headers: { "Cache-Control": "no-store" } });
+  // As imagens de fora que chegaram com as notas, na hora sorteada (P12): até 10 por rodada, em até 20 s. Sem a pasta da VPS
+  // configurada, não faz nada. Nunca lança.
+  const midia = modoTotal() ? await guardarPendentes(10, 20_000) : null;
+  return Response.json({ ok: true, ...r, ...(midia ? { midia } : {}) }, { headers: { "Cache-Control": "no-store" } });
 }

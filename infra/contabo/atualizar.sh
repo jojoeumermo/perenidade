@@ -35,9 +35,15 @@ if [ "$ativo" = "a" ]; then novo=b; porta=3002; else novo=a; porta=3001; fi
 commit=$(docker image inspect -f '{{index .Config.Labels "org.opencontainers.image.revision"}}' "$IMAGEM:$ALVO" 2>/dev/null || echo "?")
 echo "$(date -Is) publicando $commit em site-$novo (porta $porta); no ar: ${ativo:-nenhum}"
 
+# As imagens de fora que o site guarda na chegada (P12, docs/rede/FEDIVERSO.md, "As imagens de fora"): uma pasta da VPS, do
+# usuário do contêiner (node, 1000), montada nos dois contêineres. Sem ela o site busca as imagens na hora, como antes.
+MIDIA=/var/lib/lucia/fed-midia
+mkdir -p "$MIDIA" && chown 1000:1000 "$MIDIA" && chmod 750 "$MIDIA"
+
 docker rm -f "site-$novo" > /dev/null 2>&1 || true
 docker run -d --name "site-$novo" --restart unless-stopped \
   --env-file "$ENV" -p "127.0.0.1:$porta:3000" \
+  -v "$MIDIA:/dados/fed-midia" -e ALUMIA_FEDIVERSO_MIDIA_DIR=/dados/fed-midia \
   --memory 3g --log-opt max-size=20m --log-opt max-file=3 \
   "$IMAGEM:$ALVO" > /dev/null
 

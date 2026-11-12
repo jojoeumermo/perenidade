@@ -497,6 +497,59 @@ await espera("rota-proxy de mídia: assinatura errada, vencida ou de outra URL d
   const boa = await rotas.midia.GET(new Request(`${BASE}${certa}`));
   return [errada.status, outra.status, vencida.status, semRede, boa.status, boa.headers.get("content-type"), boa.headers.get("cache-control")];
 }, (r) => r[0] === 404 && r[1] === 404 && r[2] === 404 && r[3] && r[4] === 200 && r[5] === "image/png" && !/immutable/.test(r[6]));
+await espera("P12: com a pasta da VPS, a rodada guarda a imagem na hora sorteada; a rota-proxy serve a cópia sem tocar a origem, não busca fora a que está na fila e a faxina apaga o arquivo", async () => {
+  const { mkdtemp, readdir, rm: apagarPasta } = await import("node:fs/promises");
+  const { tmpdir } = await import("node:os");
+  const { join } = await import("node:path");
+  const { createHash } = await import("node:crypto");
+  const pasta = await mkdtemp(join(tmpdir(), "fed-midia-"));
+  const sha = (u) => createHash("sha256").update(u, "utf8").digest("hex");
+  const png = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0, 0, 0, 13, 0x49, 0x48, 0x44, 0x52, 1, 2, 3]);
+  const GUARDAR = "https://remota.teste/m/guardar.png";
+  const NA_FILA = "https://remota.teste/m/na-fila.png";
+  const NAO_SVG = "https://remota.teste/m/nao.svg";
+  rede.docs.set(GUARDAR, png);
+  rede.docs.set(NA_FILA, png);
+  rede.docs.set(NAO_SVG, new TextEncoder().encode("<svg xmlns='http://www.w3.org/2000/svg'></svg>"));
+  // O dublê do banco das imagens: a fila com três, uma não é imagem; a faxina devolve a guardada.
+  const estados = new Map([[sha(GUARDAR), "pendente"], [sha(NA_FILA), "pendente"], [sha(NAO_SVG), "pendente"]]);
+  const vistos = [];
+  funcoesDaPessoa.rede_fed_midia_servidor = (c) => {
+    vistos.push(c.p_acao);
+    if (c.p_segredo !== SEGREDO) return new Response(JSON.stringify({ message: "sem_permissao" }), { status: 400 });
+    if (c.p_acao === "pendentes") return [{ chave: sha(GUARDAR), url: GUARDAR }, { chave: sha(NAO_SVG), url: NAO_SVG }, { chave: "f".repeat(64), url: "https://remota.teste/m/chave-errada.png" }];
+    if (c.p_acao === "guardada") { estados.set(c.p.chave, c.p.ok ? "guardada" : "falhou"); return { ok: true }; }
+    if (c.p_acao === "estado") return { estado: estados.get(c.p.chave) ?? "desconhecida" };
+    if (c.p_acao === "faxina") return vistos.includes("estado") ? [sha(GUARDAR)] : [];
+    return new Response(JSON.stringify({ message: "invalido:acao" }), { status: 400 });
+  };
+  process.env.ALUMIA_FEDIVERSO_MIDIA_DIR = pasta;
+  try {
+    const mg = await import("../lib/rede/fediverso/midia-guardada.ts");
+    const rodada = await mg.guardarPendentes(10, 20_000);
+    const arquivos = (await readdir(join(pasta, sha(GUARDAR).slice(0, 2)))).filter((f) => !f.endsWith(".parcial"));
+    const getsAntes = rede.gets.length;
+    const copia = await rotas.midia.GET(new Request(`${BASE}${servidor.urlDaMidia(GUARDAR)}`));
+    const daCopia = new Uint8Array(await copia.arrayBuffer());
+    const naFila = await rotas.midia.GET(new Request(`${BASE}${servidor.urlDaMidia(NA_FILA)}`));
+    const semTocarOrigem = rede.gets.length === getsAntes;
+    // A faxina (a próxima rodada) apaga o arquivo da imagem que saiu do registro.
+    const outra = await mg.guardarPendentes(0, 1);
+    const depois = await readdir(join(pasta, sha(GUARDAR).slice(0, 2))).catch(() => []);
+    return [rodada.guardadas, rodada.falhas, arquivos.join() === sha(GUARDAR), copia.status, copia.headers.get("content-type"), daCopia.length === png.length, naFila.status, semTocarOrigem, estados.get(sha(NAO_SVG)), outra.apagadas, depois.length];
+  } finally {
+    delete process.env.ALUMIA_FEDIVERSO_MIDIA_DIR;
+    delete funcoesDaPessoa.rede_fed_midia_servidor;
+    await apagarPasta(pasta, { recursive: true, force: true });
+  }
+}, (r) => r.join() === "1,1,true,200,image/png,true,404,true,falhou,1,0");
+await espera("P12: sem a pasta configurada, a rota-proxy busca na hora, como antes (nada da fila é consultado)", async () => {
+  const URL_SEM = "https://remota.teste/m/sem-pasta.png";
+  rede.docs.set(URL_SEM, new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0, 0, 0, 13, 0x49]));
+  const antes = db.rpcs.filter((f) => f === "rede_fed_midia_servidor").length;
+  const r = await rotas.midia.GET(new Request(`${BASE}${servidor.urlDaMidia(URL_SEM)}`));
+  return [r.status, db.rpcs.filter((f) => f === "rede_fed_midia_servidor").length - antes];
+}, (r) => r.join() === "200,0");
 await espera("rota-proxy de mídia: redirecionamento para instância bloqueada não é seguido nem servido", async () => {
   db.bloqueados.add("bloqueada.teste");
   rede.redirecionar.set("https://remota.teste/m/10.png", "https://bloqueada.teste/m/10.png");

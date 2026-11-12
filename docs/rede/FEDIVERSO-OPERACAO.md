@@ -18,6 +18,13 @@ sem passar pelo Cloudflare. O pedido não leva segredo: a rota só entrega o que
 São três arquivos em `infra/contabo/`: `fediverso-entregar.sh` (o que roda), `lucia-fediverso.service` e
 `lucia-fediverso.timer`.
 
+## As imagens de fora (P12)
+
+Na mesma rodada, depois da fila, o site busca as imagens de fora que chegaram com as notas (até 10 por rodada, em até 20 s) e
+grava em `/var/lib/lucia/fed-midia` (dono: o usuário 1000, o mesmo do contêiner). `infra/contabo/atualizar.sh` cria a pasta e a
+monta nos dois contêineres; vale a partir da próxima publicação. Ver quanto ocupa: `du -sh /var/lib/lucia/fed-midia`. O teto é
+20 GB (`ALUMIA_FEDIVERSO_MIDIA_TETO_MB` no `site.env` muda). Apagar a pasta não quebra nada: as imagens voltam a ser buscadas.
+
 ## Instalar na VPS (uma vez)
 
 **1. No computador da coordenação**, dentro da pasta do repositório, copie os três arquivos e entre na VPS:

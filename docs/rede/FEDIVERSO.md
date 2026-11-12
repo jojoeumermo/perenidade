@@ -249,10 +249,17 @@ Teste: `npm run testar:fediverso-banco` (seção "Privacidade").
 
 ### Limites conhecidos de privacidade
 
-- **A rota-proxy de mídia esconde quem lê, não quando.** A imagem só é buscada na origem quando o primeiro leitor a pede (depois
-  fica 1 dia no cache da borda). Uma nota mandada a uma pessoa só, com um endereço de imagem único, deixa o servidor de fora saber
-  a hora em que ela abriu. `loading="lazy"` nas imagens é só economia de dados, não proteção. O conserto é buscar e guardar a
-  mídia quando a nota chega (pede SQL e depósito: P12 em `PEDIDOS-ENTRE-FAIXAS.md`).
+- **As imagens de fora são buscadas na chegada, não quando alguém olha** (P12, desde 12/11/2026). A rota-proxy já escondia QUEM
+  vê; faltava esconder QUANDO. Agora, quando uma nota com imagem chega (ou o avatar de alguém de fora é guardado), cada imagem
+  entra numa fila (`interno.rede_fed_midia`, `supabase/migracoes/20261112-fediverso-midia-guardada.sql`) com uma hora sorteada
+  entre 1 e 15 minutos. Na rodada do timer da VPS (`/api/fediverso/entregar`), o site busca as que venceram, com as mesmas
+  travas da rota-proxy, e grava no **disco da VPS** (`/var/lib/lucia/fed-midia`, montada no contêiner em `/dados/fed-midia`;
+  `lib/rede/fediverso/midia-guardada.ts`). Não vai para o Storage do Supabase: o plano gratuito tem 1 GB. A rota-proxy serve a
+  cópia; enquanto a imagem está na fila, ela NÃO a busca lá fora (404 por um minuto): a hora em que a origem é tocada não depende
+  de ninguém abrir nada. A faxina apaga o arquivo quando a nota vence, o avatar muda ou a instância é bloqueada. Teto de espaço:
+  20 GB (`ALUMIA_FEDIVERSO_MIDIA_TETO_MB`); passado dele, as imagens novas voltam a ser buscadas na hora. Sem a pasta
+  configurada (`ALUMIA_FEDIVERSO_MIDIA_DIR`), tudo funciona como antes.
+- **O que ainda é buscado na hora:** o post lido na origem com o toque da pessoa em "buscar este post" (a hora já é a do toque).
 - **Perfil de conta que a Alumia nunca viu.** `?conta=` e `?ator=` leem o perfil na origem na primeira visita (depois, 5 minutos
   de memória). Um link armado para um servidor do atacante ainda revela a hora do primeiro clique (nunca o IP nem quem foi). O
   fio (`?nota=`) não tem esse limite: sem a nota no banco, nada é buscado até a pessoa tocar em "buscar".

@@ -52,9 +52,9 @@ export const gruposLigados = () => modoTotal() && recursoDaFederacao("fediverso-
 
 export class ErroDoBanco extends Error {}
 
-/** Chama public.rede_fed_servidor com o segredo. */
-export async function banco<T>(acao: string, p: Record<string, unknown> = {}): Promise<T> {
-  const r = await fetch(`${urlDoBanco}/rest/v1/rpc/rede_fed_servidor`, {
+/** Chama public.rede_fed_servidor (ou outra função do servidor, como rede_fed_midia_servidor) com o segredo. */
+export async function banco<T>(acao: string, p: Record<string, unknown> = {}, funcao: "rede_fed_servidor" | "rede_fed_midia_servidor" = "rede_fed_servidor"): Promise<T> {
+  const r = await fetch(`${urlDoBanco}/rest/v1/rpc/${funcao}`, {
     method: "POST",
     headers: { apikey: chavePublicaDoBanco, Authorization: `Bearer ${chavePublicaDoBanco}`, "Content-Type": "application/json" },
     body: JSON.stringify({ p_segredo: SEGREDO, p_acao: acao, p }),
