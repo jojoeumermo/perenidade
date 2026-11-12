@@ -38278,6 +38278,10 @@ end $$;
 --   6. Rascunho na conta só cifrado no aparelho (AES-GCM; o servidor guarda só a cifra) e só com a chave "guardar na conta"
 --      ligada (a tela decide; o banco recusa rascunho em texto claro). Opinião política e denúncia são dado sensível
 --      (LGPD art. 11) e o servidor não precisa ler o rascunho (art. 6º, III, necessidade). Apagar todos de uma vez (art. 18, VI).
+--      ATENÇÃO: esta migração NÃO apaga os rascunhos em texto claro gravados antes dela (não tira dado de ninguém sem o dono
+--      decidir). Eles continuam em interno.rede_rascunhos, e rede_pub_rascunhos segue devolvendo-os à própria autora, até a
+--      faxina por idade tirá-los: no máximo 30 dias depois da última vez que foram salvos. Para zerar antes, com a decisão do
+--      Jonathan: delete from interno.rede_rascunhos where not (pedido ? 'cifra');
 --
 -- O que NÃO está aqui: a roda de confiança (lista do perfil, F4), "Público, também no Fediverso" num post comum (regra da Faixa 2,
 -- pedido em docs/rede/PEDIDOS-ENTRE-FAIXAS.md) e o desfazer do ato (F2).
@@ -38347,12 +38351,15 @@ create trigger rede_b1_post_nasce after insert on interno.rede_posts for each ro
 
 -- ── 1. Quem pode citar ──────────────────────────────────────────────────────────────────────────────────────────────────
 
-/** Esta pessoa pode citar este post? O autor sempre pode; sem linha (post antigo), todos; "seguindo" = quem o autor segue. */
+/**
+ * Esta pessoa pode citar este post? O autor sempre pode; sem linha (post antigo), todos; "seguindo" = quem o autor segue DE FATO
+ * (o pedido de seguir um perfil trancado, ainda pendente, não conta).
+ */
 create or replace function interno.rede_b1_pode_citar(p_alvo uuid, p_quem uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select coalesce((
     select o.autor = p_quem
         or coalesce(b.citar_quem, 'todos') = 'todos'
-        or (b.citar_quem = 'seguindo' and exists (select 1 from rede_seguindo s where s.quem = o.autor and s.segue = p_quem))
+        or (b.citar_quem = 'seguindo' and exists (select 1 from rede_seguindo s where s.quem = o.autor and s.segue = p_quem and not s.pendente))
     from rede_posts o left join rede_b1_post b on b.post = o.id
     where o.id = p_alvo), false)
 $$;
