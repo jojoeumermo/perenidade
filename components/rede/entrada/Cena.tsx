@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { Lampiao } from "@/components/rede/ui/Lampiao";
 import type { FiguraDaEntrada } from "@/lib/rede/entrada/figuras";
 import type { TextosDaEntrada } from "@/lib/rede/entrada/textos";
@@ -14,7 +14,7 @@ export function Cena({ t, figuras, site, children }: { t: TextosDaEntrada; figur
     <div className="ale" data-alumia-entrada="">
       <div aria-hidden className="ale-faixa" />
       <div className="ale-cena">
-        <div className="ale-figuras" role="img" aria-label={t.figurasRotulo}>
+        <div className="ale-figuras" role="img" aria-label={t.figurasRotulo} data-impar={figuras.length % 2 ? "" : undefined} style={{ "--ale-n": figuras.length, "--ale-colunas": Math.ceil(figuras.length / 2) } as CSSProperties}>
           {figuras.map((f) => (
             // As silhuetas são pequenas (≈10 KB cada) e já saem prontas do roteiro: sem o otimizador de imagens.
             // eslint-disable-next-line @next/next/no-img-element
@@ -53,6 +53,7 @@ export function Cena({ t, figuras, site, children }: { t: TextosDaEntrada; figur
               <a href={f.credito.fonte} rel="noopener noreferrer" target="_blank">
                 Wikimedia Commons
               </a>
+              {f.credito.licencaDerivada ? <span> · {t.creditosDerivada.replace("{licenca}", f.credito.licencaDerivada)}</span> : null}
               {f.credito.cuidado ? <span> · {f.credito.cuidado}</span> : null}
             </li>
           ))}

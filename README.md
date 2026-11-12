@@ -80,3 +80,4 @@ Quem participa segue o `CODE_OF_CONDUCT.md`.
 - Código: © Jonathan Santos, software livre sob a GNU AGPL versão 3 ou posterior (`LICENSE`).
 - Conteúdo educacional: CC BY-SA 4.0 (`LICENSE-CONTEUDO.md`).
 - Obras do acervo, imagens e bibliotecas de terceiros mantêm a licença de origem (`THIRD_PARTY_LICENSES.md` e `docs/NOTICE.md`).
+- As silhuetas da entrada da Alumia (`public/alumia/entrada/`) são obras derivadas de fotos do Wikimedia Commons e NÃO são AGPL: `freire.webp` é CC BY-SA 3.0 e `marielle.webp` é CC BY-SA 2.0 (mesma licença da foto original, como ela exige); as outras vêm de fotos em domínio público. Autor, licença e fonte de cada uma: `lib/rede/entrada/creditos.json`.

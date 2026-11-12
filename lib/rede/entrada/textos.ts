@@ -91,6 +91,8 @@ export interface TextosDaEntrada {
   creditosAutor: string;
   creditosLicenca: string;
   creditosFonte: string;
+  /** "{licenca}" é o nome da licença (ex.: CC BY-SA 3.0). */
+  creditosDerivada: string;
   figurasRotulo: string;
 }
 
@@ -213,7 +215,8 @@ const pt: TextosDaEntrada = {
   creditosAutor: "Foto",
   creditosLicenca: "Licença",
   creditosFonte: "Fonte",
-  figurasRotulo: "Silhuetas de Lenin, Marx, Engels, Rosa Luxemburgo, Stalin, Gramsci, Mariátegui, Frantz Fanon, Paulo Freire e Marielle Franco sobre vermelho",
+  creditosDerivada: "silhueta distribuída sob {licenca}",
+  figurasRotulo: "Silhuetas de Lenin, Marx, Engels, Rosa Luxemburgo, Stalin, Gramsci, Mariátegui, Paulo Freire e Marielle Franco sobre vermelho",
 };
 
 const en: TextosDaEntrada = {
@@ -331,7 +334,8 @@ const en: TextosDaEntrada = {
   creditosAutor: "Photo",
   creditosLicenca: "License",
   creditosFonte: "Source",
-  figurasRotulo: "Silhouettes of Lenin, Marx, Engels, Rosa Luxemburg, Stalin, Gramsci, Mariátegui, Frantz Fanon, Paulo Freire and Marielle Franco on red",
+  creditosDerivada: "silhouette distributed under {licenca}",
+  figurasRotulo: "Silhouettes of Lenin, Marx, Engels, Rosa Luxemburg, Stalin, Gramsci, Mariátegui, Paulo Freire and Marielle Franco on red",
 };
 
 const es: TextosDaEntrada = {
@@ -448,7 +452,8 @@ const es: TextosDaEntrada = {
   creditosAutor: "Foto",
   creditosLicenca: "Licencia",
   creditosFonte: "Fuente",
-  figurasRotulo: "Siluetas de Lenin, Marx, Engels, Rosa Luxemburgo, Stalin, Gramsci, Mariátegui, Frantz Fanon, Paulo Freire y Marielle Franco sobre rojo",
+  creditosDerivada: "silueta distribuida bajo {licenca}",
+  figurasRotulo: "Siluetas de Lenin, Marx, Engels, Rosa Luxemburgo, Stalin, Gramsci, Mariátegui, Paulo Freire y Marielle Franco sobre rojo",
 };
 
 const fr: TextosDaEntrada = {
@@ -565,7 +570,8 @@ const fr: TextosDaEntrada = {
   creditosAutor: "Photo",
   creditosLicenca: "Licence",
   creditosFonte: "Source",
-  figurasRotulo: "Silhouettes de Lénine, Marx, Engels, Rosa Luxemburg, Staline, Gramsci, Mariátegui, Frantz Fanon, Paulo Freire et Marielle Franco sur fond rouge",
+  creditosDerivada: "silhouette diffusée sous {licenca}",
+  figurasRotulo: "Silhouettes de Lénine, Marx, Engels, Rosa Luxemburg, Staline, Gramsci, Mariátegui, Paulo Freire et Marielle Franco sur fond rouge",
 };
 
 const ru: TextosDaEntrada = {
@@ -682,7 +688,8 @@ const ru: TextosDaEntrada = {
   creditosAutor: "Фото",
   creditosLicenca: "Лицензия",
   creditosFonte: "Источник",
-  figurasRotulo: "Силуэты Ленина, Маркса, Энгельса, Розы Люксембург, Сталина, Грамши, Мариатеги, Франца Фанона, Паулу Фрейре и Мариэль Франко на красном фоне",
+  creditosDerivada: "силуэт распространяется по лицензии {licenca}",
+  figurasRotulo: "Силуэты Ленина, Маркса, Энгельса, Розы Люксембург, Сталина, Грамши, Мариатеги, Паулу Фрейре и Мариэль Франко на красном фоне",
 };
 
 const zh: TextosDaEntrada = {
@@ -795,7 +802,8 @@ const zh: TextosDaEntrada = {
   creditosAutor: "照片",
   creditosLicenca: "许可",
   creditosFonte: "来源",
-  figurasRotulo: "红色背景上的列宁、马克思、恩格斯、罗莎·卢森堡、斯大林、葛兰西、马里亚特吉、弗朗茨·法农、保罗·弗莱雷和玛丽艾尔·佛朗哥的剪影",
+  creditosDerivada: "剪影以 {licenca} 许可发布",
+  figurasRotulo: "红色背景上的列宁、马克思、恩格斯、罗莎·卢森堡、斯大林、葛兰西、马里亚特吉、保罗·弗莱雷和玛丽艾尔·佛朗哥的剪影",
 };
 
 const TEXTOS: Record<string, TextosDaEntrada> = { pt, en, es, fr, ru, zh };

@@ -33,7 +33,11 @@ async function buscar(endereco) {
 fs.mkdirSync(saida, { recursive: true });
 const creditos = [];
 for (const f of lista.figuras) {
-  if (!f.ligada) continue;
+  if (!f.ligada) {
+    // Figura desligada não fica publicada: a silhueta dela sai da pasta pública.
+    fs.rmSync(path.join(saida, `${f.id}.webp`), { force: true });
+    continue;
+  }
   if (f.viva && !String(f.autorizacao ?? "").trim()) throw new Error(`${f.id}: pessoa viva sem autorização anotada; não entra`);
   const u = `https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=640&iiextmetadatafilter=LicenseShortName|LicenseUrl|Artist&titles=${encodeURIComponent(f.arquivo)}`;
   const resposta = await buscar(u);
@@ -69,6 +73,8 @@ for (const f of lista.figuras) {
     licencaUrl: limpo(m.LicenseUrl?.value) || null,
     fonte: info.descriptionurl,
     derivada: "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia",
+    // CC BY-SA obriga a obra derivada a sair sob a mesma licença, e a dizer isso: a silhueta não é AGPL como o código.
+    ...(/^cc by-sa /i.test(licenca) ? { licencaDerivada: licenca } : {}),
     ...(f.cuidado ? { cuidado: f.cuidado } : {}),
   });
   console.log(`✓ ${f.id} · ${licenca}`);
