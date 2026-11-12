@@ -12,6 +12,8 @@ export interface CreditoDaFigura {
   licencaUrl: string | null;
   fonte: string;
   derivada: string;
+  /** A licença sob a qual a silhueta (obra derivada) é distribuída, quando a original obriga a mesma licença (CC BY-SA). */
+  licencaDerivada?: string;
   cuidado?: string;
 }
 
@@ -41,7 +43,7 @@ export function figurasDaEntrada(): FiguraDaEntrada[] {
         id: f.id,
         nome: f.nome,
         src: `alumia/entrada/${f.id}.webp`,
-        credito: { autor: c.autor, licenca: c.licenca, licencaUrl: c.licencaUrl, fonte: c.fonte, derivada: c.derivada, ...(c.cuidado ? { cuidado: c.cuidado } : {}) },
+        credito: { autor: c.autor, licenca: c.licenca, licencaUrl: c.licencaUrl, fonte: c.fonte, derivada: c.derivada, ...(c.licencaDerivada ? { licencaDerivada: c.licencaDerivada } : {}), ...(c.cuidado ? { cuidado: c.cuidado } : {}) },
       };
     });
 }

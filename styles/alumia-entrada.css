@@ -96,8 +96,9 @@
   position: absolute;
   inset: 0;
   display: grid;
-  /* Dez figuras: 5 por 2 no celular, as 10 em linha no computador. */
-  grid-template-columns: repeat(5, 1fr);
+  /* As figuras ligadas (--ale-n, hoje 9): duas fileiras no celular (--ale-colunas = metade, para cima), todas em linha no
+     computador. Com número ímpar, a última ocupa duas colunas para a fileira de baixo não ficar com um buraco. */
+  grid-template-columns: repeat(var(--ale-colunas, 5), 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 0;
   mix-blend-mode: multiply;
@@ -107,6 +108,7 @@
   -webkit-mask-image: radial-gradient(140% 100% at 50% 20%, #000 45%, transparent 92%);
   mask-image: radial-gradient(140% 100% at 50% 20%, #000 45%, transparent 92%);
 }
+.ale-figuras[data-impar] img:last-child { grid-column: span 2; }
 .ale-figuras img {
   width: 100%;
   height: 100%;
@@ -117,10 +119,11 @@
 }
 @media (min-width: 900px) {
   .ale-figuras {
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(var(--ale-n, 9), 1fr);
     grid-template-rows: 1fr;
     inset: 0 -2% 18% -2%;
   }
+  .ale-figuras[data-impar] img:last-child { grid-column: auto; }
   .ale-figuras img:nth-child(odd) {
     transform: translateY(6%) scale(1.04);
   }

@@ -63,22 +63,14 @@
     "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia"
   },
   {
-    "id": "fanon",
-    "nome": "Frantz Fanon",
-    "autor": "Unknown author",
-    "licenca": "Public domain",
-    "licencaUrl": null,
-    "fonte": "https://commons.wikimedia.org/wiki/File:Photograph_of_Frantz_Fanon_from_Black_Skin_White_Masks_(1967)_dust_jacket.webp",
-    "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia"
-  },
-  {
     "id": "freire",
     "nome": "Paulo Freire",
     "autor": "Slobodan Dimitrov",
     "licenca": "CC BY-SA 3.0",
     "licencaUrl": "https://creativecommons.org/licenses/by-sa/3.0",
     "fonte": "https://commons.wikimedia.org/wiki/File:Paulo_Freire_1977.jpg",
-    "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia"
+    "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia",
+    "licencaDerivada": "CC BY-SA 3.0"
   },
   {
     "id": "marielle",
@@ -88,6 +80,7 @@
     "licencaUrl": "https://creativecommons.org/licenses/by-sa/2.0",
     "fonte": "https://commons.wikimedia.org/wiki/File:Marielle_Franco_(cropped).jpg",
     "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia",
+    "licencaDerivada": "CC BY-SA 2.0",
     "cuidado": "Imagem protegida pela família (Código Civil art. 20, parágrafo único) e cuidada pelo Instituto Marielle Franco: só como silhueta respeitosa entre as outras, sem distorção nem caricatura."
   }
 ]
