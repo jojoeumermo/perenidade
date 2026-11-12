@@ -91,6 +91,11 @@ await zerar();
 const seguindo = await publicarB1("autora", { texto: "Quem eu sigo pode citar este.", publico: "membros", citar_quem: "seguindo" });
 await espera("quem a autora segue cita", () => citar("amiga", seguindo.id), (r) => r.citado?.id === seguindo.id);
 await recusa("quem ela não segue não cita", () => citar("outra", seguindo.id), "citar_fechado");
+// O ataque: a autora só PEDIU para seguir (perfil trancado, pedido pendente); isso ainda não é seguir, e a pessoa não cita.
+await dono("insert into interno.rede_seguindo (quem, segue, pendente) values ($1, $2, true)", [p.autora, p.outra]);
+await recusa("pedido de seguir ainda pendente não libera a citação", () => citar("outra", seguindo.id), "citar_fechado");
+await espera("…nem no banco", async () => (await um("select interno.rede_b1_pode_citar($1, $2) as pode", [seguindo.id, p.outra])).pode, (x) => x === false);
+await dono("delete from interno.rede_seguindo where quem = $1 and segue = $2", [p.autora, p.outra]);
 const aberto = await publicarB1("autora", { texto: "Todo mundo pode citar este chamado.", publico: "membros", citar_quem: "todos" });
 await espera("todos: qualquer pessoa cita", () => citar("outra", aberto.id), (r) => r.citado?.id === aberto.id);
 await recusa("citar_quem inválido", () => publicarB1("autora", { texto: "x", citar_quem: "meio-mundo" }), "invalido:citar_quem");
