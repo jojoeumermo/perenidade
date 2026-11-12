@@ -7,6 +7,7 @@
 // Regras: trava desligada não muda nada; ligada, sem aprovação e sem aal2 ninguém lê a linha nem é membro; 'geral' continua
 // aberta; a fila só para a triagem com aal2 e sem e-mail nem id de conta; ninguém decide o próprio pedido; aprovar na Alumia
 // não dá a Escola; recusar pede motivo; o motivo do pedido some 30 dias depois da decisão.
+// No fim, o login único de ponta a ponta: a rota /api/sessao/ponte de verdade contra as contas de teste (scripts/backend-local.mjs).
 // Uso: npm run testar:alumia-entrada
 import fs from "node:fs";
 import path from "node:path";
@@ -217,6 +218,78 @@ ok("silhuetas: a de Marielle Franco traz o cuidado com a imagem", creditos.find(
 ok("rota de API da ponte existe", fs.existsSync(path.join(raiz, "app/api/sessao/ponte/route.ts")));
 ok("a federação continua fora do portão (o proxy não tranca /.well-known nem /api/fediverso)", !/alumia-entrada/.test(ler("proxy.ts")));
 ok("o recurso alumia-entrada existe e só liga pelo nome", /"alumia-entrada":/.test(ler("lib/recursos.ts")));
+
+// ═══════════════════ 5. O login único de ponta a ponta ═══════════════════
+// A rota de verdade (app/api/sessao/ponte/route.ts) contra o banco e as contas de teste (scripts/backend-local.mjs, que imita o
+// generate_link e o verify do serviço de contas): a sessão do site vira um código de uma vez, e o código vira uma sessão NOVA.
+// Sem rede: tudo em 127.0.0.1, numa porta própria (para não bater num "npm run dev:local" aberto).
+{
+  process.env.PORTA_BANCO = process.env.PORTA_BANCO_TESTE_ENTRADA || "54417";
+  const local = await import("./backend-local.mjs");
+  const { servidor } = await local.iniciar({ silencioso: true });
+  process.env.NEXT_PUBLIC_SUPABASE_URL = local.URL_LOCAL;
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = local.CHAVE_ANON;
+  process.env.SUPABASE_SERVICE_ROLE_KEY = local.CHAVE_SERVICO;
+  const rota = await import("../app/api/sessao/ponte/route.ts");
+  const SITE = "http://localhost:3107";
+  const ALUMIA = "http://alumia.localhost:3107";
+  const contas = async (caminho, corpo, token) =>
+    (await fetch(`${local.URL_LOCAL}${caminho}`, { method: "POST", headers: { "Content-Type": "application/json", apikey: local.CHAVE_ANON, Authorization: `Bearer ${token ?? local.CHAVE_ANON}` }, body: JSON.stringify(corpo) })).json();
+  const entrar = (email) => contas("/auth/v1/token?grant_type=password", { email, password: "qualquer" });
+  const carga = (token) => JSON.parse(Buffer.from(token.split(".")[1], "base64url").toString("utf8"));
+  const pedir = async ({ token, origem = SITE, destino = ALUMIA, lugar = "same-origin" } = {}) => {
+    const r = await rota.POST(new Request(`${SITE}/api/sessao/ponte`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...(origem ? { Origin: origem } : {}), ...(lugar ? { "Sec-Fetch-Site": lugar } : {}), ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+      body: JSON.stringify({ destino }),
+    }));
+    return { status: r.status, corpo: await r.json(), cache: r.headers.get("cache-control") };
+  };
+  try {
+    const quadro = rota.GET();
+    ok("login único: o quadro da ponte é só o script, sem cache", (await quadro.text()).includes('<script src="/api/sessao/ponte/script">') && /no-store/.test(quadro.headers.get("cache-control") ?? ""));
+
+    const noSite = await entrar("leitora@local");
+    ok("login único: a pessoa entra no site", typeof noSite.access_token === "string" && carga(noSite.access_token).aal === "aal1");
+    ok("login único: sem sessão não há código", (await pedir()).status === 401);
+    ok("login único: token inventado não vale", (await pedir({ token: `${noSite.access_token.slice(0, -6)}abcdef` })).status === 401);
+    ok("login único: pedido de outro site é recusado", (await pedir({ token: noSite.access_token, lugar: "cross-site" })).status === 403);
+    ok("login único: sem a origem do pedido é recusado", (await pedir({ token: noSite.access_token, origem: "" })).status === 403);
+    ok("login único: destino que não é a Alumia nem a Escola é recusado", (await pedir({ token: noSite.access_token, destino: "http://estudio.localhost:3107" })).status === 403);
+    ok("login único: destino em outra porta é recusado", (await pedir({ token: noSite.access_token, destino: "http://alumia.localhost:9999" })).status === 403);
+
+    const codigo = await pedir({ token: noSite.access_token });
+    ok("login único: a sessão do site vira um código de uma vez, sem cache", codigo.status === 200 && /^[a-f0-9]{20,128}$/.test(codigo.corpo.token_hash ?? "") && /no-store/.test(codigo.cache ?? ""));
+    ok("login único: a resposta traz só o código (nada de token, e-mail ou id)", Object.keys(codigo.corpo).join() === "token_hash");
+    const naAlumia = await contas("/auth/v1/verify", { type: "magiclink", token_hash: codigo.corpo.token_hash });
+    ok("login único: o código vira uma sessão NOVA da mesma pessoa", typeof naAlumia.access_token === "string" && naAlumia.access_token !== noSite.access_token && carga(naAlumia.access_token).sub === carga(noSite.access_token).sub && carga(naAlumia.access_token).session_id !== carga(noSite.access_token).session_id);
+    ok("login único: a sessão nova nasce sem o segundo fator (o código é pedido de novo no endereço novo)", carga(naAlumia.access_token).aal === "aal1");
+    ok("login único: o código só vale uma vez", (await contas("/auth/v1/verify", { type: "magiclink", token_hash: codigo.corpo.token_hash })).access_token === undefined);
+    const paraEscola = await pedir({ token: noSite.access_token, destino: "http://escola.localhost:3107" });
+    ok("login único: a Escola também recebe o código", paraEscola.status === 200 && paraEscola.corpo.token_hash !== codigo.corpo.token_hash);
+
+    // Quem tem o aplicativo autenticador só passa com a sessão confirmada pelo código (aal2).
+    const comFator = await entrar("mediador@local");
+    const fator = await contas("/auth/v1/factors", { factor_type: "totp", friendly_name: "teste" }, comFator.access_token);
+    const confirmada = await contas(`/auth/v1/factors/${fator.id}/verify`, { code: "123456" }, comFator.access_token);
+    ok("login único: com aplicativo autenticador, sessão sem o código não gera a ponte", (await pedir({ token: comFator.access_token })).corpo.erro === "segundo_fator");
+    const comCodigo = await pedir({ token: confirmada.access_token });
+    ok("login único: com o código confirmado (aal2), gera", comCodigo.status === 200 && /^[a-f0-9]{20,128}$/.test(comCodigo.corpo.token_hash ?? ""));
+    const novaDoMediador = await contas("/auth/v1/verify", { type: "magiclink", token_hash: comCodigo.corpo.token_hash });
+    ok("login único: no endereço novo o segundo fator é pedido de novo (a sessão nova não herda o aal2)", carga(novaDoMediador.access_token ?? "a.e30.c").aal === "aal1");
+
+    // O freio: no máximo 6 códigos por conta a cada 10 minutos (a leitora já pediu 2).
+    const seguidos = [];
+    for (let i = 0; i < 5; i++) seguidos.push((await pedir({ token: noSite.access_token })).status);
+    ok("login único: o sétimo pedido da mesma conta em 10 minutos é freado", seguidos.join() === "200,200,200,200,429");
+    ok("login único: o freio é por conta (outra conta segue passando)", (await pedir({ token: confirmada.access_token })).status === 200);
+  } catch (erro) {
+    falhas.push(`login único de ponta a ponta: ${erro.message}`);
+  } finally {
+    servidor.closeAllConnections?.();
+    servidor.close();
+  }
+}
 
 console.log(`testar:alumia-entrada — ${certos} certos, ${falhas.length} falhas`);
 for (const f of falhas) console.log(`  ✗ ${f}`);
