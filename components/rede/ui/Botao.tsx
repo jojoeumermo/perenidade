@@ -23,6 +23,8 @@ interface Comum {
   tamanho?: TamanhoDoBotao;
   /** Um ícone (SVG) antes do texto; fica escondido do leitor de tela. */
   icone?: ReactNode;
+  /** Cantos de pílula (convites e atalhos: "Criar conta", "Entrar", "Tentar de novo"); sem ele, os cantos das pranchas. */
+  pilula?: boolean;
 }
 
 export interface PropsDoBotao extends Comum, ButtonHTMLAttributes<HTMLButtonElement> {
@@ -32,9 +34,9 @@ export interface PropsDoBotao extends Comum, ButtonHTMLAttributes<HTMLButtonElem
 }
 
 /** O botão da Alumia nova. Sempre type="button" a não ser que se diga outro, alvo de toque de no mínimo 44 px (WCAG 2.5.5). */
-export function Botao({ variante = "primario", tamanho = "m", icone, pressionado, className = "", type = "button", children, ref, ...resto }: PropsDoBotao) {
+export function Botao({ variante = "primario", tamanho = "m", icone, pilula, pressionado, className = "", type = "button", children, ref, ...resto }: PropsDoBotao) {
   return (
-    <button ref={ref} type={type} aria-pressed={pressionado} className={classesDoBotao(variante, tamanho, className)} {...resto}>
+    <button ref={ref} type={type} aria-pressed={pressionado} className={classesDoBotao(variante, tamanho, `${pilula ? "al-botao-pilula " : ""}${className}`)} {...resto}>
       {icone ? <span aria-hidden className="al-botao-icone">{icone}</span> : null}
       {children}
     </button>
@@ -46,9 +48,9 @@ export interface PropsDoLinkBotao extends Comum, Omit<ComponentProps<typeof Link
 }
 
 /** Um link com cara de botão (navega; não faz ação). */
-export function LinkBotao({ variante = "contorno", tamanho = "m", icone, className = "", children, ...resto }: PropsDoLinkBotao) {
+export function LinkBotao({ variante = "contorno", tamanho = "m", icone, pilula, className = "", children, ...resto }: PropsDoLinkBotao) {
   return (
-    <Link className={classesDoBotao(variante, tamanho, className)} {...resto}>
+    <Link className={classesDoBotao(variante, tamanho, `${pilula ? "al-botao-pilula " : ""}${className}`)} {...resto}>
       {icone ? <span aria-hidden className="al-botao-icone">{icone}</span> : null}
       {children}
     </Link>

@@ -335,5 +335,11 @@
     "repetirNao": "Une seule fois",
     "desfazerAto": "L’action part maintenant et ne peut plus être annulée ici. Si besoin, annulez l’action sur sa page.",
     "pausaFechar": "Fermer le rappel"
+  },
+  "naoEncontrada": {
+    "titulo": "Introuvable",
+    "texto": "Cette adresse n'existe pas sur Alumia, ou la publication a été retirée. Votre fil est toujours au même endroit.",
+    "voltar": "Retour à l'accueil d'Alumia",
+    "buscar": "Rechercher"
   }
 }

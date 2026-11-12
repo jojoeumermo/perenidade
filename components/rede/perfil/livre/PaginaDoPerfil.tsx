@@ -96,20 +96,20 @@ export function PaginaDoPerfil({
   }
 
   const acoes = dado.meu ? (
-    <LinkBotao href={enderecoDeEditarPerfil(lang)} variante="contorno" icone={<IconeLapis />}>
+    <LinkBotao pilula href={enderecoDeEditarPerfil(lang)} variante="contorno" icone={<IconeLapis />}>
       {t.perfil.editar}
     </LinkBotao>
   ) : dado.pendente ? (
-    <Botao variante="contorno" disabled={ocupado} onClick={() => void seguir(false)}>
+    <Botao pilula variante="contorno" disabled={ocupado} onClick={() => void seguir(false)}>
       {sp?.perfil.pedidoEnviado ?? "…"}
     </Botao>
   ) : (
     <>
-      <Botao variante={dado.sigo ? "claro" : "primario"} pressionado={dado.sigo} disabled={ocupado || !situacao.membro} onClick={() => void seguir(!dado.sigo)}>
+      <Botao pilula variante={dado.sigo ? "claro" : "primario"} pressionado={dado.sigo} disabled={ocupado || !situacao.membro} onClick={() => void seguir(!dado.sigo)}>
         {dado.sigo ? (sp?.perfil.seguindo ?? "…") : dado.modo === "trancado" ? (sp?.perfil.pedirParaSeguir ?? "…") : (sp?.perfil.seguir ?? "…")}
       </Botao>
       {situacao.logado && situacao.membro ? (
-        <LinkBotao href={`${enderecos.linha(lang)}/conversas?com=${encodeURIComponent(dado.handle)}`} variante="contorno">
+        <LinkBotao pilula href={`${enderecos.linha(lang)}/conversas?com=${encodeURIComponent(dado.handle)}`} variante="contorno">
           {s.perfil.conversar}
         </LinkBotao>
       ) : null}
