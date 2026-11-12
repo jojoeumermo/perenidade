@@ -552,6 +552,7 @@
       "tirar": "Tirar {nome} da roda",
       "vazia": "Sua roda está vazia: um story para a roda não chega a ninguém.",
       "gerenciar": "Quem está na roda",
+      "semBanco": "O servidor ainda não tem a roda de confiança. O story NÃO foi publicado. Escolha outro público ou tente mais tarde.",
       "contaN": {
         "one": "{n} pessoa",
         "few": "{n} pessoas",
