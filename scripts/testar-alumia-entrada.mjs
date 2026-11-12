@@ -206,7 +206,8 @@ ok("ponte: resposta com token_hash estranho", mensagemDaPonte({ tipo: "sessao", 
 const figuras = figurasDaEntrada();
 const lista = JSON.parse(ler("lib/rede/entrada/silhuetas.json")).figuras;
 const creditos = JSON.parse(ler("lib/rede/entrada/creditos.json"));
-ok("silhuetas: a lista final da coordenação (8 figuras)", ["lenin", "marx", "engels", "stalin", "gramsci", "freire", "rosa", "marielle"].every((id) => figuras.some((f) => f.id === id)) && figuras.length === 8);
+ok("silhuetas: a lista final da coordenação (10 figuras, com Fanon e Mariátegui)", ["lenin", "marx", "engels", "stalin", "gramsci", "freire", "rosa", "marielle", "fanon", "mariategui"].every((id) => figuras.some((f) => f.id === id)) && figuras.length === 10);
+ok("silhuetas: a grade é de 10 (5 por 2 no celular, 10 em linha no computador)", /\.ale-figuras \{[^}]*repeat\(5, 1fr\)/.test(ler("styles/alumia-entrada.css")) && ler("styles/alumia-entrada.css").includes("grid-template-columns: repeat(10, 1fr)"));
 ok("silhuetas: pessoa viva sem autorização nunca entra", lista.filter((f) => f.viva && !f.autorizacao).every((f) => !figuras.some((x) => x.id === f.id)));
 ok("silhuetas: toda figura tem arquivo e crédito com licença livre", figuras.every((f) => fs.existsSync(path.join(raiz, "public", f.src)) && /^(Public domain|CC0|CC BY(-SA)? [0-9.]+)/i.test(f.credito.licenca) && /^https:\/\/commons\.wikimedia\.org\//.test(f.credito.fonte)));
 ok("silhuetas: licença CC traz o endereço da licença", creditos.filter((c) => /^CC BY/.test(c.licenca)).every((c) => /^https:\/\/creativecommons\.org\//.test(c.licencaUrl ?? "")));
