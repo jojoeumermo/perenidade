@@ -86,6 +86,23 @@ Desde 13/11/2026 (`supabase/migracoes/20261113-chat-selado.sql`, `lib/rede/chat/
 "quem pode me chamar", bloqueio e denúncia) e quando cada caixa recebeu envelope (o dia). O Signal esconde também a lista de
 contatos; aqui ela fica, porque as regras de pedido e de bloqueio da Alumia são conferidas no servidor.
 
+### Registro público das chaves (transparência)
+
+`supabase/migracoes/20261113-chat-transparencia.sql`, `lib/rede/chat/transparencia.ts`; teste: `npm run testar:chat-registro`.
+
+- Toda chave nova do chat (ativar, trocar de aparelho) entra num **registro público só de acréscimo**, encadeado por SHA-256 (cada
+  linha leva o resumo da anterior). Qualquer pessoa, **sem conta**, baixa o registro (`rede_kt_ponta`, `rede_kt_trecho`) e refaz a
+  corrente.
+- A linha não leva o id da conta, e sim um resumo dele; do momento, só o dia.
+- Ao abrir a conversa, o aparelho traz o registro (só o que ainda não viu), refaz a corrente a partir do ponto que já tinha
+  conferido e exige que **a chave da outra pessoa e a minha sejam as últimas do registro**. Se não forem, ou se a corrente não
+  fechar, a conversa avisa em vermelho e **nada é enviado** (`dm_fora_do_registro`).
+- **O ponto conferido** (número e começo do resumo) aparece em Opções, junto do código de segurança: duas pessoas que comparam o
+  código comparam também esse ponto. Se o servidor mostrar um registro a uma e outro à outra, os pontos não batem.
+- **Limite honesto:** um aparelho que nunca viu o registro não tem como saber se o passado foi reescrito antes de ele chegar (o
+  teste mostra isso). Quem nota é quem já tinha visto, ou quem compara o ponto. Um auditor de fora, que baixe o registro todo dia
+  e publique a ponta, fecha esse buraco; fica como sugestão para a coordenação.
+
 ### Histórico no aparelho e trava
 
 O histórico fica **só no aparelho** (`lib/rede/chat/historico.ts`, IndexedDB `lucia-alumia-historico`; teste:

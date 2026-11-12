@@ -94,6 +94,11 @@ export function criarClienteDoChat(c: Chamar) {
       receber: () => c<{ eventos: { id: number; sender: string; type: string; content: unknown }[]; unicas: number; reserva_usada: boolean }>("rede_olm_receber"),
       confirmar: (ate: number) => c<{ apagados: number }>("rede_olm_confirmar", { p_ate: ate }),
     },
+    /** O registro público das chaves (supabase/migracoes/20261113-chat-transparencia.sql; lib/rede/chat/transparencia.ts). */
+    kt: {
+      ponta: () => c<{ seq: number; resumo: string }>("rede_kt_ponta"),
+      trecho: (desde: number) => c<import("./chat/transparencia").LinhaDoRegistro[]>("rede_kt_trecho", { p_desde: desde }),
+    },
     /** A caixa selada (supabase/migracoes/20261113-chat-selado.sql; lib/rede/chat/selado.ts). */
     sel: {
       publicarEntrega: (resumos: string[]) => c<{ ok: true }>("rede_sel_entrega_publicar", { p_resumos: resumos }),

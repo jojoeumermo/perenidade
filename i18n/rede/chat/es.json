@@ -141,7 +141,9 @@
     "sem_indexeddb": "Este navegador no guarda la clave (¿modo privado?). El chat funciona solo mientras la pestaña esté abierta.",
     "dm_exige_comparar": "Compara el código de seguridad de nuevo antes de enviar.",
     "dm_aguardando": "La otra persona todavía no abrió esta conversación en su dispositivo. En cuanto la abra, podrás escribir.",
-    "historico_travado": "El historial está bloqueado. Escribe la contraseña del bloqueo para abrirlo."
+    "historico_travado": "El historial está bloqueado. Escribe la contraseña del bloqueo para abrirlo.",
+    "dm_fora_do_registro": "La clave no coincide con el registro público: no se envió nada.",
+    "kt_quebrado": "Atención: el registro público de claves no cuadra (alguien alteró su pasado). No se envía nada. Avisa a la coordinación."
   },
   "selado": {
     "someEm": "Desaparece en",
@@ -164,5 +166,11 @@
     "senhaCurta": "Usa una contraseña de 8 caracteres o más.",
     "fecharAgora": "Cerrar el historial ahora",
     "trancadoAgora": "El historial se cerró en esta pestaña."
+  },
+  "registro": {
+    "nao_confere": "Atención: la clave que el servidor muestra de esta persona no es la del registro público. No escribas nada sensible y compara el código de seguridad con ella por otro canal.",
+    "meu": "Atención: el registro público dice que la clave de TU chat es otra. Si no fuiste tú quien activó el chat en otro dispositivo, alguien pudo entrar en tu cuenta: cambia la contraseña.",
+    "quebrado": "Atención: el registro público de claves no cuadra (alguien alteró su pasado). No se envía nada. Avisa a la coordinación.",
+    "carimbo": "Registro público verificado hasta {carimbo}. Si la otra persona ve el mismo número con otro final, avisa a la coordinación."
   }
 }

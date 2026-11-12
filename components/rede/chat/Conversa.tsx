@@ -370,6 +370,7 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
                     <QrDoCodigo codigo={codigo} rotulo={t.acoes.qrRotulo} />
                     <Grupos grupos={codigoEmGrupos(codigo).split(" ")} rotulo={t.acoes.codigo} />
                   </div>
+                  {sessao?.carimbo && <p className="text-xs text-ink-soft">{preencher(t.registro.carimbo, { carimbo: sessao.carimbo })}</p>}
                   {meusGrupos && (
                     <div>
                       <p className="text-xs text-ink-soft">{t.acoes.meusGrupos}</p>
@@ -473,7 +474,8 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
               <button type="button" onClick={() => void carregarMais()} className={`${botaoLeve} mx-auto block`}>{t.conversa.carregarMais}</button>
             )}
             {sessao.semChaveDoOutro && <p className="text-sm text-ink-soft">{t.conversa.semChaveDoOutro}</p>}
-            {!sessao.semChaveDoOutro && sessao.aguardandoOutro && <p className="text-sm text-ink-soft">{t.selado.aguardando}</p>}
+            {!sessao.semChaveDoOutro && sessao.aguardandoOutro && !sessao.foraDoRegistro && <p className="text-sm text-ink-soft">{t.selado.aguardando}</p>}
+            {sessao.foraDoRegistro && <p role="alert" className="rounded-xl border border-oxblood p-3 text-sm font-semibold text-oxblood">{t.registro[sessao.foraDoRegistro]}</p>}
             {travado && (
               <form
                 className="flex flex-wrap items-end gap-2 rounded-xl border border-rule p-3 text-sm"
@@ -597,7 +599,7 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
               disabled={!!sessao.mudou}
               className="min-h-11 flex-1 resize-none rounded-xl border border-rule bg-parchment px-3 py-2"
             />
-            <button type="submit" disabled={ocupado || !textoCabe(texto) || !!sessao.mudou} className={botaoForte}>{t.conversa.enviar}</button>
+            <button type="submit" disabled={ocupado || !textoCabe(texto) || !!sessao.mudou || !!sessao.foraDoRegistro} className={botaoForte}>{t.conversa.enviar}</button>
           </div>
           <div className="mt-2 flex flex-wrap items-center gap-3 text-xs">
             <label className="flex items-center gap-1">

@@ -141,7 +141,9 @@
     "sem_indexeddb": "Ce navigateur ne garde pas la clé (mode privé ?). Le chat ne fonctionne que tant que l'onglet reste ouvert.",
     "dm_exige_comparar": "Comparez à nouveau le code de sécurité avant d'envoyer.",
     "dm_aguardando": "L'autre personne n'a pas encore ouvert cette conversation sur son appareil. Dès qu'elle le fera, vous pourrez écrire.",
-    "historico_travado": "L'historique est verrouillé. Saisissez le mot de passe du verrou pour l'ouvrir."
+    "historico_travado": "L'historique est verrouillé. Saisissez le mot de passe du verrou pour l'ouvrir.",
+    "dm_fora_do_registro": "La clé ne correspond pas au registre public : rien n'a été envoyé.",
+    "kt_quebrado": "Attention : le registre public des clés ne tombe pas juste (quelqu'un a modifié son passé). Rien n'est envoyé. Prévenez la coordination."
   },
   "selado": {
     "someEm": "Disparaît dans",
@@ -164,5 +166,11 @@
     "senhaCurta": "Utilisez un mot de passe de 8 caractères ou plus.",
     "fecharAgora": "Fermer l'historique maintenant",
     "trancadoAgora": "L'historique a été fermé dans cet onglet."
+  },
+  "registro": {
+    "nao_confere": "Attention : la clé que le serveur montre pour cette personne n'est pas celle du registre public. N'écrivez rien de sensible et comparez le code de sécurité avec elle par un autre canal.",
+    "meu": "Attention : le registre public indique que la clé de VOTRE chat est différente. Si ce n'est pas vous qui avez activé le chat sur un autre appareil, quelqu'un a pu accéder à votre compte : changez votre mot de passe.",
+    "quebrado": "Attention : le registre public des clés ne tombe pas juste (quelqu'un a modifié son passé). Rien n'est envoyé. Prévenez la coordination.",
+    "carimbo": "Registre public vérifié jusqu'à {carimbo}. Si l'autre personne voit le même numéro avec une autre fin, prévenez la coordination."
   }
 }

@@ -141,7 +141,9 @@
     "sem_indexeddb": "This browser does not keep the key (private mode?). Messages work only while the tab stays open.",
     "dm_exige_comparar": "Compare the safety code again before sending.",
     "dm_aguardando": "The other person hasn't opened this conversation on their device yet. Once they do, you can write.",
-    "historico_travado": "The history is locked. Enter the lock password to open it."
+    "historico_travado": "The history is locked. Enter the lock password to open it.",
+    "dm_fora_do_registro": "The key doesn't match the public log: nothing was sent.",
+    "kt_quebrado": "Warning: the public key log doesn't add up (someone changed its past). Nothing is sent. Tell the coordination."
   },
   "selado": {
     "someEm": "Disappears in",
@@ -164,5 +166,11 @@
     "senhaCurta": "Use a password of 8 characters or more.",
     "fecharAgora": "Close the history now",
     "trancadoAgora": "The history was closed in this tab."
+  },
+  "registro": {
+    "nao_confere": "Warning: the key the server shows for this person is not the one in the public log. Don't write anything sensitive and compare the safety code with them through another channel.",
+    "meu": "Warning: the public log says YOUR chat key is a different one. If you didn't activate the chat on another device, someone may have accessed your account: change your password.",
+    "quebrado": "Warning: the public key log doesn't add up (someone changed its past). Nothing is sent. Tell the coordination.",
+    "carimbo": "Public log checked up to {carimbo}. If the other person sees the same number with a different ending, tell the coordination."
   }
 }

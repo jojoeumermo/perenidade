@@ -906,7 +906,7 @@ await espera("identidade trocada de quem estava verificado: a marca cai, o envio
     && /if \(!esperada \|\| identidade !== esperada\) throw erroDoChat\("dm_identidade_mudou"\)/.test(r[0])
     && /sessao\.exigeComparar \? "dm_exige_comparar" : "dm_sem_chave"/.test(r[0])
     && /sessao\.exigeComparar \? \([\s\S]{0,400}<CompararDeNovo[^>]*minhaMetade=\{paraComparar\.minhaMetade\}[^>]*aoConferir=\{\(\) => void confiar\(true, paraComparar\.identidade\)\}/.test(r[1])
-    && (r[1].match(/confiar\(false\)/g) ?? []).length === 1 && /disabled=\{ocupado \|\| !textoCabe\(texto\) \|\| !!sessao\.mudou\}/.test(r[1]));
+    && (r[1].match(/confiar\(false\)/g) ?? []).length === 1 && /disabled=\{ocupado \|\| !textoCabe\(texto\) \|\| !!sessao\.mudou( \|\| !!sessao\.foraDoRegistro)?\}/.test(r[1]));
 await espera("outra chave no servidor para a própria conta: a tela explica o risco e pede o \"entendi\" antes de criar chave nova", async () => [ler("components/rede/chat/Tela.tsx"), ler("lib/rede/chat-chaveiro.ts")],
   (r) => /aparelho\.estado === "outro_aparelho" && !entendi/.test(r[0]) && /aparelho\.tinhaChaveAqui && <p role="alert"[^>]*>\{t\.ativar\.outroTinha\}/.test(r[0]) && /\{t\.ativar\.outroRisco\}/.test(r[0]) && /tinhaChaveAqui: !!guardado/.test(r[1]));
 await espera("câmera: só liga com o toque da pessoa e desliga ao fechar, ao ler e quando a aba vai para o fundo", async () => [ler("components/rede/chat/Qr.tsx"), ler("components/rede/chat/Conversa.tsx")],

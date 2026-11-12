@@ -26,6 +26,7 @@ import {
   type RegistroDeOrdem, versaoDaChave,
 } from "./chat/ordem";
 import { abrirEnvelope, novaSenhaDeEntrega, novoParDoEnvelope, selar } from "./chat/selado";
+import { atualizarVista, carimbo, conferir, INICIO, type TransporteDoRegistro, type VistaDoRegistro } from "./chat/transparencia";
 import { chat, PREVIA_DO_CHAT, type Prazo, type SituacaoDoChat } from "./cliente-chat";
 
 /** Eu, neste aparelho: a conta, a versão da minha chave no servidor, e o aparelho da biblioteca (fora da prévia). */
@@ -227,6 +228,14 @@ export interface Sessao {
   semChaveDoOutro: boolean;
   /** A outra pessoa ainda não mandou o aperto de mão (a senha da caixa dela): dá para ler, ainda não para escrever. */
   aguardandoOutro: boolean;
+  /**
+   * O registro público das chaves não confirma a chave: "nao_confere" (o servidor mostra da outra pessoa uma chave que não é a
+   * última do registro), "meu" (o registro diz que a MINHA chave é outra), "quebrado" (a corrente do registro não fecha). Nada
+   * sai enquanto isso valer.
+   */
+  foraDoRegistro: "nao_confere" | "meu" | "quebrado" | null;
+  /** O ponto do registro que este aparelho conferiu ("nº·começo do resumo"), para duas pessoas compararem. */
+  carimbo: string | null;
   verificado: boolean;
 }
 
@@ -238,6 +247,18 @@ async function guardarRecados(eu: string, recados: RecadoAberto[]) {
     if (!conhecida?.publica || tirarO(conhecida.publica) !== r.curve25519) continue;
     await mudarConhecida(eu, r.de, (c) => ({ ...c, entrega: { senha: r.conteudo.senha as string, envelope: r.conteudo.envelope as string } }));
   }
+}
+
+const registro: TransporteDoRegistro = { ponta: () => chat.kt.ponta(), trecho: (desde) => chat.kt.trecho(desde) };
+type VistaGuardada = VistaDoRegistro & { chave: string };
+
+/** Traz o registro público até a ponta (conferindo a corrente) e guarda a vista neste aparelho. */
+async function vistaDoRegistro(eu: string): Promise<VistaDoRegistro> {
+  const chave = `${eu}:kt`;
+  const guardada = (await lerDaGaveta<VistaGuardada>(ORDEM, chave)) ?? { ...INICIO, chave };
+  const nova = await atualizarVista(guardada, registro);
+  if (nova !== guardada) await guardarNaGaveta(ORDEM, { ...nova, chave } satisfies VistaGuardada);
+  return nova;
 }
 
 /** Manda à outra pessoa, por Olm, a senha da minha caixa e a chave do meu envelope (se ainda não mandou esta senha). */
@@ -256,7 +277,7 @@ export async function abrirSessao(eu: Eu, conversa: string, outro: string, anter
   if (PREVIA_DO_CHAT) {
     return {
       conversa, eu, outro, versao: 1, confiadas: { [eu.usuario]: eu.identidade.publica, [outro]: `previa-identidade-${outro}` },
-      chavesConfiadas: {}, mudou: null, mudouChave: null, exigeComparar: false, chaveEstranha: false, semChaveDoOutro: false, aguardandoOutro: false, verificado: anterior?.verificado ?? false,
+      chavesConfiadas: {}, mudou: null, mudouChave: null, exigeComparar: false, chaveEstranha: false, semChaveDoOutro: false, aguardandoOutro: false, foraDoRegistro: null, carimbo: null, verificado: anterior?.verificado ?? false,
     };
   }
   if (!vale(eu) || !eu.olm) throw erroDoChat("dm_apagado");
@@ -276,8 +297,22 @@ export async function abrirSessao(eu: Eu, conversa: string, outro: string, anter
     chaveEstranha: false,
     semChaveDoOutro: !doOutro,
     aguardandoOutro: true,
+    foraDoRegistro: null,
+    carimbo: null,
     verificado: !!conhecida?.verificado,
   };
+  // O registro público: a minha chave e a da outra pessoa têm de ser as últimas de lá.
+  if (doOutro) {
+    try {
+      const vista = await vistaDoRegistro(eu.usuario);
+      sessao.carimbo = carimbo(vista);
+      if ((await conferir(vista, eu.usuario, eu.identidade.publica, eu.versao)) !== "confere") sessao.foraDoRegistro = "meu";
+      else if ((await conferir(vista, outro, doOutro.identidade, doOutro.versao)) !== "confere") sessao.foraDoRegistro = "nao_confere";
+    } catch (e) {
+      if (codigoDe(e) === "kt_quebrado" || String((e as Error)?.message) === "kt_quebrado") sessao.foraDoRegistro = "quebrado";
+      else throw e;
+    }
+  }
   if (doOutro) {
     const comparacao = compararIdentidade(conhecida?.identidade, doOutro.identidade);
     if (comparacao === "nova") {
@@ -302,7 +337,7 @@ export async function abrirSessao(eu: Eu, conversa: string, outro: string, anter
     sessao.confiadas[outro] = conhecida?.identidade ?? doOutro.identidade;
   }
   await guardarRecados(eu.usuario, await sincronizar(eu.olm, [outro]));
-  if (doOutro && !sessao.mudou) await apertarAMao(eu, outro);
+  if (doOutro && !sessao.mudou && !sessao.foraDoRegistro) await apertarAMao(eu, outro);
   sessao.aguardandoOutro = !(await lerConhecida(eu.usuario, outro))?.entrega;
   if (!vale(eu)) throw erroDoChat("dm_apagado");
   sessoesAbertas.set(conversa, sessao);
@@ -521,6 +556,7 @@ export async function enviarTexto(sessao: Sessao, texto: string, opcoes: OpcoesD
   if (!vale(sessao.eu)) throw erroDoChat("dm_apagado");
   if (sessao.mudou) throw erroDoChat(sessao.chaveEstranha ? "dm_chave_estranha" : sessao.exigeComparar ? "dm_exige_comparar" : "dm_sem_chave");
   if (sessao.semChaveDoOutro) throw erroDoChat("dm_sem_chave");
+  if (sessao.foraDoRegistro) throw erroDoChat("dm_fora_do_registro");
   const prazo = opcoes.prazoDias && PRAZOS.includes(opcoes.prazoDias) ? opcoes.prazoDias : 7;
   const minutos = opcoes.minutos && opcoes.minutos >= 1 && opcoes.minutos <= 1440 ? Math.round(opcoes.minutos) : null;
   await naFilaDaOrdem(async () => {

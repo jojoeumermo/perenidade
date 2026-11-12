@@ -140,7 +140,9 @@
     "sem_indexeddb": "Este navegador não guarda a chave (modo privado?). O chat funciona só enquanto a aba estiver aberta.",
     "dm_exige_comparar": "Compare o código de segurança de novo antes de enviar.",
     "dm_aguardando": "A outra pessoa ainda não abriu esta conversa no aparelho dela. Assim que abrir, dá para escrever.",
-    "historico_travado": "O histórico está travado. Digite a senha da trava para abrir."
+    "historico_travado": "O histórico está travado. Digite a senha da trava para abrir.",
+    "dm_fora_do_registro": "A chave não confere com o registro público: nada foi enviado.",
+    "kt_quebrado": "Atenção: o registro público das chaves não fecha (alguém mexeu no passado dele). Nada é enviado. Avise a coordenação."
   },
   "selado": {
     "someEm": "Some em",
@@ -163,5 +165,11 @@
     "senhaCurta": "Use uma senha de 8 caracteres ou mais.",
     "fecharAgora": "Fechar o histórico agora",
     "trancadoAgora": "O histórico foi fechado nesta aba."
+  },
+  "registro": {
+    "nao_confere": "Atenção: a chave que o servidor mostra desta pessoa não é a que está no registro público. Não escreva nada sensível e compare o código de segurança com ela por outro canal.",
+    "meu": "Atenção: o registro público diz que a chave do SEU chat é outra. Se não foi você que ativou o chat em outro aparelho, alguém pode ter entrado na sua conta: troque a senha.",
+    "quebrado": "Atenção: o registro público das chaves não fecha (alguém mexeu no passado dele). Nada é enviado. Avise a coordenação.",
+    "carimbo": "Registro público conferido até {carimbo}. Se a outra pessoa vir o mesmo número com outro final, avise a coordenação."
   }
 }
