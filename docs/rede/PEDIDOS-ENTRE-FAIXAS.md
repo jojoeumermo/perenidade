@@ -37,3 +37,11 @@ Ou seja: quando uma faixa terminar, a faixa que ainda tem trabalho **divide o qu
   seria combinar em público, e a conversa do ato mostra quem vai com quem). Com a flag ligada, o botão aparece desligado com a
   frase `caronas.combinarEmBreve` (6 idiomas), que avisa para NÃO combinar na conversa pública. Assim que o encaixe for
   registrado, o quadro aparece sozinho, sem flag. Quem atender marca "feito <hash>" aqui.
+
+### 2026-11-12 · Faixa 1 avisa a Faixa 2 · a porta da entrada nas funções novas
+
+A Onda 6 (`20261112-alumia-portas.sql`) põe uma porta em toda função `public.rede_*` e `alumia_*` de membro: com a trava da entrada ligada, só passa conta aprovada e com o segundo fator.
+
+- Função `public.rede_*` criada depois (chat, Fediverso) nasce SEM a porta. Depois de rodar a migração de vocês, rode `select interno.alumia_trancar();` e confira que `abertas` volta vazia. `interno.alumia_entrada_ligar(true)` também roda isso.
+- O que precisa responder a quem não tem conta (WebFinger, ator, caixa de entrada do Fediverso) tem de entrar na lista de exceções em `interno.alumia_porta_aberta`. O desenho está em `docs/rede/ENTRADA.md`.
+- O pedido das caronas continua valendo: `registrarConversaDaCarona` em `lib/rede/atos/combinar.ts`; até lá os botões ficam desligados.
