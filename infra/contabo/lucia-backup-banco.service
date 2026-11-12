@@ -1,0 +1,17 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# Cópia diária do banco (Supabase) para /var/backups/lucia/banco/. Disparado por lucia-backup-banco.timer. O que roda é
+# /usr/local/sbin/lucia-backup-banco (infra/contabo/backup-banco.sh). Passo a passo: docs/rede/BACKUP-DO-BANCO.md.
+# Roda como root porque usa o docker e lê /opt/lucia/backup.env (só do root).
+
+[Unit]
+Description=Instituto Lucia: copia diaria do banco
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+TimeoutStartSec=45min
+ExecStart=/usr/local/sbin/lucia-backup-banco
+Nice=15
+IOSchedulingClass=idle

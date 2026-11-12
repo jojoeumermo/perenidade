@@ -35,6 +35,10 @@ variável `VERCEL_VOLTOU = sim` (`scripts/vercel-ignorar.mjs`).
 em `/root/lucia-infra/`), o certificado de origem (gerar `origem.key` e `origem.csr` na VPS, criar o certificado no Cloudflare
 com "Usar minha própria chave privada e CSR" e gravar `origem.pem`) e as chaves do site.
 
+**Cópia diária do banco:** o plano gratuito do Supabase não faz backup. A VPS faz uma cópia por dia, às 4h, em
+`/var/backups/lucia/banco/` (as 14 mais novas): `docs/rede/BACKUP-DO-BANCO.md`. Ela só começa depois de rodar
+`infra/contabo/segredo-backup.ps1` uma vez (grava o endereço do banco, separado das chaves do site).
+
 **Hoje (5 de novembro de 2026) o site continua na Vercel** (conta nova desde 2 de novembro), como paliativo: veja "Situação
 atual" logo abaixo. O destino planejado é um servidor próprio, que ainda não existe; quando ele sair, terá três peças (mais uma
 máquina à parte só para a sala de aula ao vivo, veja "Aula ao vivo" mais abaixo):

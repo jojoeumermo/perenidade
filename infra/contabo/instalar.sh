@@ -47,4 +47,12 @@ install -m 755 fediverso-entregar.sh /usr/local/sbin/lucia-fediverso
 install -m 644 lucia-fediverso.service lucia-fediverso.timer /etc/systemd/system/
 systemctl daemon-reload
 systemctl enable --now lucia-fediverso.timer
+
+# Cópia diária do banco (o plano gratuito do Supabase não faz backup): docs/rede/BACKUP-DO-BANCO.md. Sem o endereço do banco
+# (/opt/lucia/backup.env, gravado por segredo-backup.ps1), a rodada só avisa e não faz nada.
+install -m 700 backup-banco.sh /usr/local/sbin/lucia-backup-banco
+install -m 644 lucia-backup-banco.service lucia-backup-banco.timer /etc/systemd/system/
+docker pull -q postgres:17-alpine
+systemctl daemon-reload
+systemctl enable --now lucia-backup-banco.timer
 echo "Instalado."
