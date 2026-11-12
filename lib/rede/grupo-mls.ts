@@ -390,6 +390,34 @@ export function criarChaveiroDeGrupo({ chamar, guarda }: { chamar: ChamarOBanco;
       }),
 
     /** Esquece as chaves da memória (o "Sair rápido" chama). */
+    /**
+     * A chave de uma sala de voz do grupo (lib/rede/voz/sala.ts): tirada (HKDF-SHA-256) do segredo da época, com o nome da sala.
+     * Sem `epoca`, acerta o grupo e usa a época atual. Serve para cifrar a combinação da chamada entre os membros.
+     */
+    chaveDeVoz: (grupo: string, usuario: string, sala: string, epoca?: number) =>
+      naFila(`${usuario}:${grupo}`, async (): Promise<{ epoca: number; chave: CryptoKey } | null> => {
+        let e = epoca;
+        if (e === undefined) {
+          await preparar(usuario);
+          const estado = await sincronizar(usuario, grupo);
+          if (!estado) return null;
+          e = Number(estado.groupContext.epoch);
+        }
+        const guardadas = (await guarda.ler<Record<string, string>>(kChaves(usuario, grupo))) ?? {};
+        if (!guardadas[e]) return null;
+        const bruta = deB64(guardadas[e]);
+        const base = await crypto.subtle.importKey("raw", bruta as Uint8Array<ArrayBuffer>, "HKDF", false, ["deriveKey"]);
+        bruta.fill(0);
+        const chave = await crypto.subtle.deriveKey(
+          { name: "HKDF", hash: "SHA-256", salt: new Uint8Array(new ArrayBuffer(32)), info: encoder.encode(`alumia:voz:1:${grupo}:${sala}`) },
+          base,
+          { name: "AES-GCM", length: 256 },
+          false,
+          ["encrypt", "decrypt"],
+        );
+        return { epoca: e, chave };
+      }),
+
     esquecer: () => chaves.clear(),
   };
 }

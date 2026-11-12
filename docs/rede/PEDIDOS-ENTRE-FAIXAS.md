@@ -579,3 +579,15 @@ com três diferenças: o corpo agora é `p2.<época>.<vetor>.<cifrado>` (até ~1
 valor (use `guardaNoNavegador()`); e `cifrar` pode recusar com `grupo_suspeito` (alguém do grupo apareceu com outra chave: a tela
 diz "Não dá para escrever neste grupo agora: a chave de alguém mudou" e não publica). A migração é
 `20261113-rede-grupos-mls.sql`, no lugar da `20261112-rede-grupos-cifrados.sql` (que saiu: nunca rodou em produção).
+
+#### P22 · 2026-11-13 · Faixa 2 pede · sala de voz cifrada na página do núcleo e da comunidade fechada
+
+O componente está pronto e testado (`docs/rede/VOZ.md`, `npm run testar:voz`). Falta a Faixa 1:
+
+1. Na página do núcleo (e da comunidade fechada), para quem é membro: `<SalaDeVoz t={textosDoChat.voz} eu={meuId} grupo="nucleo:<uuid>" sala="geral" nomes={{ [id]: codinome }} />`
+   (`components/rede/voz/SalaDeVoz.tsx`; os textos já estão em `i18n/rede/chat/*.json`, seção `voz`). Para "sala de estudo", outra
+   `sala` (por exemplo `estudo`).
+2. Carregar o componente só quando a pessoa abre a parte de voz (`dynamic(..., { ssr: false })`), como o chat.
+3. Nada no banco. A chave TURN já está na VPS (a da aula ao vivo).
+
+Se não atender: nada muda; a sala só não aparece.

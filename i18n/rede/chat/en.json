@@ -172,5 +172,29 @@
     "meu": "Warning: the public log says YOUR chat key is a different one. If you didn't activate the chat on another device, someone may have accessed your account: change your password.",
     "quebrado": "Warning: the public key log doesn't add up (someone changed its past). Nothing is sent. Tell the coordination.",
     "carimbo": "Public log checked up to {carimbo}. If the other person sees the same number with a different ending, tell the coordination."
+  },
+  "voz": {
+    "titulo": "Voice room",
+    "explica": "End-to-end encrypted voice, only among group members (up to 8 people). Audio goes through a relay server that can't listen, and no one sees anyone's network address.",
+    "entrar": "Join the room",
+    "sair": "Leave",
+    "mudo": "Turn microphone off",
+    "falar": "Turn microphone on",
+    "naSala": "In the room:",
+    "sozinho": "Just you for now.",
+    "alguem": "Group member",
+    "ligado": "connected",
+    "ligando": "connecting…",
+    "erros": {
+      "voz_desligada": "Voice hasn't been turned on on the server yet.",
+      "voz_sem_retransmissao": "Without the relay server, the room doesn't open (your network address would show to the others).",
+      "voz_cheia": "The room is full (8 people).",
+      "voz_sem_canal": "Couldn't open the room right now. Try again.",
+      "sem_chave": "This device doesn't have the group key yet.",
+      "entre_primeiro": "Sign in first.",
+      "nao_encontrado": "Only group members can join the room.",
+      "NotAllowedError": "The microphone wasn't allowed.",
+      "outro": "Couldn't join the room."
+    }
   }
 }

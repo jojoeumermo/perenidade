@@ -171,5 +171,29 @@
     "meu": "Atenção: o registro público diz que a chave do SEU chat é outra. Se não foi você que ativou o chat em outro aparelho, alguém pode ter entrado na sua conta: troque a senha.",
     "quebrado": "Atenção: o registro público das chaves não fecha (alguém mexeu no passado dele). Nada é enviado. Avise a coordenação.",
     "carimbo": "Registro público conferido até {carimbo}. Se a outra pessoa vir o mesmo número com outro final, avise a coordenação."
+  },
+  "voz": {
+    "titulo": "Sala de voz",
+    "explica": "Voz cifrada de ponta a ponta, só entre quem é do grupo (até 8 pessoas). O áudio passa por um servidor de retransmissão que não consegue ouvir, e ninguém vê o endereço de rede de ninguém.",
+    "entrar": "Entrar na sala",
+    "sair": "Sair",
+    "mudo": "Desligar o microfone",
+    "falar": "Ligar o microfone",
+    "naSala": "Na sala:",
+    "sozinho": "Só você por enquanto.",
+    "alguem": "Pessoa do grupo",
+    "ligado": "ligada",
+    "ligando": "ligando…",
+    "erros": {
+      "voz_desligada": "A voz ainda não foi ligada no servidor.",
+      "voz_sem_retransmissao": "Sem o servidor de retransmissão, a sala não abre (o seu endereço de rede apareceria para os outros).",
+      "voz_cheia": "A sala está cheia (8 pessoas).",
+      "voz_sem_canal": "Não deu para abrir a sala agora. Tente de novo.",
+      "sem_chave": "Este aparelho ainda não tem a chave do grupo.",
+      "entre_primeiro": "Entre na sua conta primeiro.",
+      "nao_encontrado": "Só quem é do grupo entra na sala.",
+      "NotAllowedError": "O microfone não foi liberado.",
+      "outro": "Não deu para entrar na sala."
+    }
   }
 }

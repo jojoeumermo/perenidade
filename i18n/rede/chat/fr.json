@@ -172,5 +172,29 @@
     "meu": "Attention : le registre public indique que la clé de VOTRE chat est différente. Si ce n'est pas vous qui avez activé le chat sur un autre appareil, quelqu'un a pu accéder à votre compte : changez votre mot de passe.",
     "quebrado": "Attention : le registre public des clés ne tombe pas juste (quelqu'un a modifié son passé). Rien n'est envoyé. Prévenez la coordination.",
     "carimbo": "Registre public vérifié jusqu'à {carimbo}. Si l'autre personne voit le même numéro avec une autre fin, prévenez la coordination."
+  },
+  "voz": {
+    "titulo": "Salon vocal",
+    "explica": "Voix chiffrée de bout en bout, seulement entre membres du groupe (jusqu'à 8 personnes). L'audio passe par un serveur relais qui ne peut pas écouter, et personne ne voit l'adresse réseau de personne.",
+    "entrar": "Entrer dans le salon",
+    "sair": "Sortir",
+    "mudo": "Couper le micro",
+    "falar": "Activer le micro",
+    "naSala": "Dans le salon :",
+    "sozinho": "Vous seul·e pour l'instant.",
+    "alguem": "Membre du groupe",
+    "ligado": "connecté·e",
+    "ligando": "connexion…",
+    "erros": {
+      "voz_desligada": "La voix n'est pas encore activée sur le serveur.",
+      "voz_sem_retransmissao": "Sans serveur relais, le salon ne s'ouvre pas (votre adresse réseau serait visible).",
+      "voz_cheia": "Le salon est plein (8 personnes).",
+      "voz_sem_canal": "Impossible d'ouvrir le salon maintenant. Réessayez.",
+      "sem_chave": "Cet appareil n'a pas encore la clé du groupe.",
+      "entre_primeiro": "Connectez-vous d'abord.",
+      "nao_encontrado": "Seuls les membres du groupe entrent dans le salon.",
+      "NotAllowedError": "Le micro n'a pas été autorisé.",
+      "outro": "Impossible d'entrer dans le salon."
+    }
   }
 }
