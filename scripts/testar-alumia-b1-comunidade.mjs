@@ -9,6 +9,7 @@
 // roda duas vezes. Uso: npm run testar:alumia-b1-comunidade
 import fs from "node:fs";
 import { criarBanco } from "./banco-local.mjs";
+import { noFimDoInstall } from "./install-posteriores.mjs";
 import { comReserva, faltaFuncaoNoBanco } from "../lib/rede/reserva.ts";
 
 let certos = 0;
@@ -386,10 +387,10 @@ await espera("recorrente: rodar de novo (agendador e 'ao ler') não põe outro n
 }, (r) => r.pub === 1 && r.fila === 1 && r.posts === 1);
 await recusa("recorrente: série não leva imagem (o arquivo só nasce uma vez)", () => rpc(como(P.autora), "rede_alumia_agendar_serie", { p: { texto: "x", midia: [{ caminho: "a/b.jpg", alt: "" }] }, p_quando: new Date(Date.now() + 3600e3).toISOString(), p_repetir: "mensal" }), "repetir_sem_arquivo");
 await espera("recorrente: as colunas são as mesmas da casca (nada de coluna própria)", () => um("select count(*)::int as n from information_schema.columns where table_schema = 'interno' and table_name = 'rede_agendados' and column_name in ('ate', 'vez')"), (r) => r.n === 0);
-await espera("fim da onda: rede_alumia_versao() = 3, para visitante também, e a migração é a última do install.sql", async () => {
+await espera("fim da onda: rede_alumia_versao() = 3, para visitante também, e a migração é a última da onda no install.sql (depois dela, só migrações datadas que entraram depois)", async () => {
   const fim = fs.readFileSync(new URL("../supabase/migracoes/20261111-alumia-onda6-fim.sql", import.meta.url), "utf8");
   const install = fs.readFileSync(new URL("../supabase/install.sql", import.meta.url), "utf8");
-  return { v: await rpc({ papel: "anon", ip: "203.0.113.250" }, "rede_alumia_versao"), ultima: install.endsWith(String.fromCharCode(10) + fim), ordem: ["b1-atos", "b1-perfil-org", "b1-stories", "b1-casca", "b1-comunidade"].map((n) => install.indexOf(fs.readFileSync(new URL(`../supabase/migracoes/20261110-alumia-${n}.sql`, import.meta.url), "utf8"))) };
+  return { v: await rpc({ papel: "anon", ip: "203.0.113.250" }, "rede_alumia_versao"), ultima: noFimDoInstall(fim, install), ordem: ["b1-atos", "b1-perfil-org", "b1-stories", "b1-casca", "b1-comunidade"].map((n) => install.indexOf(fs.readFileSync(new URL(`../supabase/migracoes/20261110-alumia-${n}.sql`, import.meta.url), "utf8"))) };
 }, (r) => r.v === 3 && r.ultima && r.ordem.every((i, k) => i > 0 && (k === 0 || i > r.ordem[k - 1])));
 let serie;
 await espera("recorrente: a lista das séries", async () => (serie = (await rpc(como(P.autora), "rede_alumia_series", {})).itens), (s) => s.length === 1 && s[0].vez === 2);
