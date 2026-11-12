@@ -4,6 +4,7 @@ import { defaultLocale, locales } from "@/i18n/config";
 import { type EstadoDaInterdicao, fechado, lerEstado, semIdioma, semInterdicao } from "@/lib/interdicao";
 import { caminhoDoSiteParaEscola, ESCOLA_URL, escolaComEndereco, hostDaEscola, rotaNaEscola, siteVistoDaEscola } from "@/lib/escola/endereco";
 import { caminhoDoSiteParaAlumia, hostDaAlumia, rotaNaAlumia } from "@/lib/rede/alumia";
+import { caminhoDoSiteParaOChat, hostDoChat, novoNonce, politicaDoChat, rotaNoChat } from "@/lib/rede/chat/origem";
 import { destinoDireto, destinoNovo, pedidoAntigo } from "@/lib/rede/antigos";
 import { caminhoNovoDaAlumia } from "@/lib/rede/rota-alumia";
 import { ligado } from "@/lib/recursos";
@@ -153,6 +154,38 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     const paraEscola = caminhoDoSiteParaEscola(pathname, request.nextUrl.search);
     if (paraEscola) return NextResponse.redirect(paraEscola, 307);
   }
+  // O chat privado no endereço próprio (lib/rede/chat/origem.ts, docs/rede/ORIGEM-ISOLADA.md): lá só abre o chat, com uma
+  // política de scripts estrita (nonce sorteado a cada pedido); fora de lá, com NEXT_PUBLIC_CHAT_URL ligada, as conversas vão
+  // para lá. Sem a variável e fora do endereço do chat, nada muda.
+  if (hostDoChat(hostDoPedido)) {
+    const decisao = rotaNoChat(pathname);
+    if (decisao.tipo === "site") return NextResponse.redirect(new URL(decisao.destino + request.nextUrl.search, dominio), 307);
+    if (decisao.tipo === "chat") {
+      const url = request.nextUrl.clone();
+      url.pathname = decisao.destino;
+      url.search = "";
+      return NextResponse.redirect(url, 307);
+    }
+    const destino = decisao.tipo === "reescrever" ? decisao.destino : pathname;
+    if (fechado(destino, estado)) return NextResponse.redirect(new URL(`/${semIdioma(destino)[0]}/fora-do-ar`, dominio), 307);
+    const nonce = novoNonce();
+    const politica = politicaDoChat(nonce, process.env.NODE_ENV === "development");
+    const cabecalhos = new Headers(request.headers);
+    cabecalhos.set("x-nonce", nonce);
+    cabecalhos.set("content-security-policy", politica);
+    let resposta: NextResponse;
+    if (decisao.tipo === "reescrever") {
+      const url = request.nextUrl.clone();
+      url.pathname = destino;
+      resposta = NextResponse.rewrite(url, { request: { headers: cabecalhos } });
+    } else resposta = NextResponse.next({ request: { headers: cabecalhos } });
+    resposta.headers.set("Content-Security-Policy", politica);
+    resposta.headers.set("Cache-Control", "private, no-store");
+    resposta.headers.set("X-Robots-Tag", "noindex");
+    return resposta;
+  }
+  const paraOChat = caminhoDoSiteParaOChat(pathname, request.nextUrl.search);
+  if (paraOChat) return NextResponse.redirect(paraOChat, 307);
   // Alumia: o caminho de verdade (alvo) de um pedido no host dela; fora dele, a Alumia vai para o endereço próprio.
   let alvo = pathname;
   let reescrever = false;
@@ -177,6 +210,9 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     if (decisao.tipo === "reescrever") {
       alvo = decisao.destino;
       reescrever = true;
+      // As conversas, no endereço da Alumia, com o endereço do chat ligado: vão para lá.
+      const conversas = caminhoDoSiteParaOChat(alvo, request.nextUrl.search);
+      if (conversas) return NextResponse.redirect(conversas, 307);
       // O perfil e o post pedidos em ActivityPub vão direto ao documento da federação.
       if (alvo.startsWith("/api/")) {
         if (estado.geral) return NextResponse.json({ erro: "area_interditada" }, { status: 503, headers: { "Cache-Control": "no-store", "Retry-After": "600" } });

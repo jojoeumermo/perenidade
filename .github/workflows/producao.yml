@@ -105,6 +105,7 @@ jobs:
           NEXT_PUBLIC_GALENE_URL: ${{ vars.NEXT_PUBLIC_GALENE_URL }}
           NEXT_PUBLIC_VAPID_PUBLIC_KEY: ${{ vars.NEXT_PUBLIC_VAPID_PUBLIC_KEY }}
           NEXT_PUBLIC_ESPELHOS: ${{ vars.NEXT_PUBLIC_ESPELHOS }}
+          NEXT_PUBLIC_CHAT_URL: ${{ vars.NEXT_PUBLIC_CHAT_URL }}
         run: |
           set -euo pipefail
           # Sem o serviço de contas o site sairia sem painel, comunidade e rádio: melhor parar aqui do que publicar assim.
@@ -115,7 +116,7 @@ jobs:
           : > .env.production.local
           for nome in NEXT_PUBLIC_SITE_URL NEXT_PUBLIC_SUPABASE_URL NEXT_PUBLIC_SUPABASE_ANON_KEY NEXT_PUBLIC_TURNSTILE_SITE_KEY \
                       NEXT_PUBLIC_ESTUDIO_URL NEXT_PUBLIC_RECURSOS NEXT_PUBLIC_JITSI_DOMAIN NEXT_PUBLIC_VIDEO_HOSTS CSP_REPORT_URL \
-                      NEXT_PUBLIC_ALUMIA_URL NEXT_PUBLIC_ESCOLA_URL NEXT_PUBLIC_GALENE_URL NEXT_PUBLIC_VAPID_PUBLIC_KEY NEXT_PUBLIC_ESPELHOS; do
+                      NEXT_PUBLIC_ALUMIA_URL NEXT_PUBLIC_ESCOLA_URL NEXT_PUBLIC_GALENE_URL NEXT_PUBLIC_VAPID_PUBLIC_KEY NEXT_PUBLIC_ESPELHOS NEXT_PUBLIC_CHAT_URL; do
             valor="${!nome:-}"
             if [ -n "$valor" ]; then printf '%s=%s\n' "$nome" "$valor" >> .env.production.local; fi
           done

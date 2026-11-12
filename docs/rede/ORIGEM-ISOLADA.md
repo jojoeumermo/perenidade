@@ -1,43 +1,43 @@
-# Origem isolada para a cifra (C1): desenho e passo a passo
+# O chat num endereço próprio (origem isolada)
 
-**Situação (12/11/2026): desenho pronto, nada ligado.** Ligar pede um registro de DNS no Cloudflare e um bloco no Caddy da VPS, que
-são passos do dono (seção "Ligar").
+**Situação (13/11/2026): pronto no código e testado no servidor de desenvolvimento** (`conversas.localhost`). Falta ligar em
+produção, DEPOIS que este ramo for juntado e publicado (seção "Ligar").
 
 ## Por que
 
-Toda a cifra da Alumia (o chat privado, os posts restritos e o chat da equipe) roda no navegador, na mesma origem do site
-(`alumia.institutolucia.org`). A CSP das páginas permite script inline (`next.config.ts`, `script-src 'self' 'unsafe-inline'`),
-porque o site precisa. Um script malicioso que rode UMA vez nessa origem (XSS) usa as chaves do aparelho sem copiá-las: abre
-embrulhos, assina como a pessoa e lê as chaves da memória da aba. O "não exportável" do WebCrypto não impede isso
-(`docs/rede/CHAT-PRIVADO.md`, "O que um script na página consegue").
+As chaves do chat (a loja da biblioteca do Matrix, o histórico cifrado, a gaveta, os grupos) moram no IndexedDB da ORIGEM em que
+o chat roda. No mesmo endereço do resto do site, um script malicioso que rode UMA vez em qualquer página (XSS) usaria essas chaves.
+Com o chat em `conversas.institutolucia.org`:
 
-Uma **origem isolada** separa as chaves do resto do site. Elas passam a morar em `cofre.institutolucia.org`, uma origem que só
-serve o código da cifra, com CSP estrita (`script-src 'self'`, sem inline, sem `eval`, `frame-ancestors` só a Alumia), e o
-IndexedDB da cifra fica nessa origem. Um XSS no site principal não alcança esse IndexedDB nem a memória do cofre.
+- **O IndexedDB e a memória do chat ficam numa origem só dele.** Um XSS em qualquer outra página do site não alcança.
+- **Política de scripts estrita, só nesse endereço** (`lib/rede/chat/origem.ts`): `script-src 'nonce-…' 'strict-dynamic'
+  'wasm-unsafe-eval'`, com um nonce sorteado a cada pedido. Nada de script inline sem o nonce, nada de `eval` de JavaScript (só
+  compilar WebAssembly), `frame-ancestors 'none'` (ninguém põe o chat num quadro), `object-src 'none'`, `base-uri 'none'`. Ela
+  vem junto com a política geral do site, e o navegador aplica as duas (vale a mais estrita).
+- **Lá só abre o chat** (e entrar na conta). Qualquer outra página vai para o site do instituto; o painel (para onde o entrar
+  leva) volta para as conversas. No site e na Alumia, `/alumia/conversas` vai para lá.
+- A página das conversas é gerada a cada pedido (`force-dynamic`): é como o Next aplica o nonce.
 
-## Desenho
+## O que muda para quem usa
 
-1. **O cofre** é uma página mínima (`/cofre`, um arquivo HTML estático mais um bundle de JS próprio), servida só em
-   `cofre.institutolucia.org`, num `<iframe>` invisível dentro da Alumia. Nada de React, de terceiros nem de script inline.
-2. **A conversa entre a Alumia e o cofre** é por `postMessage`, com a origem conferida dos dois lados e um protocolo fechado:
-   `cifrar`, `abrir`, `embrulhar`, `codigoDeSeguranca`, `apagarTudo`. O cofre nunca devolve chave: só texto aberto ou cifrado.
-3. **Os pedidos ao banco** que precisam de chave (publicar a chave pública, os embrulhos) saem do cofre, com o mesmo token de sessão
-   que a Alumia passa por `postMessage` a cada pedido (o cofre não guarda sessão).
-4. **O "Sair rápido"** manda `apagarTudo` ao cofre antes de sair: o IndexedDB do cofre é apagado lá.
-5. **O que continua exposto:** um XSS no site principal ainda vê o texto aberto que aparece na tela e pode pedir ao cofre para
-   cifrar ou abrir mensagens enquanto a página estiver aberta. Não leva mais as chaves embora, nem abre nada depois que a aba fecha.
+- Entrar na conta de novo no endereço do chat (a sessão é de cada origem).
+- **Ativar o chat de novo**: as chaves do endereço antigo não passam para o novo (uma origem não lê o IndexedDB da outra). A chave
+  nova muda o código de segurança; a tela já explica isso, como depois do "Sair rápido".
 
-## Ligar (passos do dono)
+## Ligar (depois do ramo publicado)
 
-1. **Cloudflare:** um registro `cofre` (A, com proxy), igual ao de `alumia`.
-2. **Caddy na VPS** (`infra/contabo/Caddyfile`): acrescentar `cofre.institutolucia.org` ao bloco do site, ou um bloco próprio que
-   sirva só `/cofre/**`, com os cabeçalhos:
-   `Content-Security-Policy: default-src 'none'; script-src 'self'; connect-src https://<projeto>.supabase.co; frame-ancestors https://alumia.institutolucia.org`
-   e `Cross-Origin-Opener-Policy: same-origin`.
-3. **Publicar** o site com o cofre (a Faixa 2 escreve o cofre e o lado da Alumia quando o dono der o sim para os passos 1 e 2).
+1. **Cloudflare, DNS:** um registro `conversas`, igual ao de `alumia` (com proxy, a nuvem laranja).
+2. **Cloudflare, Turnstile:** no desafio da entrada, acrescentar o nome `conversas.institutolucia.org` aos domínios permitidos.
+3. **VPS, Caddy** (`infra/contabo/Caddyfile`): `conversas.institutolucia.org` entra na lista do bloco do site
+   (`institutolucia.org, alumia.institutolucia.org, escola.institutolucia.org, conversas.institutolucia.org`). O certificado de
+   origem já cobre `*.institutolucia.org`. Depois, `systemctl reload caddy`.
+4. **GitHub, variável do Actions:** `NEXT_PUBLIC_CHAT_URL = https://conversas.institutolucia.org`, e publicar de novo.
 
-## Migração
+A Faixa 2 faz os passos 1 a 4 quando a Faixa 1 avisar que juntou e publicou. Desligar: apagar a variável do passo 4 e publicar
+(o chat volta para o endereço antigo; as chaves de lá continuam onde estavam).
 
-As chaves que já estão no IndexedDB da origem atual não passam sozinhas para o cofre (uma origem não lê o IndexedDB da outra). Na
-troca, a pessoa ativa o chat de novo, como depois do "Sair rápido": a chave nova muda o código de segurança, e a tela já explica
-isso.
+## Limites
+
+- Um XSS DENTRO do endereço do chat ainda alcançaria as chaves; a política estrita é o que torna isso muito mais difícil.
+- O que aparece na tela do chat (o texto aberto) continua sendo da página, como em qualquer aplicativo.
+- O aplicativo Android assinado (do coordenador) fecha o resto: código que não muda sem a assinatura.
