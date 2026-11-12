@@ -8,7 +8,7 @@
 //
 // Privacidade (PLANO-ALUMIA §6; LGPD art. 5º, II e art. 11): sem contagem de seguidores, sem lista de quem segue, de quem é de um
 // núcleo ou de quem votou; pessoas na sala só agregadas e a partir de 3; quem cuida da conta nunca aparece.
-import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode, type RefObject } from "react";
 import { dataCurta } from "@/lib/rede/org/contagem";
 import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaOrg } from "@/lib/rede/textos-org";
@@ -68,6 +68,14 @@ export interface PropsDoPerfilDaOrg {
 const ABAS_DO_PERFIL = [...ABAS_DA_ORG, "nucleos"] as const;
 type AbaDoPerfil = AbaDaOrg | "nucleos";
 
+/** Rola até o bloco dos núcleos e leva o foco a ele; espera um instante porque o bloco só existe depois de a aba trocar. */
+function levarAosNucleos(nucleos: RefObject<HTMLElement | null>, abas: RefObject<HTMLDivElement | null>) {
+  window.setTimeout(() => {
+    (nucleos.current ?? abas.current)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    nucleos.current?.focus({ preventScroll: true });
+  }, 0);
+}
+
 export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInicial, aviso, cuidar, aoMudar, s, vivo = false, acimaDasAbas = null }: PropsDoPerfilDaOrg) {
   const tp = t.perfil;
   const id = useId();
@@ -83,14 +91,19 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
   // "Ver os núcleos" abre a aba e leva o foco ao bloco (que só existe depois de a aba trocar).
   const verNucleos = () => {
     setAba("nucleos");
-    window.setTimeout(() => {
-      (nucleosRef.current ?? abasRef.current)?.scrollIntoView({ behavior: "smooth", block: "start" });
-      nucleosRef.current?.focus({ preventScroll: true });
-    }, 0);
+    levarAosNucleos(nucleosRef, abasRef);
   };
 
+  // Se a aba pedida de fora mudar para "nucleos" com o perfil já na tela, a aba troca aqui, durante a renderização (na
+  // primeira vez o estado já nasce nela); o efeito abaixo só cuida de rolar e de levar o foco.
+  const [abaPedida, setAbaPedida] = useState(abaInicial);
+  if (abaPedida !== abaInicial) {
+    setAbaPedida(abaInicial);
+    if (abaInicial === "nucleos") setAba("nucleos");
+  }
+
   useEffect(() => {
-    if (abaInicial === "nucleos") verNucleos();
+    if (abaInicial === "nucleos") levarAosNucleos(nucleosRef, abasRef);
     else if (abaInicial && abaInicial !== "posts") abasRef.current?.scrollIntoView({ block: "start" });
   }, [abaInicial]);
 
