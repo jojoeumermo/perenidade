@@ -37,6 +37,24 @@
 -- Fica para depois (docs/rede/PEDIDOS-ENTRE-FAIXAS.md, P12): guardar a mídia de fora no depósito daqui; e os "sotaques" por
 -- software (Lemmy, Misskey, Pleroma).
 
+-- ── 0. O Threads não entra, e sem interruptor ─────────────────────────────────────────────────────────────────────────────
+-- Decisão do Instituto (12/11/2026): o Threads não federa com a Alumia e não há interruptor. Em produção, a versão de 10/11 de
+-- 20261110-fediverso-bloqueio-padrao.sql criou public.rede_fed_threads; aqui ela some, a anotação "threads_liberado" também, e
+-- os domínios do Threads ficam bloqueados e fixos (mesmo que alguém tenha usado o interruptor antes). Pode rodar de novo.
+drop function if exists public.rede_fed_threads(boolean);
+do $$
+declare v_n integer;
+begin
+  update interno.configuracoes set valor = valor - 'threads_liberado' where chave = 'fediverso' and valor ? 'threads_liberado';
+  insert into interno.rede_fed_bloqueados (dominio, motivo, por, fixo)
+  select d, 'Threads (Meta): não federa com a Alumia, por decisão do Instituto. Sem interruptor.', null, true from unnest(interno.rede_fed_threads_dominios()) d
+  on conflict (dominio) do nothing;
+  get diagnostics v_n = row_count;
+  update interno.rede_fed_bloqueados set fixo = true, motivo = 'Threads (Meta): não federa com a Alumia, por decisão do Instituto. Sem interruptor.'
+   where dominio = any(interno.rede_fed_threads_dominios()) and (not fixo or motivo is distinct from 'Threads (Meta): não federa com a Alumia, por decisão do Instituto. Sem interruptor.');
+  if v_n > 0 then perform interno.rede_fed_bloqueio_faxina(); end if;
+end $$;
+
 -- ── 1. Peças pequenas ─────────────────────────────────────────────────────────────────────────────────────────────────────
 
 /** Contagem que sai para fora ou para a tela: só a partir de 3; abaixo disso (ou nula) vira 0. */

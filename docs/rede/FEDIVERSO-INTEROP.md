@@ -13,8 +13,8 @@ O plano de origem é `docs/plano-2026-11/PLANO-FEDIVERSO.md`, seção 6. O que a
   houver, Misskey/Sharkey ou GoToSocial), com a sessão aberta no navegador dele.
 - **Não publicar nada fora da Alumia** sem o dono dizer que pode. Os cliques de publicar, seguir e denunciar lá fora são dele.
 - Do lado da Alumia, usar uma **conta de teste do próprio projeto**, com a federação ligada no perfil.
-- **Threads e Bridgy Fed não entram como servidor de teste.** Por decisão de 10/11/2026, o Threads fica bloqueado (com
-  interruptor na moderação) e o Bridgy Fed fica desligado. Os dois só aparecem aqui como **teste negativo**: a caixa de entrada
+- **Threads e Bridgy Fed não entram como servidor de teste.** Por decisão do Instituto, o Threads não entra (bloqueio fixo,
+  sem interruptor desde 12/11/2026) e o Bridgy Fed fica desligado. Os dois só aparecem aqui como **teste negativo**: a caixa de entrada
   tem de responder `403 instancia_bloqueada` (passo A12). Ninguém segue, busca ou publica para `threads.net` ou `brid.gy`
   durante o roteiro.
 
@@ -74,7 +74,7 @@ Como ler as falhas mais comuns:
 |---|---|
 | A1 certo no host da Alumia e errado no domínio curto | o domínio curto não chega a este app (a ponte do Cloudflare ou a Caddy desviam `/.well-known/` dele) |
 | A5, A10 ou A11 voltam `chave_desconhecida` | a Alumia não conseguiu ler o próprio ator da instância para conferir a assinatura (ver A8) |
-| A12 volta `401 sem_assinatura` | o domínio não está na lista de instâncias bloqueadas (o interruptor do Threads está desligado, ou o bloqueio do Bridgy não foi posto) |
+| A12 volta `401 sem_assinatura` | o domínio não está na lista de instâncias bloqueadas (rode de novo `20261110-fediverso-bloqueio-padrao.sql`, que põe o Threads e o Bridgy Fed como bloqueios fixos) |
 | A13, ou qualquer passo com "o Cloudflare respondeu no lugar da Alumia" | Bot Fight Mode ou regra do WAF barrando servidor que não é navegador: ver o item do Cloudflare em `docs/rede/FEDIVERSO.md` |
 | Vários `429` | o teto de pedidos por endereço de rede: esperar um minuto e rodar de novo |
 

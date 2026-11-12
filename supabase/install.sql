@@ -35523,8 +35523,9 @@ end $$;
 -- Se um dia 20261109-fediverso-total.sql (ou 2026-11-alumia.sql) for rodado de novo sozinho, rode este arquivo de novo em seguida:
 -- aqueles arquivos trazem a versão antiga de public.rede_fed_bloquear, sem a trava do bloqueio fixo, e a de interno.rede_fed_bloqueado.
 --
--- Decisão do Instituto (10/11/2026): o Threads (Meta) fica BLOQUEADO, com um interruptor na moderação que só a coordenação mexe;
--- o Bridgy Fed (a ponte com o Bluesky e com sites) fica DESLIGADO, sem interruptor: só muda com outra migração.
+-- Decisão do Instituto: o Threads (Meta) NÃO entra, e sem interruptor (12/11/2026: o interruptor da coordenação, que existia
+-- desde 10/11, foi retirado); o Bridgy Fed (a ponte com o Bluesky e com sites) fica DESLIGADO, também sem interruptor. Os dois só
+-- mudariam com outra migração.
 --
 -- O que este arquivo faz:
 --   1. Coluna "fixo" em interno.rede_fed_bloqueados: bloqueio "de casa", que a mediação comum não desfaz.
@@ -35532,9 +35533,8 @@ end $$;
 --      (www.threads.net, bsky.brid.gy, web.brid.gy, fed.brid.gy), como em interno.rede_fed_bloqueado. Bloquear some com o que
 --      havia desses domínios (seguidores, notas guardadas, avisos), igual ao bloqueio feito pela mediação.
 --   3. public.rede_fed_bloquear recusa mexer em linha fixa ("bloqueio_fixo"), devolve "fixo" na lista e anota no registro.
---   4. public.rede_fed_threads: o interruptor do Threads. A mediação vê o estado; só a coordenação (e a vice) muda. Se a
---      coordenação liberar o Threads, fica anotado em configuracoes ("fediverso" › "threads_liberado") e rodar este arquivo de
---      novo NÃO bloqueia de volta.
+--   4. Não há interruptor do Threads: a função public.rede_fed_threads, se existir (de uma versão anterior deste arquivo), é
+--      apagada, e a anotação antiga "threads_liberado" em configuracoes também.
 
 -- 1. O bloqueio fixo ─────────────────────────────────────────────────────────────────────────────────────────────────────
 alter table interno.rede_fed_bloqueados add column if not exists fixo boolean not null default false;
@@ -35570,7 +35570,6 @@ end $$;
 -- 2. A semente ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 do $$
 declare
-  v_liberado boolean := coalesce((select valor ->> 'threads_liberado' from interno.configuracoes where chave = 'fediverso'), '') = 'true';
   v_novos integer := 0; v_n integer;
 begin
   insert into interno.rede_fed_bloqueados (dominio, motivo, por, fixo)
@@ -35578,15 +35577,15 @@ begin
   on conflict (dominio) do nothing;
   get diagnostics v_n = row_count; v_novos := v_novos + v_n;
   update interno.rede_fed_bloqueados set fixo = true where dominio = 'brid.gy' and not fixo;
-  -- O Threads só entra se a coordenação não o liberou pelo interruptor.
-  if not v_liberado then
-    insert into interno.rede_fed_bloqueados (dominio, motivo, por, fixo)
-    select d, 'Threads (Meta): bloqueado por decisão do Instituto. Só a coordenação liga ou desliga.', null, true
-    from unnest(interno.rede_fed_threads_dominios()) d
-    on conflict (dominio) do nothing;
-    get diagnostics v_n = row_count; v_novos := v_novos + v_n;
-    update interno.rede_fed_bloqueados set fixo = true where dominio = any(interno.rede_fed_threads_dominios()) and not fixo;
-  end if;
+  -- O Threads não entra, sem exceção (não há interruptor; uma anotação antiga de "liberado" não vale mais).
+  insert into interno.rede_fed_bloqueados (dominio, motivo, por, fixo)
+  select d, 'Threads (Meta): não federa com a Alumia, por decisão do Instituto. Sem interruptor.', null, true
+  from unnest(interno.rede_fed_threads_dominios()) d
+  on conflict (dominio) do nothing;
+  get diagnostics v_n = row_count; v_novos := v_novos + v_n;
+  update interno.rede_fed_bloqueados set fixo = true, motivo = 'Threads (Meta): não federa com a Alumia, por decisão do Instituto. Sem interruptor.'
+   where dominio = any(interno.rede_fed_threads_dominios()) and (not fixo or motivo is distinct from 'Threads (Meta): não federa com a Alumia, por decisão do Instituto. Sem interruptor.');
+  update interno.configuracoes set valor = valor - 'threads_liberado' where chave = 'fediverso' and valor ? 'threads_liberado';
   if v_novos > 0 then perform interno.rede_fed_bloqueio_faxina(); end if;
 end $$;
 
@@ -35595,7 +35594,7 @@ end $$;
 /**
  * A mediação bloqueia (ou desbloqueia) uma instância inteira: nada entra dela, nada sai para ela, e o que havia dela some (agora
  * também curtidas, impulsos, avisos, seguidores das comunidades e bloqueios dela). Domínio vazio e p_sim nulo: só a lista.
- * Bloqueio fixo (Threads, Bridgy Fed) não muda por aqui: "bloqueio_fixo". O do Threads muda em public.rede_fed_threads.
+ * Bloqueio fixo (Threads, Bridgy Fed) não muda por aqui nem por lugar nenhum: "bloqueio_fixo".
  */
 create or replace function public.rede_fed_bloquear(p_dominio text, p_sim boolean, p_motivo text default '') returns jsonb
 language plpgsql volatile security definer set search_path = interno, pg_temp as $$
@@ -35619,49 +35618,19 @@ begin
   return coalesce((select jsonb_agg(jsonb_build_object('dominio', dominio, 'motivo', motivo, 'desde', criado_em, 'fixo', fixo) order by dominio) from rede_fed_bloqueados), '[]'::jsonb);
 end $$;
 
--- 4. O interruptor do Threads ────────────────────────────────────────────────────────────────────────────────────────────
-
-/**
- * O interruptor do Threads na moderação. Sem argumento (ou nulo): só o estado, para quem media ou cuida. Com true ou false:
- * bloqueia ou libera o Threads, e só a coordenação (e a vice) pode. O Bridgy Fed não tem interruptor.
- * Devolve { bloqueado, pode_mudar }.
- */
-create or replace function public.rede_fed_threads(p_bloquear boolean default null) returns jsonb
-language plpgsql volatile security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); v_dominios text[] := interno.rede_fed_threads_dominios();
-begin
-  if not (interno.media() or interno.cuida()) then perform interno.erro('sem_permissao'); end if;
-  if p_bloquear is not null then
-    if not interno.coord() then perform interno.erro('sem_permissao'); end if;
-    perform interno.limite('rede_fed_threads', 10, 60);
-    if p_bloquear then
-      insert into rede_fed_bloqueados (dominio, motivo, por, fixo)
-      select d, 'Threads (Meta): bloqueado por decisão do Instituto. Só a coordenação liga ou desliga.', v, true from unnest(v_dominios) d
-      on conflict (dominio) do update set motivo = excluded.motivo, por = excluded.por, fixo = true, criado_em = now();
-      perform interno.rede_fed_bloqueio_faxina();
-      update configuracoes set valor = valor - 'threads_liberado' where chave = 'fediverso';
-      perform interno.registrar('rede_fed_threads_bloqueado', 'threads.net');
-    else
-      delete from rede_fed_bloqueados where dominio = any(v_dominios);
-      insert into configuracoes (chave, valor) values ('fediverso', '{"threads_liberado": true}'::jsonb)
-      on conflict (chave) do update set valor = configuracoes.valor || excluded.valor;
-      perform interno.registrar('rede_fed_threads_liberado', 'threads.net');
-    end if;
-  end if;
-  return jsonb_build_object(
-    'bloqueado', (select count(*) = cardinality(v_dominios) from rede_fed_bloqueados where dominio = any(v_dominios)),
-    'pode_mudar', interno.coord());
-end $$;
+-- 4. Sem interruptor do Threads ─────────────────────────────────────────────────────────────────────────────────────────
+-- A versão de 10/11 deste arquivo criava public.rede_fed_threads (a coordenação liberava ou bloqueava o Threads). Não existe mais.
+drop function if exists public.rede_fed_threads(boolean);
 
 -- 5. Permissões ─────────────────────────────────────────────────────────────────────────────────────────────────────────
 revoke all on function interno.rede_fed_threads_dominios(), interno.rede_fed_bloqueio_faxina(), interno.rede_fed_bloqueado(text) from public;
-revoke all on function public.rede_fed_bloquear(text, boolean, text), public.rede_fed_threads(boolean) from public;
+revoke all on function public.rede_fed_bloquear(text, boolean, text) from public;
 do $$
 begin
   if exists (select 1 from pg_roles where rolname = 'anon') then
     revoke all on function interno.rede_fed_threads_dominios(), interno.rede_fed_bloqueio_faxina(), interno.rede_fed_bloqueado(text) from anon, authenticated;
-    revoke all on function public.rede_fed_bloquear(text, boolean, text), public.rede_fed_threads(boolean) from anon, authenticated;
-    grant execute on function public.rede_fed_bloquear(text, boolean, text), public.rede_fed_threads(boolean) to authenticated, service_role;
+    revoke all on function public.rede_fed_bloquear(text, boolean, text) from anon, authenticated;
+    grant execute on function public.rede_fed_bloquear(text, boolean, text) to authenticated, service_role;
   end if;
 end $$;
 
@@ -35703,6 +35672,24 @@ end $$;
 --
 -- Fica para depois (docs/rede/PEDIDOS-ENTRE-FAIXAS.md, P12): guardar a mídia de fora no depósito daqui; e os "sotaques" por
 -- software (Lemmy, Misskey, Pleroma).
+
+-- ── 0. O Threads não entra, e sem interruptor ─────────────────────────────────────────────────────────────────────────────
+-- Decisão do Instituto (12/11/2026): o Threads não federa com a Alumia e não há interruptor. Em produção, a versão de 10/11 de
+-- 20261110-fediverso-bloqueio-padrao.sql criou public.rede_fed_threads; aqui ela some, a anotação "threads_liberado" também, e
+-- os domínios do Threads ficam bloqueados e fixos (mesmo que alguém tenha usado o interruptor antes). Pode rodar de novo.
+drop function if exists public.rede_fed_threads(boolean);
+do $$
+declare v_n integer;
+begin
+  update interno.configuracoes set valor = valor - 'threads_liberado' where chave = 'fediverso' and valor ? 'threads_liberado';
+  insert into interno.rede_fed_bloqueados (dominio, motivo, por, fixo)
+  select d, 'Threads (Meta): não federa com a Alumia, por decisão do Instituto. Sem interruptor.', null, true from unnest(interno.rede_fed_threads_dominios()) d
+  on conflict (dominio) do nothing;
+  get diagnostics v_n = row_count;
+  update interno.rede_fed_bloqueados set fixo = true, motivo = 'Threads (Meta): não federa com a Alumia, por decisão do Instituto. Sem interruptor.'
+   where dominio = any(interno.rede_fed_threads_dominios()) and (not fixo or motivo is distinct from 'Threads (Meta): não federa com a Alumia, por decisão do Instituto. Sem interruptor.');
+  if v_n > 0 then perform interno.rede_fed_bloqueio_faxina(); end if;
+end $$;
 
 -- ── 1. Peças pequenas ─────────────────────────────────────────────────────────────────────────────────────────────────────
 

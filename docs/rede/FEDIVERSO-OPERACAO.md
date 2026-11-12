@@ -105,8 +105,8 @@ Uma etapa só começa quando a anterior deu certo.
      com 404, a federação inteira está desligada (falta o segredo ou o recurso `rede-v2`).
    - Sem decisão no painel, cada lado segue a sua configuração: o site, a lista `NEXT_PUBLIC_RECURSOS` (com `fediverso-total`
      escrito pelo nome, e publicar de novo); o banco, a chave `total` da configuração `fediverso`.
-   - Decisão de 10/11/2026: o Threads fica **bloqueado** (o interruptor está na moderação, na lista de instâncias bloqueadas)
-     e o Bridgy Fed fica **desligado**. Confira os dois antes de seguir.
+   - Decisão do Instituto: o Threads **não entra** (bloqueio fixo, sem interruptor desde 12/11/2026) e o Bridgy Fed fica
+     **desligado**. Os dois aparecem como fixos na lista de instâncias bloqueadas da moderação. Confira antes de seguir.
 4. **Timer.** Instalar como está acima e conferir que as rodadas terminam sem `ERRO:`.
 5. **Teste de caixa-preta.** Olhar de fora, como outra instância olharia: WebFinger, ator e NodeInfo nos dois endereços
    (`docs/plano-2026-11/PLANO-FEDIVERSO.md`, "Etapa A: caixa-preta"). Depois, a prova com uma conta de verdade num Mastodon:

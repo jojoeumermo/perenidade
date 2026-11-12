@@ -295,7 +295,8 @@ Regras (valem para qualquer peça nova):
 - **HTML por lista permitida.** O `html` do cartão só entra por `HtmlDeFora` (`htmlParaArvore`): nunca `dangerouslySetInnerHTML`.
 - **Sem lista de pessoas.** Não se mostra quem curtiu nem quem impulsionou. Nos avisos `fed_curtida` e `fed_impulso` a frase é
   "Alguém do Fediverso curtiu/impulsionou o seu post", sem nome, @, servidor nem rosto. Número só a partir de 3 (`contagemVisivel`).
-- Threads continua bloqueado e o Bridgy Fed desligado: nenhuma peça da tela os habilita.
+- O Threads não entra e o Bridgy Fed fica desligado, os dois como bloqueio fixo e sem interruptor (o do Threads, que existia
+  desde 10/11, foi retirado em 12/11/2026 pela migração da privacidade): nenhuma peça da tela nem função do banco os habilita.
 
 A linha mista, em resumo: `maisDeFora(estado, { ate, logado })` recebe o `criado_em` do post mais antigo da página daqui
 (`limiteDaPagina`), pede páginas de fora só enquanto a espera não alcança esse limite (no máximo 3 por chamada), solta o que é

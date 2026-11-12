@@ -611,40 +611,29 @@ await recusa("mediador comum não desbloqueia o Threads", () => rpc(como(pessoas
 await recusa("nem troca o motivo de um bloqueio fixo", () => rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "Threads.net", p_sim: true, p_motivo: "outro" }), "bloqueio_fixo");
 await recusa("mediador comum não desbloqueia o Bridgy Fed", () => rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "brid.gy", p_sim: false, p_motivo: "" }), "bloqueio_fixo");
 await recusa("nem a coordenação desbloqueia o Bridgy Fed pela função da mediação", () => rpc(coordena(pessoas.ana), "rede_fed_bloquear", { p_dominio: "brid.gy", p_sim: false, p_motivo: "" }), "bloqueio_fixo");
-await recusa("nem o Threads por ela: o caminho é o interruptor", () => rpc(coordena(pessoas.ana), "rede_fed_bloquear", { p_dominio: "threads.com", p_sim: false, p_motivo: "" }), "bloqueio_fixo");
+await recusa("nem o Threads por ela: não há caminho para liberar o Threads", () => rpc(coordena(pessoas.ana), "rede_fed_bloquear", { p_dominio: "threads.com", p_sim: false, p_motivo: "" }), "bloqueio_fixo");
 await espera("depois das recusas, os três continuam fixos", fixos, (d) => d === "brid.gy,threads.com,threads.net");
-await espera("a mediação vê o interruptor do Threads, mas não pode mudar", async () => rpc(como(pessoas.duda), "rede_fed_threads", { p_bloquear: null }), (r) => r.bloqueado === true && r.pode_mudar === false);
-await recusa("mediador comum não liga o Threads pelo interruptor", () => rpc(como(pessoas.duda), "rede_fed_threads", { p_bloquear: false }), "sem_permissao");
-await recusa("quem não é da equipe nem vê o interruptor", () => rpc(como(pessoas.beto), "rede_fed_threads", { p_bloquear: null }), "sem_permissao");
-await espera("visitante não chama o interruptor", async () => (await um("select has_function_privilege('anon', 'public.rede_fed_threads(boolean)', 'execute') as p")).p, (p) => p === false);
-await espera("a coordenação libera o Threads: saem os dois domínios, o Bridgy Fed fica", async () => {
-  const r = await rpc(coordena(pessoas.ana), "rede_fed_threads", { p_bloquear: false });
-  return [r.bloqueado, r.pode_mudar, await fixos(), await bloqueado("https://www.threads.net/ap/users/1/"), await bloqueado("https://bsky.brid.gy/ap/x")];
-}, ([b, p, d, t, g]) => b === false && p === true && d === "brid.gy" && t === false && g === true);
-await espera("com o Threads liberado, rodar a migração de novo não bloqueia de volta", async () => {
-  await banco.exclusivo(() => banco.pg.exec(padrao));
-  return [await bloqueado("https://threads.net/ap/users/1/"), await fixos()];
-}, ([t, d]) => t === false && d === "brid.gy");
-await espera("a coordenação bloqueia o Threads de novo: volta fixo e some o que entrou dele", async () => {
-  await dono("insert into interno.rede_fed_seguidores (perfil, ator, inbox, inbox_compartilhada, pedido) values ($1, 'https://www.threads.net/ap/users/2/', 'https://www.threads.net/ap/users/2/inbox/', null, 'x')", [pessoas.beto]);
-  const r = await rpc(coordena(pessoas.ana), "rede_fed_threads", { p_bloquear: true });
-  const seg = (await um("select count(*)::int as n from interno.rede_fed_seguidores where ator like 'https://www.threads.net/%'")).n;
-  const cfg = (await um("select valor ? 'threads_liberado' as tem from interno.configuracoes where chave = 'fediverso'")).tem;
-  return [r.bloqueado, await fixos(), seg, cfg];
-}, ([b, d, s, c]) => b === true && d === "brid.gy,threads.com,threads.net" && s === 0 && c === false);
-await espera("o Bridgy Fed não tem interruptor: nenhuma função pública o desbloqueia", async () => {
+await espera("não existe interruptor do Threads (decisão do Instituto: o Threads não entra)", async () => (await um("select to_regprocedure('public.rede_fed_threads(boolean)') is null as nao")).nao, (nao) => nao === true);
+await espera("nenhuma função pública tira um bloqueio fixo: só a da mediação apaga bloqueio, e ela recusa o fixo", async () => {
   const r = await dono(`select p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace
     where n.nspname = 'public' and p.prosrc ~ 'delete from (interno\\.)?rede_fed_bloqueados' order by 1`);
   return r.rows.map((x) => x.proname).join();
-}, (f) => f === "rede_fed_bloquear,rede_fed_threads");
-await espera("bloquear, desbloquear e o interruptor ficam no registro de atividades, só com o domínio", async () => {
+}, (f) => f === "rede_fed_bloquear");
+await espera("uma anotação antiga de 'Threads liberado' não vale: rodar a migração de novo deixa os três fixos e apaga a anotação", async () => {
+  await dono("insert into interno.configuracoes (chave, valor) values ('fediverso', '{\"threads_liberado\": true}'::jsonb) on conflict (chave) do update set valor = interno.configuracoes.valor || excluded.valor");
+  await dono("delete from interno.rede_fed_bloqueados where dominio = 'threads.com'");
+  await banco.exclusivo(() => banco.pg.exec(padrao));
+  const cfg = (await um("select valor ? 'threads_liberado' as tem from interno.configuracoes where chave = 'fediverso'")).tem;
+  return [await fixos(), cfg, await bloqueado("https://www.threads.com/@x")];
+}, ([d, c, t]) => d === "brid.gy,threads.com,threads.net" && c === false && t === true);
+await espera("bloquear e desbloquear ficam no registro de atividades, só com o domínio", async () => {
   await rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "ruim.teste", p_sim: true, p_motivo: "motivo que não vai para o registro" });
   await rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "ruim.teste", p_sim: false, p_motivo: "" });
-  const r = (await dono("select acao, alvo, detalhes::text as d from interno.auditoria where acao like 'rede_fed_instancia_%' or acao like 'rede_fed_threads_%' order by acao")).rows;
+  const r = (await dono("select acao, alvo, detalhes::text as d from interno.auditoria where acao like 'rede_fed_instancia_%' order by acao")).rows;
   return [[...new Set(r.map((x) => x.acao))].join(), r.every((x) => x.d === "{}" && /^[a-z0-9.-]+$/.test(x.alvo))];
-}, ([a, limpo]) => a === "rede_fed_instancia_bloqueada,rede_fed_instancia_desbloqueada,rede_fed_threads_bloqueado,rede_fed_threads_liberado" && limpo);
-await espera("as funções novas seguem o padrão (security definer, search_path) e as internas não abrem para ninguém", async () => {
-  const pub = await um("select prosecdef, array_to_string(proconfig, ',') as cfg from pg_proc where oid = 'public.rede_fed_threads(boolean)'::regprocedure");
+}, ([a, limpo]) => a === "rede_fed_instancia_bloqueada,rede_fed_instancia_desbloqueada" && limpo);
+await espera("as funções seguem o padrão (security definer, search_path) e as internas não abrem para ninguém", async () => {
+  const pub = await um("select prosecdef, array_to_string(proconfig, ',') as cfg from pg_proc where oid = 'public.rede_fed_bloquear(text, boolean, text)'::regprocedure");
   const abertas = (await dono(`select p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'interno' and p.proname in ('rede_fed_threads_dominios', 'rede_fed_bloqueio_faxina')
     and (has_function_privilege('anon', p.oid, 'execute') or has_function_privilege('authenticated', p.oid, 'execute'))`)).rows.length;
   return [pub.prosecdef && /search_path=interno, pg_temp/.test(pub.cfg), abertas];
@@ -1032,7 +1021,19 @@ await espera("rodar a privacidade mais uma vez, com dados, não muda nada do que
   return JSON.stringify(antes) === JSON.stringify(await um(conta));
 });
 await recusa("e o Threads continua sem desbloqueio pela mediação", () => rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "threads.com", p_sim: false, p_motivo: "" }), "bloqueio_fixo");
-await espera("o interruptor do Threads continua só da coordenação", async () => rpc(como(pessoas.duda), "rede_fed_threads", { p_bloquear: null }), (r) => r.bloqueado === true && r.pode_mudar === false);
+await espera("produção de 10/11 (com o interruptor e o Threads liberado): a migração da privacidade apaga o interruptor e bloqueia o Threads de novo", async () => {
+  await dono(`create or replace function public.rede_fed_threads(p_bloquear boolean default null) returns jsonb language sql as $f$ select '{}'::jsonb $f$`);
+  await dono("delete from interno.rede_fed_bloqueados where dominio in ('threads.net', 'threads.com')");
+  await dono("update interno.configuracoes set valor = valor || '{\"threads_liberado\": true}'::jsonb where chave = 'fediverso'");
+  await dono("insert into interno.rede_fed_seguidores (perfil, ator, inbox, inbox_compartilhada, pedido) values ($1, 'https://www.threads.net/ap/users/9/', 'https://www.threads.net/ap/users/9/inbox/', null, 'y')", [pessoas.eva]);
+  await banco.exclusivo(() => banco.pg.exec(privacidade));
+  return [
+    (await um("select to_regprocedure('public.rede_fed_threads(boolean)') is null as nao")).nao,
+    await fixos(),
+    (await um("select valor ? 'threads_liberado' as tem from interno.configuracoes where chave = 'fediverso'")).tem,
+    (await um("select count(*)::int as n from interno.rede_fed_seguidores where ator like 'https://www.threads.net/%'")).n,
+  ];
+}, ([nao, d, c, n]) => nao === true && d === "brid.gy,threads.com,threads.net" && c === false && n === 0);
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const f of falhas) console.log(`  ✗ ${f}`);
