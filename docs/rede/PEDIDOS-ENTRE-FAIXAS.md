@@ -591,3 +591,57 @@ O componente está pronto e testado (`docs/rede/VOZ.md`, `npm run testar:voz`). 
 3. Nada no banco. A chave TURN já está na VPS (a da aula ao vivo).
 
 Se não atender: nada muda; a sala só não aparece.
+
+#### P23 · 2026-11-13 · Faixa 2 avisa · chat "nível Signal": o que entrou, o que ficou de fora, e a ordem do SQL único
+
+**Entrou (feito e testado):**
+
+| Item | Onde | Teste |
+|---|---|---|
+| Cifra do chat 1:1 pela biblioteca do Matrix (Olm, Double Ratchet) | `lib/rede/chat/olm.ts`, `docs/rede/CHAT-PRIVADO.md` | `testar:chat-olm` |
+| Remetente selado (envelope HPKE X-Wing; o banco guarda só destino e dia; depósito sem a sessão da conta; apagada ao entregar) | `lib/rede/chat/selado.ts` | `testar:chat-selado` |
+| Contra computador quântico: grupos (MLS com X-Wing) e o envelope de toda mensagem 1:1 (X-Wing) | `lib/rede/grupo-mls.ts`, `selado.ts` | `testar:cifra-grupo`, `testar:chat-selado` |
+| Grupos em MLS (RFC 9420): segurança depois do comprometimento, quem sai não lê o que vem | `lib/rede/grupo-mls.ts`, `docs/rede/POSTS-RESTRITOS.md` | `testar:cifra-grupo` |
+| Transparência de chaves (registro público encadeado; ponto conferido mostrado junto do QR) | `lib/rede/chat/transparencia.ts` | `testar:chat-registro` |
+| Histórico só no aparelho, cifrado, com trava por senha; temporárias (5 min, 1 h); ver uma vez | `lib/rede/chat/historico.ts` | `testar:chat-historico` |
+| Pastas, nota, soneca, lembretes, primeira não lida (tudo só no aparelho) | idem | `testar:chat-historico` |
+| Sala de voz cifrada (até 8; sempre por retransmissão; combinação cifrada com o MLS) | `lib/rede/voz/`, `docs/rede/VOZ.md` | `testar:voz` |
+| Chat em endereço próprio com política de scripts estrita (nonce) | `lib/rede/chat/origem.ts`, `docs/rede/ORIGEM-ISOLADA.md` | servidor de desenvolvimento |
+| Serviço onion do chat (já no ar na VPS) | `docs/rede/ONION.md` | pela rede Tor |
+
+**Ficou de fora, e por quê:**
+
+- **Lista de contatos fora do servidor:** as regras de pedido, "quem pode me chamar" e bloqueio da Alumia são conferidas no
+  servidor; a lista de conversas continua lá (as mensagens não dizem mais quem mandou).
+- **Banco do chat fora do Supabase:** a caixa selada já não guarda remetente, conversa nem hora, e esvazia ao entregar. Um
+  Postgres só do chat na VPS é mais um serviço para manter, sem ganho de privacidade que compense agora.
+- **Resposta automática:** com remetente selado, só o aparelho sabe quem escreveu; responder sozinho exigiria o aparelho ligado.
+- **Palco (poucos falam, muitos ouvem):** precisa de um servidor de mídia com cifra por quadro (SFrame); não há SFU próprio.
+- **Compilação reproduzível com resumo publicado:** fica para o app Android assinado do coordenador.
+- **Modmail:** é da moderação; se a Faixa 1 quiser, a Faixa 2 faz em MLS (um grupo "mediação" por comunidade).
+- **Auditoria externa:** com o coordenador. A `ts-mls` (MLS) não passou por auditoria (a biblioteca do Matrix e a `@hpke`, sim/em
+  uso amplo); está dito em `docs/rede/POSTS-RESTRITOS.md`.
+- **Ainda vou fazer:** o chat da equipe (painel) na mesma biblioteca.
+
+**O que a Faixa 1 ajusta nas telas:** P21 (posts restritos: corpo `p2`, erro `grupo_suspeito`) e P22 (sala de voz na página do
+grupo). As telas do chat (`components/rede/chat/*`) são da Faixa 2 e já estão prontas. O menu "Conversas" segue igual (o endereço
+próprio redireciona sozinho quando ligado). `proxy.ts` e `.github/workflows/producao.yml` ganharam blocos novos (só acréscimo).
+
+**Ordem das migrações da Faixa 2 no SQL único** (é a ordem em que já estão no `install.sql`; cada uma pode rodar de novo):
+
+1. `20261106-t19-rede-chat-privado.sql`
+2. `20261107-t33-seguranca.sql`
+3. `20261110-fediverso-bloqueio-padrao.sql`
+4. `20261110-fediverso-privacidade.sql`
+5. `20261110-chat-blocos.sql`
+6. `20261112-fediverso-midia-guardada.sql`
+7. `20261112-fediverso-perfil-e-mudanca.sql`
+8. `20261113-rede-grupos-mls.sql` (no lugar da `20261112-rede-grupos-cifrados.sql`, que saiu)
+9. `20261113-chat-olm.sql`
+10. `20261113-chat-selado.sql`
+11. `20261113-chat-transparencia.sql`
+12. `20261111-chat-caronas.sql`: **depois** do bloco B1 dos atos da Faixa 1 (`interno.rede_ato_caronas`); ainda fora do `install.sql`.
+
+**Depois de publicar (a Faixa 2 faz, quando a Faixa 1 avisar):** registro DNS `conversas` e o nome no Turnstile (Cloudflare), a
+linha no Caddy, as variáveis `NEXT_PUBLIC_CHAT_URL` e `NEXT_PUBLIC_CHAT_ONION` no GitHub Actions, e a linha `fediverso` em
+`interno.configuracoes` (com o resumo do segredo que já está na VPS).
