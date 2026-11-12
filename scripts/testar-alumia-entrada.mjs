@@ -389,8 +389,10 @@ ok("ponte: resposta com token_hash estranho", mensagemDaPonte({ tipo: "sessao", 
 const figuras = figurasDaEntrada();
 const lista = JSON.parse(ler("lib/rede/entrada/silhuetas.json")).figuras;
 const creditos = JSON.parse(ler("lib/rede/entrada/creditos.json"));
-ok("silhuetas: a lista final da coordenação (10 figuras, com Fanon e Mariátegui)", ["lenin", "marx", "engels", "stalin", "gramsci", "freire", "rosa", "marielle", "fanon", "mariategui"].every((id) => figuras.some((f) => f.id === id)) && figuras.length === 10);
-ok("silhuetas: a grade é de 10 (5 por 2 no celular, 10 em linha no computador)", /\.ale-figuras \{[^}]*repeat\(5, 1fr\)/.test(ler("styles/alumia-entrada.css")) && ler("styles/alumia-entrada.css").includes("grid-template-columns: repeat(10, 1fr)"));
+ok("silhuetas: as 9 figuras ligadas (a lista da coordenação com Mariátegui; a de Fanon espera a decisão sobre a foto)", ["lenin", "marx", "engels", "stalin", "gramsci", "freire", "rosa", "marielle", "mariategui"].every((id) => figuras.some((f) => f.id === id)) && figuras.length === 9);
+ok("silhuetas: figura desligada não fica publicada (nem arquivo, nem crédito, nem nome no rótulo) e o motivo está escrito", lista.filter((f) => !f.ligada).every((f) => !fs.existsSync(path.join(raiz, "public/alumia/entrada", `${f.id}.webp`)) && !creditos.some((c) => c.id === f.id) && (f.motivo ?? "").length > 40) && !/Fanon|Фанон|法农/.test(ler("lib/rede/entrada/textos.ts")));
+ok("silhuetas: a grade conta as figuras (duas fileiras no celular, todas em linha no computador)", /\.ale-figuras \{[^}]*repeat\(var\(--ale-colunas, 5\), 1fr\)/.test(ler("styles/alumia-entrada.css")) && ler("styles/alumia-entrada.css").includes("grid-template-columns: repeat(var(--ale-n, 9), 1fr)") && /"--ale-n": figuras\.length/.test(ler("components/rede/entrada/Cena.tsx")));
+ok("silhuetas: a derivada de foto CC BY-SA diz que sai sob a mesma licença (e o repositório avisa que ela não é AGPL)", creditos.filter((c) => /^CC BY-SA /.test(c.licenca)).length === 2 && creditos.filter((c) => /^CC BY-SA /.test(c.licenca)).every((c) => c.licencaDerivada === c.licenca) && figuras.filter((f) => f.credito.licencaDerivada).length === 2 && /freire\.webp. é CC BY-SA 3\.0 e .marielle\.webp. é CC BY-SA 2\.0/.test(ler("README.md")) && /creditosDerivada/.test(ler("components/rede/entrada/Cena.tsx")));
 ok("silhuetas: pessoa viva sem autorização nunca entra", lista.filter((f) => f.viva && !f.autorizacao).every((f) => !figuras.some((x) => x.id === f.id)));
 ok("silhuetas: toda figura tem arquivo e crédito com licença livre", figuras.every((f) => fs.existsSync(path.join(raiz, "public", f.src)) && /^(Public domain|CC0|CC BY(-SA)? [0-9.]+)/i.test(f.credito.licenca) && /^https:\/\/commons\.wikimedia\.org\//.test(f.credito.fonte)));
 ok("silhuetas: licença CC traz o endereço da licença", creditos.filter((c) => /^CC BY/.test(c.licenca)).every((c) => /^https:\/\/creativecommons\.org\//.test(c.licencaUrl ?? "")));
@@ -401,6 +403,27 @@ ok("rota de API da ponte existe", fs.existsSync(path.join(raiz, "app/api/sessao/
 ok("a federação continua fora do portão (o proxy não tranca /.well-known nem /api/fediverso)", !/alumia-entrada/.test(ler("proxy.ts")));
 ok("o recurso alumia-entrada existe e só liga pelo nome", /"alumia-entrada":/.test(ler("lib/recursos.ts")));
 
+// Os cabeçalhos finais do quadro da ponte (next.config.ts): fora da regra geral, sem X-Frame-Options, com a política própria.
+{
+  // O mesmo leitor de caminhos que o Next usa para casar as regras de cabeçalho.
+  const leitor = await import("next/dist/compiled/path-to-regexp/index.js");
+  const pathToRegexp = leitor.pathToRegexp ?? leitor.default.pathToRegexp;
+  const regras = await (await import("../next.config.ts")).default.headers();
+  const finais = (caminho) => {
+    const r = {};
+    for (const regra of regras) if (pathToRegexp(regra.source).test(caminho)) for (const c of regra.headers) r[c.key.toLowerCase()] = c.value;
+    return r;
+  };
+  for (const caminho of ["/api/sessao/ponte", "/api/sessao/ponte/script"]) {
+    const c = finais(caminho);
+    ok(`cabeçalhos de ${caminho}: sem X-Frame-Options, COOP nem CORP (um subdomínio tem de poder embutir)`, !("x-frame-options" in c) && !("cross-origin-opener-policy" in c) && !("cross-origin-resource-policy" in c));
+    ok(`cabeçalhos de ${caminho}: a política própria diz quem embute (só alumia. e escola.) e nada vai para o cache`, /frame-ancestors (https:\/\/alumia\.[a-z0-9.:-]+ https:\/\/escola\.[a-z0-9.:-]+|http:\/\/alumia\.localhost:\* http:\/\/escola\.localhost:\*)(;|$)/.test(c["content-security-policy"] ?? "") && /default-src 'none'/.test(c["content-security-policy"]) && /no-store/.test(c["cache-control"] ?? "") && c["x-content-type-options"] === "nosniff" && c["referrer-policy"] === "no-referrer");
+  }
+  const pagina = finais("/pt/alumia");
+  ok("cabeçalhos: as outras páginas seguem com X-Frame-Options e frame-ancestors 'self'", pagina["x-frame-options"] === "SAMEORIGIN" && /frame-ancestors 'self'/.test(pagina["content-security-policy"] ?? ""));
+  ok("cabeçalhos: uma rota de nome parecido não escapa da regra geral", finais("/api/sessao/ponte-falsa")["x-frame-options"] === "SAMEORIGIN");
+}
+
 // ═══════════════════ 5. O login único de ponta a ponta ═══════════════════
 // A rota de verdade (app/api/sessao/ponte/route.ts) contra o banco e as contas de teste (scripts/backend-local.mjs, que imita o
 // generate_link e o verify do serviço de contas): a sessão do site vira um código de uma vez, e o código vira uma sessão NOVA.
@@ -408,7 +431,7 @@ ok("o recurso alumia-entrada existe e só liga pelo nome", /"alumia-entrada":/.t
 {
   process.env.PORTA_BANCO = process.env.PORTA_BANCO_TESTE_ENTRADA || "54417";
   const local = await import("./backend-local.mjs");
-  const { servidor } = await local.iniciar({ silencioso: true });
+  const { servidor, banco: bancoDasContas } = await local.iniciar({ silencioso: true });
   process.env.NEXT_PUBLIC_SUPABASE_URL = local.URL_LOCAL;
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = local.CHAVE_ANON;
   process.env.SUPABASE_SERVICE_ROLE_KEY = local.CHAVE_SERVICO;
@@ -459,6 +482,30 @@ ok("o recurso alumia-entrada existe e só liga pelo nome", /"alumia-entrada":/.t
     ok("login único: com o código confirmado (aal2), gera", comCodigo.status === 200 && /^[a-f0-9]{20,128}$/.test(comCodigo.corpo.token_hash ?? ""));
     const novaDoMediador = await contas("/auth/v1/verify", { type: "magiclink", token_hash: comCodigo.corpo.token_hash });
     ok("login único: no endereço novo o segundo fator é pedido de novo (a sessão nova não herda o aal2)", carga(novaDoMediador.access_token ?? "a.e30.c").aal === "aal1");
+
+    // Token de acesso velho (roubado de um log, de uma extensão): não vira sessão nova. O quadro de verdade renova antes de pedir.
+    {
+      const agoraDeVerdade = Date.now;
+      Date.now = () => agoraDeVerdade() + 11 * 60_000;
+      let velho;
+      try {
+        velho = await pedir({ token: noSite.access_token });
+      } finally {
+        Date.now = agoraDeVerdade;
+      }
+      ok("login único: token de acesso emitido há mais de 10 minutos não gera código", velho.status === 401 && velho.corpo.erro === "sessao_antiga");
+    }
+    ok("login único: o quadro renova a sessão quando o token tem mais de 5 minutos", /emitido\(s\) \* 1000 > Date\.now\(\) - 300000/.test(ler("app/api/sessao/ponte/script/route.ts")));
+
+    // O freio e o registro moram no banco (valem entre processos): conta que já gastou os 6 códigos em outro processo é freada
+    // aqui, mesmo sem nenhum pedido na memória deste.
+    {
+      const outra = await entrar("vice@local");
+      await bancoDasContas.dono("insert into interno.limites (chave, janela, total) select 'alumia_ponte:' || $1, to_timestamp((floor(extract(epoch from now()) / 600) + d) * 600), 6 from generate_series(0, 1) d on conflict (chave, janela) do update set total = 6", [carga(outra.access_token).sub]);
+      ok("login único: o freio do banco vale mesmo com a memória do processo zerada", (await pedir({ token: outra.access_token })).status === 429);
+      const registro = (await bancoDasContas.dono("select quem, alvo, detalhes from interno.auditoria where acao = 'ponte'")).rows;
+      ok("login único: cada código gerado foi ao registro (a conta e o destino; nada de token)", registro.length === 3 && registro.every((r) => ["alumia", "escola"].includes(r.alvo) && JSON.stringify(r.detalhes) === "{}") && !JSON.stringify(registro).includes("eyJ"));
+    }
 
     // O freio: no máximo 6 códigos por conta a cada 10 minutos (a leitora já pediu 2).
     const seguidos = [];
