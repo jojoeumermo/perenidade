@@ -4,14 +4,17 @@
 // "Arrumar destaques" (B1): a dona muda a ordem da fileira, renomeia, troca a cor, escolhe a capa (uma foto do destaque),
 // reordena os stories dentro dele e apaga um destaque — o banco já tinha tudo (rede_story_destaque_*), faltava a tela. Cada
 // mudança vai na hora (sem "salvar tudo" para esquecer); o banco confere de novo que o destaque é dela. Teclado: os botões ↑ ↓
-// e ← → fazem o mesmo que arrastar; nada depende de gesto.
-import { useCallback, useEffect, useId, useState, type CSSProperties } from "react";
+// e ← → fazem o mesmo que arrastar; nada depende de gesto. É uma caixa modal: o foco entra nela ao abrir, o Tab não sai dela e,
+// ao fechar, o foco volta para o botão que abriu. O que o banco recusa volta na tela ao que era.
+import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { PALETA_DO_STORY } from "@/lib/rede/stories/visual";
 import type { ClienteDeStories } from "@/lib/rede/cliente-stories";
 import type { TextosDosStories } from "@/lib/rede/textos-stories";
 import { CORES_DO_STORY, LIMITES_DO_STORY, type CorDoStory, type DestaqueDeStories, type Story } from "@/lib/rede/tipos-stories";
 import { CapaDoDestaque } from "./CapaDoDestaque";
 import { avisarDestaques, codigoDoErro, preencherStory } from "./usar";
+
+const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 const trocar = <T,>(l: readonly T[], i: number, j: number): T[] => {
   const n = [...l];
@@ -23,8 +26,12 @@ export function ArrumarDestaques({ t, cliente, handle, aoFechar }: { t: TextosDo
   const a = t.b1.arrumar;
   const id = useId();
   const [lista, setLista] = useState<DestaqueDeStories[] | null>(null);
+  // Erro ao carregar não é o mesmo que "não há destaques": cada um tem o seu texto.
+  const [erroAoCarregar, setErroAoCarregar] = useState(false);
   const [aberto, setAberto] = useState<string | null>(null);
-  const [stories, setStories] = useState<{ de: string; lista: Story[] } | null>(null);
+  const [stories, setStories] = useState<{ de: string; lista: Story[]; erro?: boolean } | null>(null);
+  const caixa = useRef<HTMLDivElement>(null);
+  const titulo = useRef<HTMLHeadingElement>(null);
   const [nomes, setNomes] = useState<Record<string, string>>({});
   const [recado, setRecado] = useState("");
   const [apagando, setApagando] = useState<string | null>(null);
@@ -39,8 +46,8 @@ export function ArrumarDestaques({ t, cliente, handle, aoFechar }: { t: TextosDo
     let vivo = true;
     cliente
       .destaques(handle)
-      .then((l) => vivo && setLista(l))
-      .catch(() => vivo && setLista([]));
+      .then((l) => vivo && (setErroAoCarregar(false), setLista(l)))
+      .catch(() => vivo && (setErroAoCarregar(true), setLista([])));
     return () => {
       vivo = false;
     };
@@ -52,17 +59,46 @@ export function ArrumarDestaques({ t, cliente, handle, aoFechar }: { t: TextosDo
     cliente
       .destaque(aberto)
       .then((l) => vivo && setStories({ de: aberto, lista: l }))
-      .catch(() => vivo && setStories({ de: aberto, lista: [] }));
+      .catch(() => vivo && setStories({ de: aberto, lista: [], erro: true }));
     return () => {
       vivo = false;
     };
   }, [cliente, aberto]);
+
+  // O foco entra na caixa ao abrir (no título) e volta, ao fechar, para o que estava com ele (o botão que abriu).
+  useEffect(() => {
+    const antes = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    titulo.current?.focus();
+    return () => {
+      if (antes?.isConnected) antes.focus();
+    };
+  }, []);
 
   useEffect(() => {
     const sair = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.stopPropagation();
         aoFechar();
+        return;
+      }
+      // O Tab dá a volta dentro da caixa (aria-modal de verdade).
+      if (e.key !== "Tab" || !caixa.current) return;
+      const focaveis = [...caixa.current.querySelectorAll<HTMLElement>(FOCAVEIS)].filter((el) => el.offsetParent !== null || el === document.activeElement);
+      if (focaveis.length === 0) {
+        e.preventDefault();
+        titulo.current?.focus();
+        return;
+      }
+      const primeiro = focaveis[0];
+      const ultimo = focaveis[focaveis.length - 1];
+      const ativo = document.activeElement;
+      const fora = !(ativo instanceof Node) || !caixa.current.contains(ativo) || ativo === titulo.current;
+      if (e.shiftKey && (ativo === primeiro || fora)) {
+        e.preventDefault();
+        ultimo.focus();
+      } else if (!e.shiftKey && (ativo === ultimo || (fora && ativo !== titulo.current))) {
+        e.preventDefault();
+        primeiro.focus();
       }
     };
     window.addEventListener("keydown", sair, true);
@@ -100,6 +136,8 @@ export function ArrumarDestaques({ t, cliente, handle, aoFechar }: { t: TextosDo
       await cliente.salvarDestaque({ destaque: d.id, titulo: null, story: null, cor });
       mudou(a.salvo);
     } catch (e) {
+      // O banco recusou: a cor volta ao que era.
+      setLista((l) => l?.map((x) => (x.id === d.id ? { ...x, cor: d.cor } : x)) ?? null);
       falhou(e);
     }
   }
@@ -112,6 +150,8 @@ export function ArrumarDestaques({ t, cliente, handle, aoFechar }: { t: TextosDo
       await cliente.ordenarNoDestaque(d, nova.map((s) => s.id));
       mudou(a.salvo);
     } catch (e) {
+      // O banco recusou: a ordem volta ao que era.
+      setStories((atual) => (atual?.de === d ? stories : atual));
       falhou(e);
     }
   }
@@ -123,6 +163,8 @@ export function ArrumarDestaques({ t, cliente, handle, aoFechar }: { t: TextosDo
       await cliente.capaDoDestaque(d.id, s?.id ?? null);
       mudou(a.salvo);
     } catch (e) {
+      // O banco recusou: a capa volta ao que era.
+      setLista((l) => l?.map((x) => (x.id === d.id ? { ...x, capa_story: d.capa_story, capa: d.capa } : x)) ?? null);
       falhou(e);
     }
   }
@@ -141,9 +183,9 @@ export function ArrumarDestaques({ t, cliente, handle, aoFechar }: { t: TextosDo
 
   return (
     <div className="al-st-arrumar" role="dialog" aria-modal="true" aria-labelledby={`${id}-t`} aria-describedby={`${id}-a`}>
-      <div className="al-st-arrumar-caixa">
+      <div className="al-st-arrumar-caixa" ref={caixa}>
         <div className="al-st-caixa-cabeca">
-          <h2 id={`${id}-t`} className="al-cond" style={{ margin: 0 }}>
+          <h2 id={`${id}-t`} ref={titulo} tabIndex={-1} className="al-cond" style={{ margin: 0 }}>
             {a.titulo}
           </h2>
           <button type="button" className="al-botao al-botao-fantasma al-botao-p" onClick={aoFechar}>
@@ -158,6 +200,10 @@ export function ArrumarDestaques({ t, cliente, handle, aoFechar }: { t: TextosDo
         </p>
         {lista === null ? (
           <p role="status">{a.carregando}</p>
+        ) : erroAoCarregar ? (
+          <p role="alert">{a.erroCarregar}</p>
+        ) : lista.length === 0 ? (
+          <p className="al-st-dica">{a.vazio}</p>
         ) : (
           <ol className="al-st-arrumar-lista">
             {lista.map((d, i) => (
@@ -204,10 +250,12 @@ export function ArrumarDestaques({ t, cliente, handle, aoFechar }: { t: TextosDo
                       ))}
                     </fieldset>
                     <p className="al-st-dica" style={{ margin: 0 }}>
-                      {a.stories} · {a.capa}: {d.capa_story ? "" : a.capaPrimeira}
+                      {a.stories} · {a.capa}: {d.capa_story ? a.capaEscolhida : a.capaPrimeira}
                     </p>
                     {stories?.de !== d.id ? (
                       <p role="status">{a.carregando}</p>
+                    ) : stories.erro ? (
+                      <p role="alert">{a.erroCarregar}</p>
                     ) : (
                       <ol className="al-st-arrumar-stories">
                         {stories.lista.map((s, k) => {

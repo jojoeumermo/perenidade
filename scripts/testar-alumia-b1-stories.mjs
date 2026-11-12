@@ -235,6 +235,19 @@ await espera("a amiga (na roda) vê", async () => !!(await abrirComo("amiga", sR
 // A promessa "ninguém sabe em que rodas está": o story da roda chega a ela sem marca nenhuma; só a autora vê "proximos".
 await espera("o story da roda chega à amiga SEM dizer que é da roda", async () => abrirComo("amiga", sRoda.id), (s) => s.publico === "seguidores" && !JSON.stringify(s).includes("proximos"));
 await espera("a autora vê que publicou para a roda", async () => (await C.autora.meus()).find((s) => s.id === sRoda.id), (s) => s.publico === "proximos");
+{
+  // A caixa de arrumar destaques (a tela): foco preso e devolvido, erro separado de vazio, e o que o banco recusa volta atrás.
+  const tela = ler("components/rede/stories/ArrumarDestaques.tsx");
+  ok("arrumar: o foco entra na caixa ao abrir e volta ao fechar", tela.includes("titulo.current?.focus();") && tela.includes("if (antes?.isConnected) antes.focus();"));
+  ok("arrumar: o Tab dá a volta dentro da caixa", tela.includes('e.key !== "Tab"') && tela.includes("ultimo.focus();") && tela.includes("primeiro.focus();"));
+  ok("arrumar: erro ao carregar não vira lista vazia calada", tela.includes("erroAoCarregar ? (") && tela.includes("{a.erroCarregar}") && tela.includes("lista.length === 0 ? (") && tela.includes("{a.vazio}"));
+  ok("arrumar: cor, ordem dos stories e capa voltam atrás quando o banco recusa", tela.includes("cor: d.cor }") && tela.includes("(atual?.de === d ? stories : atual)") && tela.includes("capa_story: d.capa_story, capa: d.capa"));
+  ok("arrumar: com capa escolhida, o texto diz que há uma", tela.includes("d.capa_story ? a.capaEscolhida : a.capaPrimeira"));
+  for (const l of ["pt", "en", "es", "fr", "ru", "zh"]) {
+    const a = JSON.parse(ler(`i18n/rede/stories/${l}.json`)).b1.arrumar;
+    ok(`arrumar (${l}): os textos de vazio, erro e capa escolhida existem`, !!a.vazio && !!a.erroCarregar && !!a.capaEscolhida);
+  }
+}
 ok("o visor só mostra o selo da roda no meu story", ler("components/rede/stories/Visor.tsx").includes('atual?.publico === "proximos" && atual.meu ? ('));
 await espera("o infiltrado que segue de volta NÃO vê", async () => !!(await abrirComo("infiltrado", sRoda.id)), (x) => x === false);
 await espera("a amiga não tem como saber em que rodas está (nenhuma função devolve)", () => todos(`select p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace
