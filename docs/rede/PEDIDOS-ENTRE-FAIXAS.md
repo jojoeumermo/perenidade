@@ -644,6 +644,9 @@ próprio redireciona sozinho quando ligado). `proxy.ts` e `.github/workflows/pro
 13. `20261116-fediverso-vida-do-post.sql`: **depois** da `20261115-alumia-o9-publicar.sql` da Faixa 1 (pedido bloqueante da onda 9:
     `rede_fed_federavel` começa por `interno.rede_vida_federa(p)`). O "membros" que sai continua sendo só o "internet" do perfil
     rebaixado pela matriz (decisão D3); o "membros" escolhido de propósito já não saía. Teste: `npm run testar:fediverso-banco`.
+14. `20261116-equipe-chat-olm.sql`: o chat da equipe (painel) na biblioteca do Matrix (`docs/CONVERSAS-DA-EQUIPE.md`). Funções
+    `equipe_chat_*`, fora da porta da Alumia. Pode ir em qualquer ponto depois das migrações do chat da equipe que já estão no
+    `install.sql`; no ramo da Faixa 2 está no fim. Teste: `npm run testar:banco`.
 
 **Depois de publicar (a Faixa 2 faz, quando a Faixa 1 avisar):** registro DNS `conversas` e o nome no Turnstile (Cloudflare), a
 linha no Caddy, as variáveis `NEXT_PUBLIC_CHAT_URL` e `NEXT_PUBLIC_CHAT_ONION` no GitHub Actions, e a linha `fediverso` em
