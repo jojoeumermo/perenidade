@@ -6,13 +6,20 @@
 // aparelho já conhece dos colegas (para notar quando uma muda) e as chaves das conversas, abertas só na memória enquanto a
 // página está aberta. Também repassa chaves para aparelhos de colegas que ainda não as receberam, mas só para aparelhos
 // certificados pela identidade da pessoa: o servidor não consegue fazer este aparelho entregar chaves a um aparelho falso.
-// A cifra em si mora em lib/sigilo.ts.
+//
+// Desde 16/11/2026 as mensagens novas vão pela biblioteca do Matrix (lib/equipe-olm.ts): Megolm ("e1"), com as chaves das sessões
+// entregues por Olm a cada aparelho aprovado de quem está na conversa, conferido pelo certificado da identidade; a identidade
+// repassada a um aparelho aprovado vai em HPKE ("h1", lib/sigilo.ts). As mensagens "c2" antigas continuam abrindo.
+// A assinatura (identidade) e o resto da cifra moram em lib/sigilo.ts. Documento: docs/CONVERSAS-DA-EQUIPE.md.
 import { BackendError, rpc } from "./backend";
 import {
   abrirCopia, abrirPedido, abrirTexto, aparelhoCertificado, assinarTexto, type Autoria, certificarAparelho, cifrar, contextoDaIdentidade, contextoDoEmbrulho, type Copia,
   decifrar, deBase64, desembrulhar, desembrulharBytes, embrulhar, embrulharBytes, exportarChave, exportarIdentidade, type Identidade, importarChave, importarIdentidade,
   novaChave, novaIdentidade, novoAparelho, novoCodigo, origensDeEmbrulho, paraBase64, type Selado, selarCopia, selarPedido, versaoDe,
 } from "./sigilo";
+import { assinar, lerPublica, verificar } from "./sigilo";
+import { abrirNaConversa, cifrarNaConversa, eE1, exportarSessao, importarSessoes, mandarSessao, nomeDoAparelhoOlm, textoDoCertificadoOlm, versaoDoE1 } from "./equipe-olm";
+import { abrirAparelho, type AparelhoOlm, type DeviceKeys, fecharAparelho, sincronizar, type TransporteOlm } from "./rede/chat/olm";
 
 export type Estado = "aprovado" | "pendente";
 
@@ -195,6 +202,12 @@ export class Chaveiro {
   /** Avisos por conversa (identidade de alguém mudou), refeitos a cada carga. */
   private readonly alertas = new Map<string, Alerta[]>();
   private ouvintes = new Set<() => void>();
+  /** O aparelho na biblioteca do Matrix (aberto quando o aparelho está aprovado e tem a identidade). */
+  private olm: Promise<AparelhoOlm> | null = null;
+  /** Quando a caixa de recados da biblioteca foi lida pela última vez (no máximo a cada cinco segundos ao abrir mensagens). */
+  private olmLidoEm = 0;
+  /** As sessões que este aparelho já pediu nesta página (cada uma uma vez). */
+  private readonly pedidas = new Set<string>();
 
   private constructor(guardado: Guardado, conhecidas: Conhecida[]) {
     this.usuario = guardado.usuario;
@@ -257,7 +270,7 @@ export class Chaveiro {
     if (registro.estado === "aprovado") {
       guardado.codigo = undefined;
       if (!guardado.identidade && registro.identidade_embrulho && registro.aprovado_publica && registro.identidade?.assina) {
-        const secreta = await desembrulharBytes(registro.identidade_embrulho, guardado.privada, registro.aprovado_publica, contextoDaIdentidade(guardado.usuario, registro.id));
+        const secreta = await desembrulharBytes(registro.identidade_embrulho, guardado.privada, registro.aprovado_publica, contextoDaIdentidade(guardado.usuario, registro.id), guardado.publica);
         if (secreta) {
           try {
             guardado.identidade = await importarIdentidade(secreta, registro.identidade.assina);
@@ -282,7 +295,7 @@ export class Chaveiro {
             p_id: outro.id,
             p_por: registro.id,
             p_certificado: await certificarAparelho(identidade, guardado.usuario, outro.publica),
-            p_identidade_embrulho: await embrulharBytes(secreta, guardado.privada, outro.publica, contextoDaIdentidade(guardado.usuario, outro.id)),
+            p_identidade_embrulho: await embrulharBytes(secreta, guardado.privada, outro.publica, contextoDaIdentidade(guardado.usuario, outro.id), guardado.publica),
           }).catch(() => undefined);
         }
       } finally {
@@ -332,7 +345,7 @@ export class Chaveiro {
         p_id: aparelho,
         p_por: this.aparelho,
         p_certificado: await certificarAparelho(this.identidade, this.usuario, publica),
-        p_identidade_embrulho: await embrulharBytes(secreta, this.privada, publica, contextoDaIdentidade(this.usuario, aparelho)),
+        p_identidade_embrulho: await embrulharBytes(secreta, this.privada, publica, contextoDaIdentidade(this.usuario, aparelho), this.publica),
       });
     } finally {
       secreta.fill(0);
@@ -509,6 +522,94 @@ export class Chaveiro {
     return saida;
   }
 
+  // ── A biblioteca do Matrix (mensagens "e1") ──
+
+  /**
+   * O aparelho na biblioteca: só para aparelho aprovado (com a identidade, que certifica as chaves Olm dele). A loja da
+   * biblioteca fica no IndexedDB, cifrada com uma senha que só a chave privada (não exportável) deste aparelho calcula.
+   */
+  private aparelhoOlm(): Promise<AparelhoOlm> {
+    if (!this.identidade || this.estado !== "aprovado") return Promise.reject(new BackendError("aparelho_pendente"));
+    const identidade = this.identidade;
+    this.olm ??= (async () => {
+      const dispositivo = nomeDoAparelhoOlm(this.aparelho);
+      const transporte: TransporteOlm = {
+        publicar: async (p) => {
+          const dk = (p as { device_keys?: DeviceKeys }).device_keys;
+          const certificado = dk ? await assinar(identidade.privada, textoDoCertificadoOlm(this.usuario, this.aparelho, dk.device_id, dk.keys[`ed25519:${dk.device_id}`], dk.keys[`curve25519:${dk.device_id}`])) : null;
+          return rpc("equipe_chat_olm_publicar", { p_aparelho: this.aparelho, p, p_certificado: certificado });
+        },
+        consultar: (usuarios) => rpc("equipe_chat_olm_consultar", { p_aparelho: this.aparelho, p_usuarios: usuarios }),
+        reivindicar: (p) => rpc("equipe_chat_olm_reivindicar", { p_aparelho: this.aparelho, p }),
+        enviar: (tipo, mensagens) => rpc("equipe_chat_olm_enviar", { p_aparelho: this.aparelho, p_tipo: tipo, p_mensagens: mensagens }),
+        receber: () => rpc("equipe_chat_olm_receber", { p_aparelho: this.aparelho }),
+        confirmar: (ate) => rpc("equipe_chat_olm_confirmar", { p_aparelho: this.aparelho, p_ate: ate }),
+      };
+      // Aparelho de colega (ou meu, outro) só entra com o certificado da identidade que este aparelho conhece da pessoa.
+      const aceita = async (usuario: string, dispositivoDele: string, chaves: DeviceKeys) => {
+        const assina = this.identidadeDe(usuario);
+        const extra = (chaves.unsigned ?? {}) as { lucia_certificado?: unknown; lucia_aparelho?: unknown };
+        if (!assina || typeof extra.lucia_certificado !== "string" || typeof extra.lucia_aparelho !== "string") return false;
+        return verificar(assina, extra.lucia_certificado, textoDoCertificadoOlm(usuario, extra.lucia_aparelho, dispositivoDele, chaves.keys[`ed25519:${dispositivoDele}`], chaves.keys[`curve25519:${dispositivoDele}`]));
+      };
+      const segredo = new Uint8Array(await crypto.subtle.deriveBits({ name: "ECDH", public: await lerPublica(this.publica) }, this.privada, 256));
+      const senha = paraBase64(segredo);
+      segredo.fill(0);
+      return abrirAparelho({ usuario: this.usuario, dispositivo, transporte, confiavel: async () => null, aceita, loja: { nome: `lucia-equipe-olm-${this.aparelho}`, senha } });
+    })();
+    this.olm.catch(() => {
+      this.olm = null;
+    });
+    return this.olm;
+  }
+
+  /** Fecha a biblioteca deste aparelho e apaga a loja dela do navegador (ao recomeçar a identidade). */
+  async esquecerBiblioteca(): Promise<void> {
+    const aberto = await this.olm?.catch(() => null);
+    this.olm = null;
+    fecharAparelho(aberto);
+    if (typeof indexedDB === "undefined") return;
+    for (const sufixo of ["::matrix-sdk-crypto", "::matrix-sdk-crypto-meta"]) {
+      try {
+        indexedDB.deleteDatabase(`lucia-equipe-olm-${this.aparelho}${sufixo}`);
+      } catch {
+        // segue
+      }
+    }
+  }
+
+  /** Lê a caixa de recados da biblioteca e importa as sessões repassadas por colegas da mesma conversa. */
+  private async lerCaixaOlm(forcar = false): Promise<void> {
+    if (!forcar && Date.now() - this.olmLidoEm < 5_000) return;
+    this.olmLidoEm = Date.now();
+    const olm = await this.aparelhoOlm();
+    const recados = await sincronizar(olm);
+    await importarSessoes(olm, recados, async (conversa, quem) => {
+      if (!this.estadoDe.has(conversa)) await this.carregar(conversa).catch(() => undefined);
+      return (this.estadoDe.get(conversa)?.identidades ?? []).some((pessoa) => pessoa.usuario === quem);
+    });
+  }
+
+  /** Uma versão nova da conversa para as mensagens "e1" (sem embrulho: a chave vai pela biblioteca). */
+  private async criarVersaoE1(conversa: string, versao: number): Promise<number> {
+    try {
+      await rpc("equipe_chat_versao_nova", { p_conversa: conversa, p_aparelho: this.aparelho, p_versao: versao });
+    } catch (erro) {
+      if (codigo(erro) !== "versao_ocupada") throw erro;
+      await this.carregar(conversa);
+      const estado = this.estadoDe.get(conversa);
+      if (estado?.atual !== null && estado?.atual !== undefined && estado.atual >= estado.minima) return estado.atual;
+      throw erro;
+    }
+    const estado = this.estadoDe.get(conversa);
+    if (estado) {
+      estado.atual = versao;
+      estado.atualEm = Date.now();
+      estado.atualMensagens = 0;
+    }
+    return versao;
+  }
+
   // ── Chaves das conversas ──
 
   /** Busca no banco as chaves desta conversa feitas para este aparelho e abre as que ainda não estão na memória. */
@@ -554,6 +655,24 @@ export class Chaveiro {
 
   /** Abre um texto cifrado e confere a assinatura do autor. Se a versão ainda não está na memória, busca no banco (no máximo uma vez a cada dez segundos). */
   async abrir(conversa: string, corpo: string, contexto: string, autor: string | null): Promise<Aberto | null> {
+    if (eE1(corpo)) {
+      const versaoE1 = versaoDoE1(corpo) as number;
+      const olm = await this.aparelhoOlm().catch(() => null);
+      if (!olm || !autor) return null;
+      await this.lerCaixaOlm().catch(() => undefined);
+      const r = await abrirNaConversa(olm, corpo, conversa, autor);
+      if (r && "falta" in r) {
+        // Esta sessão ainda não chegou a este aparelho (ele é novo, ou a chave ainda vem): pede uma vez a quem tem.
+        const chave = `${conversa}:${r.falta}`;
+        if (!this.pedidas.has(chave)) {
+          this.pedidas.add(chave);
+          await rpc("equipe_chat_pedir_chave", { p_aparelho: this.aparelho, p_conversa: conversa, p_sessao: r.falta }).catch(() => undefined);
+        }
+        return null;
+      }
+      if (!r) return null;
+      return abrirTexto(r.texto, this.identidadeDe(autor), contexto, versaoE1);
+    }
     const versao = versaoDe(corpo);
     if (versao === null) return null;
     let chave = this.versoes.get(conversa)?.get(versao);
@@ -571,6 +690,19 @@ export class Chaveiro {
   async cifrar(conversa: string, texto: string, contexto: string, recarregar = true): Promise<string> {
     if (!this.identidade) throw new BackendError("aparelho_pendente");
     if (recarregar || !this.estadoDe.has(conversa)) await this.carregar(conversa);
+    const estadoE1 = this.estadoDe.get(conversa)!;
+    // Versão nova só quando não há nenhuma ou quando alguém saiu (a mínima subiu): dentro de uma versão, a biblioteca troca de
+    // sessão sozinha a cada 100 mensagens ou 7 dias.
+    let versaoE1 = estadoE1.atual;
+    if (versaoE1 === null || versaoE1 < estadoE1.minima) versaoE1 = await this.criarVersaoE1(conversa, Math.max((versaoE1 ?? 0) + 1, estadoE1.minima));
+    const membros = (this.estadoDe.get(conversa)?.identidades ?? []).map((pessoa) => pessoa.usuario);
+    const assinado = await assinarTexto(this.identidade, texto, contexto, versaoE1);
+    return cifrarNaConversa(await this.aparelhoOlm(), conversa, versaoE1, membros, assinado);
+  }
+
+  /** O caminho antigo ("c2", chave AES embrulhada para cada aparelho): não é mais usado para escrever; fica só para referência. */
+  private async cifrarC2(conversa: string, texto: string, contexto: string): Promise<string> {
+    if (!this.identidade) throw new BackendError("aparelho_pendente");
     const estado = this.estadoDe.get(conversa)!;
     const atual = estado.atual;
     const chave = atual !== null && atual >= estado.minima ? this.versoes.get(conversa)?.get(atual) : undefined;
@@ -610,6 +742,27 @@ export class Chaveiro {
    * certificados pela identidade que este aparelho conhece da pessoa. Devolve quantas repassou.
    */
   async repassar(): Promise<number> {
+    if (this.estado !== "aprovado" || !this.identidade) return 0;
+    let n = 0;
+    const olm = await this.aparelhoOlm().catch(() => null);
+    if (olm) {
+      await this.lerCaixaOlm(true).catch(() => undefined);
+      const pedidos = await rpc<{ id: number; conversa: string; sessao: string; usuario: string; aparelho: string; dispositivo: string }[]>("equipe_chat_pedidos", { p_aparelho: this.aparelho }).catch(() => []);
+      for (const pedido of pedidos) {
+        const chaves = await exportarSessao(olm, pedido.conversa, pedido.sessao).catch(() => null);
+        if (!chaves) continue;
+        // Só vai a aparelho aceito (certificado pela identidade da pessoa, conferido pela biblioteca na consulta).
+        if (await mandarSessao(olm, pedido.usuario, pedido.dispositivo, pedido.conversa, chaves).catch(() => false)) {
+          n++;
+          await rpc("equipe_chat_pedido_atendido", { p_aparelho: this.aparelho, p_id: pedido.id }).catch(() => undefined);
+        }
+      }
+    }
+    return n + (await this.repassarC2().catch(() => 0));
+  }
+
+  /** As chaves "c2" antigas (embrulhadas) que algum aparelho ainda não recebeu: para as mensagens antigas continuarem abrindo. */
+  private async repassarC2(): Promise<number> {
     if (this.estado !== "aprovado") return 0;
     const faltam = await rpc<{ conversa: string; versao: number; para: string; usuario: string; publica: string; certificado: string | null }[]>("chat_chaves_pendentes", { p_aparelho: this.aparelho });
     if (faltam.length === 0) return 0;
@@ -651,6 +804,9 @@ export function chaveiroDe(usuario: string): Promise<Chaveiro> {
 /** Depois de recomeçar a identidade (todos os aparelhos removidos), este aparelho esquece o par antigo e abre de novo como primeiro. */
 export async function recomecar(usuario: string): Promise<Chaveiro> {
   await rpc("chat_identidade_redefinir");
+  // A biblioteca deste aparelho (sessões, chaves Olm) sai junto: o aparelho recomeça como novo.
+  const antigo = await abertos.get(usuario)?.catch(() => null);
+  if (antigo) await antigo.esquecerBiblioteca();
   await esquecer(usuario);
   abertos.delete(usuario);
   return chaveiroDe(usuario);

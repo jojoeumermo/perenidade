@@ -63,6 +63,19 @@ await confere("embrulho com quem embrulhou trocado não abre", async () => (awai
 await confere("embrulho adulterado não abre", async () => (await desembrulhar(troca(embrulho, 30), bia.privada, ana.publica, contexto)) === null);
 await confere("lixo no lugar do embrulho não quebra nada", async () => (await desembrulhar("w1.qualquer.coisa", bia.privada, ana.publica, contexto)) === null);
 
+// O embrulho novo, "h1": HPKE (RFC 9180, biblioteca @hpke) no modo autenticado, com os mesmos pares do aparelho.
+const h1 = await embrulhar(chave, ana.privada, bia.publica, contexto, ana.publica);
+await confere("o embrulho h1 (HPKE) tem o formato que o banco aceita", () => /^h1\.[A-Za-z0-9_-]{87}\.[A-Za-z0-9_-]{64}$/.test(h1));
+await confere("h1: o aparelho de destino abre e chega à mesma chave", async () => {
+  const aberta = await desembrulhar(h1, bia.privada, ana.publica, contexto, bia.publica);
+  return aberta !== null && (await decifrar(aberta, await cifrar(chave, 1, "teste h1", "x"), "x")) === "teste h1";
+});
+await confere("h1: outro aparelho não abre", async () => (await desembrulhar(h1, intrusa.privada, ana.publica, contexto, intrusa.publica)) === null);
+await confere("h1: com quem embrulhou trocado não abre (modo autenticado)", async () => (await desembrulhar(h1, bia.privada, intrusa.publica, contexto, bia.publica)) === null);
+await confere("h1: levado para outra versão não abre", async () => (await desembrulhar(h1, bia.privada, ana.publica, contextoDoEmbrulho(conversa, 2, aparelhoDaBia), bia.publica)) === null);
+await confere("h1: adulterado não abre", async () => (await desembrulhar(troca(h1, 100), bia.privada, ana.publica, contexto, bia.publica)) === null);
+await confere("h1: sem a parte pública de quem recebe, não abre (não quebra)", async () => (await desembrulhar(h1, bia.privada, ana.publica, contexto)) === null);
+
 const lugar = contextoDaConversa(conversa, autora);
 const mensagem = await cifrar(chave, 3, "Reunião às 19h, sala de sempre. Até lá! 🌱", lugar);
 await confere("a mensagem cifrada tem o formato que o banco aceita", () => /^c2\.3\.[A-Za-z0-9_-]{16}\.[A-Za-z0-9_-]{23,}$/.test(mensagem));

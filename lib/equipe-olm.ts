@@ -14,6 +14,12 @@
 import { type AparelhoOlm, carregarBiblioteca, entregarABiblioteca, idMatrix, processarPedidos, type RecadoAberto, salaDaVersao } from "./rede/chat/olm";
 
 export const MENSAGENS_POR_SESSAO = 100;
+
+/** O que a identidade da pessoa assina para certificar as chaves Olm de um aparelho dela. */
+export const textoDoCertificadoOlm = (usuario: string, aparelho: string, dispositivo: string, ed25519: string, curve25519: string) =>
+  `lucia:equipe-olm:${usuario}:${aparelho}:${dispositivo}:${ed25519}:${curve25519}`;
+/** O nome do aparelho na biblioteca: dez letras tiradas do id do aparelho (fixo para o mesmo aparelho). */
+export const nomeDoAparelhoOlm = (aparelho: string) => [...aparelho.replace(/-/g, "").slice(0, 10)].map((c) => String.fromCharCode(65 + (parseInt(c, 16) % 26))).join("");
 const SETE_DIAS_EM_MICROSSEGUNDOS = BigInt(7 * 86_400) * BigInt(1_000_000);
 const FORMATO_E1 = /^e1\.([1-9][0-9]{0,6})\.([A-Za-z0-9+/]{43})\.([A-Za-z0-9+/]+)$/;
 
