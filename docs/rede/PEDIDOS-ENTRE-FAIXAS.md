@@ -641,6 +641,9 @@ próprio redireciona sozinho quando ligado). `proxy.ts` e `.github/workflows/pro
 10. `20261113-chat-selado.sql`
 11. `20261113-chat-transparencia.sql`
 12. `20261111-chat-caronas.sql`: **depois** do bloco B1 dos atos da Faixa 1 (`interno.rede_ato_caronas`); ainda fora do `install.sql`.
+13. `20261116-fediverso-vida-do-post.sql`: **depois** da `20261115-alumia-o9-publicar.sql` da Faixa 1 (pedido bloqueante da onda 9:
+    `rede_fed_federavel` começa por `interno.rede_vida_federa(p)`). O "membros" que sai continua sendo só o "internet" do perfil
+    rebaixado pela matriz (decisão D3); o "membros" escolhido de propósito já não saía. Teste: `npm run testar:fediverso-banco`.
 
 **Depois de publicar (a Faixa 2 faz, quando a Faixa 1 avisar):** registro DNS `conversas` e o nome no Turnstile (Cloudflare), a
 linha no Caddy, as variáveis `NEXT_PUBLIC_CHAT_URL` e `NEXT_PUBLIC_CHAT_ONION` no GitHub Actions, e a linha `fediverso` em

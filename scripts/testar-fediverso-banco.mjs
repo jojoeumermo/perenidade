@@ -1129,6 +1129,27 @@ await espera("Move: o banco diz quem daqui segue o ator antigo (com o segredo); 
   return [Array.isArray(quem) && quem.includes(pessoas.eva), sem.includes("sem_permissao")];
 }, (r) => r.join() === "true,true");
 
+// A vida do post (pedido da Faixa 1, onda 9; supabase/migracoes/20261116-fediverso-vida-do-post.sql): com a função dela no banco,
+// post não listado, arquivado, que some sozinho ou da roda não sai, nem pelo caminho do "membros" rebaixado (D3).
+// A migração da vida do post vem depois de todas as do Fediverso (o teste rodou a do modo total de novo lá em cima): roda aqui.
+const vidaDoPost = lerTexto("supabase/migracoes/20261116-fediverso-vida-do-post.sql");
+await espera("a migração da vida do post está no fim do install.sql e roda de novo", async () => {
+  await banco.exclusivo(() => banco.pg.exec(vidaDoPost));
+  await banco.exclusivo(() => banco.pg.exec(vidaDoPost));
+  return install.includes(vidaDoPost.trim()) && install.lastIndexOf("function interno.rede_fed_federavel") > install.indexOf(vidaDoPost.trim());
+}, (v) => v === true);
+await espera("a vida do post vem antes de tudo: o que interno.rede_vida_federa recusa não sai", async () => {
+  const sai = await postar(pessoas.beto, "Este sai.");
+  const fica = await postar(pessoas.beto, "Este é não listado.");
+  const antes = [await federavel(sai), await federavel(fica)];
+  await dono(`create or replace function interno.rede_vida_federa(p interno.rede_posts) returns boolean language sql stable as $$ select p.id <> '${fica}'::uuid $$`);
+  const depois = [await federavel(sai), await federavel(fica)];
+  await dono("drop function interno.rede_vida_federa(interno.rede_posts)");
+  return [...antes, ...depois, await federavel(fica)];
+}, (r) => r.join() === "true,true,true,false,true");
+await espera("a regra do Fediverso chama interno.rede_vida_federa (é o que solta a trava da Faixa 1, interno.rede_vida_federacao_ligada)", async () =>
+  (await um("select prosrc from pg_proc where oid = to_regprocedure('interno.rede_fed_federavel(interno.rede_posts, integer)')")).prosrc, (t) => t.includes("rede_vida_federa"));
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const f of falhas) console.log(`  ✗ ${f}`);
 process.exit(falhas.length ? 1 : 0);
