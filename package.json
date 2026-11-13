@@ -23,7 +23,7 @@
     "gerar:capturas-app": "node scripts/gerar-capturas-app.mjs",
     "testar:app-casca": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-app-casca.mjs",
     "testar:app-telas": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-app-telas.mjs",
-    "testar:banco": "node scripts/testar-banco.mjs",
+    "testar:banco": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-banco.mjs",
     "testar:rede": "node scripts/testar-rede.mjs",
     "testar:jogos-proprios": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-jogos-proprios.mjs",
     "testar:rede-consertos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-rede-consertos.mjs",

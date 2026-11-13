@@ -3669,6 +3669,112 @@ await espera("toda função pública com poder de dono fixa o search_path", asyn
 
 await espera("nenhuma tabela, visão ou sequência no esquema público", async () => (await dono("select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'public' and c.relkind in ('r', 'v', 'm', 'p', 'f', 'S')")).rows.map((r) => r.relname), (r) => r.length === 0);
 
+// ── Conversas da equipe na biblioteca do Matrix (supabase/migracoes/20261116-equipe-chat-olm.sql, lib/equipe-olm.ts) ──
+// Megolm nas mensagens ("e1"), Olm por aparelho (vários por pessoa), certificado da identidade conferido em cada aparelho, pedido
+// de chave para quem chegou depois, e a identidade repassada em HPKE ("h1").
+{
+  const sig = await import("../lib/sigilo.ts");
+  const olm = await import("../lib/rede/chat/olm.ts");
+  const eq = await import("../lib/equipe-olm.ts");
+  const textoDoCertificado = (usuario, aparelho, d, ed, cu) => `lucia:equipe-olm:${usuario}:${aparelho}:${d}:${ed}:${cu}`;
+  const letras = (id) => [...id.replace(/-/g, "").slice(0, 10)].map((c) => String.fromCharCode(65 + (parseInt(c, 16) % 26))).join("");
+  const maquinas = {};
+  async function maquinaDe(chave, ap) {
+    const usuario = ids[ap.quem];
+    const transporte = {
+      publicar: async (p) => {
+        let cert = null;
+        if (p.device_keys) {
+          const d = p.device_keys.device_id;
+          cert = await sig.assinar(ap.identidade.privada, textoDoCertificado(usuario, ap.id, d, p.device_keys.keys[`ed25519:${d}`], p.device_keys.keys[`curve25519:${d}`]));
+        }
+        return rpc(como(usuario), "equipe_chat_olm_publicar", { p_aparelho: ap.id, p, p_certificado: cert });
+      },
+      consultar: (u) => rpc(como(usuario), "equipe_chat_olm_consultar", { p_aparelho: ap.id, p_usuarios: u }),
+      reivindicar: (p) => rpc(como(usuario), "equipe_chat_olm_reivindicar", { p_aparelho: ap.id, p }),
+      enviar: (t, m) => rpc(como(usuario), "equipe_chat_olm_enviar", { p_aparelho: ap.id, p_tipo: t, p_mensagens: m }),
+      receber: () => rpc(como(usuario), "equipe_chat_olm_receber", { p_aparelho: ap.id }),
+      confirmar: (ate) => rpc(como(usuario), "equipe_chat_olm_confirmar", { p_aparelho: ap.id, p_ate: ate }),
+    };
+    // Aceita o aparelho de alguém só com o certificado da identidade que a "equipe de teste" conhece da pessoa.
+    const aceita = async (u, d, chaves) => {
+      const quem = Object.keys(ids).find((k) => ids[k] === u);
+      const identidade = Object.values(aparelhos).find((a) => a.quem === quem && a.identidade)?.identidade?.publica;
+      const cert = chaves?.unsigned?.lucia_certificado;
+      const aparelho = chaves?.unsigned?.lucia_aparelho;
+      if (!identidade || !cert || !aparelho) return false;
+      return sig.verificar(identidade, cert, textoDoCertificado(u, aparelho, d, chaves.keys[`ed25519:${d}`], chaves.keys[`curve25519:${d}`]));
+    };
+    maquinas[chave] = await olm.abrirAparelho({ usuario, dispositivo: letras(ap.id), transporte, confiavel: async () => null, aceita });
+    return maquinas[chave];
+  }
+  for (const quem of ["coord", "vice"]) await maquinaDe(quem, aparelhos[quem]);
+  const geral = (await departamento("coord", "geral")).id;
+  const membros = (await rpc(como(ids.coord), "chat_chaves", { p_conversa: geral, p_aparelho: aparelhos.coord.id })).identidades.map((i) => i.usuario);
+  const atual = async () => (await rpc(como(ids.coord), "chat_chaves", { p_conversa: geral, p_aparelho: aparelhos.coord.id })).atual ?? 0;
+  const v = (await rpc(como(ids.coord), "equipe_chat_versao_nova", { p_conversa: geral, p_aparelho: aparelhos.coord.id, p_versao: Math.max((await atual()) + 1, 1) })).versao;
+  const assinado = await sig.assinarTexto(aparelhos.coord.identidade, "Reunião da equipe às 19h.", sig.contextoDaConversa(geral, ids.coord), v);
+  const corpo = await eq.cifrarNaConversa(maquinas.coord, geral, v, membros, assinado);
+  await espera("equipe: a mensagem sai em Megolm ('e1') e o banco aceita", async () => [corpo.startsWith(`e1.${v}.`), Boolean((await rpc(como(ids.coord), "chat_enviar", { p_id: geral, p_corpo: corpo })).id)], (r) => r.every(Boolean));
+  await espera("equipe: no banco, nada do texto", async () => (await dono("select corpo from interno.conversa_mensagens where corpo = $1", [corpo])).rows.length === 1 && !corpo.includes("Reuni"));
+  await olm.sincronizar(maquinas.vice);
+  await espera("equipe: a vice abre e a assinatura da coordenação confere", async () => {
+    const r = await eq.abrirNaConversa(maquinas.vice, corpo, geral, ids.coord);
+    return r && "texto" in r ? sig.abrirTexto(r.texto, aparelhos.coord.identidade.publica, sig.contextoDaConversa(geral, ids.coord), v) : r;
+  }, (a) => a?.texto === "Reunião da equipe às 19h." && a.autoria === "ok");
+  await espera("equipe: com o autor trocado, a assinatura não confere", async () => {
+    const r = await eq.abrirNaConversa(maquinas.vice, corpo, geral, ids.coord);
+    return sig.abrirTexto(r.texto, aparelhos.vice.identidade.publica, sig.contextoDaConversa(geral, ids.vice), v);
+  }, (a) => a?.autoria !== "ok");
+  await recusa("equipe: texto aberto não entra", () => rpc(como(ids.coord), "chat_enviar", { p_id: geral, p_corpo: "oi" }), "invalido:corpo");
+  await recusa("equipe: e1 de versão velha não entra", () => rpc(como(ids.coord), "chat_enviar", { p_id: geral, p_corpo: corpo.replace(`e1.${v}.`, `e1.${v + 5}.`) }), "chave_desatualizada");
+  await recusa("equipe: quem não é da equipe não publica chave Olm", () => rpc(como(ids.leitora), "equipe_chat_olm_publicar", { p_aparelho: aparelhos.coord.id, p: {} }), "aparelho_desconhecido");
+  await espera("equipe: as tabelas da biblioteca não são lidas por ninguém", async () => (await dono("select bool_or(has_table_privilege(r, t, 'select')) as algum from unnest(array['anon','authenticated']) r, unnest(array['interno.equipe_chat_olm','interno.equipe_chat_caixa','interno.equipe_chat_pedidos','interno.equipe_chat_unicas']) t")).rows[0].algum, (x) => x === false);
+
+  // Aparelho novo da vice (aprovado agora, com a identidade em HPKE "h1"): não tem a sessão antiga, pede, a coordenação repassa.
+  const vice2 = await aparelhoDe("vice", "vice, segundo aparelho");
+  const lista = await rpc(como(ids.vice), "chat_aparelhos_meus");
+  const alvo = lista.find((a) => a.id === vice2.id);
+  const publica = await sig.abrirPedido(vice2.codigo, ids.vice, alvo.pedido);
+  const secreta = await sig.exportarIdentidade(aparelhos.vice.identidade);
+  const h1 = await sig.embrulharBytes(secreta, aparelhos.vice.privada, publica, sig.contextoDaIdentidade(ids.vice, vice2.id), aparelhos.vice.publica);
+  await rpc(como(ids.vice), "chat_aparelho_aprovar", { p_id: vice2.id, p_por: aparelhos.vice.id, p_certificado: await sig.certificarAparelho(aparelhos.vice.identidade, ids.vice, publica), p_identidade_embrulho: h1 });
+  await espera("equipe: a identidade chega ao aparelho novo em HPKE ('h1') e abre só lá", async () => {
+    const r = await rpc(como(ids.vice), "chat_aparelho_estado", { p_id: vice2.id });
+    const aberta = await sig.desembrulharBytes(r.identidade_embrulho, vice2.privada, r.aprovado_publica, sig.contextoDaIdentidade(ids.vice, vice2.id), vice2.publica);
+    const deOutro = await sig.desembrulharBytes(r.identidade_embrulho, aparelhos.coord.privada, r.aprovado_publica, sig.contextoDaIdentidade(ids.vice, vice2.id), aparelhos.coord.publica);
+    if (aberta) vice2.identidade = await sig.importarIdentidade(aberta, r.identidade.assina);
+    return [r.identidade_embrulho.startsWith("h1."), !!aberta, deOutro];
+  }, (r) => r[0] === true && r[1] === true && r[2] === null);
+  aparelhos.vice2 = vice2;
+  await maquinaDe("vice2", vice2);
+  const semChave = await eq.abrirNaConversa(maquinas.vice2, corpo, geral, ids.coord);
+  await espera("equipe: o aparelho novo não tem a sessão antiga e sabe qual pedir", async () => semChave, (r) => r && "falta" in r && r.falta === eq.sessaoDoE1(corpo));
+  await rpc(como(ids.vice), "equipe_chat_pedir_chave", { p_aparelho: vice2.id, p_conversa: geral, p_sessao: semChave?.falta ?? eq.sessaoDoE1(corpo) });
+  const pedidos = await rpc(como(ids.coord), "equipe_chat_pedidos", { p_aparelho: aparelhos.coord.id });
+  const pedido = pedidos.find((x) => x.aparelho === vice2.id);
+  await espera("equipe: a coordenação vê o pedido do aparelho novo (está na mesma conversa)", async () => pedido, (x) => x?.sessao === eq.sessaoDoE1(corpo));
+  const exportadas = await eq.exportarSessao(maquinas.coord, geral, pedido.sessao);
+  const mandou = await eq.mandarSessao(maquinas.coord, pedido.usuario, pedido.dispositivo, geral, exportadas);
+  await rpc(como(ids.coord), "equipe_chat_pedido_atendido", { p_aparelho: aparelhos.coord.id, p_id: pedido.id });
+  const recados = await olm.sincronizar(maquinas.vice2);
+  const importadas = await eq.importarSessoes(maquinas.vice2, recados, async (conversa, quem) => conversa === geral && membros.includes(quem));
+  await espera("equipe: a sessão repassada por Olm entra e o aparelho novo abre a mensagem antiga", async () => [mandou, importadas, (await eq.abrirNaConversa(maquinas.vice2, corpo, geral, ids.coord))?.texto === assinado], (r) => r[0] === true && r[1] >= 1 && r[2] === true);
+  await espera("equipe: sessão de OUTRA conversa no meio do repasse é recusada", async () => eq.importarSessoes(maquinas.vice2, [{ de: ids.coord, curve25519: "", tipo: "lucia.chaves", conteudo: { conversa: geral, chaves: JSON.stringify([{ room_id: "!outra.v0000001:alumia.invalid" }]) } }], async () => true), (n) => n === 0);
+
+  // O servidor põe um aparelho falso para a vice (chaves Olm de verdade, certificado inventado): ninguém entrega chave a ele.
+  const falso = await aparelhoDe("vice", "falso");
+  await dono("update interno.chat_aparelhos set certificado = $2 where id = $1", [falso.id, "A".repeat(86)]);
+  await maquinaDe("falso", { ...falso, identidade: aparelhos.coord.identidade });
+  await rpc(como(ids.coord), "equipe_chat_versao_nova", { p_conversa: geral, p_aparelho: aparelhos.coord.id, p_versao: v + 1 });
+  const corpo2 = await eq.cifrarNaConversa(maquinas.coord, geral, v + 1, membros, await sig.assinarTexto(aparelhos.coord.identidade, "Segredo da versão nova.", sig.contextoDaConversa(geral, ids.coord), v + 1));
+  await olm.sincronizar(maquinas.falso);
+  await espera("equipe: o aparelho com certificado falso não recebe a chave nem abre", async () => eq.abrirNaConversa(maquinas.falso, corpo2, geral, ids.coord), (r) => r === null || "falta" in r);
+  await olm.sincronizar(maquinas.vice2);
+  await espera("equipe: os aparelhos certificados da vice abrem a versão nova", async () => (await eq.abrirNaConversa(maquinas.vice2, corpo2, geral, ids.coord))?.texto?.length > 0, (x) => x === true);
+  for (const m of Object.values(maquinas)) olm.fecharAparelho(m);
+}
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);

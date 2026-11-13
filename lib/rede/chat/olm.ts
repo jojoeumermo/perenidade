@@ -76,7 +76,7 @@ export interface TransporteOlm {
   confirmar(ate: number): Promise<unknown>;
 }
 
-interface DeviceKeys {
+export interface DeviceKeys {
   user_id: string;
   device_id: string;
   keys: Record<string, string>;
@@ -101,6 +101,11 @@ export interface AparelhoOlm {
    * conversa; só mensagem de sessão vinda dela abre.
    */
   confiavel: (usuario: string) => Promise<string | null>;
+  /**
+   * Vários aparelhos por pessoa (o chat da equipe): em vez de uma identidade só, cada aparelho é aceito por esta conferência
+   * (o certificado da identidade da pessoa, por exemplo). Com ela, `confiavel` não é usada na consulta.
+   */
+  aceita?: (usuario: string, dispositivo: string, chaves: DeviceKeys) => Promise<boolean>;
 }
 
 /** Abre (ou cria) o aparelho. Com `loja`, a biblioteca guarda as sessões no IndexedDB, cifradas com `loja.senha`. */
@@ -109,6 +114,7 @@ export async function abrirAparelho(opcoes: {
   dispositivo: string;
   transporte: TransporteOlm;
   confiavel: AparelhoOlm["confiavel"];
+  aceita?: AparelhoOlm["aceita"];
   loja?: { nome: string; senha: string };
 }): Promise<AparelhoOlm> {
   const M = await carregarBiblioteca();
@@ -120,6 +126,7 @@ export async function abrirAparelho(opcoes: {
     identidade: { dispositivo: opcoes.dispositivo, ed25519: chaves.ed25519.toBase64(), curve25519: chaves.curve25519.toBase64() },
     transporte: opcoes.transporte,
     confiavel: opcoes.confiavel,
+    aceita: opcoes.aceita,
   };
   await processarPedidos(aparelho);
   // A primeira sincronização faz a biblioteca publicar também a chave de reserva (e traz os recados que já estavam lá).
@@ -142,8 +149,19 @@ async function filtrarConsulta(aparelho: AparelhoOlm, resposta: Awaited<ReturnTy
   for (const [id, aparelhos] of Object.entries(resposta.device_keys ?? {})) {
     const usuario = usuarioDoIdMatrix(id);
     if (!usuario) continue;
-    const confiada = usuario === aparelho.usuario ? aparelho.identidade.ed25519 : await aparelho.confiavel(usuario);
     saida[id] = {};
+    if (aparelho.aceita) {
+      for (const [dispositivo, chaves] of Object.entries(aparelhos ?? {})) {
+        if (chaves?.user_id !== id || chaves?.device_id !== dispositivo) continue;
+        if (usuario === aparelho.usuario && dispositivo === aparelho.identidade.dispositivo) {
+          if (chaves?.keys?.[`ed25519:${dispositivo}`] === aparelho.identidade.ed25519) saida[id][dispositivo] = chaves;
+          continue;
+        }
+        if (await aparelho.aceita(usuario, dispositivo, chaves)) saida[id][dispositivo] = chaves;
+      }
+      continue;
+    }
+    const confiada = usuario === aparelho.usuario ? aparelho.identidade.ed25519 : await aparelho.confiavel(usuario);
     for (const [dispositivo, chaves] of Object.entries(aparelhos ?? {})) {
       if (!confiada || chaves?.user_id !== id || chaves?.device_id !== dispositivo || chaves?.keys?.[`ed25519:${dispositivo}`] !== confiada) continue;
       saida[id][dispositivo] = chaves;
