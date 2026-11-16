@@ -687,7 +687,7 @@ interface Anuncio {
 const tiposDeAnuncio: Record<string, string> = { cooperativa: "Cooperativa ou associação", servico: "Serviço", produto: "Produto", arte: "Arte e cultura", iniciativa: "Iniciativa comunitária" };
 
 // A gestão da Rádio Lúcia própria saiu do painel em 18/10/2026: o projeto foi adiado. As tabelas radio_canais e radio_faixas e as
-// funções radio_* continuam no banco, intactas, para a retomada (veja docs/RELATORIO-RODADA-3.md).
+// funções radio_* continuam no banco, intactas, para a retomada.
 
 /** O Mural dos Trabalhadores: os anúncios esperando decisão e os que estão no ar, no molde Fila (com "Aprovar anúncio" e "Recusar com motivo" na paleta). */
 export function MuralFila({ me }: { me: Me }) {
