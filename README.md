@@ -21,13 +21,13 @@ npm run dev
 
 O site abre em `http://localhost:3000`. Nada mais é necessário: sem banco e sem conta, o site inteiro funciona (aulas, acervo, busca, ferramentas).
 
-Para testar também o painel de voluntários e a comunidade, sem tocar no banco de verdade:
+Para testar também o painel de voluntários e a comunidade, com dados de teste:
 
 ```bash
 npm run dev:local
 ```
 
-Isso sobe um banco de teste em memória e o site em `http://localhost:3100`. As contas de teste estão descritas no início de `scripts/backend-local.mjs`.
+Isso sobe o site em `http://localhost:3100` com dados de teste.
 
 As variáveis opcionais estão explicadas em `.env.example`. Nenhuma chave secreta entra no código.
 
@@ -50,22 +50,12 @@ As variáveis opcionais estão explicadas em `.env.example`. Nenhuma chave secre
 | `npm run sincronizar` | leva para `content/` o que foi aprovado no painel |
 | `npm run importar:catalogo` | refaz o catálogo ampliado a partir de catálogos abertos |
 
-## Do que é feito
-
-Next.js 16 e React 19, em TypeScript, com Tailwind CSS 4. O conteúdo fica em arquivos de texto no próprio repositório. Contas, painel e comunidade usam o Supabase (Postgres com segurança por linha em todas as tabelas). O site é publicado na Vercel.
-
 ## Onde fica cada coisa
 
 - `content/` — todo o conteúdo, em arquivos de texto (aulas, acervo, memorial, glossário, jornal…).
 - `app/` e `components/` — as páginas e as peças do site.
 - `i18n/` — os textos da interface, um arquivo por idioma.
-- `supabase/install.sql` — o banco de apoio (contas, funções da equipe, fila, comunidade, reforço), em um arquivo só.
-- `supabase/functions/` — as funções do servidor (e-mails, avaliação da comunidade, transcrição, assistente de reforço, vídeos).
 - `scripts/` — roteiros de apoio e as baterias de teste.
-- `docs/MANUTENCAO.md` — **o guia completo**: como o projeto funciona, como escrever conteúdo, como ligar as contas e o que fazer se algo der errado.
-- `docs/ESPELHO-E-COPIAS.md` — o espelho de leitura e as cópias do banco: o que fazer se o site cair.
-- `docs/SEGURANCA-DAS-PESSOAS.md` — quem pode atacar quem participa e o que o site faz contra cada coisa.
-- `docs/YOUTUBE.md` — como ligar o canal do YouTube do instituto às aulas em vídeo e às transmissões.
 
 ## Como ajudar
 
