@@ -1,8 +1,13 @@
 /* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
 /*
- * A entrada da Alumia (components/rede/entrada/**): entrar, criar conta, triagem e segundo fator. Identidade da Alumia (pranchas
- * em docs/plano-2026-11/alumia-pranchas): fundo noite, superfícies quentes, papel, vermelho e dourado, faixa tecida, Archivo
- * condensada em caixa-alta, cantos bem arredondados e botões em pílula. Nada do visual do site do instituto.
+ * A entrada da Alumia (components/rede/entrada/**): entrar, criar conta, triagem e segundo fator. Identidade da Alumia, a
+ * linguagem "Mosaico da Arquibancada": fundo noite, superfícies quentes, papel, vermelho e dourado, faixa tecida, Archivo
+ * condensada em caixa-alta, carimbos, ladrilhos, cantos bem arredondados e botões em pílula. Nada do visual do site do instituto.
+ *
+ * O desenho: no computador, duas colunas (o chamado e a parede de ladrilhos à esquerda; o cartão à direita). No celular o cartão
+ * vem logo depois do chamado e a parede fecha a primeira tela. A parede mostra as silhuetas como elas são (os arquivos de
+ * public/alumia/entrada, sem recorte novo): o ladrilho é só o rejunte desenhado por cima. O último painel é o de quem chega.
+ *
  * Tudo dentro de .ale (a raiz da entrada), com os tokens próprios: vale com ou sem a Alumia nova ligada. Alto contraste, e-ink,
  * movimento reduzido e o modo parado do site têm variantes no fim.
  */
@@ -12,44 +17,79 @@
   --ale-sup: #1b1917;
   --ale-sup-2: #2a2622;
   --ale-linha: #3a342e;
+  /* A borda dos campos: 3:1 contra o fundo, para o campo ser achado sem depender do rótulo (WCAG 1.4.11). */
+  --ale-borda-campo: #7d746a;
   --ale-texto: #f3efe6;
   --ale-texto-2: #d9d3c9;
   --ale-texto-3: #a9a29a;
   --ale-vermelho: #e8321f;
   --ale-vermelho-texto: #d42a18;
-  --ale-vermelho-claro: #ff7a66;
+  --ale-vermelho-claro: #ff8b78;
   --ale-dourado: #ffc21a;
+  /* O dourado de FUNDO (com tinta em cima): no escuro é o mesmo; no claro o dourado de texto escurece e este não. */
+  --ale-dourado-fundo: var(--ale-dourado);
   --ale-foco: #ffc21a;
+  --ale-rejunte: #0a0908;
   --ale-fonte: var(--al-fonte-archivo, "Archivo"), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --ale-fonte-marca: var(--al-fonte-garamond, "EB Garamond"), Georgia, serif;
-  --ale-raio: 22px;
+  --ale-sai: cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   isolation: isolate;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow-x: clip;
-  background: var(--ale-fundo);
+  background:
+    radial-gradient(70% 46% at 0% 0%, rgba(232, 50, 31, 0.13), transparent 70%),
+    var(--ale-fundo);
   color: var(--ale-texto);
   font-family: var(--ale-fonte);
+  font-size: 17px;
+  line-height: 1.5;
   color-scheme: dark;
+  caret-color: var(--ale-dourado);
 }
 .ale *,
 .ale *::before,
 .ale *::after {
   box-sizing: border-box;
 }
+.ale ::selection {
+  background: var(--ale-dourado-fundo);
+  color: #0f0e0d;
+}
 .ale :is(a, button, input, textarea, summary, [tabindex]):focus-visible {
   outline: 3px solid var(--ale-foco);
   outline-offset: 2px;
 }
+/* O título que recebe o foco quando a tela do cartão muda (para o leitor de tela e o teclado continuarem dali). */
+.ale h2[data-ale-foco]:focus {
+  outline: none;
+}
+.ale h2[data-ale-foco]:focus-visible {
+  outline: 3px solid var(--ale-foco);
+  outline-offset: 6px;
+  border-radius: 4px;
+}
 .ale a {
   color: inherit;
+  text-underline-offset: 4px;
+}
+.ale :is(h1, h2, h3, p, ol, ul, fieldset, legend) {
+  margin: 0;
+}
+.ale :is(ol, ul) {
+  padding: 0;
+  list-style: none;
+}
+.ale [hidden] {
+  display: none !important;
 }
 
 /* A faixa tecida (11 listras retas, 5-2-3-1-4-2-3-1-3-2-4). */
 .ale-faixa {
   display: block;
+  flex: none;
   height: 6px;
   background: linear-gradient(to right, #c21f16 0 16.667%, #f0b323 16.667% 23.333%, #23408e 23.333% 33.333%, #f3efe6 33.333% 36.667%, #2e6b4f 36.667% 50%, #e4577f 50% 56.667%, #ea7a24 56.667% 66.667%, #0f0e0d 66.667% 70%, #1f8a85 70% 80%, #f0b323 80% 86.667%, #c21f16 86.667% 100%);
 }
@@ -60,83 +100,19 @@
   font-variation-settings: "wdth" 62;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
   line-height: 0.9;
 }
 
-/* ── O fundo: vermelho e preto borrados, com as silhuetas por cima ── */
-.ale-cena {
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: min(92dvh, 880px);
-  z-index: -1;
-  overflow: hidden;
-  background:
-    radial-gradient(120% 80% at 18% 10%, #ff3b22 0%, #c21f16 32%, #5a120b 62%, #0f0e0d 88%),
-    #0f0e0d;
-}
-.ale-cena::before {
-  /* Manchas de luz, borradas, que respiram devagar. */
-  content: "";
-  position: absolute;
-  inset: -20%;
-  background:
-    radial-gradient(35% 30% at 78% 22%, rgba(255, 90, 40, 0.55), transparent 70%),
-    radial-gradient(40% 35% at 30% 70%, rgba(120, 10, 4, 0.8), transparent 70%),
-    radial-gradient(30% 25% at 60% 55%, rgba(255, 194, 26, 0.18), transparent 70%);
-  filter: blur(40px);
-  animation: ale-respira 18s ease-in-out infinite alternate;
-}
-.ale-cena::after {
-  /* O preto que sobe de baixo, para o texto e os formulários lerem bem. */
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(15, 14, 13, 0.05) 0%, rgba(15, 14, 13, 0.25) 45%, rgba(15, 14, 13, 0.85) 80%, #0f0e0d 100%);
-}
-.ale-figuras {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  /* As figuras ligadas (--ale-n, hoje 9): duas fileiras no celular (--ale-colunas = metade, para cima), todas em linha no
-     computador. Com número ímpar, a última ocupa duas colunas para a fileira de baixo não ficar com um buraco. */
-  grid-template-columns: repeat(var(--ale-colunas, 5), 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 0;
-  mix-blend-mode: multiply;
-  filter: blur(2.6px) contrast(1.15);
-  opacity: 0.95;
-  animation: ale-desliza 60s ease-in-out infinite alternate;
-  -webkit-mask-image: radial-gradient(140% 100% at 50% 20%, #000 45%, transparent 92%);
-  mask-image: radial-gradient(140% 100% at 50% 20%, #000 45%, transparent 92%);
-}
-.ale-figuras[data-impar] img:last-child { grid-column: span 2; }
-.ale-figuras img {
+.ale-moldura {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 22%;
-  display: block;
-  filter: grayscale(1);
-}
-@media (min-width: 900px) {
-  .ale-figuras {
-    grid-template-columns: repeat(var(--ale-n, 9), 1fr);
-    grid-template-rows: 1fr;
-    inset: 0 -2% 18% -2%;
-  }
-  .ale-figuras[data-impar] img:last-child { grid-column: auto; }
-  .ale-figuras img:nth-child(odd) {
-    transform: translateY(6%) scale(1.04);
-  }
-}
-@keyframes ale-respira {
-  from { transform: translate3d(-2%, -1%, 0) scale(1); }
-  to { transform: translate3d(2%, 2%, 0) scale(1.08); }
-}
-@keyframes ale-desliza {
-  from { transform: translateX(-1.5%) scale(1.03); }
-  to { transform: translateX(1.5%) scale(1.06); }
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ── A cabeça ── */
@@ -144,15 +120,12 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 16px 16px 0;
+  padding-top: 16px;
 }
 .ale-marca {
   display: flex;
   align-items: center;
-  gap: 10px;
-  text-decoration: none;
+  gap: 12px;
 }
 .ale-marca-nome {
   font-size: 34px;
@@ -162,181 +135,266 @@
   display: block;
   font-family: var(--ale-fonte-marca);
   font-style: italic;
-  font-size: 15px;
+  font-size: 16px;
+  line-height: 1;
   color: var(--ale-texto-2);
-  margin-top: 2px;
+  margin-top: 3px;
 }
 .ale-voltar {
   margin-left: auto;
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  padding: 0 16px;
+  padding: 0 18px;
   border-radius: 999px;
-  border: 1.5px solid rgba(243, 239, 230, 0.55);
+  border: 1.5px solid var(--ale-borda-campo);
   font-weight: 700;
-  font-size: 14px;
+  font-size: 15px;
   text-decoration: none;
-  background: rgba(15, 14, 13, 0.35);
-  backdrop-filter: blur(6px);
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
 }
 .ale-voltar:hover {
   background: var(--ale-texto);
   color: var(--ale-fundo);
+  border-color: var(--ale-texto);
 }
 
-/* ── O corpo: o chamado e o cartão ── */
+/* ── O corpo: o chamado, o cartão e a parede ── */
 .ale-corpo {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 28px 16px 48px;
   display: grid;
-  gap: 32px;
+  gap: 24px;
+  padding-block: 24px 36px;
+}
+.ale-corpo > * {
+  min-width: 0;
+}
+.ale-chamado {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+.ale-titulo {
+  font-size: clamp(56px, 15.5vw, 112px);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.ale-titulo em {
+  font-style: normal;
+  color: var(--ale-vermelho);
+}
+.ale-lema {
+  font-size: clamp(18px, 1.6vw, 21px);
+  font-weight: 700;
+  line-height: 1.3;
+  max-width: 44ch;
+}
+.ale-lema span {
+  display: block;
+  margin-top: 6px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ale-texto-2);
+  max-width: 70ch;
 }
 @media (min-width: 1000px) {
   .ale-corpo {
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    gap: 56px;
-    padding-top: 72px;
+    grid-template-columns: minmax(0, 1.2fr) minmax(380px, 0.8fr);
+    grid-template-rows: auto 1fr;
+    column-gap: 56px;
+    row-gap: 20px;
+    padding-block: 26px 48px;
     align-items: start;
   }
-  .ale-cartao {
-    position: sticky;
-    top: 24px;
+  .ale-titulo {
+    font-size: clamp(84px, 7.6vw, 112px);
   }
-}
-.ale-chamada {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 32px;
-  padding: 4px 14px;
-  border-radius: 999px;
-  background: var(--ale-dourado);
-  color: #0f0e0d;
-  font-weight: 800;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-.ale-titulo {
-  margin: 18px 0 0;
-  font-size: clamp(64px, 17vw, 168px);
-  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.45);
-  overflow-wrap: anywhere;
-}
-.ale-titulo span {
-  display: block;
-  color: var(--ale-dourado);
-}
-.ale-lema {
-  margin: 18px 0 0;
-  font-size: clamp(19px, 2.2vw, 24px);
-  font-weight: 700;
-  line-height: 1.3;
-  max-width: 34ch;
-}
-.ale-texto {
-  margin: 14px 0 0;
-  font-size: 17px;
-  line-height: 1.55;
-  color: var(--ale-texto-2);
-  max-width: 52ch;
-}
-.ale-sinais {
-  list-style: none;
-  margin: 22px 0 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.ale-sinais li {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 36px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: rgba(15, 14, 13, 0.62);
-  border: 1px solid rgba(243, 239, 230, 0.18);
-  font-size: 14px;
-  font-weight: 600;
-  backdrop-filter: blur(6px);
-}
-.ale-sinais li::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 2px;
-  background: var(--ale-vermelho);
+  .ale-cartao {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    /* Nos estados curtos (análise, código, fora do ar), o cartão fica no meio da altura do chamado e da parede. */
+    align-self: center;
+  }
+  /* A parede acompanha quem preenche o cartão: o painel de quem chega fica à vista enquanto o codinome é escrito. */
+  .ale-parede-bloco {
+    grid-column: 1;
+    grid-row: 2;
+    position: sticky;
+    top: 16px;
+  }
 }
 
-.ale-como {
-  margin-top: 40px;
-}
-.ale-como h2 {
-  margin: 0 0 14px;
-  font-size: 34px;
-}
-.ale-passos {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* ── A parede de ladrilhos ── */
+.ale-parede-bloco {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
-@media (min-width: 640px) {
-  .ale-passos {
-    grid-template-columns: 1fr 1fr;
+.ale-parede {
+  border-radius: 18px;
+  background: var(--ale-rejunte);
+  border: 1px solid var(--ale-sup-2);
+  padding: clamp(6px, 1vw, 12px);
+}
+.ale-parede-grade {
+  --ale-casas-x: 12;
+  --ale-casas-y: 16;
+  --ale-vao: 1.5px;
+  position: relative;
+  isolation: isolate;
+  /* No celular, 3 colunas: cada painel fica com mais de 100 px e as figuras continuam figuras, não textura. */
+  --ale-colunas: 3;
+  --ale-linhas: var(--ale-fileiras-p, 4);
+  display: grid;
+  grid-template-columns: repeat(var(--ale-colunas), 1fr);
+  border-radius: 6px;
+  overflow: hidden;
+}
+/* O painel de quem chega e a frente dele: o lugar vem do componente, para cada grade (Voce.tsx). */
+.ale-voce,
+.ale-voce-frente {
+  grid-column: var(--voce-c3);
+  grid-row: var(--voce-l3);
+}
+@media (min-width: 620px) {
+  .ale-parede-grade {
+    --ale-casas-x: 24;
+    --ale-casas-y: 32;
+    --ale-colunas: 5;
+    --ale-linhas: var(--ale-fileiras, 2);
+  }
+  .ale-voce,
+  .ale-voce-frente {
+    grid-column: var(--voce-c5);
+    grid-row: var(--voce-l5);
   }
 }
-.ale-passo {
-  display: flex;
-  gap: 14px;
-  padding: 16px;
-  border-radius: 18px;
-  background: var(--ale-sup);
-  border: 1px solid var(--ale-sup-2);
+.ale-painel {
+  position: relative;
+  /* O retrato das silhuetas (480 × 640): a figura entra inteira, sem recorte e sem esticar. */
+  aspect-ratio: 3 / 4;
+  background: #141211;
+  overflow: hidden;
+  animation: ale-assenta 0.7s var(--ale-sai) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
 }
-.ale-passo-n {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: var(--ale-vermelho);
-  color: #fff;
-  font-size: 28px;
+.ale-painel img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* Só a cor muda (preto, brasa, vermelho e creme, o filtro #ale-tritom da própria página): o desenho da figura é o do arquivo. */
+  filter: url(#ale-tritom);
 }
-.ale-passo:last-child .ale-passo-n {
+/* O rejunte: linhas finas por cima de tudo, que cortam os painéis em ladrilhos sem tocar nas figuras. */
+.ale-rejunte {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--ale-rejunte) 0 var(--ale-vao), transparent var(--ale-vao)),
+    linear-gradient(to bottom, var(--ale-rejunte) 0 var(--ale-vao), transparent var(--ale-vao));
+  background-size: calc(100% / (var(--ale-colunas, 5) * var(--ale-casas-x))) calc(100% / (var(--ale-linhas, 2) * var(--ale-casas-y)));
+}
+
+/* O painel de quem chega: vazio até a pessoa escrever o codinome (ou escolher a foto). */
+.ale-voce canvas,
+.ale-voce img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.ale-voce img {
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+/* Na parede, o painel de quem chega fala a mesma língua dos outros: as mesmas quatro cores (noite, brasa, vermelho e creme, o
+   filtro #ale-tritom) e o mesmo rejunte por cima. É mais um ladrilho, não uma foto colada. A cor fica no rosto pequeno do cartão. */
+.ale-voce canvas,
+.ale-voce img {
+  filter: url(#ale-tritom);
+}
+.ale-voce canvas {
+  transition: opacity 0.6s var(--ale-sai);
+}
+.ale-voce[data-revelada] canvas {
+  opacity: 0;
+}
+/* A frente do painel (moldura e selo) mora na mesma casa da grade, acima do rejunte. */
+.ale-voce-frente {
+  position: relative;
+  z-index: 3;
+  pointer-events: none;
+}
+.ale-voce-moldura {
+  position: absolute;
+  inset: 7%;
+  z-index: 3;
+  border: 2px dashed var(--ale-dourado);
+  border-radius: 6px;
+  pointer-events: none;
+  transition: inset 0.5s var(--ale-sai), box-shadow 0.8s var(--ale-sai);
+}
+.ale-voce-frente[data-aceso] .ale-voce-moldura {
+  inset: 0;
+  border-style: solid;
+  border-width: 3px;
+  box-shadow: inset 0 0 0 1px rgba(15, 14, 13, 0.6), inset 0 0 22px rgba(255, 194, 26, 0.35);
+}
+.ale-voce-selo {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 3px 8px 2px;
+  border-radius: 5px;
+  background: #141211;
+  color: var(--ale-dourado);
+  font-size: clamp(13px, 1.6vw, 22px);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  transition: top 0.5s var(--ale-sai), background-color 0.3s, color 0.3s, font-size 0.3s;
+}
+.ale-voce-frente[data-aceso] .ale-voce-selo {
+  top: calc(100% - 9px);
+  transform: translate(-50%, -100%);
   background: var(--ale-dourado);
   color: #0f0e0d;
+  font-size: clamp(11px, 1.1vw, 15px);
 }
-.ale-passo strong {
-  display: block;
-  font-size: 17px;
-}
-.ale-passo span {
-  display: block;
-  margin-top: 4px;
-  color: var(--ale-texto-2);
+.ale-parede-legenda {
   font-size: 15px;
+  color: var(--ale-texto-2);
   line-height: 1.45;
+}
+.ale-parede-legenda strong {
+  color: var(--ale-dourado);
+  font-weight: 700;
+}
+.ale-parede-nomes {
+  font-size: 13px;
+  color: var(--ale-texto-3);
+  line-height: 1.45;
+}
+@keyframes ale-assenta {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ── O cartão (formulários e telas da entrada) ── */
 .ale-cartao {
-  border-radius: 28px;
-  background: rgba(27, 25, 23, 0.94);
+  border-radius: 26px;
+  background: var(--ale-sup);
   border: 1px solid var(--ale-sup-2);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(14px);
+  box-shadow: 0 24px 60px -18px rgba(0, 0, 0, 0.7);
   overflow: hidden;
-}
-.ale-cartao-faixa {
-  height: 6px;
 }
 .ale-cartao-corpo {
   padding: 22px 18px 24px;
@@ -346,25 +404,37 @@
     padding: 28px 28px 30px;
   }
 }
+/* Cada tela do cartão é uma pilha; ao trocar, ela entra de leve. */
+.ale-pilha {
+  display: grid;
+  gap: 18px;
+  animation: ale-entra 0.45s var(--ale-sai) both;
+}
+.ale-pilha > * {
+  min-width: 0;
+}
+@keyframes ale-entra {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 .ale-cartao-titulo {
-  margin: 0;
-  font-size: 40px;
+  font-size: clamp(32px, 9vw, 38px);
+  text-wrap: balance;
 }
 .ale-cartao-texto {
-  margin: 10px 0 0;
   color: var(--ale-texto-2);
   font-size: 16px;
   line-height: 1.5;
 }
-.ale-sozinho {
-  max-width: 560px;
-  margin: 0 auto;
-  padding: 40px 16px 64px;
-}
-@media (min-width: 1000px) {
-  .ale-sozinho {
-    padding-top: 96px;
-  }
+.ale-cartao-texto b,
+.ale-ajuda b {
+  color: var(--ale-texto);
 }
 
 /* As abas Entrar / Criar conta: pílula dupla. */
@@ -375,7 +445,7 @@
   padding: 4px;
   border-radius: 999px;
   background: var(--ale-fundo);
-  border: 1px solid var(--ale-sup-2);
+  border: 1px solid var(--ale-linha);
 }
 .ale-aba {
   min-height: 48px;
@@ -387,21 +457,102 @@
   font-weight: 800;
   font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.2s var(--ale-sai), color 0.2s;
+}
+.ale-aba:hover {
+  color: var(--ale-texto);
 }
 .ale-aba[aria-selected="true"] {
   background: var(--ale-vermelho-texto);
   color: #fff;
-  box-shadow: 0 6px 18px rgba(232, 50, 31, 0.35);
+}
+
+/* O caminho da entrada: 4 passos de verdade, em ordem. */
+.ale-caminho {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+.ale-caminho li {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ale-texto-3);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.ale-caminho li::before {
+  content: "";
+  height: 6px;
+  border-radius: 2px;
+  background: var(--ale-linha);
+  transition: background-color 0.4s var(--ale-sai);
+}
+.ale-caminho li[data-e="feito"] {
+  color: var(--ale-texto-2);
+}
+.ale-caminho li[data-e="feito"]::before {
+  background: var(--ale-vermelho);
+}
+.ale-caminho li[data-e="agora"] {
+  color: var(--ale-texto);
+}
+.ale-caminho li[data-e="agora"]::before {
+  background: var(--ale-dourado);
+}
+
+/* Carimbos, como os dos atos. */
+.ale-carimbo {
+  justify-self: start;
+  display: inline-block;
+  padding: 7px 14px 5px;
+  border-radius: 8px;
+  border: 3px solid currentColor;
+  font-family: var(--ale-fonte);
+  font-stretch: 62%;
+  font-variation-settings: "wdth" 62;
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+  transform: rotate(-4deg);
+  transform-origin: left center;
+  animation: ale-bate 0.5s var(--ale-sai) both;
+}
+.ale-carimbo-ouro {
+  color: var(--ale-dourado);
+}
+.ale-carimbo-vermelho {
+  color: var(--ale-vermelho-claro);
+}
+.ale-carimbo-cinza {
+  color: var(--ale-texto-3);
+}
+@keyframes ale-bate {
+  from {
+    transform: rotate(-11deg) scale(1.7);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(-4deg) scale(1);
+    opacity: 1;
+  }
 }
 
 .ale-form {
   display: grid;
   gap: 16px;
-  margin-top: 22px;
+}
+.ale-form > * {
+  min-width: 0;
 }
 .ale-campo {
   display: grid;
   gap: 6px;
+  min-width: 0;
 }
 .ale-rotulo {
   font-weight: 700;
@@ -418,20 +569,25 @@
   min-height: 52px;
   padding: 12px 16px;
   border-radius: 16px;
-  border: 1.5px solid var(--ale-linha);
+  border: 1.5px solid var(--ale-borda-campo);
   background: var(--ale-fundo);
   color: var(--ale-texto);
   font: inherit;
   font-size: 17px;
+  transition: border-color 0.15s;
+}
+.ale-entrada::placeholder,
+.ale-area::placeholder {
+  color: #9a938b;
 }
 .ale-area {
-  min-height: 112px;
+  min-height: 108px;
   resize: vertical;
   line-height: 1.45;
 }
 .ale-entrada:hover,
 .ale-area:hover {
-  border-color: #5a5048;
+  border-color: var(--ale-texto-3);
 }
 .ale-entrada:focus-visible,
 .ale-area:focus-visible {
@@ -467,15 +623,21 @@
   color: var(--ale-texto);
 }
 .ale-codigo {
-  font-family: ui-monospace, "Cascadia Mono", Menlo, monospace;
-  font-size: 26px;
-  letter-spacing: 0.45em;
+  font-variant-numeric: tabular-nums;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.42em;
   text-align: center;
+  padding-left: calc(16px + 0.42em);
+}
+/* "Senha forte": uma linha de estado, fora da lista dos requisitos. */
+.ale-senha-estado {
+  margin: 4px 0 0;
+  color: var(--ale-dourado);
+  font-size: 13.5px;
+  font-weight: 800;
 }
 .ale-regras {
-  list-style: none;
-  margin: 2px 0 0;
-  padding: 0;
   display: grid;
   gap: 4px;
   font-size: 14px;
@@ -491,8 +653,9 @@
   flex: none;
   width: 10px;
   height: 10px;
-  border-radius: 3px;
+  border-radius: 2px;
   border: 1.5px solid var(--ale-texto-3);
+  transition: background-color 0.2s, border-color 0.2s;
 }
 .ale-regras li[data-ok="sim"] {
   color: var(--ale-texto);
@@ -518,7 +681,6 @@
 }
 .ale-marcar a {
   text-decoration: underline;
-  text-underline-offset: 3px;
   font-weight: 700;
 }
 .ale-contador {
@@ -526,6 +688,115 @@
   font-size: 13px;
   color: var(--ale-texto-3);
   font-variant-numeric: tabular-nums;
+}
+
+/* O rosto na rede: o mosaico que nasce do codinome (o padrão) ou a foto de quem escolhe aparecer. */
+.ale-rosto {
+  border: 0;
+  padding: 0;
+  min-width: 0;
+  display: grid;
+  gap: 12px;
+}
+.ale-rosto legend {
+  padding: 0;
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+.ale-rosto-linha {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.ale-rosto-figura {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--ale-fundo);
+}
+.ale-rosto-figura :is(svg, img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ale-rosto-figura rect {
+  transition: fill 0.25s var(--ale-sai);
+}
+.ale-rosto-linha p {
+  font-size: 14px;
+  color: var(--ale-texto-3);
+  line-height: 1.4;
+  min-width: 0;
+}
+.ale-rosto-linha p b {
+  display: block;
+  color: var(--ale-texto);
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+.ale-rosto-escolhas {
+  display: grid;
+  gap: 8px;
+}
+@media (min-width: 480px) {
+  .ale-rosto-escolhas {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.ale-rosto-escolha {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  align-content: start;
+  padding: 10px 12px 10px 40px;
+  border-radius: 14px;
+  border: 1.5px solid var(--ale-borda-campo);
+  background: var(--ale-fundo);
+  font-size: 13.5px;
+  line-height: 1.35;
+  color: var(--ale-texto-3);
+  cursor: pointer;
+}
+.ale-rosto-escolha b {
+  font-size: 15px;
+  color: var(--ale-texto);
+}
+.ale-rosto-escolha input {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--ale-dourado);
+}
+.ale-rosto-escolha:has(input:checked) {
+  border-color: var(--ale-dourado);
+  box-shadow: inset 0 0 0 1px var(--ale-dourado);
+}
+.ale-rosto-escolha:has(input:focus-visible) {
+  outline: 3px solid var(--ale-foco);
+  outline-offset: 2px;
+}
+.ale-rosto-escolha input:focus-visible {
+  outline: none;
+}
+.ale-rosto-padrao {
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--ale-dourado-fundo);
+  color: #0f0e0d;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  vertical-align: 2px;
 }
 
 /* Botões em pílula. */
@@ -543,20 +814,20 @@
   font-size: 18px;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.12s ease, background-color 0.12s ease;
+  transition: transform 0.12s var(--ale-sai), background-color 0.15s, border-color 0.15s;
 }
 .ale-botao:active {
   transform: scale(0.98);
 }
 .ale-botao[disabled] {
   cursor: not-allowed;
-  opacity: 0.55;
+  background: var(--ale-sup-2);
+  color: var(--ale-texto-3);
 }
 .ale-botao-principal {
   width: 100%;
   background: var(--ale-vermelho-texto);
   color: #fff;
-  box-shadow: 0 10px 26px rgba(232, 50, 31, 0.35);
 }
 .ale-botao-principal:not([disabled]):hover {
   background: var(--ale-vermelho);
@@ -564,11 +835,14 @@
 .ale-botao-contorno {
   background: transparent;
   color: var(--ale-texto);
-  border: 1.5px solid var(--ale-linha);
+  border: 1.5px solid var(--ale-borda-campo);
   min-height: 48px;
   font-size: 16px;
 }
-.ale-botao-contorno:hover {
+.ale-botao-contorno[disabled] {
+  background: transparent;
+}
+.ale-botao-contorno:not([disabled]):hover {
   border-color: var(--ale-texto);
 }
 .ale-link {
@@ -577,10 +851,13 @@
   background: none;
   padding: 6px 0;
   min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   color: var(--ale-texto-2);
   font: inherit;
   font-weight: 700;
   font-size: 15px;
+  text-align: left;
   text-decoration: underline;
   text-underline-offset: 4px;
   cursor: pointer;
@@ -588,7 +865,14 @@
 .ale-link:hover {
   color: var(--ale-texto);
 }
+.ale-linha-de-elos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  align-items: center;
+}
 .ale-giro {
+  display: inline-block;
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -597,31 +881,38 @@
   animation: ale-gira 0.8s linear infinite;
 }
 @keyframes ale-gira {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Mensagens. */
 .ale-msg {
-  margin: 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
   padding: 12px 14px;
   border-radius: 14px;
   font-size: 15px;
   line-height: 1.45;
-  border-left: 4px solid;
+  background: var(--ale-sup-2);
+  color: var(--ale-texto);
+}
+.ale-msg svg {
+  flex: none;
+  margin-top: 1px;
+}
+.ale-msg > span {
+  min-width: 0;
 }
 .ale-msg-erro {
-  background: rgba(232, 50, 31, 0.12);
-  border-color: var(--ale-vermelho-claro);
+  background: rgba(232, 50, 31, 0.14);
   color: #ffd6cf;
+  box-shadow: inset 0 0 0 1px rgba(255, 139, 120, 0.45);
 }
 .ale-msg-ok {
   background: rgba(255, 194, 26, 0.1);
-  border-color: var(--ale-dourado);
-  color: var(--ale-texto);
-}
-.ale-msg-info {
-  background: var(--ale-sup-2);
-  border-color: var(--ale-texto-3);
+  box-shadow: inset 0 0 0 1px rgba(255, 194, 26, 0.4);
 }
 
 /* O QR do autenticador: sobre branco de propósito (é a peça lida pela câmera). */
@@ -632,7 +923,8 @@
   padding: 16px;
   border-radius: 20px;
   background: var(--ale-fundo);
-  border: 1px dashed var(--ale-linha);
+  border: 1px dashed var(--ale-borda-campo);
+  text-align: center;
 }
 .ale-qr img {
   width: 200px;
@@ -641,25 +933,46 @@
   background: #fff;
   padding: 10px;
 }
+.ale-qr .ale-link {
+  justify-self: center;
+}
 .ale-chave {
   font-family: ui-monospace, Menlo, monospace;
   font-size: 15px;
   word-break: break-all;
   user-select: all;
 }
-.ale-lista-num {
-  margin: 14px 0 0;
-  padding-left: 22px;
+.ale-numerada {
   display: grid;
-  gap: 6px;
+  gap: 8px;
+  counter-reset: ale-n;
   color: var(--ale-texto-2);
+  font-size: 16px;
   line-height: 1.45;
+}
+.ale-numerada li {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 10px;
+  counter-increment: ale-n;
+}
+.ale-numerada li::before {
+  content: counter(ale-n);
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--ale-sup-2);
+  color: var(--ale-texto);
+  font-weight: 800;
+  font-size: 14px;
 }
 .ale-espera {
   display: grid;
-  place-items: center;
+  justify-items: center;
   gap: 16px;
-  min-height: 60dvh;
+  padding-block: 56px;
   text-align: center;
   color: var(--ale-texto-2);
 }
@@ -670,13 +983,56 @@
   border-top-color: var(--ale-dourado);
 }
 
-/* Os créditos das imagens. */
-.ale-creditos {
-  width: 100%;
-  max-width: 1280px;
-  /* No pé da página, sempre: a margem de cima automática empurra para baixo o que sobrar de altura. */
-  margin: auto auto 0;
-  padding: 24px 16px 28px;
+/* ── Como entrar ── */
+.ale-como {
+  border-top: 1px solid var(--ale-sup-2);
+  padding-block: 40px 28px;
+  display: grid;
+  gap: 24px;
+}
+.ale-como h2 {
+  font-size: clamp(34px, 4vw, 52px);
+}
+.ale-passos {
+  display: grid;
+  gap: 22px 28px;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+.ale-passo {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  padding-top: 14px;
+  border-top: 4px solid var(--ale-vermelho);
+}
+.ale-passo:nth-child(3) {
+  border-color: var(--ale-dourado);
+}
+.ale-passo:nth-child(4) {
+  border-color: var(--ale-texto);
+}
+.ale-passo strong {
+  font-family: var(--ale-fonte);
+  font-stretch: 62%;
+  font-variation-settings: "wdth" 62;
+  font-weight: 800;
+  font-size: 26px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.ale-passo span {
+  color: var(--ale-texto-2);
+  font-size: 16px;
+  max-width: 34ch;
+}
+
+/* ── O pé: os sinais da rede, o diretório aberto e os créditos das imagens ── */
+.ale-pe {
+  margin-top: auto;
+  border-top: 1px solid var(--ale-sup-2);
+  padding-block: 18px 28px;
+  display: grid;
+  gap: 6px;
   color: var(--ale-texto-3);
   font-size: 14px;
 }
@@ -689,15 +1045,18 @@
   color: var(--ale-texto-2);
 }
 .ale-creditos ul {
-  margin: 8px 0 0;
+  margin-top: 8px;
   padding-left: 18px;
+  list-style: disc;
   display: grid;
   gap: 6px;
   line-height: 1.45;
 }
+.ale-creditos li {
+  overflow-wrap: anywhere;
+}
 .ale-creditos a {
   text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 .ale-sr {
@@ -706,32 +1065,94 @@
   height: 1px;
   overflow: hidden;
   clip: rect(0 0 0 0);
+  clip-path: inset(50%);
   white-space: nowrap;
+}
+
+/*
+ * ── O tema claro da Alumia ──
+ * A entrada segue o tema do resto da Alumia (decisão de 16/11): com [data-al-tema="claro"] na caixa [data-al="2"]
+ * (lib/rede/aparencia-da-rede.ts), os tokens da entrada passam a ser os do claro de styles/alumia-tokens.css, sem cor nova.
+ * Contraste (WCAG AA) sobre o creme e o cartão: texto 16,6:1, texto-2 12,3:1, texto-3 6,4:1; borda dos campos (texto-3) 6,4:1;
+ * vermelho de texto e de erro #bc2217 5,4:1 (branco em cima 6,2:1); dourado de texto #7a5800 5,6:1; tinta sobre o dourado de
+ * fundo 12:1. A parede de ladrilhos continua um painel noite (é imagem, como o mosaico do ato): lá dentro o dourado é o da noite.
+ * O alto contraste e o e-ink do site continuam mandando (têm os próprios tokens, abaixo).
+ */
+:root:not([data-contrast]):not([data-eink]) [data-al="2"][data-al-tema="claro"] .ale {
+  --ale-fundo: var(--al-fundo);
+  --ale-sup: var(--al-superficie);
+  --ale-sup-2: var(--al-superficie-2);
+  --ale-linha: var(--al-linha);
+  --ale-borda-campo: var(--al-texto-3);
+  --ale-texto: var(--al-texto);
+  --ale-texto-2: var(--al-texto-2);
+  --ale-texto-3: var(--al-texto-3);
+  --ale-vermelho: var(--al-vermelho);
+  --ale-vermelho-texto: var(--al-vermelho-texto);
+  --ale-vermelho-claro: var(--al-vermelho-texto);
+  --ale-dourado: var(--al-dourado);
+  --ale-dourado-fundo: var(--al-dourado-fundo);
+  --ale-foco: var(--al-foco);
+  --ale-rejunte: var(--al-mosaico-fundo);
+  color-scheme: light;
+}
+:root:not([data-contrast]):not([data-eink]) [data-al="2"][data-al-tema="claro"] .ale-parede {
+  --ale-dourado: var(--al-voce);
+  border-color: var(--al-mosaico-fundo);
+}
+:root:not([data-contrast]):not([data-eink]) [data-al="2"][data-al-tema="claro"] .ale-cartao {
+  box-shadow: 0 24px 60px -18px var(--al-sombra);
+}
+:root:not([data-contrast]):not([data-eink]) [data-al="2"][data-al-tema="claro"] :is(.ale-entrada, .ale-area)::placeholder {
+  color: var(--al-texto-3);
+}
+:root:not([data-contrast]):not([data-eink]) [data-al="2"][data-al-tema="claro"] .ale-espera .ale-giro {
+  border-color: var(--al-linha);
+  border-top-color: var(--ale-dourado);
+}
+:root:not([data-contrast]):not([data-eink]) [data-al="2"][data-al-tema="claro"] .ale-msg-erro {
+  background: var(--al-vermelho-escuro);
+  color: var(--al-texto);
+  box-shadow: inset 0 0 0 1px var(--al-vermelho-texto);
+}
+:root:not([data-contrast]):not([data-eink]) [data-al="2"][data-al-tema="claro"] .ale-msg-ok {
+  box-shadow: inset 0 0 0 1px var(--al-dourado);
 }
 
 /* ── Movimento reduzido e modo parado do site ── */
 @media (prefers-reduced-motion: reduce) {
-  .ale-cena::before,
-  .ale-figuras,
-  .ale-giro {
+  .ale-painel,
+  .ale-pilha,
+  .ale-carimbo {
     animation: none;
   }
-  .ale-botao {
+  .ale-giro {
+    animation-duration: 2.4s;
+  }
+  .ale-botao,
+  .ale-aba,
+  .ale-voce canvas,
+  .ale-voce-moldura,
+  .ale-voce-selo,
+  .ale-caminho li::before,
+  .ale-rosto-figura rect {
     transition: none;
   }
 }
-:root[data-parado] .ale-cena::before,
-:root[data-parado] .ale-figuras,
-:root[data-parado] .ale-giro {
+:root[data-parado] :is(.ale-painel, .ale-pilha, .ale-carimbo, .ale-giro) {
   animation: none;
 }
+:root[data-parado] :is(.ale-voce canvas, .ale-voce-moldura, .ale-voce-selo) {
+  transition: none;
+}
 
-/* ── Alto contraste: preto e branco puros; as silhuetas ficam, mais fracas, atrás de um fundo preto sólido ── */
+/* ── Alto contraste: preto e branco puros ── */
 :root[data-contrast] .ale {
   --ale-fundo: #000;
   --ale-sup: #000;
   --ale-sup-2: #fff;
   --ale-linha: #fff;
+  --ale-borda-campo: #fff;
   --ale-texto: #fff;
   --ale-texto-2: #fff;
   --ale-texto-3: #e6e6e6;
@@ -739,20 +1160,16 @@
   --ale-vermelho-texto: #ffd400;
   --ale-vermelho-claro: #ff8a7a;
   --ale-foco: #ffd400;
-}
-:root[data-contrast] .ale-cena {
-  opacity: 0.35;
+  --ale-rejunte: #000;
+  background: #000;
 }
 :root[data-contrast] .ale-cartao,
-:root[data-contrast] .ale-sinais li {
-  background: #000;
+:root[data-contrast] .ale-parede {
   border: 2px solid #fff;
-  backdrop-filter: none;
 }
 :root[data-contrast] .ale-aba[aria-selected="true"],
-:root[data-contrast] .ale-botao-principal {
+:root[data-contrast] .ale-botao-principal:not([disabled]) {
   color: #000;
-  box-shadow: none;
 }
 
 /* ── E-ink: papel branco, tinta preta, sem imagem nem cor ── */
@@ -761,6 +1178,7 @@
   --ale-sup: #fff;
   --ale-sup-2: #000;
   --ale-linha: #000;
+  --ale-borda-campo: #000;
   --ale-texto: #000;
   --ale-texto-2: #000;
   --ale-texto-3: #000;
@@ -769,46 +1187,67 @@
   --ale-vermelho-claro: #000;
   --ale-dourado: #000;
   --ale-foco: #000;
+  background: #fff;
   color-scheme: light;
 }
-:root[data-eink] .ale-cena {
+:root[data-eink] .ale-parede,
+:root[data-eink] .ale-parede-nomes {
   display: none;
 }
 :root[data-eink] .ale-faixa {
   background: repeating-linear-gradient(to right, #000 0 6px, #fff 6px 9px);
 }
-:root[data-eink] .ale-cartao,
-:root[data-eink] .ale-passo,
-:root[data-eink] .ale-sinais li {
-  background: #fff;
+:root[data-eink] .ale-cartao {
   border: 2px solid #000;
   box-shadow: none;
-  backdrop-filter: none;
 }
-:root[data-eink] .ale-chamada,
-:root[data-eink] .ale-passo:last-child .ale-passo-n {
-  color: #fff;
-}
-:root[data-eink] .ale-titulo,
-:root[data-eink] .ale-titulo span {
-  color: #000;
-  text-shadow: none;
-}
-:root[data-eink] .ale-msg-erro {
+:root[data-eink] :is(.ale-msg, .ale-msg-erro, .ale-msg-ok) {
   background: #fff;
   color: #000;
+  box-shadow: inset 0 0 0 2px #000;
+}
+:root[data-eink] :is(.ale-aba[aria-selected="true"], .ale-botao-principal:not([disabled])) {
+  color: #fff;
+}
+:root[data-eink] .ale-botao[disabled] {
+  background: #fff;
+  color: #000;
+  box-shadow: inset 0 0 0 2px #000;
+  opacity: 0.6;
 }
 
 @media (forced-colors: active) {
-  .ale-cena {
+  .ale-rejunte {
     display: none;
   }
   .ale-aba[aria-selected="true"] {
     outline: 2px solid CanvasText;
+  }
+  .ale-caminho li[data-e="agora"]::before {
+    background: Highlight;
+  }
+  .ale-caminho li[data-e="feito"]::before {
+    background: CanvasText;
   }
 }
 
 /* Enquanto a entrada está na tela, ela é a página inteira: a faixa "Voltar ao site" da moldura sai (a entrada tem o próprio botão). */
 body:has(.ale) .alumia-moldura > nav {
   display: none;
+}
+
+/* No celular, os dois botões redondos do site (ajuda e acessibilidade) descem para o canto de baixo, lado a lado, e a página ganha
+   espaço no fim: assim eles não ficam parados por cima do botão "Entrar na Alumia" e do "Esqueci a senha". */
+@media (max-width: 767px) {
+  :root:not([data-leitor]) body:has(.ale) .app-flutua {
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+  :root:not([data-leitor]) body:has(.ale) :is(.botao-da-caixa, .assistente-flutua) {
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    right: 64px;
+    left: auto;
+  }
+  .ale {
+    padding-bottom: 84px;
+  }
 }

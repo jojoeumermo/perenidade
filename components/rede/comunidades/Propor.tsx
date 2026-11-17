@@ -9,6 +9,9 @@ import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { FaixaDaPrevia, previa, useTextosAlumia3 } from "../conversa/base3";
 import { botao, campo, erroCom, textosDe, useCarregar } from "./util";
+import { estrutura } from "@/lib/rede/estrutura/cliente";
+import { CamposDaProposta, estruturaDaProposta, VAZIA, type CamposDeLugar } from "./estrutura/CamposDaProposta";
+import { mensagemDeErro, useTextosEstrutura } from "./estrutura/base";
 // O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
 import "../conversa/alumia3.css";
 
@@ -50,6 +53,9 @@ export default function Propor({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const [moderadores, setModeradores] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const [mensagem, setMensagem] = useState<{ texto: string; erro: boolean } | null>(null);
+  // Onda 10 (10C): a cidade, o bairro e a comunidade-mãe, opcionais, guardados junto da proposta (alumia_estr_proposta).
+  const te = useTextosEstrutura(lang);
+  const [lugar, setLugar] = useState<CamposDeLugar>(VAZIA);
   if (!sc) return <p className="px-[18px] py-8 font-sans text-ink-soft">{s.estados.emBreve}</p>;
   const p = sc.propor;
   const pode = situacao.logado && situacao.membro;
@@ -61,8 +67,20 @@ export default function Propor({ lang, s, situacao }: PropsDaTelaDoPacote) {
     setMensagem(null);
     try {
       // Na prévia (sem conta), a proposta não sai do aparelho: só mostra como fica.
-      if (!previa()) await comunidades.propor({ slug: slug.trim().toLowerCase(), nome: nome.trim(), objetivo: objetivo.trim(), regras: regras.trim(), moderadores: nomesDe(moderadores) });
-      setMensagem({ texto: sc.propor.enviada, erro: false });
+      let aviso: string | null = null;
+      if (!previa()) {
+        const feita = await comunidades.propor({ slug: slug.trim().toLowerCase(), nome: nome.trim(), objetivo: objetivo.trim(), regras: regras.trim(), moderadores: nomesDe(moderadores) });
+        const extra = estruturaDaProposta(lugar);
+        if (extra) {
+          try {
+            await estrutura.proposta(feita.id, extra);
+          } catch (e) {
+            aviso = te ? preencher(te.proposta.aviso, { erro: mensagemDeErro(s, te, e) }) : null;
+          }
+        }
+      }
+      setMensagem(aviso ? { texto: aviso, erro: true } : { texto: sc.propor.enviada, erro: false });
+      setLugar(VAZIA);
       setSlug("");
       setSlugMexido(false);
       setNome("");
@@ -132,6 +150,7 @@ export default function Propor({ lang, s, situacao }: PropsDaTelaDoPacote) {
             {p.moderadores}
             <textarea value={moderadores} onChange={(e) => setModeradores(e.target.value)} rows={3} required className={campo} />
           </label>
+          {te && <CamposDaProposta te={te} valor={lugar} aoMudar={setLugar} />}
           <button type="submit" disabled={ocupado} className={botao}>{ocupado ? p.enviando : p.enviar}</button>
           {mensagem && <p role={mensagem.erro ? "alert" : "status"} className={`text-sm ${mensagem.erro ? "text-oxblood" : "text-ink-soft"}`}>{mensagem.texto}</p>}
         </form>

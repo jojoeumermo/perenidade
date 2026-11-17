@@ -1,0 +1,254 @@
+{
+  "_rascunho": true,
+  "modo": {
+    "rotulo": "Orden de la línea",
+    "roda": "En ronda",
+    "chegada": "Orden de llegada",
+    "rodaCurta": "En ronda: una regla abierta, igual para todo el mundo",
+    "chegadaCurta": "Orden de llegada: de lo más nuevo a lo más viejo",
+    "comoMontada": "Cómo se arma la línea",
+    "guardada": "Queda guardado solo en este aparato."
+  },
+  "porque": {
+    "aviso": "Aviso de la moderación",
+    "ato": "Acto cerca",
+    "ajudou": "Tuvo una respuesta que ayudó",
+    "avisoRegra": "Arriba porque es un aviso fijado por la moderación.",
+    "atoRegra": "Arriba porque la fecha es en las próximas {horas} horas.",
+    "ajudouRegra": "Va antes en el bloque porque quien preguntó marcó como la que ayudó la respuesta de otra persona, en una conversación con {ajudou_piso} personas o más respondiendo.",
+    "interesse": "Cerca de tus intereses",
+    "interesseRegra": "Va antes en el bloque porque coincide con un interés que marcaste en este dispositivo."
+  },
+  "barra": {
+    "rotulo": "Mis líneas",
+    "montar": "Armar línea",
+    "todas": "Mis líneas",
+    "sair": "Volver a {aba}",
+    "naLinha": "Línea: {nome}",
+    "temas": "Mis #temas"
+  },
+  "fim": {
+    "regraAcabou": "De aquí hacia atrás, orden de llegada",
+    "regraAcabouTexto": "La regla ordena los últimos {dias} días. Lo más viejo viene de lo más nuevo a lo más viejo."
+  },
+  "vazio": {
+    "linha": "Nada en esta línea por ahora. El filtro está abierto abajo: revisa si es lo que querías.",
+    "temas": "Todavía no sigues ningún #tema. Abre un tema y toca Seguir, o elige uno de los temas en alza."
+  },
+  "fora": {
+    "titulo": "Mientras no estabas",
+    "desdeQuando": "Desde {quando}",
+    "novosUm": "1 publicación nueva",
+    "novos": "{n} publicaciones nuevas",
+    "novosMuitos": "{n} o más publicaciones nuevas",
+    "criterio": "Las primeras por la misma regla de la línea. Nunca por me gusta.",
+    "guardado": "La hora de tu última visita queda solo en este aparato.",
+    "dispensar": "Descartar",
+    "desligar": "No mostrar más",
+    "abrir": "Abrir la conversación",
+    "nada": "Nada nuevo desde tu última visita."
+  },
+  "alta": {
+    "titulo": "Temas en alza",
+    "criterio": "#temas usados por {piso} personas o más en las últimas {horas} horas, y por más gente que en las {horas} horas anteriores.",
+    "igual": "La lista es la misma para todo el mundo. No muestra número, solo el rango.",
+    "faixa": {
+      "algumas": "algunas personas",
+      "dezenas": "decenas de personas",
+      "centenas": "cientos de personas"
+    },
+    "nova": "nuevo",
+    "cresceu": "creció",
+    "nada": "Ningún tema creció ahora. Vuelve más tarde.",
+    "erro": "Los temas en alza no cargaron.",
+    "seguir": "Seguir",
+    "seguindo": "Siguiendo",
+    "abrir": "Abrir #{tag}",
+    "verCriterio": "Cómo entra aquí"
+  },
+  "linhas": {
+    "titulo": "Mis líneas",
+    "chamada": "Líneas hechas de filtro abierto. Tú eliges qué entra; nadie elige por ti.",
+    "aparelho": "Tus líneas quedan guardadas solo en este aparato. El servidor recibe el filtro al buscar y no lo guarda.",
+    "prontas": "Empezar por una lista",
+    "prontaCidade": "Solo llamados de mi ciudad",
+    "prontaCidadeTexto": "Llamados y actos de la ciudad que escribas. Es la ciudad escrita en el llamado, nunca la posición del aparato.",
+    "prontaNucleos": "Solo núcleos",
+    "prontaNucleosTexto": "Solo lo publicado en los núcleos de los que formas parte.",
+    "prontaEstudo": "Solo estudio y ENEM",
+    "prontaEstudoTexto": "Solo las comunidades de las materias: dudas, resúmenes y ejercicios.",
+    "prontaTema": "Por #tema",
+    "prontaTemaTexto": "Solo publicaciones con los #temas que escribas.",
+    "nova": "Línea nueva",
+    "nome": "Nombre de la línea",
+    "nomeAjuda": "Hasta {n} letras. Aparece en la barra del Inicio.",
+    "base": "De dónde viene",
+    "bases": {
+      "tudo": "Todo lo que puedo ver",
+      "seguindo": "A quienes sigo",
+      "comunidades": "Mis comunidades y núcleos",
+      "temas": "Los #temas que sigo"
+    },
+    "tipos": "Tipo de publicación",
+    "tiposTodos": "Cualquier tipo",
+    "tipo": {
+      "post": "Post",
+      "discussao": "Discusión",
+      "duvida": "Duda",
+      "chamado": "Llamado y acto",
+      "enquete": "Encuesta",
+      "aviso": "Aviso"
+    },
+    "cidade": "Ciudad del llamado",
+    "cidadeAjuda": "Escríbela como está en los llamados: \"Recife\", \"São Paulo\".",
+    "tags": "#temas (separados por espacio)",
+    "tagsAjuda": "Hasta 10. La publicación necesita al menos uno.",
+    "nucleos": "Solo de mis núcleos",
+    "estudo": "Solo comunidades de estudio",
+    "criar": "Crear línea",
+    "cancelar": "Cancelar",
+    "salvar": "Guardar",
+    "minhas": "Tus líneas",
+    "nenhuma": "Todavía no armaste ninguna línea.",
+    "abrir": "Abrir",
+    "renomear": "Renombrar",
+    "subir": "Subir",
+    "descer": "Bajar",
+    "fixar": "Poner en la barra",
+    "desafixar": "Sacar de la barra",
+    "naBarra": "en la barra",
+    "apagar": "Borrar",
+    "apagarCerteza": "¿Borrar la línea \"{nome}\"?",
+    "apagada": "Línea borrada.",
+    "criada": "Línea creada. Ya está en la barra del Inicio.",
+    "criadaSemBarra": "Línea creada. La barra del Inicio ya está llena ({n}): saca una para poner esta.",
+    "filtro": "Qué entra",
+    "erros": {
+      "nome": "Ponle un nombre a la línea, de hasta {n} letras.",
+      "muitas": "Caben hasta {n} líneas. Borra una para crear otra.",
+      "barraCheia": "Caben hasta {n} líneas en la barra. Saca una primero.",
+      "vazia": "Esta línea no filtra nada: sería la pestaña Todo otra vez. Elige al menos un filtro.",
+      "repetida": "Ya existe una línea con ese nombre.",
+      "cidade": "Escribe la ciudad.",
+      "tags": "Escribe al menos un #tema (letras, números y _)."
+    },
+    "temasSeguidos": "#temas que sigo",
+    "temasSeguidosTexto": "Seguir un #tema es acompañar el asunto sin seguir personas. Nadie ve los temas que sigues.",
+    "temaCampo": "Seguir un #tema",
+    "temaSeguir": "Seguir",
+    "temaDeixar": "Dejar de seguir #{tag}",
+    "temaNenhum": "Ningún tema seguido todavía.",
+    "temaInvalido": "Un #tema tiene de 2 a 40 letras, números o _.",
+    "verTemas": "Abrir la línea de mis #temas",
+    "primeira": "Armar la primera línea",
+    "primeiraTexto": "Una línea es un filtro abierto: de dónde vienen las publicaciones y qué entra. Ármala desde cero o empieza por una de las listas, justo abajo."
+  },
+  "descricao": {
+    "base": {
+      "tudo": "todo lo que puedes ver",
+      "seguindo": "a quienes sigues",
+      "comunidades": "tus comunidades y núcleos",
+      "temas": "los #temas que sigues"
+    },
+    "tipos": "solo {lista}",
+    "cidade": "con llamado en {cidade}",
+    "tags": "con {lista}",
+    "nucleos": "solo de tus núcleos",
+    "estudo": "solo de las comunidades de estudio",
+    "frase": "Entra: {partes}."
+  },
+  "regra": {
+    "titulo": "Cómo se arma la línea",
+    "chamada": "Una sola regla, igual para todo el mundo, escrita aquí y hecha en la base de datos exactamente como está escrita. Cambias al orden de llegada cuando quieras.",
+    "versao": "Regla n.º {n}",
+    "emRoda": "En ronda",
+    "emRodaTexto": "Solo el orden de llegada desordena: quien publica diez veces seguidas ocupa la pantalla, y el llamado de mañana desaparece debajo de la conversación de hoy. En la ronda, cada persona habla en su turno.",
+    "passos": [
+      {
+        "titulo": "Qué entra",
+        "texto": "Las publicaciones de primer nivel de la pestaña (o de la línea que armaste), de los últimos {janela_dias} días, que puedes ver y no silenciaste. Como máximo las {maximo} más nuevas."
+      },
+      {
+        "titulo": "Arriba, el aviso",
+        "texto": "Hasta {avisos} avisos fijados por la moderación, el más nuevo primero."
+      },
+      {
+        "titulo": "Después, el acto cercano",
+        "texto": "Hasta {atos} llamados y actos con fecha en las próximas {perto_horas} horas, el más cercano primero. Un acto cancelado no sube."
+      },
+      {
+        "titulo": "El resto, en bloques de {bloco_horas} horas",
+        "texto": "Del bloque más nuevo al más antiguo. Los bloques empiezan a las 3, 9, 15 y 21 h (hora de Brasilia)."
+      },
+      {
+        "titulo": "Dentro del bloque, primero lo que elegiste",
+        "texto": "Si respondiste el cuestionario de intereses, van antes las publicaciones de un tipo que marcaste, con un #tema de tus causas, de las comunidades de estudio o de tus núcleos. Si marcaste que quieres más contenido, las conversaciones paralelas (publicación que cita otra o llama a alguien por @, de quien no sigues, fuera de tus comunidades y núcleos) bajan al final del bloque, sin desaparecer. Sin cuestionario, este paso no cambia nada."
+      },
+      {
+        "titulo": "En cada grupo, primero quien recibió ayuda",
+        "texto": "Van antes las conversaciones en las que quien preguntó marcó como la que ayudó una respuesta de otra persona, y que tuvieron respuestas de {ajudou_piso} personas distintas o más. Es una marca de quien preguntó, no un conteo; en una conversación con menos de {ajudou_piso} personas respondiendo, la marca no cambia el orden."
+      },
+      {
+        "titulo": "Después, la ronda",
+        "texto": "La publicación más nueva de cada persona; después la segunda de cada persona; y así sucesivamente. En cada vuelta, la más nueva primero."
+      },
+      {
+        "titulo": "Tope por pantalla",
+        "texto": "En cada pantalla de {tela} publicaciones, como máximo {teto} de la misma persona. Lo que pasa del tope baja a la pantalla siguiente, sin perder el turno."
+      },
+      {
+        "titulo": "Se acabó la regla, orden de llegada",
+        "texto": "Lo que tiene más de {janela_dias} días viene de lo más nuevo a lo más viejo, sin nada más."
+      }
+    ],
+    "naoEntra": "Lo que no entra en la cuenta",
+    "naoEntraLista": [
+      "Me gusta, apoyo, \"útil\", reacción y \"voy\".",
+      "Lo que guardaste, tocaste, abriste o leíste, y por cuánto tiempo.",
+      "La hora en que entras a la red.",
+      "Número de respuestas y número de seguidores.",
+      "Dinero: nadie paga para subir.",
+      "Quién eres. Dos personas con las mismas elecciones ven el mismo orden."
+    ],
+    "entra": "Lo que eliges y cambia la línea",
+    "entraLista": [
+      "A quién sigues, tus comunidades y tus núcleos.",
+      "Los #temas que sigues.",
+      "Lo que silenciaste: persona, comunidad, conversación o palabra.",
+      "Las líneas que armas, con el filtro a la vista.",
+      "Los intereses que marcaste en el cuestionario (solo en tu dispositivo)."
+    ],
+    "aparelho": "Lo que queda solo en tu aparato",
+    "aparelhoTexto": "La elección entre En ronda y Orden de llegada, las líneas que armaste, los intereses del cuestionario y la hora de tu última visita. El servidor no guarda ninguna: los intereses van con cada lectura y se olvidan.",
+    "repostes": "Las republicaciones de quienes sigues solo aparecen en Orden de llegada.",
+    "deFora": "En la pestaña Siguiendo, quienes sigues en el Fediverso entran en la ronda como una persona más: cada publicación de allá va al bloque de 6 horas en que fue escrita, después de los destacados.",
+    "alta": "Temas en alza",
+    "altaTexto": "#temas usados por {alta_piso} personas distintas o más en las últimas {alta_horas} horas, y por más gente que en las {alta_horas} horas anteriores. Solo cuentan publicaciones que todo miembro puede ver. Hasta {alta_maximo} temas, primero el que más creció; empate, orden alfabético. La lista es igual para todo el mundo y no muestra número. La moderación puede sacar un tema de la lista (nombre de persona, insulto, campaña de ataque); el tema sigue existiendo.",
+    "fora": "Mientras no estabas",
+    "foraTexto": "Aparece cuando vuelves después de 8 horas o más (24 o 4 horas, si elegiste otro ritmo en el cuestionario). Muestra las {fora_destaques} primeras publicaciones por la misma regla, solo con lo que llegó después de tu última visita.",
+    "respostas": "Respuestas de una conversación",
+    "respostasTexto": "Tú eliges: más antiguas, más nuevas, útiles o sin respuesta. En \"útiles\" va primero la respuesta que quien preguntó marcó como la que ayudó, después las marcadas como útiles por 3 personas o más; una marca de 1 o 2 personas no cambia nada. En \"sin respuesta\" van primero las que nadie respondió todavía. Quien abrió la conversación puede sacar una respuesta del hilo sin borrarla: queda detrás de \"respuestas ocultadas\", que cualquiera puede abrir.",
+    "prova": "Cómo comprobarlo",
+    "provaTexto": "La regla es código abierto. La prueba que corre con cada cambio demuestra que la misma entrada da el mismo orden a dos personas con las mismas elecciones, y que dar me gusta, guardar o responder no cambia el orden. Prueba también que, sin intereses, el orden es exactamente el de antes, y que los intereses no quedan guardados en ningún lugar.",
+    "voltar": "Volver al Inicio",
+    "trocar": "¿Qué orden quieres?"
+  },
+  "conversa": {
+    "uteis": "Útiles",
+    "semResposta": "Sin respuesta",
+    "regraUteis": "Primero la respuesta que ayudó a quien preguntó; después las marcadas como útiles por 3 personas o más.",
+    "regraSemResposta": "Primero las respuestas que nadie respondió todavía.",
+    "ocultar": "Ocultar respuesta",
+    "mostrar": "Devolver al hilo",
+    "ocultada": "Respuesta ocultada. No fue borrada, y nadie fue avisado.",
+    "devolvida": "Respuesta devuelta al hilo.",
+    "ocultadasUma": "1 respuesta ocultada por quien abrió la conversación",
+    "ocultadas": "{n} respuestas ocultadas por quien abrió la conversación",
+    "ocultadasRegra": "Quien abrió la conversación sacó estas respuestas del hilo. No fueron borradas."
+  },
+  "interesses": {
+    "titulo": "Tus intereses",
+    "texto": "El cuestionario queda solo en este dispositivo. Mira lo que marcaste, cámbialo o bórralo en Ajustes.",
+    "ajustar": "Ajustar mis intereses"
+  }
+}

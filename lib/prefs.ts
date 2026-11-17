@@ -3,6 +3,11 @@
 
 import { useMemo } from "react";
 import { getItem, KEYS, parse, setItem, useStored } from "./storage";
+// O script inline das preferências (e o leitor de tinta eletrônica) mora em lib/prefs-script.ts, sem "use client": o servidor
+// lê o texto exato para liberá-lo pelo hash na página do chat. No aplicativo do Instituto a Alumia some (<html data-sem-alumia>):
+// decisão de 12/11/2026, lib/rede/app-do-instituto.ts.
+import { prefsScript, readerDevice } from "./prefs-script";
+export { prefsScript, readerDevice };
 
 // Preferências de acessibilidade. Viram atributos em <html>, que o CSS (globals.css) lê.
 
@@ -90,6 +95,9 @@ const valores = [
 export function applyPrefs(prefs: Prefs) {
   const root = document.documentElement;
   root.style.fontSize = prefs.scale === 100 ? "" : `${prefs.scale}%`;
+  // Letra grande (130% e 150%): as casas que têm colunas fixas (a casca da Alumia) mudam de grade com este sinal.
+  if (prefs.scale >= 130) root.setAttribute("data-escala", String(prefs.scale));
+  else root.removeAttribute("data-escala");
   const reader = isReader();
   for (const [key, attr] of flags) {
     if (prefs[key] || (reader && key === "eink")) root.setAttribute(`data-${attr}`, "");
@@ -107,8 +115,6 @@ export function applyPrefs(prefs: Prefs) {
   if (isApp()) root.setAttribute("data-app", "");
 }
 
-/** Leitores de tinta eletrônica (Kindle, Kobo e parentes): o site entra sozinho no visual próprio para eles. */
-export const readerDevice = /Kindle|Silk|EBRD|E-?Reader|Kobo|PocketBook|Tolino|Onyx|BOOX|E Ink/i;
 export const isReader = () => typeof navigator !== "undefined" && readerDevice.test(navigator.userAgent);
 
 /**
@@ -121,7 +127,7 @@ export const isApp = () =>
     navigator.userAgent.indexOf("; wv)") > -1 ||
     (navigator as { standalone?: boolean }).standalone === true);
 
-export const prefsScript = `(function(){try{var d=document.documentElement;if(matchMedia("(display-mode: standalone), (display-mode: minimal-ui)").matches||navigator.userAgent.indexOf("; wv)")>-1||navigator.standalone===true){d.setAttribute("data-app","");var c=function(){var m=document.querySelector('meta[name="viewport"]');if(m&&m.content.indexOf("viewport-fit")<0)m.content+=", viewport-fit=cover, interactive-widget=resizes-content";return m};if(!c())document.addEventListener("DOMContentLoaded",c)}}catch(e){}try{var d=document.documentElement;if(${readerDevice}.test(navigator.userAgent)){d.setAttribute("data-leitor","");d.setAttribute("data-eink","")}}catch(e){}try{var d=document.documentElement,t=localStorage.getItem("${KEYS.theme}");if(t==="light"||t==="dark")d.setAttribute("data-theme",t);var p=JSON.parse(localStorage.getItem("${KEYS.a11y}")||"{}");if(p.scale>100)d.style.fontSize=p.scale+"%";if(p.spacing&&p.lines===undefined&&p.letters===undefined){p.lines=2;p.letters=1}[["contrast","contrast"],["eink","eink"],["focus","focus"],["black","black"],["light","light"],["pacote","pacote"],["dyslexia","dislexia"],["links","links"],["motion","parado"],["cursor","cursor"]].forEach(function(k){if(p[k[0]])d.setAttribute("data-"+k[1],"")});[["lines","linhas"],["letters","letras"],["guide","guia"],["color","cor"]].forEach(function(k){if(p[k[0]])d.setAttribute("data-"+k[1],String(p[k[0]]))});if(p.lines||p.letters)d.setAttribute("data-spacing","");if(p.light===undefined&&((navigator.connection&&navigator.connection.saveData)||matchMedia("(prefers-reduced-data: reduce)").matches))d.setAttribute("data-light","")}catch(e){}})()`;
+
 
 /**
  * O aparelho pede economia de dados: o modo "Economizar dados" do Android e do Chrome (navigator.connection.saveData,

@@ -1,60 +1,358 @@
 # Alumia: chat privado (mensagens diretas)
 
-**Situação em 7/11/2026:** implementado e testado no banco local (`npm run testar:rede-chat`). Fica no ar junto com a Alumia
-(recurso `rede-v2`, ligado): não tem chave liga/desliga própria. **Falta aplicar a migração em produção**
-(`supabase/migracoes/20261106-t19-rede-chat-privado.sql`, o mesmo bloco que está no fim do `supabase/install.sql`), no Supabase,
-depois das migrações da Rede v2 (`2026-11-rede-*.sql`) e da Alumia (`2026-11-alumia.sql`). Nenhuma chave nova, nenhuma variável de
-ambiente nova, nenhum serviço de fora.
+**Situação em 10/11/2026:** implementado e testado no banco local (`npm run testar:rede-chat`). Fica no ar junto com a Alumia
+(recurso `rede-v2`, ligado): não tem chave liga/desliga própria. Nenhuma chave nova, nenhuma variável de ambiente nova, nenhum
+serviço de fora, nenhuma biblioteca nova.
+
+**Falta aplicar em produção**, nesta ordem: `supabase/migracoes/20261106-t19-rede-chat-privado.sql`,
+`supabase/migracoes/20261107-t33-seguranca.sql` e, por último, `supabase/migracoes/20261110-chat-blocos.sql` (o formato "c3"
+descrito abaixo). O passo a passo está no fim deste documento.
 
 Pedido da coordenação (T19): "o chat privado no Alumia", com "TODAS as regras de segurança possíveis", "a mesma tecnologia que já
-temos no chat interno", "nada pode vazar, nem de dentro nem de fora", seguindo a LGPD.
+temos no chat interno", "nada pode vazar, nem de dentro nem de fora", seguindo a LGPD. Em 10/11/2026 o chat foi endurecido
+(mensagens em blocos de tamanho fixo, sem assinatura, com repetição e ordem conferidas, chave com prazo também no banco), sem
+trocar de tecnologia. Em 13/11/2026 a cifra passou para a biblioteca do Matrix (veja "A tecnologia").
 
 ## Onde fica
 
 | Peça | Arquivo |
 |---|---|
-| Tela `/comunidade/conversas` (menu "Conversas" da casca, só para quem entrou) | `app/[lang]/comunidade/conversas/page.tsx` → `components/rede/chat/Tela.tsx` |
-| Uma conversa aberta (ler, escrever, prazo, código de segurança, bloquear, denunciar, apagar) | `components/rede/chat/Conversa.tsx` |
+| Tela `/alumia/conversas` (menu "Conversas" da casca, só para quem entrou) | `app/[lang]/alumia/conversas/page.tsx` → `components/rede/chat/Tela.tsx` |
+| Uma conversa aberta (ler, escrever, prazo, código de segurança e QR, bloquear, denunciar, apagar) | `components/rede/chat/Conversa.tsx` |
+| QR do código de segurança (desenhar e ler com a câmera) | `components/rede/chat/Qr.tsx` |
 | Denúncia com trechos escolhidos | `components/rede/chat/Denuncia.tsx` |
 | Ajustes (quem pode me chamar, prazo padrão, apagar tudo do chat) | `components/rede/chat/Ajustes.tsx` |
+| O que o chat pendura no "Sair rápido" | `components/rede/chat/encaixe.tsx` |
 | Botão "Mensagem privada" no perfil (`?com=@handle`) | `components/rede/perfil/TelaDoPerfil.tsx` |
 | A cifra (sem navegador além do WebCrypto; roda no Node nos testes) | `lib/rede/chat-privado.ts` (usa `lib/sigilo.ts`) |
-| O chaveiro deste aparelho (IndexedDB próprio, `lucia-alumia-chat`) | `lib/rede/chat-chaveiro.ts` |
+| O formato "c3" das mensagens | `lib/rede/chat/c3.ts` |
+| O preenchimento em blocos | `lib/rede/chat/padding.ts` |
+| Repetição e ordem | `lib/rede/chat/ordem.ts` |
+| Comparar o código (QR e a metade da outra pessoa, digitada) | `lib/rede/chat/verificacao.ts` |
+| O que fica guardado neste aparelho (IndexedDB próprio, `lucia-alumia-chat`) e o "apagar tudo" | `lib/rede/chat/gaveta.ts` |
+| O chaveiro deste aparelho (sessões, envio, leitura) | `lib/rede/chat-chaveiro.ts` |
 | As chamadas ao banco | `lib/rede/cliente-chat.ts` |
-| Textos (pt final; en, es, fr, ru, zh) carregados sob demanda | `i18n/rede/chat/*.json`, `lib/rede/textos-chat.ts` |
-| Banco: tabelas, regras, permissões | `supabase/migracoes/20261106-t19-rede-chat-privado.sql` |
+| Textos (pt final; en, es, fr, ru, zh em rascunho) carregados sob demanda | `i18n/rede/chat/*.json`, `lib/rede/textos-chat.ts` |
+| Banco: tabelas, regras, permissões | `supabase/migracoes/20261106-t19-rede-chat-privado.sql`, `20261107-t33-seguranca.sql`, `20261110-chat-blocos.sql` |
 | Testes | `scripts/testar-rede-chat.mjs` (`npm run testar:rede-chat`) |
 
 Componentes próprios (`components/rede/chat/`), carregados só quando a tela é aberta (`dynamic(..., { ssr: false })` no
 `components/rede/registro.tsx`): não pesam nas outras páginas da Alumia e não dependem do visual que a Alumia estiver usando.
 
-## A tecnologia (a mesma das conversas da equipe)
+## A tecnologia
 
-O chat interno da equipe (`lib/sigilo.ts`, `docs/RELATORIO-CHAT-E-CARGOS.md`, `npm run testar:sigilo`) é cifrado de ponta a
-ponta com WebCrypto puro, sem biblioteca de fora. O chat da Alumia usa **as mesmas funções** de `lib/sigilo.ts`:
+**Desde 13/11/2026 a cifra é a da biblioteca do Matrix** (`@matrix-org/matrix-sdk-crypto-wasm` 19.0.1, a do Element; por dentro,
+o vodozemac, auditado), em `lib/rede/chat/olm.ts`. Nada de cifra feita à mão no caminho das mensagens. Migração:
+`supabase/migracoes/20261113-chat-olm.sql` (depois da `20261110-chat-blocos.sql`); teste: `npm run testar:chat-olm`.
 
-- **Chave do aparelho:** par ECDH P-256 criado no navegador, parte privada **não exportável** (o próprio navegador não deixa
-  ler), guardada no IndexedDB.
-- **Identidade:** par ECDSA P-256, também não exportável, que **assina (certifica)** a chave do aparelho. O banco guarda só as
-  partes públicas e o certificado.
-- **Chave da conversa:** AES-GCM-256, uma por versão, **embrulhada** (ECDH + HKDF-SHA-256 + AES-GCM) para a chave de cada um dos
-  dois participantes. O embrulho é amarrado à conversa, à versão, a quem recebe e à versão da chave de quem recebe.
-- **Mensagem:** assinada com a identidade de quem escreve (amarrada à conversa e ao autor) e cifrada com AES-GCM no aparelho. O
-  banco recebe só `c2.<versão>.<vetor>.<cifrado>` e **recusa texto aberto** (check na tabela e na função).
-- **Rotação:** versão nova da chave quando alguém troca de aparelho e, no mínimo, a cada 7 dias.
-- **Confiar na primeira vez, avisar quando mudar:** o aparelho guarda a identidade de cada pessoa com quem conversou. Se ela
-  mudar (troca de aparelho, ou alguém tentando se passar por ela), a conversa avisa e **não entrega chave nem envia nada** até a
-  pessoa confirmar. Há **código de segurança** (o mesmo `codigoDeSeguranca` da equipe) para comparar pessoalmente e marcar como
-  verificado.
-- **Contextos próprios** (`alumia-dm:…`): nada assinado ou cifrado no chat da Alumia serve nas conversas da equipe, nem o contrário.
+- **Olm** (Double Ratchet, o mesmo desenho do Signal) entre os dois aparelhos: entrega as chaves das sessões. O banco só guarda a
+  chave pública do aparelho, as chaves de uso único e uma caixa de recados cifrados (`rede_olm_*`), e só entrega a chave do
+  aparelho de alguém a quem tem conversa aberta com a pessoa, sem bloqueio.
+- **Megolm** nas mensagens: cada mensagem tem chave própria, que anda para a frente e não volta (**sigilo para a frente**). Cada
+  versão da conversa é uma sessão nova; dentro de uma versão, a sessão troca sozinha a cada 100 mensagens ou 7 dias.
+- **Identidade:** a chave ed25519 do aparelho (o banco guarda `"o" + chave`). O código de segurança e o QR são calculados dela.
+  "Confiar na primeira vez, avisar quando mudar" continua igual: o aparelho só entrega chave ao aparelho cuja identidade ele já
+  conhece da pessoa, e só abre mensagem cuja sessão veio desse aparelho, direto (nada encaminhado por terceiro).
+- **Formato "m1":** `m1.<versão>.<sessão>.<cifrado Megolm>`. Por dentro vai o mesmo bloco de tamanho fixo do "c3" (identificador,
+  contador, "até onde eu já tinha recebido" e o texto), então repetição, buraco e ordem continuam sendo notados como antes, e o
+  tamanho no banco continua em sete faixas fixas (723, 1192, 2088, 3923, 7550, 11198 ou 14846 caracteres no cifrado). O banco
+  recusa qualquer outro tamanho e, de conta que já está na biblioteca, recusa "c3".
+- **No aparelho:** as sessões da biblioteca ficam num IndexedDB dela (`lucia-alumia-olm-<conta>`), **cifrado** com uma senha que
+  ninguém guarda: ela é calculada, a cada abertura, por uma chave HMAC **não exportável** deste aparelho. O "Sair rápido" apaga
+  esse banco junto com o do chat.
+- **WebAssembly:** a biblioteca é WebAssembly; a política de segurança das páginas ganhou `'wasm-unsafe-eval'` (só compilar
+  WebAssembly; não libera `eval` de JavaScript).
 
-Diferenças de propósito em relação à equipe (menos comodidade, menos coisa que pode vazar):
+### Remetente selado (o banco não sabe quem mandou)
 
-- **Um aparelho por conta.** A identidade não é exportável: não há cópia de recuperação nem aprovação de outro aparelho. Ativar
-  num aparelho novo troca a chave; o que foi escrito antes só abre no aparelho antigo.
-- O "Sair rápido" da Alumia apaga o que ela guarda no `localStorage`; o chaveiro do chat (só chaves, nunca mensagens) fica, para
-  não apagar sem querer o acesso às conversas. As mensagens decifradas **nunca são gravadas** no aparelho: vivem só na memória da
-  aba aberta. "Apagar tudo do chat" (Ajustes) apaga também o chaveiro deste aparelho.
+Desde 13/11/2026 (`supabase/migracoes/20261113-chat-selado.sql`, `lib/rede/chat/selado.ts`; teste: `npm run testar:chat-selado`):
+
+- **Cada mensagem vai por Olm** (Double Ratchet: chave nova a cada mensagem e a cada resposta, o que dá sigilo para a frente e
+  segurança depois do comprometimento) **só para o aparelho confiável da outra pessoa**.
+- **Por fora, um envelope selado:** HPKE (RFC 9180) com troca de chaves híbrida X-Wing (X25519 + ML-KEM-768, contra computador
+  quântico), pela biblioteca `@hpke`. Quem mandou vai DENTRO do envelope. O envelope é completado até um de seis tamanhos fixos.
+- **O banco guarda só: para quem, o envelope e o DIA** (sem hora). Não guarda quem mandou, nem de qual conversa é. O envelope é
+  deixado **sem a sessão da conta** (pela chave pública do serviço, sem cookie, sem referência): o banco não sabe nem qual conta
+  deixou. O site não guarda endereço de rede.
+- **Apagada ao entregar:** o aparelho de quem recebe abre, guarda no histórico dele e confirma; aí o envelope **sai do banco**.
+  Envelope que ninguém buscou some em 30 dias.
+- **Quem pode deixar envelope:** quem tem a "senha de entrega" da caixa da pessoa. Ela vai, junto com a chave do envelope, num
+  recado Olm já autenticado pelo aparelho confiável (o "aperto de mão" de cada conversa); o banco guarda só o resumo SHA-256.
+  **Bloquear troca a senha**: quem foi bloqueado não deixa mais nada; as outras conversas recebem a senha nova ao abrir.
+- **Ninguém se passa por outra pessoa:** o aparelho só aceita a mensagem se o aparelho que cifrou (pelo Olm) é o aparelho
+  confiável de quem o envelope diz ter mandado (o teste prova: a intrusa dizendo "sou a Bia" é descartada).
+
+**O que o banco ainda sabe, e por quê:** quem conversa com quem (a lista de conversas e os pedidos, para valerem as regras de
+"quem pode me chamar", bloqueio e denúncia) e quando cada caixa recebeu envelope (o dia). O Signal esconde também a lista de
+contatos; aqui ela fica, porque as regras de pedido e de bloqueio da Alumia são conferidas no servidor.
+
+### Registro público das chaves (transparência)
+
+`supabase/migracoes/20261113-chat-transparencia.sql`, `lib/rede/chat/transparencia.ts`; teste: `npm run testar:chat-registro`.
+
+- Toda chave nova do chat (ativar, trocar de aparelho) entra num **registro público só de acréscimo**, encadeado por SHA-256 (cada
+  linha leva o resumo da anterior). Qualquer pessoa, **sem conta**, baixa o registro (`rede_kt_ponta`, `rede_kt_trecho`) e refaz a
+  corrente.
+- A linha não leva o id da conta, e sim um resumo dele; do momento, só o dia.
+- Ao abrir a conversa, o aparelho traz o registro (só o que ainda não viu), refaz a corrente a partir do ponto que já tinha
+  conferido e exige que **a chave da outra pessoa e a minha sejam as últimas do registro**. Se não forem, ou se a corrente não
+  fechar, a conversa avisa em vermelho e **nada é enviado** (`dm_fora_do_registro`).
+- **O ponto conferido** (número e começo do resumo) aparece em Opções, junto do código de segurança: duas pessoas que comparam o
+  código comparam também esse ponto. Se o servidor mostrar um registro a uma e outro à outra, os pontos não batem.
+- **Limite honesto:** um aparelho que nunca viu o registro não tem como saber se o passado foi reescrito antes de ele chegar (o
+  teste mostra isso). Quem nota é quem já tinha visto, ou quem compara o ponto. Um auditor de fora, que baixe o registro todo dia
+  e publique a ponta, fecha esse buraco; fica como sugestão para a coordenação.
+
+### Histórico no aparelho e trava
+
+O histórico fica **só no aparelho** (`lib/rede/chat/historico.ts`, IndexedDB `lucia-alumia-historico`; teste:
+`npm run testar:chat-historico`), cada mensagem **cifrada** (AES-256-GCM). A chave é **não exportável**. Com a **trava** (em
+Ajustes), a chave passa a ficar embrulhada por uma senha da pessoa (PBKDF2-SHA-256, 600 mil rodadas, sal sorteado): sem a senha
+o histórico não abre nem neste aparelho, e a caixa não é aberta (para nenhuma mensagem se perder). A senha não fica guardada em
+lugar nenhum; esqueceu, não abre mais. O "Sair rápido" apaga o histórico inteiro.
+
+### Temporárias e ver uma vez
+
+- **Some em:** o prazo da conversa (1, 7 ou 30 dias) ou, por mensagem, **5 minutos** ou **1 hora**. O prazo vai dentro do cifrado;
+  cada aparelho apaga do próprio histórico quando vence.
+- **Ver uma vez:** a outra pessoa toca para abrir; a mensagem sai do histórico na hora e some da tela ao fechar. Quem mandou não
+  fica com cópia.
+- Limite honesto: nada impede uma foto da tela. É o mesmo em qualquer aplicativo.
+
+O texto abaixo descreve o formato "c3" anterior, que fica no banco **só para leitura** até vencer (as contas que ativarem o chat
+de novo passam para a biblioteca). As regras de bloco, ordem, repetição, rotação e identidade trocada valem iguais para o "m1".
+
+### O formato das mensagens: "c3"
+
+```
+corpo     c3.<versão>.<vetor de 12 bytes>.<cifrado>            (base64url, sem "=")
+cifrado   AES-GCM-256, com a chave da conversa, sobre um BLOCO de tamanho fixo
+bloco     [4 bytes: comprimento do conteúdo][conteúdo][zeros até o fim do bloco]
+conteúdo  [16 bytes: identificador sorteado][4 bytes: contador][8 bytes: até onde eu já tinha recebido][texto em UTF-8]
+amarra    alumia-dm:c3:<conversa>:<autor>:v<versão>            (dado autenticado do AES-GCM)
+```
+
+**Blocos.** Antes de cifrar, a mensagem é completada até o menor bloco em que cabe: 256, 512, 1024 ou 2048 bytes; acima disso,
+de 2048 em 2048 até 8192 (4096, 6144, 8192). O AES-GCM acrescenta 16 bytes. Em base64url, a última parte do corpo fica com
+exatamente um destes tamanhos:
+
+| Bloco (bytes) | Cifrado (bytes) | Caracteres no banco | Cabe um texto de até |
+|---|---|---|---|
+| 256 | 272 | 363 | 224 bytes |
+| 512 | 528 | 704 | 480 bytes |
+| 1024 | 1040 | 1387 | 992 bytes |
+| 2048 | 2064 | 2752 | 2016 bytes |
+| 4096 | 4112 | 5483 | 4064 bytes |
+| 6144 | 6160 | 8214 | 6112 bytes |
+| 8192 | 8208 | 10944 | 8160 bytes (o chat aceita até 8000) |
+
+O banco **recusa** corpo "c3" com qualquer outro tamanho (regra na tabela e na função de enviar). O corpo inteiro tem no máximo
+10972 caracteres. Ao abrir, o aparelho confere o bloco todo: tamanho da lista, comprimento que bate, o menor bloco possível, sobra
+só com zeros. Qualquer diferença e a mensagem não abre.
+
+O que isso esconde: o tamanho do que foi escrito, dentro de cada faixa (um "ok" e um parágrafo curto ficam iguais). O que **não**
+esconde: quantas mensagens foram trocadas, quando, e em qual das sete faixas cada uma caiu.
+
+**O formato antigo, "c2"** (assinado, de tamanho livre), continua na tabela **só para leitura**: o aparelho abre e confere a
+assinatura como antes, e o banco recusa "c2" novo. Como toda mensagem vence em no máximo 30 dias, em 30 dias depois da migração
+não sobra nenhuma.
+
+### O formato antigo e a data `C2_ABRE_ATE`
+
+`C2_ABRE_ATE` (`lib/rede/chat-privado.ts`) é a data até a qual a função antiga de abrir mensagem aceita o formato "c2". Depois do
+chat na biblioteca do Matrix, **nenhuma tela chama mais essa função**: a conversa chega pela caixa selada, por Olm, e o aparelho
+não lê "c2" nem "c3" da tabela. Por isso **não há nada a mudar** nessa data por causa da ordem em que as migrações rodarem. Ela
+só voltaria a importar se alguém religar a leitura do formato antigo: aí a regra é a data em que a migração dos blocos
+(`20261110-chat-blocos.sql`) rodou mais 30 dias (o prazo máximo de uma mensagem), para a última "c2" de verdade abrir até vencer.
+Data mais tarde que o necessário não quebra nada; só estica o tempo em que uma "c2" regravada ainda abriria, com os avisos de
+repetida e de formato antigo valendo.
+
+### Negabilidade: sem assinatura nas mensagens
+
+Mensagens "c3" **não levam a assinatura** de quem escreve. O que garante a origem é a chave da conversa:
+
+- **O que garante.** A chave de cada versão só existe embrulhada para as duas pessoas, e o aparelho só embrulha para chave
+  certificada pela identidade em que confia. Então uma mensagem que abre foi cifrada por quem tem a chave: uma das duas. O
+  servidor, que não tem a chave, não consegue escrever mensagem, mudar uma, trocar de conversa, de versão ou de autor (a amarra do
+  AES-GCM leva tudo isso e o formato): qualquer mexida e ela não abre. Quem recebe sabe que veio da outra pessoa.
+- **O que não garante, de propósito.** Numa conversa a dois, a chave é das duas. Qualquer uma poderia ter escrito qualquer
+  mensagem da conversa, inclusive uma que abre "como da outra" (o teste prova isso). Por isso **nenhuma mensagem serve de prova,
+  para terceiros, de quem escreveu**: não há nada nela que só uma das duas pudesse ter feito. É isso a negabilidade.
+- **Os limites.** O banco continua sabendo quem enviou cada linha e quando (ele precisa disso para entregar e para o bloqueio):
+  a negabilidade é sobre o conteúdo, não sobre o fato de ter havido conversa. Um print da tela ou um trecho numa denúncia é a
+  palavra de quem mostra, como sempre foi. As mensagens antigas "c2" continuam assinadas até vencerem. O certificado (a
+  identidade assinando a chave do aparelho) continua existindo: ele prova de quem é a chave, não o que foi dito com ela.
+- **O que ainda não há.** Sigilo para a frente dentro de uma versão: quem conseguir usar a chave privada de um aparelho abre as
+  versões cujo embrulho ainda está no banco (por isso os embrulhos antigos são apagados logo; veja "Rotação"). Isso fica para a
+  etapa da biblioteca do Matrix.
+
+### Repetição e ordem
+
+Cada mensagem "c3" leva, **dentro do cifrado**, um identificador sorteado e um contador por autor e versão da chave. O servidor
+não vê nenhum dos dois.
+
+- **Repetição.** O aparelho guarda, por conversa, autor e versão, quais identificadores já viu e em qual mensagem do servidor.
+  Se o mesmo identificador aparecer como outra mensagem (alguém regravando uma mensagem antiga como se fosse nova), ela **não é
+  mostrada de novo**: fica só a linha discreta "Mensagem repetida". Depois de 45 dias a lista de uma versão é apagada e fica só
+  um piso. Mensagem que aparecer depois numa versão já fechada **é mostrada, com aviso**: o aparelho não tem mais como saber se
+  é repetida ("Este aparelho não consegue conferir se esta mensagem é repetida"). O mesmo vale para mensagem antiga ("c2") que
+  chega fora de hora.
+- **Ordem.** Se falta um contador entre duas mensagens que chegaram, a tela mostra, discreta, "Pode faltar mensagem aqui". O
+  aparelho não sabe se a mensagem foi apagada por quem escreveu, venceu, ou foi retida no caminho: por isso é um aviso, não um
+  erro. O começo da conversa (mensagens antigas já vencidas) não conta como buraco.
+- **Ordem da tela.** Dentro de cada pessoa, a tela usa a ordem em que ela escreveu (versão da chave e contador), que o servidor
+  não consegue mexer; a hora do servidor só decide como as duas pessoas se intercalam. Onde a hora discorda da ordem escrita, a
+  mensagem ganha o aviso "Fora de ordem".
+- **Resposta antes da pergunta.** Cada mensagem leva, dentro do cifrado, até onde quem escreveu já tinha recebido da outra
+  pessoa (versão e contador). Se a mensagem diz que já tinha recebido uma que aparece DEPOIS dela, ganha "Fora de ordem". E,
+  do lado de quem escreveu, as mensagens que a outra pessoa ainda não tinha recebido quando escreveu a última dela ganham uma
+  linha discreta ("ainda não tinha recebido esta"): é sinal de mensagem retida no caminho, e some sozinho quando ela responder
+  depois de receber.
+- **Os limites.** A memória é do aparelho: num aparelho novo, ou depois do "Sair rápido", ela começa do zero. Se o servidor
+  segurar as últimas mensagens, o aparelho só nota quando chegar uma posterior. A hora mostrada em cada mensagem é a do servidor.
+  Sem IndexedDB (alguns modos privados), a conferência vale só enquanto a aba está aberta.
+- **O relógio do aparelho não é de confiança** (rede hostil, relógio sem bateria). A lista de uma versão antiga só vira piso
+  numa leitura em que a hora não andou para trás nem saltou dias desde a leitura anterior. E o salto **fica anotado** na marca
+  da conversa: depois dele, nenhuma lista vence até passar uma vida inteira de registro (45 dias) sem outro salto. Sem isso, a
+  segunda leitura depois do salto já confiaria no relógio mexido. A versão atual de cada pessoa nunca fecha.
+- No aparelho ficam só identificadores e contadores, nunca texto.
+
+### Rotação da chave
+
+- O aparelho faz versão nova quando alguém troca de aparelho e quando a versão atual passa de **7 dias**. Isso é conferido ao
+  abrir a conversa **e de novo a cada envio** (a conversa pode ficar aberta por dias).
+- O banco recusa envio em versão com mais de **8 dias** (um dia de folga para relógio e conversa aberta): o aparelho faz a versão
+  nova e tenta de novo.
+- **Faxina certa, sem sorteio:** a cada envio, a cada versão nova e a cada leitura da conversa, somem as mensagens vencidas
+  daquela conversa e os **embrulhos das versões antigas que não têm mais mensagem viva**. Sem o embrulho, aquela chave não pode
+  mais ser entregue a ninguém. A faxina geral antiga (por sorteio, de todas as conversas) continua como rede de segurança.
+
+### Identidade trocada
+
+- **Pessoa não verificada:** como antes. A conversa avisa que a chave de segurança mudou, nada é enviado, e a pessoa confirma
+  ("Confio na chave nova") depois de falar com a outra por outro canal.
+- **Pessoa que estava VERIFICADA:** a marca de verificado **some na hora**, com aviso claro, e o envio fica retido. **Um clique
+  não basta:** a tela só segue quando a pessoa compara o código de novo, de um destes jeitos: lendo com a câmera o QR da outra
+  pessoa, ou digitando os **seis grupos que a tela da outra pessoa marca como "os seus grupos"** (em Opções, embaixo do
+  código: a metade que vem da identidade DELA, calculada da chave do aparelho dela, que o servidor não troca). A tela de quem
+  confere compara com a metade calculada da identidade que recebeu, em qualquer posição. Três portas fechadas: (1) não é um grupo
+  sorteado, porque a metade que vem da MINHA identidade não muda quando o servidor troca a da outra e conferiria com qualquer
+  identidade falsa; (2) não são cinco algarismos, que se acertam fabricando cerca de cem mil identidades, e sim trinta; (3) não é
+  "os grupos tal a tal da sua tela": se o servidor puser a MESMA identidade falsa no lugar das duas pessoas, a tela de cada uma
+  mostra a metade dela, às vezes na mesma posição, e quem ditasse por posição leria a metade falsa. O QR, com os sessenta
+  números, também serve. Conferiu, a
+  conversa volta a ficar verificada. A exigência vale também depois de recarregar a página, e o chaveiro recusa a confirmação
+  sem comparação mesmo que a tela tente.
+- **A PRÓPRIA conta:** se o servidor mostra para a conta uma chave que não é a deste aparelho, a tela não oferece mais "usar este
+  aparelho" num clique. Ela explica o risco (quem conversa com a pessoa recebe aviso, as conversas verificadas perdem a marca, o
+  que foi escrito antes não abre aqui) e pede um "entendi" antes. Se este aparelho **tinha** a chave do chat, há um alerta a
+  mais: se não foi a própria pessoa que ativou o chat em outro lugar, alguém pode ter entrado na conta, e é para trocar a senha
+  antes.
+
+### Código de segurança e QR
+
+Sessenta números (o mesmo `codigoDeSeguranca` da equipe), iguais na tela das duas pessoas. Na conversa, em "Opções", aparecem os
+números e o **QR** do código. Uma pessoa mostra, a outra toca em "Ler o QR da outra pessoa": se confere, a conversa fica
+verificada; se não confere, a tela diz para não marcar. A **câmera só liga com o toque** e desliga ao fechar, ao ler, ao sair da
+tela e quando a aba vai para o fundo. A imagem não sai do aparelho: lê o leitor do próprio navegador ou, na falta dele, a
+biblioteca `jsqr`, que já era do site (como a `qrcode`, que desenha).
+
+### O que fica neste aparelho, e o "Sair rápido"
+
+No IndexedDB do chat (`lucia-alumia-chat`) ficam: a chave do aparelho e a identidade (não exportáveis), as identidades conhecidas
+de cada pessoa (e se foram verificadas) e a memória de repetição e ordem (identificadores e contadores). **Mensagem aberta,
+rascunho e chave de conversa nunca são gravados**: vivem só na memória da aba. Não há fila de envio.
+
+O **"Sair rápido" da Alumia apaga tudo isso** (`apagarTudoDoChat`): o banco IndexedDB inteiro, de todas as contas deste aparelho,
+e o que estiver na memória (chaves de conversa, rascunho, mensagens abertas). Termina em menos de meio segundo, dentro do teto de
+0,8 s do "Sair rápido", e nunca lança. **Consequência, dita na tela de Ajustes:** depois do "Sair rápido" é preciso ativar o chat
+de novo neste aparelho; a chave nova muda o código de segurança (as outras pessoas recebem o aviso de chave trocada) e o que foi
+escrito antes não abre mais aqui. É o preço de não deixar a chave num aparelho que pode ser tomado.
+
+Além do banco do chat, o "Sair rápido" apaga o histórico guardado no aparelho (`lucia-alumia-historico`) e as lojas da
+biblioteca do Matrix (uma por conta, com o começo de nome `lucia-alumia-olm-`).
+
+**O pânico vale para todas as abas** (`lib/rede/chat/gaveta.ts`, testado com duas abas sobre o mesmo IndexedDB):
+
+1. **As outras abas** são avisadas (BroadcastChannel, sem dado nenhum no aviso) e cada uma apaga a própria memória, fecha a
+   conversa aberta, esquece a lista de conversas e volta à ativação.
+2. **O banco só é criado na ativação.** Qualquer outra leitura ou gravação que encontre o banco sumido desfaz a criação; e a
+   página que já tinha visto o banco entende que ele foi apagado por fora e se limpa também. Uma busca que estava no caminho
+   não recria o banco.
+3. Depois de apagar, a página não grava mais nada até a pessoa ativar o chat de novo.
+
+**"Apagar tudo do chat" (Ajustes) também avisa as outras abas.** Ele apaga só os registros da conta (o que for de outras contas
+do aparelho fica) e usa o mesmo aviso do pânico: uma aba esquecida aberta na conversa apaga as chaves da memória, fecha a
+conversa e para de gravar.
+
+**A saída do site (três Esc) limpa o chat antes das bases** (`lib/modo-seguro.ts`), mesmo fora da Alumia: liga a trava nesta aba
+e avisa as outras, com teto próprio, antes de apagar os bancos do aparelho. Assim as outras abas apagam a memória delas na hora,
+e não só quando notarem que o banco sumiu.
+
+**A tela depois do pânico.** A aba que viu o chat ser apagado volta à ativação com texto próprio ("O chat foi apagado deste
+aparelho"), e não com o de "ativo em outro aparelho". Criar a chave nova continua pedindo o "entendi" do risco. Depois de
+recarregar a página, o aparelho não tem como saber que houve pânico (não guarda marca nenhuma, de propósito): aí a tela é a de
+"ativo em outro aparelho".
+
+**A sessão da conta sai junto.** O "Sair rápido" da Alumia (`lib/rede/saida.ts`) encerra a sessão no servidor (só esta sessão,
+com o mesmo pedido da saída do site) e apaga do aparelho as chaves dela (a sessão, o nome e o rosto do cabeçalho, e a sessão no
+nome padrão do Supabase, se houver), antes e de novo depois das limpezas (uma renovação no caminho poderia regravá-la). Quem
+pega o aparelho depois não abre a Alumia dentro da conta: não vê a lista de conversas nem ativa o chat em nome da pessoa.
+
+**Consequências, ditas na tela de Ajustes:** depois do "Sair rápido" é preciso entrar e ativar o chat de novo neste aparelho; a
+chave nova muda o código de segurança (as outras pessoas recebem o aviso de chave trocada) e o que foi escrito antes não abre
+mais aqui. **E todas as verificações se perdem:** o aparelho esquece as identidades que conhecia (guardá-las seria deixar a
+lista de contatos no aparelho). Ao reativar, cada conversa volta a "confiar na primeira vez": se o servidor entregar nesse
+momento uma identidade falsa de alguém que estava verificado, não aparece aviso nenhum. Por isso a conversa mostra "não
+verificado" no alto, e os Ajustes pedem para comparar o código de novo com cada pessoa antes de escrever algo sensível.
+
+**Limites que continuam:**
+
+- Sem rede, o pedido de encerrar a sessão não chega ao servidor; a sessão some do aparelho do mesmo jeito, mas quem tivesse
+  copiado o token antes ainda o usaria até ele vencer.
+- Apagar o IndexedDB não garante que os arquivos do navegador no disco não guardem restos até a compactação.
+- O "Sair rápido" não mexe em outras sessões da conta abertas em outros aparelhos (para isso, o botão de pânico dos Ajustes de
+  segurança desconecta todos).
+
+Diferenças de propósito em relação à equipe (menos comodidade, menos coisa que pode vazar): **um aparelho por conta**, sem cópia
+de recuperação e sem aprovação de outro aparelho.
+
+### O que um script rodando na página consegue (XSS na mesma origem)
+
+"Não exportável" impede COPIAR uma chave do navegador, não USAR. Um script que rode **uma vez** na página do chat (uma falha de
+XSS no site, uma extensão do navegador com acesso à página) consegue, enquanto roda:
+
+1. ler o que está na tela e na memória da aba: as mensagens abertas, o rascunho, o histórico destravado;
+2. escrever em nome da pessoa e confirmar uma identidade como verificada;
+3. calcular a senha da loja da biblioteca neste aparelho (ela sai de uma chave não exportável, mas a página pode usá-la) e
+   levar a loja inteira. Com as duas, abre fora do aparelho o que chegar a ele e se passa por ele, **até a pessoa ativar o chat
+   de novo** (o "Sair rápido" e o "apagar tudo do chat" fazem isso: chave nova, e a antiga deixa de valer para as outras
+   pessoas).
+
+O que ele não consegue sem que alguém note: pôr outra chave de aparelho no lugar da da pessoa com a mesma identidade. O aparelho
+de quem conversa com ela nota a chave estranha, mostra o aviso, não envia nada e não oferece "aceitar"; **mas só se já conhecia a
+chave de antes**: no primeiro contato, ou logo depois de um "Sair rápido" de quem recebe, a chave do atacante seria aceita como a
+primeira. O registro público das chaves ajuda aqui: a chave que não é a última do registro retém o envio.
+
+A defesa contra isto é não ter XSS: nada de script, fonte ou serviço de fora nas telas, e o chat com a política de conteúdo mais
+fechada do site (só os scripts do próprio site, com nonce; nada de conexão, imagem ou quadro de outra origem). O pânico entre
+abas (acima) fecha a janela de uma aba esquecida aberta, mas não desfaz o que um script já levou.
+
+### "Combinar pelo chat" das caronas do ato
+
+O quadro de caronas de um ato (`components/rede/atos/Caronas.tsx`) abre a conversa privada com quem publicou a carona
+pelo encaixe `lib/rede/atos/combinar.ts`. O chat registra ali `abrirConversaDaCarona` (`lib/rede/chat/carona.ts`), que manda
+só o id da carona para `public.rede_dm_abrir_carona` (`supabase/migracoes/20261111-chat-caronas.sql`). **Quem publicou é achado
+no servidor:** a tela das caronas nunca recebe o id nem o codinome dessa pessoa. As regras são as de `rede_dm_abrir`, sem
+exceção (membro 18+ dos dois lados, bloqueio, perfil invisível, recusa recente, "quem pode me chamar", limite de pedidos):
+oferecer carona não abre o chat de ninguém à força. Antes, o ato precisa valer para quem pede (a regra de quem escreve no ato:
+vê o ato, não oculto, retido nem apagado, não cancelado, não passou há mais de 6 horas): depois do ato não se abre mais nada. A
+tela vai para `/alumia/conversas?conversa=<id da conversa>` (nunca o @ da pessoa no endereço), e a tela das conversas tira o id
+do endereço ao abrir; se a pessoa tinha apagado aquela conversa da lista, ou se é um pedido que a outra mandou, a tela diz isso.
+Um limite próprio (30 por dia) vale para TODA tentativa: acerto, conversa que já existia e recusa. A recusa por causa da pessoa
+vem como resposta (`{erro: "dm_fechada"}`), não como exceção, para o limite não ser desfeito junto. Assim ninguém descobre de
+graça, uma carona por vez, de quem é cada uma. Limite que continua (da lista das caronas): bloquear alguém e
+recarregar a lista ainda mostra quais caronas eram dela.
 
 ## As regras, todas conferidas no servidor
 
@@ -66,36 +364,44 @@ Diferenças de propósito em relação à equipe (menos comodidade, menos coisa 
    30 dias; pedido sem resposta some em 30 dias.
 3. **Bloquear** (o mesmo bloqueio da Alumia, `interno.rede_bloqueios`) corta tudo: não pede, não envia, não lê chave nem mensagem.
 4. **Denunciar:** quem denuncia **escolhe os trechos** e eles são decifrados no aparelho dela (a moderação nunca tem a chave da
-   conversa). Vai para a fila de denúncias da Alumia como denúncia do perfil, com a prioridade da categoria; quem denuncia nunca é
-   revelado; pode bloquear junto.
+   conversa). **A tela diz com todas as letras que os trechos marcados saem do cifrado e vão em texto aberto para a moderação**;
+   o resto da conversa continua cifrado. Vai para a fila de denúncias da Alumia como denúncia do perfil, com a prioridade da
+   categoria; quem denuncia nunca é revelado; pode bloquear junto.
 5. **Limite de envio** por pessoa (`interno.limite`): 120 mensagens por hora, 20 pedidos por dia, 10 trocas de chave e 10
-   denúncias por dia; conta com menos de 3 dias tem metade.
+   denúncias por dia, 20 versões novas por hora; conta com menos de 3 dias tem metade.
 6. **Resposta igual para tudo o que é fechado:** bloqueio, preferência da pessoa, perfil invisível, não membro, recusa recente,
    @ inexistente: o mesmo erro `dm_fechada`. Conversa alheia e conversa inexistente: o mesmo `nao_encontrado`. Nada revela algo da
    outra pessoa.
 7. **RLS estrita:** as tabelas `interno.rede_dm_*` têm RLS ligada **sem política nenhuma** e nenhum privilégio para `anon` ou
    `authenticated`: ninguém lê tabela. Só as funções (`security definer`) conferem que quem chama é participante. O embrulho feito
    para a outra pessoa nunca sai.
-8. **Nada em log:** as funções do chat não chamam o registro de atividades (`interno.registrar`), não mandam avisos com conteúdo e
+8. **Só cifrado, só em bloco:** a tabela recusa texto aberto, recusa "c3" fora dos sete tamanhos, e a função de enviar recusa
+   também "c2" novo e versão da chave com mais de 8 dias. **A versão escrita no corpo** ("c2.<versão>.", "c3.<versão>." ou
+   "m1.<versão>.") **tem de ser a da coluna** `versao`, na regra da própria tabela, também para as linhas que já estavam lá
+   (migração `20261122-alumia-chat.sql`): uma linha não pode dizer uma versão na coluna e outra no corpo.
+9. **Nada em log:** as funções do chat não chamam o registro de atividades (`interno.registrar`), não mandam avisos com conteúdo e
    não fazem `raise notice`. As telas não escrevem no console e não chamam nenhum serviço de fora.
-9. **Nada federado:** mensagem privada **não vai ao Fediverso**. Nenhuma função do Fediverso no banco e nenhum código em
-   `lib/rede/fediverso`, `app/api/fediverso` ou `.well-known` toca nas tabelas do chat (conferido no teste).
-10. **Metadados mínimos:** o chat mostra da outra pessoa só codinome, @handle e rosto (nunca nome do painel nem e-mail). A página
+10. **Nada federado:** mensagem privada **não vai ao Fediverso**. Nenhuma função do Fediverso no banco e nenhum código em
+    `lib/rede/fediverso`, `app/api/fediverso` ou `.well-known` toca nas tabelas do chat (conferido no teste).
+11. **Metadados mínimos:** o chat mostra da outra pessoa só codinome, @handle e rosto (nunca nome do painel nem e-mail). A página
     não é indexada (`robots: noindex`) e não leva nada nos metadados. Não há "visto por último", "digitando" nem confirmação de
     leitura para a outra pessoa; só a contagem de não lidas para a própria pessoa.
 
 ## Retenção mínima e apagar
 
 - Toda mensagem nasce com **prazo**: 1, 7 ou 30 dias (padrão 7, escolhido por cada pessoa nos Ajustes e por conversa). Encurtar o
-  prazo vale para as mensagens novas (T33: ninguém apaga as provas do que já escreveu). Venceu, some: as leituras já filtram e a faxina (`interno.rede_dm_faxina`) apaga
-  de vez, junto das próprias chamadas. Embrulhos de versões antigas sem mensagem viva também somem.
+  prazo vale para as mensagens novas (T33: ninguém apaga as provas do que já escreveu). Venceu, some: as leituras já filtram, a
+  faxina da conversa apaga de vez a cada uso e a faxina geral (`interno.rede_dm_faxina`) cobre as conversas paradas. Embrulhos
+  de versões antigas sem mensagem viva somem junto.
 - **Apagar a mensagem** (quem escreveu): some para os dois. Depois de bloqueio (de qualquer lado) ou com denúncia aberta da
   outra pessoa, não: a mensagem é prova e some sozinha no prazo (T33).
 - **Apagar a conversa** (qualquer participante): sai da lista de quem apaga, e o que veio antes some para essa pessoa. A outra
   continua com as mensagens até o prazo delas e pode denunciar; quando as duas apagam, mensagens e chaves embrulhadas somem
   de vez (T33: antes, quem assediava apagava as provas antes da denúncia).
 - **Apagar tudo do chat** (Ajustes): tira todas as conversas da lista, apaga a chave pública, as preferências e as recusas que a
-  pessoa fez, e o chaveiro deste aparelho. As recusas que OUTRAS pessoas fizeram contra ela ficam até vencer (são delas).
+  pessoa fez, e o que o chat guardou desta conta neste aparelho. As recusas que OUTRAS pessoas fizeram contra ela ficam até
+  vencer (são delas).
+- **Sair rápido:** apaga do aparelho tudo do chat, de todas as contas (veja acima). Não apaga nada no servidor.
 - **Apagar a conta:** chave estrangeira com `on delete cascade` em tudo (`interno.perfis`): mensagens, conversas, chaves e
   preferências somem junto.
 
@@ -105,16 +411,16 @@ Conferido em 06/11/2026.
 
 | Artigo | Como o chat cumpre |
 |---|---|
-| LGPD art. 6º, I a III (finalidade, adequação, necessidade) | Guarda só o necessário para entregar a mensagem: chaves públicas, embrulhos, o cifrado e as datas. Nada de IP, aparelho, localização ou lista de contatos. |
-| LGPD art. 6º, VII e VIII (segurança, prevenção) | Cifra de ponta a ponta; o servidor não consegue ler. RLS sem política, funções que conferem o participante, limite de envio, aviso de troca de identidade. |
+| LGPD art. 6º, I a III (finalidade, adequação, necessidade) | Guarda só o necessário para entregar a mensagem: chaves públicas, embrulhos, o cifrado (em tamanhos fixos) e as datas. Nada de IP, aparelho, localização ou lista de contatos. |
+| LGPD art. 6º, VII e VIII (segurança, prevenção) | Cifra de ponta a ponta; o servidor não consegue ler. RLS sem política, funções que conferem o participante, limite de envio, aviso de troca de identidade, chave com prazo. |
 | LGPD art. 6º, X (responsabilização) | Testes automáticos provam o sigilo (`npm run testar:rede-chat`) e este documento descreve cada regra. |
 | LGPD art. 7º, I e V; art. 8º | Base: o consentimento da Alumia (`rede2_membro`) e a execução do serviço que a própria pessoa pede (ativar o chat, abrir a conversa). |
 | LGPD art. 11 | Conversas podem revelar dado sensível (saúde, orientação, opinião política): por isso ninguém além dos dois consegue ler, nem a equipe. |
 | LGPD art. 14 | Sem crianças e adolescentes: só membros 18+ da Alumia. |
-| LGPD art. 15 e 16 | Término do tratamento: prazo de 1/7/30 dias, faxina automática; nada guardado depois do fim da finalidade. |
+| LGPD art. 15 e 16 | Término do tratamento: prazo de 1/7/30 dias, faxina a cada uso; nada guardado depois do fim da finalidade. |
 | LGPD art. 18, VI | Eliminação a pedido: apagar mensagem, conversa, tudo do chat, ou a conta (cascata). |
 | LGPD art. 46 e 47 | Medidas técnicas de segurança desde a concepção (cifra, RLS, sem log de conteúdo). |
-| LGPD art. 48 | Em incidente, o banco vazado só tem cifrado e chaves públicas; o texto não pode ser lido sem os aparelhos. |
+| LGPD art. 48 | Em incidente, o banco vazado só tem cifrado em blocos e chaves públicas; o texto não pode ser lido sem os aparelhos. |
 | Marco Civil (Lei 12.965/2014) art. 7º, II e III; art. 10 | Sigilo das comunicações privadas: o conteúdo não é acessível ao instituto. Por isso não há como entregar conteúdo a terceiros; só o que o banco tem (cifrado e datas), e só por ordem judicial. |
 | Marco Civil art. 19 e 21 | Denúncia com os trechos que a própria vítima escolhe mostrar; moderação age no perfil (suspender, bloquear). |
 | ECA (Lei 8.069/1990) art. 241-D | Sem menores no chat; denúncia com categoria "menores" tem a maior prioridade na fila. |
@@ -126,8 +432,71 @@ Conferido em 06/11/2026.
 - Não mostra "online", "visto por último", "digitando" nem confirmação de leitura.
 - Não guarda cópia em nuvem nem recuperação de chave.
 - Não aparece em busca, notificação por e-mail ou push com conteúdo.
+- Não assina mensagem: nenhuma serve de prova de autoria para terceiros.
 
 ## Para aplicar em produção
 
-1. No Supabase (SQL editor), rodar `supabase/migracoes/20261106-t19-rede-chat-privado.sql` (acrescentável: pode rodar de novo).
-2. Publicar a imagem do site como de costume (`docs/HOSPEDAGEM.md`). Nenhuma variável nova em `/opt/lucia/site.env`.
+1. No Supabase (SQL editor), rodar `supabase/migracoes/20261106-t19-rede-chat-privado.sql` e depois
+   `supabase/migracoes/20261107-t33-seguranca.sql` (as duas acrescentáveis: podem rodar de novo). Se já foram aplicadas, não
+   precisa repetir.
+2. Seguir o passo a passo abaixo para a migração dos blocos.
+3. **Caronas pelo chat:** depois da migração dos atos (`20261110-alumia-b1-atos.sql`, que cria `interno.rede_ato_caronas`),
+   rodar `supabase/migracoes/20261111-chat-caronas.sql`. Sem a tabela das caronas, ela recusa rodar e avisa qual migração falta.
+4. Publicar o site como de costume. Nenhuma variável nova no servidor.
+
+### PASSO A PASSO PARA O DONO: migração `20261110-chat-blocos.sql`
+
+**Antes.** A migração e o site novo andam juntos. O site antigo envia "c2", que o banco novo recusa; o site novo envia "c3", que
+o banco antigo recusa. Em qualquer ordem há um intervalo em que enviar mensagem dá erro (ler continua funcionando, e nada se
+perde). Para o intervalo ser de minutos: deixe a imagem nova do site pronta para publicar e só então rode a migração.
+
+**Ordem.**
+
+1. Confirme que as duas anteriores já estão aplicadas (a consulta abaixo precisa devolver 1):
+   ```sql
+   select count(*) from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+   where n.nspname = 'interno' and p.proname = 'rede_dm_podar';
+   ```
+2. No SQL editor do Supabase, cole e rode o arquivo `supabase/migracoes/20261110-chat-blocos.sql` inteiro. Pode rodar de novo
+   sem medo: não apaga dado nenhum e não cria coluna nem tabela.
+3. Publique o site novo em seguida.
+4. Se algum dia a T19 ou a T33 forem rodadas de novo, rode esta de novo logo depois (ela redefine três funções daquelas duas;
+   sem isso, enviar voltaria a aceitar só "c2" e o site novo pararia de enviar).
+
+**Consulta de conferência** (depois do passo 2):
+
+```sql
+-- 1) A regra nova da tabela: precisa vir UMA linha, com o nome rede_dm_mensagens_corpo_formato e os sete tamanhos.
+select conname, pg_get_constraintdef(oid) from pg_constraint
+where conrelid = 'interno.rede_dm_mensagens'::regclass and contype = 'c' and pg_get_constraintdef(oid) like '%c3%';
+
+-- 2) As duas funções novas existem e a de enviar já é a nova: precisa vir "2" e "t".
+select (select count(*) from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+        where n.nspname = 'interno' and p.proname in ('rede_dm_corpo_c3', 'rede_dm_faxina_da_conversa')) as novas,
+       (select pg_get_functiondef(p.oid) like '%rede_dm_corpo_c3%' from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+        where n.nspname = 'public' and p.proname = 'rede_dm_enviar') as enviar_novo;
+
+-- 3) Visitante não chama, quem entrou chama: precisa vir "f" e "t".
+select has_function_privilege('anon', 'public.rede_dm_enviar(uuid, integer, text)', 'execute') as visitante,
+       has_function_privilege('authenticated', 'public.rede_dm_enviar(uuid, integer, text)', 'execute') as quem_entrou;
+```
+
+Depois de publicar o site, mande uma mensagem de teste entre duas contas: ela precisa chegar, e no banco o corpo começa com `c3.`.
+
+**Como desfazer.** Volte o site para a imagem anterior e rode de novo só as três funções que esta migração redefiniu, copiando
+cada `create or replace function … $$;` do arquivo de origem: `public.rede_dm_enviar` de `20261106-t19-rede-chat-privado.sql`
+(seção 6), e `public.rede_dm_mensagens` e `public.rede_dm_nova_versao` de `20261107-t33-seguranca.sql` (seção 4). Não rode a
+T33 inteira para isso: ela mexe em funções de outras áreas, que migrações mais novas podem ter mudado. Com as três de volta,
+enviar volta a aceitar só "c2". Depois, só se quiser, apague as duas funções novas:
+
+```sql
+drop function if exists interno.rede_dm_corpo_c3(text, integer);
+drop function if exists interno.rede_dm_faxina_da_conversa(uuid);
+```
+
+**Não mexa na regra da tabela** ao desfazer: ela aceita os dois formatos e não atrapalha o site antigo. As mensagens "c3" já
+enviadas ficam no banco até vencerem (no máximo 30 dias); o site antigo não as abre e mostra "não dá para abrir neste aparelho".
+Nenhuma mensagem "c2" é perdida em nenhum dos dois sentidos.
+
+**Para o integrador.** O arquivo `supabase/migracoes/20261110-chat-blocos.sql` inteiro vai colado no fim do
+`supabase/install.sql`, depois do bloco da T33 (e de qualquer outro bloco que redefina funções `rede_dm_*`).

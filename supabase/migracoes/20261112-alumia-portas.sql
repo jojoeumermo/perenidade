@@ -51,8 +51,17 @@ end $$;
 create or replace function interno.alumia_porta_aberta(p_nome text, p_argumentos text) returns boolean language sql immutable as $$
   select p_nome in ('alumia_entrada_eu', 'alumia_entrada_pedir', 'alumia_triagem_contagem', 'alumia_triagem_fila', 'alumia_triagem_decidir',
                     'rede_situacao', 'rede_aderir', 'rede_codinome_definir', 'rede_confirmar_idade', 'rede_eu', 'rede_alumia_versao',
-                    'rede_fed_situacao', 'rede_antigo')
+                    'rede_fed_situacao', 'rede_antigo',
+                    -- Chamadas pelo servidor do site sem sessão, com o segredo da federação (Faixa 2): com a porta, o Fediverso para.
+                    'rede_fed_servidor', 'rede_fed_midia_servidor', 'rede_fed_mudanca_servidor',
+                    -- Quem teve a conta suspensa ou retida pede revisão (20261114-alumia-o8-lei.sql).
+                    'alumia_lei_minha_conta', 'alumia_lei_recorrer_conta',
+                    -- A marca "veio por convite" na triagem, que tem a regra dela (20261114-alumia-o8-porta.sql).
+                    'alumia_triagem_convites')
       or (p_nome in ('rede_linha', 'rede_novos') and coalesce(p_argumentos, '') like 'p_aba text%')
+      -- O diretório das organizações com selo e o mapa dele (20261113-alumia-o7-entrada.sql, decisão de 12/11).
+      or (p_nome = 'rede_org_diretorio' and coalesce(p_argumentos, '') = 'p jsonb')
+      or (p_nome = 'rede_org_mapa' and coalesce(p_argumentos, '') = '')
 $$;
 
 /**

@@ -1,0 +1,26 @@
+{
+  "selo": "Chiffré pour le groupe",
+  "explicaNucleo": "Seuls les membres du noyau le lisent : le texte est chiffré sur cet appareil, et le serveur ne garde que le chiffré.",
+  "explicaComunidade": "Seuls les membres de la communauté le lisent : le texte est chiffré sur cet appareil, et le serveur ne garde que le chiffré.",
+  "custosTitulo": "Ce qui change avec le chiffrement",
+  "custos": [
+    "La recherche ne trouve ce post que sur l’appareil des membres du groupe.",
+    "L’avis de nouveau post arrive sans aperçu du texte.",
+    "Qui signale envoie l’extrait en clair, comme dans le chat.",
+    "Il ne part jamais vers le Fédivers."
+  ],
+  "semAgendar": "Le post chiffré part tout de suite : impossible de le programmer, de lui donner un délai pour disparaître ou d’arranger les images.",
+  "cifrando": "Chiffrement sur cet appareil…",
+  "semChave": "Cet appareil est encore en train d’entrer dans le groupe. Réessayez dans quelques secondes.",
+  "suspeito": "Impossible d’écrire dans ce groupe pour l’instant : la clé de quelqu’un a changé",
+  "falha": "Impossible de chiffrer pour l’instant. Rien n’a été publié.",
+  "abrindo": "Ouverture sur cet appareil…",
+  "naoAbre": "Impossible d’ouvrir sur cet appareil",
+  "naoAbreAjuda": "Qui est entré dans le groupe après le post, ou l’ouvre sur un nouvel appareil, lit ce qui vient à partir de là.",
+  "previa": "Dans l’aperçu, rien n’est chiffré ni publié.",
+  "voz": {
+    "abrir": "Ouvrir le salon vocal",
+    "fechar": "Fermer le salon vocal",
+    "carregando": "Chargement du salon…"
+  }
+}

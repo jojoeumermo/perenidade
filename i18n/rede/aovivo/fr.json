@@ -1,0 +1,121 @@
+{
+  "titulo": "Questions en direct",
+  "chamada": "« Demandez à… » à heure fixe : la personne invitée répond par écrit, dans l'ordre d'arrivée des questions. Personne ne vote sur les questions.",
+  "carregando": "Chargement…",
+  "erroCarregar": "Impossible de charger pour l'instant.",
+  "tentar": "Réessayer",
+  "voltar": "Retour aux questions en direct",
+  "agenda": {
+    "agora": "En direct maintenant",
+    "proximas": "Dans les 14 prochains jours",
+    "convites": "Invitations à répondre",
+    "vazioAgora": "Aucune séance en direct maintenant.",
+    "vazioProximas": "Aucune séance prévue dans les 14 prochains jours.",
+    "abrir": "Ouvrir la séance",
+    "aceitar": "Accepter et répondre",
+    "recusar": "Refuser",
+    "aceito": "Invitation acceptée. La séance apparaît pour qui peut voir la boîte.",
+    "recusado": "Invitation refusée.",
+    "comoMarcar": "Pour prévoir une séance, ouvrez votre boîte à questions sur votre profil, ou celle de la communauté que vous modérez."
+  },
+  "momento": {
+    "antes": "Prévue",
+    "ao_vivo": "En direct",
+    "encerrada": "Terminée",
+    "convite": "Invitation",
+    "recusada": "Refusée",
+    "cancelada": "Annulée"
+  },
+  "sessao": {
+    "pergunteA": "Demandez à {nome}",
+    "naComunidade": "dans la communauté {nome}",
+    "quando": "{dia}, de {inicio} à {fim}",
+    "perguntas": "{n} questions",
+    "regra": "Les questions entrent dans l'ordre d'arrivée et reçoivent une réponse dans cet ordre. Personne ne vote pour passer devant.",
+    "quemPerguntou": "La personne qui pose la question n'apparaît que si elle le veut. Un jour après la fin, Alumia oublie qui a posé chaque question.",
+    "aguarde": "La séance commence {quando}. Vous pouvez déjà envoyer une question.",
+    "encerrada": "Cette séance est terminée. Les réponses restent ici.",
+    "cancelar": "Annuler la séance",
+    "cancelarConfirmar": "Annuler la séance ? Ses questions disparaissent aussi.",
+    "cancelada": "Séance annulée."
+  },
+  "perguntar": {
+    "rotulo": "Votre question",
+    "mostrarNome": "Afficher mon pseudonyme avec la question",
+    "enviar": "Envoyer la question",
+    "enviada": "Question dans la file.",
+    "contador": "{n} sur {max}",
+    "entrar": "Connectez-vous pour poser une question."
+  },
+  "fila": {
+    "titulo": "Les questions, par ordre d'arrivée",
+    "vazia": "Pas encore de question.",
+    "posicao": "{n}e",
+    "daVez": "C'est son tour",
+    "esperando": "Dans la file",
+    "respondida": "Répondue",
+    "passada": "Passée",
+    "retirada": "Retirée par la modération",
+    "alguem": "Quelqu'un a demandé",
+    "perguntou": "{quem} a demandé",
+    "minha": "Votre question",
+    "retirarMinha": "Retirer la mienne",
+    "retiradaMinha": "Votre question a quitté la file."
+  },
+  "responder": {
+    "titulo": "Vous répondez maintenant",
+    "explica": "Vous répondez ou passez la première question de la file. La suivante apparaît juste après.",
+    "rotulo": "Votre réponse",
+    "publicar": "Répondre",
+    "passar": "Passer celle-ci",
+    "respondida": "Réponse publiée.",
+    "passou": "Question passée.",
+    "antes": "Vous répondez à partir du début de la séance.",
+    "nada": "La file est vide. Quand une question arrive, elle apparaît ici."
+  },
+  "moderar": {
+    "retirar": "Retirer",
+    "motivo": "Motif",
+    "confirmar": "Retirer la question",
+    "feito": "Question retirée.",
+    "desistir": "Ne pas retirer",
+    "motivos": {
+      "ofensa": "offense",
+      "dado_pessoal": "donnée personnelle",
+      "fora_do_tema": "hors sujet",
+      "repetida": "répétée"
+    }
+  },
+  "caixa": {
+    "titulo": "En direct",
+    "nenhuma": "Aucune séance prévue.",
+    "marcar": "Prévoir une séance en direct",
+    "tituloRotulo": "Sujet",
+    "inicioRotulo": "Commence le",
+    "duracaoRotulo": "Durée",
+    "minutos": "{n} minutes",
+    "convidadaRotulo": "Qui répond (le @ de la personne invitée)",
+    "convidadaAjuda": "La personne reçoit une invitation et la séance n'apparaît qu'après son accord.",
+    "salvar": "Prévoir",
+    "marcada": "Séance prévue.",
+    "convidada": "Invitation envoyée. La séance apparaît quand la personne accepte.",
+    "limite": "Jusqu'à {n} séances à venir par boîte."
+  },
+  "erros": {
+    "entre_primeiro": "Connectez-vous d'abord.",
+    "consentimento": "Seules les personnes sur Alumia peuvent faire cela.",
+    "sem_permissao": "Vous ne pouvez pas faire cela ici.",
+    "nao_encontrado": "Séance introuvable.",
+    "travado": "Cette séance ne reçoit plus de questions.",
+    "dado_pessoal": "Retirez la donnée personnelle (téléphone, e-mail, pièce d'identité ou adresse) et renvoyez.",
+    "muitos_pedidos": "Vous avez déjà le maximum en attente. Attendez une réponse avant d'en envoyer une autre.",
+    "fila_cheia": "La file de cette séance est pleine.",
+    "fora_da_vez": "Ce n'est pas la question en cours. L'écran a été mis à jour.",
+    "fora_do_horario": "En dehors de l'horaire de la séance.",
+    "invalido": "Vérifiez ce qui a été rempli.",
+    "conta_suspensa": "Votre compte est suspendu.",
+    "alumia_entrada": "Cela s'ouvre après l'approbation de votre entrée sur Alumia.",
+    "desligado": "Les séances en direct sont désactivées pour le moment.",
+    "outro": "Une erreur est survenue. Réessayez."
+  }
+}

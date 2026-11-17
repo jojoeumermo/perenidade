@@ -1,0 +1,141 @@
+{
+  "_rascunho": true,
+  "aba": "论坛",
+  "titulo": "论坛",
+  "lead": "每个话题单独一帖。发起人或管理员会标出何时已解决。",
+  "abrir": "发起话题",
+  "entrarParaAbrir": "加入社区后才能发起话题。",
+  "carregando": "正在加载论坛…",
+  "carregarMais": "加载更多",
+  "erro": "论坛加载失败。",
+  "tentar": "重试",
+  "fixados": "管理员置顶",
+  "lista": "话题",
+  "ordem": {
+    "rotulo": "列表顺序",
+    "ultima": "最新回复",
+    "novos": "最新发起",
+    "sem_resposta": "未回复",
+    "regra": {
+      "ultima": "有人回复时话题上移。规则对所有人相同：不计算任何反应、传播范围或个人画像。",
+      "novos": "从最近发起的话题到最早的话题，对所有人相同。",
+      "sem_resposta": "只显示还在等待第一条回复的话题，从新到旧。"
+    }
+  },
+  "estado": {
+    "rotulo": "状态",
+    "todos": "全部",
+    "aberto": "进行中",
+    "encaminhado": "已转交",
+    "resolvido": "已解决",
+    "filtro": {
+      "aberto": "进行中",
+      "encaminhado": "已转交",
+      "resolvido": "已解决"
+    },
+    "regra": {
+      "aberto": "仍在讨论。",
+      "encaminhado": "已变成课程、维基页面或任务。",
+      "resolvido": "问题已得到回答，或话题已结束。"
+    }
+  },
+  "etiqueta": {
+    "rotulo": "标签",
+    "todas": "全部标签",
+    "nenhuma": "无标签"
+  },
+  "item": {
+    "respostas": "{n} 条回复",
+    "resposta": "1 条回复",
+    "nenhuma": "还没有回复",
+    "ultima": "最新回复于 {quando} 前",
+    "aberto": "发起于 {quando} 前",
+    "por": "发起人：{codinome}",
+    "duvida": "提问",
+    "discussao": "讨论",
+    "travado": "已锁定",
+    "veio": "来自另一段对话",
+    "novas": "新",
+    "novasRegra": "你上次访问之后的回复。你读到哪里只保存在这台设备上。"
+  },
+  "resumo": {
+    "daModeracao": "管理员摘要",
+    "daAutora": "发起人摘要",
+    "escrever": "写摘要",
+    "trocar": "修改摘要",
+    "tirar": "移除摘要",
+    "campo": "一句话摘要",
+    "dica": "最多 140 个字符，只写一行。显示在话题顶部和论坛列表中。",
+    "conta": "{n} / 140",
+    "salvar": "保存摘要",
+    "cancelar": "取消",
+    "salvo": "摘要已保存。",
+    "tirado": "摘要已移除。"
+  },
+  "topico": {
+    "carimbo": "论坛话题",
+    "situacao": "话题状态",
+    "mudou": "话题现在：{estado}。",
+    "regraMudar": "由话题发起人或管理员修改状态和摘要。",
+    "veioDe": "这个话题延续了一段对话。",
+    "verOriginal": "查看原来的对话",
+    "continuaEm": "在论坛中继续",
+    "levar": "转到论坛",
+    "abrirForum": "查看社区论坛"
+  },
+  "virar": {
+    "titulo": "转为论坛话题",
+    "acao": "转为话题",
+    "lead": "在论坛中发起一个引用这条消息的新话题。原来的对话保留在原处，并标出在哪里继续。",
+    "avisoAutora": "这条消息不是你写的：作者会收到消息已转到论坛的通知。",
+    "comunidade": "社区",
+    "escolha": "选择社区",
+    "carregandoComunidades": "正在加载你的社区…",
+    "semComunidade": "你还没有加入任何可以发起话题的社区。",
+    "tituloCampo": "话题标题",
+    "tipo": "类型",
+    "corpo": "话题的第一条消息",
+    "corpoPadrao": "这个话题始于一段对话，在这里继续，以免被埋没。",
+    "enviar": "发起话题",
+    "cancelar": "取消",
+    "feito": "话题已发起。",
+    "ver": "查看话题",
+    "avaliar": "话题会在管理员阅读后才显示。",
+    "fechar": "关闭"
+  },
+  "novo": {
+    "titulo": "新话题",
+    "tituloCampo": "标题",
+    "tituloDica": "5 到 140 个字符。",
+    "tipo": "类型",
+    "corpo": "内容",
+    "corpoDica": "至少 10 个字符。",
+    "etiqueta": "标签",
+    "enviar": "发布话题",
+    "cancelar": "取消",
+    "feito": "话题已发布。",
+    "avaliar": "话题会在管理员阅读后才显示。"
+  },
+  "novas": {
+    "barra": "自你上次访问以来有 {n} 条新回复",
+    "uma": "自你上次访问以来有 1 条新回复",
+    "pular": "跳到第一条新回复",
+    "regua": "以下为新回复",
+    "selo": "新",
+    "regra": "你读到哪里只保存在这台设备上。"
+  },
+  "vazio": {
+    "todos": "还没有话题。来发起第一个吧？",
+    "filtro": "没有符合此筛选的话题。"
+  },
+  "erros": {
+    "ja_virou": "这条消息已经在该社区转为话题。",
+    "invalido:topico": "这段对话不是论坛话题。",
+    "invalido:estado": "未知状态。",
+    "invalido:resumo": "摘要无法保存：请检查文字。",
+    "invalido:titulo": "标题需要 5 到 140 个字符。",
+    "invalido:corpo": "内容至少需要 10 个字符。",
+    "invalido:comunidade": "请选择一个社区。",
+    "invalido:flair": "这个社区没有这个标签。"
+  }
+}

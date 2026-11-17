@@ -1,0 +1,100 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Meus dados (/alumia/meus-dados): a cópia e o apagar a conta. Linguagem do Mosaico da Arquibancada: faixa tecida, Archivo
+ * condensada em caixa alta, ladrilhos, carimbo e plaquinhas. Só usa os tokens de styles/alumia-tokens.css (vale no escuro, no
+ * claro, no contraste e no e-ink). Computador primeiro: dois cartões lado a lado quando a coluna passa de 780 px; um embaixo do outro na coluna da casca e no celular.
+ */
+
+.md-pagina { container-type: inline-size; display: grid; gap: 1.5rem; padding: 1.25rem 16px 3rem; color: var(--al-texto); }
+@media (min-width: 1024px) { .md-pagina { padding: 1.75rem 1.5rem 3.5rem; } }
+.md-carregando { color: var(--al-texto-3); min-height: 40vh; }
+
+/* ───── Cabeça ───── */
+.md-cabeca { display: grid; gap: 0.6rem; }
+.md-faixa { width: 7.5rem; border-radius: 2px; }
+.md-titulo { margin: 0; font-size: clamp(2.6rem, 6cqi, 4.2rem); }
+.md-chamada { margin: 0; max-width: 60ch; color: var(--al-texto-2); font-size: 1.08rem; line-height: 1.5; }
+
+/* ───── A grade dos dois cartões ───── */
+.md-grade { display: grid; gap: 1rem; align-items: start; }
+@container (min-width: 780px) { .md-grade { grid-template-columns: 1fr 1fr; gap: 1.25rem; } }
+
+.md-cartao {
+  display: grid; gap: 0.9rem; align-content: start; padding: 1.25rem; border-radius: var(--al-raio);
+  background: var(--al-superficie); border: 1px solid var(--al-linha); min-width: 0;
+}
+@container (min-width: 780px) { .md-cartao { padding: 1.6rem; } }
+.md-cartao-apagar { border-top: 4px solid var(--al-vermelho); }
+.md-cartao-apagar[data-marcado] { border-color: var(--al-vermelho); background: linear-gradient(180deg, var(--al-vermelho-escuro) 0, var(--al-superficie) 9rem); }
+.md-cartao-copia { border-top: 4px solid var(--al-dourado-fundo); }
+/* Sair só da Alumia (onda 9): a conta do Instituto fica, então o cartão é de saída, não de perigo (borda do texto, não vermelha). */
+.md-cartao-sair { border-top: 4px solid var(--al-texto-2); }
+.md-cartao-sair[data-marcado] { border-color: var(--al-texto-2); background: linear-gradient(180deg, var(--al-superficie-2) 0, var(--al-superficie) 9rem); }
+.md-cartao-topo { display: flex; align-items: center; gap: 1rem; }
+.md-rotulo { margin: 0; font-size: 0.95rem; color: var(--al-texto-3); letter-spacing: 0.04em; }
+.md-cartao-titulo { margin: 0; font-size: clamp(1.8rem, 3.2cqi, 2.4rem); }
+.md-texto { margin: 0; color: var(--al-texto-2); line-height: 1.55; }
+.md-forte { color: var(--al-texto); font-weight: 600; }
+.md-miudo { margin: 0; color: var(--al-texto-3); font-size: 0.92rem; line-height: 1.5; }
+
+/* Os ladrilhos da cópia: um pedaço do mosaico (4 × 3), que acende em sequência ao abrir. */
+.md-ladrilhos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; width: 4.25rem; flex: none; }
+.md-ladrilhos > span { aspect-ratio: 1; border-radius: 3px; background: var(--al-superficie-2); animation: md-acende 420ms ease-out both; }
+.md-ladrilhos > [data-cor="v"], .md-item-ladrilho[data-cor="v"] { background: var(--al-vermelho); }
+.md-ladrilhos > [data-cor="d"], .md-item-ladrilho[data-cor="d"] { background: var(--al-dourado-fundo); }
+.md-ladrilhos > [data-cor="p"] { background: var(--al-saliente); }
+.md-ladrilhos > [data-cor="1"], .md-item-ladrilho[data-cor="1"] { background: var(--al-com-1); }
+.md-ladrilhos > [data-cor="2"] { background: var(--al-com-2); }
+.md-ladrilhos > [data-cor="3"] { background: var(--al-com-3); }
+.md-ladrilhos > [data-cor="4"], .md-item-ladrilho[data-cor="4"] { background: var(--al-com-4); }
+.md-ladrilhos > [data-cor="5"] { background: var(--al-com-5); }
+@keyframes md-acende { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
+
+.md-itens { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.md-itens li { display: flex; gap: 0.65rem; align-items: baseline; line-height: 1.45; }
+.md-item-ladrilho { flex: none; width: 0.7rem; height: 0.7rem; border-radius: 2px; transform: translateY(0.05rem); }
+
+/* A nota do piso de 3: o número grande em ouro, que é o mesmo da regra da casa. */
+.md-nota { display: flex; gap: 0.8rem; align-items: center; margin: 0; padding: 0.8rem 0.95rem; border-radius: 12px; background: var(--al-fundo); border: 1px solid var(--al-linha); line-height: 1.45; }
+.md-nota-numero { flex: none; display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 8px; background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 1.9rem; }
+
+/* Os três passos do apagar, numerados como placas. */
+.md-passos { display: grid; gap: 0.65rem; margin: 0; padding: 0; list-style: none; }
+.md-passos li { display: flex; gap: 0.75rem; align-items: flex-start; line-height: 1.45; color: var(--al-texto-2); }
+.md-passo-numero { flex: none; display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 6px; background: var(--al-fundo); border: 1px solid var(--al-vermelho); color: var(--al-vermelho-letra, var(--al-vermelho-texto)); font-size: 1.25rem; }
+
+/* ───── Rodapé dos cartões: ações, códigos, mensagens ───── */
+.md-rodape { display: grid; gap: 0.75rem; padding-top: 0.9rem; border-top: 1px dashed var(--al-linha); }
+.md-rodape > .al-botao { justify-self: start; }
+.md-confirmar, .md-codigo { display: grid; gap: 0.5rem; }
+.md-confirmar > .al-botao { justify-self: start; margin-top: 0.35rem; }
+.md-baixe-antes { margin: 0 0 0.35rem; font-weight: 600; color: var(--al-texto); }
+.md-campo-rotulo { font-weight: 700; font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: baseline; }
+.md-palavra { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-weight: 700; padding: 0.05rem 0.4rem; border-radius: 6px; background: var(--al-fundo); color: var(--al-dourado); border: 1px solid var(--al-linha); }
+.md-campo {
+  width: 100%; max-width: 22rem; min-height: 48px; padding: 0 0.85rem; border-radius: 10px; border: 1px solid var(--al-superficie-2);
+  background: var(--al-fundo); color: var(--al-texto); font-size: 1.05rem;
+}
+.md-campo:focus-visible { border-color: var(--al-foco); }
+.md-campo[aria-invalid="true"] { border-color: var(--al-vermelho); }
+.md-campo-codigo { max-width: 12rem; font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 1.6rem; letter-spacing: 0.35em; text-align: center; }
+.md-dica { margin: 0; color: var(--al-texto-3); font-size: 0.85rem; }
+.md-codigo { padding: 1rem; border-radius: 12px; background: var(--al-fundo); border: 1px solid var(--al-linha); }
+.md-codigo[data-perigo] { border-color: var(--al-vermelho); }
+.md-codigo-titulo { margin: 0; font-size: 1.45rem; }
+.md-codigo-texto { margin: 0 0 0.3rem; color: var(--al-texto-2); }
+.md-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 0.35rem; }
+.md-erro { margin: 0; color: var(--al-vermelho-letra, var(--al-vermelho-texto)); font-weight: 600; }
+.md-feito { margin: 0; padding: 0.7rem 0.9rem; border-radius: 10px; background: var(--al-fundo); border-left: 4px solid var(--al-dourado-fundo); font-weight: 600; }
+
+/* ───── O apagamento marcado ───── */
+.md-carimbo { justify-self: start; color: var(--al-vermelho); font-size: 1.05rem; }
+.md-contagem { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; padding: 0.9rem 1rem; border-radius: 12px; background: var(--al-fundo); border: 1px solid var(--al-linha); }
+.md-contagem .al-flaps { font-size: 2rem; }
+
+:root:is([data-contrast], [data-eink]) .md-cartao, :root:is([data-contrast], [data-eink]) .md-nota, :root:is([data-contrast], [data-eink]) .md-codigo { border-color: var(--al-texto); }
+:root[data-eink] .md-cartao-apagar[data-marcado] { background: var(--al-superficie); }
+
+/* O erro ao carregar: a nota e o botão de tentar de novo, lado a lado. */
+.md-erro-geral { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; }
+.md-erro-geral .md-erro { margin: 0; }

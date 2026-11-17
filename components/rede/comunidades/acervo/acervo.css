@@ -1,0 +1,209 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ *
+ * O acervo da comunidade e do núcleo (frente 10D), na linguagem do Mosaico da Arquibancada: as partes do acervo são ladrilhos, a
+ * coleção é um cartão com a faixa tecida no alto e o carimbo "COLEÇÃO", cada mês é um ladrilho do ano. Só tokens da Alumia
+ * (styles/alumia-tokens.css), nos dois temas; no alto contraste e no e-ink a cor vira borda; nada se mexe com menos movimento. */
+
+.acv { padding: 0 16px 1.5rem; container-type: inline-size; }
+.acv h2, .acv h3 { margin: 0; }
+.acv-cond { font-family: var(--al-fonte); font-stretch: 70%; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.02; }
+.acv-intro { margin: 0.35rem 0 0; color: var(--al-texto-2); max-width: 60ch; }
+.acv-regra { margin: 0.4rem 0 0; font-size: 0.85rem; color: var(--al-texto-3); max-width: 60ch; }
+
+/* As partes do acervo: ladrilhos lado a lado (no celular, dois por linha). */
+.acv-partes { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem; margin: 1rem 0 1.25rem; }
+.acv-parte {
+  position: relative;
+  min-height: 64px;
+  padding: 0.7rem 0.85rem 0.6rem;
+  border: 2px solid var(--al-linha);
+  border-radius: 6px;
+  background: var(--al-superficie);
+  color: var(--al-texto);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  overflow: hidden;
+}
+.acv-parte::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--al-cor, var(--al-vermelho)); }
+.acv-parte .acv-cond { display: block; font-size: 1.15rem; }
+.acv-parte small { display: block; margin-top: 0.15rem; color: var(--al-texto-3); font-size: 0.8rem; }
+.acv-parte[aria-current="true"] { border-color: var(--al-texto); background: var(--al-texto); color: var(--al-fundo); }
+.acv-parte[aria-current="true"] small { color: var(--al-fundo); opacity: 0.8; }
+.acv-parte:nth-child(1) { --al-cor: var(--al-vermelho); }
+.acv-parte:nth-child(2) { --al-cor: var(--al-dourado-fundo, var(--al-dourado)); }
+.acv-parte:nth-child(3) { --al-cor: var(--al-com-1); }
+.acv-parte:nth-child(4) { --al-cor: var(--al-com-4); }
+.acv-parte:focus-visible, .acv-botao:focus-visible, .acv-link:focus-visible, .acv-mes:focus-visible, .acv-campo:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+
+/* Cabeça de cada parte: título condensado e a ação à direita (no celular, embaixo). */
+.acv-cabeca { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 0.75rem; }
+.acv-cabeca h2 { font-size: 2rem; }
+
+/* Cartões de coleção: grade de duas colunas no computador. */
+.acv-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.75rem; margin-top: 1rem; list-style: none; padding: 0; }
+.acv-cartao {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 150px;
+  padding: calc(var(--al-faixa-altura, 6px) + 0.8rem) 1rem 0.9rem;
+  border: 1px solid var(--al-linha);
+  border-radius: var(--al-raio, 14px);
+  background: var(--al-superficie);
+  color: var(--al-texto);
+  overflow: hidden;
+}
+.acv-cartao::before { content: ""; position: absolute; inset: 0 0 auto 0; height: var(--al-faixa-altura, 6px); background: var(--al-faixa, var(--al-vermelho)); }
+.acv-cartao h3 { font-size: 1.45rem; }
+.acv-cartao p { margin: 0; }
+.acv-cartao-pe { margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; font-size: 0.9rem; color: var(--al-texto-3); }
+.acv-carimbo {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 0.05rem 0.45rem;
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  color: var(--al-vermelho-letra, var(--al-vermelho-texto));
+  font-family: var(--al-fonte);
+  font-stretch: 70%;
+  font-weight: 800;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+}
+.acv-selo-dourado { color: var(--al-dourado); }
+
+.acv-botoes { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 0.75rem; }
+.acv-botao {
+  min-height: 44px;
+  padding: 0 1.05rem;
+  border-radius: var(--al-raio-pilula, 999px);
+  border: 2px solid var(--al-texto);
+  background: transparent;
+  color: var(--al-texto);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+/* Fundo de botão com letra: o vermelho de botão (branco em cima dá 5,1:1; o --al-vermelho, 4,3:1). */
+.acv-botao[data-cheio] { background: var(--al-vermelho-texto); border-color: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); }
+.acv-botao[data-pequeno] { min-height: 36px; padding: 0 0.75rem; font-size: 0.88rem; }
+.acv-botao:disabled { opacity: 0.55; cursor: not-allowed; }
+.acv-link { background: none; border: 0; padding: 0; min-height: 44px; font: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; color: inherit; cursor: pointer; }
+.acv-voltar { display: inline-flex; align-items: center; gap: 0.35rem; }
+
+.acv-form { display: grid; gap: 0.35rem; margin-top: 0.9rem; padding: 1rem; border: 1px dashed var(--al-texto-3); border-radius: var(--al-raio, 14px); background: var(--al-superficie); }
+.acv-rotulo { font-weight: 700; margin-top: 0.4rem; }
+.acv-campo, .acv-area {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--al-texto-3);
+  border-radius: 10px;
+  background: var(--al-fundo);
+  color: var(--al-texto);
+  padding: 0.55rem 0.7rem;
+  font: inherit;
+}
+.acv-area { min-height: 12rem; resize: vertical; line-height: 1.55; }
+.acv-dica { font-size: 0.85rem; color: var(--al-texto-3); margin: 0; }
+
+/* A coleção aberta: duas colunas no computador (a lista e, ao lado, a capa com título e regra). */
+.acv-colecao { display: grid; gap: 1rem; margin-top: 0.75rem; }
+@container (min-width: 820px) {
+  .acv-colecao { grid-template-columns: minmax(0, 1fr) 300px; align-items: start; }
+  .acv-colecao-capa { position: sticky; top: 1rem; order: 2; }
+}
+.acv-colecao-capa h2 { font-size: 2.1rem; }
+.acv-itens { list-style: none; margin: 0; padding: 0; counter-reset: acv; }
+.acv-item { display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); gap: 0.6rem; padding: 0.75rem 0; border-top: 1px solid var(--al-linha); }
+.acv-item:first-child { border-top: 0; }
+.acv-num { font-family: var(--al-fonte); font-stretch: 70%; font-weight: 800; font-size: 2rem; line-height: 1; color: var(--al-vermelho-letra, var(--al-vermelho-texto)); text-align: right; }
+.acv-nota { margin: 0 0 0.35rem; padding-left: 0.6rem; border-left: 3px solid var(--al-dourado-fundo, var(--al-dourado)); font-size: 0.92rem; color: var(--al-texto-2); }
+.acv-item-acoes { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.35rem; }
+.acv-item .al3-post { margin: 0; }
+
+/* Arquivo por mês: um ano por linha, cada mês um ladrilho. */
+.acv-ano { margin-top: 1.1rem; }
+.acv-ano h3 { font-size: 1.35rem; color: var(--al-texto-3); }
+.acv-meses { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.45rem; margin: 0.5rem 0 0; padding: 0; list-style: none; }
+.acv-mes {
+  width: 100%;
+  min-height: 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.55rem 0.7rem;
+  border: 0;
+  border-radius: 6px;
+  background: var(--al-superficie-2);
+  color: var(--al-texto);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.acv-mes .acv-cond { font-size: 1.1rem; }
+.acv-mes small { color: var(--al-texto-3); }
+.acv-mes[data-cheio="sim"] { background: var(--al-vermelho); color: var(--al-sobre-vermelho); }
+.acv-mes[data-cheio="sim"] small { color: var(--al-sobre-vermelho); opacity: 0.85; }
+
+/* Comparar versões: o que saiu riscado, o que entrou sublinhado (não só pela cor). */
+.acv-dif { margin: 0.6rem 0 0; padding: 0.6rem 0.8rem; border-radius: 10px; background: var(--al-fundo); border: 1px solid var(--al-linha); font-size: 0.92rem; overflow-x: auto; }
+.acv-dif p { margin: 0; white-space: pre-wrap; word-break: break-word; }
+.acv-dif [data-tipo="saiu"] { text-decoration: line-through; color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+.acv-dif [data-tipo="entrou"] { text-decoration: underline; text-decoration-thickness: 2px; color: var(--al-texto); background: color-mix(in srgb, var(--al-dourado-fundo, #ffc21a) 22%, transparent); }
+.acv-dif [data-tipo] > span:first-child { display: inline-block; min-width: 4.2rem; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--al-texto-3); text-decoration: none; }
+
+/* Documentos e arquivos do núcleo. */
+.acv-lista { list-style: none; margin: 0.6rem 0 0; padding: 0; }
+.acv-linha { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.65rem 0; border-top: 1px solid var(--al-linha); }
+.acv-linha:first-child { border-top: 0; }
+.acv-linha-nome { min-width: 0; flex: 1 1 14rem; }
+.acv-linha-nome strong { display: block; overflow-wrap: anywhere; }
+.acv-linha-nome small { color: var(--al-texto-3); }
+.acv-tipo { display: inline-grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 6px; background: var(--al-superficie-2); font-family: var(--al-fonte); font-stretch: 70%; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; flex: none; }
+.acv-tipo[data-ext="pdf"] { background: var(--al-vermelho); color: var(--al-sobre-vermelho); }
+.acv-uso { height: 10px; border-radius: 999px; background: var(--al-superficie-2); overflow: hidden; margin-top: 0.4rem; max-width: 22rem; }
+.acv-uso > span { display: block; height: 100%; background: var(--al-faixa, var(--al-vermelho)); }
+.acv-texto { white-space: pre-wrap; line-height: 1.6; margin: 0.6rem 0 0; overflow-wrap: anywhere; }
+.acv-aviso { margin: 0.6rem 0 0; padding: 0.55rem 0.75rem; border-left: 4px solid var(--al-dourado-fundo, var(--al-dourado)); background: var(--al-superficie); }
+.acv-nucleo { border-top: 1px solid var(--al-linha); padding: 1rem 18px; }
+.acv-nucleo h2 { font-size: 1.7rem; }
+
+/* O perfil: as coleções numa fileira que rola de lado. */
+.acv-fileira { display: flex; gap: 0.5rem; overflow-x: auto; padding: 0.25rem 16px 0.6rem; scrollbar-width: thin; }
+.acv-ficha { flex: none; display: inline-flex; align-items: center; gap: 0.4rem; min-height: 40px; padding: 0 0.85rem; border-radius: 6px; border: 2px solid var(--al-linha); background: var(--al-superficie); color: var(--al-texto); font: inherit; font-weight: 700; cursor: pointer; }
+.acv-ficha[aria-expanded="true"] { border-color: var(--al-texto); }
+.acv-ficha small { color: var(--al-texto-3); font-weight: 400; }
+
+:root:is([data-contrast], [data-eink]) .acv-parte::before,
+:root:is([data-contrast], [data-eink]) .acv-cartao::before { background: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) .acv-mes[data-cheio="sim"] { background: var(--al-superficie-2); color: var(--al-texto); outline: 2px solid var(--al-texto); }
+@media (forced-colors: active) {
+  .acv-parte, .acv-mes, .acv-cartao { border: 1px solid CanvasText; }
+  .acv-parte[aria-current="true"] { outline: 3px solid Highlight; }
+}
+
+/* Revisão da onda 10: os filtros visíveis da busca, o ladrilho de vazio das coleções no perfil, a legenda dos meses e o campo de
+   arquivo com cara de botão. */
+.acv-filtros { display: flex; flex-wrap: wrap; gap: 0.6rem 0.9rem; margin: 0.6rem 0 0; padding: 0; border: 0; }
+.acv-filtros legend { margin-bottom: 0.3rem; }
+.acv-filtro { display: grid; gap: 0.25rem; flex: 1 1 10rem; color: var(--al-texto-2); font-size: 0.85rem; font-weight: 700; }
+.acv-filtro small { font-weight: 400; color: var(--al-texto-3); }
+.acv-recolhe > summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-size: 1.15rem; }
+.acv-recolhe > summary:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+.acv-perfil { margin-bottom: 1rem; }
+.acv-perfil-vazio { margin: 0.25rem 16px 0; padding: 0.9rem 1rem 1rem; border: 2px dashed var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); }
+.acv-perfil-vazio h2 { margin: 0; font-size: 1.35rem; }
+.acv-perfil-vazio p { margin: 0.25rem 0 0.7rem; color: var(--al-texto-2); }
+.acv-legenda { display: flex; align-items: center; gap: 0.45rem; }
+.acv-legenda-cor { flex: none; width: 0.95rem; height: 0.95rem; border-radius: 3px; background: var(--al-vermelho); }
+:root:is([data-contrast], [data-eink]) .acv-legenda-cor { background: var(--al-superficie-2); outline: 2px solid var(--al-texto); }
+.acv-arquivo { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; }
+.acv-arquivo label.acv-botao { display: inline-flex; align-items: center; cursor: pointer; }
+.acv-arquivo input:focus-visible + label { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+.acv-arquivo-nome { margin: 0; overflow-wrap: anywhere; }
+
+@media (pointer: coarse) { .acv-botao[data-pequeno], .acv-ficha { min-height: 44px; } }

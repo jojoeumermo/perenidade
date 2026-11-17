@@ -171,7 +171,7 @@ function CronometroLampiao({ desde, total, t }: { desde: string; total: number; 
   const treme = tremeOLampiao(restam);
   return (
     <div className="b1-cronometro" data-treme={treme ? "" : undefined} data-acabou={restam <= 0 ? "" : undefined} style={{ ["--fracao" as string]: fracao }}>
-      <span className="b1-cronometro-luz" aria-hidden><Lampiao tamanho={44} /></span>
+      <span className="b1-cronometro-luz" aria-hidden><Lampiao tamanho={54} /></span>
       <span className="b1-cronometro-texto" role="timer" aria-label={t.ata.lampiao}>
         {restam > 0 ? preencher(t.ata.restam, { s: restam }) : t.ata.acabou}
       </span>

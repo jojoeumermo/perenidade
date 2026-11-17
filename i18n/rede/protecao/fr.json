@@ -1,0 +1,110 @@
+{
+  "titulo": "Protection contre les attaques",
+  "chamada": "Pour quand une de vos publications devient une cible : fermez la porte un moment, repliez qui insiste et choisissez qui vous parle.",
+  "carregando": "Lecture de votre protection…",
+  "erro": "Impossible d’enregistrer pour l’instant. Réessayez dans un moment.",
+  "erroAoLer": "Impossible de lire votre protection pour l’instant. Réessayez dans un moment.",
+  "blindagem": {
+    "rotulo": "Mode protégé",
+    "texto": "Pendant un moment, seules les personnes que vous suivez répondent à vos publications, vous mentionnent et vous citent. Les autres continuent à lire, mais n’entrent pas dans la conversation.",
+    "ligar24": "Activer pour 24 heures",
+    "ligar7": "Activer pour 7 jours",
+    "ligada": "Activé jusqu’au {quando}",
+    "ligadaTexto": "Seules les personnes que vous suivez répondent, mentionnent et citent. Il se désactive tout seul à la fin du délai.",
+    "desligar": "Désactiver maintenant",
+    "ligou": "Mode protégé activé jusqu’au {quando}.",
+    "desligou": "Mode protégé désactivé."
+  },
+  "mencao": {
+    "rotulo": "Qui peut me mentionner",
+    "texto": "La mention de quelqu’un qui n’a pas le droit reste écrite dans sa publication, mais ne vous parvient pas et n’entre pas dans vos mentions.",
+    "opcoes": {
+      "todos": "Tout le monde sur Alumia",
+      "seguindo": "Seulement les personnes que je suis",
+      "ninguem": "Personne"
+    },
+    "salvo": "Choix enregistré."
+  },
+  "marcacao": {
+    "rotulo": "Identifications sur les photos",
+    "texto": "Personne ne vous identifie sans votre choix. Une publication d’action n’a jamais d’identification, et Alumia ne reconnaît pas les visages.",
+    "quem": "Qui peut m’identifier",
+    "opcoes": {
+      "ninguem": "Personne",
+      "seguindo": "Seulement les personnes que je suis",
+      "todos": "Tout le monde sur Alumia"
+    },
+    "aprovar": "Approuver avant affichage",
+    "aprovarTexto": "L’identification n’apparaît sur la publication qu’après votre accord.",
+    "pendentes": "En attente de votre accord",
+    "nenhuma": "Aucune identification ne vous attend.",
+    "de": "{codinome} veut vous identifier",
+    "aceitar": "Accepter",
+    "recusar": "Refuser",
+    "aceitou": "Identification acceptée : elle apparaît maintenant sur la publication.",
+    "recusou": "Identification refusée : elle n’apparaît pas et ne peut pas être refaite sur cette publication.",
+    "naFoto": "Sur la photo",
+    "tirarMinha": "Retirer mon identification",
+    "tirou": "Votre identification a été retirée de la publication.",
+    "voceFoiMarcada": "On a demandé à vous identifier sur cette publication."
+  },
+  "restringir": {
+    "rotulo": "Personnes restreintes",
+    "texto": "Plus léger que bloquer : la personne continue de répondre, mais dans vos conversations sa réponse reste repliée, avec la mention « en attente de la personne qui a ouvert la conversation ». Elle voit la mention sur sa propre réponse ; vous l’ouvrez d’un geste et la libérez si vous voulez. Ses réponses, mentions et citations ne deviennent pas des notifications pour vous.",
+    "campo": "@ de la personne à restreindre",
+    "botao": "Restreindre",
+    "nenhuma": "Vous n’avez restreint personne.",
+    "desde": "depuis le {quando}",
+    "tirar": "Ne plus restreindre",
+    "restringiu": "Les réponses de {handle} sont maintenant repliées dans vos conversations.",
+    "tirou": "Les réponses de {handle} s’affichent de nouveau comme celles de tout le monde.",
+    "naoAchou": "Nous n’avons pas trouvé ce @ sur Alumia.",
+    "propria": "Impossible de restreindre votre propre compte."
+  },
+  "cartao": {
+    "restringir": "Restreindre {handle}",
+    "tirarRestricao": "Ne plus restreindre {handle}",
+    "soltar": "Détacher ma publication de cette citation",
+    "soltarConfirma": "La publication qui cite reste en ligne, mais sans votre publication dedans, et cette personne ne pourra plus la citer.",
+    "soltarSim": "Détacher",
+    "soltou": "Votre publication a été détachée de la citation.",
+    "liberar": "Libérer cette réponse",
+    "recolher": "Replier de nouveau",
+    "liberou": "Réponse libérée : tout le monde peut la lire.",
+    "recolheu": "Réponse repliée de nouveau.",
+    "aguardando": "En attente de la personne qui a ouvert la conversation",
+    "aguardandoOutros": "Cette réponse est repliée jusqu’à la décision de la personne qui a ouvert la conversation.",
+    "aguardandoAutora": "Votre réponse attend la personne qui a ouvert la conversation. Pour les autres, elle apparaît repliée.",
+    "aguardandoDona": "Réponse d’une personne que vous avez restreinte. Vous seul·e pouvez l’ouvrir.",
+    "mostrar": "Afficher",
+    "esconder": "Replier",
+    "solta": "La personne qui a écrit la publication citée l’a détachée de cette citation.",
+    "cancelar": "Annuler"
+  },
+  "link": {
+    "rotulo": "Alerte de lien suspect",
+    "texto": "Avant d’ouvrir un lien externe, Alumia vérifie l’adresse avec une liste ouverte de motifs d’arnaque, ici sur votre appareil. L’adresse n’est envoyée à personne. Voici la liste :",
+    "titulo": "Vérifiez ce lien avant de l’ouvrir",
+    "vaiPara": "Ce lien mène à",
+    "porque": "Ce qui a déclenché l’alerte :",
+    "motivos": {
+      "perigo": "Le lien exécute du code ou ouvre un contenu intégré, au lieu de mener à une page.",
+      "numero": "L’adresse est un numéro, sans nom de site : courant dans les arnaques.",
+      "alfabeto": "Le nom du site utilise des lettres d’un autre alphabet qui imitent les nôtres.",
+      "encurtador": "C’est un lien raccourci : la destination n’apparaît qu’après le clic.",
+      "arroba": "Il y a un @ avant l’adresse : ce qui précède est décoratif, le vrai site vient après.",
+      "imitacao": "Le nom imite un service public ou l’Institut, mais le site est un autre.",
+      "terminacao": "L’adresse se termine comme un nom de fichier (.zip, .mov), ce qui prête à confusion.",
+      "sem_cadeado": "Le lien n’utilise pas de connexion sécurisée (pas de cadenas) : ce que vous y tapez peut être lu en chemin."
+    },
+    "voltar": "Revenir",
+    "abrir": "Ouvrir quand même",
+    "naoAbre": "Ce type de lien ne s’ouvre pas depuis Alumia.",
+    "antesDePublicar": "Un lien de votre publication déclenche l’alerte de lien suspect : {motivos}. Les lecteurs verront l’alerte avant de l’ouvrir. Vérifiez que c’est la bonne adresse. Toucher Publier à nouveau l’envoie quand même."
+  },
+  "topo": {
+    "protegida": "Mode protégé jusqu’au {quando}",
+    "pendentes": "Identifications en attente de votre accord",
+    "ver": "Voir"
+  }
+}

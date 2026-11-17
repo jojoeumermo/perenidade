@@ -1,0 +1,80 @@
+{
+  "_rascunho": true,
+  "prova": {
+    "explica": "Against bots, with no outside service: before your request goes out, your device does a short calculation. Of your device and your network, only a scrambled digest is kept, and it is gone within a day.",
+    "fazendo": "Your device is doing the anti-bot calculation…",
+    "fazendoAntes": "Your device is doing a short calculation before sending…",
+    "demorando": "It is taking longer than usual (there are many requests right now). You can wait: the calculation keeps going.",
+    "pronta": "Calculation done. Sending…",
+    "erros": {
+      "muitos_pedidos": "Too many requests from this network this hour. Try again later.",
+      "porta_cheia": "Alumia received many requests this hour. Try again in a little while.",
+      "rede_barrada": "From this network you cannot create an account or ask to join right now.",
+      "desafio_vencido": "The calculation took too long and expired. Try again.",
+      "email_nao_confirmado": "Confirm your e-mail before asking to join: the link is in your inbox.",
+      "cadastro_fechado": "Sign-up is closed at the moment. Come back soon.",
+      "senha_fraca": "That password will not do. Pick a longer one that you do not use anywhere else.",
+      "sem_servico": "We could not reach the server right now. Try again in a little while.",
+      "captcha": "Cloudflare's anti-robot check has not finished or did not pass. Wait for its box to confirm and try again.",
+      "falha": "That did not work right now. Try again in a little while."
+    }
+  },
+  "pagina": {
+    "carimbo": "Invitation",
+    "titulo": "Someone invited you to Alumia",
+    "texto": "Someone who is already inside sent you this invitation. It takes your request to the screening, like any other: it does not approve you by itself.",
+    "sigilo": "The screening only sees that the request came with an invitation, never from whom. Once it decides, not even that mark remains.",
+    "guardado": "The invitation is kept only on this device, for up to 7 days, until your request goes out.",
+    "vale": "Valid until {data}.",
+    "conferindo": "Checking the invitation…",
+    "criar": "Create an account and ask to join",
+    "jaTenho": "I already have an account",
+    "invalidoTitulo": "This invitation is no longer valid",
+    "invalido": "It expired, was already used or was cancelled. You can still ask to join without an invitation: the screening reads every request.",
+    "pedirSem": "Ask to join without an invitation",
+    "semConferir": "We could not check the invitation right now. It stays on this device and goes along with your request; if it is no longer valid, the request goes without it.",
+    "passos": [
+      { "titulo": "Create the account", "texto": "E-mail and password. Never a phone number." },
+      { "titulo": "Ask to join", "texto": "A codename and why you want to join. The invitation goes along." },
+      { "titulo": "The screening reads it", "texto": "People from the coordination and mediation decide. Once approved, you set up the authenticator app and come in." }
+    ]
+  },
+  "meus": {
+    "titulo": "Invite to Alumia",
+    "texto": "Send the link to someone you know. The invitation leads to the screening and does not approve anyone by itself; Alumia does not keep who invited whom.",
+    "restam": "{n} of {teto} invitations left this month",
+    "restamUm": "1 of {teto} invitations left this month",
+    "usados": "Used this month: {n}",
+    "gerar": "Create invitation",
+    "gerando": "Creating…",
+    "novoTitulo": "Invitation ready",
+    "novo": "Copy the link now: it is shown only this once. Valid for 7 days, until {data}.",
+    "copiar": "Copy the link",
+    "copiado": "Link copied",
+    "rotuloLink": "Invitation link",
+    "lista": "Your invitations",
+    "vazio": "No invitations yet.",
+    "criado": "created on {data}",
+    "situacoes": {
+      "aberto": "open until {data}",
+      "usado": "used",
+      "vencido": "expired",
+      "cancelado": "cancelled"
+    },
+    "nota": "A used invitation leaves the list and the database right away: Alumia keeps neither which one it was nor who asked to join with it.",
+    "cancelar": "Cancel",
+    "cancelarRotulo": "Cancel the invitation created on {data}",
+    "acabaram": "This month's invitations are used up. There will be more next month.",
+    "desligados": "Invitations are turned off by the coordination right now.",
+    "soDentro": "Only people already inside Alumia can create invitations.",
+    "erro": "That did not work right now. Try again in a little while.",
+    "voltar": "Back to Alumia"
+  },
+  "triagem": {
+    "marca": "came with an invitation",
+    "explica": "The screening does not know from whom. The mark disappears once the request is decided."
+  },
+  "semTerceiro": {
+    "redeBarrada": { "entrar": "You can't sign in from this network right now.", "aviso": "You can't request this e-mail from this network right now." }
+  }
+}

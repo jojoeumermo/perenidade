@@ -7,12 +7,15 @@
   },
   "fed": {
     "titulo": "Alumia no Fediverso",
-    "lead": "O Fediverso é um conjunto de redes sociais livres que conversam entre si, como o Mastodon. Se você ligar a federação, gente de lá pode seguir você e ler os seus posts públicos, e você pode seguir gente de lá. Fica desligada até você ligar.",
+    "lead": "O Fediverso é um conjunto de redes sociais livres que conversam entre si, como o Mastodon. Se você ligar a federação, gente de lá pode seguir você e ler os seus posts públicos, e você pode seguir gente de lá.",
+    "leadDesligada": "Fica desligada até você ligar.",
+    "leadLigada": "A sua está ligada: dá para desligar logo abaixo, e os servidores de fora recebem o pedido para apagar.",
     "foraDoAr": "A federação ainda não está ligada no servidor da Alumia. Quando estiver, você poderá ligar a sua aqui.",
     "endereco": "Seu endereço no Fediverso",
     "ligadaDesde": "Ligada desde {quando}.",
     "desligada": "Desligada: nada seu sai da Alumia.",
     "numeros": "Pessoas de fora que seguem você: {seguidores}. Pessoas de fora que você segue: {seguindo}.",
+    "menosDeTres": "menos de 3",
     "consentimento": {
       "titulo": "Antes de ligar, leia com calma",
       "itens": [

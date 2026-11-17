@@ -31,13 +31,13 @@
 [data-al="2"] .al-ato-dourado { color: var(--al-ato-dourado-texto); }
 [data-al="2"] .al-ato-forte { font-weight: 700; }
 [data-al="2"] .al-ato-frase { margin: 0; color: var(--al-texto-2); font-size: 0.9rem; line-height: 1.45; }
-[data-al="2"] .al-ato-erro { display: block; margin-top: 0.25rem; color: var(--al-vermelho); font-size: 0.85rem; font-weight: 600; }
+[data-al="2"] .al-ato-erro { display: block; margin-top: 0.25rem; color: var(--al-vermelho-letra, var(--al-vermelho-texto)); font-size: 0.85rem; font-weight: 600; }
 [data-al="2"] .al-ato-copiado { display: block; color: var(--al-ato-dourado-texto); font-size: 0.8rem; min-height: 0; }
 [data-al="2"] .al-ato-copiado:empty { display: none; }
 
 [data-al="2"] .al-ato-bloco { display: inline-grid; justify-items: center; min-width: 2.6rem; line-height: 1; }
 [data-al="2"] .al-ato-bloco-dia { font-size: 1.9rem; color: var(--al-texto); }
-[data-al="2"] .al-ato-bloco-mes { font-size: 0.85rem; color: var(--al-vermelho); margin-top: 0.15rem; }
+[data-al="2"] .al-ato-bloco-mes { font-size: 0.85rem; color: var(--al-vermelho-letra, var(--al-vermelho)); margin-top: 0.15rem; }
 [data-al="2"] .al-ato-bloco-apagado .al-ato-bloco-dia,
 [data-al="2"] .al-ato-bloco-apagado .al-ato-bloco-mes { color: var(--al-texto-3); }
 
@@ -47,7 +47,7 @@
   align-items: center;
   gap: 0.9rem;
   padding: 0.7rem 16px;
-  background: var(--al-dourado);
+  background: var(--al-dourado-fundo);
   color: var(--al-sobre-dourado);
   text-decoration: none;
   min-height: 56px;
@@ -154,7 +154,7 @@
   border-radius: 999px;
   cursor: pointer;
 }
-[data-al="2"] .al-atos-filtro-botao[aria-pressed="true"] { background: var(--al-cartao-aceso); color: var(--al-sobre-papel); }
+[data-al="2"] .al-atos-filtro-botao[aria-pressed="true"] { background: var(--al-saliente); color: var(--al-sobre-saliente); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al-atos-filtro { border: 1px solid var(--al-texto); }
 :root[data-eink] [data-al="2"] .al-atos-filtro-botao[aria-pressed="true"] { background: #000; color: #fff; }
 [data-al="2"] .al-atos-previa { margin: 0 0 0.6rem; font-size: 0.75rem; color: var(--al-ato-dourado-texto); text-transform: uppercase; letter-spacing: 0.06em; }
@@ -223,7 +223,7 @@
    button[aria-pressed] (app/celular.css), para ele continuar quadrado arredondado como os outros três */
 :root [data-al="2"] .al-ato-coluna .al-ato-quadrado:is(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 64px; height: 64px; border-radius: 18px; }
 [data-al="2"] .al-ato-coluna .al-ato-quadrado-vou { background: var(--al-vermelho); color: var(--al-sobre-vermelho); border-color: transparent; }
-[data-al="2"] .al-ato-coluna .al-ato-quadrado-ligado { background: var(--al-cartao-aceso); color: var(--al-sobre-papel); border-color: transparent; }
+[data-al="2"] .al-ato-coluna .al-ato-quadrado-ligado { background: var(--al-saliente); color: var(--al-sobre-saliente); border-color: transparent; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al-ato-quadrado { border-color: var(--al-texto); }
 :root[data-eink] [data-al="2"] .al-ato-quadrado-ligado { background: #000; color: #fff; }
 [data-al="2"] .al-ato-acao-rotulo { font-weight: 700; font-size: 0.85rem; color: var(--al-texto-2); line-height: 1.2; }
@@ -704,7 +704,7 @@
 }
 [data-al="2"] .al-atos-pontos { display: flex; justify-content: center; gap: 6px; margin: 0; padding: 0; list-style: none; }
 [data-al="2"] .al-atos-pontos li { width: 6px; height: 6px; border-radius: 99px; background: var(--al-superficie-2); transition: width 0.35s cubic-bezier(0.3, 1.5, 0.5, 1), background-color 0.3s ease; }
-[data-al="2"] .al-atos-pontos li[aria-current="true"] { width: 20px; background: var(--al-dourado); }
+[data-al="2"] .al-atos-pontos li[aria-current="true"] { width: 20px; background: var(--al-dourado-fundo); }
 [data-al="2"] .al-atos-atalhos { margin: 0; text-align: center; color: var(--al-texto-3); font-size: 0.78rem; }
 @media (pointer: coarse), (hover: none) {
   [data-al="2"] .al-atos-atalhos { display: none; }
@@ -835,16 +835,16 @@
     display: inline-grid;
     place-items: center;
     position: relative;
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
+    /* 44 px de botão de verdade (a regra do celular da onda 12), sem engordar a linha: a margem negativa devolve os 8 px */
+    margin: -4px;
     border: 0;
     border-radius: 10px;
     background: none;
     color: var(--al-texto-2);
     cursor: pointer;
   }
-  /* o alvo de toque continua com 44 px (WCAG 2.5.8), sem engordar a linha */
-  [data-al="2"] .al-farol-mais::before { content: ""; position: absolute; inset: -4px; }
   [data-al="2"] .al-farol-mais svg { transition: rotate 0.3s cubic-bezier(0.3, 1.5, 0.5, 1); }
   [data-al="2"] .al-farol[data-aberto] .al-farol-mais svg { rotate: 180deg; }
   /* fechado, a explicação sai da vista mas o leitor de tela continua ouvindo (a caixa é role=status) */
@@ -945,7 +945,7 @@
 [data-al="2"] .al-correntes-dobra[open] > summary::after { rotate: -135deg; translate: 0 2px; }
 [data-al="2"] .al-correntes-dobra-elo { display: inline-flex; color: var(--al-ato-dourado-texto); }
 [data-al="2"] .al-correntes-dobra-titulo { min-width: 0; }
-[data-al="2"] .al-correntes-dobra-n { display: inline-grid; place-items: center; min-width: 1.6rem; height: 1.6rem; padding: 0 0.35rem; border-radius: 99px; background: var(--al-dourado); color: var(--al-sobre-dourado); font-size: 0.85rem; }
+[data-al="2"] .al-correntes-dobra-n { display: inline-grid; place-items: center; min-width: 1.6rem; height: 1.6rem; padding: 0 0.35rem; border-radius: 99px; background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 0.85rem; }
 [data-al="2"] .al-correntes-dobra > .al-correntes { padding: 0 0.6rem 0.7rem; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al-correntes-dobra { border: 2px solid var(--al-texto); }
 /* o "Quando" da corrente ocupa a linha inteira (data e hora não cabem em 9 rem) */
@@ -1197,7 +1197,7 @@
   bottom: 0;
   height: 3px;
   width: 100%;
-  background: var(--al-dourado);
+  background: var(--al-dourado-fundo);
   transform-origin: left;
   animation: al-vou-esvazia var(--al-vou-espera, 8s) linear both;
 }

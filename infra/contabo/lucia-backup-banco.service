@@ -1,0 +1,17 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# Cópia do banco: roda /usr/local/sbin/lucia-backup-banco (infra/contabo/backup-banco.sh). A configuração (BACKUP_SEGREDO,
+# BACKUP_PASTA, BACKUP_GUARDAR) fica fora do repositório. Roda como root porque usa o docker.
+
+[Unit]
+Description=Instituto Lucia: copia do banco
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/lucia/backup-banco.conf
+TimeoutStartSec=45min
+ExecStart=/usr/local/sbin/lucia-backup-banco
+Nice=15
+IOSchedulingClass=idle

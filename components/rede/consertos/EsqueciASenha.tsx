@@ -2,10 +2,15 @@
 "use client";
 
 import { useState } from "react";
-import { getClient } from "@/lib/backend";
+import { getClient, localBackend } from "@/lib/backend";
+import { Captcha, useCaptcha } from "@/components/Captcha";
+import type { Locale } from "@/i18n/config";
+import { avisoPelaPorta } from "@/lib/rede/convites/cliente";
 
 /**
- * "Esqueci a senha": pede ao serviço de contas (Supabase Auth, resetPasswordForEmail) o link de senha nova. O link volta para a
+ * "Esqueci a senha": pede o link de senha nova pelo servidor do site (app/api/alumia/porta/aviso, com a prova contra robôs feita no
+ * aparelho, o freio da porta e, quando ligado, o desafio da Cloudflare conferido no servidor), que pede ao serviço de contas. A cópia local de testes, sem as rotas,
+ * pede direto (resetPasswordForEmail). O link volta para a
  * própria tela de entrar com "type=recovery", que já abre a escolha da senha nova (SignIn.tsx). A resposta é sempre a mesma, haja
  * conta ou não, para a tela não revelar quem tem conta. Os textos ficam aqui (seis idiomas, curtos) para não mexer no dicionário
  * da entrada; en, es, fr, ru e zh são rascunho até a revisão.
@@ -19,10 +24,11 @@ const TEXTOS: Record<string, { link: string; botao: string; enviado: string; fal
   zh: { link: "忘记密码", botao: "发送重置密码链接", enviado: "如果该邮箱有账号，重置链接已在路上，有效期很短。", falhou: "现在无法发送，请稍后再试。" },
 };
 
-export function EsqueciASenha({ lang, email, token, esperandoDesafio, aoUsarDesafio }: { lang: string; email: string; token: string; esperandoDesafio: boolean; aoUsarDesafio: () => void }) {
+export function EsqueciASenha({ lang, email }: { lang: string; email: string }) {
   const x = TEXTOS[lang] ?? TEXTOS.pt;
   const [aberto, setAberto] = useState(false);
   const [estado, setEstado] = useState<"parado" | "enviando" | "enviado" | "falhou">("parado");
+  const desafio = useCaptcha();
 
   if (!aberto) {
     return (
@@ -36,22 +42,27 @@ export function EsqueciASenha({ lang, email, token, esperandoDesafio, aoUsarDesa
   async function enviar() {
     setEstado("enviando");
     try {
-      const supabase = await getClient();
-      const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), { redirectTo: `${window.location.origin}/${lang}/entrar`, captchaToken: token || undefined });
-      if (error && (error.code === "captcha_failed" || (error.status !== 400 && error.status !== 422))) throw error;
+      const volta = `${window.location.origin}/${lang}/entrar`;
+      if (localBackend) {
+        const { error } = await (await getClient()).auth.resetPasswordForEmail(email.trim(), { redirectTo: volta });
+        if (error && error.status !== 400 && error.status !== 422) throw error;
+      } else {
+        const r = await avisoPelaPorta({ tipo: "senha", email: email.trim(), volta, turnstile: desafio.token });
+        desafio.spend();
+        if (!r.ok) throw new Error(r.motivo);
+      }
       // Conta inexistente ou e-mail inválido voltam como sucesso: a tela não diz quem tem conta.
       setEstado("enviado");
     } catch {
       setEstado("falhou");
-    } finally {
-      aoUsarDesafio();
     }
   }
   return (
     <div className="space-y-2 border-l-2 border-ink pl-3">
+      <Captcha action="aviso" lang={lang as Locale} round={desafio.round} onToken={desafio.receive} />
       <button
         type="button"
-        disabled={estado === "enviando" || !email.includes("@") || esperandoDesafio}
+        disabled={estado === "enviando" || !email.includes("@") || desafio.waiting}
         onClick={() => void enviar()}
         className="cursor-pointer border-2 border-ink px-4 py-2 font-semibold hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50"
       >

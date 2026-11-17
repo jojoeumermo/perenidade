@@ -1,9 +1,12 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+"use client";
+
 import type { Ref } from "react";
+import { useFotoPublica } from "@/lib/rede/fotos-publicas";
 import { celulasDoAvatar } from "@/lib/rede/mosaico";
 import type { CorDaComunidade } from "./Pilula";
 
-const CORES = ["transparent", "var(--al-cartao-aceso, #f3efe6)", "", "var(--al-vermelho, #e8321f)", "var(--al-superficie-2, #2a2622)"];
+const CORES = ["transparent", "var(--al-avatar-papel, var(--al-cartao-aceso, #f3efe6))", "", "var(--al-vermelho, #e8321f)", "var(--al-superficie-2, #2a2622)"];
 
 export interface PropsDoAvatar16 {
   /** O @nome (sem foto, sem dado da pessoa): o mesmo @nome dá sempre o mesmo rosto. */
@@ -15,23 +18,30 @@ export interface PropsDoAvatar16 {
   rotulo?: string;
   ref?: Ref<SVGSVGElement>;
   className?: string;
+  /** Sempre o mosaico, mesmo de quem está com nome e foto (a amostra do modo codinome na escolha da identidade). */
+  soMosaico?: boolean;
 }
 
 /**
- * O rosto de 16 cartões (4 × 4) das pranchas: um desenho que identifica o perfil sem foto e sem nome civil (codinome sempre,
+ * O rosto de 16 cartões (4 × 4) das pranchas: um desenho que identifica o perfil sem foto e sem nome civil (o padrão da rede,
  * INVENTARIO.md §1). Cantos arredondados no conjunto, como nas pranchas.
+ *
+ * Quem ESCOLHEU aparecer com nome e foto (identidade pública opcional, lib/rede/fotos-publicas.ts) aparece com a foto, no mesmo
+ * recorte de cantos; sem foto aceita, sem conta para ver ou de volta ao codinome, fica o mosaico.
  */
-export function Avatar16({ handle, cor, tamanho = 40, rotulo, ref, className = "" }: PropsDoAvatar16) {
+export function Avatar16({ handle, cor, tamanho = 40, rotulo, ref, className = "", soMosaico = false }: PropsDoAvatar16) {
   const celulas = celulasDoAvatar(handle);
   const propria = `var(--al-com-${cor ?? ((celulas.reduce<number>((s, c, i) => s + c * (i + 1), 0) % 5) + 1)})`;
   const id = `al-av-${handle.replace(/[^a-z0-9_]/gi, "")}`;
+  const publica = useFotoPublica(handle);
+  const foto = soMosaico ? null : publica;
   return (
     <svg
       ref={ref}
       viewBox="0 0 40 40"
       width={tamanho}
       height={tamanho}
-      className={`al-avatar16 ${className}`.trim()}
+      className={`al-avatar16 ${foto ? "al-avatar16-foto " : ""}${className}`.trim()}
       {...(rotulo ? { role: "img", "aria-label": rotulo } : { "aria-hidden": true })}
     >
       <defs>
@@ -40,8 +50,13 @@ export function Avatar16({ handle, cor, tamanho = 40, rotulo, ref, className = "
         </clipPath>
       </defs>
       <g clipPath={`url(#${id})`}>
-        {celulas.map((c, i) =>
-          c === 0 ? null : <rect key={i} x={(i % 4) * 10} y={Math.floor(i / 4) * 10} width={10} height={10} fill={c === 2 ? propria : CORES[c]} />,
+        {foto ? (
+          // Data URL WebP já conferida (sem EXIF): só os pixels que a própria pessoa recortou e enviou.
+          <image href={foto} width={40} height={40} preserveAspectRatio="xMidYMid slice" />
+        ) : (
+          celulas.map((c, i) =>
+            c === 0 ? null : <rect key={i} x={(i % 4) * 10} y={Math.floor(i / 4) * 10} width={10} height={10} fill={c === 2 ? propria : CORES[c]} />,
+          )
         )}
       </g>
     </svg>

@@ -1,0 +1,207 @@
+{
+  "_rascunho": true,
+  "carimbo": "作文互评圈",
+  "titulo": "同伴互评作文",
+  "chamada": "按本周题目写作文，用 ENEM 的 5 项能力批改别人的作文，再收到别人对你作文的批改。**没有人知道作文是谁写的，也没有人知道是谁批改的。**",
+  "carregando": "正在打开互评圈",
+  "entrar": "加入 Alumia 才能参加作文互评圈。",
+  "abas": {
+    "rotulo": "互评圈的各部分",
+    "escrever": "写作",
+    "corrigir": "批改",
+    "devolutivas": "反馈",
+    "mediacao": "调解",
+    "temas": "题目"
+  },
+  "tema": {
+    "rotulo": "本周题目",
+    "ate": "提交截止：{data}",
+    "motivadores": "参考材料",
+    "semTema": "协调组还没有发布本周题目，请稍后再来。",
+    "semTemaCoord": "本周还没有题目。请在“题目”标签页发布。"
+  },
+  "troca": {
+    "titulo": "你的互评",
+    "corrigidas": "本圈已批改",
+    "deDuas": "/ 2",
+    "esperando": "篇等待批改",
+    "menosDe3": "少于 3",
+    "pronta": "互评已完成",
+    "afastada": "由于一份被调解组认定为恶意的批改，你在 {data} 之前不能参加互评圈。"
+  },
+  "como": {
+    "titulo": "互评圈怎么运作",
+    "itens": [
+      {
+        "titulo": "双向匿名",
+        "texto": "批改的人只看到文字，写作的人只看到评分表。双方都没有姓名，也没有代号。"
+      },
+      {
+        "titulo": "每篇两次批改",
+        "texto": "每篇作文由两个人按 ENEM 的 5 项能力批改，每项给 0 到 200 分并写评语。"
+      },
+      {
+        "titulo": "先批改，再收到",
+        "texto": "你批改了同一圈里的两篇作文后，你的批改才会送达。如果你申请时互评圈已满，就算你完成了互评。"
+      },
+      {
+        "titulo": "30 天后全部删除",
+        "texto": "作文和批改在退回 30 天后永久删除。退回之后，数据库不再保存谁读了哪篇。"
+      },
+      {
+        "titulo": "恶意批改",
+        "texto": "带有冒犯的批改会交给调解组。若认定为恶意，它会从你的页面移除，你的作文会得到新的批改，写它的人会被移出互评圈，而且没有人知道是谁。"
+      }
+    ]
+  },
+  "escrever": {
+    "titulo": "你本周的作文",
+    "tituloCampo": "标题（可选）",
+    "textoCampo": "正文",
+    "dica": "直接在这里写议论文。不要署名，也不要写自己的名字：批改是匿名的。",
+    "linhas": "{n} / 30 行",
+    "minimo": "至少 7 行",
+    "letras": "{n} 个字符",
+    "entregar": "提交到互评圈",
+    "entregando": "正在提交…",
+    "entregue": "已提交，你的作文已进入互评圈。",
+    "jaEntregou": "你已经提交了本周的作文，可在“反馈”中查看。",
+    "rascunho": "提交之前，草稿只保存在这台设备上。"
+  },
+  "corrigir": {
+    "titulo": "批改一篇作文",
+    "chamada": "从互评圈领取一篇作文。你有 72 小时交回评分表；做不完就放弃，它会回到互评圈。",
+    "pedir": "领取一篇作文",
+    "pedindo": "正在抽取…",
+    "nenhuma": "现在没有等待批改的作文，请稍后再来。",
+    "dispensada": "互评圈已满：没有等待批改的作文。你在本圈的互评算作已完成。",
+    "duasAbertas": "你已经有两篇未完成的批改。先完成一篇再领取。",
+    "jaLendo": "你已经在读一篇了。还可以再领一篇，最多同时两篇。",
+    "pedirOutra": "再领一篇",
+    "prazo": "请在 {data} 前交回",
+    "semTitulo": "无标题",
+    "aRedacao": "作文",
+    "aFicha": "你的评分表",
+    "nota": "分数",
+    "comentario": "评语",
+    "comentarioDica": "写出优点和改进之处，至少 20 个字符。",
+    "geral": "总评（可选）",
+    "total": "总分",
+    "enviar": "提交批改",
+    "enviando": "正在提交…",
+    "largar": "放弃这次批改",
+    "falta": "第 {n} 项能力缺少分数或评语。",
+    "enviada": "批改已提交，感谢你认真阅读。",
+    "cega": "你不知道这篇文章是谁写的，作者也不会知道是你批改的。"
+  },
+  "competencias": [
+    {
+      "nome": "能力 1",
+      "resumo": "掌握葡萄牙语的正式书面语规范。"
+    },
+    {
+      "nome": "能力 2",
+      "resumo": "理解题目要求，在议论文中展开主题，并运用多个领域的知识。"
+    },
+    {
+      "nome": "能力 3",
+      "resumo": "选择、关联、组织和解读信息、事实与观点，以论证一个立场。"
+    },
+    {
+      "nome": "能力 4",
+      "resumo": "运用构建论证的语言衔接手段（连贯性）。"
+    },
+    {
+      "nome": "能力 5",
+      "resumo": "在尊重人权的前提下，提出解决问题的方案。"
+    }
+  ],
+  "devolutivas": {
+    "titulo": "你的作文",
+    "vazio": "你还没有提交任何作文。",
+    "semana": "{data} 那一周",
+    "naRoda": "在互评圈中，直到 {data}。",
+    "faltaCorrigir": "再批改 {n} 篇，就能收到你的批改。",
+    "faltaUma": "再批改 1 篇，就能收到你的批改。",
+    "esperandoLeituras": "你已完成互评。批改准备好后会一起送达。",
+    "encerrada": "互评圈已结束，这篇作文没有被退回，将于 {data} 删除。",
+    "devolvida": "已于 {data} 退回。全部内容将于 {apagar} 删除。",
+    "leitura": "批改 {n}",
+    "media": "批改平均分",
+    "deMil": "/ 1000",
+    "verTexto": "查看你提交的文章",
+    "apagar": "立即删除",
+    "apagarConfirma": "永久删除这篇作文及其批改？",
+    "apagarSim": "是的，删除",
+    "cancelar": "取消",
+    "removida": "调解组移除了这份批改。你的作文已回到互评圈，等待新的批改。",
+    "denunciar": "举报这份批改",
+    "denunciaMotivo": "这份批改有什么恶意之处？",
+    "denunciaDica": "举报会交给调解组，他们在不知道是谁的情况下阅读批改。至少 10 个字符。",
+    "enviarDenuncia": "提交给调解组",
+    "denunciaAberta": "已举报，调解组会查看。",
+    "denunciaNaoAbusiva": "调解组看过后认为这份批改没有恶意。",
+    "denunciaAbusiva": "调解组认定这份批改为恶意。"
+  },
+  "mediacao": {
+    "titulo": "批改举报",
+    "chamada": "收到批改的人举报的批改。你看不到作文的作者，也看不到批改者。若认定为恶意：批改被移除，作文得到新的批改，写批改的人被移出互评圈 8 周，名字不会显示给任何人。",
+    "vazio": "没有待处理的举报。",
+    "motivo": "举报理由",
+    "aCorrecao": "被举报的批改",
+    "verRedacao": "查看被批改的作文",
+    "nota": "调解备注（可选）",
+    "abusiva": "恶意：移除并暂停",
+    "naoAbusiva": "不是恶意",
+    "pendente": "已认定为恶意，暂停尚未执行。",
+    "tentarDeNovo": "执行暂停",
+    "feito": "已完成。写批改的人被移出互评圈 8 周；这里不显示名字。",
+    "semLacre": "批改已移除。这份批改无法与任何人关联，所以没有人被暂停。",
+    "decidida": "已处理。"
+  },
+  "temas": {
+    "titulo": "互评圈题目",
+    "chamada": "每周一个题目，从周一到周日。只要还没有人就该题目提交作文，题目就可以修改。",
+    "semana": "{data} 那一周",
+    "estaSemana": "本周",
+    "semTema": "无题目",
+    "redacoes": "{n} 篇作文",
+    "poucas": "少于 3 篇作文",
+    "tituloCampo": "题目",
+    "motivadoresCampo": "参考材料（可选）",
+    "salvar": "保存题目",
+    "lancar": "发布题目",
+    "editar": "编辑",
+    "salvo": "题目已保存。",
+    "fechado": "本周已有作文：题目不能再修改。"
+  },
+  "erros": {
+    "generico": "暂时没有成功，请稍后再试。",
+    "sem_conexao": "无法连接服务器。请检查网络后重试。",
+    "sem_servico": "此服务器尚未开启作文互评圈。",
+    "banco_desatualizado": "此服务器尚未开启作文互评圈。",
+    "muitos_pedidos": "请求过于频繁，请等几分钟。",
+    "entre_primeiro": "加入 Alumia 才能参加。",
+    "afastada": "你暂时不能参加互评圈。",
+    "sem_tema": "协调组还没有发布本周题目。",
+    "ja_entregou": "你已经提交了本周的作文。",
+    "invalido:curta": "作文太短，请至少写 7 行。",
+    "invalido:longa": "作文超过了 30 行。",
+    "invalido:titulo": "标题最多 100 个字符。",
+    "leituras_abertas": "你已经有两篇未完成的批改。",
+    "nao_encontrado": "找不到这次批改，可能已经过期。",
+    "prazo": "这次批改已过期，作文已回到互评圈。",
+    "invalido:nota": "每项能力都需要 0 到 200 的分数。",
+    "invalido:comentario": "每项能力都需要 20 到 800 个字符的评语。",
+    "invalido:ficha": "评分表不完整。",
+    "invalido:geral": "总评最多 800 个字符。",
+    "invalido:motivo": "请用 10 到 1000 个字符说明理由。",
+    "ja_denunciada": "这份批改已经被举报过。",
+    "ja_removida": "这份批改已经被移除。",
+    "ja_decidida": "这条举报已经处理过。",
+    "sem_permissao": "你没有权限执行此操作。",
+    "invalido:semana": "请选择从本周到 12 周之后的某一周。",
+    "ja_tem_redacao": "本周已有作文：题目不能再修改。",
+    "invalido:motivadores": "参考材料最多 3000 个字符。"
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "_rascunho": true,
+  "modo": {
+    "rotulo": "Ordre du fil",
+    "roda": "En ronde",
+    "chegada": "Ordre d'arrivée",
+    "rodaCurta": "En ronde : une règle ouverte, la même pour tout le monde",
+    "chegadaCurta": "Ordre d'arrivée : du plus récent au plus ancien",
+    "comoMontada": "Comment le fil est construit",
+    "guardada": "Gardé seulement sur cet appareil."
+  },
+  "porque": {
+    "aviso": "Avis de la modération",
+    "ato": "Action proche",
+    "ajudou": "Une réponse a aidé",
+    "avisoRegra": "En haut parce que c'est un avis épinglé par la modération.",
+    "atoRegra": "En haut parce que la date est dans les {horas} prochaines heures.",
+    "ajudouRegra": "Passe avant dans le bloc parce que la personne qui a demandé a marqué comme celle qui a aidé la réponse de quelqu'un d'autre, dans une conversation où {ajudou_piso} personnes ou plus ont répondu.",
+    "interesse": "Proche de vos centres d'intérêt",
+    "interesseRegra": "Passe en premier dans le bloc parce qu'il correspond à un centre d'intérêt coché sur cet appareil."
+  },
+  "barra": {
+    "rotulo": "Mes fils",
+    "montar": "Créer un fil",
+    "todas": "Mes fils",
+    "sair": "Revenir à {aba}",
+    "naLinha": "Fil : {nome}",
+    "temas": "Mes #thèmes"
+  },
+  "fim": {
+    "regraAcabou": "À partir d'ici, ordre d'arrivée",
+    "regraAcabouTexto": "La règle range les {dias} derniers jours. Ce qui est plus ancien vient du plus récent au plus ancien."
+  },
+  "vazio": {
+    "linha": "Rien dans ce fil pour l'instant. Le filtre est affiché ci-dessous : vérifiez que c'est bien ce que vous vouliez.",
+    "temas": "Vous ne suivez encore aucun #thème. Ouvrez un thème et touchez Suivre, ou choisissez un des sujets en hausse."
+  },
+  "fora": {
+    "titulo": "Pendant votre absence",
+    "desdeQuando": "Depuis {quando}",
+    "novosUm": "1 nouvelle publication",
+    "novos": "{n} nouvelles publications",
+    "novosMuitos": "{n} nouvelles publications ou plus",
+    "criterio": "Les premières selon la même règle que le fil. Jamais selon les mentions j'aime.",
+    "guardado": "L'heure de votre dernière visite reste seulement sur cet appareil.",
+    "dispensar": "Fermer",
+    "desligar": "Ne plus afficher",
+    "abrir": "Ouvrir la conversation",
+    "nada": "Rien de nouveau depuis votre dernière visite."
+  },
+  "alta": {
+    "titulo": "Sujets en hausse",
+    "criterio": "#thèmes utilisés par {piso} personnes ou plus dans les {horas} dernières heures, et par plus de monde que dans les {horas} heures précédentes.",
+    "igual": "La liste est la même pour tout le monde. Elle ne montre pas de nombre, seulement la tranche.",
+    "faixa": {
+      "algumas": "quelques personnes",
+      "dezenas": "des dizaines de personnes",
+      "centenas": "des centaines de personnes"
+    },
+    "nova": "nouveau",
+    "cresceu": "en hausse",
+    "nada": "Aucun thème n'est en hausse pour l'instant. Revenez plus tard.",
+    "erro": "Les sujets en hausse n'ont pas chargé.",
+    "seguir": "Suivre",
+    "seguindo": "Suivi",
+    "abrir": "Ouvrir #{tag}",
+    "verCriterio": "Comment on entre ici"
+  },
+  "linhas": {
+    "titulo": "Mes fils",
+    "chamada": "Des fils faits de filtres ouverts. Vous choisissez ce qui entre ; personne ne choisit pour vous.",
+    "aparelho": "Vos fils sont gardés seulement sur cet appareil. Le serveur reçoit le filtre au moment de chercher et ne le garde pas.",
+    "prontas": "Partir d'un fil prêt",
+    "prontaCidade": "Seulement les appels de ma ville",
+    "prontaCidadeTexto": "Appels et actions de la ville que vous écrivez. C'est la ville écrite dans l'appel, jamais la position de l'appareil.",
+    "prontaNucleos": "Seulement les noyaux",
+    "prontaNucleosTexto": "Seulement ce qui a été publié dans les noyaux dont vous faites partie.",
+    "prontaEstudo": "Seulement étude et ENEM",
+    "prontaEstudoTexto": "Seulement les communautés des matières : questions, résumés et exercices.",
+    "prontaTema": "Par #thème",
+    "prontaTemaTexto": "Seulement les publications avec les #thèmes que vous écrivez.",
+    "nova": "Nouveau fil",
+    "nome": "Nom du fil",
+    "nomeAjuda": "Jusqu'à {n} caractères. Il apparaît dans la barre de l'Accueil.",
+    "base": "D'où il vient",
+    "bases": {
+      "tudo": "Tout ce que je peux voir",
+      "seguindo": "Les personnes que je suis",
+      "comunidades": "Mes communautés et noyaux",
+      "temas": "Les #thèmes que je suis"
+    },
+    "tipos": "Type de publication",
+    "tiposTodos": "Tout type",
+    "tipo": {
+      "post": "Post",
+      "discussao": "Discussion",
+      "duvida": "Question",
+      "chamado": "Appel et action",
+      "enquete": "Sondage",
+      "aviso": "Avis"
+    },
+    "cidade": "Ville de l'appel",
+    "cidadeAjuda": "Écrivez-la comme dans les appels : \"Recife\", \"São Paulo\".",
+    "tags": "#thèmes (séparés par un espace)",
+    "tagsAjuda": "Jusqu'à 10. La publication doit en avoir au moins un.",
+    "nucleos": "Seulement de mes noyaux",
+    "estudo": "Seulement les communautés d'étude",
+    "criar": "Créer le fil",
+    "cancelar": "Annuler",
+    "salvar": "Enregistrer",
+    "minhas": "Vos fils",
+    "nenhuma": "Vous n'avez encore créé aucun fil.",
+    "abrir": "Ouvrir",
+    "renomear": "Renommer",
+    "subir": "Monter",
+    "descer": "Descendre",
+    "fixar": "Mettre dans la barre",
+    "desafixar": "Retirer de la barre",
+    "naBarra": "dans la barre",
+    "apagar": "Supprimer",
+    "apagarCerteza": "Supprimer le fil \"{nome}\" ?",
+    "apagada": "Fil supprimé.",
+    "criada": "Fil créé. Il est déjà dans la barre de l'Accueil.",
+    "criadaSemBarra": "Fil créé. La barre de l'Accueil est pleine ({n}) : retirez-en un pour mettre celui-ci.",
+    "filtro": "Ce qui entre",
+    "erros": {
+      "nome": "Donnez un nom au fil, jusqu'à {n} caractères.",
+      "muitas": "Jusqu'à {n} fils. Supprimez-en un pour en créer un autre.",
+      "barraCheia": "Jusqu'à {n} fils dans la barre. Retirez-en un d'abord.",
+      "vazia": "Ce fil ne filtre rien : ce serait de nouveau l'onglet Tout. Choisissez au moins un filtre.",
+      "repetida": "Il existe déjà un fil avec ce nom.",
+      "cidade": "Écrivez la ville.",
+      "tags": "Écrivez au moins un #thème (lettres, chiffres et _)."
+    },
+    "temasSeguidos": "#thèmes que je suis",
+    "temasSeguidosTexto": "Suivre un #thème, c'est suivre le sujet sans suivre des personnes. Personne ne voit les thèmes que vous suivez.",
+    "temaCampo": "Suivre un #thème",
+    "temaSeguir": "Suivre",
+    "temaDeixar": "Ne plus suivre #{tag}",
+    "temaNenhum": "Aucun thème suivi pour l'instant.",
+    "temaInvalido": "Un #thème a de 2 à 40 lettres, chiffres ou _.",
+    "verTemas": "Ouvrir le fil de mes #thèmes",
+    "primeira": "Composer le premier fil",
+    "primeiraTexto": "Un fil est un filtre ouvert : d'où viennent les publications et ce qui entre. Composez-le de zéro ou partez d'un fil tout prêt, juste en dessous."
+  },
+  "descricao": {
+    "base": {
+      "tudo": "tout ce que vous pouvez voir",
+      "seguindo": "les personnes que vous suivez",
+      "comunidades": "vos communautés et noyaux",
+      "temas": "les #thèmes que vous suivez"
+    },
+    "tipos": "seulement {lista}",
+    "cidade": "avec un appel à {cidade}",
+    "tags": "avec {lista}",
+    "nucleos": "seulement de vos noyaux",
+    "estudo": "seulement des communautés d'étude",
+    "frase": "Entre : {partes}."
+  },
+  "regra": {
+    "titulo": "Comment le fil est construit",
+    "chamada": "Une seule règle, la même pour tout le monde, écrite ici et appliquée dans la base exactement comme elle est écrite. Vous passez à l'ordre d'arrivée quand vous voulez.",
+    "versao": "Règle n° {n}",
+    "emRoda": "En ronde",
+    "emRodaTexto": "L'ordre d'arrivée seul met le désordre : qui publie dix fois de suite occupe l'écran, et l'appel de demain disparaît sous la conversation d'aujourd'hui. Dans la ronde, chaque personne parle à son tour.",
+    "passos": [
+      {
+        "titulo": "Ce qui entre",
+        "texto": "Les publications de premier niveau de l'onglet (ou du fil que vous avez créé), des {janela_dias} derniers jours, que vous pouvez voir et n'avez pas masquées. Au maximum les {maximo} plus récentes."
+      },
+      {
+        "titulo": "En haut, l'avis",
+        "texto": "Jusqu'à {avisos} avis épinglés par la modération, le plus récent d'abord."
+      },
+      {
+        "titulo": "Ensuite, l'action proche",
+        "texto": "Jusqu'à {atos} appels et actions datés dans les {perto_horas} prochaines heures, le plus proche d'abord. Une action annulée ne monte pas."
+      },
+      {
+        "titulo": "Le reste, par blocs de {bloco_horas} heures",
+        "texto": "Du bloc le plus récent au plus ancien. Les blocs commencent à 3 h, 9 h, 15 h et 21 h (heure de Brasília)."
+      },
+      {
+        "titulo": "Dans le bloc, d'abord ce que vous avez choisi",
+        "texto": "Si vous avez répondu au questionnaire de centres d'intérêt, passent d'abord les publications d'un type que vous avez coché, avec un #thème de vos causes, des communautés d'étude ou de vos noyaux. Si vous voulez plus de contenu, les conversations parallèles (publication qui en cite une autre ou appelle quelqu'un par @, de personnes que vous ne suivez pas, hors de vos communautés et noyaux) descendent à la fin du bloc, sans disparaître. Sans questionnaire, cette étape ne change rien."
+      },
+      {
+        "titulo": "Dans chaque groupe, d'abord qui a été aidé",
+        "texto": "Passent d'abord les conversations où la personne qui a demandé a marqué comme celle qui a aidé la réponse de quelqu'un d'autre, et qui ont reçu des réponses de {ajudou_piso} personnes différentes ou plus. C'est une marque de la personne qui a demandé, pas un comptage ; dans une conversation avec moins de {ajudou_piso} personnes qui répondent, la marque ne change pas l'ordre."
+      },
+      {
+        "titulo": "Ensuite, la ronde",
+        "texto": "La publication la plus récente de chaque personne ; puis la deuxième de chaque personne ; et ainsi de suite. À chaque tour, la plus récente d'abord."
+      },
+      {
+        "titulo": "Plafond par écran",
+        "texto": "Dans chaque écran de {tela} publications, au maximum {teto} de la même personne. Ce qui dépasse le plafond descend à l'écran suivant, sans perdre son tour."
+      },
+      {
+        "titulo": "La règle s'arrête, ordre d'arrivée",
+        "texto": "Ce qui a plus de {janela_dias} jours vient du plus récent au plus ancien, sans rien d'autre."
+      }
+    ],
+    "naoEntra": "Ce qui ne compte pas",
+    "naoEntraLista": [
+      "Mention j'aime, soutien, \"utile\", réaction et \"j'y vais\".",
+      "Ce que vous avez enregistré, cliqué, ouvert ou lu, et pendant combien de temps.",
+      "L'heure à laquelle vous venez sur le réseau.",
+      "Nombre de réponses et nombre d'abonnés.",
+      "L'argent : personne ne paie pour monter.",
+      "Qui vous êtes. Deux personnes avec les mêmes choix voient le même ordre."
+    ],
+    "entra": "Ce que vous choisissez et qui change le fil",
+    "entraLista": [
+      "Qui vous suivez, vos communautés et vos noyaux.",
+      "Les #thèmes que vous suivez.",
+      "Ce que vous avez masqué : personne, communauté, conversation ou mot.",
+      "Les fils que vous créez, avec le filtre bien visible.",
+      "Les centres d'intérêt cochés dans le questionnaire (seulement sur votre appareil)."
+    ],
+    "aparelho": "Ce qui reste seulement sur votre appareil",
+    "aparelhoTexto": "Le choix entre En ronde et Ordre d'arrivée, les fils que vous avez créés, les centres d'intérêt du questionnaire et l'heure de votre dernière visite. Le serveur n'en garde aucun : les centres d'intérêt accompagnent chaque lecture et sont oubliés.",
+    "repostes": "Les republications des personnes que vous suivez n'apparaissent que dans l'Ordre d'arrivée.",
+    "deFora": "Dans l'onglet Abonnements, les personnes que vous suivez sur le Fédivers entrent dans la ronde comme une personne de plus : chacune de leurs publications va dans le bloc de 6 heures où elle a été écrite, après les mises en avant.",
+    "alta": "Sujets en hausse",
+    "altaTexto": "#thèmes utilisés par {alta_piso} personnes différentes ou plus dans les {alta_horas} dernières heures, et par plus de monde que dans les {alta_horas} heures précédentes. Seules comptent les publications que tout membre peut voir. Jusqu'à {alta_maximo} thèmes, celui qui a le plus progressé d'abord ; égalité, ordre alphabétique. La liste est la même pour tout le monde et ne montre pas de nombre. La modération peut retirer un thème de la liste (nom de personne, insulte, campagne d'attaque) ; le thème continue d'exister.",
+    "fora": "Pendant votre absence",
+    "foraTexto": "Apparaît quand vous revenez après 8 heures ou plus (24 ou 4 heures, si vous avez choisi un autre rythme dans le questionnaire). Montre les {fora_destaques} premières publications selon la même règle, seulement avec ce qui est arrivé après votre dernière visite.",
+    "respostas": "Réponses d'une conversation",
+    "respostasTexto": "Vous choisissez : plus anciennes, plus récentes, utiles ou sans réponse. Dans \"utiles\" vient d'abord la réponse que la personne qui a demandé a marquée comme celle qui a aidé, puis celles marquées utiles par 3 personnes ou plus ; une marque de 1 ou 2 personnes ne change rien. Dans \"sans réponse\" viennent d'abord celles auxquelles personne n'a encore répondu. Qui a ouvert la conversation peut retirer une réponse du fil sans la supprimer : elle reste derrière \"réponses masquées\", que tout le monde peut ouvrir.",
+    "prova": "Comment vérifier",
+    "provaTexto": "La règle est du code ouvert. Le test exécuté à chaque changement prouve que la même entrée donne le même ordre à deux personnes avec les mêmes choix, et qu'aimer, enregistrer ou répondre ne change pas l'ordre. Il prouve aussi que, sans centres d'intérêt, l'ordre est exactement le même qu'avant, et que les centres d'intérêt ne sont enregistrés nulle part.",
+    "voltar": "Revenir à l'Accueil",
+    "trocar": "Quel ordre voulez-vous ?"
+  },
+  "conversa": {
+    "uteis": "Utiles",
+    "semResposta": "Sans réponse",
+    "regraUteis": "D'abord la réponse qui a aidé la personne qui a demandé ; puis celles marquées utiles par 3 personnes ou plus.",
+    "regraSemResposta": "D'abord les réponses auxquelles personne n'a encore répondu.",
+    "ocultar": "Masquer la réponse",
+    "mostrar": "Remettre dans le fil",
+    "ocultada": "Réponse masquée. Elle n'a pas été supprimée, et personne n'a été averti.",
+    "devolvida": "Réponse remise dans le fil.",
+    "ocultadasUma": "1 réponse masquée par la personne qui a ouvert la conversation",
+    "ocultadas": "{n} réponses masquées par la personne qui a ouvert la conversation",
+    "ocultadasRegra": "La personne qui a ouvert la conversation a retiré ces réponses du fil. Elles n'ont pas été supprimées."
+  },
+  "interesses": {
+    "titulo": "Vos centres d'intérêt",
+    "texto": "Le questionnaire reste seulement sur cet appareil. Voyez ce que vous avez coché, modifiez-le ou effacez-le dans Réglages.",
+    "ajustar": "Ajuster mes centres d'intérêt"
+  }
+}

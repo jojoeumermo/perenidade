@@ -3,7 +3,7 @@
     "selo": "建设中",
     "aviso": "Alumia 的这个页面还在制作中。目前这里不保存任何内容。",
     "voltar": "返回 Alumia 首页",
-    "rodape": "按到达顺序 · 无广告 · 无追踪 · 始终使用代号",
+    "rodape": "公开规则 · 无广告 · 无追踪 · 默认使用代号",
     "marca": "Instituto Lúcia"
   },
   "telas": {
@@ -16,8 +16,13 @@
     "identidades": { "titulo": "身份", "descricao": "同一个账号里有多个身份，没有人能把它们联系起来。" },
     "aparelhos": { "titulo": "设备", "descricao": "你的账号已登录的设备，可以远程退出其中之一。不显示网络地址。" },
     "o-que-guardamos": { "titulo": "我们保存什么", "descricao": "Alumia 保存了你的哪些信息、保存多久、为什么，并附上相关法律。" },
-    "transparencia": { "titulo": "透明度", "descricao": "每半年的审核数据，没有任何指向个人的信息。" },
+    "transparencia": { "titulo": "透明度", "descricao": "每季度的审核数据，没有任何指向个人的信息。" },
+    "rotulos": { "titulo": "标签", "descricao": "你订阅的诈骗、垃圾信息和协同骚扰标记，由有认证的组织和调解团队标注。" },
     "listas": { "titulo": "列表", "descricao": "按你自己的规则组成的时间线。只有你能看到你的列表。" },
-    "leve": { "titulo": "轻量版", "descricao": "纯文字的 Alumia，适合网络差、流量少的时候。" }
+    "leve": { "titulo": "轻量版", "descricao": "纯文字的 Alumia，适合网络差、流量少的时候。" },
+    "questoes": { "titulo": "题库", "descricao": "按科目和主题分类的题目，作答后才显示正确答案和解析。答对情况只保存在你的设备上。" },
+    "redacao": { "titulo": "作文互评", "descricao": "本周的互评小组：你在不知道作者是谁的情况下批改一篇作文，并按 ENEM 的五项能力收到两份评阅。" },
+    "pontes": { "titulo": "桥梁", "descricao": "组织的机器人（带标签和密钥）以及 Telegram 频道。" },
+    "trabalhadores": { "titulo": "工人公告栏", "descricao": "经认证组织发布的斗争、罢工与团结号召，可按类型和城市查看。" }
   }
 }

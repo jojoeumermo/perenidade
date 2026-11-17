@@ -4,8 +4,8 @@
 # Prepara a VPS da Contabo (Cloud VPS 4, x86_64, Ubuntu 24.04) para o site. Roda como root, uma vez; pode rodar de novo
 # sem estragar nada. Passo a passo em docs/HOSPEDAGEM.md, seção "Contabo".
 #
-# O que faz: fuso, nome, memória de reserva, atualizações automáticas de segurança, SSH só com chave (portas 22 e 22222:
-# a rede de alguns lugares intercepta a 22), Docker, Caddy (o HTTPS na frente do site) e o firewall: as portas 80 e 443
+# O que faz: fuso, nome, memória de reserva, atualizações automáticas de segurança, SSH só com chave (a 22 e uma
+# porta extra, porque a rede de alguns lugares intercepta a 22; a extra vem de SSH_PORTA_EXTRA e não fica no repositório), Docker, Caddy (o HTTPS na frente do site) e o firewall: as portas 80 e 443
 # só aceitam conexões vindas do Cloudflare; o site em si só escuta em 127.0.0.1:3000.
 # Não guarda segredo nenhum: as chaves do site ficam em /opt/lucia/site.env, preenchido à mão (infra/contabo/segredos.sh).
 set -euxo pipefail
@@ -68,7 +68,8 @@ ufw --force reset > /dev/null
 ufw default deny incoming
 ufw default allow outgoing
 ufw allow 22/tcp
-ufw allow 22222/tcp
+# A porta extra do SSH vem do ambiente (anotada fora do repositório). Sem ela, só a 22.
+if [ -n "${SSH_PORTA_EXTRA:-}" ]; then ufw allow "${SSH_PORTA_EXTRA}/tcp"; fi
 cat > /usr/local/sbin/lucia-cloudflare-ips <<'EOF'
 #!/usr/bin/env bash
 # Libera 80 e 443 só para o Cloudflare. Tira as regras antigas marcadas "cloudflare" e põe as da lista atual.

@@ -1,0 +1,157 @@
+{
+  "titulo": "What do you want on Alumia?",
+  "chamada": "Five quick questions. With them, the In a circle feed puts first, in each 6-hour block, what has to do with you. Nothing disappears: only the order changes.",
+  "aparelho": "Your answers stay only on this device. On each read, the feed receives your interests as a filter and the server keeps nothing. Change or delete them whenever you want, in Settings.",
+  "passo": "Step {n} of {total}",
+  "voltar": "Back",
+  "proximo": "Next",
+  "verResumo": "See the summary",
+  "concluir": "Done",
+  "pularPergunta": "Skip this one",
+  "pularTudo": "Skip the questionnaire",
+  "perguntas": {
+    "objetivos": {
+      "titulo": "What did you come here for?",
+      "ajuda": "Mark as many as you want."
+    },
+    "pautas": {
+      "titulo": "Which causes move you?",
+      "ajuda": "Each cause brings its #topics to the top of the block."
+    },
+    "estudos": {
+      "titulo": "And studying?",
+      "ajuda": "If it does not apply, just skip."
+    },
+    "conversa": {
+      "titulo": "More conversation or more content?",
+      "ajuda": "Just one choice."
+    },
+    "ritmo": {
+      "titulo": "At what pace?",
+      "ajuda": "It only changes when the \"While you were away\" strip appears."
+    }
+  },
+  "objetivos": {
+    "militancia": {
+      "nome": "Activism and organizing",
+      "texto": "Movements, campaigns, calls to action"
+    },
+    "atos": {
+      "nome": "Actions and agenda",
+      "texto": "What is going to happen and where"
+    },
+    "nucleo": {
+      "nome": "Group and local organizing",
+      "texto": "What comes from my groups"
+    },
+    "amizades": {
+      "nome": "Meeting people and making friends",
+      "texto": "Talking with people who fight alongside"
+    },
+    "estudo": {
+      "nome": "Study",
+      "texto": "ENEM, entrance exams, political education, reading"
+    },
+    "debate": {
+      "nome": "Debate",
+      "texto": "Discussions and polls"
+    },
+    "noticias": {
+      "nome": "News",
+      "texto": "What is happening"
+    },
+    "cultura": {
+      "nome": "Culture and art",
+      "texto": "Music, poetry, street art"
+    }
+  },
+  "pautas": {
+    "moradia": "Housing",
+    "transporte": "Transport",
+    "educacao": "Education",
+    "saude": "Health",
+    "trabalho": "Work",
+    "meio_ambiente": "Environment",
+    "antirracismo": "Anti-racism",
+    "feminismo": "Feminism",
+    "lgbtqia": "LGBTQIA+",
+    "indigena": "Indigenous peoples",
+    "terra": "Land and agrarian reform",
+    "cultura": "Culture",
+    "juventude": "Youth",
+    "direitos_humanos": "Human rights and memory"
+  },
+  "estudos": {
+    "enem": "ENEM",
+    "vestibular": "Entrance exams",
+    "formacao": "Political education",
+    "leitura": "Reading and books",
+    "idiomas": "Languages"
+  },
+  "conversas": {
+    "conversa": {
+      "nome": "More conversation",
+      "texto": "Everything in the circle, including loose conversations between a few people."
+    },
+    "equilibrio": {
+      "nome": "Half and half",
+      "texto": "The circle as it is."
+    },
+    "conteudo": {
+      "nome": "More content",
+      "texto": "Side conversations from people you don't follow move to the end of the block. They don't disappear."
+    }
+  },
+  "ritmos": {
+    "pouco": {
+      "nome": "Little",
+      "texto": "I drop by now and then. The strip of what arrived appears after 24 hours away."
+    },
+    "medio": {
+      "nome": "Medium",
+      "texto": "The strip appears after 8 hours away."
+    },
+    "muito": {
+      "nome": "A lot",
+      "texto": "I'm always around. The strip appears after 4 hours away."
+    }
+  },
+  "resumo": {
+    "titulo": "This is how your feed looks",
+    "nada": "Nothing marked that changes the order: your feed is the same as everyone's.",
+    "sobem": "Rise in your block",
+    "tipos": "Types",
+    "temas": "#topics",
+    "estudo": "The study communities",
+    "nucleos": "What comes from your groups",
+    "conteudo": "Side conversations from people you don't follow move to the end of the block.",
+    "ritmo": "The \"While you were away\" strip appears after {horas} hours away.",
+    "como": "How the feed is built",
+    "tiposNomes": {
+      "chamado": "calls and actions",
+      "duvida": "questions",
+      "discussao": "discussions",
+      "enquete": "polls"
+    }
+  },
+  "ajustes": {
+    "titulo": "Interests in the feed",
+    "texto": "What you marked in the questionnaire. It stays only on this device and changes the order of the In a circle feed.",
+    "vazio": "You haven't answered yet, or you deleted your answers. Your feed is the same as everyone's.",
+    "responder": "Answer the questionnaire",
+    "editar": "Change interests",
+    "apagar": "Delete answers",
+    "apagado": "Answers deleted from this device.",
+    "salvo": "Interests saved on this device.",
+    "outroAparelho": "On another device, the answers don't show up: answer again there, if you want."
+  },
+  "cadastro": {
+    "titulo": "Before sending: what do you want on Alumia?",
+    "nota": "Optional. It does not go with your request: it stays only on this device.",
+    "pronto": "Interests saved on this device. Now just send the request.",
+    "pulado": "Questionnaire skipped. You can answer later, in Settings.",
+    "refazer": "Change answers",
+    "continuar": "Continue",
+    "voltarAoPedido": "Back to the request"
+  }
+}

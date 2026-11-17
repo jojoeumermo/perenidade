@@ -42,7 +42,7 @@ export function ConteudoParaOrganizacoes({ t, lang, naCasca = false }: { t: Text
         {naCasca ? null : (
         <header className="al-org-topo">
           <Link href={`/${lang}/alumia`} className="al-org-marca" aria-label={t.marca.inicio}>
-            <Lampiao tamanho={28} />
+            <Lampiao tamanho={36} />
             <span>
               <span className="al-cond al-org-marca-nome">{t.marca.alumia}</span>
               <span className="al-marca-instituto al-org-marca-instituto">{t.marca.instituto}</span>

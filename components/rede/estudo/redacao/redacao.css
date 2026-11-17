@@ -1,0 +1,249 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * A roda de redação (/alumia/redacao). Linguagem do Mosaico da Arquibancada: carimbo, faixa tecida, ladrilhos, Archivo condensada
+ * em caixa alta; a folha pautada com a margem vermelha. Só usa os tokens de styles/alumia-tokens.css (vale no escuro, no claro, no
+ * contraste e no e-ink).
+ */
+
+.rd-pagina { container-type: inline-size; padding: 1.5rem 1rem 3.5rem; color: var(--al-texto); }
+@media (min-width: 1024px) { .rd-pagina { padding: 1.9rem 1.5rem 4rem; } }
+
+/* ───── Cabeçalho ───── */
+.rd-cabeca { position: relative; margin-bottom: 1.4rem; padding-bottom: 1.3rem; }
+.rd-cabeca::after { content: ""; position: absolute; inset: auto 0 0; height: var(--al-faixa-altura, 6px); background: var(--al-faixa); border-radius: 2px; }
+.rd-cabeca h1 { margin: 0; font-size: clamp(2.4rem, 7cqi, 4.1rem); color: var(--al-texto); text-wrap: balance; }
+.rd-chamada { margin: 0.9rem 0 0; max-width: 50rem; color: var(--al-texto-2); font-size: 1.06rem; line-height: 1.55; }
+.rd-chamada strong { color: var(--al-texto); }
+.rd-carimbo {
+  display: inline-flex; align-items: center; margin: 0 0 1rem; padding: 0.42rem 0.75rem 0.34rem; border: 2px solid var(--al-vermelho); border-radius: 6px;
+  box-shadow: inset 0 0 0 2px var(--al-fundo), inset 0 0 0 3px var(--al-vermelho); color: var(--al-vermelho-sobre-escuro, var(--al-vermelho-texto));
+  font-size: 1.05rem; letter-spacing: 0.06em; transform: rotate(-1.2deg); transform-origin: left center;
+}
+@media (prefers-reduced-motion: reduce) { .rd-carimbo { transform: none; } }
+:root:is([data-contrast], [data-eink]) .rd-carimbo { transform: none; color: var(--al-texto); border-color: var(--al-texto); box-shadow: none; }
+
+/* ───── O tema da semana: o cartaz dourado ───── */
+.rd-tema {
+  position: relative; margin: 0 0 1.6rem; padding: 1.2rem 1.25rem 1.25rem 1.6rem; border-radius: var(--al-raio);
+  background: var(--al-superficie); border: 2px solid var(--al-dourado); overflow: hidden;
+}
+.rd-tema::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 8px; background: repeating-linear-gradient(180deg, var(--al-dourado) 0 14px, var(--al-vermelho) 14px 28px); }
+.rd-tema[data-vazio="sim"] { border-style: dashed; border-color: var(--al-linha); }
+.rd-tema[data-vazio="sim"]::before { background: var(--al-linha); }
+.rd-tema-rotulo { margin: 0 0 0.35rem; color: var(--al-dourado); font-size: 1rem; letter-spacing: 0.08em; }
+.rd-tema-titulo { margin: 0; max-width: 60rem; color: var(--al-texto); font-size: clamp(1.35rem, 3.2cqi, 1.9rem); font-weight: 800; line-height: 1.25; text-wrap: balance; }
+.rd-tema-titulo[data-vazio="sim"] { color: var(--al-texto-2); font-size: 1.1rem; font-weight: 600; }
+.rd-tema-ate { margin: 0.5rem 0 0; color: var(--al-texto-3); font-size: 0.92rem; }
+.rd-motivadores { margin-top: 0.8rem; max-width: 60rem; }
+.rd-motivadores summary, .rd-meu-texto summary {
+  display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; color: var(--al-texto); font-weight: 700;
+  text-decoration: underline; text-decoration-color: var(--al-dourado); text-decoration-thickness: 2px; text-underline-offset: 3px;
+}
+.rd-motivadores summary:focus-visible, .rd-meu-texto summary:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+.rd-motivadores p { margin: 0.5rem 0 0; color: var(--al-texto-2); line-height: 1.55; }
+
+/* ───── A grade: as partes da roda e, ao lado, a troca e as regras ───── */
+.rd-grade { display: grid; gap: 1.6rem; }
+@container (min-width: 60rem) { .rd-grade { grid-template-columns: minmax(0, 1fr) 19rem; align-items: start; } }
+.rd-principal { min-width: 0; }
+
+.rd-abas { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 1.3rem; padding: 6px; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-linha); width: fit-content; max-width: 100%; }
+.rd-aba {
+  display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0 1rem; border: 0; border-radius: 8px; background: none; cursor: pointer;
+  color: var(--al-texto-3); font: inherit; font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 800;
+  font-size: 1.15rem; letter-spacing: 0.03em; text-transform: uppercase;
+}
+.rd-aba[aria-pressed="true"] { background: var(--al-saliente); color: var(--al-sobre-saliente); box-shadow: inset 0 -3px 0 var(--al-vermelho); }
+.rd-aba:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+/* No celular, as cinco abas numa faixa que rola para o lado (nada de três linhas tortas), presas pelo começo de cada uma. */
+@media (max-width: 639px) {
+  .rd-abas { flex-wrap: nowrap; width: auto; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .rd-abas::-webkit-scrollbar { display: none; }
+  .rd-aba { flex: none; scroll-snap-align: start; white-space: nowrap; }
+}
+@media (hover: hover) and (pointer: fine) { .rd-aba:not([aria-pressed="true"]):hover { background: var(--al-superficie-2); color: var(--al-texto); } }
+.rd-aba-n {
+  display: inline-grid; place-items: center; min-width: 1.35rem; height: 1.35rem; padding: 0 0.3rem; border-radius: 999px;
+  background: var(--al-vermelho-texto, var(--al-vermelho)); color: var(--al-sobre-vermelho); font-size: 0.8rem; letter-spacing: 0;
+}
+.rd-aba-n[data-cor="dourado"] { background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); }
+
+.rd-bloco { margin: 0 0 2rem; }
+.rd-bloco-titulo { margin: 0 0 0.8rem; font-size: 2rem; color: var(--al-texto); }
+.rd-chamada-bloco { margin: -0.3rem 0 1rem; max-width: 48rem; color: var(--al-texto-2); font-size: 0.97rem; line-height: 1.55; }
+.rd-sub { margin: 0 0 0.6rem; font-size: 1.15rem; letter-spacing: 0.04em; color: var(--al-texto-3); }
+.rd-rotulo { display: block; margin: 0.9rem 0 0.35rem; color: var(--al-texto); font-weight: 700; font-size: 0.95rem; }
+.rd-dica { margin: 0 0 0.5rem; color: var(--al-texto-3); font-size: 0.88rem; line-height: 1.45; }
+.rd-campo {
+  display: block; width: 100%; padding: 0.65rem 0.8rem; border: 1px solid var(--al-linha); border-radius: 10px; background: var(--al-fundo);
+  color: var(--al-texto); font: inherit; line-height: 1.5; resize: vertical;
+}
+.rd-campo:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 1px; border-color: transparent; }
+.rd-campo-titulo { max-width: 40rem; font-weight: 700; }
+.rd-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 0.8rem; margin-top: 1rem; }
+.rd-acoes .al-botao { min-height: 44px; }
+.rd-erro { margin: 0.8rem 0 0; color: var(--al-vermelho-sobre-escuro, var(--al-vermelho-texto)); font-weight: 700; }
+.rd-ok { margin: 0.8rem 0; padding: 0.75rem 0.95rem; border-radius: 10px; background: var(--al-superficie); border-left: 5px solid var(--al-dourado); color: var(--al-texto); }
+.rd-vazio { margin: 0; padding: 1.2rem; border-radius: var(--al-raio); border: 1px dashed var(--al-linha); color: var(--al-texto-2); }
+.rd-afastada { margin: 0 0 1rem; padding: 0.85rem 1rem; border-radius: 10px; background: var(--al-superficie); border-left: 5px solid var(--al-vermelho); color: var(--al-texto); }
+.rd-confirma { color: var(--al-texto); font-weight: 700; }
+
+/* ───── A folha pautada ───── */
+.rd-folha {
+  --rd-linha: 2rem;
+  position: relative; border-radius: 6px; background-color: var(--al-superficie); border: 1px solid var(--al-linha);
+  background-image: linear-gradient(90deg, transparent 2.6rem, var(--al-vermelho) 2.6rem, var(--al-vermelho) calc(2.6rem + 2px), transparent calc(2.6rem + 2px)),
+    repeating-linear-gradient(180deg, transparent 0 calc(var(--rd-linha) - 1px), var(--al-linha) calc(var(--rd-linha) - 1px) var(--rd-linha));
+  background-position: 0 0, 0 0.75rem;
+}
+.rd-folha textarea {
+  display: block; width: 100%; min-height: calc(var(--rd-linha) * 14 + 1.5rem); max-height: calc(var(--rd-linha) * 32 + 1.5rem); field-sizing: content;
+  padding: 0.75rem 1rem 0.75rem 3.4rem; border: 0; background: transparent; color: var(--al-texto); resize: vertical;
+  font: inherit; font-size: 1.05rem; line-height: var(--rd-linha);
+}
+.rd-folha textarea:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; border-radius: 6px; }
+.rd-folha[data-passou="sim"] { border-color: var(--al-vermelho); }
+.rd-folha-ler { padding: 0.75rem 1rem 0.75rem 3.4rem; }
+.rd-folha-ler p { margin: 0; color: var(--al-texto); font-size: 1.02rem; line-height: var(--rd-linha); text-indent: 1.5rem; overflow-wrap: anywhere; }
+.rd-folha-ler .rd-folha-titulo { text-indent: 0; text-align: center; font-weight: 800; }
+.rd-folha-ler .rd-folha-titulo[data-vazio="sim"] { color: var(--al-texto-3); font-weight: 600; font-style: italic; }
+.rd-contador { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; margin: 0.5rem 0 0; color: var(--al-texto-3); font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+.rd-contador [data-alerta="sim"] { color: var(--al-vermelho-sobre-escuro, var(--al-vermelho-texto)); font-weight: 700; }
+
+/* ───── Uma leitura aberta: a redação ao lado da ficha ───── */
+.rd-leitura { margin: 1.4rem 0 0; padding: 1.1rem; border-radius: var(--al-raio); background: var(--al-superficie-2); border: 1px solid var(--al-linha); }
+.rd-leitura-topo { margin-bottom: 1rem; }
+.rd-leitura-tema { margin: 0.35rem 0 0; color: var(--al-texto); font-weight: 800; font-size: 1.1rem; line-height: 1.35; }
+.rd-cega { margin: 0.5rem 0 0; color: var(--al-texto-2); font-size: 0.92rem; }
+.rd-selo {
+  display: inline-flex; margin: 0; padding: 0.22rem 0.55rem 0.16rem; border-radius: 5px; background: var(--al-saliente); color: var(--al-sobre-saliente);
+  font-size: 0.92rem; letter-spacing: 0.04em;
+}
+.rd-leitura-corpo { display: grid; gap: 1.2rem; }
+@container (min-width: 62rem) { .rd-leitura-corpo { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: start; } .rd-leitura-texto { position: sticky; top: 1rem; } }
+
+.rd-competencia { margin: 0 0 0.9rem; padding: 0.85rem 0.9rem 0.95rem; border: 1px solid var(--al-linha); border-radius: 12px; background: var(--al-superficie); min-width: 0; }
+.rd-competencia[data-pronta="sim"] { border-color: var(--al-dourado); }
+.rd-competencia legend { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 0.6rem; padding: 0; }
+.rd-competencia-numero {
+  grid-row: span 2; display: grid; place-items: center; width: 2.3rem; height: 2.3rem; border-radius: 8px; background: var(--al-vermelho); color: var(--al-sobre-vermelho);
+  font-size: 1.4rem;
+}
+.rd-competencia:nth-of-type(2) .rd-competencia-numero { background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); }
+.rd-competencia:nth-of-type(3) .rd-competencia-numero { background: var(--al-com-1); color: var(--al-fundo); }
+.rd-competencia:nth-of-type(4) .rd-competencia-numero { background: var(--al-com-4); color: var(--al-fundo); }
+.rd-competencia:nth-of-type(5) .rd-competencia-numero { background: var(--al-com-2); color: var(--al-fundo); }
+.rd-competencia-nome { color: var(--al-texto); font-size: 1.1rem; letter-spacing: 0.03em; }
+.rd-competencia-resumo { color: var(--al-texto-2); font-size: 0.86rem; line-height: 1.4; }
+.rd-notas { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; margin-top: 0.75rem; }
+.rd-nota { position: relative; }
+.rd-nota input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.rd-nota span {
+  display: grid; place-items: center; min-height: 44px; border-radius: 6px; border: 1px solid var(--al-linha); background: var(--al-fundo);
+  color: var(--al-texto-2); font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 800; font-size: 1.15rem;
+  font-variant-numeric: tabular-nums;
+}
+.rd-nota input:checked + span { background: var(--al-vermelho); border-color: var(--al-vermelho); color: var(--al-sobre-vermelho); }
+.rd-nota input:focus-visible + span { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) { .rd-nota input:not(:checked):hover + span { border-color: var(--al-texto-3); color: var(--al-texto); } }
+.rd-total { display: flex; align-items: baseline; gap: 0.5rem; margin-top: 1rem; padding: 0.7rem 0.9rem; border-radius: 10px; background: var(--al-superficie); }
+.rd-total span:first-child { color: var(--al-texto-3); font-size: 1.05rem; letter-spacing: 0.05em; }
+.rd-total strong { font-size: 2.4rem; line-height: 1; color: var(--al-texto); font-variant-numeric: tabular-nums; }
+.rd-total span:last-child { color: var(--al-texto-3); }
+
+/* ───── As redações da pessoa e as leituras recebidas ───── */
+.rd-minha { margin: 0 0 1.2rem; padding: 1.1rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.rd-minha[data-situacao="devolvida"] { border-color: var(--al-dourado); }
+.rd-minha-tema { margin: 0.5rem 0 0; font-size: 1.15rem; line-height: 1.35; color: var(--al-texto); }
+.rd-minha-titulo { margin: 0.25rem 0 0; color: var(--al-texto-2); font-style: italic; }
+.rd-estado { margin-top: 0.8rem; }
+.rd-estado p { margin: 0; color: var(--al-texto-2); }
+.rd-estado-forte { margin-top: 0.3rem !important; color: var(--al-texto) !important; font-weight: 700; }
+.rd-media { display: flex; align-items: baseline; gap: 0.5rem; margin: 1rem 0 0.4rem; }
+.rd-media span:first-child { color: var(--al-texto-3); letter-spacing: 0.05em; }
+.rd-media strong { font-size: 3rem; line-height: 1; color: var(--al-texto); font-variant-numeric: tabular-nums; }
+.rd-media span:last-child { color: var(--al-texto-3); }
+.rd-recebidas { list-style: none; margin: 0.8rem 0 0; padding: 0; display: grid; gap: 0.8rem; }
+@container (min-width: 70rem) { .rd-minha .rd-recebidas { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.rd-recebida { position: relative; padding: 0.9rem 0.95rem 0.95rem 1.15rem; border-radius: 12px; background: var(--al-fundo); border: 1px solid var(--al-linha); overflow: hidden; }
+.rd-recebida::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--al-vermelho); }
+.rd-recebida:nth-child(2n)::before { background: var(--al-dourado); }
+.rd-recebida[data-removida="sim"]::before { background: var(--al-linha); }
+.rd-recebida h4 { margin: 0; font-size: 1.25rem; color: var(--al-texto); letter-spacing: 0.03em; }
+.rd-recebida-topo { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.rd-recebida-total { margin: 0; color: var(--al-texto-3); }
+.rd-recebida-total strong { font-size: 2rem; color: var(--al-texto); font-variant-numeric: tabular-nums; }
+.rd-barras { list-style: none; margin: 0.6rem 0 0; padding: 0; display: grid; gap: 0.55rem; }
+.rd-barra-linha { display: grid; grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr) 2.6rem; align-items: center; gap: 0.6rem; }
+.rd-barra-nome { color: var(--al-texto-2); font-size: 0.95rem; letter-spacing: 0.02em; }
+.rd-barra { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px; }
+.rd-barra i { display: block; height: 0.8rem; border-radius: 2px; border: 1px solid var(--al-linha); }
+/* A mesma cor neutra (o ouro) nas duas leituras: vermelho lia como erro ou nota ruim. A leitura se separa pelo carimbo, não pela cor. */
+.rd-barra i[data-cheio="sim"] { background: var(--al-dourado); border-color: var(--al-dourado); }
+.rd-barra-nota { text-align: right; color: var(--al-texto); font-variant-numeric: tabular-nums; }
+.rd-barra-comentario { margin: 0.25rem 0 0; color: var(--al-texto-2); font-size: 0.92rem; line-height: 1.45; }
+.rd-geral { margin: 0.8rem 0 0; padding-top: 0.7rem; border-top: 1px dashed var(--al-linha); color: var(--al-texto); line-height: 1.5; }
+.rd-selo-pequeno { margin: 0.7rem 0 0; color: var(--al-texto-3); font-size: 0.86rem; font-weight: 700; }
+.rd-denunciar { margin-top: 0.6rem; min-height: 44px; text-decoration: underline; }
+.rd-denuncia { margin-top: 0.6rem; }
+.rd-meu-texto { margin-top: 0.9rem; }
+.rd-meu-texto .rd-folha { margin-top: 0.4rem; }
+
+/* ───── Ao lado: a troca e as regras ───── */
+.rd-lado { display: grid; gap: 1.2rem; }
+@container (min-width: 60rem) { .rd-lado { position: sticky; top: 1rem; } }
+.rd-lado-titulo { margin: 0 0 0.7rem; font-size: 1.35rem; color: var(--al-texto); letter-spacing: 0.03em; }
+.rd-troca, .rd-como { padding: 1rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.rd-ladrilhos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+.rd-ladrilhos li { position: relative; padding: 0.75rem 0.8rem 0.8rem 1rem; border-radius: 10px; background: var(--al-fundo); overflow: hidden; }
+.rd-ladrilhos li::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--al-vermelho); }
+.rd-ladrilhos li:nth-child(2)::before { background: var(--al-dourado); }
+.rd-ladrilhos li > span:not(.rd-pontos) { display: block; color: var(--al-texto-2); font-size: 0.82rem; font-weight: 700; line-height: 1.3; }
+.rd-n { display: block; font-size: 2.4rem; line-height: 1; color: var(--al-texto); font-variant-numeric: tabular-nums; margin-bottom: 0.3rem; }
+.rd-n small { font-size: 1rem; color: var(--al-texto-3); }
+.rd-n[data-pouco="sim"] { font-size: 1.15rem; line-height: 2.1rem; color: var(--al-texto-3); text-transform: uppercase; }
+.rd-pontos { display: flex; gap: 4px; margin-top: 0.5rem; }
+.rd-pontos i { width: 1.1rem; height: 0.5rem; border-radius: 2px; border: 1px solid var(--al-linha); }
+.rd-pontos i[data-cheio="sim"] { background: var(--al-vermelho); border-color: var(--al-vermelho); }
+.rd-como ol { list-style: none; margin: 0; padding: 0; counter-reset: rd; display: grid; gap: 0.8rem; }
+.rd-como li { counter-increment: rd; display: grid; grid-template-columns: 1.7rem minmax(0, 1fr); column-gap: 0.55rem; }
+.rd-como li::before {
+  content: counter(rd); grid-row: span 2; display: grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 5px;
+  background: var(--al-saliente); color: var(--al-sobre-saliente); font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 800;
+}
+.rd-como h3 { margin: 0; font-size: 1.02rem; color: var(--al-texto); letter-spacing: 0.02em; }
+.rd-como p { margin: 0.2rem 0 0; color: var(--al-texto-2); font-size: 0.88rem; line-height: 1.45; }
+
+/* ───── Mediação e temas ───── */
+.rd-fila, .rd-agenda { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.rd-denuncia-fila { padding: 1.1rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-vermelho); }
+.rd-motivo { margin: 0.8rem 0 1rem; padding: 0.7rem 0.9rem; border-radius: 10px; background: var(--al-fundo); border-left: 5px solid var(--al-vermelho); }
+.rd-motivo h4 { margin: 0 0 0.25rem; font-size: 1rem; color: var(--al-texto-3); letter-spacing: 0.04em; }
+.rd-motivo p { margin: 0; color: var(--al-texto); }
+.rd-agenda { grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 0.6rem; }
+.rd-semana { padding: 0.9rem 0.95rem; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.rd-semana[data-atual="sim"] { border: 2px solid var(--al-dourado); }
+.rd-semana[data-vazia="sim"] { border-style: dashed; }
+.rd-semana-topo { display: flex; justify-content: space-between; gap: 0.6rem; align-items: baseline; }
+.rd-semana-data { margin: 0; color: var(--al-texto-3); font-size: 1rem; letter-spacing: 0.04em; }
+.rd-semana[data-atual="sim"] .rd-semana-data { color: var(--al-dourado); }
+.rd-semana-n { margin: 0; color: var(--al-texto-3); font-size: 0.82rem; }
+.rd-semana-titulo { margin: 0.4rem 0 0.7rem; color: var(--al-texto); font-weight: 700; line-height: 1.35; }
+.rd-semana-titulo[data-vazio="sim"] { color: var(--al-texto-3); font-weight: 600; }
+.rd-semana-form .rd-rotulo:first-child { margin-top: 0.4rem; }
+
+/* ───── Celular: a margem da folha e as caixas mais justas ───── */
+@container (max-width: 34rem) {
+  .rd-folha { background-image: linear-gradient(90deg, transparent 1.2rem, var(--al-vermelho) 1.2rem, var(--al-vermelho) calc(1.2rem + 2px), transparent calc(1.2rem + 2px)),
+    repeating-linear-gradient(180deg, transparent 0 calc(var(--rd-linha) - 1px), var(--al-linha) calc(var(--rd-linha) - 1px) var(--rd-linha)); }
+  .rd-folha textarea, .rd-folha-ler { padding-left: 1.8rem; padding-right: 0.7rem; }
+  .rd-leitura, .rd-minha, .rd-denuncia-fila { padding: 0.85rem 0.75rem; }
+  .rd-competencia { padding: 0.75rem 0.7rem 0.8rem; }
+  .rd-barra-linha { grid-template-columns: minmax(0, 6.5rem) minmax(0, 1fr) 2.4rem; }
+}
+
+/* A competência que faltou no envio: a borda e a frase junto dela (o foco vai até ela). */
+/* Texto vermelho sobre o escuro com o vermelho de texto (5,4:1); no e-ink, tinta. */
+:root[data-eink] :is(.rd-erro, .rd-contador [data-alerta="sim"]) { color: var(--al-texto); }
+.rd-competencia[data-erro] { border-color: var(--al-vermelho); box-shadow: inset 4px 0 0 var(--al-vermelho); }
+.rd-erro-competencia { margin: 0.5rem 0 0; }

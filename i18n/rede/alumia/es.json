@@ -8,12 +8,15 @@
   },
   "fed": {
     "titulo": "Alumia en el Fediverso",
-    "lead": "El Fediverso es un conjunto de redes sociales libres que conversan entre sí, como Mastodon. Si activas la federación, gente de allá puede seguirte y leer tus publicaciones públicas, y tú puedes seguir a gente de allá. Queda desactivada hasta que la actives.",
+    "lead": "El Fediverso es un conjunto de redes sociales libres que conversan entre sí, como Mastodon. Si activas la federación, gente de allá puede seguirte y leer tus publicaciones públicas, y tú puedes seguir a gente de allá.",
+    "leadDesligada": "Queda desactivada hasta que la actives.",
+    "leadLigada": "La tuya está activada: puedes desactivarla aquí abajo, y los servidores de fuera reciben el pedido de borrar.",
     "foraDoAr": "La federación todavía no está activada en el servidor de Alumia. Cuando lo esté, podrás activar la tuya aquí.",
     "endereco": "Tu dirección en el Fediverso",
     "ligadaDesde": "Activada desde {quando}.",
     "desligada": "Desactivada: nada tuyo sale de Alumia.",
     "numeros": "Personas de fuera que te siguen: {seguidores}. Personas de fuera que sigues: {seguindo}.",
+    "menosDeTres": "menos de 3",
     "consentimento": {
       "titulo": "Antes de activar, lee con calma",
       "itens": [

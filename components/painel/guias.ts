@@ -195,6 +195,24 @@ export const GUIAS: Record<string, Guia> = {
     ],
     dica: "Coordenação e militantes da Escola entram direto. Aprovar na Alumia não dá a Escola. O Fediverso tem moderação própria: servidor ou pessoa de fora se bloqueia lá, não aqui.",
   },
+  "alumia-admin": {
+    paraQue: "O painel único da Alumia: a coordenação liga e desliga tudo, abre o beta, cuida da entrada, bane, apaga e se defende de um ataque, num lugar só e com registro.",
+    passos: [
+      { titulo: "Olhe o alto", texto: "O estado do beta fechado fica sempre à vista. Em vermelho, a Alumia está aberta sem a trava: qualquer pessoa criaria conta e entraria." },
+      { titulo: "Na hora de um ataque", texto: "Feche a porta de entrada com um clique (Beta fechado). Se for preciso, bloqueie o endereço na Cloudflare, com prazo, na aba Ataque." },
+      { titulo: "Banir com tudo", texto: "Na ficha da conta: o banimento leva o e-mail (só em resumo), as sessões, os convites abertos dela e devolve à triagem quem ela convidou." },
+    ],
+    dica: "O painel não lê conversa nem post cifrado, não vê votos, não puxa lista de membros e não guarda endereço de rede. Números de pessoas só a partir de 3. Variável do servidor não muda por aqui.",
+  },
+  "alumia-painel": {
+    paraQue: "Controlar a Alumia de ponta a ponta, sem depender de ninguém de fora: só a coordenação e o admin da Alumia entram.",
+    passos: [
+      { titulo: "Comece pela Visão geral", texto: "Ladrilho aceso é coisa esperando decisão: pedidos de entrada, denúncias, pedidos de selo. Clique no ladrilho para ir direto." },
+      { titulo: "Toda ação pede o motivo", texto: "Ocultar, apagar, suspender, banir, nomear e ligar ou desligar função abrem uma janela de confirmação. O motivo fica no registro e, quando a ação atinge alguém, a pessoa lê." },
+      { titulo: "Leia o registro", texto: "A aba Registro mostra quem fez, o quê, quando e por quê. Ninguém altera nem apaga, e dá para exportar em planilha." },
+    ],
+    dica: "A mediação não entra aqui: ela modera a Alumia pelas telas dela, com o papel que já tem no Instituto. Barrar por rede atinge quem divide o mesmo endereço: confira o número de contas antes de confirmar. Nenhum endereço de rede é guardado: o banimento por rede compara só um resumo embaralhado, e quem troca de rede sai dele.",
+  },
   "rede-semeadura": {
     paraQue: "Acompanhar a semeadura da Alumia (docs/rede/SEMEAR.md) sem inventar nada: ver onde já há conversa real e onde falta gente moderando.",
     passos: [

@@ -49,6 +49,10 @@ ok("a migração está colada no install.sql (o integrador colou)", ler("supabas
 await espera("a F0 instala", () => banco.exclusivo(() => banco.pg.exec(ler("supabase/migracoes/20261109-alumia-f0-contrato.sql"))));
 await espera("a F4 instala sobre a F0", () => banco.exclusivo(() => banco.pg.exec(migracao)));
 await espera("e instala de novo sem estrago (idempotente)", () => banco.exclusivo(() => banco.pg.exec(migracao)));
+// O voto secreto de verdade (20261114-alumia-o8-voto.sql: cédula sem id, urna que regrava em ordem sorteada, resultado só com
+// quórum) roda por cima da F4: as conferências da consulta valem para o código de agora.
+const votoSecreto = ler("supabase/migracoes/20261114-alumia-o8-voto.sql");
+await espera("a migração do voto secreto instala sobre a F4 (duas vezes)", async () => { await banco.exclusivo(() => banco.pg.exec(votoSecreto)); await banco.exclusivo(() => banco.pg.exec(votoSecreto)); });
 
 let ip = 10;
 const como = (sub, extra = {}) => ({ papel: "authenticated", sub, ip: `198.51.100.${ip++ % 250}`, ...extra });
@@ -206,7 +210,7 @@ await espera("depois de votar: votei, e o que votei não volta", () => verConsul
 await espera("voto secreto por construção: a cédula não tem a pessoa, nem hora; o votante não tem a cédula", async () => {
   const col = async (t) => (await sql("select column_name from information_schema.columns where table_schema = 'interno' and table_name = $1 order by 1", [t])).rows.map((r) => r.column_name).join();
   return [await col("rede_consulta_cedulas"), await col("rede_consulta_votantes")];
-}, ([c, v]) => c === "consulta,id,ranking" && v === "consulta,usuario");
+}, ([c, v]) => c === "consulta,ranking" && v === "consulta,usuario");
 // Fecha (o prazo passa).
 await sql("update interno.rede_consultas set prazo = now() - interval '1 minute' where id in ($1, $2)", [consulta?.id, consulta2?.id]);
 const fechada = await espera("fechada: votantes, quórum e as proporções da última rodada", () => verConsulta(visitante()), (c) => c.situacao === "fechada" && c.votantes === 4 && c.quorumAtingido === true && c.possoVotar === false);

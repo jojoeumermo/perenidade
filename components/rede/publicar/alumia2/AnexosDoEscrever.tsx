@@ -7,10 +7,19 @@ import { preencher } from "@/lib/rede/preencher";
 import { redePub } from "@/lib/rede/cliente-publicar";
 import { chaveDoAviso, LIMITE_DO_AVISO, SUGESTOES_DE_AVISO, VEZES_DA_REPETICAO } from "@/lib/rede/publicar/b1";
 import { LIMITES_PUBLICAR, type MeuAto } from "@/lib/rede/tipos-publicar";
+import { ARRANJOS, LIMITE_DA_LEGENDA, LIMITE_DE_IMAGENS } from "@/lib/rede/publicar/compositor";
+import { FigurinhaDaCasa, SeletorDeFigurinhas } from "../../figurinhas/PacoteDaCasa";
 import { BorrarRostos } from "../BorrarRostos";
 import { Agendados, Gravador, type PubDoEscrever } from "../ExtrasDoEscrever";
+import { CartaoDoLink } from "../compositor/CartaoDoLink";
+import { FusoDoAgendar } from "../compositor/FusoDoAgendar";
+import { useTextosDoCompositor } from "../compositor/textos";
+import "../compositor/compositor.css";
 import type { TextosAlumia2 } from "./textos";
 import { Icone } from "./icones";
+import { FaixaDeFerramentas } from "./FaixaDeFerramentas";
+import type { ContextoDoEncaixe } from "../../encaixes";
+import { compositorDaMidia } from "../../midia/encaixe";
 
 const PRAZOS = [1, 6, 24, 72, 168] as const;
 
@@ -30,6 +39,9 @@ export function AnexosDoEscrever({
   enquete,
   aoEnquete,
   semAgenda = false,
+  fio,
+  pedirAgenda,
+  ctx,
 }: {
   pub: PubDoEscrever;
   t: TextosAlumia2;
@@ -42,8 +54,17 @@ export function AnexosDoEscrever({
   aoEnquete?: (ligar: boolean) => void;
   /** Sem "mais tarde" (o ato, que sai na hora). */
   semAgenda?: boolean;
+  /** Onda 12: o fio montado de uma vez (só num post novo): ligado ou não, e o botão que liga e desliga. */
+  fio?: { ligado: boolean; alternar: () => void };
+  /** Onda 12: cada número novo abre o "mais tarde" (o Agendar de um rascunho). */
+  pedirAgenda?: number;
+  /** Onda 12 (12B): o contexto dos encaixes, para as peças do vídeo curto (só com "alumia-video-post"). */
+  ctx?: ContextoDoEncaixe;
 }) {
   const tp = pub.t;
+  const tc = useTextosDoCompositor(lang);
+  const [pacote, setPacote] = useState(false);
+  const iconeFigurinha = useRef<HTMLButtonElement>(null);
   const [avisoAberto, setAvisoAberto] = useState(Boolean(pub.aviso));
   const comAviso = avisoAberto || Boolean(pub.aviso);
   const cartaoAviso = useRef<HTMLDivElement>(null);
@@ -71,6 +92,14 @@ export function AnexosDoEscrever({
   const [borrando, setBorrando] = useState<string | null>(null);
   const [gravador, setGravador] = useState(false);
   const [agenda, setAgenda] = useState(Boolean(pub.agendar));
+  // O "Agendar" de um rascunho abre o cartão do mais tarde (o rascunho já veio para a caixa).
+  const pedidoVisto = useRef(pedirAgenda ?? 0);
+  useEffect(() => {
+    if (!pedirAgenda || pedirAgenda === pedidoVisto.current) return;
+    pedidoVisto.current = pedirAgenda;
+    // Abrir o cartão a pedido de fora (o botão do rascunho) é um evento, não um estado derivado.
+    setAgenda(true);
+  }, [pedirAgenda]);
   // Foco (WCAG 2.4.3): o cartão que abre recebe o foco (o botão Gravar, o campo da hora, a primeira opção da enquete); o cartão que
   // fecha devolve o foco ao ícone que o abriu. Sem isso, o foco caía no <body>, fora do diálogo.
   const cartaoAudio = useRef<HTMLDivElement>(null);
@@ -96,7 +125,7 @@ export function AnexosDoEscrever({
   }, [comAudio, agenda, pub.enquete]);
   if (!tp) return null;
   const noBorrado = pub.imagens.find((i) => i.id === borrando);
-  const cabeImagem = pub.imagens.length < LIMITES_PUBLICAR.imagens && !pub.audio && !gravador;
+  const cabeImagem = pub.imagens.length < LIMITE_DE_IMAGENS && !pub.audio && !gravador;
   const cabeAudio = !pub.imagens.length;
   const { minimo, maximo: maxAgenda } = pub.limitesDaAgenda;
   const textoDoAchado = (tipo: string) => (tp.checagem as Record<string, string>)[tipo];
@@ -231,8 +260,19 @@ export function AnexosDoEscrever({
       )}
 
       {/* Imagens: miniaturas com a descrição logo embaixo (o lembrete de alt é suave, não bloqueia). */}
+      {/* Onda 12: com 2 imagens ou mais, como elas aparecem (grade, carrossel, colagem). */}
+      {tc && pub.imagens.length > 1 && (
+        <div className="cp-arranjo" role="radiogroup" aria-label={tc.imagens.arranjo}>
+          <span className="text-xs font-bold uppercase tracking-wide text-[var(--al-texto-3)]">{tc.imagens.arranjo}</span>
+          {ARRANJOS.map((a) => (
+            <button key={a} type="button" role="radio" aria-checked={pub.arranjo === a} className="al2-chip" onClick={() => pub.setArranjo(a)}>
+              {tc.imagens[a]}
+            </button>
+          ))}
+        </div>
+      )}
       {pub.imagens.length > 0 && (
-        <ul className={`al2-miniaturas al2-miniaturas-${pub.imagens.length}`} aria-label={tp.imagens.titulo}>
+        <ul className={`al2-miniaturas al2-miniaturas-${pub.imagens.length} ${pub.imagens.length > 4 ? "cp-miniaturas-muitas" : ""}`} aria-label={tp.imagens.titulo}>
           {pub.imagens.map((i, n) => (
             <li key={i.id} className="al2-miniatura">
               <div className="relative">
@@ -253,6 +293,25 @@ export function AnexosDoEscrever({
                 <span className="sr-only">{tp.imagens.alt}</span>
                 <input id={`al2-alt-${i.id}`} className={`al2-alt ${i.alt.trim() ? "" : "al2-alt-falta"}`} placeholder={tp.imagens.altDica} value={i.alt} maxLength={LIMITES_PUBLICAR.textoAlt} onChange={(e) => pub.mudarAlt(i.id, e.target.value)} />
               </label>
+              {/* Onda 12: a legenda (todo mundo vê, embaixo da imagem) e a ordem (a do carrossel e da colagem). */}
+              {tc && (
+                <>
+                  <label className="cp-legenda-campo block">
+                    <span className="sr-only">{preencher(tc.imagens.legendaDica, { n: n + 1 })}</span>
+                    <input className="al2-alt" placeholder={preencher(tc.imagens.legendaDica, { n: n + 1 })} value={i.legenda} maxLength={LIMITE_DA_LEGENDA} onChange={(e) => pub.mudarLegenda(i.id, e.target.value)} />
+                  </label>
+                  {pub.imagens.length > 1 && (
+                    <div className="cp-mover mt-1">
+                      <button type="button" className="al2-acao" disabled={n === 0} onClick={() => pub.moverImagem(i.id, -1)} aria-label={preencher(tc.imagens.antes, { n: n + 1 })} title={preencher(tc.imagens.antes, { n: n + 1 })}>
+                        <svg viewBox="0 0 24 24" aria-hidden className="h-4 w-4"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                      </button>
+                      <button type="button" className="al2-acao" disabled={n === pub.imagens.length - 1} onClick={() => pub.moverImagem(i.id, 1)} aria-label={preencher(tc.imagens.depois, { n: n + 1 })} title={preencher(tc.imagens.depois, { n: n + 1 })}>
+                        <svg viewBox="0 0 24 24" aria-hidden className="h-4 w-4"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
               {/* Começos prontos (sem IA: a imagem não sai do aparelho para "adivinhar" o que mostra). Tocar põe o começo e leva o foco ao campo. */}
               {!i.alt.trim() && (
                 <div className="mt-1 flex flex-wrap gap-1" role="group" aria-label={t.b1.altComecos}>
@@ -309,6 +368,7 @@ export function AnexosDoEscrever({
               }}
               classeBotao="al-botao al-botao-contorno al-botao-p"
               comecarJa={!pub.audio}
+              tocadorDaAlumia
             />
           </div>
           {!pub.audio && (
@@ -387,12 +447,14 @@ export function AnexosDoEscrever({
           {!pub.aposAto && !escolhendoAto && (
             <CampoDeQuando id="al2-agenda-quando" className="mt-2 w-full" valor={pub.agendar} aoMudar={pub.setAgendar} lang={lang} vazio={t.escrever.escolherQuando} min={minimo} max={maxAgenda} />
           )}
+          {/* Onda 12 (L2-33): a hora vale no fuso que a pessoa escolhe (nunca deduzido do endereço de rede). */}
+          {!pub.aposAto && !escolhendoAto && tc && <FusoDoAgendar t={tc} lang={lang} fuso={pub.fuso} aoMudar={pub.setFuso} local={pub.agendar} />}
           {pub.agendar && !pub.aposAto && !pub.agendaOk && <p role="alert" className="mt-2 text-sm text-[var(--oxblood)]">{tp.agendar.cedo}</p>}
           {/* Repetir toda semana ("assembleia toda terça"): de 2 a 12 vezes; sem imagem nem áudio (o arquivo só nasce uma vez). */}
           <label className="mt-2 flex flex-wrap items-center gap-2 text-sm">
             <Icone nome="repostar" className="h-4 w-4 shrink-0" />
             <span className="font-bold">{t.b1.repetir}</span>
-            <select className="al2-chip-select al2-chip" value={pub.repetir} onChange={(e) => pub.setRepetir(Number(e.target.value))} disabled={pub.imagens.length > 0 || Boolean(pub.audio)}>
+            <select className="al2-chip-select al2-chip min-h-11" value={pub.repetir} onChange={(e) => pub.setRepetir(Number(e.target.value))} disabled={pub.imagens.length > 0 || Boolean(pub.audio)}>
               <option value={0}>{t.b1.repetirNao}</option>
               {VEZES_DA_REPETICAO.map((n) => (
                 <option key={n} value={n}>
@@ -415,14 +477,18 @@ export function AnexosDoEscrever({
               <p className="text-xs font-bold uppercase tracking-wide text-[var(--al-texto-3)]">{tp.previa.titulo}</p>
               {pub.previaEstado === "buscando" && <div className="al-esq mt-2 h-10 rounded-lg bg-[var(--al-superficie-2)]" />}
               {pub.previaEstado === "falhou" && <p className="text-[var(--al-texto-3)]">{tp.previa.falha}</p>}
-              {pub.previa && (
-                <>
-                  <p className="text-xs text-[var(--al-texto-3)]">{pub.previa.dominio}</p>
-                  {pub.previa.titulo && <p className="font-bold">{pub.previa.titulo}</p>}
-                  {pub.previa.descricao && <p className="line-clamp-2 text-[var(--al-texto-2)]">{pub.previa.descricao}</p>}
-                  <p className="mt-1 text-xs text-[var(--al-texto-3)]">{tp.previa.nota}</p>
-                </>
-              )}
+              {pub.previa &&
+                (tc ? (
+                  // Onda 12: o mesmo cartão que vai sair no post (imagem só pelo proxy do nosso servidor).
+                  <CartaoDoLink previa={pub.previa} lang={lang} t={tc} compacto />
+                ) : (
+                  <>
+                    <p className="text-xs text-[var(--al-texto-3)]">{pub.previa.dominio}</p>
+                    {pub.previa.titulo && <p className="font-bold">{pub.previa.titulo}</p>}
+                    {pub.previa.descricao && <p className="line-clamp-2 text-[var(--al-texto-2)]">{pub.previa.descricao}</p>}
+                    <p className="mt-1 text-xs text-[var(--al-texto-3)]">{tp.previa.nota}</p>
+                  </>
+                ))}
             </div>
             <button type="button" className="al2-acao" aria-label={tp.previa.tirar} title={tp.previa.tirar} onClick={pub.tirarPrevia}>
               <Icone nome="fechar" className="h-4 w-4" />
@@ -438,8 +504,41 @@ export function AnexosDoEscrever({
         </label>
       )}
 
-      {/* A fileira de ícones + o contador em anel. */}
-      <div className="al2-ferramentas" role="toolbar" aria-label={t.escrever.anexos}>
+      {/* Onda 12: a figurinha escolhida (com o X) e o pacote da casa aberto. Sem texto, o post é só a figurinha. */}
+      {tc && pub.figurinha && (
+        <div className="cp-figurinha-escolhida">
+          <FigurinhaDaCasa nome={pub.figurinha} t={tc.figurinhas} rotulo />
+          <button type="button" className="al2-acao" aria-label={tc.figurinhas.tirar} title={tc.figurinhas.tirar} onClick={() => pub.setFigurinha(null)}>
+            <Icone nome="fechar" className="h-4 w-4" />
+          </button>
+        </div>
+      )}
+      {tc && pacote && (
+        <SeletorDeFigurinhas
+          t={tc.figurinhas}
+          titulo={tc.figurinhas.pacote}
+          escolhida={pub.figurinha}
+          aoEscolher={(n) => {
+            pub.setFigurinha(n);
+            setPacote(false);
+            window.setTimeout(() => iconeFigurinha.current?.focus(), 0);
+          }}
+          aoFechar={() => {
+            setPacote(false);
+            window.setTimeout(() => iconeFigurinha.current?.focus(), 0);
+          }}
+        />
+      )}
+
+      {/* Onda 12 (12B): o vídeo curto que está sendo posto, como os outros cartões de anexo (só no post de primeiro nível). */}
+      {compositorDaMidia && ctx && !resposta && <compositorDaMidia.Cartao {...ctx} />}
+
+      {/* A fileira de ícones + o contador em anel: numa linha só, que rola na horizontal quando não cabe (FaixaDeFerramentas). */}
+      <FaixaDeFerramentas
+        rotulo={t.escrever.anexos}
+        mais={t.visibilidade.maisFerramentas}
+        depois={<Contador n={tamanho} max={maximo} rotulo={preencher(t.escrever.contador, { n: tamanho, max: maximo })} />}
+      >
         <input
           ref={entrada}
           type="file"
@@ -461,6 +560,9 @@ export function AnexosDoEscrever({
         <button ref={iconeAudio} type="button" className="al2-ferramenta" onClick={() => setGravador(true)} disabled={!cabeAudio || gravador || Boolean(pub.audio)} aria-pressed={gravador || Boolean(pub.audio)} aria-label={t.escrever.gravarAudio} title={t.escrever.gravarAudio}>
           <Icone nome="microfone" className="h-[22px] w-[22px]" />
         </button>
+        {compositorDaMidia && ctx && (
+          <compositorDaMidia.Ferramenta {...ctx} compositor={{ resposta, imagens: pub.imagens.length, audio: Boolean(pub.audio) || gravador }} />
+        )}
         {aoEnquete && (
           <button ref={iconeEnquete} type="button" className="al2-ferramenta" onClick={() => aoEnquete(!enquete)} aria-pressed={enquete} aria-label={t.compositor.enquete} title={t.compositor.enquete}>
             <Icone nome="enquete" className="h-[22px] w-[22px]" />
@@ -469,6 +571,27 @@ export function AnexosDoEscrever({
         {!resposta && semAgenda !== true && (
           <button ref={iconeAgenda} type="button" className="al2-ferramenta" onClick={() => setAgenda((x) => !x)} aria-pressed={agenda} aria-label={tp.agendar.rotulo} title={tp.agendar.rotulo}>
             <Icone nome="relogio" className="h-[22px] w-[22px]" />
+          </button>
+        )}
+        {tc && (
+          <button ref={iconeFigurinha} type="button" className="al2-ferramenta" onClick={() => setPacote((x) => !x)} aria-expanded={pacote} aria-pressed={Boolean(pub.figurinha)} aria-label={tc.figurinhas.escolher} title={tc.figurinhas.escolher}>
+            {/* A figurinha: um ladrilho com a ponta dobrada. */}
+            <svg viewBox="0 0 24 24" aria-hidden className="h-[22px] w-[22px]">
+              <path d="M5 4h14v9l-6 7H5z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+              <path d="M19 13h-6v7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+              <path d="M9 10.5c.8 1.2 2.2 1.2 3 0" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          </button>
+        )}
+        {tc && fio && (
+          <button type="button" className="al2-ferramenta" onClick={fio.alternar} aria-pressed={fio.ligado} aria-label={fio.ligado ? tc.fio.desligar : tc.fio.ligar} title={fio.ligado ? tc.fio.desligar : `${tc.fio.ligar} · ${tc.fio.ajuda}`}>
+            {/* O fio: três blocos presos por uma linha. */}
+            <svg viewBox="0 0 24 24" aria-hidden className="h-[22px] w-[22px]">
+              <rect x="7" y="3" width="13" height="5" rx="1.5" fill="none" stroke="currentColor" strokeWidth="2" />
+              <rect x="7" y="10" width="13" height="5" rx="1.5" fill="none" stroke="currentColor" strokeWidth="2" />
+              <rect x="7" y="17" width="9" height="4" rx="1.5" fill="none" stroke="currentColor" strokeWidth="2" />
+              <path d="M3.5 5v15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
           </button>
         )}
         <button
@@ -485,8 +608,7 @@ export function AnexosDoEscrever({
         >
           <span aria-hidden className="text-[0.8rem] font-black tracking-wide">CW</span>
         </button>
-        <Contador n={tamanho} max={maximo} rotulo={preencher(t.escrever.contador, { n: tamanho, max: maximo })} />
-      </div>
+      </FaixaDeFerramentas>
 
       <div aria-live="polite" className="space-y-1">
         {pub.achados.bloqueia.map((a, i) => (
@@ -495,11 +617,8 @@ export function AnexosDoEscrever({
             {textoDoAchado(a.tipo)}
           </p>
         ))}
-        {pub.achados.avisa.map((a, i) => (
-          <p key={`a${i}`} role="status" className="al2-nota">
-            {textoDoAchado(a.tipo)}
-          </p>
-        ))}
+        {/* O que só avisa (o xingamento explícito, que vai à leitura da mediação) não aparece aqui enquanto se escreve: entra no aviso
+            único do Publicar (EscreverDaAlumia2), junto do segundo toque, para não haver duas frases que se contradizem. */}
       </div>
     </div>
   );

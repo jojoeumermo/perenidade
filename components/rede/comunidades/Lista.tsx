@@ -16,6 +16,8 @@ import { Icone } from "../publicar/alumia2/icones";
 import { Botao, LinkBotao } from "../ui/Botao";
 import { AcoesDaComunidade } from "./AcoesDaComunidade";
 import { erroCom, textosDe, useCarregar } from "./util";
+import { useTextosEstrutura } from "./estrutura/base";
+import { cidadeDoEndereco, PorCidade } from "./estrutura/PorCidade";
 // O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
 import "../conversa/alumia3.css";
 
@@ -46,6 +48,11 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const [busca, setBusca] = useState("");
   const [categoria, setCategoria] = useState<ItemDaLista["categoria"] | "todas">("todas");
   const [soAtivas, setSoAtivas] = useState(false);
+  // Onda 10 (10C): a mesma vitrine também por cidade (município e bairro escritos pela moderação). Chega aberta numa cidade quando
+  // o endereço traz ?uf=&municipio= (o "Outras comunidades de …" da aba Estrutura).
+  const te = useTextosEstrutura(lang);
+  const [cidadeInicial] = useState(cidadeDoEndereco);
+  const [vista, setVista] = useState<"tema" | "cidade">(() => (cidadeInicial ? "cidade" : "tema"));
 
   const itens = useMemo(() => {
     const termo = simples(busca.trim());
@@ -92,8 +99,20 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
             {pode && <Link href={enderecosCom.nucleos(lang)} className="inline-flex min-h-11 items-center font-bold underline">{l.turma}</Link>}
           </p>
         )}
+        {te && (
+          <div className="e10 mt-3" role="group" aria-label={l.titulo}>
+            <div className="e10-troca">
+              <button type="button" aria-pressed={vista === "tema"} onClick={() => setVista("tema")}>{te.cidade.porCategoria}</button>
+              <button type="button" aria-pressed={vista === "cidade"} onClick={() => setVista("cidade")}>{te.cidade.porCidade}</button>
+            </div>
+          </div>
+        )}
       </header>
 
+      {te && vista === "cidade" ? (
+        <PorCidade lang={lang} s={s} te={te} inicial={cidadeInicial} />
+      ) : (
+      <>
       {/* Visitante: o convite a entrar já está no alto da Alumia (Entrada); aqui só diz o que ele vê, uma vez. Quem tem conta mas
           ainda não entrou na Alumia: UM convite, em vez da mesma frase repetida em cada cartão. */}
       {!situacao.logado && <p className="mx-[18px] mt-3 rounded-xl bg-parchment-deep p-3 text-sm">{l.conviteTexto}</p>}
@@ -160,6 +179,8 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
           </details>
         );
       })}
+      </>
+      )}
     </div>
   );
 }

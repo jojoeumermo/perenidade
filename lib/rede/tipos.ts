@@ -20,6 +20,11 @@ export interface AutorDoPost {
   handle: string | null;
   perfil: boolean;
   equipe: boolean;
+  /**
+   * Integração: a organização dona quando o autor é conta automática (robô, frente 13E), nula quando não é. Sem a chave (banco de
+   * antes da integração), quem mostra o rótulo pergunta por public.alumia_pontes_rotulos.
+   */
+  robo?: { handle: string; nome: string } | null;
 }
 
 export interface MidiaDoPost {
@@ -70,11 +75,18 @@ export interface Post {
   motivo: string;
   modero: boolean;
   autor: AutorDoPost;
+  /**
+   * Integração (P21, posts restritos cifrados em MLS): o grupo da chave ("nucleo:<uuid>" ou "comunidade:<slug>") e o corpo cifrado
+   * ("p2.<época>.<vetor>.<cifrado>"). Com corpo_grupo, o texto vem vazio e só o aparelho de quem é do grupo abre.
+   */
+  grupo?: string | null;
+  corpo_grupo?: string | null;
   /** Respostas diretas que ESTA pessoa pode ver. */
   respostas: number;
   /** Todas as respostas visíveis da conversa (só no primeiro nível). */
   na_conversa: number | null;
-  util: number;
+  /** Quantas pessoas marcaram "útil": nulo abaixo de 3 (número de pessoas só a partir de 3). */
+  util: number | null;
   util_eu: boolean;
   /** Só o autor vê o número de apoios; para os outros vem `null`. */
   apoios: number | null;

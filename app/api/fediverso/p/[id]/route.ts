@@ -7,7 +7,7 @@
 // nunca saem: se o banco devolver um post assim, a resposta é 404 (falha fechada).
 import { documentoDoPost, visibilidadeQueSai, type PostFederado } from "@/lib/rede/fediverso/documentos";
 import { ID_DE_POST } from "@/lib/rede/fediverso/enderecos";
-import { conferirTeto, querHtml } from "@/lib/rede/fediverso/rotas";
+import { conferirLeitor, conferirTeto, querHtml } from "@/lib/rede/fediverso/rotas";
 import { banco, fed, respostaAP } from "@/lib/rede/fediverso/servidor";
 
 export const runtime = "nodejs";
@@ -17,6 +17,8 @@ const naoAchado = () => new Response("Not Found", { status: 404, headers: { "Cac
 export async function GET(pedido: Request, { params }: { params: Promise<{ id: string }> }) {
   const barrado = conferirTeto(pedido, "post");
   if (barrado) return barrado;
+  const recusado = await conferirLeitor(pedido);
+  if (recusado) return recusado;
   const id = (await params).id.toLowerCase();
   if (!ID_DE_POST.test(id)) return new Response("Not Found", { status: 404 });
   if (querHtml(pedido)) return Response.redirect(fed.paginaDoPost(id), 302);

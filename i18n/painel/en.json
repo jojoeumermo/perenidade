@@ -1044,7 +1044,7 @@
  "Ano da primeira publicação": "Year of first publication",
  "Ano de nascimento": "Year of birth",
  "Anônimo": "Anonymous",
- "Anônimo de verdade: o banco não guarda quem respondeu. A coordenação só vê a média, e só com cinco respostas ou mais.": "Truly anonymous: the database does not store who answered. The coordination only sees the average, and only with five answers or more.",
+ "Anônimo de verdade: a resposta cai numa urna sem nome, separada do registro de quem já respondeu. A coordenação só vê a média, e só com cinco respostas ou mais.": "Truly anonymous: your answer goes into a nameless ballot box, kept apart from the record of who has already answered. The coordination only sees the average, and only with five answers or more.",
  "anos finais do fundamental": "middle school",
  "anos iniciais do fundamental": "elementary school",
  "Anotação descartada.": "Note discarded.",
@@ -3990,6 +3990,7 @@
  "Ideia para a divulgação": "Idea for outreach",
  "Ideias de post, datas e pautas mandadas por qualquer pessoa da equipe pela Mesa.": "Post ideas, dates and story ideas sent by anyone on the team through the Desk.",
  "Identidade recuperada. As conversas vão abrir em instantes.": "Identity recovered. The conversations will open in a moment.",
+ "Identidade recuperada. Por segurança, este aparelho só passa a valer daqui a 24 horas, ou antes, se você o aprovar de um aparelho que já funciona (Conversas → Aparelhos).": "Identity recovered. For safety, this device only becomes valid in 24 hours, or sooner if you approve it from a device that already works (Conversations → Devices).",
  "Identidade verificada pessoalmente": "Identity verified in person",
  "Identificador (slug, só letras minúsculas, números e hífen)": "Identifier (slug, only lowercase letters, numbers and hyphens)",
  "Identificador (slug)": "Identifier (slug)",
@@ -8128,5 +8129,6 @@
  "Para ocultar ou trancar uma conversa que já está no ar, abra o tópico na Alumia: os botões aparecem para quem cuida.": "To hide or lock a conversation that is already live, open the topic on Alumia page: the buttons appear for those who look after it.",
  "Pausar agora tudo o que o público pode enviar? Contribuições, mensagens da Alumia, anúncios, pedidos de reforço e assinaturas do boletim param até alguém reabrir.": "Pause everything the public can send right now? Contributions, Alumia messages, ads, tutoring requests and newsletter sign-ups stop until someone reopens them.",
  "Quem cuida da Alumia, do Mural dos Trabalhadores e da Gaveta Aberta.": "Who looks after Alumia, the Workers' Board and the Open Drawer.",
- "Segunda avaliação da Alumia": "Alumia second review"
+ "Segunda avaliação da Alumia": "Alumia second review",
+ "Voto secreto com menos de 3 votos: o resultado não aparece.": "Secret ballot with fewer than 3 votes: the result is not shown."
 }

@@ -4592,3 +4592,26 @@ a.busca-campo:focus-visible {
 .fim-da-aula-dentro > :first-child {
   margin-top: 0.75rem;
 }
+
+/* ───────────── A Alumia fora do aplicativo do Instituto (decisão de 12/11/2026) ─────────────
+   O prefsScript põe <html data-sem-alumia> quando a página está dentro do aplicativo do Instituto (lib/rede/app-do-instituto.ts).
+   Aí todo link para a Alumia some (pelo caminho /alumia ou pelo endereço próprio alumia.*), o item da lista que só tinha ele some
+   junto, a barra de baixo do celular fica com quatro abas, e quem chega a uma tela da Alumia por um link guardado vê um aviso
+   no lugar dela (app/[lang]/alumia/layout.tsx). No navegador nenhuma destas regras casa com nada. */
+.al-fora-do-app { display: none; }
+.al-dentro-do-navegador { display: contents; }
+:root[data-sem-alumia] :is(a[href*="/alumia"], a[href^="https://alumia."]) { display: none !important; }
+:root[data-sem-alumia] li:has(> :is(a[href*="/alumia"], a[href^="https://alumia."]):only-child) { display: none !important; }
+:root[data-sem-alumia] .abas-do-celular > ul { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+:root[data-sem-alumia] .al-dentro-do-navegador { display: none !important; }
+:root[data-sem-alumia] .al-fora-do-app {
+  display: grid; place-content: center; gap: 1rem; min-height: 100dvh; padding: 2rem 16px; text-align: center;
+  background: var(--parchment); color: var(--ink);
+}
+:root[data-sem-alumia] .al-fora-do-app h1 { margin: 0; font-size: 1.6rem; font-weight: 800; line-height: 1.15; }
+:root[data-sem-alumia] .al-fora-do-app p { margin: 0 auto; max-width: 38ch; color: var(--ink-soft); line-height: 1.5; }
+/* O link de volta aponta para o início do site (não para /alumia), então a regra de cima não o esconde. */
+:root[data-sem-alumia] .al-fora-do-app a {
+  justify-self: center; display: inline-flex; align-items: center; min-height: 44px; padding: 0 1.25rem; border-radius: 999px;
+  background: var(--ink); color: var(--parchment); font-weight: 700; text-decoration: none;
+}

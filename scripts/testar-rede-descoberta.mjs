@@ -507,7 +507,7 @@ await espera("o registro tem as três telas com import dinâmico; a casca liga E
   const casca = lerTexto("components/rede/Casca.tsx");
   return [/explorar: \{ componente: dynamic\(\(\) => import\("\.\/descoberta\/Explorar"\)/.test(reg), /buscar: \{ componente: dynamic\(\(\) => import\("\.\/descoberta\/Buscar"\)/.test(reg), /tag: \{ componente: dynamic\(\(\) => import\("\.\/descoberta\/Tag"\)/.test(reg), /chave: "explorar"/.test(casca), /alumia\/buscar/.test(casca)];
 }, (r) => r.every(Boolean));
-await espera("a Rede usa a porta da primeira entrada (com a entrada simples de reserva) e o cartão de post liga as hashtags", async () => [/PortaDaEntrada/.test(lerTexto("components/rede/Rede.tsx")), /alternativa=/.test(lerTexto("components/rede/Rede.tsx")), /TextoComTags/.test(lerTexto("components/rede/CartaoDePost.tsx"))], (r) => r.every(Boolean));
+await espera("a Rede usa a porta da primeira entrada (com a entrada simples de reserva) e o cartão de post liga as hashtags (direto ou pelo texto do post da onda 11)", async () => [/PortaDaEntrada/.test(lerTexto("components/rede/Rede.tsx")), /alternativa=/.test(lerTexto("components/rede/Rede.tsx")), /TextoComTags/.test(lerTexto("components/rede/CartaoDePost.tsx")) || (/<TextoDoPost /.test(lerTexto("components/rede/CartaoDePost.tsx")) && /<TextoComTags /.test(lerTexto("components/rede/texto/TextoDoPost.tsx")))], (r) => r.every(Boolean));
 await espera("a lista de trilhas é estática, atrás do recurso, e lê o catálogo só na rota (nunca em componente)", async () => {
   const rota = lerTexto("app/api/rede/trilhas/[lang]/route.ts");
   const comps = fs.readdirSync(new URL("../components/rede/descoberta/", import.meta.url)).map((f) => lerTexto(`components/rede/descoberta/${f}`)).join("\n");

@@ -55,6 +55,8 @@
     "semPermissao": "Sin permiso para usar el micrófono.",
     "ouvir": "Escuchar audio ({s} s)",
     "carregando": "Cargando…",
+    "pausar": "Pausar",
+    "posicao": "Posición en el audio",
     "falha": "No se pudo cargar el audio."
   },
   "previa": {
@@ -124,6 +126,8 @@
     "invalido_responde_quem": "Revisa quién puede responder.",
     "ja_votou": "Ya votaste en esta encuesta.",
     "encerrada": "Esta encuesta ya terminó.",
-    "dado_pessoal": "Quita del texto CPF, teléfono, correo o dirección con número: los datos personales no van a Alumia."
+    "dado_pessoal": "Quita del texto CPF, teléfono, correo o dirección con número: los datos personales no van a Alumia.",
+    "protegido": "La persona a la que respondes o citas activó el modo protegido: por ahora, solo quien ella sigue responde, menciona y cita.",
+    "citacao_solta": "Esta persona desvinculó su post de tu cita. No puedes volver a citar ese post."
   }
 }

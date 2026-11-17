@@ -1,0 +1,15 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# Uma cópia do banco por dia. A hora certa fica num ajuste da VPS, fora do repositório. Persistent=true: se a VPS estava
+# desligada na hora, a cópia sai logo que ela ligar.
+
+[Unit]
+Description=Instituto Lucia: copia diaria do banco
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=1h
+Persistent=true
+
+[Install]
+WantedBy=timers.target

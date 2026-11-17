@@ -1,0 +1,108 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * As peças da frente 13C (sair da Alumia): a folha "Levar para fora" do cartão, a aba "Levar" da comunidade, a seção de Ajustes e a
+ * tela /alumia/listas. Só tokens da Alumia (styles/alumia-tokens.css): noite e creme vêm do tema, nada de cor crua. Computador
+ * primeiro; em 390 px tudo empilha.
+ */
+
+.alc { color: var(--al-texto); font-family: var(--al-fonte); }
+.alc-cond { font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 900; text-transform: uppercase; letter-spacing: -0.005em; line-height: 0.95; }
+.alc-nota { margin: 0.3rem 0 0; color: var(--al-texto-3); font-size: 0.85rem; line-height: 1.45; }
+.alc-sub { margin: 0.9rem 0 0.35rem; color: var(--al-texto-2); font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; }
+.alc-erro { margin: 0.55rem 0 0; color: var(--al-vermelho-letra); font-size: 0.88rem; font-weight: 700; }
+.alc-status { margin: 0.55rem 0 0; color: var(--al-texto); font-size: 0.9rem; font-weight: 700; }
+.alc-vazio { margin: 0.4rem 0 0; padding: 0.7rem 0.9rem; border-radius: 10px; border: 1px dashed var(--al-superficie-2); color: var(--al-texto-3); font-size: 0.88rem; line-height: 1.45; }
+.alc-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 0.7rem; }
+.alc-endereco { display: block; margin: 0.5rem 0 0; padding: 0.45rem 0.6rem; border-radius: 8px; background: var(--al-fundo); border: 1px solid var(--al-linha); color: var(--al-texto-2); font-size: 0.8rem; overflow-wrap: anywhere; }
+.alc-link { color: var(--al-texto); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.alc-link:hover { color: var(--al-vermelho-letra); }
+
+/* O ladrilho na frente dos títulos (o quadradinho do mosaico). */
+.alc-ladrilho { display: inline-block; flex: none; width: 0.62em; height: 0.62em; margin-right: 1.2em; border-radius: 2px; background: var(--al-vermelho); vertical-align: 0.08em; box-shadow: 0.78em 0 0 var(--al-dourado-fundo); }
+
+/* Campos. */
+.alc-campo { display: grid; gap: 0.3rem; margin-top: 0.6rem; color: var(--al-texto-2); font-size: 0.86rem; font-weight: 700; }
+.alc-campo :is(input, textarea) {
+  width: 100%; min-height: 44px; padding: 0.5rem 0.7rem; border-radius: 8px; border: 1.5px solid var(--al-superficie-2);
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-weight: 400; font-size: 0.9rem;
+}
+.alc-campo textarea { min-height: 5.5rem; line-height: 1.45; resize: vertical; font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 0.8rem; }
+.alc-campo :is(input, textarea)::placeholder { color: var(--al-texto-3); opacity: 1; }
+.alc-escolhas { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0; padding: 0; border: 0; }
+.alc-escolhas legend { width: 100%; margin-bottom: 0.35rem; color: var(--al-texto-2); font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; }
+.alc-escolha { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0.4rem 0.75rem; border-radius: 10px; border: 1.5px solid var(--al-superficie-2); cursor: pointer; font-size: 0.9rem; font-weight: 700; }
+.alc-escolha:has(input:checked) { border-color: var(--al-vermelho); background: var(--al-superficie-2); }
+.alc-escolha input { accent-color: var(--al-vermelho); width: 1.05rem; height: 1.05rem; }
+.alc-escolha:has(input:focus-visible) { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+.alc-marcar { justify-self: start; }
+.alc-amostra { width: 1.15rem; height: 1.15rem; border-radius: 4px; border: 1.5px solid var(--al-texto-3); }
+.alc-amostra-noite { background: var(--al-amostra-escuro-fundo, var(--al-fundo)); }
+.alc-amostra-creme { background: var(--al-amostra-claro-fundo, var(--al-fundo)); }
+
+/* ── A folha do cartão ───────────────────────────────────────────────────────────────────────────────────────────────── */
+.alc-fundo { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 16px; background: color-mix(in srgb, var(--al-fundo) 72%, transparent); }
+.alc-folha { width: min(52rem, 100%); max-height: calc(100vh - 32px); overflow: auto; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); box-shadow: 0 18px 50px var(--al-sombra); }
+.alc-folha-topo { position: sticky; top: 0; z-index: 1; padding: 0 1.2rem 0.8rem; background: var(--al-superficie); border-bottom: 1px solid var(--al-linha); }
+.alc-folha-topo .al-faixa { margin: 0 -1.2rem 0.8rem; }
+.alc-folha-cabeca { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.alc-folha-titulo { margin: 0; font-size: 2rem; }
+.alc-folha-corpo { padding: 0.4rem 1.2rem 1.3rem; }
+.alc-parte { padding: 1rem 0 0.2rem; }
+.alc-parte + .alc-parte { border-top: 1px solid var(--al-linha); margin-top: 1rem; }
+.alc-parte-titulo { display: flex; align-items: center; margin: 0 0 0.2rem; font-size: 1.35rem; }
+
+.alc-arte { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: 1.1rem; align-items: start; margin-top: 0.75rem; }
+.alc-arte-previa { display: grid; place-items: center; aspect-ratio: 4 / 5; border-radius: 10px; overflow: hidden; background: var(--al-fundo); border: 1px solid var(--al-linha); }
+.alc-arte-previa[data-formato="quadrado"] { aspect-ratio: 1 / 1; }
+.alc-arte-previa img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.alc-arte-opcoes { display: grid; gap: 0.8rem; align-content: start; justify-items: start; }
+
+.alc-qr-linha { display: flex; gap: 1rem; align-items: flex-start; margin-top: 0.6rem; }
+.alc-qr { display: grid; place-items: center; flex: none; width: 176px; height: 176px; padding: 4px; border-radius: 10px; background: var(--al-amostra-claro-fundo, var(--al-fundo)); }
+.alc-qr img { display: block; width: 168px; height: 168px; image-rendering: pixelated; }
+.alc-qr-lado { min-width: 0; flex: 1; }
+
+.alc-quadro-caixa { position: relative; display: grid; width: 100%; max-width: 640px; border-radius: 14px; background: var(--al-fundo); }
+.alc-quadro-carregando { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--al-texto-3); font-size: 0.92rem; }
+.alc-quadro { position: relative; display: block; width: 100%; height: 380px; border: 0; border-radius: 14px; background: transparent; }
+
+@media (max-width: 640px) {
+  .alc-fundo { padding: 0; place-items: end stretch; }
+  .alc-folha { width: 100%; max-height: 92vh; border-radius: var(--al-raio) var(--al-raio) 0 0; }
+  .alc-folha-titulo { font-size: 1.6rem; }
+  .alc-arte { grid-template-columns: 1fr; }
+  .alc-arte-previa { width: min(15rem, 100%); }
+  .alc-qr-linha { flex-direction: column; }
+}
+
+/* ── A tela /alumia/listas, a aba da comunidade e a seção de Ajustes ─────────────────────────────────────────────────── */
+.alc-tela { padding: 1.1rem 1rem 2.5rem; }
+@media (min-width: 1024px) { .alc-tela { padding: 1.4rem 1.5rem 3rem; } }
+.alc-cabeca { position: relative; margin: 0 0 1.2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--al-linha); }
+.alc-carimbo { display: inline-flex; align-items: center; margin: 0 0 0.6rem; padding: 0.15em 0.55em; border: 2px solid currentColor; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--al-fundo), inset 0 0 0 2px currentColor; transform: rotate(-3deg); color: var(--al-dourado); font-size: 0.78rem; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; }
+.alc-titulo { margin: 0; font-size: clamp(2.4rem, 5vw, 3.6rem); }
+.alc-lead { margin: 0.6rem 0 0; max-width: 46rem; color: var(--al-texto-2); font-size: 0.98rem; line-height: 1.55; }
+
+.alc-grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; align-items: start; }
+.alc-grade > .alc-bloco-largo { grid-column: 1 / -1; }
+@media (max-width: 900px) { .alc-grade { grid-template-columns: 1fr; } }
+.alc-bloco { padding: 1rem 1.1rem 1.15rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.alc-bloco-titulo { display: flex; align-items: center; margin: 0 0 0.25rem; font-size: 1.7rem; }
+.alc-contagem { margin: 0.75rem 0 0; color: var(--al-texto-2); font-weight: 700; font-size: 0.95rem; }
+
+.alc-arquivo { position: relative; display: inline-flex; }
+.alc-arquivo input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.alc-arquivo:has(input:focus-visible) .al-botao { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+
+.alc-barra { height: 10px; margin-top: 0.7rem; border-radius: 999px; background: var(--al-fundo); border: 1px solid var(--al-linha); overflow: hidden; }
+.alc-barra > i { display: block; height: 100%; background: var(--al-faixa); transition: width 0.2s ease; }
+
+.alc-contas { display: grid; gap: 0.25rem; max-height: 22rem; margin: 0.8rem 0 0; padding: 0; overflow: auto; list-style: none; }
+.alc-contas li { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.45rem 0.65rem; border-radius: 8px; background: var(--al-fundo); font-size: 0.88rem; }
+.alc-contas code { min-width: 0; overflow-wrap: anywhere; color: var(--al-texto); }
+.alc-situacao { flex: none; padding: 0.1rem 0.55rem; border-radius: 999px; border: 1.5px solid currentColor; font-size: 0.75rem; font-weight: 800; color: var(--al-texto-3); white-space: nowrap; }
+.alc-situacao[data-s="seguindo"], .alc-situacao[data-s="pedido"] { color: var(--al-texto); border-color: var(--al-dourado); }
+.alc-situacao[data-s="naoAchado"], .alc-situacao[data-s="bloqueada"], .alc-situacao[data-s="erro"], .alc-situacao[data-s="limite"], .alc-situacao[data-s="fediverso"] { color: var(--al-vermelho-letra); }
+
+.alc-perfil { display: flex; gap: 1rem; align-items: flex-start; margin-top: 0.7rem; }
+@media (max-width: 520px) { .alc-perfil { flex-direction: column; } }

@@ -43,7 +43,8 @@ import { site } from "@/lib/site";
 import { ExerciciosComExplicacaoSobDemanda as ExerciciosComExplicacao, IssoAjudouSobDemanda as IssoAjudou, RegistroDeConclusaoSobDemanda as RegistroDeConclusao } from "@/components/estudo/NaAula";
 import { exerciciosDaAula } from "@/lib/exercicios-conteudo";
 import { ligado } from "@/lib/recursos";
-import { enderecoDiscutirAula, rotuloDiscutirAula } from "@/lib/rede/discutir-aula";
+import { alumiaAbertaParaAula } from "@/lib/rede/discutir-aula";
+import { DiscutirNaAlumia } from "@/components/rede/estudo/conquistas/DiscutirNaAlumia";
 import { textosDoEstudo } from "@/lib/textos-estudo";
 import { creditosDeRevisao, EtiquetaDeRevisao } from "@/components/estudo/EtiquetaDeRevisao";
 import { revisoesDaAula } from "@/lib/revisoes-conteudo";
@@ -392,6 +393,11 @@ export default async function LessonPage({ params }: Props) {
           ) : <span />}
         </nav>
 
+        {/* "Discutir na Alumia" (onda 11): o tópico desta aula na comunidade da disciplina, fora das gavetas, logo depois da aula (dentro
+            de uma gaveta fechada, ninguém o via). Só com a Alumia aberta; no navegador, o botão ainda some no aplicativo e para quem
+            não tem conta aprovada na Alumia. */}
+        {alumiaAbertaParaAula() && <DiscutirNaAlumia lang={lang} trilha={track.slug} aula={lesson.slug} disciplina={track.area} />}
+
         {/* O fim da aula em três gavetas (09/11/2026): antes, compartilhar, baixar, imprimir, ferramentas de estudo,
             laboratórios, sugerir correção e denunciar vinham soltos, um embaixo do outro. */}
         <section className="fim-da-aula no-print mt-10" aria-labelledby="fim-da-aula-titulo">
@@ -412,14 +418,6 @@ export default async function LessonPage({ params }: Props) {
             )}
             {/* NOVAS TAREFAS T21: os laboratórios que ajudam nesta aula (os que a citam e os da disciplina), com ida e volta. */}
             <LabsDaAula trilha={track.slug} aula={lesson.slug} area={track.area} t={t} lang={lang} />
-            {/* Rede v2 (só com o recurso ligado pelo nome): a conversa desta aula, na comunidade da disciplina. */}
-            {ligado("rede-v2") && (
-              <p className="no-print mt-6 font-sans text-sm">
-                <Link href={enderecoDiscutirAula(lang, track.slug, lesson.slug, track.area) ?? to("/alumia")} className="font-bold underline hover:text-oxblood">
-                  {rotuloDiscutirAula(lang)}
-                </Link>
-              </p>
-            )}
             </div>
           </details>
           <details className="fim-da-aula-gaveta">

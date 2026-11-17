@@ -45,21 +45,21 @@
     "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia"
   },
   {
+    "id": "che",
+    "nome": "Che Guevara",
+    "autor": "Fotógrafo desconhecido / Anefo (acervo do Nationaal Archief, Países Baixos)",
+    "licenca": "CC0",
+    "licencaUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "fonte": "https://commons.wikimedia.org/wiki/File:Ernesto_Che_Guevara_,_een_der_Cubaanse_leiders,_Bestanddeelnr_920-6239.jpg",
+    "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia"
+  },
+  {
     "id": "gramsci",
     "nome": "Antonio Gramsci",
     "autor": "Unknown author",
     "licenca": "Public domain",
     "licencaUrl": null,
     "fonte": "https://commons.wikimedia.org/wiki/File:Gramsci.png",
-    "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia"
-  },
-  {
-    "id": "mariategui",
-    "nome": "José Carlos Mariátegui",
-    "autor": "José Malanca",
-    "licenca": "Public domain",
-    "licencaUrl": null,
-    "fonte": "https://commons.wikimedia.org/wiki/File:Jos%C3%A9_Carlos_Mari%C3%A1tegui_in_1929.jpg",
     "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia"
   },
   {

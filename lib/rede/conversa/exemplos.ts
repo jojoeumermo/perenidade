@@ -1,8 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// Os dados de EXEMPLO das telas novas da F3 (PLANO-ALUMIA §8 F3): a comunidade, a conversa e "Comunidades ativas" exatamente
-// como nas pranchas (docs/plano-2026-11/alumia-pranchas/celular-comunidade.png, celular-conversa-fediverso.png e
-// computador-inicio.webp). Só valem com NEXT_PUBLIC_ALUMIA_PREVIA=sim (máquina de quem desenvolve e fotos de conferência): em
+// Os dados de EXEMPLO das telas novas da Alumia: a comunidade, a conversa e "Comunidades ativas" exatamente
+// como na arte da Alumia. Só valem com NEXT_PUBLIC_ALUMIA_PREVIA=sim (máquina de quem desenvolve e fotos de conferência): em
 // produção a variável não existe e as telas falam com o banco. Todos os nomes são codinomes inventados; nenhuma pessoa real.
 // Sem "@/" de propósito (roda no Node nos testes).
 import { atosDeExemplo } from "../atos/exemplos";
@@ -130,7 +129,7 @@ export function paginaDeExemplo(slug: string, agora: number = Date.now()): Pagin
         { numero: 4, titulo: "Ato com lugar público", texto: "Ponto de encontro só em lugar público; nada de casa de ninguém." },
       ],
       etiquetas: [{ nome: "Ato", cor: "#e8321f" }, { nome: "Contas", cor: "#ffc21a" }],
-      moderacao: ["Catraca Livre", "Marta Sé"],
+      moderacao: ["Catraca Aberta", "Marta Sé"],
       membro: false,
       banido: false,
     },
@@ -146,7 +145,7 @@ export function paginaDeExemplo(slug: string, agora: number = Date.now()): Pagin
           texto: "Concentração 17h30 na escadaria da Sé. Quem tiver faixa, traga. Equipe de cuidado de colete amarelo.",
           comunidade: slug,
           fixado: true,
-          autor: { id: null, codinome: "Catraca Livre", handle: "catracalivre", perfil: true, equipe: false },
+          autor: { id: null, codinome: "Catraca Aberta", handle: "catracaaberta", perfil: true, equipe: false },
           criado_em: antes(60 * 26, agora),
           respostas: 9,
         },
@@ -229,6 +228,9 @@ export function listaDeExemplo(): ItemDaLista[] {
     item("marxismo", "Marxismo · aula em debate", "#5b8cff", 97, "As aulas do Instituto discutidas em grupo.", "disciplinas"),
     item("cultura-hip-hop", "Cultura e hip-hop", "#a27bff", 40, "Saraus, batalhas e quem faz cultura na quebrada."),
     item("quieta", "Comunidade quieta", "", 2, "Uma comunidade com pouco movimento esta semana."),
+    // As subcomunidades de Moradia Zona Leste (a aba Estrutura e Por cidade apontam para elas).
+    item("ocupacao-itaquera", "Ocupação Itaquera", "#ffc21a", 31, "A assembleia e os mutirões da ocupação em Itaquera."),
+    { ...item("ocupacao-guaianases", "Ocupação Guaianases", "#e8321f", 12, "A ocupação de Guaianases: cozinha, creche e assembleia."), tipo: "restrita" },
   ];
 }
 
@@ -248,7 +250,7 @@ export function postsDaSemanaDeExemplo(agora: number = Date.now()): Post[] {
       id: "00000000-0000-4000-8000-0000000000d2",
       texto: "Juntamos as contas de 40 entregadores: o app fica, em média, com 38% de cada corrida. Planilha aberta no núcleo. #MaisValia #TarifaZero",
       comunidade: "marxismo",
-      autor: autor("Entregador do Porto", "porto@mastodon.social"),
+      autor: autor("Entregador do Porto", "porto@social.example"),
       criado_em: antes(180, agora),
       respostas: 27,
     }, agora),
@@ -266,7 +268,7 @@ export function postsDaSemanaDeExemplo(agora: number = Date.now()): Post[] {
 /** As respostas de exemplo da conversa de cada ato (codinomes inventados). Sem lista de quem vai: só o que se diz na conversa. */
 const RESPOSTAS_DOS_ATOS: Record<string, { texto: string; codinome: string; handle: string; minutos: number; a?: number }[]> = {
   "0e1b6c1a-5d1f-4c3e-9a51-6f3a2b1c0d01": [
-    { texto: "Vou com a faixa do grêmio. Alguém sabe se a escadaria da catedral vai estar livre às 18h ou é melhor concentrar na lateral?", codinome: "Catraca Livre", handle: "catracalivre", minutos: 50 },
+    { texto: "Vou com a faixa do grêmio. Alguém sabe se a escadaria da catedral vai estar livre às 18h ou é melhor concentrar na lateral?", codinome: "Catraca Aberta", handle: "catracaaberta", minutos: 50 },
     { texto: "A coordenação confirmou a escadaria. Equipe de cuidado de colete amarelo, ponto de água ao lado da banca de jornal.", codinome: "Passe Livre SP", handle: "passelivre_sp", minutos: 44, a: 0 },
     { texto: "Levo a planilha impressa de quanto a tarifa pesa no mês. Dá pra distribuir na concentração.", codinome: "Bruno Catraca", handle: "brunocatraca", minutos: 31 },
     { texto: "Quem vem da Zona Leste: a gente sai junto da estação Itaquera às 16h30.", codinome: "Marta Sé", handle: "martase", minutos: 18 },
@@ -410,8 +412,8 @@ function arvoreDaLia(id: string, agora: number): Arvore {
         texto: "Aqui em Porto Alegre a gente montou uma cooperativa de entrega. Posso contar como foi, se ajudar.",
         resposta_a: id,
         nivel: 1,
-        autor: { id: null, codinome: "Entregador do Porto", handle: "porto@mastodon.social", perfil: false, equipe: false },
-        servidor: "mastodon.social",
+        autor: { id: null, codinome: "Entregador do Porto", handle: "porto@social.example", perfil: false, equipe: false },
+        servidor: "social.example",
         criado_em: antes(30, agora),
       }),
     ],

@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { APARENCIA_PADRAO } from "@/lib/rede/aparencia";
 import { redeOrg } from "@/lib/rede/cliente-org";
 import { redePerfil } from "@/lib/rede/cliente-perfil";
+import { secoesDe, type SecoesVistas } from "@/lib/rede/cliente-secoes-perfil";
 import { orgLigada } from "@/lib/rede/org/flag";
 import { carregarTextosDaOrg, type TextosDaOrg } from "@/lib/rede/textos-org";
 import type { TextosDaRede } from "@/lib/rede/textos";
@@ -21,7 +22,10 @@ import { Linha } from "../Linha";
 import type { AcoesDaOrg } from "../org/Blocos";
 import type { AcoesDeGestor } from "../org/CuidarDaOrg";
 import { PerfilDaOrg } from "../org/PerfilDaOrg";
-import { FileiraDoPerfil, fileiraDeDestaquesLigada } from "./FileiraDoPerfil";
+import { RotuloDoPerfil } from "../pontes/RotuloDeRobo";
+import { pontesLigadas } from "@/lib/rede/pontes/ligado";
+import { EspacosDaOrg } from "../comunidades/estrutura/EspacosDaOrg";
+import { FileiraDoPerfil } from "./FileiraDoPerfil";
 import { useTextosDoPerfil } from "./useTextos";
 import { aparenciaDe, extrasDe, perfilDaPrevia, previa, type AparenciaLida } from "./livre/dados";
 import { PaginaDoPerfil, PerfilNaoAchado, PostsDaPrevia } from "./livre/PaginaDoPerfil";
@@ -77,7 +81,7 @@ function acoesDoBanco(handle: string): AcoesDaOrg {
 export default function PerfilDaAlumia2({ handle, lang, s, situacao, aoResponder }: Props) {
   const [t, setT] = useState<TextosDaOrg | null>(null);
   const [volta, setVolta] = useState(0);
-  const [estado, setEstado] = useState<{ handle: string; org: OrgPublica | null; pessoa: PerfilDaRede | null; extras: ExtrasDoPerfil | null; lida?: AparenciaLida; erro: string } | null>(null);
+  const [estado, setEstado] = useState<{ handle: string; org: OrgPublica | null; pessoa: PerfilDaRede | null; extras: ExtrasDoPerfil | null; lida?: AparenciaLida; secoes?: SecoesVistas | null; erro: string } | null>(null);
   const tl = useTextosDoPerfilLivre(lang);
   const sp = useTextosDoPerfil(lang);
 
@@ -98,12 +102,14 @@ export default function PerfilDaAlumia2({ handle, lang, s, situacao, aoResponder
         const daPrevia = previa() ? perfilDaPrevia(handle) : null;
         // Na prévia, um @ que não está nos exemplos é "não encontrado" (não há serviço de contas para perguntar).
         if (previa() && !daPrevia) return vivo && setEstado({ handle, org: null, pessoa: null, extras: null, erro: "" });
-        const [pessoa, extras, lida] = await Promise.all([
+        // As seções da onda 12 chegam junto (a fileira não pula depois): falha ou banco sem a migração = como sempre foi.
+        const [pessoa, extras, lida, secoes] = await Promise.all([
           daPrevia ?? redePerfil.perfil(handle),
           previa() ? extrasDe(handle) : redeOrg.extras(handle).catch(() => null),
           aparenciaDe(handle).catch(() => ({ aparencia: { ...APARENCIA_PADRAO }, orgs: [] })),
+          secoesDe(handle).catch(() => null),
         ]);
-        if (vivo) setEstado({ handle, org: null, pessoa, extras, lida, erro: "" });
+        if (vivo) setEstado({ handle, org: null, pessoa, extras, lida, secoes, erro: "" });
       } catch (e) {
         if (vivo) setEstado({ handle, org: null, pessoa: null, extras: null, erro: textoDoErro(s, e) });
       }
@@ -126,7 +132,8 @@ export default function PerfilDaAlumia2({ handle, lang, s, situacao, aoResponder
         vivo
         membro={situacao.membro}
         abaInicial={abaDoEndereco()}
-        acimaDasAbas={fileiraDeDestaquesLigada() ? <FileiraDoPerfil handle={estado.org.handle} lang={lang} s={s} situacao={situacao} /> : null}
+        espacos={<EspacosDaOrg lang={lang} s={s} situacao={situacao} handle={estado.org.handle} />}
+        acimaDasAbas={<FileiraDoPerfil handle={estado.org.handle} lang={lang} s={s} situacao={situacao} />}
         posts={previa() ? <PostsDaPrevia handle={estado.org.handle} lang={lang} s={s} situacao={situacao} aoResponder={aoResponder} /> : <Linha aba={`u:${estado.org.handle}`} lang={lang} s={s} logado={situacao.logado} aoResponder={aoResponder} />}
       />
     );
@@ -141,6 +148,12 @@ export default function PerfilDaAlumia2({ handle, lang, s, situacao, aoResponder
     }
     return <PerfilNaoAchado handle={handle} lang={lang} t={tl} />;
   }
-  return <PaginaDoPerfil dado={estado.pessoa} extras={estado.extras} lida={estado.lida ?? { aparencia: { ...APARENCIA_PADRAO }, orgs: [] }} t={tl} sp={sp} lang={lang} s={s} situacao={situacao} aoResponder={aoResponder} />;
+  // O rótulo de robô (onda 13, pontes) no alto do perfil de uma conta automática; só com as organizações ligadas.
+  return (
+    <>
+      {pontesLigadas() && !previa() ? <RotuloDoPerfil lang={lang} handle={estado.pessoa.handle ?? handle} /> : null}
+      <PaginaDoPerfil dado={estado.pessoa} extras={estado.extras} lida={estado.lida ?? { aparencia: { ...APARENCIA_PADRAO }, orgs: [] }} secoes={estado.secoes ?? null} t={tl} sp={sp} lang={lang} s={s} situacao={situacao} aoResponder={aoResponder} />
+    </>
+  );
 }
 

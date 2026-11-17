@@ -1,0 +1,95 @@
+{
+  "fio": {
+    "ligar": "Build a thread",
+    "desligar": "Back to a single block",
+    "ajuda": "Write in blocks and publish everything at once: the first one opens the conversation and the others follow, in order.",
+    "bloco": "Block {n} of {total}",
+    "mais": "One more block",
+    "tirar": "Remove block {n}",
+    "dividir": "Split the text into blocks",
+    "limite": "A thread has up to 10 blocks.",
+    "vazio": "One block is empty: write in it or remove it.",
+    "grande": "Block {n} is over 500 characters.",
+    "semAgenda": "A thread goes out right away. To schedule, publish a single block.",
+    "esperando": "The start of the thread is out. The other {n} blocks wait for moderation to read the block above and go out when it is released.",
+    "publicar": "Publish thread",
+    "desfeito": "Thread undone. Your text is still here."
+  },
+  "imagens": {
+    "arranjo": "How the images appear",
+    "grade": "Grid",
+    "carrossel": "Carousel",
+    "colagem": "Collage",
+    "legenda": "Caption",
+    "legendaDica": "Caption for image {n} (everyone sees it)",
+    "anterior": "Previous image",
+    "proxima": "Next image",
+    "posicao": "Image {n} of {total}",
+    "antes": "Move image {n} earlier",
+    "depois": "Move image {n} later",
+    "maximo": "Up to 10 images per post."
+  },
+  "fuso": {
+    "rotulo": "Time zone",
+    "ajuda": "The time counts in the time zone you choose. Alumia does not find out where you are.",
+    "doBrasil": "Time zones in Brazil",
+    "outros": "Other time zones",
+    "vaiSair": "Goes out on {quando}.",
+    "naFila": "queued: {quando}",
+    "cidades": {
+      "Noronha": "Fernando de Noronha",
+      "Sao_Paulo": "Brasília, São Paulo, Rio, South",
+      "Bahia": "Salvador",
+      "Fortaleza": "Fortaleza",
+      "Recife": "Recife",
+      "Belem": "Belém",
+      "Manaus": "Manaus",
+      "Cuiaba": "Cuiabá",
+      "Campo_Grande": "Campo Grande",
+      "Porto_Velho": "Porto Velho",
+      "Boa_Vista": "Boa Vista",
+      "Rio_Branco": "Rio Branco"
+    }
+  },
+  "rascunho": {
+    "agendar": "Schedule"
+  },
+  "figurinhas": {
+    "escolher": "Add a sticker",
+    "pacote": "House pack",
+    "tirar": "Remove the sticker",
+    "so": "Just the sticker, no text",
+    "texto": "[Sticker: {nome}]",
+    "nomes": {
+      "punho": "Raised fist",
+      "lampiao": "Lit lantern",
+      "megafone": "Megaphone",
+      "estrela": "Star",
+      "cravo": "Red carnation",
+      "coracao": "Tiled heart",
+      "livro": "Open book",
+      "sol": "Rising sun",
+      "cafe": "Fresh coffee",
+      "presente": "Present!",
+      "na-luta": "In the struggle",
+      "valeu": "Thanks!"
+    },
+    "carimbos": {
+      "presente": "PRESENT!",
+      "na-luta": "IN STRUGGLE",
+      "valeu": "THANKS!"
+    }
+  },
+  "link": {
+    "doServidor": "Title, summary and image fetched by our server."
+  },
+  "erros": {
+    "invalido_fio": "A thread needs 2 to 10 blocks, all with text.",
+    "invalido_arranjo": "Choose grid, carousel or collage.",
+    "invalido_figurinha": "That sticker is not part of the house pack.",
+    "invalido_legenda": "A caption can be up to 280 characters.",
+    "legenda_revisar": "A caption has a word that goes to moderation for reading. Change the caption or remove it.",
+    "invalido_fuso": "Choose a time zone from the list.",
+    "nivel_imagens": "Your trust level does not yet allow that many images in one post."
+  }
+}

@@ -9,7 +9,13 @@
     "botao": "Ativar o chat aqui",
     "outroTitulo": "O seu chat está ativo em outro aparelho",
     "outroTexto": "Se ativar aqui, este passa a ser o seu aparelho do chat: as conversas ganham chave nova, e o outro aparelho deixa de abrir o que chegar daqui para a frente. O que já foi escrito continua legível só lá.",
-    "outroBotao": "Usar este aparelho"
+    "outroBotao": "Usar este aparelho",
+    "outroTinha": "Atenção: este aparelho já tinha a chave do seu chat, mas o servidor agora mostra outra. Se você ativou o chat em outro aparelho, é isso. Se não foi você, alguém pode ter entrado na sua conta: troque a senha antes de continuar.",
+    "outroRisco": "Criar uma chave nova aqui muda a sua chave de segurança. Quem conversa com você recebe um aviso, as conversas verificadas perdem a marca e vocês precisam comparar o código de novo. O que foi escrito antes não abre neste aparelho.",
+    "outroEntendi": "Entendi o risco e quero criar uma chave nova neste aparelho",
+    "apagadoTitulo": "Chat desligado neste aparelho",
+    "apagadoTexto": "O chat não está ativo neste aparelho e a chave dele não está mais aqui. Para conversar aqui, crie uma chave nova.",
+    "apagadoBotao": "Ativar o chat de novo aqui"
   },
   "nova": {
     "rotulo": "Conversar com @",
@@ -23,6 +29,7 @@
     "pedidos": "Pedidos de conversa",
     "pedidoDe": "{nome} quer conversar com você.",
     "pedidoEnviado": "Pedido enviado. Quando a pessoa aceitar, vocês podem escrever.",
+    "conversaApagada": "Você apagou a conversa com esta pessoa daqui. Ela volta para a lista quando chegar mensagem nova.",
     "aceitar": "Aceitar",
     "recusar": "Recusar",
     "recusarExplica": "Recusar apaga o pedido, e a pessoa não pode pedir de novo por 30 dias. Ela não é avisada.",
@@ -38,7 +45,7 @@
     "semChaveDoOutro": "A outra pessoa ainda não ativou o chat. Quando ativar, vocês podem escrever.",
     "aguarde": "Preparando a chave da conversa…",
     "vazio": "Nenhuma mensagem. Lembrete: nunca mande endereço, documento ou senha, nem aqui.",
-    "expira": "some em {quando}",
+    "expira": "some {quando}",
     "autoriaInvalida": "A assinatura desta mensagem não confere.",
     "mudou": "A chave de segurança de {nome} mudou. Pode ser um aparelho novo, ou alguém tentando se passar pela pessoa. Confirme por outro canal antes de seguir.",
     "confirmar": "Confio na chave nova",
@@ -46,7 +53,17 @@
     "apagarMensagem": "Apagar",
     "apagarMensagemConfirma": "Apagar esta mensagem para as duas pessoas?",
     "bloqueada": "Conversa fechada: há um bloqueio entre vocês.",
-    "voce": "Você"
+    "voce": "Você",
+    "faltam": "Pode faltar mensagem aqui: apagada por quem escreveu, vencida ou retida no caminho.",
+    "repetida": "Mensagem repetida: este aparelho já tinha recebido esta mesma mensagem. Ela não é mostrada de novo.",
+    "duvidosa": "Este aparelho não consegue conferir se esta mensagem é repetida (é de uma chave que já fechou aqui). Desconfie se ela não fizer sentido agora.",
+    "foraDeOrdem": "Fora de ordem: a hora do servidor não bate com a ordem em que a mensagem foi escrita.",
+    "semConfirmar": "Quando escreveu a última mensagem, a outra pessoa ainda não tinha recebido esta.",
+    "mudouVerificada": "A chave de segurança de {nome} mudou, e esta conversa estava verificada. A marca de verificado caiu. Pode ser um aparelho novo, ou alguém tentando se passar pela pessoa. Nada é enviado até vocês compararem o código de novo.",
+    "grupoPedido": "Peça a {nome}, pessoalmente ou por um canal em que vocês se reconheçam, os seis grupos que a tela dela mostra como “os seus grupos” (em Opções, no código de segurança). Não vale “os grupos tal a tal” do código inteiro. Digite os seis grupos:",
+    "grupoRotulo": "Os seis grupos de {nome}",
+    "grupoConferir": "Conferir",
+    "grupoErrado": "Não confere. Não siga: pode haver alguém no meio. Fale com a pessoa por outro canal."
   },
   "acoes": {
     "rotulo": "Opções da conversa",
@@ -58,12 +75,23 @@
     "codigoExplica": "Compare estes números com a outra pessoa, pessoalmente ou por um canal em que vocês se reconheçam. Se forem iguais, ninguém está no meio.",
     "verificado": "Comparamos e é igual",
     "jaVerificado": "Verificado neste aparelho.",
+    "meusGrupos": "Os seus seis grupos (vêm só da sua chave). Se alguém precisar comparar de novo com você, dite estes:",
+    "naoVerificado": "Não verificada neste aparelho",
     "bloquear": "Bloquear",
     "desbloquear": "Desbloquear",
     "bloquearConfirma": "Bloquear esta pessoa? Ela não consegue mais falar com você, aqui nem na Alumia.",
     "denunciar": "Denunciar",
     "apagar": "Apagar a conversa",
-    "apagarConfirma": "Tirar esta conversa da sua lista? Ela some para você. A outra pessoa continua com as mensagens até o prazo delas acabar."
+    "apagarConfirma": "Tirar esta conversa da sua lista? Ela some para você. A outra pessoa continua com as mensagens até o prazo delas acabar.",
+    "qrRotulo": "Código de segurança em QR, para a outra pessoa ler com a câmera",
+    "qrLer": "Ler o QR da outra pessoa",
+    "qrFechar": "Fechar a câmera",
+    "qrAponte": "Aponte para o QR na tela da outra pessoa. A imagem da câmera não sai deste aparelho.",
+    "qrSemCamera": "Não deu para abrir a câmera. Compare os números.",
+    "qrConfere": "Os códigos conferem: conversa verificada neste aparelho.",
+    "qrNaoConfere": "Os códigos NÃO conferem. Não marque como verificado: pode haver alguém no meio.",
+    "qrOutro": "Este QR não é um código de segurança da Alumia.",
+    "negavel": "As mensagens não levam assinatura. Só vocês dois têm a chave desta conversa: quem recebe sabe que veio da outra pessoa, mas nenhuma mensagem serve de prova, para terceiros, de quem escreveu."
   },
   "denuncia": {
     "titulo": "Denunciar",
@@ -86,7 +114,8 @@
     "enviar": "Enviar denúncia",
     "cancelar": "Cancelar",
     "feito": "Denúncia recebida. Protocolo {protocolo}. Acompanhe em Minhas denúncias.",
-    "emergencia": "Em perigo agora? Ligue 190. Criança ou adolescente em risco: Disque 100."
+    "emergencia": "Em perigo agora? Ligue 190. Criança ou adolescente em risco: Disque 100.",
+    "aberto": "Atenção: as mensagens que você marcar saem do cifrado e vão em texto aberto para a equipe de moderação. O resto da conversa continua cifrado."
   },
   "ajustes": {
     "titulo": "Ajustes do chat",
@@ -100,7 +129,8 @@
     "apagarTudo": "Apagar tudo do chat",
     "apagarTudoExplica": "Tira todas as conversas da sua lista e apaga a sua chave e os seus ajustes. A outra pessoa de cada conversa continua com as mensagens até o prazo delas acabar. A conta continua. LGPD, art. 18, VI.",
     "apagarTudoConfirma": "Tirar TODAS as conversas da sua lista e apagar a sua chave do chat? Não tem volta.",
-    "apagado": "Tudo do chat foi apagado."
+    "apagado": "Tudo do chat foi apagado.",
+    "sairRapido": "O botão Sair rápido da Alumia apaga também a chave do chat deste aparelho e sai da conta. Depois, é preciso entrar e ativar o chat de novo, e o que foi escrito antes não abre mais aqui. Todas as verificações também se perdem: compare o código de novo com cada pessoa antes de escrever algo sensível."
   },
   "erros": {
     "dm_fechada": "Não dá para conversar com esta pessoa agora.",
@@ -110,6 +140,84 @@
     "consentimento": "O chat privado é só para quem já entrou na Alumia (18 anos ou mais).",
     "nao_encontrado": "Esta conversa não existe mais.",
     "texto_grande": "A mensagem é longa demais.",
-    "sem_indexeddb": "Este navegador não guarda a chave (modo privado?). O chat funciona só enquanto a aba estiver aberta."
+    "sem_indexeddb": "Este navegador não guarda a chave (modo privado?). O chat funciona só enquanto a aba estiver aberta.",
+    "dm_exige_comparar": "Compare o código de segurança de novo antes de enviar.",
+    "dm_aguardando": "A outra pessoa ainda não abriu esta conversa no aparelho dela. Assim que abrir, dá para escrever.",
+    "historico_travado": "O histórico está travado. Digite a senha da trava para abrir.",
+    "dm_fora_do_registro": "A chave não confere com o registro público: nada foi enviado.",
+    "kt_quebrado": "Atenção: o registro público das chaves não fecha (alguém mexeu no passado dele). Nada é enviado. Avise a coordenação."
+  },
+  "selado": {
+    "someEm": "Some em",
+    "padrao": "o prazo da conversa",
+    "cincoMin": "5 minutos",
+    "umaHora": "1 hora",
+    "verUmaVez": "Ver uma vez",
+    "verUmaVezExplica": "A outra pessoa vê uma vez e a mensagem some. Não fica cópia nem com você.",
+    "abrirUmaVez": "Mensagem para ver uma vez: tocar para abrir",
+    "fecharUmaVez": "Fechar (a mensagem some)",
+    "marcaUmaVez": "ver uma vez",
+    "aguardando": "A outra pessoa ainda não abriu esta conversa no aparelho dela. Assim que abrir, dá para escrever.",
+    "travado": "O histórico deste aparelho está travado.",
+    "senhaDaTrava": "Senha da trava",
+    "destravar": "Abrir",
+    "travarTitulo": "Trava do histórico",
+    "travarExplica": "O histórico das conversas fica só neste aparelho, cifrado. Com a trava, ele só abre com uma senha sua (que não fica guardada em lugar nenhum). Esqueceu a senha: o histórico não abre mais, nem com ajuda da equipe.",
+    "travar": "Travar com senha",
+    "travadoOk": "Histórico travado.",
+    "senhaCurta": "Use uma senha de 8 caracteres ou mais.",
+    "fecharAgora": "Fechar o histórico agora",
+    "trancadoAgora": "O histórico foi fechado nesta aba."
+  },
+  "registro": {
+    "nao_confere": "Atenção: a chave que o servidor mostra desta pessoa não é a que está no registro público. Não escreva nada sensível e compare o código de segurança com ela por outro canal.",
+    "meu": "Atenção: o registro público diz que a chave do SEU chat é outra. Se não foi você que ativou o chat em outro aparelho, alguém pode ter entrado na sua conta: troque a senha.",
+    "quebrado": "Atenção: o registro público das chaves não fecha (alguém mexeu no passado dele). Nada é enviado. Avise a coordenação.",
+    "carimbo": "Registro público conferido até {carimbo}. Se a outra pessoa vir o mesmo número com outro final, avise a coordenação."
+  },
+  "voz": {
+    "titulo": "Sala de voz",
+    "explica": "Voz cifrada de ponta a ponta, só entre quem é do grupo (até 8 pessoas). O áudio passa por um servidor de retransmissão que não consegue ouvir, e ninguém na sala vê o endereço de rede de quem está nela.",
+    "entrar": "Entrar na sala",
+    "sair": "Sair",
+    "mudo": "Desligar o microfone",
+    "falar": "Ligar o microfone",
+    "naSala": "Na sala:",
+    "sozinho": "Só você por enquanto.",
+    "alguem": "Pessoa do grupo",
+    "ligado": "ligada",
+    "ligando": "ligando…",
+    "erros": {
+      "voz_desligada": "A voz ainda não foi ligada no servidor.",
+      "voz_sem_retransmissao": "Sem o servidor de retransmissão, a sala não abre (o seu endereço de rede apareceria para os outros).",
+      "voz_cheia": "A sala está cheia (8 pessoas).",
+      "voz_sem_canal": "Não deu para abrir a sala agora. Tente de novo.",
+      "sem_chave": "Este aparelho ainda não tem a chave do grupo.",
+      "entre_primeiro": "Entre na sua conta primeiro.",
+      "nao_encontrado": "Só quem é do grupo entra na sala.",
+      "NotAllowedError": "O microfone não foi liberado.",
+      "outro": "Não deu para entrar na sala."
+    },
+    "pelOnion": "Pelo Tor, a sala de voz fica fechada: a voz não passa pelo Tor, e o servidor de retransmissão veria o seu endereço de rede. Use o texto."
+  },
+  "organizar": {
+    "soAqui": "Organizar (só neste aparelho; a outra pessoa nunca sabe):",
+    "pasta": "Pasta",
+    "pastas": "Pastas",
+    "todas": "Todas",
+    "nota": "Nota só para mim",
+    "soneca": "Silenciar",
+    "escolha": "Escolha",
+    "silenciada": "silenciada",
+    "silenciadaAte": "Silenciada até {quando}",
+    "umaHora": "1 hora",
+    "oitoHoras": "8 horas",
+    "umDia": "1 dia",
+    "umaSemana": "1 semana",
+    "desligar": "Não silenciar",
+    "lembrar": "Lembrar em 1 h",
+    "lembretes": "Lembretes",
+    "dispensar": "Dispensar",
+    "novas": "Novas mensagens"
   }
 }

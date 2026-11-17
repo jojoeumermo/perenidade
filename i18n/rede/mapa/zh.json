@@ -1,0 +1,64 @@
+{
+  "titulo": "地图",
+  "chamada": "未来 {dias} 天内各城市的号召、活动和小组。每个点代表整个市：地图不知道街道、街区，也不知道任何人的位置。",
+  "desenho": "巴西地图，标出了 {n} 个城市",
+  "carregando": "正在加载地图…",
+  "erro": "现在无法加载地图。",
+  "tentar": "重试",
+  "vazio": "地图上暂时没有号召、活动或小组。",
+  "filtro": {
+    "titulo": "显示内容",
+    "chamados": "号召",
+    "eventos": "活动",
+    "nucleos": "小组"
+  },
+  "legenda": {
+    "titulo": "如何阅读",
+    "chamados": "号召：集会或集体劳动。",
+    "eventos": "活动：大会、圆桌、课程和其他聚会。",
+    "nucleos": "愿意出现在地图上的认证组织的小组。",
+    "tamanho": "方块随数字变大，数字从 3 起才显示。小组从不显示数字。"
+  },
+  "estado": {
+    "rotulo": "州",
+    "brasil": "全巴西",
+    "voltar": "查看全巴西",
+    "nenhuma": "这个州没有标出的城市。"
+  },
+  "cidades": {
+    "titulo": "地图上的城市",
+    "tituloEstado": "{uf} 的城市",
+    "escolher": "点击地图或列表中的城市，看看那里有什么。"
+  },
+  "toque": {
+    "titulo": "这个位置的城市",
+    "explica": "地图上这个位置有不止一个城市。请选择一个。",
+    "estado": "只看 {uf}",
+    "fechar": "关闭"
+  },
+  "cidade": {
+    "fechar": "关闭",
+    "chamados": "{n} 个号召",
+    "chamadosPoucos": "号召：少于 3 个",
+    "eventos": "{n} 个活动",
+    "eventosPoucos": "活动：少于 3 个",
+    "nucleos": "小组",
+    "orgs": "在这里有小组的组织",
+    "atos": "即将到来的号召和活动",
+    "atosCarregando": "正在查找这个城市的号召…",
+    "atosVazio": "这个城市暂时没有你能看到的号召或活动。",
+    "atosMenos": "地图上的数字合并了这个城市的各种写法，覆盖未来 60 天。列表显示“附近”搜索按这个名字找到的近期内容；有些可能用别的写法登记。",
+    "atosErro": "无法获取这个城市的号召。",
+    "verTodos": "查看 {cidade} 的所有行动",
+    "rotuloPonto": "{cidade}（{uf}）：{resumo}"
+  },
+  "fora": {
+    "titulo": "地图上没找到的城市",
+    "texto": "这些城市写的时候没有写州，而这个名字在不止一个州存在，或者名字和任何市都对不上。把城市和州一起写，比如 \"Bom Jesus - PI\"，点就会落在正确的位置。",
+    "varios": "存在于 {ufs}",
+    "nenhum": "没有这个名字的市"
+  },
+  "fonte": "巴西地图由 Alumia 根据 IBGE 的公开边界数据绘制。不从外部加载任何内容。",
+  "aoVivo": "直播问答",
+  "aoVivoTexto": "定时的“向…提问”环节。"
+}

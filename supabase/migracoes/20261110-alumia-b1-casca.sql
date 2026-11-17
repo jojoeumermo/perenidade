@@ -24,8 +24,7 @@
 --      faxina por idade tirá-los: no máximo 30 dias depois da última vez que foram salvos. Para zerar antes, com a decisão do
 --      Jonathan: delete from interno.rede_rascunhos where not (pedido ? 'cifra');
 --
--- O que NÃO está aqui: a roda de confiança (lista do perfil, F4), "Público, também no Fediverso" num post comum (regra da Faixa 2,
--- pedido em docs/rede/PEDIDOS-ENTRE-FAIXAS.md) e o desfazer do ato (F2).
+-- O que NÃO está aqui: a roda de confiança (lista do perfil, F4), "Público, também no Fediverso" num post comum (regra do Fediverso) e o desfazer do ato (F2).
 
 -- ── 0. Tabelas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 

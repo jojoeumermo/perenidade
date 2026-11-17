@@ -1,0 +1,121 @@
+{
+  "titulo": "Preguntas en vivo",
+  "chamada": "\"Pregunta a…\" con hora fijada: la persona invitada responde por escrito, en el orden en que llegaron las preguntas. Nadie vota preguntas.",
+  "carregando": "Cargando…",
+  "erroCarregar": "No se pudo cargar ahora.",
+  "tentar": "Intentar de nuevo",
+  "voltar": "Volver a las preguntas en vivo",
+  "agenda": {
+    "agora": "En vivo ahora",
+    "proximas": "En los próximos 14 días",
+    "convites": "Invitaciones para que respondas",
+    "vazioAgora": "Ninguna sesión en vivo ahora.",
+    "vazioProximas": "Ninguna sesión fijada en los próximos 14 días.",
+    "abrir": "Abrir la sesión",
+    "aceitar": "Aceptar y responder",
+    "recusar": "Rechazar",
+    "aceito": "Invitación aceptada. La sesión aparece para quien puede ver la caja.",
+    "recusado": "Invitación rechazada.",
+    "comoMarcar": "Para fijar una sesión, abre tu caja de preguntas en tu perfil, o la de la comunidad que moderas."
+  },
+  "momento": {
+    "antes": "Fijada",
+    "ao_vivo": "En vivo",
+    "encerrada": "Terminada",
+    "convite": "Invitación",
+    "recusada": "Rechazada",
+    "cancelada": "Cancelada"
+  },
+  "sessao": {
+    "pergunteA": "Pregunta a {nome}",
+    "naComunidade": "en la comunidad {nome}",
+    "quando": "{dia}, de {inicio} a {fim}",
+    "perguntas": "{n} preguntas",
+    "regra": "Las preguntas entran en el orden en que llegan y se responden en ese orden. Nadie vota para saltarse la fila.",
+    "quemPerguntou": "Quien preguntó solo aparece si quiso. Un día después del fin, Alumia olvida quién hizo cada pregunta.",
+    "aguarde": "La sesión empieza {quando}. Ya puedes mandar tu pregunta.",
+    "encerrada": "Esta sesión terminó. Las respuestas quedan aquí.",
+    "cancelar": "Cancelar la sesión",
+    "cancelarConfirmar": "¿Cancelar la sesión? Sus preguntas desaparecen también.",
+    "cancelada": "Sesión cancelada."
+  },
+  "perguntar": {
+    "rotulo": "Tu pregunta",
+    "mostrarNome": "Mostrar mi apodo con la pregunta",
+    "enviar": "Mandar pregunta",
+    "enviada": "Pregunta en la fila.",
+    "contador": "{n} de {max}",
+    "entrar": "Entra en tu cuenta para preguntar."
+  },
+  "fila": {
+    "titulo": "Las preguntas, por orden de llegada",
+    "vazia": "Todavía no hay preguntas.",
+    "posicao": "{n}ª",
+    "daVez": "Le toca",
+    "esperando": "En la fila",
+    "respondida": "Respondida",
+    "passada": "Pasó",
+    "retirada": "Retirada por la moderación",
+    "alguem": "Alguien preguntó",
+    "perguntou": "{quem} preguntó",
+    "minha": "Tu pregunta",
+    "retirarMinha": "Quitar la mía",
+    "retiradaMinha": "Tu pregunta salió de la fila."
+  },
+  "responder": {
+    "titulo": "Respondes ahora",
+    "explica": "Respondes o pasas la primera pregunta de la fila. La siguiente aparece enseguida.",
+    "rotulo": "Tu respuesta",
+    "publicar": "Responder",
+    "passar": "Pasar esta",
+    "respondida": "Respuesta publicada.",
+    "passou": "Pregunta pasada.",
+    "antes": "Respondes a partir del inicio de la sesión.",
+    "nada": "La fila está vacía. Cuando llegue una pregunta, aparecerá aquí."
+  },
+  "moderar": {
+    "retirar": "Retirar",
+    "motivo": "Motivo",
+    "confirmar": "Retirar la pregunta",
+    "feito": "Pregunta retirada.",
+    "desistir": "No retirar",
+    "motivos": {
+      "ofensa": "ofensa",
+      "dado_pessoal": "dato personal",
+      "fora_do_tema": "fuera de tema",
+      "repetida": "repetida"
+    }
+  },
+  "caixa": {
+    "titulo": "En vivo",
+    "nenhuma": "Ninguna sesión fijada.",
+    "marcar": "Fijar una sesión en vivo",
+    "tituloRotulo": "Tema",
+    "inicioRotulo": "Empieza el",
+    "duracaoRotulo": "Duración",
+    "minutos": "{n} minutos",
+    "convidadaRotulo": "Quién responde (el @ de quien invitas)",
+    "convidadaAjuda": "La persona recibe una invitación y la sesión solo aparece después de que acepte.",
+    "salvar": "Fijar",
+    "marcada": "Sesión fijada.",
+    "convidada": "Invitación enviada. La sesión aparece cuando la persona acepte.",
+    "limite": "Hasta {n} sesiones por venir en cada caja."
+  },
+  "erros": {
+    "entre_primeiro": "Entra en tu cuenta primero.",
+    "consentimento": "Solo quien está en Alumia puede hacer esto.",
+    "sem_permissao": "No puedes hacer esto aquí.",
+    "nao_encontrado": "No encontramos esta sesión.",
+    "travado": "Esta sesión ya no recibe preguntas.",
+    "dado_pessoal": "Quita el dato personal (teléfono, correo, documento o dirección) y manda de nuevo.",
+    "muitos_pedidos": "Ya tienes el máximo esperando. Espera una respuesta antes de mandar otra.",
+    "fila_cheia": "La fila de esta sesión se llenó.",
+    "fora_da_vez": "Esta no es la pregunta a la que le toca. La pantalla se actualizó.",
+    "fora_do_horario": "Fuera del horario de la sesión.",
+    "invalido": "Revisa lo que llenaste.",
+    "conta_suspensa": "Tu cuenta está suspendida.",
+    "alumia_entrada": "Esto se abre después de que se apruebe tu entrada en Alumia.",
+    "desligado": "Las sesiones en vivo están apagadas ahora.",
+    "outro": "Algo salió mal. Intenta de nuevo."
+  }
+}

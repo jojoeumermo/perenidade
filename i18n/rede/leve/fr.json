@@ -1,0 +1,121 @@
+{
+  "titulo": "Légère et à votre rythme",
+  "lead": "Pour qui a peu de données mobiles, une connexion faible ou peu de temps. Ce que vous choisissez ici reste sur cet appareil. Seuls ce que vous publiez et les heures de silence des notifications vont au serveur.",
+  "carimbo": "Sur cet appareil",
+  "secoes": "Parties de cette page",
+  "atalhos": {
+    "economia": "Données",
+    "escrever": "Écrire",
+    "linha": "Texte seul",
+    "tempo": "Temps",
+    "silencio": "Silence"
+  },
+  "economia": {
+    "titulo": "Économie de données",
+    "interruptor": "Alumia légère",
+    "dica": "La photo d’une publication devient une tuile et ne s’ouvre que si vous la touchez ; la vidéo ne se lance que si vous le demandez. Pas d’animation, et les polices que l’appareil a déjà.",
+    "automatico": "Votre appareil a demandé d’économiser les données, donc Alumia légère a démarré activée. Vous pouvez la désactiver ici.",
+    "verImagem": "Touchez pour voir l’image",
+    "ligada": "Activée",
+    "desligada": "Désactivée"
+  },
+  "linha": {
+    "titulo": "Accueil en texte seul",
+    "dica": "Le fil sans photo, sans vidéo et sans décor. Chaque image ne se charge que si vous la touchez.",
+    "carregando": "Chargement des publications…",
+    "vazio": "Rien dans ce fil pour l’instant.",
+    "mais": "Afficher plus",
+    "erro": "Le fil ne s’est pas chargé.",
+    "semRede": "Pas de connexion pour le moment. Quand elle revient, touchez Réessayer.",
+    "tentar": "Réessayer",
+    "naComunidade": "dans {comunidade}",
+    "imagem": "Voir l’image",
+    "imagens": "Voir l’image {n} sur {total}",
+    "semDescricao": "Image sans description",
+    "abrir": "Ouvrir la publication",
+    "aviso": "Avertissement de contenu : {aviso}",
+    "mostrar": "Afficher quand même",
+    "esconder": "Masquer à nouveau",
+    "ato": "Appel à une action",
+    "visitante": "Connectez-vous à votre compte pour voir le fil."
+  },
+  "escrever": {
+    "titulo": "Écrire léger",
+    "dica": "Sans connexion, la publication est gardée seulement sur cet appareil et part toute seule quand la connexion revient, avec Alumia ouverte. Rien n’attend sur le serveur.",
+    "rotulo": "Que voulez-vous dire ?",
+    "publico": "Qui peut voir",
+    "membros": "Les personnes qui ont un compte Alumia",
+    "seguidores": "Seulement les personnes qui vous suivent",
+    "publicar": "Publier",
+    "guardar": "Garder pour envoyer au retour de la connexion",
+    "comRede": "Connecté : la publication part maintenant.",
+    "semRede": "Sans connexion : la publication est gardée sur cet appareil.",
+    "guardado": "Gardée sur cet appareil. Elle part toute seule au retour de la connexion, tant qu’Alumia est ouverte ici.",
+    "repetido": "Ce texte était déjà gardé. Nous ne le gardons pas deux fois.",
+    "publicado": "Publié.",
+    "abrirPost": "Voir la publication",
+    "naoSaiu": "Elle n’est pas partie. {motivo}",
+    "vazio": "Écrivez quelque chose d’abord.",
+    "longo": "Plus de {max} caractères.",
+    "cheia": "Il y a déjà {max} publications en attente sur cet appareil. Envoyez-en ou supprimez-en une d’abord.",
+    "semEspaco": "L’appareil n’a pas d’espace pour garder. Rien n’a été gardé.",
+    "contador": "{n} sur {max}",
+    "naoMembro": "Pour écrire, connectez-vous avec votre compte approuvé.",
+    "soTexto": "Ici, seulement du texte. Photos, sondages et actions passent par l’Écrire habituel, avec connexion.",
+    "previa": "Dans l’aperçu, rien n’est publié : la publication entre seulement dans la file de cet appareil."
+  },
+  "fila": {
+    "titulo": "En attente de connexion",
+    "vazia": "Rien en attente sur cet appareil.",
+    "guardado": "Gardée il y a {quando}",
+    "publicoMembros": "Personnes avec un compte",
+    "publicoSeguidores": "Vos abonnés",
+    "enviar": "Envoyer maintenant",
+    "apagar": "Supprimer",
+    "apagarConfirma": "Supprimer cette publication gardée ? Elle disparaît de cet appareil et ne part pas.",
+    "parado": "Gardée depuis plus de {dias} jours : elle ne part pas toute seule. Envoyez-la maintenant ou supprimez-la.",
+    "recusado": "Le serveur l’a refusée. {motivo} Supprimez-la et écrivez à nouveau, ou renvoyez-la.",
+    "outraConta": "Gardée par un autre compte sur cet appareil. Elle ne part que quand ce compte se connecte.",
+    "enviando": "Envoi…",
+    "saiu": "La publication gardée sur cet appareil est partie.",
+    "saiuVarios": "{n} publications gardées sur cet appareil sont parties.",
+    "naoSaiu": "Une publication gardée n’est pas partie. Voir Légère et à votre rythme.",
+    "ver": "Voir",
+    "fechar": "Fermer",
+    "sairRapido": "La Sortie rapide efface cette file avec tout ce qu’Alumia garde sur l’appareil."
+  },
+  "tempo": {
+    "titulo": "Temps d’utilisation",
+    "dica": "Les horloges sont seulement sur cet appareil : pas de score, pas d’historique, rien ne va au serveur.",
+    "parar": "Heure de s’arrêter",
+    "pararDica": "Un rappel par nuit, à l’heure que vous choisissez, jusqu’à cinq heures après.",
+    "hora": "À",
+    "guardar": "Enregistrer l’heure",
+    "tirar": "Retirer",
+    "ligado": "Rappel à {hora}.",
+    "desligado": "Pas d’heure pour s’arrêter.",
+    "lembreteTitulo": "Vous avez demandé à arrêter à {hora}",
+    "lembreteTexto": "La lutte continue demain. Se reposer, c’est aussi prendre soin du collectif.",
+    "fechar": "Fermer",
+    "salvo": "Enregistré sur cet appareil."
+  },
+  "silencio": {
+    "titulo": "Silence des notifications",
+    "dica": "Vous choisissez l’heure sur l’horloge de cet appareil. Le serveur garde seulement les minutes de la journée, sans fuseau horaire et sans ville.",
+    "abrir": "Tous les réglages des notifications",
+    "visitante": "Connectez-vous à votre compte pour choisir les heures de silence."
+  },
+  "ajustes": {
+    "titulo": "Légère et à votre rythme",
+    "texto": "Économie de données, Accueil en texte seul, publications en attente de connexion, heure de s’arrêter et silence des notifications.",
+    "abrir": "Ouvrir Légère et à votre rythme"
+  },
+  "offline": {
+    "aviso": "Pas de connexion pour le moment : rien n’a été envoyé. Le texte reste ici. Pour qu’il parte tout seul au retour de la connexion, utilisez Écrire léger, dans Légère et à votre rythme.",
+    "jaSaiu": "Ce même texte vient de partir, gardé sur cet appareil, au retour de la connexion. Nous ne le publions pas à nouveau."
+  },
+  "erros": {
+    "desconhecido": "Le serveur n’a pas donné la raison.",
+    "rede": "Pas de connexion."
+  }
+}

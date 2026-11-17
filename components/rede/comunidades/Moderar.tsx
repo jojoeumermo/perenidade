@@ -1,17 +1,21 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { comunidades } from "@/lib/rede/cliente-comunidades";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDeComunidades } from "@/lib/rede/textos-comunidades";
-import type { PedidoDeEntrada } from "@/lib/rede/tipos-comunidades";
 import type { Comunidade } from "@/lib/rede/tipos";
-import { botao, botaoClaro, campo, erroCom, idDoPost, useCarregar } from "./util";
+import { useTextosMod } from "../moderacao/base";
+import { FerramentasDaComunidade } from "../moderacao/comunidade/FerramentasDaComunidade";
+import { botao, botaoClaro, campo, erroCom, idDoPost } from "./util";
 
 /**
- * As ferramentas de quem modera a comunidade (só chegam aqui quem o banco confirmou como moderação): pedidos para entrar, regras
- * numeradas, etiquetas e fixar um post pelo endereço dele. Cada ação confirma dentro da página (nunca alert/confirm do navegador).
+ * As ferramentas de quem modera a comunidade (só chegam aqui quem o banco confirmou como moderação): o filtro automático, o modo
+ * lento, o alerta de brigada, os pedidos para entrar com as respostas e as perguntas (onda 9, components/rede/moderacao/comunidade),
+ * as regras numeradas, as etiquetas e fixar um post pelo endereço dele. Cada ação confirma dentro da página (nunca alert/confirm do
+ * navegador).
  */
 export default function Moderar({
   comunidade,
@@ -25,12 +29,13 @@ export default function Moderar({
   aoMudar: () => void;
 }) {
   const m = sc.moderar;
+  const { lang = "pt" } = useParams<{ lang?: string }>() ?? {};
+  const sm = useTextosMod(lang);
   const [regras, setRegras] = useState(() => comunidade.regras.map((r) => ({ titulo: r.titulo, texto: r.texto })));
   const [etiquetas, setEtiquetas] = useState(() => comunidade.etiquetas.map((e) => ({ nome: e.nome, cor: e.cor })));
   const [aviso, setAviso] = useState<{ onde: string; texto: string; erro: boolean } | null>(null);
   const [ocupado, setOcupado] = useState(false);
   const [post, setPost] = useState("");
-  const pedidos = useCarregar(() => comunidades.pedidos(comunidade.slug), `pedidos:${comunidade.slug}`);
 
   async function rodar(onde: string, tarefa: () => Promise<string>) {
     if (ocupado) return;
@@ -50,37 +55,13 @@ export default function Moderar({
       <p role={aviso.erro ? "alert" : "status"} className={`mt-2 text-sm ${aviso.erro ? "text-oxblood" : "text-ink-soft"}`}>{aviso.texto}</p>
     );
 
-  const decidir = (p: PedidoDeEntrada, aceita: boolean) =>
-    rodar("pedidos", async () => {
-      await comunidades.decidirPedido(comunidade.slug, p.usuario, aceita);
-      pedidos.recarregar();
-      aoMudar();
-      return aceita ? m.aceitar : m.recusar;
-    });
-
   return (
     <div className="space-y-6 font-sans">
-      <section aria-labelledby="mod-pedidos">
-        <h3 id="mod-pedidos" className="font-serif text-lg font-semibold">{m.pedidos}</h3>
-        {!pedidos.pronto ? (
-          <p className="text-sm text-ink-soft">{s.estados.carregando}</p>
-        ) : (pedidos.dado?.itens.length ?? 0) === 0 ? (
-          <p className="text-sm text-ink-soft">{m.semPedidos}</p>
-        ) : (
-          <ul className="divide-y divide-rule">
-            {pedidos.dado?.itens.map((p) => (
-              <li key={p.usuario} className="flex flex-wrap items-center justify-between gap-2 py-2">
-                <span className="font-bold">{p.codinome}</span>
-                <span className="flex gap-2">
-                  <button type="button" disabled={ocupado} onClick={() => decidir(p, true)} className={botao}>{m.aceitar}</button>
-                  <button type="button" disabled={ocupado} onClick={() => decidir(p, false)} className={botaoClaro}>{m.recusar}</button>
-                </span>
-              </li>
-            ))}
-          </ul>
-        )}
-        {mensagem("pedidos")}
-      </section>
+      {sm ? (
+        <FerramentasDaComunidade slug={comunidade.slug} lang={lang} s={s} sm={sm} aoMudar={aoMudar} />
+      ) : (
+        <p className="text-sm text-ink-soft" role="status">{s.estados.carregando}</p>
+      )}
 
       <section aria-labelledby="mod-regras">
         <h3 id="mod-regras" className="font-serif text-lg font-semibold">{m.regras}</h3>

@@ -33,7 +33,9 @@ const ler = (p) => fs.readFileSync(new URL(`../${p}`, import.meta.url), "utf8");
 const b1 = ler("supabase/migracoes/20261110-alumia-b1-casca.sql");
 await espera("a B1 da casca está colada inteira no fim do install.sql", async () => ler("supabase/install.sql").includes(b1.trim()), (v) => v === true);
 
-const banco = await criarBanco();
+// O banco é montado até antes do voto pelo servidor (20261115-alumia-o9-resto8.sql): rodar de novo a B1 por cima dele traria de
+// volta a enquete de antes, que conta quem votou pela linha do voto. O voto novo tem o teste dele (testar:alumia-o9-resto8).
+const banco = await criarBanco({ antesDe: ler("supabase/migracoes/20261115-alumia-o9-resto8.sql") });
 const { dono, criarUsuario, rpc } = banco;
 const um = async (texto, valores = []) => (await dono(texto, valores)).rows[0];
 await espera("a B1 instala de novo sem estrago (idempotente)", () => banco.exclusivo(() => banco.pg.exec(b1)));

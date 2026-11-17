@@ -3,12 +3,20 @@
 // As chamadas da Rede Lúcia v2 ao banco: uma função por rpc, com os nomes e os parâmetros do contrato (docs/rede/V2.md).
 // Cada pacote acrescenta as suas funções em lib/rede/cliente-<pacote>.ts, usando `chamar` daqui. Sem "@/" de propósito.
 import { rpc } from "../backend";
+import { VOTO_PELO_SERVIDOR } from "./voto/cliente";
 import type { Aba, Comunidade, EnderecoAntigo, PaginaDaLinha, Perfil, PedidoDePost, Post, PostComConversa, Situacao } from "./tipos";
 
 /** A forma de chamar uma função do banco. Os testes e os pacotes podem trocar por outra (uma simulada, por exemplo). */
 export type Chamar = <T>(funcao: string, argumentos?: Record<string, unknown>) => Promise<T>;
 
-export const chamar: Chamar = (funcao, argumentos = {}) => rpc(funcao, argumentos);
+/**
+ * A chamada de verdade. Os votos que não podem deixar a pessoa ligada ao voto no banco (enquete de post e de story) e a cédula da
+ * consulta (cifrada no aparelho) passam pelo servidor do site (lib/rede/voto/cliente.ts, onda 9); o resto vai direto ao banco.
+ */
+export const chamar: Chamar = (funcao, argumentos = {}) => {
+  const pelo = VOTO_PELO_SERVIDOR[funcao];
+  return pelo ? (pelo(argumentos) as Promise<never>) : rpc(funcao, argumentos);
+};
 
 /** O cliente da v2 sobre uma forma de chamar. `rede` (abaixo) é o de verdade. */
 export function criarCliente(c: Chamar) {
@@ -26,7 +34,7 @@ export function criarCliente(c: Chamar) {
     /** Publicar (post, discussão, dúvida, resposta). Devolve o post; `avaliar` pede a avaliação externa. */
     publicar: (pedido: PedidoDePost) => c<Post>("rede_publicar", { p: pedido }),
     /** Apoiar ('apoio') ou marcar como útil ('util'), ou desfazer. O total de apoios nunca volta (só o autor o vê, na linha). */
-    reagir: (post: string, tipo: "apoio" | "util", sim: boolean) => c<{ apoiei: boolean; util_eu: boolean; util: number }>("rede_reagir", { p_post: post, p_tipo: tipo, p_sim: sim }),
+    reagir: (post: string, tipo: "apoio" | "util", sim: boolean) => c<{ apoiei: boolean; util_eu: boolean; util: number | null }>("rede_reagir", { p_post: post, p_tipo: tipo, p_sim: sim }),
     /** Guardar para ler depois (privado). */
     salvar: (post: string, sim: boolean) => c<{ salvei: boolean }>("rede_salvar", { p_post: post, p_sim: sim }),
     comunidade: (slug: string) => c<Comunidade>("rede_comunidade", { p_slug: slug }),

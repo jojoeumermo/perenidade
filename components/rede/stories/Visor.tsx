@@ -9,6 +9,7 @@ import { anelEmCss, barrasDoProgresso, duracaoNaTela, estiloDoTexto, PALETA_DO_S
 import type { ClienteDeStories } from "@/lib/rede/cliente-stories";
 import type { TextosDosStories } from "@/lib/rede/textos-stories";
 import { CATEGORIAS_DE_DENUNCIA, type CategoriaDeDenuncia } from "@/lib/rede/tipos-moderacao";
+import { votoLembrado } from "@/lib/rede/voto/cliente";
 import { LIMITES_DO_STORY, REACOES_DO_STORY, type AutoraDoStory, type Figurinha, type FigurinhaEnquete, type FigurinhaVou, type ReacaoDoStory, type Story } from "@/lib/rede/tipos-stories";
 import { ComunidadeVer } from "../figurinhas/Comunidade";
 import { ContagemVer } from "../figurinhas/Contagem";
@@ -567,7 +568,7 @@ export function Visor({
     setOcupado(true);
     try {
       const f = await cliente.votar(atual.id, opcao);
-      trocarFigurinha(atual.id, { meu_voto: f.meu_voto ?? opcao }, "enquete");
+      trocarFigurinha(atual.id, { meu_voto: f.ja_votou ? (f.meu_voto ?? null) : (f.meu_voto ?? opcao) }, "enquete");
     } catch {
       avisar(t.visor.erroAoEnviar);
     } finally {
@@ -782,7 +783,8 @@ export function Visor({
     !atual ? null : f.tipo === "contagem" ? (
       <ContagemVer key={k} f={f} t={t.figurinha.contagem} agora={agora} lang={lang} ocupado={ocupado} aoAvisar={meu ? null : pedirAviso} />
     ) : f.tipo === "enquete" ? (
-      <EnqueteVer key={k} f={f} t={t.figurinha.enquete} nome={chamada} meu={meu} ocupado={ocupado} aoVotar={votar} />
+      // O voto não fica com a pessoa no banco: o que ela escolheu, este aparelho lembra (lib/rede/voto/cliente.ts).
+      <EnqueteVer key={k} f={f.meu_voto == null ? { ...f, meu_voto: votoLembrado<0 | 1>("story", atual.id) } : f} t={t.figurinha.enquete} nome={chamada} meu={meu} ocupado={ocupado} aoVotar={votar} />
     ) : f.tipo === "pergunta" ? (
       <PerguntaVer key={k} texto={f.texto} t={t.figurinha.pergunta} nome={chamada} meu={meu} enviar={enviarRespostaDaPergunta} aoFoco={setDigitando} />
     ) : f.tipo === "comunidade" ? (

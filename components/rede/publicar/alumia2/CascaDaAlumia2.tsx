@@ -10,7 +10,8 @@ import { redePub } from "@/lib/rede/cliente-publicar";
 import { preencher } from "@/lib/rede/preencher";
 import { enderecoNoFediverso } from "@/lib/rede/publicar/alumia2";
 import { encaixeAtivo } from "@/lib/rede/rota-alumia";
-import { DESTINO_DA_SAIDA, sairRapido as sairRapidoDaRede } from "@/lib/rede/saida";
+import { DESTINO_DA_SAIDA, rodarLimpezas, sairRapido as sairRapidoDaRede } from "@/lib/rede/saida";
+import { registrarLimpezaDaSaida } from "@/lib/modo-seguro";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Situacao } from "@/lib/rede/tipos";
 import { enderecosDescoberta } from "@/lib/rede/tipos-descoberta";
@@ -169,14 +170,23 @@ export function CascaDaAlumia2({
   const noInicio = semBarra(caminho) === semBarra(enderecos.linha(lang));
   // As telas de configuração (Segurança, Regras e cuidado, Silenciados…) moram na conta, não no perfil: ali o Perfil não acende
   // (no celular, quem acende é o "Mais", onde ficam esses itens).
-  const noPerfil = /\/alumia\/(u\/|editar-perfil)/.test(caminho);
+  // Aparência e leitura e Séries são do perfil da pessoa (o que ela publica e como ela lê): ali o Perfil acende.
+  // As conquistas e o mural de aprovados (onda 11) são do perfil da pessoa: ali o Perfil acende.
+  const noPerfil = /\/alumia\/(u\/|editar-perfil|aparencia|series|conquistas|aprovados)/.test(caminho);
   const naConta = ativo === "perfil" && !noPerfil;
+  // A tela é de um item que uma frente encaixou no menu (Questões, Turmas, Agenda, Redação…)? Então só ele acende: a casa que a
+  // tela declara no registro (o Início, as Comunidades) não acende junto, e nunca há duas entradas com aria-current.
+  const encaixeNoCaminho = Boolean(situacao) && ENCAIXES.menu.some((m) => {
+    if (m.substitui || !situacao) return false;
+    const h = m.href({ lang, s, situacao });
+    return h !== null && encaixeAtivo(h, caminho);
+  });
   const atualDe = (d: Destino, href: string | null) =>
     noInicio
       ? d.chave === "inicio"
       : d.chave === "perfil" && naConta
         ? false
-        : ativo === d.chave || (href !== null && d.chave !== "inicio" && encaixeAtivo(href, caminho));
+        : (!encaixeNoCaminho && ativo === d.chave) || (href !== null && d.chave !== "inicio" && encaixeAtivo(href, caminho));
 
   // A casa da barra de baixo onde está a tela atual (0 Início, 1 Explorar, 2 é o "+", 3 Atos, 4 Perfil), para o traço deslizante.
   const alvoDaBarra = situacao
@@ -196,6 +206,10 @@ export function CascaDaAlumia2({
     barraAnterior = alvoDaBarra;
     return () => cancelAnimationFrame(id);
   }, [alvoDaBarra]);
+
+  // A saída do site (três Esc, components/SaidaRapida.tsx) roda também as limpezas do "Sair rápido" da Alumia enquanto ela está
+  // aberta nesta página.
+  useEffect(() => registrarLimpezaDaSaida(() => rodarLimpezas(ENCAIXES.aoSairRapido)), []);
 
   // A vaga do botão de acessibilidade no alto do celular (alumia3.css põe o botão do site ali, rolando junto com o cabeçalho, em
   // vez de flutuar por cima do conteúdo): mede onde a vaga está na página e passa para o CSS.
@@ -279,7 +293,7 @@ export function CascaDaAlumia2({
           <div className="al2-menu-lateral sticky top-0 flex flex-col">
           <div className="al2-menu-rola min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pt-6 xl:px-5 2xl:px-6">
             <Link href={enderecos.linha(lang)} className="flex items-center gap-3 px-2" aria-label={t.marca.inicio}>
-              <Lampiao tamanho={34} />
+              <Lampiao tamanho={42} />
               <span className="leading-none">
                 <span className="al-cond block text-[2rem] font-black uppercase tracking-tight">{t.marca.nome}</span>
                 <span className="block font-[family-name:var(--al-fonte-marca)] text-[0.95rem] italic text-[var(--al-texto-2)]">{t.marca.instituto}</span>
@@ -320,7 +334,7 @@ export function CascaDaAlumia2({
                   );
                 })}
                 {/* De 1024 a 1279 não há coluna da direita: a busca vira um item do menu (uma só busca na tela, sempre). */}
-                <li className="xl:hidden">
+                <li className="al2-busca-menu xl:hidden">
                   <Link href={localePath(lang, "/alumia/buscar")} className="al2-menu-item" aria-current={caminho.endsWith("/alumia/buscar") ? "page" : undefined}>
                     <Icone nome="lupa" className="h-[22px] w-[22px]" />
                     <span>{t.menu.buscar}</span>
@@ -333,13 +347,17 @@ export function CascaDaAlumia2({
                     const href = m.href(ctx);
                     if (!href) return null;
                     const n = m.emblema?.(ctx) ?? null;
+                    // O nome inteiro (quando o do menu é curto) vai como descrição, e não como aria-label: o nome acessível continua
+                    // contendo o texto que se vê (WCAG 2.5.3), e quem comanda por voz diz o que está escrito.
+                    const rotulo = m.rotulo(ctx);
+                    const inteiro = m.rotuloInteiro?.(ctx);
                     return (
                       <li key={m.chave}>
-                        <Link href={href} className="al2-menu-item" aria-current={encaixeAtivo(href, caminho) ? "page" : undefined}>
+                        <Link href={href} className="al2-menu-item" aria-current={encaixeAtivo(href, caminho) ? "page" : undefined} title={inteiro && inteiro !== rotulo ? inteiro : undefined}>
                           <svg aria-hidden viewBox="0 0 24 24" className="h-[22px] w-[22px]" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
                             {m.icone}
                           </svg>
-                          <span>{m.rotulo(ctx)}</span>
+                          <span>{rotulo}</span>
                           {n !== null && n > 0 && <span className="al2-emblema al2-emblema-dourado">{n}</span>}
                         </Link>
                       </li>
@@ -347,15 +365,18 @@ export function CascaDaAlumia2({
                   })}
               </ul>
             </nav>
-            {pode && (
-              <button type="button" onClick={() => aoEscrever()} className="al2-menu-escrever al-botao al-botao-primario al-botao-g al2-aperta mt-6 w-full">
-                <Icone nome="escrever" className="h-5 w-5" />
-                {t.menu.escrever}
-              </button>
-            )}
-            <div aria-hidden className="h-4" />
+            {/* O esmaecido preso no pé da parte que rola: com itens abaixo da dobra (as entradas do estudo, numa tela baixa), mostra que
+                há mais para rolar; no fim da lista, fica sobre o espaço vazio. */}
+            <div aria-hidden className="al2-menu-esmaece" />
           </div>
             <div className="al2-menu-pe shrink-0 space-y-2.5 border-t border-[var(--al-linha)] px-4 pb-5 pt-3 xl:px-5 2xl:px-6">
+              {/* Escrever, a ação principal, fica no pé que não rola: com mais itens no menu, ele não some atrás do cartão da conta. */}
+              {pode && (
+                <button type="button" onClick={() => aoEscrever()} className="al2-menu-escrever al-botao al-botao-primario al-botao-g al2-aperta w-full">
+                  <Icone nome="escrever" className="h-5 w-5" />
+                  {t.menu.escrever}
+                </button>
+              )}
               <Conta lang={lang} s={s} situacao={situacao} />
               {/* Sair rápido sempre à vista; ao lado, a acessibilidade e as perguntas frequentes, que na Alumia moram aqui (os botões
                   redondos do site não flutuam por cima do menu nem dos posts). */}
@@ -373,10 +394,10 @@ export function CascaDaAlumia2({
         {/* Sem <main> aqui: a página já tem o main#conteudo do site (dois main aninhados confundem o leitor de tela, e o rótulo
             "Início" fazia toda tela se anunciar como Início). Cada tela tem o próprio h1. */}
         <div id="rede-linha" tabIndex={-1} className="min-w-0 border-[var(--al-linha)] outline-none xl:border-r">
-          {/* Celular: marca, busca, avisos e Sair rápido no alto (prancha celular-inicio). */}
+          {/* Celular: marca, busca e avisos no alto (prancha celular-inicio); a acessibilidade e o menu "Mais" no canto. */}
           <header className="flex items-center gap-2 px-4 pb-1 pt-4 lg:hidden">
-            <Link href={enderecos.linha(lang)} className="flex min-w-0 items-center gap-2.5" aria-label={t.marca.inicio}>
-              <Lampiao tamanho={30} />
+            <Link href={enderecos.linha(lang)} className="al2-alvo flex min-w-0 items-center gap-2.5" aria-label={t.marca.inicio}>
+              <Lampiao tamanho={38} />
               <span className="leading-none">
                 <span className="al-cond block text-[1.75rem] font-black uppercase tracking-tight">{t.marca.nome}</span>
                 <span className="block font-[family-name:var(--al-fonte-marca)] text-[0.85rem] italic text-[var(--al-texto-2)]">{t.marca.instituto}</span>
@@ -400,9 +421,8 @@ export function CascaDaAlumia2({
                 <Icone nome="acessibilidade" className="h-6 w-6" />
               </button>
             </span>
-            <button type="button" onClick={sairRapido} className="al2-acao" aria-label={t.conta.sairRapido} title={t.conta.sairRapidoAjuda}>
-              <Icone nome="sair" className="h-6 w-6" />
-            </button>
+            {/* O Sair rápido mora no alto do painel "Mais" (o primeiro botão dele), para o alto ficar como na prancha: busca e avisos,
+                mais a vaga da acessibilidade e o menu. */}
             <BotaoMais lang={lang} situacao={situacao} destinos={destinosDoMais} naConta={naConta} aoSairRapido={sairRapido} />
           </header>
           <div key={caminho} className={entrando ? "al2-tela-entra" : undefined}>
@@ -466,7 +486,7 @@ export function CascaDaAlumia2({
                   >
                     <span className="relative">
                       <Icone nome={d.icone} className="h-7 w-7" grosso={atual} />
-                      {n !== null && n > 0 && <span aria-hidden className="absolute -right-1 -top-0.5 h-2.5 w-2.5 rounded-full bg-[var(--al-dourado)]" />}
+                      {n !== null && n > 0 && <span aria-hidden className="absolute -right-1 -top-0.5 h-2.5 w-2.5 rounded-full bg-[var(--al-dourado-fundo)]" />}
                     </span>
                     {d.rotulo(t)}
                     {n !== null && n > 0 && <span className="sr-only">({t.menu.novidade})</span>}

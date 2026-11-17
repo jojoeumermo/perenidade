@@ -125,6 +125,37 @@ const ler = (...p) => fs.readFileSync(new URL(`../${p.join("/")}`, import.meta.u
   ok("contraste: carimbo confirmado e botão + puros no alto contraste", css.includes(":root[data-contrast] [data-al=\"2\"] .al2-mais { background: #ffd400; color: #000000;") && css.includes("--al-vermelho-sobre-escuro: #ff4f3a"));
   ok("movimento: o painel para com prefers-reduced-motion", /prefers-reduced-motion: reduce\)[^}]*\.al2-painel-mais/.test(css));
   ok("em construção: sem marca repetida dentro da casca", !ler("components", "rede", "onda5", "EmConstrucao.tsx").includes("<Lampiao"));
+  ok("em construção (a Alumia fechada): o lampião junto do nome", /<p className="al-obras__marca">\s*<Lampiao /.test(ler("components", "rede", "EmConstrucao.tsx")));
+}
+
+// ── A marca fora da tela: cartão de compartilhamento, ícones e manifesto próprios da Alumia ──
+{
+  const { CARTAO_DA_ALUMIA, metadadosDaMarcaDaAlumia, montarManifestoDaAlumia } = await import("../lib/rede/marca-da-alumia.ts");
+  /** Largura e altura de um PNG, lidas do cabeçalho (IHDR). */
+  const png = (arquivo) => {
+    const b = fs.readFileSync(new URL(`../public${arquivo}`, import.meta.url));
+    return b.toString("ascii", 1, 4) === "PNG" ? [b.readUInt32BE(16), b.readUInt32BE(20)] : null;
+  };
+  const m = metadadosDaMarcaDaAlumia("pt");
+  const og = (m.openGraph?.images ?? [])[0];
+  const tw = (m.twitter?.images ?? [])[0];
+  ok("cartão: openGraph e twitter da Alumia apontam o cartão dela, não o do Instituto", og?.url === "/cartao-alumia.png" && tw?.url === "/cartao-alumia.png" && m.twitter?.card === "summary_large_image");
+  ok("cartão: o arquivo existe e tem 1200 × 630", JSON.stringify(png(CARTAO_DA_ALUMIA.url)) === "[1200,630]" && CARTAO_DA_ALUMIA.width === 1200 && CARTAO_DA_ALUMIA.height === 630);
+  ok("cartão: o resto do site continua com o do Instituto", ler("app", "[lang]", "layout.tsx").includes('images: ["/cartao-lucia.png"]'));
+  const layout = ler("app", "[lang]", "alumia", "layout.tsx");
+  ok("cartão: o layout da Alumia dá a marca a todas as páginas dela", /export async function generateMetadata[\s\S]*metadadosDaMarcaDaAlumia\(lang\)/.test(layout));
+  ok("cartão: a página inicial, que tem openGraph próprio, repete a imagem da Alumia", /images: imagens\.openGraph/.test(ler("app", "[lang]", "alumia", "page.tsx")) && /images: imagens\.twitter/.test(ler("app", "[lang]", "alumia", "page.tsx")));
+  // Nenhuma outra página da Alumia define openGraph ou twitter (senão trocaria o do layout, e o cartão sumiria).
+  const paginas = fs.readdirSync(new URL("../app/[lang]/alumia/", import.meta.url), { recursive: true }).filter((p) => /page\.tsx$/.test(p) && p !== "page.tsx");
+  const comCartaoProprio = paginas.filter((p) => /openGraph|twitter:/.test(ler("app", "[lang]", "alumia", ...p.split(/[\\/]/))));
+  ok(`cartão: só a inicial define openGraph (${comCartaoProprio.join(", ") || "nenhuma outra"})`, paginas.length > 40 && comCartaoProprio.length === 0);
+  const icones = [m.icons?.icon, m.icons?.apple].flat().filter(Boolean);
+  ok("ícones: o vetorial primeiro (vence o favicon.ico do site), aba (32) e iPhone (180) da Alumia", icones[0]?.url === "/alumia/icone.svg" && icones[0]?.sizes === "any" && fs.readFileSync(new URL("../public/alumia/icone.svg", import.meta.url), "utf8").includes(`viewBox="480 330 745 1280"`) && icones.some((i) => i.url === "/alumia/icone-32.png") && icones.some((i) => i.url === "/alumia/apple-icone-180.png"));
+  ok("ícones: os arquivos têm o tamanho que dizem", [["/alumia/icone-32.png", 32], ["/alumia/apple-icone-180.png", 180], ["/alumia/icone-192.png", 192], ["/alumia/icone-512.png", 512]].every(([a, n]) => JSON.stringify(png(a)) === `[${n},${n}]`));
+  const mf = montarManifestoDaAlumia("en");
+  ok("manifesto: o da Alumia no idioma, ligado pelo layout", m.manifest === "/pt/alumia/manifest.webmanifest" && mf.start_url === "/en/alumia" && mf.id === "/en/alumia" && mf.lang === "en");
+  ok("manifesto: noite no fundo e lampião em 192, 512 e recortado", mf.background_color === "#0f0e0d" && mf.theme_color === "#0f0e0d" && mf.icons.some((i) => i.purpose === "maskable" && i.src === "/alumia/icone-512.png") && mf.icons.some((i) => i.sizes === "192x192"));
+  ok("manifesto: a rota existe e é estática", /force-static/.test(ler("app", "[lang]", "alumia", "manifest.webmanifest", "route.ts")));
 }
 
 console.log(`${certos} certos${falhas.length ? `, ${falhas.length} falhas:` : ""}`);

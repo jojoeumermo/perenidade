@@ -1044,7 +1044,7 @@
  "Ano da primeira publicação": "首次出版年份",
  "Ano de nascimento": "出生年份",
  "Anônimo": "匿名",
- "Anônimo de verdade: o banco não guarda quem respondeu. A coordenação só vê a média, e só com cinco respostas ou mais.": "真正匿名：数据库不记录谁回答了。协调组只能看到平均值，而且要有五份及以上回答才看得到。",
+ "Anônimo de verdade: a resposta cai numa urna sem nome, separada do registro de quem já respondeu. A coordenação só vê a média, e só com cinco respostas ou mais.": "真正匿名：回答进入一个不带名字的票箱，和“谁已回答”的记录分开存放。协调组只能看到平均值，而且要有五份及以上回答才看得到。",
  "anos finais do fundamental": "初中",
  "anos iniciais do fundamental": "小学",
  "Anotação descartada.": "批注已舍弃。",
@@ -3990,6 +3990,7 @@
  "Ideia para a divulgação": "宣传点子",
  "Ideias de post, datas e pautas mandadas por qualquer pessoa da equipe pela Mesa.": "团队任何人通过桌面提交的帖子点子、日期和选题。",
  "Identidade recuperada. As conversas vão abrir em instantes.": "身份已恢复。对话稍后就会打开。",
+ "Identidade recuperada. Por segurança, este aparelho só passa a valer daqui a 24 horas, ou antes, se você o aprovar de um aparelho que já funciona (Conversas → Aparelhos).": "身份已恢复。出于安全考虑，这台设备要 24 小时后才生效；如果你在一台已经可用的设备上批准它，可以更早生效（对话 → 设备）。",
  "Identidade verificada pessoalmente": "已当面验证身份",
  "Identificador (slug, só letras minúsculas, números e hífen)": "标识符（slug，只能用小写字母、数字和连字符）",
  "Identificador (slug)": "标识符（slug）",
@@ -8128,5 +8129,6 @@
  "Para ocultar ou trancar uma conversa que já está no ar, abra o tópico na Alumia: os botões aparecem para quem cuida.": "要隐藏或锁定已上线的对话，请在Alumia页面打开该话题：负责人会看到相应按钮。",
  "Pausar agora tudo o que o público pode enviar? Contribuições, mensagens da Alumia, anúncios, pedidos de reforço e assinaturas do boletim param até alguém reabrir.": "立即暂停公众可以提交的所有内容？投稿、Alumia消息、启事、辅导请求和简报订阅都会停止，直到有人重新开放。",
  "Quem cuida da Alumia, do Mural dos Trabalhadores e da Gaveta Aberta.": "负责Alumia、劳动者公告墙和开放抽屉的人。",
- "Segunda avaliação da Alumia": "Alumia二次审核"
+ "Segunda avaliação da Alumia": "Alumia二次审核",
+ "Voto secreto com menos de 3 votos: o resultado não aparece.": "少于3票的秘密投票：不显示结果。"
 }

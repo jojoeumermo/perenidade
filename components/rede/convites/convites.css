@@ -1,0 +1,293 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * A porta de entrada e os convites (components/rede/convites/**). Duas partes:
+ *  - .ale-*: dentro da cena da entrada (styles/alumia-entrada.css), que tem os tokens próprios dela (noite, papel, vermelho, ouro);
+ *  - .alc-*: os convites de quem está dentro, com os tokens da Alumia (styles/alumia-tokens.css), claro e escuro.
+ */
+
+/* A linha da prova e do "conferindo", com o giro antes do texto. */
+.ale-prova {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ale-convite-prazo {
+  justify-self: start;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--ale-sup-2);
+  color: var(--ale-dourado);
+  font-weight: 800;
+  font-size: 15px;
+}
+.ale-convite-sigilo {
+  padding: 12px 14px;
+  border-left: 4px solid var(--ale-dourado);
+  border-radius: 4px 12px 12px 4px;
+  background: var(--ale-sup);
+  color: var(--ale-texto-2);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+/* ── Os convites de quem está dentro ── */
+.alc {
+  display: grid;
+  gap: 18px;
+  color: var(--al-texto);
+  font-family: var(--al-fonte);
+}
+.alc-cabeca {
+  display: grid;
+  gap: 8px;
+}
+.alc-titulo {
+  margin: 0;
+  font-family: var(--al-fonte);
+  font-stretch: 62%;
+  font-variation-settings: "wdth" 62;
+  font-weight: 900;
+  font-size: clamp(28px, 3vw, 36px);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.alc-texto {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--al-texto-2);
+  line-height: 1.5;
+}
+.alc-placar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+.alc-ladrilhos {
+  display: flex;
+  gap: 6px;
+}
+.alc-ladrilho {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: var(--al-superficie-2);
+  border: 1px solid var(--al-linha);
+}
+.alc-ladrilho[data-livre] {
+  background: var(--al-dourado-fundo);
+  border-color: var(--al-dourado-fundo);
+}
+.alc-restam {
+  color: var(--al-texto-2);
+  font-weight: 700;
+}
+.alc-novo {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border-radius: var(--al-raio);
+  border: 2px solid var(--al-dourado-fundo);
+  background: var(--al-superficie);
+}
+.alc-novo-titulo {
+  margin: 0;
+  font-stretch: 62%;
+  font-variation-settings: "wdth" 62;
+  font-weight: 900;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+.alc-link {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.alc-link input {
+  flex: 1 1 260px;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--al-linha);
+  background: var(--al-superficie);
+  color: var(--al-texto);
+  font: inherit;
+  font-size: 14px;
+}
+.alc-lista {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--al-linha);
+}
+.alc-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--al-linha);
+}
+.alc-item-texto {
+  display: grid;
+  gap: 2px;
+}
+.alc-miudo {
+  color: var(--al-texto-3);
+  font-size: 14px;
+}
+.alc-situacao {
+  display: inline-block;
+  padding: 3px 10px 2px;
+  border-radius: 6px;
+  border: 2px solid currentColor;
+  font-stretch: 62%;
+  font-variation-settings: "wdth" 62;
+  font-weight: 900;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  justify-self: start;
+}
+/* O texto do carimbo em vermelho de LETRA (5,3:1 sobre o cartão escuro; o vermelho de fundo daria 3,5:1). */
+.alc-situacao[data-s="aberto"] {
+  color: var(--al-vermelho-sobre-escuro, var(--al-vermelho-texto));
+}
+.alc-situacao[data-s="usado"] {
+  color: var(--al-texto);
+}
+.alc-situacao[data-s="vencido"],
+.alc-situacao[data-s="cancelado"] {
+  color: var(--al-texto-3);
+}
+.alc-nota {
+  margin: 0;
+  color: var(--al-texto-3);
+  font-size: 14px;
+}
+.alc-aviso {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--al-superficie-2);
+  color: var(--al-texto-2);
+}
+.alc-aviso[data-tom="erro"] {
+  color: var(--al-vermelho-letra, var(--al-vermelho-texto));
+}
+
+/* A página própria dos convites (/alumia/convite), fora da casca. */
+.alc-pagina {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+  display: grid;
+  gap: 20px;
+}
+/* Dentro da casca (registro "convite"): a coluna do meio é da casca; a margem é a mesma das outras telas dela. */
+.alc-pagina.alc-na-casca {
+  max-width: none;
+  padding: 28px 24px 64px;
+}
+@media (max-width: 640px) {
+  .alc-pagina.alc-na-casca {
+    padding: 16px 16px 48px;
+  }
+}
+.alc-voltar {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 4px;
+  color: var(--al-texto-2);
+  font-weight: 700;
+  text-underline-offset: 4px;
+}
+
+/* A marca da triagem: "veio por convite". */
+.alc-marca {
+  display: inline-block;
+  padding: 2px 8px 1px;
+  border-radius: 6px;
+  border: 0;
+  background: var(--al-dourado-fundo, #ffc21a);
+  color: var(--al-sobre-dourado, #0f0e0d);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* ── A porta no painel de controle (dentro de .ap, com os tokens da Alumia) ── */
+.alp-barra {
+  display: grid;
+  grid-template-columns: minmax(3rem, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 7rem;
+}
+.alp-barra-cheia {
+  display: block;
+  height: 0.6rem;
+  border-radius: 3px;
+  background: var(--al-texto-3);
+}
+.alp-barra-cheia[data-tom="vermelho"] {
+  background: var(--al-vermelho);
+}
+.alp-barra-cheia[data-tom="dourado"] {
+  background: var(--al-dourado-fundo);
+}
+.alp-barra-numero {
+  min-width: 2ch;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.alp-teto {
+  margin-left: 0.4rem;
+  padding: 0 0.35rem;
+  border-radius: 4px;
+  background: var(--al-vermelho);
+  color: var(--al-sobre-vermelho);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.alp-form {
+  display: grid;
+  gap: 0.9rem;
+}
+.alp-numeros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.75rem;
+}
+.alp-marcar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.6rem;
+  align-items: start;
+  cursor: pointer;
+}
+.alp-marcar input {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.15rem;
+  accent-color: var(--al-vermelho);
+}
+.alp-marcar > span {
+  display: grid;
+  gap: 0.15rem;
+}
+.alp-form [data-tom="perigo"] {
+  color: var(--al-vermelho-letra, var(--al-vermelho-texto));
+}

@@ -1,0 +1,95 @@
+{
+  "fio": {
+    "ligar": "Montar um fio",
+    "desligar": "Voltar a um bloco só",
+    "ajuda": "Escreva em blocos e publique tudo de uma vez: o primeiro abre a conversa e os outros continuam, na ordem.",
+    "bloco": "Bloco {n} de {total}",
+    "mais": "Mais um bloco",
+    "tirar": "Tirar o bloco {n}",
+    "dividir": "Dividir o texto em blocos",
+    "limite": "Um fio tem até 10 blocos.",
+    "vazio": "Tem um bloco vazio: escreva nele ou tire.",
+    "grande": "O bloco {n} passou de 500 letras.",
+    "semAgenda": "O fio sai na hora. Para agendar, publique um bloco só.",
+    "esperando": "Saiu o começo do fio. Os outros {n} blocos esperam a mediação ler o bloco de cima e saem quando ele for liberado.",
+    "publicar": "Publicar fio",
+    "desfeito": "Fio desfeito. O texto continua aqui."
+  },
+  "imagens": {
+    "arranjo": "Como as imagens aparecem",
+    "grade": "Grade",
+    "carrossel": "Carrossel",
+    "colagem": "Colagem",
+    "legenda": "Legenda",
+    "legendaDica": "Legenda da imagem {n} (todo mundo vê)",
+    "anterior": "Imagem anterior",
+    "proxima": "Próxima imagem",
+    "posicao": "Imagem {n} de {total}",
+    "antes": "Mover a imagem {n} para antes",
+    "depois": "Mover a imagem {n} para depois",
+    "maximo": "Até 10 imagens por post."
+  },
+  "fuso": {
+    "rotulo": "Fuso",
+    "ajuda": "A hora vale no fuso que você escolher. A Alumia não descobre onde você está.",
+    "doBrasil": "Fusos do Brasil",
+    "outros": "Outros fusos",
+    "vaiSair": "Sai em {quando}.",
+    "naFila": "na fila: {quando}",
+    "cidades": {
+      "Noronha": "Fernando de Noronha",
+      "Sao_Paulo": "Brasília, São Paulo, Rio, Sul",
+      "Bahia": "Salvador",
+      "Fortaleza": "Fortaleza",
+      "Recife": "Recife",
+      "Belem": "Belém",
+      "Manaus": "Manaus",
+      "Cuiaba": "Cuiabá",
+      "Campo_Grande": "Campo Grande",
+      "Porto_Velho": "Porto Velho",
+      "Boa_Vista": "Boa Vista",
+      "Rio_Branco": "Rio Branco"
+    }
+  },
+  "rascunho": {
+    "agendar": "Agendar"
+  },
+  "figurinhas": {
+    "escolher": "Pôr uma figurinha",
+    "pacote": "Pacote da casa",
+    "tirar": "Tirar a figurinha",
+    "so": "Só a figurinha, sem texto",
+    "texto": "[Figurinha: {nome}]",
+    "nomes": {
+      "punho": "Punho erguido",
+      "lampiao": "Lampião aceso",
+      "megafone": "Megafone",
+      "estrela": "Estrela",
+      "cravo": "Cravo vermelho",
+      "coracao": "Coração de ladrilhos",
+      "livro": "Livro aberto",
+      "sol": "Sol nascendo",
+      "cafe": "Café passado",
+      "presente": "Presente!",
+      "na-luta": "Na luta",
+      "valeu": "Valeu!"
+    },
+    "carimbos": {
+      "presente": "PRESENTE!",
+      "na-luta": "NA LUTA",
+      "valeu": "VALEU!"
+    }
+  },
+  "link": {
+    "doServidor": "Título, resumo e imagem buscados pelo nosso servidor."
+  },
+  "erros": {
+    "invalido_fio": "O fio precisa de 2 a 10 blocos, todos com texto.",
+    "invalido_arranjo": "Escolha grade, carrossel ou colagem.",
+    "invalido_figurinha": "Essa figurinha não é do pacote da casa.",
+    "invalido_legenda": "A legenda vai até 280 letras.",
+    "legenda_revisar": "Uma legenda tem palavra que vai para a leitura da mediação. Mude a legenda ou tire.",
+    "invalido_fuso": "Escolha um fuso da lista.",
+    "nivel_imagens": "O seu nível de confiança ainda não deixa pôr tantas imagens num post."
+  }
+}

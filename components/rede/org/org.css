@@ -35,7 +35,7 @@
 [data-al="2"] .al-org-papel h2 { margin: 0 0 36px; font-size: clamp(2.4rem, 8vw, 3.6rem); max-width: 15ch; }
 [data-al="2"] .al-org-tabela { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
 [data-al="2"] .al-org-tabela thead th { text-align: left; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 0 0 12px; color: color-mix(in srgb, var(--al-fundo) 70%, transparent); }
-[data-al="2"] .al-org-tabela thead th.al-org-na-alumia { color: var(--al-vermelho-texto); }
+[data-al="2"] .al-org-tabela thead th.al-org-na-alumia { color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
 [data-al="2"] .al-org-tabela tbody tr { border-top: 2px solid var(--al-fundo); }
 [data-al="2"] .al-org-tabela tbody tr:last-child { border-bottom: 2px solid var(--al-fundo); }
 [data-al="2"] .al-org-tabela tbody th,
@@ -50,7 +50,7 @@
   [data-al="2"] .al-org-tabela tbody th,
   [data-al="2"] .al-org-tabela td { display: block; width: auto !important; padding: 2px 0; }
   [data-al="2"] .al-org-tabela td::before { content: attr(data-rotulo) ": "; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
-  [data-al="2"] .al-org-tabela td.al-org-alumia::before { color: var(--al-vermelho-texto); }
+  [data-al="2"] .al-org-tabela td.al-org-alumia::before { color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
 }
 
 [data-al="2"] .al-org-ferramentas { padding-block: 64px 24px; }
@@ -314,8 +314,11 @@
 [data-al="2"] .al-abas-moldura { position: relative; }
 [data-al="2"] .al-abas-moldura[data-mais-direita]::after,
 [data-al="2"] .al-abas-moldura[data-mais-esquerda]::before { content: ""; position: absolute; top: 0; bottom: 1px; width: 36px; pointer-events: none; z-index: 1; }
-[data-al="2"] .al-abas-moldura[data-mais-direita]::after { right: 0; background: linear-gradient(to right, transparent, var(--al-fundo)); }
-[data-al="2"] .al-abas-moldura[data-mais-esquerda]::before { left: 0; background: linear-gradient(to left, transparent, var(--al-fundo)); }
+/* Há mais abas para o lado: o esmaecido e a seta (as mesmas do perfil livre), para não parecer que a fileira acabou. */
+[data-al="2"] .al-abas-moldura[data-mais-direita]::after,
+[data-al="2"] .al-abas-moldura[data-mais-esquerda]::before { width: 44px; display: grid; align-items: center; font-size: 1.5rem; font-weight: 900; color: var(--al-texto); }
+[data-al="2"] .al-abas-moldura[data-mais-direita]::after { content: "›"; right: 0; justify-items: end; padding-right: 8px; background: linear-gradient(to right, transparent, var(--al-fundo) 55%); }
+[data-al="2"] .al-abas-moldura[data-mais-esquerda]::before { content: "‹"; left: 0; justify-items: start; padding-left: 8px; background: linear-gradient(to left, transparent, var(--al-fundo) 55%); }
 
 /* Espaço no pé das páginas da Alumia para os botões flutuantes globais (ajuda e acessibilidade) não cobrirem o fim do texto. */
 [data-al="2"] .al-perfil,

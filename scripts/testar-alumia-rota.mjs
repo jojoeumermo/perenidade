@@ -15,7 +15,7 @@ import { enderecos, ERROS_DA_REDE } from "../lib/rede/tipos.ts";
 import { areaDoCaminho, fechado } from "../lib/interdicao.ts";
 import { ligado, lerRecursos, RECURSOS, SO_PELO_NOME } from "../lib/recursos.ts";
 import { ROTAS_NOVAS, alumia2Ligada, rotaNovaLigada } from "../lib/rede/rotas-novas.ts";
-import { apagarChavesDaRede, PREFIXO_DA_REDE, rodarLimpezas } from "../lib/rede/saida.ts";
+import { apagarChavesDaRede, apagarChavesDaSessao, PREFIXO_DA_REDE, rodarLimpezas, sairRapido as sairRapidoDaRede } from "../lib/rede/saida.ts";
 import { codinomeOk, corpoDoUsuario, criarContaExtra, emailAleatorio } from "../lib/rede/contas-extra.ts";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -192,6 +192,12 @@ igual("/pt/comunidade//evil no host da Alumia fica em /pt/alumia/evil (não é t
 igual("ActivityPub no url antigo: o documento, sem 308", rotaNaAlumia(`/pt/comunidade/p/${ID}`, "application/activity+json"), { tipo: "reescrever", destino: `/api/fediverso/p/${ID}` });
 igual("/pt/alumia/salvos segue", rotaNaAlumia("/pt/alumia/salvos"), { tipo: "seguir" });
 igual("/@nome vira o perfil em /alumia", rotaNaAlumia("/@maria_luta"), { tipo: "reescrever", destino: "/pt/alumia/u/maria_luta" });
+// P7 (Fediverso): /@nome@servidor é "ver esta conta daqui": redireciona para o perfil de fora, com a conta na busca.
+igual("/@nome@servidor vai ao perfil de fora (/alumia/fediverso?conta=)", rotaNaAlumia("/@Tiao@Mastodon.Social"), { tipo: "redirecionar", destino: "/pt/alumia/fediverso", busca: "?conta=%40tiao%40mastodon.social" });
+igual("/@nome.com-ponto@servidor também (nome de fora pode ter ponto e hífen)", rotaNaAlumia("/@ana.luz-2@social.example.org"), { tipo: "redirecionar", destino: "/pt/alumia/fediverso", busca: "?conta=%40ana.luz-2%40social.example.org" });
+igual("/@nome@servidor pedido em ActivityPub não redireciona (não é ator daqui)", rotaNaAlumia("/@tiao@mastodon.social", "application/activity+json"), { tipo: "reescrever", destino: "/pt/alumia/u/-" });
+igual("/@nome@sem-ponto e /@@x.y não são conta de fora", [rotaNaAlumia("/@tiao@localhost"), rotaNaAlumia("/@@x.yz"), rotaNaAlumia("/@a@b.c")].map((d) => d.tipo), ["reescrever", "reescrever", "reescrever"]);
+ok("o proxy põe a busca do redirecionamento no endereço novo (P7)", /decisao\.tipo === "redirecionar"\)\s*\{[\s\S]{0,200}?url\.search = decisao\.busca \?\? ""/.test(ler("proxy.ts")));
 igual("ActivityPub continua no documento da federação", rotaNaAlumia(`/pt/alumia/p/${ID}`, "application/activity+json"), { tipo: "reescrever", destino: `/api/fediverso/p/${ID}` });
 for (const r of ROTAS_NOVAS) {
   const nome = r.caminho.split("/")[1];
@@ -231,8 +237,9 @@ ok("o sitemap anuncia /alumia e não /comunidade", /"\/alumia"/.test(ler("app/si
         if (e.name !== "node_modules" && !e.name.startsWith(".")) andar(rel);
       } else if (/\.(tsx?|mjs|js|json|md|html)$/.test(e.name) && !PERMITIDOS.has(rel)) {
         const texto = ler(rel);
-        // "/comunidade" como caminho de rota (seguido de /, ?, aspas, crase, parêntese ou fim), fora de import de pasta.
-        for (const m of texto.matchAll(/(?<!components)(?<!"\.)\/comunidade(?=[/?"'`)\s]|$)/gm)) achados.push(`${rel}@${m.index}`);
+        // "/comunidade" como caminho de rota (seguido de /, ?, aspas, crase, parêntese ou fim), fora de import de pasta (inclusive
+        // a pasta components/rede/moderacao/comunidade, da onda 9).
+        for (const m of texto.matchAll(/(?<!components)(?<!moderacao)(?<!"\.)\/comunidade(?=[/?"'`)\s]|$)/gm)) achados.push(`${rel}@${m.index}`);
       }
     }
   };
@@ -254,7 +261,9 @@ ok("o sitemap anuncia /alumia e não /comunidade", /"\/alumia"/.test(ler("app/si
 }
 
 // ═══════════════════ 7. Flags: só pelo nome, desligadas, e o visual novo só com as duas ═══════════════════
-const FLAGS = ["alumia-2", "alumia-stories", "alumia-modo-ato", "alumia-org", "alumia-chat-grupo", "alumia-proximas"];
+const FLAGS = ["alumia-2", "alumia-stories", "alumia-modo-ato", "alumia-org", "alumia-chat-grupo", "alumia-proximas", "alumia-estudo", "alumia-coautoria", "alumia-video-post",
+  // Onda 13: todos só pelo nome e desligados.
+  "alumia-mapa", "alumia-ao-vivo", "alumia-alcance", "alumia-leve", "alumia-traducao", "alumia-telegram"];
 // 10/11/2026: o SQL da onda rodou em produção (rede_alumia_versao = 2) e a coordenação pediu a cara nova no ar: alumia-2,
 // alumia-stories e alumia-org passam a ligar por padrão (PADRAO); as outras continuam só pelo nome, desligadas.
 const NO_AR = ["alumia-2", "alumia-stories", "alumia-org"];
@@ -284,8 +293,8 @@ ok("as telas ainda em construção ficam desligadas por padrão", ROTAS_NOVAS.fi
   ok("no e-ink o botão e o selo não somem (vermelho vira preto, texto branco)", /:root\[data-eink\][^{]*\{[^}]*--al-vermelho: #000000;[^}]*--al-sobre-vermelho: #ffffff;/s.test(tokens));
 }
 
-// ═══════════════════ 8. As 12 rotas novas ═══════════════════
-igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
+// ═══════════════════ 8. As rotas novas (as 12 da Onda 5, /rotulos da onda 9, /questoes e /redacao da onda 11, /pontes e /trabalhadores da 13) ═══
+igual("são 17 rotas novas", ROTAS_NOVAS.length, 17);
 {
   const registro = ler("components/rede/registro.tsx");
   const idiomas = ["pt", "en", "es", "fr", "ru", "zh"];
@@ -299,7 +308,7 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
     ok(`${r.nome} está no registro com import dinâmico`, !!linha);
     if (linha) ok(`o arquivo da tela de ${r.nome} existe (components/rede/${linha[1]}.tsx)`, existe(`components/rede/${linha[1]}.tsx`));
     for (const l of idiomas) ok(`texto de ${r.nome} em ${l}`, !!textos[l].telas[r.nome]?.titulo && !!textos[l].telas[r.nome]?.descricao);
-    ok(`a flag de ${r.nome} é da Onda 5`, FLAGS.includes(r.flag));
+    ok(`a flag de ${r.nome} é uma das da Alumia`, FLAGS.includes(r.flag));
   }
   for (const l of idiomas) igual(`as chaves de ${l} batem com o português`, Object.keys(textos[l].emConstrucao).sort(), Object.keys(textos.pt.emConstrucao).sort());
   const pn = ler("components/rede/onda5/PaginaNova.tsx");
@@ -357,6 +366,60 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
     await rodarLimpezas([() => new Promise((r) => setTimeout(r, 5000))], 100);
     return Date.now() - t0;
   }, (ms) => ms < 1000);
+
+  // ATAQUE: a pessoa toca em "Sair rápido" e entrega o aparelho. Quem pega abre a Alumia de novo: não pode achar sessão.
+  const armazemDeVerdade = (inicio) => {
+    const m = new Map(Object.entries(inicio));
+    return { get length() { return m.size; }, key: (i) => [...m.keys()][i] ?? null, getItem: (k) => m.get(k) ?? null, setItem: (k, v) => void m.set(k, v), removeItem: (k) => void m.delete(k), m };
+  };
+  const sessaoGuardada = JSON.stringify({ access_token: "token-de-acesso", refresh_token: "token-de-renovacao", user: { id: "u1" } });
+  const montar = () => {
+    const local = armazemDeVerdade({ "lucia:sessao": sessaoGuardada, "lucia:nome": "Ana", "lucia:avatar": "3", "sb-projeto-auth-token": sessaoGuardada, [`${PREFIXO_DA_REDE}:rascunho`]: "x", "lucia:tema": "escuro", "de-outro-site": "1" });
+    const daAba = armazemDeVerdade({ [`${PREFIXO_DA_REDE}:aba`]: "x" });
+    const idas = [];
+    return { local, daAba, idas, janela: { localStorage: local, sessionStorage: daAba, location: { replace: (d) => void idas.push(d) } } };
+  };
+  const guardados = { window: globalThis.window, fetch: globalThis.fetch, url: process.env.NEXT_PUBLIC_SUPABASE_URL, chave: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY };
+  const pedidos = [];
+  process.env.NEXT_PUBLIC_SUPABASE_URL = "https://banco.exemplo/";
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "chave-publica";
+  globalThis.fetch = async (url, init) => {
+    pedidos.push({ url, metodo: init?.method, keepalive: init?.keepalive, autorizacao: init?.headers?.Authorization, apikey: init?.headers?.apikey });
+    return new Response("{}", { status: 204 });
+  };
+  try {
+    await espera("ATAQUE (aparelho tomado depois do Sair rápido): não sobra sessão no aparelho, ela é revogada no servidor e o resto do site fica", async () => {
+      const c = montar();
+      globalThis.window = c.janela;
+      // Uma renovação da sessão que estava no caminho regrava a chave no meio das limpezas: também não pode sobrar.
+      await sairRapidoDaRede("https://fora.exemplo/", [() => void c.local.setItem("lucia:sessao", sessaoGuardada)]);
+      return { sobrou: [...c.local.m.keys()].sort(), daAba: [...c.daAba.m.keys()], idas: c.idas, pedidos: [...pedidos] };
+    }, (v) => v.sobrou.join() === "de-outro-site,lucia:tema" && v.daAba.length === 0 && v.idas.join() === "https://fora.exemplo/" && v.pedidos.length === 1
+      && v.pedidos[0].url === "https://banco.exemplo/auth/v1/logout?scope=local" && v.pedidos[0].metodo === "POST" && v.pedidos[0].keepalive === true
+      && v.pedidos[0].autorizacao === "Bearer token-de-acesso" && v.pedidos[0].apikey === "chave-publica");
+    await espera("sem rede, a revogação falha calada e a sessão sai do aparelho do mesmo jeito; sem sessão, nenhum pedido", async () => {
+      pedidos.length = 0;
+      globalThis.fetch = async () => { throw new Error("sem rede"); };
+      const c = montar();
+      globalThis.window = c.janela;
+      await sairRapidoDaRede("https://fora.exemplo/");
+      const semRede = [c.local.m.has("lucia:sessao"), c.idas.length];
+      globalThis.fetch = async (url) => { pedidos.push(url); return new Response("{}"); };
+      const vazio = montar();
+      vazio.local.m.delete("lucia:sessao");
+      globalThis.window = vazio.janela;
+      await sairRapidoDaRede("https://fora.exemplo/");
+      return [...semRede, pedidos.length, vazio.idas.length];
+    }, (r) => JSON.stringify(r) === "[false,1,0,1]");
+  } finally {
+    globalThis.window = guardados.window;
+    globalThis.fetch = guardados.fetch;
+    if (guardados.url === undefined) delete process.env.NEXT_PUBLIC_SUPABASE_URL; else process.env.NEXT_PUBLIC_SUPABASE_URL = guardados.url;
+    if (guardados.chave === undefined) delete process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY; else process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = guardados.chave;
+  }
+  igual("as chaves da sessão saem; armazenamento bloqueado não derruba", [apagarChavesDaSessao([falso(["lucia:sessao", "lucia:nome", "lucia:sessao-outra", "sb-x-auth-token.0"]), null]), apagarChavesDaSessao([quebrado])], [3, 0]);
+  const saida = ler("lib/rede/saida.ts");
+  ok("o Sair rápido revoga a sessão ANTES de apagar as chaves (o token sai delas), e apaga a sessão de novo depois das limpezas", saida.indexOf("revogarSessao(local);") > 0 && saida.indexOf("revogarSessao(local);") < saida.indexOf("apagarChavesDaSessao(armazens);") && saida.split("apagarChavesDaSessao(armazens);").length === 3 && saida.lastIndexOf("apagarChavesDaSessao(armazens);") > saida.indexOf("await rodarLimpezas(limpezas);"));
 }
 
 // ═══════════════════ 11. Conta extra: nada do dono em auth.users ═══════════════════
@@ -453,7 +516,7 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
       await banco.pg.exec("reset role");
     }
   }), "permission denied");
-  await espera("as flags da Onda 5 entram no catálogo, só pelo nome", async () => (await dono("select nome from interno.recursos_catalogo where so_pelo_nome and nome like 'alumia-%' order by 1")).rows.map((r) => r.nome), (n) => n.join() === "alumia-2,alumia-chat-grupo,alumia-entrada,alumia-modo-ato,alumia-org,alumia-proximas,alumia-stories");
+  await espera("as flags da Onda 5 entram no catálogo, só pelo nome", async () => (await dono("select nome from interno.recursos_catalogo where so_pelo_nome and nome like 'alumia-%' order by 1")).rows.map((r) => r.nome), (n) => n.join() === "alumia-2,alumia-aberta,alumia-alcance,alumia-ao-vivo,alumia-chat-grupo,alumia-coautoria,alumia-convites,alumia-entrada,alumia-estudo,alumia-fui-detido,alumia-leve,alumia-linha-aberta,alumia-mapa,alumia-modo-ato,alumia-org,alumia-proximas,alumia-stories,alumia-telegram,alumia-traducao,alumia-video-post");
   await espera("o resumo semanal leva a /pt/alumia/avisos", async () => (await um("select pg_get_functiondef('interno.rede3_aviso_resumo(uuid)'::regprocedure) as f, pg_get_functiondef('interno.rede3_aviso_resumo_semanal()'::regprocedure) as g")), (r) => r.f.includes("/pt/alumia/avisos") && r.g.includes("/pt/alumia/avisos") && !r.f.includes("/comunidade/avisos"));
   await espera("a ponte da página /denunciar reconhece /alumia/p/ e /comunidade/p/", async () => (await um("select pg_get_functiondef('interno.rede3_mod_ponte_denuncia()'::regprocedure) as f")).f, (f) => f.includes("'/(comunidade|alumia)/p/'"));
   await banco.pg.close?.();

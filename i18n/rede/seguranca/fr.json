@@ -1,0 +1,226 @@
+{
+  "titulo": "Sécurité du compte",
+  "chamada": "Ce qui protège votre compte et quoi faire si un appareil tombe entre de mauvaises mains.",
+  "carregando": "Chargement…",
+  "panico": {
+    "carimbo": "Panique",
+    "titulo": "Tout quitter maintenant",
+    "texto": "Déconnecte votre compte de tous les appareils, celui-ci compris, et efface de cet appareil ce que le site et Alumia ont gardé : brouillons, clés du chat, pages enregistrées. Ensuite, une page ordinaire, d'ailleurs, s'ouvre.",
+    "botao": "Tout quitter",
+    "confirmarTitulo": "Tout quitter maintenant ?",
+    "esconder": "Cacher aussi mon profil jusqu'à mon retour",
+    "esconderAjuda": "Il disparaît de la recherche, des suggestions, des mentions et de la page de profil. À votre retour, vous le montrez à nouveau ici.",
+    "confirmar": "Oui, tout quitter",
+    "cancelar": "Annuler",
+    "saindo": "Sortie…",
+    "atalhoTitulo": "Raccourci Échap Échap Échap",
+    "atalhoTexto": "Avec le raccourci activé, appuyer trois fois de suite sur Échap quitte cet appareil tout de suite, sur n'importe quel écran. Valable jusqu'à la fermeture de cet onglet.",
+    "atalhoLigar": "Activer le raccourci",
+    "atalhoDesligar": "Désactiver le raccourci",
+    "atalhoLigado": "Raccourci activé dans cet onglet"
+  },
+  "escondido": {
+    "titulo": "Votre profil est caché",
+    "texto": "Caché par le bouton panique le {quando}. Personne ne trouve votre profil tant qu'il reste ainsi.",
+    "mostrar": "Montrer à nouveau le profil",
+    "mostrado": "Votre profil apparaît à nouveau."
+  },
+  "fator": {
+    "titulo": "Application d'authentification",
+    "ligado": "Activée. Le mot de passe seul n'ouvre pas votre compte.",
+    "desligado": "Aucune application d'authentification sur ce compte.",
+    "desligadoTexto": "Sur Alumia, le code à 6 chiffres est demandé à chaque connexion. Enregistrez l'application quand la connexion le demande.",
+    "alertaTitulo": "Alerte de nouvelle connexion",
+    "alertaTexto": "Chaque fois que votre compte se connecte sur un appareil, une alerte arrive ici sur Alumia et dans votre e-mail, avec le navigateur, le système, le jour et l'heure. Si ce n'était pas vous, déconnectez les appareils."
+  },
+  "codigos": {
+    "titulo": "Codes de récupération",
+    "texto": "Dix codes à usage unique pour entrer si vous perdez le téléphone de l'application. Utiliser un code retire l'application du compte : vous en enregistrez une autre aussitôt, et les autres appareils sont déconnectés.",
+    "restantes": "{n} codes sur 10 encore valables",
+    "nenhum": "Vous n'avez pas encore de codes de récupération.",
+    "geradosEm": "Créés le {quando}",
+    "gerar": "Créer des codes",
+    "gerarDeNovo": "Créer de nouveaux codes",
+    "deNovoAviso": "Les codes que vous avez aujourd'hui cessent de valoir.",
+    "confirmarGerar": "Créer et annuler les anciens",
+    "cancelar": "Annuler",
+    "mostrarTitulo": "Vos nouveaux codes",
+    "mostrarTexto": "Ils n'apparaissent qu'une fois. Téléchargez-les ou copiez-les et gardez-les loin du téléphone : papier dans un tiroir ou gestionnaire de mots de passe.",
+    "baixar": "Télécharger en texte",
+    "copiar": "Copier",
+    "copiados": "Codes copiés.",
+    "pronto": "J'ai gardé les codes",
+    "precisaFator": "Les codes dépendent de l'application d'authentification. Enregistrez d'abord l'application.",
+    "arquivo": {
+      "titulo": "Alumia : codes de récupération du second facteur",
+      "geradosEm": "Créés le {quando}",
+      "instrucoes": ["Chaque code ne vaut qu'une fois.", "À utiliser si vous perdez le téléphone de l'application d'authentification.", "À garder loin du téléphone."]
+    }
+  },
+  "aparelhos": {
+    "titulo": "Appareils connectés",
+    "texto": "Où votre compte est ouvert maintenant : le navigateur, le système et les jours. L'adresse réseau n'apparaît nulle part.",
+    "este": "Cet appareil",
+    "rotulo": "{navegador} sur {sistema}",
+    "desde": "Connecté le {dia}",
+    "ultima": "Dernière activité : {dia}",
+    "hoje": "aujourd'hui",
+    "ontem": "hier",
+    "semCodigo": "Connecté sans le code de l'application",
+    "semCodigoAjuda": "Vous ne le reconnaissez pas ? Déconnectez-le.",
+    "desconectar": "Déconnecter",
+    "desconectarOutros": "Déconnecter tous les autres",
+    "confirmarOutros": "Déconnecter les autres appareils ? Ils devront se reconnecter, avec mot de passe et code.",
+    "confirmar": "Déconnecter",
+    "cancelar": "Annuler",
+    "desconectado": "Appareil déconnecté.",
+    "desconectados": "Autres appareils déconnectés.",
+    "so": "Seul cet appareil est connecté.",
+    "ver": "Voir les appareils",
+    "resumo": "{n} appareils connectés",
+    "indisponivel": "La liste des appareils n'est pas disponible pour le moment.",
+    "outroNavegador": "Navigateur inconnu",
+    "outroSistema": "système inconnu",
+    "ios": "iPhone ou iPad",
+    "voltar": "Sécurité du compte"
+  },
+  "busca": {
+    "titulo": "Hors de la recherche",
+    "texto": "Vous disparaissez de la recherche de personnes, des suggestions de @ et des listes de qui suivre. Qui a déjà votre @ complet trouve encore votre profil.",
+    "rotulo": "Rester hors de la recherche",
+    "salvo": "C'est fait."
+  },
+  "tor": {
+    "titulo": "Passer par Tor",
+    "texto": "Avec le Navigateur Tor, le chat d'Alumia s'ouvre sans que notre serveur ni personne sur votre réseau ne sache d'où vous vous connectez. Il a sa propre adresse .onion.",
+    "endereco": "Adresse .onion du chat",
+    "semEndereco": "L'adresse .onion du chat n'a pas encore été publiée.",
+    "comoUsar": "Ouvrez l'adresse dans le Navigateur Tor (torproject.org) et discutez par écrit.",
+    "comoFunciona": "Comment le service .onion est monté (dans le code ouvert)",
+    "abreFora": "ouvre GitHub, hors d'Alumia"
+  },
+  "recuperar": {
+    "link": "J'ai perdu le téléphone de l'application",
+    "titulo": "Entrer avec un code de récupération",
+    "texto": "Saisissez l'un des dix codes que vous avez gardés. L'application d'authentification quitte le compte et vous en enregistrez une autre juste après ; les autres appareils sont déconnectés.",
+    "rotulo": "Code de récupération",
+    "botao": "Utiliser le code",
+    "errado": "Code erroné ou déjà utilisé.",
+    "certo": "Code accepté. Enregistrez maintenant à nouveau l'application d'authentification.",
+    "voltar": "Revenir au code de l'application"
+  },
+  "erros": {
+    "confirme": "Confirmez le code de l'application d'authentification dans cette session et réessayez.",
+    "falha": "Cela n'a pas marché. Réessayez dans un instant.",
+    "muitos": "Trop de tentatives. Attendez un peu et réessayez.",
+    "tentar": "Réessayer"
+  },
+  "isca": {
+    "carimbo": "Compte leurre",
+    "titulo": "Mot de passe de panique",
+    "texto": "Un deuxième mot de passe, pour cet appareil seulement. Si quelqu'un vous force à ouvrir Alumia, tapez le mot de passe de panique à la place du vôtre : l'appareil entre dans un compte leurre, au profil neutre, et retire votre compte d'ici comme le fait Sortie rapide. L'écran de connexion est le même dans les deux cas.",
+    "servidor": "Rien n'est effacé sur le serveur. C'est un outil de sécurité personnelle contre qui force l'accès à votre appareil : Alumia respecte la loi et les décisions de justice valables avec les données réelles.",
+    "ativar": "Activer le mot de passe de panique",
+    "ativarTroca": "Si cet appareil a déjà un mot de passe de panique, le nouveau prend sa place. Pour préparer ou désactiver celui qui existe, utilisez Préparer le compte leurre.",
+    "senha": "Mot de passe de panique",
+    "senhaAjuda": "Différent de votre mot de passe de connexion et facile à retenir sous pression. Au moins 8 caractères.",
+    "senhaDeNovo": "Mot de passe de panique, à nouveau",
+    "real": "Votre mot de passe de connexion",
+    "realAjuda": "Seulement pour vérifier que les deux sont différents. Il ne quitte pas cet appareil et n'est pas gardé.",
+    "email": "E-mail du compte leurre",
+    "emailAjuda": "Un e-mail à vous qui n'est pas celui de ce compte (un alias d'e-mail convient). Il reçoit le lien de confirmation.",
+    "codinome": "Pseudonyme du compte leurre",
+    "codinomeAjuda": "Un pseudonyme ordinaire, qui ne rappelle pas le vôtre.",
+    "criar": "Créer le compte leurre",
+    "criando": "Création du compte leurre…",
+    "cancelar": "Annuler",
+    "criada": "Compte leurre créé, et son coffre est gardé, chiffré, sur cet appareil. Il reste à confirmer l'e-mail du leurre.",
+    "ativa": "Actif sur cet appareil",
+    "ativaTexto": "Le coffre avec le compte leurre reste chiffré dans ce navigateur, et le mot de passe de panique ne vaut qu'ici. Sur un autre appareil, il faut l'activer là-bas.",
+    "preparar": "Préparer le compte leurre",
+    "prepararTexto": "Tapez le mot de passe de panique pour ouvrir le leurre ici, sans quitter votre compte, et voir ce qu'il lui manque.",
+    "abrir": "Ouvrir le leurre",
+    "abrindo": "Ouverture du leurre…",
+    "fechar": "Fermer le leurre",
+    "enviar": "Envoyer",
+    "enviando": "Envoi…",
+    "desativar": "Désactiver le mot de passe de panique",
+    "desativarTexto": "Efface de cet appareil le coffre du leurre. Le compte leurre continue d'exister : pour l'effacer, connectez-vous à lui et suivez le chemin normal de suppression du compte.",
+    "desativarConfirmar": "Oui, désactiver",
+    "desativada": "Mot de passe de panique désactivé sur cet appareil.",
+    "etapas": {
+      "confirmar_email": {
+        "titulo": "Confirmez l'e-mail du leurre",
+        "texto": "Ouvrez le lien arrivé dans l'e-mail du compte leurre dans une fenêtre privée ou sur un autre appareil : ouvert dans ce navigateur, il remplace votre compte par le leurre. Puis revenez ici.",
+        "botao": "J'ai confirmé"
+      },
+      "sem_pedido": {
+        "titulo": "Demande d'entrée du leurre",
+        "texto": "Le leurre passe par l'examen comme n'importe quel compte. Écrivez un motif ordinaire, sans rien qui le relie à vous.",
+        "botao": "Envoyer la demande du leurre"
+      },
+      "em_analise": {
+        "titulo": "En examen",
+        "texto": "La demande du leurre attend l'examen. Revenez ici après la réponse.",
+        "botao": "Vérifier à nouveau"
+      },
+      "recusada": {
+        "titulo": "L'examen n'a pas approuvé le leurre",
+        "texto": "Désactivez le mot de passe de panique et créez un autre leurre, avec un autre e-mail.",
+        "botao": "Vérifier à nouveau"
+      },
+      "suspensa": {
+        "titulo": "Le leurre est suspendu",
+        "texto": "Désactivez le mot de passe de panique et créez un autre leurre, avec un autre e-mail.",
+        "botao": "Vérifier à nouveau"
+      },
+      "cadastrar_fator": {
+        "titulo": "Application d'authentification du leurre",
+        "texto": "Sur Alumia, chaque compte demande le code de l'application, le leurre aussi. Ajoutez le leurre à votre application d'authentification sous un nom qui n'attire pas l'attention. À la connexion avec le mot de passe de panique, le code demandé est celui du leurre.",
+        "botao": "Confirmer le code"
+      },
+      "pedir_codigo": {
+        "titulo": "Code du leurre",
+        "texto": "Tapez le code du leurre de votre application d'authentification pour finir de le préparer.",
+        "botao": "Confirmer le code"
+      },
+      "povoar": {
+        "titulo": "Profil neutre",
+        "texto": "Le leurre termine sa première entrée sans choix et peut suivre un paquet de profils publics, pour ne pas avoir l'air vide. Il ne publie rien.",
+        "botao": "Rendre le leurre prêt"
+      },
+      "pronta": {
+        "titulo": "Le leurre est prêt",
+        "texto": "À la connexion, le mot de passe de panique à la place du vôtre ouvre le leurre et retire votre compte de cet appareil. Le code demandé ensuite est celui du leurre.",
+        "botao": "Vérifier à nouveau"
+      }
+    },
+    "motivo": "Pourquoi voulez-vous entrer",
+    "maior": "J'ai 18 ans ou plus",
+    "aceite": "J'ai lu et j'accepte les conditions et les règles d'Alumia",
+    "qr": "QR pour l'application d'authentification",
+    "segredo": "Ou tapez ce secret dans l'application :",
+    "codigo": "Code à 6 chiffres",
+    "nenhumPacote": "Ne suivre aucun paquet",
+    "pacotesTitulo": "Paquet de profils publics",
+    "erros": {
+      "curta": "Le mot de passe de panique doit avoir au moins 8 caractères.",
+      "diferentes": "Les deux mots de passe de panique ne correspondent pas.",
+      "igual": "Le mot de passe de panique ne peut pas être celui de connexion.",
+      "semReal": "Tapez votre mot de passe de connexion, pour vérifier qu'il est différent.",
+      "email": "Vérifiez l'e-mail du compte leurre.",
+      "emailIgual": "Utilisez un e-mail différent de celui de ce compte.",
+      "codinome": "Le pseudonyme doit avoir de 3 à 30 caractères, sans @ ni adresse.",
+      "motivo": "Écrivez le motif en 10 à 500 caractères, sans e-mail ni téléphone.",
+      "idade": "Confirmez que le leurre appartient à une personne de 18 ans ou plus.",
+      "aceite": "Acceptez les conditions et les règles.",
+      "errada": "Ce n'est pas le mot de passe de panique de cet appareil.",
+      "semArmazenamento": "Ce navigateur n'a pas laissé garder le coffre. Hors d'une fenêtre privée, réessayez.",
+      "cadastroFechado": "L'inscription est fermée en ce moment. Réessayez plus tard.",
+      "captcha": "Complétez le défi avant de continuer.",
+      "muitos": "Trop de tentatives. Attendez un peu et réessayez.",
+      "codigo": "Code erroné. Vérifiez l'application et réessayez.",
+      "falha": "Cela n'a pas marché. Réessayez dans un instant."
+    }
+  }
+}

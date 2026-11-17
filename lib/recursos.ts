@@ -42,13 +42,26 @@ export const RECURSOS = {
   // Alumia, Onda 5 (docs/plano-2026-11/PLANO-ALUMIA.md): tudo só pelo nome e só junto com "rede-v2". Desligadas, a Alumia de hoje
   // não muda nada; as rotas novas (/alumia/atos, /alumia/organizacoes…) respondem 404.
   "alumia-2": "Alumia nova (Mosaico da Arquibancada): fundo noite, Archivo, faixa tecida, mosaico do ato e as telas novas de atos, calendário, listas, versão leve, transparência e segurança. Precisa de rede-v2",
-  "alumia-proximas": "Alumia: telas que ainda estão em construção (o que guardamos, transparência, listas, versão leve). Só ligam quando ficarem prontas",
+  "alumia-proximas": "Alumia: telas que ainda estão em construção (transparência, listas, versão leve). Só ligam quando ficarem prontas",
   "alumia-stories": "Alumia: stories de 24 h, sem registro de quem viu, que nunca federam. Precisa de rede-v2 e alumia-2",
-  "alumia-modo-ato": "Alumia: modo ato, Fui detido, Estou bem e as telas de segurança pessoal (aparelhos, identidades). Precisa de rede-v2 e alumia-2",
+  "alumia-modo-ato": "Alumia: modo ato, Fui detido, Estou bem e as identidades. Precisa de rede-v2 e alumia-2 (a segurança da conta e os aparelhos conectados abrem com alumia-2)",
   "alumia-org": "Alumia: organizações com selo (não é apoio do Instituto), consultas à base, plenárias e prestação de contas. Precisa de rede-v2 e alumia-2",
   "alumia-chat-grupo": "Alumia: conversa cifrada de ponta a ponta do núcleo (grupo). Precisa de rede-v2 e alumia-2",
-  // Desligado (o padrão), toda a Alumia mostra só o aviso "em construção" (components/rede/EmConstrucao.tsx). Liga no fim das ondas,
-  // depois do SQL final rodar em produção: pôr em PADRAO, ou pelo painel interno.
+  "alumia-linha-aberta": "Alumia: a linha com regra aberta (Em roda), igual para todo mundo e escrita na tela, com troca para a ordem de chegada; linhas montadas por filtro, assuntos em alta, enquanto você esteve fora, ordem das respostas e ocultar resposta. Precisa de rede-v2, alumia-2 e do SQL 20261113-alumia-o7-linha.sql",
+  "alumia-convites": "Alumia: convites para a Alumia que levam à triagem (não aprovam ninguém; a triagem vê só \"veio por convite\", nunca de quem). Mostra o item Convidar e abre /alumia/convite. Precisa de rede-v2, alumia-2 e do SQL 20261114-alumia-o8-porta.sql",
+  "alumia-fui-detido": "Alumia: o botão Fui detido do modo ato (recado fixo para os contatos escolhidos e, se a pessoa quiser, para a assessoria jurídica da organização; só oculta, nunca apaga). Liga só depois do parecer do advogado, pelo painel com a segunda confirmação (o banco também exige). Precisa de rede-v2, alumia-2, alumia-modo-ato e do SQL 20261115-alumia-o9-modoato.sql",
+  "alumia-estudo": "Alumia: o estudo da onda 11 (banco de questões, turmas de estudo com o combinado da semana, agenda de provas e monitoria, redação entre pares com a rubrica do ENEM). Precisa de rede-v2, alumia-2 e do SQL da onda 11 (20261117-alumia-o11-*.sql)",
+  "alumia-coautoria": "Alumia: assinar junto (só aparece quem aceitou), o \"Fonte?\" de quem lê, marcar na foto com aceite e a checagem do Vale o Escrito na nota de contexto. Precisa de rede-v2, alumia-2 e do SQL 20261118-alumia-o12-coautoria.sql",
+  "alumia-video-post": "Alumia: vídeo curto no post (até 60 s), regravado no aparelho e sem os dados escondidos do arquivo. Liga só pelo nome e, no banco, pelo painel. Precisa de rede-v2, alumia-2 e do SQL 20261118-alumia-o12-midia.sql",
+  // Onda 13: todos só pelo nome e desligados.
+  "alumia-mapa": "Alumia: o mapa por cidade (/alumia/mapa) com chamados, núcleos e eventos, precisão de município, número só a partir de 3 e núcleo sem número; o desenho do Brasil é da própria Alumia, nada carrega de fora. Precisa de rede-v2, alumia-2 e do SQL 20261119-alumia-o13-mapa.sql",
+  "alumia-ao-vivo": "Alumia: \"Pergunte a…\" com hora marcada (/alumia/mapa/ao-vivo e na caixa de perguntas), convite com aceite, fila por ordem de chegada. Precisa de rede-v2, alumia-2 e do SQL 20261119-alumia-o13-mapa.sql",
+  "alumia-alcance": "Alumia: levar para fora (arte em PNG e QR feitos no aparelho, RSS e cartão para colar em outro site só do que é aberto à internet, levar e trazer quem eu sigo). Nada sai com a trava da entrada ligada. Precisa de rede-v2, alumia-2 e do SQL 20261119-alumia-o13-alcance.sql",
+  "alumia-leve": "Alumia: leve e no seu tempo (/alumia/leve): economia de dados, escrever sem rede (a fila mora só no aparelho), Início só em texto, hora de parar e silêncio dos avisos. Precisa de rede-v2 e alumia-2 (sem SQL)",
+  "alumia-traducao": "Alumia: traduzir post pelo servidor de tradução próprio (ALUMIA_TRADUCAO_URL), só quando a pessoa toca. Precisa de rede-v2, alumia-2 e do SQL 20261119-alumia-o13-pontes.sql",
+  "alumia-telegram": "Alumia: publicar junto no canal do Telegram da organização com selo (ALUMIA_TELEGRAM_TOKEN e a rotina de /api/rede/telegram). Precisa de rede-v2, alumia-2, alumia-org e do SQL 20261119-alumia-o13-pontes.sql",
+  // Desligado, toda a Alumia mostra só o aviso "em construção" (o ramo do aviso, PR #39). Fica em PADRAO desde a integração
+  // (21/11/2026, decisão da coordenação): o painel desliga com ligado=false em interno.recursos_vivos. O aviso é components/rede/EmConstrucao.tsx.
   "alumia-aberta": "Alumia aberta ao público. Desligada, quem entra em qualquer endereço da Alumia vê só o aviso de que ela está em construção",
   "alumia-entrada": "Alumia fechada: sem conta aprovada ninguém vê a rede. Tela própria de entrar e criar conta, triagem da coordenação e da mediação no painel e segundo fator obrigatório. Precisa do SQL 20261110-alumia-entrada.sql e, no banco, de interno.alumia_entrada_ligar(true)",
 } as const;
@@ -81,10 +94,17 @@ export const PADRAO: readonly Recurso[] = [
   "alumia-2",
   "alumia-stories",
   "alumia-org",
+  // Lançamento (integração de 21/11/2026, seção 6 da passagem de 13/11): o Fediverso completo e a Alumia aberta saem ligados, depois do
+  // SQL único (rede_alumia_versao = 12). O painel desliga cada um com uma linha ligado=false em interno.recursos_vivos, sem apagar nada.
+  "fediverso-total",
+  "alumia-aberta",
+  // Beta fechado (17/11/2026, "Fediverso em tudo"): as comunidades abertas também saem como Group do Fediverso. No banco, o
+  // catálogo o tem só pelo nome (20261122-alumia-beta-fim.sql), e o painel o desliga como os outros.
+  "fediverso-grupos",
 ];
 
 /** Recursos que "todos" não liga: só ligam com o nome na lista. */
-export const SO_PELO_NOME: readonly Recurso[] = ["escola", "vale-o-escrito", "rede-v2", "fediverso-total", "fediverso-grupos", "alumia-2", "alumia-stories", "alumia-modo-ato", "alumia-org", "alumia-chat-grupo", "alumia-proximas", "alumia-entrada", "alumia-aberta"];
+export const SO_PELO_NOME: readonly Recurso[] = ["escola", "vale-o-escrito", "rede-v2", "fediverso-total", "fediverso-grupos", "alumia-2", "alumia-stories", "alumia-modo-ato", "alumia-org", "alumia-chat-grupo", "alumia-proximas", "alumia-entrada", "alumia-linha-aberta", "alumia-convites", "alumia-fui-detido", "alumia-estudo", "alumia-coautoria", "alumia-video-post", "alumia-mapa", "alumia-ao-vivo", "alumia-alcance", "alumia-leve", "alumia-traducao", "alumia-telegram", "alumia-aberta"];
 
 /**
  * Recursos EM PAUSA: prontos e testados, mas desligados por decisão da coordenação (T08, 06/11/2026: "deixa desativado pelo

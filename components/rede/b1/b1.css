@@ -38,7 +38,7 @@
 .b1-campo:focus-visible,
 .b1-area:focus-visible { outline: 3px solid var(--al-foco, #c21f16); outline-offset: 1px; }
 .b1-contador { display: block; text-align: right; font-size: 0.8rem; color: var(--al-texto-3, #6b6257); }
-.b1-contador[data-perto] { color: var(--al-vermelho-texto, #a3170f); font-weight: 700; }
+.b1-contador[data-perto] { color: var(--al-vermelho-letra, var(--al-vermelho-texto, #a3170f)); font-weight: 700; }
 
 .b1-botoes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.7rem; align-items: center; }
 .b1-botao {

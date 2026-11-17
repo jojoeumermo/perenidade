@@ -1,0 +1,204 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ *
+ * O texto formatado da Alumia (frente 11A), na linguagem do Mosaico da Arquibancada: o subtítulo é condensado em caixa alta, a
+ * citação tem a faixa vermelha do lado, o bloco de código e a fórmula em destaque são ladrilhos com o carimbo no alto. Só tokens da
+ * Alumia (styles/alumia-tokens.css), nos dois temas; fora da Alumia nova as cores caem no texto de sempre. Nada se mexe. */
+
+.txf { overflow-wrap: anywhere; line-height: 1.6; min-width: 0; }
+.txf > * + * { margin-top: 0.85em; }
+:where(.txf-p) { margin: 0; }
+.txf .txf-titulo,
+.txf .txf-subtitulo {
+  margin: 1.2em 0 0;
+  font-family: var(--al-fonte, inherit);
+  font-stretch: 75%;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+}
+.txf .txf-titulo { font-size: 1.45em; }
+.txf .txf-subtitulo { font-size: 1.15em; }
+.txf > :first-child { margin-top: 0; }
+:where(.txf-lista) { margin: 0; padding-left: 1.4em; }
+.txf ul.txf-lista { list-style: square; }
+.txf ol.txf-lista { list-style: decimal; }
+.txf-lista li + li { margin-top: 0.25em; }
+.txf-lista li::marker { color: var(--al-vermelho, currentColor); font-weight: 800; }
+.txf-citacao {
+  margin-bottom: 0;
+  padding: 0.35em 0 0.35em 0.9em;
+  border-left: 4px solid var(--al-vermelho, currentColor);
+  color: var(--al-texto-2, inherit);
+  font-style: italic;
+}
+.txf-citacao p { margin: 0; }
+.txf-citacao p + p { margin-top: 0.5em; }
+.txf-separador { border: 0; height: 6px; margin: 1.4em 0; background: var(--al-faixa, var(--al-linha, currentColor)); opacity: 0.85; border-radius: 1px; }
+.txf-link { color: var(--al-vermelho-letra, var(--al-vermelho-texto, inherit)); text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
+.txf-link:focus-visible, .txf-copiar:focus-visible, .txf-bloco-codigo pre:focus-visible, .txf-botao:focus-visible, .txf-aba:focus-visible, .txf-area:focus-visible {
+  outline: 3px solid var(--al-foco, currentColor);
+  outline-offset: 2px;
+}
+
+/* Código no meio da frase. */
+.txf-codigo-curto, .txf-formula-texto {
+  padding: 0.05em 0.35em;
+  border: 1px solid var(--al-linha, currentColor);
+  border-radius: 4px;
+  background: var(--al-superficie-2, transparent);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.9em;
+  white-space: pre-wrap;
+}
+
+/* O carimbo: a palavra condensada dentro de uma moldura, como os carimbos das pranchas. */
+.txf-carimbo {
+  display: inline-block;
+  padding: 0.05rem 0.45rem;
+  border: 2px solid currentColor;
+  border-radius: 3px;
+  font-family: var(--al-fonte, inherit);
+  font-stretch: 70%;
+  font-weight: 800;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  transform: rotate(-1.5deg);
+}
+
+/* Bloco de código: um ladrilho com o carimbo da linguagem; rola para o lado dentro dele, nunca a página. */
+.txf-bloco-codigo {
+  margin-bottom: 0;
+  border: 1px solid var(--al-linha, currentColor);
+  border-left: 4px solid var(--al-dourado, currentColor);
+  border-radius: 6px;
+  background: var(--al-superficie-2, transparent);
+  overflow: hidden;
+  font-style: normal;
+  /* O tamanho do conteúdo não empurra quem está em volta (grade ou flex): a rolagem fica aqui dentro. */
+  contain: inline-size;
+}
+.txf-bloco-codigo-cabeca { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.4rem 0.6rem 0.2rem; color: var(--al-texto-2, inherit); }
+.txf-copiar {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 0.75rem;
+  border: 1px solid var(--al-linha, currentColor);
+  border-radius: var(--al-raio-pilula, 999px);
+  background: var(--al-superficie, transparent);
+  color: var(--al-texto, inherit);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.txf-bloco-codigo pre {
+  margin: 0;
+  padding: 0.5rem 0.8rem 0.8rem;
+  overflow-x: auto;
+  max-width: 100%;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  white-space: pre;
+  tab-size: 2;
+  color: var(--al-texto, inherit);
+}
+
+/* Fórmula: no meio da frase segue a letra; em bloco, centrada num ladrilho que rola para o lado se for larga. */
+.txf-formula { display: inline; }
+.txf-formula-em-bloco { display: block; }
+.txf-formula-bloco {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--al-linha, currentColor);
+  border-top: 4px solid var(--al-vermelho, currentColor);
+  border-radius: 6px;
+  background: var(--al-superficie, transparent);
+  overflow-x: auto;
+  text-align: center;
+  contain: inline-size;
+}
+.txf-formula-bloco .katex-display { margin: 0.2em 0; }
+/* Quem rola é a própria fórmula (o leitor de tela e o teclado chegam nela pelo tabIndex, quando ela passa da largura). */
+.txf-formula-bloco { overflow-x: visible; }
+.txf-formula-em-bloco { overflow-x: auto; max-width: 100%; }
+.txf-formula-em-bloco:focus-visible { outline: 3px solid var(--al-foco, Highlight); outline-offset: 2px; }
+
+/* O que passa da largura (o bloco de código e a fórmula em bloco): um esmaecido na borda de onde ainda há mais para rolar. As
+   camadas "local" acompanham o conteúdo e cobrem a sombra quando a ponta chega; as "scroll" ficam presas nas bordas. */
+.txf-bloco-codigo pre, .txf-formula-em-bloco {
+  --txf-fundo-rola: var(--al-superficie-2, Canvas);
+  --txf-sombra-rola: color-mix(in srgb, var(--al-texto, CanvasText) 30%, transparent);
+  background:
+    linear-gradient(to right, var(--txf-fundo-rola) 40%, transparent) left / 2rem 100% no-repeat local,
+    linear-gradient(to left, var(--txf-fundo-rola) 40%, transparent) right / 2rem 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, var(--txf-sombra-rola), transparent) left / 0.9rem 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, var(--txf-sombra-rola), transparent) right / 0.9rem 100% no-repeat scroll,
+    var(--txf-fundo-rola);
+}
+.txf-formula-em-bloco { --txf-fundo-rola: var(--al-superficie, Canvas); }
+.txf .katex, .txf-formula .katex { font-size: 1.08em; }
+
+/* Imagem do próprio post no meio do texto. */
+:where(.txf-imagem) { margin: 0; }
+.txf-imagem img { display: block; max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--al-linha, transparent); }
+.txf-imagem figcaption { margin-top: 0.3rem; font-size: 0.85rem; color: var(--al-texto-3, inherit); }
+.txf-imagem-falta { margin-bottom: 0; padding: 0.5rem 0.75rem; border: 1px dashed var(--al-texto-3, currentColor); border-radius: 6px; font-size: 0.85rem; color: var(--al-texto-3, inherit); }
+
+/* O editor: abas Escrever / Ver como fica, a barra de sinais e a área. */
+.txf-editor { display: grid; gap: 0.5rem; min-width: 0; }
+.txf-editor-cabeca { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.txf-editor-rotulo { font-weight: 800; }
+.txf-abas { display: inline-flex; border: 2px solid var(--al-texto, currentColor); border-radius: var(--al-raio-pilula, 999px); overflow: hidden; }
+.txf-aba { min-height: 44px; padding: 0 0.9rem; border: 0; background: transparent; color: var(--al-texto, inherit); font: inherit; font-weight: 700; font-size: 0.9rem; cursor: pointer; }
+.txf-aba[aria-pressed="true"] { background: var(--al-texto, CanvasText); color: var(--al-fundo, Canvas); }
+.txf-barra { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.txf-botao {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 0.6rem;
+  border: 1px solid var(--al-linha, currentColor);
+  border-radius: 6px;
+  background: var(--al-superficie, transparent);
+  color: var(--al-texto, inherit);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+.txf-botao:hover { border-color: var(--al-texto, currentColor); }
+.txf-botao-imagem, .txf-botao-ajuda { font-size: 0.85rem; font-weight: 700; }
+.txf-botao-ajuda { margin-left: auto; }
+.txf-area {
+  width: 100%;
+  min-height: 10rem;
+  padding: 0.75rem;
+  border: 2px solid var(--al-linha, currentColor);
+  border-radius: 8px;
+  background: var(--al-superficie, transparent);
+  color: var(--al-texto, inherit);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  resize: vertical;
+}
+.txf-previa { min-height: 10rem; padding: 0.75rem 0.9rem; border: 2px dashed var(--al-linha, currentColor); border-radius: 8px; background: var(--al-superficie, transparent); }
+.txf-previa-carimbo { margin: 0 0 0.6rem; color: var(--al-vermelho-letra, var(--al-vermelho-texto, inherit)); }
+.txf-contador { margin: 0; justify-self: end; font-size: 0.8rem; color: var(--al-texto-3, inherit); }
+.txf-vazio { margin: 0; color: var(--al-texto-3, inherit); }
+.txf-ajuda { padding: 0.8rem 0.9rem; border: 1px solid var(--al-linha, currentColor); border-radius: 8px; background: var(--al-superficie-2, transparent); font-size: 0.9rem; }
+.txf-ajuda p { margin: 0.4rem 0 0; color: var(--al-texto-2, inherit); }
+.txf-ajuda dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.35rem 1rem; margin: 0.6rem 0 0; }
+.txf-ajuda dl > div { display: flex; gap: 0.6rem; align-items: baseline; min-width: 0; }
+.txf-ajuda dt { flex: 0 0 auto; }
+.txf-ajuda dd { margin: 0; color: var(--al-texto-2, inherit); }
+.txf-ajuda code { font-size: 0.85rem; padding: 0.05em 0.3em; border-radius: 3px; background: var(--al-superficie, transparent); border: 1px solid var(--al-linha, currentColor); }
+.txf-so-leitor { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.txf-carregando { margin: 0; color: var(--al-texto-3, inherit); }
+
+/* Alto contraste: as superfícies viram borda. */
+@media (forced-colors: active) {
+  .txf-bloco-codigo, .txf-formula-bloco, .txf-codigo-curto, .txf-area, .txf-previa { border: 1px solid CanvasText; }
+  .txf-aba[aria-pressed="true"] { forced-color-adjust: none; background: Highlight; color: HighlightText; }
+}

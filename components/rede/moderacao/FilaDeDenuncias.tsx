@@ -9,11 +9,24 @@ import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDaModeracao } from "@/lib/rede/textos-moderacao";
 import type { ChecagemDisponivel, DenunciaAberta, ItemDaFila, PostRetido } from "@/lib/rede/tipos-moderacao";
 import { enderecos } from "@/lib/rede/tipos";
-import { dataCurta, estilo, mensagemDeErro } from "./base";
+import { dataCurta, dataEHora, estilo, mensagemDeErro, nivelEmFrase, nomeDaRegra } from "./base";
 import { FormularioDeAcao } from "./FormularioDeAcao";
 
+/** O carimbo do prazo de resposta (onda 8): até quando, ou "vencido" em vermelho. Sem prazo (banco antigo), nada. */
+export function CarimboDoPrazo({ sm, lang, ate, vencido }: { sm: TextosDaModeracao; lang: string; ate?: string | null; vencido?: boolean }) {
+  if (!ate) return null;
+  return (
+    <span className="m9-carimbo" data-tom={vencido ? "alerta" : undefined}>
+      {preencher(vencido ? sm.o9.prazo.venceu : sm.o9.prazo.ate, { quando: dataEHora(ate, lang) })}
+    </span>
+  );
+}
+
+/** O motivo do post retido em palavras (filtro da comunidade, recém-chegados, lista, precaução); o que não conhece, cru. */
+export const motivoEscrito = (sm: TextosDaModeracao, motivo: string) => (sm.o9.motivos as Record<string, string>)[motivo] ?? motivo;
+
 /** O detalhe de uma denúncia aberta: conteúdo, histórico, ação, descarte e o rótulo de desinformação. */
-function Detalhe({ item, lang, s, sm, checagens, comunidades, aoMudar }: { item: ItemDaFila; lang: string; s: TextosDaRede; sm: TextosDaModeracao; checagens: ChecagemDisponivel[]; comunidades: string[]; aoMudar: () => void }) {
+function Detalhe({ item, lang, s, sm, checagens, comunidades, nomes, aoMudar }: { item: ItemDaFila; lang: string; s: TextosDaRede; sm: TextosDaModeracao; checagens: ChecagemDisponivel[]; comunidades: string[]; nomes?: Record<string, string>; aoMudar: () => void }) {
   const [dado, setDado] = useState<DenunciaAberta | null>(null);
   const [erro, setErro] = useState("");
   const [nota, setNota] = useState("");
@@ -74,8 +87,8 @@ function Detalhe({ item, lang, s, sm, checagens, comunidades, aoMudar }: { item:
           {a.titulo && <p className="font-serif text-lg font-semibold">{a.titulo}</p>}
           <p className="whitespace-pre-line break-words">{a.corpo ?? a.texto}</p>
           <p className="mt-1 text-xs text-ink-soft">
-            {a.autor && preencher(sm.fila.autor, { nome: a.autor, nivel: a.autor_nivel ?? 0 })} · {preencher(sm.fila.procedentes, { n: a.autor_procedentes_90 ?? 0 })}
-            {a.retido || a.oculto ? ` · ${preencher(sm.fila.retidoMotivo, { motivo: a.motivo ?? "" })}` : ""}
+            {a.autor && preencher(sm.fila.autor, { nome: a.autor, nivel: nivelEmFrase(sm, a.autor_nivel) })} · {preencher(sm.fila.procedentes, { n: a.autor_procedentes_90 ?? 0 })}
+            {a.retido || a.oculto ? ` · ${preencher(sm.fila.retidoMotivo, { motivo: motivoEscrito(sm, a.motivo ?? "") })}` : ""}
           </p>
           {a.id && <Link href={enderecos.post(lang, a.id)} className="text-sm underline">{sm.fila.alvo.post}</Link>}
         </div>
@@ -84,10 +97,19 @@ function Detalhe({ item, lang, s, sm, checagens, comunidades, aoMudar }: { item:
         <div>
           <p className="font-bold">{a.codinome} {a.handle ? `@${a.handle}` : ""}</p>
           {a.bio && <p className="text-sm">{a.bio}</p>}
-          <p className="mt-1 text-xs text-ink-soft">{preencher(sm.fila.autor, { nome: a.codinome ?? "", nivel: a.nivel ?? 0 })} · {preencher(sm.fila.procedentes, { n: a.procedentes_90 ?? 0 })}</p>
+          <p className="mt-1 text-xs text-ink-soft">{preencher(sm.fila.autor, { nome: a.codinome ?? "", nivel: nivelEmFrase(sm, a.nivel) })} · {preencher(sm.fila.procedentes, { n: a.procedentes_90 ?? 0 })}</p>
         </div>
       )}
       {item.texto && <p className="rounded-md bg-parchment-deep px-3 py-2 text-sm">{item.texto}</p>}
+      {/* Post cifrado: a moderação não tem a chave. Só o que quem denunciou escolheu abrir chega aqui, e a tela diz de quem é. */}
+      {post && item.cifrado && (item.aberto ? (
+        <figure className="rounded-md border-[1.5px] border-oxblood px-3 py-2 text-sm">
+          <figcaption className="text-xs font-semibold">{sm.fila.aberto}</figcaption>
+          <blockquote className="mt-1 whitespace-pre-line break-words">{item.aberto}</blockquote>
+        </figure>
+      ) : (
+        <p role="note" className="rounded-md bg-parchment-deep px-3 py-2 text-sm">{sm.fila.cifradoSem}</p>
+      ))}
 
       {dado.historico.length > 0 && (
         <div>
@@ -95,7 +117,7 @@ function Detalhe({ item, lang, s, sm, checagens, comunidades, aoMudar }: { item:
           <ul className="mt-1 space-y-1 text-sm">
             {dado.historico.map((h) => (
               <li key={h.id}>
-                <span className="font-semibold">{(sm.moderar.acoes as Record<string, string>)[h.acao] ?? h.acao}</span> · {h.regra} · {h.motivo} <span className="text-ink-soft">({dataCurta(h.criado_em, lang)})</span>
+                <span className="font-semibold">{(sm.moderar.acoes as Record<string, string>)[h.acao] ?? h.acao}</span> · {nomeDaRegra(sm, h.regra)} · {h.motivo} <span className="text-ink-soft">({dataCurta(h.criado_em, lang)})</span>
               </li>
             ))}
           </ul>
@@ -111,7 +133,7 @@ function Detalhe({ item, lang, s, sm, checagens, comunidades, aoMudar }: { item:
             {sm.lugares.comunidade}
             <select value={contexto} onChange={(e) => setContexto(e.target.value)} className={`${estilo.campo} mt-1`}>
               <option value="">—</option>
-              {comunidades.map((c) => <option key={c} value={c}>{c}</option>)}
+              {comunidades.map((c) => <option key={c} value={c}>{nomes?.[c] ?? c}</option>)}
             </select>
           </label>
           <FormularioDeAcao s={s} sm={sm} denuncia={item.id} alvoTipo="perfil" alvo={a.handle ?? item.alvo} acoes={contexto ? ["avisar", "banir", "desbanir"] : ["avisar"]} contexto={contexto || null} aoFeito={aoMudar} />
@@ -154,7 +176,7 @@ function Detalhe({ item, lang, s, sm, checagens, comunidades, aoMudar }: { item:
 }
 
 /** A fila de denúncias por prioridade (as de prioridade 1 no alto) e a lista dos posts retidos esperando leitura. */
-export function FilaDeDenuncias({ lang, s, sm, checagens, comunidades, retidos }: { lang: string; s: TextosDaRede; sm: TextosDaModeracao; checagens: ChecagemDisponivel[]; comunidades: string[]; retidos: boolean }) {
+export function FilaDeDenuncias({ lang, s, sm, checagens, comunidades, nomes, retidos }: { lang: string; s: TextosDaRede; sm: TextosDaModeracao; checagens: ChecagemDisponivel[]; comunidades: string[]; nomes?: Record<string, string>; retidos: boolean }) {
   const [quais, setQuais] = useState<"abertas" | "fechadas">("abertas");
   const [itens, setItens] = useState<ItemDaFila[] | null>(null);
   const [lista, setLista] = useState<PostRetido[] | null>(null);
@@ -189,10 +211,10 @@ export function FilaDeDenuncias({ lang, s, sm, checagens, comunidades, retidos }
       <ul className="divide-y divide-rule">
         {lista.map((p) => (
           <li key={p.id} className="px-[18px] py-3 font-sans">
-            <p className="text-xs text-ink-soft">{p.comunidade ?? ""} · {dataCurta(p.criado_em, lang)} · {preencher(sm.fila.autor, { nome: p.autor, nivel: p.autor_nivel })}</p>
+            <p className="text-xs text-ink-soft">{p.comunidade ?? ""} · {dataCurta(p.criado_em, lang)} · {preencher(sm.fila.autor, { nome: p.autor, nivel: nivelEmFrase(sm, p.autor_nivel) })}</p>
             {p.titulo && <p className="font-serif font-semibold">{p.titulo}</p>}
             <p className="break-words">{p.trecho}</p>
-            <p className="text-xs text-ink-soft">{preencher(sm.fila.retidoMotivo, { motivo: p.motivo })}</p>
+            <p className="mt-1"><span className="m9-carimbo" data-tom="ouro">{preencher(sm.fila.retidoMotivo, { motivo: motivoEscrito(sm, p.motivo) })}</span></p>
             {aberto === p.id ? (
               <FormularioDeAcao s={s} sm={sm} denuncia={null} alvoTipo="post" alvo={p.id} acoes={["restaurar", "remover", "avisar"]} aoFeito={recarregar} />
             ) : (
@@ -208,7 +230,7 @@ export function FilaDeDenuncias({ lang, s, sm, checagens, comunidades, retidos }
     <div>
       <div className="flex gap-2 px-[18px] py-3" role="group">
         {(["abertas", "fechadas"] as const).map((q) => (
-          <button key={q} type="button" aria-pressed={quais === q} onClick={() => { setItens(null); setQuais(q); }} className={`${estilo.botao} aria-pressed:bg-[#1f1a14] aria-pressed:text-[#f4ecd8]`}>
+          <button key={q} type="button" aria-pressed={quais === q} onClick={() => { setItens(null); setQuais(q); }} className="al-botao al-botao-contorno al-botao-p">
             {sm.fila[q]}
           </button>
         ))}
@@ -222,15 +244,16 @@ export function FilaDeDenuncias({ lang, s, sm, checagens, comunidades, retidos }
           {itens.map((i) => (
             <li key={i.id} className="px-[18px] py-3 font-sans">
               <div className="flex flex-wrap items-baseline gap-x-2 text-sm">
-                <span className={`rounded px-1.5 text-xs font-bold ${i.prioridade === 1 ? "bg-[#c21f16] text-white" : "bg-parchment-deep"}`}>{(sm.prioridade as Record<string, string>)[String(i.prioridade)]}</span>
+                <span className="m9-carimbo" data-tom={i.prioridade === 1 ? "alerta" : undefined}>{(sm.prioridade as Record<string, string>)[String(i.prioridade)]}</span>
                 <span className="font-bold">{categorias[i.categoria]?.rotulo ?? i.categoria}</span>
                 <span className="text-ink-soft">{(sm.fila.alvo as Record<string, string>)[i.alvo_tipo]} · {preencher(sm.fila.protocolo, { protocolo: i.protocolo })} · {dataCurta(i.criado_em, lang)}</span>
                 <span className="rounded border border-rule px-1 text-xs">{(sm.fila.situacao as Record<string, string>)[i.situacao]}</span>
+                {quais === "abertas" && <CarimboDoPrazo sm={sm} lang={lang} ate={i.responder_ate} vencido={i.vencida} />}
               </div>
               {i.nucleo ? <p className="text-sm text-ink-soft">{sm.fila.nucleo}</p> : i.trecho && <p className="mt-1 break-words">{i.titulo ? `${i.titulo}: ` : ""}{i.trecho}</p>}
               {i.mesmas > 1 && <p className="text-xs text-ink-soft">{preencher(sm.fila.mesmas, { n: i.mesmas })}</p>}
               {aberto === i.id ? (
-                <Detalhe item={i} lang={lang} s={s} sm={sm} checagens={checagens} comunidades={comunidades} aoMudar={recarregar} />
+                <Detalhe item={i} lang={lang} s={s} sm={sm} checagens={checagens} comunidades={comunidades} nomes={nomes} aoMudar={recarregar} />
               ) : (
                 quais === "abertas" && <button type="button" className={`${estilo.botao} mt-2`} onClick={() => setAberto(i.id)}>{sm.fila.abrir}</button>
               )}

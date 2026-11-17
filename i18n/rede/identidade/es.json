@@ -1,0 +1,169 @@
+{
+  "_rascunho": true,
+  "titulo": "Cómo apareces",
+  "ajuda": "La elección es tuya: nombre en clave y rostro en mosaico, o tu nombre y tu foto. Puedes cambiar cuando quieras, en los dos sentidos.",
+  "padrao": "por defecto",
+  "atual": "así estás ahora",
+  "modos": {
+    "codinome": {
+      "nome": "Nombre en clave",
+      "descricao": "Un nombre inventado y un rostro en mosaico. Toda cuenta nace así."
+    },
+    "publica": {
+      "nome": "Nombre y foto",
+      "descricao": "El nombre que escribas y, si quieres, una foto tuya."
+    }
+  },
+  "escolher": "Aparecer con nombre y foto",
+  "indisponivel": "La coordinación todavía no abrió la opción de aparecer con nombre y foto. Sigues con el nombre en clave, y nada cambia sin que lo pidas.",
+  "org": "La cuenta de organización ya aparece con el nombre de la organización.",
+  "carregando": "Leyendo tu identidad…",
+  "ciencia": {
+    "titulo": "Antes de cambiar",
+    "passo": "Paso {n} de {total}",
+    "muda": {
+      "titulo": "Qué cambia",
+      "itens": [
+        "Tu nombre entra en lugar del nombre en clave en todo: publicaciones, respuestas, perfil, búsqueda, menciones, avisos y conversaciones.",
+        "Vale también para lo que ya publicaste: las publicaciones antiguas pasan a mostrar el nombre.",
+        "Tu foto entra en lugar del mosaico después de que la mediación la revise. Hasta entonces, solo tú la ves."
+      ]
+    },
+    "quem": {
+      "titulo": "Quién pasa a ver",
+      "itens": [
+        "El nombre: quien ya veía tu nombre en clave. En lo que publicas abierto, cualquier persona.",
+        "La foto: solo quien tiene cuenta en Alumia.",
+        "A quien bloqueaste sigue sin verte."
+      ],
+      "federa": "Activaste el Fediverso: el nombre también va a los otros servidores, y pueden guardar una copia que Alumia no puede borrar."
+    },
+    "nao": {
+      "titulo": "Qué no cambia",
+      "itens": [
+        "Tu @nombre sigue igual (al volver al nombre en clave, puedes cambiarlo).",
+        "Tu correo y los datos de tu registro nunca aparecen. Solo vale lo que escribas aquí.",
+        "Alumia no revisa documentos: el nombre lo declaras tú."
+      ]
+    },
+    "volta": {
+      "titulo": "Se puede volver",
+      "texto": "Volver al nombre en clave es un botón, a cualquier hora. Tu nombre en clave queda guardado y nadie lo toma. Al volver, el nombre sale de las publicaciones, del perfil y de los avisos de Alumia y la foto se borra del servidor; puedes cambiar también el @. Lo que alguien ya vio o copió, nadie lo deshace: quien vio tu nombre junto a tu @ lo sigue sabiendo."
+    },
+    "pense": "Si aparecer con tu nombre puede traer riesgo en el trabajo, en la familia o con la policía, el nombre en clave protege. No hay prisa.",
+    "continuar": "Continuar",
+    "voltar": "Volver",
+    "cancelar": "Seguir con el nombre en clave",
+    "fechar": "Cerrar"
+  },
+  "nome": {
+    "rotulo": "Tu nombre",
+    "ajuda": "Cómo quieres que te llamen. De 2 a 60 letras. Puede ser el nombre social.",
+    "erros": {
+      "curto": "Escribe al menos 2 letras.",
+      "longo": "El nombre pasa de 60 letras.",
+      "formato": "Usa solo letras, espacio, punto, apóstrofo y guion. Sin números, @ ni direcciones.",
+      "reservado": "Ese nombre parece el del Instituto o del equipo. Elige otro."
+    }
+  },
+  "foto": {
+    "titulo": "Tu foto",
+    "opcional": "opcional",
+    "ajuda": "JPG, PNG, WebP o AVIF de hasta 12 MB. La foto se recorta y se vuelve a grabar aquí, en tu aparato: ubicación (GPS), modelo de la cámara y fecha quedan atrás antes del envío. El servidor revisa de nuevo.",
+    "escolher": "Elegir foto",
+    "trocar": "Cambiar foto",
+    "remover": "Borrar foto",
+    "sem": "Sin foto, queda el rostro en mosaico.",
+    "pendente": "Esperando a la mediación. Por ahora, solo tú la ves.",
+    "aceita": "Visible para quien tiene cuenta.",
+    "pronta": "Recortada y sin datos de la cámara. Se envía cuando confirmes.",
+    "alt": "Tu foto",
+    "recorte": {
+      "titulo": "Recortar la foto",
+      "ajuda": "Arrastra para encuadrar. En el teclado: las flechas mueven, + y - acercan.",
+      "area": "Área del recorte: usa las flechas para mover",
+      "zoom": "Acercar",
+      "usar": "Usar este recorte",
+      "cancelar": "Cancelar"
+    },
+    "erros": {
+      "tipo": "Ese archivo no es JPG, PNG, WebP ni AVIF.",
+      "peso": "La foto pasa de 12 MB.",
+      "abrir": "No se pudo abrir esa imagen. Prueba otra.",
+      "gravar": "Este navegador no pudo grabar la foto sin los datos de la cámara. Prueba con Firefox, Chrome o Edge."
+    }
+  },
+  "confirmar": {
+    "titulo": "Revisa y confirma",
+    "aparece": "Así vas a aparecer",
+    "ciente": "Leí qué cambia y quién pasa a ver. Quiero aparecer con este nombre.",
+    "enviar": "Aparecer con nombre y foto",
+    "enviando": "Cambiando…"
+  },
+  "publica": {
+    "desde": "Con nombre desde {data}.",
+    "trocarNome": "Cambiar el nombre",
+    "salvarNome": "Guardar el nombre",
+    "cancelar": "Cancelar",
+    "voltar": "Volver al nombre en clave",
+    "voltarAjuda": "Tu nombre clave guardado es {codinome}. Volver quita el nombre de las publicaciones, del perfil y de los avisos de Alumia y borra la foto del servidor. Lo que alguien ya vio o copió (y las copias que guardaron otros servidores del Fediverso) nadie lo deshace.",
+    "confirmarVolta": {
+      "titulo": "¿Volver al nombre en clave?",
+      "texto": "Vuelves a aparecer como {codinome}, con el rostro en mosaico. El nombre sale de las publicaciones, del perfil y de los avisos de Alumia, y la foto se borra del servidor ahora.",
+      "sim": "Volver al nombre en clave",
+      "nao": "Seguir como estoy",
+      "voltando": "Volviendo…",
+      "arroba": "Cambiar también mi @",
+      "arrobaAjuda": "Quien vio tu nombre junto a @{handle} sigue sabiendo que ese @ eres tú. Con un @ nuevo, lo que publiques de aquí en adelante no queda ligado al nombre. Recomendado.",
+      "arrobaRotulo": "El @ nuevo",
+      "arrobaFederado": "Tu @ sigue siendo @{handle}: quien vio tu nombre junto a él sigue sabiendo que eres tú. Mientras el Fediverso esté activado en tu perfil, el @ no se puede cambiar aquí (es tu dirección en las otras redes)."
+    }
+  },
+  "avisos": {
+    "virouPublica": "Listo. Ahora apareces como {nome}.",
+    "voltou": "Listo. Volviste a aparecer como {codinome}. La foto fue borrada.",
+    "voltouTrocado": "Volviste al nombre en clave. El de antes ya no estaba libre: el nuevo es {codinome}. Puedes cambiarlo en Sobre.",
+    "fotoEnviada": "Foto enviada. La mediación la revisa antes de que aparezca para los demás.",
+    "fotoNoAr": "Foto enviada y ya visible.",
+    "fotoApagada": "Foto borrada del servidor.",
+    "fotoFalhou": "El nombre cambió, pero la foto no se envió. Intenta enviarla de nuevo aquí.",
+    "nomeSalvo": "Nombre cambiado.",
+    "trocouArroba": "Listo. Vuelves a aparecer como {codinome}, ahora con @{handle}."
+  },
+  "erros": {
+    "identidade_desligada": "La coordinación cerró, por ahora, la opción de nombre y foto. Volver al nombre en clave sigue funcionando.",
+    "identidade_org": "La cuenta de organización no usa esta opción.",
+    "identidade_codinome": "Para enviar foto, primero elige aparecer con nombre.",
+    "nome_usado": "Ese nombre es el nombre clave de otra persona. Elige otro.",
+    "nome_reservado": "Ese nombre parece el del Instituto o del equipo. Elige otro.",
+    "invalido_nome": "Ese nombre no sirve. Usa letras, espacio, punto, apóstrofo y guion.",
+    "invalido_imagem": "La foto no pasó la revisión del servidor. Recórtala de nuevo y envíala.",
+    "confirme_ciencia": "Marca que leíste qué cambia.",
+    "banco_desatualizado": "Esta parte todavía no llegó al servidor. Intenta más tarde.",
+    "identidade_nome_travado": "Apareces con tu nombre. Para cambiarlo, abre Identidad.",
+    "handle_usado": "Ese @ ya es de otra persona. Elige otro.",
+    "handle_reservado": "Ese @ parece del Instituto o del equipo. Elige otro.",
+    "invalido_handle": "El @ debe tener de 3 a 20 minúsculas, números o _.",
+    "handle_federado": "Con el Fediverso activado, el @ no se puede cambiar aquí."
+  },
+  "selo": {
+    "rotulo": "nombre y foto por elección",
+    "titulo": "Esta persona eligió aparecer con nombre y foto. Alumia no revisa documentos."
+  },
+  "sobre": {
+    "nomeTravado": "Apareces con tu nombre. Para cambiar el nombre o volver al nombre en clave, abre Identidad."
+  },
+  "lembrete": {
+    "texto": "En el registro marcaste que quieres aparecer con nombre y foto. ¿Quieres elegir ahora?",
+    "sim": "Elegir ahora",
+    "nao": "Ahora no"
+  },
+  "cadastro": {
+    "titulo": "Cómo quieres aparecer",
+    "codinome": "Con nombre en clave y rostro en mosaico",
+    "codinomeAjuda": "Nadie ve tu nombre ni tu foto.",
+    "publica": "Con mi nombre y mi foto",
+    "publicaAjuda": "Lo eliges después de entrar, en una pantalla que muestra qué cambia y quién pasa a verlo. Puedes volver al nombre en clave cuando quieras.",
+    "nota": "Toda cuenta entra con nombre en clave: quien revisa la solicitud solo ve el nombre en clave. Esta respuesta queda solo en este dispositivo."
+  }
+}

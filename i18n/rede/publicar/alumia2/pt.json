@@ -38,7 +38,7 @@
     "visitante": "Visitante",
     "entrar": "Entrar na Alumia",
     "sairRapido": "Sair rápido",
-    "sairRapidoAjuda": "Apaga o que a Alumia guardou neste aparelho e abre uma página comum de fora (a previsão do tempo), sem nada do Instituto.",
+    "sairRapidoAjuda": "Sai da conta neste aparelho, apaga o que a Alumia guardou aqui, inclusive as chaves do chat privado e dos grupos, e abre uma página comum de fora (a previsão do tempo), sem nada do Instituto.",
     "sairDaConta": "Sair da conta",
     "voltarAoSite": "Voltar ao site",
     "cuidados": "Cuidados",
@@ -50,7 +50,10 @@
     "acessibilidade": "Acessibilidade",
     "ajuda": "Perguntas frequentes",
     "seguranca": "Segurança",
-    "verPerfil": "Ver seu perfil"
+    "verPerfil": "Ver seu perfil",
+    "aparencia": "Aparência e leitura",
+    "series": "Posts que se repetem",
+    "temas": "Temas que sigo"
   },
   "linha": {
     "titulo": "Início",
@@ -93,6 +96,7 @@
     "copiado": "Link copiado.",
     "mais": "Mais ações",
     "doFediverso": "do Fediverso · {servidor}",
+    "seloTitulo": "Do Fediverso: esta conta é de {servidor}, um servidor fora da Alumia.",
     "orgVerificada": "Organização verificada",
     "regraDoSelo": "O selo diz que a conta é de quem diz ser, conferida por documento público. Não é apoio do Instituto.",
     "aula": "Aula do Instituto Lúcia",
@@ -195,7 +199,7 @@
     "fediTexto": "Gente do Mastodon, do Lemmy e do Misskey te segue e responde aqui mesmo, no mesmo feed. Seu endereço:",
     "fediSemNome": "Escolha um @nome no seu perfil para ganhar o endereço.",
     "fediVer": "Como funciona",
-    "rodape": "Ordem de chegada · sem anúncio · sem rastreio · codinome sempre"
+    "rodape": "Regra aberta · sem anúncio · sem rastreio · codinome por padrão"
   },
   "previa": {
     "aviso": "Prévia com dados de exemplo. Nada aqui é real e nada é publicado.",
@@ -341,5 +345,36 @@
     "texto": "Este endereço não existe na Alumia, ou o post saiu do ar. A sua linha continua no mesmo lugar.",
     "voltar": "Voltar ao início da Alumia",
     "buscar": "Buscar"
+  },
+  "visibilidade": {
+    "eu": "Só eu",
+    "euAjuda": "Privado: só você vê. Não sai da Alumia.",
+    "roda": "Amigos próximos",
+    "rodaAjuda": "Só quem está na sua roda de confiança. Ninguém é avisado de entrar nela. Não sai da Alumia.",
+    "seguidores": "Seguidores",
+    "seguidoresAjuda": "Só quem segue você na Alumia. Não sai da Alumia.",
+    "membros": "Todos na Alumia",
+    "membrosAjuda": "Quem tem conta na Alumia. Fica só nela: não vai para o Fediverso nem para fora.",
+    "internet": "Alumia e Fediverso",
+    "internetAjuda": "Qualquer pessoa no Fediverso (Mastodon, Lemmy e outros) pode ver e repassar; quem segue você recebe. Sai da Alumia.",
+    "internetComunidade": "Aberto na internet e no Fediverso",
+    "internetComunidadeAjuda": "Qualquer pessoa, mesmo sem conta, e o Fediverso. Sai da Alumia.",
+    "comunidade": "Só a comunidade",
+    "comunidadeAjuda": "Só quem é desta comunidade. Não sai da Alumia.",
+    "comunidadeFechadaAjuda": "Só quem é desta comunidade, e vai cifrado: nem o servidor lê. Não sai da Alumia.",
+    "equipe": "Só a equipe",
+    "equipeAjuda": "Só a equipe do instituto. Não sai da Alumia.",
+    "ficaNaAlumia": "Fica na Alumia",
+    "saiDaAlumia": "Sai da Alumia",
+    "desligadaNoPerfil": "Seu perfil ainda não está no Fediverso. Ligue em Perfil, Fediverso, para usar esta opção.",
+    "impedida": "Seu perfil não pode sair no Fediverso agora (sem @nome, invisível ou suspenso).",
+    "avisoFediverso": "Este post sai da Alumia. Outros servidores do Fediverso podem guardar uma cópia, e apagar aqui depois não garante que ela suma de lá.",
+    "fediversoDesligado": "O Fediverso ainda não está ligado na Alumia: por enquanto, nada do que você posta no perfil sai daqui.",
+    "mencionadosCifrado": "Post cifrado com “só quem eu mencionar”: para saber quem pode responder, os @ marcados vão em aberto para o servidor. Só os nomes; o texto continua cifrado.",
+    "mencionadosLista": "Vão junto: {lista}",
+    "mencionadosNinguem": "Você não marcou ninguém com @: só você poderá responder.",
+    "maisFerramentas": "Há mais ferramentas: role para o lado",
+    "internetPresa": "Só na Alumia (não sai)",
+    "naoSaiComVida": "Com “não listado” ou “some sozinho”, este post não sai da Alumia: fica só aqui."
   }
 }

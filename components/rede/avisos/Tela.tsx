@@ -17,7 +17,9 @@ import { FaixaDaPrevia, previa, useTextosAlumia3 } from "../conversa/base3";
 import { Avatar16 } from "../ui/Avatar16";
 import { useRegua } from "../conversa/movimento";
 import { avisosDaPrevia } from "../descoberta/previa";
+import { AvisoDeForaNaLista, destinoDoAvisoDeFora, eAvisoDeFora, fediversoNaTela } from "../fediverso/encaixe";
 import { desligarPush, estadoDoPush, ligarPush, type EstadoDoPush } from "./push";
+import { HorarioDeSilencio } from "./HorarioDeSilencio";
 // O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
 import "../conversa/alumia3.css";
 
@@ -150,6 +152,10 @@ function Preferencias({ t, lang, s, situacao }: { t: TextosDeAvisos; lang: strin
         <h3 id="av-resumo" className="font-serif text-xl font-semibold">{p.resumo.titulo}</h3>
         <p className="mt-1 text-ink-soft">{p.resumo.descricao}</p>
         {!membro && <p className="mt-2 text-ink-soft">{p.resumo.precisaEntrar}</p>}
+        {/* São dois resumos por e-mail, ligados em lugares diferentes: cada um diz onde está o outro. */}
+        <p className="mt-1 text-sm text-ink-soft">
+          <Link href={`${localePath(lang, "/alumia/seguranca")}#sg-ajuste-pontes`} className="underline underline-offset-4">{p.resumo.outro}</Link>
+        </p>
         <Interruptor id="av-resumo-liga" rotulo={p.resumo.ligar} ligado={prefs.resumo} desabilitado={!membro && !prefs.resumo} aoMudar={(v) => void guardar("resumo", "email", v)} />
         <button type="button" onClick={() => void verResumo()} className="min-h-11 cursor-pointer rounded-full border-2 border-ink px-4 font-bold hover:bg-parchment-deep">
           {p.resumo.ver}
@@ -195,6 +201,8 @@ function Preferencias({ t, lang, s, situacao }: { t: TextosDeAvisos; lang: strin
           </fieldset>
         )}
       </section>
+
+      <HorarioDeSilencio t={p} membro={membro} />
     </div>
   );
 }
@@ -213,7 +221,7 @@ function ListaDeAvisos({ t, lang, s }: { t: TextosDeAvisos; lang: string; s: Pro
 
   useEffect(() => {
     let vivo = true;
-    (previa() ? Promise.resolve(avisosDaPrevia()) : avisos.listar())
+    (previa() ? Promise.resolve(avisosDaPrevia(fediversoNaTela())) : avisos.listar())
       .then((r) => {
         if (!vivo) return;
         setItens(r.itens);
@@ -283,12 +291,17 @@ function ListaDeAvisos({ t, lang, s }: { t: TextosDeAvisos; lang: string; s: Pro
       ) : (
         <ol aria-label={l.rotulo} className="al3-avisos">
           {itens.map((item, i) => {
-            const href = destino(lang, item);
-            const frase = fraseDoAviso(item, frases, l.reserva, t.servidor);
+            // Gente de fora (Fediverso): a peça desenha o miolo (rosto em mosaico pelo @, nome, selo do servidor; em curtida e
+            // impulso, nunca quem foi, e o número só a partir de 3) e diz para onde o aviso leva. O link e o botão são os de sempre.
+            const deFora = eAvisoDeFora(item);
+            const href = deFora ? destinoDoAvisoDeFora(lang, item) : destino(lang, item);
+            const frase = deFora ? "" : fraseDoAviso(item, frases, l.reserva, t.servidor);
             // O rosto em mosaico de quem fez (só o primeiro codinome do grupo, que a frase já diz; nunca a lista) com o ícone do tipo
             // no canto; sem ninguém (apoio, moderação, ato), só o ícone.
             const quem = item.tipo === "apoio" ? null : (item.atores[0] ?? null);
-            const conteudo = (
+            const conteudo = deFora ? (
+              <AvisoDeForaNaLista item={item} lang={lang} novo={l.novo} />
+            ) : (
               <span className="al3-aviso-linha">
                 <span className="al3-aviso-rosto" aria-hidden data-tipo={item.tipo ?? "conta"}>
                   {quem ? <Avatar16 handle={quem} tamanho={40} /> : <span className="al3-aviso-rosto-vazio" />}
@@ -409,6 +422,10 @@ const CAMINHO_DO_AVISO: Record<TipoDeAviso | "conta", string> = {
   ato: "M5 21V4M5 4h11l-2 4 2 4H5M19 3v3M21.5 5.5l-2 1",
   reacao_story: "M12 3a9 9 0 1 0 9 9M12 3a9 9 0 0 1 9 9M12 8.5l1.1 2.3 2.4.3-1.8 1.7.5 2.4-2.2-1.2-2.2 1.2.5-2.4-1.8-1.7 2.4-.3z",
   lembrete: "M12 7v5l3 2M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z",
+  // Onda 9: marcação (a etiqueta), estou bem (o coração) e fui detido (o alerta).
+  marcacao: "M3 12V4h8l10 10-8 8zM7.5 8.5h.01",
+  estou_bem: "M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z",
+  detido: "M12 3l10 18H2zM12 10v5M12 18v.01",
   conta: "M12 8v5M12 16.5v.5M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z",
 };
 function IconeDoAviso({ tipo }: { tipo: TipoDeAviso | null }) {

@@ -265,3 +265,86 @@ export interface EdicaoDoAto {
 export function corValida(cor: unknown): 1 | 2 | 3 | 4 | 5 | undefined {
   return cor === 1 || cor === 2 || cor === 3 || cor === 4 || cor === 5 ? cor : undefined;
 }
+
+// ───── Onda 10 · 10F · atos e eventos (supabase/migracoes/20261116-alumia-o10-atos.sql) ─────
+
+/** De quanto em quanto tempo o ato se repete. */
+export type FrequenciaDaSerie = "semanal" | "quinzenal" | "mensal";
+export const FREQUENCIAS_DA_SERIE: readonly FrequenciaDaSerie[] = ["semanal", "quinzenal", "mensal"];
+
+/** Uma data da série: as já abertas trazem o id do ato delas; a pulada e a prevista (ainda fora dos 35 dias) vêm sem id. */
+export interface DataDaSerie {
+  /** O dia, no horário de Brasília (AAAA-MM-DD). */
+  data: string;
+  inicio: string;
+  id: string | null;
+  situacao: SituacaoDoAto | "pulada" | "prevista";
+  /** É o ato desta página. */
+  atual: boolean;
+}
+
+export interface SerieDoAto {
+  id: string;
+  frequencia: FrequenciaDaSerie;
+  /** Até quando (AAAA-MM-DD). */
+  ate: string;
+  excecoes: string[];
+  encerrada: boolean;
+  /** Este ato é o primeiro da série (o modelo). */
+  modelo: boolean;
+  datas: DataDaSerie[];
+}
+
+/** O pedido de repetir um ato (só quem chamou). */
+export interface PedidoDeSerie {
+  frequencia: FrequenciaDaSerie;
+  ate: string;
+  excecoes: string[];
+}
+
+/** Uma organização que chama o ato junto (entidade pública; nunca uma pessoa). */
+export interface OrgDoAto {
+  handle: string;
+  nome: string;
+  selo: boolean;
+}
+
+/** O que a página do ato mostra além do ato (rede_ato_mais). */
+export interface MaisDoAto {
+  /** Quem lê modera o ato (quem chamou, ou quem gere uma organização que aceitou). */
+  organiza: boolean;
+  /** Quem lê chamou o ato (pode convidar organizações e repetir). */
+  chamou: boolean;
+  /** As organizações que aceitaram chamar junto. */
+  coletivos: OrgDoAto[];
+  /** Só para quem chamou: os convites ainda sem resposta. */
+  convites: OrgDoAto[];
+  /** Os convites para organizações que quem lê gere (para aceitar ou recusar). */
+  meus_convites: OrgDoAto[];
+  /** As organizações que quem lê gere e que já chamam o ato junto (para sair). */
+  minhas_orgs: OrgDoAto[];
+  serie: SerieDoAto | null;
+  pode_repetir: boolean;
+  album: { aprovadas: number; pendentes: number | null; pode_enviar: boolean };
+  linha: { aberta: boolean; pode_escrever: boolean; desde: string | null; ate: string | null };
+}
+
+/** Uma foto do álbum. Nunca vem quem mandou: só se é desta pessoa. */
+export interface FotoDoAlbum {
+  id: string;
+  largura: number | null;
+  altura: number | null;
+  legenda: string;
+  minha: boolean;
+  estado: "pendente" | "aprovada";
+  criado_em: string | null;
+}
+
+export interface AlbumDoAto {
+  organiza: boolean;
+  pode_enviar: boolean;
+  /** As aprovadas (para quem vê o ato) e as próprias pendentes. */
+  fotos: FotoDoAlbum[];
+  /** Só para a moderação do ato: a fila. */
+  pendentes: FotoDoAlbum[];
+}

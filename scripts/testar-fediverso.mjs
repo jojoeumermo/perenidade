@@ -17,7 +17,9 @@ process.env.NEXT_PUBLIC_SUPABASE_URL = "http://banco.teste";
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "chave-publica-de-teste";
 process.env.ALUMIA_FEDIVERSO_SEGREDO = SEGREDO;
 process.env.NEXT_PUBLIC_ALUMIA_URL = BASE;
-process.env.NEXT_PUBLIC_RECURSOS = "rede-v2";
+// A federação de antes (só quem ligou, sem o modo total): desde a integração (21/11/2026) "fediverso-total" está no PADRAO, então
+// este teste o desliga pelo nome. O modo total tem os testes dele (testar:fediverso-saida e testar:fediverso-entrada).
+process.env.NEXT_PUBLIC_RECURSOS = "rede-v2,-fediverso-total";
 
 const alumia = await import("../lib/rede/alumia.ts");
 const { assinarPedido, conferirAssinatura, gerarParDeChaves, digestDe } = await import("../lib/rede/fediverso/assinatura.ts");
@@ -160,7 +162,9 @@ await espera("nenhuma tabela nova no esquema public; as da federação em intern
   if (/create table (if not exists )?public\./i.test(migracao)) throw new Error("tabela em public");
   const r = await dono(`select c.relname, c.relrowsecurity, exists (select 1 from information_schema.role_table_grants g where g.table_schema = 'interno' and g.table_name = c.relname and g.grantee in ('anon', 'authenticated', 'PUBLIC')) as aberta
     from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'interno' and c.relkind = 'r' and c.relname like 'rede_fed_%'`);
-  return r.rows.length === 8 && r.rows.every((x) => x.relrowsecurity && !x.aberta);
+  // Dez: as oito da federação, a fila das imagens guardadas (rede_fed_midia, 20261112-fediverso-midia-guardada.sql) e o segredo
+  // do apelido de quem curtiu de fora (rede_fed_apelido_segredo, 20261122-alumia-chat.sql).
+  return r.rows.length === 10 && r.rows.every((x) => x.relrowsecurity && !x.aberta);
 });
 await espera("as funções públicas novas são security definer com search_path = interno, pg_temp", async () => {
   const r = await dono(`select p.proname, p.prosecdef, array_to_string(p.proconfig, ',') as cfg from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and (p.proname like 'rede_fed_%' or p.proname = 'rede_alumia_salvos')`);

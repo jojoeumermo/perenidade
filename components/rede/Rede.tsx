@@ -5,7 +5,9 @@ import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { rede } from "@/lib/rede/cliente";
 import { comunidades as clienteComunidades } from "@/lib/rede/cliente-comunidades";
+import type { AbaDaRegra } from "@/lib/rede/cliente-linha";
 import { codinomeDaPrevia, EVENTO_DO_CODINOME } from "@/lib/rede/codinome-da-conta";
+import { arrumarFiltro, filtroVazio, type LinhaMontada } from "@/lib/rede/linha-aberta";
 import { previaLigada, type CorDaComunidadeNum } from "@/lib/rede/publicar/alumia2";
 import { abaPreferida } from "@/lib/rede/publicar/b1";
 import { alumia2Ligada } from "@/lib/rede/rotas-novas";
@@ -17,7 +19,8 @@ import { Entrada } from "./Entrada";
 import { textoDoErro } from "./erros";
 import { Escrever } from "./Escrever";
 import { ENCAIXES } from "./encaixes";
-import { Linha } from "./Linha";
+import { Linha, type RegraDaLinha } from "./Linha";
+import { linhaAbertaLigada, useLinhasMontadas, useModoDaLinha, useTextosDaLinha } from "./linha/base";
 import { REGISTRO } from "./registro";
 import { TelaDaComunidade, TelaDoPerfil } from "./Telas";
 import { EsqueletoDaLinha } from "./Esqueletos";
@@ -46,6 +49,10 @@ const EscreverDaAlumia2 = dynamic(() => import("./publicar/alumia2/EscreverDaAlu
 });
 const TopoDaLinha2 = dynamic(() => import("./publicar/alumia2/TopoDaLinha2").then((m) => m.TopoDaLinha2));
 const AbaInicialDaAlumia2 = dynamic(() => import("./publicar/alumia2/AbaInicial").then((m) => m.AbaInicialDaAlumia2), { ssr: false });
+// A linha com regra aberta (interruptor "alumia-linha-aberta"): a barra e a faixa só descem com ele ligado.
+const RODA = AL2 && linhaAbertaLigada();
+const BarraDaLinha = dynamic(() => import("./linha/BarraDaLinha").then((m) => m.BarraDaLinha), { ssr: false });
+const EnquantoFora = dynamic(() => import("./linha/EnquantoFora").then((m) => m.EnquantoFora), { ssr: false });
 
 // Com a flag ligada, os pedaços começam a descer já, junto com os textos (sem esperar a primeira pintura).
 if (AL2 && typeof window !== "undefined") {
@@ -62,7 +69,7 @@ const TelaDaConversa = dynamic(() => import("./conversa/TelaDaConversa"), { ssr:
  * a aba escolhida. A tela seguinte começa com isso e confere no servidor por trás, sem piscar o esqueleto a cada clique no menu.
  * Fica só na memória da aba do navegador (some ao recarregar e no Sair rápido, que recarrega a página).
  */
-const memoria: { situacao: Situacao | null; comunidades: ContextoAlumia2["comunidades"] | null; aba: Aba | null; geracao: number } = { situacao: null, comunidades: null, aba: null, geracao: 0 };
+const memoria: { situacao: Situacao | null; comunidades: ContextoAlumia2["comunidades"] | null; aba: Aba | null; geracao: number; linha: string | null } = { situacao: null, comunidades: null, aba: null, geracao: 0, linha: null };
 
 const ABAS_DO_MEMBRO: Aba[] = ["seguindo", "comunidades", "tudo", "geral"];
 
@@ -79,6 +86,17 @@ function abaInicial(membro: boolean): Aba {
   if (preferida) return preferida;
   // Na cara nova (alumia-2), a aba das pranchas é "Seguindo"; na de hoje, "Tudo".
   return membro ? (AL2 ? "seguindo" : "tudo") : "geral";
+}
+
+/** A linha montada pedida no endereço (?linha=<id> ou ?linha=temas, vindo de "Minhas linhas"), ou a que estava aberta nesta aba do navegador. */
+function linhaInicial(): string | null {
+  try {
+    const pedida = new URLSearchParams(window.location.search).get("linha");
+    if (pedida && /^[a-z0-9-]{4,40}$/.test(pedida)) return pedida;
+  } catch {
+    // sem endereço legível: vale a lembrada
+  }
+  return memoria.linha;
 }
 
 /**
@@ -104,8 +122,19 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
     setNomesCrus(x);
   }, []);
   const [aba, setAbaCrua] = useState<Aba | null>(() => (tela.tipo === "linha" ? memoria.aba : null));
+  // A linha com regra aberta: a ordem escolhida e as linhas montadas (as duas só no aparelho) e a linha montada aberta agora.
+  const tLinha = useTextosDaLinha(lang, RODA);
+  const [modo, setModo] = useModoDaLinha();
+  const linhasMontadas = useLinhasMontadas();
+  const [idDaLinha, setIdDaLinhaCru] = useState<string | null>(() => (RODA && tela.tipo === "linha" && typeof window !== "undefined" ? linhaInicial() : null));
+  const setIdDaLinha = useCallback((id: string | null) => {
+    memoria.linha = id;
+    setIdDaLinhaCru(id);
+  }, []);
   const setAba = useCallback((a: Aba) => {
     memoria.aba = a;
+    memoria.linha = null;
+    setIdDaLinhaCru(null);
     setAbaCrua(a);
   }, []);
   const [recarregar, setRecarregar] = useState(() => memoria.geracao);
@@ -199,6 +228,24 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
   const aoEscrever2 = (tipo?: TipoAoEscrever) => setEscrevendo({ respostaA: null, comunidade: tela.tipo === "comunidade" ? comunidade : null, tipo });
   const pode = Boolean(aberta?.logado && aberta.membro);
   const abaAtual: Aba = aba ?? abaInicial(Boolean(aberta?.membro));
+  const abaDaLinha: Aba = abaAtual === "geral" && pode ? "tudo" : abaAtual;
+  const rodaAqui = RODA && pode && Boolean(tLinha) && tela.tipo === "linha";
+  // A linha montada aberta: uma das que a pessoa guardou no aparelho, ou a dos #temas que ela segue.
+  const linhaAtiva = useMemo<LinhaMontada | null>(() => {
+    if (!rodaAqui || !idDaLinha || !tLinha) return null;
+    if (idDaLinha === "temas") return { id: "temas", nome: tLinha.barra.temas, base: "temas", filtro: {}, fixada: false };
+    return linhasMontadas.find((l) => l.id === idDaLinha) ?? null;
+  }, [rodaAqui, idDaLinha, linhasMontadas, tLinha]);
+  // A regra que a Linha usa: uma linha montada (com o filtro dela) ou a aba em roda. Em ordem de chegada sem filtro, a linha de sempre.
+  const regra = useMemo<RegraDaLinha | null>(() => {
+    if (!rodaAqui || !tLinha) return null;
+    if (linhaAtiva) {
+      const filtro = arrumarFiltro(linhaAtiva.filtro);
+      return { modo, base: linhaAtiva.base, filtro: filtroVazio(filtro) ? null : filtro, chave: `${modo}:${linhaAtiva.id}:${JSON.stringify(filtro)}`, t: tLinha };
+    }
+    if (modo !== "roda" || !["seguindo", "comunidades", "tudo"].includes(abaDaLinha)) return null;
+    return { modo, base: abaDaLinha as AbaDaRegra, filtro: null, chave: "roda", t: tLinha };
+  }, [rodaAqui, tLinha, linhaAtiva, modo, abaDaLinha]);
 
   // Com a flag ligada e os textos ainda a caminho, o esqueleto (nada pula quando chegam).
   if (AL2 && !contexto2) return <Casca lang={lang} s={s} situacao={null} ativo={ativo === "nenhum" ? "inicio" : ativo} aoEscrever={aoEscrever}>{null}</Casca>;
@@ -229,19 +276,44 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
 
           {tela.tipo === "linha" && contexto2 && (
             <>
-              <TopoDaLinha2 lang={lang} s={s} situacao={aberta} abas={pode ? ABAS_DO_MEMBRO.filter((a) => a !== "geral") : ["geral"]} aba={abaAtual === "geral" && pode ? "tudo" : abaAtual} aoAba={setAba} aoEscrever={aoEscrever2} />
-              {pode && <AbaInicialDaAlumia2 aba={abaAtual} />}
+              <TopoDaLinha2
+                lang={lang}
+                s={s}
+                situacao={aberta}
+                abas={pode ? ABAS_DO_MEMBRO.filter((a) => a !== "geral") : ["geral"]}
+                aba={abaDaLinha}
+                aoAba={setAba}
+                aoEscrever={aoEscrever2}
+                ordem={rodaAqui && tLinha ? "" : undefined}
+                depoisDasAbas={
+                  rodaAqui && tLinha ? (
+                    <BarraDaLinha
+                      lang={lang}
+                      t={tLinha}
+                      modo={modo}
+                      aoModo={setModo}
+                      linhas={linhasMontadas}
+                      ativa={linhaAtiva}
+                      aoLinha={(l) => setIdDaLinha(l?.id ?? null)}
+                      nomeDaAba={s.abas[abaDaLinha as "seguindo" | "comunidades" | "tudo"] ?? s.abas.tudo}
+                    />
+                  ) : undefined
+                }
+              />
+              {rodaAqui && tLinha && !linhaAtiva && ["seguindo", "comunidades", "tudo"].includes(abaDaLinha) && <EnquantoFora lang={lang} t={tLinha} aba={abaDaLinha as AbaDaRegra} />}
+              {pode && !linhaAtiva && <AbaInicialDaAlumia2 aba={abaAtual} />}
               <div role="tabpanel" id="al2-painel-linha" aria-labelledby={`al2-aba-${abaAtual === "geral" && pode ? "tudo" : abaAtual}`}>
               <Linha
-                key={`${abaAtual}:${recarregar}`}
+                key={`${abaAtual}:${recarregar}:${regra?.chave ?? ""}`}
                 geracao={recarregar}
-                aba={abaAtual === "geral" && pode ? "tudo" : abaAtual}
+                aba={abaDaLinha}
                 lang={lang}
                 s={s}
                 logado={aberta.logado}
                 aoResponder={aoResponder}
-                vazio={abaAtual === "seguindo" ? s.estados.vazioSeguindo : abaAtual === "comunidades" ? s.estados.vazioComunidades : undefined}
-                aoEscreverCom={pode ? (texto) => setEscrevendo({ respostaA: null, comunidade: null, texto }) : undefined}
+                regra={regra}
+                vazio={linhaAtiva && tLinha ? (linhaAtiva.base === "temas" && filtroVazio(linhaAtiva.filtro) ? tLinha.vazio.temas : tLinha.vazio.linha) : abaAtual === "seguindo" ? s.estados.vazioSeguindo : abaAtual === "comunidades" ? s.estados.vazioComunidades : undefined}
+                aoEscreverCom={pode && !linhaAtiva ? (texto) => setEscrevendo({ respostaA: null, comunidade: null, texto }) : undefined}
               />
               </div>
             </>

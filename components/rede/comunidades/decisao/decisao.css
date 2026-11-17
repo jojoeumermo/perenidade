@@ -1,0 +1,169 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * A aba Decisões da comunidade (onda 10, 10E): as votações e os números para a moderação. Linguagem do Mosaico da Arquibancada:
+ * Archivo condensada em caixa alta, carimbo do modo do voto, ladrilhos para as opções e os números, a faixa tecida no alto. Só usa os
+ * tokens de styles/alumia-tokens.css (vale no escuro, no claro, no contraste e no e-ink).
+ */
+
+.d10 { container-type: inline-size; padding: 0.25rem 16px 2.5rem; color: var(--al-texto); font-family: var(--al-fonte); }
+.d10-solto { padding-top: 1rem; }
+.d10-cond { font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 900; text-transform: uppercase; letter-spacing: -0.005em; line-height: 0.95; }
+
+/* ───── Cabeça: título, a linha do que é, a faixa tecida ───── */
+.d10-cabeca { position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 0.75rem 1rem; margin: 0.75rem 0 1.1rem; padding-bottom: 1rem; }
+.d10-cabeca::after { content: ""; position: absolute; inset: auto 0 0; height: var(--al-faixa-altura, 6px); background: var(--al-faixa); border-radius: 2px; }
+.d10-titulo { margin: 0; font-size: clamp(2rem, 7cqi, 3rem); }
+.d10-lead { margin: 0.4rem 0 0; max-width: 40rem; color: var(--al-texto-2); font-size: 0.95rem; line-height: 1.5; }
+.d10-mais { font-size: 1.2rem; font-weight: 900; line-height: 1; }
+
+.d10-grade { display: grid; gap: 1.25rem; }
+@container (min-width: 60rem) { .d10-grade:has(.d10-coluna-lado) { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); align-items: start; } }
+.d10-coluna { display: grid; gap: 1rem; min-width: 0; }
+.d10-lista { display: grid; gap: 0.85rem; }
+.d10-grupo-rotulo { margin: 0.25rem 0 0; color: var(--al-texto-3); font-size: 1.05rem; letter-spacing: 0.04em; }
+
+.d10-vazio { margin: 0; padding: 1rem 1.1rem; border-radius: var(--al-raio); border: 1px dashed var(--al-superficie-2); color: var(--al-texto-2); font-size: 0.95rem; line-height: 1.5; }
+.d10-nota { margin: 0.5rem 0 0; color: var(--al-texto-3); font-size: 0.85rem; line-height: 1.45; }
+.d10-nota-forte { color: var(--al-texto-2); font-weight: 600; }
+.d10-erro { margin: 0.6rem 0 0; color: var(--al-vermelho-letra, var(--al-vermelho-texto)); font-size: 0.9rem; font-weight: 700; }
+.d10-ok { display: flex; align-items: flex-start; gap: 0.5rem; margin: 0.75rem 0 0; padding: 0.7rem 0.85rem; border-radius: 10px; background: var(--al-superficie-2); color: var(--al-texto); font-size: 0.92rem; font-weight: 600; line-height: 1.45; }
+.d10-ok-marca { flex: none; display: inline-grid; place-items: center; width: 1.4rem; height: 1.4rem; border-radius: 5px; background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 0.85rem; font-weight: 900; }
+.d10-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin-top: 0.85rem; }
+
+/* ───── O cartão da votação ───── */
+.d10-cartao { position: relative; padding: 1.05rem 1.1rem 1.1rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.d10-cartao-aberta { box-shadow: inset 4px 0 0 var(--al-vermelho); }
+.d10-cartao-cancelada { opacity: 0.85; }
+.d10-cartao-topo { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem 0.7rem; }
+.d10-estado { display: inline-flex; align-items: center; min-height: 1.6rem; padding: 0 0.55rem; border-radius: 5px; font-size: 0.95rem; letter-spacing: 0.04em; }
+.d10-estado-aberta { background: var(--al-vermelho); color: var(--al-sobre-vermelho); }
+.d10-estado-fechada { background: var(--al-saliente); color: var(--al-sobre-saliente); }
+.d10-estado-cancelada { background: var(--al-superficie-2); color: var(--al-texto-2); text-decoration: line-through; }
+.d10-quando { color: var(--al-texto-2); font-size: 0.88rem; font-weight: 600; }
+/* O carimbo do modo: à vista antes de votar, levemente torto, como carimbo de papel. */
+.d10-carimbo {
+  margin-inline-start: auto; display: inline-flex; align-items: center; min-height: 1.7rem; padding: 0.15rem 0.55rem; border: 2px solid currentColor; border-radius: 4px;
+  font-size: 0.92rem; letter-spacing: 0.05em; transform: rotate(-2deg);
+}
+.d10-carimbo-secreta { color: var(--al-dourado); }
+.d10-carimbo-aberta { color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+:root:is([data-contrast], [data-eink]) .d10-carimbo { transform: none; color: var(--al-texto); }
+@media (prefers-reduced-motion: reduce) { .d10-carimbo { transform: none; } }
+.d10-pergunta { margin: 0.75rem 0 0; font-size: clamp(1.55rem, 5.5cqi, 2.05rem); overflow-wrap: anywhere; }
+.d10-explicacao { margin: 0.5rem 0 0; color: var(--al-texto-2); font-size: 0.95rem; line-height: 1.5; overflow-wrap: anywhere; }
+.d10-rodape { display: flex; justify-content: flex-end; margin-top: 0.5rem; }
+
+/* As opções do voto: ladrilhos com o número da opção. */
+.d10-voto { margin-top: 0.4rem; }
+.d10-aviso-aberta { margin: 0.75rem 0 0; padding: 0.6rem 0.8rem; border-radius: 8px; border: 2px solid var(--al-vermelho-texto); color: var(--al-texto); font-size: 0.9rem; font-weight: 600; line-height: 1.45; }
+.d10-opcoes { display: grid; gap: 0.5rem; margin: 0.6rem 0 0; padding: 0; border: 0; min-width: 0; }
+@container (min-width: 34rem) { .d10-opcoes { grid-template-columns: repeat(2, minmax(0, 1fr)); } .d10-opcoes > legend { grid-column: 1 / -1; } }
+.d10-opcoes > legend { float: left; margin: 0 0 0.15rem; padding: 0; }
+.d10-opcao {
+  position: relative; display: flex; align-items: center; gap: 0.65rem; min-height: 52px; padding: 0.5rem 0.75rem 0.5rem 0.55rem; border-radius: 10px;
+  background: var(--al-fundo); border: 1.5px solid var(--al-superficie-2); color: var(--al-texto); font-size: 0.98rem; font-weight: 600; line-height: 1.3; cursor: pointer;
+}
+.d10-opcao input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.d10-opcao-n { flex: none; display: inline-grid; place-items: center; width: 2rem; height: 2rem; border-radius: 6px; background: var(--al-superficie-2); color: var(--al-texto-2); font-size: 1.05rem; }
+.d10-opcao-texto { min-width: 0; overflow-wrap: anywhere; }
+.d10-opcao:has(input:checked) { background: var(--al-saliente); color: var(--al-sobre-saliente); border-color: var(--al-saliente); box-shadow: inset 0 -4px 0 var(--al-vermelho); }
+.d10-opcao:has(input:checked) .d10-opcao-n { background: var(--al-vermelho); color: var(--al-sobre-vermelho); }
+.d10-opcao:has(input:focus-visible) { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) { .d10-opcao:not(:has(input:checked)):hover { border-color: var(--al-texto-3); } }
+.d10-opcoes:disabled .d10-opcao { cursor: default; opacity: 0.8; }
+:root:is([data-contrast], [data-eink]) .d10-opcao:has(input:checked) { outline: 2px solid var(--al-texto); }
+
+.d10-confirmar { margin-top: 0.85rem; padding: 0.8rem 0.9rem; border-radius: 10px; background: var(--al-superficie-2); border-inline-start: 4px solid var(--al-vermelho); }
+.d10-confirmar p { margin: 0; font-size: 0.95rem; font-weight: 600; line-height: 1.45; }
+.d10-confirmar .d10-acoes { margin-top: 0.65rem; }
+.d10-confirmar-perigo { border-inline-start-color: var(--al-vermelho-texto); }
+
+.d10-como { margin-top: 0.75rem; color: var(--al-texto-2); font-size: 0.88rem; }
+.d10-como summary { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; color: var(--al-texto); cursor: pointer; }
+.d10-como summary:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; border-radius: 4px; }
+.d10-como p { margin: 0.1rem 0 0; max-width: 44rem; line-height: 1.55; }
+
+/* O resultado: barras com o número, a vencedora com o ladrilho dourado. */
+.d10-resultado { margin-top: 0.85rem; }
+.d10-resultado-titulo { margin: 0 0 0.55rem; color: var(--al-texto-3); font-size: 1.05rem; letter-spacing: 0.04em; }
+.d10-barras { display: grid; gap: 0.7rem; margin: 0; padding: 0; list-style: none; }
+.d10-barra-cabeca { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.55rem; }
+.d10-barra-texto { min-width: 0; flex: 1 1 12rem; font-size: 0.98rem; font-weight: 600; overflow-wrap: anywhere; }
+.d10-barra-n { font-size: 1.15rem; color: var(--al-texto); }
+.d10-venceu { display: inline-flex; align-items: center; min-height: 1.45rem; padding: 0 0.45rem; border-radius: 5px; background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 0.88rem; letter-spacing: 0.04em; }
+.d10-trilho { position: relative; height: 10px; margin-top: 0.3rem; border-radius: 3px; background: var(--al-superficie-2); overflow: hidden; }
+.d10-preenchido { position: absolute; inset: 0 auto 0 0; border-radius: 3px; background: var(--al-texto-3); }
+.d10-barra-vencedora .d10-preenchido { background: var(--al-vermelho); }
+:root:is([data-contrast], [data-eink]) .d10-preenchido { background: var(--al-texto); }
+.d10-quem { margin: 0.35rem 0 0; color: var(--al-texto-2); font-size: 0.85rem; line-height: 1.45; overflow-wrap: anywhere; }
+.d10-quem-rotulo { font-weight: 700; color: var(--al-texto-3); }
+
+/* ───── Abrir votação ───── */
+.d10-nova { display: grid; gap: 0.9rem; padding: 1.1rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1.5px solid var(--al-texto-3); }
+.d10-nova-titulo { margin: 0; font-size: 1.7rem; }
+.d10-campo { display: grid; gap: 0.3rem; min-width: 0; margin: 0; padding: 0; border: 0; color: var(--al-texto-2); font-size: 0.9rem; font-weight: 700; }
+.d10-campo > legend { margin: 0 0 0.35rem; padding: 0; }
+.d10-campo :is(input:not([type="radio"]), textarea) {
+  width: 100%; min-height: 44px; padding: 0.5rem 0.7rem; border-radius: 8px; border: 1.5px solid var(--al-superficie-2);
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-weight: 400; font-size: 0.97rem;
+}
+.d10-campo textarea { line-height: 1.45; resize: vertical; }
+.d10-campo :is(input, textarea):focus-visible { outline: 3px solid var(--al-foco); outline-offset: 1px; }
+.d10-campo :is(input, textarea)::placeholder { color: var(--al-texto-3); opacity: 1; }
+.d10-campo .d10-nota { margin: 0; font-weight: 400; }
+.d10-campo-grupo { gap: 0.55rem; }
+.d10-lista-opcoes { display: grid; gap: 0.45rem; margin: 0; padding: 0; list-style: none; }
+.d10-lista-opcoes li { display: flex; align-items: center; gap: 0.5rem; }
+.d10-tirar { flex: none; display: inline-grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 8px; background: transparent; color: var(--al-texto-2); font-size: 1.4rem; cursor: pointer; }
+.d10-tirar:hover { background: var(--al-superficie-2); color: var(--al-texto); }
+.d10-tirar:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 1px; }
+.d10-modos { display: grid; gap: 0.5rem; }
+@container (min-width: 34rem) { .d10-modos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.d10-modo {
+  position: relative; display: grid; gap: 0.25rem; padding: 0.7rem 0.8rem; border-radius: 10px; border: 1.5px solid var(--al-superficie-2); background: var(--al-fundo);
+  color: var(--al-texto); cursor: pointer;
+}
+.d10-modo input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.d10-modo-nome { font-size: 1.3rem; }
+.d10-modo-dica { color: var(--al-texto-2); font-size: 0.85rem; font-weight: 400; line-height: 1.45; }
+.d10-modo:has(input:checked) { border-color: var(--al-texto); box-shadow: inset 0 -4px 0 var(--al-vermelho); }
+.d10-modo:has(input:focus-visible) { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+.d10-dois { display: grid; gap: 0.9rem; }
+@container (min-width: 34rem) { .d10-dois { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }
+
+/* ───── Os números para a moderação ───── */
+.d10-numeros { padding: 1.05rem 1.1rem 1.15rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); min-width: 0; }
+.d10-secao-titulo { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.3rem; font-size: 1.6rem; }
+.d10-ladrilho-icone { flex: none; display: inline-grid; place-items: center; width: 2rem; height: 2rem; border-radius: 6px; background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 1.1rem; letter-spacing: 0; }
+.d10-numeros .d10-lead { font-size: 0.88rem; }
+.d10-ladrilhos { display: grid; gap: 0.9rem; margin-top: 0.9rem; }
+.d10-ladrilho-grupo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem; }
+.d10-ladrilho-grupo-largo { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.d10-ladrilho-grupo > .d10-grupo-rotulo { grid-column: 1 / -1; font-size: 0.95rem; }
+.d10-ladrilho { display: grid; align-content: start; gap: 0.25rem; min-height: 4.6rem; padding: 0.55rem 0.65rem; border-radius: 8px; background: var(--al-fundo); border: 1px solid var(--al-linha); }
+.d10-ladrilho-n { font-size: 1.85rem; color: var(--al-texto); }
+.d10-ladrilho-rotulo { color: var(--al-texto-2); font-size: 0.78rem; font-weight: 600; line-height: 1.3; }
+.d10-ladrilho-vazio .d10-ladrilho-n { font-size: 1rem; color: var(--al-texto-3); padding-top: 0.45rem; }
+
+.d10-tabela-caixa { margin-top: 1rem; }
+.d10-tabela { width: 100%; border-collapse: collapse; font-size: 0.86rem; font-variant-numeric: tabular-nums; }
+.d10-tabela th, .d10-tabela td { padding: 0.45rem 0.4rem; border-bottom: 1px solid var(--al-linha); text-align: end; vertical-align: top; }
+.d10-tabela thead th { color: var(--al-texto-3); font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.25; }
+.d10-tabela th[scope="row"], .d10-tabela thead th:first-child { text-align: start; color: var(--al-texto-2); font-weight: 700; white-space: nowrap; }
+.d10-tabela td { color: var(--al-texto); font-weight: 600; }
+.d10-tabela td.d10-poucos { color: var(--al-texto-3); font-weight: 400; font-size: 0.78rem; }
+.d10-mini { display: block; height: 4px; margin: 0.25rem 0 0 auto; width: 3.2rem; border-radius: 2px; background: var(--al-superficie-2); overflow: hidden; }
+.d10-mini span { display: block; height: 100%; margin-inline-start: auto; background: var(--al-vermelho); }
+.d10-so-estreito { display: none; }
+/* Estreito: cada semana vira um cartão, com o rótulo ao lado de cada número (nada de rolar para o lado). */
+@container (max-width: 34rem) {
+  .d10-tabela thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .d10-tabela, .d10-tabela tbody, .d10-tabela tr { display: block; }
+  .d10-tabela tr { padding: 0.55rem 0; border-bottom: 1px solid var(--al-linha); }
+  .d10-tabela th[scope="row"] { display: block; padding: 0 0 0.3rem; border: 0; }
+  .d10-tabela td { display: flex; justify-content: space-between; align-items: baseline; gap: 0.75rem; padding: 0.15rem 0; border: 0; }
+  .d10-tabela td::before { content: attr(data-rotulo); color: var(--al-texto-2); font-weight: 400; font-size: 0.82rem; }
+  .d10-mini { display: none; }
+  .d10-tabela:not([data-todas]) tr.d10-antiga { display: none; }
+  .d10-so-estreito { display: inline-flex; margin-top: 0.6rem; }
+}

@@ -1,0 +1,161 @@
+{
+  "_rascunho": true,
+  "aba": "Estructura",
+  "abaEspacos": "Espacios",
+  "carregando": "Cargando…",
+  "tentar": "Intentar de nuevo",
+  "salvar": "Guardar",
+  "salvo": "Guardado.",
+  "cancelar": "Cancelar",
+  "aceitar": "Aceptar",
+  "recusar": "Rechazar",
+  "desfazer": "Deshacer",
+  "enviar": "Enviar",
+  "enviado": "Pedido enviado.",
+  "nenhuma": "Ninguna por ahora.",
+  "postsSemana": "{n} publicaciones esta semana",
+  "semanaQuieta": "Tranquila esta semana",
+  "tipo": { "aberta": "Abierta", "restrita": "Restringida", "fechada": "Cerrada" },
+  "estrutura": {
+    "titulo": "Cómo se organiza esta comunidad",
+    "moraEm": "Vive dentro de",
+    "subcomunidades": "Subcomunidades",
+    "semSub": "Ninguna subcomunidad vive aquí.",
+    "onde": "Dónde",
+    "ondeVazio": "La moderación todavía no escribió la ciudad.",
+    "verCidade": "Otras comunidades de {cidade}",
+    "org": "Organización",
+    "verEspacos": "Ver los Espacios de la organización",
+    "soLeitura": "Comunidad de avisos",
+    "soLeituraTexto": "Solo la moderación abre publicaciones aquí.",
+    "respostasTexto": {
+      "todos": "Todo el mundo puede responder a los avisos.",
+      "membros": "Quien es de la comunidad puede responder a los avisos.",
+      "ninguem": "Los avisos no reciben respuesta."
+    },
+    "herancaTexto": {
+      "propria": "Tiene moderación propia.",
+      "mae": "La moderación de {mae} también cuida de aquí."
+    }
+  },
+  "ajustar": {
+    "titulo": "Ajustar la estructura",
+    "intro": "Solo quien modera ve esta parte. Todo vale al momento y queda escrito en la pestaña para quien lee.",
+    "soLeitura": "Comunidad de avisos (solo la moderación abre publicaciones)",
+    "respostas": "Quién responde a los avisos",
+    "respostasOpcoes": { "todos": "Todo el mundo", "membros": "Quien es de la comunidad", "ninguem": "Nadie" },
+    "reposts": "Quién puede traer publicaciones de otra comunidad aquí",
+    "repostsOpcoes": { "todos": "Quien puede publicar aquí", "moderacao": "Solo la moderación", "ninguem": "Nadie" },
+    "local": "Ciudad y barrio",
+    "localAjuda": "Escribe el municipio y, si quieres, el barrio. No usamos la ubicación del aparato ni mapas de fuera.",
+    "uf": "Estado",
+    "ufVazia": "Elige",
+    "municipio": "Municipio",
+    "municipioExemplo": "Ej.: Campinas",
+    "bairro": "Barrio (opcional)",
+    "bairroExemplo": "Ej.: Vila Industrial",
+    "mae": "Vivir dentro de otra comunidad",
+    "maeAjuda": "Escribe la dirección de la comunidad madre (lo que viene después de /c/). Su moderación recibe el pedido y decide. Un solo nivel: la madre no vive dentro de otra, y quien alberga subcomunidades no se muda dentro de otra.",
+    "maeCampo": "Dirección de la comunidad madre",
+    "maeExemplo": "Ej.: vivienda",
+    "maeEsperando": "Esperando que {mae} decida.",
+    "maeSair": "Salir de {mae}",
+    "naoPodeSerFilha": "Esta comunidad alberga subcomunidades, así que no se muda dentro de otra.",
+    "heranca": "Moderación",
+    "herancaOpcoes": {
+      "propria": "Solo nuestra moderación cuida de aquí",
+      "mae": "La moderación de la comunidad madre también cuida de aquí"
+    },
+    "herancaAjuda": "Con la segunda opción, quien modera la madre pasa a moderar esta comunidad con los mismos poderes, mientras viva allí.",
+    "pedidosFilhas": "Pedidos para vivir aquí",
+    "pedidoFilha": "{nome} quiere ser subcomunidad de aquí.",
+    "pedidoFilhaHerda": "{nome} quiere ser subcomunidad de aquí y que la moderación de aquí cuide también de allí.",
+    "tirarFilha": "Dejar de albergar",
+    "org": "Aparecer en los Espacios de una organización",
+    "orgAjuda": "Solo organizaciones con sello. Quien gestiona la organización recibe el pedido y decide.",
+    "orgCampo": "@ de la organización",
+    "orgExemplo": "Ej.: @colectivo",
+    "orgEsperando": "Esperando que @{handle} decida.",
+    "orgSair": "Salir de los Espacios de @{handle}",
+    "salvarRegras": "Guardar las reglas de publicación",
+    "salvarLocal": "Guardar la ciudad y el barrio",
+    "filhasAqui": "Subcomunidades que viven aquí"
+  },
+  "espacos": {
+    "titulo": "Espacios",
+    "intro": "Las comunidades y los núcleos de esta organización, en un solo lugar. Aquí aparecen lugares, nunca quién participa.",
+    "comunidades": "Comunidades",
+    "nucleos": "Núcleos",
+    "semComunidades": "Ninguna comunidad vinculada todavía.",
+    "semNucleos": "Ningún núcleo todavía.",
+    "dentro": "Subcomunidades: {nomes}",
+    "pedidos": "Comunidades que piden aparecer aquí",
+    "pedido": "{nome} pidió aparecer en los Espacios.",
+    "tirar": "Quitar de los Espacios",
+    "semSelo": "Los Espacios aparecen para todo el mundo cuando la organización tiene sello."
+  },
+  "cidade": {
+    "porCategoria": "Por tema",
+    "porCidade": "Por ciudad",
+    "titulo": "Comunidades por ciudad",
+    "intro": "La ciudad y el barrio los escribe la moderación de cada comunidad. Nada de ubicación del aparato.",
+    "filtrar": "Buscar municipio",
+    "contagem": "{n} comunidades",
+    "contagemUma": "1 comunidad",
+    "vazio": "Ninguna comunidad escribió su ciudad todavía.",
+    "nenhum": "Ningún municipio con ese nombre.",
+    "voltar": "Todas las ciudades",
+    "cidadeToda": "Toda la ciudad",
+    "escolha": "Elige un municipio para ver sus comunidades."
+  },
+  "levar": {
+    "botao": "Llevar a otra comunidad",
+    "titulo": "Llevar esta publicación a otra comunidad",
+    "intro": "La publicación va citada, con la comunidad de origen a la vista. Quien allí no puede ver el original solo ve que es restringido.",
+    "destino": "Comunidad",
+    "destinoVazio": "Elige la comunidad",
+    "semDestino": "Todavía no participas en otra comunidad donde puedas publicar.",
+    "comentario": "¿Por qué llevarla allí?",
+    "comentarioExemplo": "Ej.: Esto vale también para nuestro barrio.",
+    "enviar": "Llevar",
+    "levado": "Llevada a {nome}."
+  },
+  "origem": {
+    "trazido": "Traída de {nome}",
+    "restrita": "Traída de una comunidad restringida",
+    "perfil": "Traída de un perfil"
+  },
+  "proposta": {
+    "titulo": "Lugar y casa (opcional)",
+    "intro": "Si la comunidad es de una ciudad o barrio, escríbelo aquí. Si va a vivir dentro de otra, di cuál: su moderación decide después de la aprobación.",
+    "maeCampo": "Comunidad madre (dirección)",
+    "aviso": "La propuesta se envió, pero la ciudad o la comunidad madre no se guardó: {erro}"
+  },
+  "avisos": {
+    "carimbo": "Comunidad de avisos",
+    "paraQuemLe": "Solo la moderación abre posts aquí. Puedes responder a los avisos, según la regla de la comunidad.",
+    "paraModeracao": "Solo la moderación (y los cargos que pueden) abre posts aquí."
+  },
+  "antes": {
+    "soLeitura": "Esta es una comunidad de avisos: solo la moderación abre publicaciones aquí. Puedes responder a los avisos, según la regla de la comunidad."
+  },
+  "erros": {
+    "so_leitura": "Esta es una comunidad de avisos: solo la moderación abre publicaciones aquí.",
+    "so_leitura_respostas": "En esta comunidad de avisos, la regla no te deja responder.",
+    "mae_e_filha": "Esa comunidad ya vive dentro de otra; elige una que no sea subcomunidad.",
+    "filha_e_mae": "Esta comunidad alberga subcomunidades y no puede vivir dentro de otra.",
+    "sem_selo": "Solo las organizaciones con sello tienen Espacios.",
+    "repostar_publico": "Esta publicación es de un público cerrado y no sale de su lugar.",
+    "repostar_fechado": "La comunidad de destino no acepta publicaciones traídas de otro lugar (o solo de la moderación).",
+    "mesma_comunidade": "La publicación ya está en esa comunidad.",
+    "citar_fechado": "Quien escribió esta publicación no permite citarla.",
+    "ja_decidida": "La propuesta ya fue decidida.",
+    "invalido": "Revisa lo que escribiste."
+  },
+  "ufs": {
+    "AC": "Acre", "AL": "Alagoas", "AP": "Amapá", "AM": "Amazonas", "BA": "Bahía", "CE": "Ceará", "DF": "Distrito Federal",
+    "ES": "Espírito Santo", "GO": "Goiás", "MA": "Maranhão", "MT": "Mato Grosso", "MS": "Mato Grosso del Sur", "MG": "Minas Gerais",
+    "PA": "Pará", "PB": "Paraíba", "PR": "Paraná", "PE": "Pernambuco", "PI": "Piauí", "RJ": "Río de Janeiro", "RN": "Río Grande del Norte",
+    "RS": "Río Grande del Sur", "RO": "Rondônia", "RR": "Roraima", "SC": "Santa Catarina", "SP": "São Paulo", "SE": "Sergipe", "TO": "Tocantins"
+  }
+}

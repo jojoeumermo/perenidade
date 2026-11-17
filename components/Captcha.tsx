@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Locale } from "@/i18n/config";
 import { captchaKey } from "@/lib/backend";
 
@@ -41,8 +41,24 @@ function load(): Promise<void> {
 }
 
 /**
- * Desafio contra robôs. Cada resposta vale para um único pedido: depois de cada tentativa,
- * quem usa o componente muda `round` e um desafio novo é feito.
+ * O estado do desafio num formulário: a resposta recebida, a rodada (muda a cada tentativa, porque cada resposta vale um pedido só)
+ * e se ainda falta a resposta (só quando o desafio está ligado).
+ */
+export function useCaptcha() {
+  const [token, setToken] = useState("");
+  const [round, setRound] = useState(0);
+  const receive = useCallback((v: string) => setToken(v), []);
+  const spend = useCallback(() => {
+    setToken("");
+    setRound((r) => r + 1);
+  }, []);
+  return { token, round, receive, spend, waiting: captchaEnabled && !token };
+}
+
+/**
+ * Desafio contra robôs (Turnstile). Cada resposta vale para um único pedido: depois de cada tentativa,
+ * quem usa o componente muda `round` e um desafio novo é feito. A resposta vai junto do pedido para o servidor do site, que a
+ * confere na Cloudflare antes de criar a conta, entrar ou mandar um e-mail (app/api/alumia/porta/*).
  */
 export function Captcha({ action, lang, round, onToken }: { action: string; lang: Locale; round: number; onToken: (token: string) => void }) {
   const box = useRef<HTMLDivElement>(null);

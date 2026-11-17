@@ -1,0 +1,103 @@
+{
+  "_rascunho": "Brouillon de traduction du texte portugais (pt.json est la version finale).",
+  "titulo": "Groupes d’étude",
+  "chamada": "Un petit groupe, un engagement par semaine. Chaque personne coche sa propre semaine ; le groupe ne voit que le total, quand au moins 3 ont coché et au moins 3 pas encore.",
+  "entre": "Les groupes d’étude sont pour les personnes sur Alumia. Connectez-vous pour créer un groupe ou en rejoindre un avec un code.",
+  "tentar": "Réessayer",
+  "lado": "Créer ou rejoindre un groupe",
+  "minhas": {
+    "titulo": "Vos groupes",
+    "vazioTitulo": "Aucun groupe pour l’instant",
+    "vazio": "Créez un groupe et envoyez le code aux personnes qui étudient avec vous, ou rejoignez-en un avec le code reçu."
+  },
+  "turma": {
+    "cuida": "Vous l’animez",
+    "pessoas": "{n} personnes dans le groupe",
+    "poucasPessoas": "Moins de 3 personnes dans le groupe",
+    "combinado": "Engagement de la semaine"
+  },
+  "semana": {
+    "titulo": "Semaine du {dia}",
+    "total": "personnes l’ont tenu jusqu’ici",
+    "poucos": "Pas de nombre pour l’instant. Il apparaît quand au moins 3 ont coché et au moins 3 pas encore, pour que personne ne sache qui c’était.",
+    "marcar": "J’ai fait celui de la semaine",
+    "fiz": "Fait cette semaine",
+    "marcado": "Coché. Vous seul·e savez que c’était vous.",
+    "desmarcado": "Décoché.",
+    "soVoce": "Vous seul·e voyez votre coche. Touché par erreur ? Touchez de nouveau pour décocher.",
+    "ninguemVe": "Personne ne voit qui a coché ni qui ne l’a pas fait : le groupe ne voit que le total."
+  },
+  "fileira": {
+    "titulo": "Les 8 dernières semaines",
+    "acesa": "Semaine du {dia} : {n} personnes l’ont tenu.",
+    "apagada": "Semaine du {dia} : pas de nombre.",
+    "regra": "Chaque carreau est une semaine. Il s’allume avec le nombre quand au moins 3 personnes tiennent l’engagement et au moins 3 non ; sinon, il reste éteint et sans nombre."
+  },
+  "convite": {
+    "titulo": "Code du groupe",
+    "copiar": "Copier l’invitation",
+    "copiado": "Invitation copiée. Envoyez-la seulement aux personnes que vous voulez dans le groupe.",
+    "copieVoce": "Impossible de copier. L’invitation est : {endereco}",
+    "novo": "Changer le code",
+    "novoFeito": "Nouveau code. L’ancien ne marche plus.",
+    "dica": "Qui a le code entre. Le groupe accueille jusqu’à 12 personnes."
+  },
+  "editar": {
+    "abrir": "Changer l’engagement",
+    "titulo": "Changer le nom et l’engagement",
+    "aviso": "Les membres du groupe reçoivent un avis du nouvel engagement.",
+    "salvar": "Enregistrer",
+    "cancelar": "Annuler",
+    "feito": "Groupe mis à jour."
+  },
+  "sair": {
+    "botao": "Quitter le groupe",
+    "titulo": "Quitter « {nome} » ?",
+    "texto": "Votre coche de cette semaine part avec vous. Pour revenir, il faudra de nouveau le code.",
+    "textoCuida": "Votre coche de cette semaine part avec vous. Si personne d’autre n’anime le groupe, la personne présente depuis le plus longtemps prend le relais. Si vous êtes la dernière personne, le groupe prend fin.",
+    "sim": "Quitter",
+    "nao": "Rester",
+    "feito": "Vous avez quitté « {nome} »."
+  },
+  "entrar": {
+    "titulo": "Rejoindre avec un code",
+    "texto": "Collez le code ou l’invitation envoyée par quelqu’un du groupe.",
+    "campo": "Code du groupe",
+    "botao": "Rejoindre le groupe",
+    "feito": "Vous avez rejoint « {nome} »."
+  },
+  "comecar": {
+    "titulo": "Créer un groupe",
+    "texto": "Donnez-lui un nom et écrivez l’engagement de la semaine. Ensuite, envoyez simplement le code.",
+    "botao": "Créer le groupe",
+    "feito": "Groupe « {nome} » créé. Envoyez le code aux personnes qui étudient avec vous."
+  },
+  "campos": {
+    "nome": "Nom du groupe",
+    "nomeExemplo": "Rédaction du samedi",
+    "meta": "Engagement de la semaine"
+  },
+  "regra": {
+    "titulo": "Comment le groupe compte",
+    "itens": [
+      "Chaque personne coche seulement sa propre semaine, et peut décocher.",
+      "Le groupe voit le total de la semaine, et seulement quand il atteint 3. En dessous, personne ne voit de nombre.",
+      "Personne ne voit qui a coché, qui ne l’a pas fait, ni qui est dans le groupe : seulement combien de personnes, à partir de 3.",
+      "Pas de tableau de score, pas de série, pas de comparaison entre groupes.",
+      "Quand la semaine se ferme, il ne reste que le nombre du groupe : la coche de chaque personne est effacée."
+    ]
+  },
+  "erros": {
+    "nao_encontrado": "Aucun groupe avec ce code. Vérifiez auprès de la personne qui l’a envoyé.",
+    "turma_cheia": "Ce groupe a déjà 12 personnes.",
+    "limite_de_turmas": "Vous êtes déjà dans 5 groupes. Quittez-en un pour en rejoindre un autre.",
+    "sem_permissao": "Seule la personne qui anime le groupe peut faire cela.",
+    "muitos_pedidos": "Trop d’essais d’affilée. Attendez un peu et réessayez.",
+    "invalido:nome": "Le nom doit avoir de 3 à 60 caractères.",
+    "invalido:meta": "L’engagement doit avoir de 3 à 120 caractères.",
+    "entre_primeiro": "Connectez-vous pour continuer.",
+    "alumia_entrada": "Votre compte attend encore l’approbation d’Alumia.",
+    "sem_servico": "Alumia est hors ligne pour le moment. Réessayez bientôt.",
+    "generico": "Ça n’a pas marché. Réessayez."
+  }
+}

@@ -1,0 +1,237 @@
+{
+  "_rascunho": true,
+  "editor": {
+    "secoes": "栏目",
+    "links": "链接",
+    "pacotes": "推荐包",
+    "aParte": "这一部分用自己的按钮保存。"
+  },
+  "secoes": {
+    "titulo": "个人主页栏目",
+    "ajuda": "选择在主页标签上方显示什么，以及显示顺序。不经你选择，什么都不会显示。",
+    "noPerfil": "主页上，按此顺序",
+    "fora": "不在主页上",
+    "nenhuma": "未选择栏目：主页只显示页头和标签。",
+    "mostrar": "显示",
+    "tirar": "移除",
+    "subir": "上移「{nome}」",
+    "descer": "下移「{nome}」",
+    "salvar": "保存栏目",
+    "salvando": "正在保存…",
+    "salvo": "栏目已保存。",
+    "nomes": {
+      "sobre": "关于",
+      "links": "链接",
+      "trilhas": "学习路径",
+      "comunidades": "社区",
+      "voluntariado": "我出过力的地方",
+      "destaques": "精选",
+      "colecoes": "合集",
+      "conquistas": "成就"
+    },
+    "ajudas": {
+      "sobre": "比简介更长的一段文字。",
+      "links": "你的链接，以宽按钮显示。",
+      "trilhas": "你标记的学校学习路径。",
+      "comunidades": "只显示你逐一选择的社区。",
+      "voluntariado": "你参与过的学会工作方向，由协调组确认。",
+      "destaques": "精选的快拍、帖子和行动。",
+      "colecoes": "你整理的合集。",
+      "conquistas": "你开启的成就。"
+    }
+  },
+  "sobre": {
+    "titulo": "关于",
+    "ajuda": "纯文本，最多 {max} 个字符。只有开启“关于”栏目时才显示。",
+    "rotulo": "“关于”文字",
+    "contador": "{n} / {max}"
+  },
+  "comunidades": {
+    "titulo": "主页上的社区",
+    "ajuda": "只显示你勾选的、你参与的公开社区。退出社区后，它会立即从主页上消失。",
+    "nenhuma": "你还没有参与任何公开社区。",
+    "limite": "最多 {max} 个社区。",
+    "vazio": "未选择社区。"
+  },
+  "trilhas": {
+    "vazio": "未标记学习路径。",
+    "ajuda": "由本人根据自己设备上的学习记录标记。"
+  },
+  "links": {
+    "titulo": "链接",
+    "ajuda": "最多 {max} 个，顺序由你决定。只接受 https；跟踪参数会自动去掉。没有人统计点击。",
+    "tituloDoLink": "标题",
+    "endereco": "地址",
+    "acrescentar": "添加链接",
+    "tirar": "移除「{titulo}」",
+    "subir": "上移「{titulo}」",
+    "descer": "下移「{titulo}」",
+    "salvar": "保存链接",
+    "salvo": "链接已保存。",
+    "invalido": "请检查标题（最多 {max} 个字符）和地址（https）。",
+    "vazio": "还没有链接。",
+    "conferidoRelMe": "已验证：该网站链接回这个主页",
+    "conferidoMediacao": "已由调解组验证",
+    "conferido": "已验证",
+    "conferir": "验证",
+    "conferindo": "正在验证…",
+    "comoConferir": "要验证，请在你的网站上放一个带 rel=\"me\" 的、指向你主页的链接：",
+    "ok": "已验证。",
+    "naoAchou": "我们没有在该页面找到回链。请确认链接在那里并带有 rel=\"me\"，然后再试。",
+    "semServico": "验证暂时不可用，请稍后再试。",
+    "salveAntes": "请先保存链接再验证。",
+    "instagram": {
+      "ajuda": "Instagram 不能使用 rel=\"me\"。请向调解组申请：你会得到一个代码，放进那边的简介里，由调解组核对。",
+      "pedir": "向调解组申请",
+      "codigo": "放进 Instagram 简介：",
+      "esperando": "等待调解组。",
+      "desistir": "取消申请"
+    }
+  },
+  "status": {
+    "tipos": {
+      "na_luta": "在斗争中",
+      "ausente": "不在"
+    },
+    "publico": "谁能看到状态",
+    "publicos": {
+      "todos": "能看到主页的人",
+      "roda": "只有我的信任圈"
+    },
+    "soRoda": "只有你的信任圈能看到这个状态。"
+  },
+  "voluntariado": {
+    "titulo": "我出过力的地方",
+    "ajuda": "你参与过的学会工作方向，按年份记录。协调组逐条确认；只有确认过的条目会显示，且只在开启该栏目时显示。",
+    "frente": "方向",
+    "de": "起始",
+    "ate": "截至",
+    "hoje": "今天",
+    "ateHoje": "至今",
+    "acrescentar": "添加",
+    "guardar": "保存",
+    "cancelar": "取消",
+    "mudar": "修改",
+    "tirar": "移除",
+    "vazio": "还没有条目。",
+    "limite": "最多 {max} 条。",
+    "mudarVolta": "修改已确认的条目后，它会重新交给协调组确认。",
+    "confirmado": "已由协调组确认",
+    "situacoes": {
+      "esperando": "等待协调组",
+      "confirmado": "已确认",
+      "recusado": "未确认"
+    },
+    "frentes": {
+      "educacao": "教育",
+      "curadoria": "策展",
+      "mediacao": "调解",
+      "revisao": "校对",
+      "traducao": "翻译",
+      "jornalismo": "新闻",
+      "comunicacao": "传播",
+      "mentoria": "辅导",
+      "design": "设计",
+      "desenvolvimento": "开发",
+      "saude": "健康",
+      "parcerias": "合作",
+      "eventos": "活动"
+    }
+  },
+  "pacotes": {
+    "titulo": "入门推荐包",
+    "ajuda": "团队会整理一些主页推荐包，供新来的人关注。只有你接受某个推荐包的邀请，你才会进入它，并且可以随时退出。",
+    "convites": "邀请",
+    "semConvites": "现在没有邀请。",
+    "dentro": "你所在的推荐包",
+    "foraDeTodos": "你不在任何推荐包里。",
+    "aceitar": "加入",
+    "recusar": "拒绝",
+    "sair": "退出",
+    "abrir": "打开",
+    "fechado": "推荐包只收公开主页：主页上锁或隐身时无法加入。",
+    "noPasso": "只有在“编辑主页 › 推荐包”中接受邀请，你才会进入推荐包。"
+  },
+  "pacote": {
+    "rotulo": "入门推荐包",
+    "pessoas": "这个推荐包里有谁",
+    "nPessoas": "{n} 人",
+    "seguirTodas": "全部关注",
+    "seguindo": "正在关注…",
+    "seguidas": "你已关注 {n} 人。",
+    "vazio": "还没有人加入这个推荐包。",
+    "soQuemAceitou": "这里只有同意加入这个推荐包的人。",
+    "compartilhar": "分享推荐包",
+    "link": "推荐包链接",
+    "copiar": "复制链接",
+    "copiado": "链接已复制。",
+    "qr": "推荐包二维码",
+    "qrAjuda": "在本设备上生成，不经过外部服务。可在屏幕上展示或打印。",
+    "baixarQr": "下载二维码",
+    "qrFalhou": "无法在此设备上生成二维码。",
+    "naoAchado": "这个推荐包不存在或已关闭。",
+    "entrar": "登录 Alumia 查看推荐包里有谁。",
+    "explorar": "在“探索”中查看其他推荐包"
+  },
+  "cuidar": {
+    "titulo": "管理推荐包",
+    "ajuda": "邀请不会把任何人放进推荐包：对方收到邀请，只有接受后才会加入。",
+    "novo": "新建推荐包",
+    "endereco": "地址（字母、数字和 -）",
+    "tituloDoPacote": "标题",
+    "descricao": "说明",
+    "ordem": "顺序",
+    "aberto": "开放",
+    "salvar": "保存推荐包",
+    "salvo": "推荐包已保存。",
+    "convidar": "按 @ 邀请",
+    "convidarBotao": "邀请",
+    "convidado": "邀请已发送。对方只有接受后才会加入。",
+    "tirar": "移除 @{handle}",
+    "dentro": "已加入",
+    "convitesEsperando": "等待回复的邀请：{n}",
+    "haConvites": "有等待回复的邀请",
+    "ninguem": "还没有人加入。",
+    "fechado": "已关闭",
+    "vazio": "还没有推荐包。"
+  },
+  "painel": {
+    "voluntariado": {
+      "titulo": "志愿记录",
+      "ajuda": "每一条都由本人填写。只确认协调组确知发生过的事。拒绝需要写明理由。",
+      "vazio": "没有待处理的。",
+      "confirmar": "确认",
+      "recusar": "拒绝",
+      "motivo": "理由（10 到 500 个字符）",
+      "feito": "完成。"
+    },
+    "links": {
+      "titulo": "待验证的 Instagram 链接",
+      "ajuda": "打开那边的主页，看看简介里有没有这个代码。确认后再标记。",
+      "vazio": "没有待处理的。",
+      "esta": "代码在",
+      "naoEsta": "不在",
+      "codigo": "代码",
+      "de": "来自 @{handle}"
+    }
+  },
+  "erros": {
+    "invalido:secoes": "请检查所选栏目。",
+    "invalido:sobre": "“关于”文字太长。",
+    "invalido:comunidades": "只能显示你参与的公开社区。",
+    "invalido:links": "请检查链接：简短标题和不带跟踪参数的 https 地址。",
+    "invalido:site": "调解组只验证 Instagram 链接。",
+    "invalido:frente": "请从列表中选择方向。",
+    "invalido:periodo": "请检查年份。",
+    "invalido:pessoa": "这个主页不能进入推荐包（必须是公开主页）。",
+    "invalido:motivo": "请写明理由，10 到 500 个字符。",
+    "limite:voluntariado": "已达到条目上限。",
+    "repetido": "这一条已经存在。",
+    "perfil_fechado": "推荐包只收公开主页。",
+    "sem_handle": "请先选择你的 @。",
+    "sem_permissao": "你没有权限这样做。",
+    "nao_encontrado": "未找到。",
+    "muitos_pedidos": "连续尝试次数过多，请稍等。",
+    "generico": "没有成功，请再试一次。"
+  }
+}

@@ -83,6 +83,8 @@ export interface ConsultaDaOrg {
   possoVotar: boolean;
   /** Eu já votei (o QUÊ eu votei nunca volta). */
   votei: boolean;
+  /** Onda 9: fechada, com cédulas cifradas que o servidor ainda não abriu (o resultado só sai depois). */
+  apurar?: boolean;
   /** Nomes dos núcleos que votam (nunca as pessoas). */
   nucleos: string[];
 }
@@ -134,6 +136,8 @@ export interface OrgPublica {
   sino: boolean;
   /** Eu posso agir como esta organização (sou gestor)? Só para mim; nunca diz quem mais é. */
   gerencio: boolean;
+  /** Sou de dentro (gerencio ou sou de um núcleo dela)? Só sobre mim. O perfil de exemplo não traz. */
+  dentro?: boolean;
   /** Sem contagem de seguidores: a regra da casa continua (2026-11-rede-perfil.sql:14; PLANO-ALUMIA §4.6, "manter"). */
   nucleos: NucleoDaOrg[];
   votacoes: VotacaoDaOrg[];

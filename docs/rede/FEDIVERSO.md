@@ -77,7 +77,7 @@ segue**, o texto dos posts públicos (HTML vira texto puro: sem marcação, sem 
 ### Chaves
 
 Um par RSA de 2048 bits por ator, gerado no servidor do site na primeira vez. A **chave privada** é guardada **cifrada**
-(AES-256-GCM, chave derivada por HKDF de `ALUMIA_FEDIVERSO_SEGREDO`, que só existe na Vercel) em `interno.rede_fed_atores`: quem
+(AES-256-GCM, chave derivada por HKDF de `ALUMIA_FEDIVERSO_SEGREDO`, que só existe no servidor do site) em `interno.rede_fed_atores`: quem
 lê o banco sozinho não assina nada. Nenhuma tabela da federação está em `public`; todas com RLS e sem permissão direta. O banco só
 responde às ações do servidor (`public.rede_fed_servidor`) a quem traz o segredo (o banco guarda só o SHA-256 dele, em
 `interno.configuracoes`, chave `fediverso`). Nenhuma chave de serviço do Supabase é usada.
@@ -99,8 +99,13 @@ responde às ações do servidor (`public.rede_fed_servidor`) a quem traz o segr
 
 ## O que não funciona (ainda)
 
-- **Responder, curtir ou impulsionar** posts de fora pela Alumia, e ver aqui as respostas, curtidas e impulsos que os posts daqui
-  recebem lá fora (chegam e são ignorados). Menção `@nome@instancia` no texto não vira menção federada.
+No modo básico (sem `fediverso-total`), responder, curtir ou impulsionar posts de fora e ver aqui as respostas, curtidas e
+impulsos de lá não existem (chegam e são ignorados). Com `fediverso-total` isso existe: veja "Gente de fora na tela" e
+"Tela (F4)", mais abaixo. O que falta mesmo com o modo total:
+
+- **Vídeo e áudio de fora** não tocam na Alumia (a rota-proxy só serve imagem): o cartão oferece "Abrir no original".
+- **Menção `@nome@servidor`** no texto de um post daqui não vira menção federada nem link.
+- **Post de perfil** só sai quando a pessoa escolhe "Alumia e Fediverso" no Escrever (com a federação ligada no perfil).
 - **Imagem, áudio e enquete** não saem (a enquete sai como texto; a mídia fica só na Alumia, com o link no fim do post longo).
 - Mensagens diretas: não existem na Alumia (decisão de segurança) e não entram de fora.
 - **Mover a conta** (`Move`/`alsoKnownAs`), importar e exportar seguidores, perfil de comunidade como `Group`.
@@ -109,37 +114,6 @@ responde às ações do servidor (`public.rede_fed_servidor`) a quem traz o segr
 - Lista de bloqueio importada (ex.: listas comunitárias de instâncias abusivas): a mediação bloqueia uma por uma.
 - A entrega roda no servidor do site, chamada pelo banco a cada minuto (`pg_cron` + `pg_net`); sem essas extensões, só sai
   quando alguém segue ou é seguido (a rota entrega na hora) ou quando alguém chama `/api/fediverso/entregar`.
-
-## Como ligar (Jonathan)
-
-Depois do endereço próprio no ar (`docs/rede/ALUMIA-DOMINIO.md`, passos 1 a 6):
-
-1. **Banco:** rodar `supabase/migracoes/2026-11-alumia.sql` no SQL Editor (ou o `install.sql` inteiro; é idempotente). Conferir
-   em Database → Extensions que `pg_cron` e `pg_net` estão ligadas (a migração agenda `lucia-fediverso-entregar` e
-   `lucia-fediverso-limpar` só se estiverem; ligou depois, rode a migração de novo).
-2. **Segredo:** gerar um valor aleatório de 64 caracteres (por exemplo `openssl rand -hex 32`, ou um gerador de senha) e guardar
-   no Bitwarden. Na Vercel (equipe lucia-b323, projeto perenidade) → Settings → Environment Variables → `ALUMIA_FEDIVERSO_SEGREDO`
-   = esse valor (Production, marcado como Sensitive).
-3. **Banco, configuração** (SQL Editor; troque o valor pelo mesmo segredo):
-   ```sql
-   insert into interno.configuracoes (chave, valor) values ('fediverso', jsonb_build_object(
-     'segredo_hash', encode(sha256(convert_to('<o mesmo valor de ALUMIA_FEDIVERSO_SEGREDO>', 'UTF8')), 'hex'),
-     'url_entrega', 'https://alumia.institutolucia.org/api/fediverso/entregar'))
-   on conflict (chave) do update set valor = excluded.valor;
-   ```
-4. **Publicar de novo** na Vercel (o recurso `rede-v2` precisa estar em `NEXT_PUBLIC_RECURSOS`).
-5. **Cloudflare:** o "Bot Fight Mode" e o "Labirinto para IA" podem barrar os servidores do Fediverso (eles não são navegador).
-   Depois do passo 6, se o Mastodon não achar a conta ou as entregas voltarem 403 com página de desafio, crie em Security → WAF →
-   Custom rules uma regra "Skip" para `(http.host eq "alumia.institutolucia.org" and (starts_with(http.request.uri.path, "/api/fediverso/") or starts_with(http.request.uri.path, "/.well-known/")))`.
-   No plano grátis o Bot Fight Mode não aceita exceção: nesse caso, desligue-o ou deixe o registro `alumia` com a nuvem cinza
-   (só DNS: a Alumia passa a não ter o cache do Cloudflare).
-6. **Provar com um Mastodon de verdade** (uma conta pessoal qualquer): ligar a federação no próprio perfil da Alumia; no Mastodon,
-   buscar `@seunome@alumia.institutolucia.org` e seguir; publicar na Alumia um post "Internet" numa comunidade de disciplina e ver
-   chegar lá; na Alumia, buscar a conta do Mastodon e seguir; publicar lá e ver chegar em "Do Fediverso"; desligar e ver o post
-   sumir lá. Ferramentas úteis: `https://webfinger.net`, `https://verify.funfedi.dev`.
-
-**Para desligar tudo:** apagar `ALUMIA_FEDIVERSO_SEGREDO` e publicar de novo (toda rota da federação passa a responder 404), ou
-apagar a linha `fediverso` de `interno.configuracoes` (o banco para de responder ao servidor).
 
 ## Arquivos
 
@@ -150,3 +124,213 @@ apagar a linha `fediverso` de `interno.configuracoes` (o banco para de responder
 - `components/rede/alumia/Fediverso.tsx`, `lib/rede/cliente-alumia.ts`, `i18n/rede/alumia/*.json`.
 - Teste: `npm run testar:fediverso` (WebFinger, ator, assinatura, cifra, opt-in, nada privado sai, caixa de entrada, fila,
   desligar, Salvos, roteamento por host, o nome nos seis idiomas e o bloco do `install.sql`).
+
+## Gente de fora na tela (modo `fediverso-total`)
+
+O que as rotas da tela devolvem (sempre com o token da sessão; `Cache-Control: private, no-store`):
+
+- **Um formato só de post de fora: o cartão** de `interno.rede_fed_cartao` (as chaves de um post daqui, mais `origem: "fediverso"`,
+  `html`, `visibilidade`, `sensivel`, `ator_remoto`, `handle_remoto`, `nome_remoto`, `avatar`, `servidor`, `url`, `curti`,
+  `impulsionei`, `post_local`, `impulsionado_por`). A nota que o banco não guarda é lida na origem e sai no mesmo formato, com os
+  campos que não se sabe neutros e `ao_vivo: true` (curtir, impulsionar, responder e denunciar precisam da nota no banco).
+- `GET /api/fediverso/remoto?linha=1[&cursor=…&limite=…]` → `{ itens: [cartão], proximo }`. O `cursor` é o `proximo` da página
+  anterior, como o banco o escreve: `<data e hora>|<chave>`, com espaço na data (`2026-11-10 12:34:56.789+00|https://…`).
+- `GET /api/fediverso/remoto?respostas=<id do post daqui>[&cursor=…]` → `{ itens: [cartão], proximo, total }`: as respostas de
+  fora a um post daqui (`rede_fed_respostas_de`, como a pessoa). Só lê o banco: não gasta o teto de `remoto` nem toca a rede.
+- `GET /api/fediverso/remoto?post=<url>[&buscar=1]` → `{ post, acima, respostas }`. Com a nota no banco, tudo vem de
+  `rede_fed_fio_remoto` (inclusive as respostas). Sem ela, a rota responde 404 `{ erro: "so_na_origem", servidor }` e **não busca
+  nada lá fora**; só com `buscar=1` (o toque da pessoa em "Buscar este post em <servidor>") `post` e `acima` são lidos na origem,
+  e `respostas` vem vazia. Um post daqui no meio do fio sai como `{ local: <id>, post?: <cartão daqui> }`.
+- `GET /api/fediverso/remoto?conta=@x@y` (ou `?ator=<url>`) → `{ ator, handle, nome, resumo, url, avatar, tipo, servidor, posts,
+  local }`. `posts` é uma lista só (os do banco e os lidos agora; o do banco ganha); `local` é o que o banco sabe da relação
+  (`seguindo`, `segue_voce`, `bloqueado`, `silenciado`). O que é lido lá fora (o documento do ator, a caixa de saída, o WebFinger)
+  fica 5 minutos na memória do servidor. Se `rede_fed_perfil_remoto` recusa (a pessoa de fora bloqueou quem pede), a rota recusa
+  junto: 404, sem posts e sem "seguir". Conta daqui: `{ local: true, handle }`.
+- Todo erro sai como `{ erro: <código> }`, e só código da casa (`nao_encontrado`, `invalido:pedido`…): a mensagem crua do banco
+  vira `falha` (`codigoParaATela`).
+- `POST /api/fediverso/interagir` → `{ ok, tipo, sim, curti, impulsionei }` (o estado de verdade depois da ação).
+- `POST /api/fediverso/denunciar` → `{ ok, protocolo, encaminhada, ja }` (`encaminhada` é o que o banco fez, não o que a tela
+  pediu; `ja` = a pessoa já tinha denunciado aquilo).
+
+Privacidade na tela: **nenhum endereço de imagem de fora chega ao navegador**. `assinarCartao` (`lib/rede/fediverso/servidor.ts`)
+é a única função que troca `avatar`, `midia[]`, `impulsionado_por`, `autor`, `citado` e `posts[]` pela rota-proxy assinada
+(`/api/fediverso/midia?…`); o que não é `https://` some, `midia[]` é refeita só com as chaves conhecidas (`url`, `tipo`, `alt`,
+`largura`, `altura`, `blurhash`) e um avatar só passa se for `https://` (vira proxy) ou já for a rota-proxy. Por isso `rede_fed_linha_mista`, `rede_fed_perfil_remoto`,
+`rede_fed_fio_remoto` e `rede_fed_respostas_de` nunca são chamadas direto pelo navegador: só pelas rotas. Na tela, `midiaSegura`
+recusa qualquer endereço que não seja o da rota-proxy, e o HTML de fora vira elementos por lista permitida (`htmlParaArvore` +
+`HtmlDeFora`), nunca HTML cru. Na mesma conversão: o `href` é lido atributo por atributo (um `href=` dentro de outro atributo
+não conta), os caracteres de direção de texto somem, e o link cujo texto mostra um endereço diferente do destino ganha o
+servidor de verdade escrito ao lado, entre parênteses (`destinoQueEngana`). "Abrir no original" e "Abrir em {servidor}" só levam
+ao servidor do `id` da nota ou do ator, sem usuário e senha no endereço (`linkDaOrigem`).
+
+### Privacidade no banco (migração `20261110-fediverso-privacidade.sql`)
+
+As três regras da casa valem também no que o banco devolve: nenhuma lista de pessoas, contagem só a partir de 3, nada de IP.
+A migração roda **depois** de `20261109-fediverso-total.sql` e de `20261110-fediverso-bloqueio-padrao.sql`, pode rodar mais de
+uma vez e não mexe na função de bloquear instância (a trava do bloqueio fixo continua a mesma).
+
+- **Avisos de curtida e de impulso não dizem quem foi** na tela de avisos: `rede_aviso_listar` devolve `ator_remoto` nulo e
+  `atores_remotos` vazio nesses dois tipos. O total só sai a partir de 3; abaixo disso sai 1, que a tela escreve como "alguém".
+  Seguidor, resposta e menção continuam dizendo quem foi (é a conversa com a própria pessoa). O endereço cru do avatar não sai em
+  tipo nenhum. O "baixar meus dados" (`conta_meus_dados`) não leva quem curtiu nem quem impulsionou, e as listas antigas
+  (`rede_avisos`, `avisos_meus`) e o resumo semanal não dão o número exato abaixo de 3 (migração `20261113-alumia-o7-pedidos.sql`).
+- **Quem curtiu fica guardado só como apelido** (migração `20261122-alumia-chat.sql`). O aviso de curtida e de impulso e a
+  linha da interação levam só um apelido (`anon:` e 64 algarismos): o HMAC-SHA256 de um segredo próprio do banco com o endereço
+  de quem curtiu (no aviso, também com quem recebe, então o apelido de alguém muda de uma conta daqui para outra). O mesmo
+  endereço dá sempre o mesmo apelido (o total e o desfazer continuam certos). Nenhuma tela e nenhuma função mostra quem curtiu.
+  O limite: o segredo do apelido mora no mesmo banco. O apelido protege as telas e as funções, não uma cópia inteira do banco:
+  quem tiver a cópia, com o segredo, pode testar os endereços de fora que conhece e achar quem curtiu. Quando a conta de fora é
+  apagada lá, as linhas e os avisos dela saem, achados pelo apelido.
+- **Bloquear alguém de fora não apaga o aviso de curtida nem o de impulso** (`rede_fed_bloquear_pessoa`, e o Block recebido de
+  lá): sumir o aviso revelaria, bloqueando um candidato por vez, quem curtiu. Somem só os avisos que já dizem quem foi
+  (seguidor, resposta, menção).
+- **A prova do consentimento** (`interno.fediverso_consentimentos`, coluna `usuario`: entra sozinha no "baixar meus dados") ganha
+  na migração a linha do "liga" de quem já estava com a federação ligada, com a data em que ligou. O histórico de cada pessoa
+  tem teto: a primeira linha (o primeiro consentimento) e as 99 mais novas. LIGAR tem teto de 6 por hora,
+  com chave própria (`rede_fed_ligar_sim`, longe da "descoberta"); DESLIGAR não tem teto: é a retirada do consentimento e passa
+  sempre.
+- **O endereço da conta** (`rede_fed_situacao.endereco`) e o domínio dela (`dominio`) só saem para quem ligou a federação, e sem
+  o ponto final do domínio. O
+  `url_entrega` precisa ter o mesmo host do site: a porta não entra no endereço da conta.
+- **Quem foi bloqueado lá fora não lê o post de quem o bloqueou** nem pelo "buscar este post em <servidor>": a rota
+  (`app/api/fediverso/remoto`, `bloqueouQuemPede`) pergunta a `public.rede_fed_me_bloqueou(p_ator)` antes de mostrar o que leu
+  na origem. A função lê direto o bloqueio recebido (vale mesmo depois de a faxina tirar o ator de `rede_fed_remotos`), não monta
+  cartão e tem limite próprio (600 por hora). Na dúvida, não mostra; limite estourado sai como 429, não como "não encontrado".
+  E quando o banco guarda a nota mas ela é de quem bloqueou a pessoa, a rota pergunta a `public.rede_fed_bloqueou_voce(p_nota)`
+  e responde "não achamos isto", sem oferecer "buscar este post lá" (a busca traria o fio de volta pelo outro caminho).
+- **Piso de 3** nas contagens de pessoas: seguidores e "seguindo" do ator, seguidores da comunidade (Group), pessoas e ativos do
+  NodeInfo, respostas no cartão e o total das respostas de fora. Abaixo de 3 sai 0 (as coleções do ActivityPub pedem
+  `totalItems` inteiro, maior ou igual a zero). As rotas repetem a conta (`pisoDePessoas`, em `lib/rede/fediverso/rotas.ts`),
+  para o site não soltar número pequeno mesmo com o banco numa versão anterior. O número de posts não conta pessoas e sai como é.
+  Os números da própria pessoa em `rede_fed_situacao` (quantos a seguem, quantos ela segue) não têm piso: só ela os vê.
+- **Quem modera uma comunidade não sai para fora.** A coleção `moderators` do Group existe (o Lemmy a procura) e vem vazia;
+  `attributedTo` aponta para essa mesma coleção, nunca para pessoas.
+- **O nome do ator** só sai quando o codinome passou pela conferência (`rede_codinome_ok`), como a bio; senão sai o @nome.
+- **A relação no cartão.** Cada cartão de fora traz `silenciado`, `bloqueado` e `bloqueou_voce`, sempre do ponto de vista de
+  quem lê (ninguém recebe a relação dos outros). O perfil de fora devolve `bloqueou_voce`: quem foi bloqueado lá fora vê só o
+  cabeçalho, sem posts e sem "seguir", e o pedido de seguir é recusado no banco.
+- **Impulso de nota de quem ninguém segue.** Quando quem impulsiona é seguido por alguém daqui, a nota impulsionada fica guardada
+  (antes era recusada e o impulso sumia na faxina). Só nota pública ou não listada; a guarda é a de sempre (30 dias).
+- **Prova do consentimento.** `interno.fediverso_consentimentos` guarda cada vez que a federação de alguém liga, desliga ou muda
+  de versão: perfil, versão do texto, ligado ou não, e quando. Nada de IP nem de navegador. Um gatilho em
+  `interno.rede_fed_atores` grava, então vale para todos os caminhos (perfil, consentimento de entrada, suspensão). Ligar ou
+  desligar no perfil passa a marcar ou desmarcar também o item do consentimento de entrada (`rede_consentimentos.fediverso`).
+  LGPD art. 8º, § 2º (cabe a quem trata provar o consentimento) e § 5º (revogar a qualquer momento). A linha some com a conta.
+- **Endereço completo.** `rede_fed_situacao` devolve `endereco` ("@nome@dominio") e `dominio`: o domínio curto no modo total,
+  o da Alumia sem ele (a mesma regra de `enderecos.ts`; sai de `url_entrega` na configuração).
+- **Perfil de fora em páginas.** `rede_fed_perfil_remoto(ator, cursor, limite)` devolve `proximo`; a tela tem "Mais posts".
+- **Adesão e flag.** Perfil, fio, bloquear e silenciar gente de fora só respondem a quem aderiu à rede e com o modo total ligado.
+
+Teste: `npm run testar:fediverso-banco` (seção "Privacidade").
+
+### Limites conhecidos de privacidade
+
+- **As imagens de fora são buscadas na chegada, não quando alguém olha** (P12, desde 12/11/2026). A rota-proxy já escondia QUEM
+  vê; faltava esconder QUANDO. Agora, quando uma nota com imagem chega (ou o avatar de alguém de fora é guardado), cada imagem
+  entra numa fila (`interno.rede_fed_midia`, `supabase/migracoes/20261112-fediverso-midia-guardada.sql`) com uma hora sorteada
+  entre 1 e 15 minutos. Na rodada do timer da VPS (`/api/fediverso/entregar`), o site busca as que venceram, com as mesmas
+  travas da rota-proxy, e grava no **disco da VPS** (`/var/lib/lucia/fed-midia`, montada no contêiner em `/dados/fed-midia`;
+  `lib/rede/fediverso/midia-guardada.ts`). Não vai para o Storage do Supabase: o plano gratuito tem 1 GB. A rota-proxy serve a
+  cópia; enquanto a imagem está na fila, ela NÃO a busca lá fora (404 por um minuto): a hora em que a origem é tocada não depende
+  de ninguém abrir nada. A faxina apaga o arquivo quando a nota vence, o avatar muda ou a instância é bloqueada. Teto de espaço:
+  20 GB (`ALUMIA_FEDIVERSO_MIDIA_TETO_MB`); passado dele, as imagens novas voltam a ser buscadas na hora. Sem a pasta
+  configurada (`ALUMIA_FEDIVERSO_MIDIA_DIR`), tudo funciona como antes.
+- **O que ainda é buscado na hora:** o post lido na origem com o toque da pessoa em "buscar este post" (a hora já é a do toque).
+- **Perfil de conta que a Alumia nunca viu.** `?conta=` e `?ator=` leem o perfil na origem na primeira visita (depois, 5 minutos
+  de memória). Um link armado para um servidor do atacante ainda revela a hora do primeiro clique (nunca o IP nem quem foi). O
+  fio (`?nota=`) não tem esse limite: sem a nota no banco, nada é buscado até a pessoa tocar em "buscar".
+- **Quem bloqueou a pessoa lá fora fica visível para ela** (`bloqueou_voce`), e só para ela: o Block chegou endereçado a ela, e
+  sem isso a tela mostraria "seguir" num perfil que vai recusar.
+- **Sotaques por software, na ENTRADA (B6, 12/11/2026):**
+  - **Lemmy, Mbin, PieFed:** o impulso embrulhado da comunidade (`Announce{Create{Page}}`) é desembrulhado. A nota de dentro é
+    buscada na origem, como sempre, e o link do post (anexo `Link`) entra como link no fim do texto. Curtida, apagamento e moderação
+    embrulhados são ignorados (`lib/rede/fediverso/entrada/interacao.ts`).
+  - **PeerTube:** `Video` entra, com título, texto em markdown escapado (não vira HTML), a página do vídeo (o link `text/html`) e a
+    miniatura como imagem. O autor é a pessoa, não o canal (`autorDe`, em `lib/rede/fediverso/entrada/nota.ts`).
+  - **WordPress, WriteFreely, Ghost:** o `summary` de um `Article` é o resumo e não vira aviso de conteúdo, a não ser que a nota se
+    diga sensível.
+  - **Misskey, Pleroma/Akkoma, Mastodon 4.4:** a citação (`quote`, `quoteUrl`, `quoteUri`, `_misskey_quote`) vira um link no fim,
+    sem repetir quando o texto já traz o endereço.
+  - **`contentMap`:** sem `content`, vale o português, depois o inglês, depois o primeiro idioma.
+- **Leitura por GET de servidor bloqueado** (12/11/2026): as 18 rotas que servem documentos a outros servidores (ator, post,
+  coleções, comunidade, WebFinger, NodeInfo) recusam com 403 quem diz vir de um domínio bloqueado. O domínio vem do `keyId` da
+  assinatura (cavage ou RFC 9421) ou do endereço no User-Agent (`conferirLeitor`, em `lib/rede/fediverso/rotas.ts`). Quem não
+  diz de onde vem continua lendo o que é público, como qualquer visitante: a Alumia não exige leitura assinada de todos.
+- **Assinatura RFC 9421 na entrada** (HTTP Message Signatures, `Signature-Input` e `Content-Digest`): conferida ao lado da
+  cavage, com `rsa-v1_5-sha256`, `rsa-pss-sha512` e `ed25519`, exigindo o método, o destino e, num POST, o `content-digest`
+  (`conferirAssinatura9421`, em `lib/rede/fediverso/assinatura.ts`). O que sai continua assinado em cavage, que todos leem.
+- **`Move` entrando:** quando uma conta de fora muda de servidor, e o ator novo declara o antigo em `alsoKnownAs`, quem daqui
+  seguia a antiga passa a seguir a nova e deixa a antiga, pelas ações de sempre e com os bloqueios valendo.
+- **`Update(Person)` saindo:** quando muda o que sai no ator (codinome conferido, bio, rosto ou capa da galeria), os seguidores
+  de fora recebem o documento novo. Fica no máximo um pendente por pessoa
+  (`supabase/migracoes/20261112-fediverso-perfil-e-mudanca.sql`).
+- **De propósito, como está:** reação com emoji (Misskey, Pleroma) entra como curtida, sem guardar o emoji, porque é um dado a
+  menos. `Dislike` é ignorado. O que sai segue o formato do Mastodon (post como `Note`), que todo o Fediverso lê.
+
+Arquivos: `lib/rede/fediverso/tela/{tipos,cliente,exemplos,textos,html,linha}.ts`, `components/rede/fediverso/`, `i18n/rede/fediverso/*.json`.
+Teste: `npm run testar:fediverso-tela` (bateria de XSS, `href` escondido em outro atributo, caracteres de direção, link que
+engana, "abrir no original", mídia só pelo proxy, o que `assinarCartao` deixa passar, código de erro, memória curta, endereços,
+exemplos da prévia, a linha mista, paridade dos seis idiomas); os formatos das rotas estão em `npm run testar:fediverso-entrada`.
+
+## Tela (F4)
+
+Gente de fora aparece no MESMO visual da Alumia nova, sem aba à parte. O que existe:
+
+| Peça | Onde mora | O que faz |
+|---|---|---|
+| `CartaoRemoto` | `components/rede/fediverso/CartaoRemoto.tsx` | O cartão de um post de fora (selo do servidor, curtir, impulsionar, responder, abrir no original, denunciar, bloquear, silenciar). |
+| `PerfilRemoto`, `FioRemoto` | `components/rede/fediverso/` | O perfil e o fio de fora, em `/alumia/fediverso?conta=@nome@servidor` e `?nota=<endereço da nota>`. |
+| `HtmlDeFora`, `MidiaDeFora`, `SeloDoServidor`, `ResponderDeFora`, `DenunciarDeFora` | `components/rede/fediverso/` | As partes do cartão. |
+| `misturarDeFora`, `maisDeFora` | `lib/rede/fediverso/tela/linha.ts` | A linha mista: junta por data os posts daqui e os cartões de fora; guarda o cursor de fora e só pede página quando precisa. |
+| `BuscaDeFora` | `components/rede/fediverso/BuscaDeFora.tsx` | Na busca, a conta de fora quando o texto é `@nome@servidor`. |
+| `RespostasDeFora` | `components/rede/fediverso/RespostasDeFora.tsx` | Na conversa de um post daqui, as respostas que vieram de outros servidores. |
+| `AvisoDeFora` | `components/rede/fediverso/AvisoDeFora.tsx` | A linha de aviso dos tipos `fed_seguidor`, `fed_resposta`, `fed_mencao`, `fed_curtida`, `fed_impulso`. |
+| `encaixe.tsx` | `components/rede/fediverso/encaixe.tsx` | A porta para as telas comuns: `fediversoNaTela`, `eDeForaNaTela`, `CartaoDeForaNaLinha`, `RespostasDeForaNaConversa`, `BuscaDeForaNaBusca`, `eAvisoDeFora`, `destinoDoAvisoDeFora`, `AvisoDeForaNaLista`. |
+
+As telas comuns (linha, cartão, conversa, avisos, busca) usam essas peças pelo `encaixe.tsx`.
+
+Regras (valem para qualquer peça nova):
+
+- **Flag.** Tudo só aparece dentro da casca nova (`rede-v2` + `alumia-2`), com `fediverso-total` ligado ou na prévia. Fora disso
+  as peças devolvem nulo, não baixam o código delas (`next/dynamic`, `ssr: false`) e não pedem nada. Na prévia
+  (`NEXT_PUBLIC_ALUMIA_PREVIA=sim`) valem os dados de `lib/rede/fediverso/tela/exemplos.ts`, sem rota e sem banco.
+- **Mídia só pela rota-proxy.** Imagem, vídeo e áudio de fora só com o endereço que a rota daqui devolve
+  (`/api/fediverso/midia?…`, conferido por `midiaSegura`). O navegador de quem lê nunca busca nada em outro servidor.
+- **Rosto em mosaico.** O avatar de gente de fora é o `Avatar16` pelo @ (`@nome@servidor`), nunca a foto remota, mesmo quando
+  a rota devolve `avatar`.
+- **HTML por lista permitida.** O `html` do cartão só entra por `HtmlDeFora` (`htmlParaArvore`): nunca `dangerouslySetInnerHTML`.
+- **Sem lista de pessoas.** Não se mostra quem curtiu nem quem impulsionou. Nos avisos `fed_curtida` e `fed_impulso` a frase é
+  "Alguém do Fediverso curtiu/impulsionou o seu post", sem nome, @, servidor nem rosto. Número só a partir de 3 (`contagemVisivel`).
+- O Threads não entra e o Bridgy Fed fica desligado, os dois como bloqueio fixo e sem interruptor (o do Threads, que existia
+  desde 10/11, foi retirado em 12/11/2026 pela migração da privacidade): nenhuma peça da tela nem função do banco os habilita.
+
+A linha mista, em resumo: `maisDeFora(estado, { ate, logado })` recebe o `criado_em` do post mais antigo da página daqui
+(`limiteDaPagina`), pede páginas de fora só enquanto a espera não alcança esse limite (no máximo 3 por chamada), solta o que é
+mais novo que ele e guarda o resto para a página seguinte. Com a linha daqui no fim (`ate` nulo), solta uma página de fora por
+vez. Não pede nada com a flag desligada, sem sessão ou na prévia (na prévia devolve uma vez o post de exemplo), e nunca lança
+(em erro devolve `erro` e o estado de antes).
+`misturarDeFora(locais, deFora)` ordena por `criado_em` decrescente, estável (os daqui antes no empate), e mostra uma vez só a
+nota que veio como original e como impulso (fica a ocorrência mais recente). Os casos de borda estão em `npm run testar:fediverso-tela`.
+
+Uma regra só para "aparece ou não" (`deForaVale` em `lib/rede/fediverso/tela/linha.ts`): dentro da casca nova, com
+`fediverso-total` ligado ou na prévia. `CartaoRemoto`, `PerfilRemoto`, `FioRemoto`, `BuscaDeFora`, `RespostasDeFora`, a tela
+`/alumia/fediverso` e `fediversoNaTela()` usam a mesma função. Na prévia nenhuma delas chama rota nem banco: `maisDeFora` devolve
+uma vez o post do Tião, `deFora.respostasDe` a resposta do Entregador do Porto, e o resto vem de `exemplos.ts`.
+
+Os textos de todas as peças vêm de `i18n/rede/fediverso/*.json` (pt é o final; os outros cinco são rascunho marcado). Além das
+seções do começo (`cartao`, `perfil`, `fio`, `denuncia`, `ajuste`, `erros`, `busca`), há `avisos` (as frases dos cinco tipos de
+aviso; curtida e impulso nunca levam `{nome}`) e `comum` (`carregando`, `tentarDeNovo`). O teste confere que não sobrou texto
+fixo em português nas peças.
+
+Pendências desta etapa:
+
+- **Nada foi visto no navegador.** As peças passaram por `tsc`, `eslint` e pelos testes de regra; falta conferir em 375 px, no
+  tema escuro e no teclado, contra as pranchas.
+- **Encaixes da Faixa 1** (P0 a P10) e os registros P12 (mídia guardada na chegada, aberto) e P13 (mensagem crua do banco). O
+  P11 (avisos sem quem curtiu) ficou resolvido do nosso lado em `20261110-fediverso-privacidade.sql`.
+- **Vídeo e áudio de fora** não tocam aqui (só "Abrir no original").
+- **Silenciar e bloquear fora do perfil: resolvido.** O cartão do banco traz `silenciado` e `bloqueado` (migração da
+  privacidade) e o cartão na linha e no fio começa por eles. No perfil de fora o cartão recebe a relação e avisa o cabeçalho
+  quando ela muda. Na prática quem está bloqueado nem chega à linha; o campo serve ao perfil e aos posts lidos na hora.
+- **Bloqueio recebido: resolvido.** `rede_fed_perfil_remoto` devolve `bloqueou_voce`; a tela mostra o cabeçalho com "Esta conta
+  bloqueou você", sem posts e sem "seguir". O fio de quem bloqueou continua respondendo "Não achamos isto".

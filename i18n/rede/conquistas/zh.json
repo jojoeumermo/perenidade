@@ -1,0 +1,145 @@
+{
+  "_rascunho": true,
+  "aba": "成就",
+  "carregando": "加载中…",
+  "tentar": "重试",
+  "ajustes": {
+    "titulo": "学习与成就",
+    "texto": "奖章和互助等级只有在你打开后才会出现在你的主页上。录取墙只收录自己报名的人。",
+    "conquistas": "我的成就",
+    "mural": "录取墙"
+  },
+  "tela": {
+    "carimbo": "成就",
+    "titulo": "我的成就",
+    "lead": "为你做过的事颁发奖章：学完课程路线、批改作文、担任辅导。每枚奖章一开始都是隐藏的，只有你打开后才会出现在主页上。没有积分榜，也不在人与人之间比较。",
+    "medalhasTitulo": "奖章",
+    "vazio": "你还没有奖章。当你学完一条路线、在互评中批改作文或担任辅导时，奖章就会到来。",
+    "mostrar": "在主页显示",
+    "noPerfil": "显示在你的主页",
+    "escondida": "只有你能看到",
+    "apagar": "删除",
+    "apagarTitulo": "删除这枚奖章？",
+    "apagarTexto": "它会永久消失，连同你为它做过的进度。",
+    "apagarSim": "删除",
+    "nao": "返回",
+    "feitos": "你已经完成 {n} 次。",
+    "faltam": "距下一级还差 {n} 次。",
+    "topo": "已是最高级。",
+    "nivel": "第 {n} 级，共 3 级",
+    "verMural": "查看录取墙"
+  },
+  "trilhas": {
+    "titulo": "学完的路线",
+    "lead": "标出你学完的路线。建议来自这台设备上完成的课，不经你点按不会离开这台设备。",
+    "sugestoes": "在这台设备上学过",
+    "nenhuma": "这台设备上还没有完成的课。",
+    "terminei": "我学完了",
+    "marcada": "已标记",
+    "desmarcar": "取消标记",
+    "outra": "其他路线",
+    "outraDica": "路线地址的结尾，例如 historia-do-brasil",
+    "escolher": "选择学习路线",
+    "marcar": "标记"
+  },
+  "medalhas": {
+    "trilha": {
+      "rotulo": "路线",
+      "nome": "学完了 {trilha}",
+      "como": "学完路线时由你自己标记。"
+    },
+    "redacao": {
+      "rotulo": "作文",
+      "niveis": ["批改的第一篇作文", "在小组中批改作文", "小组的作文评审"],
+      "como": "你在互评中批改并交还的每一篇作文都算数。"
+    },
+    "monitoria": {
+      "rotulo": "辅导",
+      "niveis": ["第一次辅导", "小组辅导员", "骨干辅导员"],
+      "como": "你完成的每一次预约辅导都算数。"
+    }
+  },
+  "faixa": {
+    "titulo": "互助等级",
+    "lead": "不用分数，而用写出来的等级。它统计过去 12 个月里，提问的人把你的回答标为“有帮助”或采纳的对话。每段对话只算一次，你自己的提问不算。",
+    "regra": "规则，对所有人都一样",
+    "desligada": "已关闭：等级不会出现在你的主页上。",
+    "ligada": "已打开：等级显示在你的主页上，不带数字。",
+    "ligar": "在主页显示等级",
+    "desligar": "隐藏等级",
+    "suaHoje": "你目前的等级",
+    "nenhumaAinda": "你还没有等级：第一级从 3 段对话开始。"
+  },
+  "faixas": {
+    "semente": { "nome": "小组的种子", "texto": "3 到 9 段对话" },
+    "apoio": { "nome": "小组的支柱", "texto": "10 到 29 段对话" },
+    "referencia": { "nome": "小组的标杆", "texto": "30 段对话或更多" }
+  },
+  "perfil": {
+    "titulo": "成就",
+    "faixa": "互助等级",
+    "editar": "选择显示内容"
+  },
+  "mural": {
+    "carimbo": "录取",
+    "titulo": "录取墙",
+    "lead": "通过 ENEM 或入学考试、并愿意分享的人。只有自己报名的人才会出现在这里，可以用主页名字，也可以用只用于录取墙的代号，想离开随时可以离开。",
+    "vazio": "还没有人报名。你考上了吗？在这里说说。",
+    "mais": "查看更多",
+    "voce": "你",
+    "mes": "于 {mes} 加入",
+    "entrar": "我要报名",
+    "editar": "修改我的报名",
+    "sair": "离开录取墙",
+    "sairTitulo": "离开录取墙？",
+    "sairTexto": "你的报名会立即消失。之后可以再次报名。",
+    "sairSim": "离开",
+    "verPerfil": "查看主页",
+    "form": {
+      "titulo": "你的报名",
+      "como": "以什么身份出现",
+      "perfil": "用我的主页名字，并链接到主页",
+      "codinome": "用只用于录取墙的代号，不带链接",
+      "codinomeCampo": "代号",
+      "curso": "专业（可选）",
+      "cursoDica": "例如医学或教育学",
+      "instituicao": "学校（可选）",
+      "recado": "留言（可选）",
+      "recadoDica": "最多 140 个字。不要写电话、邮箱或证件号。",
+      "salvar": "保存",
+      "cancelar": "取消"
+    },
+    "tirar": "从录取墙移除",
+    "tirarTitulo": "移除这条报名？",
+    "tirarMotivo": "原因（会写入记录并告知本人）",
+    "tirarSim": "移除"
+  },
+  "aula": {
+    "topicoCarimbo": "本课话题",
+    "abrirTopico": "打开本课的话题",
+    "criarTopico": "开启本课的话题",
+    "semTopico": "这节课还没有话题。先到的人开启，后来的人就会进入它。",
+    "outros": "关于这节课的对话"
+  },
+  "ok": {
+    "salvo": "已保存。",
+    "saiu": "你已离开录取墙。",
+    "apagada": "奖章已删除。",
+    "tirada": "报名已移除。"
+  },
+  "erros": {
+    "dado_pessoal": "请从文字中去掉电话、邮箱或证件号。",
+    "invalido:codinome": "代号需要 2 到 40 个字，不得冒犯他人。",
+    "invalido:curso": "专业需要 2 到 80 个字，不得冒犯他人。",
+    "invalido:instituicao": "学校需要 2 到 80 个字，不得冒犯他人。",
+    "invalido:recado": "留言需要 2 到 140 个字，不得冒犯他人。",
+    "invalido:trilha": "这个路线地址不可用：只能用小写字母、数字和连字符。",
+    "invalido:muitas": "你标记的路线已达上限（60）。",
+    "invalido:motivo": "请写下原因，3 到 300 个字。",
+    "sem_permissao": "只有调解员可以这样做。",
+    "nao_encontrado": "未找到。",
+    "confirme_codinome": "请先在 Alumia 选择你的代号。",
+    "muitos_pedidos": "连续修改太多次。请稍等。",
+    "generico": "现在没有成功。请重试。"
+  }
+}

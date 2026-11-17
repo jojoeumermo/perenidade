@@ -1,0 +1,144 @@
+{
+  "aba": "Conquistas",
+  "carregando": "Carregando…",
+  "tentar": "Tentar de novo",
+  "ajustes": {
+    "titulo": "Estudo e conquistas",
+    "texto": "As medalhas e a faixa de ajuda aparecem no seu perfil só se você ligar. O mural de aprovados é só para quem se inscreve.",
+    "conquistas": "Minhas conquistas",
+    "mural": "Mural de aprovados"
+  },
+  "tela": {
+    "carimbo": "Conquistas",
+    "titulo": "Minhas conquistas",
+    "lead": "Medalhas pelo que você fez: terminar trilhas, corrigir redações, dar monitoria. Cada uma nasce escondida e só aparece no seu perfil se você ligar. Não existe placar nem comparação entre pessoas.",
+    "medalhasTitulo": "Medalhas",
+    "vazio": "Você ainda não tem medalhas. Elas chegam quando você termina uma trilha, corrige redações na correção entre pares ou dá monitoria.",
+    "mostrar": "Mostrar no perfil",
+    "noPerfil": "No seu perfil",
+    "escondida": "Só você vê",
+    "apagar": "Apagar",
+    "apagarTitulo": "Apagar esta medalha?",
+    "apagarTexto": "Ela some de vez, com o que você já tinha feito para ela.",
+    "apagarSim": "Apagar",
+    "nao": "Voltar",
+    "feitos": "Você já fez {n}.",
+    "faltam": "Faltam {n} para o próximo nível.",
+    "topo": "Último nível.",
+    "nivel": "Nível {n} de 3",
+    "verMural": "Ver o mural de aprovados"
+  },
+  "trilhas": {
+    "titulo": "Trilhas terminadas",
+    "lead": "Marque as trilhas que você terminou. As sugestões vêm das aulas concluídas neste aparelho e não saem dele sem você tocar.",
+    "sugestoes": "Estudadas neste aparelho",
+    "nenhuma": "Nenhuma aula concluída neste aparelho ainda.",
+    "terminei": "Terminei",
+    "marcada": "Marcada",
+    "desmarcar": "Desmarcar",
+    "outra": "Outra trilha",
+    "outraDica": "O fim do endereço da trilha, como historia-do-brasil",
+    "escolher": "Escolha a trilha",
+    "marcar": "Marcar"
+  },
+  "medalhas": {
+    "trilha": {
+      "rotulo": "Trilha",
+      "nome": "Terminou {trilha}",
+      "como": "Você marca quando termina a trilha."
+    },
+    "redacao": {
+      "rotulo": "Redação",
+      "niveis": ["Primeira redação corrigida", "Corrige redações na roda", "Banca de redação da roda"],
+      "como": "Conta cada redação que você corrige e devolve na correção entre pares."
+    },
+    "monitoria": {
+      "rotulo": "Monitoria",
+      "niveis": ["Primeira monitoria dada", "Monitora da roda", "Monitoria de referência"],
+      "como": "Conta cada monitoria marcada que você dá."
+    }
+  },
+  "faixa": {
+    "titulo": "Faixa de ajuda",
+    "lead": "No lugar de pontos, uma faixa escrita. Ela conta as conversas em que quem perguntou marcou a sua resposta como a que ajudou, ou a aceitou, nos últimos 12 meses. Cada conversa conta uma vez, e a sua própria pergunta não conta.",
+    "regra": "A regra, igual para todo mundo",
+    "desligada": "Desligada: a faixa não aparece no seu perfil.",
+    "ligada": "Ligada: a faixa aparece no seu perfil, sem número.",
+    "ligar": "Mostrar a faixa no perfil",
+    "desligar": "Esconder a faixa",
+    "suaHoje": "Sua faixa hoje",
+    "nenhumaAinda": "Você ainda não tem faixa: a primeira começa em 3 conversas."
+  },
+  "faixas": {
+    "semente": { "nome": "Semente da roda", "texto": "de 3 a 9 conversas" },
+    "apoio": { "nome": "Apoio da roda", "texto": "de 10 a 29 conversas" },
+    "referencia": { "nome": "Referência da roda", "texto": "30 conversas ou mais" }
+  },
+  "perfil": {
+    "titulo": "Conquistas",
+    "faixa": "Faixa de ajuda",
+    "editar": "Escolher o que aparece"
+  },
+  "mural": {
+    "carimbo": "Aprovados",
+    "titulo": "Mural de aprovados",
+    "lead": "Quem passou no ENEM ou no vestibular e quis contar. Entra só quem se inscreve, com o nome do perfil ou com um codinome só para o mural, e sai quando quiser.",
+    "vazio": "Ninguém se inscreveu ainda. Passou? Conte aqui.",
+    "mais": "Ver mais",
+    "voce": "Você",
+    "mes": "Entrou em {mes}",
+    "entrar": "Me inscrever",
+    "editar": "Mudar a minha inscrição",
+    "sair": "Sair do mural",
+    "sairTitulo": "Sair do mural?",
+    "sairTexto": "A sua inscrição some na hora. Você pode se inscrever de novo depois.",
+    "sairSim": "Sair",
+    "verPerfil": "Ver o perfil",
+    "form": {
+      "titulo": "Sua inscrição",
+      "como": "Como aparecer",
+      "perfil": "Com o nome do meu perfil, com link para ele",
+      "codinome": "Com um codinome só para o mural, sem link",
+      "codinomeCampo": "Codinome",
+      "curso": "Curso (opcional)",
+      "cursoDica": "Como Medicina ou Pedagogia",
+      "instituicao": "Instituição (opcional)",
+      "recado": "Recado (opcional)",
+      "recadoDica": "Até 140 letras. Sem telefone, e-mail ou documento.",
+      "salvar": "Salvar",
+      "cancelar": "Cancelar"
+    },
+    "tirar": "Tirar do mural",
+    "tirarTitulo": "Tirar esta inscrição?",
+    "tirarMotivo": "Motivo (vai para o registro e para a pessoa)",
+    "tirarSim": "Tirar"
+  },
+  "aula": {
+    "topicoCarimbo": "Tópico da aula",
+    "abrirTopico": "Abrir o tópico desta aula",
+    "criarTopico": "Começar o tópico desta aula",
+    "semTopico": "Esta aula ainda não tem tópico. Quem chega primeiro começa; quem vem depois cai nele.",
+    "outros": "Conversas sobre esta aula"
+  },
+  "ok": {
+    "salvo": "Salvo.",
+    "saiu": "Você saiu do mural.",
+    "apagada": "Medalha apagada.",
+    "tirada": "Inscrição tirada."
+  },
+  "erros": {
+    "dado_pessoal": "Tire telefone, e-mail ou documento do texto.",
+    "invalido:codinome": "O codinome precisa ter de 2 a 40 letras, sem ofensa.",
+    "invalido:curso": "O curso precisa ter de 2 a 80 letras, sem ofensa.",
+    "invalido:instituicao": "A instituição precisa ter de 2 a 80 letras, sem ofensa.",
+    "invalido:recado": "O recado precisa ter de 2 a 140 letras, sem ofensa.",
+    "invalido:trilha": "Esse endereço de trilha não serve: use só letras minúsculas, números e hífen.",
+    "invalido:muitas": "Você já marcou o máximo de trilhas (60).",
+    "invalido:motivo": "Escreva o motivo, com 3 a 300 letras.",
+    "sem_permissao": "Só a mediação pode fazer isso.",
+    "nao_encontrado": "Não encontrado.",
+    "confirme_codinome": "Escolha o seu codinome na Alumia antes.",
+    "muitos_pedidos": "Muitas mudanças seguidas. Espere um pouco.",
+    "generico": "Não deu certo agora. Tente de novo."
+  }
+}

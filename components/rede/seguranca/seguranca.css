@@ -1,0 +1,224 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * A conta segura da Alumia: Ajustes de segurança (/alumia/seguranca) e Aparelhos conectados (/alumia/aparelhos). Linguagem do
+ * Mosaico da Arquibancada: Archivo condensada em caixa alta nos títulos, carimbo no pânico, ladrilhos, faixa tecida sob o título.
+ * Só os tokens de styles/alumia-tokens.css: vale no escuro, no claro, no alto contraste e no e-ink.
+ */
+
+.sg-pagina { container-type: inline-size; padding: 1.5rem 1rem 3rem; color: var(--al-texto); }
+@media (min-width: 1024px) { .sg-pagina { padding: 1.75rem 1.25rem 3rem; } }
+@media (min-width: 1536px) { .sg-pagina { padding-inline: 1.75rem; } }
+.sg-pagina-estreita { max-width: 52rem; }
+
+/* ───── Cabeça ───── */
+.sg-cabeca { position: relative; margin-bottom: 1.4rem; padding-bottom: 1.3rem; }
+.sg-cabeca::after { content: ""; position: absolute; inset: auto 0 0; height: var(--al-faixa-altura, 6px); background: var(--al-faixa); border-radius: 2px; }
+.sg-cabeca h1 { margin: 0.7rem 0 0; font-size: clamp(2.3rem, 6.5cqi, 3.6rem); }
+.sg-chamada { margin: 0.8rem 0 0; max-width: 46rem; color: var(--al-texto-2); font-size: 1.04rem; line-height: 1.55; }
+.sg-contagem { margin: 0.9rem 0 0; color: var(--al-dourado); font-size: 1.15rem; letter-spacing: 0.03em; }
+.sg-volta { margin: 0 0 1rem; }
+
+.sg-ladrilhos { display: inline-flex; gap: 4px; vertical-align: middle; }
+.sg-ladrilho { width: 14px; height: 14px; border-radius: 3px; background: var(--al-cartao-aceso); }
+.sg-ladrilho[data-cor="1"] { background: var(--al-vermelho); }
+.sg-ladrilho[data-cor="2"] { background: var(--al-dourado); }
+.sg-ladrilho[data-cor="3"] { background: var(--al-texto); }
+.sg-ladrilho[data-cor="4"] { background: var(--al-com-1); }
+
+/* ───── Grade: duas colunas no computador, uma no celular ───── */
+.sg-grade { display: grid; gap: 1rem; align-items: start; }
+.sg-coluna { display: grid; gap: 1rem; min-width: 0; }
+@container (min-width: 760px) { .sg-grade { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); } }
+/* As seções de Ajustes das outras frentes, embaixo: três por fileira no computador largo, uma no celular. */
+.sg-ajustes { display: grid; gap: 1rem; margin-top: 1rem; align-items: start; }
+@container (min-width: 760px) { .sg-ajustes { grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); } }
+
+/* ───── Blocos ───── */
+.sg-bloco { padding: 1.15rem 1.15rem 1.25rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); min-width: 0; }
+:root:is([data-contrast], [data-eink]) .sg-bloco { border-color: var(--al-texto); }
+.sg-bloco-alto { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.3rem 1rem; }
+.sg-titulo { margin: 0 0 0.55rem; font-size: 1.35rem; color: var(--al-texto); }
+.sg-titulo-g { font-size: clamp(1.9rem, 4.5cqi, 2.5rem); margin-bottom: 0.7rem; }
+.sg-texto { margin: 0 0 0.9rem; color: var(--al-texto-2); font-size: 0.95rem; line-height: 1.55; }
+.sg-cinza { margin: 0; color: var(--al-texto-3); font-size: 0.88rem; line-height: 1.5; }
+.sg-subtitulo { display: flex; align-items: center; gap: 0.45rem; margin: 0 0 0.25rem; font-size: 0.98rem; font-weight: 800; color: var(--al-texto); }
+.sg-situacao { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.5rem; margin: 0 0 0.6rem; color: var(--al-texto); font-size: 0.95rem; }
+.sg-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-top: 0.9rem; }
+.sg-link {
+  display: inline-flex; align-items: center; gap: 0.35rem; min-height: 44px; color: var(--al-texto-2); font-size: 0.88rem; font-weight: 700;
+  text-decoration: underline; text-decoration-color: var(--al-texto-3); text-decoration-thickness: 1px; text-underline-offset: 4px;
+}
+.sg-link:hover { color: var(--al-texto); text-decoration-color: var(--al-dourado); }
+.sg-link-perigo { color: var(--al-vermelho-sobre-escuro, var(--al-vermelho)); text-decoration-color: currentColor; }
+.sg-nota { margin: 0.75rem 0 0; color: var(--al-texto-2); font-size: 0.88rem; font-weight: 600; }
+.sg-nota-erro { color: var(--al-vermelho-sobre-escuro, var(--al-vermelho)); }
+
+/* As marcas pequenas ("Este aparelho", "Sem o código"). */
+.sg-marca {
+  display: inline-block; margin-left: 0.5rem; padding: 0.28em 0.5em 0.2em; border-radius: 5px; font-size: 0.78rem; letter-spacing: 0.04em;
+  vertical-align: 0.12em; white-space: nowrap;
+}
+.sg-marca-este { background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); }
+.sg-marca-alerta { border: 1.5px solid var(--al-vermelho); color: var(--al-texto); }
+
+/* ───── Pânico ───── */
+.sg-panico { position: relative; border: 2px solid var(--al-vermelho); overflow: hidden; }
+.sg-panico::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 6px;
+  background: repeating-linear-gradient(90deg, var(--al-vermelho) 0 22px, var(--al-fundo) 22px 26px);
+}
+.sg-panico-alto { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0.35rem 0 0.4rem; }
+.sg-carimbo {
+  display: inline-block; padding: 0.3em 0.6em 0.24em; border: 2px solid currentColor; border-radius: 6px;
+  color: var(--al-vermelho-sobre-escuro, var(--al-vermelho)); font-size: 1.15rem; letter-spacing: 0.05em; transform: rotate(-2.5deg);
+  box-shadow: inset 0 0 0 1px var(--al-superficie), inset 0 0 0 2px currentColor;
+}
+:root[data-eink] .sg-carimbo { transform: none; }
+.sg-panico-botao { width: 100%; justify-content: center; }
+.sg-confirma { margin-top: 0.9rem; padding: 0.9rem 1rem 1rem; border-radius: 12px; background: var(--al-fundo); border: 1px solid var(--al-superficie-2); }
+.sg-confirma > p { margin: 0; color: var(--al-texto); font-size: 0.95rem; line-height: 1.5; }
+.sg-confirma .sg-acoes { margin-top: 0.75rem; }
+.sg-confirma-panico { border: 2px dashed var(--al-vermelho); }
+.sg-confirma-titulo { margin: 0 0 0.7rem !important; font-size: 1.5rem !important; }
+.sg-marcar { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.7rem; align-items: start; cursor: pointer; }
+.sg-marcar input { width: 22px; height: 22px; margin-top: 0.1rem; accent-color: var(--al-vermelho); }
+.sg-marcar strong { display: block; margin-bottom: 0.2rem; color: var(--al-texto); font-size: 0.95rem; }
+.sg-atalho {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1rem;
+  margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--al-linha);
+}
+.sg-atalho > div { flex: 1 1 16rem; min-width: 0; }
+.sg-atalho-titulo { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; margin: 0 0 0.35rem; }
+.sg-teclas { display: inline-flex; gap: 0.3rem; }
+.sg-teclas kbd {
+  display: inline-grid; place-items: center; min-width: 2.6rem; height: 1.9rem; padding: 0 0.45rem; border-radius: 6px;
+  background: var(--al-superficie-2); color: var(--al-texto); font: 700 0.78rem/1 var(--al-fonte); letter-spacing: 0.04em;
+  box-shadow: inset 0 -2px 0 var(--al-fundo);
+}
+.sg-atalho .sg-marca { margin-left: 0.2rem; }
+
+/* ───── Perfil escondido pelo pânico ───── */
+.sg-escondido {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1rem; margin: 0 0 1rem; padding: 0.95rem 1.1rem;
+  border-radius: var(--al-raio); background: var(--al-superficie); border-left: 6px solid var(--al-dourado); color: var(--al-texto);
+}
+.sg-escondido > svg { color: var(--al-dourado); }
+
+/* ───── Aplicativo e aviso de entrada ───── */
+.sg-fator { flex-wrap: nowrap; align-items: flex-start; }
+.sg-fator svg { color: var(--al-vermelho); margin-top: 0.1rem; }
+.sg-fator[data-ligado] svg { color: var(--al-com-1); }
+.sg-alerta { margin-top: 0.9rem; padding: 0.8rem 0.9rem; border-radius: 10px; background: var(--al-fundo); border-left: 4px solid var(--al-dourado); }
+.sg-alerta .sg-subtitulo svg { color: var(--al-dourado); }
+
+/* ───── Códigos de recuperação ───── */
+.sg-medidor { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 4px; max-width: 18rem; margin: 0 0 0.6rem; }
+.sg-medidor-casa { aspect-ratio: 1; border-radius: 3px; background: var(--al-superficie-2); }
+.sg-medidor-casa[data-cheia] { background: var(--al-dourado); }
+:root:is([data-contrast], [data-eink]) .sg-medidor-casa { outline: 1px solid var(--al-texto); }
+.sg-codigos-novos { margin-top: 0.2rem; }
+.sg-codigos {
+  list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem 1rem; margin: 0.8rem 0 0; padding: 0.9rem 1rem;
+  border-radius: 10px; background: var(--al-fundo); border: 1px dashed var(--al-superficie-2);
+}
+.sg-codigos li { display: flex; align-items: baseline; gap: 0.6rem; min-width: 0; }
+.sg-codigo-n { color: var(--al-texto-3); font: 700 0.78rem/1 var(--al-fonte); }
+.sg-codigos code { color: var(--al-texto); font-family: ui-monospace, "Cascadia Mono", "DejaVu Sans Mono", monospace; font-size: 1.02rem; letter-spacing: 0.08em; }
+@container (max-width: 360px) { .sg-codigos { grid-template-columns: minmax(0, 1fr); } }
+
+/* ───── Aparelhos ───── */
+.sg-aparelhos { list-style: none; margin: 0; padding: 0; display: grid; }
+.sg-aparelho {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.75rem; align-items: center; padding: 0.8rem 0;
+}
+.sg-aparelho + .sg-aparelho { border-top: 1px solid var(--al-linha); }
+.sg-aparelho-icone {
+  display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: var(--al-superficie-2); color: var(--al-texto-2);
+}
+.sg-aparelho[data-este] .sg-aparelho-icone { background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); }
+.sg-aparelho-corpo { min-width: 0; }
+.sg-aparelho-nome { margin: 0; color: var(--al-texto); font-size: 0.98rem; font-weight: 700; line-height: 1.45; }
+.sg-aparelho-nome .sg-marca:first-of-type { margin-left: 0.55rem; }
+.sg-aparelho-dias { margin: 0.15rem 0 0; color: var(--al-texto-3); font-size: 0.84rem; }
+.sg-aparelho-esqueleto { height: 64px; border-radius: 10px; background: var(--al-superficie-2); opacity: 0.5; }
+.sg-aparelho-esqueleto + .sg-aparelho-esqueleto { margin-top: 0.5rem; border-top: 0; }
+@container (max-width: 420px) {
+  .sg-aparelho { grid-template-columns: auto minmax(0, 1fr); }
+  .sg-aparelho-sair { grid-column: 2; justify-self: start; }
+}
+.sg-so { display: flex; align-items: center; gap: 0.45rem; margin-top: 0.6rem; }
+.sg-so svg { color: var(--al-com-1); }
+
+/* ───── A chave (fora da busca) ───── */
+.sg-linha-chave { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; align-items: start; }
+.sg-linha-chave .sg-texto { margin-bottom: 0; }
+.sg-chave { display: inline-flex; align-items: center; min-width: 56px; min-height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
+.sg-chave:disabled { cursor: progress; opacity: 0.7; }
+.sg-chave-trilho {
+  position: relative; display: block; width: 54px; height: 30px; border-radius: 999px; background: transparent;
+  border: 1px solid var(--al-texto-3); transition: background-color 160ms ease, border-color 160ms ease;
+}
+.sg-chave-bola {
+  position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: var(--al-texto-3);
+  transition: transform 160ms ease, background-color 160ms ease;
+}
+.sg-chave[aria-checked="true"] .sg-chave-trilho { background: var(--al-dourado-fundo); border-color: var(--al-dourado-fundo); }
+.sg-chave[aria-checked="true"] .sg-chave-bola { transform: translateX(24px); background: var(--al-sobre-dourado); }
+.sg-chave:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 3px; border-radius: 999px; }
+:root:is([data-contrast], [data-eink]) .sg-chave-trilho { border-color: var(--al-texto); }
+@media (prefers-reduced-motion: reduce) { .sg-chave-trilho, .sg-chave-bola { transition: none; } }
+:root[data-parado] :is(.sg-chave-trilho, .sg-chave-bola) { transition: none; }
+
+/* A sessão que entrou sem o código do aplicativo: o que é e o que fazer, numa linha própria. */
+.sg-aparelho-sem-codigo { margin: 0.35rem 0 0; color: var(--al-texto-2); font-size: 0.86rem; line-height: 1.45; }
+.sg-aparelho-sem-codigo .sg-marca { margin-left: 0; font-size: 0.8rem; letter-spacing: 0; white-space: normal; }
+
+/* O erro ao carregar a página de segurança: a nota e o botão de tentar de novo, lado a lado. */
+.sg-erro-carregar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; margin-bottom: 1.2rem; }
+.sg-erro-carregar .sg-nota { margin: 0; }
+
+/* ───── Senha de pânico (a conta isca, só neste aparelho; onda 11) ───── */
+.sg-isca { position: relative; border: 2px solid var(--al-dourado); overflow: hidden; }
+.sg-isca::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 6px;
+  background: repeating-linear-gradient(90deg, var(--al-dourado) 0 22px, var(--al-fundo) 22px 26px, var(--al-vermelho) 26px 34px, var(--al-fundo) 34px 38px);
+}
+.sg-carimbo-ouro { color: var(--al-dourado); }
+.sg-isca-lei { margin-bottom: 0.2rem; padding-left: 0.75rem; border-left: 3px solid var(--al-superficie-2); }
+.sg-isca .sg-situacao { margin-top: 0.9rem; }
+.sg-isca .sg-situacao strong { color: var(--al-texto); }
+.sg-isca-form { display: grid; gap: 0.85rem; }
+.sg-isca-form > .sg-cinza { margin: 0; }
+.sg-campo { display: grid; gap: 0.35rem; min-width: 0; }
+.sg-rotulo { color: var(--al-texto); font-size: 0.92rem; font-weight: 700; }
+.sg-entrada {
+  width: 100%; min-height: 44px; padding: 0.55rem 0.75rem; border-radius: 10px; border: 1.5px solid var(--al-texto-3);
+  background: var(--al-superficie); color: var(--al-texto); font: inherit; font-size: 1rem;
+}
+.sg-entrada:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; border-color: var(--al-texto); }
+.sg-campo[data-erro] .sg-entrada { border-color: var(--al-vermelho); }
+.sg-entrada-texto { min-height: 5.5rem; resize: vertical; line-height: 1.5; }
+.sg-entrada-codigo { max-width: 11rem; font-family: ui-monospace, "Cascadia Mono", "DejaVu Sans Mono", monospace; letter-spacing: 0.25em; font-size: 1.15rem; }
+:root:is([data-contrast], [data-eink]) .sg-entrada { border-color: var(--al-texto); }
+.sg-marcar-isca { align-items: center; color: var(--al-texto); font-size: 0.93rem; min-height: 44px; }
+.sg-marcar-isca input { accent-color: var(--al-dourado); }
+.sg-isca-aberta { display: grid; gap: 0.5rem; border-style: dashed; border-color: var(--al-dourado); }
+.sg-isca-quem { margin: 0; color: var(--al-dourado); font-size: 1.35rem; letter-spacing: 0.03em; }
+.sg-etapa { display: grid; gap: 0.5rem; }
+.sg-etapa .sg-subtitulo svg { color: var(--al-dourado); }
+.sg-etapa[data-etapa="recusada"] .sg-subtitulo svg, .sg-etapa[data-etapa="suspensa"] .sg-subtitulo svg { color: var(--al-vermelho); }
+.sg-etapa .sg-acoes { margin-top: 0.35rem; }
+.sg-qr { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1rem; }
+/* O QR fica sempre sobre fundo claro (o leitor do aplicativo precisa do contraste), no tema claro e no escuro. */
+.sg-qr img, .sg-qr-vazio { display: block; width: 168px; height: 168px; padding: 8px; border-radius: 10px; background: var(--al-amostra-claro-cartao); }
+.sg-qr .sg-cinza { flex: 1 1 12rem; min-width: 0; }
+.sg-segredo { display: inline-block; margin-top: 0.25rem; color: var(--al-texto); font-family: ui-monospace, "Cascadia Mono", "DejaVu Sans Mono", monospace; letter-spacing: 0.08em; overflow-wrap: anywhere; }
+.sg-pacotes { display: grid; gap: 0.1rem; margin: 0; padding: 0; border: 0; min-width: 0; }
+.sg-pacotes legend { margin-bottom: 0.3rem; padding: 0; }
+
+/* Entrar pelo Tor: o endereço .onion inteiro, quebrando em qualquer letra (56 letras não cabem em 390 px). */
+.sg-onion {
+  display: block; margin: 0.15rem 0 0.7rem; padding: 0.6rem 0.75rem; border-radius: 10px; background: var(--al-fundo); border: 1px dashed var(--al-superficie-2);
+  color: var(--al-texto); font-family: ui-monospace, "Cascadia Mono", "DejaVu Sans Mono", monospace; font-size: 0.85rem; overflow-wrap: anywhere; user-select: all;
+}
+.sg-tor-uso { margin-top: 0.6rem; }

@@ -1,0 +1,237 @@
+{
+  "_rascunho": true,
+  "editor": {
+    "secoes": "Sections",
+    "links": "Liens",
+    "pacotes": "Paquets",
+    "aParte": "Cette partie s’enregistre avec son propre bouton."
+  },
+  "secoes": {
+    "titulo": "Sections du profil",
+    "ajuda": "Choisissez ce qui apparaît sur votre profil, au-dessus des onglets, et dans quel ordre. Rien n’apparaît sans votre choix.",
+    "noPerfil": "Sur le profil, dans cet ordre",
+    "fora": "Hors du profil",
+    "nenhuma": "Aucune section choisie : le profil n’a que l’en-tête et les onglets.",
+    "mostrar": "Afficher",
+    "tirar": "Retirer",
+    "subir": "Monter {nome}",
+    "descer": "Descendre {nome}",
+    "salvar": "Enregistrer les sections",
+    "salvando": "Enregistrement…",
+    "salvo": "Sections enregistrées.",
+    "nomes": {
+      "sobre": "À propos",
+      "links": "Liens",
+      "trilhas": "Parcours",
+      "comunidades": "Communautés",
+      "voluntariado": "Là où j’ai contribué",
+      "destaques": "À la une",
+      "colecoes": "Collections",
+      "conquistas": "Réussites"
+    },
+    "ajudas": {
+      "sobre": "Un texte plus long que la bio.",
+      "links": "Vos liens, en larges boutons.",
+      "trilhas": "Les parcours de l’École que vous avez cochés.",
+      "comunidades": "Seulement celles que vous choisissez, une à une.",
+      "voluntariado": "Les fronts de l’Institut où vous avez agi, confirmés par la coordination.",
+      "destaques": "Les stories, posts et actions à la une.",
+      "colecoes": "Les collections que vous avez montées.",
+      "conquistas": "Les réussites que vous avez activées."
+    }
+  },
+  "sobre": {
+    "titulo": "À propos",
+    "ajuda": "Texte brut, jusqu’à {max} caractères. N’apparaît qu’avec la section À propos activée.",
+    "rotulo": "Texte À propos",
+    "contador": "{n} sur {max}"
+  },
+  "comunidades": {
+    "titulo": "Communautés sur le profil",
+    "ajuda": "Seules celles que vous cochez apparaissent, parmi les communautés ouvertes dont vous faites partie. Quitter une communauté la retire du profil aussitôt.",
+    "nenhuma": "Vous ne faites encore partie d’aucune communauté ouverte.",
+    "limite": "Jusqu’à {max} communautés.",
+    "vazio": "Aucune communauté choisie."
+  },
+  "trilhas": {
+    "vazio": "Aucun parcours coché.",
+    "ajuda": "Cochés par la personne elle-même, à partir de l’étude sur son appareil."
+  },
+  "links": {
+    "titulo": "Liens",
+    "ajuda": "Jusqu’à {max}, dans l’ordre voulu. https seulement ; les paramètres de pistage sont retirés. Personne ne compte les clics.",
+    "tituloDoLink": "Titre",
+    "endereco": "Adresse",
+    "acrescentar": "Ajouter un lien",
+    "tirar": "Retirer {titulo}",
+    "subir": "Monter {titulo}",
+    "descer": "Descendre {titulo}",
+    "salvar": "Enregistrer les liens",
+    "salvo": "Liens enregistrés.",
+    "invalido": "Vérifiez le titre (jusqu’à {max} caractères) et l’adresse (https).",
+    "vazio": "Aucun lien pour l’instant.",
+    "conferidoRelMe": "Vérifié : le site renvoie vers ce profil",
+    "conferidoMediacao": "Vérifié par la médiation",
+    "conferido": "Vérifié",
+    "conferir": "Vérifier",
+    "conferindo": "Vérification…",
+    "comoConferir": "Pour vérifier, mettez sur votre site un lien vers votre profil avec rel=\"me\" :",
+    "ok": "Vérifié.",
+    "naoAchou": "Nous n’avons pas trouvé le lien retour sur cette page. Vérifiez qu’il y est, avec rel=\"me\", et réessayez.",
+    "semServico": "La vérification n’est pas disponible pour le moment. Réessayez plus tard.",
+    "salveAntes": "Enregistrez les liens avant de vérifier.",
+    "instagram": {
+      "ajuda": "Instagram ne permet pas rel=\"me\". Demandez à la médiation : vous recevez un code à mettre dans votre bio là-bas, et la médiation vérifie.",
+      "pedir": "Demander à la médiation",
+      "codigo": "Mettez dans la bio Instagram :",
+      "esperando": "En attente de la médiation.",
+      "desistir": "Annuler la demande"
+    }
+  },
+  "status": {
+    "tipos": {
+      "na_luta": "Dans la lutte",
+      "ausente": "Absent·e"
+    },
+    "publico": "Qui voit le statut",
+    "publicos": {
+      "todos": "Qui voit le profil",
+      "roda": "Seulement mon cercle de confiance"
+    },
+    "soRoda": "Seul votre cercle de confiance voit ce statut."
+  },
+  "voluntariado": {
+    "titulo": "Là où j’ai contribué",
+    "ajuda": "Les fronts de travail de l’Institut où vous avez agi, en années. La coordination confirme chaque ligne ; seule la ligne confirmée apparaît, et seulement avec la section activée.",
+    "frente": "Front",
+    "de": "Depuis",
+    "ate": "Jusqu’à",
+    "hoje": "aujourd’hui",
+    "ateHoje": "Jusqu’à aujourd’hui",
+    "acrescentar": "Ajouter",
+    "guardar": "Garder",
+    "cancelar": "Annuler",
+    "mudar": "Modifier",
+    "tirar": "Retirer",
+    "vazio": "Aucune ligne pour l’instant.",
+    "limite": "Jusqu’à {max} lignes.",
+    "mudarVolta": "Modifier une ligne confirmée la renvoie à la coordination.",
+    "confirmado": "Confirmé par la coordination",
+    "situacoes": {
+      "esperando": "En attente de la coordination",
+      "confirmado": "Confirmé",
+      "recusado": "Non confirmé"
+    },
+    "frentes": {
+      "educacao": "Éducation",
+      "curadoria": "Curation",
+      "mediacao": "Médiation",
+      "revisao": "Relecture",
+      "traducao": "Traduction",
+      "jornalismo": "Journalisme",
+      "comunicacao": "Communication",
+      "mentoria": "Mentorat",
+      "design": "Design",
+      "desenvolvimento": "Développement",
+      "saude": "Santé",
+      "parcerias": "Partenariats",
+      "eventos": "Événements"
+    }
+  },
+  "pacotes": {
+    "titulo": "Paquets de départ",
+    "ajuda": "L’équipe compose des paquets de profils à suivre pour les nouveaux venus. Vous n’entrez dans un paquet que si vous acceptez son invitation, et vous en sortez quand vous voulez.",
+    "convites": "Invitations",
+    "semConvites": "Aucune invitation pour l’instant.",
+    "dentro": "Vous êtes dans",
+    "foraDeTodos": "Vous n’êtes dans aucun paquet.",
+    "aceitar": "Entrer",
+    "recusar": "Refuser",
+    "sair": "Sortir",
+    "abrir": "Ouvrir",
+    "fechado": "Les paquets sont réservés aux profils ouverts : avec un profil verrouillé ou invisible, impossible d’entrer.",
+    "noPasso": "Vous n’entrez dans un paquet qu’en acceptant son invitation, dans Modifier le profil › Paquets."
+  },
+  "pacote": {
+    "rotulo": "Paquet de départ",
+    "pessoas": "Qui est dans ce paquet",
+    "nPessoas": "{n} personnes",
+    "seguirTodas": "Suivre tout le monde",
+    "seguindo": "Abonnement…",
+    "seguidas": "Vous suivez maintenant {n}.",
+    "vazio": "Personne n’est encore entré dans ce paquet.",
+    "soQuemAceitou": "Ici, seulement les personnes qui ont accepté d’entrer dans ce paquet.",
+    "compartilhar": "Partager le paquet",
+    "link": "Lien du paquet",
+    "copiar": "Copier le lien",
+    "copiado": "Lien copié.",
+    "qr": "QR du paquet",
+    "qrAjuda": "Fait ici sur l’appareil, sans service extérieur. Montrez-le à l’écran ou imprimez-le.",
+    "baixarQr": "Télécharger le QR",
+    "qrFalhou": "Impossible de générer le QR sur cet appareil.",
+    "naoAchado": "Ce paquet n’existe pas ou a été fermé.",
+    "entrar": "Connectez-vous à Alumia pour voir qui est dans le paquet.",
+    "explorar": "Voir d’autres paquets dans Explorer"
+  },
+  "cuidar": {
+    "titulo": "Gérer les paquets",
+    "ajuda": "Inviter ne met personne dans le paquet : la personne reçoit l’invitation et n’entre que si elle accepte.",
+    "novo": "Nouveau paquet",
+    "endereco": "Adresse (lettres, chiffres et -)",
+    "tituloDoPacote": "Titre",
+    "descricao": "Description",
+    "ordem": "Ordre",
+    "aberto": "Ouvert",
+    "salvar": "Enregistrer le paquet",
+    "salvo": "Paquet enregistré.",
+    "convidar": "Inviter par @",
+    "convidarBotao": "Inviter",
+    "convidado": "Invitation envoyée. La personne n’entre que si elle accepte.",
+    "tirar": "Retirer @{handle}",
+    "dentro": "Dans le paquet",
+    "convitesEsperando": "Invitations en attente : {n}",
+    "haConvites": "Des invitations sont en attente",
+    "ninguem": "Personne pour l’instant.",
+    "fechado": "Fermé",
+    "vazio": "Aucun paquet pour l’instant."
+  },
+  "painel": {
+    "voluntariado": {
+      "titulo": "Historique de bénévolat",
+      "ajuda": "Chaque ligne a été écrite par la personne. Ne confirmez que ce que la coordination sait avoir eu lieu. Refuser demande un motif.",
+      "vazio": "Rien en attente.",
+      "confirmar": "Confirmer",
+      "recusar": "Refuser",
+      "motivo": "Motif (10 à 500 caractères)",
+      "feito": "Fait."
+    },
+    "links": {
+      "titulo": "Liens Instagram à vérifier",
+      "ajuda": "Ouvrez le profil là-bas et regardez si le code est dans la bio. Ensuite seulement, marquez-le.",
+      "vazio": "Rien en attente.",
+      "esta": "Le code y est",
+      "naoEsta": "Il n’y est pas",
+      "codigo": "Code",
+      "de": "de @{handle}"
+    }
+  },
+  "erros": {
+    "invalido:secoes": "Vérifiez les sections choisies.",
+    "invalido:sobre": "Le texte À propos est trop long.",
+    "invalido:comunidades": "Vous ne pouvez afficher que des communautés ouvertes dont vous faites partie.",
+    "invalido:links": "Vérifiez les liens : titre court et adresse https sans pistage.",
+    "invalido:site": "La médiation ne vérifie que les liens Instagram.",
+    "invalido:frente": "Choisissez un front de la liste.",
+    "invalido:periodo": "Vérifiez les années.",
+    "invalido:pessoa": "Ce profil ne peut pas être dans un paquet (il doit être ouvert).",
+    "invalido:motivo": "Écrivez le motif, de 10 à 500 caractères.",
+    "limite:voluntariado": "Vous avez atteint la limite de lignes.",
+    "repetido": "Cette ligne existe déjà.",
+    "perfil_fechado": "Les paquets sont réservés aux profils ouverts.",
+    "sem_handle": "Choisissez d’abord votre @.",
+    "sem_permissao": "Vous n’avez pas la permission.",
+    "nao_encontrado": "Introuvable.",
+    "muitos_pedidos": "Trop de tentatives d’affilée. Patientez un peu.",
+    "generico": "Ça n’a pas marché. Réessayez."
+  }
+}

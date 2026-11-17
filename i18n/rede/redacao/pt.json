@@ -1,0 +1,206 @@
+{
+  "carimbo": "Roda de redação",
+  "titulo": "Redação entre pares",
+  "chamada": "Escreva sobre o tema da semana, corrija a redação de outras pessoas pelas 5 competências do ENEM e receba as suas leituras. **Ninguém sabe de quem é a redação, nem quem corrigiu.**",
+  "carregando": "Abrindo a roda",
+  "entrar": "Entre na Alumia para participar da roda de redação.",
+  "abas": {
+    "rotulo": "Partes da roda",
+    "escrever": "Escrever",
+    "corrigir": "Corrigir",
+    "devolutivas": "Devolutivas",
+    "mediacao": "Mediação",
+    "temas": "Temas"
+  },
+  "tema": {
+    "rotulo": "Tema da semana",
+    "ate": "Entregas até {data}",
+    "motivadores": "Textos motivadores",
+    "semTema": "A coordenação ainda não lançou o tema desta semana. Volte em breve.",
+    "semTemaCoord": "Esta semana ainda está sem tema. Lance um na aba Temas."
+  },
+  "troca": {
+    "titulo": "Sua troca",
+    "corrigidas": "corrigidas nesta roda",
+    "deDuas": "de 2",
+    "esperando": "esperando leitura",
+    "menosDe3": "menos de 3",
+    "pronta": "Troca cumprida",
+    "afastada": "Você está fora da roda até {data}, por uma correção julgada abusiva pela mediação."
+  },
+  "como": {
+    "titulo": "Como a roda funciona",
+    "itens": [
+      {
+        "titulo": "Às cegas, nos dois sentidos",
+        "texto": "Quem corrige recebe só o texto. Quem escreveu recebe só a ficha. Nem nome, nem codinome, de nenhum dos lados."
+      },
+      {
+        "titulo": "Duas leituras por redação",
+        "texto": "Cada redação é lida por duas pessoas, pelas 5 competências do ENEM, com nota de 0 a 200 e um comentário em cada uma."
+      },
+      {
+        "titulo": "Corrija para receber",
+        "texto": "Suas leituras chegam quando você corrigiu duas redações da mesma roda. Se a roda estiver cheia quando você pedir, a troca fica cumprida."
+      },
+      {
+        "titulo": "Tudo some em 30 dias",
+        "texto": "A redação e as correções são apagadas de vez 30 dias depois da devolução. Depois da devolução, o banco não guarda quem leu o quê."
+      },
+      {
+        "titulo": "Correção abusiva",
+        "texto": "Leitura que ofende vai à mediação. Se for abusiva, sai da sua tela, sua redação ganha outra leitura e quem escreveu fica fora da roda, sem que ninguém saiba quem é."
+      }
+    ]
+  },
+  "escrever": {
+    "titulo": "Sua redação desta semana",
+    "tituloCampo": "Título (opcional)",
+    "textoCampo": "Texto",
+    "dica": "Escreva o texto dissertativo-argumentativo direto aqui. Não assine nem escreva seu nome: a leitura é às cegas.",
+    "linhas": "{n} de 30 linhas",
+    "minimo": "mínimo de 7 linhas",
+    "letras": "{n} letras",
+    "entregar": "Entregar à roda",
+    "entregando": "Entregando…",
+    "entregue": "Entregue. Sua redação está na roda.",
+    "jaEntregou": "Você já entregou a redação desta semana. Acompanhe em Devolutivas.",
+    "rascunho": "O rascunho fica só neste aparelho até você entregar."
+  },
+  "corrigir": {
+    "titulo": "Corrigir uma redação",
+    "chamada": "Peça uma redação da roda. Você tem 72 horas para devolver a ficha; se não der, largue e ela volta para a roda.",
+    "pedir": "Pedir uma redação para ler",
+    "pedindo": "Sorteando…",
+    "nenhuma": "Nenhuma redação esperando leitura agora. Volte mais tarde.",
+    "dispensada": "A roda está cheia: nenhuma redação esperando leitura. Sua troca desta roda fica cumprida.",
+    "duasAbertas": "Você já tem duas leituras abertas. Termine uma antes de pedir outra.",
+    "jaLendo": "Você já está lendo uma. Dá para pegar mais uma, até duas abertas.",
+    "pedirOutra": "Pedir mais uma",
+    "prazo": "Devolver até {data}",
+    "semTitulo": "Sem título",
+    "aRedacao": "A redação",
+    "aFicha": "Sua ficha",
+    "nota": "Nota",
+    "comentario": "Comentário",
+    "comentarioDica": "O que funcionou e o que melhorar, em pelo menos 20 letras.",
+    "geral": "Comentário geral (opcional)",
+    "total": "Total",
+    "enviar": "Enviar correção",
+    "enviando": "Enviando…",
+    "largar": "Largar esta leitura",
+    "falta": "Falta a nota ou o comentário da competência {n}.",
+    "enviada": "Correção enviada. Obrigado por ler com cuidado.",
+    "cega": "Você não sabe de quem é este texto, e quem escreveu não vai saber que foi você."
+  },
+  "competencias": [
+    {
+      "nome": "Competência 1",
+      "resumo": "Domínio da modalidade escrita formal da língua portuguesa."
+    },
+    {
+      "nome": "Competência 2",
+      "resumo": "Compreender a proposta e desenvolver o tema no texto dissertativo-argumentativo, com repertório de várias áreas."
+    },
+    {
+      "nome": "Competência 3",
+      "resumo": "Selecionar, relacionar, organizar e interpretar informações, fatos e opiniões em defesa de um ponto de vista."
+    },
+    {
+      "nome": "Competência 4",
+      "resumo": "Usar os mecanismos linguísticos que constroem a argumentação (coesão)."
+    },
+    {
+      "nome": "Competência 5",
+      "resumo": "Propor intervenção para o problema, respeitando os direitos humanos."
+    }
+  ],
+  "devolutivas": {
+    "titulo": "Suas redações",
+    "vazio": "Você ainda não entregou nenhuma redação.",
+    "semana": "Semana de {data}",
+    "naRoda": "Na roda até {data}.",
+    "faltaCorrigir": "Corrija mais {n} para receber as suas leituras.",
+    "faltaUma": "Corrija mais 1 para receber as suas leituras.",
+    "esperandoLeituras": "Você cumpriu a troca. As leituras chegam juntas, quando ficarem prontas.",
+    "encerrada": "A roda fechou e esta redação não foi devolvida. Ela some em {data}.",
+    "devolvida": "Devolvida em {data}. Tudo some em {apagar}.",
+    "leitura": "Leitura {n}",
+    "media": "Média das leituras",
+    "deMil": "de 1000",
+    "verTexto": "Ver o texto que você entregou",
+    "apagar": "Apagar agora",
+    "apagarConfirma": "Apagar esta redação e as leituras dela, de vez?",
+    "apagarSim": "Sim, apagar",
+    "cancelar": "Cancelar",
+    "removida": "Esta leitura foi tirada pela mediação. Sua redação voltou à roda para uma leitura nova.",
+    "denunciar": "Denunciar esta leitura",
+    "denunciaMotivo": "O que há de abusivo nesta leitura?",
+    "denunciaDica": "Vai à mediação, que lê a correção sem saber de quem é. Pelo menos 10 letras.",
+    "enviarDenuncia": "Enviar à mediação",
+    "denunciaAberta": "Denunciada. A mediação vai olhar.",
+    "denunciaNaoAbusiva": "A mediação leu e não achou abuso nesta leitura.",
+    "denunciaAbusiva": "A mediação julgou esta leitura abusiva."
+  },
+  "mediacao": {
+    "titulo": "Denúncias de correção",
+    "chamada": "Leituras denunciadas por quem as recebeu. Você não vê quem escreveu a redação nem quem corrigiu. Abusiva: a leitura sai, a redação ganha outra leitura e quem escreveu fica fora da roda por 8 semanas, sem que o nome apareça para ninguém.",
+    "vazio": "Nenhuma denúncia esperando.",
+    "motivo": "Motivo da denúncia",
+    "aCorrecao": "A correção denunciada",
+    "verRedacao": "Ver a redação corrigida",
+    "nota": "Nota da mediação (opcional)",
+    "abusiva": "Abusiva: tirar e afastar",
+    "naoAbusiva": "Não é abusiva",
+    "pendente": "Julgada abusiva. Falta o afastamento.",
+    "tentarDeNovo": "Fazer o afastamento",
+    "feito": "Feito. Quem escreveu está fora da roda por 8 semanas; o nome não aparece aqui.",
+    "semLacre": "A leitura saiu. Esta correção não tinha como ser ligada a ninguém, então ninguém foi afastado.",
+    "decidida": "Decidida."
+  },
+  "temas": {
+    "titulo": "Temas da roda",
+    "chamada": "Um tema por semana, de segunda a domingo. O tema só muda enquanto ninguém entregou redação nele.",
+    "semana": "Semana de {data}",
+    "estaSemana": "Esta semana",
+    "semTema": "Sem tema",
+    "redacoes": "{n} redações",
+    "poucas": "menos de 3 redações",
+    "tituloCampo": "Proposta",
+    "motivadoresCampo": "Textos motivadores (opcional)",
+    "salvar": "Salvar o tema",
+    "lancar": "Lançar tema",
+    "editar": "Editar",
+    "salvo": "Tema salvo.",
+    "fechado": "Já tem redação nesta semana: o tema não muda mais."
+  },
+  "erros": {
+    "generico": "Não deu certo agora. Tente de novo em instantes.",
+    "sem_conexao": "Sem conexão com o servidor. Confira a internet e tente de novo.",
+    "sem_servico": "A roda de redação ainda não está ligada neste servidor.",
+    "banco_desatualizado": "A roda de redação ainda não está ligada neste servidor.",
+    "muitos_pedidos": "Muitos pedidos seguidos. Espere alguns minutos.",
+    "entre_primeiro": "Entre na Alumia para participar.",
+    "afastada": "Você está fora da roda por enquanto.",
+    "sem_tema": "A coordenação ainda não lançou o tema desta semana.",
+    "ja_entregou": "Você já entregou a redação desta semana.",
+    "invalido:curta": "A redação está curta demais. Escreva pelo menos 7 linhas.",
+    "invalido:longa": "A redação passou das 30 linhas.",
+    "invalido:titulo": "O título pode ter até 100 letras.",
+    "leituras_abertas": "Você já tem duas leituras abertas.",
+    "nao_encontrado": "Não achamos esta leitura. Talvez o prazo tenha passado.",
+    "prazo": "O prazo desta leitura passou. Ela voltou para a roda.",
+    "invalido:nota": "Cada competência precisa de uma nota de 0 a 200.",
+    "invalido:comentario": "Cada competência precisa de um comentário de 20 a 800 letras.",
+    "invalido:ficha": "A ficha está incompleta.",
+    "invalido:geral": "O comentário geral pode ter até 800 letras.",
+    "invalido:motivo": "Explique o motivo em 10 a 1000 letras.",
+    "ja_denunciada": "Esta leitura já foi denunciada.",
+    "ja_removida": "Esta leitura já foi tirada.",
+    "ja_decidida": "Esta denúncia já foi decidida.",
+    "sem_permissao": "Você não tem permissão para isso.",
+    "invalido:semana": "Escolha uma semana desta até 12 semanas à frente.",
+    "ja_tem_redacao": "Já tem redação nesta semana: o tema não muda mais.",
+    "invalido:motivadores": "Os textos motivadores podem ter até 3000 letras."
+  }
+}

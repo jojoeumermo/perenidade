@@ -1,0 +1,153 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ * A identidade pública opcional: o bloco "Como você aparece" do editor do perfil, a tela curta da escolha (três passos em
+ * ladrilhos, sob a faixa tecida), o recorte da foto e o lembrete de quem marcou a intenção no cadastro. Só tokens da casa
+ * (noite, vermelho, ouro, creme); alto contraste e e-ink passam por cima. */
+
+[data-al="2"] .ali { font-family: var(--al-fonte); color: var(--al-texto); }
+[data-al="2"] .ali-miudo { margin: 6px 0 0; font-size: 0.86rem; line-height: 1.45; color: var(--al-texto-3); font-weight: 500; }
+[data-al="2"] .ali-nota { margin-top: 12px; padding: 10px 12px; border: 1.5px dashed var(--al-superficie-2); border-radius: 10px; }
+[data-al="2"] .ali-erro { margin: 8px 0 0; font-size: 0.88rem; font-weight: 700; color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+[data-al="2"] .ali-ok { margin: 8px 0 0; min-height: 1.2em; font-size: 0.88rem; font-weight: 700; color: var(--al-dourado); }
+[data-al="2"] .ali-ok:empty, [data-al="2"] .ali-erro:empty { margin: 0; min-height: 0; }
+[data-al="2"] .ali-sub { margin: 0; font-size: 1.05rem; letter-spacing: 0.04em; text-transform: uppercase; }
+[data-al="2"] .ali-opcional { font-style: normal; font-weight: 600; font-size: 0.78rem; color: var(--al-texto-3); margin-left: 4px; }
+
+/* Os dois modos, lado a lado: cartões de arquibancada; o atual leva a borda creme e o carimbo. */
+[data-al="2"] .ali-modos { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+[data-al="2"] .ali-modo { position: relative; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 12px; padding: 14px; border: 1.5px solid var(--al-superficie-2); border-radius: var(--al-raio); background: var(--al-superficie); }
+[data-al="2"] .ali-modo[data-atual] { border-color: var(--al-cartao-aceso); }
+[data-al="2"] .ali-modo-nome { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+[data-al="2"] .ali-modo-nome strong { font-size: 1.25rem; letter-spacing: 0.03em; text-transform: uppercase; line-height: 1; }
+[data-al="2"] .ali-etiqueta { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--al-texto-3); }
+[data-al="2"] .ali-modo .ali-miudo { margin-top: 4px; }
+[data-al="2"] .ali-carimbo { grid-column: 1 / -1; justify-self: start; color: var(--al-dourado); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; }
+[data-al="2"] .ali-mosaico { display: block; flex: none; }
+[data-al="2"] .ali-silhueta { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 9px; background: var(--al-superficie-2); color: var(--al-texto-3); }
+[data-al="2"] .ali-foto { display: block; flex: none; border-radius: 20%; object-fit: cover; background: var(--al-superficie-2); }
+
+[data-al="2"] .ali-botoes { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+[data-al="2"] .ali-botoes-esq { justify-content: flex-start; }
+
+/* Quem está em público: o nome, a foto e a volta. */
+[data-al="2"] .ali-publica { margin-top: 16px; display: grid; gap: 4px; }
+[data-al="2"] .ali-publica-nome { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; }
+[data-al="2"] .ali-nome-atual { margin: 0; display: grid; }
+[data-al="2"] .ali-nome-atual strong { font-size: 1.2rem; overflow-wrap: anywhere; }
+[data-al="2"] .ali-nome-atual span { color: var(--al-texto-3); font-size: 0.9rem; }
+[data-al="2"] .ali-form-nome { flex: 1 1 100%; }
+[data-al="2"] .ali-volta { margin-top: 18px; padding: 14px; border: 1.5px dashed var(--al-superficie-2); border-radius: var(--al-raio); display: grid; gap: 10px; justify-items: start; }
+[data-al="2"] .ali-volta .ali-miudo { margin: 0; }
+
+/* Campos (nome, foto) */
+[data-al="2"] .ali-campo { display: grid; gap: 6px; margin-top: 16px; font-weight: 700; font-size: 0.92rem; }
+[data-al="2"] .ali-campo small { font-weight: 500; color: var(--al-texto-3); font-size: 0.82rem; line-height: 1.45; }
+[data-al="2"] .ali-campo small.ali-erro { color: var(--al-vermelho-letra, var(--al-vermelho-texto)); font-weight: 700; margin: 0; }
+[data-al="2"] .ali-campo input[type="text"] { width: 100%; min-height: 46px; padding: 0 12px; border-radius: 10px; border: 1.5px solid var(--al-superficie-2); background: var(--al-fundo); color: var(--al-texto); font: inherit; font-weight: 600; }
+[data-al="2"] .ali-campo input[type="text"]:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+[data-al="2"] .ali-campo input[aria-invalid="true"] { border-color: var(--al-vermelho); }
+[data-al="2"] .ali-arquivo { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+[data-al="2"] .ali-campo-foto { position: relative; margin-top: 4px; }
+[data-al="2"] .ali-foto-linha { display: flex; align-items: center; gap: 14px; }
+[data-al="2"] .ali-foto-lado { min-width: 0; }
+[data-al="2"] .ali-foto-lado .ali-miudo { margin: 0; }
+[data-al="2"] .ali-foto-lado .ali-botoes { margin-top: 8px; }
+
+/* O recorte: o quadro mostra exatamente o que será gravado; a guia redonda lembra como fica no perfil. */
+[data-al="2"] .ali-recorte-caixa { padding: 14px; border: 1.5px solid var(--al-superficie-2); border-radius: var(--al-raio); background: var(--al-superficie); }
+[data-al="2"] .ali-recorte { margin-top: 10px; display: grid; gap: 4px; justify-items: center; }
+[data-al="2"] .ali-recorte-quadro { position: relative; width: min(280px, 100%); aspect-ratio: 1; border-radius: 20%; overflow: hidden; background: var(--al-mosaico-fundo); box-shadow: 0 0 0 2px var(--al-cartao-aceso); }
+[data-al="2"] .ali-recorte-tela { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; }
+[data-al="2"] .ali-recorte-tela:active { cursor: grabbing; }
+[data-al="2"] .ali-recorte-tela:focus-visible { outline: 3px solid var(--al-foco); outline-offset: -3px; }
+[data-al="2"] .ali-recorte-guia { position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 0 0 1px rgba(243, 239, 230, 0.55); pointer-events: none; }
+[data-al="2"] .ali-recorte .ali-miudo { text-align: center; }
+[data-al="2"] .ali-zoom { width: min(280px, 100%); display: grid; gap: 4px; margin-top: 8px; font-weight: 700; font-size: 0.85rem; }
+[data-al="2"] .ali-zoom input { width: 100%; min-height: 32px; accent-color: var(--al-vermelho); }
+
+/* A tela da escolha: faixa tecida no alto, ladrilhos do passo, título em caixa alta. */
+[data-al="2"] .ali-dialogo { position: fixed; inset: 0; margin: auto; height: fit-content; max-height: calc(100dvh - 32px); overflow: auto; width: min(760px, calc(100vw - 32px)); padding: 0; border: 1px solid var(--al-superficie-2); border-radius: 20px; background: var(--al-superficie); color: var(--al-texto); font-family: var(--al-fonte); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55); }
+[data-al="2"] .ali-dialogo-curto { width: min(480px, calc(100vw - 32px)); }
+[data-al="2"] .ali-dialogo[open] { animation: ali-entra 0.28s cubic-bezier(0.2, 0.8, 0.2, 1); }
+[data-al="2"] .ali-dialogo::backdrop { background: rgba(15, 14, 13, 0.72); backdrop-filter: blur(3px); }
+@keyframes ali-entra { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+[data-al="2"] .ali-faixa { height: var(--al-faixa-altura, 6px); background: var(--al-faixa); position: sticky; top: 0; z-index: 1; }
+[data-al="2"] .ali-dialogo-corpo { padding: 20px 24px 22px; }
+[data-al="2"] .ali-dialogo-corpo > p { margin: 10px 0 0; line-height: 1.5; color: var(--al-texto-2); }
+[data-al="2"] .ali-passos { display: flex; align-items: center; gap: 10px; margin: 0 !important; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--al-texto-3) !important; }
+[data-al="2"] .ali-ladrilhos { display: inline-flex; gap: 4px; }
+[data-al="2"] .ali-ladrilhos i { width: 16px; height: 16px; border-radius: 3px; background: var(--al-cartao-apagado); border: 1px solid var(--al-cartao-borda); }
+[data-al="2"] .ali-ladrilhos i[data-aceso] { background: var(--al-vermelho); }
+[data-al="2"] .ali-titulo { margin: 8px 0 0; font-size: clamp(1.9rem, 5vw, 2.5rem); line-height: 0.95; text-transform: uppercase; letter-spacing: 0.01em; }
+/* O título recebe o foco quando a janela abre (para o leitor de tela anunciar onde está): sem o retângulo de foco, que parecia defeito. */
+[data-al="2"] .ali-dialogo .ali-titulo[tabindex="-1"]:is(:focus, :focus-visible) { outline: none !important; box-shadow: none !important; }
+[data-al="2"] .ali-titulo:focus { outline: none; }
+[data-al="2"] .ali-ciencias { display: grid; gap: 14px 22px; margin-top: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+[data-al="2"] .ali-ciencia { padding-top: 10px; border-top: 2px solid var(--al-superficie-2); }
+[data-al="2"] .ali-ciencia .ali-sub { color: var(--al-dourado); font-size: 0.98rem; }
+[data-al="2"] .ali-ciencia ul { margin: 8px 0 0; padding: 0 0 0 1.1em; display: grid; gap: 6px; list-style: square outside; }
+[data-al="2"] .ali-ciencia li { display: list-item; }
+[data-al="2"] .ali-ciencia :is(li, p) { margin: 0; font-size: 0.92rem; line-height: 1.45; color: var(--al-texto-2); }
+[data-al="2"] .ali-ciencia p { margin-top: 8px; }
+[data-al="2"] .ali-ciencia li::marker { color: var(--al-vermelho); }
+[data-al="2"] .ali-destaque { font-weight: 700; color: var(--al-texto) !important; }
+[data-al="2"] .ali-pense { margin-top: 16px !important; padding: 10px 12px; border: 1.5px dashed var(--al-dourado); border-radius: 10px; font-size: 0.9rem; color: var(--al-texto) !important; }
+[data-al="2"] .ali-amostra { margin-top: 10px; display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: var(--al-raio); background: var(--al-fundo); border: 1px solid var(--al-superficie-2); }
+[data-al="2"] .ali-amostra-nomes { display: grid; min-width: 0; }
+[data-al="2"] .ali-amostra-nomes strong { font-size: 1.15rem; overflow-wrap: anywhere; }
+[data-al="2"] .ali-amostra-nomes span { color: var(--al-texto-3); font-size: 0.9rem; }
+[data-al="2"] .ali-marcar { display: flex; align-items: flex-start; gap: 10px; margin-top: 16px; font-weight: 700; line-height: 1.4; cursor: pointer; }
+[data-al="2"] .ali-marcar input { flex: none; width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--al-vermelho); }
+[data-al="2"] .ali-botoes-rodape { margin-top: 20px; }
+[data-al="2"] .ali-botoes-rodape[hidden] { display: none; }
+/* Na volta: trocar o @ junto. */
+[data-al="2"] .ali-arroba { display: grid; gap: 10px; margin-top: 14px; }
+[data-al="2"] .ali-marca { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+[data-al="2"] .ali-marca input { flex: none; width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--al-vermelho); }
+[data-al="2"] .ali-marca span { display: grid; gap: 4px; }
+[data-al="2"] .ali-marca small { font-size: 0.86rem; line-height: 1.45; color: var(--al-texto-3); font-weight: 500; }
+[data-al="2"] .ali-arroba-campo { display: grid; gap: 4px; padding-left: 32px; font-weight: 700; font-size: 0.86rem; }
+[data-al="2"] .ali-arroba-entrada { display: flex; align-items: center; gap: 4px; min-height: 44px; padding: 0 12px; border: 1.5px solid var(--al-superficie-2); border-radius: 10px; background: var(--al-fundo); }
+[data-al="2"] .ali-arroba-entrada input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--al-texto); font: inherit; font-weight: 600; outline: none; }
+[data-al="2"] .ali-arroba-entrada:focus-within { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+
+/* O lembrete de quem marcou a intenção no cadastro: uma linha no alto, uma vez só. */
+[data-al="2"] .ali-lembrete { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 12px 16px 0; padding: 12px 14px; border: 1.5px dashed var(--al-dourado); border-radius: var(--al-raio); background: var(--al-superficie); font-family: var(--al-fonte); color: var(--al-texto); }
+[data-al="2"] .ali-lembrete p { margin: 0; flex: 1 1 260px; font-weight: 600; line-height: 1.4; }
+[data-al="2"] .ali-lembrete .ali-botoes { margin: 0; }
+
+/* A marca ao lado do @ de quem escolheu aparecer com nome e foto (perfil). */
+[data-al="2"] .ali-selo { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border: 1px solid currentColor; border-radius: 999px; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.5; opacity: 0.85; white-space: nowrap; }
+
+/* No editor do perfil, aba Sobre: em público o nome não se troca ali. */
+[data-al="2"] .pfe-nome-travado { justify-items: start; padding: 12px 14px; border: 1.5px dashed var(--al-superficie-2); border-radius: var(--al-raio); }
+[data-al="2"] .pfe-nome-travado strong { font-size: 1.15rem; overflow-wrap: anywhere; }
+[data-al="2"] .pfe-nome-travado > span { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--al-texto-3); }
+
+/* No cadastro (a entrada tem os próprios tokens, --ale-*): duas opções em cartão, o codinome marcado de saída. */
+.ale .ali-cadastro { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: 8px; }
+.ale .ali-cadastro legend { padding: 0; margin-bottom: 8px; }
+.ale .ali-cadastro-opcao { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; border: 1.5px solid var(--ale-linha); border-radius: 16px; background: var(--ale-sup); cursor: pointer; }
+.ale .ali-cadastro-opcao[data-marcada] { border-color: var(--ale-texto); }
+.ale .ali-cadastro-opcao:focus-within { outline: 2px solid var(--ale-foco); outline-offset: 2px; }
+.ale .ali-cadastro-opcao input { flex: none; width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--ale-vermelho); }
+.ale .ali-cadastro-opcao span { display: grid; gap: 2px; min-width: 0; }
+.ale .ali-cadastro-opcao strong { font-size: 15px; line-height: 1.35; }
+.ale .ali-cadastro-opcao em { margin-left: 6px; font-style: normal; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ale-dourado); }
+.ale .ali-cadastro-opcao small { font-size: 14px; line-height: 1.4; color: var(--ale-texto-3); }
+
+/* A foto dentro do rosto da rede (components/rede/ui/Avatar16.tsx) */
+:root[data-eink] [data-al="2"] .al-avatar16-foto image, :root[data-eink] [data-al="2"] .ali-foto { filter: grayscale(1) contrast(1.2); }
+
+@media (max-width: 640px) {
+  [data-al="2"] .ali-ciencias { grid-template-columns: 1fr; }
+  [data-al="2"] .ali-dialogo { margin: auto 0 0; width: 100%; max-width: 100%; max-height: calc(100dvh - 12px); border-radius: 20px 20px 0 0; }
+  [data-al="2"] .ali-dialogo-corpo { padding: 16px 16px calc(18px + var(--recuo-baixo, 0px)); }
+  [data-al="2"] .ali-botoes-rodape > * { flex: 1 1 100%; }
+  [data-al="2"] .ali-botoes-rodape { flex-direction: column-reverse; }
+}
+
+:root:is([data-contrast], [data-eink]) [data-al="2"] .ali-dialogo { box-shadow: none; border: 2px solid var(--al-texto); background: var(--al-fundo); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.ali-ok, .ali-erro, .ali-carimbo, .ali-ciencia .ali-sub) { color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .ali-erro { text-decoration: underline; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .ali-ladrilhos i[data-aceso] { background: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .ali-modo[data-atual] { border-width: 3px; border-color: var(--al-texto); }

@@ -87,7 +87,7 @@
     "comunidade": "Comunidad (opcional)",
     "saltarParaConteudo": "Ir a la línea",
     "sairRapido": "Salir rápido",
-    "sairRapidoAjuda": "Borra lo que Alumia guardó en este aparato y abre una página común de fuera (el pronóstico del tiempo), sin nada del Instituto.",
+    "sairRapidoAjuda": "Cierra la sesión en este aparato, borra lo que Alumia guardó aquí, incluidas las claves del chat privado y de los grupos, y abre una página común de fuera (el pronóstico del tiempo), sin nada del Instituto.",
     "cartaoSeguranca": "La seguridad primero: nunca publiques tu dirección, teléfono o documento. Si algo te preocupa, denuncia.",
     "cuidados": {
       "titulo": "Cuidado",
@@ -119,9 +119,9 @@
     "entreNaConta": "Entra en tu cuenta para participar. Puedes leer las dudas de las disciplinas sin cuenta.",
     "entrar": "Entrar en la cuenta",
     "pitch": [
-      "Sin anuncios, sin rastreadores y sin algoritmo: la línea va por orden de llegada.",
+      "Sin anuncios y sin rastreadores. El orden de la línea sigue una regla abierta, igual para todos y escrita en la pantalla.",
       "Solo para mayores de 18 años.",
-      "Apareces con un seudónimo, nunca con tu nombre civil."
+      "Apareces con un seudónimo por defecto; tu nombre y tu foto solo si quieres."
     ],
     "criarConta": "Crear cuenta",
     "jaTenhoConta": "Ya tengo cuenta",
@@ -179,7 +179,10 @@
     "nivel_imagens": "Tu nivel aún no permite tantas imágenes en una publicación. Mira los límites en Cómo cuida Alumia.",
     "limite_diario": "Llegaste al límite de publicaciones de hoy para tu nivel.",
     "limite_identidades": "Ya tienes el máximo de 5 cuentas de este tipo (identidades u organizaciones).",
-    "lista_bloqueio": "La mediación de este lugar no permite publicaciones tuyas aquí."
+    "lista_bloqueio": "La mediación de este lugar no permite publicaciones tuyas aquí.",
+    "leia_as_regras": "Esta comunidad pide que aceptes las reglas antes de publicar. Mira la pestaña Llegada.",
+    "so_leitura": "Esta es una comunidad de avisos: solo la moderación abre publicaciones aquí.",
+    "so_leitura_respostas": "En esta comunidad de avisos, la regla no te deja responder."
   },
   "alumia": {
     "voltarAoSite": "Volver al sitio del Instituto Lúcia",
@@ -229,5 +232,9 @@
       "¿Qué le falta al sitio para que estudies mejor?"
     ],
     "doZero": "Escribir desde cero"
+  },
+  "avisoFixado": {
+    "rotulo": "Aviso de la coordinación",
+    "abrir": "Abrir"
   }
 }

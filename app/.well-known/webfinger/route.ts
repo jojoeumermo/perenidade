@@ -11,26 +11,49 @@
 // Cloudflare, o Worker da Escola, e a Caddy podem desviar o host curto). Se não chegarem, o Mastodon refaz a busca no subject e não
 // acha ninguém. Quem confere é scripts/fediverso-interop.mjs (F5), com o A1 do roteiro nos dois hosts.
 // Também responde pelo ator da instância ("acct:<domínio>@<domínio>") e, com fediverso-grupos, pelas comunidades abertas (Group).
+//
+// Domínio da organização (pedido de 16/11, onda 12): a organização com selo que provou um domínio próprio pode redirecionar o
+// /.well-known/webfinger do site dela para cá, e "acct:<@nome>@<domínio-dela>" passa a achar o ator dela. Quem decide é o banco
+// (org_dominio: só o domínio VERIFICADO, só a organização dona dele e só o @nome dela; perder o selo ou o domínio tira a resposta
+// na hora). A rota nunca abre conexão com o domínio pedido. A conta continua a da Alumia: o "subject" é o de sempre (o Mastodon
+// refaz a busca nele e chega ao MESMO ator) e o endereço no domínio da organização vai como alias. Cache curto (60 s).
 import { documentoWebfinger, documentoWebfingerDaComunidade, documentoWebfingerDaInstancia, juntarWebfinger } from "@/lib/rede/fediverso/documentos";
-import { dominiosDaConta, gruposLigados, handleDoWebfinger, modoTotal, slugDoWebfinger, webfingerDaInstancia } from "@/lib/rede/fediverso/enderecos";
-import { conferirTeto } from "@/lib/rede/fediverso/rotas";
+import { contaDeOutroDominio, dominiosDaConta, gruposLigados, handleDoWebfinger, modoTotal, slugDoWebfinger, webfingerDaInstancia } from "@/lib/rede/fediverso/enderecos";
+import { conferirLeitor, conferirTeto } from "@/lib/rede/fediverso/rotas";
 import { banco, fed } from "@/lib/rede/fediverso/servidor";
 
 export const runtime = "nodejs";
 
 const naoAchado = () => new Response("Not Found", { status: 404, headers: { "Cache-Control": "public, max-age=300", "Access-Control-Allow-Origin": "*" } });
 const indisponivel = () => new Response("Service Unavailable", { status: 503, headers: { "Retry-After": "60" } });
-const jrd = (corpo: unknown) =>
+const jrd = (corpo: unknown, segundos = 600) =>
   Response.json(corpo, {
-    headers: { "Content-Type": "application/jrd+json; charset=utf-8", "Cache-Control": "public, max-age=600", "Access-Control-Allow-Origin": "*", "X-Robots-Tag": "noindex", Vary: "Host" },
+    headers: { "Content-Type": "application/jrd+json; charset=utf-8", "Cache-Control": `public, max-age=${segundos}`, "Access-Control-Allow-Origin": "*", "X-Robots-Tag": "noindex", Vary: "Host" },
   });
+
+/** "acct:<@nome>@<domínio da organização>": o ator da organização, se o banco disser que o domínio é dela e está verificado. */
+async function daOrganizacao(conta: { usuario: string; dominio: string }, total: boolean): Promise<Response> {
+  const org = await banco<{ handle?: string } | null>("org_dominio", { dominio: conta.dominio, nome: conta.usuario }, "rede_fed_mudanca_servidor").catch(() => undefined);
+  if (org === undefined) return indisponivel();
+  if (!org?.handle) return naoAchado();
+  const a = await banco<{ estado: string }>("ator", { handle: org.handle }).catch(() => null);
+  if (!a) return indisponivel();
+  if (a.estado !== "ligado") return naoAchado();
+  const doc = documentoWebfinger(fed, org.handle, total);
+  return jrd({ ...doc, aliases: [...doc.aliases, `acct:${org.handle}@${conta.dominio}`] }, 60);
+}
 
 export async function GET(pedido: Request) {
   const barrado = conferirTeto(pedido, "webfinger");
   if (barrado) return barrado;
+  const recusado = await conferirLeitor(pedido);
+  if (recusado) return recusado;
   const resource = new URL(pedido.url).searchParams.get("resource") ?? "";
   if (!resource || resource.length > 300) return new Response("Bad Request", { status: 400 });
   const total = modoTotal();
+  // Os dois domínios da Alumia nunca são "de fora", com ou sem o modo total (o curto, desligado, segue dando 404 como antes).
+  const deOutroDominio = contaDeOutroDominio(resource, dominiosDaConta(fed, true));
+  if (deOutroDominio) return daOrganizacao(deOutroDominio, total);
   if (!total) {
     // Como sempre foi: só o host da Alumia, só pessoa.
     const handle = handleDoWebfinger(resource, fed.dominio);

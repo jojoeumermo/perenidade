@@ -1,0 +1,139 @@
+{
+  "rss": {
+    "descricaoPerfil": "Publicaciones abiertas a internet de {nome} en Alumia",
+    "descricaoComunidade": "Publicaciones abiertas a internet de la comunidad {nome} en Alumia",
+    "aviso": "Aviso de contenido: {aviso}",
+    "continua": "Sigue en Alumia",
+    "semTitulo": "Publicación de {codinome}"
+  },
+  "cartao": {
+    "aviso": "Aviso de contenido: {aviso}",
+    "mostrar": "mostrar",
+    "abrir": "Leer en Alumia",
+    "rodape": "en Alumia, la red del Instituto Lúcia"
+  },
+  "acao": {
+    "botao": "Llevar afuera"
+  },
+  "folha": {
+    "titulo": "Llevar afuera",
+    "intro": "Todo aquí se hace en tu dispositivo: la imagen y el QR no pasan por ningún servicio de afuera.",
+    "fechar": "Cerrar",
+    "link": "Enlace",
+    "copiar": "Copiar el enlace",
+    "copiado": "Copiado.",
+    "naoCopiou": "No se pudo copiar. Selecciona el texto y cópialo a mano."
+  },
+  "arte": {
+    "titulo": "Arte para compartir (imagen)",
+    "ajuda": "Una imagen de la publicación para mandar al grupo o publicar en otra red.",
+    "fundo": "Fondo",
+    "noite": "Noche",
+    "creme": "Crema",
+    "formato": "Formato",
+    "retrato": "Vertical 4:5",
+    "quadrado": "Cuadrado",
+    "comQr": "Poner el QR del enlace en la imagen",
+    "baixar": "Descargar la imagen",
+    "fazendo": "Haciendo la imagen…",
+    "falhou": "No se pudo hacer la imagen en este dispositivo.",
+    "alt": "Imagen de la publicación de {codinome}",
+    "marca": "Alumia",
+    "chamada": "Léelo en Alumia"
+  },
+  "qr": {
+    "tituloAto": "QR del acto",
+    "tituloPost": "QR de la publicación",
+    "tituloPerfil": "QR del perfil",
+    "tituloComunidade": "QR de la comunidad",
+    "ajuda": "En la pancarta, el cartel o la pantalla: quien apunta la cámara abre la página.",
+    "baixar": "Descargar el QR",
+    "fazendo": "Haciendo el QR…",
+    "falhou": "No se pudo hacer el QR en este dispositivo.",
+    "alt": "QR de {nome}"
+  },
+  "embed": {
+    "titulo": "Pegar en otro sitio",
+    "ajuda": "Un cuadro solo con texto, sin nada que se ejecute en el otro sitio: allí aparece el post y el botón para leerlo en Alumia. Si el post deja de estar abierto a internet, el cuadro deja de mostrarlo.",
+    "rotulo": "Código para pegar",
+    "copiar": "Copiar el código",
+    "conferindo": "Comprobando si la publicación puede salir…",
+    "indisponivel": "Esta publicación no sale a otros sitios. Solo salen las publicaciones de primer nivel, abiertas a internet, de perfil o de comunidad abierta.",
+    "previa": "Cómo queda",
+    "carregando": "Cargando la vista previa…",
+    "tituloDoQuadro": "Publicación de {codinome} en Alumia"
+  },
+  "comunidade": {
+    "aba": "Llevar",
+    "titulo": "Llevar la comunidad afuera",
+    "rss": "RSS",
+    "rssAjuda": "Las publicaciones abiertas a internet de esta comunidad, en cualquier lector de RSS, sin cuenta.",
+    "rssAbrir": "Abrir la dirección del RSS",
+    "rssIndisponivel": "Esta comunidad no tiene RSS: solo las comunidades abiertas, y solo con publicaciones abiertas a internet.",
+    "conferindo": "Comprobando…"
+  },
+  "listas": {
+    "rotulo": "Llevar y traer",
+    "titulo": "A quién sigo",
+    "intro": "La lista es solo tuya: nadie más ve a quién sigues. Descárgala para llevarla a otra red del Fediverso, o tráela de allá.",
+    "carregando": "Cargando tu lista…",
+    "entrar": "Entra en tu cuenta para llevar y traer la lista de a quién sigues.",
+    "exportar": {
+      "titulo": "Llevar",
+      "ajuda": "El archivo funciona en otras redes del Fediverso, como Mastodon.",
+      "daqui": "{n} perfiles de aquí",
+      "daqui1": "1 perfil de aquí",
+      "fora": "{n} de otras redes del Fediverso",
+      "fora1": "1 de otra red del Fediverso",
+      "baixar": "Descargar la lista",
+      "vazia": "Todavía no sigues a nadie."
+    },
+    "importar": {
+      "titulo": "Traer",
+      "ajuda": "Elige el archivo que te dio la otra red, o pega las direcciones como @nombre@servidor, una por línea. Revisas antes de seguir.",
+      "arquivo": "Elegir el archivo",
+      "colar": "O pega las direcciones",
+      "exemplo": "@nombre@servidor.example",
+      "conferir": "Revisar la lista",
+      "resumo": "{daqui} de aquí · {fora} de otras redes del Fediverso",
+      "ignoradas": "Líneas que no eran direcciones y quedaron fuera: {n}.",
+      "demais": "Entran las primeras {n} esta vez. Después, trae el resto.",
+      "vazio": "Ninguna dirección con el formato @nombre@servidor.",
+      "seguirTodos": "Seguir a todos",
+      "andamento": "Siguiendo {feitos} de {total}",
+      "parar": "Parar",
+      "parado": "Parado. Lo que ya se hizo queda.",
+      "pronto": "Listo.",
+      "grande": "Archivo demasiado grande (hasta 1 MB)."
+    },
+    "situacoes": {
+      "esperando": "en la fila",
+      "seguindo": "siguiendo",
+      "pedido": "solicitud enviada",
+      "naoAchado": "no encontrado",
+      "bloqueada": "instancia bloqueada",
+      "fediverso": "hay que activar el Fediverso",
+      "limite": "límite del día: intenta mañana",
+      "erro": "no funcionó ahora"
+    },
+    "fediverso": {
+      "aviso": "Para seguir a alguien de otra instancia, activa el Fediverso en tu perfil.",
+      "link": "Activar el Fediverso"
+    },
+    "perfil": {
+      "titulo": "Tu perfil afuera",
+      "rss": "RSS del perfil",
+      "rssOrg": "Las publicaciones abiertas a internet de esta organización, en cualquier lector de RSS.",
+      "rssPessoa": "El RSS de perfil es solo para organizaciones con sello. Tus publicaciones abiertas a internet salen por el RSS de las comunidades abiertas donde escribes."
+    }
+  },
+  "ajustes": {
+    "titulo": "Llevar y traer",
+    "texto": "Descarga la lista de a quién sigues, trae una de otra instancia y toma el QR de tu perfil.",
+    "abrir": "Abrir"
+  },
+  "erros": {
+    "entre_primeiro": "Entra en tu cuenta primero.",
+    "generico": "No funcionó ahora. Intenta de nuevo en un momento."
+  }
+}

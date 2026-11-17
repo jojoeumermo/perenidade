@@ -57,6 +57,8 @@ export function TopoDaLinha2({
   aba,
   aoAba,
   aoEscrever,
+  ordem,
+  depoisDasAbas,
 }: {
   lang: string;
   s: TextosDaRede;
@@ -65,6 +67,10 @@ export function TopoDaLinha2({
   aba: Aba;
   aoAba: (a: Aba) => void;
   aoEscrever: (tipo?: TipoAoEscrever) => void;
+  /** A frase da ordem no alto; sem ela, a de sempre (ordem de chegada). Vazia: nenhuma (a barra da linha com regra aberta já diz). */
+  ordem?: string;
+  /** O que fica logo abaixo das abas (a barra da linha com regra aberta: a troca de ordem e as linhas fixadas). */
+  depoisDasAbas?: React.ReactNode;
 }) {
   const al2 = useAlumia2();
   const botoes = useRef<(HTMLButtonElement | null)[]>([]);
@@ -128,7 +134,8 @@ export function TopoDaLinha2({
     <>
       <div className="hidden items-baseline justify-between px-5 pt-6 lg:flex 2xl:px-7">
         <h2 className="al-cond text-[1.9rem] font-black uppercase leading-none">{t.linha.titulo}</h2>
-        <p className="text-xs text-[var(--al-texto-2)]">{t.linha.ordem}</p>
+        {/* Com a barra da linha com regra aberta embaixo das abas (que já diz a ordem), a frase do alto sai: ordem = "". */}
+        {ordem !== "" && <p className="text-xs text-[var(--al-texto-2)]">{ordem ?? t.linha.ordem}</p>}
       </div>
 
       {/* A faixa de stories (F5) no alto do Início, acima das abas (prancha celular-stories-na-linha). Cada peça confere a flag. */}
@@ -170,6 +177,7 @@ export function TopoDaLinha2({
         ))}
         {traco && <span aria-hidden className="al2-abas-traco" style={{ transform: `translateX(${traco.x}px)`, width: traco.w }} />}
       </div>
+      {depoisDasAbas}
 
       {pode && (
         <div className="hidden border-b border-[var(--al-linha)] px-5 pb-3 pt-4 lg:block 2xl:px-7">

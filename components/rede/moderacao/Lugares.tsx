@@ -7,14 +7,15 @@ import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDaModeracao } from "@/lib/rede/textos-moderacao";
 import { slugOk } from "@/lib/rede/tipos";
 import type { EscopoDeModeracao, ItemDeLista } from "@/lib/rede/tipos-moderacao";
-import { estilo, mensagemDeErro, tempoLento } from "./base";
+import { estilo, mensagemDeErro } from "./base";
 
-const SEGUNDOS = [0, 30, 60, 300, 900, 3600];
-
-/** Modo lento (comunidade) e listas de bloqueio da mediação (comunidade e núcleo). */
+/**
+ * As listas de bloqueio da mediação: de pessoa (comunidade e núcleo) e de palavra (só núcleo). O modo lento e as palavras de uma
+ * comunidade ficam num lugar só, a aba Comunidades (FerramentasDaComunidade), para quem modera não ter dois ajustes do mesmo.
+ */
 export function Lugares({ s, sm, escopo }: { s: TextosDaRede; sm: TextosDaModeracao; escopo: EscopoDeModeracao }) {
   const opcoes = [
-    ...escopo.comunidades.map((c) => ({ tipo: "comunidade" as const, valor: c, rotulo: c })),
+    ...escopo.comunidades.map((c) => ({ tipo: "comunidade" as const, valor: c, rotulo: escopo.nomes?.[c] ?? c })),
     ...escopo.nucleos.map((n) => ({ tipo: "nucleo" as const, valor: n.id, rotulo: `${sm.lugares.nucleo}: ${n.nome}` })),
   ];
   const [chave, setChave] = useState(opcoes[0] ? `${opcoes[0].tipo}:${opcoes[0].valor}` : "");
@@ -23,19 +24,18 @@ export function Lugares({ s, sm, escopo }: { s: TextosDaRede; sm: TextosDaModera
   const [tipo, setTipo] = useState<"palavra" | "pessoa">("palavra");
   const [valor, setValor] = useState("");
   const [motivo, setMotivo] = useState("");
-  const [lento, setLento] = useState(0);
   const [erro, setErro] = useState("");
   const [aviso, setAviso] = useState("");
   const [rodada, setRodada] = useState(0);
 
   const corte = chave.indexOf(":");
   const [escopoTipo, escopoValor]: ["comunidade" | "nucleo", string] = outra && slugOk(outra) ? ["comunidade", outra] : [chave.slice(0, Math.max(corte, 0)) === "nucleo" ? "nucleo" : "comunidade", corte >= 0 ? chave.slice(corte + 1) : ""];
+  const tipoDaLista: "palavra" | "pessoa" = escopoTipo === "comunidade" ? "pessoa" : tipo;
 
   useEffect(() => {
     if (!escopoValor) return;
     let vivo = true;
     redeMod.lista(escopoTipo, escopoValor).then((x) => vivo && (setLista(x), setErro(""))).catch((e) => vivo && (setLista([]), setErro(mensagemDeErro(s, sm, e))));
-    if (escopoTipo === "comunidade") redeMod.lentoDe("comunidade", escopoValor).then((n) => vivo && setLento(n)).catch(() => undefined);
     return () => {
       vivo = false;
     };
@@ -45,7 +45,7 @@ export function Lugares({ s, sm, escopo }: { s: TextosDaRede; sm: TextosDaModera
     setErro("");
     setAviso("");
     try {
-      await redeMod.listaAdicionar(escopoTipo, escopoValor, tipo, valor.trim(), motivo.trim());
+      await redeMod.listaAdicionar(escopoTipo, escopoValor, tipoDaLista, valor.trim(), motivo.trim());
       setValor("");
       setMotivo("");
       setAviso(sm.lugares.feito);
@@ -53,24 +53,13 @@ export function Lugares({ s, sm, escopo }: { s: TextosDaRede; sm: TextosDaModera
     } catch (e) {
       setErro(mensagemDeErro(s, sm, e));
     }
-  }, [escopoTipo, escopoValor, tipo, valor, motivo, s, sm]);
+  }, [escopoTipo, escopoValor, tipoDaLista, valor, motivo, s, sm]);
 
   async function remover(id: string) {
     setErro("");
     try {
       await redeMod.listaRemover(id);
       setRodada((n) => n + 1);
-    } catch (e) {
-      setErro(mensagemDeErro(s, sm, e));
-    }
-  }
-  async function mudarLento(segundos: number) {
-    setErro("");
-    setAviso("");
-    try {
-      await redeMod.modoLento("comunidade", escopoValor, segundos);
-      setLento(segundos);
-      setAviso(sm.lugares.lentoFeito);
     } catch (e) {
       setErro(mensagemDeErro(s, sm, e));
     }
@@ -97,26 +86,24 @@ export function Lugares({ s, sm, escopo }: { s: TextosDaRede; sm: TextosDaModera
         <p className="text-ink-soft">{sm.nenhum}</p>
       ) : (
         <>
-          {escopoTipo === "comunidade" && (
-            <label className="block text-sm">
-              {sm.moderar.modoLento}
-              <select value={lento} onChange={(e) => void mudarLento(Number(e.target.value))} className={`${estilo.campo} mt-1`}>
-                {SEGUNDOS.concat(SEGUNDOS.includes(lento) ? [] : [lento]).map((n) => <option key={n} value={n}>{tempoLento(sm, n)}</option>)}
-              </select>
-              <span className="text-xs text-ink-soft">{sm.moderar.modoLentoAjuda}</span>
-            </label>
-          )}
           <div className={`${estilo.caixa} space-y-2`}>
             <p className="font-bold">{sm.lugares.lista}</p>
-            <p className="text-xs text-ink-soft">{sm.lugares.listaAjuda}</p>
-            <div className="flex flex-wrap gap-2" role="group">
-              {(["palavra", "pessoa"] as const).map((t) => (
-                <button key={t} type="button" aria-pressed={tipo === t} onClick={() => setTipo(t)} className={`${estilo.botao} aria-pressed:bg-[#1f1a14] aria-pressed:text-[#f4ecd8]`}>
-                  {sm.lugares[t]}
-                </button>
-              ))}
-            </div>
-            <input value={valor} onChange={(e) => setValor(e.target.value)} maxLength={60} aria-label={sm.lugares[tipo]} className={estilo.campo} />
+            <p className="text-xs text-ink-soft">{escopoTipo === "comunidade" ? sm.lugares.listaAjudaComunidade : sm.lugares.listaAjuda}</p>
+            {/* Numa comunidade, as palavras ficam no Filtro automático (aba Comunidades), com o modo lento: um ajuste num lugar só. */}
+            {escopoTipo === "comunidade" && <p className="text-xs text-ink-soft">{sm.lugares.palavrasNoFiltro}</p>}
+            {escopoTipo === "nucleo" && (
+              <div className="flex flex-wrap gap-2" role="group" aria-label={sm.lugares.lista}>
+                {(["palavra", "pessoa"] as const).map((t) => (
+                  <button key={t} type="button" aria-pressed={tipoDaLista === t} onClick={() => setTipo(t)} className="al-botao al-botao-contorno al-botao-p">
+                    {sm.lugares[t]}
+                  </button>
+                ))}
+              </div>
+            )}
+            <label className="block text-sm">
+              {sm.lugares[tipoDaLista]}
+              <input value={valor} onChange={(e) => setValor(e.target.value)} maxLength={60} placeholder={tipoDaLista === "pessoa" ? sm.lugares.exemploPessoa : sm.lugares.exemploPalavra} className={`${estilo.campo} mt-1`} />
+            </label>
             <input value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={300} aria-label={sm.lugares.motivo} placeholder={sm.lugares.motivo} className={estilo.campo} />
             <button type="button" disabled={valor.trim().length < 2} className={estilo.botaoForte} onClick={() => void adicionar()}>{sm.lugares.adicionar}</button>
             {!lista ? (

@@ -44,7 +44,13 @@ function conferir(nome: string, uso: Parameters<typeof test.use>[0]) {
     });
 
     test("barra de baixo com 5 abas e voltar pelo botão", async ({ page }, info) => {
+      // O convite ao apoio abre já na primeira página e cobre a barra: fica fechado, como em e2e/ajuda.ts (abrir).
+      await page.addInitScript(() => {
+        if (!window.localStorage.getItem("lucia:aviso")) window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() }));
+      });
       await page.goto("/pt", { waitUntil: "load" });
+      const aviso = page.locator("dialog[open]").getByRole("button", { name: "Fechar" }).first();
+      if (await aviso.waitFor({ timeout: 3000 }).then(() => true, () => false)) await aviso.click();
       if (!(await temCasca(page))) {
         info.annotations.push({ type: "casca", description: "sem casca neste build (build anterior ao pacote app-casca)" });
         return;

@@ -126,7 +126,7 @@ export function perfilDaPrevia(handle: string): PerfilDaRede | null {
     bio: meu?.bio ?? BIOS[handle] ?? "",
     modo: "aberto",
     equipe: false,
-    selos: handle === "faisca" ? ["escola:carteirinha", "escola:degrau-2", "escola:aulas-14"] : [],
+    selos: handle === "faisca" ? ["escola:carteirinha", "escola:degrau-2", "escola:aulas-14", "trilha:analise-de-conjuntura", "trilha:a-cidade-que-o-povo-fez"] : [],
     meu: handle === "faisca",
     sigo: false,
     pendente: false,
@@ -285,7 +285,9 @@ export async function extrasDe(handle: string): Promise<ExtrasDoPerfil | null> {
 
 export async function salvarExtras(handle: string, p: PedidoDeExtras, atual: ExtrasDoPerfil | null): Promise<ExtrasDoPerfil> {
   if (previa()) {
-    const status = p.status === undefined ? (atual?.status ?? null) : p.status ? { tipo: p.status.tipo, texto: p.status.texto, ate: new Date(Date.now() + p.status.horas * 3600e3).toISOString() } : null;
+    // O público do status (onda 12) volta só para a dona, como o banco faz.
+    const publico = (p.status as { publico?: string } | null | undefined)?.publico === "roda" ? "roda" : "todos";
+    const status = p.status === undefined ? (atual?.status ?? null) : p.status ? ({ tipo: p.status.tipo, texto: p.status.texto, ate: new Date(Date.now() + p.status.horas * 3600e3).toISOString(), publico } as ExtrasDoPerfil["status"]) : null;
     const novo: ExtrasDoPerfil = { status, pronomes: p.pronomes === undefined ? (atual?.pronomes ?? null) : p.pronomes, campos: p.campos ?? atual?.campos ?? [], destaques: atual?.destaques ?? [] };
     guardarNaPrevia(handle, "extras", novo);
     return novo;

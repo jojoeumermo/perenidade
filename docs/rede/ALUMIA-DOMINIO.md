@@ -63,8 +63,8 @@ Faça na ordem. Até o passo 4, nada muda para quem usa o site.
    "inexistente" para o WebFinger. `/api/` já está fora da regra.
 4. **Supabase: os endereços de volta.** supabase.com → projeto → Authentication → URL Configuration → Redirect URLs → Add
    `https://alumia.institutolucia.org/**`. (Sem isso, o link de "esqueci a senha" e a confirmação de e-mail pedidos na Alumia
-   voltam para o site principal.) Se a entrada usa o desafio contra robôs (Turnstile), acrescente o host
-   `alumia.institutolucia.org` ao widget em Cloudflare → Turnstile → o widget → Hostnames.
+   voltam para o site principal.) O desafio da entrada (Turnstile) voltou em 13/11: no widget dele, na Cloudflare, o domínio
+   `alumia.institutolucia.org` tem de estar na lista.
 5. **Vercel: a variável.** Settings → Environment Variables → `NEXT_PUBLIC_ALUMIA_URL` = `https://alumia.institutolucia.org`
    (Production). Ela entra na construção do site: **publique de novo** (Deployments → o último → Redeploy).
 6. **Conferir:** abrir `https://alumia.institutolucia.org` (linha da Alumia, faixa "Voltar ao site" no alto); clicar em

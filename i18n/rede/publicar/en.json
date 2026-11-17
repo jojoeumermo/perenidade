@@ -55,6 +55,8 @@
     "semPermissao": "No permission to use the microphone.",
     "ouvir": "Play audio ({s} s)",
     "carregando": "Loading…",
+    "pausar": "Pause",
+    "posicao": "Position in the audio",
     "falha": "Could not load the audio."
   },
   "previa": {
@@ -124,6 +126,8 @@
     "invalido_responde_quem": "Check who can reply.",
     "ja_votou": "You already voted in this poll.",
     "encerrada": "This poll has ended.",
-    "dado_pessoal": "Remove CPF, phone, e-mail or street address with number from the text: personal data does not go on Alumia."
+    "dado_pessoal": "Remove CPF, phone, e-mail or street address with number from the text: personal data does not go on Alumia.",
+    "protegido": "The person you are replying to or quoting turned on protected mode: for now, only people they follow can reply, mention and quote.",
+    "citacao_solta": "This person detached their post from your quote. You cannot quote this post again."
   }
 }

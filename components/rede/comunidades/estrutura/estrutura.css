@@ -1,0 +1,135 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * A estrutura das comunidades (onda 10, frente 10C): a aba Estrutura da comunidade, os Espaços da organização, a lista por cidade,
+ * "levar a outra comunidade" e a origem do repost. Linguagem do Mosaico da Arquibancada: Archivo condensada em caixa alta, faixa
+ * tecida, carimbos e ladrilhos. Só os tokens de styles/alumia-tokens.css (vale no escuro, no claro, no contraste e no e-ink).
+ */
+
+.e10 { container-type: inline-size; color: var(--al-texto); font-family: var(--al-fonte); }
+.e10-cond { font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 900; text-transform: uppercase; letter-spacing: -0.005em; line-height: 0.95; }
+.e10-tela { padding: 1.1rem 1rem 2.5rem; }
+@media (min-width: 1024px) { .e10-tela { padding: 1.4rem 1.5rem 3rem; } }
+
+.e10-cabeca { position: relative; margin: 0 0 1.1rem; padding-bottom: 0.95rem; }
+.e10-cabeca::after { content: ""; position: absolute; inset: auto 0 0; height: var(--al-faixa-altura, 6px); background: var(--al-faixa); border-radius: 2px; }
+.e10-cabeca h2 { margin: 0; font-size: clamp(1.9rem, 5cqi, 2.8rem); }
+.e10-cabeca p { margin: 0.45rem 0 0; max-width: 46rem; color: var(--al-texto-2); font-size: 0.95rem; line-height: 1.5; }
+
+.e10-grade { display: grid; gap: 1rem; }
+@container (min-width: 56rem) { .e10-grade-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } .e10-largo { grid-column: 1 / -1; } }
+.e10-secao { padding: 1rem 1.1rem 1.1rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.e10-secao-titulo { display: flex; align-items: center; gap: 0.55rem; margin: 0 0 0.55rem; font-size: 1.45rem; }
+.e10-ladrilho { flex: none; display: inline-grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 6px; background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 0.95rem; letter-spacing: 0; }
+.e10-lead { margin: 0 0 0.8rem; max-width: 44rem; color: var(--al-texto-2); font-size: 0.92rem; line-height: 1.55; }
+.e10-nota { margin: 0.35rem 0 0; color: var(--al-texto-3); font-size: 0.82rem; line-height: 1.45; }
+.e10-vazio { margin: 0; padding: 0.7rem 0.9rem; border-radius: 10px; border: 1px dashed var(--al-superficie-2); color: var(--al-texto-3); font-size: 0.88rem; }
+.e10-link { color: var(--al-texto); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.e10-link:hover { color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+
+/* O carimbo: "Comunidade de avisos", "Mora dentro de". */
+.e10-carimbo {
+  display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.65rem 0.25rem; border: 2px solid currentColor; border-radius: 6px;
+  color: var(--al-vermelho-letra, var(--al-vermelho-texto)); font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 900;
+  font-size: 1rem; text-transform: uppercase; letter-spacing: 0.04em; transform: rotate(-1.5deg);
+}
+.e10-carimbo-ouro { color: var(--al-dourado); }
+
+/* Os ladrilhos das comunidades: a tira da cor da comunidade à esquerda (token --al-com-N), o nome em condensada. */
+.e10-ladrilhos { list-style: none; display: grid; gap: 0.6rem; margin: 0; padding: 0; }
+@container (min-width: 40rem) { .e10-ladrilhos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container (min-width: 70rem) { .e10-ladrilhos-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.e10-com {
+  position: relative; display: flex; flex-direction: column; gap: 0.25rem; height: 100%; padding: 0.75rem 0.85rem 0.8rem 1.1rem;
+  border-radius: 10px; background: var(--al-fundo); border: 1px solid var(--al-linha); overflow: hidden;
+}
+.e10-com::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 6px; background: var(--e10-cor, var(--al-com-1)); }
+.e10-com-nome { margin: 0; font-size: 1.25rem; }
+.e10-com-nome a { color: inherit; text-decoration: none; }
+.e10-com-nome a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.e10-com-meta { margin: 0; color: var(--al-texto-3); font-size: 0.82rem; }
+.e10-com-desc { margin: 0; color: var(--al-texto-2); font-size: 0.88rem; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.e10-selo-tipo { align-self: flex-start; padding: 0 0.45rem; border: 1px solid currentColor; border-radius: 999px; color: var(--al-texto-3); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em; line-height: 1.3rem; text-transform: uppercase; }
+.e10-cor-1 { --e10-cor: var(--al-com-1); } .e10-cor-2 { --e10-cor: var(--al-com-2); } .e10-cor-3 { --e10-cor: var(--al-com-3); }
+.e10-cor-4 { --e10-cor: var(--al-com-4); } .e10-cor-5 { --e10-cor: var(--al-com-5); }
+
+/* Uma linha com o pedido e os dois botões. */
+.e10-pedidos { list-style: none; display: grid; gap: 0.5rem; margin: 0; padding: 0; }
+.e10-pedido { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; padding: 0.6rem 0.75rem; border-radius: 10px; background: var(--al-fundo); border: 1px solid var(--al-linha); }
+.e10-pedido p { flex: 1 1 16rem; margin: 0; font-size: 0.92rem; line-height: 1.4; }
+
+/* Campos (os mesmos da moderação). */
+.e10-campos { display: grid; gap: 0.8rem; }
+@container (min-width: 36rem) { .e10-campos-3 { grid-template-columns: 9rem minmax(0, 1fr) minmax(0, 1fr); align-items: end; } .e10-campos-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }
+.e10-campo { display: grid; gap: 0.3rem; color: var(--al-texto-2); font-size: 0.88rem; font-weight: 700; }
+.e10-campo :is(input, select, textarea) {
+  width: 100%; min-height: 44px; padding: 0.5rem 0.7rem; border-radius: 8px; border: 1.5px solid var(--al-superficie-2);
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-weight: 400; font-size: 0.95rem;
+}
+.e10-campo textarea { min-height: 5rem; line-height: 1.45; resize: vertical; }
+.e10-campo :is(input, select, textarea):focus-visible { outline: 3px solid var(--al-foco); outline-offset: 1px; }
+.e10-campo :is(input, textarea)::placeholder { color: var(--al-texto-3); opacity: 1; }
+.e10-escolhas { display: grid; gap: 0.4rem; margin: 0; padding: 0; border: 0; }
+.e10-escolhas legend { margin-bottom: 0.35rem; color: var(--al-texto-2); font-size: 0.88rem; font-weight: 700; }
+.e10-escolha { display: flex; align-items: flex-start; gap: 0.55rem; min-height: 44px; padding: 0.55rem 0.7rem; border-radius: 8px; border: 1.5px solid var(--al-superficie-2); cursor: pointer; font-size: 0.92rem; line-height: 1.35; }
+.e10-escolha:has(input:checked) { border-color: var(--al-vermelho); background: var(--al-superficie-2); }
+.e10-escolha input { margin-top: 0.15rem; accent-color: var(--al-vermelho); width: 1.05rem; height: 1.05rem; flex: none; }
+.e10-chave { display: flex; align-items: center; gap: 0.65rem; min-height: 44px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
+.e10-chave input { accent-color: var(--al-vermelho); width: 1.15rem; height: 1.15rem; }
+.e10-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 0.85rem; }
+.e10-status { margin: 0.55rem 0 0; color: var(--al-texto); font-size: 0.88rem; font-weight: 700; }
+.e10-erro { margin: 0.55rem 0 0; color: var(--al-vermelho-letra, var(--al-vermelho-texto)); font-size: 0.88rem; font-weight: 700; }
+.e10-separa { height: 1px; margin: 1rem 0; border: 0; background: var(--al-linha); }
+
+/* Por cidade: a troca Por tema / Por cidade e os ladrilhos de município (estado em ouro, número só de comunidades). */
+.e10-troca { display: inline-flex; gap: 4px; padding: 4px; border-radius: 10px; background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.e10-troca button {
+  min-height: 40px; padding: 0 0.9rem; border: 0; border-radius: 7px; background: transparent; color: var(--al-texto-3); cursor: pointer;
+  font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 800; font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.03em;
+}
+.e10-troca button[aria-pressed="true"] { background: var(--al-saliente); color: var(--al-sobre-saliente); box-shadow: inset 0 -3px 0 var(--al-vermelho); }
+:root:is([data-contrast], [data-eink]) .e10-troca button[aria-pressed="true"] { outline: 2px solid var(--al-texto); }
+.e10-uf { margin: 1rem 0 0.5rem; display: flex; align-items: baseline; gap: 0.6rem; }
+.e10-uf strong { display: inline-grid; place-items: center; min-width: 2.6rem; height: 2rem; padding: 0 0.4rem; border-radius: 6px; background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 1.1rem; }
+.e10-uf span { color: var(--al-texto-2); font-size: 0.95rem; font-weight: 700; }
+.e10-cidades { list-style: none; display: grid; gap: 0.5rem; margin: 0; padding: 0; grid-template-columns: repeat(auto-fill, minmax(11.5rem, 1fr)); }
+.e10-cidade {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0.15rem; width: 100%; min-height: 64px; padding: 0.6rem 0.8rem;
+  border-radius: 10px; border: 1px solid var(--al-linha); background: var(--al-superficie); color: var(--al-texto); text-align: left; cursor: pointer;
+}
+.e10-cidade:hover { border-color: var(--al-vermelho); }
+.e10-cidade:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+.e10-cidade b { font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 900; font-size: 1.2rem; text-transform: uppercase; line-height: 1; }
+.e10-cidade small { color: var(--al-texto-3); font-size: 0.8rem; }
+.e10-bairro { margin: 1.1rem 0 0.5rem; font-size: 1.2rem; color: var(--al-texto-2); }
+
+/* A origem do repost, embaixo do texto do cartão. */
+.e10-origem { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 0.45rem; padding: 0.2rem 0.6rem; border-radius: 999px; background: var(--al-superficie-2); color: var(--al-texto-2); font-size: 0.8rem; font-weight: 700; }
+.e10-origem a { color: var(--al-texto); text-decoration: underline; text-underline-offset: 2px; }
+
+/* A folha de "levar a outra comunidade". */
+.e10-folha-fundo { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 16px; background: color-mix(in srgb, var(--al-fundo) 70%, transparent); }
+.e10-folha { width: min(34rem, 100%); max-height: calc(100vh - 32px); overflow: auto; padding: 1.1rem 1.15rem 1.2rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); box-shadow: 0 18px 50px var(--al-sombra); }
+.e10-folha h2 { margin: 0 0 0.4rem; font-size: 1.7rem; }
+.e10-citado { margin: 0.2rem 0 0.9rem; padding: 0.55rem 0.75rem; border-left: 4px solid var(--al-dourado); border-radius: 4px; background: var(--al-fundo); color: var(--al-texto-2); font-size: 0.88rem; line-height: 1.4; }
+.e10-grande { margin: 0; font-size: 1.6rem; }
+.e10-ajustar { margin-top: 1rem; }
+.e10-blocos > * + * { padding-top: 1rem; border-top: 1px solid var(--al-linha); }
+@container (min-width: 56rem) { .e10-blocos > :nth-child(2) { padding-top: 0; border-top: 0; } }
+.e10-sem-margem { margin: 0; }
+.e10-depois { margin-top: 0.8rem; }
+.e10-filtro { max-width: 24rem; }
+.e10-com-acao { margin: auto 0 0; padding-top: 0.5rem; }
+.e10-campo :is(input, select, textarea):disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* O carimbo da comunidade de avisos, no alto da comunidade (AvisoDeSoLeitura). */
+.e10-aviso-avisos { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.7rem; margin: 0 0 0.9rem; padding: 0.6rem 0.85rem; border: 1px solid var(--al-linha); border-left: 4px solid var(--al-dourado); border-radius: var(--al-raio); background: var(--al-superficie); color: var(--al-texto-2); font-size: 0.92rem; }
+
+/* Alvos de toque (revisão da onda 10): os links soltos e os nomes que são link nos cartões com 44 px; o cartão inteiro abre a
+   comunidade (o link do nome se estica sobre ele) e o botão de dentro fica por cima. */
+.e10-link { display: inline-flex; align-items: center; min-height: 44px; }
+.e10-com-nome a { display: inline-flex; align-items: center; min-height: 44px; }
+.e10-com-nome a::after { content: ""; position: absolute; inset: 0; z-index: 0; }
+.e10-com-nome a:focus-visible { outline: none; }
+.e10-com:has(.e10-com-nome a:focus-visible) { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+.e10-com :is(button, .e10-com-acao) { position: relative; z-index: 1; }
+@media (pointer: coarse) { .e10-troca button { min-height: 44px; } }

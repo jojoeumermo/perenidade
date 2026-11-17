@@ -1,0 +1,18 @@
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+"use client";
+
+import { useEffect, useState } from "react";
+import { carregarTextosDasConquistas, type TextosDasConquistas } from "./textos";
+
+/** Os textos no idioma da página; `null` enquanto chegam. */
+export function useTextosDasConquistas(lang: string): TextosDasConquistas | null {
+  const [pronto, setPronto] = useState<{ lang: string; t: TextosDasConquistas } | null>(null);
+  useEffect(() => {
+    let vivo = true;
+    carregarTextosDasConquistas(lang).then((t) => vivo && setPronto({ lang, t }));
+    return () => {
+      vivo = false;
+    };
+  }, [lang]);
+  return pronto?.lang === lang ? pronto.t : null;
+}

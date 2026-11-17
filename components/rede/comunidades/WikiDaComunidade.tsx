@@ -10,6 +10,12 @@ import type { Situacao } from "@/lib/rede/tipos";
 import { Contador, erroDaB1, quandoCurto, useTextosB1 } from "../b1/base";
 import { previa } from "../conversa/base3";
 import { codigoDoErro } from "../erros";
+import { alumia2Ligada } from "@/lib/rede/rotas-novas";
+import { Diferenca } from "./acervo/base";
+import { acervo } from "./acervo/cliente";
+import { erroDoAcervo, useTextosDoAcervo } from "./acervo/textos";
+import type { QuemEditaAWiki, RegrasDaWiki } from "./acervo/tipos";
+import "./acervo/acervo.css";
 
 /** A wiki da prévia: uma página de exemplo (a cartilha), só nesta tela. */
 function wikiDaPrevia(slug: string): Wiki {
@@ -50,6 +56,8 @@ function TextoDaWiki({ corpo }: { corpo: string }) {
  * A wiki da comunidade (Onda B, F3, alta): cartilha de direitos e contatos de advogados populares. Quem vê a comunidade lê; quem é
  * dela edita, com o histórico de todas as versões; a moderação trava, volta versões e apaga. Quem editou aparece só para a
  * moderação (LGPD art. 11). Editar em cima de uma versão velha não apaga o trabalho de ninguém: a tela avisa e guarda o texto.
+ * Onda 10 (10D, acabamento): a moderação escolhe quem edita (membros, membros há mais tempo ou só a moderação); quem editou por
+ * último desfaz a própria edição por 30 minutos (a moderação, qualquer uma); e cada versão do histórico se compara com a atual.
  */
 export function WikiDaComunidade({ slug, lang, s, situacao, aoAvisar }: { slug: string; lang: string; s: TextosDaRede; situacao: Situacao; aoAvisar: (texto: string, erro?: boolean) => void }) {
   const t = useTextosB1(lang);
@@ -65,6 +73,11 @@ export function WikiDaComunidade({ slug, lang, s, situacao, aoAvisar }: { slug: 
   const [vendo, setVendo] = useState<{ versao: number; corpo: string; editou: string | null } | null>(null);
   // Alguém salvou antes: a versão nova aparece ACIMA do formulário, para a pessoa comparar antes de salvar por cima.
   const [conflito, setConflito] = useState(false);
+  // Acabamento da onda 10: a regra de quem edita, o desfazer e a comparação (só com a Alumia nova).
+  const ta = useTextosDoAcervo(lang);
+  const acabamento = alumia2Ligada();
+  const [regras, setRegras] = useState<{ chave: string; r: RegrasDaWiki } | null>(null);
+  const [comparando, setComparando] = useState<{ versao: number; corpo: string } | null>(null);
   const id = useId();
   const tituloRef = useRef<HTMLInputElement>(null);
   const leitura = useRef<HTMLElement>(null);
@@ -84,6 +97,19 @@ export function WikiDaComunidade({ slug, lang, s, situacao, aoAvisar }: { slug: 
   useEffect(() => {
     if (editando) tituloRef.current?.focus();
   }, [editando]);
+
+  const paginaAtual = estado?.wiki?.pagina?.pagina ?? null;
+  useEffect(() => {
+    if (!acabamento || !estado?.wiki) return;
+    let vivo = true;
+    acervo
+      .regrasDaWiki(slug, paginaAtual)
+      .then((r) => vivo && setRegras({ chave, r }))
+      .catch(() => vivo && setRegras(null));
+    return () => {
+      vivo = false;
+    };
+  }, [acabamento, slug, paginaAtual, chave, estado?.wiki]);
 
   if (!t || !estado) return <p role="status" className="al3-vazio">{s.estados.carregando}</p>;
   const w = t.wiki;
@@ -156,6 +182,45 @@ export function WikiDaComunidade({ slug, lang, s, situacao, aoAvisar }: { slug: 
       setVendo({ versao: v.versao, corpo: v.corpo, editou: v.editou });
     } catch (e) {
       aoAvisar(erroDaB1(s, t, e), true);
+    }
+  }
+
+  async function desfazer() {
+    if (!ta || !atual) return;
+    setOcupado(true);
+    try {
+      await acervo.desfazerNaWiki(slug, atual.pagina);
+      aoAvisar(ta.wiki.desfeita);
+      setHistorico(null);
+      setVendo(null);
+      setComparando(null);
+      setVersao((v) => v + 1);
+    } catch (e) {
+      aoAvisar(erroDoAcervo(ta, e), true);
+    } finally {
+      setOcupado(false);
+    }
+  }
+
+  async function mudarQuem(quem: QuemEditaAWiki) {
+    if (!ta) return;
+    try {
+      await acervo.quemEditaAWiki(slug, quem);
+      aoAvisar(ta.wiki.quemSalvo);
+      setVersao((v) => v + 1);
+    } catch (e) {
+      aoAvisar(erroDoAcervo(ta, e), true);
+    }
+  }
+
+  async function comparar(n: number) {
+    if (!t || !atual) return;
+    if (comparando?.versao === n) return setComparando(null);
+    try {
+      const v = await b1.wikiVersao(slug, atual.pagina, n);
+      setComparando({ versao: v.versao, corpo: v.corpo });
+    } catch (e) {
+      aoAvisar(ta ? erroDoAcervo(ta, e) : erroDaB1(s, t, e), true);
     }
   }
 
@@ -241,6 +306,11 @@ export function WikiDaComunidade({ slug, lang, s, situacao, aoAvisar }: { slug: 
                 {historico ? w.fecharHistorico : w.historico}
               </button>
             )}
+            {atual && regras?.r.pode_desfazer && ta && (
+              <button type="button" className="b1-botao" disabled={ocupado} onClick={() => void desfazer()} title={ta.wiki.desfazerDica}>
+                {ta.wiki.desfazer}
+              </button>
+            )}
             {atual && wiki.modera && (
               <>
                 <button type="button" className="b1-botao" disabled={ocupado} onClick={() => void moderar(atual.travada ? "destravar" : "travar")}>
@@ -253,6 +323,9 @@ export function WikiDaComunidade({ slug, lang, s, situacao, aoAvisar }: { slug: 
             )}
           </div>
           {situacao.logado && !wiki.pode_criar && <p className="b1-cinza mt-2">{w.soComConta}</p>}
+          {regras && ta && (
+            <QuemEdita quem={regras.r.quem} modera={regras.r.modera} ta={ta} aoMudar={(q) => void mudarQuem(q)} />
+          )}
         </>
       )}
 
@@ -277,6 +350,11 @@ export function WikiDaComunidade({ slug, lang, s, situacao, aoAvisar }: { slug: 
                       {w.ver}
                     </button>
                   )}
+                  {acabamento && ta && !previa() && v.versao !== atual.versao && (
+                    <button type="button" className="b1-link" aria-expanded={comparando?.versao === v.versao} onClick={() => void comparar(v.versao)}>
+                      {comparando?.versao === v.versao ? ta.wiki.fecharComparacao : ta.wiki.comparar}
+                    </button>
+                  )}
                   {historico.modera && v.versao !== atual.versao && (
                     <button type="button" className="b1-link" disabled={ocupado} onClick={() => void moderar("restaurar", v.versao)}>
                       {w.restaurar}
@@ -286,6 +364,12 @@ export function WikiDaComunidade({ slug, lang, s, situacao, aoAvisar }: { slug: 
               </li>
             ))}
           </ol>
+          {comparando && ta && (
+            <div role="region" aria-label={preencher(ta.wiki.comparando, { n: comparando.versao })}>
+              <p className="b1-cinza font-bold">{preencher(ta.wiki.comparando, { n: comparando.versao })}</p>
+              <Diferenca antes={comparando.corpo} agora={atual.corpo} t={ta} />
+            </div>
+          )}
         </section>
       )}
 
@@ -332,5 +416,24 @@ function IconeCadeado() {
       <rect x="5" y="11" width="14" height="9" rx="2" />
       <path d="M8 11V8a4 4 0 0 1 8 0v3" />
     </svg>
+  );
+}
+
+/** Quem edita a wiki: todo mundo lê a regra; a moderação troca (o banco confere de novo). */
+function QuemEdita({ quem, modera, ta, aoMudar }: { quem: QuemEditaAWiki; modera: boolean; ta: NonNullable<ReturnType<typeof useTextosDoAcervo>>; aoMudar: (q: QuemEditaAWiki) => void }) {
+  const id = useId();
+  const opcoes: QuemEditaAWiki[] = ["membros", "experientes", "moderacao"];
+  if (!modera) return <p className="b1-cinza mt-2">{preencher(ta.wiki.quemAgora, { quem: ta.wiki.quem[quem].toLowerCase() })}</p>;
+  return (
+    <fieldset className="b1-painel" aria-describedby={`${id}-dica`}>
+      <legend className="font-bold">{ta.wiki.quemTitulo}</legend>
+      {opcoes.map((o) => (
+        <label key={o} className="flex min-h-11 items-center gap-2">
+          <input type="radio" name={`${id}-quem`} checked={quem === o} onChange={() => aoMudar(o)} />
+          {ta.wiki.quem[o]}
+        </label>
+      ))}
+      <p id={`${id}-dica`} className="b1-cinza">{ta.wiki.desfazerDica}</p>
+    </fieldset>
   );
 }

@@ -1,0 +1,157 @@
+{
+  "titulo": "你想在 Alumia 上做什么？",
+  "chamada": "五个简短的问题。有了它们，“轮流”动态会在每个 6 小时的时段里先放和你有关的内容。什么都不会消失：只是顺序改变。",
+  "aparelho": "答案只保存在这台设备上。每次读取时，动态把你的兴趣当作筛选条件，服务器什么都不保存。随时可以在设置中修改或删除。",
+  "passo": "第 {n} 步，共 {total} 步",
+  "voltar": "返回",
+  "proximo": "下一步",
+  "verResumo": "查看总结",
+  "concluir": "完成",
+  "pularPergunta": "跳过这一题",
+  "pularTudo": "跳过问卷",
+  "perguntas": {
+    "objetivos": {
+      "titulo": "你来这里做什么？",
+      "ajuda": "想选几个都可以。"
+    },
+    "pautas": {
+      "titulo": "哪些议题让你行动？",
+      "ajuda": "每个议题都会把它的#话题带到时段前面。"
+    },
+    "estudos": {
+      "titulo": "学习方面呢？",
+      "ajuda": "不适用就跳过。"
+    },
+    "conversa": {
+      "titulo": "更多对话还是更多内容？",
+      "ajuda": "只能选一个。"
+    },
+    "ritmo": {
+      "titulo": "什么节奏？",
+      "ajuda": "只改变“你不在时”提示条出现的时机。"
+    }
+  },
+  "objetivos": {
+    "militancia": {
+      "nome": "行动与组织",
+      "texto": "运动、活动、号召"
+    },
+    "atos": {
+      "nome": "行动与日程",
+      "texto": "将要发生什么、在哪里"
+    },
+    "nucleo": {
+      "nome": "小组与本地组织",
+      "texto": "来自我所在小组的内容"
+    },
+    "amizades": {
+      "nome": "认识人、交朋友",
+      "texto": "和一起奋斗的人聊天"
+    },
+    "estudo": {
+      "nome": "学习",
+      "texto": "ENEM、入学考试、政治学习、阅读"
+    },
+    "debate": {
+      "nome": "辩论",
+      "texto": "讨论和投票"
+    },
+    "noticias": {
+      "nome": "新闻",
+      "texto": "正在发生的事"
+    },
+    "cultura": {
+      "nome": "文化与艺术",
+      "texto": "音乐、诗歌、街头艺术"
+    }
+  },
+  "pautas": {
+    "moradia": "住房",
+    "transporte": "交通",
+    "educacao": "教育",
+    "saude": "健康",
+    "trabalho": "劳动",
+    "meio_ambiente": "环境",
+    "antirracismo": "反种族主义",
+    "feminismo": "女性主义",
+    "lgbtqia": "LGBTQIA+",
+    "indigena": "原住民",
+    "terra": "土地与土地改革",
+    "cultura": "文化",
+    "juventude": "青年",
+    "direitos_humanos": "人权与记忆"
+  },
+  "estudos": {
+    "enem": "ENEM",
+    "vestibular": "入学考试",
+    "formacao": "政治学习",
+    "leitura": "阅读与书籍",
+    "idiomas": "语言"
+  },
+  "conversas": {
+    "conversa": {
+      "nome": "更多对话",
+      "texto": "一切都在轮流里，包括几个人之间零散的对话。"
+    },
+    "equilibrio": {
+      "nome": "一半一半",
+      "texto": "保持轮流原样。"
+    },
+    "conteudo": {
+      "nome": "更多内容",
+      "texto": "你未关注的人之间的旁支对话移到时段末尾。不会消失。"
+    }
+  },
+  "ritmos": {
+    "pouco": {
+      "nome": "少",
+      "texto": "偶尔来看看。离开 24 小时后才显示新内容提示条。"
+    },
+    "medio": {
+      "nome": "中",
+      "texto": "离开 8 小时后显示提示条。"
+    },
+    "muito": {
+      "nome": "多",
+      "texto": "我经常在。离开 4 小时后显示提示条。"
+    }
+  },
+  "resumo": {
+    "titulo": "你的动态会是这样",
+    "nada": "没有选择会改变顺序的项目：你的动态和所有人一样。",
+    "sobem": "在你的时段中靠前",
+    "tipos": "类型",
+    "temas": "#话题",
+    "estudo": "学习社群",
+    "nucleos": "来自你所在小组的内容",
+    "conteudo": "你未关注的人之间的旁支对话移到时段末尾。",
+    "ritmo": "离开 {horas} 小时后显示“你不在时”提示条。",
+    "como": "动态是怎么排的",
+    "tiposNomes": {
+      "chamado": "号召与行动",
+      "duvida": "提问",
+      "discussao": "讨论",
+      "enquete": "投票"
+    }
+  },
+  "ajustes": {
+    "titulo": "动态中的兴趣",
+    "texto": "你在问卷中勾选的内容。只保存在这台设备上，会改变“轮流”动态的顺序。",
+    "vazio": "你还没有回答，或已删除答案。你的动态和所有人一样。",
+    "responder": "回答问卷",
+    "editar": "修改兴趣",
+    "apagar": "删除答案",
+    "apagado": "已从这台设备删除答案。",
+    "salvo": "兴趣已保存在这台设备上。",
+    "outroAparelho": "在其他设备上不会显示这些答案：如果愿意，可以在那里重新回答。"
+  },
+  "cadastro": {
+    "titulo": "提交前：你想在 Alumia 上做什么？",
+    "nota": "可选。不会随申请一起发送：只保存在这台设备上。",
+    "pronto": "兴趣已保存在这台设备上。现在只需提交申请。",
+    "pulado": "已跳过问卷。之后可以在设置中回答。",
+    "refazer": "修改答案",
+    "continuar": "继续",
+    "voltarAoPedido": "返回申请"
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "titulo": "Seguridad de la cuenta",
+  "chamada": "Lo que protege tu cuenta y qué hacer si un aparato cae en malas manos.",
+  "carregando": "Cargando…",
+  "panico": {
+    "carimbo": "Pánico",
+    "titulo": "Salir de todo ahora",
+    "texto": "Desconecta tu cuenta de todos los aparatos, este también, y borra de este aparato lo que el sitio y Alumia guardaron: borradores, claves del chat, páginas guardadas. Después abre una página común, de fuera.",
+    "botao": "Salir de todo",
+    "confirmarTitulo": "¿Salir de todo ahora?",
+    "esconder": "Ocultar también mi perfil hasta que vuelva",
+    "esconderAjuda": "Desaparece de la búsqueda, de las sugerencias, de las menciones y de la página de perfil. Cuando vuelvas, lo muestras de nuevo aquí.",
+    "confirmar": "Sí, salir de todo",
+    "cancelar": "Cancelar",
+    "saindo": "Saliendo…",
+    "atalhoTitulo": "Atajo Esc Esc Esc",
+    "atalhoTexto": "Con el atajo activado, pulsar Esc tres veces seguidas sale de este aparato al instante, en cualquier pantalla. Vale hasta cerrar esta pestaña.",
+    "atalhoLigar": "Activar el atajo",
+    "atalhoDesligar": "Desactivar el atajo",
+    "atalhoLigado": "Atajo activado en esta pestaña"
+  },
+  "escondido": {
+    "titulo": "Tu perfil está oculto",
+    "texto": "Ocultado por el botón de pánico el {quando}. Nadie encuentra tu perfil mientras siga así.",
+    "mostrar": "Mostrar el perfil de nuevo",
+    "mostrado": "Tu perfil vuelve a aparecer."
+  },
+  "fator": {
+    "titulo": "Aplicación autenticadora",
+    "ligado": "Activada. La contraseña sola no abre tu cuenta.",
+    "desligado": "Sin aplicación autenticadora en esta cuenta.",
+    "desligadoTexto": "En Alumia, el código de 6 números se pide en cada entrada. Registra la aplicación cuando la entrada lo pida.",
+    "alertaTitulo": "Aviso de entrada nueva",
+    "alertaTexto": "Cada vez que tu cuenta entra en un aparato, llega un aviso aquí en Alumia y a tu correo, con el navegador, el sistema, el día y la hora. Si no fuiste tú, desconecta los aparatos."
+  },
+  "codigos": {
+    "titulo": "Códigos de recuperación",
+    "texto": "Diez códigos de un solo uso para entrar si pierdes el celular de la aplicación. Usar un código quita la aplicación de la cuenta: registras otra en el momento, y los otros aparatos se desconectan.",
+    "restantes": "{n} de 10 códigos aún valen",
+    "nenhum": "Todavía no tienes códigos de recuperación.",
+    "geradosEm": "Generados el {quando}",
+    "gerar": "Generar códigos",
+    "gerarDeNovo": "Generar códigos nuevos",
+    "deNovoAviso": "Los códigos que tienes hoy dejan de valer.",
+    "confirmarGerar": "Generar y anular los antiguos",
+    "cancelar": "Cancelar",
+    "mostrarTitulo": "Tus códigos nuevos",
+    "mostrarTexto": "Aparecen una sola vez. Descárgalos o cópialos y guárdalos lejos del celular: papel en un cajón o gestor de contraseñas.",
+    "baixar": "Descargar en texto",
+    "copiar": "Copiar",
+    "copiados": "Códigos copiados.",
+    "pronto": "Ya guardé los códigos",
+    "precisaFator": "Los códigos dependen de la aplicación autenticadora. Registra la aplicación primero.",
+    "arquivo": {
+      "titulo": "Alumia: códigos de recuperación del segundo factor",
+      "geradosEm": "Generados el {quando}",
+      "instrucoes": ["Cada código vale una vez.", "Úsalo si pierdes el celular de la aplicación autenticadora.", "Guárdalo lejos del celular."]
+    }
+  },
+  "aparelhos": {
+    "titulo": "Aparatos conectados",
+    "texto": "Dónde está abierta tu cuenta ahora: el navegador, el sistema y los días. La dirección de red no aparece en ningún lugar.",
+    "este": "Este aparato",
+    "rotulo": "{navegador} en {sistema}",
+    "desde": "Entró el {dia}",
+    "ultima": "Última actividad: {dia}",
+    "hoje": "hoy",
+    "ontem": "ayer",
+    "semCodigo": "Entró sin el código de la aplicación",
+    "semCodigoAjuda": "¿No lo reconoces? Desconéctalo.",
+    "desconectar": "Desconectar",
+    "desconectarOutros": "Desconectar todos los demás",
+    "confirmarOutros": "¿Desconectar los otros aparatos? Tendrán que entrar de nuevo, con contraseña y código.",
+    "confirmar": "Desconectar",
+    "cancelar": "Cancelar",
+    "desconectado": "Aparato desconectado.",
+    "desconectados": "Otros aparatos desconectados.",
+    "so": "Solo este aparato está conectado.",
+    "ver": "Ver los aparatos",
+    "resumo": "{n} aparatos conectados",
+    "indisponivel": "La lista de aparatos no está disponible ahora.",
+    "outroNavegador": "Navegador desconocido",
+    "outroSistema": "sistema desconocido",
+    "ios": "iPhone o iPad",
+    "voltar": "Seguridad de la cuenta"
+  },
+  "busca": {
+    "titulo": "Fuera de la búsqueda",
+    "texto": "Desapareces de la búsqueda de personas, de las sugerencias de @ y de las listas de a quién seguir. Quien ya tiene tu @ completo todavía encuentra tu perfil.",
+    "rotulo": "Quedarme fuera de la búsqueda",
+    "salvo": "Listo."
+  },
+  "tor": {
+    "titulo": "Entrar por Tor",
+    "texto": "Con el Navegador Tor, el chat de Alumia se abre sin que nuestro servidor ni quien está en tu red sepa desde dónde entras. Tiene su propia dirección .onion.",
+    "endereco": "Dirección .onion del chat",
+    "semEndereco": "La dirección .onion del chat todavía no se publicó.",
+    "comoUsar": "Abre la dirección en el Navegador Tor (torproject.org) y conversa por texto.",
+    "comoFunciona": "Cómo está montado el servicio .onion (en el código abierto)",
+    "abreFora": "abre GitHub, fuera de Alumia"
+  },
+  "recuperar": {
+    "link": "Perdí el celular de la aplicación",
+    "titulo": "Entrar con un código de recuperación",
+    "texto": "Escribe uno de los diez códigos que guardaste. La aplicación autenticadora sale de la cuenta y registras otra enseguida; los otros aparatos se desconectan.",
+    "rotulo": "Código de recuperación",
+    "botao": "Usar el código",
+    "errado": "Código incorrecto o ya usado.",
+    "certo": "Código aceptado. Ahora registra la aplicación autenticadora de nuevo.",
+    "voltar": "Volver al código de la aplicación"
+  },
+  "erros": {
+    "confirme": "Confirma el código de la aplicación autenticadora en esta sesión e inténtalo de nuevo.",
+    "falha": "No funcionó ahora. Inténtalo de nuevo en un momento.",
+    "muitos": "Demasiados intentos. Espera un poco e inténtalo de nuevo.",
+    "tentar": "Intentar de nuevo"
+  },
+  "isca": {
+    "carimbo": "Cuenta señuelo",
+    "titulo": "Contraseña de pánico",
+    "texto": "Una segunda contraseña, solo para este aparato. Si alguien te obliga a abrir Alumia, escribe la contraseña de pánico en lugar de la tuya: el aparato entra en una cuenta señuelo, con perfil neutro, y saca tu cuenta de aquí como lo hace Salir rápido. La pantalla de entrar es la misma en los dos casos.",
+    "servidor": "No se borra nada en el servidor. Es una herramienta de seguridad personal contra quien fuerza el acceso a tu aparato: Alumia cumple la ley y las órdenes judiciales válidas con los datos reales.",
+    "ativar": "Activar la contraseña de pánico",
+    "ativarTroca": "Si este aparato ya tiene una contraseña de pánico, la nueva queda en su lugar. Para preparar o desactivar la que ya existe, usa Preparar la cuenta señuelo.",
+    "senha": "Contraseña de pánico",
+    "senhaAjuda": "Distinta de tu contraseña de entrar y fácil de recordar bajo presión. Al menos 8 caracteres.",
+    "senhaDeNovo": "Contraseña de pánico otra vez",
+    "real": "Tu contraseña de entrar",
+    "realAjuda": "Solo para comprobar que las dos son distintas. No sale de este aparato y no se guarda.",
+    "email": "Correo de la cuenta señuelo",
+    "emailAjuda": "Un correo tuyo que no sea el de esta cuenta (un alias de correo sirve). Recibe el enlace de confirmación.",
+    "codinome": "Seudónimo de la cuenta señuelo",
+    "codinomeAjuda": "Un seudónimo común, que no recuerde al tuyo.",
+    "criar": "Crear la cuenta señuelo",
+    "criando": "Creando la cuenta señuelo…",
+    "cancelar": "Cancelar",
+    "criada": "Cuenta señuelo creada, y su cofre quedó guardado, cifrado, en este aparato. Falta confirmar el correo del señuelo.",
+    "ativa": "Activa en este aparato",
+    "ativaTexto": "El cofre con la cuenta señuelo queda cifrado en este navegador, y la contraseña de pánico vale solo aquí. En otro aparato hay que activarla allí.",
+    "preparar": "Preparar la cuenta señuelo",
+    "prepararTexto": "Escribe la contraseña de pánico para abrir el señuelo aquí, sin salir de tu cuenta, y ver lo que le falta.",
+    "abrir": "Abrir el señuelo",
+    "abrindo": "Abriendo el señuelo…",
+    "fechar": "Cerrar el señuelo",
+    "enviar": "Enviar",
+    "enviando": "Enviando…",
+    "desativar": "Desactivar la contraseña de pánico",
+    "desativarTexto": "Borra de este aparato el cofre del señuelo. La cuenta señuelo sigue existiendo: para borrarla, entra en ella y usa el camino normal de borrar la cuenta.",
+    "desativarConfirmar": "Sí, desactivar",
+    "desativada": "Contraseña de pánico desactivada en este aparato.",
+    "etapas": {
+      "confirmar_email": {
+        "titulo": "Confirma el correo del señuelo",
+        "texto": "Abre el enlace que llegó al correo de la cuenta señuelo en una ventana privada o en otro aparato: abierto en este navegador, cambia tu cuenta por el señuelo. Después vuelve aquí.",
+        "botao": "Ya lo confirmé"
+      },
+      "sem_pedido": {
+        "titulo": "Solicitud de entrada del señuelo",
+        "texto": "El señuelo pasa por la revisión como cualquier cuenta. Escribe un motivo común, sin nada que lo vincule a ti.",
+        "botao": "Enviar la solicitud del señuelo"
+      },
+      "em_analise": {
+        "titulo": "En revisión",
+        "texto": "La solicitud del señuelo espera la revisión. Vuelve aquí después de la respuesta.",
+        "botao": "Comprobar otra vez"
+      },
+      "recusada": {
+        "titulo": "La revisión no aprobó el señuelo",
+        "texto": "Desactiva la contraseña de pánico y crea otro señuelo, con otro correo.",
+        "botao": "Comprobar otra vez"
+      },
+      "suspensa": {
+        "titulo": "El señuelo está suspendido",
+        "texto": "Desactiva la contraseña de pánico y crea otro señuelo, con otro correo.",
+        "botao": "Comprobar otra vez"
+      },
+      "cadastrar_fator": {
+        "titulo": "Aplicación autenticadora del señuelo",
+        "texto": "En Alumia toda cuenta pide el código de la aplicación, el señuelo también. Añade el señuelo a tu aplicación autenticadora con un nombre que no llame la atención. Al entrar con la contraseña de pánico, el código que se pide es el del señuelo.",
+        "botao": "Confirmar el código"
+      },
+      "pedir_codigo": {
+        "titulo": "Código del señuelo",
+        "texto": "Escribe el código del señuelo de tu aplicación autenticadora para terminar de prepararlo.",
+        "botao": "Confirmar el código"
+      },
+      "povoar": {
+        "titulo": "Perfil neutro",
+        "texto": "El señuelo termina la primera entrada sin elecciones y puede seguir un paquete de perfiles públicos, para no parecer una cuenta vacía. No publica nada.",
+        "botao": "Dejar el señuelo listo"
+      },
+      "pronta": {
+        "titulo": "El señuelo está listo",
+        "texto": "Al entrar, la contraseña de pánico en lugar de la tuya abre el señuelo y saca tu cuenta de este aparato. El código que se pide después es el del señuelo.",
+        "botao": "Comprobar otra vez"
+      }
+    },
+    "motivo": "Por qué quieres entrar",
+    "maior": "Tengo 18 años o más",
+    "aceite": "Leí y acepto los términos y las reglas de Alumia",
+    "qr": "QR para la aplicación autenticadora",
+    "segredo": "O escribe este secreto en la aplicación:",
+    "codigo": "Código de 6 números",
+    "nenhumPacote": "No seguir ningún paquete",
+    "pacotesTitulo": "Paquete de perfiles públicos",
+    "erros": {
+      "curta": "La contraseña de pánico necesita al menos 8 caracteres.",
+      "diferentes": "Las dos contraseñas de pánico no coinciden.",
+      "igual": "La contraseña de pánico no puede ser igual a tu contraseña de entrar.",
+      "semReal": "Escribe tu contraseña de entrar, para comprobar que es otra.",
+      "email": "Revisa el correo de la cuenta señuelo.",
+      "emailIgual": "Usa un correo distinto al de esta cuenta.",
+      "codinome": "El seudónimo necesita de 3 a 30 caracteres, sin @ ni dirección.",
+      "motivo": "Escribe el motivo con 10 a 500 caracteres, sin correo ni teléfono.",
+      "idade": "Marca que el señuelo es de alguien con 18 años o más.",
+      "aceite": "Marca la aceptación de los términos y las reglas.",
+      "errada": "Esa no es la contraseña de pánico de este aparato.",
+      "semArmazenamento": "Este navegador no dejó guardar el cofre. Fuera de la ventana privada, inténtalo otra vez.",
+      "cadastroFechado": "El registro está cerrado ahora. Inténtalo más tarde.",
+      "captcha": "Completa el desafío antes de continuar.",
+      "muitos": "Demasiados intentos. Espera un poco e inténtalo otra vez.",
+      "codigo": "Código incorrecto. Revisa la aplicación e inténtalo otra vez.",
+      "falha": "No funcionó ahora. Inténtalo otra vez en un momento."
+    }
+  }
+}

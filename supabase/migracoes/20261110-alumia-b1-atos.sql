@@ -20,8 +20,7 @@
 --      assumiu, nem quem organiza (nem quem opera a conta da organização por rede_age_como): seria uma lista de pessoas ligadas a
 --      um ato político (LGPD art. 11). Quem organiza vê, além do "já tem quem leve", quantas pessoas assumiram só a partir de 3.
 --   4. CARONAS E ÔNIBUS: rede_ato_caronas (oferta ou pedido, meio, vagas, ponto de saída PÚBLICO, hora). Nunca telefone nem
---      endereço com número (interno.rede3_pub_dado_pessoal); o contato é só pelo chat privado (encaixe da Faixa 2,
---      docs/rede/PEDIDOS-ENTRE-FAIXAS.md). Nenhuma função devolve quem ofereceu: só "é minha". Até 200 por ato (e 2 por pessoa).
+--      endereço com número (interno.rede3_pub_dado_pessoal); o contato é só pelo chat privado (encaixe do chat). Nenhuma função devolve quem ofereceu: só "é minha". Até 200 por ato (e 2 por pessoa).
 --      Quem organiza pode tirar a carona de outra pessoa (contra abuso): vai a interno.auditoria sem dizer de quem era.
 --   5. PETIÇÃO SEM LISTA: rede_peticoes + rede_peticao_assinaturas. Total só a partir de 3 (e pela contagem publicada); nenhum
 --      nome de quem assinou, para ninguém (nem para quem criou). A petição não está no post: nunca federa (PLANO §8 F-FED).

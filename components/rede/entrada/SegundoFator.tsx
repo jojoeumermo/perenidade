@@ -5,13 +5,34 @@
 // painel: components/painel/Seguranca.tsx) e, nas outras vezes, pedir o código. A sessão só vira aal2 depois do código certo, e
 // o banco da rede só abre com aal2 (interno.rede2_membro e interno.rede_aba, 20261110-alumia-entrada.sql).
 import { useState } from "react";
-import { getClient, localBackend, rpc } from "@/lib/backend";
+import { getClient, hasBackend, localBackend, rpc } from "@/lib/backend";
+import { gerador, sementeDe } from "@/lib/rede/mosaico";
 import type { TextosDaEntrada } from "@/lib/rede/entrada/textos";
+import { LinkPerdiOAplicativo, RecuperarComCodigo } from "../seguranca/RecuperarComCodigo";
 import { Mensagem } from "./Formularios";
 
 type T = TextosDaEntrada;
 
-function CampoCodigo({ t, valor, mudar, invalido }: { t: T; valor: string; mudar: (v: string) => void; invalido: boolean }) {
+/**
+ * Um QR de mentira, só para a prévia sem banco (NEXT_PUBLIC_ALUMIA_PREVIA): quadradinhos de uma semente fixa, com os três
+ * cantos. Não cadastra nada em aplicativo nenhum; o QR de verdade vem do serviço de contas.
+ */
+function qrDeExemplo(): string {
+  const n = 29;
+  const sorte = gerador(sementeDe("entrada:qr-de-exemplo"));
+  let pontos = "";
+  for (let y = 0; y < n; y++) {
+    for (let x = 0; x < n; x++) {
+      const canto = (x < 8 && y < 8) || (x > n - 9 && y < 8) || (x < 8 && y > n - 9);
+      if (!canto && sorte() < 0.47) pontos += `M${x} ${y}h1v1h-1z`;
+    }
+  }
+  const olho = (x: number, y: number) => `M${x} ${y}h7v7h-7zM${x + 1} ${y + 1}v5h5v-5zM${x + 2} ${y + 2}h3v3h-3z`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges"><path fill="#0f0e0d" fill-rule="evenodd" d="${pontos}${olho(0, 0)}${olho(n - 7, 0)}${olho(0, n - 7)}"/></svg>`;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+}
+
+function CampoCodigo({ t, valor, mudar, invalido, descrito, foco }: { t: T; valor: string; mudar: (v: string) => void; invalido: boolean; descrito?: string; foco?: boolean }) {
   return (
     <div className="ale-campo">
       <label className="ale-rotulo" htmlFor="ale-codigo">{t.codigoRotulo}</label>
@@ -24,9 +45,11 @@ function CampoCodigo({ t, valor, mudar, invalido }: { t: T; valor: string; mudar
         autoComplete="one-time-code"
         pattern="[0-9 ]*"
         maxLength={7}
+        placeholder="000000"
         required
-        autoFocus
+        autoFocus={foco}
         aria-invalid={invalido || undefined}
+        aria-describedby={descrito}
       />
     </div>
   );
@@ -43,7 +66,8 @@ async function bloqueadoPorCodigo(conta: string): Promise<number | null> {
 }
 
 /** Quem já tem o aplicativo: digita o código e a sessão vira aal2. */
-export function PedirCodigo({ t, fator, conta, aoConfirmar, aoSair }: { t: T; fator: string; conta: string; aoConfirmar: () => void; aoSair: () => void }) {
+export function PedirCodigo({ t, lang, fator, conta, aoConfirmar, aoSair }: { t: T; lang: string; fator: string; conta: string; aoConfirmar: () => void; aoSair: () => void }) {
+  const [recuperando, setRecuperando] = useState(false);
   const [codigo, setCodigo] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState("");
@@ -65,16 +89,20 @@ export function PedirCodigo({ t, fator, conta, aoConfirmar, aoSair }: { t: T; fa
       setOcupado(false);
     }
   }
+  // Perdeu o celular do aplicativo: um dos códigos de recuperação tira o aplicativo da conta (onda 8, conta segura) e a entrada,
+  // lida de novo, pede o cadastro de um aplicativo novo.
+  if (recuperando) return <RecuperarComCodigo lang={lang} aoRecuperar={aoConfirmar} aoVoltar={() => setRecuperando(false)} />;
   return (
     <>
-      <h1 className="ale-cond ale-cartao-titulo">{t.codigoTitulo}</h1>
+      <h2 tabIndex={-1} data-ale-foco="" className="ale-cond ale-cartao-titulo">{t.codigoTitulo}</h2>
       <p className="ale-cartao-texto">{t.codigoTexto}</p>
       <form className="ale-form" noValidate onSubmit={(e) => { e.preventDefault(); void confirmar(); }}>
-        <CampoCodigo t={t} valor={codigo} mudar={setCodigo} invalido={Boolean(erro)} />
-        {erro && <Mensagem tipo="erro">{erro}</Mensagem>}
+        <CampoCodigo t={t} valor={codigo} mudar={setCodigo} invalido={Boolean(erro)} descrito={erro ? "ale-codigo-erro" : undefined} foco />
+        {erro && <Mensagem tipo="erro" id="ale-codigo-erro">{erro}</Mensagem>}
         <button type="submit" className="ale-botao ale-botao-principal" disabled={ocupado || codigo.replace(/\D/g, "").length !== 6} aria-busy={ocupado || undefined}>
           {t.codigoConfirmar}
         </button>
+        <LinkPerdiOAplicativo lang={lang} aoAbrir={() => setRecuperando(true)} />
         <button type="button" className="ale-link" onClick={aoSair}>{t.outraConta}</button>
       </form>
     </>
@@ -93,6 +121,8 @@ export function CadastrarFator({ t, aoConfirmar, aoSair }: { t: T; aoConfirmar: 
     setOcupado(true);
     setErro("");
     try {
+      // Na prévia sem banco, só o desenho da tela: um QR de exemplo, que não cadastra nada.
+      if (!hasBackend) return setCadastro({ id: "exemplo", qr: qrDeExemplo(), segredo: "EXEMPLO SEM VALOR" });
       const supabase = await getClient();
       // Tentativas que ficaram pela metade saem antes de começar outra.
       const { data: lista } = await supabase.auth.mfa.listFactors();
@@ -129,9 +159,9 @@ export function CadastrarFator({ t, aoConfirmar, aoSair }: { t: T; aoConfirmar: 
 
   return (
     <>
-      <h1 className="ale-cond ale-cartao-titulo">{t.fatorTitulo}</h1>
+      <h2 tabIndex={-1} data-ale-foco="" className="ale-cond ale-cartao-titulo">{t.fatorTitulo}</h2>
       <p className="ale-cartao-texto">{t.fatorTexto}</p>
-      <ol className="ale-lista-num">
+      <ol className="ale-numerada">
         {t.fatorPassos.map((p) => (
           <li key={p}>{p}</li>
         ))}
@@ -150,6 +180,7 @@ export function CadastrarFator({ t, aoConfirmar, aoSair }: { t: T; aoConfirmar: 
             {/* O QR vem do próprio serviço de contas (imagem data:), feito no aparelho: nada sai para terceiros. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={cadastro.qr} alt={t.fatorQr} width={200} height={200} />
+            {cadastro.id === "exemplo" && <span className="ale-ajuda">{t.p.qrExemplo}</span>}
             <button type="button" className="ale-link" aria-expanded={verChave} onClick={() => setVerChave((v) => !v)}>{t.fatorChave}</button>
             {verChave && (
               <p>
@@ -159,8 +190,8 @@ export function CadastrarFator({ t, aoConfirmar, aoSair }: { t: T; aoConfirmar: 
             )}
           </div>
           <Mensagem tipo="info">{t.fatorAviso}</Mensagem>
-          <CampoCodigo t={t} valor={codigo} mudar={setCodigo} invalido={Boolean(erro)} />
-          {erro && <Mensagem tipo="erro">{erro}</Mensagem>}
+          <CampoCodigo t={t} valor={codigo} mudar={setCodigo} invalido={Boolean(erro)} descrito={erro ? "ale-codigo-erro" : undefined} />
+          {erro && <Mensagem tipo="erro" id="ale-codigo-erro">{erro}</Mensagem>}
           <button type="submit" className="ale-botao ale-botao-principal" disabled={ocupado || codigo.replace(/\D/g, "").length !== 6} aria-busy={ocupado || undefined}>
             {t.codigoConfirmar}
           </button>

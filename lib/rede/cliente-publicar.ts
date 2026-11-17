@@ -4,7 +4,20 @@
 // Sem "@/" de propósito (roda no Node nos testes).
 import { chamar, type Chamar } from "./cliente";
 import type { Post } from "./tipos";
-import type { Agendado, CorrecaoDoPost, DetalhesDoPost, EdicaoAnterior, EnqueteDoPost, MeuAto, OpcoesDeAgendar, PedidoPublicar } from "./tipos-publicar";
+import type {
+  Agendado,
+  CorrecaoDoPost,
+  DetalhesDoPost,
+  EdicaoAnterior,
+  EnqueteDoPost,
+  MeuAto,
+  OpcoesDeAgendar,
+  PaginaDeArquivados,
+  PedidoComVida,
+  PedidoPublicar,
+  PessoaDaMinhaRoda,
+  VidaDoPost,
+} from "./tipos-publicar";
 import type { RascunhoDoServidor } from "./publicar/alumia2";
 import type { RascunhoCifrado } from "./publicar/b1";
 
@@ -65,6 +78,25 @@ export function criarClientePublicar(c: Chamar) {
     /** Apaga todos os meus rascunhos da conta (ao desligar "guardar na conta"). */
     apagarTodosRascunhos: () => c<{ apagados: number }>("rede_pub_rascunhos_apagar_todos"),
     emblemas: () => c<{ avisos: number; conversas: number; atos: number }>("rede_alumia_emblemas"),
+
+    // ───── Onda 9, 9D: público e vida do post (20261115-alumia-o9-publicar.sql) ─────
+    /** Publicar com "só a minha roda", não listado e o prazo para sumir (o resto é o rede_pub_publicar_mais de sempre). */
+    publicarComVida: (pedido: PedidoComVida) => c<Post & { nao_listado: boolean; expira_em: string | null }>("rede_pub_vida_publicar", { p: pedido }),
+    /** Por lote (até 50 ids): quando some e, para a autora, se está arquivado, não listado ou na roda. */
+    vida: (ids: string[]) => c<Record<string, VidaDoPost>>("rede_pub_vida", { p_ids: ids.slice(0, 50) }),
+    /** Arquiva (some para os outros; sai do Fediverso e não volta) ou desarquiva um post meu. */
+    arquivar: (post: string, sim: boolean) => c<{ arquivado: boolean }>("rede_pub_arquivar", { p_post: post, p_sim: sim }),
+    /** Os meus arquivados, 20 por página. */
+    arquivados: (antes: string | null = null) => c<PaginaDeArquivados>("rede_pub_arquivados", { p_antes: antes }),
+    /** "Apagar meus posts depois de X semanas": a escolha de agora (nulo: desligado). */
+    vidaDaConta: () => c<{ semanas: number | null }>("rede_pub_vida_conta"),
+    /** Quantos posts meus sairiam com esta escolha (para perguntar antes de ligar). */
+    vidaDaContaPrevia: (semanas: number) => c<{ semanas: number; posts: number }>("rede_pub_vida_conta_previa", { p_semanas: semanas }),
+    /** Liga (1, 2, 4, 8, 12, 26 ou 52) ou desliga (0) o apagar sozinho. */
+    mudarVidaDaConta: (semanas: number) => c<{ semanas: number | null }>("rede_pub_vida_conta_mudar", { p_semanas: semanas }),
+    /** A minha roda de confiança (só eu leio) e pôr ou tirar alguém (a pessoa não é avisada). */
+    roda: () => c<PessoaDaMinhaRoda[]>("rede_roda"),
+    mudarRoda: (handle: string, sim: boolean) => c<PessoaDaMinhaRoda[]>("rede_roda_mudar", { p_handle: handle, p_sim: sim }),
   };
 }
 

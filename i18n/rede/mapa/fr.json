@@ -1,0 +1,64 @@
+{
+  "titulo": "Carte",
+  "chamada": "Appels, événements et noyaux par ville, pour les {dias} prochains jours. Chaque point est une commune entière : la carte ne connaît ni rue, ni quartier, ni la position de personne.",
+  "desenho": "Carte du Brésil avec {n} villes marquées",
+  "carregando": "Chargement de la carte…",
+  "erro": "Impossible de charger la carte pour l'instant.",
+  "tentar": "Réessayer",
+  "vazio": "Aucun appel, événement ou noyau sur la carte pour le moment.",
+  "filtro": {
+    "titulo": "Que montrer",
+    "chamados": "Appels",
+    "eventos": "Événements",
+    "nucleos": "Noyaux"
+  },
+  "legenda": {
+    "titulo": "Comment lire",
+    "chamados": "Appel : manifestation ou chantier collectif.",
+    "eventos": "Événement : assemblée, cercle, cours et autres rencontres.",
+    "nucleos": "Noyau d'une organisation vérifiée qui a voulu apparaître sur la carte.",
+    "tamanho": "La tuile grandit avec le nombre, affiché seulement à partir de 3. Un noyau n'a jamais de nombre."
+  },
+  "estado": {
+    "rotulo": "État",
+    "brasil": "Tout le Brésil",
+    "voltar": "Voir tout le Brésil",
+    "nenhuma": "Aucune ville marquée dans cet État."
+  },
+  "cidades": {
+    "titulo": "Villes sur la carte",
+    "tituloEstado": "Villes en {uf}",
+    "escolher": "Touchez une ville sur la carte ou dans la liste pour voir ce qu'il y a."
+  },
+  "toque": {
+    "titulo": "Villes à cet endroit",
+    "explica": "Il y a plus d'une ville à cet endroit de la carte. Choisissez-en une.",
+    "estado": "Voir seulement {uf}",
+    "fechar": "Fermer"
+  },
+  "cidade": {
+    "fechar": "Fermer",
+    "chamados": "{n} appels",
+    "chamadosPoucos": "Appels : moins de 3",
+    "eventos": "{n} événements",
+    "eventosPoucos": "Événements : moins de 3",
+    "nucleos": "Noyaux",
+    "orgs": "Organisations avec un noyau ici",
+    "atos": "Prochains appels et événements",
+    "atosCarregando": "Recherche des appels de cette ville…",
+    "atosVazio": "Aucun appel ou événement de cette ville que vous puissiez voir maintenant.",
+    "atosMenos": "Le nombre de la carte réunit toutes les façons d'écrire cette ville et les 60 prochains jours. La liste montre les prochains que la recherche Près d'ici trouve sous ce nom ; certains ont pu être écrits autrement.",
+    "atosErro": "Impossible de récupérer les appels de cette ville.",
+    "verTodos": "Voir toutes les actions à {cidade}",
+    "rotuloPonto": "{cidade} ({uf}) : {resumo}"
+  },
+  "fora": {
+    "titulo": "Villes introuvables sur la carte",
+    "texto": "Ces villes ont été écrites sans l'État et le nom existe dans plus d'un État, ou le nom ne correspond à aucune commune. Écrire la ville avec l'État, comme « Bom Jesus - PI », met le point à sa place.",
+    "varios": "existe en {ufs}",
+    "nenhum": "aucune commune de ce nom"
+  },
+  "fonte": "Carte du Brésil dessinée par Alumia avec le maillage public de l'IBGE. Rien n'est chargé de l'extérieur.",
+  "aoVivo": "Questions en direct",
+  "aoVivoTexto": "Séances « Demandez à… » à heure fixe."
+}

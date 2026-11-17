@@ -87,7 +87,7 @@
     "comunidade": "Communauté (facultatif)",
     "saltarParaConteudo": "Aller au fil",
     "sairRapido": "Sortie rapide",
-    "sairRapidoAjuda": "Efface ce qu’Alumia a gardé sur cet appareil et ouvre une page ordinaire extérieure (la météo), sans rien de l’Institut.",
+    "sairRapidoAjuda": "Se déconnecte sur cet appareil, efface ce qu’Alumia y a gardé, y compris les clés de la messagerie privée et des groupes, et ouvre une page ordinaire extérieure (la météo), sans rien de l’Institut.",
     "cartaoSeguranca": "La sécurité d'abord : ne publiez jamais une adresse, un téléphone ou un document. Au moindre doute, signalez.",
     "cuidados": {
       "titulo": "Vigilance",
@@ -119,9 +119,9 @@
     "entreNaConta": "Connectez-vous pour participer. Vous pouvez lire les questions des disciplines sans compte.",
     "entrar": "Se connecter",
     "pitch": [
-      "Sans publicité, sans traceur et sans algorithme : le fil suit l'ordre d'arrivée.",
+      "Sans publicité et sans traceur. L'ordre du fil suit une règle ouverte, la même pour tout le monde et écrite à l'écran.",
       "Réservé aux personnes de 18 ans ou plus.",
-      "Vous apparaissez sous un pseudonyme, jamais sous votre nom civil."
+      "Vous apparaissez sous un pseudonyme par défaut ; votre nom et votre photo seulement si vous le voulez."
     ],
     "criarConta": "Créer un compte",
     "jaTenhoConta": "J'ai déjà un compte",
@@ -179,7 +179,10 @@
     "nivel_imagens": "Votre niveau ne permet pas encore autant d'images dans un message. Voyez les limites dans Comment Alumia veille.",
     "limite_diario": "Vous avez atteint la limite de messages d'aujourd'hui pour votre niveau.",
     "limite_identidades": "Vous avez déjà le maximum de 5 comptes de ce type (identités ou organisations).",
-    "lista_bloqueio": "La médiation de ce lieu n'autorise pas vos messages ici."
+    "lista_bloqueio": "La médiation de ce lieu n'autorise pas vos messages ici.",
+    "leia_as_regras": "Cette communauté demande d'accepter les règles avant de publier. Vois l'onglet Arrivée.",
+    "so_leitura": "C'est une communauté d'annonces : seule la modération ouvre des publications ici.",
+    "so_leitura_respostas": "Dans cette communauté d'annonces, la règle ne vous laisse pas répondre."
   },
   "alumia": {
     "voltarAoSite": "Retour au site de l’Instituto Lúcia",
@@ -229,5 +232,9 @@
       "Que manque-t-il au site pour que vous étudiiez mieux ?"
     ],
     "doZero": "Écrire à partir de zéro"
+  },
+  "avisoFixado": {
+    "rotulo": "Avis de la coordination",
+    "abrir": "Ouvrir"
   }
 }

@@ -1,0 +1,139 @@
+{
+  "rss": {
+    "descricaoPerfil": "Publications ouvertes à internet de {nome} sur Alumia",
+    "descricaoComunidade": "Publications ouvertes à internet de la communauté {nome} sur Alumia",
+    "aviso": "Avertissement de contenu : {aviso}",
+    "continua": "La suite sur Alumia",
+    "semTitulo": "Publication de {codinome}"
+  },
+  "cartao": {
+    "aviso": "Avertissement de contenu : {aviso}",
+    "mostrar": "afficher",
+    "abrir": "Lire sur Alumia",
+    "rodape": "sur Alumia, le réseau de l’Instituto Lúcia"
+  },
+  "acao": {
+    "botao": "Emporter ailleurs"
+  },
+  "folha": {
+    "titulo": "Emporter ailleurs",
+    "intro": "Tout ici est fait sur votre appareil : l’image et le QR ne passent par aucun service extérieur.",
+    "fechar": "Fermer",
+    "link": "Lien",
+    "copiar": "Copier le lien",
+    "copiado": "Copié.",
+    "naoCopiou": "Impossible de copier. Sélectionnez le texte et copiez-le à la main."
+  },
+  "arte": {
+    "titulo": "Visuel à partager (image)",
+    "ajuda": "Une image de la publication à envoyer au groupe ou à publier sur un autre réseau.",
+    "fundo": "Fond",
+    "noite": "Nuit",
+    "creme": "Crème",
+    "formato": "Format",
+    "retrato": "Portrait 4:5",
+    "quadrado": "Carré",
+    "comQr": "Mettre le QR du lien sur l’image",
+    "baixar": "Télécharger l’image",
+    "fazendo": "Création de l’image…",
+    "falhou": "Impossible de créer l’image sur cet appareil.",
+    "alt": "Image de la publication de {codinome}",
+    "marca": "Alumia",
+    "chamada": "À lire sur Alumia"
+  },
+  "qr": {
+    "tituloAto": "QR de l’action",
+    "tituloPost": "QR de la publication",
+    "tituloPerfil": "QR du profil",
+    "tituloComunidade": "QR de la communauté",
+    "ajuda": "Sur la banderole, l’affiche ou l’écran : qui pointe son appareil photo ouvre la page.",
+    "baixar": "Télécharger le QR",
+    "fazendo": "Création du QR…",
+    "falhou": "Impossible de créer le QR sur cet appareil.",
+    "alt": "QR de {nome}"
+  },
+  "embed": {
+    "titulo": "Coller sur un autre site",
+    "ajuda": "Un cadre en texte seul, sans rien qui s'exécute sur l'autre site : on y voit le post et le bouton pour le lire sur Alumia. Si le post n'est plus ouvert à internet, le cadre cesse de l'afficher.",
+    "rotulo": "Code à coller",
+    "copiar": "Copier le code",
+    "conferindo": "Vérification que la publication peut sortir…",
+    "indisponivel": "Cette publication ne sort pas sur d’autres sites. Seules sortent les publications de premier niveau, ouvertes à internet, d’un profil ou d’une communauté ouverte.",
+    "previa": "Aperçu",
+    "carregando": "Chargement de l'aperçu…",
+    "tituloDoQuadro": "Publication de {codinome} sur Alumia"
+  },
+  "comunidade": {
+    "aba": "Emporter",
+    "titulo": "Emporter la communauté ailleurs",
+    "rss": "RSS",
+    "rssAjuda": "Les publications ouvertes à internet de cette communauté, dans n’importe quel lecteur RSS, sans compte.",
+    "rssAbrir": "Ouvrir l'adresse du flux RSS",
+    "rssIndisponivel": "Cette communauté n’a pas de RSS : seulement les communautés ouvertes, et seulement les publications ouvertes à internet.",
+    "conferindo": "Vérification…"
+  },
+  "listas": {
+    "rotulo": "Emporter et ramener",
+    "titulo": "Les comptes que je suis",
+    "intro": "La liste n’est qu’à vous : personne d’autre ne voit qui vous suivez. Téléchargez-la pour l’emporter vers un autre réseau du Fediverse, ou ramenez-la de là-bas.",
+    "carregando": "Chargement de votre liste…",
+    "entrar": "Connectez-vous pour emporter et ramener la liste de qui vous suivez.",
+    "exportar": {
+      "titulo": "Emporter",
+      "ajuda": "Le fichier fonctionne sur d’autres réseaux du Fediverse, comme Mastodon.",
+      "daqui": "{n} profils d’ici",
+      "daqui1": "1 profil d’ici",
+      "fora": "{n} d’autres réseaux du Fediverse",
+      "fora1": "1 d’un autre réseau du Fediverse",
+      "baixar": "Télécharger la liste",
+      "vazia": "Vous ne suivez encore personne."
+    },
+    "importar": {
+      "titulo": "Ramener",
+      "ajuda": "Choisissez le fichier donné par l’autre réseau, ou collez les adresses au format @nom@serveur, une par ligne. Vous vérifiez avant de suivre.",
+      "arquivo": "Choisir le fichier",
+      "colar": "Ou collez les adresses",
+      "exemplo": "@nom@serveur.example",
+      "conferir": "Vérifier la liste",
+      "resumo": "{daqui} d’ici · {fora} d’autres réseaux du Fediverse",
+      "ignoradas": "Lignes qui n’étaient pas des adresses, écartées : {n}.",
+      "demais": "Les {n} premières entrent cette fois. Ramenez le reste ensuite.",
+      "vazio": "Aucune adresse au format @nom@serveur.",
+      "seguirTodos": "Suivre tout le monde",
+      "andamento": "Suivi de {feitos} sur {total}",
+      "parar": "Arrêter",
+      "parado": "Arrêté. Ce qui est fait reste fait.",
+      "pronto": "Terminé.",
+      "grande": "Fichier trop gros (1 Mo au plus)."
+    },
+    "situacoes": {
+      "esperando": "en attente",
+      "seguindo": "suivi",
+      "pedido": "demande envoyée",
+      "naoAchado": "introuvable",
+      "bloqueada": "instance bloquée",
+      "fediverso": "activez d’abord le Fediverse",
+      "limite": "limite du jour : réessayez demain",
+      "erro": "n’a pas marché"
+    },
+    "fediverso": {
+      "aviso": "Pour suivre quelqu’un d’une autre instance, activez le Fediverse dans votre profil.",
+      "link": "Activer le Fediverse"
+    },
+    "perfil": {
+      "titulo": "Votre profil ailleurs",
+      "rss": "RSS du profil",
+      "rssOrg": "Les publications ouvertes à internet de cette organisation, dans n’importe quel lecteur RSS.",
+      "rssPessoa": "Le RSS de profil est réservé aux organisations avec sceau. Vos publications ouvertes à internet sortent par le RSS des communautés ouvertes où vous écrivez."
+    }
+  },
+  "ajustes": {
+    "titulo": "Emporter et ramener",
+    "texto": "Téléchargez la liste de qui vous suivez, ramenez-en une d’une autre instance et prenez le QR de votre profil.",
+    "abrir": "Ouvrir"
+  },
+  "erros": {
+    "entre_primeiro": "Connectez-vous d’abord.",
+    "generico": "Ça n’a pas marché. Réessayez dans un instant."
+  }
+}

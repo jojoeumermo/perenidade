@@ -1,0 +1,39 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/* O aviso que a coordenação fixou no alto da Alumia (components/rede/protecao/AvisosFixados.tsx): a faixa dourada das pranchas
+   ("próximo ato"), com o rótulo em Archivo condensada. Cores só pelos tokens de styles/alumia-tokens.css. */
+[data-al="2"] .al-aviso-fixado-lista {
+  display: grid;
+  gap: 2px;
+}
+[data-al="2"] .al-aviso-fixado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.9rem;
+  margin: 0;
+  padding: 0.7rem 1.25rem;
+  background: var(--al-dourado-fundo, var(--al-dourado));
+  color: var(--al-sobre-dourado);
+  font-family: var(--al-fonte);
+  font-size: 0.9375rem;
+  line-height: 1.35;
+}
+[data-al="2"] .al-aviso-fixado-rotulo {
+  font-size: 1.05rem;
+  white-space: nowrap;
+}
+[data-al="2"] .al-aviso-fixado-texto {
+  flex: 1 1 14rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-weight: 600;
+}
+[data-al="2"] .al-aviso-fixado-link {
+  color: inherit;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+:root[data-eink] [data-al="2"] .al-aviso-fixado {
+  border: 2px solid #000;
+}

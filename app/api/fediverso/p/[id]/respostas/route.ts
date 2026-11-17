@@ -6,7 +6,7 @@
 // sai vazia e a Note NÃO a anuncia (COLECOES_DO_BANCO.respostas em lib/rede/fediverso/documentos.ts).
 import { colecaoDeRespostas, visibilidadeQueSai, type PostFederado } from "@/lib/rede/fediverso/documentos";
 import { ID_DE_POST, modoTotal } from "@/lib/rede/fediverso/enderecos";
-import { conferirTeto } from "@/lib/rede/fediverso/rotas";
+import { conferirLeitor, conferirTeto } from "@/lib/rede/fediverso/rotas";
 import { banco, fed, respostaAP } from "@/lib/rede/fediverso/servidor";
 
 export const runtime = "nodejs";
@@ -14,6 +14,8 @@ export const runtime = "nodejs";
 export async function GET(pedido: Request, { params }: { params: Promise<{ id: string }> }) {
   const barrado = conferirTeto(pedido, "respostas", 60);
   if (barrado) return barrado;
+  const recusado = await conferirLeitor(pedido);
+  if (recusado) return recusado;
   const id = (await params).id.toLowerCase();
   if (!modoTotal() || !ID_DE_POST.test(id)) return new Response("Not Found", { status: 404 });
   const post = await banco<PostFederado | { apagado: true } | null>("post", { id }).catch(() => undefined);

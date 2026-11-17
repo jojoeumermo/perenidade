@@ -1,0 +1,67 @@
+{
+  "codigo": {
+    "rotulo": "Code",
+    "copiar": "Copy",
+    "copiado": "Copied",
+    "naoCopiou": "Could not copy. Select it and copy by hand."
+  },
+  "formula": {
+    "rotulo": "Formula"
+  },
+  "imagem": {
+    "falta": "Image {n} (not attached)"
+  },
+  "link": {
+    "fora": "opens another site"
+  },
+  "barra": {
+    "rotulo": "Text formatting",
+    "negrito": "Bold",
+    "italico": "Italic",
+    "codigo": "Inline code",
+    "blocoDeCodigo": "Code block",
+    "formula": "Formula",
+    "titulo": "Subheading",
+    "lista": "List",
+    "citacao": "Quote",
+    "link": "Link",
+    "imagem": "Put image {n} here",
+    "escrever": "Write",
+    "verComoFica": "Preview",
+    "ajuda": "How to format"
+  },
+  "exemplo": {
+    "negrito": "bold text",
+    "italico": "italic text",
+    "codigo": "code",
+    "blocoDeCodigo": "write the code here",
+    "formula": "x^2 + y^2 = r^2",
+    "titulo": "Subheading",
+    "item": "first item",
+    "citacao": "quoted passage",
+    "link": "link text",
+    "imagem": "image description"
+  },
+  "ajuda": {
+    "titulo": "How to format",
+    "intro": "Write with these signs. Readers see the formatted text; anything that is not one of these signs shows exactly as you wrote it.",
+    "itens": [
+      { "escreva": "**bold**", "vira": "bold" },
+      { "escreva": "_italic_", "vira": "italic" },
+      { "escreva": "## Subheading", "vira": "a subheading (### for a smaller one)" },
+      { "escreva": "- item", "vira": "list (1. for a numbered one)" },
+      { "escreva": "> passage", "vira": "quote" },
+      { "escreva": "`code`", "vira": "inline code" },
+      { "escreva": "```python", "vira": "code block (close it with ``` on a line of its own)" },
+      { "escreva": "$$x^2$$", "vira": "LaTeX formula (on lines of their own, it stands out)" },
+      { "escreva": "[text](https://…)", "vira": "link" },
+      { "escreva": "![description](imagem:1)", "vira": "image 1 you attached, at this point of the text" }
+    ],
+    "cifrao": "A single dollar sign is not a formula: R$ 10 is still money. To write a sign without formatting, put a backslash before it: \\*",
+    "imagens": "Only images attached to this post go in (before they are stored, they lose the location and the device data). Images from other sites are not loaded."
+  },
+  "previa": {
+    "titulo": "How it will look",
+    "vazia": "Nothing to show yet."
+  }
+}

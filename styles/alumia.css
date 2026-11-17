@@ -155,7 +155,7 @@ body:has([data-al="2"]) { background: var(--al-fundo, #0f0e0d); }
   margin-left: auto; display: inline-grid; place-items: center; min-width: 1.35rem; height: 1.35rem; padding: 0 0.3rem;
   border-radius: 999px; font-size: 0.75rem; font-weight: 800; line-height: 1;
 }
-[data-al="2"] .al2-emblema-dourado { background: var(--al-dourado); color: var(--al-sobre-dourado); }
+[data-al="2"] .al2-emblema-dourado { background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); }
 [data-al="2"] .al2-emblema-vermelho { background: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); }
 
 /* Abas da linha: texto; a atual em negrito com o traço vermelho embaixo. */
@@ -227,7 +227,7 @@ body:has([data-al="2"]) { background: var(--al-fundo, #0f0e0d); }
   border: 1.5px solid var(--al-superficie-2); background: transparent; color: var(--al-texto-2); font-family: var(--al-fonte); font-weight: 700;
   white-space: nowrap;
 }
-[data-al="2"] .al2-tipo[aria-checked="true"] { background: var(--al-dourado); border-color: var(--al-dourado); color: var(--al-sobre-dourado); }
+[data-al="2"] .al2-tipo[aria-checked="true"] { background: var(--al-dourado-fundo); border-color: var(--al-dourado); color: var(--al-sobre-dourado); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-tipo { border-color: var(--al-texto); }
 :root[data-eink] [data-al="2"] .al2-tipo[aria-checked="true"] { background: #000; color: #fff; }
 
@@ -270,7 +270,7 @@ body:has([data-al="2"]) { background: var(--al-fundo, #0f0e0d); }
 [data-al="2"] .alumia-moldura > nav:first-of-type { display: none; }
 
 /* Faixa dourada do próximo ato (prancha: "PRÓXIMO ATO … [2d] [04h]"). */
-[data-al="2"] .al2-faixa-ato { background: var(--al-dourado); color: var(--al-sobre-dourado); text-decoration: none; }
+[data-al="2"] .al2-faixa-ato { background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); text-decoration: none; }
 [data-al="2"] .al2-faixa-ato .al-flap { background: var(--al-fundo); color: var(--al-dourado); }
 :root[data-eink] [data-al="2"] .al2-faixa-ato { background: #fff; color: #000; border-block: 2px solid #000; }
 :root[data-eink] [data-al="2"] .al2-faixa-ato .al-flap { background: #000; color: #fff; }
@@ -281,7 +281,7 @@ body:has([data-al="2"]) { background: var(--al-fundo, #0f0e0d); }
   border: 1px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); font-family: var(--al-fonte);
   font-size: 0.8125rem; font-weight: 800; box-shadow: 0 4px 16px #0006;
 }
-[data-al="2"] .al2-novos-n { display: inline-grid; place-items: center; min-width: 1.3rem; height: 1.3rem; border-radius: 4px; background: var(--al-dourado); color: var(--al-sobre-dourado); }
+[data-al="2"] .al2-novos-n { display: inline-grid; place-items: center; min-width: 1.3rem; height: 1.3rem; border-radius: 4px; background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-novos { border-color: var(--al-texto); box-shadow: none; }
 
 /* O "+" da barra de baixo: quadrado vermelho de cantos redondos. */
@@ -338,6 +338,8 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 /* Abaixo de 1024 px a barra de baixo é fixa (61 px + o recuo do aparelho): o foco pelo teclado e o scrollIntoView param acima dela,
    nunca debaixo (a grade já tem o mesmo respiro embaixo, pb-[4.75rem] em CascaDaAlumia2). */
 @media (max-width: 1023px) { html:has([data-al="2"]) { scroll-padding-bottom: calc(4.75rem + var(--recuo-baixo, 0px)); } }
+/* O aviso "Sem internet" (components/offline/AvisoDeRede.tsx) sobe acima da mesma barra: não tapa o "+" de escrever. */
+@media (max-width: 1023px) { html:has([data-al="2"]) .aviso-rede { bottom: calc(4.75rem + 0.5rem + var(--recuo-baixo, 0px)); } }
 
 /* Foco sempre visível e no tom da casa (teclado). */
 [data-al="2"] .al2 :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
@@ -496,7 +498,9 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 @media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-convite:hover { color: var(--al-texto-2); background: var(--al-superficie); } }
 
 /* Stories e o próximo ato no alto do Início. */
-[data-al="2"] .al2-topo-stories { padding-top: 0.25rem; }
+[data-al="2"] .al2-topo-stories { padding-top: 0.25rem; display: flex; flex-direction: column; }
+[data-al="2"] .al2-topo-stories > * { min-width: 0; }
+/* A ordem das faixas é a de components/rede/encaixes.tsx (ordenarTopoDaLinha), não do CSS. */
 [data-al="2"] .al2-topo-ato:empty { display: none; }
 
 /* ── Escrever ── */
@@ -536,9 +540,15 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 
 /* Anexos: cartões leves no lugar das caixas cinzas. */
 [data-al="2"] .al2-anexo { border-radius: 14px; background: var(--al-superficie); border: 1px solid var(--al-superficie-2); padding: 0.75rem 0.9rem; animation: al2-tela-entra 260ms var(--al2-mola-suave) backwards; }
-[data-al="2"] .al2-ferramentas { display: flex; align-items: center; gap: 0.15rem; padding-top: 0.25rem; border-top: 1px solid var(--al-linha); }
+/* A fileira nunca encolhe as ferramentas abaixo de 44 px: no celular estreito ela rola na horizontal dentro dela mesma, com o
+   contador parado à direita e a seta de que há mais (components/rede/publicar/alumia2/FaixaDeFerramentas.tsx e escrever.css). */
+[data-al="2"] .al2-ferramentas {
+  display: flex; align-items: center; gap: 0.15rem; padding-top: 0.25rem; border-top: 1px solid var(--al-linha);
+  overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin;
+}
+[data-al="2"] .al2-ferramentas > * { flex: none; }
 [data-al="2"] .al2-ferramenta {
-  position: relative; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; border: 0; background: none; cursor: pointer;
+  min-width: 44px; position: relative; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; border: 0; background: none; cursor: pointer;
   color: var(--al-dourado); transition: background-color 150ms ease, transform 220ms var(--al2-mola), color 150ms ease;
 }
 @media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-ferramenta:not(:disabled):hover { background: var(--al-superficie); transform: translateY(-1px); } }
@@ -547,7 +557,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] .al2-ferramenta[aria-pressed="true"] { background: color-mix(in srgb, var(--al-dourado) 16%, transparent); }
 [data-al="2"] .al2-ferramenta-n {
   position: absolute; right: 4px; top: 4px; display: grid; place-items: center; min-width: 16px; height: 16px; border-radius: 999px;
-  background: var(--al-dourado); color: var(--al-sobre-dourado); font-size: 0.625rem; font-weight: 800;
+  background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 0.625rem; font-weight: 800;
 }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-ferramenta { color: var(--al-texto); }
 [data-al="2"] .al2-contador { margin-left: auto; display: inline-flex; align-items: center; gap: 0.35rem; padding-right: 0.25rem; font-size: 0.8125rem; font-weight: 700; color: var(--al-texto-3); }
@@ -585,7 +595,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] .al2-gravando::before { content: ""; display: inline-block; width: 0.6rem; height: 0.6rem; margin-right: 0.4rem; border-radius: 999px; background: var(--al-vermelho); animation: al2-piscar 1s ease-in-out infinite; }
 @keyframes al2-piscar { 50% { opacity: 0.25; } }
 [data-al="2"] .al2-agendados summary { font-size: 0.8125rem; font-weight: 700; color: var(--al-texto-2); }
-[data-al="2"] .al2-aviso-escrever { border-radius: 12px; border: 1px dashed var(--al-texto-3); padding: 0.6rem 0.8rem; font-size: 0.875rem; animation: al2-tela-entra 240ms ease-out backwards; }
+[data-al="2"] .al2-aviso-escrever { border-radius: 12px; border: 2px solid var(--al-dourado); background: color-mix(in srgb, var(--al-dourado) 10%, var(--al-fundo)); color: var(--al-texto); padding: 0.6rem 0.8rem; font-size: 0.875rem; line-height: 1.4; animation: al2-tela-entra 240ms ease-out backwards; }
 
 /* Onde publicar, Quem vê, Quem responde: a lista desliza; "Quem vê" em linhas com ícone, ajuda e o visto. */
 [data-al="2"] .al2-escolha { transition: color 150ms ease; }
@@ -601,8 +611,8 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 @media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-opcao-linha:hover { background: var(--al-superficie-2); } }
 [data-al="2"] .al2-opcao-linha:active { transform: scale(0.98); }
 [data-al="2"] .al2-opcao-linha[aria-checked="true"] { border-color: var(--al-dourado); }
-[data-al="2"] .al2-opcao-marca { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 999px; border: 1.5px solid var(--al-superficie-2); color: transparent; flex-shrink: 0; }
-[data-al="2"] .al2-opcao-linha[aria-checked="true"] .al2-opcao-marca { background: var(--al-dourado); border-color: var(--al-dourado); color: var(--al-sobre-dourado); animation: al2-pulinho 360ms var(--al2-mola) both; }
+[data-al="2"] .al2-opcao-marca { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 999px; border: 1.5px solid var(--al-texto-3); color: transparent; flex-shrink: 0; }
+[data-al="2"] .al2-opcao-linha[aria-checked="true"] .al2-opcao-marca { background: var(--al-dourado-fundo); border-color: var(--al-dourado); color: var(--al-sobre-dourado); animation: al2-pulinho 360ms var(--al2-mola) both; }
 [data-al="2"] .al2-opcao-roda { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.35rem; padding: 0.6rem 0.85rem; border-radius: 12px; border: 1.5px dashed var(--al-superficie-2); color: var(--al-texto-2); font-size: 0.875rem; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-opcao-linha { border-color: var(--al-texto); }
 
@@ -642,13 +652,27 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 /* O aviso da prévia: uma linha só, colada na faixa colorida, acima de tudo. */
 [data-al="2"] .al2-aviso-previa {
   margin: 0; height: 28px; padding: 0 1rem; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; line-height: 28px;
-  background: var(--al-dourado); color: var(--al-sobre-dourado); font-size: 0.75rem; font-weight: 800; text-align: center;
+  background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 0.75rem; font-weight: 800; text-align: center;
 }
 [data-al="2"] .al2 .al2-topo-stories .al-st-previa { display: none; }
 
 /* O menu da esquerda do tamanho da tela: a parte de cima rola por dentro, o pé (conta e Sair rápido) fica sempre à vista. */
 [data-al="2"] .al2-menu-rola { scrollbar-width: thin; scrollbar-color: var(--al-superficie-2) transparent; }
 [data-al="2"] .al2-menu-pe { background: var(--al-fundo); }
+[data-al="2"] .al2-menu-esmaece {
+  position: sticky; bottom: 0; height: 2.5rem; margin-top: 0.25rem; pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--al-fundo) 85%);
+}
+/* Há mais itens abaixo (o menu rola por dentro): uma seta pequena no esmaecido, que some quando a rolagem chega ao fim. Só onde a
+   animação ligada à rolagem existe; sem rolagem (tela alta), a linha do tempo fica inativa e a seta não aparece. */
+[data-al="2"] .al2-menu-esmaece::after {
+  content: ""; position: absolute; left: 50%; bottom: 0.45rem; width: 0.55rem; height: 0.55rem; margin-left: -0.275rem; opacity: 0;
+  border-right: 2px solid var(--al-texto-3); border-bottom: 2px solid var(--al-texto-3); transform: rotate(45deg);
+}
+@keyframes al2-menu-tem-mais { 0%, 92% { opacity: 1; } 100% { opacity: 0; } }
+@supports (animation-timeline: scroll()) {
+  [data-al="2"] .al2-menu-esmaece::after { animation: al2-menu-tem-mais linear both; animation-timeline: scroll(nearest block); }
+}
 /* A altura do menu: a tela menos o que está acima dele (a faixa de 6 px e, na prévia, o aviso de 28 px), para o Sair rápido nunca
    ficar abaixo da dobra na tela parada; ao rolar, o menu cresce junto com a rolagem até a tela inteira (animação ligada à rolagem;
    sem ela, sobra só uma fresta embaixo). */
@@ -663,7 +687,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
   [data-al="2"] .al2-menu-rola { padding-top: 1rem; }
   [data-al="2"] .al2-menu-nav { margin-top: 0.75rem; }
   [data-al="2"] .al2-menu-lateral .al2-menu-item { min-height: 40px; font-size: 1rem; }
-  [data-al="2"] .al2-menu-escrever { margin-top: 0.85rem; min-height: 46px; }
+  [data-al="2"] .al2-menu-escrever { min-height: 46px; }
   [data-al="2"] .al2-menu-pe { padding-bottom: 0.85rem; padding-top: 0.6rem; }
   [data-al="2"] .al2-menu-pe .al2-conta > summary { padding-block: 0.5rem; }
 }
@@ -986,6 +1010,11 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] .al2-alt-texto { position: absolute; inset: auto 0 0 0; max-height: 70%; overflow: auto; margin: 0; padding: 0.6rem 0.75rem 2.4rem; background: color-mix(in srgb, #000 82%, transparent); color: #fff; font-size: 0.875rem; line-height: 1.4; animation: al2-cw-revela 240ms var(--al2-mola-suave) both; }
 @media (prefers-reduced-motion: reduce) { [data-al="2"] .al2-alt-texto { animation: none; } }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-selo-alt { background: #fff; color: #000; border: 2px solid #000; }
+/* No toque, o ALT da imagem ganha uma área invisível de 44 x 44 px em volta, sem mudar o selo (ele já é absoluto: a área se prende nele). */
+@media (pointer: coarse), (max-width: 1023px) {
+  [data-al="2"] select.al2-chip { height: 44px; min-height: 44px; }
+  [data-al="2"] .al2-selo-alt::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 44px); height: max(100%, 44px); transform: translate(-50%, -50%); }
+}
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-alt-texto { background: #fff; color: #000; border-top: 2px solid #000; animation: none; }
 
 /* Citar e corrigir: caixas dentro do cartão, com a mesma entrada dos anexos. */
@@ -1023,7 +1052,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] :is([class~="bg-[#1f1a14]"], [class~="bg-[#6e1f1a]"]) { background-color: var(--al-superficie); }
 [data-al="2"] [class~="hover:bg-[#1f1a14]"]:not(:disabled):hover { background-color: var(--al-superficie-2); }
 [data-al="2"] [class~="bg-[#c21f16]"]:not(:disabled):hover { background-color: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); filter: brightness(0.92); }
-[data-al="2"] [class~="bg-[#f0a020]"] { background-color: var(--al-dourado); }
+[data-al="2"] [class~="bg-[#f0a020]"] { background-color: var(--al-dourado-fundo); }
 [data-al="2"] [class~="text-[#f4ecd8]"] { color: var(--al-texto); }
 [data-al="2"] [class~="text-[#e9dcbc]"] { color: var(--al-texto-2); }
 [data-al="2"] [class~="text-[#f0a020]"] { color: var(--al-dourado); }
@@ -1031,12 +1060,18 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] :is([class~="border-[#c21f16]"], [class~="border-oxblood"]) { border-color: var(--al-vermelho); }
 [data-al="2"] [class~="border-[#f4ecd8]"] { border-color: var(--al-texto-3); }
 [data-al="2"] [class~="accent-[#c21f16]"] { accent-color: var(--al-dourado); }
-[data-al="2"] [class~="text-[#1f1a14]"] { color: var(--al-sobre-papel); }
+[data-al="2"] [class~="text-[#1f1a14]"] { color: var(--al-sobre-saliente); }
+/* As telas do chat (Faixa 2): o aviso amarelo, o campo branco e o "não verificada" marrom, legíveis nos dois temas (AA). */
+[data-al="2"] [class~="bg-[#fff4d6]"] { background-color: var(--al-dourado-fundo); }
+[data-al="2"] [class~="bg-[#fff4d6]"][class~="text-[#1f1a14]"] { color: var(--al-sobre-dourado); }
+[data-al="2"] [class~="bg-white"][class~="text-[#1f1a14]"] { background-color: var(--al-superficie); color: var(--al-texto); }
+[data-al="2"] [class~="text-[#8a4b00]"] { color: var(--al-dourado); }
+[data-al="2"] [class~="text-[#f6efe2]"] { color: var(--al-texto); }
 [data-al="2"] [class~="hover:text-[#c21f16]"]:hover { color: var(--al-vermelho-sobre-escuro); }
 [data-al="2"] [class~="hover:bg-[#c21f16]"]:not(:disabled):hover { background-color: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); }
 [data-al="2"] [class~="decoration-[#c21f16]"] { text-decoration-color: var(--al-vermelho); }
 /* Botões de escolha das telas antigas (aria-pressed): o escolhido fica claro cheio, como os chips das pranchas. */
-[data-al="2"] [class~="aria-pressed:bg-[#1f1a14]"][aria-pressed="true"] { background-color: var(--al-cartao-aceso); color: var(--al-sobre-papel); border-color: var(--al-cartao-aceso); }
+[data-al="2"] [class~="aria-pressed:bg-[#1f1a14]"][aria-pressed="true"] { background-color: var(--al-saliente); color: var(--al-sobre-saliente); border-color: var(--al-saliente); }
 /* Etiquetas claras ("Resolvida", "Respondida"): pílula verde-água sobre a noite. */
 [data-al="2"] [class~="bg-[#e8f0e0]"] { background-color: color-mix(in srgb, var(--al-com-1) 22%, var(--al-superficie)); color: var(--al-texto); border-radius: var(--al-raio-pilula); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] [class~="bg-[#e8f0e0]"] { background: none; border: 1px solid var(--al-texto); }
@@ -1082,13 +1117,13 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] .al2-convite-entrar h2 { margin: 0; font-size: clamp(1.9rem, 6vw, 2.4rem); }
 [data-al="2"] .al2-convite-entrar ul { margin: 0.85rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.4rem; color: var(--al-texto-2); }
 [data-al="2"] .al2-convite-entrar li { display: flex; gap: 0.6rem; align-items: baseline; }
-[data-al="2"] .al2-convite-entrar li::before { content: ""; flex: none; width: 0.45rem; height: 0.45rem; border-radius: 2px; background: var(--al-dourado); transform: translateY(-0.1em); }
+[data-al="2"] .al2-convite-entrar li::before { content: ""; flex: none; width: 0.45rem; height: 0.45rem; border-radius: 2px; background: var(--al-dourado-fundo); transform: translateY(-0.1em); }
 [data-al="2"] .al2-convite-entrar-acoes { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.1rem; }
 [data-al="2"] .al2-convite-entrar-nota { margin: 0.75rem 0 0; font-size: 0.875rem; color: var(--al-texto-3); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-convite-entrar { border: 2px solid var(--al-texto); }
 
 /* Chip de filtro com rádio ou caixinha por dentro: o escolhido fica claro cheio; o foco do teclado aparece no chip. */
-[data-al="2"] .al2-chip:has(input:checked) { background: var(--al-cartao-aceso); border-color: var(--al-cartao-aceso); color: var(--al-sobre-papel); }
+[data-al="2"] .al2-chip:has(input:checked) { background: var(--al-saliente); border-color: var(--al-saliente); color: var(--al-sobre-saliente); }
 [data-al="2"] .al2-chip:has(input:focus-visible) { outline: 3px solid var(--al-foco); outline-offset: 2px; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-chip { border-color: var(--al-texto); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-chip:has(input:checked) { background: var(--al-texto); color: var(--al-fundo); border-width: 3px; }
@@ -1141,14 +1176,14 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 }
 :root:has([data-al="2"]) :is(.a11y-fechar, .assistente-fechar):hover { background: var(--al-texto); color: var(--al-fundo); }
 :root:has([data-al="2"]) .a11y-vlibras { border: 1px solid var(--al-superficie-2); border-radius: 16px; background: var(--al-fundo); color: var(--al-texto); box-shadow: none; }
-:root:has([data-al="2"]) .a11y-vlibras button { min-height: 44px; border: 0; border-radius: var(--al-raio-pilula); background: var(--al-cartao-aceso); color: var(--al-sobre-papel); font-weight: 700; padding-inline: 1.1rem; }
+:root:has([data-al="2"]) .a11y-vlibras button { min-height: 44px; border: 0; border-radius: var(--al-raio-pilula); background: var(--al-saliente); color: var(--al-sobre-saliente); font-weight: 700; padding-inline: 1.1rem; }
 :root[data-eink]:has([data-al="2"]) .a11y-vlibras button { border: 2px solid #000; background: #fff; color: #000; }
 :root:has([data-al="2"]) .a11y-opcao { border: 1.5px solid var(--al-superficie-2); border-radius: var(--al-raio-pilula); background: transparent; color: var(--al-texto-2); font-weight: 700; }
 :root:has([data-al="2"]) .a11y-opcao:hover { border-color: var(--al-dourado); }
-:root:has([data-al="2"]) .a11y-opcao[aria-pressed="true"] { border-color: var(--al-cartao-aceso); background: var(--al-cartao-aceso); color: var(--al-sobre-papel); }
+:root:has([data-al="2"]) .a11y-opcao[aria-pressed="true"] { border-color: var(--al-saliente); background: var(--al-saliente); color: var(--al-sobre-saliente); }
 :root:has([data-al="2"]) .a11y-chave { border: 1.5px solid var(--al-texto-3); border-radius: var(--al-raio-pilula); background: var(--al-superficie-2); }
 :root:has([data-al="2"]) .a11y-chave::after { border-radius: var(--al-raio-pilula); background: var(--al-texto-3); }
-:root:has([data-al="2"]) input:checked + .a11y-chave { border-color: var(--al-dourado); background: var(--al-dourado); }
+:root:has([data-al="2"]) input:checked + .a11y-chave { border-color: var(--al-dourado); background: var(--al-dourado-fundo); }
 :root:has([data-al="2"]) input:checked + .a11y-chave::after { background: var(--al-sobre-dourado); }
 :root:has([data-al="2"]) .a11y-botao { min-height: 44px; border-radius: var(--al-raio-pilula); padding-inline: 1.1rem; font-weight: 700; }
 :root:has([data-al="2"]) :is(.a11y-painel, .assistente-janela) .text-ink-soft { color: var(--al-texto-3); }
@@ -1172,3 +1207,26 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
   border-radius: 14px; background: color-mix(in srgb, var(--al-vermelho) 12%, var(--al-superficie)); color: var(--al-texto); font-size: 0.9375rem; line-height: 1.4;
 }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2 p[role="alert"][class*="px-[18px]"] { border: 2px solid var(--al-texto); background: var(--al-fundo); }
+
+/* ── Letra grande (Aparência › Tamanho da letra "Grande" e "Bem grande": 130% e 150%) ──
+   A casca tem colunas medidas em px e os pontos de quebra não acompanham a letra. Com a letra grande, as colunas passam a ser
+   medidas em rem (crescem junto com a letra) e, abaixo de 1536 px, a grade fica com uma coluna lateral só: a da direita sai e a
+   busca volta para o menu. Os ícones do menu não encolhem, e os botões do cartão Ao vivo empilham. */
+[data-al="2"] .al2-menu-item > svg { flex-shrink: 0; }
+@media (min-width: 64rem) {
+  :root[data-escala] [data-al="2"] .al2-grade { grid-template-columns: minmax(12rem, 15rem) minmax(0, 1fr); }
+  :root[data-escala] [data-al="2"] .al2-grade > aside { display: none; }
+  :root[data-escala] [data-al="2"] .al2-busca-menu { display: list-item; }
+}
+@media (min-width: 96rem) {
+  :root[data-escala] [data-al="2"] .al2-grade { grid-template-columns: minmax(12rem, 15rem) minmax(0, 1fr) minmax(16rem, 20rem); }
+  :root[data-escala] [data-al="2"] .al2-grade > aside { display: block; }
+  :root[data-escala] [data-al="2"] .al2-busca-menu { display: none; }
+}
+:root[data-escala] [data-al="2"] .al2-direita .al-org-aovivo-acoes { flex-wrap: wrap; }
+:root[data-escala] [data-al="2"] .al2-direita .al-org-aovivo-acoes > * { flex: 1 1 100%; }
+:root[data-escala] [data-al="2"] .al2-direita .al2-bloco h2.al-cond { white-space: normal; }
+
+/* Onda 14 (teclado): nos campos de data e hora o Tab entra nos pedaços de dentro (hora, minuto) e o :focus-visible do campo nem sempre
+   acende; o contorno do foco vale para o campo inteiro enquanto o foco está dentro dele. */
+[data-al="2"] :is(input[type="time"], input[type="date"], input[type="datetime-local"]):focus-within { outline: 3px solid var(--al-foco); outline-offset: 1px; }

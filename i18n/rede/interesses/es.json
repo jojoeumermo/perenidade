@@ -1,0 +1,157 @@
+{
+  "titulo": "¿Qué quieres en Alumia?",
+  "chamada": "Cinco preguntas rápidas. Con ellas, el muro En ronda pone primero, en cada bloque de 6 horas, lo que tiene que ver contigo. Nada desaparece: solo cambia el orden.",
+  "aparelho": "Las respuestas quedan solo en este dispositivo. En cada lectura, el muro recibe tus intereses como filtro y el servidor no guarda nada. Cámbialas o bórralas cuando quieras, en Ajustes.",
+  "passo": "Paso {n} de {total}",
+  "voltar": "Volver",
+  "proximo": "Siguiente",
+  "verResumo": "Ver el resumen",
+  "concluir": "Listo",
+  "pularPergunta": "Saltar esta",
+  "pularTudo": "Saltar el cuestionario",
+  "perguntas": {
+    "objetivos": {
+      "titulo": "¿A qué viniste?",
+      "ajuda": "Marca todas las que quieras."
+    },
+    "pautas": {
+      "titulo": "¿Qué causas te mueven?",
+      "ajuda": "Cada causa trae sus #temas a lo alto del bloque."
+    },
+    "estudos": {
+      "titulo": "¿Y en el estudio?",
+      "ajuda": "Si no es tu caso, solo salta."
+    },
+    "conversa": {
+      "titulo": "¿Más conversación o más contenido?",
+      "ajuda": "Una sola elección."
+    },
+    "ritmo": {
+      "titulo": "¿A qué ritmo?",
+      "ajuda": "Solo cambia cuándo aparece la franja \"Mientras estuviste fuera\"."
+    }
+  },
+  "objetivos": {
+    "militancia": {
+      "nome": "Militancia y organización",
+      "texto": "Movimientos, campañas, convocatorias"
+    },
+    "atos": {
+      "nome": "Actos y agenda",
+      "texto": "Lo que va a pasar y dónde"
+    },
+    "nucleo": {
+      "nome": "Núcleo y organización local",
+      "texto": "Lo que sale de mis núcleos"
+    },
+    "amizades": {
+      "nome": "Conocer gente y hacer amistades",
+      "texto": "Conversar con quien lucha junto"
+    },
+    "estudo": {
+      "nome": "Estudio",
+      "texto": "ENEM, examen de ingreso, formación, lectura"
+    },
+    "debate": {
+      "nome": "Debate",
+      "texto": "Discusiones y encuestas"
+    },
+    "noticias": {
+      "nome": "Noticias",
+      "texto": "Lo que está pasando"
+    },
+    "cultura": {
+      "nome": "Cultura y arte",
+      "texto": "Música, poesía, arte callejero"
+    }
+  },
+  "pautas": {
+    "moradia": "Vivienda",
+    "transporte": "Transporte",
+    "educacao": "Educación",
+    "saude": "Salud",
+    "trabalho": "Trabajo",
+    "meio_ambiente": "Medio ambiente",
+    "antirracismo": "Antirracismo",
+    "feminismo": "Feminismo",
+    "lgbtqia": "LGBTQIA+",
+    "indigena": "Pueblos indígenas",
+    "terra": "Tierra y reforma agraria",
+    "cultura": "Cultura",
+    "juventude": "Juventud",
+    "direitos_humanos": "Derechos humanos y memoria"
+  },
+  "estudos": {
+    "enem": "ENEM",
+    "vestibular": "Examen de ingreso",
+    "formacao": "Formación política",
+    "leitura": "Lectura y libros",
+    "idiomas": "Idiomas"
+  },
+  "conversas": {
+    "conversa": {
+      "nome": "Más conversación",
+      "texto": "Todo en la ronda, incluso las conversaciones sueltas entre pocas personas."
+    },
+    "equilibrio": {
+      "nome": "Mitad y mitad",
+      "texto": "La ronda tal como es."
+    },
+    "conteudo": {
+      "nome": "Más contenido",
+      "texto": "Las conversaciones paralelas de quien no sigues bajan al final del bloque. No desaparecen."
+    }
+  },
+  "ritmos": {
+    "pouco": {
+      "nome": "Poco",
+      "texto": "Paso de vez en cuando. La franja de lo que llegó aparece después de 24 horas fuera."
+    },
+    "medio": {
+      "nome": "Medio",
+      "texto": "La franja aparece después de 8 horas fuera."
+    },
+    "muito": {
+      "nome": "Mucho",
+      "texto": "Estoy siempre por aquí. La franja aparece después de 4 horas fuera."
+    }
+  },
+  "resumo": {
+    "titulo": "Así queda tu muro",
+    "nada": "Nada marcado que cambie el orden: tu muro queda igual al de todo el mundo.",
+    "sobem": "Suben en tu bloque",
+    "tipos": "Tipos",
+    "temas": "#temas",
+    "estudo": "Las comunidades de estudio",
+    "nucleos": "Lo que sale de tus núcleos",
+    "conteudo": "Las conversaciones paralelas de quien no sigues bajan al final del bloque.",
+    "ritmo": "La franja \"Mientras estuviste fuera\" aparece después de {horas} horas fuera.",
+    "como": "Cómo se arma el muro",
+    "tiposNomes": {
+      "chamado": "convocatorias y actos",
+      "duvida": "dudas",
+      "discussao": "discusiones",
+      "enquete": "encuestas"
+    }
+  },
+  "ajustes": {
+    "titulo": "Intereses en el muro",
+    "texto": "Lo que marcaste en el cuestionario. Queda solo en este dispositivo y cambia el orden del muro En ronda.",
+    "vazio": "Todavía no respondiste, o borraste las respuestas. Tu muro queda igual al de todo el mundo.",
+    "responder": "Responder el cuestionario",
+    "editar": "Cambiar los intereses",
+    "apagar": "Borrar las respuestas",
+    "apagado": "Respuestas borradas de este dispositivo.",
+    "salvo": "Intereses guardados en este dispositivo.",
+    "outroAparelho": "En otro dispositivo, las respuestas no aparecen: allí respondes de nuevo, si quieres."
+  },
+  "cadastro": {
+    "titulo": "Antes de enviar: ¿qué quieres en Alumia?",
+    "nota": "Opcional. No va con la solicitud: queda solo en este dispositivo.",
+    "pronto": "Intereses guardados en este dispositivo. Ahora solo envía la solicitud.",
+    "pulado": "Cuestionario saltado. Puedes responder después, en Ajustes.",
+    "refazer": "Cambiar las respuestas",
+    "continuar": "Continuar",
+    "voltarAoPedido": "Volver a la solicitud"
+  }
+}

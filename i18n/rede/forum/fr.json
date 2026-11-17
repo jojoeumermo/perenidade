@@ -1,0 +1,141 @@
+{
+  "_rascunho": true,
+  "aba": "Forum",
+  "titulo": "Forum",
+  "lead": "Chaque sujet est un fil. La personne qui l'a ouvert ou la modération indique quand il est résolu.",
+  "abrir": "Ouvrir un fil",
+  "entrarParaAbrir": "Pour ouvrir un fil, rejoignez la communauté.",
+  "carregando": "Chargement du forum…",
+  "carregarMais": "Charger plus",
+  "erro": "Impossible de charger le forum.",
+  "tentar": "Réessayer",
+  "fixados": "Épinglés par la modération",
+  "lista": "Fils",
+  "ordem": {
+    "rotulo": "Ordre de la liste",
+    "ultima": "Dernière réponse",
+    "novos": "Plus récents",
+    "sem_resposta": "Sans réponse",
+    "regra": {
+      "ultima": "Un fil remonte quand quelqu'un répond. La règle est la même pour tout le monde : aucune réaction, portée ou profil n'entre dans le calcul.",
+      "novos": "Du fil ouvert le plus récemment au plus ancien, pareil pour tout le monde.",
+      "sem_resposta": "Seulement les fils qui attendent encore leur première réponse, du plus récent au plus ancien."
+    }
+  },
+  "estado": {
+    "rotulo": "Statut",
+    "todos": "Tous",
+    "aberto": "Ouvert",
+    "encaminhado": "Transmis",
+    "resolvido": "Résolu",
+    "filtro": {
+      "aberto": "Ouverts",
+      "encaminhado": "Transmis",
+      "resolvido": "Résolus"
+    },
+    "regra": {
+      "aberto": "La discussion continue.",
+      "encaminhado": "Devenu cours, page de wiki ou tâche.",
+      "resolvido": "La question a reçu une réponse ou le sujet est clos."
+    }
+  },
+  "etiqueta": {
+    "rotulo": "Étiquette",
+    "todas": "Toutes les étiquettes",
+    "nenhuma": "Sans étiquette"
+  },
+  "item": {
+    "respostas": "{n} réponses",
+    "resposta": "1 réponse",
+    "nenhuma": "Pas encore de réponse",
+    "ultima": "dernière réponse il y a {quando}",
+    "aberto": "ouvert il y a {quando}",
+    "por": "par {codinome}",
+    "duvida": "Question",
+    "discussao": "Discussion",
+    "travado": "Verrouillé",
+    "veio": "Issu d'une autre conversation",
+    "novas": "Nouveau",
+    "novasRegra": "Réponses depuis votre dernière visite. L'endroit où vous vous êtes arrêté n'est gardé que sur cet appareil."
+  },
+  "resumo": {
+    "daModeracao": "Résumé de la modération",
+    "daAutora": "Résumé de la personne qui l'a ouvert",
+    "escrever": "Écrire le résumé",
+    "trocar": "Changer le résumé",
+    "tirar": "Retirer le résumé",
+    "campo": "Résumé en une ligne",
+    "dica": "Jusqu'à 140 caractères, sur une seule ligne. Il apparaît en haut du fil et dans la liste du forum.",
+    "conta": "{n} sur 140",
+    "salvar": "Enregistrer le résumé",
+    "cancelar": "Annuler",
+    "salvo": "Résumé enregistré.",
+    "tirado": "Résumé retiré."
+  },
+  "topico": {
+    "carimbo": "Fil du forum",
+    "situacao": "Statut du fil",
+    "mudou": "Le fil est maintenant : {estado}.",
+    "regraMudar": "La personne qui a ouvert le fil ou la modération change le statut et le résumé.",
+    "veioDe": "Ce fil prolonge une conversation.",
+    "verOriginal": "Voir la conversation d'origine",
+    "continuaEm": "Suite dans le forum",
+    "levar": "Porter au forum",
+    "abrirForum": "Voir le forum de la communauté"
+  },
+  "virar": {
+    "titulo": "Transformer en fil du forum",
+    "acao": "Transformer en fil",
+    "lead": "Ouvre un nouveau fil dans le forum en citant ce message. La conversation d'origine reste où elle est, avec l'indication de sa suite.",
+    "avisoAutora": "Ce message n'est pas le vôtre : la personne qui l'a écrit reçoit un avis indiquant qu'il a été porté au forum.",
+    "comunidade": "Communauté",
+    "escolha": "Choisissez la communauté",
+    "carregandoComunidades": "Chargement de vos communautés…",
+    "semComunidade": "Vous ne participez encore à aucune communauté où ouvrir un fil.",
+    "tituloCampo": "Titre du fil",
+    "tipo": "Type",
+    "corpo": "Premier message du fil",
+    "corpoPadrao": "Ce sujet a commencé dans une conversation et continue ici, pour ne pas se perdre.",
+    "enviar": "Ouvrir le fil",
+    "cancelar": "Annuler",
+    "feito": "Le fil a été ouvert.",
+    "ver": "Voir le fil",
+    "avaliar": "Le fil attendra la lecture de la modération avant d'apparaître.",
+    "fechar": "Fermer"
+  },
+  "novo": {
+    "titulo": "Nouveau fil",
+    "tituloCampo": "Titre",
+    "tituloDica": "De 5 à 140 caractères.",
+    "tipo": "Type",
+    "corpo": "Message",
+    "corpoDica": "Au moins 10 caractères.",
+    "etiqueta": "Étiquette",
+    "enviar": "Publier le fil",
+    "cancelar": "Annuler",
+    "feito": "Fil publié.",
+    "avaliar": "Le fil attendra la lecture de la modération avant d'apparaître."
+  },
+  "novas": {
+    "barra": "{n} nouvelles réponses depuis votre dernière visite",
+    "uma": "1 nouvelle réponse depuis votre dernière visite",
+    "pular": "Aller à la première nouvelle",
+    "regua": "Nouveau à partir d'ici",
+    "selo": "Nouvelle",
+    "regra": "L'endroit où vous vous êtes arrêté n'est gardé que sur cet appareil."
+  },
+  "vazio": {
+    "todos": "Aucun fil pour l'instant. Et si vous ouvriez le premier ?",
+    "filtro": "Aucun fil avec ce filtre."
+  },
+  "erros": {
+    "ja_virou": "Ce message est déjà devenu un fil dans cette communauté.",
+    "invalido:topico": "Cette conversation n'est pas un fil du forum.",
+    "invalido:estado": "Statut inconnu.",
+    "invalido:resumo": "Le résumé n'a pas pu être enregistré : relisez le texte.",
+    "invalido:titulo": "Le titre doit faire de 5 à 140 caractères.",
+    "invalido:corpo": "Le message doit faire au moins 10 caractères.",
+    "invalido:comunidade": "Choisissez une communauté.",
+    "invalido:flair": "Cette étiquette n'existe pas dans cette communauté."
+  }
+}

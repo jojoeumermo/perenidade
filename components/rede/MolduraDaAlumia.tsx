@@ -1,6 +1,8 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import type { CSSProperties } from "react";
 import { NOME_REDE } from "@/lib/rede/alumia";
 import type { TextosDaRede } from "@/lib/rede/textos";
+import { Lampiao } from "./ui/Lampiao";
 import { VoltarAoSite } from "./VoltarAoSite";
 // O visual da Alumia (T18): só as telas dela baixam esta folha de estilo.
 import "@/styles/alumia.css";
@@ -38,13 +40,15 @@ export function MolduraDaAlumia({ lang, s, children }: { lang: string; s: Textos
   );
 }
 
-/** O sinal da Alumia: uma chama pequena (desenho próprio, sem imagem de fora). */
-export function MarcaDaAlumia({ className = "h-5 w-5" }: { className?: string }) {
+/**
+ * O sinal da Alumia na faixa do alto e na casca de hoje: o lampião da marca (components/rede/ui/Lampiao.tsx). Fora da Alumia nova
+ * não há os tokens dela, então o papel do lampião é a cor do texto em volta e o vidro deixa ver o fundo: vale no tema claro e no
+ * escuro do site. `tamanho` é a altura em pixels.
+ */
+export function MarcaDaAlumia({ tamanho = 22 }: { tamanho?: number }) {
   return (
-    <svg aria-hidden viewBox="0 0 24 24" className={className}>
-      <path d="M12 2.5c1.8 3 5.5 5.6 5.5 10.2A5.5 5.5 0 0 1 12 18.2a5.5 5.5 0 0 1-5.5-5.5c0-2.6 1.4-4.2 2.6-5.4.2 1.6.9 2.8 2.1 3.4C11 8.4 11.3 5.2 12 2.5z" fill="#f0a020" />
-      <path d="M12 11c1.1 1.2 2.4 2.3 2.4 4a2.4 2.4 0 0 1-4.8 0c0-1.6 1.3-2.7 2.4-4z" fill="#c21f16" />
-      <path d="M7 21h10" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" />
-    </svg>
+    <span className="inline-flex shrink-0" style={{ "--al-texto": "currentColor", "--al-fundo": "transparent" } as CSSProperties}>
+      <Lampiao tamanho={tamanho} />
+    </span>
   );
 }

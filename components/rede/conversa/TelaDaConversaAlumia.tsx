@@ -7,10 +7,12 @@ import { rede } from "@/lib/rede/cliente";
 import { conversa } from "@/lib/rede/cliente-conversa";
 import { arvoreDeExemplo, postDeExemplo } from "@/lib/rede/conversa/exemplos";
 import { preencher } from "@/lib/rede/preencher";
+import { ordemNoBanco, ordenarRamos, type OrdemDoFio } from "@/lib/rede/linha-aberta";
 import { comReserva, faltaFuncaoNoBanco } from "@/lib/rede/reserva";
 import { marcarLido } from "@/lib/rede/tipos-b1";
 import { LembrarMaisTarde } from "../b1/Lembrar";
 import { NotasDeContexto } from "./NotasDeContexto";
+import { fediversoNaTela, RespostasDeForaNaConversa } from "../fediverso/encaixe";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDaAlumia3 } from "@/lib/rede/textos-conversa";
 import { enderecos, type Post, type Situacao } from "@/lib/rede/tipos";
@@ -29,6 +31,15 @@ import {
   type ReacaoDoPost,
 } from "@/lib/rede/tipos-conversa";
 import { verificarAntesDePublicar } from "../encaixes";
+import { maisNova, respostasNovas } from "@/lib/rede/leitura-conversa";
+import type { ContinuaEm } from "@/lib/rede/forum-conversa";
+import type { TextosDoForum } from "@/lib/rede/textos-forum-conversa";
+import { useForumDaConversa, useTextosDoForum } from "../forum/base";
+import { NoTopoDoTopico, IconeSeta } from "../forum/NoTopoDoTopico";
+import { BarraDasNovas, ReguaDasNovas, useAteOndeLi } from "../forum/Novas";
+import { VirarTopico } from "../forum/VirarTopico";
+import { linhaAbertaLigada, useTextosDaLinha } from "../linha/base";
+import { OrdensAMais, RegraDaOrdem, RespostasOcultadas, separarOcultas, useOcultas } from "../linha/NaConversa";
 import { AcoesDeCuidado } from "../moderacao/NoCartao";
 import { CartaoDaAlumia2 } from "../publicar/alumia2/CartaoDaAlumia2";
 import { useAlumia2 } from "../publicar/alumia2/contexto";
@@ -55,6 +66,13 @@ import {
   useTorrada,
 } from "./base3";
 import { pular, trazerParaVista, useFlip, useRegua } from "./movimento";
+// Onda 12 (12B): o áudio e a transcrição de cada resposta, o "Ouvir" e o gravador na caixa de resposta.
+import { redePub } from "@/lib/rede/cliente-publicar";
+import { midiaLigada } from "@/lib/rede/midia/ligado";
+import { AudioNaCaixa, enviarAudioDaResposta, type AudioGravado } from "../midia/AudioNaCaixa";
+import { NaResposta, OuvirResposta } from "../midia/NaResposta";
+
+const MIDIA = midiaLigada();
 
 /**
  * Na prévia: o post de exemplo pelo id (o link permanente dos cartões do Início e do perfil abre o PRÓPRIO post). O cartão da Lia
@@ -105,8 +123,15 @@ type Citacao = { post: Post; trecho: string };
  */
 export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: string; lang: string; s: TextosDaRede; situacao: Situacao }) {
   const t = useTextosAlumia3(lang);
-  const [ordem, setOrdem] = useState<"antigas" | "novas">("antigas");
-  const [estado, setEstado] = useState<{ chave: string; dado: Arvore | null; erro: string } | null>(null);
+  // A linha com regra aberta (interruptor "alumia-linha-aberta") acrescenta as ordens "úteis" e "sem resposta" (arrumadas no
+  // aparelho, com a regra escrita na tela) e as respostas que quem abriu a conversa tirou do fio sem apagar.
+  const roda = linhaAbertaLigada();
+  const tLinha = useTextosDaLinha(lang, roda);
+  const [ordemDoFio, setOrdem] = useState<OrdemDoFio>("antigas");
+  const ordem = ordemNoBanco(ordemDoFio);
+  // `deFora`: a seção "Respostas de outros servidores" pode aparecer (fora da prévia, sempre: a peça confere sozinha a flag e
+  // some sem resposta; na prévia, só na conversa da arte que tem a resposta de fora).
+  const [estado, setEstado] = useState<{ chave: string; dado: Arvore | null; erro: string; deFora?: boolean } | null>(null);
   const [versao, setVersao] = useState(0);
   const torradas = useTorrada();
   const avisar = torradas.mostrar;
@@ -119,6 +144,7 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
   const ordemRef = useRef<HTMLDivElement>(null);
   const tela = useRef<HTMLDivElement>(null);
   const casca = useAlumia2();
+  const ocultas = useOcultas(id, versao, roda, estado?.dado?.post.meu === true && estado.dado.post.id === estado.dado.raiz);
 
   useEffect(() => {
     let vivo = true;
@@ -130,7 +156,15 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
         if (!vivo) return;
         // Na prévia a ordem é feita aqui (o banco já devolve na ordem pedida).
         if (dado && previa() && ordem === "novas") dado = { ...dado, respostas: [...dado.respostas].reverse().sort((a, b) => (a.nivel ?? 0) - (b.nivel ?? 0)) };
-        setEstado({ chave, dado, erro: "" });
+        // Na prévia com gente de fora na tela, a resposta de exemplo que veio de outro servidor sai da árvore daqui e aparece onde
+        // a de verdade aparece: na seção das respostas de fora, no cartão de fora (o banco nunca põe resposta de fora na árvore).
+        let deFora = !previa();
+        if (dado && previa() && fediversoNaTela()) {
+          const daqui = dado.respostas.filter((r) => !servidorDaResposta(r));
+          deFora = daqui.length < dado.respostas.length;
+          dado = { ...dado, respostas: daqui };
+        }
+        setEstado({ chave, dado, erro: "", deFora });
       })
       .catch((e) => vivo && setEstado({ chave, dado: null, erro: textoDoErro(s, e) }));
     return () => {
@@ -151,11 +185,18 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
     const id = window.setTimeout(() => fio.current?.setAttribute("data-assentado", ""), 650);
     return () => window.clearTimeout(id);
   }, [temFio]);
-  const nos = dado ? montarArvore(dado.post.id, dado.respostas) : [];
+  const nosCrus = dado ? montarArvore(dado.post.id, dado.respostas) : [];
   // A ordem dos ids (com os ramos recolhidos) é a chave do FLIP: só uma troca de ordem anima.
-  const assinatura = `${ordem}|${dado?.respostas.map((r) => r.id).join(",") ?? ""}|${[...recolhidas].join(",")}`;
+  const assinatura = `${ordemDoFio}|${[...ocultas.ids].join(",")}|${dado?.respostas.map((r) => r.id).join(",") ?? ""}|${[...recolhidas].join(",")}`;
   useFlip(fio, assinatura);
-  useRegua(ordemRef, `${ordem}:${t ? "t" : ""}:${dado ? "d" : ""}`);
+  useRegua(ordemRef, `${ordemDoFio}:${t ? "t" : ""}:${tLinha ? "l" : ""}:${dado ? "d" : ""}`);
+  // Onda 10 (10A): o fórum (o alto do tópico, "continua no fórum", "virar tópico") e o "até onde li", que fica SÓ neste aparelho
+  // (lib/rede/leitura-conversa.ts). O até onde li só vale com a conversa aberta pela raiz (um ramo aberto sozinho não é a conversa).
+  const tf = useTextosDoForum(lang);
+  const doForum = useForumDaConversa(dado?.raiz ?? null, versao);
+  const [virando, setVirando] = useState<Post | null>(null);
+  const raizAberta = dado && dado.post.id === dado.raiz ? dado.raiz : null;
+  const lidoAteAqui = useAteOndeLi(raizAberta, dado && raizAberta ? maisNova([dado.post, ...dado.respostas]) : null);
 
   if (!t || !estado) return <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={3} />;
   if (!dado) {
@@ -181,6 +222,23 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
   const podeResponder = situacao.logado && situacao.membro && !post.travado;
   const destino = alvo ?? post;
   const podeAjudou = previa() ? raizPost?.meu === true : dado.pode_ajudou === true;
+  // O fio sem as respostas ocultadas, na ordem escolhida ("úteis" e "sem resposta" seguem a regra de lib/rede/linha-aberta.ts).
+  const separadas = separarOcultas(nosCrus, ocultas.ids);
+  const nos = roda ? ordenarRamos(separadas.fio, ordemDoFio, aceitaId) : separadas.fio;
+  // As respostas novas desde a última visita neste aparelho, na ordem em que aparecem na tela.
+  const novas = respostasNovas(achatar(nos).map((n) => n.post), lidoAteAqui);
+  const continua = new Map<string, ContinuaEm>((doForum.dado?.continua ?? []).filter((c) => c.de !== dado.raiz).map((c) => [c.de, c]));
+  const modero = doForum.dado?.modero === true;
+
+  async function ocultar(resposta: Post, sim: boolean) {
+    try {
+      await ocultas.mudar(resposta.id, sim);
+      setAberta(null);
+      if (tLinha) avisar({ texto: sim ? tLinha.conversa.ocultada : tLinha.conversa.devolvida });
+    } catch (e) {
+      aoErro(e);
+    }
+  }
 
   async function marcarAjudou(resposta: Post, quer: boolean) {
     if (previa()) {
@@ -245,7 +303,14 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
     alvo: alvo?.id ?? null,
     aoResponder: responderA,
     aoAjudou: (p, quer) => void marcarAjudou(p, quer),
+    ocultar: ocultas.pode && tLinha ? { rotulo: tLinha.conversa.ocultar, fazer: (p) => void ocultar(p, true) } : null,
     aoErro,
+    tf,
+    novas: new Set(novas.map((r) => r.id)),
+    primeiraNova: novas[0]?.id ?? null,
+    continua,
+    // "Virar tópico": quem escreveu a resposta ou a moderação (o banco confere de novo, inclusive a comunidade de destino).
+    aoVirar: (p) => (tf && doForum.dado && situacao.logado && situacao.membro && (p.meu || modero) ? () => setVirando(p) : null),
   };
 
   return (
@@ -291,16 +356,32 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
       {/* Notas de contexto (B1): a que aparece fica logo abaixo do post, com a fonte; a regra a um toque. */}
       <NotasDeContexto post={post.id} lang={lang} s={s} situacao={situacao} aoAvisar={(texto, erro) => avisar({ texto, erro })} />
 
+      {tf && doForum.dado && (
+        <NoTopoDoTopico
+          dado={doForum.dado}
+          trocar={doForum.trocar}
+          lang={lang}
+          s={s}
+          tf={tf}
+          podeLevar={Boolean(raizPost && situacao.logado && situacao.membro && (raizPost.meu || modero))}
+          aoLevar={() => raizPost && setVirando(raizPost)}
+        />
+      )}
+
       <Torradas estado={torradas} />
 
       <div className="al3-ordem" role="group" aria-label={t.conversa.ordem} ref={ordemRef}>
         <span className="al3-regua" aria-hidden />
-        <button type="button" aria-pressed={ordem === "antigas"} onClick={() => setOrdem("antigas")}>{t.conversa.antigas}</button>
-        <button type="button" aria-pressed={ordem === "novas"} onClick={() => setOrdem("novas")}>{t.conversa.novas}</button>
+        <button type="button" aria-pressed={ordemDoFio === "antigas"} onClick={() => setOrdem("antigas")}>{t.conversa.antigas}</button>
+        <button type="button" aria-pressed={ordemDoFio === "novas"} onClick={() => setOrdem("novas")}>{t.conversa.novas}</button>
+        {roda && tLinha && <OrdensAMais t={tLinha} ordem={ordemDoFio} aoMudar={setOrdem} />}
       </div>
+      {roda && tLinha && <RegraDaOrdem t={tLinha} ordem={ordemDoFio} />}
+
+      {tf && novas.length > 0 && <BarraDasNovas n={novas.length} tf={tf} primeira={novas[0].id} />}
 
       <section aria-label={t.conversa.titulo} aria-busy={estado.chave !== chave}>
-        {nos.length === 0 && total > 0 ? (
+        {nos.length === 0 && total > 0 && separadas.fora.length === 0 ? (
           // O contador diz que há respostas e a lista veio vazia: é falha de carga, nunca "ninguém respondeu".
           <div className="al3-vazio" role="status">
             <p>{s.estados.erro}</p>
@@ -317,7 +398,14 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
             ))}
           </ol>
         )}
+        {/* As respostas que vieram de outros servidores (Fediverso), numa seção própria depois do fio: sem "ajudou", reação nem
+            recolher, no cartão de fora. Sem a flag, sem resposta de fora ou fora da casca nova, não desenha nada (nem pede). */}
+        {estado.deFora && <RespostasDeForaNaConversa post={post} lang={lang} logado={situacao.logado} />}
       </section>
+
+      {roda && tLinha && (
+        <RespostasOcultadas t={tLinha} lang={lang} nos={separadas.fora} pode={ocultas.pode} aoDevolver={(rid) => void ocultar({ id: rid } as Post, false)} />
+      )}
 
       <CitarTrecho raiz={tela} t={t} pode={podeResponder} posts={[post, ...dado.respostas]} aoCitar={citar} />
 
@@ -351,8 +439,26 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
         }}
         aoErro={aoErro}
       />
+
+      {virando && tf && (
+        <VirarTopico
+          post={virando}
+          lang={lang}
+          s={s}
+          tf={tf}
+          aoFechar={() => {
+            setVirando(null);
+            setVersao((n) => n + 1);
+          }}
+        />
+      )}
     </div>
   );
+}
+
+/** O fio em árvore na ordem em que aparece na tela (cada resposta, depois as respostas a ela). */
+function achatar(nos: readonly NoDaArvore[]): NoDaArvore[] {
+  return nos.flatMap((n) => [n, ...achatar(n.filhos)]);
 }
 
 /**
@@ -634,7 +740,18 @@ interface ContextoDoFio {
   alvo: string | null;
   aoResponder: (p: Post) => void;
   aoAjudou: (p: Post, quer: boolean) => void;
+  /** Ocultar a resposta sem apagar (só para quem abriu a conversa, com a linha de regra aberta ligada); nulo = sem o botão. */
+  ocultar: { rotulo: string; fazer: (p: Post) => void } | null;
   aoErro: (e: unknown) => void;
+  /** Onda 10 (10A): os textos do fórum (nulo enquanto carregam). */
+  tf: TextosDoForum | null;
+  /** As respostas novas desde a última visita neste aparelho e a primeira delas (a régua vem antes dela). */
+  novas: ReadonlySet<string>;
+  primeiraNova: string | null;
+  /** Para onde cada resposta foi levada no fórum ("continua no fórum"). */
+  continua: ReadonlyMap<string, ContinuaEm>;
+  /** "Virar tópico": a ação para esta resposta, ou nulo quando quem lê não pode levá-la. */
+  aoVirar: (p: Post) => (() => void) | null;
 }
 
 /**
@@ -655,6 +772,8 @@ function Resposta({ no, indice, c }: { no: NoDaArvore; indice: number; c: Contex
   const idDasAcoes = `al3-acoes-${p.id}`;
   const idDosFilhos = `al3-filhos-${p.id}`;
   const estilo = { "--i": indice } as CSSProperties;
+  const continuaDaqui = c.continua.get(p.id);
+  const virar = c.aoVirar(p);
 
   const filhos = temFilhos && (
     <div className="al3-ramo" data-recolhido={recolhida ? "sim" : "nao"} id={idDosFilhos} inert={recolhida}>
@@ -691,11 +810,13 @@ function Resposta({ no, indice, c }: { no: NoDaArvore; indice: number; c: Contex
         {temFilhos && !recolhida && <span className="al3-fio-linha" aria-hidden />}
       </span>
       <div className="al3-resposta-corpo">
+        {c.tf && c.primeiraNova === p.id && <ReguaDasNovas tf={c.tf} />}
         <div className="al3-resposta-topo">
           <p className="al3-resposta-cabeca">
             <NomeDoAutor lang={lang} post={p} />
             <span className="al3-cinza al3-arroba">{arroba(p)}</span>
             {c.aceitaId === p.id && <span className="al3-ajudou">{c.seloAjudou}</span>}
+            {c.tf && c.novas.has(p.id) && <span className="f10-selo-nova">{c.tf.novas.selo}</span>}
           </p>
           <button
             type="button"
@@ -721,12 +842,20 @@ function Resposta({ no, indice, c }: { no: NoDaArvore; indice: number; c: Contex
           </span>
         )}
         <p className="al3-resposta-texto" data-citavel={p.id}>{p.texto}</p>
+        {MIDIA && <NaResposta lang={lang} s={c.s} post={p} />}
+        {c.tf && continuaDaqui && (
+          <p className="f10-continua f10-continua-resposta">
+            <IconeSeta />
+            <span>{c.tf.topico.continuaEm}:</span> <Link href={enderecos.post(lang, continuaDaqui.topico)}>{continuaDaqui.titulo}</Link>
+          </p>
+        )}
         {/* O que se faz sempre fica à vista, discreto (como no post compacto): Responder e Acender. */}
         <div className="al3-resposta-acoes al3-resposta-acoes-sempre">
           {c.podeResponder && (
             <button type="button" className="al3-acao" onClick={() => c.aoResponder(p)}>{t.comum.responder}</button>
           )}
           <BotaoAcender t={t} logado={c.logado} {...acoes} />
+          {MIDIA && <OuvirResposta lang={lang} post={p} />}
         </div>
         {/* O "…" guarda só o raro: citar, marcar que ajudou, continuar a conversa e as ações de cuidado. Escape fecha. */}
         <div
@@ -752,6 +881,12 @@ function Resposta({ no, indice, c }: { no: NoDaArvore; indice: number; c: Contex
             )}
             {p.respostas > no.filhos.length && (
               <Link href={enderecos.post(lang, p.id)} className="al3-acao">{preencher(t.conversa.continuar, { n: p.respostas })}</Link>
+            )}
+            {c.ocultar && !p.meu && (
+              <button type="button" className="al3-acao" onClick={() => c.ocultar?.fazer(p)}>{c.ocultar.rotulo}</button>
+            )}
+            {c.tf && virar && (
+              <button type="button" className="al3-acao" onClick={virar}>{c.tf.virar.acao}</button>
             )}
             {aberta && <AcoesDeCuidado post={p} lang={lang} s={c.s} logado={c.logado} classe="al3-acao" />}
           </div>
@@ -866,6 +1001,7 @@ function CaixaDeResposta({
   aoErro: (e: unknown) => void;
 }) {
   const [texto, setTexto] = useState("");
+  const [audio, setAudio] = useState<AudioGravado | null>(null);
   const [enviando, setEnviando] = useState(false);
   // O resultado da última conferência: um alerta deixa "Enviar assim mesmo"; um bloqueio não (o servidor recusa de novo).
   const [conferir, setConferir] = useState<{ aviso: string; bloqueia: boolean } | null>(null);
@@ -922,9 +1058,12 @@ function CaixaDeResposta({
       setConferir(null);
       const nova = previa()
         ? postDeExemplo({ id: crypto.randomUUID(), texto: final, resposta_a: destino.id, raiz: raiz.id, nivel: (destino.nivel ?? 0) + 1, meu: true, criado_em: new Date().toISOString() })
-        : await rede.publicar({ texto: final, resposta_a: destino.id });
+        : audio
+          ? await redePub.publicar({ texto: final, resposta_a: destino.id, audio: await enviarAudioDaResposta(audio) })
+          : await rede.publicar({ texto: final, resposta_a: destino.id });
       pular(enviar$.current, 1.15);
       setTexto("");
+      setAudio(null);
       if (campo.current) campo.current.style.height = "";
       aoEnviar(nova);
     } catch (e) {
@@ -980,6 +1119,7 @@ function CaixaDeResposta({
           )}
         </div>
       )}
+      {MIDIA && <AudioNaCaixa lang={lang} audio={audio} aoMudar={setAudio} desligado={enviando} />}
       <label className="al3-sr" htmlFor="al3-responder">{rotulo}</label>
       <textarea
         id="al3-responder"

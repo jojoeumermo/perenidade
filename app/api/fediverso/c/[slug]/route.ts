@@ -10,14 +10,14 @@
 // RSA (CPU), cada slug tem no máximo uma geração em andamento neste processo: os outros pedidos esperam a mesma.
 //
 // Ações do banco pedidas à frente F3 (fora do contrato 3.1, que não tinha o Group):
-//   comunidade {slug} → {estado: 'ligado'|'inexistente'|'fechada', slug, nome, descricao, criada_em, moderadores: handle[],
+//   comunidade {slug} → {estado: 'ligado'|'inexistente'|'fechada', slug, nome, descricao, criada_em, moderadores: [] (sempre vazia: quem modera não sai para fora),
 //                         chave_publica, chave_privada, icone_url?, capa_url?}
 //   comunidade_chaves {slug, publica, privada} → {chave_publica, chave_privada} (grava só se ainda não há)
 import { gerarParDeChaves } from "@/lib/rede/fediverso/assinatura";
 import { cifrar } from "@/lib/rede/fediverso/cifra";
 import { documentoDaComunidade } from "@/lib/rede/fediverso/documentos";
 import { gruposLigados, SLUG_DE_COMUNIDADE } from "@/lib/rede/fediverso/enderecos";
-import { conferirTeto, querHtml } from "@/lib/rede/fediverso/rotas";
+import { conferirLeitor, conferirTeto, querHtml } from "@/lib/rede/fediverso/rotas";
 import { banco, fed, respostaAP } from "@/lib/rede/fediverso/servidor";
 
 export const runtime = "nodejs";
@@ -55,6 +55,8 @@ const httpsSemSvg = (v: unknown) => (typeof v === "string" && /^https:\/\/[^\s]{
 export async function GET(pedido: Request, { params }: { params: Promise<{ slug: string }> }) {
   const barrado = conferirTeto(pedido, "comunidade");
   if (barrado) return barrado;
+  const recusado = await conferirLeitor(pedido);
+  if (recusado) return recusado;
   const slug = (await params).slug.toLowerCase();
   if (!gruposLigados() || !SLUG_DE_COMUNIDADE.test(slug)) return new Response("Not Found", { status: 404 });
   if (querHtml(pedido)) return Response.redirect(fed.paginaDaComunidade(slug), 302);

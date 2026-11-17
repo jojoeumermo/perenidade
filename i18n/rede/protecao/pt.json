@@ -1,0 +1,110 @@
+{
+  "titulo": "Proteção contra ataque",
+  "chamada": "Para quando um post seu vira alvo: feche a porta por um tempo, recolha quem insiste e escolha quem fala com você.",
+  "carregando": "Lendo a sua proteção…",
+  "erro": "Não deu para salvar agora. Tente de novo em instantes.",
+  "erroAoLer": "Não deu para ler a sua proteção agora. Tente de novo em instantes.",
+  "blindagem": {
+    "rotulo": "Modo protegido",
+    "texto": "Por um tempo, só quem você segue responde aos seus posts, menciona e cita você. Quem você não segue continua lendo, mas não entra na conversa.",
+    "ligar24": "Ligar por 24 horas",
+    "ligar7": "Ligar por 7 dias",
+    "ligada": "Ligado até {quando}",
+    "ligadaTexto": "Só quem você segue responde, menciona e cita. Desliga sozinho no fim do prazo.",
+    "desligar": "Desligar agora",
+    "ligou": "Modo protegido ligado até {quando}.",
+    "desligou": "Modo protegido desligado."
+  },
+  "mencao": {
+    "rotulo": "Quem pode me mencionar",
+    "texto": "A menção de quem não pode continua escrita no post dela, mas não chega até você e não entra nas suas menções.",
+    "opcoes": {
+      "todos": "Todo mundo da Alumia",
+      "seguindo": "Só quem eu sigo",
+      "ninguem": "Ninguém"
+    },
+    "salvo": "Escolha salva."
+  },
+  "marcacao": {
+    "rotulo": "Marcações em fotos",
+    "texto": "Ninguém marca você sem a sua escolha. Post de ato nunca tem marcação, e a Alumia não reconhece rostos.",
+    "quem": "Quem pode me marcar",
+    "opcoes": {
+      "ninguem": "Ninguém",
+      "seguindo": "Só quem eu sigo",
+      "todos": "Todo mundo da Alumia"
+    },
+    "aprovar": "Aprovar antes de aparecer",
+    "aprovarTexto": "A marcação só aparece no post depois que você aceitar.",
+    "pendentes": "Esperando o seu aceite",
+    "nenhuma": "Nenhuma marcação esperando por você.",
+    "de": "{codinome} quer marcar você",
+    "aceitar": "Aceitar",
+    "recusar": "Recusar",
+    "aceitou": "Marcação aceita: agora ela aparece no post.",
+    "recusou": "Marcação recusada: ela não aparece e não pode ser feita de novo nesse post.",
+    "naFoto": "Na foto",
+    "tirarMinha": "Tirar a minha marcação",
+    "tirou": "A sua marcação saiu do post.",
+    "voceFoiMarcada": "Pediram para marcar você neste post."
+  },
+  "restringir": {
+    "rotulo": "Pessoas restritas",
+    "texto": "Mais leve que bloquear: a pessoa continua respondendo, mas nas suas conversas a resposta dela fica recolhida, com a marca “aguardando a dona da conversa”. Ela vê a marca na própria resposta; você abre com um toque e libera se quiser. As respostas, menções e citações dela não viram aviso para você.",
+    "campo": "@ de quem você quer restringir",
+    "botao": "Restringir",
+    "nenhuma": "Você não restringiu ninguém.",
+    "desde": "desde {quando}",
+    "tirar": "Deixar de restringir",
+    "restringiu": "{handle} agora tem as respostas recolhidas nas suas conversas.",
+    "tirou": "As respostas de {handle} voltam a aparecer como as de todos.",
+    "naoAchou": "Não achamos esse @ na Alumia.",
+    "propria": "Não dá para restringir a própria conta."
+  },
+  "cartao": {
+    "restringir": "Restringir {handle}",
+    "tirarRestricao": "Deixar de restringir {handle}",
+    "soltar": "Desvincular meu post desta citação",
+    "soltarConfirma": "O post de quem citou continua no ar, mas sem o seu post dentro, e essa pessoa não poderá citá-lo de novo.",
+    "soltarSim": "Desvincular",
+    "soltou": "Seu post foi desvinculado da citação.",
+    "liberar": "Liberar esta resposta",
+    "recolher": "Recolher de novo",
+    "liberou": "Resposta liberada: agora todos a leem.",
+    "recolheu": "Resposta recolhida de novo.",
+    "aguardando": "Aguardando a dona da conversa",
+    "aguardandoOutros": "Esta resposta está recolhida até a dona da conversa decidir.",
+    "aguardandoAutora": "Sua resposta aguarda a dona da conversa. Para as outras pessoas, ela aparece recolhida.",
+    "aguardandoDona": "Resposta de alguém que você restringiu. Só você abre.",
+    "mostrar": "Mostrar",
+    "esconder": "Recolher",
+    "solta": "Quem escreveu o post citado o desvinculou desta citação.",
+    "cancelar": "Cancelar"
+  },
+  "link": {
+    "rotulo": "Aviso de link suspeito",
+    "texto": "Antes de abrir um link de fora, a Alumia confere o endereço numa lista aberta de padrões de golpe, aqui no seu aparelho. O endereço não é enviado a ninguém. A lista é esta:",
+    "titulo": "Confira este link antes de abrir",
+    "vaiPara": "Este link leva para",
+    "porque": "O que acendeu o aviso:",
+    "motivos": {
+      "perigo": "O link roda código ou abre conteúdo embutido, em vez de levar a uma página.",
+      "numero": "O endereço é um número, sem nome de site: é comum em golpe.",
+      "alfabeto": "O nome do site usa letras de outro alfabeto que imitam as nossas.",
+      "encurtador": "É um link encurtado: o destino só aparece depois do clique.",
+      "arroba": "Há um @ antes do endereço: o que vem antes dele é enfeite, o site de verdade vem depois.",
+      "imitacao": "O nome imita um serviço do governo ou o Instituto, mas o site é outro.",
+      "terminacao": "O endereço termina como nome de arquivo (.zip, .mov), o que confunde.",
+      "sem_cadeado": "O link não usa conexão segura (sem o cadeado): o que você digitar lá pode ser lido no caminho."
+    },
+    "voltar": "Voltar",
+    "abrir": "Abrir mesmo assim",
+    "naoAbre": "Este tipo de link não abre pela Alumia.",
+    "antesDePublicar": "Um link do seu post acende o aviso de link suspeito: {motivos}. Quem ler vai ver o aviso antes de abrir. Confira se é o endereço certo. Tocar em Publicar de novo envia assim mesmo."
+  },
+  "topo": {
+    "protegida": "Modo protegido até {quando}",
+    "pendentes": "Marcações esperando o seu aceite",
+    "ver": "Ver"
+  }
+}

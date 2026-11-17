@@ -1,0 +1,137 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * A moderação da comunidade (onda 9): o filtro automático, o modo lento, o alerta de brigada, as perguntas para entrar, a soneca e
+ * a fila de moderação com os prazos. Linguagem do Mosaico da Arquibancada: carimbo, ladrilhos, faixa tecida, Archivo condensada
+ * em caixa alta. Só usa os tokens de styles/alumia-tokens.css (vale no escuro, no claro, no contraste e no e-ink).
+ */
+
+.m9 { container-type: inline-size; color: var(--al-texto); font-family: var(--al-fonte); }
+.m9-cond { font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 900; text-transform: uppercase; letter-spacing: -0.005em; line-height: 0.95; }
+
+/* ───── A fila de moderação: cabeçalho com a faixa tecida e as abas em ladrilho ───── */
+.m9-tela { padding: 1.25rem 1rem 3rem; }
+@media (min-width: 1024px) { .m9-tela { padding: 1.6rem 1.5rem 4rem; } }
+.m9-cabeca { position: relative; margin: 0 0 1rem; padding-bottom: 1.1rem; }
+.m9-cabeca::after { content: ""; position: absolute; inset: auto 0 0; height: var(--al-faixa-altura, 6px); background: var(--al-faixa); border-radius: 2px; }
+.m9-cabeca h1 { margin: 0; font-size: clamp(2.2rem, 6cqi, 3.6rem); }
+.m9-cabeca p { margin: 0.55rem 0 0; max-width: 46rem; color: var(--al-texto-2); font-size: 1rem; line-height: 1.5; }
+
+.m9-abas {
+  position: sticky; top: var(--altura-topo, 0px); z-index: 5; display: flex; gap: 6px; margin: 0 0 1.25rem; padding: 6px;
+  overflow-x: auto; scrollbar-width: none; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-linha);
+}
+.m9-abas::-webkit-scrollbar { display: none; }
+/* As abas quebram linha (no celular também): nenhuma fica escondida atrás de uma rolagem para o lado sem sinal. */
+.m9-abas { flex-wrap: wrap; overflow-x: visible; }
+@container (max-width: 30rem) { .m9-aba { flex: 1 1 auto; padding: 0 0.6rem; font-size: 1rem; } }
+.m9-aba {
+  flex: 1 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem; min-height: 44px; padding: 0 0.95rem;
+  border: 0; border-radius: 8px; background: transparent; color: var(--al-texto-3); font-family: var(--al-fonte); font-stretch: 62%;
+  font-variation-settings: "wdth" 62; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap; cursor: pointer;
+}
+.m9-aba[aria-selected="true"] { background: var(--al-saliente); color: var(--al-sobre-saliente); box-shadow: inset 0 -3px 0 var(--al-vermelho); }
+@media (hover: hover) and (pointer: fine) { .m9-aba:not([aria-selected="true"]):hover { background: var(--al-superficie-2); color: var(--al-texto); } }
+.m9-aba-n { display: inline-grid; place-items: center; min-width: 1.5rem; height: 1.5rem; padding: 0 0.35rem; border-radius: 999px; background: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); font-size: 0.8rem; font-stretch: 100%; font-variation-settings: normal; }
+:root:is([data-contrast], [data-eink]) .m9-aba[aria-selected="true"] { outline: 2px solid var(--al-texto); }
+
+/* Botão de escolha ligado (Abertas/Encerradas, Palavra/Pessoa): fundo saliente, não só a cor. */
+.m9 .al-botao-contorno[aria-pressed="true"] { background: var(--al-saliente); color: var(--al-sobre-saliente); border-color: var(--al-saliente); }
+:root:is([data-contrast], [data-eink]) .m9 .al-botao-contorno[aria-pressed="true"] { outline: 2px solid var(--al-texto); }
+
+/* O corpo das abas antigas ganha a cara da noite (as classes de papel viram tokens em .al3-tela). */
+.m9-painel { border-radius: var(--al-raio); }
+
+/* ───── Seções das ferramentas (cartões com o número em ladrilho dourado) ───── */
+.m9-grade { display: grid; gap: 1rem; }
+@container (min-width: 62rem) { .m9-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } .m9-largo { grid-column: 1 / -1; } }
+.m9-secao { padding: 1.05rem 1.1rem 1.15rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.m9-secao-titulo { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.35rem; font-size: 1.55rem; }
+.m9-secao-titulo .m9-ladrilho {
+  flex: none; display: inline-grid; place-items: center; width: 2rem; height: 2rem; border-radius: 6px;
+  background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 1rem; letter-spacing: 0;
+}
+.m9-lead { margin: 0 0 0.9rem; max-width: 44rem; color: var(--al-texto-2); font-size: 0.93rem; line-height: 1.55; }
+.m9-nota { margin: 0.35rem 0 0; color: var(--al-texto-3); font-size: 0.82rem; line-height: 1.45; }
+
+.m9-campos { display: grid; gap: 0.85rem; }
+@container (min-width: 36rem) { .m9-campos-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }
+@container (min-width: 36rem) { .m9-campos-2.m9-pe { align-items: end; } }
+.m9-campo { display: grid; gap: 0.3rem; color: var(--al-texto-2); font-size: 0.88rem; font-weight: 700; }
+.m9-campo :is(input, select, textarea) {
+  width: 100%; min-height: 44px; padding: 0.5rem 0.7rem; border-radius: 8px; border: 1.5px solid var(--al-superficie-2);
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-weight: 400; font-size: 0.95rem;
+}
+.m9-campo textarea { min-height: 5.2rem; line-height: 1.45; resize: vertical; }
+.m9-campo :is(input, select, textarea):focus-visible { outline: 3px solid var(--al-foco); outline-offset: 1px; }
+.m9-campo :is(input, textarea)::placeholder { color: var(--al-texto-3); opacity: 1; }
+
+.m9-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 0.9rem; }
+.m9-status { margin: 0.6rem 0 0; color: var(--al-texto); font-size: 0.88rem; font-weight: 700; }
+.m9-erro { margin: 0.6rem 0 0; color: var(--al-vermelho-letra, var(--al-vermelho-texto)); font-size: 0.88rem; font-weight: 700; }
+.m9-depois { margin-top: 1rem; }
+.m9-depois-p { margin-top: 0.6rem; }
+.m9-sem-margem { margin: 0; }
+.m9-vazio { margin: 0; padding: 0.75rem 0.9rem; border-radius: 10px; border: 1px dashed var(--al-superficie-2); color: var(--al-texto-3); font-size: 0.88rem; }
+
+/* As palavras da lista: fichas. */
+.m9-fichas { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.6rem 0 0; padding: 0; }
+.m9-ficha { display: inline-flex; align-items: center; gap: 0.2rem; min-height: 36px; padding: 0 0.25rem 0 0.7rem; border-radius: 999px; background: var(--al-superficie-2); color: var(--al-texto); font-size: 0.88rem; }
+.m9-ficha button { display: inline-grid; place-items: center; width: 32px; height: 32px; border: 0; border-radius: 999px; background: transparent; color: var(--al-texto-2); font-size: 1.05rem; cursor: pointer; }
+.m9-ficha button:hover { background: var(--al-superficie); color: var(--al-texto); }
+.m9-linha { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: end; }
+.m9-linha .m9-campo { flex: 1 1 14rem; }
+
+/* ───── Carimbos (prazo, motivo, automática) ───── */
+.m9-carimbo {
+  display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.2em 0.55em 0.15em; border-radius: 5px; border: 1.5px solid currentColor;
+  font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 800; font-size: 0.86rem; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--al-texto-2); transform: rotate(-1deg);
+}
+.m9-carimbo[data-tom="alerta"] { color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+.m9-carimbo[data-tom="ouro"] { background: var(--al-dourado-fundo); border-color: var(--al-dourado-fundo); color: var(--al-sobre-dourado); }
+@media (prefers-reduced-motion: reduce) { .m9-carimbo { transform: none; } }
+:root:is([data-contrast], [data-eink]) .m9-carimbo { transform: none; color: var(--al-texto); }
+
+/* ───── Alertas de brigada ───── */
+.m9-alertas { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
+.m9-alerta { position: relative; padding: 0.95rem 1rem 1rem 1.15rem; border-radius: 10px; background: var(--al-fundo); border: 1px solid var(--al-linha); overflow: hidden; }
+.m9-alerta::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--al-faixa); }
+.m9-alerta-topo { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 0.7rem; }
+.m9-alerta-n { font-size: 2.5rem; color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+.m9-alerta-texto { color: var(--al-texto); font-weight: 700; font-size: 0.98rem; }
+.m9-alerta blockquote { margin: 0.5rem 0 0; padding: 0.45rem 0.7rem; border-left: 3px solid var(--al-superficie-2); color: var(--al-texto-2); font-size: 0.9rem; line-height: 1.5; }
+.m9-alerta-meta { margin: 0.4rem 0 0; color: var(--al-texto-3); font-size: 0.8rem; }
+
+/* ───── Pedidos com respostas ───── */
+.m9-pedidos { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.m9-pedido { padding: 0.8rem 0.9rem; border-radius: 10px; background: var(--al-fundo); border: 1px solid var(--al-linha); }
+.m9-pedido-topo { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.m9-pedido dl { margin: 0.5rem 0 0; display: grid; gap: 0.35rem; }
+.m9-pedido dt { color: var(--al-texto-3); font-size: 0.8rem; font-weight: 700; }
+.m9-pedido dd { margin: 0; color: var(--al-texto); font-size: 0.92rem; line-height: 1.45; }
+
+/* ───── O cartão público "Como esta comunidade modera" e o formulário das perguntas ───── */
+.m9-regras { padding: 0.95rem 1rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.m9-regras h3 { margin: 0 0 0.5rem; font-size: 1.3rem; }
+.m9-regras ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+.m9-regras li { position: relative; padding-left: 1.3rem; color: var(--al-texto-2); font-size: 0.92rem; line-height: 1.5; }
+.m9-regras li::before { content: ""; position: absolute; left: 0.1rem; top: 0.5em; width: 0.55rem; height: 0.55rem; border-radius: 2px; background: var(--al-vermelho); }
+.m9-regras li:nth-child(3n + 2)::before { background: var(--al-dourado); }
+.m9-regras li:nth-child(3n + 3)::before { background: var(--al-com-1); }
+.m9-regras blockquote { margin: 0.6rem 0 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--al-dourado); color: var(--al-texto); font-size: 0.92rem; }
+.m9-regras .m9-para-mim { margin: 0.6rem 0 0; padding: 0.5rem 0.7rem; border-radius: 8px; background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 0.9rem; font-weight: 700; }
+
+/* ───── Soneca ───── */
+.m9-soneca { display: grid; gap: 0.55rem; }
+.m9-prazos { display: flex; flex-wrap: wrap; gap: 0.4rem; border: 0; margin: 0; padding: 0; }
+.m9-prazos legend { margin-bottom: 0.35rem; color: var(--al-texto-2); font-size: 0.85rem; font-weight: 700; }
+.m9-prazo { position: relative; }
+.m9-prazo input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.m9-prazo span {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.95rem; border-radius: 999px; border: 1.5px solid var(--al-superficie-2);
+  color: var(--al-texto-2); font-size: 0.88rem; font-weight: 700;
+}
+.m9-prazo input:checked + span { background: var(--al-saliente); border-color: var(--al-saliente); color: var(--al-sobre-saliente); }
+.m9-prazo input:focus-visible + span { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+:root:is([data-contrast], [data-eink]) .m9-prazo input:checked + span { outline: 2px solid var(--al-texto); }
+

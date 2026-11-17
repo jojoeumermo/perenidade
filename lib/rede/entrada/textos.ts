@@ -2,8 +2,9 @@
 //
 // Os textos da entrada da Alumia (entrar, criar conta, triagem, segundo fator), nos seis idiomas do site. O português é o
 // original; os outros são rascunho até a revisão da tradução. Sem "@/" de propósito.
+import { type TextosDaParede, textosDaParede } from "./textos-parede";
 
-export interface TextosDaEntrada {
+export interface TextosBaseDaEntrada {
   instituto: string;
   voltar: string;
   rotuloCabeca: string;
@@ -37,6 +38,7 @@ export interface TextosDaEntrada {
   porqueAjuda: string;
   aceite: [string, string, string, string];
   regras: string;
+  termos: string;
   privacidade: string;
   criarBotao: string;
   criando: string;
@@ -46,7 +48,7 @@ export interface TextosDaEntrada {
   passos: { titulo: string; texto: string }[];
   erros: Record<
     | "credenciais" | "naoConfirmado" | "bloqueado" | "falha" | "senhaFraca" | "senhasDiferentes" | "senhaVazada" | "codinome" | "codinomeUsado"
-    | "codinomeCivil" | "codinomeReservado" | "motivo" | "dadoPessoal" | "idade" | "aceite" | "muitos" | "recusadaRecente" | "email" | "codigo" | "cadastroFechado",
+    | "codinomeCivil" | "codinomeReservado" | "motivo" | "dadoPessoal" | "idade" | "aceite" | "muitos" | "recusadaRecente" | "email" | "codigo" | "cadastroFechado" | "senhaVazia",
     string
   >;
   reenviar: string;
@@ -94,18 +96,17 @@ export interface TextosDaEntrada {
   creditosFonte: string;
   /** "{licenca}" é o nome da licença (ex.: CC BY-SA 3.0). */
   creditosDerivada: string;
-  figurasRotulo: string;
 }
 
-const pt: TextosDaEntrada = {
+const pt: TextosBaseDaEntrada = {
   instituto: "Instituto Lúcia",
   voltar: "Voltar ao site",
   rotuloCabeca: "Alumia, a rede do Instituto Lúcia",
   chamada: "Rede social militante",
   titulo: "A rede de quem luta",
-  lema: "Organização, debate e ato. Sem algoritmo, sem anúncio, sem vigilância.",
-  texto: "A Alumia é a rede do Instituto Lúcia para quem se organiza. Ela é fechada: só entra quem passa pela triagem, sempre com codinome e com o segundo fator ligado.",
-  sinais: ["Ordem de chegada, sem algoritmo", "Codinome, nunca o nome civil", "Nada de anúncio nem rastreio"],
+  lema: "Organização, debate e ato. Regra aberta, sem anúncio, sem vigilância.",
+  texto: "A Alumia é a rede do Instituto Lúcia para quem se organiza. Ela é fechada: só entra quem passa pela triagem e com o segundo fator ligado. Codinome por padrão; nome e foto só se você quiser.",
+  sinais: ["Regra aberta, igual para todo mundo", "Codinome por padrão; nome e foto só se você quiser", "Nada de anúncio nem rastreio"],
   abaEntrar: "Entrar",
   abaCriar: "Criar conta",
   abas: "Entrar ou criar conta",
@@ -116,7 +117,7 @@ const pt: TextosDaEntrada = {
   mostrar: "Mostrar a senha",
   ocultar: "Esconder a senha",
   esqueci: "Esqueci a senha",
-  esqueciTexto: "Mandamos um link de senha nova para o seu e-mail.",
+  esqueciTexto: "Vamos mandar um link de senha nova para o seu e-mail.",
   enviarLink: "Enviar o link",
   linkEnviado: "Se existe uma conta com esse e-mail, o link já está a caminho. Ele vale por pouco tempo.",
   voltarAoEntrar: "Voltar para entrar",
@@ -134,8 +135,9 @@ const pt: TextosDaEntrada = {
   maior: "Tenho 18 anos ou mais",
   porque: "Por que você quer entrar?",
   porqueAjuda: "Algumas linhas para a triagem (10 a 500 letras). Sem telefone, documento nem endereço.",
-  aceite: ["Li e aceito as ", "", " e a ", " da Alumia."],
+  aceite: ["Li e aceito as ", ", os ", " e a ", " da Alumia."],
   regras: "normas de conduta",
+  termos: "termos de uso",
   privacidade: "política de privacidade",
   criarBotao: "Pedir a entrada",
   criando: "Enviando o pedido…",
@@ -143,13 +145,14 @@ const pt: TextosDaEntrada = {
   confirmeEmail: "Quase lá: mandamos um link para o seu e-mail. Confirme a conta e entre aqui com o e-mail e a senha; o pedido segue para a triagem.",
   comoEntrar: "Como entrar",
   passos: [
-    { titulo: "Crie a conta", texto: "Com codinome e e-mail. O nome civil fica de fora." },
+    { titulo: "Crie a conta", texto: "Com codinome e e-mail. O nome civil fica de fora, a não ser que você escolha aparecer com ele." },
     { titulo: "A triagem lê o pedido", texto: "A coordenação ou a mediação aprova ou explica por que não." },
     { titulo: "Ligue o segundo fator", texto: "Um aplicativo autenticador no celular. Obrigatório para todo mundo." },
-    { titulo: "Entre na luta", texto: "Linha, atos, comunidades e conversa, em ordem de chegada." },
+    { titulo: "Entre na luta", texto: "Linha, atos, comunidades e conversa, com a regra da linha escrita na tela." },
   ],
   erros: {
     credenciais: "E-mail ou senha não conferem.",
+    senhaVazia: "Escreva a sua senha.",
     naoConfirmado: "Falta confirmar o e-mail: procure o link na sua caixa de entrada.",
     bloqueado: "Muitas tentativas. Espere {min} minutos e tente de novo.",
     falha: "Não deu certo agora. Tente de novo daqui a pouco.",
@@ -163,7 +166,7 @@ const pt: TextosDaEntrada = {
     motivo: "Conte em 10 a 500 letras por que você quer entrar.",
     dadoPessoal: "Tire o telefone, documento ou e-mail do texto: a triagem não precisa disso.",
     idade: "A Alumia é só para quem tem 18 anos ou mais. O resto do site continua aberto para você.",
-    aceite: "Para entrar, aceite as normas e a política de privacidade.",
+    aceite: "Para entrar, aceite as normas, os termos de uso e a política de privacidade.",
     muitos: "Muitos pedidos seguidos. Espere um pouco.",
     recusadaRecente: "Um pedido recusado só pode ser feito de novo 30 dias depois.",
     email: "Escreva um e-mail válido.",
@@ -218,19 +221,18 @@ const pt: TextosDaEntrada = {
   creditosLicenca: "Licença",
   creditosFonte: "Fonte",
   creditosDerivada: "silhueta distribuída sob {licenca}",
-  figurasRotulo: "Silhuetas de Lenin, Marx, Engels, Rosa Luxemburgo, Stalin, Gramsci, Mariátegui, Paulo Freire e Marielle Franco sobre vermelho",
 };
 
-const en: TextosDaEntrada = {
+const en: TextosBaseDaEntrada = {
   ...pt,
   instituto: "Instituto Lúcia",
   voltar: "Back to the site",
   rotuloCabeca: "Alumia, the Instituto Lúcia network",
   chamada: "Militant social network",
   titulo: "The network of those who fight",
-  lema: "Organizing, debate and action. No algorithm, no ads, no surveillance.",
-  texto: "Alumia is the Instituto Lúcia network for people who organize. It is closed: you get in only after screening, always with a code name and two-factor authentication.",
-  sinais: ["Chronological order, no algorithm", "Code name, never your legal name", "No ads, no tracking"],
+  lema: "Organizing, debate and action. Open rules, no ads, no surveillance.",
+  texto: "Alumia is the Instituto Lúcia network for people who organize. It is closed: you get in only after screening, with two-factor authentication on. Code name by default; your name and photo only if you want.",
+  sinais: ["Open rules, the same for everyone", "Code name by default; name and photo only if you want", "No ads, no tracking"],
   abaEntrar: "Sign in",
   abaCriar: "Create account",
   abas: "Sign in or create an account",
@@ -254,8 +256,9 @@ const en: TextosDaEntrada = {
   maior: "I am 18 or older",
   porque: "Why do you want to join?",
   porqueAjuda: "A few lines for the screening (10 to 500 characters). No phone, ID or address.",
-  aceite: ["I have read and accept the ", "", " and the ", " of Alumia."],
+  aceite: ["I have read and accept the ", ", the ", " and the ", " of Alumia."],
   regras: "code of conduct",
+  termos: "terms of use",
   privacidade: "privacy policy",
   criarBotao: "Request to join",
   criando: "Sending the request…",
@@ -263,13 +266,14 @@ const en: TextosDaEntrada = {
   confirmeEmail: "Almost there: we sent a link to your e-mail. Confirm the account and sign in here with your e-mail and password; the request goes to screening.",
   comoEntrar: "How to join",
   passos: [
-    { titulo: "Create the account", texto: "With a code name and e-mail. Your legal name stays out." },
+    { titulo: "Create the account", texto: "With a code name and e-mail. Your legal name stays out, unless you choose to appear with it." },
     { titulo: "Screening reads the request", texto: "Coordination or mediation approves it or explains why not." },
     { titulo: "Turn on two-factor", texto: "An authenticator app on your phone. Mandatory for everyone." },
-    { titulo: "Join the struggle", texto: "Feed, actions, communities and chat, in order of arrival." },
+    { titulo: "Join the struggle", texto: "Feed, actions, communities and chat, with the feed's rule written on screen." },
   ],
   erros: {
     credenciais: "E-mail or password do not match.",
+    senhaVazia: "Type your password.",
     naoConfirmado: "You still need to confirm your e-mail: look for the link in your inbox.",
     bloqueado: "Too many attempts. Wait {min} minutes and try again.",
     falha: "It did not work now. Please try again shortly.",
@@ -283,7 +287,7 @@ const en: TextosDaEntrada = {
     motivo: "Tell us in 10 to 500 characters why you want to join.",
     dadoPessoal: "Remove the phone, ID or e-mail from the text: screening does not need it.",
     idade: "Alumia is only for people aged 18 or older. The rest of the site remains open to you.",
-    aceite: "To join, accept the code of conduct and the privacy policy.",
+    aceite: "To join, accept the code of conduct, the terms of use and the privacy policy.",
     muitos: "Too many requests in a row. Wait a little.",
     recusadaRecente: "A declined request can only be made again after 30 days.",
     email: "Write a valid e-mail.",
@@ -338,18 +342,17 @@ const en: TextosDaEntrada = {
   creditosLicenca: "License",
   creditosFonte: "Source",
   creditosDerivada: "silhouette distributed under {licenca}",
-  figurasRotulo: "Silhouettes of Lenin, Marx, Engels, Rosa Luxemburg, Stalin, Gramsci, Mariátegui, Paulo Freire and Marielle Franco on red",
 };
 
-const es: TextosDaEntrada = {
+const es: TextosBaseDaEntrada = {
   ...en,
   voltar: "Volver al sitio",
   rotuloCabeca: "Alumia, la red del Instituto Lúcia",
   chamada: "Red social militante",
   titulo: "La red de quien lucha",
-  lema: "Organización, debate y acción. Sin algoritmo, sin anuncios, sin vigilancia.",
-  texto: "Alumia es la red del Instituto Lúcia para quien se organiza. Es cerrada: solo entra quien pasa por la revisión, siempre con nombre clave y con el segundo factor.",
-  sinais: ["Orden de llegada, sin algoritmo", "Nombre clave, nunca el nombre civil", "Sin anuncios ni rastreo"],
+  lema: "Organización, debate y acción. Reglas abiertas, sin anuncios, sin vigilancia.",
+  texto: "Alumia es la red del Instituto Lúcia para quien se organiza. Es cerrada: solo entra quien pasa por la revisión y con el segundo factor activado. Nombre clave por defecto; nombre y foto solo si quieres.",
+  sinais: ["Reglas abiertas, iguales para todos", "Nombre clave por defecto; nombre y foto solo si quieres", "Sin anuncios ni rastreo"],
   abaEntrar: "Entrar",
   abaCriar: "Crear cuenta",
   abas: "Entrar o crear cuenta",
@@ -373,8 +376,9 @@ const es: TextosDaEntrada = {
   maior: "Tengo 18 años o más",
   porque: "¿Por qué quieres entrar?",
   porqueAjuda: "Unas líneas para la revisión (10 a 500 caracteres). Sin teléfono, documento ni dirección.",
-  aceite: ["He leído y acepto las ", "", " y la ", " de Alumia."],
+  aceite: ["He leído y acepto las ", ", los ", " y la ", " de Alumia."],
   regras: "normas de conducta",
+  termos: "términos de uso",
   privacidade: "política de privacidad",
   criarBotao: "Pedir la entrada",
   criando: "Enviando el pedido…",
@@ -382,13 +386,14 @@ const es: TextosDaEntrada = {
   confirmeEmail: "Casi listo: enviamos un enlace a tu correo. Confirma la cuenta y entra aquí con el correo y la contraseña; el pedido va a la revisión.",
   comoEntrar: "Cómo entrar",
   passos: [
-    { titulo: "Crea la cuenta", texto: "Con nombre clave y correo. El nombre civil queda fuera." },
+    { titulo: "Crea la cuenta", texto: "Con nombre clave y correo. El nombre civil queda fuera, salvo que elijas aparecer con él." },
     { titulo: "La revisión lee el pedido", texto: "La coordinación o la mediación aprueba o explica por qué no." },
     { titulo: "Activa el segundo factor", texto: "Una aplicación autenticadora en el móvil. Obligatoria para todos." },
-    { titulo: "Entra en la lucha", texto: "Muro, actos, comunidades y chat, en orden de llegada." },
+    { titulo: "Entra en la lucha", texto: "Muro, actos, comunidades y chat, con la regla del muro escrita en pantalla." },
   ],
   erros: {
     credenciais: "El correo o la contraseña no coinciden.",
+    senhaVazia: "Escribe tu contraseña.",
     naoConfirmado: "Falta confirmar el correo: busca el enlace en tu bandeja.",
     bloqueado: "Demasiados intentos. Espera {min} minutos e inténtalo de nuevo.",
     falha: "No funcionó ahora. Inténtalo de nuevo en un rato.",
@@ -402,7 +407,7 @@ const es: TextosDaEntrada = {
     motivo: "Cuenta en 10 a 500 caracteres por qué quieres entrar.",
     dadoPessoal: "Quita el teléfono, documento o correo del texto: la revisión no lo necesita.",
     idade: "Alumia es solo para mayores de 18 años. El resto del sitio sigue abierto para ti.",
-    aceite: "Para entrar, acepta las normas y la política de privacidad.",
+    aceite: "Para entrar, acepta las normas, los términos de uso y la política de privacidad.",
     muitos: "Demasiados pedidos seguidos. Espera un poco.",
     recusadaRecente: "Un pedido rechazado solo puede repetirse después de 30 días.",
     email: "Escribe un correo válido.",
@@ -457,18 +462,17 @@ const es: TextosDaEntrada = {
   creditosLicenca: "Licencia",
   creditosFonte: "Fuente",
   creditosDerivada: "silueta distribuida bajo {licenca}",
-  figurasRotulo: "Siluetas de Lenin, Marx, Engels, Rosa Luxemburgo, Stalin, Gramsci, Mariátegui, Paulo Freire y Marielle Franco sobre rojo",
 };
 
-const fr: TextosDaEntrada = {
+const fr: TextosBaseDaEntrada = {
   ...en,
   voltar: "Retour au site",
   rotuloCabeca: "Alumia, le réseau de l'Instituto Lúcia",
   chamada: "Réseau social militant",
   titulo: "Le réseau de celles et ceux qui luttent",
-  lema: "Organisation, débat et action. Sans algorithme, sans publicité, sans surveillance.",
-  texto: "Alumia est le réseau de l'Instituto Lúcia pour celles et ceux qui s'organisent. Il est fermé : on n'y entre qu'après la vérification, toujours avec un pseudonyme et la double authentification.",
-  sinais: ["Ordre d'arrivée, sans algorithme", "Pseudonyme, jamais le nom civil", "Ni publicité ni pistage"],
+  lema: "Organisation, débat et action. Règles ouvertes, sans publicité, sans surveillance.",
+  texto: "Alumia est le réseau de l'Instituto Lúcia pour celles et ceux qui s'organisent. Il est fermé : on n'y entre qu'après la vérification, avec la double authentification. Pseudonyme par défaut ; nom et photo seulement si vous le voulez.",
+  sinais: ["Règles ouvertes, les mêmes pour tout le monde", "Pseudonyme par défaut ; nom et photo seulement si vous le voulez", "Ni publicité ni pistage"],
   abaEntrar: "Se connecter",
   abaCriar: "Créer un compte",
   abas: "Se connecter ou créer un compte",
@@ -492,8 +496,9 @@ const fr: TextosDaEntrada = {
   maior: "J'ai 18 ans ou plus",
   porque: "Pourquoi voulez-vous entrer ?",
   porqueAjuda: "Quelques lignes pour la vérification (10 à 500 caractères). Sans téléphone, pièce d'identité ni adresse.",
-  aceite: ["J'ai lu et j'accepte les ", "", " et la ", " d'Alumia."],
+  aceite: ["J'ai lu et j'accepte les ", ", les ", " et la ", " d'Alumia."],
   regras: "règles de conduite",
+  termos: "conditions d'utilisation",
   privacidade: "politique de confidentialité",
   criarBotao: "Demander l'entrée",
   criando: "Envoi de la demande…",
@@ -501,13 +506,14 @@ const fr: TextosDaEntrada = {
   confirmeEmail: "Presque fini : nous avons envoyé un lien à votre e-mail. Confirmez le compte et connectez-vous ici ; la demande part en vérification.",
   comoEntrar: "Comment entrer",
   passos: [
-    { titulo: "Créez le compte", texto: "Avec un pseudonyme et un e-mail. Le nom civil reste dehors." },
+    { titulo: "Créez le compte", texto: "Avec un pseudonyme et un e-mail. Le nom civil reste dehors, sauf si vous choisissez d'apparaître avec." },
     { titulo: "La vérification lit la demande", texto: "La coordination ou la médiation approuve ou explique pourquoi non." },
     { titulo: "Activez la double authentification", texto: "Une application d'authentification sur le téléphone. Obligatoire pour tout le monde." },
-    { titulo: "Entrez dans la lutte", texto: "Fil, actions, communautés et discussion, par ordre d'arrivée." },
+    { titulo: "Entrez dans la lutte", texto: "Fil, actions, communautés et discussion, avec la règle du fil écrite à l'écran." },
   ],
   erros: {
     credenciais: "E-mail ou mot de passe incorrect.",
+    senhaVazia: "Écrivez votre mot de passe.",
     naoConfirmado: "Il reste à confirmer l'e-mail : cherchez le lien dans votre boîte.",
     bloqueado: "Trop de tentatives. Attendez {min} minutes et réessayez.",
     falha: "Cela n'a pas marché. Réessayez dans un instant.",
@@ -521,7 +527,7 @@ const fr: TextosDaEntrada = {
     motivo: "Dites en 10 à 500 caractères pourquoi vous voulez entrer.",
     dadoPessoal: "Retirez le téléphone, la pièce d'identité ou l'e-mail du texte : la vérification n'en a pas besoin.",
     idade: "Alumia est réservée aux personnes de 18 ans ou plus. Le reste du site reste ouvert.",
-    aceite: "Pour entrer, acceptez les règles et la politique de confidentialité.",
+    aceite: "Pour entrer, acceptez les règles, les conditions d'utilisation et la politique de confidentialité.",
     muitos: "Trop de demandes d'affilée. Attendez un peu.",
     recusadaRecente: "Une demande refusée ne peut être refaite qu'après 30 jours.",
     email: "Écrivez un e-mail valide.",
@@ -576,18 +582,17 @@ const fr: TextosDaEntrada = {
   creditosLicenca: "Licence",
   creditosFonte: "Source",
   creditosDerivada: "silhouette diffusée sous {licenca}",
-  figurasRotulo: "Silhouettes de Lénine, Marx, Engels, Rosa Luxemburg, Staline, Gramsci, Mariátegui, Paulo Freire et Marielle Franco sur fond rouge",
 };
 
-const ru: TextosDaEntrada = {
+const ru: TextosBaseDaEntrada = {
   ...en,
   voltar: "Вернуться на сайт",
   rotuloCabeca: "Alumia, сеть Instituto Lúcia",
   chamada: "Социальная сеть активистов",
   titulo: "Сеть тех, кто борется",
-  lema: "Организация, дискуссия и акция. Без алгоритма, без рекламы, без слежки.",
-  texto: "Alumia — сеть Instituto Lúcia для тех, кто организуется. Она закрыта: войти можно только после проверки, всегда под псевдонимом и с двухфакторной защитой.",
-  sinais: ["По порядку поступления, без алгоритма", "Псевдоним, а не настоящее имя", "Ни рекламы, ни слежки"],
+  lema: "Организация, дискуссия и акция. Открытые правила, без рекламы, без слежки.",
+  texto: "Alumia — сеть Instituto Lúcia для тех, кто организуется. Она закрыта: войти можно только после проверки и с двухфакторной защитой. По умолчанию псевдоним; имя и фото — только если вы захотите.",
+  sinais: ["Открытые правила, одинаковые для всех", "По умолчанию псевдоним; имя и фото — только по желанию", "Ни рекламы, ни слежки"],
   abaEntrar: "Войти",
   abaCriar: "Создать аккаунт",
   abas: "Войти или создать аккаунт",
@@ -611,8 +616,9 @@ const ru: TextosDaEntrada = {
   maior: "Мне 18 лет или больше",
   porque: "Почему вы хотите войти?",
   porqueAjuda: "Несколько строк для проверки (от 10 до 500 символов). Без телефона, документов и адреса.",
-  aceite: ["Я прочитал(а) и принимаю ", "", " и ", " Alumia."],
+  aceite: ["Я прочитал(а) и принимаю ", ", ", " и ", " Alumia."],
   regras: "правила поведения",
+  termos: "условия использования",
   privacidade: "политику конфиденциальности",
   criarBotao: "Подать заявку",
   criando: "Отправка заявки…",
@@ -620,13 +626,14 @@ const ru: TextosDaEntrada = {
   confirmeEmail: "Почти готово: мы отправили ссылку на вашу почту. Подтвердите аккаунт и войдите здесь; заявка уйдёт на проверку.",
   comoEntrar: "Как войти",
   passos: [
-    { titulo: "Создайте аккаунт", texto: "С псевдонимом и почтой. Настоящее имя не нужно." },
+    { titulo: "Создайте аккаунт", texto: "С псевдонимом и почтой. Настоящее имя не нужно, если вы сами не решите его показать." },
     { titulo: "Проверка читает заявку", texto: "Координация или модерация одобряет или объясняет отказ." },
     { titulo: "Включите второй фактор", texto: "Приложение-аутентификатор на телефоне. Обязательно для всех." },
-    { titulo: "Вступайте в борьбу", texto: "Лента, акции, сообщества и переписка — по порядку поступления." },
+    { titulo: "Вступайте в борьбу", texto: "Лента, акции, сообщества и переписка — с правилом ленты, написанным на экране." },
   ],
   erros: {
     credenciais: "Неверная почта или пароль.",
+    senhaVazia: "Введите пароль.",
     naoConfirmado: "Нужно подтвердить почту: найдите ссылку во входящих.",
     bloqueado: "Слишком много попыток. Подождите {min} мин. и попробуйте снова.",
     falha: "Сейчас не получилось. Попробуйте чуть позже.",
@@ -695,18 +702,17 @@ const ru: TextosDaEntrada = {
   creditosLicenca: "Лицензия",
   creditosFonte: "Источник",
   creditosDerivada: "силуэт распространяется по лицензии {licenca}",
-  figurasRotulo: "Силуэты Ленина, Маркса, Энгельса, Розы Люксембург, Сталина, Грамши, Мариатеги, Паулу Фрейре и Мариэль Франко на красном фоне",
 };
 
-const zh: TextosDaEntrada = {
+const zh: TextosBaseDaEntrada = {
   ...en,
   voltar: "返回网站",
   rotuloCabeca: "Alumia，Instituto Lúcia 的网络",
   chamada: "战斗者的社交网络",
   titulo: "斗争者的网络",
-  lema: "组织、讨论与行动。没有算法，没有广告，没有监视。",
-  texto: "Alumia 是 Instituto Lúcia 为组织起来的人建立的网络。它是封闭的：只有通过审核的人才能进入，始终使用代号并开启双重验证。",
-  sinais: ["按时间顺序，没有算法", "使用代号，绝不用真名", "没有广告，没有追踪"],
+  lema: "组织、讨论与行动。规则公开，没有广告，没有监视。",
+  texto: "Alumia 是 Instituto Lúcia 为组织起来的人建立的网络。它是封闭的：只有通过审核并开启双重验证的人才能进入。默认使用代号；只有你愿意时才显示名字和照片。",
+  sinais: ["规则公开，对所有人都一样", "默认使用代号；名字和照片只在你愿意时显示", "没有广告，没有追踪"],
   abaEntrar: "登录",
   abaCriar: "创建账号",
   abas: "登录或创建账号",
@@ -730,8 +736,9 @@ const zh: TextosDaEntrada = {
   maior: "我已年满 18 岁",
   porque: "你为什么想加入？",
   porqueAjuda: "为审核写几句话（10 到 500 字）。不要写电话、证件或地址。",
-  aceite: ["我已阅读并接受 Alumia 的", "", "和", "。"],
+  aceite: ["我已阅读并接受 Alumia 的", "、", "和", "。"],
   regras: "行为准则",
+  termos: "使用条款",
   privacidade: "隐私政策",
   criarBotao: "申请加入",
   criando: "正在发送申请…",
@@ -739,13 +746,14 @@ const zh: TextosDaEntrada = {
   confirmeEmail: "快好了：我们已把链接发到你的邮箱。确认账号后在这里用邮箱和密码登录，申请会交给审核。",
   comoEntrar: "如何加入",
   passos: [
-    { titulo: "创建账号", texto: "使用代号和邮箱，不需要真名。" },
+    { titulo: "创建账号", texto: "使用代号和邮箱。除非你选择用真名出现，否则不需要真名。" },
     { titulo: "审核阅读申请", texto: "协调组或调解组批准，或说明不批准的原因。" },
     { titulo: "开启双重验证", texto: "手机上的身份验证器应用，所有人都必须开启。" },
-    { titulo: "投入斗争", texto: "动态、行动、社区和对话，按时间顺序。" },
+    { titulo: "投入斗争", texto: "动态、行动、社区和对话，动态的规则写在屏幕上。" },
   ],
   erros: {
     credenciais: "邮箱或密码不正确。",
+    senhaVazia: "请输入密码。",
     naoConfirmado: "还需要确认邮箱：请在收件箱里找链接。",
     bloqueado: "尝试次数太多。请等 {min} 分钟再试。",
     falha: "现在没有成功，请稍后再试。",
@@ -810,11 +818,13 @@ const zh: TextosDaEntrada = {
   creditosLicenca: "许可",
   creditosFonte: "来源",
   creditosDerivada: "剪影以 {licenca} 许可发布",
-  figurasRotulo: "红色背景上的列宁、马克思、恩格斯、罗莎·卢森堡、斯大林、葛兰西、马里亚特吉、保罗·弗莱雷和玛丽艾尔·佛朗哥的剪影",
 };
 
-const TEXTOS: Record<string, TextosDaEntrada> = { pt, en, es, fr, ru, zh };
+const TEXTOS: Record<string, TextosBaseDaEntrada> = { pt, en, es, fr, ru, zh };
+
+/** Os textos da entrada num idioma: os de sempre e, em "p", os da parede de ladrilhos (textos-parede.ts). */
+export type TextosDaEntrada = TextosBaseDaEntrada & { p: TextosDaParede };
 
 export function textosDaEntrada(lang: string): TextosDaEntrada {
-  return TEXTOS[lang] ?? pt;
+  return { ...(TEXTOS[lang] ?? pt), p: textosDaParede(lang) };
 }

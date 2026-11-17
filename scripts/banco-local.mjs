@@ -14,8 +14,10 @@ const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 /**
  * `semRede`: carrega o install.sql só até o começo dos blocos da Rede v2 (supabase/migracoes/2026-11-rede-*.sql, que ficam no fim). Os
  * testes de cada pacote da Rede usam isso para aplicar as migrações eles mesmos, na ordem que querem, sobre o banco de antes da v2.
+ * `antesDe`: carrega o install.sql só até o começo deste trecho (o texto inteiro de uma migração colada no fim). Serve para montar
+ * o banco como estava antes de uma onda e provar o SQL da onda por cima dele.
  */
-export async function criarBanco({ semRede = false } = {}) {
+export async function criarBanco({ semRede = false, antesDe = "" } = {}) {
   // O pgcrypto vem ligado no serviço real (no esquema "extensions"); é com ele que a coordenação grava uma senha redefinida.
   const pg = new PGlite({ extensions: { pgcrypto } });
   // O mínimo que o serviço real já traz pronto: papéis, a extensão de criptografia e o esquema de autenticação.
@@ -46,6 +48,12 @@ export async function criarBanco({ semRede = false } = {}) {
     if (corte < 0) throw new Error("install.sql sem o bloco da fundação da Rede v2");
     sql = sql.slice(0, corte);
   }
+  if (antesDe) {
+    const semCr = (t) => t.replace(/\r\n/g, "\n");
+    const corte = semCr(sql).lastIndexOf(semCr(antesDe.replace(/^\uFEFF/, "")).trim());
+    if (corte < 0) throw new Error("install.sql sem o trecho pedido em antesDe");
+    sql = semCr(sql).slice(0, corte);
+  }
   await pg.exec(sql);
 
   let fila = Promise.resolve();
@@ -62,7 +70,7 @@ export async function criarBanco({ semRede = false } = {}) {
    */
   const rpc = (quem, funcao, argumentos = {}) =>
     exclusivo(async () => {
-      if (!/^[a-z_]+$/.test(funcao)) throw new Error("função inválida");
+      if (!/^[a-z_][a-z0-9_]*$/.test(funcao)) throw new Error("função inválida");
       const nomes = Object.keys(argumentos);
       for (const nome of nomes) if (!/^[a-z_][a-z0-9_]*$/.test(nome)) throw new Error("argumento inválido");
       const claims = JSON.stringify({ role: quem.papel, ...(quem.sub ? { sub: quem.sub } : {}), ...(quem.aal ? { aal: quem.aal } : {}) });

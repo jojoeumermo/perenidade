@@ -43,11 +43,32 @@ export function mensagemDeErro(s: Pick<TextosDaRede, "erros">, sm: Pick<TextosDa
 }
 
 /** "há 3 dias" simples: só a data local, sem hora, para os avisos de prazo. */
+/** O nível de confiança em frase ("conta nova", "liderança designada"), no lugar do número que só quem fez o código entende. */
+export function nivelEmFrase(sm: Pick<TextosDaModeracao, "o9">, nivel: number | null | undefined): string {
+  const frases = sm.o9.nivelEmFrase as Record<string, string>;
+  return frases[String(nivel ?? 0)] ?? frases["0"];
+}
+
+/** A regra de uma decisão: o nome conhecido (as automáticas têm código) ou o que quem moderou escreveu, sem os sublinhados. */
+export function nomeDaRegra(sm: Pick<TextosDaModeracao, "o9">, regra: string | null | undefined): string {
+  if (!regra) return "";
+  return (sm.o9.regras as Record<string, string>)[regra] ?? regra.replace(/_/g, " ");
+}
+
 export function dataCurta(iso: string, lang: string): string {
   try {
     return new Intl.DateTimeFormat(lang, { dateStyle: "medium" }).format(new Date(iso));
   } catch {
     return iso.slice(0, 10);
+  }
+}
+
+/** Dia e hora curtos ("12/11, 14:30"), para os prazos de 24 horas, em que a hora conta. */
+export function dataEHora(iso: string, lang: string): string {
+  try {
+    return new Intl.DateTimeFormat(lang, { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
+  } catch {
+    return iso.slice(0, 16).replace("T", " ");
   }
 }
 
