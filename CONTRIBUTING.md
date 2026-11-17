@@ -6,7 +6,7 @@ Quer contribuir com aulas, traduções, revisão ou o acervo, e não com código
 
 ## Antes de começar
 
-1. Leia o `README.md` e rode o site na sua máquina (`npm install` e `npm run dev`). Para o painel e a comunidade, sem tocar no banco de verdade: `npm run dev:local`.
+1. Rode o site na sua máquina com `npm install` e `npm run dev` (precisa do Node.js 22).
 2. Procure uma tarefa nas issues com a etiqueta **voluntariado** ou **bom para começar**. Se for algo grande, abra uma issue antes, contando o que pretende fazer.
 3. Escreva como o resto do código: nomes e comentários em português, comentários que explicam o porquê, nada de dependência nova sem necessidade.
 
