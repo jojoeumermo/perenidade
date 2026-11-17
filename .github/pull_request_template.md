@@ -7,7 +7,7 @@
 - [ ] Endereço vindo de fora: só `https`, e chamada do servidor só por `lib/externo.ts`.
 - [ ] Envio de arquivo: tipo conferido pelos bytes, tamanho e quantidade limitados, depósito fechado por padrão.
 - [ ] Código de quem estuda roda em Worker que começa por `ISOLAR_WORKER` / `isolar.js`, ou em iframe sem `allow-same-origin`.
-- [ ] Nenhuma chave nova em variável `NEXT_PUBLIC_*`; segredo novo listado em `docs/seguranca/ROTACAO.md`.
+- [ ] Nenhuma chave nova em variável `NEXT_PUBLIC_*`; segredo novo combinado com a coordenação.
 - [ ] E-mail automático: sem texto livre de visitante (ou passado por `interno.sem_link`) e com limite.
 - [ ] Rota nova pública está em uma área de `lib/interdicao.ts`.
 

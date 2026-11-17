@@ -52,7 +52,7 @@ máquina à parte só para a sala de aula ao vivo, veja "Aula ao vivo" mais abai
 | Peça | O que faz | Onde se mexe |
 |---|---|---|
 | **Oracle Cloud** (Always Free, São Paulo) | A máquina: processador ARM (Ampere A1), 2 núcleos, 12 GB de memória, 100 GB de disco. Fica numa rede privada, **sem endereço público**: ninguém de fora chega nela direto. | cloud.oracle.com → Compute → Instances → `lucia` |
-| **Coolify** | O painel que publica e mantém o site na máquina (como a Vercel, só que nosso): variáveis, registros, versões, voltar para a anterior. | `servidor.institutolucia.org` (só entra quem passa pelo Cloudflare Access) |
+| **Coolify** | O painel que publica e mantém o site na máquina (como a Vercel, só que nosso): variáveis, registros, versões, voltar para a anterior. | endereço do painel com a coordenação (só entra quem passa pelo Cloudflare Access) |
 | **Cloudflare** | O domínio, o túnel que liga a máquina à internet (a máquina sai até o Cloudflare; nada entra nela), a proteção e o cache. | dash.cloudflare.com → institutolucia.org e Zero Trust → Túneis (`lucia-oracle`) |
 
 Tudo o que não é hospedagem continua onde estava: Supabase (contas, banco, funções), Resend (e-mails), o Worker

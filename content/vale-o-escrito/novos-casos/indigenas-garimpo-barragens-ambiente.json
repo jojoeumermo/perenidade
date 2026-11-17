@@ -1,6 +1,6 @@
 {
   "recorte": "indigenas-garimpo-barragens-ambiente",
-  "descricao": "Frente T12 (NOVAS TAREFAS, 07/11/2026): povos indígenas, garimpo ilegal (Yanomami, Munduruku, Kayapó, Tenharim), barragens e mineração (Braskem, Vale, garimpo no Amapá) e desmatamento com autuação do Ibama ou condenação. Casos pesquisados e conferidos por agente, todos 'pendente-curadoria': nada aqui é publicado até a curadoria humana aprovar (fonte oficial e situação jurídica preenchidas).",
+  "descricao": "Frente T12 (07/11/2026): povos indígenas, garimpo ilegal (Yanomami, Munduruku, Kayapó, Tenharim), barragens e mineração (Braskem, Vale, garimpo no Amapá) e desmatamento com autuação do Ibama ou condenação. Casos pesquisados e conferidos, todos 'pendente-curadoria': nada aqui é publicado até a curadoria humana aprovar (fonte oficial e situação jurídica preenchidas).",
   "geradoEm": "2026-11-07",
   "pessoas": [
     {
@@ -845,7 +845,7 @@
         "Operação Forja de Hefesto",
         "lavagem de dinheiro"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A notícia do MPF não nomeia as seis pessoas nem as quatro empresas da ação penal (processo 1003352-22.2022.4.01.4200, número que consta da página); as empresas das ações civis estão na entrada 2021-forja-de-hefesto-empresas-acoes-civis. Notícia do MPF = versão da acusação."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A notícia do MPF não nomeia as seis pessoas nem as quatro empresas da ação penal (processo 1003352-22.2022.4.01.4200, número que consta da página); as empresas das ações civis estão na entrada 2021-forja-de-hefesto-empresas-acoes-civis. Notícia do MPF = versão da acusação."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -903,7 +903,7 @@
         "ação civil pública",
         "Operação Forja de Hefesto"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Situação 'réu' aqui é de AÇÃO CIVIL (ACP 1010705-74.2026.4.01.4200 e ACP 1011028-79.2026.4.01.4200, números das páginas do MPF), não penal: o bloqueio é liminar. A fonte f2 foi marcada 'processo' porque relata a decisão judicial; é notícia do MPF, não a decisão. Os mesmos fatos são objeto de ação penal (entrada 2021-forja-de-hefesto-cassiterita-yanomami-acao-penal)."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Situação 'réu' aqui é de AÇÃO CIVIL (ACP 1010705-74.2026.4.01.4200 e ACP 1011028-79.2026.4.01.4200, números das páginas do MPF), não penal: o bloqueio é liminar. A fonte f2 foi marcada 'processo' porque relata a decisão judicial; é notícia do MPF, não a decisão. Os mesmos fatos são objeto de ação penal (entrada 2021-forja-de-hefesto-cassiterita-yanomami-acao-penal)."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -947,7 +947,7 @@
         "Operação Intruso",
         "desmatamento"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte não nomeia os réus (um deles é indígena: cuidado redobrado para não expor a comunidade). Lugar sem município porque a terra indígena fica entre dois municípios."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte não nomeia os réus (um deles é indígena: cuidado redobrado para não expor a comunidade). Lugar sem município porque a terra indígena fica entre dois municípios."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -992,7 +992,7 @@
         "Roraima",
         "Operação Yanomami"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte não nomeia os réus nem dá o número do processo; conferir na Justiça Federal em Roraima."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte não nomeia os réus nem dá o número do processo; conferir na Justiça Federal em Roraima."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1037,7 +1037,7 @@
         "Rondônia",
         "Operação Oraculum"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A etiqueta 'Cinta Larga' é o povo da TI Roosevelt (dado público, não está na notícia): a curadoria pode tirá-la. A fonte não nomeia o réu."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A etiqueta 'Cinta Larga' é o povo da TI Roosevelt (dado público, não está na notícia): a curadoria pode tirá-la. A fonte não nomeia o réu."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1078,7 +1078,7 @@
         "Yanomami",
         "Roraima"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Fonte f1 marcada 'processo' porque relata a sentença (é notícia do MPF sobre o recurso). A fonte não nomeia os condenados nem a empresa; há recurso do MPF no TRF1."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Fonte f1 marcada 'processo' porque relata a sentença (é notícia do MPF sobre o recurso). A fonte não nomeia os condenados nem a empresa; há recurso do MPF no TRF1."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1118,7 +1118,7 @@
         "mercúrio",
         "Roraima"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Caso pequeno em valor, mas mostra a cadeia do garimpo. A fonte não nomeia o condenado nem diz se houve recurso: conferir o trânsito."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Caso pequeno em valor, mas mostra a cadeia do garimpo. A fonte não nomeia o condenado nem diz se houve recurso: conferir o trânsito."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1158,7 +1158,7 @@
         "Força Nacional",
         "Roraima"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Processo 1006420-72.2025.4.01.4200 (número da página). A notícia saiu na página da PR-MG do MPF, mas o caso é de Roraima."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Processo 1006420-72.2025.4.01.4200 (número da página). A notícia saiu na página da PR-MG do MPF, mas o caso é de Roraima."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1202,7 +1202,7 @@
         "Amazonas",
         "Operação Warã II"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte é de fevereiro de 2025: reconferir se já houve sentença."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte é de fevereiro de 2025: reconferir se já houve sentença."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1246,7 +1246,7 @@
         "Amazonas",
         "homicídio"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Os nomes dos agentes públicos não constam da notícia (só os cargos): a curadoria pode acrescentá-los com fonte. Há outras denúncias (tortura, fraude processual) no mesmo caso, citadas na página; processos 1010815-37.2024.4.01.3200, 1044987-05.2024.4.01.3200 e outros. Nenhuma pessoa morta é nomeada aqui."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Os nomes dos agentes públicos não constam da notícia (só os cargos): a curadoria pode acrescentá-los com fonte. Há outras denúncias (tortura, fraude processual) no mesmo caso, citadas na página; processos 1010815-37.2024.4.01.3200, 1044987-05.2024.4.01.3200 e outros. Nenhuma pessoa morta é nomeada aqui."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1291,7 +1291,7 @@
         "danos morais coletivos",
         "ação civil pública"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Condenação CIVIL da União no TRF1 (2ª instância; processo 0002089-82.2016.4.01.3908). O modelo não tem o degrau '2ª instância' (ESPEC, pendência 4): ficou 'condenado em 1ª instância' por ser o mais próximo sem trânsito. A fonte nomeia o líder indígena morto; a ficha não o nomeia (regra da casa)."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Condenação CIVIL da União no TRF1 (2ª instância; processo 0002089-82.2016.4.01.3908). O modelo não tem o degrau '2ª instância' (ESPEC, pendência 4): ficou 'condenado em 1ª instância' por ser o mais próximo sem trânsito. A fonte nomeia o líder indígena morto; a ficha não o nomeia (regra da casa)."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1335,7 +1335,7 @@
         "Pará",
         "Operação 2º Mandamento"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). O trecho copia 'joalheiras' como está na fonte (erro de digitação do original). Fase de investigação: reconferir se houve denúncia."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). O trecho copia 'joalheiras' como está na fonte (erro de digitação do original). Fase de investigação: reconferir se houve denúncia."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1396,7 +1396,7 @@
         "Roraima",
         "BR-401"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Pessoa física privada nomeada porque há decisão judicial pública (sentença de 1ª instância) e o nome consta das duas notícias do MPF. A sentença menciona familiares que viajavam com o réu: a ficha não os cita. Reconferir o recurso."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Pessoa física privada nomeada porque há decisão judicial pública (sentença de 1ª instância) e o nome consta das duas notícias do MPF. A sentença menciona familiares que viajavam com o réu: a ficha não os cita. Reconferir o recurso."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1440,7 +1440,7 @@
         "Operação Pronta Resposta",
         "Itaituba"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Fonte f1 marcada 'processo' porque relata a sentença (notícia do MPF). A fonte não nomeia os condenados nem dá as penas nem o número do processo."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Fonte f1 marcada 'processo' porque relata a sentença (notícia do MPF). A fonte não nomeia os condenados nem dá as penas nem o número do processo."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1481,7 +1481,7 @@
         "Roraima",
         "usurpação de bens da União"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Processo 1002396-74.2020.4.01.4200 (número da página). Fonte não nomeia os condenados."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Processo 1002396-74.2020.4.01.4200 (número da página). Fonte não nomeia os condenados."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1525,7 +1525,7 @@
         "Pará",
         "ação civil pública"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A data do fato é o ano da ação (processo 1001832-64.2021.4.01.3908): a fonte não dá o período das compras; conferir na petição inicial. O nome 'F.D'Gold DTVM' é como a empresa aparece nas ações do MPF de 2021; a página atual escreve 'FD’Gold' e 'F.D'Gold'. Ação CIVIL: 'réu' é da ação civil."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A data do fato é o ano da ação (processo 1001832-64.2021.4.01.3908): a fonte não dá o período das compras; conferir na petição inicial. O nome 'F.D'Gold DTVM' é como a empresa aparece nas ações do MPF de 2021; a página atual escreve 'FD’Gold' e 'F.D'Gold'. Ação CIVIL: 'réu' é da ação civil."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1569,7 +1569,7 @@
         "Operação Ricezione",
         "Pará"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte não nomeia os réus nem as empresas."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte não nomeia os réus nem as empresas."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1645,7 +1645,7 @@
         "Alagoas",
         "ação penal"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A situação 'réu' vem da imprensa (f3, f4): a curadoria deve confirmar o recebimento na Justiça Federal em Alagoas (as matérias divergem na data: dia 12 ou 15 de junho de 2026; o recebimento foi PARCIAL, com prescrição de condutas antigas). A denúncia (f1) é fonte oficial. Os 15 denunciados não são nomeados aqui. A data do fato é a do tremor que tornou o caso público (f2); a exploração é de décadas."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A situação 'réu' vem da imprensa (f3, f4): a curadoria deve confirmar o recebimento na Justiça Federal em Alagoas (as matérias divergem na data: dia 12 ou 15 de junho de 2026; o recebimento foi PARCIAL, com prescrição de condutas antigas). A denúncia (f1) é fonte oficial. Os 15 denunciados não são nomeados aqui. A data do fato é a do tremor que tornou o caso público (f2); a exploração é de décadas."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1690,7 +1690,7 @@
         "Minas Gerais",
         "ação civil pública"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Ação CIVIL (processo 6006902-93.2026.4.06.3800, número da página): 'réu' é da ação civil. Fonte de janeiro de 2026: conferir a decisão sobre o bloqueio. A página cita outro vazamento na Mina Viga no dia seguinte (não incluído)."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Ação CIVIL (processo 6006902-93.2026.4.06.3800, número da página): 'réu' é da ação civil. Fonte de janeiro de 2026: conferir a decisão sobre o bloqueio. A página cita outro vazamento na Mina Viga no dia seguinte (não incluído)."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1739,7 +1739,7 @@
         "ação civil pública",
         "omissão do poder público"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Ação CIVIL (processo 1020508-20.2025.4.01.3100, número da página) contra entes públicos por omissão; quem operava o garimpo não é nomeado. O Ibama entra só como órgão que embargou a área em 2024."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Ação CIVIL (processo 1020508-20.2025.4.01.3100, número da página) contra entes públicos por omissão; quem operava o garimpo não é nomeado. O Ibama entra só como órgão que embargou a área em 2024."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1786,7 +1786,7 @@
         "licenciamento",
         "ação civil pública"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Data do fato = mês em que o ICMBio apresentou o problema (novembro de 2024, segundo a fonte). O município Itaituba é aproximação para o mapa (a APA abrange vários municípios): conferir. Fonte de outubro de 2025: reconferir se já há decisão."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Data do fato = mês em que o ICMBio apresentou o problema (novembro de 2024, segundo a fonte). O município Itaituba é aproximação para o mapa (a APA abrange vários municípios): conferir. Fonte de outubro de 2025: reconferir se já há decisão."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1832,7 +1832,7 @@
         "poder público",
         "ação civil pública"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Condenação CIVIL de entes públicos (processo 1056109-09.2020.4.01.3700, número da página). A fonte não diz se houve recurso."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Condenação CIVIL de entes públicos (processo 1056109-09.2020.4.01.3700, número da página). A fonte não diz se houve recurso."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1876,7 +1876,7 @@
         "Pará",
         "ação civil pública"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Condenação CIVIL (processo 1001200-76.2023.4.01.3905, número da página). A fonte não nomeia o condenado."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Condenação CIVIL (processo 1001200-76.2023.4.01.3905, número da página). A fonte não nomeia o condenado."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1920,7 +1920,7 @@
         "Pará",
         "Operação Onda Verde"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Processos 0019720-29.2017.4.01.3900 e 0019721-14.2017.4.01.3900 (números da página). A fonte não nomeia os condenados. Pode ir também para o dossiê Conflitos no campo."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Processos 0019720-29.2017.4.01.3900 e 0019721-14.2017.4.01.3900 (números da página). A fonte não nomeia os condenados. Pode ir também para o dossiê Conflitos no campo."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1964,7 +1964,7 @@
         "Operação Xingu",
         "organização criminosa"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte não nomeia os condenados nem dá o número do processo; diz que um deles foi condenado antes no caso da morte de uma missionária em 2005 (não incluído)."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte não nomeia os condenados nem dá o número do processo; diz que um deles foi condenado antes no caso da morte de uma missionária em 2005 (não incluído)."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -2009,7 +2009,7 @@
         "Paraná",
         "Mata Atlântica"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte não nomeia o condenado nem dá o número do processo."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte não nomeia o condenado nem dá o número do processo."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -2052,7 +2052,7 @@
         "Amazonas",
         "ação civil pública"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Condenação CIVIL (processo 1030904-18.2023.4.01.3200, número da página). A fonte não nomeia o condenado."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Condenação CIVIL (processo 1030904-18.2023.4.01.3200, número da página). A fonte não nomeia o condenado."
     }
   ]
 }
