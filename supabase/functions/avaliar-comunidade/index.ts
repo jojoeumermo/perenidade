@@ -6,6 +6,9 @@
 // moderação e o resultado volta ao banco, que decide (publicar, barrar ou deixar na fila de revisão). Se qualquer passo
 // falhar, a mensagem continua na fila, onde alguém da equipe decide: falha nunca publica.
 //
+// Post da Alumia (tipo "rede") NUNCA vem para cá (onda 9, decisão da coordenação): o texto iria para outra empresa. A função
+// recusa o tipo, a recuperação pula o que não for da Comunidade e o banco também não entrega o texto (20261115-alumia-o9-resto8.sql).
+//
 // Segredos (Edge Functions → Secrets): OPENAI_API_KEY e, opcional, GOOGLE_SAFE_BROWSING_KEY (confere os links das
 // mensagens; sem ela, mensagem com link vai para a fila). SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY já vêm prontos.
 // Nenhum deles aparece em resposta nem em registro; o texto das mensagens também não é registrado.
@@ -23,6 +26,9 @@ const cabecalhos = {
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Cache-Control": "no-store",
 };
+/** Os tipos que a segunda avaliação aceita. "rede" (post da Alumia) não está aqui, de propósito. */
+const TIPOS = ["topico", "resposta", "comentario", "aula_chat"];
+
 const responder = (corpo: unknown, status = 200) => new Response(JSON.stringify(corpo), { status, headers: { ...cabecalhos, "Content-Type": "application/json" } });
 
 async function chamar(funcao: string, argumentos: Record<string, unknown>): Promise<unknown> {
@@ -49,6 +55,7 @@ Deno.serve(comCors(async (pedido) => {
 
   /** Avalia uma mensagem. O banco só entrega o texto de quem está esperando e não está em avaliação neste momento. */
   const avaliar = async (qual: unknown, alvo: unknown): Promise<string> => {
+    if (!TIPOS.includes(String(qual))) return "ignorado";
     const pendente = (await chamar("comunidade_para_avaliar", { p_tipo: qual, p_id: alvo })) as { texto?: string } | null;
     if (!pendente?.texto) return "ignorado";
     let resultado = await moderar(pendente.texto, Deno.env.get("OPENAI_API_KEY"));
@@ -89,7 +96,7 @@ Deno.serve(comCors(async (pedido) => {
       }
       return responder({ recuperadas: contagem });
     }
-    if (!["topico", "resposta", "comentario", "aula_chat", "rede"].includes(String(tipo)) || typeof id !== "string" || !/^[0-9a-f-]{36}$/.test(id)) return responder({ erro: "pedido" }, 400);
+    if (!TIPOS.includes(String(tipo)) || typeof id !== "string" || !/^[0-9a-f-]{36}$/.test(id)) return responder({ erro: "pedido" }, 400);
     return responder({ veredito: await avaliar(tipo, id) });
   } catch (falha) {
     // Sem o banco, nada muda: a mensagem segue na fila de revisão.

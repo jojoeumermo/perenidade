@@ -8,28 +8,36 @@
 //
 // A foto da nota é refeita no aparelho (canvas): o arquivo novo não leva EXIF (lugar, data, modelo do aparelho), e quem lança
 // arrasta sobre o que for dado pessoal para borrar (pixelar) antes de mandar (LGPD art. 6º, III e art. 46). Até 400 KB.
+//
+// Vaquinha (onda 13, components/rede/apoio): cada caixa ganha a meta, o arrecadado e a prestação de contas informados pela
+// organização, com data. A chave Pix e o link só existem para organização com selo (o banco recusa e esconde sem selo).
 import { useCallback, useEffect, useId, useRef, useState, type PointerEvent as EventoDePonteiro } from "react";
 import { clienteOrgB1 } from "@/lib/rede/cliente-org-b1";
-import { centavosDe, conferirLancamento, dinheiro, TIPOS_DE_CAIXA, type CaixaDaOrg, type CaixasDaOrg, type TipoDeCaixa } from "@/lib/rede/org/b1";
+import { centavosDe, conferirLancamento, dinheiro, TIPOS_DE_CAIXA, type CaixasDaOrg, type TipoDeCaixa } from "@/lib/rede/org/b1";
 import { dataCurta, linkSeguro } from "@/lib/rede/org/contagem";
 import { preencher } from "@/lib/rede/preencher";
 import { fraseDoErro, useTextosDaOrgB1, type TextosDaOrgB1 } from "@/lib/rede/textos-org-b1";
 import { Botao } from "../../ui/Botao";
+import { clienteDoApoio } from "../../apoio/cliente";
+import type { CaixaComVaquinha, CaixasComVaquinha } from "../../apoio/regras";
+import { useTextosDoApoio, type TextosDoApoio } from "../../apoio/textos";
+import { VaquinhaDoCaixa } from "../../apoio/Vaquinha";
 import "./b1.css";
 
 const LIMITE_DA_NOTA = 400_000;
 
 export function CaixaTransparente({ handle, lang }: { handle: string; lang: string }) {
   const t = useTextosDaOrgB1(lang);
+  const ta = useTextosDoApoio(lang);
   const id = useId();
-  const [dado, setDado] = useState<CaixasDaOrg | null>(null);
+  const [dado, setDado] = useState<CaixasComVaquinha | null>(null);
   const [erro, setErro] = useState("");
   const [ocupado, setOcupado] = useState(false);
-  const [novo, setNovo] = useState<{ nome: string; tipo: TipoDeCaixa; pix: string; link: string }>({ nome: "", tipo: "greve", pix: "", link: "" });
+  const [novo, setNovo] = useState<{ nome: string; tipo: TipoDeCaixa; pix: string; link: string; meta: string }>({ nome: "", tipo: "greve", pix: "", link: "", meta: "" });
 
   useEffect(() => {
     let vivo = true;
-    clienteOrgB1()
+    clienteDoApoio()
       .caixa(handle)
       .then((r) => vivo && setDado(r))
       .catch((e) => vivo && t && setErro(fraseDoErro(t, e)));
@@ -37,15 +45,17 @@ export function CaixaTransparente({ handle, lang }: { handle: string; lang: stri
       vivo = false;
     };
   }, [handle, t]);
-  if (!t || !dado) return erro ? <p className="al-perfil-erro" role="alert">{erro}</p> : null;
+  if (!t || !ta || !dado) return erro ? <p className="al-perfil-erro" role="alert">{erro}</p> : null;
   const tc = t.caixa;
   const cli = clienteOrgB1();
 
-  async function fazer(f: () => Promise<CaixasDaOrg>) {
+  async function fazer(f: () => Promise<CaixasDaOrg | CaixasComVaquinha | null>) {
     setOcupado(true);
     setErro("");
     try {
-      setDado(await f());
+      const r = await f();
+      const junto = r ? await clienteDoApoio().junto(handle, r) : null;
+      if (junto) setDado(junto);
     } catch (e) {
       setErro(fraseDoErro(t!, e));
     } finally {
@@ -58,20 +68,32 @@ export function CaixaTransparente({ handle, lang }: { handle: string; lang: stri
       <h3 id={`${id}-t`} className="al-cond b1-titulo">{tc.titulo}</h3>
       <p className="al-perfil-nota">{tc.ajuda}</p>
       {dado.caixas.length === 0 ? <p className="al-painel-vazio">{tc.vazio}</p> : dado.caixas.map((c) => (
-        <UmCaixa key={c.id} c={c} t={t} lang={lang} tesouraria={dado.tesouraria} gerencio={dado.gerencio} dentro={dado.dentro} ocupado={ocupado} fazer={fazer} />
+        <UmCaixa key={c.id} c={c} t={t} ta={ta} lang={lang} handle={handle} selo={dado.selo} tesouraria={dado.tesouraria} gerencio={dado.gerencio} dentro={dado.dentro} ocupado={ocupado} fazer={fazer} />
       ))}
       {dado.tesouraria || dado.gerencio ? (
         <details className="b1-novo">
           <summary>{tc.novo}</summary>
-          <form className="b1-form" onSubmit={(e) => { e.preventDefault(); void fazer(() => cli.criarCaixa(handle, { ...novo, nome: novo.nome.trim(), pix: novo.pix.trim(), link: novo.link.trim() })).then(() => setNovo({ nome: "", tipo: "greve", pix: "", link: "" })); }}>
+          <form className="b1-form" onSubmit={(e) => {
+            e.preventDefault();
+            const meta = novo.meta.trim() ? centavosDe(novo.meta) : null;
+            void fazer(() => cli.criarCaixa(handle, {
+              nome: novo.nome.trim(), tipo: novo.tipo, pix: dado.selo ? novo.pix.trim() : "", link: dado.selo ? novo.link.trim() : "",
+              ...(meta !== null ? { meta: String(meta) } : {}),
+            } as Parameters<typeof cli.criarCaixa>[1])).then(() => setNovo({ nome: "", tipo: "greve", pix: "", link: "", meta: "" }));
+          }}>
             <label><span>{tc.tipo}</span>
               <select className="al-entrada" value={novo.tipo} onChange={(e) => setNovo({ ...novo, tipo: e.target.value as TipoDeCaixa, nome: novo.nome || tc.tipos[e.target.value as TipoDeCaixa] })}>
                 {TIPOS_DE_CAIXA.map((x) => <option key={x} value={x}>{tc.tipos[x]}</option>)}
               </select>
             </label>
             <label><span>{tc.nome}</span><input className="al-entrada" required minLength={3} maxLength={60} value={novo.nome} onChange={(e) => setNovo({ ...novo, nome: e.target.value })} /></label>
-            <label><span>{tc.pix}</span><input className="al-entrada" maxLength={140} value={novo.pix} onChange={(e) => setNovo({ ...novo, pix: e.target.value })} /></label>
-            <label><span>{tc.link}</span><input className="al-entrada" type="url" pattern="https://.+" maxLength={300} value={novo.link} onChange={(e) => setNovo({ ...novo, link: e.target.value })} /></label>
+            <label><span>{ta.vaquinha.metaCampo}</span><input className="al-entrada" inputMode="decimal" value={novo.meta} onChange={(e) => setNovo({ ...novo, meta: e.target.value })} /></label>
+            {dado.selo ? (
+              <>
+                <label><span>{tc.pix}</span><input className="al-entrada" maxLength={140} value={novo.pix} onChange={(e) => setNovo({ ...novo, pix: e.target.value })} /></label>
+                <label><span>{tc.link}</span><input className="al-entrada" type="url" pattern="https://.+" maxLength={300} value={novo.link} onChange={(e) => setNovo({ ...novo, link: e.target.value })} /></label>
+              </>
+            ) : <p className="al-perfil-nota">{ta.vaquinha.soComSelo}</p>}
             <Botao type="submit" disabled={ocupado || novo.nome.trim().length < 3}>{tc.abrir}</Botao>
           </form>
         </details>
@@ -82,7 +104,7 @@ export function CaixaTransparente({ handle, lang }: { handle: string; lang: stri
 }
 
 /** O cofre: 20 casas; as douradas são o saldo, as escuras o que já saiu, de tudo o que entrou (conferido). */
-function Cofre({ c, t, lang }: { c: CaixaDaOrg; t: TextosDaOrgB1; lang: string }) {
+function Cofre({ c, t, lang }: { c: CaixaComVaquinha; t: TextosDaOrgB1; lang: string }) {
   const casas = 20;
   const saldo = c.entradas > 0 ? Math.max(0, Math.round((c.saldo / c.entradas) * casas)) : 0;
   const rotulo = preencher(t.caixa.cofre, { entradas: dinheiro(c.entradas, lang), saidas: dinheiro(c.saidas, lang) });
@@ -100,7 +122,10 @@ function Cofre({ c, t, lang }: { c: CaixaDaOrg; t: TextosDaOrgB1; lang: string }
   );
 }
 
-function UmCaixa({ c, t, lang, tesouraria, gerencio, dentro, ocupado, fazer }: { c: CaixaDaOrg; t: TextosDaOrgB1; lang: string; tesouraria: boolean; gerencio: boolean; dentro: boolean; ocupado: boolean; fazer: (f: () => Promise<CaixasDaOrg>) => Promise<void> }) {
+function UmCaixa({ c, t, ta, lang, handle, selo, tesouraria, gerencio, dentro, ocupado, fazer }: {
+  c: CaixaComVaquinha; t: TextosDaOrgB1; ta: TextosDoApoio; lang: string; handle: string; selo: boolean; tesouraria: boolean; gerencio: boolean; dentro: boolean; ocupado: boolean;
+  fazer: (f: () => Promise<CaixasDaOrg | CaixasComVaquinha | null>) => Promise<void>;
+}) {
   const tc = t.caixa;
   const id = useId();
   const cli = clienteOrgB1();
@@ -135,6 +160,7 @@ function UmCaixa({ c, t, lang, tesouraria, gerencio, dentro, ocupado, fazer }: {
           {link ? <> {" · "}<a href={link} target="_blank" rel="noopener noreferrer nofollow">{tc.link}</a></> : null}
         </p>
       ) : null}
+      <VaquinhaDoCaixa c={c} t={ta} lang={lang} handle={handle} cuido={tesouraria || gerencio} selo={selo} ocupado={ocupado} fazer={fazer} />
       {c.lancamentos.length > 0 ? (
         <table className="b1-livro">
           {/* O cabeçalho da coluna fica curto ("Descrição"); o aviso entre parênteses ("sem nome de quem doou") desce para a legenda. */}

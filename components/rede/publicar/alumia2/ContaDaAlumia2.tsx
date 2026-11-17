@@ -53,10 +53,14 @@ function ItensDaConta({ lang, situacao, t, comFediverso, aoEscolher }: { lang: s
           ["cuidado", "escudo", t.conta.regras],
           ["denuncias", "alerta", t.conta.denuncias],
           ["silenciados", "silenciar", t.conta.silenciados],
+          ["series", "repetir", t.conta.series],
+          ["temas", "tema", t.conta.temas],
           ...(situacao.cuida ? ([["moderacao", "moderar", t.conta.moderacao]] as [string, NomeDoIcone, string][]) : []),
         ] as [string, NomeDoIcone, string][])
       : []),
     ...(situacao.logado ? ([["seguranca", "cadeado", t.conta.seguranca]] as [string, NomeDoIcone, string][]) : []),
+    // Tema, letra, contraste, movimento e ocultar números: vale também para quem só está olhando (fica no aparelho).
+    ["aparencia", "sol", t.conta.aparencia],
     ...(comFediverso ? ([["fediverso", "fediverso", t.menu.fediverso]] as [string, NomeDoIcone, string][]) : []),
   ];
   return (
@@ -242,7 +246,7 @@ export function BotaoMais({ lang, situacao, destinos, naConta, aoSairRapido }: {
         onClick={() => painel.current?.showModal()}
       >
         <Icone nome="menu" className="h-6 w-6" />
-        {novidade && <span aria-hidden className="absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full bg-[var(--al-dourado)] ring-2 ring-[var(--al-fundo)]" />}
+        {novidade && <span aria-hidden className="absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full bg-[var(--al-dourado-fundo)] ring-2 ring-[var(--al-fundo)]" />}
       </button>
       <dialog
         ref={painel}
@@ -268,6 +272,15 @@ export function BotaoMais({ lang, situacao, destinos, naConta, aoSairRapido }: {
               <Icone nome="fechar" className="h-6 w-6" />
             </button>
           </header>
+
+          {/* O Sair rápido é a primeira coisa do painel (no celular ele saiu do alto para o alto ficar como na prancha). */}
+          <div className="mt-4 space-y-1.5">
+            <button type="button" onClick={aoSairRapido} className="al-botao al-botao-contorno al-botao-m al2-aperta w-full">
+              <Icone nome="sair" className="h-5 w-5" />
+              {t.conta.sairRapido}
+            </button>
+            <p className="text-xs leading-relaxed text-[var(--al-texto-3)]">{t.conta.sairRapidoAjuda}</p>
+          </div>
 
           {situacao.logado && (
             <Link href={situacao.handle ? enderecos.perfil(lang, situacao.handle) : `${enderecos.linha(lang)}/editar-perfil`} className="al2-painel-conta" style={{ ["--i" as string]: 0 }}>
@@ -331,12 +344,7 @@ export function BotaoMais({ lang, situacao, destinos, naConta, aoSairRapido }: {
             <AjusteDaPausa />
           </div>
 
-          <div className="al2-painel-bloco space-y-2">
-            <button type="button" onClick={aoSairRapido} className="al-botao al-botao-contorno al-botao-m al2-aperta w-full">
-              <Icone nome="sair" className="h-5 w-5" />
-              {t.conta.sairRapido}
-            </button>
-            <p className="text-xs leading-relaxed text-[var(--al-texto-3)]">{t.conta.sairRapidoAjuda}</p>
+          <div className="al2-painel-bloco">
             <p className="text-xs leading-relaxed text-[var(--al-texto-3)]">{t.direita.rodape}</p>
           </div>
         </div>

@@ -1,0 +1,199 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Modo ato (/alumia/modo-ato), o guia "Sem sinal?" e a barra do modo ligado. Linguagem do Mosaico da Arquibancada: faixa tecida,
+ * Archivo condensada em caixa alta, ladrilhos, carimbos e placas numeradas. Só usa os tokens de styles/alumia-tokens.css (vale no
+ * escuro, no claro, no contraste e no e-ink). Computador primeiro: cartões lado a lado quando a coluna passa de 780 px.
+ */
+
+/* ───── A marca do modo ligado: os números somem da Alumia inteira (o mesmo [data-al-numero] do "ocultar números") ───── */
+[data-al="2"][data-al-modo-ato] [data-al-numero] { display: none !important; }
+[data-al="2"][data-al-modo-ato] [data-al-sem-numero] { display: inline; }
+
+.ma-pagina { container-type: inline-size; display: grid; gap: 1.25rem; padding: 1.25rem 16px 3rem; color: var(--al-texto); min-width: 0; }
+@media (min-width: 1024px) { .ma-pagina { padding: 1.75rem 1.5rem 3.5rem; } }
+
+/* ───── Cabeça ───── */
+.ma-cabeca { display: grid; gap: 0.6rem; }
+.ma-faixa { width: 7.5rem; border-radius: 2px; }
+.ma-titulo { margin: 0; font-size: clamp(2.6rem, 6cqi, 4.2rem); line-height: 0.95; }
+.ma-chamada { margin: 0; max-width: 62ch; color: var(--al-texto-2); font-size: 1.08rem; line-height: 1.5; }
+
+/* ───── Cartões ───── */
+.ma-grade { display: grid; gap: 1.25rem; align-items: stretch; }
+@container (min-width: 780px) { .ma-grade { grid-template-columns: 1fr 1fr; } }
+.ma-cartao {
+  display: grid; gap: 0.85rem; align-content: start; padding: 1.25rem; border-radius: var(--al-raio);
+  background: var(--al-superficie); border: 1px solid var(--al-linha); min-width: 0;
+}
+@container (min-width: 780px) { .ma-cartao { padding: 1.5rem 1.6rem; } }
+.ma-cartao-topo { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 1.75rem; }
+.ma-rotulo { margin: 0; font-size: 0.95rem; color: var(--al-texto-3); letter-spacing: 0.04em; }
+.ma-cartao-titulo { margin: 0; font-size: clamp(1.8rem, 3.2cqi, 2.4rem); line-height: 1; }
+.ma-cartao-titulo-g { font-size: clamp(2.1rem, 4.4cqi, 3rem); }
+.ma-subtitulo { margin: 0; font-size: 1.3rem; }
+.ma-texto { margin: 0; color: var(--al-texto-2); line-height: 1.55; max-width: 64ch; }
+.ma-miudo { margin: 0; color: var(--al-texto-3); font-size: 0.92rem; line-height: 1.5; }
+.ma-cinza { color: var(--al-texto-3); font-weight: 400; }
+.ma-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: center; }
+.ma-bloco { display: grid; gap: 0.6rem; padding-top: 0.9rem; border-top: 1px dashed var(--al-linha); }
+
+/* Ladrilhos: um pedaço do mosaico (6 × 1) e os quadradinhos de cada item. */
+.ma-ladrilhos { display: grid; grid-template-columns: repeat(6, 0.95rem); gap: 3px; flex: none; }
+.ma-ladrilhos > span { height: 0.95rem; border-radius: 3px; background: var(--al-superficie-2); animation: ma-acende 420ms ease-out both; }
+.ma-ladrilhos > span:nth-child(2) { animation-delay: 45ms; }
+.ma-ladrilhos > span:nth-child(3) { animation-delay: 90ms; }
+.ma-ladrilhos > span:nth-child(4) { animation-delay: 135ms; }
+.ma-ladrilhos > span:nth-child(5) { animation-delay: 180ms; }
+.ma-ladrilhos > span:nth-child(6) { animation-delay: 225ms; }
+.ma-ladrilhos > [data-cor="v"], .ma-item-ladrilho[data-cor="v"], .ma-guia-numero[data-cor="v"] { background: var(--al-vermelho); color: var(--al-sobre-vermelho); }
+.ma-ladrilhos > [data-cor="d"], .ma-item-ladrilho[data-cor="d"], .ma-guia-numero[data-cor="d"] { background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); }
+.ma-ladrilhos > [data-cor="1"], .ma-item-ladrilho[data-cor="1"], .ma-guia-numero[data-cor="1"] { background: var(--al-com-1); color: var(--al-sobre-dourado); }
+.ma-ladrilhos > [data-cor="2"], .ma-item-ladrilho[data-cor="2"], .ma-guia-numero[data-cor="2"] { background: var(--al-com-2); color: var(--al-sobre-dourado); }
+.ma-ladrilhos > [data-cor="3"], .ma-item-ladrilho[data-cor="3"] { background: var(--al-com-3); }
+.ma-ladrilhos > [data-cor="4"], .ma-item-ladrilho[data-cor="4"], .ma-guia-numero[data-cor="4"] { background: var(--al-com-4); color: var(--al-sobre-dourado); }
+@keyframes ma-acende { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .ma-ladrilhos > span { animation: none; } }
+
+.ma-itens { display: grid; gap: 0.55rem; margin: 0; padding: 0; list-style: none; }
+.ma-itens li { display: flex; gap: 0.65rem; align-items: baseline; line-height: 1.45; color: var(--al-texto-2); }
+.ma-item-ladrilho { flex: none; width: 0.7rem; height: 0.7rem; border-radius: 2px; transform: translateY(0.05rem); }
+
+/* Carimbo: a situação em uma palavra, escrita (a cor só reforça). */
+.ma-carimbo {
+  display: inline-flex; align-items: center; min-height: 1.75rem; padding: 0.1rem 0.6rem; border: 2px solid var(--al-texto-3);
+  border-radius: 6px; color: var(--al-texto-3); font-size: 1rem; letter-spacing: 0.04em; transform: rotate(-2deg);
+}
+.ma-carimbo[data-ligado] { border-color: var(--al-vermelho); color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+.ma-carimbo-vermelho { border-color: var(--al-vermelho); color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+
+/* Notas (status e erro). */
+.ma-nota { margin: 0; padding: 0.65rem 0.9rem; border-radius: 10px; background: var(--al-fundo); border-left: 4px solid var(--al-dourado-fundo); font-weight: 600; line-height: 1.45; flex-basis: 100%; }
+.ma-nota-erro { border-left-color: var(--al-vermelho); color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+.ma-erro-geral { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; }
+.ma-erro-geral .ma-nota { flex-basis: auto; }
+
+/* ───── A chave do aparelho ───── */
+.ma-chave { border-top: 4px solid var(--al-texto-3); }
+.ma-chave[data-ligado] { border-top-color: var(--al-vermelho); background: linear-gradient(180deg, var(--al-vermelho-escuro) 0, var(--al-superficie) 10rem); }
+@container (min-width: 780px) {
+  .ma-chave { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); column-gap: 2rem; }
+  .ma-chave > .ma-cartao-topo, .ma-chave > .ma-rotulo, .ma-chave > .ma-cartao-titulo { grid-column: 1; }
+  .ma-chave > .ma-itens { grid-column: 2; grid-row: 1 / span 4; align-self: center; }
+  .ma-chave > .ma-miudo, .ma-chave > .ma-acoes { grid-column: 1; }
+}
+
+/* ───── Estou bem e Sem sinal ───── */
+.ma-estou-bem { border-top: 4px solid var(--al-dourado-fundo); scroll-margin-top: 5rem; }
+.ma-sem-sinal { border-top: 4px solid var(--al-com-4); }
+.ma-sinal { display: inline-flex; align-items: flex-end; gap: 4px; height: 1.6rem; }
+.ma-sinal > span { width: 0.45rem; border-radius: 2px; background: var(--al-superficie-2); }
+.ma-sinal > span:nth-child(1) { height: 30%; background: var(--al-com-4); }
+.ma-sinal > span:nth-child(2) { height: 55%; }
+.ma-sinal > span:nth-child(3) { height: 78%; }
+.ma-sinal > span:nth-child(4) { height: 100%; }
+.ma-estou-bem > .ma-acoes, .ma-sem-sinal > .ma-acoes { margin-top: auto; }
+
+/* O pânico (o bloco é o da Segurança: components/rede/seguranca/Panico.tsx). */
+.ma-panico { display: grid; }
+.ma-panico > .sg-bloco { margin: 0; }
+
+/* ───── Fui detido ───── */
+.ma-detido { border: 2px solid var(--al-vermelho); }
+.ma-detido-corpo { display: grid; gap: 1.25rem; }
+@container (min-width: 780px) { .ma-detido-corpo { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 2rem; } }
+.ma-detido-acao { display: grid; gap: 0.85rem; align-content: start; }
+.ma-direitos { display: grid; gap: 0.7rem; align-content: start; padding: 1rem 1.1rem; border-radius: 12px; background: var(--al-fundo); border: 1px solid var(--al-linha); }
+.ma-botao-detido { justify-self: start; }
+.ma-plantao { margin: 0; padding: 0.7rem 0.9rem; border-radius: 10px; background: var(--al-fundo); border-left: 4px solid var(--al-com-1); color: var(--al-texto-2); line-height: 1.45; }
+.ma-confirma { display: grid; gap: 0.5rem; padding: 0.9rem 1rem; border-radius: 12px; background: var(--al-fundo); border: 1px solid var(--al-vermelho); flex-basis: 100%; }
+.ma-confirma-titulo { margin: 0; font-size: 1.4rem; }
+
+/* As listas numeradas como placas (direitos, o que fazer). */
+.ma-lista-numerada { counter-reset: ma-n; display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+.ma-lista-numerada li { counter-increment: ma-n; display: flex; gap: 0.7rem; align-items: flex-start; line-height: 1.45; color: var(--al-texto-2); }
+.ma-lista-numerada li::before {
+  content: counter(ma-n); flex: none; display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: 6px;
+  border: 1px solid var(--al-vermelho); color: var(--al-vermelho-letra, var(--al-vermelho-texto)); font-weight: 800; font-size: 1.05rem;
+  font-family: var(--al-fonte); font-stretch: 70%;
+}
+
+/* ───── Campos ───── */
+.ma-campo { display: grid; gap: 0.35rem; }
+.ma-campo-rotulo { font-weight: 700; font-size: 0.95rem; }
+.ma-campo select, .ma-form textarea, .ma-arroba {
+  width: 100%; max-width: 26rem; min-height: 48px; padding: 0 0.85rem; border-radius: 10px; border: 1px solid var(--al-superficie-2);
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-size: 1.02rem;
+}
+.ma-form textarea { max-width: none; min-height: 6rem; padding: 0.7rem 0.85rem; line-height: 1.45; resize: vertical; }
+.ma-campo select:focus-visible, .ma-form textarea:focus-visible, .ma-arroba:focus-within { border-color: var(--al-foco); outline: 2px solid var(--al-foco); outline-offset: 1px; }
+.ma-arroba { display: flex; align-items: center; gap: 0.25rem; color: var(--al-texto-3); }
+.ma-arroba input { flex: 1; min-width: 0; min-height: 46px; border: 0; background: transparent; color: var(--al-texto); font: inherit; outline: none; }
+.ma-pedir { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.6rem; }
+.ma-campo-linha { flex: 1 1 14rem; }
+
+/* ───── Listas de pessoas e recados ───── */
+.ma-lista { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.ma-pessoa, .ma-recado {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; padding: 0.55rem 0.5rem 0.55rem 0.85rem;
+  border-radius: 12px; background: var(--al-fundo); border: 1px solid var(--al-linha);
+}
+.ma-pessoa-nome { flex: 1 1 10rem; min-width: 0; overflow-wrap: anywhere; }
+.ma-selo { padding: 0.05rem 0.55rem; border-radius: var(--al-raio-pilula); border: 1px solid var(--al-linha); color: var(--al-texto-3); font-size: 0.95rem; }
+.ma-selo[data-aceito] { border-color: var(--al-dourado-fundo); background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); }
+.ma-recado-marca { flex: none; display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 8px; background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); }
+.ma-recado[data-tipo="detido"] { border-color: var(--al-vermelho); }
+.ma-recado[data-tipo="detido"] .ma-recado-marca { background: var(--al-vermelho); color: var(--al-sobre-vermelho); }
+.ma-recado-titulo { margin: 0; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere; }
+.ma-o-que-fazer { display: grid; gap: 0.6rem; padding: 1rem 1.1rem; border-radius: 12px; background: var(--al-fundo); border: 1px solid var(--al-vermelho); }
+.ma-contatos, .ma-recados, .ma-assessoria { border-top: 4px solid var(--al-com-1); }
+.ma-recados { border-top-color: var(--al-dourado-fundo); }
+.ma-assessoria { border-top-color: var(--al-com-4); }
+
+/* ───── A barra do modo ligado (alto da linha e alto da coluna da direita) ───── */
+.ma-barra {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem 1rem; padding: 0.7rem 0.9rem;
+  border-radius: var(--al-raio); background: var(--al-vermelho-escuro); border: 2px solid var(--al-vermelho); color: var(--al-texto);
+}
+.ma-barra[data-onde="topo"] { margin: 0 0 0.75rem; }
+.ma-barra[data-onde="lado"] { margin-bottom: 1rem; }
+.ma-barra-alto { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.6rem; min-width: 0; }
+.ma-barra-ponto { width: 0.7rem; height: 0.7rem; border-radius: 2px; background: var(--al-vermelho); align-self: center; animation: ma-pisca 1.6s ease-in-out infinite; }
+@keyframes ma-pisca { 50% { opacity: 0.35; } }
+@media (prefers-reduced-motion: reduce) { .ma-barra-ponto { animation: none; } }
+.ma-barra-titulo { margin: 0; font-size: 1.35rem; line-height: 1; }
+.ma-barra-titulo a { color: inherit; text-decoration: none; }
+.ma-barra-titulo a:hover { text-decoration: underline; }
+.ma-barra-desde { color: var(--al-texto-2); font-size: 0.92rem; }
+.ma-barra-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.ma-barra-pergunta { margin: 0; font-size: 1.15rem; flex-basis: 100%; }
+
+/* ───── O anexo do cartão do ato ───── */
+.ma-anexo {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.75rem; margin: 0.6rem 0 0; padding: 0.55rem 0.8rem;
+  border-radius: 10px; background: var(--al-fundo); border-left: 4px solid var(--al-dourado-fundo); color: var(--al-texto-2); font-weight: 600;
+}
+.ma-anexo-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--al-dourado); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+
+/* ───── O guia "Sem sinal?" ───── */
+.ma-guia { max-width: 72rem; margin-inline: auto; width: 100%; }
+.ma-guia-indice ol { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.ma-guia-indice a {
+  display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0 0.9rem; border-radius: var(--al-raio-pilula);
+  border: 1px solid var(--al-linha); background: var(--al-superficie); color: var(--al-texto); font-weight: 700; text-decoration: none;
+}
+.ma-guia-indice a:hover { border-color: var(--al-texto-3); }
+.ma-guia-secoes { display: grid; gap: 1.25rem; }
+@container (min-width: 780px) { .ma-guia-secoes { grid-template-columns: 1fr 1fr; } }
+@container (min-width: 1100px) { .ma-guia-secoes { grid-template-columns: repeat(3, 1fr); } }
+.ma-guia-secao { scroll-margin-top: 4rem; }
+.ma-guia-numero { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 8px; font-size: 1.6rem; }
+.ma-guia-voltar { margin: 0; }
+
+:root:is([data-contrast], [data-eink]) .ma-cartao, :root:is([data-contrast], [data-eink]) .ma-pessoa, :root:is([data-contrast], [data-eink]) .ma-recado,
+:root:is([data-contrast], [data-eink]) .ma-barra { border-color: var(--al-texto); }
+:root[data-eink] .ma-chave[data-ligado], :root[data-eink] .ma-barra { background: var(--al-superficie); }
+
+@media print {
+  .ma-guia-indice, .ma-guia-voltar { display: none; }
+  .ma-guia .ma-cartao { break-inside: avoid; border: 1px solid var(--al-texto); }
+}

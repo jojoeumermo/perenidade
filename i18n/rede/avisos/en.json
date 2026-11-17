@@ -25,7 +25,10 @@
     "conversa_seguida": {"um": "{a} replied in a conversation you follow.", "vezes": "{a} replied {n} times in a conversation you follow.", "varios": "{a} and {n} others replied in a conversation you follow.", "anonimo": "There is a new reply in a conversation you follow.", "anonimoVarios": "{n} people replied in a conversation you follow."},
     "ajudou": {"um": "Your reply helped the person who started the conversation.", "vezes": "Your reply helped the person who started the conversation.", "varios": "Your replies helped in {n} conversations.", "anonimo": "Your reply helped the person who started the conversation.", "anonimoVarios": "Your replies helped in {n} conversations."},
     "reacao_story": {"um": "Someone reacted to your story.", "vezes": "Your story got {n} reactions.", "varios": "Your story got reactions.", "anonimo": "Someone reacted to your story.", "anonimoVarios": "Your story got reactions."},
-    "lembrete": {"um": "You asked to be reminded of this post now.", "vezes": "You asked to be reminded of this post now.", "varios": "You asked to be reminded of these posts now.", "anonimo": "You asked to be reminded of this post now.", "anonimoVarios": "You asked to be reminded of these posts now."}
+    "lembrete": {"um": "You asked to be reminded of this post now.", "vezes": "You asked to be reminded of this post now.", "varios": "You asked to be reminded of these posts now.", "anonimo": "You asked to be reminded of this post now.", "anonimoVarios": "You asked to be reminded of these posts now."},
+    "marcacao": {"um":"{a} tagged you in a post, or asked to. A request only shows if you accept it.","vezes":"{a} tagged you in a post, or asked to. A request only shows if you accept it.","varios":"{a} and {n} more tagged you, or asked to.","anonimo":"Someone tagged you in a post, or asked to. A request only shows if you accept it.","anonimoVarios":"{n} people tagged you, or asked to."},
+    "estou_bem": {"um":"Message from {a}, a safety contact: they are safe. It disappears in 24 hours.","vezes":"Message from {a}, a safety contact: they are safe. It disappears in 24 hours.","varios":"Messages from your safety contacts: they are safe.","anonimo":"Message from a safety contact: they are safe. It disappears in 24 hours.","anonimoVarios":"Messages from your safety contacts: they are safe."},
+    "detido": {"um":"Urgent message from {a}, a safety contact: they were detained. Open Protest mode to see what to do.","vezes":"Urgent message from {a}, a safety contact: they were detained. Open Protest mode to see what to do.","varios":"Urgent messages from safety contacts: they were detained. Open Protest mode to see what to do.","anonimo":"Urgent message from a safety contact: they were detained. Open Protest mode to see what to do.","anonimoVarios":"Urgent messages from safety contacts: they were detained. Open Protest mode to see what to do."}
   },
   "prefs": {
     "titulo": "How you want to be notified",
@@ -47,7 +50,10 @@
         "ajudou": "When your reply helped (never who marked it)",
         "ato": "Actions you follow (beacon, chain, consultation)",
         "reacao_story": "Reactions to your stories (never who reacted)",
-        "lembrete": "Reminders: the ones you set and those for actions you confirmed"
+        "lembrete": "Reminders: the ones you set and those for actions you confirmed",
+        "marcacao": "Tags in posts with images (including the ones waiting for your approval)",
+        "estou_bem": "“I'm safe” messages from your safety contacts",
+        "detido": "“I was detained” messages from your safety contacts"
       }
     },
     "resumo": {
@@ -57,7 +63,8 @@
       "ver": "See what would be sent now",
       "nada": "Nothing to send now: you have no new notifications.",
       "fechar": "Close the preview",
-      "precisaEntrar": "To receive e-mail from Alumia, join Alumia first (18 or older, rules accepted)."
+      "precisaEntrar": "To receive e-mail from Alumia, join Alumia first (18 or older, rules accepted).",
+      "outro": "This is one email. The communities digest (public titles from the communities you choose) is another, switched on separately in Security > Bridges."
     },
     "push": {
       "titulo": "Notification on your phone",
@@ -72,6 +79,17 @@
       "ios": "On iPhone and iPad, first add the site to the Home Screen (Share → Add to Home Screen) and open it from there.",
       "naoConfigurado": "Phone notifications are not turned on for this site yet.",
       "precisaEntrar": "To get phone notifications, join Alumia first (18 or older, rules accepted)."
+    },
+    "silencio": {
+      "titulo": "Quiet hours",
+      "descricao": "During these hours your phone won't ring because of Alumia. Notifications wait and arrive together, as a single notification, when the quiet hours end. It still carries no names and no post text.",
+      "inicio": "Starts at",
+      "fim": "Ends at",
+      "salvar": "Save the hours",
+      "tirar": "Remove quiet hours",
+      "ligado": "Quiet from {inicio} to {fim}.",
+      "desligado": "No quiet hours: notifications arrive at any time.",
+      "igual": "Start and end must be different."
     }
   },
   "servidor": {

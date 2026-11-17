@@ -1,0 +1,254 @@
+{
+  "_rascunho": true,
+  "modo": {
+    "rotulo": "Timeline order",
+    "roda": "In a circle",
+    "chegada": "Order of arrival",
+    "rodaCurta": "In a circle: one open rule, the same for everyone",
+    "chegadaCurta": "Order of arrival: newest to oldest",
+    "comoMontada": "How the timeline is built",
+    "guardada": "Kept only on this device."
+  },
+  "porque": {
+    "aviso": "Moderation notice",
+    "ato": "Action soon",
+    "ajudou": "Has an answer that helped",
+    "avisoRegra": "At the top because it is a notice pinned by moderation.",
+    "atoRegra": "At the top because the date is within the next {horas} hours.",
+    "ajudouRegra": "Comes first in the block because the person who asked marked someone else's answer as the one that helped, in a conversation with {ajudou_piso} or more people answering.",
+    "interesse": "Close to your interests",
+    "interesseRegra": "Comes first in the block because it matches an interest you marked on this device."
+  },
+  "barra": {
+    "rotulo": "My timelines",
+    "montar": "Build a timeline",
+    "todas": "My timelines",
+    "sair": "Back to {aba}",
+    "naLinha": "Timeline: {nome}",
+    "temas": "My #topics"
+  },
+  "fim": {
+    "regraAcabou": "From here back, order of arrival",
+    "regraAcabouTexto": "The rule arranges the last {dias} days. Anything older comes newest to oldest."
+  },
+  "vazio": {
+    "linha": "Nothing in this timeline for now. The filter is shown below: check that it is what you wanted.",
+    "temas": "You do not follow any #topic yet. Open a topic and tap Follow, or pick one of the rising topics."
+  },
+  "fora": {
+    "titulo": "While you were away",
+    "desdeQuando": "Since {quando}",
+    "novosUm": "1 new post",
+    "novos": "{n} new posts",
+    "novosMuitos": "{n} or more new posts",
+    "criterio": "The first ones by the same rule as the timeline. Never by likes.",
+    "guardado": "The time of your last visit stays only on this device.",
+    "dispensar": "Dismiss",
+    "desligar": "Do not show again",
+    "abrir": "Open the conversation",
+    "nada": "Nothing new since your last visit."
+  },
+  "alta": {
+    "titulo": "Rising topics",
+    "criterio": "#topics used by {piso} or more people in the last {horas} hours, and by more people than in the {horas} hours before.",
+    "igual": "The list is the same for everyone. It shows no number, only the range.",
+    "faixa": {
+      "algumas": "a few people",
+      "dezenas": "dozens of people",
+      "centenas": "hundreds of people"
+    },
+    "nova": "new",
+    "cresceu": "grew",
+    "nada": "No topic is growing right now. Come back later.",
+    "erro": "Rising topics did not load.",
+    "seguir": "Follow",
+    "seguindo": "Following",
+    "abrir": "Open #{tag}",
+    "verCriterio": "How it gets here"
+  },
+  "linhas": {
+    "titulo": "My timelines",
+    "chamada": "Timelines made of open filters. You choose what goes in; nobody chooses for you.",
+    "aparelho": "Your timelines are kept only on this device. The server receives the filter when it searches and does not keep it.",
+    "prontas": "Start from a ready one",
+    "prontaCidade": "Only calls in my city",
+    "prontaCidadeTexto": "Calls and actions in the city you type. It is the city written in the call, never the position of the device.",
+    "prontaNucleos": "Only cells",
+    "prontaNucleosTexto": "Only what was posted in the cells you belong to.",
+    "prontaEstudo": "Only study and ENEM",
+    "prontaEstudoTexto": "Only the subject communities: questions, summaries and exercises.",
+    "prontaTema": "By #topic",
+    "prontaTemaTexto": "Only posts with the #topics you type.",
+    "nova": "New timeline",
+    "nome": "Timeline name",
+    "nomeAjuda": "Up to {n} characters. It shows in the Home bar.",
+    "base": "Where it comes from",
+    "bases": {
+      "tudo": "Everything I can see",
+      "seguindo": "People I follow",
+      "comunidades": "My communities and cells",
+      "temas": "The #topics I follow"
+    },
+    "tipos": "Kind of post",
+    "tiposTodos": "Any kind",
+    "tipo": {
+      "post": "Post",
+      "discussao": "Discussion",
+      "duvida": "Question",
+      "chamado": "Call and action",
+      "enquete": "Poll",
+      "aviso": "Notice"
+    },
+    "cidade": "City of the call",
+    "cidadeAjuda": "Write it as it appears in the calls: \"Recife\", \"São Paulo\".",
+    "tags": "#topics (separated by spaces)",
+    "tagsAjuda": "Up to 10. The post needs at least one.",
+    "nucleos": "Only from my cells",
+    "estudo": "Only study communities",
+    "criar": "Create timeline",
+    "cancelar": "Cancel",
+    "salvar": "Save",
+    "minhas": "Your timelines",
+    "nenhuma": "You have not built any timeline yet.",
+    "abrir": "Open",
+    "renomear": "Rename",
+    "subir": "Move up",
+    "descer": "Move down",
+    "fixar": "Put in the bar",
+    "desafixar": "Remove from the bar",
+    "naBarra": "in the bar",
+    "apagar": "Delete",
+    "apagarCerteza": "Delete the timeline \"{nome}\"?",
+    "apagada": "Timeline deleted.",
+    "criada": "Timeline created. It is already in the Home bar.",
+    "criadaSemBarra": "Timeline created. The Home bar is full ({n}): remove one to add this.",
+    "filtro": "What goes in",
+    "erros": {
+      "nome": "Give the timeline a name, up to {n} characters.",
+      "muitas": "Up to {n} timelines fit. Delete one to create another.",
+      "barraCheia": "Up to {n} timelines fit in the bar. Remove one first.",
+      "vazia": "This timeline filters nothing: it would be the Everything tab again. Choose at least one filter.",
+      "repetida": "There is already a timeline with that name.",
+      "cidade": "Type the city.",
+      "tags": "Type at least one #topic (letters, numbers and _)."
+    },
+    "temasSeguidos": "#topics I follow",
+    "temasSeguidosTexto": "Following a #topic is keeping up with the subject without following people. Nobody sees the topics you follow.",
+    "temaCampo": "Follow a #topic",
+    "temaSeguir": "Follow",
+    "temaDeixar": "Unfollow #{tag}",
+    "temaNenhum": "No topic followed yet.",
+    "temaInvalido": "A #topic has 2 to 40 letters, numbers or _.",
+    "verTemas": "Open the timeline of my #topics",
+    "primeira": "Build your first feed",
+    "primeiraTexto": "A feed is an open filter: where posts come from and what gets in. Build one from scratch or start from a ready-made one, just below."
+  },
+  "descricao": {
+    "base": {
+      "tudo": "everything you can see",
+      "seguindo": "people you follow",
+      "comunidades": "your communities and cells",
+      "temas": "the #topics you follow"
+    },
+    "tipos": "only {lista}",
+    "cidade": "with a call in {cidade}",
+    "tags": "with {lista}",
+    "nucleos": "only from your cells",
+    "estudo": "only from study communities",
+    "frase": "Goes in: {partes}."
+  },
+  "regra": {
+    "titulo": "How the timeline is built",
+    "chamada": "One rule, the same for everyone, written here and done in the database exactly as written. You can switch to order of arrival whenever you want.",
+    "versao": "Rule no. {n}",
+    "emRoda": "In a circle",
+    "emRodaTexto": "Order of arrival alone gets messy: someone who posts ten times in a row fills the screen, and tomorrow's call disappears under today's chat. In the circle, each person speaks in turn.",
+    "passos": [
+      {
+        "titulo": "What goes in",
+        "texto": "The top-level posts of the tab (or of the timeline you built), from the last {janela_dias} days, that you can see and have not muted. At most the {maximo} newest."
+      },
+      {
+        "titulo": "At the top, the notice",
+        "texto": "Up to {avisos} notices pinned by moderation, newest first."
+      },
+      {
+        "titulo": "Then, the action that is near",
+        "texto": "Up to {atos} calls and actions dated within the next {perto_horas} hours, nearest first. A cancelled action does not go up."
+      },
+      {
+        "titulo": "The rest, in blocks of {bloco_horas} hours",
+        "texto": "From the newest block to the oldest. Blocks start at 3 am, 9 am, 3 pm and 9 pm (Brasília time)."
+      },
+      {
+        "titulo": "Inside the block, first what you chose",
+        "texto": "If you answered the interests questionnaire, first come posts of a type you marked, with a #topic from your causes, from the study communities or from your groups. If you said you want more content, side conversations (a post that quotes another or calls someone by @, from people you don't follow, outside your communities and groups) move to the end of the block, without disappearing. Without the questionnaire, this step changes nothing."
+      },
+      {
+        "titulo": "In each group, first whoever got help",
+        "texto": "First come the conversations where the person who asked marked an answer from someone else as the one that helped, and that got answers from {ajudou_piso} or more different people. It is a mark from the person who asked, not a count; in a conversation with fewer than {ajudou_piso} people answering, the mark does not change the order."
+      },
+      {
+        "titulo": "Then, the circle",
+        "texto": "The newest post of each person; then the second of each person; and so on. In each round, newest first."
+      },
+      {
+        "titulo": "Cap per screen",
+        "texto": "In each screen of {tela} posts, at most {teto} from the same person. What goes over the cap moves to the next screen, without losing its turn."
+      },
+      {
+        "titulo": "The rule ends, order of arrival",
+        "texto": "Anything older than {janela_dias} days comes newest to oldest, with nothing else."
+      }
+    ],
+    "naoEntra": "What does not count",
+    "naoEntraLista": [
+      "Likes, support, \"useful\", reactions and \"I'm going\".",
+      "What you saved, clicked, opened or read, and for how long.",
+      "The time you come to the network.",
+      "Number of replies and number of followers.",
+      "Money: nobody pays to go up.",
+      "Who you are. Two people with the same choices see the same order."
+    ],
+    "entra": "What you choose that changes the timeline",
+    "entraLista": [
+      "Who you follow, your communities and your cells.",
+      "The #topics you follow.",
+      "What you muted: person, community, conversation or word.",
+      "The timelines you build, with the filter in plain sight.",
+      "The interests you marked in the questionnaire (only on your device)."
+    ],
+    "aparelho": "What stays only on your device",
+    "aparelhoTexto": "The choice between In a circle and Order of arrival, the timelines you built, the questionnaire interests and the time of your last visit. The server keeps none of them: the interests go along with each read and are forgotten.",
+    "repostes": "Reposts from people you follow only appear in Order of arrival.",
+    "deFora": "In the Following tab, people you follow on the Fediverse join the round as one more person: each of their posts goes into the 6-hour block in which it was written, after the highlights.",
+    "alta": "Rising topics",
+    "altaTexto": "#topics used by {alta_piso} or more different people in the last {alta_horas} hours, and by more people than in the {alta_horas} hours before. Only posts every member can see count. Up to {alta_maximo} topics, the one that grew most first; ties, alphabetical order. The list is the same for everyone and shows no number. Moderation can remove a topic from the list (a person's name, an insult, an attack campaign); the topic still exists.",
+    "fora": "While you were away",
+    "foraTexto": "It appears when you come back after 8 hours or more (24 or 4 hours, if you chose another pace in the questionnaire). It shows the first {fora_destaques} posts by the same rule, only with what arrived after your last visit.",
+    "respostas": "Replies in a conversation",
+    "respostasTexto": "You choose: oldest, newest, useful or unanswered. In \"useful\", the reply the asker marked as the one that helped comes first, then those marked useful by 3 or more people; a mark from 1 or 2 people changes nothing. In \"unanswered\", replies nobody has answered yet come first. Whoever opened the conversation can take a reply out of the thread without deleting it: it stays behind \"hidden replies\", which anyone can open.",
+    "prova": "How to check",
+    "provaTexto": "The rule is open source. The test that runs on every change proves that the same input gives the same order to two people with the same choices, and that liking, saving or replying does not change the order. It also proves that, without interests, the order is exactly the same as before, and that the interests are not stored anywhere.",
+    "voltar": "Back to Home",
+    "trocar": "Which order do you want?"
+  },
+  "conversa": {
+    "uteis": "Useful",
+    "semResposta": "Unanswered",
+    "regraUteis": "First the reply that helped the asker; then those marked useful by 3 or more people.",
+    "regraSemResposta": "First the replies nobody has answered yet.",
+    "ocultar": "Hide reply",
+    "mostrar": "Return to the thread",
+    "ocultada": "Reply hidden. It was not deleted, and nobody was notified.",
+    "devolvida": "Reply returned to the thread.",
+    "ocultadasUma": "1 reply hidden by whoever opened the conversation",
+    "ocultadas": "{n} replies hidden by whoever opened the conversation",
+    "ocultadasRegra": "Whoever opened the conversation took these replies out of the thread. They were not deleted."
+  },
+  "interesses": {
+    "titulo": "Your interests",
+    "texto": "The questionnaire stays only on this device. See what you marked, change it or delete it in Settings.",
+    "ajustar": "Adjust my interests"
+  }
+}

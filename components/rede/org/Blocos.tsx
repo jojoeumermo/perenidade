@@ -5,12 +5,13 @@
 // contas), a plenária (entrar na sala, mandar pergunta, fila em ordem de chegada) e os núcleos (pedir para entrar). Cada um recebe
 // as ações de fora (`AcoesDaOrg`): no perfil de verdade, o banco (lib/rede/cliente-org.ts); no perfil de exemplo, ações que só
 // mudam a tela e não guardam nada.
-import { useId, useState } from "react";
-import { dataCurta, escreverPessoas, faltaPara, linkSeguro, haQuanto } from "@/lib/rede/org/contagem";
+import { useEffect, useId, useState } from "react";
+import { dataComMes, dataCurta, escreverPessoas, faltaPara, linkSeguro, haQuanto } from "@/lib/rede/org/contagem";
 import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaOrg } from "@/lib/rede/textos-org";
 import { LIMITES, type ConsultaDaOrg, type NucleoDaOrg, type PlenariaDaOrg, type VotacaoDaOrg } from "@/lib/rede/tipos-org";
 import { clienteOrgB1 } from "@/lib/rede/cliente-org-b1";
+import { apurarConsulta } from "@/lib/rede/voto/cliente";
 import { useTextosDaOrgB1 } from "@/lib/rede/textos-org-b1";
 import { Botao } from "../ui/Botao";
 import { useAgora, useLerDeNovo } from "./b1/usar";
@@ -50,6 +51,11 @@ export function CartaoDaConsulta({ c, t, lang, acoes, aoVerNucleos }: { c: Consu
   const falta = c.situacao === "aberta" ? faltaPara(c.prazo) : null;
   const tempo = falta ? (falta.dias > 0 ? preencher(tc.dias, { d: falta.dias, h: falta.horas }) : preencher(tc.horas, { h: falta.horas })) : "";
   const texto = (oid: string) => c.opcoes.find((o) => o.id === oid)?.texto ?? oid;
+  // Fechada com cédulas cifradas ainda fechadas: pede ao servidor para abrir todas de uma vez (o resultado aparece na próxima
+  // leitura). Qualquer pessoa que veja a consulta pode pedir; abrir de novo não muda nada.
+  useEffect(() => {
+    if (c.situacao === "fechada" && c.apurar) void apurarConsulta(c.id);
+  }, [c.id, c.situacao, c.apurar]);
 
   function mover(i: number, d: -1 | 1) {
     setOrdem((o) => {
@@ -80,7 +86,7 @@ export function CartaoDaConsulta({ c, t, lang, acoes, aoVerNucleos }: { c: Consu
     <article className="al-consulta" aria-labelledby={`${id}-p`}>
       <div className="al-consulta-topo">
         <span className={`al-cond al-consulta-estado ${c.situacao === "fechada" ? "al-consulta-estado-fechada" : ""}`}>{c.situacao === "aberta" ? tc.aberta : tc.fechada}</span>
-        <span>{c.situacao === "aberta" ? (tempo ? preencher(tc.fechaEm, { tempo }) : "") : preencher(tc.fechou, { data: dataCurta(c.prazo, lang) })}</span>
+        <span>{c.situacao === "aberta" ? (tempo ? preencher(tc.fechaEm, { tempo }) : "") : preencher(tc.fechou, { data: dataComMes(c.prazo, lang) })}</span>
       </div>
       <h3 id={`${id}-p`}>{c.pergunta}</h3>
       <p className="al-consulta-compromisso">
@@ -93,7 +99,12 @@ export function CartaoDaConsulta({ c, t, lang, acoes, aoVerNucleos }: { c: Consu
 
       {c.situacao === "fechada" ? (
         <>
-          <BarrasDaConsulta opcoes={c.opcoes} rotulo={tc.resultado} barra={tc.barra} />
+          {/* O banco só manda as proporções com quórum e com 3 votos ou mais; sem elas, nada de barra vazia. */}
+          {c.opcoes.some((o) => o.proporcao !== null) ? (
+            <BarrasDaConsulta opcoes={c.opcoes} rotulo={tc.resultado} barra={tc.barra} />
+          ) : c.quorumAtingido === false ? null : (
+            <p className="al-consulta-nota">{tc.semResultado}</p>
+          )}
           <p className="al-consulta-nota">
             {preencher(tc.votantes, { pessoas: escreverPessoas(c.votantes, tc.pessoas, lang) })} {c.quorumAtingido === null ? "" : c.quorumAtingido ? tc.quorumOk : tc.quorumNao}
           </p>

@@ -148,6 +148,24 @@ export function handleDoWebfinger(resource: string, dominio: string | readonly s
   }
 }
 
+/** Um domínio de verdade: rótulos de letras, números e hífen, e o último começando por letra (nada de endereço de máquina). */
+const DOMINIO_DE_FORA = /^(?=.{4,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z][a-z0-9-]{0,61}[a-z0-9]$/;
+
+/**
+ * A conta de um pedido WebFinger num domínio que NÃO é da Alumia ("acct:nome@dominio-da-org"): o caso da organização com selo que
+ * provou um domínio próprio e redireciona o /.well-known/webfinger do site dela para cá. Aqui só o formato: quem decide se o
+ * domínio está verificado, e para quem, é o banco (ação org_dominio). Nada de endereço de máquina, porta, localhost nem nome fora
+ * da regra do @nome da Alumia, e ninguém abre conexão com o domínio pedido.
+ */
+export function contaDeOutroDominio(resource: string, dominios: readonly string[]): { usuario: string; dominio: string } | null {
+  const m = /^acct:@?([a-z0-9_]{3,20})@([^@\s/?#:[\]]{4,254})$/i.exec(resource.trim());
+  if (!m) return null;
+  const dominio = m[2].toLowerCase().replace(/\.$/, "");
+  if (!DOMINIO_DE_FORA.test(dominio) || dominios.map((d) => d.toLowerCase()).includes(dominio)) return null;
+  const usuario = m[1].toLowerCase();
+  return HANDLE_FED.test(usuario) ? { usuario, dominio } : null;
+}
+
 /** O slug de comunidade de um pedido WebFinger (o Lemmy pergunta "acct:slug@dominio"; "!slug@dominio" é só como ele mostra). */
 export function slugDoWebfinger(resource: string, dominios: readonly string[]): string | null {
   const conta = lerConta(resource.replace(/^(acct:)?!/, "$1"));

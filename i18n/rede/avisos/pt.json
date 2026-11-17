@@ -24,7 +24,10 @@
     "conversa_seguida": {"um": "{a} respondeu numa conversa que você segue.", "vezes": "{a} respondeu {n} vezes numa conversa que você segue.", "varios": "{a} e mais {n} responderam numa conversa que você segue.", "anonimo": "Há uma resposta nova numa conversa que você segue.", "anonimoVarios": "{n} pessoas responderam numa conversa que você segue."},
     "ajudou": {"um": "Sua resposta ajudou quem abriu a conversa.", "vezes": "Sua resposta ajudou quem abriu a conversa.", "varios": "Suas respostas ajudaram em {n} conversas.", "anonimo": "Sua resposta ajudou quem abriu a conversa.", "anonimoVarios": "Suas respostas ajudaram em {n} conversas."},
     "reacao_story": {"um": "Alguém reagiu ao seu story.", "vezes": "Seu story recebeu {n} reações.", "varios": "Seu story recebeu reações.", "anonimo": "Alguém reagiu ao seu story.", "anonimoVarios": "Seu story recebeu reações."},
-    "lembrete": {"um": "Você pediu para lembrar deste post agora.", "vezes": "Você pediu para lembrar deste post agora.", "varios": "Você pediu para lembrar destes posts agora.", "anonimo": "Você pediu para lembrar deste post agora.", "anonimoVarios": "Você pediu para lembrar destes posts agora."}
+    "lembrete": {"um": "Você pediu para lembrar deste post agora.", "vezes": "Você pediu para lembrar deste post agora.", "varios": "Você pediu para lembrar destes posts agora.", "anonimo": "Você pediu para lembrar deste post agora.", "anonimoVarios": "Você pediu para lembrar destes posts agora."},
+    "marcacao": {"um":"{a} marcou você num post, ou pediu para marcar. O pedido só aparece se você aceitar.","vezes":"{a} marcou você num post, ou pediu para marcar. O pedido só aparece se você aceitar.","varios":"{a} e mais {n} marcaram você, ou pediram para marcar.","anonimo":"Alguém marcou você num post, ou pediu para marcar. O pedido só aparece se você aceitar.","anonimoVarios":"{n} pessoas marcaram você, ou pediram para marcar."},
+    "estou_bem": {"um":"Recado de {a}, contato de segurança: está bem. O recado some em 24 horas.","vezes":"Recado de {a}, contato de segurança: está bem. O recado some em 24 horas.","varios":"Recados dos seus contatos de segurança: estão bem.","anonimo":"Recado de um contato de segurança: está bem. O recado some em 24 horas.","anonimoVarios":"Recados dos seus contatos de segurança: estão bem."},
+    "detido": {"um":"Recado urgente de {a}, contato de segurança: foi detido. Abra o Modo ato para ver o que fazer.","vezes":"Recado urgente de {a}, contato de segurança: foi detido. Abra o Modo ato para ver o que fazer.","varios":"Recados urgentes de contatos de segurança: foram detidos. Abra o Modo ato para ver o que fazer.","anonimo":"Recado urgente de um contato de segurança: foi detido. Abra o Modo ato para ver o que fazer.","anonimoVarios":"Recados urgentes de contatos de segurança: foram detidos. Abra o Modo ato para ver o que fazer."}
   },
   "prefs": {
     "titulo": "Como você quer ser avisado",
@@ -46,7 +49,10 @@
         "ajudou": "Quando sua resposta ajudou (nunca quem marcou)",
         "ato": "Atos que você acompanha (farol, corrente, consulta)",
         "reacao_story": "Reações aos seus stories (nunca quem reagiu)",
-        "lembrete": "Lembretes: os que você marcou e os dos atos que você confirmou"
+        "lembrete": "Lembretes: os que você marcou e os dos atos que você confirmou",
+        "marcacao": "Marcações em posts com imagem (inclusive as que esperam o seu aceite)",
+        "estou_bem": "Recados “Estou bem” dos seus contatos de segurança",
+        "detido": "Recados “Fui detido” dos seus contatos de segurança"
       }
     },
     "resumo": {
@@ -56,7 +62,8 @@
       "ver": "Ver o que seria enviado agora",
       "nada": "Nada a enviar agora: você não tem avisos novos.",
       "fechar": "Fechar a prévia",
-      "precisaEntrar": "Para receber e-mail da Alumia, entre primeiro na Alumia (18 anos ou mais, com as normas aceitas)."
+      "precisaEntrar": "Para receber e-mail da Alumia, entre primeiro na Alumia (18 anos ou mais, com as normas aceitas).",
+      "outro": "É um e-mail. O resumo das comunidades (títulos públicos das comunidades que você escolher) é outro, ligado à parte em Segurança > Pontes."
     },
     "push": {
       "titulo": "Aviso no celular",
@@ -71,6 +78,17 @@
       "ios": "No iPhone e no iPad, primeiro adicione o site à tela de início (Compartilhar → Adicionar à Tela de Início) e abra por lá.",
       "naoConfigurado": "O aviso no celular ainda não foi ligado neste site.",
       "precisaEntrar": "Para avisar no celular, entre primeiro na Alumia (18 anos ou mais, com as normas aceitas)."
+    },
+    "silencio": {
+      "titulo": "Horário de silêncio",
+      "descricao": "Nesse horário o celular não toca por causa da Alumia. Os avisos esperam e chegam juntos, num aviso só, quando o horário acaba. O aviso continua sem nome e sem trecho de post.",
+      "inicio": "Começa às",
+      "fim": "Termina às",
+      "salvar": "Guardar o horário",
+      "tirar": "Tirar o horário de silêncio",
+      "ligado": "Silêncio das {inicio} às {fim}.",
+      "desligado": "Sem horário de silêncio: o aviso chega a qualquer hora.",
+      "igual": "O começo e o fim precisam ser diferentes."
     }
   },
   "servidor": {

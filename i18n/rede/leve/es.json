@@ -1,0 +1,121 @@
+{
+  "titulo": "Ligera y a tu ritmo",
+  "lead": "Para quien tiene pocos datos móviles, mala conexión o poco tiempo. Lo que eliges aquí se queda en este aparato. Al servidor solo van lo que publiques y el horario de silencio de los avisos.",
+  "carimbo": "En este aparato",
+  "secoes": "Partes de esta página",
+  "atalhos": {
+    "economia": "Datos",
+    "escrever": "Escribir",
+    "linha": "Solo texto",
+    "tempo": "Tiempo",
+    "silencio": "Silencio"
+  },
+  "economia": {
+    "titulo": "Ahorro de datos",
+    "interruptor": "Alumia ligera",
+    "dica": "La foto de una publicación se vuelve un mosaico y solo se abre cuando la tocas; el video solo se reproduce cuando lo pides. Sin animación y con las letras que ya tiene el aparato.",
+    "automatico": "Tu aparato pidió ahorrar datos, así que Alumia ligera empezó encendida. Puedes apagarla aquí.",
+    "verImagem": "Toca para ver la imagen",
+    "ligada": "Encendida",
+    "desligada": "Apagada"
+  },
+  "linha": {
+    "titulo": "Inicio solo en texto",
+    "dica": "La línea sin fotos, sin video y sin adornos. Cada imagen solo carga si la tocas.",
+    "carregando": "Cargando publicaciones…",
+    "vazio": "Nada en esta línea por ahora.",
+    "mais": "Mostrar más",
+    "erro": "La línea no cargó.",
+    "semRede": "Sin conexión ahora. Cuando vuelva, toca Intentar de nuevo.",
+    "tentar": "Intentar de nuevo",
+    "naComunidade": "en {comunidade}",
+    "imagem": "Ver la imagen",
+    "imagens": "Ver la imagen {n} de {total}",
+    "semDescricao": "Imagen sin descripción",
+    "abrir": "Abrir la publicación",
+    "aviso": "Aviso de contenido: {aviso}",
+    "mostrar": "Mostrar de todos modos",
+    "esconder": "Ocultar de nuevo",
+    "ato": "Convocatoria a un acto",
+    "visitante": "Entra con tu cuenta para ver la línea."
+  },
+  "escrever": {
+    "titulo": "Escribir ligero",
+    "dica": "Sin conexión, la publicación queda guardada solo en este aparato y sale sola cuando vuelve la conexión, con Alumia abierta. Nada queda esperando en el servidor.",
+    "rotulo": "¿Qué quieres decir?",
+    "publico": "Quién puede ver",
+    "membros": "Quien tiene cuenta en Alumia",
+    "seguidores": "Solo quien te sigue",
+    "publicar": "Publicar",
+    "guardar": "Guardar para que salga cuando vuelva la conexión",
+    "comRede": "Con conexión: la publicación sale ahora.",
+    "semRede": "Sin conexión: la publicación queda guardada en este aparato.",
+    "guardado": "Guardada en este aparato. Sale sola cuando vuelva la conexión, mientras Alumia esté abierta aquí.",
+    "repetido": "Este texto ya estaba guardado. No lo guardamos dos veces.",
+    "publicado": "Publicado.",
+    "abrirPost": "Ver la publicación",
+    "naoSaiu": "No salió. {motivo}",
+    "vazio": "Escribe algo antes.",
+    "longo": "Pasó de {max} caracteres.",
+    "cheia": "Ya hay {max} publicaciones esperando en este aparato. Envía o borra alguna antes.",
+    "semEspaco": "El aparato no tiene espacio para guardar. No se guardó nada.",
+    "contador": "{n} de {max}",
+    "naoMembro": "Para escribir, entra con tu cuenta aprobada.",
+    "soTexto": "Aquí va solo texto. Fotos, encuestas y actos salen por el Escribir de siempre, con conexión.",
+    "previa": "En la vista previa no se publica nada: la publicación solo entra en la cola de este aparato."
+  },
+  "fila": {
+    "titulo": "Esperando la conexión",
+    "vazia": "Nada esperando en este aparato.",
+    "guardado": "Guardada hace {quando}",
+    "publicoMembros": "Quien tiene cuenta",
+    "publicoSeguidores": "Quien te sigue",
+    "enviar": "Enviar ahora",
+    "apagar": "Borrar",
+    "apagarConfirma": "¿Borrar esta publicación guardada? Desaparece de este aparato y no sale.",
+    "parado": "Guardada hace más de {dias} días: no sale sola. Envíala ahora o bórrala.",
+    "recusado": "El servidor la rechazó. {motivo} Bórrala y escribe de nuevo, o envíala de nuevo.",
+    "outraConta": "Guardada por otra cuenta en este aparato. Solo sale cuando esa cuenta entre.",
+    "enviando": "Enviando…",
+    "saiu": "Salió la publicación que estaba guardada en este aparato.",
+    "saiuVarios": "Salieron {n} publicaciones que estaban guardadas en este aparato.",
+    "naoSaiu": "Una publicación guardada no salió. Mira en Ligera y a tu ritmo.",
+    "ver": "Ver",
+    "fechar": "Cerrar",
+    "sairRapido": "La Salida rápida borra esta cola junto con todo lo demás que Alumia guarda en el aparato."
+  },
+  "tempo": {
+    "titulo": "Tiempo de uso",
+    "dica": "Los relojes son solo de este aparato: sin marcador, sin historial, nada va al servidor.",
+    "parar": "Hora de parar",
+    "pararDica": "Un recordatorio por noche, a la hora que elijas, hasta cinco horas después.",
+    "hora": "A las",
+    "guardar": "Guardar la hora",
+    "tirar": "Quitar",
+    "ligado": "Recordatorio a las {hora}.",
+    "desligado": "Sin hora de parar.",
+    "lembreteTitulo": "Pediste parar a las {hora}",
+    "lembreteTexto": "La lucha sigue mañana. Descansar también es cuidar del colectivo.",
+    "fechar": "Cerrar",
+    "salvo": "Guardado en este aparato."
+  },
+  "silencio": {
+    "titulo": "Silencio de los avisos",
+    "dica": "Eliges la hora en el reloj de este aparato. El servidor guarda solo los minutos del día, sin huso horario y sin ciudad.",
+    "abrir": "Todos los ajustes de avisos",
+    "visitante": "Entra con tu cuenta para elegir el horario de silencio."
+  },
+  "ajustes": {
+    "titulo": "Ligera y a tu ritmo",
+    "texto": "Ahorro de datos, Inicio solo en texto, publicaciones que esperan la conexión, hora de parar y silencio de los avisos.",
+    "abrir": "Abrir Ligera y a tu ritmo"
+  },
+  "offline": {
+    "aviso": "Sin conexión ahora: no se envió nada. El texto sigue aquí. Para que salga solo cuando vuelva la conexión, usa Escribir ligero, en Ligera y a tu ritmo.",
+    "jaSaiu": "Este mismo texto acaba de salir, guardado en este aparato, cuando volvió la conexión. No lo publicamos de nuevo."
+  },
+  "erros": {
+    "desconhecido": "El servidor no dijo el motivo.",
+    "rede": "Sin conexión."
+  }
+}

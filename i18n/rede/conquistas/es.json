@@ -1,0 +1,145 @@
+{
+  "_rascunho": true,
+  "aba": "Logros",
+  "carregando": "Cargando…",
+  "tentar": "Intentar de nuevo",
+  "ajustes": {
+    "titulo": "Estudio y logros",
+    "texto": "Las medallas y la franja de ayuda aparecen en tu perfil solo si las activas. El mural de aprobados es solo para quien se inscribe.",
+    "conquistas": "Mis logros",
+    "mural": "Mural de aprobados"
+  },
+  "tela": {
+    "carimbo": "Logros",
+    "titulo": "Mis logros",
+    "lead": "Medallas por lo que hiciste: terminar rutas, corregir redacciones, dar tutoría. Cada una nace oculta y solo aparece en tu perfil si la activas. No hay marcador ni comparación entre personas.",
+    "medalhasTitulo": "Medallas",
+    "vazio": "Todavía no tienes medallas. Llegan cuando terminas una ruta, corriges redacciones en la corrección entre pares o das tutoría.",
+    "mostrar": "Mostrar en el perfil",
+    "noPerfil": "En tu perfil",
+    "escondida": "Solo tú la ves",
+    "apagar": "Borrar",
+    "apagarTitulo": "¿Borrar esta medalla?",
+    "apagarTexto": "Desaparece para siempre, junto con lo que ya habías hecho para ella.",
+    "apagarSim": "Borrar",
+    "nao": "Volver",
+    "feitos": "Ya hiciste {n}.",
+    "faltam": "Faltan {n} para el próximo nivel.",
+    "topo": "Último nivel.",
+    "nivel": "Nivel {n} de 3",
+    "verMural": "Ver el mural de aprobados"
+  },
+  "trilhas": {
+    "titulo": "Rutas terminadas",
+    "lead": "Marca las rutas que terminaste. Las sugerencias vienen de las clases concluidas en este dispositivo y no salen de él sin que toques.",
+    "sugestoes": "Estudiadas en este dispositivo",
+    "nenhuma": "Todavía no hay clases concluidas en este dispositivo.",
+    "terminei": "Terminé",
+    "marcada": "Marcada",
+    "desmarcar": "Desmarcar",
+    "outra": "Otra ruta",
+    "outraDica": "El final de la dirección de la ruta, como historia-do-brasil",
+    "escolher": "Elige la ruta",
+    "marcar": "Marcar"
+  },
+  "medalhas": {
+    "trilha": {
+      "rotulo": "Ruta",
+      "nome": "Terminó {trilha}",
+      "como": "La marcas tú cuando terminas la ruta."
+    },
+    "redacao": {
+      "rotulo": "Redacción",
+      "niveis": ["Primera redacción corregida", "Corrige redacciones en la ronda", "Tribunal de redacción de la ronda"],
+      "como": "Cuenta cada redacción que corriges y devuelves en la corrección entre pares."
+    },
+    "monitoria": {
+      "rotulo": "Tutoría",
+      "niveis": ["Primera tutoría dada", "Tutora de la ronda", "Tutoría de referencia"],
+      "como": "Cuenta cada tutoría agendada que das."
+    }
+  },
+  "faixa": {
+    "titulo": "Franja de ayuda",
+    "lead": "En lugar de puntos, una franja escrita. Cuenta las conversaciones en que quien preguntó marcó tu respuesta como la que ayudó, o la aceptó, en los últimos 12 meses. Cada conversación cuenta una vez, y tu propia pregunta no cuenta.",
+    "regra": "La regla, igual para todo el mundo",
+    "desligada": "Desactivada: la franja no aparece en tu perfil.",
+    "ligada": "Activada: la franja aparece en tu perfil, sin número.",
+    "ligar": "Mostrar la franja en el perfil",
+    "desligar": "Ocultar la franja",
+    "suaHoje": "Tu franja hoy",
+    "nenhumaAinda": "Todavía no tienes franja: la primera empieza en 3 conversaciones."
+  },
+  "faixas": {
+    "semente": { "nome": "Semilla de la ronda", "texto": "de 3 a 9 conversaciones" },
+    "apoio": { "nome": "Apoyo de la ronda", "texto": "de 10 a 29 conversaciones" },
+    "referencia": { "nome": "Referencia de la ronda", "texto": "30 conversaciones o más" }
+  },
+  "perfil": {
+    "titulo": "Logros",
+    "faixa": "Franja de ayuda",
+    "editar": "Elegir lo que aparece"
+  },
+  "mural": {
+    "carimbo": "Aprobados",
+    "titulo": "Mural de aprobados",
+    "lead": "Quien aprobó el ENEM o el examen de ingreso y quiso contarlo. Solo entra quien se inscribe, con el nombre del perfil o con un seudónimo solo para el mural, y sale cuando quiere.",
+    "vazio": "Nadie se inscribió todavía. ¿Aprobaste? Cuéntalo aquí.",
+    "mais": "Ver más",
+    "voce": "Tú",
+    "mes": "Entró en {mes}",
+    "entrar": "Inscribirme",
+    "editar": "Cambiar mi inscripción",
+    "sair": "Salir del mural",
+    "sairTitulo": "¿Salir del mural?",
+    "sairTexto": "Tu inscripción desaparece al instante. Puedes inscribirte de nuevo después.",
+    "sairSim": "Salir",
+    "verPerfil": "Ver el perfil",
+    "form": {
+      "titulo": "Tu inscripción",
+      "como": "Cómo aparecer",
+      "perfil": "Con el nombre de mi perfil, con enlace a él",
+      "codinome": "Con un seudónimo solo para el mural, sin enlace",
+      "codinomeCampo": "Seudónimo",
+      "curso": "Carrera (opcional)",
+      "cursoDica": "Como Medicina o Pedagogía",
+      "instituicao": "Institución (opcional)",
+      "recado": "Mensaje (opcional)",
+      "recadoDica": "Hasta 140 letras. Sin teléfono, correo ni documento.",
+      "salvar": "Guardar",
+      "cancelar": "Cancelar"
+    },
+    "tirar": "Quitar del mural",
+    "tirarTitulo": "¿Quitar esta inscripción?",
+    "tirarMotivo": "Motivo (va al registro y a la persona)",
+    "tirarSim": "Quitar"
+  },
+  "aula": {
+    "topicoCarimbo": "Tema de la clase",
+    "abrirTopico": "Abrir el tema de esta clase",
+    "criarTopico": "Empezar el tema de esta clase",
+    "semTopico": "Esta clase todavía no tiene tema. Quien llega primero lo empieza; quien llega después cae en él.",
+    "outros": "Conversaciones sobre esta clase"
+  },
+  "ok": {
+    "salvo": "Guardado.",
+    "saiu": "Saliste del mural.",
+    "apagada": "Medalla borrada.",
+    "tirada": "Inscripción quitada."
+  },
+  "erros": {
+    "dado_pessoal": "Quita teléfono, correo o documento del texto.",
+    "invalido:codinome": "El seudónimo necesita de 2 a 40 letras, sin ofensas.",
+    "invalido:curso": "La carrera necesita de 2 a 80 letras, sin ofensas.",
+    "invalido:instituicao": "La institución necesita de 2 a 80 letras, sin ofensas.",
+    "invalido:recado": "El mensaje necesita de 2 a 140 letras, sin ofensas.",
+    "invalido:trilha": "Esa dirección de ruta no sirve: usa solo minúsculas, números y guion.",
+    "invalido:muitas": "Ya marcaste el máximo de rutas (60).",
+    "invalido:motivo": "Escribe el motivo, con 3 a 300 letras.",
+    "sem_permissao": "Solo la mediación puede hacer esto.",
+    "nao_encontrado": "No encontrado.",
+    "confirme_codinome": "Elige antes tu seudónimo en Alumia.",
+    "muitos_pedidos": "Demasiados cambios seguidos. Espera un poco.",
+    "generico": "No funcionó ahora. Intenta de nuevo."
+  }
+}

@@ -7,7 +7,7 @@
 // só seguir com o que a origem confirma. Delete repassado só vale se a origem responde 404/410. Sem "@/". Só roda no servidor.
 import { conferirAssinatura, type MotivoDaRecusa } from "../assinatura";
 import { atorRemoto, banco, buscarDocumento, buscarDocumentoComStatus, type AtorRemoto } from "../servidor";
-import { dominio, idDe, TIPOS_DE_NOTA, urlHttps } from "./nota";
+import { autorDe, dominio, idDe, TIPOS_DE_NOTA, urlHttps } from "./nota";
 
 export type ResultadoDoRepasse = { ok: true; repassador: AtorRemoto } | { ok: false; status: number; motivo: MotivoDaRecusa | "chave_desconhecida" | "instancia_bloqueada" };
 
@@ -40,7 +40,8 @@ export async function conferirRepassador({
   ler: (nome: string) => string | null;
   corpo: Uint8Array;
 }): Promise<ResultadoDoRepasse> {
-  if (await banco<boolean>("bloqueado", { url: chaveId }).catch(() => false)) return { ok: false, status: 403, motivo: "instancia_bloqueada" };
+  // Banco fora do ar conta como bloqueado: na dúvida, o repasse não entra.
+  if (await banco<boolean>("bloqueado", { url: chaveId }).catch(() => true)) return { ok: false, status: 403, motivo: "instancia_bloqueada" };
   const repassador = await donoDaChave(chaveId);
   if (!repassador?.chave_publica) return { ok: false, status: 401, motivo: "chave_desconhecida" };
   const r = conferirAssinatura({ metodo, caminho, ler, corpo, chavePublica: repassador.chave_publica });
@@ -55,7 +56,8 @@ export async function buscarNaOrigem(id: string): Promise<{ status: number; doc:
   return { status: r.status, doc: r.doc };
 }
 
-const autorDaNota = (doc: Record<string, unknown>) => (Array.isArray(doc.attributedTo) ? idDe(doc.attributedTo[0]) : idDe(doc.attributedTo));
+/** Quem escreveu a nota (a pessoa, antes do canal do PeerTube: autorDe). */
+const autorDaNota = (doc: Record<string, unknown>) => autorDe(doc);
 
 /**
  * A atividade repassada, refeita só com o que a origem confirma; nulo quando não dá para confirmar (e nada é gravado).

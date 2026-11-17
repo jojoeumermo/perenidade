@@ -1,0 +1,157 @@
+{
+  "titulo": "Que voulez-vous sur Alumia ?",
+  "chamada": "Cinq questions rapides. Grâce à elles, le fil En ronde place d'abord, dans chaque bloc de 6 heures, ce qui vous concerne. Rien ne disparaît : seul l'ordre change.",
+  "aparelho": "Les réponses restent seulement sur cet appareil. À chaque lecture, le fil reçoit vos centres d'intérêt comme filtre et le serveur ne garde rien. Modifiez-les ou effacez-les quand vous voulez, dans Réglages.",
+  "passo": "Étape {n} sur {total}",
+  "voltar": "Retour",
+  "proximo": "Suivant",
+  "verResumo": "Voir le résumé",
+  "concluir": "Terminé",
+  "pularPergunta": "Passer celle-ci",
+  "pularTudo": "Passer le questionnaire",
+  "perguntas": {
+    "objetivos": {
+      "titulo": "Qu'êtes-vous venu faire ici ?",
+      "ajuda": "Cochez autant que vous voulez."
+    },
+    "pautas": {
+      "titulo": "Quelles causes vous animent ?",
+      "ajuda": "Chaque cause fait monter ses #thèmes en haut du bloc."
+    },
+    "estudos": {
+      "titulo": "Et les études ?",
+      "ajuda": "Si ce n'est pas votre cas, passez."
+    },
+    "conversa": {
+      "titulo": "Plus de conversation ou plus de contenu ?",
+      "ajuda": "Un seul choix."
+    },
+    "ritmo": {
+      "titulo": "À quel rythme ?",
+      "ajuda": "Cela change seulement quand la bande « Pendant votre absence » apparaît."
+    }
+  },
+  "objetivos": {
+    "militancia": {
+      "nome": "Militantisme et organisation",
+      "texto": "Mouvements, campagnes, appels"
+    },
+    "atos": {
+      "nome": "Actions et agenda",
+      "texto": "Ce qui va se passer et où"
+    },
+    "nucleo": {
+      "nome": "Noyau et organisation locale",
+      "texto": "Ce qui vient de mes noyaux"
+    },
+    "amizades": {
+      "nome": "Rencontrer des gens et se faire des amis",
+      "texto": "Parler avec qui lutte à vos côtés"
+    },
+    "estudo": {
+      "nome": "Études",
+      "texto": "ENEM, concours d'entrée, formation, lecture"
+    },
+    "debate": {
+      "nome": "Débat",
+      "texto": "Discussions et sondages"
+    },
+    "noticias": {
+      "nome": "Actualités",
+      "texto": "Ce qui se passe"
+    },
+    "cultura": {
+      "nome": "Culture et art",
+      "texto": "Musique, poésie, art de rue"
+    }
+  },
+  "pautas": {
+    "moradia": "Logement",
+    "transporte": "Transports",
+    "educacao": "Éducation",
+    "saude": "Santé",
+    "trabalho": "Travail",
+    "meio_ambiente": "Environnement",
+    "antirracismo": "Antiracisme",
+    "feminismo": "Féminisme",
+    "lgbtqia": "LGBTQIA+",
+    "indigena": "Peuples autochtones",
+    "terra": "Terre et réforme agraire",
+    "cultura": "Culture",
+    "juventude": "Jeunesse",
+    "direitos_humanos": "Droits humains et mémoire"
+  },
+  "estudos": {
+    "enem": "ENEM",
+    "vestibular": "Concours d'entrée",
+    "formacao": "Formation politique",
+    "leitura": "Lecture et livres",
+    "idiomas": "Langues"
+  },
+  "conversas": {
+    "conversa": {
+      "nome": "Plus de conversation",
+      "texto": "Tout dans la ronde, y compris les conversations libres entre quelques personnes."
+    },
+    "equilibrio": {
+      "nome": "Moitié-moitié",
+      "texto": "La ronde telle qu'elle est."
+    },
+    "conteudo": {
+      "nome": "Plus de contenu",
+      "texto": "Les conversations parallèles de personnes que vous ne suivez pas descendent à la fin du bloc. Elles ne disparaissent pas."
+    }
+  },
+  "ritmos": {
+    "pouco": {
+      "nome": "Peu",
+      "texto": "Je passe de temps en temps. La bande de ce qui est arrivé apparaît après 24 heures d'absence."
+    },
+    "medio": {
+      "nome": "Moyen",
+      "texto": "La bande apparaît après 8 heures d'absence."
+    },
+    "muito": {
+      "nome": "Beaucoup",
+      "texto": "Je suis toujours là. La bande apparaît après 4 heures d'absence."
+    }
+  },
+  "resumo": {
+    "titulo": "Voici votre fil",
+    "nada": "Rien de coché qui change l'ordre : votre fil est le même que celui de tout le monde.",
+    "sobem": "Montent dans votre bloc",
+    "tipos": "Types",
+    "temas": "#thèmes",
+    "estudo": "Les communautés d'étude",
+    "nucleos": "Ce qui vient de vos noyaux",
+    "conteudo": "Les conversations parallèles de personnes que vous ne suivez pas descendent à la fin du bloc.",
+    "ritmo": "La bande « Pendant votre absence » apparaît après {horas} heures d'absence.",
+    "como": "Comment le fil est construit",
+    "tiposNomes": {
+      "chamado": "appels et actions",
+      "duvida": "questions",
+      "discussao": "discussions",
+      "enquete": "sondages"
+    }
+  },
+  "ajustes": {
+    "titulo": "Centres d'intérêt dans le fil",
+    "texto": "Ce que vous avez coché dans le questionnaire. Cela reste seulement sur cet appareil et change l'ordre du fil En ronde.",
+    "vazio": "Vous n'avez pas encore répondu, ou vous avez effacé vos réponses. Votre fil est le même que celui de tout le monde.",
+    "responder": "Répondre au questionnaire",
+    "editar": "Modifier les centres d'intérêt",
+    "apagar": "Effacer les réponses",
+    "apagado": "Réponses effacées de cet appareil.",
+    "salvo": "Centres d'intérêt enregistrés sur cet appareil.",
+    "outroAparelho": "Sur un autre appareil, les réponses n'apparaissent pas : répondez à nouveau là-bas, si vous voulez."
+  },
+  "cadastro": {
+    "titulo": "Avant d'envoyer : que voulez-vous sur Alumia ?",
+    "nota": "Facultatif. Cela ne part pas avec la demande : cela reste seulement sur cet appareil.",
+    "pronto": "Centres d'intérêt enregistrés sur cet appareil. Il ne reste qu'à envoyer la demande.",
+    "pulado": "Questionnaire passé. Vous pourrez répondre plus tard, dans Réglages.",
+    "refazer": "Modifier les réponses",
+    "continuar": "Continuer",
+    "voltarAoPedido": "Revenir à la demande"
+  }
+}

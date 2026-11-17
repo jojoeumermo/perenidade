@@ -1,0 +1,14 @@
+{
+  "aviso": "Os links são conferidos pelo Google Safe Browsing.",
+  "comoFunciona": "Como funciona",
+  "bloqueio": "Não dá para publicar com este link: o Google Safe Browsing marca {host} como {tipo}. Tire o link e publique de novo.",
+  "varios": "Não dá para publicar com estes links: o Google Safe Browsing marca {hosts} como perigosos. Tire os links e publique de novo.",
+  "leitor": "link barrado: o Google Safe Browsing marca {host} como {tipo}",
+  "tipos": {
+    "MALWARE": "página que instala programa malicioso",
+    "SOCIAL_ENGINEERING": "página de golpe, que imita outra para roubar senha ou dado",
+    "UNWANTED_SOFTWARE": "página que instala programa indesejado",
+    "POTENTIALLY_HARMFUL_APPLICATION": "aplicativo que pode causar dano",
+    "outro": "perigosa"
+  }
+}

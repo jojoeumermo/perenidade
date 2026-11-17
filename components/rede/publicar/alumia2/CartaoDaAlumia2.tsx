@@ -11,16 +11,18 @@ import { preencher } from "@/lib/rede/preencher";
 import { enderecoParaCompartilhar, podeRepostar, servidorDoFediverso, tempoCurto } from "@/lib/rede/publicar/alumia2";
 import { jaRepostei } from "@/lib/rede/publicar/repostados";
 import { avisoAbreSozinho, marcarAvisoQueAbre } from "@/lib/rede/publicar/b1";
+import { leiaAntesLigado, perguntarAntesDeRepostar, primeiroLink } from "@/lib/rede/publicar/vida";
+import { jaLido } from "@/lib/rede/tipos-b1";
 import { enqueteDeExemplo } from "@/lib/rede/publicar/exemplos-alumia2";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Post } from "@/lib/rede/tipos";
-import { TextoComMencoes } from "../../conversa/TextoComMencoes";
-import { TextoComTags } from "../../descoberta/TextoComTags";
+import { TextoDoPost } from "../../texto/TextoDoPost";
 import { ENCAIXES } from "../../encaixes";
 import { codigoDoErro, textoDoErro } from "../../erros";
 import { AcoesDeCuidado, RotuloDoPost } from "../../moderacao/NoCartao";
 import { Avatar16 } from "../../ui/Avatar16";
 import { Pilula } from "../../ui/Pilula";
+import { SeloDoServidor } from "../../fediverso/SeloDoServidor";
 import { Selo } from "../../ui/Selo";
 import { Complementos } from "../Complementos";
 import { detalhesDe } from "../detalhes";
@@ -29,6 +31,12 @@ import { useAlumia2 } from "./contexto";
 import { Icone } from "./icones";
 import { detalhesQueFecham } from "./fechar";
 import { AnexoDoChamadoDuble } from "./previa/Dubles";
+import { useEscolhasDoPost } from "../compositor/escolhas";
+import { ArquivarNoMenu, marcarLinkAberto, PerguntaLeiaAntes, SelosDaVida, useVidaDoPost, type PostComVida } from "../vida/NoCartao";
+import { textoDoErroDaVida, useTextosDaVida } from "../vida/textos";
+import { postCifrado } from "../restrito/grupo";
+import { TextoDoGrupo } from "../restrito/NaTela";
+import { useTextosDoRestrito } from "../restrito/textos";
 
 /** A chamada caiu porque o banco ainda não tem a função nova (a etapa de back-end da F1 cria)? */
 export function faltaNoBanco(e: unknown): boolean {
@@ -93,7 +101,7 @@ export function CartaoDaAlumia2({
   antesDasAcoes,
 }: {
   /** `repostado_em`: o post chegou à aba Seguindo por um repost de quem a pessoa segue (sem dizer quem). */
-  post: Post & { repostado_em?: string };
+  post: PostComVida & { repostado_em?: string };
   lang: string;
   s: TextosDaRede;
   logado: boolean;
@@ -146,6 +154,25 @@ export function CartaoDaAlumia2({
       vivo = false;
     };
   }, [buscarCitar, post.id]);
+  // Onda 9 (9D): a vida do post (some em…, arquivado, só a roda, não listado), o Arquivar do menu e o "leia antes de repostar".
+  const vt = useTextosDaVida(lang);
+  const vidaBase = useVidaDoPost(post, logado && !deExemplo(post.id) && !al2?.previa);
+  // Onda 12 (12A): as escolhas do compositor (o cartão só precisa saber se o post é só a figurinha; o resto fica nos Complementos).
+  const escolhas = useEscolhasDoPost(post.id, Boolean(al2?.previa));
+  const [arquivadoAqui, setArquivadoAqui] = useState<boolean | null>(null);
+  const vida = arquivadoAqui === null ? vidaBase : { ...vidaBase, arquivado: arquivadoAqui };
+  const [leiaAntes, setLeiaAntes] = useState<string | null>(null);
+  // O relógio do "some em…": lido depois de montar (o servidor e o navegador não discordam na hidratação), a cada minuto.
+  const [agora, setAgora] = useState(0);
+  useEffect(() => {
+    if (!vida.expira_em) return;
+    const primeiro = window.setTimeout(() => setAgora(Date.now()), 0);
+    const id = window.setInterval(() => setAgora(Date.now()), 60_000);
+    return () => {
+      window.clearTimeout(primeiro);
+      window.clearInterval(id);
+    };
+  }, [vida.expira_em]);
   const repostavel = podeRepostar(post);
   // O estado do Repostar vem do banco (um pedido por página, rede_pub_repostados): só o da própria pessoa.
   const buscarRepost = logado && repostavel && !deExemplo(post.id) && !al2?.previa && !repostarForaDoBanco;
@@ -165,6 +192,11 @@ export function CartaoDaAlumia2({
       vivo = false;
     };
   }, [buscarRepost, post.id]);
+  // Post restrito cifrado (P21): os textos só baixam quando um aparece.
+  const cifrado = postCifrado(post);
+  // O que só um grupo lê (cifrado, ou de núcleo) nunca sai do grupo: sem Repostar, Citar e Compartilhar no cartão.
+  const soDoGrupo = cifrado || post.publico === "nucleo";
+  const tr = useTextosDoRestrito(lang, cifrado);
   if (!al2) return null;
   const { t, previa, comunidades } = al2;
   const exemplo = previa;
@@ -236,6 +268,21 @@ export function CartaoDaAlumia2({
         throw e;
       }
     });
+  /**
+   * "Leia antes de repostar" (L3-23): o post tem link (a prévia ou o primeiro link do texto) que a pessoa não abriu neste aparelho?
+   * Pergunta antes; desfazer o repost, nunca. Desligado em Ajustes, reposta direto.
+   */
+  const pedirRepostar = async () => {
+    if (!repostei && leiaAntesLigado()) {
+      const det = exemplo ? null : await detalhesDe(post.id).catch(() => null);
+      const link = det?.previa?.url ?? primeiroLink(`${post.texto} ${post.corpo ?? ""}`);
+      if (link && perguntarAntesDeRepostar(link, true, jaLido)) {
+        setLeiaAntes(link);
+        return;
+      }
+    }
+    void repostar();
+  };
   // Compartilhar SEMPRE dá retorno: no celular, a folha do aparelho; no computador (e quando a folha falha), copia o link e mostra
   // "Link copiado" num aviso que some sozinho. Sem área de transferência (permissão negada), o próprio link aparece no aviso.
   const compartilhar = async () => {
@@ -261,7 +308,7 @@ export function CartaoDaAlumia2({
   const nome = <span className="font-extrabold text-[var(--al-texto)]">{post.autor.codinome}</span>;
   const tamanhoDoTexto = aberta ? "text-[1.2rem] text-[var(--al-texto)]" : densidade === "compacta" ? "text-[0.9375rem] text-[var(--al-texto)]" : "text-[0.9375rem] text-[var(--al-texto-2)]";
   const avatar = perfilHref ? (
-    <Link href={perfilHref} className="shrink-0 self-start" tabIndex={-1} aria-hidden>
+    <Link href={perfilHref} className="al2-alvo shrink-0 self-start" tabIndex={-1} aria-hidden>
       <Avatar16 handle={handle} cor={com?.cor} tamanho={aberta ? 48 : 40} />
     </Link>
   ) : (
@@ -278,7 +325,7 @@ export function CartaoDaAlumia2({
   const cabeca = (
     <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[0.8125rem] text-[var(--al-texto-3)]">
       {perfilHref ? (
-        <Link href={perfilHref} className="text-[0.9375rem] hover:underline">
+        <Link href={perfilHref} className="al2-alvo text-[0.9375rem] hover:underline">
           {nome}
         </Link>
       ) : (
@@ -287,15 +334,9 @@ export function CartaoDaAlumia2({
       {post.org?.verificada_em && <Selo texto={t.cartao.orgVerificada} regra={t.cartao.regraDoSelo} />}
       {post.autor.equipe && <span className="rounded bg-[var(--al-texto)] px-1 text-[0.6rem] font-bold uppercase tracking-wider text-[var(--al-fundo)]">{s.perfil.equipe}</span>}
       {post.autor.handle && <span className={servidor ? "hidden md:inline" : ""}>@{post.autor.handle}</span>}
-      {servidor && (
-        <span className="inline-flex items-center gap-1 rounded-full border border-[var(--al-superficie-2)] px-1.5 py-0.5 text-[0.6875rem] font-semibold text-[var(--al-texto-2)]">
-          <Icone nome="fediverso" className="h-3.5 w-3.5" />
-          <span className="md:hidden">{servidor}</span>
-          <span className="hidden md:inline">{preencher(t.cartao.doFediverso, { servidor })}</span>
-        </span>
-      )}
+      {servidor && <SeloDoServidor servidor={servidor} rotulo={t.cartao.doFediverso} titulo={t.cartao.seloTitulo} />}
       <span aria-hidden>·</span>
-      <Link href={caminhoDoPost} className="whitespace-nowrap hover:underline">
+      <Link href={caminhoDoPost} className="al2-alvo whitespace-nowrap hover:underline">
         <time dateTime={post.criado_em}>{tempoCurto(post.criado_em, lang)}</time>
       </Link>
       {post.editado_em && <span>({s.post.editado})</span>}
@@ -304,6 +345,7 @@ export function CartaoDaAlumia2({
 
   const corpo = (
     <>
+      {vt && <SelosDaVida vida={vida} t={vt} agora={agora} />}
       {((post.comunidade && !semComunidade) || post.tipo !== "post" || post.flair) && (
         <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
           {post.comunidade && !semComunidade && <Pilula texto={com?.nome ?? post.comunidade} cor={com?.cor} slug={post.comunidade} href={enderecos.comunidade(lang, post.comunidade)} />}
@@ -337,7 +379,20 @@ export function CartaoDaAlumia2({
         </div>
       )}
       <div id={`cw-${post.id}`} className={aviso && cwAberto ? "al2-cw-revela" : undefined} hidden={Boolean(aviso) && !cwAberto}>
-        <p className={`mt-2 whitespace-pre-line break-words leading-relaxed ${tamanhoDoTexto}`} data-citavel={aberta ? post.id : undefined}><TextoComTags texto={longoTexto} lang={lang} Resto={TextoComMencoes} /></p>
+        {/* Só a figurinha (onda 12): o texto é o nome dela, que a figurinha já diz (com o mesmo nome para o leitor de tela). */}
+        {/* Post restrito cifrado (P21): o texto é aberto neste aparelho, com a chave do grupo; quem não tem a chave vê que não abre. */}
+        {cifrado ? (
+          <TextoDoGrupo
+            post={post}
+            t={tr}
+            previa={Boolean(al2?.previa)}
+            mostrar={(claro) => <TextoDoPost texto={claro} lang={lang} className={`mt-2 whitespace-pre-line break-words leading-relaxed ${tamanhoDoTexto}`} citavel={aberta ? post.id : undefined} midia={post.midia} />}
+          />
+        ) : (
+          !escolhas?.so_figurinha && (
+            <TextoDoPost texto={longoTexto} lang={lang} className={`mt-2 whitespace-pre-line break-words leading-relaxed ${tamanhoDoTexto}`} citavel={aberta ? post.id : undefined} midia={post.midia} />
+          )
+        )}
         {aviso && cwAberto && (
           <label className="mt-1 flex min-h-11 cursor-pointer items-center gap-2 text-xs text-[var(--al-texto-3)]">
             <input
@@ -398,15 +453,15 @@ export function CartaoDaAlumia2({
         {logado && !post.travado && aoResponder ? (
           <button type="button" className="al2-acao" onClick={() => aoResponder(post)} aria-label={`${t.cartao.responder} · ${preencher(t.cartao.respostas, { n: post.respostas })}`}>
             <Icone nome="responder" className="h-[18px] w-[18px]" />
-            <span aria-hidden>{post.respostas}</span>
+            <span aria-hidden data-al-numero="">{post.respostas}</span>
           </button>
         ) : (
           <Link href={caminhoDoPost} className="al2-acao" aria-label={preencher(t.cartao.respostas, { n: post.respostas })}>
             <Icone nome="responder" className="h-[18px] w-[18px]" />
-            <span aria-hidden>{post.respostas}</span>
+            <span aria-hidden data-al-numero="">{post.respostas}</span>
           </Link>
         )}
-        {logado && (
+        {logado && !soDoGrupo && (
           <button
             type="button"
             className="al2-acao al2-acao-repostar"
@@ -416,7 +471,7 @@ export function CartaoDaAlumia2({
             title={exemplo ? undefined : semRepostar ? t.cartao.indisponivel : !repostavel && !repostei ? t.cartao.naoRepostavel : undefined}
             onClick={() => {
               setTocou("repostar");
-              void repostar();
+              void pedirRepostar();
             }}
           >
             <Icone nome="repostar" className="h-[18px] w-[18px]" />
@@ -425,7 +480,7 @@ export function CartaoDaAlumia2({
             <span aria-hidden className="max-[420px]:hidden">{repostei ? t.cartao.repostado : t.cartao.repostar}</span>
           </button>
         )}
-        {logado && !post.resposta_a && (exemplo || podeCitar !== null) && (
+        {logado && !soDoGrupo && !post.resposta_a && (exemplo || podeCitar !== null) && (
           <button
             type="button"
             className="al2-acao"
@@ -451,7 +506,7 @@ export function CartaoDaAlumia2({
         )}
         {/* O total do Acender só chega para quem escreveu (decisão 3 da ESPEC). */}
         {post.meu && post.apoios !== null && (
-          <span className="al2-acao cursor-default">
+          <span className="al2-acao cursor-default" data-al-numero="">
             <Icone nome="acender" className="h-[18px] w-[18px]" />
             {preencher(t.cartao.acesoSoVoce, { n: post.apoios })}
           </span>
@@ -460,7 +515,7 @@ export function CartaoDaAlumia2({
           <button type="button" className="al2-acao" aria-pressed={post.util_eu} disabled={ocupado} onClick={() => void util()}>
             <Icone nome="util" className="h-[18px] w-[18px]" />
             {t.cartao.util}
-            {post.util > 0 && <span>{post.util}</span>}
+            {post.util != null && post.util > 0 && <span>{post.util}</span>}
           </button>
         )}
         {logado && (
@@ -471,9 +526,11 @@ export function CartaoDaAlumia2({
             <Icone nome="salvos" className="h-[18px] w-[18px]" />
           </button>
         )}
-        <button type="button" className="al2-acao" aria-label={t.cartao.compartilhar} title={t.cartao.compartilhar} onClick={() => void compartilhar()}>
-          <Icone nome="compartilhar" className="h-[18px] w-[18px]" />
-        </button>
+        {!soDoGrupo && (
+          <button type="button" className="al2-acao" aria-label={t.cartao.compartilhar} title={t.cartao.compartilhar} onClick={() => void compartilhar()}>
+            <Icone nome="compartilhar" className="h-[18px] w-[18px]" />
+          </button>
+        )}
         {/* Denunciar, silenciar, moderar e o que as frentes encaixam ficam num menu, para a linha de ações ser a da prancha. */}
         <details ref={detalhesQueFecham} className="al2-mais-acoes relative">
           <summary className="al2-acao list-none [&::-webkit-details-marker]:hidden" aria-label={t.cartao.mais} title={t.cartao.mais}>
@@ -484,7 +541,21 @@ export function CartaoDaAlumia2({
               <Icone nome="responder" className="h-[18px] w-[18px]" />
               {preencher(t.cartao.respostas, { n: post.respostas })}
             </Link>
-            {!exemplo && <AcoesDeCuidado post={post} lang={lang} s={s} logado={logado} classe="al2-acao justify-start" />}
+            <AcoesDeCuidado post={post} lang={lang} s={s} logado={logado} classe="al2-acao justify-start" previa={exemplo} />
+            {post.meu && vt && (
+              <ArquivarNoMenu
+                post={post}
+                t={vt}
+                arquivado={Boolean(vida.arquivado)}
+                previa={exemplo}
+                classe="al2-acao justify-start"
+                aoMudar={(sim, aviso) => {
+                  setArquivadoAqui(sim);
+                  mostrarNota(aviso);
+                }}
+                aoErro={(e) => setErro(faltaNoBanco(e) ? t.cartao.indisponivel : (vt && textoDoErroDaVida(vt, codigoDoErro(e))) || textoDoErro(s, e))}
+              />
+            )}
             {ENCAIXES.acoesDoCartao.map((Acao, i) => (
               <Acao key={i} {...ctx} post={post} />
             ))}
@@ -493,6 +564,17 @@ export function CartaoDaAlumia2({
         </details>
       </div>
       {citando && <CitarNoCartao post={post} lang={lang} s={s} t={t} previa={exemplo} aoFechar={() => setCitando(false)} />}
+      {leiaAntes && vt && (
+        <PerguntaLeiaAntes
+          t={vt}
+          link={leiaAntes}
+          aoFechar={() => setLeiaAntes(null)}
+          aoRepostar={() => {
+            setLeiaAntes(null);
+            void repostar();
+          }}
+        />
+      )}
       {post.travado && <p className="mt-1 text-xs text-[var(--al-texto-3)]">{s.post.travado}</p>}
       <div aria-live="polite">
         {nota && (
@@ -513,10 +595,11 @@ export function CartaoDaAlumia2({
   return (
     <article
       className={`al2-cartao al2-cartao-${densidade} ${aberta ? "px-4 pb-3 pt-5 md:px-5" : `flex gap-3 px-4 md:px-5 ${densidade === "compacta" ? "py-4" : "py-5"}`}`}
-      aria-label={post.titulo ?? post.texto.slice(0, 60)}
+      aria-label={post.titulo ?? (cifrado ? (tr?.selo ?? "") : post.texto.slice(0, 60))}
       data-tipo={post.tipo}
       data-abre={aberta ? undefined : ""}
       onClick={abrir}
+      onClickCapture={(e) => marcarLinkAberto(e.target)}
     >
       {aberta ? (
         <>

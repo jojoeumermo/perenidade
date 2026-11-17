@@ -21,7 +21,8 @@
     "assedio": { "rotulo": "Harassment or stalking", "ajuda": "Insistence, humiliation or persecution against someone." },
     "golpe": { "rotulo": "Scam or fraud", "ajuda": "An attempt to trick people into giving money or data." },
     "spam": { "rotulo": "Advertising or repetition", "ajuda": "Repeated message, sales or promotion out of place." },
-    "outro": { "rotulo": "Another reason", "ajuda": "Something that breaks Alumia's rules and is not listed above." }
+    "outro": { "rotulo": "Another reason", "ajuda": "Something that breaks Alumia's rules and is not listed above." },
+    "ilegal": { "rotulo": "Illegal content", "ajuda": "A crime or content banned by law. Answered within 24 hours." }
   },
   "prioridade": { "1": "Priority 1", "2": "Priority 2", "3": "Priority 3" },
   "denunciar": {
@@ -38,7 +39,18 @@
     "retido": "As a precaution, the post was held until the moderators read the report.",
     "acompanhe": "You can follow the progress in Notices and in Reports and appeals.",
     "acompanhar": "Follow my reports",
-    "visitante": "No account? Use the site's Report page: public content also enters the queue."
+    "visitante": "No account? Use the site's Report page: public content also enters the queue.",
+    "cifrado": {
+      "titulo": "This post is encrypted",
+      "grupoPequeno": "In a small group, the author may work out that the report came from someone in the group: only members can open the post.",
+      "abrindo": "Opening the post on this device…",
+      "naoAbre": "This post doesn't open on this device. Moderation doesn't have the group key: the report goes without the content, only with the category and what you write.",
+      "mandar": "Send an excerpt in plain text to moderation",
+      "custo": "Heads up: moderation will read this excerpt; the rest stays encrypted. The excerpt leaves the encryption and is stored with the report.",
+      "semTrecho": "Without the excerpt, the report goes without the content: moderation doesn't have the group key and sees only the category and what you write.",
+      "rotulo": "The excerpt (cut what isn't needed, up to 1,000 characters)",
+      "foraDoPost": "The excerpt must be in the post, with the same words. Cut, but don't rewrite."
+    }
   },
   "silenciar": {
     "titulo": "Mute",
@@ -96,7 +108,7 @@
     "abrir": "Open",
     "alvo": { "post": "Post", "perfil": "Profile", "comunidade": "Community" },
     "situacao": { "aberta": "Open", "em_analise": "Under review", "resolvida": "Resolved", "descartada": "Dismissed" },
-    "autor": "Author: {nome} (level {nivel})",
+    "autor": "Author: {nome} ({nivel})",
     "procedentes": "Upheld decisions in the last 90 days: {n}",
     "historico": "What has already been done on this target",
     "descartar": "No violation: dismiss",
@@ -106,7 +118,9 @@
     "liberar": "Release (restore)",
     "vazia": "No reports in this list.",
     "vazioRetidos": "No posts waiting for review.",
-    "abrirRetido": "Decide"
+    "abrirRetido": "Decide",
+    "aberto": "Excerpt the reporter opened on their device and sent in plain text. It was written by that person: Alumia can't check it against the post, which stays encrypted.",
+    "cifradoSem": "Encrypted post: moderation doesn't have the group key and the report came without the content."
   },
   "recursos": {
     "titulo": "Appeals",
@@ -121,11 +135,15 @@
     "vazio": "No appeals waiting."
   },
   "lugares": {
-    "titulo": "Slow mode and block lists",
+    "titulo": "Block lists",
     "escolha": "Choose the place",
     "comunidade": "Community",
     "nucleo": "Study circle",
-    "outraComunidade": "Another community (slug)",
+    "outraComunidade": "Another community (address)",
+    "listaAjudaComunidade": "Person: cannot write in this community. Staff are never added to the list.",
+    "palavrasNoFiltro": "This community’s words and slow mode are in the Communities tab, under Automatic filter.",
+    "exemploPalavra": "e.g. free money prize",
+    "exemploPessoa": "@name",
     "lista": "Block list",
     "listaAjuda": "Word: the post is held for the mediators to read. Person: cannot write in this place. Staff are never added to the list.",
     "palavra": "Word or phrase",
@@ -180,6 +198,7 @@
     "noAparelho": "Only on this device",
     "palavra": "Mute a word",
     "palavraDica": "Word or phrase",
+    "dicaPalavra": "Write the word (2 characters or more) to mute it.",
     "adicionar": "Mute",
     "ate": "until {data}",
     "tipo": { "pessoa": "Person", "conversa": "Conversation", "comunidade": "Community", "palavra": "Word" },
@@ -238,6 +257,159 @@
     "prazo_vencido": "The 30-day deadline to appeal has passed.",
     "recurso_ja_feito": "This decision already has an appeal.",
     "muitos_silenciados": "You reached the limit of muted items (200).",
-    "lista_cheia": "The list reached its limit of 300 items."
+    "lista_cheia": "The list reached its limit of 300 items.",
+    "responda_perguntas": "This community asks questions before the request: answer them to ask."
+  },
+  "o9": {
+    "tempo": {
+      "s": "{n} s",
+      "min": "{n} min",
+      "h": "{n} h"
+    },
+    "motivos": {
+      "automod_links": "community filter: too many links",
+      "automod_dominio": "community filter: link to an address on the list",
+      "automod_conta_nova": "community filter: new account",
+      "recem_chegada": "newcomer queue",
+      "lista_da_mediacao": "word on the moderators' list",
+      "precaucao": "precaution after a report"
+    },
+    "prazo": {
+      "ate": "Reply by {quando}",
+      "venceu": "Deadline missed ({quando})"
+    },
+    "automatica": "Automatic decision",
+    "nivelEmFrase": {"0": "new account", "1": "recent account", "2": "member for a few weeks", "3": "long-standing, active account", "4": "appointed leader"},
+    "regras": {"precaucao_menor": "precautionary hold: report that the account belongs to someone under 18", "menor_de_18": "Alumia is only for people 18 or older", "precaucao": "precautionary hold until the report is read", "painel": "coordination decision through the panel", "ninguem_exposto": "nobody exposed without consent"},
+    "conta": "Account: {nome}",
+    "ferramentas": {
+      "titulo": "Look after the community",
+      "escolha": "Community",
+      "outra": "Another community (address)",
+      "nenhuma": "You don't moderate any community yet."
+    },
+    "filtro": {
+      "titulo": "Automatic filter",
+      "lead": "The filter only holds the post for the moderators to read. Nothing is deleted, the author sees that the post is waiting, and the rule is shown to anyone who posts here.",
+      "links": "Links per post",
+      "linksNada": "No rule (the level limit applies)",
+      "linksZero": "Every post with a link waits to be read",
+      "linksAcima": "More than {n} waits to be read",
+      "dominios": "Addresses that wait to be read",
+      "dominiosAjuda": "One per line, like short.example. Subdomains count too.",
+      "dominioRuim": "This doesn't look like an address: {d}",
+      "contaNova": "New account",
+      "contaNovaNada": "No rule",
+      "contaNovaDias": "Account younger than {n} days",
+      "novatos": "Newcomer queue",
+      "novatosNada": "Off",
+      "novatosN": "First {n} posts",
+      "combinado": "With new account and the queue together, only a new account's first posts wait. New account alone: all of its posts wait. Queue alone: the first posts of anyone who arrives.",
+      "palavras": "Words",
+      "palavrasAjuda": "A post with one of these words waits to be read. The list belongs to the moderators: people who post know it exists, not what is on it.",
+      "palavraNova": "Word or phrase",
+      "palavraPor": "Add to the list",
+      "palavrasVazia": "No words on the list.",
+      "explicacao": "The rule in words (people who post here read this)",
+      "explicacaoDica": "E.g.: A post with more than one link waits for the moderators to read it. Nothing is deleted.",
+      "salvar": "Save the filter",
+      "salvando": "Saving…",
+      "salvo": "Filter saved. The rule applies now."
+    },
+    "lento": {
+      "titulo": "Slow mode",
+      "ajuda": "One post every so often, per person. Moderators don't wait. Before writing, people see how long is left.",
+      "desligado": "Off",
+      "cada": "1 post every {tempo}",
+      "feito": "Slow mode updated."
+    },
+    "brigada": {
+      "titulo": "Brigading alert",
+      "ajuda": "When many accounts from outside the community reply to the same post in a short time, only the moderators get an alert. Alumia doesn't say who replied: only how many accounts.",
+      "contas": "From how many outside accounts (at least 3)",
+      "minutos": "Within how many minutes",
+      "alertas": "Open alerts",
+      "vazio": "No open alerts.",
+      "contasTexto": "{n} outside accounts replied within {min} min",
+      "atualizado": "Last reply counted: {quando}",
+      "lentoConversa": "10 min slow mode on the thread",
+      "lentoLigado": "{tempo} slow mode on",
+      "travar": "Lock the thread",
+      "travada": "Thread locked",
+      "regraTravar": "brigading",
+      "motivoTravar": "Many replies from accounts outside the community in a short time: the moderators locked the thread so it can get back on track.",
+      "encerrar": "Close the alert",
+      "encerrado": "Alert closed.",
+      "feito": "Done. It was recorded in the moderation log.",
+      "verPost": "See the post"
+    },
+    "perguntas": {
+      "titulo": "Questions to join",
+      "ajuda": "Up to 3 questions for people who ask to join. Only the moderators read the answers, and they disappear once the request is decided.",
+      "pergunta": "Question {n}",
+      "salvar": "Save the questions",
+      "salvo": "Questions saved.",
+      "soRestrita": "Only a community with join requests (restricted) asks questions."
+    },
+    "pedidos": {
+      "titulo": "Requests to join",
+      "vazio": "No requests waiting.",
+      "aceitar": "Accept",
+      "recusar": "Decline",
+      "semResposta": "Asked before the community had questions.",
+      "aceito": "Request accepted. The person was notified.",
+      "recusado": "Request declined. The person was notified."
+    },
+    "responder": {
+      "titulo": "Before you ask, the moderators have questions",
+      "ajuda": "Only this community's moderators read the answers, and they disappear once the request is decided.",
+      "enviar": "Ask to join",
+      "enviando": "Sending…",
+      "cancelar": "Cancel"
+    },
+    "regras": {
+      "titulo": "How this community moderates",
+      "links0": "A post with a link waits for the moderators to read it.",
+      "linksN": "A post with more than {n} links waits for the moderators to read it.",
+      "dominios": "Links to these addresses wait to be read: {lista}.",
+      "contaNova": "Account younger than {n} days: the post waits to be read.",
+      "contaNovaFila": "Account younger than {dias} days: the first {n} posts wait to be read.",
+      "novatos": "The first {n} posts of newcomers wait to be read.",
+      "palavras": "The moderators keep a list of words: a post with one of them waits to be read.",
+      "lento": "Slow mode: 1 post every {tempo}.",
+      "nada": "No automatic filter is on here.",
+      "nadaApaga": "The filter deletes nothing: the moderators read and release.",
+      "novata": "You are in the newcomer queue: your next post will wait for the moderators to read it.",
+      "falta": "You can post here again in {tempo}."
+    },
+    "antes": {
+      "lento": "Slow mode in this community: you can post here again in {tempo}.",
+      "filtro": "This post will wait for the moderators to read it ({motivo}). Nothing is deleted."
+    },
+    "soneca": {
+      "titulo": "Snooze",
+      "explica": "Snooze: it disappears from your feed for a while and comes back by itself. Nobody is told.",
+      "pessoa": "Snooze {nome}",
+      "conversa": "Snooze this thread",
+      "comunidade": "Snooze this community",
+      "prazo": "For how long",
+      "prazos": {
+        "1": "1 day",
+        "7": "1 week",
+        "30": "1 month",
+        "sempre": "Until I undo it"
+      },
+      "feito": "Snoozed until {data}. Nobody is notified.",
+      "feitoSempre": "Muted until you undo it. Nobody is notified.",
+      "aparelhoSemPrazo": "This device only has no time limit: it stays until you undo it.",
+      "comunidadeCampo": "Snooze a community",
+      "comunidadeDica": "Community address (e.g. housing)",
+      "dicaComunidade": "Write the community address to turn on the snooze."
+    },
+    "abas": {
+      "lei": "Law and deadlines",
+      "alertas": "Brigading",
+      "comunidades": "Communities"
+    }
   }
 }

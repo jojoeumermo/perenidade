@@ -1,0 +1,207 @@
+{
+  "_rascunho": true,
+  "carimbo": "Cercle de rédaction",
+  "titulo": "Rédaction entre pairs",
+  "chamada": "Écrivez sur le thème de la semaine, corrigez la rédaction d'autres personnes selon les 5 compétences de l'ENEM et recevez vos propres lectures. **Personne ne sait à qui est la rédaction, ni qui l'a corrigée.**",
+  "carregando": "Ouverture du cercle",
+  "entrar": "Entrez dans Alumia pour participer au cercle de rédaction.",
+  "abas": {
+    "rotulo": "Parties du cercle",
+    "escrever": "Écrire",
+    "corrigir": "Corriger",
+    "devolutivas": "Retours",
+    "mediacao": "Médiation",
+    "temas": "Thèmes"
+  },
+  "tema": {
+    "rotulo": "Thème de la semaine",
+    "ate": "Remise jusqu'au {data}",
+    "motivadores": "Textes d'appui",
+    "semTema": "La coordination n'a pas encore publié le thème de cette semaine. Revenez bientôt.",
+    "semTemaCoord": "Cette semaine n'a pas encore de thème. Publiez-en un dans l'onglet Thèmes."
+  },
+  "troca": {
+    "titulo": "Votre échange",
+    "corrigidas": "corrigées dans ce cercle",
+    "deDuas": "sur 2",
+    "esperando": "en attente de lecture",
+    "menosDe3": "moins de 3",
+    "pronta": "Échange accompli",
+    "afastada": "Vous êtes hors du cercle jusqu'au {data}, pour une correction jugée abusive par la médiation."
+  },
+  "como": {
+    "titulo": "Comment fonctionne le cercle",
+    "itens": [
+      {
+        "titulo": "À l'aveugle, dans les deux sens",
+        "texto": "Qui corrige reçoit seulement le texte. Qui a écrit reçoit seulement la fiche. Ni nom ni pseudonyme, d'aucun côté."
+      },
+      {
+        "titulo": "Deux lectures par rédaction",
+        "texto": "Chaque rédaction est lue par deux personnes, selon les 5 compétences de l'ENEM, avec une note de 0 à 200 et un commentaire pour chacune."
+      },
+      {
+        "titulo": "Corrigez pour recevoir",
+        "texto": "Vos lectures arrivent quand vous avez corrigé deux rédactions du même cercle. Si le cercle est plein au moment où vous demandez, l'échange est accompli."
+      },
+      {
+        "titulo": "Tout disparaît en 30 jours",
+        "texto": "La rédaction et les corrections sont supprimées définitivement 30 jours après le retour. Après le retour, la base de données ne garde pas qui a lu quoi."
+      },
+      {
+        "titulo": "Correction abusive",
+        "texto": "Une lecture qui offense va à la médiation. Si elle est abusive, elle quitte votre écran, votre rédaction reçoit une autre lecture et la personne qui l'a écrite est écartée du cercle, sans que personne ne sache qui elle est."
+      }
+    ]
+  },
+  "escrever": {
+    "titulo": "Votre rédaction de la semaine",
+    "tituloCampo": "Titre (facultatif)",
+    "textoCampo": "Texte",
+    "dica": "Écrivez le texte argumentatif directement ici. Ne signez pas et n'écrivez pas votre nom : la lecture est à l'aveugle.",
+    "linhas": "{n} lignes sur 30",
+    "minimo": "7 lignes minimum",
+    "letras": "{n} caractères",
+    "entregar": "Remettre au cercle",
+    "entregando": "Remise…",
+    "entregue": "Remise. Votre rédaction est dans le cercle.",
+    "jaEntregou": "Vous avez déjà remis la rédaction de cette semaine. Suivez-la dans Retours.",
+    "rascunho": "Le brouillon reste uniquement sur cet appareil jusqu'à la remise."
+  },
+  "corrigir": {
+    "titulo": "Corriger une rédaction",
+    "chamada": "Demandez une rédaction du cercle. Vous avez 72 heures pour rendre la fiche ; sinon, lâchez-la et elle revient au cercle.",
+    "pedir": "Demander une rédaction à lire",
+    "pedindo": "Tirage…",
+    "nenhuma": "Aucune rédaction n'attend de lecture pour l'instant. Revenez plus tard.",
+    "dispensada": "Le cercle est plein : aucune rédaction n'attend de lecture. Votre échange pour ce cercle est accompli.",
+    "duasAbertas": "Vous avez déjà deux lectures ouvertes. Terminez-en une avant d'en demander une autre.",
+    "jaLendo": "Vous en lisez déjà une. Vous pouvez en prendre une autre, jusqu'à deux ouvertes.",
+    "pedirOutra": "En demander une autre",
+    "prazo": "À rendre avant le {data}",
+    "semTitulo": "Sans titre",
+    "aRedacao": "La rédaction",
+    "aFicha": "Votre fiche",
+    "nota": "Note",
+    "comentario": "Commentaire",
+    "comentarioDica": "Ce qui a marché et ce qu'il faut améliorer, en au moins 20 caractères.",
+    "geral": "Commentaire général (facultatif)",
+    "total": "Total",
+    "enviar": "Envoyer la correction",
+    "enviando": "Envoi…",
+    "largar": "Lâcher cette lecture",
+    "falta": "Il manque la note ou le commentaire de la compétence {n}.",
+    "enviada": "Correction envoyée. Merci d'avoir lu avec attention.",
+    "cega": "Vous ne savez pas à qui est ce texte, et la personne qui l'a écrit ne saura pas que c'était vous."
+  },
+  "competencias": [
+    {
+      "nome": "Compétence 1",
+      "resumo": "Maîtrise de la langue portugaise écrite formelle."
+    },
+    {
+      "nome": "Compétence 2",
+      "resumo": "Comprendre la proposition et développer le thème dans un texte argumentatif, avec des connaissances de plusieurs domaines."
+    },
+    {
+      "nome": "Compétence 3",
+      "resumo": "Sélectionner, relier, organiser et interpréter informations, faits et opinions pour défendre un point de vue."
+    },
+    {
+      "nome": "Compétence 4",
+      "resumo": "Utiliser les mécanismes linguistiques qui construisent l'argumentation (cohésion)."
+    },
+    {
+      "nome": "Compétence 5",
+      "resumo": "Proposer une intervention face au problème, dans le respect des droits humains."
+    }
+  ],
+  "devolutivas": {
+    "titulo": "Vos rédactions",
+    "vazio": "Vous n'avez encore remis aucune rédaction.",
+    "semana": "Semaine du {data}",
+    "naRoda": "Dans le cercle jusqu'au {data}.",
+    "faltaCorrigir": "Corrigez-en encore {n} pour recevoir vos lectures.",
+    "faltaUma": "Corrigez-en encore 1 pour recevoir vos lectures.",
+    "esperandoLeituras": "Vous avez accompli l'échange. Les lectures arrivent ensemble, quand elles sont prêtes.",
+    "encerrada": "Le cercle est fermé et cette rédaction n'a pas été rendue. Elle sera supprimée le {data}.",
+    "devolvida": "Rendue le {data}. Tout est supprimé le {apagar}.",
+    "leitura": "Lecture {n}",
+    "media": "Moyenne des lectures",
+    "deMil": "sur 1000",
+    "verTexto": "Voir le texte que vous avez remis",
+    "apagar": "Supprimer maintenant",
+    "apagarConfirma": "Supprimer définitivement cette rédaction et ses lectures ?",
+    "apagarSim": "Oui, supprimer",
+    "cancelar": "Annuler",
+    "removida": "La médiation a retiré cette lecture. Votre rédaction est revenue au cercle pour une nouvelle lecture.",
+    "denunciar": "Signaler cette lecture",
+    "denunciaMotivo": "Qu'y a-t-il d'abusif dans cette lecture ?",
+    "denunciaDica": "Cela va à la médiation, qui lit la correction sans savoir de qui elle est. Au moins 10 caractères.",
+    "enviarDenuncia": "Envoyer à la médiation",
+    "denunciaAberta": "Signalée. La médiation va regarder.",
+    "denunciaNaoAbusiva": "La médiation l'a lue et n'a pas trouvé d'abus dans cette lecture.",
+    "denunciaAbusiva": "La médiation a jugé cette lecture abusive."
+  },
+  "mediacao": {
+    "titulo": "Signalements de correction",
+    "chamada": "Lectures signalées par les personnes qui les ont reçues. Vous ne voyez ni qui a écrit la rédaction ni qui l'a corrigée. Abusive : la lecture est retirée, la rédaction reçoit une autre lecture et la personne qui l'a écrite est écartée du cercle pendant 8 semaines, sans que le nom n'apparaisse à personne.",
+    "vazio": "Aucun signalement en attente.",
+    "motivo": "Motif du signalement",
+    "aCorrecao": "La correction signalée",
+    "verRedacao": "Voir la rédaction corrigée",
+    "nota": "Note de la médiation (facultatif)",
+    "abusiva": "Abusive : retirer et écarter",
+    "naoAbusiva": "Pas abusive",
+    "pendente": "Jugée abusive. L'écartement reste à faire.",
+    "tentarDeNovo": "Faire l'écartement",
+    "feito": "Fait. La personne qui l'a écrite est hors du cercle pendant 8 semaines ; le nom n'apparaît pas ici.",
+    "semLacre": "La lecture a été retirée. Cette correction ne pouvait être reliée à personne, donc personne n'a été écarté.",
+    "decidida": "Décidé."
+  },
+  "temas": {
+    "titulo": "Thèmes du cercle",
+    "chamada": "Un thème par semaine, du lundi au dimanche. Le thème ne change que tant que personne n'a remis de rédaction dessus.",
+    "semana": "Semaine du {data}",
+    "estaSemana": "Cette semaine",
+    "semTema": "Sans thème",
+    "redacoes": "{n} rédactions",
+    "poucas": "moins de 3 rédactions",
+    "tituloCampo": "Proposition",
+    "motivadoresCampo": "Textes d'appui (facultatif)",
+    "salvar": "Enregistrer le thème",
+    "lancar": "Publier le thème",
+    "editar": "Modifier",
+    "salvo": "Thème enregistré.",
+    "fechado": "Cette semaine a déjà des rédactions : le thème ne change plus."
+  },
+  "erros": {
+    "generico": "Ça n'a pas marché pour l'instant. Réessayez dans un moment.",
+    "sem_conexao": "Pas de connexion au serveur. Vérifiez internet et réessayez.",
+    "sem_servico": "Le cercle de rédaction n'est pas encore activé sur ce serveur.",
+    "banco_desatualizado": "Le cercle de rédaction n'est pas encore activé sur ce serveur.",
+    "muitos_pedidos": "Trop de demandes d'affilée. Attendez quelques minutes.",
+    "entre_primeiro": "Entrez dans Alumia pour participer.",
+    "afastada": "Vous êtes hors du cercle pour le moment.",
+    "sem_tema": "La coordination n'a pas encore publié le thème de cette semaine.",
+    "ja_entregou": "Vous avez déjà remis la rédaction de cette semaine.",
+    "invalido:curta": "La rédaction est trop courte. Écrivez au moins 7 lignes.",
+    "invalido:longa": "La rédaction dépasse 30 lignes.",
+    "invalido:titulo": "Le titre peut avoir jusqu'à 100 caractères.",
+    "leituras_abertas": "Vous avez déjà deux lectures ouvertes.",
+    "nao_encontrado": "Nous n'avons pas trouvé cette lecture. Le délai est peut-être passé.",
+    "prazo": "Le délai de cette lecture est passé. Elle est revenue au cercle.",
+    "invalido:nota": "Chaque compétence a besoin d'une note de 0 à 200.",
+    "invalido:comentario": "Chaque compétence a besoin d'un commentaire de 20 à 800 caractères.",
+    "invalido:ficha": "La fiche est incomplète.",
+    "invalido:geral": "Le commentaire général peut avoir jusqu'à 800 caractères.",
+    "invalido:motivo": "Expliquez le motif en 10 à 1000 caractères.",
+    "ja_denunciada": "Cette lecture a déjà été signalée.",
+    "ja_removida": "Cette lecture a déjà été retirée.",
+    "ja_decidida": "Ce signalement a déjà été décidé.",
+    "sem_permissao": "Vous n'avez pas la permission pour cela.",
+    "invalido:semana": "Choisissez une semaine entre celle-ci et 12 semaines plus tard.",
+    "ja_tem_redacao": "Cette semaine a déjà des rédactions : le thème ne change plus.",
+    "invalido:motivadores": "Les textes d'appui peuvent avoir jusqu'à 3000 caractères."
+  }
+}

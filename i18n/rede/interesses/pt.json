@@ -1,0 +1,157 @@
+{
+  "titulo": "O que você quer na Alumia?",
+  "chamada": "Cinco perguntas rápidas. Com elas, a linha Em roda põe primeiro, em cada bloco de 6 horas, o que tem a ver com você. Nada some: só muda a ordem.",
+  "aparelho": "As respostas ficam só neste aparelho. A cada leitura, a linha recebe os interesses como filtro e o servidor não guarda nada. Muda ou apaga quando quiser, em Ajustes.",
+  "passo": "Passo {n} de {total}",
+  "voltar": "Voltar",
+  "proximo": "Próximo",
+  "verResumo": "Ver o resumo",
+  "concluir": "Pronto",
+  "pularPergunta": "Pular esta",
+  "pularTudo": "Pular o questionário",
+  "perguntas": {
+    "objetivos": {
+      "titulo": "O que você veio fazer aqui?",
+      "ajuda": "Marque quantas quiser."
+    },
+    "pautas": {
+      "titulo": "Quais pautas movem você?",
+      "ajuda": "Cada pauta traz os #temas dela para o alto do bloco."
+    },
+    "estudos": {
+      "titulo": "E no estudo?",
+      "ajuda": "Se não for o caso, é só pular."
+    },
+    "conversa": {
+      "titulo": "Mais conversa ou mais conteúdo?",
+      "ajuda": "Uma escolha só."
+    },
+    "ritmo": {
+      "titulo": "Em que ritmo?",
+      "ajuda": "Muda só quando a faixa \"Enquanto você esteve fora\" aparece."
+    }
+  },
+  "objetivos": {
+    "militancia": {
+      "nome": "Militância e organização",
+      "texto": "Movimentos, campanhas, chamados"
+    },
+    "atos": {
+      "nome": "Atos e agenda",
+      "texto": "O que vai acontecer e onde"
+    },
+    "nucleo": {
+      "nome": "Núcleo e organização local",
+      "texto": "O que sai dos meus núcleos"
+    },
+    "amizades": {
+      "nome": "Conhecer gente e fazer amizades",
+      "texto": "Conversa com quem luta junto"
+    },
+    "estudo": {
+      "nome": "Estudo",
+      "texto": "ENEM, vestibular, formação, leitura"
+    },
+    "debate": {
+      "nome": "Debate",
+      "texto": "Discussões e enquetes"
+    },
+    "noticias": {
+      "nome": "Notícias",
+      "texto": "O que está acontecendo"
+    },
+    "cultura": {
+      "nome": "Cultura e arte",
+      "texto": "Música, poesia, arte de rua"
+    }
+  },
+  "pautas": {
+    "moradia": "Moradia",
+    "transporte": "Transporte",
+    "educacao": "Educação",
+    "saude": "Saúde",
+    "trabalho": "Trabalho",
+    "meio_ambiente": "Meio ambiente",
+    "antirracismo": "Antirracismo",
+    "feminismo": "Feminismo",
+    "lgbtqia": "LGBTQIA+",
+    "indigena": "Povos indígenas",
+    "terra": "Terra e reforma agrária",
+    "cultura": "Cultura",
+    "juventude": "Juventude",
+    "direitos_humanos": "Direitos humanos e memória"
+  },
+  "estudos": {
+    "enem": "ENEM",
+    "vestibular": "Vestibular",
+    "formacao": "Formação política",
+    "leitura": "Leitura e livros",
+    "idiomas": "Idiomas"
+  },
+  "conversas": {
+    "conversa": {
+      "nome": "Mais conversa",
+      "texto": "Tudo na roda, inclusive as conversas soltas entre poucas pessoas."
+    },
+    "equilibrio": {
+      "nome": "Meio a meio",
+      "texto": "A roda como ela é."
+    },
+    "conteudo": {
+      "nome": "Mais conteúdo",
+      "texto": "As conversas paralelas de quem você não segue descem para o fim do bloco. Não somem."
+    }
+  },
+  "ritmos": {
+    "pouco": {
+      "nome": "Pouco",
+      "texto": "Passo de vez em quando. A faixa do que chegou aparece depois de 24 horas fora."
+    },
+    "medio": {
+      "nome": "Médio",
+      "texto": "A faixa aparece depois de 8 horas fora."
+    },
+    "muito": {
+      "nome": "Muito",
+      "texto": "Estou sempre por aqui. A faixa aparece depois de 4 horas fora."
+    }
+  },
+  "resumo": {
+    "titulo": "Assim fica a sua linha",
+    "nada": "Sem nada marcado que mude a ordem: a linha fica igual à de todo mundo.",
+    "sobem": "Sobem no seu bloco",
+    "tipos": "Tipos",
+    "temas": "#temas",
+    "estudo": "As comunidades de estudo",
+    "nucleos": "O que sai dos seus núcleos",
+    "conteudo": "As conversas paralelas de quem você não segue descem para o fim do bloco.",
+    "ritmo": "A faixa \"Enquanto você esteve fora\" aparece depois de {horas} horas fora.",
+    "como": "Como a linha é montada",
+    "tiposNomes": {
+      "chamado": "chamados e atos",
+      "duvida": "dúvidas",
+      "discussao": "discussões",
+      "enquete": "enquetes"
+    }
+  },
+  "ajustes": {
+    "titulo": "Interesses na linha",
+    "texto": "O que você marcou no questionário. Fica só neste aparelho e muda a ordem da linha Em roda.",
+    "vazio": "Você ainda não respondeu, ou apagou as respostas. A linha está igual à de todo mundo.",
+    "responder": "Responder o questionário",
+    "editar": "Mudar os interesses",
+    "apagar": "Apagar as respostas",
+    "apagado": "Respostas apagadas deste aparelho.",
+    "salvo": "Interesses guardados neste aparelho.",
+    "outroAparelho": "Em outro aparelho, as respostas não aparecem: lá você responde de novo, se quiser."
+  },
+  "cadastro": {
+    "titulo": "Antes de enviar: o que você quer na Alumia?",
+    "nota": "Opcional. Não vai junto do pedido: fica só neste aparelho.",
+    "pronto": "Interesses guardados neste aparelho. Agora é só enviar o pedido.",
+    "pulado": "Questionário pulado. Dá para responder depois, em Ajustes.",
+    "refazer": "Mudar as respostas",
+    "continuar": "Continuar",
+    "voltarAoPedido": "Voltar ao pedido"
+  }
+}

@@ -8,12 +8,15 @@
   },
   "fed": {
     "titulo": "Alumia on the Fediverse",
-    "lead": "The Fediverse is a set of free social networks that talk to each other, such as Mastodon. If you turn federation on, people there can follow you and read your public posts, and you can follow people there. It stays off until you turn it on.",
+    "lead": "The Fediverse is a set of free social networks that talk to each other, such as Mastodon. If you turn federation on, people there can follow you and read your public posts, and you can follow people there.",
+    "leadDesligada": "It stays off until you turn it on.",
+    "leadLigada": "Yours is on: you can turn it off just below, and the servers elsewhere get the request to delete.",
     "foraDoAr": "Federation is not yet enabled on the Alumia server. When it is, you will be able to turn yours on here.",
     "endereco": "Your Fediverse address",
     "ligadaDesde": "On since {quando}.",
     "desligada": "Off: nothing of yours leaves Alumia.",
     "numeros": "People elsewhere who follow you: {seguidores}. People elsewhere you follow: {seguindo}.",
+    "menosDeTres": "fewer than 3",
     "consentimento": {
       "titulo": "Before turning it on, read carefully",
       "itens": [

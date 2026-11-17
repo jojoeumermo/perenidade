@@ -25,7 +25,10 @@
     "conversa_seguida": {"um": "{a} a répondu dans une conversation que vous suivez.", "vezes": "{a} a répondu {n} fois dans une conversation que vous suivez.", "varios": "{a} et {n} autres ont répondu dans une conversation que vous suivez.", "anonimo": "Il y a une nouvelle réponse dans une conversation que vous suivez.", "anonimoVarios": "{n} personnes ont répondu dans une conversation que vous suivez."},
     "ajudou": {"um": "Votre réponse a aidé la personne qui a ouvert la conversation.", "vezes": "Votre réponse a aidé la personne qui a ouvert la conversation.", "varios": "Vos réponses ont aidé dans {n} conversations.", "anonimo": "Votre réponse a aidé la personne qui a ouvert la conversation.", "anonimoVarios": "Vos réponses ont aidé dans {n} conversations."},
     "reacao_story": {"um": "Quelqu’un a réagi à votre story.", "vezes": "Votre story a reçu {n} réactions.", "varios": "Votre story a reçu des réactions.", "anonimo": "Quelqu’un a réagi à votre story.", "anonimoVarios": "Votre story a reçu des réactions."},
-    "lembrete": {"um": "Vous avez demandé un rappel de ce post maintenant.", "vezes": "Vous avez demandé un rappel de ce post maintenant.", "varios": "Vous avez demandé un rappel de ces posts maintenant.", "anonimo": "Vous avez demandé un rappel de ce post maintenant.", "anonimoVarios": "Vous avez demandé un rappel de ces posts maintenant."}
+    "lembrete": {"um": "Vous avez demandé un rappel de ce post maintenant.", "vezes": "Vous avez demandé un rappel de ce post maintenant.", "varios": "Vous avez demandé un rappel de ces posts maintenant.", "anonimo": "Vous avez demandé un rappel de ce post maintenant.", "anonimoVarios": "Vous avez demandé un rappel de ces posts maintenant."},
+    "marcacao": {"um":"{a} vous a identifié dans un message, ou l'a demandé. Une demande n'apparaît que si vous l'acceptez.","vezes":"{a} vous a identifié dans un message, ou l'a demandé. Une demande n'apparaît que si vous l'acceptez.","varios":"{a} et {n} autres vous ont identifié, ou l'ont demandé.","anonimo":"Quelqu'un vous a identifié dans un message, ou l'a demandé. Une demande n'apparaît que si vous l'acceptez.","anonimoVarios":"{n} personnes vous ont identifié, ou l'ont demandé."},
+    "estou_bem": {"um":"Message de {a}, contact de sécurité : va bien. Le message disparaît dans 24 heures.","vezes":"Message de {a}, contact de sécurité : va bien. Le message disparaît dans 24 heures.","varios":"Messages de vos contacts de sécurité : vont bien.","anonimo":"Message d'un contact de sécurité : va bien. Le message disparaît dans 24 heures.","anonimoVarios":"Messages de vos contacts de sécurité : vont bien."},
+    "detido": {"um":"Message urgent de {a}, contact de sécurité : a été arrêté. Ouvrez le Mode manif pour savoir quoi faire.","vezes":"Message urgent de {a}, contact de sécurité : a été arrêté. Ouvrez le Mode manif pour savoir quoi faire.","varios":"Messages urgents de contacts de sécurité : ont été arrêtés. Ouvrez le Mode manif pour savoir quoi faire.","anonimo":"Message urgent d'un contact de sécurité : a été arrêté. Ouvrez le Mode manif pour savoir quoi faire.","anonimoVarios":"Messages urgents de contacts de sécurité : ont été arrêtés. Ouvrez le Mode manif pour savoir quoi faire."}
   },
   "prefs": {
     "titulo": "Comment vous voulez être prévenu",
@@ -47,7 +50,10 @@
         "ajudou": "Quand votre réponse a aidé (jamais qui l’a marquée)",
         "ato": "Actions que vous suivez (phare, chaîne, consultation)",
         "reacao_story": "Réactions à vos stories (jamais qui a réagi)",
-        "lembrete": "Rappels : ceux que vous avez programmés et ceux des actions que vous avez confirmées"
+        "lembrete": "Rappels : ceux que vous avez programmés et ceux des actions que vous avez confirmées",
+        "marcacao": "Identifications dans les messages avec image (y compris celles qui attendent votre accord)",
+        "estou_bem": "Messages « Je vais bien » de vos contacts de sécurité",
+        "detido": "Messages « J'ai été arrêté » de vos contacts de sécurité"
       }
     },
     "resumo": {
@@ -57,7 +63,8 @@
       "ver": "Voir ce qui serait envoyé maintenant",
       "nada": "Rien à envoyer maintenant : vous n'avez pas de nouvelles notifications.",
       "fechar": "Fermer l'aperçu",
-      "precisaEntrar": "Pour recevoir des e-mails d’Alumia, rejoignez d'abord Alumia (18 ans ou plus, règles acceptées)."
+      "precisaEntrar": "Pour recevoir des e-mails d’Alumia, rejoignez d'abord Alumia (18 ans ou plus, règles acceptées).",
+      "outro": "C'est un e-mail. Le résumé des communautés (titres publics des communautés que vous choisissez) en est un autre, activé à part dans Sécurité > Passerelles."
     },
     "push": {
       "titulo": "Notification sur le téléphone",
@@ -72,6 +79,17 @@
       "ios": "Sur iPhone et iPad, ajoutez d'abord le site à l'écran d'accueil (Partager → Sur l'écran d'accueil) et ouvrez-le depuis là.",
       "naoConfigurado": "La notification sur le téléphone n'est pas encore activée sur ce site.",
       "precisaEntrar": "Pour être prévenu sur le téléphone, rejoignez d'abord Alumia (18 ans ou plus, règles acceptées)."
+    },
+    "silencio": {
+      "titulo": "Heures de silence",
+      "descricao": "Pendant ces heures, votre téléphone ne sonne pas à cause d'Alumia. Les notifications attendent et arrivent ensemble, en une seule, à la fin de la plage. Elles ne contiennent toujours ni nom ni extrait de publication.",
+      "inicio": "Commence à",
+      "fim": "Se termine à",
+      "salvar": "Enregistrer la plage",
+      "tirar": "Retirer les heures de silence",
+      "ligado": "Silence de {inicio} à {fim}.",
+      "desligado": "Pas d'heures de silence : la notification arrive à toute heure.",
+      "igual": "Le début et la fin doivent être différents."
     }
   },
   "servidor": {

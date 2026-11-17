@@ -1,0 +1,440 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Frente 13D, leve e no seu tempo. Duas partes:
+ *
+ * 1. A Alumia em modo leve. O modo leve é o do site (lib/prefs.ts, <html data-light>; app/globals.css esconde imagem, vídeo,
+ *    quadro e animação e troca as letras do site pelas do aparelho). Aqui a Alumia completa o que é dela:
+ *    - as letras dela (Archivo e EB Garamond) também viram as do aparelho, e o arquivo de fonte deixa de ser pedido;
+ *    - a foto ou o vídeo de um post não some sem rastro: a figura vira um ladrilho "toque para ver" e só abre com o toque
+ *      (NaCasca.tsx marca a figura com data-lv-ver);
+ *    - o que é do próprio aparelho (a câmera ao vivo, o desenho no quadro do editor, a foto escolhida antes de subir) continua à
+ *      vista: não gasta dado e esconder quebraria o Escrever.
+ * 2. A tela /alumia/leve (lv-*), no Mosaico da Arquibancada: faixa tecida, títulos em Archivo condensada em caixa alta, carimbo,
+ *    ladrilhos. Só tokens da Alumia (styles/alumia-tokens.css): claro e escuro saem dos mesmos nomes.
+ */
+
+/* ───────────── 1. A Alumia em modo leve ───────────── */
+:root[data-light] [data-al="2"],
+:root[data-light]:has([data-al="2"]) .al-pele {
+  --al-fonte-archivo: ui-sans-serif;
+  --al-fonte-garamond: Georgia;
+  --al-fonte: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Arial Narrow", sans-serif;
+  --al-fonte-marca: Georgia, "Times New Roman", serif;
+}
+
+/* A figura do post fica à vista (NaCasca.tsx marca as figuras com data-lv-figura só quando a frente está ligada; sem a marca, vale
+   o modo leve do site, que esconde a figura inteira). O que vem da rede dentro dela continua escondido até o toque. */
+:root[data-light] [data-al="2"] figure[data-lv-figura] {
+  display: block !important;
+}
+:root[data-light] [data-al="2"] figure[data-lv-guardada] {
+  position: relative;
+  display: grid !important;
+  place-items: center;
+  min-height: 4.5rem;
+  height: auto !important;
+  aspect-ratio: auto !important;
+  border: 2px dashed var(--al-linha);
+  border-radius: var(--al-raio);
+  background: var(--al-superficie);
+  cursor: pointer;
+}
+:root[data-light] [data-al="2"] figure[data-lv-guardada] > :not(figcaption) {
+  display: none !important;
+}
+:root[data-light] [data-al="2"] figure[data-lv-guardada]::after {
+  content: var(--lv-ver-imagem, "+");
+  padding: 0.75rem 1rem;
+  font-family: var(--al-fonte);
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--al-texto-2);
+  text-align: center;
+}
+:root[data-light] [data-al="2"] figure[data-lv-guardada]:focus-visible {
+  outline: 3px solid var(--al-foco);
+  outline-offset: 2px;
+}
+/* Depois do toque: a imagem e o vídeo daquela figura voltam (revert-layer devolve o display das classes da própria peça). */
+:root[data-light] [data-al="2"] figure[data-lv-ver] :is(img, video) {
+  display: revert-layer !important;
+}
+/* O que é do aparelho não gasta dado: a câmera ao vivo (sem endereço), o quadro de desenho e a foto escolhida antes de subir. */
+:root[data-light] [data-al="2"] :is(canvas, video:not([src]), video[src^="blob:"], img[src^="blob:"], img[src^="data:"]) {
+  display: revert-layer !important;
+}
+
+/* ───────────── 2. A tela Leve e no seu tempo ───────────── */
+[data-al="2"] .lv-tela {
+  padding-bottom: 3rem;
+}
+[data-al="2"] .lv-cabeca {
+  position: relative;
+  padding: 1.5rem 18px 1.25rem;
+  border-bottom: 1px solid var(--al-linha);
+}
+[data-al="2"] .lv-titulo {
+  margin: 0.9rem 0 0;
+  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+[data-al="2"] .lv-lead {
+  margin: 0.8rem 0 0;
+  max-width: 60ch;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--al-texto-2);
+}
+[data-al="2"] .lv-carimbo {
+  display: inline-block;
+  padding: 0.2rem 0.6rem 0.15rem;
+  border: 2px solid var(--al-dourado);
+  border-radius: 4px;
+  color: var(--al-dourado);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+}
+/* O sumário: ladrilhos que levam a cada parte (no computador, cinco lado a lado; no celular, dois por linha). */
+[data-al="2"] .lv-ladrilhos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 640px) {
+  [data-al="2"] .lv-ladrilhos { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+[data-al="2"] .lv-ladrilho {
+  display: flex;
+  min-height: 3.25rem;
+  align-items: flex-end;
+  padding: 0.55rem 0.7rem;
+  border-radius: 6px;
+  background: var(--al-superficie);
+  border-left: 5px solid var(--lv-cor, var(--al-vermelho));
+  color: var(--al-texto);
+  font-size: 0.95rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+[data-al="2"] .lv-ladrilho:hover { background: var(--al-superficie-2); }
+[data-al="2"] .lv-ladrilho:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+[data-al="2"] .lv-bloco {
+  padding: 1.4rem 18px;
+  border-bottom: 1px solid var(--al-linha);
+  scroll-margin-top: 1rem;
+}
+[data-al="2"] .lv-secao {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+[data-al="2"] .lv-secao::before {
+  content: "";
+  flex: none;
+  width: 0.7rem;
+  height: 1.4rem;
+  border-radius: 2px;
+  background: var(--lv-cor, var(--al-vermelho));
+}
+[data-al="2"] .lv-dica {
+  margin: 0.55rem 0 0;
+  max-width: 62ch;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--al-texto-3);
+}
+[data-al="2"] .lv-cor-1 { --lv-cor: var(--al-vermelho); }
+[data-al="2"] .lv-cor-2 { --lv-cor: var(--al-dourado); }
+[data-al="2"] .lv-cor-3 { --lv-cor: var(--al-com-3); }
+[data-al="2"] .lv-cor-4 { --lv-cor: var(--al-com-4); }
+[data-al="2"] .lv-cor-5 { --lv-cor: var(--al-com-2); }
+
+/* O interruptor (a linha inteira é o alvo do toque). */
+[data-al="2"] .lv-interruptor {
+  display: flex;
+  width: 100%;
+  min-height: 3.5rem;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.9rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--al-linha);
+  border-radius: var(--al-raio);
+  background: var(--al-superficie);
+  color: var(--al-texto);
+  text-align: left;
+  cursor: pointer;
+}
+[data-al="2"] .lv-interruptor:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+[data-al="2"] .lv-interruptor-titulo { display: block; font-weight: 800; font-size: 1.05rem; }
+[data-al="2"] .lv-interruptor-estado { display: block; margin-top: 0.1rem; font-size: 0.85rem; color: var(--al-texto-3); }
+[data-al="2"] .lv-chave {
+  position: relative;
+  flex: none;
+  width: 3.1rem;
+  height: 1.75rem;
+  margin-left: auto;
+  border-radius: 999px;
+  background: var(--al-superficie-2);
+  border: 2px solid var(--al-linha);
+}
+[data-al="2"] .lv-chave::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 999px;
+  background: var(--al-texto-3);
+  transition: transform 0.15s;
+}
+[data-al="2"] [aria-checked="true"] > .lv-chave { background: var(--al-vermelho); border-color: var(--al-vermelho); }
+[data-al="2"] [aria-checked="true"] > .lv-chave::after { transform: translateX(1.3rem); background: var(--al-sobre-vermelho); }
+[data-al="2"] .lv-nota {
+  margin: 0.7rem 0 0;
+  padding: 0.6rem 0.8rem;
+  border-left: 4px solid var(--al-dourado);
+  background: var(--al-dourado-fundo);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+/* Escrever leve. */
+[data-al="2"] .lv-escrever {
+  margin-top: 0.9rem;
+  padding: 1rem;
+  border: 1px solid var(--al-linha);
+  border-radius: var(--al-raio);
+  background: var(--al-superficie);
+}
+[data-al="2"] .lv-rotulo { display: block; font-weight: 800; font-size: 0.95rem; }
+[data-al="2"] .lv-texto {
+  display: block;
+  width: 100%;
+  min-height: 7.5rem;
+  margin-top: 0.4rem;
+  padding: 0.7rem 0.8rem;
+  border: 2px solid var(--al-linha);
+  border-radius: 10px;
+  background: var(--al-fundo);
+  color: var(--al-texto);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+[data-al="2"] .lv-texto:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 1px; border-color: transparent; }
+[data-al="2"] .lv-linha-de-baixo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  margin-top: 0.8rem;
+}
+[data-al="2"] .lv-publicos { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.35rem 0 0; padding: 0; border: 0; }
+[data-al="2"] .lv-publicos legend { padding: 0; font-weight: 800; font-size: 0.95rem; }
+[data-al="2"] .lv-escolha {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 0.85rem;
+  border: 1px solid var(--al-linha);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+[data-al="2"] .lv-escolha:has(input:checked) { border-color: var(--al-texto); background: var(--al-superficie-2); }
+[data-al="2"] .lv-escolha:has(input:focus-visible) { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+[data-al="2"] .lv-escolha input { accent-color: var(--al-vermelho); }
+[data-al="2"] .lv-contador { margin-left: auto; font-size: 0.8rem; color: var(--al-texto-3); font-variant-numeric: tabular-nums; }
+[data-al="2"] .lv-rede {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--al-texto-2);
+}
+[data-al="2"] .lv-rede::before {
+  content: "";
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 999px;
+  background: var(--al-com-3);
+}
+[data-al="2"] .lv-rede[data-sem-rede]::before { background: var(--al-dourado); }
+[data-al="2"] .lv-recado { min-height: 1.4rem; margin: 0.6rem 0 0; font-size: 0.9rem; line-height: 1.45; }
+
+/* A fila: cada post guardado é um ladrilho com a faixa da cor do estado. */
+[data-al="2"] .lv-fila { display: grid; gap: 8px; margin: 1rem 0 0; padding: 0; list-style: none; }
+[data-al="2"] .lv-item {
+  padding: 0.8rem 0.9rem;
+  border-radius: 10px;
+  border-left: 5px solid var(--al-dourado);
+  background: var(--al-superficie);
+}
+[data-al="2"] .lv-item[data-estado="recusado"] { border-left-color: var(--al-vermelho); }
+[data-al="2"] .lv-item[data-estado="outra_conta"] { border-left-color: var(--al-linha); }
+[data-al="2"] .lv-item-texto {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+[data-al="2"] .lv-item-pe {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.9rem;
+  margin-top: 0.55rem;
+  font-size: 0.8rem;
+  color: var(--al-texto-3);
+}
+[data-al="2"] .lv-item-pe .lv-acoes { display: flex; gap: 0.4rem; margin-left: auto; }
+[data-al="2"] .lv-item-estado { margin: 0.45rem 0 0; font-size: 0.85rem; font-weight: 700; color: var(--al-texto-2); }
+[data-al="2"] .lv-vazio { margin: 0.9rem 0 0; color: var(--al-texto-3); font-size: 0.9rem; }
+
+/* Início só em texto. */
+[data-al="2"] .lv-abas { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.9rem 0 0; }
+[data-al="2"] .lv-aba {
+  min-height: 44px;
+  padding: 0 0.9rem;
+  border: 1px solid var(--al-linha);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--al-texto-2);
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+[data-al="2"] .lv-aba[aria-pressed="true"] { border-color: var(--al-texto); background: var(--al-texto); color: var(--al-fundo); }
+[data-al="2"] .lv-aba:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+[data-al="2"] .lv-posts { margin: 0.8rem 0 0; padding: 0; list-style: none; }
+[data-al="2"] .lv-post { padding: 0.95rem 0; border-top: 1px solid var(--al-linha); }
+[data-al="2"] .lv-post:first-child { border-top: 0; }
+[data-al="2"] .lv-post-cabeca { display: flex; flex-wrap: wrap; gap: 0.2rem 0.55rem; align-items: baseline; font-size: 0.85rem; color: var(--al-texto-3); }
+[data-al="2"] .lv-post-autor { font-weight: 800; color: var(--al-texto); }
+[data-al="2"] .lv-post-titulo { margin: 0.3rem 0 0; font-size: 1.05rem; font-weight: 800; line-height: 1.3; }
+[data-al="2"] .lv-post-texto { margin: 0.3rem 0 0; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.55; }
+[data-al="2"] .lv-post-pe { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; align-items: center; margin-top: 0.5rem; font-size: 0.85rem; }
+[data-al="2"] .lv-link {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.15rem; border: 0; background: none; font: inherit;
+  color: var(--al-texto); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+}
+[data-al="2"] .lv-link:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+[data-al="2"] .lv-imagens { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+[data-al="2"] .lv-ver-imagem {
+  min-height: 2.75rem;
+  padding: 0 0.85rem;
+  border: 2px dashed var(--al-linha);
+  border-radius: 10px;
+  background: var(--al-superficie);
+  color: var(--al-texto-2);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+[data-al="2"] .lv-ver-imagem:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+[data-al="2"] .lv-imagem { margin: 0.5rem 0 0; }
+[data-al="2"] img.lv-img,
+:root[data-light] [data-al="2"] img.lv-img {
+  display: block !important;
+  max-width: 100%;
+  max-height: 28rem;
+  height: auto;
+  border-radius: 10px;
+}
+[data-al="2"] .lv-imagem figcaption { margin-top: 0.3rem; font-size: 0.8rem; color: var(--al-texto-3); }
+[data-al="2"] .lv-aviso-conteudo {
+  margin: 0.4rem 0 0;
+  padding: 0.5rem 0.7rem;
+  border-left: 4px solid var(--al-vermelho);
+  background: var(--al-superficie);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+/* Tempo de uso e silêncio. */
+[data-al="2"] .lv-campo { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.6rem; margin-top: 0.8rem; }
+[data-al="2"] .lv-campo label { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.85rem; font-weight: 700; }
+[data-al="2"] .lv-hora {
+  min-height: 2.75rem;
+  padding: 0 0.7rem;
+  border: 2px solid var(--al-linha);
+  border-radius: 10px;
+  background: var(--al-fundo);
+  color: var(--al-texto);
+  font: inherit;
+  font-size: 1rem;
+}
+[data-al="2"] .lv-hora:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 1px; }
+[data-al="2"] .lv-subtitulo { margin: 1.1rem 0 0; font-size: 1rem; font-weight: 800; }
+[data-al="2"] .lv-caixa { margin-top: 0.6rem; padding: 0.4rem 0.8rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); }
+/* A peça de silêncio dos avisos (components/rede/avisos) usa as classes do site; dentro desta tela ela ganha as cores da Alumia. */
+[data-al="2"] .lv-silencio section { margin-top: 0.4rem; border-top: 0; padding-top: 0; }
+[data-al="2"] .lv-silencio h3 { display: none; }
+[data-al="2"] .lv-silencio :is(p, span) { color: var(--al-texto-2); font-size: 0.92rem; line-height: 1.5; }
+[data-al="2"] .lv-silencio p.font-bold { color: var(--al-texto); font-size: 0.95rem; }
+[data-al="2"] .lv-silencio input { border-color: var(--al-linha); background: var(--al-fundo); color: var(--al-texto); color-scheme: inherit; }
+[data-al="2"] .lv-silencio button { border-color: var(--al-texto); color: var(--al-texto); }
+
+/* O recado que a fila deixa quando um post sai (preso ao pé da tela, sem roubar o foco). */
+[data-al="2"] .lv-recado-flutuante,
+[data-al="2"] .lv-parar {
+  position: fixed;
+  z-index: 70;
+  left: 50%;
+  bottom: calc(5.25rem + var(--recuo-baixo, 0px));
+  width: min(30rem, calc(100vw - 32px));
+  transform: translateX(-50%);
+  padding: 0.9rem 1rem;
+  border-radius: var(--al-raio);
+  border-top: 5px solid var(--al-com-3);
+  background: var(--al-superficie-2);
+  color: var(--al-texto);
+  box-shadow: var(--al-sombra);
+}
+[data-al="2"] .lv-recado-flutuante[data-ruim] { border-top-color: var(--al-vermelho); }
+[data-al="2"] .lv-parar { border-top-color: var(--al-dourado); }
+@media (min-width: 1024px) {
+  [data-al="2"] .lv-recado-flutuante,
+  [data-al="2"] .lv-parar { bottom: 1.5rem; }
+}
+[data-al="2"] .lv-flutuante-linha { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.9rem; }
+[data-al="2"] .lv-flutuante-linha > p { flex: 1 1 14rem; margin: 0; font-size: 0.92rem; line-height: 1.4; font-weight: 700; }
+[data-al="2"] .lv-parar h2 { margin: 0; font-size: 1.35rem; line-height: 1.05; text-transform: uppercase; }
+[data-al="2"] .lv-parar p { margin: 0.35rem 0 0.7rem; font-size: 0.92rem; line-height: 1.45; color: var(--al-texto-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-al="2"] .lv-chave::after { transition: none; }
+}
+:root[data-parado] [data-al="2"] .lv-chave::after { transition: none; }
+
+/* Onda 14 (celular): no toque, as abas do Início só em texto e o "Abrir o post" com 44 px. */
+@media (pointer: coarse), (max-width: 1023px) {
+  [data-al="2"] .lv-aba { min-height: 44px; }
+  [data-al="2"] .lv-link { display: inline-flex; align-items: center; min-height: 44px; }
+}

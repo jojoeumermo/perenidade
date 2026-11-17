@@ -1,0 +1,141 @@
+{
+  "_rascunho": true,
+  "aba": "Forum",
+  "titulo": "Forum",
+  "lead": "Each subject is a topic. Whoever opened it, or the moderators, mark when it is resolved.",
+  "abrir": "Open topic",
+  "entrarParaAbrir": "To open a topic, join the community.",
+  "carregando": "Loading the forum…",
+  "carregarMais": "Load more",
+  "erro": "Could not load the forum.",
+  "tentar": "Try again",
+  "fixados": "Pinned by the moderators",
+  "lista": "Topics",
+  "ordem": {
+    "rotulo": "List order",
+    "ultima": "Latest reply",
+    "novos": "Newest",
+    "sem_resposta": "Unanswered",
+    "regra": {
+      "ultima": "A topic moves up when someone replies. The rule is the same for everyone: no reactions, reach or profile count.",
+      "novos": "From the most recently opened topic to the oldest, the same for everyone.",
+      "sem_resposta": "Only topics still waiting for their first reply, newest first."
+    }
+  },
+  "estado": {
+    "rotulo": "Status",
+    "todos": "All",
+    "aberto": "Open",
+    "encaminhado": "Forwarded",
+    "resolvido": "Resolved",
+    "filtro": {
+      "aberto": "Open",
+      "encaminhado": "Forwarded",
+      "resolvido": "Resolved"
+    },
+    "regra": {
+      "aberto": "Still being discussed.",
+      "encaminhado": "Became a lesson, wiki page or task.",
+      "resolvido": "The question was answered or the subject is closed."
+    }
+  },
+  "etiqueta": {
+    "rotulo": "Tag",
+    "todas": "All tags",
+    "nenhuma": "No tag"
+  },
+  "item": {
+    "respostas": "{n} replies",
+    "resposta": "1 reply",
+    "nenhuma": "No replies yet",
+    "ultima": "latest reply {quando} ago",
+    "aberto": "opened {quando} ago",
+    "por": "by {codinome}",
+    "duvida": "Question",
+    "discussao": "Discussion",
+    "travado": "Locked",
+    "veio": "Came from another conversation",
+    "novas": "New",
+    "novasRegra": "Replies since your last visit. How far you have read is kept only on this device."
+  },
+  "resumo": {
+    "daModeracao": "Moderators' summary",
+    "daAutora": "Summary by whoever opened it",
+    "escrever": "Write the summary",
+    "trocar": "Change the summary",
+    "tirar": "Remove the summary",
+    "campo": "One-line summary",
+    "dica": "Up to 140 characters, on a single line. It shows at the top of the topic and in the forum list.",
+    "conta": "{n} of 140",
+    "salvar": "Save the summary",
+    "cancelar": "Cancel",
+    "salvo": "Summary saved.",
+    "tirado": "Summary removed."
+  },
+  "topico": {
+    "carimbo": "Forum topic",
+    "situacao": "Topic status",
+    "mudou": "The topic is now: {estado}.",
+    "regraMudar": "Whoever opened the topic, or the moderators, change the status and the summary.",
+    "veioDe": "This topic continues a conversation.",
+    "verOriginal": "See the conversation it came from",
+    "continuaEm": "Continues in the forum",
+    "levar": "Take it to the forum",
+    "abrirForum": "See the community forum"
+  },
+  "virar": {
+    "titulo": "Turn into a forum topic",
+    "acao": "Turn into topic",
+    "lead": "Opens a new forum topic quoting this message. The original conversation stays where it is, marked with where it continues.",
+    "avisoAutora": "This message is not yours: its author gets a notice that it was taken to the forum.",
+    "comunidade": "Community",
+    "escolha": "Choose the community",
+    "carregandoComunidades": "Loading your communities…",
+    "semComunidade": "You are not yet in any community where you can open a topic.",
+    "tituloCampo": "Topic title",
+    "tipo": "Type",
+    "corpo": "First message of the topic",
+    "corpoPadrao": "This subject started in a conversation and continues here, so it does not get lost.",
+    "enviar": "Open the topic",
+    "cancelar": "Cancel",
+    "feito": "The topic was opened.",
+    "ver": "See the topic",
+    "avaliar": "The topic will wait for the moderators to read it before it shows.",
+    "fechar": "Close"
+  },
+  "novo": {
+    "titulo": "New topic",
+    "tituloCampo": "Title",
+    "tituloDica": "From 5 to 140 characters.",
+    "tipo": "Type",
+    "corpo": "Message",
+    "corpoDica": "At least 10 characters.",
+    "etiqueta": "Tag",
+    "enviar": "Publish the topic",
+    "cancelar": "Cancel",
+    "feito": "Topic published.",
+    "avaliar": "The topic will wait for the moderators to read it before it shows."
+  },
+  "novas": {
+    "barra": "{n} new replies since your last visit",
+    "uma": "1 new reply since your last visit",
+    "pular": "Jump to the first new one",
+    "regua": "New from here down",
+    "selo": "New",
+    "regra": "How far you have read is kept only on this device."
+  },
+  "vazio": {
+    "todos": "No topics yet. How about opening the first one?",
+    "filtro": "No topics with this filter."
+  },
+  "erros": {
+    "ja_virou": "This message has already become a topic in that community.",
+    "invalido:topico": "This conversation is not a forum topic.",
+    "invalido:estado": "Unknown status.",
+    "invalido:resumo": "The summary could not be saved: please review the text.",
+    "invalido:titulo": "The title must be 5 to 140 characters long.",
+    "invalido:corpo": "The message must be at least 10 characters long.",
+    "invalido:comunidade": "Choose a community.",
+    "invalido:flair": "That tag does not exist in this community."
+  }
+}

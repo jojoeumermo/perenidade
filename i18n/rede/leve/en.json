@@ -1,0 +1,121 @@
+{
+  "titulo": "Light and at your own pace",
+  "lead": "For people with little mobile data, a weak connection or little time. What you choose here stays on this device. Only the post you publish and the quiet hours for notifications go to the server.",
+  "carimbo": "On this device",
+  "secoes": "Parts of this page",
+  "atalhos": {
+    "economia": "Data",
+    "escrever": "Write",
+    "linha": "Text only",
+    "tempo": "Time",
+    "silencio": "Quiet"
+  },
+  "economia": {
+    "titulo": "Data saving",
+    "interruptor": "Alumia light",
+    "dica": "A post photo becomes a tile and only opens when you tap it; video only plays when you ask. No animation, and the fonts your device already has.",
+    "automatico": "Your device asked to save data, so Alumia light started switched on. You can switch it off here.",
+    "verImagem": "Tap to see the image",
+    "ligada": "On",
+    "desligada": "Off"
+  },
+  "linha": {
+    "titulo": "Home in text only",
+    "dica": "The timeline without photos, video or decoration. Each image only loads if you tap it.",
+    "carregando": "Loading posts…",
+    "vazio": "Nothing in this timeline yet.",
+    "mais": "Show more",
+    "erro": "The timeline did not load.",
+    "semRede": "No connection right now. When it is back, tap Try again.",
+    "tentar": "Try again",
+    "naComunidade": "in {comunidade}",
+    "imagem": "See the image",
+    "imagens": "See image {n} of {total}",
+    "semDescricao": "Image without description",
+    "abrir": "Open the post",
+    "aviso": "Content warning: {aviso}",
+    "mostrar": "Show anyway",
+    "esconder": "Hide again",
+    "ato": "Call to action",
+    "visitante": "Sign in to your account to see the timeline."
+  },
+  "escrever": {
+    "titulo": "Light writing",
+    "dica": "Without a connection, the post is kept only on this device and goes out by itself when the connection comes back, with Alumia open. Nothing waits on the server.",
+    "rotulo": "What do you want to say?",
+    "publico": "Who can see",
+    "membros": "People with an Alumia account",
+    "seguidores": "Only people who follow you",
+    "publicar": "Publish",
+    "guardar": "Keep it to go out when the connection is back",
+    "comRede": "Connected: the post goes out now.",
+    "semRede": "No connection: the post is kept on this device.",
+    "guardado": "Kept on this device. It goes out by itself when the connection is back, while Alumia is open here.",
+    "repetido": "This text was already kept. We do not keep it twice.",
+    "publicado": "Published.",
+    "abrirPost": "See the post",
+    "naoSaiu": "It did not go out. {motivo}",
+    "vazio": "Write something first.",
+    "longo": "Over {max} characters.",
+    "cheia": "There are already {max} posts waiting on this device. Send or delete one first.",
+    "semEspaco": "The device has no space to keep it. Nothing was kept.",
+    "contador": "{n} of {max}",
+    "naoMembro": "To write, sign in with your approved account.",
+    "soTexto": "Only text here. Photos, polls and actions go through the usual Write, with a connection.",
+    "previa": "In the preview nothing is published: the post only goes into this device's queue."
+  },
+  "fila": {
+    "titulo": "Waiting for the connection",
+    "vazia": "Nothing waiting on this device.",
+    "guardado": "Kept {quando} ago",
+    "publicoMembros": "Account holders",
+    "publicoSeguidores": "Your followers",
+    "enviar": "Send now",
+    "apagar": "Delete",
+    "apagarConfirma": "Delete this kept post? It disappears from this device and is not sent.",
+    "parado": "Kept for more than {dias} days: it does not go out by itself. Send it now or delete it.",
+    "recusado": "The server refused it. {motivo} Delete it and write again, or send it again.",
+    "outraConta": "Kept by another account on this device. It only goes out when that account signs in.",
+    "enviando": "Sending…",
+    "saiu": "The post kept on this device went out.",
+    "saiuVarios": "{n} posts kept on this device went out.",
+    "naoSaiu": "A kept post did not go out. See Light and at your own pace.",
+    "ver": "See",
+    "fechar": "Close",
+    "sairRapido": "Quick exit deletes this queue together with everything else Alumia keeps on the device."
+  },
+  "tempo": {
+    "titulo": "Time spent",
+    "dica": "The clocks are only on this device: no score, no history, nothing goes to the server.",
+    "parar": "Time to stop",
+    "pararDica": "One reminder per night, at the time you choose, up to five hours after it.",
+    "hora": "At",
+    "guardar": "Save the time",
+    "tirar": "Remove",
+    "ligado": "Reminder at {hora}.",
+    "desligado": "No time to stop.",
+    "lembreteTitulo": "You asked to stop at {hora}",
+    "lembreteTexto": "The struggle continues tomorrow. Resting is also caring for the collective.",
+    "fechar": "Close",
+    "salvo": "Saved on this device."
+  },
+  "silencio": {
+    "titulo": "Quiet notifications",
+    "dica": "You choose the time on this device's clock. The server keeps only the minutes of the day, with no time zone and no city.",
+    "abrir": "All notification settings",
+    "visitante": "Sign in to your account to choose the quiet hours."
+  },
+  "ajustes": {
+    "titulo": "Light and at your own pace",
+    "texto": "Data saving, Home in text only, posts waiting for the connection, time to stop and quiet notifications.",
+    "abrir": "Open Light and at your own pace"
+  },
+  "offline": {
+    "aviso": "No connection right now: nothing was sent. The text is still here. To have it go out by itself when the connection is back, use Light writing, in Light and at your own pace.",
+    "jaSaiu": "This same text has just gone out, kept on this device, when the connection came back. We are not publishing it again."
+  },
+  "erros": {
+    "desconhecido": "The server did not say why.",
+    "rede": "No connection."
+  }
+}

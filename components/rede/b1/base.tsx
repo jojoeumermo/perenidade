@@ -9,9 +9,11 @@ import { codigoDoErro, textoDoErro } from "../erros";
 import "./b1.css";
 
 /** Os textos da B1 no idioma da página (só um idioma chega ao navegador). Nulo enquanto carrega. */
-export function useTextosB1(lang: string): TextosDaB1 | null {
+export function useTextosB1(lang: string | null): TextosDaB1 | null {
   const [t, setT] = useState<{ lang: string; t: TextosDaB1 } | null>(null);
   useEffect(() => {
+    // Nulo: a tela não precisa destes textos (a rede de hoje), e nada é baixado.
+    if (lang === null) return;
     let vivo = true;
     carregarTextosDaB1(lang).then((x) => vivo && setT({ lang, t: x }));
     return () => {

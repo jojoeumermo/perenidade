@@ -7,13 +7,18 @@ import { Botao } from "../ui/Botao";
 import { NaoExiste } from "../ui/NaoExiste";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { PorNoStoryDoAto } from "../stories/encaixe";
+import { AlbumDoAto } from "./AlbumDoAto";
 import { AtoAberto } from "./AtoAberto";
 import { Caronas } from "./Caronas";
 import { PainelDoFarol } from "./Farol";
+import { JuntoCom } from "./JuntoCom";
+import { LinhaAoVivo } from "./LinhaAoVivo";
 import { Peticao } from "./Peticao";
 import { QuadroDeTarefas } from "./QuadroDeTarefas";
+import { SerieDoAto } from "./SerieDoAto";
 import { Icone } from "./partes";
 import { avisarAto, frase, useAto, useTextosDosAtos } from "./usar";
+import { useMaisDoAto } from "./usarEventos";
 import { codigoDoErro } from "@/lib/rede/atos/erros";
 import { linkDeApoioSeguro } from "@/lib/rede/atos/chegar";
 import { lerLinkDeApoio, lerMeta } from "@/lib/rede/atos/quadros";
@@ -26,11 +31,15 @@ import "./atos.css";
 /**
  * A página de um ato (/alumia/ato/[id]; prancha celular-modo-atos): o ato aberto com Você vai, Conversa, Chegar e Chamar; embaixo,
  * o lembrete na agenda (.ics feito no aparelho, com avisos 24 h e 2 h antes), o farol da coordenação e o link de apoio externo, quando houver. Quem chamou o ato vê o total exato (só ela) e
- * pode adiar, cancelar ou confirmar de novo; quem confirmou recebe o aviso "ato_mudou" (o servidor manda).
+ * pode adiar, cancelar ou confirmar de novo; quem confirmou recebe o aviso "ato_mudou" (o servidor manda). Onda 10 (10F): as organizações
+ * que chamam junto, a série (ato que se repete), a linha ao vivo em ordem de chegada e o álbum com os rostos borrados no aparelho.
  */
 export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPacote) {
   const t = useTextosDosAtos(lang);
   const { estado, recarregar } = useAto(params.id ?? "");
+  // 10F: organizações juntas, série, linha ao vivo e álbum (um pedido só, trocado pelo que cada ação devolve).
+  const mais = useMaisDoAto(params.id ?? "", estado.fase === "pronto");
+  const logado = situacao.logado || PREVIA_DOS_ATOS;
   if (!t) return <div className="al-ato-pagina" aria-busy="true" />;
   return (
     <div className="al-ato-pagina">
@@ -69,7 +78,19 @@ export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPac
             nivel={1}
             depois={<MaisDoAto ato={estado.dados} t={t} lang={lang} logado={situacao.logado || PREVIA_DOS_ATOS} />}
           />
+          {mais.estado.fase === "pronto" ? (
+            <>
+              <JuntoCom ato={estado.dados} mais={mais.estado.dados} t={t} lang={lang} logado={logado} trocar={mais.trocar} />
+              <SerieDoAto ato={estado.dados} mais={mais.estado.dados} t={t} lang={lang} trocar={mais.trocar} />
+            </>
+          ) : null}
           <PainelDoFarol ato={estado.dados} t={t} lang={lang} />
+          {mais.estado.fase === "pronto" ? (
+            <>
+              <LinhaAoVivo ato={estado.dados} mais={mais.estado.dados} t={t} lang={lang} logado={logado} />
+              <AlbumDoAto ato={estado.dados} mais={mais.estado.dados} t={t} logado={logado} aoMudar={() => void cliente.mais(estado.dados.id).then(mais.trocar).catch(() => undefined)} />
+            </>
+          ) : null}
           <QuadroDeTarefas ato={estado.dados} t={t} logado={situacao.logado || PREVIA_DOS_ATOS} />
           <Caronas ato={estado.dados} t={t} lang={lang} logado={situacao.logado || PREVIA_DOS_ATOS} />
           <Peticao ato={estado.dados} t={t} lang={lang} logado={situacao.logado || PREVIA_DOS_ATOS} />

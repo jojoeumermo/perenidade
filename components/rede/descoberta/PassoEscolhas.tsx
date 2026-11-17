@@ -8,6 +8,7 @@ import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { EstadoDaEntrada, LutaOpcao, TrilhaOpcao } from "@/lib/rede/tipos-descoberta";
 import { textoDoErro } from "../erros";
+import { useTextosDasSecoes } from "../perfil/secoes/textos";
 
 const MAXIMO = 3;
 
@@ -26,6 +27,8 @@ export function PassoEscolhas({
   aoSalvar: (estado: EstadoDaEntrada) => void;
 }) {
   const e = d.entrada.escolhas;
+  // Onda 12: aparecer nos pacotes vale só para os pacotes cujo convite a pessoa aceitar (lib/rede/secoes-perfil.ts).
+  const ts = useTextosDasSecoes(lang);
   const [lutas, setLutas] = useState<LutaOpcao[] | null>(null);
   const [trilhas, setTrilhas] = useState<TrilhaOpcao[] | null>(null);
   const [trilhasFalhou, setTrilhasFalhou] = useState(false);
@@ -163,7 +166,10 @@ export function PassoEscolhas({
 
       <label className="flex items-start gap-2 text-sm">
         <input type="checkbox" checked={aparece} onChange={(x) => setAparece(x.target.checked)} className="mt-1 h-5 w-5" />
-        <span>{e.aparecer}</span>
+        <span>
+          {e.aparecer}
+          {ts ? <span className="mt-1 block text-ink-soft">{ts.pacotes.noPasso}</span> : null}
+        </span>
       </label>
 
       {erro && (

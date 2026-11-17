@@ -3,7 +3,8 @@
 
 import { AlarmClock, Check, Heart, HeartPulse, Send, Siren, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getClient, type Me, rpc } from "@/lib/backend";
+import { getClient, type Me } from "@/lib/backend";
+import { votoPeloServidor } from "@/lib/rede/voto/cliente";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Aviso, data, textoDoErro, useAcao, useLista } from "./comum";
 import type { Membro } from "./Equipe";
@@ -11,8 +12,8 @@ import { RedeDeApoio } from "./Biblioteca";
 import { Area, Botao, CabecalhoDeSecao, Campo, Cartao, Esqueleto, Faixa, ItemDeLista, Lista, Selecao, Selo, Vazio } from "./ui";
 
 // Cuidado com a equipe (supabase/install.sql, "Cuidado com a equipe"): agradecer em público, férias de verdade, o
-// termômetro de bem-estar da semana, a caixa de críticas anônimas e o botão de pânico. O termômetro e as críticas
-// são anônimos de fato: o banco não guarda quem respondeu.
+// termômetro de bem-estar da semana, a caixa de críticas anônimas e o botão de pânico. O termômetro vai pelo servidor do site
+// (app/api/alumia/voto/marca): o banco guarda só a resposta e uma marca embaralhada com um segredo que fica fora dele.
 
 const NIVEIS: [number, string][] = [
   [1, "No limite"],
@@ -22,16 +23,26 @@ const NIVEIS: [number, string][] = [
   [5, "Muito bem"],
 ];
 
-/** Na Mesa: a pergunta da semana. Some depois de responder (dá para mudar até domingo, abrindo de novo). */
+/** Na Mesa: a pergunta da semana. Uma resposta por semana; some depois de responder. */
 export function Termometro() {
-  const situacao = useLista<{ respondeu: boolean }>("bem_estar_situacao");
+  const [respondeu, setRespondeu] = useState<boolean | null>(null);
   const [resposta, setResposta] = useState<number | null>(null);
   const [erro, setErro] = useState("");
-  if (!situacao.dados || (situacao.dados.respondeu && resposta === null)) return null;
+  useEffect(() => {
+    let vivo = true;
+    votoPeloServidor<{ respondeu: boolean }>({ tipo: "bem_estar", nivel: null }).then(
+      (r) => vivo && setRespondeu(r.respondeu === true),
+      () => undefined,
+    );
+    return () => {
+      vivo = false;
+    };
+  }, []);
+  if (respondeu === null || (respondeu && resposta === null)) return null;
   async function responder(nivel: number) {
     setErro("");
     try {
-      await rpc("bem_estar_responder", { p_nivel: nivel });
+      await votoPeloServidor({ tipo: "bem_estar", nivel });
       setResposta(nivel);
     } catch (e) {
       setErro(textoDoErro(e));
@@ -43,7 +54,7 @@ export function Termometro() {
       {resposta === null ? (
         <>
           <p className="mt-1.5 text-lg font-semibold leading-snug" style={{ fontFamily: "var(--pn-fonte-titulo)" }}>Como você está esta semana?</p>
-          <p className="pn-ajuda mt-0.5">Anônimo de verdade: o banco não guarda quem respondeu. A coordenação só vê a média, e só com cinco respostas ou mais.</p>
+          <p className="pn-ajuda mt-0.5">Anônimo de verdade: a resposta cai numa urna sem nome, separada do registro de quem já respondeu. A coordenação só vê a média, e só com cinco respostas ou mais.</p>
           <p role="group" aria-label="Como você está" className="mt-3 flex flex-wrap gap-1.5">
             {NIVEIS.map(([nivel, nome]) => (
               <Botao key={nivel} pequeno onClick={() => void responder(nivel)}>

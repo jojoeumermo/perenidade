@@ -1,0 +1,161 @@
+{
+  "_rascunho": true,
+  "aba": "结构",
+  "abaEspacos": "空间",
+  "carregando": "加载中…",
+  "tentar": "重试",
+  "salvar": "保存",
+  "salvo": "已保存。",
+  "cancelar": "取消",
+  "aceitar": "接受",
+  "recusar": "拒绝",
+  "desfazer": "撤销",
+  "enviar": "发送",
+  "enviado": "请求已发送。",
+  "nenhuma": "暂时没有。",
+  "postsSemana": "本周 {n} 条帖子",
+  "semanaQuieta": "本周很安静",
+  "tipo": { "aberta": "开放", "restrita": "受限", "fechada": "封闭" },
+  "estrutura": {
+    "titulo": "这个社区如何组织",
+    "moraEm": "隶属于",
+    "subcomunidades": "子社区",
+    "semSub": "这里还没有子社区。",
+    "onde": "地点",
+    "ondeVazio": "版务还没有写上城市。",
+    "verCidade": "{cidade}的其他社区",
+    "org": "组织",
+    "verEspacos": "查看该组织的空间",
+    "soLeitura": "公告社区",
+    "soLeituraTexto": "这里只有版务可以发帖。",
+    "respostasTexto": {
+      "todos": "所有人都可以回复公告。",
+      "membros": "社区成员可以回复公告。",
+      "ninguem": "公告不接受回复。"
+    },
+    "herancaTexto": {
+      "propria": "有自己的版务。",
+      "mae": "{mae}的版务也照看这里。"
+    }
+  },
+  "ajustar": {
+    "titulo": "调整结构",
+    "intro": "只有版务能看到这部分。一切立即生效，并写在标签页上给读者看。",
+    "soLeitura": "公告社区（只有版务可以发帖）",
+    "respostas": "谁可以回复公告",
+    "respostasOpcoes": { "todos": "所有人", "membros": "社区成员", "ninguem": "没有人" },
+    "reposts": "谁可以把其他社区的帖子带到这里",
+    "repostsOpcoes": { "todos": "能在这里发帖的人", "moderacao": "只有版务", "ninguem": "没有人" },
+    "local": "城市和街区",
+    "localAjuda": "写上市镇，愿意的话也写上街区。我们不使用设备定位，也不使用外部地图。",
+    "uf": "州",
+    "ufVazia": "请选择",
+    "municipio": "市镇",
+    "municipioExemplo": "例如：坎皮纳斯",
+    "bairro": "街区（可选）",
+    "bairroExemplo": "例如：工业村",
+    "mae": "隶属于另一个社区",
+    "maeAjuda": "写上母社区的地址（/c/ 后面的部分）。那里的版务会收到请求并决定。只有一层：母社区不能隶属于别的社区，有子社区的社区也不能搬进别的社区。",
+    "maeCampo": "母社区地址",
+    "maeExemplo": "例如：zhufang",
+    "maeEsperando": "等待{mae}决定。",
+    "maeSair": "退出{mae}",
+    "naoPodeSerFilha": "这个社区有子社区，所以不能搬进别的社区。",
+    "heranca": "版务",
+    "herancaOpcoes": {
+      "propria": "只有我们的版务照看这里",
+      "mae": "母社区的版务也照看这里"
+    },
+    "herancaAjuda": "选择第二项时，母社区的版务在本社区隶属期间，以同样的权限管理本社区。",
+    "pedidosFilhas": "申请隶属于这里",
+    "pedidoFilha": "{nome}想成为这里的子社区。",
+    "pedidoFilhaHerda": "{nome}想成为这里的子社区，并希望这里的版务也照看那里。",
+    "tirarFilha": "不再收容",
+    "org": "出现在某个组织的空间里",
+    "orgAjuda": "只限有认证标志的组织。管理该组织的人会收到请求并决定。",
+    "orgCampo": "组织的 @",
+    "orgExemplo": "例如：@jiti",
+    "orgEsperando": "等待 @{handle} 决定。",
+    "orgSair": "退出 @{handle} 的空间",
+    "salvarRegras": "保存发帖规则",
+    "salvarLocal": "保存城市和街区",
+    "filhasAqui": "设在这里的下属社区"
+  },
+  "espacos": {
+    "titulo": "空间",
+    "intro": "该组织的社区和小组，集中在一处。这里只显示地点，从不显示参与者。",
+    "comunidades": "社区",
+    "nucleos": "小组",
+    "semComunidades": "还没有关联的社区。",
+    "semNucleos": "还没有小组。",
+    "dentro": "下属社区：{nomes}",
+    "pedidos": "申请出现在这里的社区",
+    "pedido": "{nome}申请出现在空间里。",
+    "tirar": "从空间移除",
+    "semSelo": "组织获得认证标志后，空间对所有人可见。"
+  },
+  "cidade": {
+    "porCategoria": "按主题",
+    "porCidade": "按城市",
+    "titulo": "按城市浏览社区",
+    "intro": "城市和街区由各社区的版务填写。不使用设备定位。",
+    "filtrar": "搜索市镇",
+    "contagem": "{n} 个社区",
+    "contagemUma": "1 个社区",
+    "vazio": "还没有社区写上城市。",
+    "nenhum": "没有这个名字的市镇。",
+    "voltar": "所有城市",
+    "cidadeToda": "全市",
+    "escolha": "选择一个市镇，查看那里的社区。"
+  },
+  "levar": {
+    "botao": "带到另一个社区",
+    "titulo": "把这条帖子带到另一个社区",
+    "intro": "帖子以引用的方式带过去，并显示来源社区。那里看不到原帖的人只会看到它是受限的。",
+    "destino": "社区",
+    "destinoVazio": "选择社区",
+    "semDestino": "你还没有加入其他可以发帖的社区。",
+    "comentario": "为什么要带过去？",
+    "comentarioExemplo": "例如：这对我们的街区也适用。",
+    "enviar": "带过去",
+    "levado": "已带到{nome}。"
+  },
+  "origem": {
+    "trazido": "来自{nome}",
+    "restrita": "来自一个受限的社区",
+    "perfil": "来自一个个人主页"
+  },
+  "proposta": {
+    "titulo": "地点与归属（可选）",
+    "intro": "如果社区属于某个城市或街区，请写在这里。如果它将隶属于另一个社区，请说明是哪个：那里的版务会在批准后决定。",
+    "maeCampo": "母社区（地址）",
+    "aviso": "提案已发送，但城市或母社区没有保存：{erro}"
+  },
+  "avisos": {
+    "carimbo": "通知社区",
+    "paraQuemLe": "这里只有管理者能发起帖子。你可以按社区规则回复通知。",
+    "paraModeracao": "这里只有管理者（以及有此权限的职务）能发起帖子。"
+  },
+  "antes": {
+    "soLeitura": "这是一个公告社区：这里只有版务可以发帖。你可以按照社区规则回复公告。"
+  },
+  "erros": {
+    "so_leitura": "这是一个公告社区：这里只有版务可以发帖。",
+    "so_leitura_respostas": "在这个公告社区，规则不允许你回复。",
+    "mae_e_filha": "那个社区已经隶属于另一个社区；请选择一个不是子社区的。",
+    "filha_e_mae": "这个社区有子社区，不能隶属于另一个社区。",
+    "sem_selo": "只有获得认证标志的组织才有空间。",
+    "repostar_publico": "这条帖子面向封闭的受众，不会离开它所在的地方。",
+    "repostar_fechado": "目标社区不接受从别处带来的帖子（或只接受版务带来的）。",
+    "mesma_comunidade": "帖子已经在那个社区里了。",
+    "citar_fechado": "这条帖子的作者不允许引用。",
+    "ja_decidida": "这个提案已经有了决定。",
+    "invalido": "请检查填写的内容。"
+  },
+  "ufs": {
+    "AC": "阿克里", "AL": "阿拉戈斯", "AP": "阿马帕", "AM": "亚马孙", "BA": "巴伊亚", "CE": "塞阿拉", "DF": "联邦区",
+    "ES": "圣埃斯皮里图", "GO": "戈亚斯", "MA": "马拉尼昂", "MT": "马托格罗索", "MS": "南马托格罗索", "MG": "米纳斯吉拉斯",
+    "PA": "帕拉", "PB": "帕拉伊巴", "PR": "巴拉那", "PE": "伯南布哥", "PI": "皮奥伊", "RJ": "里约热内卢", "RN": "北里奥格兰德",
+    "RS": "南里奥格兰德", "RO": "朗多尼亚", "RR": "罗赖马", "SC": "圣卡塔琳娜", "SP": "圣保罗", "SE": "塞尔希培", "TO": "托坎廷斯"
+  }
+}

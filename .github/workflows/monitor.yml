@@ -1,0 +1,66 @@
+name: Monitor da Alumia
+
+# De 15 em 15 minutos, confere de fora o site e a Alumia (scripts/operacao/monitor.mjs): a página da Alumia abre, a conferência
+# de saúde (/api/saude) responde, o banco está na versão que o código espera e as filas andam (e-mails, posts agendados, faxina
+# de mídia). Não entra em conta nenhuma e não lê dado de ninguém.
+#
+# Falhou: avisa o gancho da coordenação. Issue só se o repositório for privado (num público, ela diria a todo mundo, na hora,
+# que o serviço caiu; scripts/operacao/avisar.mjs confere). Sem e-mail de ninguém no código
+# (Settings › Secrets and variables › Actions):
+#   variável MONITOR_ALUMIA    "sim" liga esta rotina (sem ela, não roda)
+#   variável SITE_URL          o endereço do site (padrão: https://institutolucia.org)
+#   variável ALUMIA_URL        o endereço da Alumia (padrão: <site>/pt/alumia)
+#   variável OPERACAO_DESTINO  "gancho" (padrão), "issue" ou "os-dois" (issue só em repositório privado)
+#   segredo  OPERACAO_GANCHO   endereço https que recebe POST {"titulo", "texto"} (ntfy, Matrix, um bot próprio...)
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: monitor
+  cancel-in-progress: true
+
+jobs:
+  conferir:
+    if: ${{ vars.MONITOR_ALUMIA == 'sim' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+          sparse-checkout: scripts/operacao
+      - name: Conferir o site e a Alumia
+        id: conferir
+        env:
+          SITE_URL: ${{ vars.SITE_URL || 'https://institutolucia.org' }}
+          ALUMIA_URL: ${{ vars.ALUMIA_URL }}
+        run: node scripts/operacao/monitor.mjs
+      # Uma falha só pode ser um tropeço da rede: confere de novo em 2 minutos antes de avisar alguém.
+      - name: Conferir de novo antes de avisar
+        id: de-novo
+        if: steps.conferir.outputs.falhou == 'sim'
+        env:
+          SITE_URL: ${{ vars.SITE_URL || 'https://institutolucia.org' }}
+          ALUMIA_URL: ${{ vars.ALUMIA_URL }}
+        run: |
+          sleep 120
+          node scripts/operacao/monitor.mjs
+      - name: Avisar a falha
+        if: steps.de-novo.outputs.falhou == 'sim'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          OPERACAO_DESTINO: ${{ vars.OPERACAO_DESTINO }}
+          OPERACAO_GANCHO: ${{ secrets.OPERACAO_GANCHO }}
+        run: node scripts/operacao/avisar.mjs falha --etiqueta monitor --titulo "Monitor da Alumia: algo parou" --arquivo monitor-relatorio.md
+      - name: Fechar o aviso anterior
+        if: steps.conferir.outputs.falhou == 'nao' || steps.de-novo.outputs.falhou == 'nao'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          OPERACAO_DESTINO: ${{ vars.OPERACAO_DESTINO }}
+        run: node scripts/operacao/avisar.mjs voltou --etiqueta monitor

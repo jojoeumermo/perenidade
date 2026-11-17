@@ -1,0 +1,70 @@
+name: Teste de restauração da cópia
+
+# Uma vez por mês, pega a cópia cifrada mais recente da rotina "Cópia do banco" (backup.yml), restaura num Postgres
+# DESCARTÁVEL (o contêiner desta rotina, que some no fim) e confere se ela serve: tabelas, contas, o segredo das origens fora.
+# Script: scripts/operacao/restaurar.sh.
+#
+# Só roda com o repositório privado (a cópia só existe nele: backup.yml não roda em repositório público) e com o segredo
+# BACKUP_SENHA (o mesmo da cópia). Falhou: avisa a coordenação (scripts/operacao/avisar.mjs; issue com a etiqueta "restauracao" só em repositório privado), sem dado
+# nenhum; o destino a mais do alerta é a variável OPERACAO_DESTINO e o segredo OPERACAO_GANCHO.
+on:
+  schedule:
+    - cron: "40 8 3 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  issues: write
+
+concurrency:
+  group: restaurar
+  cancel-in-progress: false
+
+jobs:
+  restaurar:
+    if: github.event.repository.private
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    services:
+      postgres:
+        image: postgres:17
+        # Banco descartável, só dentro desta máquina da rotina: sem senha de propósito (não há segredo para vazar).
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: Restaurar e conferir
+        env:
+          GH_TOKEN: ${{ github.token }}
+          COPIA_ROTINA: backup.yml
+          COPIA_SENHA: ${{ secrets.BACKUP_SENHA }}
+          PGHOST: localhost
+          PGPORT: "5432"
+          PGUSER: postgres
+          PGDATABASE: postgres
+        run: bash scripts/operacao/restaurar.sh
+      - name: Avisar a falha
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          OPERACAO_DESTINO: ${{ vars.OPERACAO_DESTINO }}
+          OPERACAO_GANCHO: ${{ secrets.OPERACAO_GANCHO }}
+        run: |
+          printf 'O teste mensal de restauração da cópia do banco falhou. O motivo está no resumo da execução (link abaixo).\n' > restaurar-relatorio.md
+          node scripts/operacao/avisar.mjs falha --etiqueta restauracao --titulo "A cópia do banco não restaurou" --arquivo restaurar-relatorio.md
+      - name: Fechar o aviso anterior
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          OPERACAO_DESTINO: ${{ vars.OPERACAO_DESTINO }}
+        run: node scripts/operacao/avisar.mjs voltou --etiqueta restauracao

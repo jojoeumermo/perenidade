@@ -1,0 +1,186 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Turmas de estudo (/alumia/turmas) e agenda de provas e monitoria (/alumia/agenda), frente 11C. Linguagem do Mosaico da
+ * Arquibancada: faixa tecida, Archivo condensada em caixa alta, ladrilhos, carimbos e o calendário em placas. Só usa os tokens de
+ * styles/alumia-tokens.css (vale no escuro, no claro, no contraste e no e-ink). Computador primeiro: a coluna principal e a do lado
+ * quando a tela passa de 980 px; no celular, uma coluna só, sem rolar para o lado.
+ */
+
+.es-pagina { container-type: inline-size; display: grid; gap: 1.25rem; padding: 1.25rem 16px 3rem; color: var(--al-texto); min-width: 0; }
+@media (min-width: 1024px) { .es-pagina { padding: 1.75rem 1.5rem 3.5rem; } }
+
+/* ───── Cabeça ───── */
+.es-cabeca { display: grid; gap: 0.6rem; }
+.es-faixa { width: 7.5rem; border-radius: 2px; }
+.es-titulo { margin: 0; font-size: clamp(2.5rem, 6cqi, 4.2rem); line-height: 0.95; }
+.es-chamada { margin: 0; max-width: 64ch; color: var(--al-texto-2); font-size: 1.08rem; line-height: 1.5; }
+
+/* ───── Colunas ───── */
+.es-colunas { display: grid; gap: 1.5rem; align-items: start; min-width: 0; }
+@container (min-width: 980px) { .es-colunas { grid-template-columns: minmax(0, 1.65fr) minmax(18rem, 1fr); gap: 2rem; } }
+.es-principal, .es-lado { display: grid; gap: 1.1rem; align-content: start; min-width: 0; }
+.es-secao { margin: 0; font-size: 1.6rem; letter-spacing: 0.02em; }
+.es-lista { display: grid; gap: 1.25rem; margin: 0; padding: 0; list-style: none; }
+
+/* ───── Cartões ───── */
+.es-cartao {
+  display: grid; gap: 0.85rem; align-content: start; padding: 1.2rem; border-radius: var(--al-raio);
+  background: var(--al-superficie); border: 1px solid var(--al-linha); min-width: 0;
+}
+@container (min-width: 780px) { .es-cartao { padding: 1.4rem 1.5rem; } }
+.es-cartao-topo { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 1.75rem; }
+.es-cartao-titulo { margin: 0; font-size: clamp(1.6rem, 3cqi, 2.2rem); line-height: 1; overflow-wrap: anywhere; }
+.es-rotulo { margin: 0; font-size: 0.95rem; color: var(--al-texto-3); letter-spacing: 0.05em; }
+.es-texto { margin: 0; color: var(--al-texto-2); line-height: 1.55; max-width: 64ch; }
+.es-miudo { margin: 0; color: var(--al-texto-3); font-size: 0.92rem; line-height: 1.5; }
+.es-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: center; }
+.es-bloco { display: grid; gap: 0.7rem; padding-top: 0.9rem; border-top: 1px dashed var(--al-linha); }
+.es-rodape { padding-top: 0.6rem; border-top: 1px dashed var(--al-linha); }
+.es-esqueleto { display: grid; gap: 1rem; }
+.es-esqueleto > span { height: 14rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
+
+/* Ladrilhos: um pedaço do mosaico e os quadradinhos de cada item. */
+.es-ladrilhos { display: grid; grid-template-columns: repeat(6, 0.95rem); gap: 3px; flex: none; }
+.es-ladrilhos > span { height: 0.95rem; border-radius: 3px; background: var(--al-superficie-2); }
+.es-ladrilhos > [data-cor="v"], .es-item-ladrilho[data-cor="v"] { background: var(--al-vermelho); }
+.es-ladrilhos > [data-cor="d"], .es-item-ladrilho[data-cor="d"] { background: var(--al-dourado-fundo); }
+.es-ladrilhos > [data-cor="1"], .es-item-ladrilho[data-cor="1"] { background: var(--al-com-1); }
+.es-ladrilhos > [data-cor="2"], .es-item-ladrilho[data-cor="2"] { background: var(--al-com-2); }
+.es-ladrilhos > [data-cor="3"], .es-item-ladrilho[data-cor="3"] { background: var(--al-com-3); }
+.es-ladrilhos > [data-cor="4"], .es-item-ladrilho[data-cor="4"] { background: var(--al-com-4); }
+.es-itens { display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+.es-itens li { display: flex; gap: 0.65rem; align-items: baseline; line-height: 1.45; color: var(--al-texto-2); }
+.es-item-ladrilho { flex: none; width: 0.7rem; height: 0.7rem; border-radius: 2px; transform: translateY(0.05rem); }
+
+/* Carimbo: a situação em uma palavra, escrita (a cor só reforça). */
+.es-carimbo {
+  display: inline-flex; align-items: center; min-height: 1.75rem; padding: 0.1rem 0.6rem; border: 2px solid var(--al-dourado-fundo);
+  border-radius: 6px; color: var(--al-texto); font-family: var(--al-fonte); font-stretch: 70%; font-weight: 800; text-transform: uppercase;
+  font-size: 0.95rem; letter-spacing: 0.05em; transform: rotate(-2deg); white-space: nowrap;
+}
+.es-carimbo[data-tom="vermelho"] { border-color: var(--al-vermelho); color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+.es-carimbo[data-tom="apagado"] { border-color: var(--al-texto-3); color: var(--al-texto-3); }
+
+/* Notas (status e erro). */
+.es-nota { margin: 0; padding: 0.65rem 0.9rem; border-radius: 10px; background: var(--al-fundo); border-left: 4px solid var(--al-dourado-fundo); font-weight: 600; line-height: 1.45; }
+.es-nota-erro { border-left-color: var(--al-vermelho); color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+
+/* Campos. */
+.es-form { display: grid; gap: 0.75rem; }
+.es-campo { display: grid; gap: 0.35rem; min-width: 0; }
+.es-campo > span, .es-campo > legend { font-weight: 700; font-size: 0.95rem; color: var(--al-texto-2); padding: 0; }
+.es-campo input, .es-campo select, .es-campo textarea {
+  width: 100%; min-height: 44px; padding: 0.55rem 0.75rem; border-radius: 10px; border: 1px solid var(--al-linha);
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; min-width: 0;
+}
+.es-campo textarea { min-height: 4.5rem; resize: vertical; }
+.es-campo input:focus-visible, .es-campo select:focus-visible, .es-campo textarea:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 1px; }
+.es-campos { display: grid; gap: 0.75rem; }
+@container (min-width: 560px) { .es-campos-2 { grid-template-columns: 1fr 1fr; } .es-campos-3 { grid-template-columns: 1fr 1fr 1fr; } }
+.es-escolhas { display: flex; flex-wrap: wrap; gap: 0.5rem; border: 0; margin: 0; padding: 0; min-width: 0; }
+.es-escolha { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0.3rem 0.8rem; border-radius: var(--al-raio-pilula); border: 1px solid var(--al-linha); background: var(--al-fundo); cursor: pointer; }
+.es-escolha:has(input:checked) { border-color: var(--al-dourado-fundo); background: var(--al-superficie-2); }
+.es-escolha input { accent-color: var(--al-vermelho); width: 1.1rem; height: 1.1rem; }
+
+/* ───── A turma ───── */
+.es-turma { border-top: 4px solid var(--al-com-2); }
+.es-turma[data-marquei] { border-top-color: var(--al-dourado-fundo); }
+.es-pessoas { margin: -0.35rem 0 0; color: var(--al-texto-3); font-weight: 600; }
+.es-combinado { display: grid; gap: 0.25rem; padding: 0.85rem 1rem; border-radius: 12px; background: var(--al-fundo); border-left: 4px solid var(--al-vermelho); }
+.es-meta { margin: 0; font-size: 1.3rem; font-weight: 700; line-height: 1.3; overflow-wrap: anywhere; }
+.es-semana { display: flex; flex-wrap: wrap; gap: 0.9rem 1.25rem; align-items: center; justify-content: space-between; }
+.es-semana-texto { display: grid; gap: 0.2rem; min-width: 0; flex: 1 1 16rem; }
+.es-total { margin: 0; display: flex; align-items: baseline; gap: 0.55rem; flex-wrap: wrap; color: var(--al-texto-2); line-height: 1.35; }
+.es-total-n { font-size: 3rem; line-height: 0.9; color: var(--al-dourado); }
+
+/* A fileira do mosaico: um ladrilho por semana; acende com 3 ou mais. */
+.es-fileira-bloco { margin: 0; display: grid; gap: 0.5rem; }
+.es-fileira { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; max-width: 34rem; }
+.es-fileira li { display: grid; gap: 0.25rem; justify-items: center; min-width: 0; }
+.es-fileira-ladrilho {
+  display: grid; place-items: center; width: 100%; aspect-ratio: 1; border-radius: 6px; background: var(--al-superficie-2);
+  border: 1px dashed var(--al-linha); font-size: 1.35rem; color: var(--al-sobre-dourado);
+}
+.es-fileira li[data-acesa] .es-fileira-ladrilho { background: var(--al-dourado-fundo); border: 0; }
+.es-fileira-dia { font-size: 0.78rem; color: var(--al-texto-3); font-variant-numeric: tabular-nums; }
+.es-convite { display: grid; gap: 0.5rem; }
+.es-codigo { margin: 0; }
+.es-codigo code {
+  display: inline-block; padding: 0.35rem 0.7rem; border-radius: 8px; background: var(--al-fundo); border: 1px solid var(--al-linha);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 1.15rem; letter-spacing: 0.12em; overflow-wrap: anywhere;
+}
+.es-entrar { border-top: 4px solid var(--al-com-4); }
+.es-comecar { border-top: 4px solid var(--al-vermelho); }
+.es-regra { border-top: 4px solid var(--al-dourado-fundo); }
+
+/* ───── A agenda ───── */
+.es-abas { display: flex; gap: 0.25rem; border-bottom: 1px solid var(--al-linha); overflow-x: auto; scrollbar-width: none; }
+.es-aba {
+  min-height: 48px; padding: 0.5rem 1.1rem; border: 0; border-bottom: 4px solid transparent; background: none; color: var(--al-texto-3);
+  font-family: var(--al-fonte); font-stretch: 70%; font-weight: 800; text-transform: uppercase; font-size: 1.15rem; letter-spacing: 0.04em; cursor: pointer; white-space: nowrap;
+}
+.es-aba[aria-selected="true"] { color: var(--al-texto); border-bottom-color: var(--al-vermelho); }
+.es-aba:focus-visible { outline: 3px solid var(--al-foco); outline-offset: -3px; }
+.es-filtros { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.es-filtro {
+  min-height: 44px; padding: 0.3rem 0.9rem; border-radius: var(--al-raio-pilula); border: 1px solid var(--al-linha); background: var(--al-superficie);
+  color: var(--al-texto-2); font: inherit; font-weight: 600; cursor: pointer;
+}
+.es-filtro[aria-pressed="true"] { background: var(--al-texto); color: var(--al-fundo); border-color: var(--al-texto); }
+.es-grupo { display: grid; gap: 0.6rem; }
+.es-grupo-titulo { margin: 0; font-size: 1.45rem; display: flex; align-items: center; gap: 0.55rem; }
+.es-grupo-titulo .es-item-ladrilho { width: 0.9rem; height: 0.9rem; transform: none; }
+.es-datas { display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+
+/* Uma data: a placa do dia (como as placas da arquibancada), a etapa, a fonte e as ações. */
+.es-data {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.4rem 1rem; align-items: start; padding: 0.9rem 1rem;
+  border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha);
+}
+/* A data que já passou fica mais apagada, sem cair abaixo de 4,5:1 nos dois temas (0,72 dava 3,5:1 no claro). */
+.es-data[data-passou] { opacity: 0.86; }
+.es-data[data-assinada] { border-color: var(--al-dourado-fundo); }
+@container (min-width: 780px) { .es-data { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; } }
+.es-placa {
+  display: grid; justify-items: center; align-content: center; width: 4.4rem; min-height: 4.4rem; border-radius: 10px; background: var(--al-fundo);
+  border: 2px solid var(--al-linha); font-family: var(--al-fonte); font-stretch: 70%; text-transform: uppercase; line-height: 1;
+}
+.es-placa-dia { font-size: 2.1rem; font-weight: 800; }
+.es-placa-mes { font-size: 0.9rem; font-weight: 800; color: var(--al-texto-3); letter-spacing: 0.06em; }
+.es-data[data-perto] .es-placa { border-color: var(--al-vermelho); }
+.es-data-corpo { display: grid; gap: 0.25rem; min-width: 0; }
+.es-data-etapa { margin: 0; font-weight: 700; font-size: 1.08rem; line-height: 1.35; overflow-wrap: anywhere; }
+.es-data-linha { margin: 0; display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; color: var(--al-texto-3); font-size: 0.92rem; }
+.es-data-linha a { color: var(--al-texto-2); text-decoration: underline; text-underline-offset: 2px; overflow-wrap: anywhere; }
+.es-data-acoes { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.4rem 0.6rem; align-items: center; }
+/* No celular, as ações numa grade de duas colunas: nenhuma fica sozinha, torta, numa linha a mais. */
+@container (max-width: 559px) { .es-data-acoes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); } .es-data-acoes > * { width: 100%; } }
+@container (min-width: 780px) { .es-data-acoes { grid-column: auto; justify-content: flex-end; } }
+.es-falta { font-weight: 800; color: var(--al-texto-2); }
+.es-data[data-perto] .es-falta { color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+
+/* ───── A monitoria ───── */
+.es-horarios { display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+.es-horario {
+  display: grid; gap: 0.55rem; padding: 0.9rem 1rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha);
+  border-left: 6px solid var(--al-com-1);
+}
+.es-horario[data-disciplina="matematica"] { border-left-color: var(--al-com-1); }
+.es-horario[data-disciplina="linguagens"] { border-left-color: var(--al-com-2); }
+.es-horario[data-disciplina="redacao"] { border-left-color: var(--al-vermelho); }
+.es-horario[data-disciplina="humanas"] { border-left-color: var(--al-dourado-fundo); }
+.es-horario[data-disciplina="natureza"] { border-left-color: var(--al-com-4); }
+.es-horario[data-cancelada] { opacity: 0.7; border-left-style: dashed; }
+.es-horario-topo { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.4rem 1rem; }
+.es-horario-disc { margin: 0; font-size: 1.35rem; line-height: 1.05; }
+.es-horario-quando { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--al-texto-2); }
+.es-horario-sala { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--al-texto-3); font-size: 0.92rem; }
+.es-pessoa { font-weight: 700; color: var(--al-texto); }
+.es-marcas { display: grid; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+.es-marcas li { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.8rem; padding: 0.5rem 0.7rem; border-radius: 10px; background: var(--al-fundo); }
+.es-duvida { color: var(--al-texto-2); font-style: italic; overflow-wrap: anywhere; }
+.es-convite-monitor { border: 2px solid var(--al-dourado-fundo); }
+.es-dia-titulo { margin: 0.4rem 0 0; font-size: 1.15rem; color: var(--al-texto-3); letter-spacing: 0.05em; }
+
+/* A fonte oficial de cada data: alvo de 44 px de altura, como os outros links soltos. */
+.es-data-linha a { display: inline-flex; align-items: center; min-height: 44px; }

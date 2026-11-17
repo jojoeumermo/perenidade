@@ -1,0 +1,14 @@
+{
+  "aviso": "链接由 Google Safe Browsing 检查。",
+  "comoFunciona": "如何运作",
+  "bloqueio": "无法带着这个链接发布：Google Safe Browsing 将 {host} 标记为{tipo}。请删除链接后再发布。",
+  "varios": "无法带着这些链接发布：Google Safe Browsing 将 {hosts} 标记为危险。请删除链接后再发布。",
+  "leitor": "链接已拦截：Google Safe Browsing 将 {host} 标记为{tipo}",
+  "tipos": {
+    "MALWARE": "安装恶意软件的网页",
+    "SOCIAL_ENGINEERING": "冒充其他网站窃取密码或数据的诈骗网页",
+    "UNWANTED_SOFTWARE": "安装不需要的软件的网页",
+    "POTENTIALLY_HARMFUL_APPLICATION": "可能造成危害的应用",
+    "outro": "危险网页"
+  }
+}

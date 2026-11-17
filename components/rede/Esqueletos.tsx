@@ -31,6 +31,29 @@ export function EsqueletoDoPost({ i = 0 }: { i?: number }) {
   );
 }
 
+/**
+ * O esqueleto das telas de conta (segurança, aparelhos, meus dados): o título, a chamada e alguns cartões de ajuste (título e duas
+ * linhas). `rotulo` fica para o leitor de tela.
+ */
+export function EsqueletoDosAjustes({ rotulo, quantos = 3 }: { rotulo: string; quantos?: number }) {
+  return (
+    <div role="status" aria-live="polite" className="mx-auto w-full max-w-[1100px] space-y-4 px-4 py-6">
+      <span className="sr-only">{rotulo}</span>
+      <div className="space-y-3 pb-2" aria-hidden>
+        <Barra largura="w-1/3" altura="h-9" />
+        <Barra largura="w-2/3" />
+      </div>
+      {Array.from({ length: quantos }, (_, i) => (
+        <div key={i} className="space-y-2.5 rounded-[10px] border border-rule p-5" aria-hidden>
+          <Barra largura="w-1/4" altura="h-5" />
+          <Barra largura="w-full" />
+          <Barra largura={i % 2 ? "w-3/5" : "w-4/5"} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 /** O esqueleto da linha: alguns cartões. `rotulo` (o texto de "carregando") fica para o leitor de tela. */
 export function EsqueletoDaLinha({ rotulo, quantos = 4 }: { rotulo: string; quantos?: number }) {
   return (

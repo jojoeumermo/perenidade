@@ -2,7 +2,7 @@
 //
 // Os tipos do pacote publicar (Rede v2, R4 15 a 23): o que as funções rede_pub_* devolvem e o que o `rede_publicar` ampliado
 // aceita (supabase/migracoes/2026-11-rede-publicar.sql). Sem "@/" de propósito (roda no Node nos testes).
-import type { PedidoDePost } from "./tipos";
+import type { PedidoDePost, Post, Publico } from "./tipos";
 import type { Repeticao } from "./tipos-b1";
 
 export type RespondeQuem = "todos" | "seguindo" | "mencionados" | "ninguem";
@@ -22,9 +22,14 @@ export interface EnqueteDoPost {
   prazo: string;
   multipla: boolean;
   encerrada: boolean;
+  /** O que esta pessoa escolheu: vem do servidor só na hora do voto; depois, deste aparelho (o banco não guarda). */
   votei: string[];
+  /** Onda 9: a pessoa já votou (o banco sabe só dos votos de antes da troca; os novos, o aparelho lembra). */
+  votou?: boolean;
   opcoes: OpcaoDaEnquete[];
   total: number | null;
+  /** Onda 9: chegou a hora de mostrar o resultado, mas são menos de 3 votos (o banco não manda nem total nem votos por opção). */
+  poucos?: boolean;
   /** B1: o resultado só aparece depois do prazo, para todo mundo (nem quem fez vê a parcial). */
   so_no_fim?: boolean;
   /** B1: as opções vêm numa ordem própria desta pessoa. */
@@ -140,3 +145,39 @@ export interface EdicaoAnterior {
 
 /** Limites de uma imagem e de um áudio no cliente (o servidor e o banco conferem de novo). */
 export const LIMITES_PUBLICAR = { imagens: 4, opcoesMin: 2, opcoesMax: 4, opcaoTexto: 80, audioSegundos: 60, textoAlt: 1000, horasMax: 168, janelaEdicaoMin: 15 } as const;
+
+// ───── Onda 9, 9D: público e vida do post (supabase/migracoes/20261115-alumia-o9-publicar.sql) ─────
+
+/** O público que o Escrever oferece: os de sempre, "só a minha roda" (a roda de confiança da autora) e "só eu" (só a autora vê). */
+export type PublicoDoEscrever = Publico | "roda" | "eu";
+
+/** As escolhas desta frente no pedido de publicar (rede_pub_vida_publicar). Resposta não escolhe nenhuma: segue a conversa. */
+export interface PedidoComVida extends Omit<PedidoPublicar, "publico"> {
+  publico?: PublicoDoEscrever;
+  /** Vale dentro do público, mas não entra em linha, busca nem aviso de menção; quem tem o link abre. */
+  nao_listado?: boolean;
+  /** O post some sozinho (e é apagado de verdade, com a mídia) depois disso. */
+  some_em?: "24h" | "7d" | null;
+}
+
+/** O que o cartão sabe da vida do post (rede_pub_vida). `arquivado`, `nao_listado`, `roda` e `so_eu` só chegam para a autora. */
+export interface VidaDoPost {
+  expira_em?: string;
+  arquivado?: boolean;
+  nao_listado?: boolean;
+  roda?: boolean;
+  so_eu?: boolean;
+}
+
+/** Uma página dos meus arquivados (rede_pub_arquivados). */
+export interface PaginaDeArquivados {
+  itens: (Post & { arquivado_em: string })[];
+  proximo: string | null;
+}
+
+/** Alguém da minha roda (rede_roda: só a dona lê). */
+export interface PessoaDaMinhaRoda {
+  handle: string;
+  nome: string;
+  cor?: 1 | 2 | 3 | 4 | 5 | null;
+}

@@ -1,0 +1,129 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Voz e vídeo (onda 12, frente 12B): o ladrilho do vídeo no cartão, a transcrição, o áudio da resposta e o cartão do vídeo no
+ * Escrever. Só tokens da Alumia (styles/alumia-tokens.css): os dois temas, o alto contraste e o e-ink vêm de lá. Tudo dentro de
+ * [data-al="2"]; prefixo m12- para não esbarrar em ninguém.
+ */
+
+[data-al="2"] .m12-nota { margin: 0.4rem 0 0; font-size: 0.8125rem; color: var(--al-texto-3); }
+[data-al="2"] .m12-erro { margin: 0.4rem 0 0; font-size: 0.8125rem; font-weight: 600; color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .m12-erro { color: var(--al-texto); text-decoration: underline; }
+[data-al="2"] .m12-dica { margin: 0.3rem 0 0; font-size: 0.8125rem; line-height: 1.45; color: var(--al-texto-3); }
+[data-al="2"] .m12-cinza { color: var(--al-texto-3); font-weight: 600; }
+[data-al="2"] .m12-linha { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; margin-top: 0.35rem; }
+[data-al="2"] .m12-empurra { flex: 1 1 auto; }
+[data-al="2"] .m12-rotulo {
+  display: block; margin: 0.6rem 0 0.3rem; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+  font-stretch: 75%; color: var(--al-texto-2);
+}
+[data-al="2"] .m12-campo { resize: vertical; min-height: 4.5rem; font-size: 0.95rem; line-height: 1.5; }
+[data-al="2"] .m12-contador { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* ── O vídeo no cartão: um ladrilho noite com o mosaico apagado e o selo dourado; nada baixa antes do toque. ──────────────── */
+[data-al="2"] .m12-video { margin: 0.6rem 0 0; }
+[data-al="2"] .m12-video-quadro {
+  position: relative; width: 100%; max-height: 520px; overflow: hidden; border-radius: 14px; border: 1px solid var(--al-superficie-2);
+  background: var(--al-fundo);
+}
+[data-al="2"] .m12-video[data-em-pe] .m12-video-quadro { width: auto; height: min(520px, 70vh); margin-inline: auto; }
+[data-al="2"] .m12-video-tela { display: block; width: 100%; height: 100%; object-fit: contain; background: var(--al-fundo); }
+[data-al="2"] .m12-video-capa {
+  position: absolute; inset: 0; display: grid; place-items: center; width: 100%; border: 0; cursor: pointer; color: var(--al-texto);
+  /* Os ladrilhos da arquibancada, apagados: duas grades de cores da casa em baixa opacidade sobre a noite. */
+  background:
+    linear-gradient(90deg, transparent 0 calc(100% - 2px), var(--al-fundo) calc(100% - 2px)) 0 0 / 28px 28px,
+    linear-gradient(0deg, transparent 0 calc(100% - 2px), var(--al-fundo) calc(100% - 2px)) 0 0 / 28px 28px,
+    conic-gradient(from 90deg, color-mix(in srgb, var(--al-vermelho) 22%, var(--al-superficie)) 25%, var(--al-superficie) 0 50%,
+      color-mix(in srgb, var(--al-dourado) 16%, var(--al-superficie)) 0 75%, var(--al-superficie-2) 0) 0 0 / 56px 56px;
+}
+[data-al="2"] .m12-video-play {
+  display: grid; place-items: center; width: 64px; height: 64px; border-radius: 999px; background: var(--al-vermelho);
+  color: var(--al-sobre-vermelho); box-shadow: 0 6px 22px var(--al-sombra); transition: transform 200ms var(--al2-mola, ease);
+}
+[data-al="2"] .m12-video-play svg { margin-left: 3px; }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .m12-video-capa:hover .m12-video-play { transform: scale(1.06); } }
+[data-al="2"] .m12-video-capa:focus-visible { outline: 3px solid var(--al-dourado); outline-offset: -3px; }
+[data-al="2"] .m12-video-capa:disabled { cursor: progress; }
+[data-al="2"] .m12-video-selo {
+  position: absolute; left: 12px; bottom: 12px; padding: 0.3rem 0.65rem; border-radius: 6px; background: var(--al-dourado-fundo);
+  color: var(--al-sobre-dourado); font-size: 0.8125rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; font-stretch: 75%;
+}
+[data-al="2"] .m12-video-mudo { font-weight: 700; }
+[data-al="2"] .m12-video-alt { margin-top: 0.35rem; font-size: 0.8125rem; line-height: 1.45; color: var(--al-texto-3); }
+[data-al="2"] .m12-tirar { margin-top: 0.15rem; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .m12-video-capa { background: var(--al-superficie); }
+
+/* ── A transcrição: um chip que abre o texto numa citação com a borda dourada. ──────────────────────────────────────────── */
+[data-al="2"] .m12-transcricao { margin-top: 0.5rem; }
+[data-al="2"] .m12-transcricao-texto {
+  margin: 0.45rem 0 0; padding: 0.6rem 0.85rem; border-left: 3px solid var(--al-dourado); border-radius: 0 10px 10px 0;
+  background: var(--al-superficie);
+}
+[data-al="2"] .m12-transcricao-texto p { margin: 0; white-space: pre-line; overflow-wrap: anywhere; color: var(--al-texto); line-height: 1.55; }
+[data-al="2"] .m12-transcricao-texto footer { margin-top: 0.35rem; font-size: 0.75rem; color: var(--al-texto-3); }
+[data-al="2"] .m12-editor { margin-top: 0.5rem; }
+[data-al="2"] .m12-editor .m12-rotulo { margin-top: 0; }
+[data-al="2"] .m12-gravando {
+  display: inline-block; width: 0.55rem; height: 0.55rem; border-radius: 999px; background: var(--al-vermelho);
+  animation: m12-pulsa 1.2s ease-in-out infinite;
+}
+@keyframes m12-pulsa { 50% { opacity: 0.35; } }
+
+/* ── A resposta da conversa: o áudio e a transcrição embaixo do texto; o "Ouvir" na fileira de ações. ───────────────────── */
+[data-al="2"] .m12-na-resposta { margin: 0.35rem 0 0.15rem; }
+[data-al="2"] .m12-audio { width: 100%; max-width: 360px; margin-top: 0.35rem; }
+[data-al="2"] .m12-audio-linha { margin-top: 0.35rem; }
+[data-al="2"] .m12-ouvir { display: inline-flex; align-items: center; gap: 0.3rem; }
+
+/* ── A caixa de resposta: o microfone numa linha inteira acima do campo. ────────────────────────────────────────────────── */
+[data-al="2"] .m12-caixa { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.6rem; margin: -0.2rem 0 -0.1rem; }
+[data-al="2"] .m12-caixa-aberta { padding: 0.5rem 0.6rem; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-superficie-2); }
+[data-al="2"] .m12-caixa-aberta audio { height: 40px; max-width: min(100%, 320px); }
+[data-al="2"] .m12-caixa .m12-dica { flex: 1 1 100%; margin: 0; }
+[data-al="2"] .m12-microfone { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 44px; }
+[data-al="2"] .m12-fechar { margin-left: auto; min-width: 44px; min-height: 44px; font-size: 1.2rem; }
+
+/* ── O cartão do vídeo no Escrever. ─────────────────────────────────────────────────────────────────────────────────────── */
+[data-al="2"] .m12-cartao:focus { outline: none; }
+[data-al="2"] .m12-cartao:focus-visible { outline: 2px solid var(--al-dourado); outline-offset: 2px; }
+[data-al="2"] .m12-cartao-topo { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+[data-al="2"] .m12-cartao-titulo {
+  display: inline-flex; align-items: center; gap: 0.45rem; margin: 0; font-size: 0.875rem; font-weight: 800; letter-spacing: 0.05em;
+  text-transform: uppercase; font-stretch: 75%; color: var(--al-dourado);
+}
+[data-al="2"] .m12-x { font-size: 1.25rem; line-height: 1; }
+[data-al="2"] .m12-cartao-corpo { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); gap: 0.9rem; margin-top: 0.5rem; }
+[data-al="2"] .m12-previa { width: 100%; max-height: 240px; border-radius: 10px; background: var(--al-fundo); object-fit: contain; }
+[data-al="2"] .m12-cartao-campos { min-width: 0; }
+[data-al="2"] .m12-cartao-campos > .m12-dica:first-child { margin-top: 0; }
+[data-al="2"] .m12-trecho { display: grid; gap: 0.25rem; margin-top: 0.55rem; font-size: 0.8125rem; font-weight: 700; color: var(--al-texto-2); }
+[data-al="2"] .m12-trecho input { width: 100%; accent-color: var(--al-dourado); }
+[data-al="2"] .m12-som { margin-top: 0.55rem; }
+[data-al="2"] .m12-andamento { display: grid; gap: 0.3rem; margin-top: 0.6rem; font-size: 0.8125rem; font-weight: 700; color: var(--al-texto-2); }
+[data-al="2"] .m12-barra { display: block; height: 6px; border-radius: 999px; background: var(--al-superficie-2); overflow: hidden; }
+[data-al="2"] .m12-barra > span { display: block; height: 100%; background: var(--al-dourado); transition: width 200ms linear; }
+[data-al="2"] .m12-pronto { margin: 0.6rem 0 0; font-size: 0.8125rem; color: var(--al-texto-2); }
+@media (max-width: 560px) {
+  [data-al="2"] .m12-cartao-corpo { grid-template-columns: minmax(0, 1fr); }
+  [data-al="2"] .m12-previa { max-height: 200px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-al="2"] .m12-gravando { animation: none; }
+  [data-al="2"] .m12-video-play, [data-al="2"] .m12-barra > span { transition: none; }
+}
+:root[data-parado] [data-al="2"] .m12-gravando { animation: none; }
+
+/* A pílula da leitura em voz alta que começou no menu "mais": fixa no pé da tela, com o "Parar a leitura" fora do menu. Vai para
+   o corpo da página (.al-pele traz os tokens dos dois temas). */
+.m12-lendo {
+  position: fixed; left: 50%; bottom: max(1rem, env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 60;
+  display: inline-flex; align-items: center; gap: 0.6rem; max-width: calc(100vw - 2rem); padding: 0.35rem 0.4rem 0.35rem 0.9rem;
+  border-radius: 999px; border: 2px solid var(--al-dourado); background: var(--al-superficie); color: var(--al-texto);
+  font-size: 0.9rem; font-weight: 700; box-shadow: 0 6px 22px var(--al-sombra);
+}
+.m12-lendo-parar {
+  min-height: 44px; padding: 0 1rem; border-radius: 999px; border: 0; background: var(--al-saliente); color: var(--al-sobre-saliente);
+  font: inherit; font-weight: 800; cursor: pointer;
+}
+.m12-lendo-parar:focus-visible { outline: 2px solid var(--al-dourado); outline-offset: 2px; }

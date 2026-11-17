@@ -1,0 +1,144 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * As pontes da Alumia (frente 13E): a tela dos robôs e do Telegram (/alumia/pontes), o Mural dos Trabalhadores
+ * (/alumia/trabalhadores), a seção Pontes dos Ajustes, o "Traduzir" e o rótulo de robô no cartão. Linguagem do Mosaico da
+ * Arquibancada: carimbo, ladrilhos, faixa tecida, Archivo condensada em caixa alta. Só usa os tokens de styles/alumia-tokens.css
+ * (vale no escuro, no claro, no contraste e no e-ink).
+ */
+
+.po-pagina { container-type: inline-size; padding: 1.5rem 1rem 3.5rem; color: var(--al-texto); }
+@media (min-width: 1024px) { .po-pagina { padding: 1.9rem 1.5rem 4rem; } }
+
+/* ───── Cabeçalho ───── */
+.po-cabeca { position: relative; margin-bottom: 1.5rem; padding-bottom: 1.4rem; }
+.po-cabeca::after { content: ""; position: absolute; inset: auto 0 0; height: var(--al-faixa-altura, 6px); background: var(--al-faixa); border-radius: 2px; }
+.po-cabeca h1 { margin: 0; font-size: clamp(2.4rem, 7cqi, 4.1rem); color: var(--al-texto); text-wrap: balance; }
+.po-chamada { margin: 0.9rem 0 0; max-width: 48rem; color: var(--al-texto-2); font-size: 1.06rem; line-height: 1.55; }
+.po-carimbo {
+  display: inline-flex; align-items: center; margin: 0 0 1rem; padding: 0.42rem 0.75rem 0.34rem; border: 2px solid var(--al-vermelho); border-radius: 6px;
+  box-shadow: inset 0 0 0 2px var(--al-fundo), inset 0 0 0 3px var(--al-vermelho); color: var(--al-vermelho-letra);
+  font-size: 1.05rem; letter-spacing: 0.06em; transform: rotate(-1.2deg); transform-origin: left center;
+}
+@media (prefers-reduced-motion: reduce) { .po-carimbo { transform: none; } }
+:root:is([data-contrast], [data-eink]) .po-carimbo { transform: none; color: var(--al-texto); border-color: var(--al-texto); box-shadow: none; }
+
+.po-bloco { margin: 0 0 2.2rem; }
+.po-bloco-titulo { margin: 0 0 0.6rem; font-size: 1.9rem; color: var(--al-texto); }
+.po-texto { margin: 0 0 0.85rem; max-width: 46rem; color: var(--al-texto-2); font-size: 0.98rem; line-height: 1.6; }
+.po-texto strong { color: var(--al-texto); }
+.po-nota { margin: 0.35rem 0 0; color: var(--al-texto-3); font-size: 0.86rem; line-height: 1.45; }
+.po-link { color: var(--al-texto); font-weight: 600; text-decoration: underline; text-decoration-color: var(--al-dourado); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.po-link:hover { color: var(--al-dourado); }
+.po-erro { margin: 0.6rem 0 0; padding: 0.55rem 0.8rem; border-radius: 8px; border-left: 4px solid var(--al-vermelho); background: var(--al-superficie); color: var(--al-texto); font-size: 0.92rem; }
+.po-ok { margin: 0.6rem 0 0; color: var(--al-texto-2); font-size: 0.92rem; }
+
+/* ───── Abas ───── */
+.po-abas { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 1.4rem; padding: 6px; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-linha); width: fit-content; max-width: 100%; }
+.po-aba {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 1rem; border: 0; border-radius: 8px; background: none; cursor: pointer;
+  color: var(--al-texto-3); font: inherit; font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 800;
+  font-size: 1.15rem; letter-spacing: 0.03em; text-transform: uppercase;
+}
+.po-aba[aria-pressed="true"] { background: var(--al-saliente); color: var(--al-sobre-saliente); box-shadow: inset 0 -3px 0 var(--al-vermelho); }
+@media (hover: hover) and (pointer: fine) { .po-aba:not([aria-pressed="true"]):hover { background: var(--al-superficie-2); color: var(--al-texto); } }
+:root:is([data-contrast], [data-eink]) .po-aba[aria-pressed="true"] { background: var(--al-texto); color: var(--al-fundo); box-shadow: none; }
+
+/* ───── Campos ───── */
+.po-form { display: grid; gap: 0.95rem; max-width: 44rem; }
+.po-linha { display: grid; gap: 0.95rem; }
+@container (min-width: 40rem) { .po-linha { grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); } }
+.po-campo { display: grid; gap: 0.3rem; min-width: 0; }
+.po-campo > span { color: var(--al-texto); font-size: 0.9rem; font-weight: 700; }
+.po-campo input, .po-campo select, .po-campo textarea {
+  width: 100%; min-height: 44px; padding: 0.55rem 0.75rem; border-radius: 10px; border: 1.5px solid var(--al-linha); background: var(--al-fundo);
+  color: var(--al-texto); font: inherit; font-size: 1rem;
+}
+.po-campo textarea { min-height: 7rem; resize: vertical; line-height: 1.5; }
+.po-campo input:focus-visible, .po-campo select:focus-visible, .po-campo textarea:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 1px; border-color: transparent; }
+.po-campo small { color: var(--al-texto-3); font-size: 0.82rem; }
+.po-acoes { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+
+/* ───── Cartões (robôs, fila) ───── */
+.po-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
+.po-cartao { position: relative; padding: 1rem 1.1rem 1.05rem 1.35rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); overflow: hidden; }
+.po-cartao::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--al-dourado); }
+.po-cartao[data-situacao="ativo"]::before { background: var(--al-com-1); }
+.po-cartao[data-situacao="esperando"]::before { background: var(--al-dourado); }
+.po-cartao[data-situacao="desligado"]::before, .po-cartao[data-situacao="recusado"]::before { background: var(--al-texto-3); }
+.po-cartao h3 { margin: 0; font-size: 1.55rem; color: var(--al-texto); overflow-wrap: anywhere; }
+.po-cartao-cabeca { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem 0.8rem; margin-bottom: 0.4rem; }
+.po-selo { display: inline-flex; align-items: center; padding: 0.18rem 0.5rem 0.12rem; border-radius: 6px; border: 2px solid currentColor; font-size: 0.82rem; letter-spacing: 0.05em; color: var(--al-texto-2); }
+.po-selo[data-tom="robo"] { color: var(--al-dourado); }
+.po-selo[data-tom="ativo"] { color: var(--al-texto); border-color: var(--al-com-1); }
+.po-selo[data-tom="parado"] { color: var(--al-texto-3); }
+.po-handle { color: var(--al-texto-3); font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+
+/* ───── A chave, uma vez ───── */
+.po-chave { margin: 0.9rem 0 0; padding: 1rem; border-radius: var(--al-raio); border: 2px dashed var(--al-dourado); background: var(--al-fundo); }
+.po-chave code { display: block; margin: 0.5rem 0 0.7rem; padding: 0.6rem 0.75rem; border-radius: 8px; background: var(--al-superficie); color: var(--al-texto); font-size: 0.88rem; overflow-wrap: anywhere; user-select: all; }
+.po-codigo { margin: 0.5rem 0 0.9rem; padding: 0.9rem 1rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); color: var(--al-texto); font-size: 0.85rem; line-height: 1.55; overflow-x: auto; white-space: pre; }
+
+/* ───── Mural dos Trabalhadores: ladrilhos de chamado ───── */
+.po-filtros { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin: 0 0 1.2rem; }
+.po-pilula {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.95rem; border-radius: var(--al-raio-pilula); border: 1.5px solid var(--al-linha);
+  background: transparent; color: var(--al-texto-2); font: inherit; font-weight: 700; font-size: 0.92rem; cursor: pointer;
+}
+.po-pilula[aria-pressed="true"] { background: var(--al-saliente); color: var(--al-sobre-saliente); border-color: transparent; }
+:root:is([data-contrast], [data-eink]) .po-pilula[aria-pressed="true"] { background: var(--al-texto); color: var(--al-fundo); }
+.po-filtros select { min-height: 44px; padding: 0 0.7rem; border-radius: var(--al-raio-pilula); border: 1.5px solid var(--al-linha); background: var(--al-fundo); color: var(--al-texto); font: inherit; font-size: 0.92rem; }
+
+.po-mural { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+@container (min-width: 46rem) { .po-mural { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container (min-width: 72rem) { .po-mural { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.po-chamado { position: relative; display: flex; flex-direction: column; gap: 0.55rem; padding: 1rem 1.1rem 1.1rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); overflow: hidden; min-width: 0; }
+.po-chamado::before { content: ""; position: absolute; inset: 0 0 auto; height: 7px; background: var(--al-com-1); }
+.po-chamado[data-tipo="greve"]::before, .po-chamado[data-tipo="paralisacao"]::before { background: var(--al-vermelho); }
+.po-chamado[data-tipo="assembleia"]::before { background: var(--al-dourado); }
+.po-chamado[data-tipo="campanha"]::before { background: var(--al-com-2); }
+.po-chamado[data-tipo="solidariedade"]::before { background: var(--al-com-4); }
+.po-chamado[data-tipo="trabalho"]::before { background: var(--al-com-3); }
+.po-chamado-topo { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.6rem; padding-top: 0.25rem; }
+.po-tipo { display: inline-flex; align-items: center; padding: 0.22rem 0.55rem 0.14rem; border-radius: 6px; border: 2px solid var(--al-vermelho); color: var(--al-vermelho-letra); font-size: 1rem; letter-spacing: 0.05em; transform: rotate(-2deg); }
+.po-chamado[data-tipo="assembleia"] .po-tipo { border-color: var(--al-dourado); color: var(--al-dourado); }
+.po-chamado:is([data-tipo="campanha"], [data-tipo="solidariedade"], [data-tipo="trabalho"]) .po-tipo { border-color: var(--al-texto-2); color: var(--al-texto); }
+@media (prefers-reduced-motion: reduce) { .po-tipo { transform: none; } }
+:root:is([data-contrast], [data-eink]) .po-tipo { transform: none; color: var(--al-texto); border-color: var(--al-texto); }
+.po-categoria { color: var(--al-texto-2); font-size: 0.86rem; font-weight: 700; overflow-wrap: anywhere; }
+.po-chamado h3 { margin: 0; font-size: 1.7rem; color: var(--al-texto); overflow-wrap: anywhere; text-wrap: balance; }
+.po-chamado p { margin: 0; color: var(--al-texto-2); font-size: 0.95rem; line-height: 1.55; overflow-wrap: anywhere; }
+.po-chamado-pe { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.9rem; margin-top: auto; padding-top: 0.55rem; border-top: 1px solid var(--al-linha); color: var(--al-texto-3); font-size: 0.84rem; }
+.po-chamado-pe a { display: inline-flex; align-items: center; min-height: 44px; color: var(--al-texto); font-weight: 700; text-decoration: none; }
+.po-chamado-pe a:hover { text-decoration: underline; }
+.po-palavra { font-size: 1.05rem; letter-spacing: 0.04em; color: var(--al-texto); }
+.po-vazio { padding: 2rem 1rem; border-radius: var(--al-raio); border: 1.5px dashed var(--al-linha); color: var(--al-texto-3); text-align: center; }
+
+.po-duas { display: grid; gap: 2rem; }
+@container (min-width: 62rem) { .po-duas { grid-template-columns: minmax(0, 1fr) 22rem; align-items: start; } }
+.po-lado { padding: 1.1rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.po-lado h2 { margin: 0 0 0.5rem; font-size: 1.45rem; color: var(--al-texto); }
+
+/* ───── No cartão: o rótulo de robô e a tradução ───── */
+.po-rotulo { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.6rem; margin: 0.35rem 0 0; color: var(--al-texto-2); font-size: 0.86rem; }
+.po-rotulo .po-selo { font-size: 0.8rem; }
+.po-traducao { margin: 0.6rem 0 0; padding: 0.7rem 0.85rem; border-radius: 10px; background: var(--al-superficie); border-left: 4px solid var(--al-dourado); color: var(--al-texto); font-size: 0.97rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+.po-traducao strong { display: block; margin-bottom: 0.25rem; }
+.po-traducao small { display: flex; flex-wrap: wrap; gap: 0.3rem 0.8rem; align-items: center; margin-top: 0.45rem; color: var(--al-texto-3); font-size: 0.8rem; white-space: normal; }
+.po-traducao button { padding: 0; border: 0; background: none; color: var(--al-texto); font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; }
+
+/* ───── Ajustes ───── */
+.po-ajustes { display: grid; gap: 1.6rem; margin-top: 0.6rem; }
+/* Dentro da seção "Pontes" da Segurança (o título dela é o h2): cada bloco é um subtítulo, menor que a seção e com ar em cima. */
+.po-ajustes h3 { margin: 0 0 0.4rem; font-size: 1.08rem; font-weight: 800; color: var(--al-texto); }
+.po-marcar { display: flex; gap: 0.6rem; align-items: flex-start; min-height: 44px; padding: 0.35rem 0; color: var(--al-texto); font-size: 0.97rem; cursor: pointer; }
+.po-marcar input { width: 1.2rem; height: 1.2rem; margin-top: 0.15rem; accent-color: var(--al-vermelho); flex: none; }
+.po-escolhas { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.4rem 0 0.7rem; }
+.po-previa { margin: 0.7rem 0 0; padding: 0.85rem 1rem; border-radius: 10px; background: var(--al-superficie); border: 1px solid var(--al-linha); color: var(--al-texto); font-size: 0.9rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+.po-onion { display: block; margin: 0.4rem 0 0.6rem; padding: 0.55rem 0.75rem; border-radius: 8px; background: var(--al-superficie); color: var(--al-texto); font-size: 0.85rem; overflow-wrap: anywhere; user-select: all; }
+
+/* Onda 14 (celular): no toque, as pílulas do filtro e a cidade com 44 px, e o nome da organização no chamado com área de toque maior
+   sem mudar o desenho. */
+@media (pointer: coarse), (max-width: 1023px) {
+  .po-pilula, .po-filtros select { min-height: 44px; }
+  .po-chamado-pe > a { display: inline-block; padding-block: 12px; margin-block: -12px; }
+}

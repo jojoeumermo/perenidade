@@ -6,6 +6,8 @@
 /** As categorias de denúncia. As cinco primeiras são prioridade 1 e entram na frente da fila. */
 export const CATEGORIAS_DE_DENUNCIA = ["menores", "ameaca", "exposicao", "violencia", "autolesao", "odio", "assedio", "golpe", "spam", "outro"] as const;
 export type CategoriaDeDenuncia = (typeof CATEGORIAS_DE_DENUNCIA)[number];
+/** A categoria que só o canal de conteúdo ilegal usa (components/rede/lei, onda 8): aparece na fila, não no formulário comum. */
+export type CategoriaNaFila = CategoriaDeDenuncia | "ilegal";
 
 /** Prioridade da fila (a mesma de interno.rede2_prioridade): 1 primeiro. */
 export const prioridadeDaCategoria = (c: CategoriaDeDenuncia): 1 | 2 | 3 =>
@@ -44,6 +46,8 @@ export interface EscopoDeModeracao {
   cuida: boolean;
   coord: boolean;
   comunidades: string[];
+  /** O nome de cada comunidade da lista (onda 10: os seletores mostram o nome, não o endereço). Banco antigo: ausente. */
+  nomes?: Record<string, string>;
   nucleos: { id: string; nome: string }[];
 }
 
@@ -70,7 +74,7 @@ export interface ItemDaFila {
   protocolo: string;
   alvo_tipo: AlvoDeDenuncia;
   alvo: string;
-  categoria: CategoriaDeDenuncia;
+  categoria: CategoriaNaFila;
   prioridade: 1 | 2 | 3;
   situacao: SituacaoDaDenuncia;
   criado_em: string;
@@ -79,7 +83,14 @@ export interface ItemDaFila {
   titulo: string | null;
   trecho: string | null;
   nucleo: boolean;
+  /** O post é cifrado (núcleo ou comunidade fechada): a moderação não tem a chave. */
+  cifrado?: boolean;
+  /** O trecho que quem denunciou abriu no aparelho e mandou em texto aberto (só de post cifrado; escrito por essa pessoa). */
+  aberto?: string | null;
   mesmas: number;
+  /** O prazo de resposta da denúncia (onda 8: 24 h para os casos graves e o conteúdo ilegal, 72 h, 7 dias). */
+  responder_ate?: string | null;
+  vencida?: boolean;
 }
 
 export interface AlvoAberto {
@@ -141,7 +152,12 @@ export interface RecursoDaFila {
   texto: string;
   criado_em: string;
   situacao: string;
-  acao: { id: string; acao: string; alvo_tipo: string; alvo: string; regra: string; motivo: string; criado_em: string };
+  /** O prazo de resposta do recurso (7 dias, onda 8) e se já venceu. */
+  responder_ate?: string | null;
+  vencido?: boolean;
+  /** Quando a decisão contestada é sobre uma conta: o nome dela (nunca quem decidiu). */
+  conta?: string | null;
+  acao: { id: string; acao: string; alvo_tipo: string; alvo: string; regra: string; motivo: string; criado_em: string; automatica?: boolean };
   /** A decisão contestada foi desta pessoa: outra pessoa precisa rever. */
   minha: boolean;
 }

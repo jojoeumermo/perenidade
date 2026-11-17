@@ -1,0 +1,515 @@
+{
+  "nav": {
+    "rotulo": "Lei e ajuda da Alumia",
+    "termos": "Termos de uso",
+    "privacidade": "Privacidade",
+    "guardamos": "O que guardamos",
+    "regras": "Regras",
+    "ajuda": "Ajuda"
+  },
+  "comum": {
+    "versao": "Versão de {data}",
+    "revisao": "Texto em revisão jurídica",
+    "indice": "Nesta página",
+    "carregando": "Carregando…",
+    "erro": "Não deu certo agora. Tente de novo daqui a pouco.",
+    "contato": "Fale com a coordenação pela página [Denunciar](/denunciar) (escolha o assunto \"dados pessoais\") ou pelo e-mail institutolucia@tutamail.com. Respondemos em até 15 dias.",
+    "horas": "{n} horas",
+    "dias": "{n} dias",
+    "enviar": "Enviar",
+    "enviando": "Enviando…",
+    "cancelar": "Cancelar"
+  },
+  "termos": {
+    "titulo": "Termos de uso da Alumia",
+    "chamada": "O combinado entre você e o Instituto Lúcia para usar a Alumia: quem pode entrar, o que cada lado faz, o que acontece quando uma regra é quebrada e como sair.",
+    "secoes": [
+      {
+        "id": "o-que-e",
+        "titulo": "O que é a Alumia",
+        "paragrafos": [
+          "A Alumia é a rede social do Instituto Lúcia: comunidades, núcleos, atos, organizações e conversas para quem se organiza e estuda junto. É gratuita, não tem anúncio e não vende nada, nem os seus dados.",
+          "Quem mantém a Alumia é o Instituto Lúcia, um projeto educacional gratuito, sem fins lucrativos e sem CNPJ, mantido por pessoas voluntárias. Quem responde por ela é a coordenação do projeto.",
+          "Estes termos valem para a Alumia. O resto do site segue os [termos do site](/termos); onde os dois falarem da mesma coisa, na Alumia vale o que está aqui, que é mais específico."
+        ]
+      },
+      {
+        "id": "quem-pode",
+        "titulo": "Quem pode entrar",
+        "paragrafos": [
+          "Só quem tem **18 anos ou mais**. A Alumia não pede documento nem foto do rosto para conferir a idade: a pessoa declara a idade, e a triagem da entrada, feita por gente da casa, lê o pedido e pode conversar antes de aprovar. Se chegar uma denúncia de que uma conta pode ser de menor, ela fica retida por precaução até a mediação ler (veja as [regras](/alumia/regras#menores)).",
+          "Para entrar você cria uma conta com **e-mail e senha**. O e-mail é obrigatório e a Alumia nunca pede telefone. Depois, faz o pedido de entrada (codinome, por que quer entrar, a idade e o aceite destes termos) e espera a triagem. Aprovada a conta, cadastra um aplicativo autenticador: sem o código dele, ninguém entra, nem com a sua senha.",
+          "Cada conta é de uma pessoa. Organização entra com conta própria e selo, que diz que a conta é de quem diz ser e não é apoio do Instituto."
+        ]
+      },
+      {
+        "id": "como-aparece",
+        "titulo": "Como você aparece",
+        "paragrafos": [
+          "Por padrão, você aparece com um **codinome** e uma foto inventada. Se quiser, escolhe aparecer com o nome e a foto de verdade; dá para voltar ao codinome quando quiser. Não use o nome de outra pessoa nem se passe por uma organização."
+        ]
+      },
+      {
+        "id": "convivencia",
+        "titulo": "Convivência",
+        "paragrafos": [
+          "Na Alumia valem as [Regras da Alumia](/alumia/regras) e as regras de cada comunidade. Em resumo: respeito às pessoas, nada de expor ninguém, nada inventado, nada de propaganda comercial e nada que a lei proíba. Divergência de ideias é bem-vinda; ataque a pessoas, não."
+        ]
+      },
+      {
+        "id": "o-que-publica",
+        "titulo": "O que você publica",
+        "paragrafos": [
+          "Você continua dono do que escreve, fotografa e grava. Ao publicar, você autoriza a Alumia a mostrar o conteúdo a quem você escolheu no público do post (seguidores, membros, uma comunidade, um núcleo ou a internet) e, se você ligou a federação e marcou o post como Internet, a enviá-lo aos servidores do Fediverso que seguem você.",
+          "A Alumia não vende, não licencia e não entrega o que você escreve a ninguém para outro fim. Não publique o que não é seu nem o que você não tem o direito de compartilhar.",
+          "Apagar um post apaga o post. O que já saiu para o Fediverso recebe o pedido de apagar, mas a Alumia não manda nos outros servidores."
+        ]
+      },
+      {
+        "id": "conta",
+        "titulo": "A sua conta e a sua segurança",
+        "paragrafos": [
+          "Guarde a sua senha e o aplicativo autenticador. Guarde também os códigos de recuperação do segundo fator num lugar seguro, fora do celular: cada um vale uma vez, para quando o aparelho se perder.",
+          "O botão **Sair rápido** apaga o que a Alumia guardou no aparelho e abre uma página comum de fora. Use em aparelho que outra pessoa pode olhar.",
+          "A **senha de pânico** é uma ferramenta de segurança pessoal contra quem força o acesso ao seu aparelho. Ativada nos Ajustes de segurança, ela vale só no aparelho onde foi criada: digitada no lugar da sua senha, abre uma conta isca, com perfil neutro, e tira a sua conta daquele aparelho. A conta isca é uma conta de verdade, com e-mail próprio, que passa pela triagem como qualquer outra; é a única exceção à regra de uma conta por pessoa e não pode ser usada para mais nada. Nada é apagado no servidor por causa dela, e a Alumia continua cumprindo a lei e as ordens judiciais válidas com os dados reais."
+        ]
+      },
+      {
+        "id": "moderacao",
+        "titulo": "Moderação e recurso",
+        "paragrafos": [
+          "Quem modera a Alumia é a mediação do Instituto e, em cada comunidade, as pessoas que a comunidade escolheu. A mediação pode avisar, reter um post para leitura, tirar um post, travar uma conversa, banir alguém de uma comunidade e suspender ou banir uma conta. Toda decisão cita a regra e o motivo, fica num registro que não se apaga e pode ser revista: você pede revisão em até 30 dias e **outra pessoa** da mediação responde em até 7 dias. O caminho inteiro está nas [regras](/alumia/regras#recurso).",
+          "Nenhuma conta é suspensa por avaliação de máquina. A única retenção que acontece antes de uma pessoa ler é a da denúncia de menor de idade, que segura a conta por precaução e vai à frente da fila."
+        ]
+      },
+      {
+        "id": "ilegal",
+        "titulo": "Conteúdo ilegal e pedidos da Justiça",
+        "paragrafos": [
+          "Qualquer pessoa da Alumia pode denunciar conteúdo ilegal pelo [canal de denúncia](/alumia/regras#ilegal), com protocolo e prazo de resposta de 24 horas. O que for ilegal sai do ar depois da leitura, sem esperar ordem judicial; quem publicou é avisado e pode recorrer.",
+          "Ordem judicial válida é cumprida, e só com o que existe: a Alumia não guarda o seu endereço de rede, então não tem esse dado para entregar. O que fica guardado, e por quanto tempo, está em [O que guardamos](/alumia/o-que-guardamos)."
+        ]
+      },
+      {
+        "id": "sair",
+        "titulo": "Sair da Alumia",
+        "paragrafos": [
+          "Você pode sair quando quiser. Em [Meus dados](/alumia/meus-dados) você baixa uma cópia do que é seu e apaga a conta. O registro de moderação sobre a sua conta, se houver, fica pelo prazo dele, porque é a prova de que o processo foi cumprido."
+        ]
+      },
+      {
+        "id": "limites",
+        "titulo": "Os limites do que prometemos",
+        "paragrafos": [
+          "A Alumia é feita por pessoas voluntárias. Pode sair do ar, mudar ou fechar uma função. Quando uma mudança mexer no que você aceitou, avisamos antes. Se a Alumia fechar, avisamos com antecedência para que todo mundo possa baixar os próprios dados.",
+          "O que cada pessoa publica é responsabilidade de quem publicou. A mediação age quando sabe de uma violação, pelo caminho descrito nestes termos."
+        ]
+      },
+      {
+        "id": "mudancas",
+        "titulo": "Mudanças nestes termos",
+        "paragrafos": [
+          "Quando estes termos ou a política de privacidade mudarem no que você aceitou, a data no alto muda, a Alumia mostra o que mudou e pede o seu aceite de novo antes de você continuar. Se não concordar, você baixa os seus dados e apaga a conta.",
+          "Aplica-se a lei brasileira, também a quem acessa de outro país."
+        ]
+      }
+    ]
+  },
+  "privacidade": {
+    "titulo": "Política de privacidade da Alumia",
+    "chamada": "O que a Alumia guarda sobre você, para quê, por quanto tempo, quem lê e como você leva embora ou apaga. Escrita a partir do que o sistema realmente guarda, de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018).",
+    "secoes": [
+      {
+        "id": "resumo",
+        "titulo": "Em poucas linhas",
+        "itens": [
+          "**Sem venda, sem anúncio, sem perfil.** A Alumia não vende dados, não mostra anúncio e não monta perfil do que você lê ou de como se comporta. A linha segue uma regra aberta, igual para todo mundo, que você lê em [Como a linha é montada](/alumia/como-a-linha).",
+          "**Endereço de rede não é guardado.** A Alumia não grava o seu endereço de rede (IP): nem no banco, nem em registro de acesso.",
+          "**E-mail obrigatório, telefone nunca.** O e-mail serve para entrar, recuperar a senha e receber avisos de segurança da conta. Nunca aparece na Alumia.",
+          "**Ninguém vê lista de pessoas.** Nem de quem curtiu, viu, votou, assinou, confirmou presença ou segue alguém. Número de pessoas só aparece a partir de 3.",
+          "**Você leva embora e apaga.** Em [Meus dados](/alumia/meus-dados)."
+        ]
+      },
+      {
+        "id": "quem-responde",
+        "titulo": "Quem responde pelos seus dados",
+        "paragrafos": [
+          "O controlador é o Instituto Lúcia, projeto educacional gratuito, sem fins lucrativos e sem CNPJ, mantido por pessoas voluntárias. Quem responde pelo tratamento dos dados é a coordenação do projeto, que também atende os pedidos de quem é dono dos dados."
+        ]
+      },
+      {
+        "id": "sensivel",
+        "titulo": "Por que tanto cuidado",
+        "paragrafos": [
+          "Numa rede de organização política, o que você escreve, as comunidades em que entra e os atos que confirma podem revelar opinião política ou filiação a sindicato ou partido. A lei chama isso de **dado pessoal sensível** (art. 5º, II). Por isso a Alumia guarda o mínimo, não mostra listas de pessoas, e a sua entrada depende do seu consentimento específico e destacado (art. 11, I)."
+        ]
+      },
+      {
+        "id": "o-que",
+        "titulo": "O que guardamos",
+        "paragrafos": [
+          "A lista completa, com onde cada dado fica, por quanto tempo e quem lê, está em [O que guardamos](/alumia/o-que-guardamos). Os pontos principais:"
+        ],
+        "itens": [
+          "**A conta:** o e-mail, a senha (só um resumo dela, que não permite ler a senha) e o segredo do aplicativo autenticador, no serviço de contas.",
+          "**O pedido de entrada:** o codinome e o motivo que você escreveu; o motivo some 30 dias depois da decisão.",
+          "**O aceite:** a versão das normas e destes termos que você aceitou e quando.",
+          "**O que você publica e faz:** posts, respostas, enquetes, reações, salvos, pastas, quem você segue, as comunidades e os núcleos em que está. O que você apaga, some.",
+          "**Conversas privadas:** cifradas no seu aparelho; o servidor guarda o texto cifrado, que ele não lê, até o prazo da conversa.",
+          "**Moderação:** as denúncias, o registro das decisões e os recursos.",
+          "**Segurança:** um resumo embaralhado da rede de onde a conta entrou, que não deixa recuperar o endereço, por 30 dias; contadores de uso para frear abuso, por 2 dias; o registro de algumas ações da conta, por até 400 dias."
+        ]
+      },
+      {
+        "id": "email",
+        "titulo": "Para que serve o e-mail",
+        "paragrafos": [
+          "O e-mail é obrigatório porque é com ele que você entra, confirma a conta, recupera a senha e recebe os avisos de segurança (por exemplo, quando um autenticador novo passa a valer na sua conta). O resumo semanal por e-mail é opcional e vem desligado. O e-mail nunca aparece na Alumia, nem para a mediação; dentro da casa, só a coordenação tem acesso. Os e-mails saem por um serviço de envio com servidores fora do Brasil, que recebe o endereço e o texto só para entregar."
+        ]
+      },
+      {
+        "id": "rede",
+        "titulo": "Endereço de rede",
+        "paragrafos": [
+          "A Alumia não guarda o seu endereço de rede. Para barrar quem volta depois de banido, o servidor transforma o endereço, na hora, num resumo embaralhado com uma chave secreta que só ele tem. O que fica é só esse resumo, que não permite descobrir o endereço, e ele some sozinho em 30 dias. Um banimento por rede dura no máximo 90 dias.",
+          "Para entregar as páginas, os serviços de hospedagem e de proteção contra ataques recebem o endereço, como em qualquer site, e seguem a [política do site](/privacidade)."
+        ]
+      },
+      {
+        "id": "fora",
+        "titulo": "Quem mais recebe algum dado",
+        "paragrafos": [
+          "Ninguém compra nem recebe dados da Alumia para anúncio ou estatística. Alguns serviços processam dados só para a Alumia funcionar:"
+        ],
+        "itens": [
+          "**Hospedagem, banco de dados e proteção contra ataques**, com parte dos servidores fora do Brasil (transferência internacional, art. 33).",
+          "**Envio de e-mails**, só o endereço e o texto de cada mensagem.",
+          "**Aviso no celular**, se você ligar: o serviço de entrega do seu navegador recebe só um número cifrado, sem trecho de post e sem nome.",
+          "**Fediverso**, se você ligar a federação: os outros servidores recebem o codinome, o @nome, a bio e os posts marcados como Internet, e guardam cópias pelas regras deles.",
+          "**Conferência de links pelo Google Safe Browsing**, quando você publica um post com link: o servidor da Alumia transforma cada link em resumos (SHA-256) e manda ao Google só os 4 primeiros bytes de cada resumo, que servem para muitíssimos endereços; o Google devolve os resumos das páginas perigosas que começam assim e a comparação é feita no nosso servidor. O texto do post, o seu nome e a sua conta nunca vão; o link não é guardado. Link marcado como perigoso não é publicado, e a tela diz por quê.",
+          "**Avaliação automática de mensagens**, quando a coordenação a liga: o título e o texto de um post, sem o seu nome nem a sua conta, vão a um serviço de moderação de uma empresa de fora, que devolve uma classificação. Nenhuma conta é suspensa por essa avaliação."
+        ]
+      },
+      {
+        "id": "base-legal",
+        "titulo": "Com que base a lei permite",
+        "itens": [
+          "**Consentimento específico e destacado** (art. 11, I) para entrar na Alumia, para a federação e para o aviso no celular. Você retira apagando a conta, desligando a função ou pelo contato abaixo.",
+          "**Proteção do titular e prevenção de fraude e abuso** (art. 11, II, g; art. 7º, IX) para o resumo de rede, os contadores de uso e o registro de ações.",
+          "**Exercício regular de direitos** (art. 7º, VI; art. 11, II, d) para o registro de moderação e os recursos, que são a prova de que o processo foi cumprido.",
+          "**Cumprimento de obrigação legal** (art. 7º, II) quando uma ordem judicial válida pedir algo que exista."
+        ]
+      },
+      {
+        "id": "direitos",
+        "titulo": "Os seus direitos e como exercer",
+        "paragrafos": [
+          "A lei garante (art. 18): confirmar se tratamos dados seus, acessar, corrigir, levar embora (portabilidade), apagar o que foi tratado com o seu consentimento, saber com quem foi compartilhado, retirar o consentimento e pedir que uma pessoa reveja uma decisão automática (art. 20)."
+        ],
+        "itens": [
+          "**Baixar uma cópia** do que é seu e **apagar a conta**: [Meus dados](/alumia/meus-dados). A cópia não traz dado de outra pessoa (nem quem curtiu o seu post).",
+          "**Corrigir** codinome, nome público, foto e bio: em Editar perfil.",
+          "**Pedir revisão** de uma decisão da moderação: [Regras](/alumia/regras#recurso).",
+          "**Qualquer outro pedido**: pelo contato abaixo. Respondemos em até 15 dias. Você também pode reclamar à Autoridade Nacional de Proteção de Dados (ANPD)."
+        ]
+      },
+      {
+        "id": "menores",
+        "titulo": "Crianças e adolescentes",
+        "paragrafos": [
+          "A Alumia é só para maiores de 18 anos e não trata dado de menor de propósito. Não pedimos documento nem biometria para conferir a idade: a triagem da entrada é feita por gente, e a denúncia de que uma conta pode ser de menor retém a conta por precaução até a mediação ler (Lei nº 15.211/2025, ECA Digital; LGPD, art. 14)."
+        ]
+      },
+      {
+        "id": "aparelho",
+        "titulo": "No seu aparelho",
+        "paragrafos": [
+          "A Alumia guarda no navegador só o que precisa: a sessão de quem entrou e preferências como o tema, o tamanho da letra e a ordem da linha. Não há cookie de terceiros nem ferramenta de medição de audiência. O **Sair rápido** apaga o que a Alumia guardou no aparelho. As respostas do questionário de interesses também ficam só aqui: vão junto de cada leitura da linha e o servidor não guarda.",
+          "Se você ativar a **senha de pânico**, o aparelho guarda nele um cofre cifrado (Web Crypto, com chave tirada da senha de pânico) com o e-mail e a senha da conta isca. O cofre não vai ao servidor. Para a senha de pânico continuar valendo, o Sair rápido e o botão de pânico não apagam o cofre; desativar a senha de pânico o troca por um cofre vazio do mesmo formato, como o que todo aparelho que entra na Alumia recebe. A isca é tratada como qualquer outra conta, e a Alumia cumpre a lei e as ordens judiciais válidas com os dados reais."
+        ]
+      },
+      {
+        "id": "seguranca",
+        "titulo": "Segurança e incidentes",
+        "paragrafos": [
+          "Toda leitura e escrita no banco passa por conferências de quem pede e do que essa pessoa pode fazer; a entrada exige o segundo fator. Se houver um incidente que possa trazer risco a você, avisamos as pessoas afetadas e a ANPD."
+        ]
+      },
+      {
+        "id": "mudancas",
+        "titulo": "Mudanças nesta política",
+        "paragrafos": [
+          "Quando esta política mudar no que você aceitou, a data no alto muda e a Alumia pede o seu aceite de novo, mostrando o que mudou."
+        ]
+      }
+    ]
+  },
+  "guardamos": {
+    "titulo": "O que guardamos",
+    "chamada": "Cada dado que a Alumia guarda sobre você: onde fica, por quanto tempo e quem lê. O que não está aqui, a Alumia não guarda.",
+    "lugares": "Onde fica: os três lugares estão no mesmo banco de dados do Instituto. O **serviço de contas** guarda o login (e-mail, senha embaralhada e sessões); o **banco da Alumia**, o que é da rede; o **banco do Instituto**, o que vale para o site inteiro.",
+    "colunas": {
+      "dado": "Dado",
+      "onde": "Onde fica",
+      "tempo": "Por quanto tempo",
+      "quem": "Quem lê"
+    },
+    "grupos": [
+      {
+        "titulo": "Conta e entrada",
+        "linhas": [
+          { "dado": "E-mail", "onde": "Serviço de contas", "tempo": "Até você apagar a conta", "quem": "Só a coordenação; nunca aparece na Alumia" },
+          { "dado": "Senha", "onde": "Serviço de contas, só um resumo que não deixa ler a senha", "tempo": "Até você trocar ou apagar a conta", "quem": "Ninguém" },
+          { "dado": "Segredo do aplicativo autenticador", "onde": "Serviço de contas", "tempo": "Até você trocar o autenticador ou apagar a conta", "quem": "Ninguém" },
+          { "dado": "Codinome, @nome, bio e foto (inventada ou de verdade, se escolher)", "onde": "Banco da Alumia", "tempo": "Até você trocar ou apagar a conta", "quem": "Quem pode ver o seu perfil" },
+          { "dado": "Motivo do pedido de entrada e motivo da decisão", "onde": "Banco da Alumia", "tempo": "Somem 30 dias depois da decisão", "quem": "A triagem (coordenação, vice-coordenação e mediação)" },
+          { "dado": "Idade declarada (18 ou mais), versão das normas e destes termos aceita, e quando", "onde": "Banco da Alumia", "tempo": "Enquanto a conta existir", "quem": "Você e a coordenação" },
+          { "dado": "Códigos de recuperação do segundo fator", "onde": "Banco do Instituto, só um resumo que não deixa ler o código", "tempo": "Até você gerar outros; cada um vale uma vez", "quem": "Ninguém" },
+          { "dado": "Convites que você gerou (um resumo do código e o prazo; o convite usado sai na hora)", "onde": "Banco da Alumia", "tempo": "45 dias", "quem": "Só você vê os seus; quem usou um convite não fica guardado" },
+          { "dado": "Marca \"veio por convite\" no pedido de entrada", "onde": "Banco da Alumia", "tempo": "Até a triagem decidir", "quem": "A triagem, sem saber de quem foi o convite" },
+          { "dado": "Pedido de apagar a conta", "onde": "Banco da Alumia", "tempo": "Os 7 dias do prazo para desistir; depois, a conta é apagada", "quem": "Você; a coordenação vê só quantos pedidos há" }
+        ]
+      },
+      {
+        "titulo": "O que você publica e faz",
+        "linhas": [
+          { "dado": "Posts, respostas, enquetes, áudios e imagens (sem localização nem dados da câmera)", "onde": "Banco e depósito de arquivos da Alumia", "tempo": "Até você apagar", "quem": "Quem você escolheu no público de cada post" },
+          { "dado": "Reações, \"útil\", salvos, pastas e buscas salvas", "onde": "Banco da Alumia", "tempo": "Até você desfazer ou apagar", "quem": "Só você; os outros veem no máximo um total, a partir de 3" },
+          { "dado": "Quem você segue, comunidades e núcleos em que está", "onde": "Banco da Alumia", "tempo": "Até você sair", "quem": "Você; a moderação do lugar, para moderar; ninguém vê lista de membros" },
+          { "dado": "Stories", "onde": "Banco e depósito da Alumia", "tempo": "24 horas (mais, só se você puser num destaque ou se estiver em denúncia)", "quem": "O público do story; não há registro de quem viu" },
+          { "dado": "Rascunhos guardados na conta", "onde": "Banco da Alumia, cifrados no seu aparelho", "tempo": "30 dias depois da última mudança", "quem": "Só você, no aparelho que tem a chave" },
+          { "dado": "Confirmação em ato, voto em consulta, assinatura de petição", "onde": "Banco da Alumia", "tempo": "Enquanto o ato, a consulta ou a petição existir", "quem": "Ninguém vê lista de quem foi, votou ou assinou; totais só a partir de 3" },
+          { "dado": "Pessoas, conversas e palavras que você silenciou ou bloqueou", "onde": "Banco da Alumia", "tempo": "Até você desfazer", "quem": "Só você; quem foi silenciado não sabe" },
+          { "dado": "Interesses que você marcou no questionário (pautas, estudo, ritmo)", "onde": "Só no seu aparelho; vão junto de cada leitura da linha e o servidor não guarda", "tempo": "Até você apagar em Ajustes ou usar o Sair rápido", "quem": "Ninguém além de você" }
+        ]
+      },
+      {
+        "titulo": "Conversas e avisos",
+        "linhas": [
+          { "dado": "Conversas privadas e de grupo", "onde": "Banco da Alumia, cifradas no aparelho de quem escreve", "tempo": "Até o prazo da conversa; pedido de conversa sem resposta some em 30 dias", "quem": "Só quem participa lê o texto; o servidor sabe quem está em cada conversa" },
+          { "dado": "Avisos (respostas, menções, moderação)", "onde": "Banco da Alumia", "tempo": "Lidos somem em 30 dias; todos em 120 dias", "quem": "Só você" },
+          { "dado": "Aparelho que recebe aviso no celular (se você ligar)", "onde": "Banco da Alumia", "tempo": "Até você desligar", "quem": "Ninguém; só o envio usa" },
+          { "dado": "Horário de silêncio do aviso no celular (se você escolher)", "onde": "Banco da Alumia", "tempo": "Até você mudar", "quem": "Ninguém; só o envio usa" }
+        ]
+      },
+      {
+        "titulo": "Moderação",
+        "linhas": [
+          { "dado": "Denúncia que você fez (alvo, categoria, texto, protocolo)", "onde": "Banco da Alumia", "tempo": "Até a denúncia ser encerrada e o prazo de recurso passar", "quem": "A mediação vê a denúncia; a sua conta, só você" },
+          { "dado": "Registro de moderação (ação, regra, motivo, quem decidiu, quando)", "onde": "Banco da Alumia, só de inserção", "tempo": "Não se apaga; a retenção está em revisão jurídica", "quem": "A mediação; a regra e o motivo, a quem foi moderado (sem dizer quem decidiu)" },
+          { "dado": "Pedido de revisão (recurso) e a decisão", "onde": "Banco da Alumia", "tempo": "Junto do registro", "quem": "A mediação; a decisão, a quem pediu" },
+          { "dado": "Retenção por precaução (denúncia de menor)", "onde": "Banco da Alumia", "tempo": "Até a mediação decidir; depois, junto do registro", "quem": "A mediação e a coordenação; a pessoa retida vê a situação" }
+        ]
+      },
+      {
+        "titulo": "Segurança",
+        "linhas": [
+          { "dado": "Endereço de rede (IP)", "onde": "Não é guardado", "tempo": "—", "quem": "—" },
+          { "dado": "Links dos posts conferidos pelo Google Safe Browsing", "onde": "Não é guardado: o servidor confere na hora e o Google recebe só o começo de um resumo de cada link", "tempo": "—", "quem": "—" },
+          { "dado": "Resumo embaralhado da rede de onde a conta entrou", "onde": "Banco da Alumia", "tempo": "30 dias sem uso", "quem": "Ninguém lê; o sistema só compara, para barrar quem foi banido" },
+          { "dado": "Contadores de uso por conta (para frear abuso)", "onde": "Banco do Instituto", "tempo": "2 dias", "quem": "Ninguém; o sistema só conta" },
+          { "dado": "Registro de algumas ações da conta (entrar na rede, pedir a entrada, aceitar os termos, baixar os dados, decisões da moderação)", "onde": "Banco do Instituto", "tempo": "Até 400 dias", "quem": "Só a coordenação" },
+          { "dado": "Contagem de contas e pedidos novos por rede (um resumo que muda de hora em hora, sem o endereço)", "onde": "Banco da Alumia", "tempo": "1 dia", "quem": "Ninguém; o sistema só conta, para frear cadastro em massa" }
+        ]
+      }
+    ],
+    "nota": "Apagar a conta apaga o que é seu, menos o registro de moderação, que é a prova de que o processo foi cumprido. Para baixar uma cópia ou apagar, vá a [Meus dados](/alumia/meus-dados)."
+  },
+  "regras": {
+    "titulo": "Regras da Alumia",
+    "chamada": "As regras da casa, o que a mediação pode fazer, em quanto tempo responde e como você pede revisão de uma decisão. Cada comunidade pode ter regras a mais; nenhuma pode ter regra a menos.",
+    "lista": [
+      { "titulo": "Respeito às pessoas", "texto": "Sem racismo, machismo, LGBTfobia, capacitismo, xenofobia, intolerância religiosa e sem apologia ao nazismo e ao fascismo. Divergência de ideias é bem-vinda; ataque a pessoas, não." },
+      { "titulo": "Ninguém exposto", "texto": "Não publique nome completo, endereço, telefone, documento, local de trabalho, placa de carro ou rosto de outra pessoa sem que ela queira. Foto de ato: borre quem não pediu para aparecer." },
+      { "titulo": "Nada inventado", "texto": "Ao afirmar um fato, diga de onde ele vem. Notícia falsa recebe a nota da checagem." },
+      { "titulo": "Sem comércio nem golpe", "texto": "Nada de propaganda comercial, corrente, pirâmide, aposta ou pedido de dinheiro fora das vaquinhas de organização com selo." },
+      { "titulo": "Nada que a lei proíba", "texto": "Ameaça, calúnia, incitação à violência contra pessoas, abuso sexual de criança, venda de coisa proibida e qualquer outro crime." },
+      { "titulo": "Uma pessoa, uma conta, 18 anos ou mais", "texto": "Não se passe por outra pessoa nem por organização. Robô só com o rótulo de conta automática." },
+      { "titulo": "Sem ataque combinado", "texto": "Não junte gente para encher alguém de respostas, denúncias falsas ou menções. Denunciar de má-fé também é quebrar regra." }
+    ],
+    "escadaTitulo": "O que a mediação pode fazer",
+    "escada": [
+      "Deixar um aviso",
+      "Reter um post para leitura",
+      "Tirar um post",
+      "Travar uma conversa",
+      "Banir de uma comunidade",
+      "Suspender a conta por prazo",
+      "Banir a conta"
+    ],
+    "escadaNota": "Toda decisão cita a regra e o motivo, e quem foi moderado recebe um aviso. Nenhuma conta é suspensa por avaliação de máquina. A única retenção que acontece antes de uma pessoa ler é a da denúncia de menor de idade (abaixo).",
+    "prazosTitulo": "Em quanto tempo a mediação responde",
+    "prazos": [
+      { "rotulo": "Conteúdo ilegal, menor de idade, ameaça, exposição de dados, incitação à violência, autolesão", "categorias": ["ilegal", "menores", "ameaca", "exposicao", "violencia", "autolesao"] },
+      { "rotulo": "Ódio, assédio, golpe", "categorias": ["odio", "assedio", "golpe"] },
+      { "rotulo": "Spam e o resto", "categorias": ["spam", "outro"] }
+    ],
+    "prazoRecurso": "Pedido de revisão",
+    "recursoTitulo": "O caminho do recurso",
+    "recurso": [
+      { "titulo": "O aviso", "texto": "Você recebe a regra e o motivo da decisão, e se foi uma pessoa ou uma retenção automática. Nunca o nome de quem decidiu." },
+      { "titulo": "O pedido", "texto": "Em até {janela} dias, você explica por que a decisão está errada. Post: em [Denúncias e recursos](/alumia/denuncias). Conta suspensa ou retida: aqui embaixo, mesmo sem conseguir entrar na Alumia." },
+      { "titulo": "Outra pessoa decide", "texto": "Quem tomou a decisão nunca revê o próprio caso. Suspensão decidida pela coordenação, só a coordenação ou a vice-coordenação desfaz." },
+      { "titulo": "A resposta", "texto": "Em até {prazo} dias. Revertida, a decisão é desfeita: o post volta, a conta volta, e o caso deixa de contar contra o seu nível de confiança." }
+    ],
+    "menoresTitulo": "Menores de idade",
+    "menores": [
+      "A Alumia é só para maiores de 18 anos. Não pedimos documento nem foto do rosto: a idade é declarada no pedido de entrada, e a triagem, feita por gente da casa, lê o pedido e pode conversar antes de aprovar.",
+      "Se alguém denunciar que uma conta pode ser de menor, a conta fica **retida por precaução** até a mediação ler, em até {horas} horas. A pessoa retida recebe um aviso e pode escrever à mediação nesta página. Lida a denúncia, a mediação libera a conta ou a mantém suspensa, com o recurso de sempre.",
+      "Para a denúncia não virar arma: só quem é da Alumia retém uma conta assim, cada pessoa retém no máximo duas por mês, e quem a mediação já liberou não fica retido de novo pelos 90 dias seguintes. A denúncia continua indo para a frente da fila."
+    ],
+    "ilegal": {
+      "titulo": "Denunciar conteúdo ilegal",
+      "texto": "Crime em post, perfil ou comunidade da Alumia. A denúncia vai para a frente da fila, com protocolo e resposta em até {horas} horas. A mediação não vê quem denunciou, e a pessoa denunciada também não fica sabendo.",
+      "alvo": "Endereço do post, @ do perfil ou nome da comunidade",
+      "alvoAjuda": "Cole o endereço do post (ele termina com o número do post), o @ da pessoa ou o endereço da comunidade.",
+      "descricao": "O que há de ilegal",
+      "descricaoAjuda": "Diga o que está errado e, se souber, qual lei. Não escreva dados pessoais de ninguém.",
+      "enviar": "Enviar a denúncia",
+      "pronto": "Denúncia recebida. Protocolo {protocolo}. A mediação responde até {quando}. Você acompanha em [Denúncias e recursos](/alumia/denuncias).",
+      "ja": "Você já tinha denunciado isso. Protocolo {protocolo}.",
+      "alvoInvalido": "Não reconhecemos esse endereço. Cole o endereço do post, o @ do perfil ou o endereço da comunidade.",
+      "naoEncontrado": "Não achamos isso, ou você não tem como vê-lo.",
+      "semConta": "Para denunciar por aqui, entre na Alumia. Sem conta, use a página [Denunciar](/denunciar) do site.",
+      "proprio": "Isso é seu. Para tirar do ar, apague."
+    },
+    "revisao": {
+      "titulo": "Pedir revisão da minha conta",
+      "texto": "Para quem teve a conta suspensa ou retida. Funciona mesmo que a Alumia não abra para você.",
+      "semConta": "Entre com a sua conta para ver as decisões sobre ela.",
+      "entrar": "Entrar",
+      "nada": "Não há decisão sobre a sua conta nos últimos 180 dias.",
+      "retida": "Sua conta está retida por precaução desde {desde}. A mediação lê até {ate}.",
+      "suspensa": "Sua conta está suspensa.",
+      "acoes": {
+        "reter": "Conta retida por precaução",
+        "suspender": "Conta suspensa"
+      },
+      "automatica": "retenção automática, antes de uma pessoa ler",
+      "pessoa": "decisão de uma pessoa da mediação",
+      "regra": "Regra: {regra}",
+      "regras": { "precaucao_menor": "denúncia de que a conta é de menor de 18 anos (retenção por precaução)", "menor_de_18": "a Alumia é só para quem tem 18 anos ou mais", "precaucao": "retenção por precaução até a leitura da denúncia" },
+      "motivo": "Motivo: {motivo}",
+      "prazo": "Pode pedir revisão até {quando}",
+      "situacoes": {
+        "aberto": "Pedido enviado. Resposta até {quando}.",
+        "mantido": "Revisto por outra pessoa: decisão mantida.",
+        "revertido": "Revisto por outra pessoa: decisão desfeita."
+      },
+      "vencido": "O prazo para pedir revisão acabou.",
+      "pedir": "Pedir revisão",
+      "campo": "Por que a decisão está errada",
+      "campoAjuda": "De 10 a 2.000 letras. Outra pessoa da mediação vai ler.",
+      "pronto": "Pedido enviado. Outra pessoa da mediação responde até {quando}.",
+      "erros": {
+        "prazo_vencido": "O prazo de 30 dias para esta decisão acabou.",
+        "recurso_ja_feito": "Você já pediu revisão desta decisão.",
+        "invalido:texto": "Escreva de 10 a 2.000 letras.",
+        "muitos_pedidos": "Muitos pedidos seguidos. Espere um pouco."
+      }
+    }
+  },
+  "ajuda": {
+    "titulo": "Ajuda da Alumia",
+    "chamada": "As perguntas que mais chegam. Não achou a sua? Escreva à coordenação.",
+    "grupos": [
+      {
+        "titulo": "Entrar",
+        "perguntas": [
+          { "p": "Como eu entro na Alumia?", "r": "Crie uma conta com e-mail e senha na tela de entrada, confirme o e-mail e faça o pedido de entrada: codinome, por que quer entrar, a idade e o aceite das regras. Uma pessoa da triagem lê o pedido. Aprovada, você cadastra o aplicativo autenticador e entra." },
+          { "p": "Por que pedem e-mail e não telefone?", "r": "O e-mail serve para entrar, recuperar a senha e receber avisos de segurança da conta. Telefone liga a conta ao seu chip e ao seu nome no cadastro da operadora: por isso a Alumia nunca pede. O e-mail não aparece para ninguém na Alumia." },
+          { "p": "Meu pedido foi recusado. E agora?", "r": "A tela mostra o motivo. Depois de 30 dias você pode pedir de novo, contando melhor por que quer entrar." },
+          { "p": "Esqueci a senha.", "r": "Na tela de entrada, use \"Esqueci a senha\": chega um link no seu e-mail. Depois de trocar, o código do autenticador continua sendo pedido." }
+        ]
+      },
+      {
+        "titulo": "Segundo fator",
+        "perguntas": [
+          { "p": "O que é o segundo fator?", "r": "Um código de seis números que muda a cada 30 segundos, gerado por um aplicativo autenticador no seu celular. Sem ele, quem descobrir a sua senha não entra. Na Alumia ele é obrigatório para todo mundo." },
+          { "p": "Como cadastro o aplicativo?", "r": "Instale um aplicativo autenticador (de preferência de código aberto). Na Alumia, depois da aprovação, aparece um QR: aponte o aplicativo para ele e digite o código que aparecer. Pronto." },
+          { "p": "O que são os códigos de recuperação?", "r": "Códigos de uso único para entrar quando o celular do autenticador se perder. Guarde num papel ou num gerenciador de senhas, longe do celular. Cada código vale uma vez." },
+          { "p": "Perdi o celular e não tenho os códigos.", "r": "Escreva à coordenação pelo contato abaixo, do e-mail da conta. Ela confere que a conta é sua, tira o autenticador antigo e você cadastra um novo." }
+        ]
+      },
+      {
+        "titulo": "Como apareço",
+        "perguntas": [
+          { "p": "Qual a diferença entre codinome e perfil público?", "r": "Por padrão você aparece com um codinome e uma foto inventada, sem nada que ligue a conta à sua vida fora dali. Se quiser, em Editar perfil, escolhe aparecer com o nome e a foto de verdade. Dá para voltar ao codinome quando quiser." },
+          { "p": "Quem vê o que eu publico?", "r": "Quem você escolher no público de cada post: seguidores, membros da Alumia, uma comunidade, um núcleo ou a internet. Ninguém vê lista de quem curtiu ou viu." },
+          { "p": "Como a linha é montada?", "r": "Por uma regra aberta, igual para todo mundo, escrita em [Como a linha é montada](/alumia/como-a-linha). Você pode trocar para a ordem de chegada." }
+        ]
+      },
+      {
+        "titulo": "Denunciar e recorrer",
+        "perguntas": [
+          { "p": "Como denuncio um post ou uma pessoa?", "r": "No menu do post ou do perfil, escolha Denunciar e a categoria. Você recebe um protocolo e acompanha em [Denúncias e recursos](/alumia/denuncias). Nem a mediação nem a pessoa denunciada ficam sabendo que foi você." },
+          { "p": "E conteúdo ilegal?", "r": "Use o [canal de conteúdo ilegal](/alumia/regras#ilegal): vai para a frente da fila, com resposta em até 24 horas." },
+          { "p": "Tiraram um post meu (ou suspenderam a minha conta). Como peço revisão?", "r": "Em até 30 dias. Post: em [Denúncias e recursos](/alumia/denuncias). Conta: em [Regras](/alumia/regras#revisao), mesmo que a Alumia não abra para você. Outra pessoa da mediação responde em até 7 dias." }
+        ]
+      },
+      {
+        "titulo": "Sair e apagar",
+        "perguntas": [
+          { "p": "O que faz o Sair rápido?", "r": "Apaga o que a Alumia guardou neste aparelho e abre uma página comum de fora (a previsão do tempo), sem nada do Instituto. Fica no menu da sua conta e em Mais." },
+          { "p": "Como baixo os meus dados?", "r": "Em [Meus dados](/alumia/meus-dados). A cópia traz o que é seu, sem dado de outra pessoa." },
+          { "p": "Como apago a minha conta?", "r": "Em [Meus dados](/alumia/meus-dados). Apagar leva o perfil, os posts e o resto do que é seu. O registro de moderação, se houver, fica pelo prazo dele." }
+        ]
+      }
+    ],
+    "mais": "Ainda com dúvida?"
+  },
+  "reaceite": {
+    "tituloNovo": "Leia os termos da Alumia",
+    "tituloMudou": "Os termos da Alumia mudaram",
+    "texto": "Para continuar, leia os [termos de uso](/alumia/termos), a [política de privacidade](/alumia/privacidade) e as [regras](/alumia/regras), versão de {data}.",
+    "textoNaPagina": "Os termos de uso estão logo acima, versão de {data}. Leia também a [política de privacidade](/alumia/privacidade) e as [regras](/alumia/regras).",
+    "mudou": "O que mudou: {mudou}",
+    "caixa": "Li e aceito os termos de uso, a política de privacidade e as regras da Alumia.",
+    "aceitar": "Aceitar e continuar",
+    "aceito": "Você aceitou esta versão em {quando}.",
+    "naoQuer": "Não concorda? Você pode baixar os seus dados e apagar a conta em [Meus dados](/alumia/meus-dados)."
+  },
+  "painel": {
+    "titulo": "Lei e prazos",
+    "chamada": "O que tem prazo na moderação da Alumia. Vencido em vermelho.",
+    "contadores": {
+      "ilegais": "Conteúdo ilegal aberto",
+      "ilegaisVencendo": "vencem em 6 h",
+      "ilegaisVencidas": "vencidas",
+      "denunciasVencidas": "Denúncias com prazo vencido",
+      "retidas": "Contas retidas (menor)",
+      "retidasVencidas": "vencidas",
+      "recursos": "Recursos abertos",
+      "recursosVencidos": "vencidos"
+    },
+    "ilegaisTitulo": "Conteúdo ilegal",
+    "retidasTitulo": "Contas retidas por precaução",
+    "recursosTitulo": "Pedidos de revisão",
+    "vazio": "Nada aqui.",
+    "ate": "Responder até {quando}",
+    "venceu": "Venceu em {quando}",
+    "abrirFila": "Abrir na fila",
+    "protocolo": "Protocolo {protocolo}",
+    "denunciou": "Você fez esta denúncia: outra pessoa decide.",
+    "minha": "A decisão foi sua: outra pessoa revê.",
+    "liberar": "Liberar a conta",
+    "manter": "Manter suspensa",
+    "motivo": "Motivo (10 letras ou mais)",
+    "manterRecurso": "Manter a decisão",
+    "reverter": "Desfazer a decisão",
+    "semPermissao": "Só a mediação vê este painel.",
+    "feito": "Feito.",
+    "erros": {
+      "outra_pessoa": "Outra pessoa da mediação precisa decidir.",
+      "so_coordenacao": "Foi a coordenação que decidiu: só a coordenação ou a vice-coordenação desfaz.",
+      "invalido:motivo": "Escreva o motivo, com 10 letras ou mais."
+    }
+  },
+  "ajustes": {
+    "titulo": "Termos e privacidade",
+    "texto": "Versão em vigor: {data}.",
+    "aceita": "Você aceitou em {quando}.",
+    "pendente": "Você ainda não aceitou esta versão.",
+    "lerEAceitar": "Ler e aceitar"
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "_rascunho": true,
+  "aba": "Réussites",
+  "carregando": "Chargement…",
+  "tentar": "Réessayer",
+  "ajustes": {
+    "titulo": "Études et réussites",
+    "texto": "Les médailles et la bande d'entraide n'apparaissent sur votre profil que si vous les activez. Le mur des admis est réservé à qui s'inscrit.",
+    "conquistas": "Mes réussites",
+    "mural": "Mur des admis"
+  },
+  "tela": {
+    "carimbo": "Réussites",
+    "titulo": "Mes réussites",
+    "lead": "Des médailles pour ce que vous avez fait : terminer des parcours, corriger des rédactions, donner du tutorat. Chacune naît cachée et n'apparaît sur votre profil que si vous l'activez. Pas de tableau des scores ni de comparaison entre personnes.",
+    "medalhasTitulo": "Médailles",
+    "vazio": "Vous n'avez pas encore de médaille. Elles arrivent quand vous terminez un parcours, corrigez des rédactions entre pairs ou donnez du tutorat.",
+    "mostrar": "Afficher sur le profil",
+    "noPerfil": "Sur votre profil",
+    "escondida": "Vous seul la voyez",
+    "apagar": "Supprimer",
+    "apagarTitulo": "Supprimer cette médaille ?",
+    "apagarTexto": "Elle disparaît pour de bon, avec ce que vous aviez déjà fait pour elle.",
+    "apagarSim": "Supprimer",
+    "nao": "Retour",
+    "feitos": "Vous en avez fait {n}.",
+    "faltam": "Encore {n} pour le niveau suivant.",
+    "topo": "Dernier niveau.",
+    "nivel": "Niveau {n} sur 3",
+    "verMural": "Voir le mur des admis"
+  },
+  "trilhas": {
+    "titulo": "Parcours terminés",
+    "lead": "Cochez les parcours que vous avez terminés. Les suggestions viennent des cours terminés sur cet appareil et n'en sortent pas sans votre geste.",
+    "sugestoes": "Étudiés sur cet appareil",
+    "nenhuma": "Aucun cours terminé sur cet appareil pour l'instant.",
+    "terminei": "Terminé",
+    "marcada": "Coché",
+    "desmarcar": "Décocher",
+    "outra": "Autre parcours",
+    "outraDica": "La fin de l'adresse du parcours, comme historia-do-brasil",
+    "escolher": "Choisissez le parcours",
+    "marcar": "Cocher"
+  },
+  "medalhas": {
+    "trilha": {
+      "rotulo": "Parcours",
+      "nome": "A terminé {trilha}",
+      "como": "Vous la cochez quand vous terminez le parcours."
+    },
+    "redacao": {
+      "rotulo": "Rédaction",
+      "niveis": ["Première rédaction corrigée", "Corrige des rédactions dans le cercle", "Jury de rédaction du cercle"],
+      "como": "Chaque rédaction que vous corrigez et rendez entre pairs compte."
+    },
+    "monitoria": {
+      "rotulo": "Tutorat",
+      "niveis": ["Premier tutorat donné", "Tuteur du cercle", "Tutorat de référence"],
+      "como": "Chaque séance de tutorat programmée que vous donnez compte."
+    }
+  },
+  "faixa": {
+    "titulo": "Bande d'entraide",
+    "lead": "À la place des points, une bande écrite. Elle compte les conversations où la personne qui a demandé a marqué votre réponse comme celle qui a aidé, ou l'a acceptée, sur les 12 derniers mois. Chaque conversation compte une fois, et votre propre question ne compte pas.",
+    "regra": "La règle, la même pour tout le monde",
+    "desligada": "Désactivée : la bande n'apparaît pas sur votre profil.",
+    "ligada": "Activée : la bande apparaît sur votre profil, sans chiffre.",
+    "ligar": "Afficher la bande sur le profil",
+    "desligar": "Masquer la bande",
+    "suaHoje": "Votre bande aujourd'hui",
+    "nenhumaAinda": "Vous n'avez pas encore de bande : la première commence à 3 conversations."
+  },
+  "faixas": {
+    "semente": { "nome": "Graine du cercle", "texto": "de 3 à 9 conversations" },
+    "apoio": { "nome": "Appui du cercle", "texto": "de 10 à 29 conversations" },
+    "referencia": { "nome": "Référence du cercle", "texto": "30 conversations ou plus" }
+  },
+  "perfil": {
+    "titulo": "Réussites",
+    "faixa": "Bande d'entraide",
+    "editar": "Choisir ce qui apparaît"
+  },
+  "mural": {
+    "carimbo": "Admis",
+    "titulo": "Mur des admis",
+    "lead": "Celles et ceux qui ont réussi l'ENEM ou un concours d'entrée et ont voulu le dire. Seuls ceux qui s'inscrivent y figurent, avec le nom du profil ou un pseudonyme réservé au mur, et partent quand ils veulent.",
+    "vazio": "Personne ne s'est encore inscrit. Vous avez réussi ? Racontez-le ici.",
+    "mais": "Voir plus",
+    "voce": "Vous",
+    "mes": "Inscrit en {mes}",
+    "entrar": "M'inscrire",
+    "editar": "Modifier mon inscription",
+    "sair": "Quitter le mur",
+    "sairTitulo": "Quitter le mur ?",
+    "sairTexto": "Votre inscription disparaît tout de suite. Vous pourrez vous réinscrire plus tard.",
+    "sairSim": "Quitter",
+    "verPerfil": "Voir le profil",
+    "form": {
+      "titulo": "Votre inscription",
+      "como": "Comment apparaître",
+      "perfil": "Avec le nom de mon profil, avec un lien vers lui",
+      "codinome": "Avec un pseudonyme réservé au mur, sans lien",
+      "codinomeCampo": "Pseudonyme",
+      "curso": "Filière (facultatif)",
+      "cursoDica": "Comme Médecine ou Pédagogie",
+      "instituicao": "Établissement (facultatif)",
+      "recado": "Message (facultatif)",
+      "recadoDica": "Jusqu'à 140 caractères. Sans téléphone, courriel ni pièce d'identité.",
+      "salvar": "Enregistrer",
+      "cancelar": "Annuler"
+    },
+    "tirar": "Retirer du mur",
+    "tirarTitulo": "Retirer cette inscription ?",
+    "tirarMotivo": "Motif (va au registre et à la personne)",
+    "tirarSim": "Retirer"
+  },
+  "aula": {
+    "topicoCarimbo": "Sujet du cours",
+    "abrirTopico": "Ouvrir le sujet de ce cours",
+    "criarTopico": "Lancer le sujet de ce cours",
+    "semTopico": "Ce cours n'a pas encore de sujet. Qui arrive en premier le lance ; qui vient ensuite y arrive.",
+    "outros": "Conversations sur ce cours"
+  },
+  "ok": {
+    "salvo": "Enregistré.",
+    "saiu": "Vous avez quitté le mur.",
+    "apagada": "Médaille supprimée.",
+    "tirada": "Inscription retirée."
+  },
+  "erros": {
+    "dado_pessoal": "Retirez téléphone, courriel ou pièce d'identité du texte.",
+    "invalido:codinome": "Le pseudonyme doit avoir de 2 à 40 caractères, sans insulte.",
+    "invalido:curso": "La filière doit avoir de 2 à 80 caractères, sans insulte.",
+    "invalido:instituicao": "L'établissement doit avoir de 2 à 80 caractères, sans insulte.",
+    "invalido:recado": "Le message doit avoir de 2 à 140 caractères, sans insulte.",
+    "invalido:trilha": "Cette adresse de parcours ne convient pas : seulement minuscules, chiffres et tiret.",
+    "invalido:muitas": "Vous avez déjà coché le maximum de parcours (60).",
+    "invalido:motivo": "Écrivez le motif, de 3 à 300 caractères.",
+    "sem_permissao": "Seule la médiation peut faire cela.",
+    "nao_encontrado": "Introuvable.",
+    "confirme_codinome": "Choisissez d'abord votre pseudonyme sur Alumia.",
+    "muitos_pedidos": "Trop de changements d'affilée. Attendez un peu.",
+    "generico": "Cela n'a pas marché. Réessayez."
+  }
+}

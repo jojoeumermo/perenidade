@@ -7,6 +7,7 @@ set -euxo pipefail
 cd /root/lucia-infra
 
 install -m 644 Caddyfile /etc/caddy/Caddyfile
+mkdir -p /etc/caddy/extra
 mkdir -p /var/log/caddy && chown caddy:caddy /var/log/caddy
 caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
 systemctl enable caddy
@@ -40,4 +41,18 @@ WantedBy=timers.target
 EOF
 systemctl daemon-reload
 systemctl enable --now lucia-atualizar.timer
+
+# Fediverso da Alumia: cutuca a fila de entrega no próprio site. Com a federação desligada, nada acontece.
+install -m 755 fediverso-entregar.sh /usr/local/sbin/lucia-fediverso
+install -m 644 lucia-fediverso.service lucia-fediverso.timer /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable --now lucia-fediverso.timer
+
+# Cópia diária do banco. A configuração e o segredo ficam fora do repositório; sem eles, a rodada falha e aparece em
+# `systemctl --failed`.
+install -m 700 backup-banco.sh /usr/local/sbin/lucia-backup-banco
+install -m 644 lucia-backup-banco.service lucia-backup-banco.timer /etc/systemd/system/
+docker pull -q postgres:17-alpine
+systemctl daemon-reload
+systemctl enable --now lucia-backup-banco.timer
 echo "Instalado."

@@ -1,0 +1,80 @@
+{
+  "_rascunho": true,
+  "prova": {
+    "explica": "Contre les robots, sans service extérieur : avant l'envoi de la demande, votre appareil fait un court calcul. De votre appareil et de votre réseau, il ne reste qu'un condensé brouillé, qui disparaît en un jour.",
+    "fazendo": "L'appareil fait le calcul contre les robots…",
+    "fazendoAntes": "Votre appareil fait un court calcul avant l'envoi…",
+    "demorando": "Cela prend plus de temps que d'habitude (beaucoup de demandes en ce moment). Vous pouvez attendre : le calcul continue.",
+    "pronta": "Calcul terminé. Envoi…",
+    "erros": {
+      "muitos_pedidos": "Trop de demandes depuis ce réseau cette heure-ci. Réessayez plus tard.",
+      "porta_cheia": "Alumia a reçu beaucoup de demandes cette heure-ci. Réessayez dans un moment.",
+      "rede_barrada": "Depuis ce réseau, impossible de créer un compte ou de demander l'entrée pour l'instant.",
+      "desafio_vencido": "Le calcul a pris trop de temps et a expiré. Réessayez.",
+      "email_nao_confirmado": "Confirmez votre e-mail avant de demander l'entrée : le lien est dans votre boîte de réception.",
+      "cadastro_fechado": "Les inscriptions sont fermées pour le moment. Revenez bientôt.",
+      "senha_fraca": "Ce mot de passe ne convient pas. Choisissez-en un plus long, que vous n'utilisez nulle part ailleurs.",
+      "sem_servico": "Impossible de joindre le serveur pour l'instant. Réessayez dans un moment.",
+      "captcha": "La vérification anti-robots de Cloudflare n'est pas terminée ou n'a pas réussi. Attendez que sa case confirme et réessayez.",
+      "falha": "Cela n'a pas marché. Réessayez dans un moment."
+    }
+  },
+  "pagina": {
+    "carimbo": "Invitation",
+    "titulo": "Quelqu'un vous invite sur Alumia",
+    "texto": "Quelqu'un qui est déjà dedans vous a envoyé cette invitation. Elle mène votre demande à l'examen, comme toute autre : elle n'approuve pas toute seule.",
+    "sigilo": "L'examen voit seulement que la demande est venue avec une invitation, jamais de qui. Une fois la décision prise, même cette marque disparaît.",
+    "guardado": "L'invitation reste seulement sur cet appareil, jusqu'à 7 jours, jusqu'à l'envoi de votre demande.",
+    "vale": "Valable jusqu'au {data}.",
+    "conferindo": "Vérification de l'invitation…",
+    "criar": "Créer un compte et demander l'entrée",
+    "jaTenho": "J'ai déjà un compte",
+    "invalidoTitulo": "Cette invitation n'est plus valable",
+    "invalido": "Elle a expiré, a déjà servi ou a été annulée. Vous pouvez toujours demander l'entrée sans invitation : l'examen lit toutes les demandes.",
+    "pedirSem": "Demander l'entrée sans invitation",
+    "semConferir": "Impossible de vérifier l'invitation pour l'instant. Elle reste sur cet appareil et part avec votre demande ; si elle n'est plus valable, la demande part sans elle.",
+    "passos": [
+      { "titulo": "Créez le compte", "texto": "E-mail et mot de passe. Jamais de téléphone." },
+      { "titulo": "Demandez l'entrée", "texto": "Un nom de code et pourquoi vous voulez entrer. L'invitation part avec." },
+      { "titulo": "L'examen lit", "texto": "Des personnes de la coordination et de la médiation décident. Une fois approuvé, vous configurez l'application d'authentification et vous entrez." }
+    ]
+  },
+  "meus": {
+    "titulo": "Inviter sur Alumia",
+    "texto": "Envoyez le lien à quelqu'un que vous connaissez. L'invitation mène à l'examen et n'approuve personne toute seule ; Alumia ne garde pas qui a invité qui.",
+    "restam": "Il vous reste {n} invitations sur {teto} ce mois-ci",
+    "restamUm": "Il vous reste 1 invitation sur {teto} ce mois-ci",
+    "usados": "Utilisées ce mois-ci : {n}",
+    "gerar": "Créer une invitation",
+    "gerando": "Création…",
+    "novoTitulo": "Invitation prête",
+    "novo": "Copiez le lien maintenant : il n'apparaît que cette fois. Valable 7 jours, jusqu'au {data}.",
+    "copiar": "Copier le lien",
+    "copiado": "Lien copié",
+    "rotuloLink": "Lien de l'invitation",
+    "lista": "Vos invitations",
+    "vazio": "Aucune invitation pour l'instant.",
+    "criado": "créée le {data}",
+    "situacoes": {
+      "aberto": "ouverte jusqu'au {data}",
+      "usado": "utilisée",
+      "vencido": "expirée",
+      "cancelado": "annulée"
+    },
+    "nota": "Une invitation utilisée quitte la liste et la base de données aussitôt : Alumia ne garde ni laquelle c'était, ni qui a demandé l'entrée avec.",
+    "cancelar": "Annuler",
+    "cancelarRotulo": "Annuler l'invitation créée le {data}",
+    "acabaram": "Les invitations de ce mois sont épuisées. Il y en aura d'autres le mois prochain.",
+    "desligados": "La coordination a désactivé les invitations pour le moment.",
+    "soDentro": "Seules les personnes déjà dans Alumia créent des invitations.",
+    "erro": "Cela n'a pas marché. Réessayez dans un moment.",
+    "voltar": "Retour à Alumia"
+  },
+  "triagem": {
+    "marca": "venu avec une invitation",
+    "explica": "L'examen ne sait pas de qui. La marque disparaît quand la demande est tranchée."
+  },
+  "semTerceiro": {
+    "redeBarrada": { "entrar": "Impossible de se connecter depuis ce réseau pour le moment.", "aviso": "Impossible de demander cet e-mail depuis ce réseau pour le moment." }
+  }
+}

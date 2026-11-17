@@ -1,9 +1,9 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // "Combinar pelo chat" das caronas do ato: o ENCAIXE entre a Faixa 1 (atos) e a Faixa 2 (chat privado cifrado). A Faixa 1 não
-// sabe quem ofereceu a carona (nenhuma função devolve) e não mexe no chat; a Faixa 2 registra aqui a função que abre a conversa
+// sabe quem ofereceu a carona (nenhuma função devolve) e não mexe no chat; o chat registra aqui a função que abre a conversa
 // privada com a dona da carona, resolvendo `carona.id` → pessoa NO SERVIDOR (interno.rede_ato_caronas.quem), sem nunca mostrar o
-// id a quem pediu. Pedido em docs/rede/PEDIDOS-ENTRE-FAIXAS.md (10/11/2026). Enquanto ninguém registrar, o botão aparece
+// id a quem pediu. Enquanto ninguém registrar, o botão aparece
 // desligado com a explicação. Sem "@/" de propósito.
 
 export interface CaronaParaConversa {

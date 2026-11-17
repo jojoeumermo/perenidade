@@ -7,9 +7,11 @@ import type { Post } from "@/lib/rede/tipos";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDaModeracao } from "@/lib/rede/textos-moderacao";
 import type { AcaoDeModeracao } from "@/lib/rede/tipos-moderacao";
-import { estilo, mensagemDeErro, tempoLento } from "./base";
+import { OPCOES_DO_LENTO } from "@/lib/rede/comunidade-moderacao";
+import { estilo, mensagemDeErro } from "./base";
+import { rotuloDoLento } from "./comunidade/ModoLento";
 
-const SEGUNDOS = [0, 30, 60, 300, 900, 3600];
+const SEGUNDOS: number[] = [...OPCOES_DO_LENTO];
 
 /**
  * O painel de quem modera, no próprio post (só aparece quando o post diz `modero`): ação com regra e motivo, e modo lento da conversa.
@@ -87,7 +89,7 @@ export function PainelDoPost({ post, s, sm, aoFechar, aoAgir }: { post: Post; s:
       <label className="block text-sm">
         {sm.moderar.modoLento}
         <select value={lento} onChange={(e) => void mudarLento(Number(e.target.value))} className={`${estilo.campo} mt-1`}>
-          {SEGUNDOS.map((n) => <option key={n} value={n}>{tempoLento(sm, n)}</option>)}
+          {SEGUNDOS.map((n) => <option key={n} value={n}>{rotuloDoLento(sm, n)}</option>)}
         </select>
         <span className="text-xs text-ink-soft">{sm.moderar.modoLentoAjuda}</span>
       </label>

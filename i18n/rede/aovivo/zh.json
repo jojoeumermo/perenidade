@@ -1,0 +1,121 @@
+{
+  "titulo": "直播问答",
+  "chamada": "定时的“向…提问”：受邀的人按问题到达的顺序用文字回答。没有人给问题投票。",
+  "carregando": "加载中…",
+  "erroCarregar": "现在无法加载。",
+  "tentar": "重试",
+  "voltar": "返回直播问答",
+  "agenda": {
+    "agora": "正在直播",
+    "proximas": "未来 14 天",
+    "convites": "邀请你回答",
+    "vazioAgora": "现在没有正在进行的环节。",
+    "vazioProximas": "未来 14 天没有安排的环节。",
+    "abrir": "打开环节",
+    "aceitar": "接受并回答",
+    "recusar": "拒绝",
+    "aceito": "已接受邀请。能看到提问箱的人都会看到这个环节。",
+    "recusado": "已拒绝邀请。",
+    "comoMarcar": "要安排环节，请打开你个人主页上的提问箱，或你管理的社区的提问箱。"
+  },
+  "momento": {
+    "antes": "已安排",
+    "ao_vivo": "直播中",
+    "encerrada": "已结束",
+    "convite": "邀请",
+    "recusada": "已拒绝",
+    "cancelada": "已取消"
+  },
+  "sessao": {
+    "pergunteA": "向 {nome} 提问",
+    "naComunidade": "在 {nome} 社区",
+    "quando": "{dia}，{inicio} 至 {fim}",
+    "perguntas": "{n} 个问题",
+    "regra": "问题按到达的顺序排队，也按这个顺序回答。没有人能靠投票插队。",
+    "quemPerguntou": "提问的人只有在自己愿意时才会显示。结束一天后，Alumia 会忘记每个问题是谁提的。",
+    "aguarde": "环节将于 {quando} 开始。现在就可以提问。",
+    "encerrada": "这个环节已经结束。回答保留在这里。",
+    "cancelar": "取消环节",
+    "cancelarConfirmar": "取消这个环节？它的问题也会一起消失。",
+    "cancelada": "环节已取消。"
+  },
+  "perguntar": {
+    "rotulo": "你的问题",
+    "mostrarNome": "在问题旁显示我的代号",
+    "enviar": "发送问题",
+    "enviada": "问题已排队。",
+    "contador": "{n} / {max}",
+    "entrar": "登录后才能提问。"
+  },
+  "fila": {
+    "titulo": "问题，按到达顺序",
+    "vazia": "还没有问题。",
+    "posicao": "第 {n} 个",
+    "daVez": "轮到",
+    "esperando": "排队中",
+    "respondida": "已回答",
+    "passada": "已跳过",
+    "retirada": "已被管理撤下",
+    "alguem": "有人提问",
+    "perguntou": "{quem} 提问",
+    "minha": "你的问题",
+    "retirarMinha": "撤回我的",
+    "retiradaMinha": "你的问题已离开队列。"
+  },
+  "responder": {
+    "titulo": "现在由你回答",
+    "explica": "你回答或跳过队列中的第一个问题。下一个随后出现。",
+    "rotulo": "你的回答",
+    "publicar": "回答",
+    "passar": "跳过这个",
+    "respondida": "回答已发布。",
+    "passou": "问题已跳过。",
+    "antes": "环节开始后才能回答。",
+    "nada": "队列是空的。有问题到达时会显示在这里。"
+  },
+  "moderar": {
+    "retirar": "撤下",
+    "motivo": "原因",
+    "confirmar": "撤下问题",
+    "feito": "问题已撤下。",
+    "desistir": "不撤下",
+    "motivos": {
+      "ofensa": "冒犯",
+      "dado_pessoal": "个人信息",
+      "fora_do_tema": "离题",
+      "repetida": "重复"
+    }
+  },
+  "caixa": {
+    "titulo": "直播",
+    "nenhuma": "没有安排的环节。",
+    "marcar": "安排一个直播环节",
+    "tituloRotulo": "主题",
+    "inicioRotulo": "开始时间",
+    "duracaoRotulo": "时长",
+    "minutos": "{n} 分钟",
+    "convidadaRotulo": "谁来回答（你邀请的人的 @）",
+    "convidadaAjuda": "对方会收到邀请，接受之后环节才会出现。",
+    "salvar": "安排",
+    "marcada": "环节已安排。",
+    "convidada": "邀请已发送。对方接受后环节才会出现。",
+    "limite": "每个提问箱最多 {n} 个即将进行的环节。"
+  },
+  "erros": {
+    "entre_primeiro": "请先登录。",
+    "consentimento": "只有 Alumia 的成员可以这样做。",
+    "sem_permissao": "你不能在这里这样做。",
+    "nao_encontrado": "找不到这个环节。",
+    "travado": "这个环节不再接受问题。",
+    "dado_pessoal": "请删除个人信息（电话、邮箱、证件或地址）后再发送。",
+    "muitos_pedidos": "你等待中的问题已达上限。请等一个回答后再发。",
+    "fila_cheia": "这个环节的队列已满。",
+    "fora_da_vez": "现在不是轮到这个问题。页面已刷新。",
+    "fora_do_horario": "不在环节时间内。",
+    "invalido": "请检查填写的内容。",
+    "conta_suspensa": "你的账户已被暂停。",
+    "alumia_entrada": "你进入 Alumia 的申请通过后才会开放。",
+    "desligado": "直播问答目前已关闭。",
+    "outro": "出了点问题。请重试。"
+  }
+}

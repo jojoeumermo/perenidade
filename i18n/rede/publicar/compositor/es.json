@@ -1,0 +1,95 @@
+{
+  "fio": {
+    "ligar": "Armar un hilo",
+    "desligar": "Volver a un solo bloque",
+    "ajuda": "Escribe en bloques y publica todo de una vez: el primero abre la conversación y los demás siguen, en orden.",
+    "bloco": "Bloque {n} de {total}",
+    "mais": "Un bloque más",
+    "tirar": "Quitar el bloque {n}",
+    "dividir": "Dividir el texto en bloques",
+    "limite": "Un hilo tiene hasta 10 bloques.",
+    "vazio": "Hay un bloque vacío: escribe en él o quítalo.",
+    "grande": "El bloque {n} pasó de 500 caracteres.",
+    "semAgenda": "El hilo sale en el momento. Para programar, publica un solo bloque.",
+    "esperando": "Salió el comienzo del hilo. Los otros {n} bloques esperan que la mediación lea el bloque de arriba y salen cuando se libere.",
+    "publicar": "Publicar hilo",
+    "desfeito": "Hilo deshecho. El texto sigue aquí."
+  },
+  "imagens": {
+    "arranjo": "Cómo aparecen las imágenes",
+    "grade": "Cuadrícula",
+    "carrossel": "Carrusel",
+    "colagem": "Collage",
+    "legenda": "Leyenda",
+    "legendaDica": "Leyenda de la imagen {n} (todo el mundo la ve)",
+    "anterior": "Imagen anterior",
+    "proxima": "Imagen siguiente",
+    "posicao": "Imagen {n} de {total}",
+    "antes": "Mover la imagen {n} hacia atrás",
+    "depois": "Mover la imagen {n} hacia adelante",
+    "maximo": "Hasta 10 imágenes por publicación."
+  },
+  "fuso": {
+    "rotulo": "Huso horario",
+    "ajuda": "La hora vale en el huso que elijas. Alumia no descubre dónde estás.",
+    "doBrasil": "Husos de Brasil",
+    "outros": "Otros husos",
+    "vaiSair": "Sale el {quando}.",
+    "naFila": "en la fila: {quando}",
+    "cidades": {
+      "Noronha": "Fernando de Noronha",
+      "Sao_Paulo": "Brasilia, São Paulo, Río, Sur",
+      "Bahia": "Salvador",
+      "Fortaleza": "Fortaleza",
+      "Recife": "Recife",
+      "Belem": "Belém",
+      "Manaus": "Manaos",
+      "Cuiaba": "Cuiabá",
+      "Campo_Grande": "Campo Grande",
+      "Porto_Velho": "Porto Velho",
+      "Boa_Vista": "Boa Vista",
+      "Rio_Branco": "Río Branco"
+    }
+  },
+  "rascunho": {
+    "agendar": "Programar"
+  },
+  "figurinhas": {
+    "escolher": "Poner una pegatina",
+    "pacote": "Paquete de la casa",
+    "tirar": "Quitar la pegatina",
+    "so": "Solo la pegatina, sin texto",
+    "texto": "[Pegatina: {nome}]",
+    "nomes": {
+      "punho": "Puño en alto",
+      "lampiao": "Farol encendido",
+      "megafone": "Megáfono",
+      "estrela": "Estrella",
+      "cravo": "Clavel rojo",
+      "coracao": "Corazón de azulejos",
+      "livro": "Libro abierto",
+      "sol": "Sol naciente",
+      "cafe": "Café recién hecho",
+      "presente": "¡Presente!",
+      "na-luta": "En la lucha",
+      "valeu": "¡Gracias!"
+    },
+    "carimbos": {
+      "presente": "¡PRESENTE!",
+      "na-luta": "EN LA LUCHA",
+      "valeu": "¡GRACIAS!"
+    }
+  },
+  "link": {
+    "doServidor": "Título, resumen e imagen buscados por nuestro servidor."
+  },
+  "erros": {
+    "invalido_fio": "El hilo necesita de 2 a 10 bloques, todos con texto.",
+    "invalido_arranjo": "Elige cuadrícula, carrusel o collage.",
+    "invalido_figurinha": "Esa pegatina no es del paquete de la casa.",
+    "invalido_legenda": "La leyenda llega hasta 280 caracteres.",
+    "legenda_revisar": "Una leyenda tiene una palabra que va a la lectura de la mediación. Cambia la leyenda o quítala.",
+    "invalido_fuso": "Elige un huso de la lista.",
+    "nivel_imagens": "Tu nivel de confianza todavía no permite tantas imágenes en una publicación."
+  }
+}

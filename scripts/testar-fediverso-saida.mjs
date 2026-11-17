@@ -117,6 +117,15 @@ globalThis.fetch = async (url, init = {}) => {
     if (!f) return new Response(JSON.stringify({ message: "invalido:acao" }), { status: 400 });
     return new Response(JSON.stringify(f(corpo.p ?? {})), { status: 200, headers: { "Content-Type": "application/json" } });
   }
+  // O domínio próprio da organização (org_dominio): só "coletivo.teste" é verificado, e é da ana_1.
+  if (u === "http://banco.teste/rest/v1/rpc/rede_fed_mudanca_servidor") {
+    const corpo = JSON.parse(init.body);
+    if (corpo.p_segredo !== SEGREDO) return new Response(JSON.stringify({ message: "sem_permissao" }), { status: 400 });
+    chamadas.push(`mudanca:${corpo.p_acao}`);
+    if (corpo.p_acao !== "org_dominio") return new Response(JSON.stringify({ message: "invalido:acao" }), { status: 400 });
+    const achou = corpo.p?.dominio === "coletivo.teste" && corpo.p?.nome === "ana_1";
+    return new Response(JSON.stringify(achou ? { handle: "ana_1" } : null), { status: 200, headers: { "Content-Type": "application/json" } });
+  }
   if (u === `http://banco.teste/storage/v1/object/authenticated/rede-midia/${PERFIL}/${ARQUIVO}.jpg`) {
     if (init.headers?.Authorization !== "Bearer chave-publica-de-teste") return new Response("", { status: 400 });
     return new Response(BYTES_DA_IMAGEM, { status: 200, headers: { "Content-Type": "application/octet-stream", "Content-Length": String(BYTES_DA_IMAGEM.length) } });
@@ -148,19 +157,25 @@ const json = async (r) => ({ status: r.status, tipo: r.headers.get("content-type
 const webfinger = (resource, host = ALUMIA) => rotaWebfinger.GET(pedir(`/.well-known/webfinger?resource=${encodeURIComponent(resource)}`, { host, aceita: "application/jrd+json" })).then(json);
 const semSegredo = (o) => !/PRIVATE|chave_privada|v1:cifrada/.test(JSON.stringify(o));
 
-// ═══════════════════ Produção: NEXT_PUBLIC_RECURSOS=todos, sem painel. As flags ficam DESLIGADAS ═══════════════════
+// ═══════════════════ Produção: NEXT_PUBLIC_RECURSOS=todos, sem painel. O modo total e os grupos pelo padrão ═══════════════════
 const sonda = `
   const end = await import(${JSON.stringify(new URL("../lib/rede/fediverso/enderecos.ts", import.meta.url).href)});
   console.log(JSON.stringify({ total: end.modoTotal(), grupos: end.gruposLigados() }));`;
 const flagsCom = (recursosDaMontagem) =>
   JSON.parse(execFileSync(process.execPath, [...process.execArgv, "--input-type=module", "-e", sonda], { env: { ...process.env, NEXT_PUBLIC_RECURSOS: recursosDaMontagem }, encoding: "utf8" }).trim().split("\n").at(-1));
-await espera("produção (todos, sem painel): modo total e grupos DESLIGADOS", async () => flagsCom("todos"), (r) => r.total === false && r.grupos === false);
-await espera("todos + o nome escrito liga; '-nome' desliga; grupos só junto do total", async () => [flagsCom("todos,fediverso-total"), flagsCom("fediverso-total,fediverso-grupos"), flagsCom("todos,fediverso-total,-fediverso-total"), flagsCom("fediverso-grupos")], ([a, b, c, d]) =>
-  a.total && !a.grupos && b.total && b.grupos && !c.total && !d.total && !d.grupos);
+// Lançamento (integração de 21/11/2026): "fediverso-total" está no PADRAO de lib/recursos.ts; no beta fechado (17/11),
+// "fediverso-grupos" também. Sem os nomes na variável, os dois ficam ligados; "-nome" desliga cada um.
+await espera("produção (todos, sem painel): modo total e grupos LIGADOS pelo padrão", async () => flagsCom("todos"), (r) => r.total === true && r.grupos === true);
+await espera("todos + o nome escrito liga; '-nome' desliga; grupos só junto do total", async () => [flagsCom("todos,fediverso-total"), flagsCom("fediverso-total,fediverso-grupos"), flagsCom("todos,fediverso-total,-fediverso-total"), flagsCom("fediverso-grupos,-fediverso-total"), flagsCom("fediverso-grupos"), flagsCom("todos,-fediverso-grupos")], ([a, b, c, d, e, f]) =>
+  a.total && a.grupos && b.total && b.grupos && !c.total && !d.total && !d.grupos && e.total && e.grupos && f.total && !f.grupos);
 
-// ═══════════════════ Estado padrão (variável sem os nomes, sem painel): nada muda ═══════════════════
+// ═══════════════════ Estado padrão (variável sem os nomes, sem painel): o modo total e os grupos ligados ═══════════════════
 padrao();
-await espera("padrão: modoTotal() e gruposLigados() falsos", async () => [end.modoTotal(), end.gruposLigados()], (r) => r.every((x) => x === false));
+await espera("padrão: modoTotal() e gruposLigados() ligados", async () => [end.modoTotal(), end.gruposLigados()], ([t, g]) => t === true && g === true);
+
+// ═══════════════════ Desligado pelo painel (ligado=false em interno.recursos_vivos): nada muda ═══════════════════
+emergencia();
+await espera("desligado pelo painel: modoTotal() e gruposLigados() falsos", async () => [end.modoTotal(), end.gruposLigados()], (r) => r.every((x) => x === false));
 await espera("desligado: WebFinger no domínio curto dá 404; no da Alumia, o subject de sempre", async () => [await webfinger(`acct:ana_1@${CURTO}`, CURTO), await webfinger(`acct:ana_1@${ALUMIA}`)], ([curto, alumia]) =>
   curto.status === 404 && alumia.status === 200 && alumia.corpo.subject === `acct:ana_1@${ALUMIA}` && !("properties" in alumia.corpo.links[0]));
 await espera("desligado: o ator da instância não responde no WebFinger", async () => webfinger(`acct:${ALUMIA}@${ALUMIA}`), (r) => r.status === 404);
@@ -188,8 +203,8 @@ emergencia();
 await espera("o interruptor de emergência do painel desliga os dois", async () => [end.modoTotal(), end.gruposLigados()], (r) => r.every((x) => x === false));
 padrao();
 
-// ═══════════════════ Modo total ligado (só fediverso-total) ═══════════════════
-ligar("fediverso-total");
+// ═══════════════════ Modo total ligado (só fediverso-total: os grupos desligados pelo painel) ═══════════════════
+recursos.definirVivos({ ligados: new Set(["fediverso-total"]), desligados: new Set(["fediverso-grupos"]) });
 const fed = end.enderecosDaFederacao(BASE);
 await espera("o domínio curto é o host sem 'alumia.'; nada a encurtar quando não começa com alumia.", async () => [fed.dominioCurto, end.dominioCurtoDe("rede.org"), end.dominioCurtoDe("alumia.teste"), fed.dominioDaConta(false), fed.dominioDaConta(true)], (r) =>
   r[0] === CURTO && r[1] === "" && r[2] === "" && r[3] === ALUMIA && r[4] === CURTO);
@@ -197,6 +212,11 @@ await espera("WebFinger: acct no domínio curto, nos DOIS hosts, dá o subject c
   rs.every((r) => r.status === 200 && /jrd\+json/.test(r.tipo) && r.corpo.subject === `acct:ana_1@${CURTO}` && r.corpo.links.some((l) => l.rel === "self" && l.type === AP && l.href === `${BASE}/api/fediverso/u/ana_1` && l.properties["https://www.w3.org/ns/activitystreams#type"] === "Person")));
 await espera("WebFinger: o endereço do ator e o /@nome também valem; outro domínio e quem não federa, 404", async () => Promise.all([webfinger(`${BASE}/api/fediverso/u/ana_1`), webfinger(`${BASE}/@ana_1`), webfinger("acct:ana_1@outra.org"), webfinger(`acct:ninguem@${CURTO}`, CURTO)]), (r) =>
   r[0].status === 200 && r[1].status === 200 && r[2].status === 404 && r[3].status === 404);
+await espera("WebFinger pelo domínio verificado da organização: o subject de sempre, o alias no domínio dela e cache curto; outro @nome ou domínio, 404", async () => {
+  const [r, outroNome, outroDominio, ip] = await Promise.all([webfinger("acct:ana_1@Coletivo.Teste"), webfinger("acct:bia_2@coletivo.teste"), webfinger("acct:ana_1@outro.teste"), webfinger("acct:ana_1@10.0.0.1")]);
+  const cru = await rotaWebfinger.GET(pedir(`/.well-known/webfinger?resource=${encodeURIComponent("acct:ana_1@coletivo.teste")}`, { host: ALUMIA, aceita: "application/jrd+json" }));
+  return [r.status, r.corpo?.subject, r.corpo?.aliases?.includes("acct:ana_1@coletivo.teste"), cru.headers.get("cache-control"), outroNome.status, outroDominio.status, ip.status];
+}, (r) => JSON.stringify(r) === JSON.stringify([200, `acct:ana_1@${CURTO}`, true, "public, max-age=60", 404, 404, 404]));
 await espera("WebFinger: o ator da instância (acct:<domínio>@<domínio>) aponta o Application", async () => webfinger(`acct:${ALUMIA}@${ALUMIA}`), ({ status, corpo }) =>
   status === 200 && corpo.subject === `acct:${ALUMIA}@${ALUMIA}` && corpo.links[0].href === `${BASE}/api/fediverso/ator`);
 await espera("WebFinger: sem fediverso-grupos, comunidade não responde", async () => webfinger(`acct:estudo-coletivo@${CURTO}`, CURTO), (r) => r.status === 404);
@@ -327,8 +347,8 @@ await espera("Group: comunidade fechada ou inexistente dá 404", async () => Pro
 await espera("Group: outbox com Announce(Create(Note)) e audience; só-seguidores fica de fora", async () => json(await rotaGrupoOutbox.GET(pedir("/api/fediverso/c/luta/outbox"), ctx({ slug: "luta" }))), ({ corpo: o }) =>
   o.orderedItems.length === 1 && o.orderedItems[0].type === "Announce" && o.orderedItems[0].actor === `${BASE}/api/fediverso/c/luta` && o.orderedItems[0].object.type === "Create" &&
   o.orderedItems[0].object.object.audience === `${BASE}/api/fediverso/c/luta` && o.orderedItems[0].object.object.name === "Assembleia" && o.orderedItems[0].object.object.cc.includes(`${BASE}/api/fediverso/c/luta`));
-await espera("Group: moderação só com @ válido; seguidores só o total", async () => [await json(await rotaGrupoModeradores.GET(pedir("/api/fediverso/c/luta/moderadores"), ctx({ slug: "luta" }))), await json(await rotaGrupoSeguidores.GET(pedir("/api/fediverso/c/luta/seguidores"), ctx({ slug: "luta" })))], ([m, s]) =>
-  m.corpo.orderedItems.length === 1 && m.corpo.orderedItems[0] === `${BASE}/api/fediverso/u/ana_1` && s.corpo.totalItems === 4 && !("orderedItems" in s.corpo));
+await espera("Group: a coleção de moderação sai vazia (mesmo que o banco mande nomes); seguidores só o total", async () => [await json(await rotaGrupoModeradores.GET(pedir("/api/fediverso/c/luta/moderadores"), ctx({ slug: "luta" }))), await json(await rotaGrupoSeguidores.GET(pedir("/api/fediverso/c/luta/seguidores"), ctx({ slug: "luta" })))], ([m, s]) =>
+  m.status === 200 && m.corpo.type === "OrderedCollection" && m.corpo.totalItems === 0 && m.corpo.orderedItems.length === 0 && !JSON.stringify(m.corpo).includes("ana_1") && s.corpo.totalItems === 4 && !("orderedItems" in s.corpo));
 await espera("Announce do Group: id estável e no host da Alumia, mesmo para atividade de fora", async () => [doc.atividadeAnnounceDoGrupo(fed, "luta", { id: "https://lemmy.ml/activities/create/1", type: "Create" }), doc.atividadeAnnounceDoGrupo(fed, "luta", { id: "https://lemmy.ml/activities/create/1", type: "Create" })], ([a, b]) =>
   a.id === b.id && a.id.startsWith(`${BASE}/api/fediverso/atividades/`) && a.cc[0] === `${BASE}/api/fediverso/c/luta/seguidores` && a.object.type === "Create");
 
@@ -374,8 +394,13 @@ await espera("o conferidor de esquema pega erro (campo a mais, nome fora do padr
   try { valida({ type: "string", maxLength: 3 }, "abcd"); } catch { recusou = true; }
   return { erros, minimo, recusou };
 }, ({ erros, minimo, recusou }) => erros.length >= 2 && minimo.length === 1 && recusou);
-await espera("NodeInfo 2.1 (modo total, com ativos) passa no esquema 2.1 oficial", async () => (await rotaNodeinfo.GET(pedir("/api/fediverso/nodeinfo"))).json(), (n) =>
-  valida(esquema21, n).length === 0 && n.usage.users.activeMonth === 2 && n.usage.users.activeHalfyear === 3 && n.version === "2.1");
+// O banco de mentira responde 2 ativos no mês e 3 no semestre: número de pessoas abaixo de 3 sai 0 (o piso do site, além do do banco).
+await espera("NodeInfo 2.1 (modo total, com ativos) passa no esquema 2.1 oficial; ativos abaixo de 3 saem 0", async () => (await rotaNodeinfo.GET(pedir("/api/fediverso/nodeinfo"))).json(), (n) =>
+  valida(esquema21, n).length === 0 && n.usage.users.activeMonth === 0 && n.usage.users.activeHalfyear === 3 && n.usage.users.total === 3 && n.usage.localPosts === 12 && n.version === "2.1");
+await espera("o piso do site: contagem de pessoas abaixo de 3 (ou que não é número inteiro) vira 0", async () => {
+  const { pisoDePessoas } = await import("../lib/rede/fediverso/rotas.ts");
+  return [0, 1, 2, 3, 40, -5, 2.5, "7", null, undefined].map(pisoDePessoas).join();
+}, (r) => r === "0,0,0,3,40,0,0,0,0,0");
 await espera("NodeInfo 2.0 (modo total) passa no esquema 2.0 oficial, com o profile certo", async () => {
   const r = await rotaNodeinfo.GET(pedir("/api/fediverso/nodeinfo?esquema=2.0"));
   return { perfil: r.headers.get("content-type"), n: await r.json() };

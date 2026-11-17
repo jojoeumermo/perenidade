@@ -1,0 +1,121 @@
+{
+  "titulo": "Leve e no seu tempo",
+  "lead": "Para quem tem pouco pacote de dados, rede fraca ou pouco tempo. O que você escolhe aqui fica neste aparelho. Ao servidor só vão o post que você publicar e o horário de silêncio dos avisos.",
+  "carimbo": "Neste aparelho",
+  "secoes": "Partes desta página",
+  "atalhos": {
+    "economia": "Economia",
+    "escrever": "Escrever",
+    "linha": "Só texto",
+    "tempo": "Tempo",
+    "silencio": "Silêncio"
+  },
+  "economia": {
+    "titulo": "Economia de dados",
+    "interruptor": "Alumia leve",
+    "dica": "Foto de post vira um ladrilho e só abre quando você toca; vídeo só toca quando você pede. Sem animação e com as letras que o aparelho já tem.",
+    "automatico": "Seu aparelho pediu para economizar dados, então a Alumia leve começou ligada. Pode desligar aqui.",
+    "verImagem": "Toque para ver a imagem",
+    "ligada": "Ligada",
+    "desligada": "Desligada"
+  },
+  "linha": {
+    "titulo": "Início só em texto",
+    "dica": "A linha sem foto, sem vídeo e sem enfeite. Cada imagem só carrega se você tocar nela.",
+    "carregando": "Carregando os posts…",
+    "vazio": "Nada nesta linha por enquanto.",
+    "mais": "Mostrar mais",
+    "erro": "A linha não carregou.",
+    "semRede": "Sem rede agora. Quando ela voltar, toque em Tentar de novo.",
+    "tentar": "Tentar de novo",
+    "naComunidade": "em {comunidade}",
+    "imagem": "Ver a imagem",
+    "imagens": "Ver a imagem {n} de {total}",
+    "semDescricao": "Imagem sem descrição",
+    "abrir": "Abrir o post",
+    "aviso": "Aviso de conteúdo: {aviso}",
+    "mostrar": "Mostrar mesmo assim",
+    "esconder": "Esconder de novo",
+    "ato": "Chamado para um ato",
+    "visitante": "Entre com a sua conta para ver a linha."
+  },
+  "escrever": {
+    "titulo": "Escrever leve",
+    "dica": "Sem rede, o post fica guardado só neste aparelho e sai sozinho quando a rede voltar, com a Alumia aberta. Nada fica esperando no servidor.",
+    "rotulo": "O que você quer dizer?",
+    "publico": "Quem pode ver",
+    "membros": "Quem tem conta na Alumia",
+    "seguidores": "Só quem segue você",
+    "publicar": "Publicar",
+    "guardar": "Guardar para sair quando a rede voltar",
+    "comRede": "Com rede: o post sai agora.",
+    "semRede": "Sem rede: o post fica guardado neste aparelho.",
+    "guardado": "Guardado neste aparelho. Ele sai sozinho quando a rede voltar, enquanto a Alumia estiver aberta aqui.",
+    "repetido": "Este texto já estava guardado. Não guardamos duas vezes.",
+    "publicado": "Publicado.",
+    "abrirPost": "Ver o post",
+    "naoSaiu": "Não saiu. {motivo}",
+    "vazio": "Escreva alguma coisa antes.",
+    "longo": "Passou de {max} caracteres.",
+    "cheia": "Já há {max} posts esperando neste aparelho. Envie ou apague algum antes.",
+    "semEspaco": "O aparelho não tem espaço para guardar. Nada foi guardado.",
+    "contador": "{n} de {max}",
+    "naoMembro": "Para escrever, entre com a sua conta aprovada.",
+    "soTexto": "Aqui vai só texto. Foto, enquete e ato saem pelo Escrever de sempre, com rede.",
+    "previa": "Na prévia nada é publicado: o post só entra na fila deste aparelho."
+  },
+  "fila": {
+    "titulo": "Esperando a rede",
+    "vazia": "Nada esperando neste aparelho.",
+    "guardado": "Guardado há {quando}",
+    "publicoMembros": "Quem tem conta",
+    "publicoSeguidores": "Quem segue você",
+    "enviar": "Enviar agora",
+    "apagar": "Apagar",
+    "apagarConfirma": "Apagar este post guardado? Ele some deste aparelho e não sai.",
+    "parado": "Guardado há mais de {dias} dias: não sai sozinho. Envie agora ou apague.",
+    "recusado": "O servidor recusou. {motivo} Apague e escreva de novo, ou envie de novo.",
+    "outraConta": "Guardado por outra conta neste aparelho. Só sai quando ela entrar.",
+    "enviando": "Enviando…",
+    "saiu": "Saiu o post que estava guardado neste aparelho.",
+    "saiuVarios": "Saíram {n} posts que estavam guardados neste aparelho.",
+    "naoSaiu": "Um post guardado não saiu. Veja em Leve e no seu tempo.",
+    "ver": "Ver",
+    "fechar": "Fechar",
+    "sairRapido": "O Sair rápido apaga esta fila junto com o resto que a Alumia guarda no aparelho."
+  },
+  "tempo": {
+    "titulo": "Tempo de uso",
+    "dica": "Os relógios são só deste aparelho: sem placar, sem histórico, nada vai ao servidor.",
+    "parar": "Hora de parar",
+    "pararDica": "Um lembrete por noite, na hora que você escolher, até cinco horas depois dela.",
+    "hora": "Às",
+    "guardar": "Guardar a hora",
+    "tirar": "Tirar",
+    "ligado": "Lembrete às {hora}.",
+    "desligado": "Sem hora de parar.",
+    "lembreteTitulo": "Você pediu para parar às {hora}",
+    "lembreteTexto": "A luta continua amanhã. Descansar também é cuidar do coletivo.",
+    "fechar": "Fechar",
+    "salvo": "Guardado neste aparelho."
+  },
+  "silencio": {
+    "titulo": "Silêncio dos avisos",
+    "dica": "Você escolhe a hora no relógio deste aparelho. O servidor guarda só os minutos do dia, sem fuso e sem cidade.",
+    "abrir": "Todos os ajustes de avisos",
+    "visitante": "Entre com a sua conta para escolher o horário de silêncio."
+  },
+  "ajustes": {
+    "titulo": "Leve e no seu tempo",
+    "texto": "Economia de dados, Início só em texto, posts que esperam a rede, hora de parar e silêncio dos avisos.",
+    "abrir": "Abrir Leve e no seu tempo"
+  },
+  "offline": {
+    "aviso": "Sem rede agora: nada foi enviado. O texto continua aqui. Para ele sair sozinho quando a rede voltar, use o Escrever leve, em Leve e no seu tempo.",
+    "jaSaiu": "Este mesmo texto acabou de sair, guardado neste aparelho, quando a rede voltou. Não publicamos de novo."
+  },
+  "erros": {
+    "desconhecido": "O servidor não disse o motivo.",
+    "rede": "Sem rede."
+  }
+}

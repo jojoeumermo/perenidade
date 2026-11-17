@@ -10,13 +10,14 @@
 // se ela responde a algo daqui ou se menciona alguém daqui; direta/limitada nunca), Like/Announce/Undo (entrada/interacao.ts),
 // Flag e Block (entrada/moderacao.ts) e atividade repassada por outra instância, conferida pela origem (entrada/repasse.ts).
 // Instância bloqueada pela mediação: 403. Sem "@/". Só roda no servidor.
-import { conferirAssinatura } from "./assinatura";
+import { randomUUID } from "node:crypto";
+import { conferirAssinatura, keyIdDoPedido } from "./assinatura";
 import { atorRemoto, banco, fed, gruposLigados, lerAtorRemoto, modoTotal } from "./servidor";
 import { htmlParaTexto, textoCurto } from "./texto";
-import { comunidadeLocal, dominio, handleLocal, idDe, lerNota, listaDeIds, TIPOS_DE_ATOR } from "./entrada/nota";
+import { autorDe, comunidadeLocal, dominio, handleLocal, idDe, lerNota, listaDeIds, TIPOS_DE_ATOR, TIPOS_DE_NOTA } from "./entrada/nota";
 import { desfazerInteracao, desfazerPeloId, receberInteracao } from "./entrada/interacao";
 import { receberBloqueio, receberDenuncia } from "./entrada/moderacao";
-import { confirmarNaOrigem, conferirRepassador } from "./entrada/repasse";
+import { buscarNaOrigem, confirmarNaOrigem, conferirRepassador } from "./entrada/repasse";
 
 export { handleLocal };
 
@@ -54,13 +55,16 @@ export async function receber(metodo: string, caminho: string, ler: (nome: strin
   }
   const autor = idDe(atividade.actor);
   if (!autor || !/^https:\/\//.test(autor)) return { status: 400, motivo: "sem_ator" };
-  if (await banco<boolean>("bloqueado", { url: autor }).catch(() => false)) return { status: 403, motivo: "instancia_bloqueada" };
+  // Se o banco não responde, não dá para saber se a instância está bloqueada: recusa e quem mandou tenta de novo depois.
+  const barrado = await banco<boolean>("bloqueado", { url: autor }).catch(() => null);
+  if (barrado === null) return { status: 503, motivo: "sem_servico" };
+  if (barrado) return { status: 403, motivo: "instancia_bloqueada" };
   const total = modoTotal();
 
   // A assinatura: a chave vem do ator (cache de até 1 dia; se não confere, busca de novo, porque a chave pode ter mudado).
-  const assinaturaLida = /keyId="([^"]+)"/.exec(ler("signature") ?? ler("authorization") ?? "");
-  if (!assinaturaLida) return { status: 401, motivo: "sem_assinatura" };
-  const chaveId = assinaturaLida[1];
+  // O keyId da cavage (Signature) ou da RFC 9421 (keyid em Signature-Input).
+  const chaveId = keyIdDoPedido(ler);
+  if (!chaveId) return { status: 401, motivo: "sem_assinatura" };
   if (dominio(chaveId) !== dominio(autor)) {
     // Repasse (inbox forwarding): sem o modo total, recusa como sempre. Com ele, confere quem repassou e refaz a atividade só com
     // o que a origem confirma (entrada/repasse.ts): nada do corpo repassado é gravado sem a origem confirmar.
@@ -102,10 +106,10 @@ export async function receber(metodo: string, caminho: string, ler: (nome: strin
     case "Create":
     case "Update": {
       if (tipo === "Update" && TIPOS_DE_ATOR.has(objetoTipo)) return atualizarAtor(objeto, autor);
-      if (objetoTipo !== "Note" && objetoTipo !== "Article" && objetoTipo !== "Question") return { status: 202, motivo: "ignorado" };
+      if (!TIPOS_DE_NOTA.has(objetoTipo)) return { status: 202, motivo: "ignorado" };
       const nota = objeto as Record<string, unknown>;
       const id = idDe(nota);
-      if (!id || dominio(id) !== dominio(autor) || idDe(nota.attributedTo) !== autor) return { status: 202, motivo: "nota_de_outro" };
+      if (!id || dominio(id) !== dominio(autor) || autorDe(nota) !== autor) return { status: 202, motivo: "nota_de_outro" };
       // Só posts públicos (endereçados a "Public"): nada de mensagem direta ou só para seguidores entra aqui.
       const para = [...(Array.isArray(nota.to) ? nota.to : [nota.to]), ...(Array.isArray(nota.cc) ? nota.cc : [nota.cc])].map(String);
       if (!para.some((x) => x === "https://www.w3.org/ns/activitystreams#Public" || x === "as:Public" || x === "Public")) return { status: 202, motivo: "nao_publico" };
@@ -235,7 +239,36 @@ async function decidirTotal(atividade: Record<string, unknown>, autor: string, r
     }
     case "Delete":
       return apagar(atividade, autor);
+    case "Move":
+      return mudarDeServidor(atividade, autor);
     default:
       return { status: 202, motivo: "ignorado" };
   }
+}
+
+/**
+ * Move: a conta `autor` mudou para `target`. Só vale se o próprio autor manda (object = ele mesmo), o ator novo, buscado na origem,
+ * declara o antigo em alsoKnownAs, e o novo não está bloqueado. Então quem daqui seguia o antigo passa a seguir o novo (pedido de
+ * seguir de sempre, com todos os bloqueios do banco) e deixa o antigo. Até 200 pessoas por Move (o resto fica como estava).
+ */
+async function mudarDeServidor(atividade: Record<string, unknown>, autor: string): Promise<ResultadoDaCaixa> {
+  if (idDe(atividade.object) !== autor) return { status: 202, motivo: "ignorado" };
+  const novo = idDe(atividade.target);
+  if (!novo || !/^https:\/\//.test(novo) || novo === autor) return { status: 202, motivo: "ignorado" };
+  if (await banco<boolean>("bloqueado", { url: novo }).catch(() => true)) return { status: 202, motivo: "instancia_bloqueada" };
+  const doc = await buscarNaOrigem(novo).then((r) => r.doc, () => null);
+  const tambem = doc ? listaDeIds(doc.alsoKnownAs) : [];
+  if (!doc || !tambem.includes(autor)) return { status: 202, motivo: "mudanca_nao_confirmada" };
+  // O ator novo fica guardado (chave, caixas): o pedido de seguir precisa dele.
+  if (!(await atorRemoto(novo, { renovar: true }).catch(() => null))) return { status: 202, motivo: "mudanca_nao_confirmada" };
+  const quem = await banco<string[]>("quem_segue", { ator: autor }, "rede_fed_mudanca_servidor").catch(() => []);
+  let mudaram = 0;
+  for (const perfil of (Array.isArray(quem) ? quem : []).slice(0, 200)) {
+    const pedido = fed.atividade("follow", randomUUID());
+    const seguiu = await banco("seguir", { perfil, ator: novo, pedido, sim: true }).then(() => true, () => false);
+    if (!seguiu) continue;
+    await banco("seguir", { perfil, ator: autor, sim: false }).catch(() => null);
+    mudaram++;
+  }
+  return { status: 202, motivo: `mudou:${mudaram}` };
 }

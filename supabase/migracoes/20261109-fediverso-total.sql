@@ -493,7 +493,15 @@ $$;
  * já está na fila para o mesmo post e tipo; nunca para instância bloqueada, para quem a pessoa bloqueou ou para quem a bloqueou lá
  * fora. Só no modo total. Devolve quantas entregas pôs na fila.
  */
-create or replace function interno.rede_fed_entregar_mencionados(p interno.rede_posts, p_tipo text, p_perfil uuid, p_antes interno.rede_posts default null) returns integer
+-- Sem valor padrão no p_antes: no Postgres do Supabase, parâmetro do tipo linha com valor padrão impede acrescentar coluna com valor
+-- padrão em rede_posts. Se a versão antiga (com o valor padrão) estiver no banco, sai antes, porque o "create or replace" não tira valor padrão.
+do $$
+begin
+  if exists (select 1 from pg_proc where oid = to_regprocedure('interno.rede_fed_entregar_mencionados(interno.rede_posts, text, uuid, interno.rede_posts)') and pronargdefaults > 0) then
+    drop function interno.rede_fed_entregar_mencionados(interno.rede_posts, text, uuid, interno.rede_posts);
+  end if;
+end $$;
+create or replace function interno.rede_fed_entregar_mencionados(p interno.rede_posts, p_tipo text, p_perfil uuid, p_antes interno.rede_posts) returns integer
 language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v_n integer;
 begin
@@ -579,7 +587,7 @@ begin
     perform interno.rede_fed_espalhar(p_perfil, 'delete', e.post::text);
     -- Quem foi mencionado lá fora (modo total) recebeu o Create; recebe também a retirada.
     select * into v_p from rede_posts where id = e.post;
-    if found then perform interno.rede_fed_entregar_mencionados(v_p, 'delete', p_perfil); end if;
+    if found then perform interno.rede_fed_entregar_mencionados(v_p, 'delete', p_perfil, null); end if;
   end loop;
   update rede_fed_enviados set apagado_em = now() where perfil = p_perfil and apagado_em is null;
   insert into rede_fed_fila (perfil, tipo, objeto, destino, extra)
@@ -999,7 +1007,7 @@ begin
   -- (interno.rede_fed_entregar_mencionados); o Update e o Delete depois seguem o mesmo caminho.
   update rede_posts set resposta_a_remota = v_c.id, publico = 'internet' where id = v_id returning * into v_p;
   v_fed := exists (select 1 from rede_fed_enviados e where e.post = v_id and e.apagado_em is null);
-  if v_fed then perform interno.rede_fed_entregar_mencionados(v_p, 'create', v); end if;
+  if v_fed then perform interno.rede_fed_entregar_mencionados(v_p, 'create', v, null); end if;
   return v_res || jsonb_build_object('resposta_a_remota', v_c.id, 'federado', v_fed);
 end $$;
 

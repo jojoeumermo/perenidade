@@ -1,0 +1,237 @@
+{
+  "_rascunho": true,
+  "editor": {
+    "secoes": "Sections",
+    "links": "Links",
+    "pacotes": "Packs",
+    "aParte": "This part saves with its own button."
+  },
+  "secoes": {
+    "titulo": "Profile sections",
+    "ajuda": "Choose what shows on your profile, above the tabs, and in which order. Nothing shows unless you choose it.",
+    "noPerfil": "On the profile, in this order",
+    "fora": "Not on the profile",
+    "nenhuma": "No section chosen: the profile shows only the header and the tabs.",
+    "mostrar": "Show",
+    "tirar": "Remove",
+    "subir": "Move {nome} up",
+    "descer": "Move {nome} down",
+    "salvar": "Save sections",
+    "salvando": "Saving…",
+    "salvo": "Sections saved.",
+    "nomes": {
+      "sobre": "About",
+      "links": "Links",
+      "trilhas": "Tracks",
+      "comunidades": "Communities",
+      "voluntariado": "Where I pitched in",
+      "destaques": "Highlights",
+      "colecoes": "Collections",
+      "conquistas": "Achievements"
+    },
+    "ajudas": {
+      "sobre": "A longer text than the bio.",
+      "links": "Your links, as wide buttons.",
+      "trilhas": "The School tracks you marked.",
+      "comunidades": "Only the ones you choose, one by one.",
+      "voluntariado": "The Institute fronts you worked in, confirmed by the coordination.",
+      "destaques": "Highlights of stories, posts and actions.",
+      "colecoes": "The collections you put together.",
+      "conquistas": "The achievements you turned on."
+    }
+  },
+  "sobre": {
+    "titulo": "About",
+    "ajuda": "Plain text, up to {max} characters. Shows only with the About section on.",
+    "rotulo": "About text",
+    "contador": "{n} of {max}"
+  },
+  "comunidades": {
+    "titulo": "Communities on the profile",
+    "ajuda": "Only the ones you tick show, among the open communities you take part in. Leaving a community removes it from the profile at once.",
+    "nenhuma": "You are not in any open community yet.",
+    "limite": "Up to {max} communities.",
+    "vazio": "No community chosen."
+  },
+  "trilhas": {
+    "vazio": "No track marked.",
+    "ajuda": "Marked by the person, from the study on their own device."
+  },
+  "links": {
+    "titulo": "Links",
+    "ajuda": "Up to {max}, in the order you want. https only; tracking parameters are removed. Nobody counts clicks.",
+    "tituloDoLink": "Title",
+    "endereco": "Address",
+    "acrescentar": "Add link",
+    "tirar": "Remove {titulo}",
+    "subir": "Move {titulo} up",
+    "descer": "Move {titulo} down",
+    "salvar": "Save links",
+    "salvo": "Links saved.",
+    "invalido": "Check the title (up to {max} characters) and the address (https).",
+    "vazio": "No links yet.",
+    "conferidoRelMe": "Verified: the site links back to this profile",
+    "conferidoMediacao": "Verified by mediation",
+    "conferido": "Verified",
+    "conferir": "Verify",
+    "conferindo": "Verifying…",
+    "comoConferir": "To verify, put on your site a link to your profile with rel=\"me\":",
+    "ok": "Verified.",
+    "naoAchou": "We did not find the link back on that page. Check it is there, with rel=\"me\", and try again.",
+    "semServico": "Verification is not available right now. Try later.",
+    "salveAntes": "Save the links before verifying.",
+    "instagram": {
+      "ajuda": "Instagram does not allow rel=\"me\". Ask mediation: you get a code to put in your bio there, and mediation checks it.",
+      "pedir": "Ask mediation",
+      "codigo": "Put in your Instagram bio:",
+      "esperando": "Waiting for mediation.",
+      "desistir": "Cancel the request"
+    }
+  },
+  "status": {
+    "tipos": {
+      "na_luta": "In the struggle",
+      "ausente": "Away"
+    },
+    "publico": "Who sees the status",
+    "publicos": {
+      "todos": "Who sees the profile",
+      "roda": "Only my trust circle"
+    },
+    "soRoda": "Only your trust circle sees this status."
+  },
+  "voluntariado": {
+    "titulo": "Where I pitched in",
+    "ajuda": "The Institute work fronts you were part of, in years. The coordination confirms each line; only confirmed lines show, and only with the section on.",
+    "frente": "Front",
+    "de": "Since",
+    "ate": "Until",
+    "hoje": "today",
+    "ateHoje": "Until today",
+    "acrescentar": "Add",
+    "guardar": "Keep",
+    "cancelar": "Cancel",
+    "mudar": "Change",
+    "tirar": "Remove",
+    "vazio": "No lines yet.",
+    "limite": "Up to {max} lines.",
+    "mudarVolta": "Changing a confirmed line sends it back to the coordination.",
+    "confirmado": "Confirmed by the coordination",
+    "situacoes": {
+      "esperando": "Waiting for the coordination",
+      "confirmado": "Confirmed",
+      "recusado": "Not confirmed"
+    },
+    "frentes": {
+      "educacao": "Education",
+      "curadoria": "Curation",
+      "mediacao": "Mediation",
+      "revisao": "Proofreading",
+      "traducao": "Translation",
+      "jornalismo": "Journalism",
+      "comunicacao": "Communication",
+      "mentoria": "Mentoring",
+      "design": "Design",
+      "desenvolvimento": "Development",
+      "saude": "Health",
+      "parcerias": "Partnerships",
+      "eventos": "Events"
+    }
+  },
+  "pacotes": {
+    "titulo": "Starter packs",
+    "ajuda": "The team puts together packs of profiles for newcomers to follow. You only join a pack if you accept its invitation, and you leave whenever you want.",
+    "convites": "Invitations",
+    "semConvites": "No invitations now.",
+    "dentro": "You are in",
+    "foraDeTodos": "You are not in any pack.",
+    "aceitar": "Join",
+    "recusar": "Decline",
+    "sair": "Leave",
+    "abrir": "Open",
+    "fechado": "Packs are only for open profiles: with a locked or invisible profile you cannot join.",
+    "noPasso": "You only join a pack when you accept its invitation, in Edit profile › Packs."
+  },
+  "pacote": {
+    "rotulo": "Starter pack",
+    "pessoas": "Who is in this pack",
+    "nPessoas": "{n} people",
+    "seguirTodas": "Follow all",
+    "seguindo": "Following…",
+    "seguidas": "You now follow {n}.",
+    "vazio": "Nobody has joined this pack yet.",
+    "soQuemAceitou": "Only people who accepted to join this pack are here.",
+    "compartilhar": "Share the pack",
+    "link": "Pack link",
+    "copiar": "Copy link",
+    "copiado": "Link copied.",
+    "qr": "Pack QR code",
+    "qrAjuda": "Made here on the device, with no outside service. Show it on screen or print it.",
+    "baixarQr": "Download QR",
+    "qrFalhou": "Could not make the QR code on this device.",
+    "naoAchado": "This pack does not exist or was closed.",
+    "entrar": "Sign in to Alumia to see who is in the pack.",
+    "explorar": "See other packs in Explore"
+  },
+  "cuidar": {
+    "titulo": "Manage packs",
+    "ajuda": "Inviting does not put anyone in the pack: the person gets the invitation and joins only if they accept.",
+    "novo": "New pack",
+    "endereco": "Address (letters, numbers and -)",
+    "tituloDoPacote": "Title",
+    "descricao": "Description",
+    "ordem": "Order",
+    "aberto": "Open",
+    "salvar": "Save pack",
+    "salvo": "Pack saved.",
+    "convidar": "Invite by @",
+    "convidarBotao": "Invite",
+    "convidado": "Invitation sent. The person joins only if they accept.",
+    "tirar": "Remove @{handle}",
+    "dentro": "In the pack",
+    "convitesEsperando": "Invitations waiting: {n}",
+    "haConvites": "Invitations are waiting",
+    "ninguem": "Nobody in yet.",
+    "fechado": "Closed",
+    "vazio": "No packs yet."
+  },
+  "painel": {
+    "voluntariado": {
+      "titulo": "Volunteering history",
+      "ajuda": "Each line was written by the person. Confirm only what the coordination knows happened. Declining needs a reason.",
+      "vazio": "Nothing waiting.",
+      "confirmar": "Confirm",
+      "recusar": "Decline",
+      "motivo": "Reason (10 to 500 characters)",
+      "feito": "Done."
+    },
+    "links": {
+      "titulo": "Instagram links to verify",
+      "ajuda": "Open the profile there and check the code is in the bio. Only then mark it.",
+      "vazio": "Nothing waiting.",
+      "esta": "The code is there",
+      "naoEsta": "It is not",
+      "codigo": "Code",
+      "de": "from @{handle}"
+    }
+  },
+  "erros": {
+    "invalido:secoes": "Check the chosen sections.",
+    "invalido:sobre": "The About text is too long.",
+    "invalido:comunidades": "You can only show open communities you take part in.",
+    "invalido:links": "Check the links: short title and https address without tracking.",
+    "invalido:site": "Mediation only verifies Instagram links.",
+    "invalido:frente": "Choose a front from the list.",
+    "invalido:periodo": "Check the years.",
+    "invalido:pessoa": "This profile cannot be in a pack (it must be open).",
+    "invalido:motivo": "Write the reason, 10 to 500 characters.",
+    "limite:voluntariado": "You reached the line limit.",
+    "repetido": "That line already exists.",
+    "perfil_fechado": "Packs are only for open profiles.",
+    "sem_handle": "Choose your @ first.",
+    "sem_permissao": "You do not have permission for this.",
+    "nao_encontrado": "Not found.",
+    "muitos_pedidos": "Too many attempts in a row. Wait a little.",
+    "generico": "That did not work. Try again."
+  }
+}

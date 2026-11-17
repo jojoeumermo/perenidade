@@ -1,8 +1,7 @@
 /* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
 /*
  * As telas da F3 na Alumia nova (PLANO-ALUMIA §8 F3): página da comunidade, conversa, "Comunidades ativas" e o visual novo de
- * Explorar, Buscar, Avisos, Salvos, lista de comunidades e aula. Fonte da verdade: as pranchas
- * docs/plano-2026-11/alumia-pranchas/{celular-comunidade.png, celular-conversa-fediverso.png, computador-inicio.webp}.
+ * Explorar, Buscar, Avisos, Salvos, lista de comunidades e aula. Fonte da verdade: a arte da Alumia.
  *
  * TUDO aqui vale só dentro de [data-al="2"] (o layout só põe isso com "rede-v2" + "alumia-2" ligadas). Com a flag desligada
  * nenhum seletor casa com nada e a rede de hoje não muda. Cores só pelos tokens de styles/alumia-tokens.css: o alto contraste e o
@@ -36,7 +35,7 @@
   padding: 0.35rem 16px;
   font-size: 0.75rem;
   color: var(--al-sobre-dourado);
-  background: var(--al-dourado);
+  background: var(--al-dourado-fundo);
 }
 [data-al="2"] .al3-icone { width: 24px; height: 24px; flex: none; }
 
@@ -82,6 +81,15 @@
   [data-al="2"] .al3-capa-acao { padding: 0.45rem 0.8rem; font-size: 0.95rem; }
   [data-al="2"] .al3-capa-semana { font-size: 0.8rem; }
 }
+/* Tema claro: as cinco cores de comunidade escurecem, e a noite em cima delas caía para 2,8 a 3,2:1. Na capa, a letra vira creme
+   (5,2 a 6,0:1 nas cinco), os botões trocam a noite pelo creme e o cheio fica creme com letra noite. O e-ink tem a regra dele, abaixo. */
+:root:not([data-eink]) [data-al="2"][data-al-tema="claro"] .al3-capa { color: #f3efe6; --al-foco: #f3efe6; }
+:root:not([data-eink]) [data-al="2"][data-al-tema="claro"] .al3-capa-acao { border-color: #f3efe6; }
+:root:not([data-eink]) [data-al="2"][data-al-tema="claro"] .al3-capa-acao-cheia,
+:root:not([data-eink]) [data-al="2"][data-al-tema="claro"] .al3 a.al3-capa-acao-cheia { background: #f3efe6; color: #0f0e0d; }
+:root:not([data-eink]) [data-al="2"][data-al-tema="claro"] .al3-capa-acao-cheia[aria-pressed="true"],
+:root:not([data-eink]) [data-al="2"][data-al-tema="claro"] .al3-capa-acao-contorno { background: transparent; color: #f3efe6; }
+:root:not([data-eink]) [data-al="2"][data-al-tema="claro"] .al3-capa-botao:hover { background: rgb(243 239 230 / 0.15); }
 /* E-ink: a cor da comunidade vira preto (tokens), então a capa vira papel branco com tinta preta e uma borda embaixo. */
 :root[data-eink] [data-al="2"] .al3-capa { background: #fff; color: #000; border-bottom: 2px solid #000; }
 :root[data-eink] [data-al="2"] .al3-capa-acao { border-color: var(--al-texto); }
@@ -101,6 +109,13 @@
 }
 [data-al="2"] .al3-menu > *:hover { background: var(--al-superficie-2); }
 [data-al="2"] .al3-menu[hidden] { display: none; }
+/* No lugar do "Escrever aqui", numa comunidade de avisos para quem não abre post: a regra, em texto, sem cara de botão. */
+[data-al="2"] .al3-menu > .al3-menu-nota { max-width: 18rem; padding: 0.5rem 0.8rem; color: var(--al-texto-2); font-size: 0.88rem; cursor: default; }
+[data-al="2"] .al3-menu > .al3-menu-nota:hover { background: none; }
+/* O alto da comunidade pelos encaixes (o carimbo da comunidade de avisos): entre a capa e as abas, na margem da página. */
+[data-al="2"] .al3-alto { padding: 0.9rem 16px 0; }
+[data-al="2"] .al3-alto:empty { display: none; }
+[data-al="2"] .al3-alto > :last-child { margin-bottom: 0; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-menu { border: 2px solid var(--al-texto); box-shadow: none; }
 
 /* As abas têm a largura do próprio nome, com respiro, e a fileira rola de lado quando não cabem (6 abas a 390 px ficavam com
@@ -112,6 +127,11 @@
   [data-al="2"] .al3-abas { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); }
   [data-al="2"] .al3-abas::after { content: ""; flex: 0 0 24px; }
 }
+/* A página da comunidade tem onze abas desde a onda 10 (as do encaixe): também no computador a faixa rola, com o degradê do "tem
+   mais" e abas um pouco mais justas. */
+[data-al="2"] .al3-comunidade .al3-abas { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); }
+[data-al="2"] .al3-comunidade .al3-abas::after { content: ""; flex: 0 0 24px; }
+@media (min-width: 481px) { [data-al="2"] .al3-comunidade .al3-aba { padding: 0 12px; } }
 [data-al="2"] .al3-aba {
   flex: 1 0 auto; padding: 0 16px; white-space: nowrap; min-height: 52px; background: none; border: 0; border-bottom: 3px solid transparent; color: var(--al-texto-3);
   font: inherit; font-weight: 700; font-size: 1.05rem; cursor: pointer;
@@ -277,12 +297,18 @@
 [data-al="2"] .al3-raiz-titulo { margin: 0.9rem 0 0; font-size: 1.4rem; font-weight: 900; }
 [data-al="2"] .al3-regra { margin: 0.4rem 0 0; font-size: 0.8rem; color: var(--al-texto-3); }
 
-[data-al="2"] .al3-ordem { display: flex; gap: 0.6rem; padding: 1.1rem 16px 0.6rem; }
+/* Uma linha só, como as outras fileiras de pílulas: no celular, com as quatro ordens, a fileira rola para o lado dentro dela mesma. */
+[data-al="2"] .al3-ordem {
+  display: flex; gap: 0.6rem; padding: 1.1rem 16px 0.6rem;
+  overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none;
+}
+[data-al="2"] .al3-ordem::-webkit-scrollbar { display: none; }
 [data-al="2"] .al3-ordem button {
+  flex: none; white-space: nowrap;
   min-height: 44px; padding: 0 1.1rem; border-radius: 999px; border: 1px solid var(--al-superficie-2); background: transparent;
   color: var(--al-texto-2); font: inherit; font-weight: 800; font-size: 1rem; cursor: pointer;
 }
-[data-al="2"] .al3-ordem button[aria-pressed="true"] { background: var(--al-cartao-aceso); border-color: var(--al-cartao-aceso); color: var(--al-sobre-papel); }
+[data-al="2"] .al3-ordem button[aria-pressed="true"] { background: var(--al-saliente); border-color: var(--al-saliente); color: var(--al-sobre-saliente); }
 :root[data-eink] [data-al="2"] .al3-ordem button[aria-pressed="true"] { background: #000; color: #fff; border-color: #000; }
 
 /*
@@ -355,7 +381,7 @@
 }
 [data-al="2"] .al3-resposta-texto { margin: 0.3rem 0 0; font-size: 1.05rem; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--al-texto-2); }
 [data-al="2"] .al3-ajudou {
-  display: inline-flex; align-items: center; padding: 0.08rem 0.6rem; border-radius: 999px; background: var(--al-dourado);
+  display: inline-flex; align-items: center; padding: 0.08rem 0.6rem; border-radius: 999px; background: var(--al-dourado-fundo);
   color: var(--al-sobre-dourado); font-weight: 800; font-size: 0.85rem;
 }
 [data-al="2"] .al3-servidor {
@@ -511,7 +537,7 @@
 [data-al="2"] .al3-regua { display: none; }
 [data-al="2"] .al3-ordem[data-regua="sim"] .al3-regua {
   display: block; position: absolute; z-index: 0; left: 0; top: 1.1rem; height: 44px; width: var(--al3-l); transform: translateX(var(--al3-x));
-  border-radius: 999px; background: var(--al-cartao-aceso); transition: transform 0.5s var(--al3-mola), width 0.5s var(--al3-mola);
+  border-radius: 999px; background: var(--al-saliente); transition: transform 0.5s var(--al3-mola), width 0.5s var(--al3-mola);
 }
 [data-al="2"] .al3-ordem[data-regua="sim"] button[aria-pressed="true"] { background: transparent; border-color: transparent; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-ordem[data-regua="sim"] .al3-regua { background: var(--al-texto); }
@@ -567,7 +593,7 @@
 /* Citar trecho: o botão aparece logo abaixo do que foi selecionado. */
 [data-al="2"] .al3-citar-trecho {
   position: fixed; z-index: 40; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0 1rem;
-  border: 0; border-radius: 999px; background: var(--al-cartao-aceso); color: var(--al-sobre-papel); font: inherit; font-weight: 800; cursor: pointer;
+  border: 0; border-radius: 999px; background: var(--al-saliente); color: var(--al-sobre-saliente); font: inherit; font-weight: 800; cursor: pointer;
   box-shadow: 0 10px 28px rgb(0 0 0 / 0.45); animation: al3-citar 0.3s var(--al3-mola);
 }
 @keyframes al3-citar { from { opacity: 0; transform: translateX(-50%) translateY(-6px) scale(0.9); } }
@@ -716,12 +742,12 @@
 }
 [data-al="2"] .al3-segmento > button:hover { color: var(--al-texto); border-color: var(--al-texto-3); }
 [data-al="2"] .al3-segmento > button:active { transform: scale(0.95); }
-[data-al="2"] .al3-segmento > button[aria-checked="true"] { color: var(--al-sobre-papel); border-color: transparent; background: var(--al-cartao-aceso); }
+[data-al="2"] .al3-segmento > button[aria-checked="true"] { color: var(--al-sobre-saliente); border-color: transparent; background: var(--al-saliente); }
 [data-al="2"] .al3-segmento-regua { display: none; }
 [data-al="2"] .al3-segmento[data-regua="sim"] > button[aria-checked="true"] { background: transparent; }
 [data-al="2"] .al3-segmento[data-regua="sim"] .al3-segmento-regua {
   display: block; position: absolute; z-index: 0; left: 0; top: 0; width: var(--al3-l); height: var(--al3-a, 44px); border-radius: 999px;
-  transform: translate(var(--al3-x), var(--al3-y, 0)); background: var(--al-cartao-aceso); transition: transform 0.5s var(--al3-mola), width 0.5s var(--al3-mola);
+  transform: translate(var(--al3-x), var(--al3-y, 0)); background: var(--al-saliente); transition: transform 0.5s var(--al3-mola), width 0.5s var(--al3-mola);
 }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-segmento > button { border-color: var(--al-texto); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-segmento[data-regua="sim"] .al3-segmento-regua { background: var(--al-texto); }
@@ -804,7 +830,7 @@
 }
 [data-al="2"] .al3-torrada {
   display: flex; align-items: center; gap: 0.9rem; padding: 0.7rem 0.8rem 0.7rem 1.1rem; border-radius: 14px; pointer-events: auto;
-  background: var(--al-cartao-aceso); color: var(--al-sobre-papel); font-weight: 700; font-size: 0.95rem;
+  background: var(--al-saliente); color: var(--al-sobre-saliente); font-weight: 700; font-size: 0.95rem;
   box-shadow: 0 14px 34px rgb(0 0 0 / 0.45); animation: al3-torrada 0.42s var(--al3-mola, ease-out) both;
 }
 [data-al="2"] .al3-torrada[data-erro="sim"] { background: var(--al-vermelho-texto, var(--al-vermelho)); color: var(--al-sobre-vermelho); }
@@ -830,7 +856,7 @@
 [data-al="2"] .al3-folha-botoes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 1.2rem; }
 [data-al="2"] .al3-folha-botoes button { min-height: 52px; border-radius: 12px; font: inherit; font-weight: 800; font-size: 1.05rem; cursor: pointer; transition: transform 0.18s var(--al3-pulo, ease-out), filter 0.2s; }
 [data-al="2"] .al3-folha-botoes button:active { transform: scale(0.96); }
-[data-al="2"] .al3-folha-nao { background: var(--al-cartao-aceso); color: var(--al-sobre-papel); border: 2px solid var(--al-cartao-aceso); }
+[data-al="2"] .al3-folha-nao { background: var(--al-saliente); color: var(--al-sobre-saliente); border: 2px solid var(--al-saliente); }
 [data-al="2"] .al3-folha-sim { background: transparent; color: var(--al-vermelho); border: 2px solid currentColor; }
 [data-al="2"] .al3-folha-sim:hover { filter: brightness(1.15); }
 @media (min-width: 640px) {
@@ -846,7 +872,7 @@
 [data-al="2"] .al3-nao-achou-sinal { margin: 0; font-size: clamp(5rem, 28vw, 9rem); color: var(--al-superficie-2); line-height: 0.85; }
 [data-al="2"] .al3-nao-achou h1 { margin: 0; font-size: clamp(2.2rem, 10vw, 3.2rem); }
 [data-al="2"] .al3-nao-achou-corpo p:not(.al3-nao-achou-sinal) { margin: 0; color: var(--al-texto-2); max-width: 32rem; line-height: 1.5; }
-[data-al="2"] .al3 a.al3-nao-achou-ir { margin-top: 0.8rem; background: var(--al-cartao-aceso); color: var(--al-sobre-papel); border-color: var(--al-cartao-aceso); }
+[data-al="2"] .al3 a.al3-nao-achou-ir { margin-top: 0.8rem; background: var(--al-saliente); color: var(--al-sobre-saliente); border-color: var(--al-saliente); }
 
 /* O cartão único em listas misturadas (#tema, busca, Salvos): a ficha com o nome da comunidade e a borda na cor dela. */
 [data-al="2"] .al3-post-com { box-shadow: inset 3px 0 0 color-mix(in srgb, var(--al3-cor) 75%, transparent); }
@@ -968,4 +994,18 @@
   [data-al="2"] .al3-reacoes { gap: 0.3rem; }
   [data-al="2"] .al3-reacao { padding: 0 0.55rem; }
   [data-al="2"] .al3-reacao-abrir { min-width: 40px; }
+}
+
+/* Onda 14: no tema claro a cor da comunidade escurece; a letra em cima dela (o nome na minicapa, o "membro") vira creme, que dá mais
+   de 5:1 em todas as cores (a noite em cima caía para 3:1). */
+[data-al="2"][data-al-tema="claro"] :is(.al3-minicapa-faixa, .al3-cartao-membro) { color: var(--al-fundo); }
+
+/* Onda 14 (celular): no toque, o que é menor que 44 px de propósito (as reações mais baixas, o (i) da regra, o "…" da resposta, o
+   recolher, as ações da resposta, os chips de ouvir e ler, o nome e o tirar da citação) ganha uma área de toque invisível de 44 x 44
+   px em volta, sem mudar o desenho. */
+@media (pointer: coarse), (max-width: 1023px) {
+  [data-al="2"] :is(.al3-reacao, .al3-info, .al3-resposta-mais, .al3-recolher, .al3-resposta-acoes-sempre .al3-acao, .al3-citacao-tirar, a.al3-nome, .al3-conversa .al2-chip-p) { position: relative; }
+  [data-al="2"] :is(.al3-reacao, .al3-info, .al3-resposta-mais, .al3-recolher, .al3-resposta-acoes-sempre .al3-acao, .al3-citacao-tirar, a.al3-nome, .al3-conversa .al2-chip-p)::after {
+    content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 44px); height: max(100%, 44px); transform: translate(-50%, -50%);
+  }
 }

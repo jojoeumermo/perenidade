@@ -76,6 +76,10 @@ export function criarDubleDosNucleos(agora: number = Date.now(), mes = new Date(
     const itens =
       n.id === NUCLEOS_DE_EXEMPLO.itaquera
         ? [
+            // Posts restritos cifrados (P21): o texto vem vazio e o corpo "p2.…" só abre no aparelho de quem é do grupo. Na prévia,
+            // o primeiro "abre" e o segundo não (o dublê da abertura: components/rede/publicar/restrito/previa.ts).
+            postDeExemplo({ ...base, id: "exemplo-nucleo-cifrado-1", texto: "", grupo: `nucleo:${n.id}`, corpo_grupo: "p2.4.ZXhlbXBsby1wcmV2.ZXhlbXBsbyBkZSBwb3N0IGNpZnJhZG8", autor: { id: "00000000-0000-4000-8000-0000000000a1", codinome: "Sara do Grajaú", handle: "saradograjau", perfil: true, equipe: false }, criado_em: new Date(agora - 20 * MIN).toISOString(), respostas: 0 }, agora),
+            postDeExemplo({ ...base, id: "exemplo-nucleo-cifrado-2", texto: "", grupo: `nucleo:${n.id}`, corpo_grupo: "p2.1.ZXhlbXBsby1wcmV3.ZXhlbXBsbyBkZSBwb3N0IGFudGlnbw", autor: { id: "00000000-0000-4000-8000-0000000000a2", codinome: "Faísca", handle: "faisca", perfil: true, equipe: false }, criado_em: new Date(agora - 40 * MIN).toISOString(), respostas: 0 }, agora),
             postDeExemplo({ ...base, id: "exemplo-nucleo-1", texto: "Pauta de quinta: mapa das linhas que mais atrasam e a carta para a subprefeitura. Quem puder, traga os horários anotados da semana.", autor: { id: null, codinome: "Sara do Grajaú", handle: "saradograjau", perfil: true, equipe: false }, criado_em: new Date(agora - 50 * MIN).toISOString(), respostas: 4 }, agora),
             postDeExemplo({ ...base, id: "exemplo-nucleo-2", texto: "Terminei o capítulo 2 da trilha. A parte do valor de troca ficou bem mais clara com o exemplo da passagem.", autor: { id: null, codinome: "Faísca", handle: "faisca", perfil: true, equipe: false }, meu: true, criado_em: new Date(agora - 300 * MIN).toISOString(), respostas: 2 }, agora),
           ]

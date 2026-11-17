@@ -1,0 +1,161 @@
+{
+  "_rascunho": true,
+  "aba": "Structure",
+  "abaEspacos": "Spaces",
+  "carregando": "Loading…",
+  "tentar": "Try again",
+  "salvar": "Save",
+  "salvo": "Saved.",
+  "cancelar": "Cancel",
+  "aceitar": "Accept",
+  "recusar": "Decline",
+  "desfazer": "Undo",
+  "enviar": "Send",
+  "enviado": "Request sent.",
+  "nenhuma": "None yet.",
+  "postsSemana": "{n} posts this week",
+  "semanaQuieta": "Quiet this week",
+  "tipo": { "aberta": "Open", "restrita": "Restricted", "fechada": "Closed" },
+  "estrutura": {
+    "titulo": "How this community is organized",
+    "moraEm": "Lives inside",
+    "subcomunidades": "Subcommunities",
+    "semSub": "No subcommunity lives here.",
+    "onde": "Where",
+    "ondeVazio": "The moderators have not written the city yet.",
+    "verCidade": "Other communities in {cidade}",
+    "org": "Organization",
+    "verEspacos": "See the organization's Spaces",
+    "soLeitura": "Announcements community",
+    "soLeituraTexto": "Only the moderators start posts here.",
+    "respostasTexto": {
+      "todos": "Everyone can reply to the announcements.",
+      "membros": "Members of the community can reply to the announcements.",
+      "ninguem": "Announcements take no replies."
+    },
+    "herancaTexto": {
+      "propria": "Has its own moderators.",
+      "mae": "The moderators of {mae} also look after this place."
+    }
+  },
+  "ajustar": {
+    "titulo": "Adjust the structure",
+    "intro": "Only moderators see this part. Everything applies at once and is written on the tab for readers.",
+    "soLeitura": "Announcements community (only moderators start posts)",
+    "respostas": "Who replies to announcements",
+    "respostasOpcoes": { "todos": "Everyone", "membros": "Community members", "ninguem": "Nobody" },
+    "reposts": "Who can bring posts from another community here",
+    "repostsOpcoes": { "todos": "Anyone who can post here", "moderacao": "Only the moderators", "ninguem": "Nobody" },
+    "local": "City and neighborhood",
+    "localAjuda": "Write the municipality and, if you want, the neighborhood. We do not use the device's location or any outside map.",
+    "uf": "State",
+    "ufVazia": "Choose",
+    "municipio": "Municipality",
+    "municipioExemplo": "E.g.: Campinas",
+    "bairro": "Neighborhood (optional)",
+    "bairroExemplo": "E.g.: Vila Industrial",
+    "mae": "Live inside another community",
+    "maeAjuda": "Write the address of the parent community (what comes after /c/). Its moderators get the request and decide. One level only: the parent does not live inside another, and a community that hosts subcommunities does not move inside another.",
+    "maeCampo": "Address of the parent community",
+    "maeExemplo": "E.g.: housing",
+    "maeEsperando": "Waiting for {mae} to decide.",
+    "maeSair": "Leave {mae}",
+    "naoPodeSerFilha": "This community hosts subcommunities, so it does not move inside another.",
+    "heranca": "Moderation",
+    "herancaOpcoes": {
+      "propria": "Only our moderators look after this place",
+      "mae": "The parent community's moderators also look after this place"
+    },
+    "herancaAjuda": "With the second option, whoever moderates the parent also moderates this community with the same powers, while it lives there.",
+    "pedidosFilhas": "Requests to live here",
+    "pedidoFilha": "{nome} wants to be a subcommunity of this one.",
+    "pedidoFilhaHerda": "{nome} wants to be a subcommunity of this one and wants the moderators here to look after it too.",
+    "tirarFilha": "Stop hosting",
+    "org": "Appear in an organization's Spaces",
+    "orgAjuda": "Only organizations with a seal. Whoever manages the organization gets the request and decides.",
+    "orgCampo": "Organization's @",
+    "orgExemplo": "E.g.: @collective",
+    "orgEsperando": "Waiting for @{handle} to decide.",
+    "orgSair": "Leave @{handle}'s Spaces",
+    "salvarRegras": "Save the posting rules",
+    "salvarLocal": "Save the city and neighbourhood",
+    "filhasAqui": "Subcommunities living here"
+  },
+  "espacos": {
+    "titulo": "Spaces",
+    "intro": "This organization's communities and local groups, in one place. Places appear here, never who takes part.",
+    "comunidades": "Communities",
+    "nucleos": "Local groups",
+    "semComunidades": "No community linked yet.",
+    "semNucleos": "No local group yet.",
+    "dentro": "Subcommunities: {nomes}",
+    "pedidos": "Communities asking to appear here",
+    "pedido": "{nome} asked to appear in the Spaces.",
+    "tirar": "Remove from the Spaces",
+    "semSelo": "The Spaces show to everyone once the organization has a seal."
+  },
+  "cidade": {
+    "porCategoria": "By theme",
+    "porCidade": "By city",
+    "titulo": "Communities by city",
+    "intro": "Each community's moderators write the city and neighborhood. No device location.",
+    "filtrar": "Search municipality",
+    "contagem": "{n} communities",
+    "contagemUma": "1 community",
+    "vazio": "No community has written its city yet.",
+    "nenhum": "No municipality with that name.",
+    "voltar": "All cities",
+    "cidadeToda": "The whole city",
+    "escolha": "Choose a municipality to see its communities."
+  },
+  "levar": {
+    "botao": "Take to another community",
+    "titulo": "Take this post to another community",
+    "intro": "The post goes quoted, with its community of origin in view. Anyone there who cannot see the original only sees that it is restricted.",
+    "destino": "Community",
+    "destinoVazio": "Choose the community",
+    "semDestino": "You are not yet in another community where you can post.",
+    "comentario": "Why bring it there?",
+    "comentarioExemplo": "E.g.: This matters for our neighborhood too.",
+    "enviar": "Take it",
+    "levado": "Taken to {nome}."
+  },
+  "origem": {
+    "trazido": "Brought from {nome}",
+    "restrita": "Brought from a restricted community",
+    "perfil": "Brought from a profile"
+  },
+  "proposta": {
+    "titulo": "Place and home (optional)",
+    "intro": "If the community belongs to a city or neighborhood, write it here. If it will live inside another one, say which: its moderators decide after approval.",
+    "maeCampo": "Parent community (address)",
+    "aviso": "The proposal was sent, but the city or the parent community was not saved: {erro}"
+  },
+  "avisos": {
+    "carimbo": "Notice community",
+    "paraQuemLe": "Only the moderators start posts here. You can reply to the notices, following the community's rule.",
+    "paraModeracao": "Only the moderators (and roles allowed to) start posts here."
+  },
+  "antes": {
+    "soLeitura": "This is an announcements community: only the moderators start posts here. You can reply to the announcements, according to the community's rule."
+  },
+  "erros": {
+    "so_leitura": "This is an announcements community: only the moderators start posts here.",
+    "so_leitura_respostas": "In this announcements community, the rule does not let you reply.",
+    "mae_e_filha": "That community already lives inside another one; choose one that is not a subcommunity.",
+    "filha_e_mae": "This community hosts subcommunities and cannot live inside another one.",
+    "sem_selo": "Only organizations with a seal have Spaces.",
+    "repostar_publico": "This post belongs to a closed audience and does not leave its place.",
+    "repostar_fechado": "The destination community does not accept posts brought from elsewhere (or only from its moderators).",
+    "mesma_comunidade": "The post is already in that community.",
+    "citar_fechado": "The author of this post does not allow quotes.",
+    "ja_decidida": "The proposal has already been decided.",
+    "invalido": "Check what was written."
+  },
+  "ufs": {
+    "AC": "Acre", "AL": "Alagoas", "AP": "Amapá", "AM": "Amazonas", "BA": "Bahia", "CE": "Ceará", "DF": "Federal District",
+    "ES": "Espírito Santo", "GO": "Goiás", "MA": "Maranhão", "MT": "Mato Grosso", "MS": "Mato Grosso do Sul", "MG": "Minas Gerais",
+    "PA": "Pará", "PB": "Paraíba", "PR": "Paraná", "PE": "Pernambuco", "PI": "Piauí", "RJ": "Rio de Janeiro", "RN": "Rio Grande do Norte",
+    "RS": "Rio Grande do Sul", "RO": "Rondônia", "RR": "Roraima", "SC": "Santa Catarina", "SP": "São Paulo", "SE": "Sergipe", "TO": "Tocantins"
+  }
+}

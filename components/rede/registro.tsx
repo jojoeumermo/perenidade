@@ -19,8 +19,8 @@ export interface PropsDaTelaDoPacote {
 
 export interface EntradaDoRegistro {
   componente: ComponentType<PropsDaTelaDoPacote>;
-  /** Qual item do menu fica marcado enquanto a tela está aberta. */
-  menu: ItemDoMenu;
+  /** Qual item do menu fica marcado enquanto a tela está aberta ("nenhum": a tela tem item próprio, vindo de um encaixe do menu). */
+  menu: ItemDoMenu | "nenhum";
 }
 
 /**
@@ -75,7 +75,51 @@ export const REGISTRO: Record<string, EntradaDoRegistro> = {
   "o-que-guardamos": { componente: dynamic(() => import("./seguranca/OQueGuardamos"), { ssr: false }), menu: "perfil" },
   // F8 · transparência (/alumia/transparencia).
   transparencia: { componente: dynamic(() => import("./protecao/TelaDaTransparencia"), { ssr: false }), menu: "perfil" },
-  // F9 · alcance (/alumia/listas, /alumia/leve).
-  listas: { componente: dynamic(() => import("./alcance/TelaDasListas"), { ssr: false }), menu: "inicio" },
-  leve: { componente: dynamic(() => import("./alcance/VersaoLeve"), { ssr: false }), menu: "inicio" },
+  // F9 · alcance (/alumia/listas) e, da onda 13, o leve (/alumia/leve, components/rede/leve/TelaLeve por dentro da VersaoLeve).
+  listas: { componente: dynamic(() => import("./alcance/TelaDasListas"), { ssr: false }), menu: "perfil" },
+  leve: { componente: dynamic(() => import("./alcance/VersaoLeve"), { ssr: false }), menu: "perfil" },
+
+  // ───── Acabamento da Faixa 1: aparência e leitura, posts que se repetem e a linha dos #temas
+  // (/alumia/{aparencia,series,temas}; as pastas e as buscas salvas moram em Salvos e em Buscar). ─────
+  aparencia: { componente: dynamic(() => import("./aparencia/TelaDaAparencia"), { ssr: false }), menu: "perfil" },
+  series: { componente: dynamic(() => import("./aparencia/TelaDasSeries"), { ssr: false }), menu: "perfil" },
+  temas: { componente: dynamic(() => import("./aparencia/TelaDosTemas"), { ssr: false }), menu: "explorar" },
+  // A linha com regra aberta (/alumia/linhas e /alumia/como-a-linha), atrás do interruptor "alumia-linha-aberta".
+  linhas: { componente: dynamic(() => import("./linha/TelaDasLinhas"), { ssr: false }), menu: "inicio" },
+  "como-a-linha": { componente: dynamic(() => import("./linha/ComoALinha"), { ssr: false }), menu: "inicio" },
+
+  // ───── Onda 8: a lei e a ajuda (/alumia/{termos,privacidade,regras,ajuda}; o que guardamos fica na rota da onda 5) e os meus
+  // dados (/alumia/meus-dados: baixar uma cópia e apagar a conta). ─────
+  termos: { componente: dynamic(() => import("./lei/TelaDosTermos"), { ssr: false }), menu: "perfil" },
+  privacidade: { componente: dynamic(() => import("./lei/TelaDaPrivacidade"), { ssr: false }), menu: "perfil" },
+  regras: { componente: dynamic(() => import("./lei/TelaDasRegras"), { ssr: false }), menu: "perfil" },
+  ajuda: { componente: dynamic(() => import("./lei/TelaDaAjuda"), { ssr: false }), menu: "perfil" },
+  "meus-dados": { componente: dynamic(() => import("./meusdados/TelaMeusDados"), { ssr: false }), menu: "perfil" },
+  // Os convites de quem já está dentro (/alumia/convite, atrás de "alumia-convites"); o convite aberto por link (/alumia/convite/<código>)
+  // continua fora da casca, porque abre sem conta.
+  convite: { componente: dynamic(() => import("./convites/TelaDosConvites"), { ssr: false }), menu: "perfil" },
+
+  // ───── Onda 9: o modo ato (/alumia/modo-ato, atrás de "alumia-modo-ato"; o guia /alumia/modo-ato/sem-sinal abre sem casca) e os
+  // rótulos assináveis (/alumia/rotulos, atrás de "alumia-proximas"). ─────
+  "modo-ato": { componente: dynamic(() => import("./modoato/TelaDoModoAto"), { ssr: false }), menu: "perfil" },
+  rotulos: { componente: dynamic(() => import("./rotulos/TelaDosRotulos"), { ssr: false }), menu: "perfil" },
+
+  // ───── Onda 11 (estudo): o banco de questões (/alumia/questoes), as turmas e a agenda de provas e monitoria (/alumia/turmas e
+  // /alumia/agenda) e a redação entre pares (/alumia/redacao), atrás de "alumia-estudo"; as conquistas e o mural de aprovados
+  // (/alumia/conquistas e /alumia/aprovados), atrás de "alumia-2". As quatro do estudo têm item próprio no menu (o encaixe de cada
+// uma), que se marca pelo endereço: nenhum item fixo fica marcado junto. ─────
+  questoes: { componente: dynamic(() => import("./estudo/questoes/TelaDasQuestoes"), { ssr: false }), menu: "nenhum" },
+  turmas: { componente: dynamic(() => import("./estudo/turma/TelaDasTurmas"), { ssr: false }), menu: "nenhum" },
+  agenda: { componente: dynamic(() => import("./estudo/agenda/TelaDaAgenda"), { ssr: false }), menu: "nenhum" },
+  redacao: { componente: dynamic(() => import("./estudo/redacao/TelaDaRedacao"), { ssr: false }), menu: "nenhum" },
+  conquistas: { componente: dynamic(() => import("./estudo/conquistas/TelaConquistas"), { ssr: false }), menu: "perfil" },
+  aprovados: { componente: dynamic(() => import("./estudo/conquistas/TelaMural"), { ssr: false }), menu: "perfil" },
+  // ───── Onda 12 (perfil): o pacote inicial (/alumia/pacote/[slug]), com quem aceitou entrar nele, atrás de "alumia-2". ─────
+  "pacote-inicial": { componente: dynamic(() => import("./perfil/secoes/TelaDoPacote"), { ssr: false }), menu: "explorar" },
+  // ───── Onda 13: o mapa por cidade e o ao vivo (/alumia/mapa e /alumia/mapa/ao-vivo, atrás de "alumia-mapa" e "alumia-ao-vivo"), as
+  // pontes da organização e o Mural dos Trabalhadores (/alumia/pontes e /alumia/trabalhadores, com "alumia-org"). ─────
+  mapa: { componente: dynamic<PropsDaTelaDoPacote>(() => import("./mapa/TelaDoMapa"), { ssr: false }), menu: "nenhum" },
+  "ao-vivo": { componente: dynamic<PropsDaTelaDoPacote>(() => import("./aovivo/TelaAoVivo"), { ssr: false }), menu: "nenhum" },
+  pontes: { componente: dynamic(() => import("./pontes/TelaDasPontes"), { ssr: false }), menu: "perfil" },
+  trabalhadores: { componente: dynamic(() => import("./pontes/TelaDosTrabalhadores"), { ssr: false }), menu: "nenhum" },
 };

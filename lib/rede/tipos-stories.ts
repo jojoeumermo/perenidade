@@ -115,8 +115,10 @@ export interface FigurinhaEnquete {
   tipo: "enquete";
   pergunta: string;
   opcoes: [string, string];
-  /** O meu voto (só eu vejo o meu); nulo = não votei. */
+  /** O meu voto (só eu vejo o meu; da onda 9 em diante, quem lembra é este aparelho); nulo = não votei ou não se sabe aqui. */
   meu_voto?: 0 | 1 | null;
+  /** Onda 9: o voto já tinha sido dado (em outro aparelho) e continua valendo. */
+  ja_votou?: boolean;
   /** A soma por opção, SÓ quando quem vê é a autora; nula abaixo de 3 votos no total. */
   soma?: [number, number] | null;
 }

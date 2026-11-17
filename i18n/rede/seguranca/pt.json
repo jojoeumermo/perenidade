@@ -1,0 +1,226 @@
+{
+  "titulo": "Segurança da conta",
+  "chamada": "O que protege a sua conta e o que fazer se um aparelho cair na mão errada.",
+  "carregando": "Carregando…",
+  "panico": {
+    "carimbo": "Pânico",
+    "titulo": "Sair de tudo agora",
+    "texto": "Desconecta a sua conta de todos os aparelhos, este também, e apaga deste aparelho o que o site e a Alumia guardaram: rascunhos, chaves do chat, páginas guardadas. Depois abre uma página comum, de fora.",
+    "botao": "Sair de tudo",
+    "confirmarTitulo": "Sair de tudo agora?",
+    "esconder": "Esconder também o meu perfil até eu voltar",
+    "esconderAjuda": "Some da busca, das sugestões, das menções e da página de perfil. Quando você voltar, mostra de novo aqui.",
+    "confirmar": "Sim, sair de tudo",
+    "cancelar": "Cancelar",
+    "saindo": "Saindo…",
+    "atalhoTitulo": "Atalho Esc Esc Esc",
+    "atalhoTexto": "Com o atalho ligado, apertar Esc três vezes seguidas sai deste aparelho na hora, em qualquer tela. Vale até fechar esta aba.",
+    "atalhoLigar": "Ligar o atalho",
+    "atalhoDesligar": "Desligar o atalho",
+    "atalhoLigado": "Atalho ligado nesta aba"
+  },
+  "escondido": {
+    "titulo": "Seu perfil está escondido",
+    "texto": "Escondido pelo botão de pânico em {quando}. Ninguém acha o seu perfil enquanto ele estiver assim.",
+    "mostrar": "Mostrar o perfil de novo",
+    "mostrado": "Seu perfil voltou a aparecer."
+  },
+  "fator": {
+    "titulo": "Aplicativo autenticador",
+    "ligado": "Ligado. Senha sozinha não abre a sua conta.",
+    "desligado": "Sem aplicativo autenticador nesta conta.",
+    "desligadoTexto": "Na Alumia, o código de 6 números é pedido a cada entrada. Cadastre o aplicativo quando a entrada pedir.",
+    "alertaTitulo": "Aviso de entrada nova",
+    "alertaTexto": "Cada vez que a sua conta entra num aparelho, chega um aviso aqui na Alumia e no seu e-mail, com o navegador, o sistema, o dia e a hora. Se não foi você, desconecte os aparelhos."
+  },
+  "codigos": {
+    "titulo": "Códigos de recuperação",
+    "texto": "Dez códigos de uso único para entrar se você perder o celular do aplicativo. Usar um código tira o aplicativo da conta: você cadastra outro na mesma hora, e os outros aparelhos são desconectados.",
+    "restantes": "{n} de 10 códigos ainda valem",
+    "nenhum": "Você ainda não tem códigos de recuperação.",
+    "geradosEm": "Gerados em {quando}",
+    "gerar": "Gerar códigos",
+    "gerarDeNovo": "Gerar códigos novos",
+    "deNovoAviso": "Os códigos que você tem hoje deixam de valer.",
+    "confirmarGerar": "Gerar e anular os antigos",
+    "cancelar": "Cancelar",
+    "mostrarTitulo": "Seus códigos novos",
+    "mostrarTexto": "Eles aparecem uma vez só. Baixe ou copie e guarde longe do celular: papel na gaveta ou gerenciador de senhas.",
+    "baixar": "Baixar em texto",
+    "copiar": "Copiar",
+    "copiados": "Códigos copiados.",
+    "pronto": "Já guardei os códigos",
+    "precisaFator": "Os códigos dependem do aplicativo autenticador. Cadastre o aplicativo primeiro.",
+    "arquivo": {
+      "titulo": "Alumia: códigos de recuperação do segundo fator",
+      "geradosEm": "Gerados em {quando}",
+      "instrucoes": ["Cada código vale uma vez.", "Use se perder o celular do aplicativo autenticador.", "Guarde longe do celular."]
+    }
+  },
+  "aparelhos": {
+    "titulo": "Aparelhos conectados",
+    "texto": "Onde a sua conta está aberta agora: o navegador, o sistema e os dias. O endereço de rede não aparece em lugar nenhum.",
+    "este": "Este aparelho",
+    "rotulo": "{navegador} em {sistema}",
+    "desde": "Entrou em {dia}",
+    "ultima": "Última atividade: {dia}",
+    "hoje": "hoje",
+    "ontem": "ontem",
+    "semCodigo": "Entrou sem o código do aplicativo",
+    "semCodigoAjuda": "Não reconhece? Desconecte.",
+    "desconectar": "Desconectar",
+    "desconectarOutros": "Desconectar todos os outros",
+    "confirmarOutros": "Desconectar os outros aparelhos? Eles precisam entrar de novo, com senha e código.",
+    "confirmar": "Desconectar",
+    "cancelar": "Cancelar",
+    "desconectado": "Aparelho desconectado.",
+    "desconectados": "Outros aparelhos desconectados.",
+    "so": "Só este aparelho está conectado.",
+    "ver": "Ver os aparelhos",
+    "resumo": "{n} aparelhos conectados",
+    "indisponivel": "A lista de aparelhos não está disponível agora.",
+    "outroNavegador": "Navegador desconhecido",
+    "outroSistema": "sistema desconhecido",
+    "ios": "iPhone ou iPad",
+    "voltar": "Segurança da conta"
+  },
+  "busca": {
+    "titulo": "Fora da busca",
+    "texto": "Você some da busca de pessoas, das sugestões de @ e das listas de quem seguir. Quem já tem o seu @ inteiro ainda encontra o seu perfil.",
+    "rotulo": "Ficar fora da busca",
+    "salvo": "Pronto."
+  },
+  "tor": {
+    "titulo": "Entrar pelo Tor",
+    "texto": "Pelo Navegador Tor, o chat da Alumia abre sem que o nosso servidor ou quem está na sua rede saiba de onde você acessa. Ele tem um endereço .onion próprio.",
+    "endereco": "Endereço .onion do chat",
+    "semEndereco": "O endereço .onion do chat ainda não foi publicado.",
+    "comoUsar": "Abra o endereço no Navegador Tor (torproject.org) e converse por texto.",
+    "comoFunciona": "Como o serviço .onion está montado (no código aberto)",
+    "abreFora": "abre o GitHub, fora da Alumia"
+  },
+  "recuperar": {
+    "link": "Perdi o celular do aplicativo",
+    "titulo": "Entrar com um código de recuperação",
+    "texto": "Digite um dos dez códigos que você guardou. O aplicativo autenticador sai da conta e você cadastra outro em seguida; os outros aparelhos são desconectados.",
+    "rotulo": "Código de recuperação",
+    "botao": "Usar o código",
+    "errado": "Código errado ou já usado.",
+    "certo": "Código aceito. Agora cadastre o aplicativo autenticador de novo.",
+    "voltar": "Voltar ao código do aplicativo"
+  },
+  "erros": {
+    "confirme": "Confirme o código do aplicativo autenticador nesta sessão e tente de novo.",
+    "falha": "Não deu certo agora. Tente de novo em instantes.",
+    "muitos": "Muitas tentativas. Espere um pouco e tente de novo.",
+    "tentar": "Tentar de novo"
+  },
+  "isca": {
+    "carimbo": "Conta isca",
+    "titulo": "Senha de pânico",
+    "texto": "Uma segunda senha, só para este aparelho. Se alguém obrigar você a abrir a Alumia, digite a senha de pânico no lugar da sua: o aparelho entra numa conta isca, com perfil neutro, e tira a sua conta daqui do jeito que o Sair rápido faz. A tela de entrar é a mesma nos dois casos.",
+    "servidor": "Nada é apagado no servidor. É uma ferramenta de segurança pessoal contra quem força o acesso ao seu aparelho: a Alumia cumpre a lei e as ordens judiciais válidas com os dados reais.",
+    "ativar": "Ativar a senha de pânico",
+    "ativarTroca": "Se este aparelho já tem uma senha de pânico, a nova fica no lugar dela. Para preparar ou desativar a que já existe, use Preparar a conta isca.",
+    "senha": "Senha de pânico",
+    "senhaAjuda": "Diferente da sua senha de entrar e fácil de lembrar sob pressão. Pelo menos 8 caracteres.",
+    "senhaDeNovo": "Senha de pânico de novo",
+    "real": "Sua senha de entrar",
+    "realAjuda": "Só para conferir que as duas são diferentes. Não sai deste aparelho e não fica guardada.",
+    "email": "E-mail da conta isca",
+    "emailAjuda": "Um e-mail seu que não seja o desta conta (um apelido de e-mail serve). Ele recebe o link de confirmação.",
+    "codinome": "Codinome da conta isca",
+    "codinomeAjuda": "Um codinome comum, que não lembre o seu.",
+    "criar": "Criar a conta isca",
+    "criando": "Criando a conta isca…",
+    "cancelar": "Cancelar",
+    "criada": "Conta isca criada, e o cofre dela ficou guardado, cifrado, neste aparelho. Falta confirmar o e-mail da isca.",
+    "ativa": "Ativa neste aparelho",
+    "ativaTexto": "O cofre com a conta isca fica cifrado neste navegador, e a senha de pânico vale só aqui. Em outro aparelho, ela precisa ser ativada lá.",
+    "preparar": "Preparar a conta isca",
+    "prepararTexto": "Digite a senha de pânico para abrir a isca aqui, sem sair da sua conta, e ver o que falta para ela ficar pronta.",
+    "abrir": "Abrir a isca",
+    "abrindo": "Abrindo a isca…",
+    "fechar": "Fechar a isca",
+    "enviar": "Mandar",
+    "enviando": "Mandando…",
+    "desativar": "Desativar a senha de pânico",
+    "desativarTexto": "Apaga deste aparelho o cofre da isca. A conta isca continua existindo: para apagá-la, entre nela e use o caminho normal de apagar a conta.",
+    "desativarConfirmar": "Sim, desativar",
+    "desativada": "Senha de pânico desativada neste aparelho.",
+    "etapas": {
+      "confirmar_email": {
+        "titulo": "Confirme o e-mail da isca",
+        "texto": "Abra o link que chegou no e-mail da conta isca numa janela anônima ou em outro aparelho: aberto neste navegador, ele troca a sua conta pela isca. Depois volte aqui.",
+        "botao": "Já confirmei"
+      },
+      "sem_pedido": {
+        "titulo": "Pedido de entrada da isca",
+        "texto": "A isca passa pela triagem como qualquer conta. Escreva um motivo comum, sem nada que ligue a isca a você.",
+        "botao": "Mandar o pedido da isca"
+      },
+      "em_analise": {
+        "titulo": "Na triagem",
+        "texto": "O pedido da isca espera a triagem. Volte aqui depois da resposta.",
+        "botao": "Conferir de novo"
+      },
+      "recusada": {
+        "titulo": "A triagem não aprovou a isca",
+        "texto": "Desative a senha de pânico e crie outra isca, com outro e-mail.",
+        "botao": "Conferir de novo"
+      },
+      "suspensa": {
+        "titulo": "A isca está suspensa",
+        "texto": "Desative a senha de pânico e crie outra isca, com outro e-mail.",
+        "botao": "Conferir de novo"
+      },
+      "cadastrar_fator": {
+        "titulo": "Aplicativo autenticador da isca",
+        "texto": "Na Alumia toda conta pede o código do aplicativo, a isca também. Ponha a isca no seu aplicativo autenticador com um nome que não chame atenção. Na entrada com a senha de pânico, o código pedido é o da isca.",
+        "botao": "Confirmar o código"
+      },
+      "pedir_codigo": {
+        "titulo": "Código da isca",
+        "texto": "Digite o código da isca do seu aplicativo autenticador para terminar de prepará-la.",
+        "botao": "Confirmar o código"
+      },
+      "povoar": {
+        "titulo": "Perfil neutro",
+        "texto": "A isca termina a primeira entrada sem escolhas e pode seguir um pacote de perfis públicos, para não parecer uma conta vazia. Ela não publica nada.",
+        "botao": "Deixar a isca pronta"
+      },
+      "pronta": {
+        "titulo": "A isca está pronta",
+        "texto": "Na entrada, a senha de pânico no lugar da sua senha abre a isca e tira a sua conta deste aparelho. O código pedido em seguida é o da isca.",
+        "botao": "Conferir de novo"
+      }
+    },
+    "motivo": "Por que quer entrar",
+    "maior": "Tenho 18 anos ou mais",
+    "aceite": "Li e aceito os termos e as regras da Alumia",
+    "qr": "QR para o aplicativo autenticador",
+    "segredo": "Ou digite este segredo no aplicativo:",
+    "codigo": "Código de 6 números",
+    "nenhumPacote": "Não seguir nenhum pacote",
+    "pacotesTitulo": "Pacote de perfis públicos",
+    "erros": {
+      "curta": "A senha de pânico precisa de pelo menos 8 caracteres.",
+      "diferentes": "As duas senhas de pânico não são iguais.",
+      "igual": "A senha de pânico não pode ser igual à sua senha de entrar.",
+      "semReal": "Digite a sua senha de entrar, para conferir que é outra.",
+      "email": "Confira o e-mail da conta isca.",
+      "emailIgual": "Use um e-mail diferente do desta conta.",
+      "codinome": "O codinome precisa ter de 3 a 30 caracteres, sem @ nem endereço.",
+      "motivo": "Escreva o motivo com 10 a 500 caracteres, sem e-mail nem telefone.",
+      "idade": "Marque que a isca é de quem tem 18 anos ou mais.",
+      "aceite": "Marque o aceite dos termos e das regras.",
+      "errada": "Essa não é a senha de pânico deste aparelho.",
+      "semArmazenamento": "Este navegador não deixou guardar o cofre. Fora da janela anônima, tente de novo.",
+      "cadastroFechado": "O cadastro está fechado agora. Tente mais tarde.",
+      "captcha": "Confirme o desafio antes de continuar.",
+      "muitos": "Muitas tentativas. Espere um pouco e tente de novo.",
+      "codigo": "Código errado. Confira o aplicativo e tente de novo.",
+      "falha": "Não deu certo agora. Tente de novo em instantes."
+    }
+  }
+}

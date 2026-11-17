@@ -43,7 +43,7 @@
   border: 2px dashed var(--al-texto-3);
   color: var(--al-sobre-dourado);
 }
-[data-al="2"] .al-q-ladrilho[data-completa] .al-q-selo { border: 2px solid var(--al-dourado); background: var(--al-dourado); }
+[data-al="2"] .al-q-ladrilho[data-completa] .al-q-selo { border: 2px solid var(--al-dourado); background: var(--al-dourado-fundo); }
 [data-al="2"] .al-q-ladrilho[data-eu] { border-color: var(--al-dourado); box-shadow: inset 4px 0 0 var(--al-dourado); }
 [data-al="2"] .al-q-ladrilho[data-eu]:not([data-completa]) .al-q-selo { border-style: solid; border-color: var(--al-dourado); color: var(--al-ato-dourado-texto, var(--al-dourado)); }
 [data-al="2"] .al-q-corpo { min-width: 0; display: grid; gap: 0.15rem; }
@@ -128,7 +128,7 @@
 [data-al="2"] .al-q-placar { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem; }
 [data-al="2"] .al-q-total { margin: 0; }
 [data-al="2"] .al-q-numero-rotulo { display: inline-flex; align-items: baseline; gap: 0.35rem; font-weight: 700; color: var(--al-texto-2); }
-[data-al="2"] .al-q-numero { font-size: 2.8rem; line-height: 1; color: var(--al-vermelho-texto, var(--al-vermelho)); }
+[data-al="2"] .al-q-numero { font-size: 2.8rem; line-height: 1; color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
 [data-al="2"] .al-q-poucas { font-weight: 700; color: var(--al-texto-3); }
 [data-al="2"] .al-q-carimbo {
   font-size: 0.75rem;

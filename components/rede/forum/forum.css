@@ -1,0 +1,186 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * O fórum da comunidade (onda 10, 10A): a aba Fórum, o alto do tópico, "virar tópico" e "pular para a primeira nova". Linguagem do
+ * Mosaico da Arquibancada: carimbo torto de tinta para a situação, ladrilho dourado para o número de respostas, faixa tecida sob o
+ * cabeçalho, Archivo condensada em caixa alta. Só tokens de styles/alumia-tokens.css (noite, creme, alto contraste e e-ink).
+ */
+
+.f10 { container-type: inline-size; color: var(--al-texto); font-family: var(--al-fonte); }
+.f10-cond { font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 900; text-transform: uppercase; letter-spacing: -0.005em; line-height: 0.95; }
+.f10-visivel-so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ───── A aba: cabeçalho com a faixa tecida ───── */
+.f10-forum { padding: 1rem 1rem 2.5rem; }
+@media (min-width: 1024px) { .f10-forum { padding: 1.25rem 1.25rem 3rem; } }
+.f10-cabeca { position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 0.75rem 1rem; margin: 0 0 1rem; padding-bottom: 1rem; }
+.f10-cabeca::after { content: ""; position: absolute; inset: auto 0 0; height: var(--al-faixa-altura, 6px); background: var(--al-faixa); border-radius: 2px; }
+.f10-cabeca h2 { margin: 0; font-size: clamp(2rem, 7cqi, 3rem); }
+.f10-cabeca-texto { flex: 1 1 18rem; min-width: 0; }
+.f10-lead { margin: 0.45rem 0 0; max-width: 40rem; color: var(--al-texto-2); font-size: 0.95rem; line-height: 1.5; }
+.f10-abrir { flex: none; }
+.f10-nota { margin: 0.35rem 0 0; color: var(--al-texto-3); font-size: 0.82rem; line-height: 1.45; }
+
+/* ───── Ordem (seletor em ladrilhos) e filtros (fichas) ───── */
+.f10-controles { display: grid; gap: 0.6rem; margin: 0 0 1rem; }
+.f10-ordem { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.f10-ordem button {
+  flex: 1 1 auto; min-height: 44px; padding: 0 0.9rem; border: 0; border-radius: 8px; background: transparent; color: var(--al-texto-3);
+  font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 800; font-size: 1.05rem;
+  text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap; cursor: pointer;
+}
+.f10-ordem button[aria-pressed="true"] { background: var(--al-saliente); color: var(--al-sobre-saliente); box-shadow: inset 0 -3px 0 var(--al-vermelho); }
+@media (hover: hover) and (pointer: fine) { .f10-ordem button:not([aria-pressed="true"]):hover { background: var(--al-superficie-2); color: var(--al-texto); } }
+.f10-regra { margin: 0; color: var(--al-texto-2); font-size: 0.85rem; line-height: 1.45; }
+.f10-filtros { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.f10-fichas { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.f10-fichas button {
+  min-height: 40px; padding: 0 0.85rem; border-radius: 999px; border: 1.5px solid var(--al-superficie-2); background: transparent;
+  color: var(--al-texto-2); font: inherit; font-size: 0.88rem; font-weight: 700; cursor: pointer;
+}
+.f10-fichas button[aria-pressed="true"] { background: var(--al-saliente); color: var(--al-sobre-saliente); border-color: var(--al-saliente); }
+.f10-fichas button:disabled { cursor: progress; opacity: 0.7; }
+@media (hover: hover) and (pointer: fine) { .f10-fichas button:not([aria-pressed="true"]):not(:disabled):hover { background: var(--al-superficie); color: var(--al-texto); } }
+.f10-etiqueta select {
+  min-height: 40px; max-width: 100%; padding: 0 2rem 0 0.8rem; border-radius: 999px; border: 1.5px solid var(--al-superficie-2);
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-size: 0.88rem; font-weight: 700;
+}
+:root:is([data-contrast], [data-eink]) .f10 :is(.f10-ordem, .f10-fichas) button[aria-pressed="true"] { outline: 2px solid var(--al-texto); }
+
+/* ───── A lista ───── */
+.f10-bloco { margin: 0 0 1.25rem; }
+.f10-sub { display: flex; align-items: center; gap: 0.4rem; margin: 0 0 0.5rem; color: var(--al-texto-3); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.f10-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.f10-topico {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "estado ladrilho" "corpo corpo"; gap: 0.5rem 0.9rem;
+  padding: 0.9rem 1rem 0.95rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha);
+}
+@container (min-width: 34rem) {
+  .f10-topico { grid-template-columns: 8rem minmax(0, 1fr) auto; grid-template-areas: "estado corpo ladrilho"; align-items: start; padding: 1rem 1.1rem; }
+}
+.f10-item[data-estado="resolvido"] .f10-topico { border-left: 4px solid var(--al-dourado-fundo); }
+.f10-item[data-estado="encaminhado"] .f10-topico { border-left: 4px solid var(--al-texto-3); }
+.f10-item[data-estado="aberto"] .f10-topico { border-left: 4px solid var(--al-vermelho); }
+.f10-topico-estado { grid-area: estado; }
+.f10-topico-corpo { grid-area: corpo; min-width: 0; }
+.f10-topico-titulo { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35rem 0.6rem; margin: 0; font-size: 1.08rem; font-weight: 800; line-height: 1.3; }
+.f10-topico-titulo a { color: var(--al-texto); text-decoration: none; overflow-wrap: anywhere; }
+.f10-topico-titulo a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.f10-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.75rem; margin: 0.45rem 0 0; color: var(--al-texto-3); font-size: 0.82rem; }
+.f10-tipo { color: var(--al-texto-2); font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.72rem; }
+.f10-etiqueta-ficha { display: inline-flex; align-items: center; min-height: 24px; padding: 0 0.55rem; border-radius: 999px; background: var(--al-superficie-2); color: var(--al-texto); font-weight: 700; }
+.f10-marca { font-style: italic; }
+.f10-respostas-texto { color: var(--al-texto-2); font-weight: 700; }
+@container (min-width: 34rem) { .f10-respostas-texto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } }
+.f10-novas { display: inline-flex; align-items: center; min-height: 22px; padding: 0 0.5rem; border-radius: 4px; background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 0.7rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* O ladrilho das respostas: o número grande, condensado, num quadrado dourado como as peças do mosaico. */
+.f10-ladrilho { grid-area: ladrilho; margin: 0; display: none; }
+@container (min-width: 34rem) { .f10-ladrilho { display: block; } }
+.f10-ladrilho-n {
+  display: grid; place-items: center; min-width: 3.1rem; height: 3.1rem; padding: 0 0.4rem; border-radius: 8px; background: var(--al-superficie-2);
+  color: var(--al-texto); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 900; font-size: 1.6rem; line-height: 1;
+}
+.f10-item[data-estado="resolvido"] .f10-ladrilho-n { background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); }
+
+/* ───── O carimbo da situação ───── */
+.f10-carimbo {
+  display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.2rem 0.55rem; border: 2px solid currentColor; border-radius: 6px;
+  box-shadow: inset 0 0 0 1px var(--al-fundo), inset 0 0 0 2px currentColor; transform: rotate(-3deg);
+  font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 900; font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap;
+}
+.f10-carimbo-p { font-size: 0.9rem; }
+.f10-carimbo[data-estado="aberto"] { color: var(--al-vermelho-sobre-escuro); }
+.f10-carimbo[data-estado="encaminhado"] { color: var(--al-texto-2); }
+.f10-carimbo[data-estado="resolvido"] { color: var(--al-dourado); }
+:root:is([data-eink], [data-parado]) .f10-carimbo { transform: none; }
+
+/* ───── O resumo de uma linha ───── */
+.f10-resumo { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.15rem 0.5rem; margin: 0.4rem 0 0; color: var(--al-texto-2); font-size: 0.9rem; line-height: 1.45; }
+.f10-resumo-de { flex: none; color: var(--al-texto-3); font-size: 0.68rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+.f10-resumo-texto { font-style: italic; min-width: 0; overflow-wrap: anywhere; }
+.f10-resumo-g { margin-top: 0.6rem; font-size: 1rem; color: var(--al-texto); }
+
+/* ───── O alto do tópico, na conversa ───── */
+.f10-topo { margin: 0.75rem 1rem 0.5rem; padding: 0.85rem 1rem 0.9rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.f10-topo-linha { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.f10-topo-rotulo { margin: 0; color: var(--al-texto-2); font-size: 1.15rem; }
+.f10-topo-acoes { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 0.75rem; }
+.f10-veio { margin: 0.6rem 0 0; color: var(--al-texto-2); font-size: 0.88rem; }
+.f10-veio a, .f10-continua a { color: var(--al-texto); font-weight: 700; text-underline-offset: 3px; }
+.f10-continua, .f10-levar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; margin: 0.5rem 1rem; color: var(--al-texto-2); font-size: 0.88rem; }
+.f10-continua svg { color: var(--al-dourado); }
+.f10-continua-resposta { margin: 0.35rem 0 0; }
+.f10-resumo-form { margin-top: 0.6rem; }
+.f10-resumo-campo {
+  width: 100%; min-height: 44px; padding: 0.5rem 0.7rem; border-radius: 8px; border: 1.5px solid var(--al-superficie-2);
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-size: 0.98rem;
+}
+.f10-campo-pe { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.25rem 1rem; margin: 0.3rem 0 0; color: var(--al-texto-3); font-size: 0.8rem; }
+.f10-conta { font-variant-numeric: tabular-nums; }
+
+/* ───── Formulários (abrir tópico, virar tópico) ───── */
+.f10-form { display: grid; gap: 0.85rem; margin: 0 0 1.1rem; padding: 1rem 1.1rem 1.1rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.f10-form-titulo { margin: 0; font-size: 1.5rem; }
+.f10-campos-2 { display: grid; gap: 0.85rem; }
+@container (min-width: 36rem) { .f10-campos-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }
+.f10-campo { display: grid; gap: 0.3rem; margin: 0; padding: 0; border: 0; color: var(--al-texto-2); font-size: 0.88rem; font-weight: 700; }
+.f10-campo legend { padding: 0; margin-bottom: 0.3rem; }
+.f10-comunidade-fixa { color: var(--al-texto); font-size: 1rem; font-weight: 800; }
+.f10-campo :is(input:not([type="radio"]), select, textarea) {
+  width: 100%; min-height: 44px; padding: 0.5rem 0.7rem; border-radius: 8px; border: 1.5px solid var(--al-superficie-2);
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-weight: 400; font-size: 0.95rem;
+}
+.f10-campo textarea { line-height: 1.45; resize: vertical; }
+.f10-campo small { color: var(--al-texto-3); font-weight: 400; font-size: 0.8rem; }
+.f10 :is(input, select, textarea):focus-visible { outline: 3px solid var(--al-foco); outline-offset: 1px; }
+.f10-tipos > div { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.f10-tipos label { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0 0.85rem; border-radius: 8px; border: 1.5px solid var(--al-superficie-2); color: var(--al-texto); font-weight: 700; cursor: pointer; }
+.f10-tipos label:has(input:checked) { border-color: var(--al-saliente); box-shadow: inset 0 0 0 1px var(--al-saliente); }
+.f10-tipos input { width: 1.1rem; height: 1.1rem; accent-color: var(--al-vermelho); }
+.f10-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.f10-acoes-justas { gap: 0.35rem; }
+.f10-status { margin: 0.6rem 0; color: var(--al-texto); font-size: 0.9rem; font-weight: 700; }
+.f10-erro { margin: 0.6rem 0 0; color: var(--al-vermelho-letra, var(--al-vermelho-texto)); font-size: 0.9rem; font-weight: 700; }
+.f10-aviso { display: grid; gap: 0.5rem; justify-items: start; padding: 0.75rem 0.9rem; border-radius: 10px; border: 1.5px solid var(--al-dourado-fundo); color: var(--al-texto); font-size: 0.9rem; }
+.f10-aviso p { margin: 0; }
+.f10-vazio { margin: 0; padding: 0.9rem 1rem; border-radius: 10px; border: 1px dashed var(--al-superficie-2); color: var(--al-texto-3); font-size: 0.92rem; }
+.f10-vazio p { margin: 0 0 0.6rem; }
+.f10-mais { display: flex; justify-content: center; margin-top: 1rem; }
+
+/* ───── A folha "virar tópico" ───── */
+.f10-folha {
+  width: min(36rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); margin: auto; padding: 0; border: 1px solid var(--al-linha);
+  border-radius: 16px; background: var(--al-fundo); color: var(--al-texto); box-shadow: 0 24px 60px var(--al-sombra);
+}
+.f10-folha::backdrop { background: var(--al-sombra); }
+.f10-folha-corpo { position: relative; padding: 1.2rem 1.2rem 1.25rem; }
+.f10-folha-corpo::before { content: ""; position: absolute; inset: 0 0 auto; height: var(--al-faixa-altura, 6px); background: var(--al-faixa); border-radius: 16px 16px 0 0; }
+.f10-folha-corpo form { display: grid; gap: 0.85rem; }
+.f10-folha-titulo { margin: 0.35rem 0 0.6rem; font-size: 1.8rem; }
+.f10-folha .f10-lead { margin: 0; }
+.f10-citado { margin: 0; padding: 0.6rem 0.8rem; border-left: 4px solid var(--al-dourado-fundo); border-radius: 0 8px 8px 0; background: var(--al-superficie); color: var(--al-texto-2); font-size: 0.9rem; line-height: 1.45; max-height: 7.5rem; overflow: auto; overflow-wrap: anywhere; }
+.f10-aviso-autora { margin: 0; padding: 0.55rem 0.75rem; border-radius: 8px; background: var(--al-superficie-2); color: var(--al-texto); font-size: 0.86rem; font-weight: 700; }
+
+/* ───── Pular para a primeira nova ───── */
+.f10-novas-barra {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 0.75rem; margin: 0.5rem 1rem 0.75rem;
+  padding: 0.65rem 0.8rem; border-radius: 12px; background: var(--al-superficie); border: 1.5px solid var(--al-dourado-fundo);
+}
+.f10-novas-texto { display: inline-flex; align-items: center; gap: 0.5rem; margin: 0; font-weight: 800; font-size: 0.95rem; }
+.f10-novas-ponto { width: 0.6rem; height: 0.6rem; border-radius: 2px; background: var(--al-dourado-fundo); transform: rotate(45deg); }
+.f10-novas-regra { flex-basis: 100%; margin: 0; }
+.f10-regua { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.5rem; color: var(--al-dourado); font-size: 0.72rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; }
+.f10-regua::before, .f10-regua::after { content: ""; flex: 1; height: 2px; background: currentColor; opacity: 0.7; }
+.f10-selo-nova { display: inline-flex; align-items: center; min-height: 20px; padding: 0 0.45rem; border-radius: 4px; background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 0.66rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+[data-flip]:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 4px; border-radius: 8px; }
+
+/* Celular (revisão da onda 10): a ordem em três colunas iguais, com o texto quebrando dentro do botão; fichas e seletor com 44 px
+   no toque, sem mudar o desenho no computador. */
+@media (max-width: 30rem) {
+  .f10-ordem { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .f10-ordem button { padding: 0.3rem 0.4rem; font-size: 0.92rem; line-height: 1.05; white-space: normal; text-align: center; }
+}
+@media (pointer: coarse) {
+  .f10-fichas button, .f10-etiqueta select { min-height: 44px; }
+  .f10 .al-botao-p, .f10 .al-botao-m { min-height: 44px; }
+}

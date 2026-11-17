@@ -12,9 +12,12 @@ import { chamar, type Chamar } from "./cliente";
 import { linkDeApoioSeguro } from "./atos/chegar";
 import { limparCorrente, limparFarol } from "./atos/corrente";
 import { criarDuble } from "./atos/exemplos";
+import { limparAlbum, limparLinhaDoAto, limparMaisDoAto } from "./atos/eventos";
 import { limparCaronas, limparPeticao, limparTarefas } from "./atos/quadros";
+import type { Post } from "./tipos";
 import {
   corValida,
+  type AlbumDoAto,
   type Ato,
   type CaronaDoAto,
   type Corrente,
@@ -23,12 +26,14 @@ import {
   type EstadoDoFarol,
   type FarolDoAto,
   type FiltroDosAtos,
+  type MaisDoAto,
   type OrgQuePosso,
   type PaginaDeAtos,
   type PedidoDeCarona,
   type PedidoDeCorrente,
   type PedidoDeMudanca,
   type PedidoDePeticao,
+  type PedidoDeSerie,
   type PeticaoDoAto,
   type QuadroDeTarefas,
   type RespostaDoVou,
@@ -120,6 +125,33 @@ export function criarClienteDosAtos(c: Chamar) {
     peticaoCriar: async (ato: string, p: PedidoDePeticao): Promise<PeticaoDoAto | null> => limparPeticao(await c<PeticaoDoAto>("rede_peticao_criar", { p_ato: ato, p })),
     peticaoAssinar: async (id: string, sim: boolean): Promise<PeticaoDoAto | null> => limparPeticao(await c<PeticaoDoAto>("rede_peticao_assinar", { p_peticao: id, p_sim: sim })),
     peticaoEncerrar: async (id: string): Promise<PeticaoDoAto | null> => limparPeticao(await c<PeticaoDoAto>("rede_peticao_encerrar", { p_peticao: id })),
+
+    // ── 10F: série, organizações juntas, álbum e linha ao vivo (supabase/migracoes/20261116-alumia-o10-atos.sql) ──
+    /** O que a página do ato mostra além do ato. Convites só para quem chamou; a fila do álbum só para quem modera. */
+    mais: async (ato: string): Promise<MaisDoAto> => limparMaisDoAto(await c<MaisDoAto>("rede_ato_mais", { p_ato: ato })),
+    /** Repetir o ato (só quem chamou). */
+    serieCriar: async (ato: string, p: PedidoDeSerie): Promise<MaisDoAto> => limparMaisDoAto(await c<MaisDoAto>("rede_ato_serie_criar", { p_ato: ato, p })),
+    /** Pular uma data da série (a aberta é cancelada; quem confirmou recebe aviso). */
+    seriePular: async (ato: string, data: string): Promise<MaisDoAto> => limparMaisDoAto(await c<MaisDoAto>("rede_ato_serie_pular", { p_ato: ato, p_data: data })),
+    serieEncerrar: async (ato: string): Promise<MaisDoAto> => limparMaisDoAto(await c<MaisDoAto>("rede_ato_serie_encerrar", { p_ato: ato })),
+    coletivoConvidar: async (ato: string, handle: string): Promise<MaisDoAto> => limparMaisDoAto(await c<MaisDoAto>("rede_ato_coletivo_convidar", { p_ato: ato, p_handle: handle })),
+    coletivoResponder: async (ato: string, handle: string, aceito: boolean): Promise<MaisDoAto> =>
+      limparMaisDoAto(await c<MaisDoAto>("rede_ato_coletivo_responder", { p_ato: ato, p_handle: handle, p_aceito: aceito })),
+    coletivoTirar: async (ato: string, handle: string): Promise<MaisDoAto> => limparMaisDoAto(await c<MaisDoAto>("rede_ato_coletivo_tirar", { p_ato: ato, p_handle: handle })),
+    /** O álbum: aprovadas para quem vê o ato, as próprias pendentes, e a fila só para quem modera. Nunca quem mandou. */
+    album: async (ato: string): Promise<AlbumDoAto> => limparAlbum(await c<AlbumDoAto>("rede_ato_album", { p_ato: ato })),
+    albumDecidir: async (id: string, aprovar: boolean): Promise<AlbumDoAto> => limparAlbum(await c<AlbumDoAto>("rede_ato_album_decidir", { p_id: id, p_aprovar: aprovar })),
+    albumApagar: async (id: string): Promise<AlbumDoAto> => limparAlbum(await c<AlbumDoAto>("rede_ato_album_apagar", { p_id: id })),
+    /** Onde está a foto (depósito e caminho), se esta pessoa pode vê-la. */
+    albumCaminho: async (id: string): Promise<{ bucket: string; caminho: string }> => c<{ bucket: string; caminho: string }>("rede_ato_album_caminho", { p_id: id }),
+    /** A linha ao vivo em ordem de chegada; `depois` busca só o que chegou depois do cursor. */
+    linha: async (ato: string, depois: string | null = null) => limparLinhaDoAto(await c<{ itens: Post[]; proximo: string | null }>("rede_ato_linha", { p_ato: ato, p_depois: depois })),
+    linhaPublicar: async (ato: string, texto: string): Promise<Post> => c<Post>("rede_ato_linha_publicar", { p_ato: ato, p_texto: texto }),
+    /** Só na prévia: "mandar" a foto guarda só o registro no dublê (a imagem fica no aparelho). */
+    albumPreviaEnviar: async (ato: string, legenda: string): Promise<AlbumDoAto["fotos"][number]> => c<AlbumDoAto["fotos"][number]>("rede_ato_album_previa_enviar", { p_ato: ato, p_legenda: legenda }),
+    linhaTirar: async (post: string): Promise<void> => {
+      await c<{ ok: boolean }>("rede_ato_linha_tirar", { p_post: post });
+    },
   };
 }
 

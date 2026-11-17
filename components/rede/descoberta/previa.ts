@@ -6,7 +6,7 @@
 import { listaDeExemplo, postsDaSemanaDeExemplo, postsDeExemplo } from "@/lib/rede/conversa/exemplos";
 import type { redeDescoberta } from "@/lib/rede/cliente-descoberta";
 import type { Post } from "@/lib/rede/tipos";
-import type { ItemDeAviso, PaginaDeAvisos } from "@/lib/rede/tipos-avisos";
+import type { ItemDeAviso, PaginaDeAvisos, TIPOS_DE_AVISO_DE_FORA, TipoDeAviso } from "@/lib/rede/tipos-avisos";
 import type { Explorar, PaginaDaTag, PaginaOrdenada, ResultadoDaBusca } from "@/lib/rede/tipos-descoberta";
 
 const MIN = 60_000;
@@ -77,11 +77,15 @@ export const descobertaDaPrevia: Pick<typeof redeDescoberta, "explorar" | "tag" 
 };
 
 /** Os avisos da prévia, já agrupados como o banco agrupa (rede3_aviso_grupos): uma linha por conversa, nunca a lista de quem.
- * Cinco não lidos, o mesmo número que a casca mostra no sino e na barra (AVISOS_DA_PREVIA, CascaDaAlumia2.tsx). */
-export function avisosDaPrevia(): PaginaDeAvisos {
+ * Cinco não lidos, o mesmo número que a casca mostra no sino e na barra (AVISOS_DA_PREVIA, CascaDaAlumia2.tsx).
+ * `deFora`: com gente de fora na tela (Fediverso), mais dois avisos já lidos, na forma que rede_aviso_listar devolve: o Tião da
+ * arte (tiao@mastodon.social) passou a seguir, e uma curtida de fora que não diz quem foi (menos de 3: "alguém"). */
+export function avisosDaPrevia(deFora = false): PaginaDeAvisos {
   const item = (p: Partial<ItemDeAviso> & Pick<ItemDeAviso, "id" | "tipo">): ItemDeAviso => ({
     total: 1, pessoas: 1, lido: false, criado_em: antes(10), post: null, alvo: null, titulo: null, atores: [], texto: null, ...p,
   });
+  const daFederacao = (p: Omit<Partial<ItemDeAviso>, "tipo"> & { id: string; tipo: (typeof TIPOS_DE_AVISO_DE_FORA)[number] }): ItemDeAviso =>
+    item({ ...p, tipo: p.tipo as unknown as TipoDeAviso });
   const itens = [
     item({ id: "a1", tipo: "resposta", total: 4, pessoas: 3, post: "00000000-0000-4000-8000-0000000000c1", titulo: "Quanto da corrida fica com o app?", atores: ["Bruno Catraca", "Entregador do Porto"], criado_em: antes(6) }),
     item({ id: "a2", tipo: "mencao", post: "00000000-0000-4000-8000-0000000000d1", alvo: "00000000-0000-4000-8000-0000000000d1", atores: ["Rosa Vermelha"], criado_em: antes(42) }),
@@ -89,6 +93,12 @@ export function avisosDaPrevia(): PaginaDeAvisos {
     item({ id: "a7", tipo: "chamado", post: "00000000-0000-4000-8000-0000000000f1", texto: "Novo ato em Passe Livre SP: “Sexta tem ato: como vai funcionar”.", criado_em: antes(75) }),
     item({ id: "a8", tipo: "nucleo", texto: "O núcleo Zona Leste marcou reunião para quinta, 19h.", criado_em: antes(95) }),
     item({ id: "a3", tipo: "apoio", total: 12, pessoas: 12, post: "00000000-0000-4000-8000-0000000000b1", titulo: "A planilha do reajuste", lido: true, criado_em: antes(180) }),
+    ...(deFora
+      ? [
+          daFederacao({ id: "f1", tipo: "fed_seguidor", ator_remoto: { ator: "https://mastodon.social/users/tiao", handle: "tiao@mastodon.social", nome: "Tião do Morro", servidor: "mastodon.social" }, lido: true, criado_em: antes(60 * 5) }),
+          daFederacao({ id: "f2", tipo: "fed_curtida", post: "00000000-0000-4000-8000-0000000000b1", titulo: "A planilha do reajuste", ator_remoto: null, lido: true, criado_em: antes(60 * 9) }),
+        ]
+      : []),
     item({ id: "a4", tipo: "seguidor", total: 3, pessoas: 3, atores: ["Moradia ZL", "Rosa Vermelha"], lido: true, criado_em: antes(60 * 26) }),
     item({ id: "a5", tipo: "moderacao", texto: "A moderação de Passe Livre SP fixou “Sexta tem ato: como vai funcionar”.", lido: true, criado_em: antes(60 * 50) }),
   ];

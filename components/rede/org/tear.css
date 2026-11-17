@@ -12,7 +12,7 @@
 [data-al="2"] .tear-fio[data-estado="cumprido"] .tear-linha { background: var(--al-faixa); }
 [data-al="2"] .tear-fio[data-tecido] .tear-linha { animation: tear-agulha 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
 @keyframes tear-agulha { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-[data-al="2"] .tear-fio[data-estado="vencido"] .tear-linha { background: var(--al-dourado); animation: tear-solto 2.4s ease-in-out infinite; transform-origin: top center; }
+[data-al="2"] .tear-fio[data-estado="vencido"] .tear-linha { background: var(--al-dourado-fundo); animation: tear-solto 2.4s ease-in-out infinite; transform-origin: top center; }
 @keyframes tear-solto { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(7deg); } }
 [data-al="2"] .tear-texto { font-weight: 700; overflow-wrap: anywhere; }
 [data-al="2"] .tear-fio[data-estado="cumprido"] .tear-texto { color: var(--al-texto-2); }
@@ -46,7 +46,7 @@
 [data-al="2"] .lampiao-passos { display: flex; gap: 6px; list-style: none; margin: 8px 0 0; padding: 0; }
 [data-al="2"] .lampiao-passos li { flex: 1; height: 6px; border-radius: 3px; background: var(--al-superficie-2); transition: background-color 0.4s; }
 [data-al="2"] .lampiao-passos li > span:first-child { display: none; }
-[data-al="2"] .lampiao-passos li[data-feito] { background: var(--al-dourado); }
+[data-al="2"] .lampiao-passos li[data-feito] { background: var(--al-dourado-fundo); }
 [data-al="2"] .lampiao-passos li[aria-current="step"] { background: linear-gradient(90deg, var(--al-dourado), var(--al-vermelho)); }
 [data-al="2"] .lampiao-passo-nome { margin: 8px 0 0; font-size: 0.85rem; color: var(--al-texto-3); }
 [data-al="2"] .lampiao-corpo { animation: lampiao-entra 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both; }

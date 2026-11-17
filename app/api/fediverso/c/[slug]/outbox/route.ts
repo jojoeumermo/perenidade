@@ -5,7 +5,7 @@
 // Ação do banco pedida à frente F3: comunidade_outbox {slug, limite} → {total, itens: post[]} (só posts federáveis da comunidade).
 import { caixaDeSaidaDaComunidade, type PostFederado } from "@/lib/rede/fediverso/documentos";
 import { gruposLigados, SLUG_DE_COMUNIDADE } from "@/lib/rede/fediverso/enderecos";
-import { conferirTeto } from "@/lib/rede/fediverso/rotas";
+import { conferirLeitor, conferirTeto } from "@/lib/rede/fediverso/rotas";
 import { banco, fed, respostaAP } from "@/lib/rede/fediverso/servidor";
 
 export const runtime = "nodejs";
@@ -13,6 +13,8 @@ export const runtime = "nodejs";
 export async function GET(pedido: Request, { params }: { params: Promise<{ slug: string }> }) {
   const barrado = conferirTeto(pedido, "outbox", 60);
   if (barrado) return barrado;
+  const recusado = await conferirLeitor(pedido);
+  if (recusado) return recusado;
   const slug = (await params).slug.toLowerCase();
   if (!gruposLigados() || !SLUG_DE_COMUNIDADE.test(slug)) return new Response("Not Found", { status: 404 });
   const c = await banco<{ estado: string } | null>("comunidade", { slug }).catch(() => undefined);

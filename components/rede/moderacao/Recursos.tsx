@@ -7,9 +7,13 @@ import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDaModeracao } from "@/lib/rede/textos-moderacao";
 import type { RecursoDaFila } from "@/lib/rede/tipos-moderacao";
-import { dataCurta, estilo, mensagemDeErro } from "./base";
+import { dataCurta, estilo, mensagemDeErro, nomeDaRegra } from "./base";
+import { CarimboDoPrazo } from "./FilaDeDenuncias";
 
-/** A fila de recursos: quem decide nunca é quem tomou a decisão contestada (o banco também barra). */
+/**
+ * A fila de recursos: quem decide nunca é quem tomou a decisão contestada (o banco também barra). Cada recurso mostra o prazo de
+ * resposta (7 dias, onda 8), se a decisão contestada foi automática e, quando é sobre uma conta, o nome dela.
+ */
 export function Recursos({ lang, s, sm }: { lang: string; s: TextosDaRede; sm: TextosDaModeracao }) {
   const [lista, setLista] = useState<RecursoDaFila[] | null>(null);
   const [erro, setErro] = useState("");
@@ -55,7 +59,12 @@ export function Recursos({ lang, s, sm }: { lang: string; s: TextosDaRede; sm: T
         <ul className="divide-y divide-rule">
           {lista.map((r) => (
             <li key={r.id} className="px-[18px] py-3">
-              <p className="text-sm font-bold">{preencher(sm.recursos.decisaoContestada, { acao: acoes[r.acao.acao] ?? r.acao.acao, regra: r.acao.regra })}</p>
+              <div className="flex flex-wrap items-center gap-2">
+                <CarimboDoPrazo sm={sm} lang={lang} ate={r.responder_ate} vencido={r.vencido} />
+                {r.acao.automatica && <span className="m9-carimbo" data-tom="ouro">{sm.o9.automatica}</span>}
+                {r.conta && <span className="text-sm font-bold">{preencher(sm.o9.conta, { nome: r.conta })}</span>}
+              </div>
+              <p className="mt-1 text-sm font-bold">{preencher(sm.recursos.decisaoContestada, { acao: acoes[r.acao.acao] ?? r.acao.acao, regra: nomeDaRegra(sm, r.acao.regra) })}</p>
               <p className="text-sm text-ink-soft">{r.acao.motivo} · {dataCurta(r.acao.criado_em, lang)}</p>
               <p className="mt-1 text-xs font-bold">{sm.recursos.texto}</p>
               <p className="whitespace-pre-line break-words">{r.texto}</p>

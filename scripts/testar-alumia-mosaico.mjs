@@ -194,7 +194,12 @@ for (const p of [null, 0.35, 48]) {
     ok("Botao: type=button, aria-pressed e a variante", b.includes('type="button"') && b.includes('aria-pressed="true"') && b.includes("al-botao-claro"));
     const { Lampiao } = await jiti.import(path.join(raiz, "components/rede/ui/Lampiao.tsx"));
     const l = html(h(Lampiao, {}));
-    ok("Lampião: 32 × 40, decorativo, chama de 10 cartões (2 dourados)", l.includes('viewBox="0 0 32 40"') && l.includes('aria-hidden="true"') && (l.match(/var\(--al-dourado/g) ?? []).length === 2);
+    // O desenho original (a prancha 745 × 1280): chama de 10 cartões só em vermelho e dourado, sem o vermelho-escuro de antes.
+    ok("Lampião: o desenho original, decorativo, chama de 10 cartões (2 dourados, 8 vermelhos, nenhum escuro)", l.includes('viewBox="480 330 745 1280"') && l.includes('aria-hidden="true"') && (l.match(/var\(--al-dourado/g) ?? []).length === 2 && (l.match(/var\(--al-vermelho,/g) ?? []).length === 8 && !l.includes("al-vermelho-chama"));
+    const alto = html(h(Lampiao, { tamanho: 64, rotulo: "Alumia" }));
+    ok("Lampião: tamanho é a altura, a largura sai da proporção (mais estreito) e com rótulo vira imagem com nome", alto.includes('height="64"') && alto.includes('width="37.3"') && alto.includes('role="img"') && alto.includes('aria-label="Alumia"') && !alto.includes("aria-hidden"));
+    const papel = (l.match(/var\(--al-texto/g) ?? []).length;
+    ok("Lampião: alça, tampa, moldura e base no papel do tema; o vidro no fundo do tema", papel === 4 && (l.match(/var\(--al-fundo/g) ?? []).length === 1);
     const { Faixa } = await jiti.import(path.join(raiz, "components/rede/ui/Faixa.tsx"));
     ok("Faixa: escondida do leitor de tela", html(h(Faixa, {})).includes('aria-hidden="true"'));
   } catch (e) {
@@ -227,7 +232,12 @@ for (const p of [null, 0.35, 48]) {
     const fundo = token(b, "al-vermelho-texto") ?? token(padrao, "al-vermelho-texto");
     const texto = token(b, "al-sobre-vermelho") ?? token(padrao, "al-sobre-vermelho");
     ok(`tema ${nome}: texto pequeno sobre o vermelho (selo, botão p/m) passa de 4,5:1 (${fundo}/${texto})`, !!fundo && !!texto && razao(fundo, texto) >= 4.5);
-    ok(`tema ${nome}: a chama do lampião tem token`, !!token(b, "al-vermelho-chama"));
+    // O lampião da marca (components/rede/ui/Lampiao.tsx) usa só as variáveis do tema: papel, vidro, vermelho e dourado; o papel
+    // contra o vidro é a moldura que se vê, então passa de 3:1 (WCAG 1.4.11, gráfico) em todo tema.
+    const papel = token(b, "al-texto") ?? token(padrao, "al-texto");
+    const vidro = token(b, "al-fundo") ?? token(padrao, "al-fundo");
+    ok(`tema ${nome}: o lampião tem as quatro cores e a moldura aparece no vidro (${papel}/${vidro})`, ["al-vermelho", "al-dourado"].every((n) => !!(token(b, n) ?? token(padrao, n))) && !!papel && !!vidro && razao(papel, vidro) >= 3);
+    ok(`tema ${nome}: a brasa dos núcleos tem token`, !!token(b, "al-vermelho-chama"));
   }
   ok("o botão grande primário usa o vermelho das pranchas e passa como texto grande (3:1)", razao(token(padrao, "al-vermelho"), token(padrao, "al-sobre-vermelho")) >= 3
     && /\.al-botao-primario\.al-botao-g \{ background: var\(--al-vermelho\); \}/.test(css));

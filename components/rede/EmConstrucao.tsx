@@ -1,8 +1,9 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Locale } from "@/i18n/config";
+import { Lampiao } from "./ui/Lampiao";
 
 // O aviso que cobre a Alumia inteira enquanto o recurso "alumia-aberta" está desligado (app/[lang]/alumia/layout.tsx). Sem script,
-// sem chamada ao banco e sem nada guardado: só o recado, a faixa tecida e o caminho de volta ao site.
+// sem chamada ao banco e sem nada guardado: a marca (o lampião e o nome), o recado, a faixa tecida e o caminho de volta ao site.
 
 const TEXTOS: Record<Locale, { selo: string; titulo: string; texto: string; voltar: string }> = {
   pt: {
@@ -57,6 +58,9 @@ export function EmConstrucao({ lang, site, className }: { lang: Locale; site: st
 .al-obras__faixa{display:grid;grid-template-columns:repeat(11,1fr);height:14px}
 .al-obras__corpo{display:grid;align-content:center;justify-items:start;gap:28px;width:min(100%,880px);margin:0 auto;
   padding-block:64px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.al-obras__marca{display:flex;align-items:center;gap:14px;margin:0;line-height:1}
+.al-obras__marca-nome{display:block;font-weight:900;font-stretch:62%;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(30px,3.2vw,38px)}
+.al-obras__marca-inst{display:block;margin-top:4px;font-family:var(--al-fonte-garamond,"EB Garamond",Georgia,serif);font-style:italic;font-size:clamp(15px,1.4vw,18px);color:#d9d3c7}
 .al-obras__selo{display:inline-block;border:3px solid #ffc21a;color:#ffc21a;padding:6px 14px 4px;font-weight:800;font-stretch:62%;
   text-transform:uppercase;letter-spacing:.08em;font-size:clamp(15px,1.6vw,19px);transform:rotate(-2.5deg)}
 .al-obras__titulo{margin:0;font-weight:900;font-stretch:62%;text-transform:uppercase;line-height:.9;letter-spacing:-.01em;
@@ -80,6 +84,14 @@ export function EmConstrucao({ lang, site, className }: { lang: Locale; site: st
         ))}
       </div>
       <div className="al-obras__corpo">
+        {/* A marca: o lampião ao lado do nome (o mesmo desenho do cartão e do ícone da aba). O nome é marca, igual em todo idioma. */}
+        <p className="al-obras__marca">
+          <Lampiao tamanho={56} />
+          <span>
+            <span className="al-obras__marca-nome">Alumia</span>
+            <span className="al-obras__marca-inst">Instituto Lúcia</span>
+          </span>
+        </p>
         <p className="al-obras__selo">{t.selo}</p>
         <h1 id="al-obras-titulo" className="al-obras__titulo">
           {t.titulo}

@@ -8,12 +8,15 @@
 # ou defina LUCIA_VPS antes de rodar.
 $vps = if ($env:LUCIA_VPS) { $env:LUCIA_VPS } else { "lucia-vps" }
 $nomes = @(
+  @{ n = "SUPABASE_SERVICE_ROLE_KEY"; d = "Supabase: chave de servico (service_role), obrigatoria para a Alumia (entrada, video, encerrar sessoes)" },
   @{ n = "CLOUDFLARE_ACCOUNT_ID"; d = "Cloudflare: ID da conta (Enter mantém o que já está na VPS)" },
   @{ n = "CF_ZONE_ID"; d = "Cloudflare: ID da zona institutolucia.org (Enter mantém)" },
   @{ n = "GOOGLE_FACTCHECK_KEY"; d = "Google Fact Check (checagens de fatos)" },
   @{ n = "CLOUDFLARE_ANALYTICS_TOKEN"; d = "Cloudflare: token de leitura do Analytics (aula ao vivo)" },
   @{ n = "CLOUDFLARE_TURN_KEY_ID"; d = "Cloudflare TURN: Key ID (aula ao vivo)" },
   @{ n = "CLOUDFLARE_TURN_TOKEN"; d = "Cloudflare TURN: token (aula ao vivo)" },
+  @{ n = "TURNSTILE_SECRET_KEY"; d = "Cloudflare Turnstile: chave secreta do desafio da entrada (conferida no servidor; opcional)" },
+  @{ n = "GOOGLE_SAFE_BROWSING_KEY"; d = "Alumia: Google Safe Browsing, conferência dos links dos posts pelo servidor (opcional; a mesma da avaliação)" },
   @{ n = "REDE_PREVIA_SEGREDO"; d = "Alumia: segredo da prévia de link (opcional, invente um texto longo)" },
   @{ n = "ALUMIA_FEDIVERSO_SEGREDO"; d = "Alumia: segredo do Fediverso (opcional)" },
   @{ n = "OG_SEGREDO"; d = "Imagens de compartilhamento (opcional)" },
@@ -40,16 +43,18 @@ foreach ($item in $nomes) {
   if ($texto) { $linhas += "$($item.n)=$texto" } else { $linhas += "#manter $($item.n)" }
   $texto = $null
 }
-# Junta com o que já está na VPS: linha "#manter X" mantém o valor antigo de X; as outras substituem.
+# Junta com o que já está na VPS: parte do arquivo de lá inteiro (as chaves que não estão nesta lista, como os segredos
+# gerados na própria VPS, ficam); "#manter X" não muda X; "X=valor" troca só X.
 $remoto = @'
 set -e
 f=/opt/lucia/site.env; touch "$f"; chmod 600 "$f"
-novo=$(mktemp); trap 'rm -f "$novo"' EXIT
+novo=$(mktemp); trap 'rm -f "$novo" "$novo.t"' EXIT
+cp -a "$f" "$novo"
 while IFS= read -r l; do
   l=${l%$'\r'}
   case "$l" in
-    "#manter "*) n=${l#\#manter }; grep -E "^$n=" "$f" >> "$novo" || true ;;
-    *=*) printf '%s\n' "$l" >> "$novo" ;;
+    "#manter "*) ;;
+    *=*) n=${l%%=*}; grep -v "^$n=" "$novo" > "$novo.t" || true; mv "$novo.t" "$novo"; printf '%s\n' "$l" >> "$novo" ;;
   esac
 done
 install -m 600 "$novo" "$f"

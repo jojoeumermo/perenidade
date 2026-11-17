@@ -1,0 +1,26 @@
+{
+  "selo": "Cifrado para el grupo",
+  "explicaNucleo": "Solo quien es del núcleo lo lee: el texto se cifra en este aparato, y el servidor guarda solo lo cifrado.",
+  "explicaComunidade": "Solo quien es de la comunidad lo lee: el texto se cifra en este aparato, y el servidor guarda solo lo cifrado.",
+  "custosTitulo": "Qué cambia con el cifrado",
+  "custos": [
+    "La búsqueda encuentra este post solo en el aparato de quien es del grupo.",
+    "El aviso de post nuevo sale sin vista previa del texto.",
+    "Quien denuncia envía el fragmento en texto abierto, como en el chat.",
+    "Nunca sale al Fediverso."
+  ],
+  "semAgendar": "El post cifrado sale en el momento: no se puede programar, ponerle plazo para desaparecer ni ordenar las imágenes.",
+  "cifrando": "Cifrando en este aparato…",
+  "semChave": "Este aparato todavía está entrando al grupo. Intenta de nuevo en unos segundos.",
+  "suspeito": "No se puede escribir en este grupo ahora: la clave de alguien cambió",
+  "falha": "No se pudo cifrar ahora. No se publicó nada.",
+  "abrindo": "Abriendo en este aparato…",
+  "naoAbre": "No se puede abrir en este aparato",
+  "naoAbreAjuda": "Quien entró al grupo después del post, o lo abre en un aparato nuevo, lee lo que viene de ahí en adelante.",
+  "previa": "En la vista previa, nada se cifra ni se publica.",
+  "voz": {
+    "abrir": "Abrir la sala de voz",
+    "fechar": "Cerrar la sala de voz",
+    "carregando": "Cargando la sala…"
+  }
+}

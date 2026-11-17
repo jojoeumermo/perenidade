@@ -49,6 +49,13 @@ export function dataCurta(iso: string, lang: string): string {
   return new Intl.DateTimeFormat(lang === "pt" ? "pt-BR" : lang, { day: "2-digit", month: "2-digit", year: "numeric", timeZone: "America/Sao_Paulo" }).format(d);
 }
 
+/** Uma data como "8 de nov." (pt) ou o dia com o mês curto do idioma, como no resto da Alumia. Inválida: o texto como veio. */
+export function dataComMes(iso: string, lang: string): string {
+  const d = new Date(/^\d{4}-\d{2}-\d{2}$/.test(iso) ? `${iso}T12:00:00Z` : iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return new Intl.DateTimeFormat(lang === "pt" ? "pt-BR" : lang, { day: "numeric", month: "short", timeZone: "America/Sao_Paulo" }).format(d);
+}
+
 /** Quanto falta para o prazo, em dias ou horas (nulo se já passou). */
 export function faltaPara(iso: string, agora: Date = new Date()): { dias: number; horas: number } | null {
   const fim = new Date(iso).getTime();

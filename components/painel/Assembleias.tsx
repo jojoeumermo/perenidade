@@ -2,14 +2,16 @@
 "use client";
 
 import { CircleCheck, Lock, LockOpen, Plus, Square, Vote, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { can, type Me } from "@/lib/backend";
+import { votoPeloServidor } from "@/lib/rede/voto/cliente";
 import { NOMES_DOS_DEPARTAMENTOS } from "./Departamentos";
 import { Aviso, dataHora, useAcao, useLista } from "./comum";
 import { Area, Botao, CabecalhoDeSecao, Campo, Cartao, Esqueleto, Marca, Selecao, Selo, Vazio } from "./ui";
 
 // Assembleias e votações (supabase/install.sql, "Assembleias e votações"): a coordenação abre para a equipe toda; o
-// representante, para o departamento dele. Voto secreto de verdade e resultado só depois do fim.
+// representante, para o departamento dele. Voto secreto de verdade e resultado só depois do fim. O voto secreto vai pelo servidor
+// do site (app/api/alumia/voto/marca): o banco guarda a marca de quem votou (HMAC com o segredo do servidor), nunca a pessoa.
 
 interface Votacao {
   id: string;
@@ -46,12 +48,44 @@ export function Assembleias({ me }: { me: Me }) {
   const abre = can(me, "coordenacao") || representa.length > 0;
   const abertas = (lista.dados ?? []).filter((v) => !v.encerrada);
   const fechadas = (lista.dados ?? []).filter((v) => v.encerrada);
+  // No voto secreto o banco não sabe quem votou: o servidor confere a marca de cada votação aberta.
+  const [voteiSecretas, setVoteiSecretas] = useState<string[]>([]);
+  const [votando, setVotando] = useState(false);
+  const [avisoSecreto, setAvisoSecreto] = useState("");
+  const secretasAbertas = abertas.filter((v) => v.secreta && v.posso_votar && !v.votei).map((v) => v.id).join(",");
+  useEffect(() => {
+    if (!secretasAbertas) return;
+    let vivo = true;
+    votoPeloServidor<string[]>({ tipo: "equipe_ver", votacoes: secretasAbertas.split(",") }).then(
+      (ids) => vivo && setVoteiSecretas(ids),
+      () => undefined,
+    );
+    return () => {
+      vivo = false;
+    };
+  }, [secretasAbertas]);
+  async function votarSecreto(id: string, opcao: number) {
+    setVotando(true);
+    setAvisoSecreto("");
+    try {
+      await votoPeloServidor({ tipo: "equipe", votacao: id, opcao });
+      setVoteiSecretas((l) => [...l, id]);
+      setAvisoSecreto("Voto registrado. Obrigado por decidir junto.");
+      lista.recarregar();
+    } catch (e) {
+      const c = (e as { code?: string }).code;
+      if (c === "ja_votou") setVoteiSecretas((l) => [...l, id]);
+      setAvisoSecreto(c === "ja_votou" ? "Você já tinha votado nesta votação." : c === "encerrada" ? "Esta votação já foi encerrada." : "Não deu para registrar o voto agora. Tente de novo daqui a pouco.");
+    } finally {
+      setVotando(false);
+    }
+  }
 
   return (
     <div className="pn-tela">
       <div className="pn-tela-cabeca">
         <p className="max-w-2xl text-sm text-ink-soft">
-          Decisões da equipe por voto. No voto secreto, o banco guarda que você votou separado do voto, sem nada que ligue um ao outro. O resultado só aparece no fim, para ninguém ir atrás da maioria.
+          Decisões da equipe por voto. No voto secreto, o banco não guarda quem votou: guarda só uma marca embaralhada com um segredo que fica fora dele, para ninguém votar duas vezes, e o voto separado dela. O resultado só aparece no fim, para ninguém ir atrás da maioria.
         </p>
         {abre && !nova && (
           <Botao variante="principal" simbolo={Plus} onClick={() => setNova(true)}>
@@ -60,7 +94,7 @@ export function Assembleias({ me }: { me: Me }) {
         )}
       </div>
       {nova && <NovaVotacao coordena={can(me, "coordenacao")} representa={representa} fechar={() => setNova(false)} depois={lista.recarregar} />}
-      <Aviso texto={lista.erro || acao.aviso} />
+      <Aviso texto={lista.erro || acao.aviso || avisoSecreto} />
 
       <section aria-labelledby="abertas" className="space-y-3">
         <CabecalhoDeSecao id="abertas" titulo="Abertas" simbolo={Vote} />
@@ -86,7 +120,7 @@ export function Assembleias({ me }: { me: Me }) {
                 <p className="pn-ajuda mt-2 tabular-nums">
                   {v.votantes} de {v.aptos} já votaram · aberta por {v.criada_por || "a coordenação"}
                 </p>
-                {v.votei ? (
+                {v.votei || voteiSecretas.includes(v.id) ? (
                   <p className="mt-3">
                     <Selo tom="ok">
                       <CircleCheck aria-hidden className="h-3.5 w-3.5" />
@@ -104,7 +138,7 @@ export function Assembleias({ me }: { me: Me }) {
                         </label>
                       ))}
                     </div>
-                    <Botao className="mt-3" simbolo={Vote} disabled={escolhas[v.id] === undefined} carregando={acao.ocupado} onClick={() => void acao.agir("votar", { p_id: v.id, p_opcao: escolhas[v.id] }, "Voto registrado. Obrigado por decidir junto.")}>
+                    <Botao className="mt-3" simbolo={Vote} disabled={escolhas[v.id] === undefined} carregando={acao.ocupado || votando} onClick={() => void (v.secreta ? votarSecreto(v.id, escolhas[v.id]) : acao.agir("votar", { p_id: v.id, p_opcao: escolhas[v.id] }, "Voto registrado. Obrigado por decidir junto."))}>
                       Votar
                     </Botao>
                     <p className="pn-ajuda mt-1">O voto é final: não dá para mudar depois.</p>
@@ -156,6 +190,7 @@ export function Assembleias({ me }: { me: Me }) {
                         );
                       })}
                     </ul>
+                    {v.secreta && v.resultado === null && <p className="pn-ajuda mt-3">Voto secreto com menos de 3 votos: o resultado não aparece.</p>}
                   </Cartao>
                 </li>
               );

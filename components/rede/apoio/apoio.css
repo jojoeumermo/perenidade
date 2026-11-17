@@ -1,0 +1,79 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/* O apoio (onda 13): a vaquinha e a meta da petição no Mosaico da Arquibancada. Só tokens (claro e escuro), nenhuma cor literal. */
+
+[data-al="2"] .ap-vaquinha { display: grid; gap: 10px; padding-top: 10px; border-top: 2px dashed var(--al-superficie-2); }
+[data-al="2"] .ap-faixa {
+  justify-self: start; margin: 0; padding: 2px 10px; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--al-sobre-dourado); background: var(--al-dourado-fundo);
+  /* a faixa tecida: o fio vermelho embaixo */
+  box-shadow: inset 0 -3px 0 var(--al-vermelho); border-radius: 3px;
+}
+[data-al="2"] .ap-subtitulo { margin: 0 0 4px; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--al-texto-3); }
+
+/* A faixa de 20 ladrilhos até a meta. */
+[data-al="2"] .ap-meta { display: grid; gap: 6px; }
+[data-al="2"] .ap-ladrilhos {
+  display: grid; grid-template-columns: repeat(20, minmax(0, 1fr)); gap: 3px; padding: 6px; max-width: 520px;
+  border-radius: 8px; background: var(--al-mosaico-fundo); border: 2px solid var(--al-superficie-2);
+}
+[data-al="2"] .ap-ladrilhos span { aspect-ratio: 1; min-height: 10px; border-radius: 2px; background: var(--al-cartao-apagado); }
+[data-al="2"] .ap-ladrilhos span[data-acesa] { background: var(--al-dourado-fundo); }
+[data-al="2"] .ap-ladrilhos[data-chegou] { border-color: var(--al-dourado); }
+[data-al="2"] .ap-meta-numero { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; margin: 0; }
+[data-al="2"] .ap-frase { color: var(--al-texto-2); }
+[data-al="2"] .ap-numero { font-size: 1.6rem; line-height: 1.1; color: var(--al-texto); margin: 0 0.15em; }
+[data-al="2"] .ap-carimbo {
+  display: inline-block; padding: 1px 8px; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--al-vermelho-letra); border: 2px solid currentColor; border-radius: 4px; transform: rotate(-3deg);
+}
+[data-al="2"] .ap-informado { margin: 0; font-size: 0.85rem; color: var(--al-texto-3); overflow-wrap: anywhere; }
+[data-al="2"] .ap-vazio { margin: 0; font-size: 0.85rem; color: var(--al-texto-3); }
+
+/* A prestação de contas: o dia num carimbo, o texto ao lado. */
+[data-al="2"] .ap-contas-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+[data-al="2"] .ap-contas-lista li { display: grid; grid-template-columns: auto 1fr auto; gap: 4px 10px; align-items: start; }
+[data-al="2"] .ap-contas-lista p { margin: 0; font-size: 0.9rem; overflow-wrap: anywhere; }
+/* O link da nota numa linha própria, com alvo de 44 px (no fim da frase, colado, ficava miúdo). */
+[data-al="2"] .ap-nota-link { display: flex; align-items: center; width: fit-content; min-height: 44px; color: var(--al-texto); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+[data-al="2"] .ap-dia {
+  padding: 1px 6px; font-size: 0.85rem; white-space: nowrap; font-variant-numeric: tabular-nums;
+  border: 1.5px solid var(--al-texto-3); border-radius: 4px; color: var(--al-texto-2);
+}
+@media (max-width: 480px) {
+  [data-al="2"] .ap-contas-lista li { grid-template-columns: 1fr; }
+  [data-al="2"] .ap-dia { justify-self: start; }
+}
+
+[data-al="2"] .ap-denunciar { margin: 0; }
+[data-al="2"] .ap-denuncia { padding: 10px; border-radius: 10px; border: 1px solid var(--al-superficie-2); }
+[data-al="2"] .ap-botoes { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+/* A petição: a meta e o que só quem organiza vê. */
+[data-al="2"] .ap-meta-peticao { margin-top: 4px; }
+[data-al="2"] .ap-cuidar { display: grid; gap: 8px; margin-top: 8px; }
+[data-al="2"] .ap-detalhe > summary { cursor: pointer; font-weight: 600; min-height: 44px; display: flex; align-items: center; gap: 8px; list-style: none; }
+[data-al="2"] .ap-detalhe > summary::-webkit-details-marker { display: none; }
+[data-al="2"] .ap-detalhe > summary::before { content: "+"; font-weight: 800; color: var(--al-vermelho-letra); }
+[data-al="2"] .ap-detalhe[open] > summary::before { content: "−"; }
+[data-al="2"] .ap-detalhe[open] { display: grid; gap: 8px; }
+[data-al="2"] .ap-linha { display: grid; gap: 8px; }
+[data-al="2"] .ap-campo { display: grid; gap: 4px; max-width: 320px; }
+[data-al="2"] .ap-documento {
+  margin: 0; padding: 14px 16px; max-height: 360px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere;
+  font: 0.9rem/1.6 ui-serif, Georgia, serif; color: var(--al-texto); background: var(--al-fundo);
+  border: 1px solid var(--al-superficie-2); border-left: 4px solid var(--al-vermelho); border-radius: 6px;
+}
+[data-al="2"] .ap-documento:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+.ap-impressao { position: fixed; width: 0; height: 0; border: 0; visibility: hidden; }
+
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-parado]) [data-al="2"] .ap-ladrilhos span[data-acesa] { animation: ap-acende 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(var(--i, 0) * 25ms); }
+  :root:not([data-parado]) [data-al="2"] .ap-carimbo { animation: ap-carimba 0.45s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
+}
+@keyframes ap-acende { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
+@keyframes ap-carimba { from { opacity: 0; transform: rotate(-3deg) scale(1.6); } to { opacity: 1; transform: rotate(-3deg); } }
+
+@media (forced-colors: active) {
+  [data-al="2"] .ap-ladrilhos span { forced-color-adjust: none; border: 1px solid CanvasText; }
+  [data-al="2"] .ap-ladrilhos span[data-acesa] { background: Highlight; }
+}

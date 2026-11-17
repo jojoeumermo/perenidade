@@ -1,0 +1,102 @@
+{
+  "titulo": "Turmas de estudo",
+  "chamada": "Uma turma pequena, um combinado por semana. Cada pessoa marca a própria semana; a turma vê só o total, quando ao menos 3 marcaram e ao menos 3 ainda não.",
+  "entre": "As turmas de estudo são de quem está na Alumia. Entre na sua conta para começar uma turma ou entrar com um código.",
+  "tentar": "Tentar de novo",
+  "lado": "Começar ou entrar numa turma",
+  "minhas": {
+    "titulo": "Suas turmas",
+    "vazioTitulo": "Nenhuma turma ainda",
+    "vazio": "Comece uma turma e mande o código para quem estuda com você, ou entre com o código que alguém mandou."
+  },
+  "turma": {
+    "cuida": "Você cuida",
+    "pessoas": "{n} pessoas na turma",
+    "poucasPessoas": "Menos de 3 pessoas na turma",
+    "combinado": "Combinado da semana"
+  },
+  "semana": {
+    "titulo": "Semana de {dia}",
+    "total": "pessoas cumpriram até agora",
+    "poucos": "Sem número por enquanto. Ele aparece quando ao menos 3 marcaram e ao menos 3 ainda não, para ninguém descobrir quem foi.",
+    "marcar": "Fiz a desta semana",
+    "fiz": "Feito nesta semana",
+    "marcado": "Marcado. Só você sabe que foi você.",
+    "desmarcado": "Desmarcado.",
+    "soVoce": "Só você vê a sua marca. Tocou sem querer? Toque de novo para desmarcar.",
+    "ninguemVe": "Ninguém vê quem marcou nem quem não marcou: a turma vê só o total."
+  },
+  "fileira": {
+    "titulo": "As últimas 8 semanas",
+    "acesa": "Semana de {dia}: {n} pessoas cumpriram.",
+    "apagada": "Semana de {dia}: sem número.",
+    "regra": "Cada ladrilho é uma semana. Acende com o número quando ao menos 3 pessoas cumprem o combinado e ao menos 3 não; fora disso, fica apagado e sem número."
+  },
+  "convite": {
+    "titulo": "Código da turma",
+    "copiar": "Copiar o convite",
+    "copiado": "Convite copiado. Mande só para quem você quer na turma.",
+    "copieVoce": "Não deu para copiar. O convite é: {endereco}",
+    "novo": "Trocar o código",
+    "novoFeito": "Código novo. O antigo deixou de valer.",
+    "dica": "Quem tem o código entra. A turma cabe até 12 pessoas."
+  },
+  "editar": {
+    "abrir": "Trocar o combinado",
+    "titulo": "Trocar o nome e o combinado",
+    "aviso": "Quem está na turma recebe um aviso do combinado novo.",
+    "salvar": "Salvar",
+    "cancelar": "Cancelar",
+    "feito": "Turma atualizada."
+  },
+  "sair": {
+    "botao": "Sair da turma",
+    "titulo": "Sair de “{nome}”?",
+    "texto": "A sua marca desta semana sai junto. Para voltar, é preciso o código de novo.",
+    "textoCuida": "A sua marca desta semana sai junto. Se ninguém mais cuidar da turma, quem está nela há mais tempo passa a cuidar. Se você for a última pessoa, a turma acaba.",
+    "sim": "Sair",
+    "nao": "Ficar",
+    "feito": "Você saiu de “{nome}”."
+  },
+  "entrar": {
+    "titulo": "Entrar com um código",
+    "texto": "Cole o código ou o convite que alguém da turma mandou.",
+    "campo": "Código da turma",
+    "botao": "Entrar na turma",
+    "feito": "Você entrou em “{nome}”."
+  },
+  "comecar": {
+    "titulo": "Começar uma turma",
+    "texto": "Dê um nome e escreva o combinado da semana. Depois é só mandar o código.",
+    "botao": "Começar a turma",
+    "feito": "Turma “{nome}” começada. Mande o código para quem estuda com você."
+  },
+  "campos": {
+    "nome": "Nome da turma",
+    "nomeExemplo": "Redação de sábado",
+    "meta": "Combinado da semana"
+  },
+  "regra": {
+    "titulo": "Como a turma conta",
+    "itens": [
+      "Cada pessoa marca só a própria semana, e pode desmarcar.",
+      "A turma vê o total da semana, e só quando chega a 3. Abaixo disso, ninguém vê número.",
+      "Ninguém vê quem marcou, quem não marcou, nem quem está na turma: só quantas pessoas, a partir de 3.",
+      "Sem placar, sem sequência, sem comparação entre turmas.",
+      "Quando a semana fecha, sobra só o número da turma: a marca de cada pessoa é apagada."
+    ]
+  },
+  "erros": {
+    "nao_encontrado": "Não achamos turma com esse código. Confira com quem mandou.",
+    "turma_cheia": "Essa turma já tem 12 pessoas.",
+    "limite_de_turmas": "Você já está em 5 turmas. Saia de uma para entrar em outra.",
+    "sem_permissao": "Só quem cuida da turma pode fazer isso.",
+    "muitos_pedidos": "Muitas tentativas seguidas. Espere um pouco e tente de novo.",
+    "invalido:nome": "O nome precisa ter de 3 a 60 letras.",
+    "invalido:meta": "O combinado precisa ter de 3 a 120 letras.",
+    "entre_primeiro": "Entre na sua conta para continuar.",
+    "alumia_entrada": "A sua conta ainda espera a aprovação da Alumia.",
+    "sem_servico": "A Alumia está fora do ar agora. Tente daqui a pouco.",
+    "generico": "Não deu certo agora. Tente de novo."
+  }
+}

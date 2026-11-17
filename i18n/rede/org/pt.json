@@ -229,7 +229,7 @@
     "quemVota": "Só quem está num núcleo vota: {nucleos}.",
     "quorum": "Quórum: {n} pessoas.",
     "quorumOk": "Quórum atingido.",
-    "quorumNao": "Quórum não atingido: o resultado não obriga.",
+    "quorumNao": "Quórum não atingido: o resultado não é divulgado.",
     "votantes": "{pessoas} votaram.",
     "pessoas": {
       "exato": "{n} pessoas",
@@ -242,10 +242,11 @@
     "descer": "Descer {opcao}",
     "votar": "Votar",
     "secreto": "O voto é secreto: nem a organização vê o que você votou. Depois de votar não dá para trocar.",
-    "votei": "Seu voto foi registrado. É secreto: só o total aparece quando a consulta fechar.",
+    "votei": "Seu voto foi registrado; o resultado sai no fechamento.",
     "naoPosso": "Só quem está num núcleo desta organização vota.",
     "verNucleos": "Ver os núcleos",
     "resultadoDepois": "O resultado sai para todo mundo quando a consulta fechar.",
+    "semResultado": "Sem resultado: ele só aparece com o quórum atingido e com 3 votos ou mais.",
     "resultado": "Resultado",
     "barra": "{opcao}: {p}%",
     "vazio": "Nenhuma consulta por enquanto."

@@ -77,13 +77,15 @@
   text-transform: uppercase; transform: rotate(-5deg); box-shadow: 0 0 0 3px rgba(15, 14, 13, 0.35); pointer-events: none;
   animation: pf-carimba 0.55s var(--pf-mola) 0.25s both;
 }
-[data-al="2"] .pf-carimbo:is([data-tipo="ato"], [data-tipo="greve"]) { color: #ff7a6b; }
+[data-al="2"] .pf-carimbo:is([data-tipo="ato"], [data-tipo="greve"], [data-tipo="na_luta"]) { color: #ff7a6b; }
 @keyframes pf-carimba { from { opacity: 0; transform: rotate(-14deg) scale(1.6); } to { opacity: 1; transform: rotate(-5deg) scale(1); } }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .pf-carimbo { background: var(--al-fundo); color: var(--al-texto); box-shadow: none; }
 [data-al="2"] .pf-status { background: color-mix(in srgb, var(--al-dourado) 15%, transparent); color: var(--al-texto); }
 [data-al="2"] .pf-status-tipo { color: var(--al-dourado); }
-[data-al="2"] .pf-status-ponto { width: 8px; height: 8px; border-radius: 50%; background: var(--al-dourado); animation: pf-pulso 2.2s ease-in-out infinite; }
+[data-al="2"] .pf-status-ponto { width: 8px; height: 8px; border-radius: 50%; background: var(--al-dourado-fundo); animation: pf-pulso 2.2s ease-in-out infinite; }
 [data-al="2"] .pf-status-ate { font-weight: 500; color: var(--al-texto-3); }
+/* Onda 12: o status que só a roda de confiança vê (a dona é lembrada disso); "na luta" no vermelho do ato e da greve. */
+[data-al="2"] .pf-status-roda { margin: 0; font-size: 0.82rem; color: var(--al-texto-3); }
 [data-al="2"] .pf-tocando { background: color-mix(in srgb, var(--pf-acento) 16%, transparent); color: var(--al-texto); }
 [data-al="2"] .pf-tocando-texto { overflow-wrap: anywhere; }
 [data-al="2"] .pf-tocando-link { color: var(--pf-ler); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
@@ -280,4 +282,10 @@
   [data-al="2"] .pf-campo dd { font-size: 0.92rem; }
   [data-al="2"] .pf-cabeca { gap: 10px; }
   [data-al="2"] .pf-carimbo { top: 20px; right: 24px; }
+}
+
+/* Onda 14 (celular): no toque, o link de cada campo do perfil e o "ouvir em…" do tocando agora ganham área de toque de 44 px de
+   altura, sem mudar o desenho. */
+@media (pointer: coarse), (max-width: 1023px) {
+  [data-al="2"] :is(.pf-campo dd > a, .pf-tocando-link) { display: inline-block; padding-block: 12px; margin-block: -12px; }
 }

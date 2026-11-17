@@ -151,7 +151,8 @@ for (const m of css.matchAll(/([^{}]+)\{/g)) {
   seletores.push(atual.trim());
 }
 // ":root:has([data-al=\"2\"] …) …" também vale: só casa quando a tela nova está na página (os flutuantes sobem por causa dela).
-const fora = seletores.filter((sel) => !/^(:root(\[[^\]]+\]|:is\([^)]*\))\s+)?\[data-al="2"\]/.test(sel) && !/^:root:has\(\[data-al="2"\]/.test(sel));
+// ":root:not([data-eink]) …" também: a regra vale fora do e-ink (a capa no tema claro).
+const fora = seletores.filter((sel) => !/^(:root(\[[^\]]+\]|:is\([^)]*\)|:not\(\[[^\]]+\]\))\s+)?\[data-al="2"\]/.test(sel) && !/^:root:has\(\[data-al="2"\]/.test(sel));
 ok(`todos os ${seletores.length} seletores da folha estão dentro de [data-al="2"] (fora: ${fora.slice(0, 3).join(" | ")})`, fora.length === 0 && seletores.length > 50);
 ok("cores só por token (nenhum hex solto fora da capa e do contraste)", !/color:\s*#(?!0f0e0d|f3efe6|000\b|fff\b)/i.test(css));
 for (const f of ["descoberta/Buscar", "descoberta/Explorar", "descoberta/Tag", "descoberta/ListaOrdenada", "avisos/Tela", "alumia/Salvos", "comunidades/Lista", "comunidades/TelaAula", "comunidades/Propor"]) {

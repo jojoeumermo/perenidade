@@ -25,13 +25,22 @@ import { useTextosMod } from "../moderacao/base";
 import { FormularioDeDenuncia } from "../moderacao/FormularioDeDenuncia";
 import { StoriesDaComunidade } from "../stories/encaixe";
 import { WikiDaComunidade } from "./WikiDaComunidade";
+import { FORMA_DO_GRUPO } from "../publicar/restrito/grupo";
+import { AparelhoProntoParaOGrupo } from "../publicar/restrito/NaTela";
 import { CartaoDeAula, Confirmar, FaixaDaPrevia, IconeAlfinete, IconeMais, IconeVoltar, PostCompacto, previa, Torradas, useTextosAlumia3, useTorrada } from "../conversa/base3";
 import { MOLA_PULO, pular, semMovimento, useRegua } from "../conversa/movimento";
 
 // As ferramentas da moderação só chegam ao navegador de quem modera (e só quando abre a aba Sobre).
 const Moderar = dynamic(() => import("./Moderar"), { ssr: false });
+// P22: a sala de voz cifrada da comunidade fechada, fechada até a pessoa abrir (o código da sala só é baixado então).
+const SalaDoGrupo = dynamic(() => import("../voz/SalaDoGrupo").then((m) => m.SalaDoGrupo), { ssr: false });
+// Onda 9 (9B): as regras do filtro automático e do modo lento escritas na aba Sobre, e as perguntas para entrar numa comunidade
+// restrita que pergunta (só chegam quando a comunidade pede).
+const RegrasDoLugar = dynamic(() => import("../moderacao/RegrasDoLugar"), { ssr: false });
+const PerguntasParaEntrar = dynamic(() => import("../moderacao/PerguntasParaEntrar").then((m) => m.PerguntasParaEntrar), { ssr: false });
 
-type AbaDaComunidade = "posts" | "atos" | "aulas" | "wiki" | "perguntas" | "sobre";
+// As abas da onda 10 (Fórum, Decisões, Acervo, Chegada, Estrutura) chegam só pelo encaixe abasDaComunidade, na ordem dele.
+type AbaDaComunidade = "posts" | "atos" | "aulas" | "wiki" | "perguntas" | "sobre" | "forum" | "decisoes" | "acervo" | "chegada" | "estrutura";
 
 /**
  * A página da comunidade na Alumia nova (prancha celular-comunidade; PLANO-ALUMIA §3 e §8 F3): capa na cor da comunidade com
@@ -60,6 +69,9 @@ export function PaginaDaComunidadeAlumia({
   const t = useTextosAlumia3(lang);
   const [estado, setEstado] = useState<{ slug: string; dado: PaginaDaComunidade | null; erro: string } | null>(null);
   const [versao, setVersao] = useState(0);
+  // O que vai no lugar do "Escrever aqui" quando um encaixe do alto (a comunidade de avisos) diz que a pessoa não abre post ali.
+  const [escreverBarrado, setEscreverBarrado] = useState<{ slug: string; motivo: string } | null>(null);
+  const aoBarrarEscrever = useCallback((motivo: string | null) => setEscreverBarrado(motivo ? { slug, motivo } : null), [slug]);
   // /alumia/c/<slug>/wiki abre direto na aba Wiki (o endereço próprio da wiki, para compartilhar a cartilha).
   const [aba, setAbaCrua] = useState<AbaDaComunidade>(() => (typeof window !== "undefined" && /\/wiki\/?$/.test(window.location.pathname) ? "wiki" : "posts"));
   const tb = useTextosB1(lang);
@@ -84,6 +96,8 @@ export function PaginaDaComunidadeAlumia({
   const [ocupado, setOcupado] = useState(false);
   const [menu, setMenu] = useState(false);
   const [perguntaSair, setPerguntaSair] = useState(false);
+  // A comunidade restrita faz perguntas: o pedido só sai com as respostas (o banco recusa com "responda_perguntas").
+  const [responder, setResponder] = useState(false);
   // A capa entra subindo só na primeira visita desta comunidade na sessão: voltar a ela (ou trocar de aba) não refaz a cascata.
   const [primeira] = useState(() => {
     try {
@@ -177,11 +191,16 @@ export function PaginaDaComunidadeAlumia({
   const semana = postsDaSemana(dado.posts_7d);
   const podeEntrar = situacao.logado && situacao.membro && !comunidade.banido;
   const podeEscrever = podeEntrar && (situacaoAqui === "membro" || comunidade.tipo === "aberta");
+  const motivoSemEscrever = escreverBarrado?.slug === slug ? escreverBarrado.motivo : null;
   const soConvite = comunidade.tipo === "fechada" && situacaoAqui !== "membro";
+  // O grupo da chave da comunidade fechada, só para quem é membro dela (P21, P22).
+  const grupoFechado = comunidade.tipo === "fechada" && situacaoAqui === "membro" && podeEntrar && FORMA_DO_GRUPO.test(`comunidade:${comunidade.slug}`) ? `comunidade:${comunidade.slug}` : null;
   // Por que não dá para entrar, em texto visível (o title não aparece no celular e um botão disabled não recebe foco).
   const motivo = !situacao.logado || !situacao.membro ? t.comunidade.entreNaAlumia : comunidade.banido ? s.comunidade.banido : soConvite ? t.comunidade.soConvite : null;
   const bloqueado = Boolean(motivo);
   const abaDosAtos = ENCAIXES.abasDaComunidade.find((a) => a.chave === "atos");
+  // As outras abas encaixadas (onda 10), na ordem de ENCAIXES: entram logo depois de Posts, cada uma com o seu painel.
+  const abasEncaixadas = ENCAIXES.abasDaComunidade.filter((a) => a.chave !== "atos");
 
   async function entrarOuSair() {
     if (ocupado || !t || bloqueado) return;
@@ -203,7 +222,8 @@ export function PaginaDaComunidadeAlumia({
       else pular(entrarRef.current, 1.06);
       avisar({ texto: r.situacao === "membro" ? t.comunidade.entrou : r.situacao === "pendente" ? t.comunidade.pediu : t.comunidade.saiu });
     } catch (e) {
-      aoErro(e);
+      if (!sair && codigoDoErro(e) === "responda_perguntas") setResponder(true);
+      else aoErro(e);
     } finally {
       setOcupado(false);
     }
@@ -235,6 +255,7 @@ export function PaginaDaComunidadeAlumia({
   const rotulos = [...new Set([comunidade.tipo === "aberta" ? t.comunidade.entrar : comunidade.tipo === "restrita" ? t.comunidade.pedir : t.comunidade.fechadaSo, t.comunidade.participa, ...(comunidade.tipo === "aberta" ? [] : [t.comunidade.pendente]), rotuloEntrar])];
   const abas: [AbaDaComunidade, string][] = [
     ["posts", t.comunidade.posts],
+    ...(abasEncaixadas.map((a) => [a.chave, a.rotulo({ lang, s, situacao })]) as [AbaDaComunidade, string][]),
     ["atos", t.comunidade.atos],
     ["aulas", t.comunidade.aulas],
     ...(tb ? ([["wiki", tb.wiki.aba], ["perguntas", tb.perguntas.aba]] as [AbaDaComunidade, string][]) : []),
@@ -274,9 +295,12 @@ export function PaginaDaComunidadeAlumia({
           >
             <button type="button" onClick={() => void copiarLink()}>{t.comunidade.copiarLink}</button>
             <button type="button" onClick={verRegras}>{t.comunidade.verRegras}</button>
-            {podeEscrever && (
-              <button type="button" onClick={() => (setMenu(false), aoEscrever())}>{t.comunidade.escreverAqui}</button>
-            )}
+            {podeEscrever &&
+              (motivoSemEscrever ? (
+                <p className="al3-menu-nota" role="note">{motivoSemEscrever}</p>
+              ) : (
+                <button type="button" onClick={() => (setMenu(false), aoEscrever())}>{t.comunidade.escreverAqui}</button>
+              ))}
             {dado.modero && (
               <button type="button" onClick={() => (setMenu(false), setAba("sobre"))}>{t.comunidade.cuidar}</button>
             )}
@@ -321,6 +345,21 @@ export function PaginaDaComunidadeAlumia({
           )}
         </div>
         {motivo && <p className="al3-capa-aviso" id={idDoMotivo}>{motivo}</p>}
+        {responder && !previa() && (
+          <div className="al3-secao">
+            <PerguntasParaEntrar
+              slug={slug}
+              lang={lang}
+              s={s}
+              aoPedir={(nova) => {
+                setResponder(false);
+                setMinha({ slug, valor: nova });
+                avisar({ texto: nova === "membro" ? t.comunidade.entrou : t.comunidade.pediu });
+              }}
+              aoCancelar={() => setResponder(false)}
+            />
+          </div>
+        )}
         {dado.modero && Boolean(dado.pedidos) && <p className="al3-capa-aviso">{preencher(t.comunidade.pedidos, { n: dado.pedidos ?? 0 })}</p>}
       </header>
       <Torradas estado={torradas} />
@@ -334,6 +373,15 @@ export function PaginaDaComunidadeAlumia({
         aoFechar={() => setPerguntaSair(false)}
         voltarPara={entrarRef}
       />
+
+      {/* O alto da comunidade pelos encaixes (o carimbo da comunidade de avisos, da 10C): sem nada a dizer, não desenha nada. */}
+      {ENCAIXES.altoDaComunidade.length > 0 && (
+        <div className="al3-alto">
+          {ENCAIXES.altoDaComunidade.map((Peca, i) => (
+            <Peca key={i} lang={lang} s={s} situacao={situacao} slug={slug} aoBarrarEscrever={aoBarrarEscrever} />
+          ))}
+        </div>
+      )}
 
       {/* Os stories no ar que falam desta comunidade (só os que a pessoa pode ver); sem nenhum, não aparece nada. */}
       <StoriesDaComunidade lang={lang} situacao={situacao} slug={comunidade.slug} />
@@ -375,6 +423,13 @@ export function PaginaDaComunidadeAlumia({
         <div role="tabpanel" id="al3-painel-posts" aria-labelledby="al3-aba-posts" hidden={aba !== "posts"} className="al3-painel">
           {aba === "posts" && (
             <>
+              {/* Comunidade fechada, para quem é membro: os posts curtos com público "comunidade" vão cifrados (P21) e há sala de voz (P22). */}
+              {grupoFechado && (
+                <>
+                  <AparelhoProntoParaOGrupo previa={previa()} />
+                  <SalaDoGrupo lang={lang} grupo={grupoFechado} previa={previa()} />
+                </>
+              )}
               {dado.fixados.map((p) => (
                 <section key={p.id} className="al3-fixado" aria-label={t.comunidade.fixado}>
                   <p className="al3-fixado-rotulo">
@@ -382,7 +437,7 @@ export function PaginaDaComunidadeAlumia({
                     {t.comunidade.fixado}
                   </p>
                   <h2>
-                    <Link href={enderecos.post(lang, p.id)}>{p.titulo || p.texto.slice(0, 90)}</Link>
+                    <Link href={enderecos.post(lang, p.id)}>{p.titulo || p.texto.slice(0, 90) || t.comunidade.fixado}</Link>
                   </h2>
                   {p.titulo && <p className="al3-fixado-texto">{p.texto}</p>}
                 </section>
@@ -391,6 +446,11 @@ export function PaginaDaComunidadeAlumia({
             </>
           )}
         </div>
+        {abasEncaixadas.map((a) => (
+          <div key={a.chave} role="tabpanel" id={`al3-painel-${a.chave}`} aria-labelledby={`al3-aba-${a.chave}`} hidden={aba !== a.chave} className="al3-painel">
+            {aba === a.chave && <a.Componente lang={lang} s={s} situacao={situacao} slug={slug} />}
+          </div>
+        ))}
         <div role="tabpanel" id="al3-painel-atos" aria-labelledby="al3-aba-atos" hidden={aba !== "atos"} className="al3-painel">
           {aba === "atos" &&
             (abaDosAtos ? (
@@ -450,6 +510,7 @@ export function PaginaDaComunidadeAlumia({
                   ))}
                 </ol>
               </section>
+              {!previa() && <RegrasDoLugar slug={comunidade.slug} lang={lang} />}
               <section className="al3-secao">
                 <h2 className="al3-cond">{t.comunidade.tipo}</h2>
                 <p className="al3-cinza-2">{comunidade.tipo === "aberta" ? sc.tipo.aberta : comunidade.tipo === "restrita" ? sc.tipo.restrita : sc.tipo.fechada}</p>

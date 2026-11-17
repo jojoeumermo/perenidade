@@ -15,7 +15,9 @@ export const DESTINO_NEUTRO = "https://www.google.com/search?q=previs%C3%A3o+do+
 /** Os caches das vozes naturais: arquivos de modelo de voz, iguais para todo mundo, que não revelam nada. */
 const DE_VOZ = /^lucia-voz/;
 /** As bases conhecidas, para os navegadores que não sabem listar as bases (indexedDB.databases). */
-export const BASES_CONHECIDAS = ["lucia-busca", "lucia-sigilo", "lucia-explicacoes", "lucia-alumia-chat"];
+// As da Alumia: o chat (com o histórico guardado no aparelho) e os pares dos grupos cifrados (pedido P16). As lojas da biblioteca do
+// chat têm o id da conta no nome ("lucia-alumia-olm-…"): saem pela lista quando o navegador a dá, e pela limpeza do chat registrada.
+export const BASES_CONHECIDAS = ["lucia-busca", "lucia-sigilo", "lucia-explicacoes", "lucia-alumia-chat", "lucia-alumia-historico", "lucia-alumia-grupos"];
 
 type Sessao = Pick<Storage, "getItem" | "setItem" | "removeItem">;
 
@@ -121,20 +123,58 @@ async function apagarBases() {
 }
 
 /**
+ * Limpezas extras que outras partes do site registram enquanto estão abertas nesta página (a Alumia registra as do "Sair rápido"
+ * dela: o chaveiro do chat, o modo ato, os rascunhos de story). A saída do site
+ * (três Esc) roda todas junto com o resto, dentro do mesmo teto de tempo. Registrar devolve como tirar o registro.
+ */
+const limpezasExtras = new Set<() => void | Promise<void>>();
+export function registrarLimpezaDaSaida(limpar: () => void | Promise<void>): () => void {
+  limpezasExtras.add(limpar);
+  return () => {
+    limpezasExtras.delete(limpar);
+  };
+}
+async function rodarLimpezasExtras() {
+  await Promise.allSettled([...limpezasExtras].map(async (limpar) => limpar()));
+}
+
+/**
  * Encerra a sessão da conta no servidor, não só no aparelho: quem copiou o token de renovação antes (ou quem pegar o
  * aparelho e restaurar uma cópia do armazenamento) não consegue mais usá-lo. Lê o token de acesso guardado e chama a
  * saída do Supabase só para esta sessão, com keepalive, para o pedido sair mesmo com a troca de página logo depois.
+ * Precisa rodar ANTES de apagar as chaves (é delas que sai o token). Nunca lança. O "Sair rápido" da Alumia usa a mesma
+ * função (lib/rede/saida.ts). `armazenamento`: onde está a sessão (o localStorage, ou um falso nos testes). Devolve se o
+ * pedido foi feito.
  */
-function revogarSessao() {
+export function revogarSessao(armazenamento?: Pick<Storage, "getItem"> | null): boolean {
   try {
     const url = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\/$/, "");
     const chave = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
-    const guardada = globalThis.localStorage?.getItem("lucia:sessao");
+    const guardada = (armazenamento ?? globalThis.localStorage)?.getItem("lucia:sessao");
     const token = guardada ? (JSON.parse(guardada) as { access_token?: unknown }).access_token : null;
-    if (!url || !chave || typeof token !== "string") return;
+    if (!url || !chave || typeof token !== "string") return false;
     void fetch(`${url}/auth/v1/logout?scope=local`, { method: "POST", keepalive: true, headers: { apikey: chave, Authorization: `Bearer ${token}` } }).catch(() => {});
+    return true;
   } catch {
     // sem sessão guardada ou sem rede: a sessão local sai do mesmo jeito
+    return false;
+  }
+}
+
+/** Quanto a saída espera pela limpeza do chat antes de seguir para as bases. */
+export const TETO_DO_CHAT_MS = 350;
+
+/**
+ * A limpeza do chat privado da Alumia (lib/rede/chat/gaveta.ts), importada só na hora da saída: o resto do site não carrega
+ * nada do chat. Liga a trava do chat nesta aba, avisa as OUTRAS abas (que apagam a memória delas na hora: chaves de conversa,
+ * mensagens abertas) e apaga o banco do chat, o histórico e as lojas da biblioteca, mesmo sem a casca da Alumia montada.
+ * Nunca lança.
+ */
+export async function limparOChat(carregar: () => Promise<{ apagarTudoDoChat: (limiteMs?: number) => Promise<void> }> = () => import("./rede/chat/gaveta")): Promise<void> {
+  try {
+    await (await carregar()).apagarTudoDoChat(300);
+  } catch {
+    // sem o módulo (ou sem IndexedDB): as bases são apagadas logo depois do mesmo jeito
   }
 }
 
@@ -150,6 +190,30 @@ async function apagarCaches() {
 }
 
 /**
+ * O miolo da saída rápida, sem trocar de página: encerra a sessão da conta, apaga as chaves "lucia*", as bases e os caches do site
+ * e roda as limpezas registradas, esperando no máximo `limiteMs`. A senha de pânico da Alumia usa isto para tirar a conta real do
+ * aparelho antes de abrir a conta isca (components/rede/seguranca/encaixe-da-entrada.ts).
+ */
+export async function apagarDoAparelho(limiteMs = 700) {
+  revogarSessao();
+  try {
+    if (globalThis.localStorage) apagarChaves(localStorage);
+  } catch {
+    // bloqueado
+  }
+  try {
+    if (globalThis.sessionStorage) apagarChaves(sessionStorage);
+  } catch {
+    // bloqueado
+  }
+  // O chat privado da Alumia ANTES das bases (e não em paralelo com elas): a trava do chat liga e as outras abas são avisadas
+  // antes de o banco sumir por baixo delas. A limpeza do chat tem teto próprio (contando baixar o módulo): passou disso, as
+  // bases são apagadas do mesmo jeito. Tudo dentro do teto da saída: o que ficar pela metade o navegador termina sozinho.
+  const bases = Promise.race([limparOChat(), new Promise((resolve) => setTimeout(resolve, TETO_DO_CHAT_MS))]).then(apagarBases);
+  await Promise.race([Promise.all([bases, apagarCaches(), rodarLimpezasExtras()]), new Promise((resolve) => setTimeout(resolve, limiteMs))]);
+}
+
+/**
  * A saída rápida: esconde a página na hora, apaga o que o site guardou neste aparelho e troca a página por uma de fora,
  * sem mandar de onde veio (nem a origem). A troca usa location.replace: o "Voltar" não volta para esta página.
  * Espera no máximo 700 ms pelas bases e pelos caches; o que ficar pela metade o navegador termina sozinho.
@@ -162,18 +226,7 @@ export async function sairRapido(destino = DESTINO_NEUTRO) {
   } catch {
     // segue
   }
-  revogarSessao();
-  try {
-    if (globalThis.localStorage) apagarChaves(localStorage);
-  } catch {
-    // bloqueado
-  }
-  try {
-    if (globalThis.sessionStorage) apagarChaves(sessionStorage);
-  } catch {
-    // bloqueado
-  }
-  await Promise.race([Promise.all([apagarBases(), apagarCaches()]), new Promise((resolve) => setTimeout(resolve, 700))]);
+  await apagarDoAparelho();
   try {
     document.querySelectorAll('meta[name="referrer"]').forEach((m) => m.remove());
     const meta = document.createElement("meta");

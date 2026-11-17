@@ -1,7 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// Os dados de EXEMPLO da cara nova da Alumia (F1), tirados das pranchas (docs/plano-2026-11/alumia-pranchas: computador-inicio,
-// celular-inicio). Só aparecem com NEXT_PUBLIC_ALUMIA_PREVIA=sim (previaLigada, ./alumia2.ts), para conferir as telas sem banco;
+// Os dados de EXEMPLO da cara nova da Alumia (F1), tirados da arte da Alumia. Só aparecem com NEXT_PUBLIC_ALUMIA_PREVIA=sim (previaLigada, ./alumia2.ts), para conferir as telas sem banco;
 // nunca em produção e nunca misturados com post de verdade. São personagens inventados das pranchas, com codinome (nunca nome
 // civil, INVENTARIO §1) e sem nenhum número de pessoa abaixo de 3. Sem os atalhos "@/" de propósito (roda no Node nos testes).
 import type { EnqueteDoPost } from "../tipos-publicar";
@@ -101,18 +100,22 @@ export function postsDeExemplo(agora: number = Date.now()): Post[] {
       apoiei: true,
     },
     {
-      ...base("exemplo-tiao", agora, 34),
+      // P8: o morador da arte que posta de mastodon.social é gente de FORA e só chega pela linha de fora, no cartão de fora de verdade
+      // (lib/rede/fediverso/tela/exemplos.ts). O post daqui da ocupação é de uma autora daqui, com outro texto (sem repetir o dele).
+      ...base("exemplo-ocupacao", agora, 34),
       comunidade: "moradia-zona-leste",
       texto:
-        "A ocupação Esperança recebeu ordem de despejo para segunda. São 140 famílias. A Defensoria entrou com recurso hoje; precisamos de gente na porta às 6h, e de quem saiba filmar com o celular na horizontal.",
-      autor: { id: "exemplo-tiao", codinome: "Tião do Morro", handle: "tiao@mastodon.social", perfil: true, equipe: false },
+        "Vigília na porta da ocupação Esperança: segunda, a partir das 5h30. A Defensoria pediu a suspensão do despejo e a resposta sai até sexta. Quem puder, traga café e o celular carregado para registrar tudo na horizontal.",
+      autor: { id: "exemplo-neide", codinome: "Neide da Leste", handle: "neidedaleste", perfil: true, equipe: false },
       respostas: 27,
+      // Onda 9 (9D): o chamado some sozinho em 7 dias (o selo "Some em…" do cartão).
+      expira_em: new Date(agora + 6 * 86_400_000 + 20 * 3_600_000).toISOString(),
     },
     {
       ...base("exemplo-lia", agora, 60),
       comunidade: "marxismo",
       texto:
-        "Fiz a aula de mais-valia e fiquei pensando no meu turno de entrega: 9 horas na rua, e a taxa de cada corrida cai toda semana. Alguém já calculou quanto do valor da corrida fica com o app?",
+        "Fiz a aula de mais-valia e fiquei pensando no meu turno de entrega: 9 horas na rua, e a taxa de cada corrida cai toda semana. Alguém já calculou quanto do valor da corrida fica com o app? Achei este levantamento: https://example.org/entregadores-2026",
       autor: { id: "exemplo-lia", codinome: "Lia Quilombo", handle: "liaquilombo", perfil: true, equipe: false },
       cita: { tipo: "aula", caminho: "/escola/marxismo/o-que-e-mais-valia", titulo: "O que é mais-valia" },
       respostas: 31,

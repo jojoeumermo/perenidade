@@ -356,7 +356,7 @@ export function AcendaUmLampiao({ lang, handle, criar, s }: { lang: string; hand
     <section className="al-perfil-bloco lampiao" aria-labelledby={`${id}-lampiao`} data-aceso={aceso ? "" : undefined}>
       <div className="lampiao-topo">
         <span className="lampiao-luz" aria-hidden>
-          <Lampiao tamanho={40} />
+          <Lampiao tamanho={50} />
         </span>
         <div>
           <h2 id={`${id}-lampiao`} className="al-cond">{tl.titulo}</h2>

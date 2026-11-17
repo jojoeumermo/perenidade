@@ -55,6 +55,8 @@
     "semPermissao": "没有使用麦克风的权限。",
     "ouvir": "播放音频（{s} 秒）",
     "carregando": "加载中…",
+    "pausar": "暂停",
+    "posicao": "音频进度",
     "falha": "无法加载音频。"
   },
   "previa": {
@@ -124,6 +126,8 @@
     "invalido_responde_quem": "请检查谁可以回复。",
     "ja_votou": "你已在此投票中投过票。",
     "encerrada": "此投票已结束。",
-    "dado_pessoal": "请从文字中删除 CPF、电话、邮箱或带门牌号的地址：个人信息不能发到 Alumia 上。"
+    "dado_pessoal": "请从文字中删除 CPF、电话、邮箱或带门牌号的地址：个人信息不能发到 Alumia 上。",
+    "protegido": "你要回复或引用的人开启了保护模式：目前只有对方关注的人可以回复、提及和引用。",
+    "citacao_solta": "对方已将其帖子从你的引用中解除关联。你不能再引用该帖子。"
   }
 }

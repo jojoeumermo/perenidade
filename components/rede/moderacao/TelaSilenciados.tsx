@@ -10,7 +10,9 @@ import { redeMod } from "@/lib/rede/cliente-moderacao";
 import { preencher } from "@/lib/rede/preencher";
 import { gravarSilenciosLocais, lerSilenciosLocais, type SilencioLocal } from "@/lib/rede/silenciar-local";
 import type { Silenciado } from "@/lib/rede/tipos-moderacao";
+import type { PrazoDaSoneca } from "@/lib/rede/comunidade-moderacao";
 import { dataCurta, estilo, mensagemDeErro, useTextosMod } from "./base";
+import { EscolhaDoPrazo, fraseDaSoneca } from "./Soneca";
 
 function armazem(): Storage | null {
   try {
@@ -20,7 +22,10 @@ function armazem(): Storage | null {
   }
 }
 
-/** "O que eu silenciei" (/alumia/silenciados): a lista da conta (no servidor) e a deste aparelho; dá para desfazer e para silenciar uma palavra. */
+/**
+ * "O que eu silenciei" (/alumia/silenciados): a lista da conta (no servidor) e a deste aparelho; dá para desfazer, para silenciar
+ * uma palavra e para pôr uma comunidade em soneca com prazo (1 dia, 1 semana, 1 mês ou até desfazer).
+ */
 export default function TelaSilenciados({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const sm = useTextosMod(lang);
   const [conta, setConta] = useState<Silenciado[] | null>(null);
@@ -28,6 +33,9 @@ export default function TelaSilenciados({ lang, s, situacao }: PropsDaTelaDoPaco
   const [local, setLocal] = useState<SilencioLocal[]>(() => lerSilenciosLocais(armazem()));
   const [palavra, setPalavra] = useState("");
   const [soAparelho, setSoAparelho] = useState(false);
+  const [comunidade, setComunidade] = useState("");
+  const [prazo, setPrazo] = useState<PrazoDaSoneca>(7);
+  const [feito, setFeito] = useState("");
   const [erro, setErro] = useState("");
   const [rodada, setRodada] = useState(0);
 
@@ -77,8 +85,23 @@ export default function TelaSilenciados({ lang, s, situacao }: PropsDaTelaDoPaco
     }
   }
 
+  async function sonecaDaComunidade() {
+    const valor = comunidade.trim().toLowerCase().replace(/^.*\/c\//, "").replace(/[/?#].*$/, "");
+    if (valor.length < 2 || !sm) return;
+    setErro("");
+    setFeito("");
+    try {
+      await redeMod.silenciar("comunidade", valor, prazo);
+      setComunidade("");
+      setFeito(fraseDaSoneca(sm, lang, prazo));
+      setRodada((n) => n + 1);
+    } catch (e) {
+      setErro(mensagemDeErro(s, sm, e));
+    }
+  }
+
   return (
-    <div className="font-sans">
+    <div className="al3-tela m9 font-sans">
       <h1 className="border-b border-rule px-[18px] py-3 font-serif text-2xl font-semibold">{sm.silenciados.titulo}</h1>
       <p className="px-[18px] py-3 text-sm text-ink-soft">{sm.silenciados.ajuda}</p>
       <div className="space-y-2 px-[18px] pb-3">
@@ -86,11 +109,25 @@ export default function TelaSilenciados({ lang, s, situacao }: PropsDaTelaDoPaco
           {sm.silenciados.palavra}
           <input value={palavra} onChange={(e) => setPalavra(e.target.value)} maxLength={60} placeholder={sm.silenciados.palavraDica} className={`${estilo.campo} mt-1 font-normal`} />
         </label>
-        <label className="flex min-h-11 cursor-pointer items-center gap-2 text-sm">
-          <input type="checkbox" checked={soAparelho} onChange={(e) => setSoAparelho(e.target.checked)} />
+        <label className="flex min-h-11 w-full cursor-pointer items-center gap-2 text-sm">
+          <input type="checkbox" className="h-5 w-5" checked={soAparelho} onChange={(e) => setSoAparelho(e.target.checked)} />
           {sm.silenciar.soAparelho}
         </label>
-        <button type="button" disabled={palavra.trim().length < 2} className={estilo.botaoForte} onClick={() => void adicionar()}>{sm.silenciados.adicionar}</button>
+        <button type="button" disabled={palavra.trim().length < 2} aria-describedby={palavra.trim().length < 2 ? "sil-dica-palavra" : undefined} className={estilo.botaoForte} onClick={() => void adicionar()}>{sm.silenciados.adicionar}</button>
+        {palavra.trim().length < 2 && <p id="sil-dica-palavra" className="text-xs text-ink-soft">{sm.silenciados.dicaPalavra}</p>}
+      </div>
+      <div className="m9-soneca border-t border-rule px-[18px] py-3">
+        <p className="text-sm text-ink-soft">{sm.o9.soneca.explica}</p>
+        <label className="m9-campo">
+          {sm.o9.soneca.comunidadeCampo}
+          <input value={comunidade} onChange={(e) => setComunidade(e.target.value)} maxLength={120} placeholder={sm.o9.soneca.comunidadeDica} />
+        </label>
+        <EscolhaDoPrazo sm={sm} valor={prazo} aoMudar={setPrazo} />
+        <div>
+          <button type="button" disabled={comunidade.trim().length < 2} aria-describedby={comunidade.trim().length < 2 ? "sil-dica-comunidade" : undefined} className="al-botao al-botao-primario al-botao-m" onClick={() => void sonecaDaComunidade()}>{sm.o9.soneca.comunidade}</button>
+          {comunidade.trim().length < 2 && <p id="sil-dica-comunidade" className="mt-1 text-xs text-ink-soft">{sm.o9.soneca.dicaComunidade}</p>}
+        </div>
+        {feito && <p role="status" className="m9-status">{feito}</p>}
       </div>
       {erro && <p role="alert" className="px-[18px] pb-2 text-sm text-oxblood">{erro}</p>}
 

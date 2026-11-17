@@ -1022,7 +1022,7 @@
  "Ano da primeira publicação": "Année de la première publication",
  "Ano de nascimento": "Année de naissance",
  "Anônimo": "Anonyme",
- "Anônimo de verdade: o banco não guarda quem respondeu. A coordenação só vê a média, e só com cinco respostas ou mais.": "Vraiment anonyme : la base ne garde pas qui a répondu. La coordination ne voit que la moyenne, et seulement à partir de cinq réponses.",
+ "Anônimo de verdade: a resposta cai numa urna sem nome, separada do registro de quem já respondeu. A coordenação só vê a média, e só com cinco respostas ou mais.": "Vraiment anonyme : la réponse tombe dans une urne sans nom, séparée de la liste de qui a déjà répondu. La coordination ne voit que la moyenne, et seulement à partir de cinq réponses.",
  "anos finais do fundamental": "collège",
  "anos iniciais do fundamental": "école primaire",
  "Anotação descartada.": "Annotation écartée.",
@@ -3899,6 +3899,7 @@
  "Ideia para a divulgação": "Idée pour la communication",
  "Ideias de post, datas e pautas mandadas por qualquer pessoa da equipe pela Mesa.": "Idées de publication, dates et sujets envoyés par n'importe qui de l'équipe par la Table.",
  "Identidade recuperada. As conversas vão abrir em instantes.": "Identité récupérée. Les conversations vont s'ouvrir dans un instant.",
+ "Identidade recuperada. Por segurança, este aparelho só passa a valer daqui a 24 horas, ou antes, se você o aprovar de um aparelho que já funciona (Conversas → Aparelhos).": "Identité récupérée. Par sécurité, cet appareil ne sera valable que dans 24 heures, ou avant, si vous l'approuvez depuis un appareil qui fonctionne déjà (Conversations → Appareils).",
  "Identidade verificada pessoalmente": "Identité vérifiée en personne",
  "Identificador (slug, só letras minúsculas, números e hífen)": "Identifiant (slug, seulement minuscules, chiffres et tiret)",
  "Identificador (slug)": "Identifiant (slug)",
@@ -7935,5 +7936,6 @@
  "Para ocultar ou trancar uma conversa que já está no ar, abra o tópico na Alumia: os botões aparecem para quem cuida.": "Pour cacher ou verrouiller une conversation déjà en ligne, ouvrez le sujet sur la page Alumia : les boutons apparaissent pour qui s'en occupe.",
  "Pausar agora tudo o que o público pode enviar? Contribuições, mensagens da Alumia, anúncios, pedidos de reforço e assinaturas do boletim param até alguém reabrir.": "Mettre en pause maintenant tout ce que le public peut envoyer ? Contributions, messages de Alumia, annonces, demandes de soutien et abonnements à la lettre s'arrêtent jusqu'à ce que quelqu'un rouvre.",
  "Quem cuida da Alumia, do Mural dos Trabalhadores e da Gaveta Aberta.": "Qui s'occupe de Alumia, du Mur des travailleurs et du Tiroir ouvert.",
- "Segunda avaliação da Alumia": "Second avis de Alumia"
+ "Segunda avaliação da Alumia": "Second avis de Alumia",
+ "Voto secreto com menos de 3 votos: o resultado não aparece.": "Vote secret avec moins de 3 votes : le résultat n'apparaît pas."
 }

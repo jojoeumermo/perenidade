@@ -1,0 +1,207 @@
+{
+  "_rascunho": true,
+  "carimbo": "Essay circle",
+  "titulo": "Peer essay review",
+  "chamada": "Write on the theme of the week, review other people's essays using the 5 ENEM competencies and get your own reviews back. **Nobody knows whose essay it is, or who reviewed it.**",
+  "carregando": "Opening the circle",
+  "entrar": "Join Alumia to take part in the essay circle.",
+  "abas": {
+    "rotulo": "Parts of the circle",
+    "escrever": "Write",
+    "corrigir": "Review",
+    "devolutivas": "Feedback",
+    "mediacao": "Mediation",
+    "temas": "Themes"
+  },
+  "tema": {
+    "rotulo": "Theme of the week",
+    "ate": "Hand in by {data}",
+    "motivadores": "Supporting texts",
+    "semTema": "The coordination has not posted this week's theme yet. Come back soon.",
+    "semTemaCoord": "This week has no theme yet. Post one in the Themes tab."
+  },
+  "troca": {
+    "titulo": "Your exchange",
+    "corrigidas": "reviewed in this circle",
+    "deDuas": "of 2",
+    "esperando": "waiting for review",
+    "menosDe3": "fewer than 3",
+    "pronta": "Exchange done",
+    "afastada": "You are out of the circle until {data}, because of a review the mediation team judged abusive."
+  },
+  "como": {
+    "titulo": "How the circle works",
+    "itens": [
+      {
+        "titulo": "Blind, both ways",
+        "texto": "Reviewers get only the text. Writers get only the review sheet. No name, no codename, on either side."
+      },
+      {
+        "titulo": "Two reviews per essay",
+        "texto": "Each essay is read by two people, using the 5 ENEM competencies, with a score from 0 to 200 and a comment for each one."
+      },
+      {
+        "titulo": "Review to receive",
+        "texto": "Your reviews arrive once you have reviewed two essays from the same circle. If the circle is full when you ask, your exchange counts as done."
+      },
+      {
+        "titulo": "Everything is gone in 30 days",
+        "texto": "The essay and its reviews are permanently deleted 30 days after they are returned. Once returned, the database keeps no record of who read what."
+      },
+      {
+        "titulo": "Abusive reviews",
+        "texto": "A review that insults goes to mediation. If it is abusive, it leaves your screen, your essay gets another review and whoever wrote it is taken out of the circle, without anyone learning who they are."
+      }
+    ]
+  },
+  "escrever": {
+    "titulo": "Your essay this week",
+    "tituloCampo": "Title (optional)",
+    "textoCampo": "Text",
+    "dica": "Write your argumentative essay right here. Do not sign it or write your name: reviews are blind.",
+    "linhas": "{n} of 30 lines",
+    "minimo": "at least 7 lines",
+    "letras": "{n} characters",
+    "entregar": "Hand in to the circle",
+    "entregando": "Handing in…",
+    "entregue": "Handed in. Your essay is in the circle.",
+    "jaEntregou": "You have already handed in this week's essay. Follow it in Feedback.",
+    "rascunho": "The draft stays only on this device until you hand it in."
+  },
+  "corrigir": {
+    "titulo": "Review an essay",
+    "chamada": "Ask for an essay from the circle. You have 72 hours to send back the review sheet; if you can't, let it go and it returns to the circle.",
+    "pedir": "Ask for an essay to read",
+    "pedindo": "Drawing…",
+    "nenhuma": "No essays are waiting for review right now. Come back later.",
+    "dispensada": "The circle is full: no essays are waiting for review. Your exchange for this circle counts as done.",
+    "duasAbertas": "You already have two open reviews. Finish one before asking for another.",
+    "jaLendo": "You're already reading one. You can take one more, up to two open.",
+    "pedirOutra": "Ask for one more",
+    "prazo": "Send back by {data}",
+    "semTitulo": "Untitled",
+    "aRedacao": "The essay",
+    "aFicha": "Your review sheet",
+    "nota": "Score",
+    "comentario": "Comment",
+    "comentarioDica": "What worked and what to improve, in at least 20 characters.",
+    "geral": "General comment (optional)",
+    "total": "Total",
+    "enviar": "Send review",
+    "enviando": "Sending…",
+    "largar": "Let this review go",
+    "falta": "Competency {n} is missing its score or comment.",
+    "enviada": "Review sent. Thank you for reading carefully.",
+    "cega": "You don't know whose text this is, and the writer will never know it was you."
+  },
+  "competencias": [
+    {
+      "nome": "Competency 1",
+      "resumo": "Command of the formal written standard of Portuguese."
+    },
+    {
+      "nome": "Competency 2",
+      "resumo": "Understand the prompt and develop the theme in an argumentative essay, drawing on knowledge from several fields."
+    },
+    {
+      "nome": "Competency 3",
+      "resumo": "Select, relate, organize and interpret information, facts and opinions to defend a point of view."
+    },
+    {
+      "nome": "Competency 4",
+      "resumo": "Use the linguistic devices that build the argument (cohesion)."
+    },
+    {
+      "nome": "Competency 5",
+      "resumo": "Propose an intervention for the problem, respecting human rights."
+    }
+  ],
+  "devolutivas": {
+    "titulo": "Your essays",
+    "vazio": "You have not handed in any essay yet.",
+    "semana": "Week of {data}",
+    "naRoda": "In the circle until {data}.",
+    "faltaCorrigir": "Review {n} more to receive your reviews.",
+    "faltaUma": "Review 1 more to receive your reviews.",
+    "esperandoLeituras": "You have done your part of the exchange. Your reviews arrive together, once they are ready.",
+    "encerrada": "The circle closed and this essay was not returned. It will be deleted on {data}.",
+    "devolvida": "Returned on {data}. Everything is deleted on {apagar}.",
+    "leitura": "Review {n}",
+    "media": "Average of the reviews",
+    "deMil": "of 1000",
+    "verTexto": "See the text you handed in",
+    "apagar": "Delete now",
+    "apagarConfirma": "Permanently delete this essay and its reviews?",
+    "apagarSim": "Yes, delete",
+    "cancelar": "Cancel",
+    "removida": "The mediation team removed this review. Your essay went back to the circle for a new review.",
+    "denunciar": "Report this review",
+    "denunciaMotivo": "What is abusive about this review?",
+    "denunciaDica": "It goes to mediation, which reads the review without knowing whose it is. At least 10 characters.",
+    "enviarDenuncia": "Send to mediation",
+    "denunciaAberta": "Reported. The mediation team will look at it.",
+    "denunciaNaoAbusiva": "The mediation team read it and found no abuse in this review.",
+    "denunciaAbusiva": "The mediation team judged this review abusive."
+  },
+  "mediacao": {
+    "titulo": "Reported reviews",
+    "chamada": "Reviews reported by the people who received them. You don't see who wrote the essay or who reviewed it. Abusive: the review is removed, the essay gets another review and whoever wrote it is out of the circle for 8 weeks, without the name appearing to anyone.",
+    "vazio": "No reports waiting.",
+    "motivo": "Reason for the report",
+    "aCorrecao": "The reported review",
+    "verRedacao": "See the reviewed essay",
+    "nota": "Mediation note (optional)",
+    "abusiva": "Abusive: remove and suspend",
+    "naoAbusiva": "Not abusive",
+    "pendente": "Judged abusive. The suspension is still pending.",
+    "tentarDeNovo": "Apply the suspension",
+    "feito": "Done. Whoever wrote it is out of the circle for 8 weeks; the name does not appear here.",
+    "semLacre": "The review was removed. This review could not be linked to anyone, so nobody was suspended.",
+    "decidida": "Decided."
+  },
+  "temas": {
+    "titulo": "Circle themes",
+    "chamada": "One theme per week, Monday to Sunday. A theme can only change while nobody has handed in an essay on it.",
+    "semana": "Week of {data}",
+    "estaSemana": "This week",
+    "semTema": "No theme",
+    "redacoes": "{n} essays",
+    "poucas": "fewer than 3 essays",
+    "tituloCampo": "Prompt",
+    "motivadoresCampo": "Supporting texts (optional)",
+    "salvar": "Save theme",
+    "lancar": "Post theme",
+    "editar": "Edit",
+    "salvo": "Theme saved.",
+    "fechado": "This week already has essays: the theme can no longer change."
+  },
+  "erros": {
+    "generico": "That didn't work right now. Try again in a moment.",
+    "sem_conexao": "No connection to the server. Check your internet and try again.",
+    "sem_servico": "The essay circle is not switched on on this server yet.",
+    "banco_desatualizado": "The essay circle is not switched on on this server yet.",
+    "muitos_pedidos": "Too many requests in a row. Wait a few minutes.",
+    "entre_primeiro": "Join Alumia to take part.",
+    "afastada": "You are out of the circle for now.",
+    "sem_tema": "The coordination has not posted this week's theme yet.",
+    "ja_entregou": "You have already handed in this week's essay.",
+    "invalido:curta": "The essay is too short. Write at least 7 lines.",
+    "invalido:longa": "The essay is longer than 30 lines.",
+    "invalido:titulo": "The title can be up to 100 characters.",
+    "leituras_abertas": "You already have two open reviews.",
+    "nao_encontrado": "We couldn't find this review. The deadline may have passed.",
+    "prazo": "The deadline for this review has passed. It went back to the circle.",
+    "invalido:nota": "Each competency needs a score from 0 to 200.",
+    "invalido:comentario": "Each competency needs a comment of 20 to 800 characters.",
+    "invalido:ficha": "The review sheet is incomplete.",
+    "invalido:geral": "The general comment can be up to 800 characters.",
+    "invalido:motivo": "Explain the reason in 10 to 1000 characters.",
+    "ja_denunciada": "This review has already been reported.",
+    "ja_removida": "This review has already been removed.",
+    "ja_decidida": "This report has already been decided.",
+    "sem_permissao": "You don't have permission for this.",
+    "invalido:semana": "Choose a week from this one up to 12 weeks ahead.",
+    "ja_tem_redacao": "This week already has essays: the theme can no longer change.",
+    "invalido:motivadores": "Supporting texts can be up to 3000 characters."
+  }
+}

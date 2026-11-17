@@ -1,19 +1,29 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import Link from "@/components/Link";
 import { comunidades } from "@/lib/rede/cliente-comunidades";
 import { enderecos, idOk, type Post } from "@/lib/rede/tipos";
+import { alumia2Ligada } from "@/lib/rede/rotas-novas";
 import { enderecosCom, LOCAIS_DE_ENCONTRO, type LocalDoEncontro } from "@/lib/rede/tipos-comunidades";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDeComunidades } from "@/lib/rede/textos-comunidades";
 import { CartaoDePost } from "../CartaoDePost";
+import { useNomesDasTrilhas } from "../estudo/conquistas/usarNomesDasTrilhas";
 import { codigoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
+import { useAlumia2 } from "../publicar/alumia2/contexto";
+import { FORMA_DO_GRUPO } from "../publicar/restrito/grupo";
 import { Compositor } from "./Compositor";
 import { botao, botaoClaro, campo, erroCom, mesDeHoje, textosDe, useCarregar } from "./util";
+
+// Onda 10 (10D): os documentos e os arquivos do núcleo, só com a Alumia nova (a casca de hoje fica como está).
+const AcervoDoNucleo = dynamic(() => import("./acervo/AcervoDoNucleo"), { ssr: false });
+// P22: a sala de voz cifrada do núcleo, fechada até a pessoa abrir (o código da sala só é baixado então).
+const SalaDoGrupo = dynamic(() => import("../voz/SalaDoGrupo").then((m) => m.SalaDoGrupo), { ssr: false });
 
 const quando = (iso: string, lang: string) => {
   try {
@@ -66,6 +76,8 @@ function TurmaDoMes({ lang, s, sc }: { lang: string; s: TextosDaRede; sc: Textos
 /** A página de um núcleo: dados, mediação por codinome, próximos encontros em local público, mural e sair. */
 function PaginaDoNucleo({ id, lang, s, sc, situacao, aoEscrever }: { id: string; lang: string; s: TextosDaRede; sc: TextosDeComunidades; situacao: PropsDaTelaDoPacote["situacao"]; aoEscrever: PropsDaTelaDoPacote["aoEscrever"] }) {
   const n = sc.nucleos;
+  // O título da trilha ("Introdução ao marxismo"), não o fim do endereço.
+  const trilhas = useNomesDasTrilhas(lang);
   const pagina = useCarregar(() => comunidades.nucleo(id), `nucleo:${id}`);
   const [itens, setItens] = useState<Post[]>([]);
   const [proximo, setProximo] = useState<string | null>(null);
@@ -77,6 +89,7 @@ function PaginaDoNucleo({ id, lang, s, sc, situacao, aoEscrever }: { id: string;
   const [data, setData] = useState("");
   const [tipo, setTipo] = useState<LocalDoEncontro>("praca");
   const [lugar, setLugar] = useState("");
+  const previa = Boolean(useAlumia2()?.previa);
 
   useEffect(() => {
     let vivo = true;
@@ -116,7 +129,7 @@ function PaginaDoNucleo({ id, lang, s, sc, situacao, aoEscrever }: { id: string;
         <h1 className="font-serif text-2xl font-extrabold">{dado.nome}</h1>
         <p className="mt-1 text-sm text-ink-soft">
           {dado.cidade && `${n.cidade}: ${dado.cidade}`}
-          {dado.trilha && ` · ${n.trilha}: ${dado.trilha.replace(/-/g, " ")}`}
+          {dado.trilha && ` · ${n.trilha}: ${trilhas.nome(dado.trilha)}`}
         </p>
         {dado.mediacao.length > 0 && <p className="mt-1 text-sm">{n.mediacao}: {dado.mediacao.join(", ")}</p>}
         <p className="mt-3 flex flex-wrap gap-4 text-sm font-bold">
@@ -176,6 +189,11 @@ function PaginaDoNucleo({ id, lang, s, sc, situacao, aoEscrever }: { id: string;
         )}
       </section>
 
+      {alumia2Ligada() && <AcervoDoNucleo nucleo={dado.id} lang={lang} />}
+
+      {/* A sala de voz do núcleo (P22): só membro chega a esta página; a rota das credenciais confere de novo no banco. */}
+      {FORMA_DO_GRUPO.test(`nucleo:${dado.id}`) && <SalaDoGrupo lang={lang} grupo={`nucleo:${dado.id}`} previa={previa} />}
+
       <section aria-labelledby="mural">
         <h2 id="mural" className="px-[18px] pt-4 font-serif text-xl font-semibold">{n.mural}</h2>
         <Compositor s={s} sc={sc} destino={{ nucleo: dado.id, publico: "nucleo" }} aoPublicar={() => setVersao((v) => v + 1)} />
@@ -207,7 +225,7 @@ function PaginaDoNucleo({ id, lang, s, sc, situacao, aoEscrever }: { id: string;
 
       <section className="border-t border-rule px-[18px] py-4">
         {confirmarSair ? (
-          <div role="alertdialog" aria-label={n.sair} className="space-y-2">
+          <div role="alertdialog" aria-label={n.sair} className="space-y-2" onKeyDown={(e) => { if (e.key === "Escape") setConfirmarSair(false); }}>
             <p>{n.sairConfirmar}</p>
             <div className="flex gap-2">
               <button type="button" onClick={() => tentar(async () => { await comunidades.sairDoNucleo(id); setSaiu(true); })} className={botao}>{n.sairSim}</button>
@@ -231,6 +249,7 @@ export default function Nucleos({ lang, s, situacao, params, aoEscrever }: Props
   const sc = textosDe(s);
   const id = params.id ?? "";
   const lista = useCarregar(() => (situacao.logado && situacao.membro && !id ? comunidades.nucleos() : Promise.resolve({ itens: [] })), `nucleos:${situacao.membro}:${id}`);
+  const trilhas = useNomesDasTrilhas(lang);
   if (!sc) return <p className="px-[18px] py-8 font-sans text-ink-soft">{s.estados.emBreve}</p>;
   if (!situacao.logado || !situacao.membro) return <p className="px-[18px] py-8 font-sans text-ink-soft">{sc.acao.entrePrimeiro}</p>;
   if (id) {
@@ -261,7 +280,7 @@ export default function Nucleos({ lang, s, situacao, params, aoEscrever }: Props
                 <span aria-hidden className="al3-anel" />
                 <span className="min-w-0 flex-1">
                   <Link href={enderecosCom.nucleo(lang, x.id)} className="al2-nome-link block font-extrabold">{x.nome}</Link>
-                  <span className="block text-sm text-ink-soft">{x.cidade}{x.trilha ? ` · ${x.trilha.replace(/-/g, " ")}` : ""}</span>
+                  <span className="block text-sm text-ink-soft">{x.cidade}{x.trilha ? ` · ${trilhas.nome(x.trilha)}` : ""}</span>
                 </span>
               </li>
             ))}

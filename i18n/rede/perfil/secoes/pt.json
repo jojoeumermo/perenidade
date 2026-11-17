@@ -1,0 +1,236 @@
+{
+  "editor": {
+    "secoes": "Seções",
+    "links": "Links",
+    "pacotes": "Pacotes",
+    "aParte": "Esta parte salva no próprio botão."
+  },
+  "secoes": {
+    "titulo": "Seções do perfil",
+    "ajuda": "Escolha o que aparece no seu perfil, acima das abas, e em que ordem. Nada aparece sem você escolher.",
+    "noPerfil": "No perfil, nesta ordem",
+    "fora": "Fora do perfil",
+    "nenhuma": "Nenhuma seção escolhida: o perfil fica só com o cabeçalho e as abas.",
+    "mostrar": "Mostrar",
+    "tirar": "Tirar",
+    "subir": "Subir {nome}",
+    "descer": "Descer {nome}",
+    "salvar": "Salvar as seções",
+    "salvando": "Salvando…",
+    "salvo": "Seções salvas.",
+    "nomes": {
+      "sobre": "Sobre",
+      "links": "Links",
+      "trilhas": "Trilhas",
+      "comunidades": "Comunidades",
+      "voluntariado": "Onde eu somei",
+      "destaques": "Destaques",
+      "colecoes": "Coleções",
+      "conquistas": "Conquistas"
+    },
+    "ajudas": {
+      "sobre": "Um texto mais longo que a bio.",
+      "links": "Seus links, em botões largos.",
+      "trilhas": "As trilhas da Escola que você marcou.",
+      "comunidades": "Só as que você escolher, uma a uma.",
+      "voluntariado": "As frentes do Instituto em que você atuou, confirmadas pela coordenação.",
+      "destaques": "Os destaques de stories, posts e atos.",
+      "colecoes": "As coleções que você montou.",
+      "conquistas": "As conquistas que você ligou."
+    }
+  },
+  "sobre": {
+    "titulo": "Sobre",
+    "ajuda": "Texto puro, até {max} letras. Aparece só com a seção Sobre ligada.",
+    "rotulo": "Texto do Sobre",
+    "contador": "{n} de {max}"
+  },
+  "comunidades": {
+    "titulo": "Comunidades no perfil",
+    "ajuda": "Só aparecem as que você marcar, entre as comunidades abertas de que você participa. Sair de uma comunidade a tira do perfil na hora.",
+    "nenhuma": "Você ainda não participa de nenhuma comunidade aberta.",
+    "limite": "Até {max} comunidades.",
+    "vazio": "Nenhuma comunidade escolhida."
+  },
+  "trilhas": {
+    "vazio": "Nenhuma trilha marcada.",
+    "ajuda": "Marcadas pela própria pessoa, a partir do estudo no aparelho dela."
+  },
+  "links": {
+    "titulo": "Links",
+    "ajuda": "Até {max}, na ordem que você quiser. Só https; os parâmetros de rastreio saem sozinhos. Ninguém conta cliques.",
+    "tituloDoLink": "Título",
+    "endereco": "Endereço",
+    "acrescentar": "Acrescentar link",
+    "tirar": "Tirar {titulo}",
+    "subir": "Subir {titulo}",
+    "descer": "Descer {titulo}",
+    "salvar": "Salvar os links",
+    "salvo": "Links salvos.",
+    "invalido": "Confira o título (até {max} letras) e o endereço (https).",
+    "vazio": "Nenhum link ainda.",
+    "conferidoRelMe": "Conferido: o site aponta de volta para este perfil",
+    "conferidoMediacao": "Conferido pela mediação",
+    "conferido": "Conferido",
+    "conferir": "Conferir",
+    "conferindo": "Conferindo…",
+    "comoConferir": "Para conferir, ponha no seu site um link para o seu perfil com rel=\"me\":",
+    "ok": "Conferido.",
+    "naoAchou": "Não achamos o link de volta nessa página. Confira se ele está lá, com rel=\"me\", e tente de novo.",
+    "semServico": "A conferência não está disponível agora. Tente mais tarde.",
+    "salveAntes": "Salve os links antes de conferir.",
+    "instagram": {
+      "ajuda": "No Instagram não dá para pôr rel=\"me\". Peça à mediação: você recebe um código para pôr na bio de lá, e a mediação confere.",
+      "pedir": "Pedir à mediação",
+      "codigo": "Ponha na bio do Instagram:",
+      "esperando": "Esperando a mediação.",
+      "desistir": "Desistir do pedido"
+    }
+  },
+  "status": {
+    "tipos": {
+      "na_luta": "Na luta",
+      "ausente": "Ausente"
+    },
+    "publico": "Quem vê o status",
+    "publicos": {
+      "todos": "Quem vê o perfil",
+      "roda": "Só a roda de confiança"
+    },
+    "soRoda": "Só a sua roda de confiança vê este status."
+  },
+  "voluntariado": {
+    "titulo": "Onde eu somei",
+    "ajuda": "As frentes de trabalho do Instituto em que você atuou, em anos. A coordenação confirma cada linha; só a confirmada aparece, e só com a seção ligada.",
+    "frente": "Frente",
+    "de": "Desde",
+    "ate": "Até",
+    "hoje": "hoje",
+    "ateHoje": "Até hoje",
+    "acrescentar": "Acrescentar",
+    "guardar": "Guardar",
+    "cancelar": "Cancelar",
+    "mudar": "Mudar",
+    "tirar": "Tirar",
+    "vazio": "Nenhuma linha ainda.",
+    "limite": "Até {max} linhas.",
+    "mudarVolta": "Mudar uma linha confirmada a devolve para a coordenação.",
+    "confirmado": "Confirmado pela coordenação",
+    "situacoes": {
+      "esperando": "Esperando a coordenação",
+      "confirmado": "Confirmado",
+      "recusado": "Não confirmado"
+    },
+    "frentes": {
+      "educacao": "Educação",
+      "curadoria": "Curadoria",
+      "mediacao": "Mediação",
+      "revisao": "Revisão",
+      "traducao": "Tradução",
+      "jornalismo": "Jornalismo",
+      "comunicacao": "Comunicação",
+      "mentoria": "Mentoria",
+      "design": "Design",
+      "desenvolvimento": "Desenvolvimento",
+      "saude": "Saúde",
+      "parcerias": "Parcerias",
+      "eventos": "Eventos"
+    }
+  },
+  "pacotes": {
+    "titulo": "Pacotes iniciais",
+    "ajuda": "A equipe monta pacotes de perfis para quem está chegando seguir. Você só entra num pacote se aceitar o convite dele, e sai quando quiser.",
+    "convites": "Convites",
+    "semConvites": "Nenhum convite agora.",
+    "dentro": "Você está em",
+    "foraDeTodos": "Você não está em nenhum pacote.",
+    "aceitar": "Entrar",
+    "recusar": "Recusar",
+    "sair": "Sair",
+    "abrir": "Abrir",
+    "fechado": "Pacote é só de perfil aberto: com o perfil trancado ou invisível, não dá para entrar.",
+    "noPasso": "Você só entra num pacote quando aceitar o convite dele, em Editar perfil › Pacotes."
+  },
+  "pacote": {
+    "rotulo": "Pacote inicial",
+    "pessoas": "Quem está neste pacote",
+    "nPessoas": "{n} pessoas",
+    "seguirTodas": "Seguir todas",
+    "seguindo": "Seguindo…",
+    "seguidas": "Você passou a seguir {n}.",
+    "vazio": "Ninguém entrou neste pacote ainda.",
+    "soQuemAceitou": "Aqui só está quem aceitou entrar neste pacote.",
+    "compartilhar": "Levar o pacote",
+    "link": "Link do pacote",
+    "copiar": "Copiar o link",
+    "copiado": "Link copiado.",
+    "qr": "QR do pacote",
+    "qrAjuda": "Feito aqui no aparelho, sem serviço de fora. Mostre na tela ou imprima.",
+    "baixarQr": "Baixar o QR",
+    "qrFalhou": "Não deu para gerar o QR neste aparelho.",
+    "naoAchado": "Este pacote não existe ou foi fechado.",
+    "entrar": "Entre na Alumia para ver quem está no pacote.",
+    "explorar": "Ver outros pacotes no Explorar"
+  },
+  "cuidar": {
+    "titulo": "Cuidar dos pacotes",
+    "ajuda": "Convidar não põe ninguém no pacote: a pessoa recebe o convite e entra só se aceitar.",
+    "novo": "Novo pacote",
+    "endereco": "Endereço (letras, números e -)",
+    "tituloDoPacote": "Título",
+    "descricao": "Descrição",
+    "ordem": "Ordem",
+    "aberto": "Aberto",
+    "salvar": "Salvar o pacote",
+    "salvo": "Pacote salvo.",
+    "convidar": "Convidar por @",
+    "convidarBotao": "Convidar",
+    "convidado": "Convite enviado. A pessoa entra só se aceitar.",
+    "tirar": "Tirar @{handle}",
+    "dentro": "Dentro",
+    "convitesEsperando": "Convites esperando: {n}",
+    "haConvites": "Há convites esperando",
+    "ninguem": "Ninguém dentro ainda.",
+    "fechado": "Fechado",
+    "vazio": "Nenhum pacote ainda."
+  },
+  "painel": {
+    "voluntariado": {
+      "titulo": "Histórico de voluntariado",
+      "ajuda": "Cada linha foi escrita pela própria pessoa. Confirme só o que a coordenação sabe que aconteceu. Recusar pede motivo.",
+      "vazio": "Nada esperando.",
+      "confirmar": "Confirmar",
+      "recusar": "Recusar",
+      "motivo": "Motivo (10 a 500 letras)",
+      "feito": "Feito."
+    },
+    "links": {
+      "titulo": "Links do Instagram para conferir",
+      "ajuda": "Abra o perfil de lá e veja se o código está na bio. Só então marque.",
+      "vazio": "Nada esperando.",
+      "esta": "O código está lá",
+      "naoEsta": "Não está",
+      "codigo": "Código",
+      "de": "de @{handle}"
+    }
+  },
+  "erros": {
+    "invalido:secoes": "Confira as seções escolhidas.",
+    "invalido:sobre": "O Sobre passou do tamanho.",
+    "invalido:comunidades": "Só dá para mostrar comunidades abertas de que você participa.",
+    "invalido:links": "Confira os links: título curto e endereço https sem rastreio.",
+    "invalido:site": "A mediação confere só links do Instagram.",
+    "invalido:frente": "Escolha uma frente da lista.",
+    "invalido:periodo": "Confira os anos.",
+    "invalido:pessoa": "Esse perfil não pode entrar em pacote (precisa ser aberto).",
+    "invalido:motivo": "Escreva o motivo, de 10 a 500 letras.",
+    "limite:voluntariado": "Chegou ao limite de linhas.",
+    "repetido": "Essa linha já existe.",
+    "perfil_fechado": "Pacote é só de perfil aberto.",
+    "sem_handle": "Escolha o seu @ antes.",
+    "sem_permissao": "Você não tem permissão para isso.",
+    "nao_encontrado": "Não encontrado.",
+    "muitos_pedidos": "Muitas tentativas seguidas. Espere um pouco.",
+    "generico": "Não deu certo. Tente de novo."
+  }
+}

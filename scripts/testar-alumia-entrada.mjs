@@ -11,6 +11,9 @@
 // Depois, as portas (supabase/migracoes/20261112-alumia-portas.sql): o ataque da conta nova que segue e lê os posts de seguidores,
 // a varredura do pg_proc (toda função public.rede_* e alumia_* chamada sem aprovação e sem o segundo fator), quem fura a fila
 // aderindo direto, a triagem que não vira arma, e o freio da ponte no banco.
+// E a onda 7 (supabase/migracoes/20261113-alumia-o7-entrada.sql): com a trava ligada, o diretório das organizações com selo (e o
+// mapa dele) continua aberto a quem não tem conta; a lista de comunidades fica fechada. E as silhuetas: sem Fanon nem Mariátegui,
+// com Che Guevara ao lado de Stalin, e as que já existiam byte a byte como eram.
 // Uso: npm run testar:alumia-entrada
 import fs from "node:fs";
 import path from "node:path";
@@ -19,6 +22,7 @@ import { criarBanco } from "./banco-local.mjs";
 import { noFimDoInstall } from "./install-posteriores.mjs";
 import { origemDoSite, origemPodePedir, mensagemDaPonte } from "../lib/sessao/ponte.ts";
 import { figurasDaEntrada } from "../lib/rede/entrada/figuras.ts";
+import { painelDoCodinome, painelVazio, painelDaFoto, sementeDoCodinome, atrasosDoPainel, COLUNAS_DO_PAINEL, LINHAS_DO_PAINEL } from "../lib/rede/entrada/voce.ts";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ler = (c) => fs.readFileSync(path.join(raiz, c), "utf8");
@@ -58,6 +62,9 @@ ok("nenhuma permissão direta na tabela para anon/authenticated", !/grant [a-z, 
 ok("a tabela nasce com RLS", /alter table interno\.alumia_entrada enable row level security/.test(sql));
 ok("a fila nunca devolve e-mail", !/'email'/.test(sql.slice(sql.indexOf("alumia_triagem_fila"))));
 const portas = ler("supabase/migracoes/20261112-alumia-portas.sql");
+const o7 = ler("supabase/migracoes/20261113-alumia-o7-entrada.sql");
+ok("o7: a lista de exceções ganha só o diretório e o mapa (a lista de comunidades continua fora)", /p_nome = 'rede_org_diretorio'/.test(o7) && /p_nome = 'rede_org_mapa'/.test(o7) && !/rede_com_lista'/.test(o7.replace(/^--.*$/gm, "")));
+ok("o7: nenhuma permissão direta em tabela e nenhum grant novo", !/grant/i.test(o7.replace(/^--.*$/gm, "")));
 ok("as portas estão coladas no FIM do install.sql, depois da entrada", noFimDoInstall(portas, ler("supabase/install.sql")) && ler("supabase/install.sql").lastIndexOf("alumia_trancar()") > ler("supabase/install.sql").lastIndexOf("create or replace function public.alumia_entrada_eu"));
 ok("portas: toda função nova é security definer com search_path fixo (menos a lista de exceções, que não lê nada)", (() => {
   const funcoes = portas.match(/create or replace function [^(]+\([\s\S]*?\$\$/g) ?? [];
@@ -90,6 +97,8 @@ await espera("a migração instala de novo sobre o install.sql (idempotente)", (
 await espera("e uma terceira vez sem estrago", () => exec(sql));
 await espera("as portas instalam de novo depois da entrada (idempotente)", () => exec(portas));
 await espera("e uma terceira vez sem estrago", () => exec(portas));
+await espera("o7: instala depois das portas", () => exec(o7));
+await espera("o7: e de novo, sem estrago (idempotente)", () => exec(o7));
 await espera("quem já era membro ficou aprovado (ja_membro)", async () => (await dono("select situacao, origem from interno.alumia_entrada where usuario = $1", [P.antiga])).rows[0], (r) => r?.situacao === "aprovada" && r.origem === "ja_membro");
 await espera("com a trava desligada, visitante lê a linha aberta como antes", () => rpc(visitante(), "rede_linha", { p_aba: "geral" }), (r) => Array.isArray(r?.itens));
 await espera("com a trava desligada, a antiga lê 'tudo' mesmo sem aal2", () => rpc(como(P.antiga), "rede_linha", { p_aba: "tudo" }), (r) => Array.isArray(r?.itens));
@@ -125,6 +134,12 @@ await recusa("ligar não é para conta nenhuma (só o dono do banco)", () => ban
 await recusa("visitante não lê 'tudo'", () => rpc(visitante(), "rede_linha", { p_aba: "tudo" }), "alumia_entrada");
 await recusa("visitante não lê comunidade", () => rpc(visitante(), "rede_linha", { p_aba: "c:geral" }), "alumia_entrada");
 await espera("a linha aberta das disciplinas continua aberta", () => rpc(visitante(), "rede_linha", { p_aba: "geral" }), (r) => Array.isArray(r?.itens));
+await espera("o7: com a trava ligada, visitante vê o diretório das organizações com selo", () => rpc(visitante(), "rede_org_diretorio", { p: {} }), (r) => Array.isArray(r?.itens));
+await espera("o7: e o mapa do diretório (estados e cidades, sem número)", () => rpc(visitante(), "rede_org_mapa"), (r) => Array.isArray(r));
+await espera("o7: conta em análise também vê o diretório", () => rpc(como(P.nova), "rede_org_diretorio", { p: {} }), (r) => Array.isArray(r?.itens));
+await recusa("o7: a lista de comunidades fica fechada para visitante", () => rpc(visitante(), "rede_com_lista"), "alumia_entrada");
+await recusa("o7: e para conta em análise", () => rpc(como(P.nova, "aal2"), "rede_com_lista"), "alumia_entrada");
+await recusa("o7: do diretório para dentro, o perfil da organização fica fechado", () => rpc(visitante(), "rede_org_perfil", { p_handle: "x" }), "alumia_entrada");
 await recusa("conta em análise não lê", () => rpc(como(P.nova, "aal2"), "rede_linha", { p_aba: "tudo" }), "alumia_entrada");
 await recusa("conta em análise não conta novos", () => rpc(como(P.nova, "aal2"), "rede_novos", { p_aba: "tudo", p_desde: new Date(0).toISOString() }), "alumia_entrada");
 await recusa("antiga sem o segundo fator não lê", () => rpc(como(P.antiga), "rede_linha", { p_aba: "tudo" }), "alumia_entrada");
@@ -230,8 +245,21 @@ const ABERTAS = ["alumia_entrada_eu()", "alumia_entrada_pedir(p_codinome text, p
   "alumia_triagem_contagem()", "alumia_triagem_decidir(p_id uuid, p_aprovar boolean, p_motivo text)", "alumia_triagem_fila()",
   "rede_aderir(p_maior boolean, p_versao integer)", "rede_aderir(p_maior boolean, p_versao integer, p_fediverso boolean)", "rede_alumia_versao()",
   "rede_antigo(p_tipo text, p_antigo text)", "rede_codinome_definir(p_codinome text)", "rede_confirmar_idade()", "rede_confirmar_idade(p_maior boolean)",
-  "rede_eu()", "rede_fed_situacao()", "rede_linha(p_aba text, p_cursor text, p_limite integer)", "rede_novos(p_aba text, p_desde timestamp with time zone)", "rede_situacao()"];
-const SO_FALSO = ["rede_pub_midia_pode", "rede_pub_pode_enviar", "rede_story_pode"];
+  "rede_eu()", "rede_fed_servidor(p_segredo text, p_acao text, p jsonb)",
+  // As outras duas do servidor do Fediverso (a mídia e a mudança), abertas pela mesma razão: o site chama com o segredo.
+  "rede_fed_midia_servidor(p_segredo text, p_acao text, p jsonb)", "rede_fed_mudanca_servidor(p_segredo text, p_acao text, p jsonb)",
+  "rede_fed_situacao()", "rede_linha(p_aba text, p_cursor text, p_limite integer)", "rede_novos(p_aba text, p_desde timestamp with time zone)", "rede_situacao()",
+  // onda 7: o diretório das organizações com selo e o mapa dele
+  "rede_org_diretorio(p jsonb)", "rede_org_mapa()",
+  // onda 8: o pedido de revisão de quem teve a conta suspensa ou retida e a marca de convite da triagem
+  "alumia_lei_minha_conta()", "alumia_lei_recorrer_conta(p_acao uuid, p_texto text)", "alumia_triagem_convites()"];
+// onda 8: rede_midia_cabe, a regra da cota de mídia no depósito (20261114-alumia-o8-operacao.sql), também responde "não" em vez de erro.
+const SO_FALSO = ["rede_pub_midia_pode", "rede_pub_pode_enviar", "rede_story_pode", "rede_midia_cabe",
+  // A política do depósito do acervo (20261116-alumia-o10-acervo.sql): no Storage, um erro quebraria a listagem; a porta é o alumia_passa() dela.
+  "rede_acervo_deposito_pode",
+  // A regra de leitura do depósito do vídeo curto (20261118-alumia-o12-midia.sql), pelo mesmo motivo: a porta é o alumia_passa() dela.
+  // (O depósito do vídeo não tem regra de envio para quem tem conta: só o servidor grava.)
+  "rede_video_pode"];
 const funcoesDaRede = async () => (await dono(`
   select p.proname as nome, pg_get_function_identity_arguments(p.oid) as args, p.prosrc ~ 'interno\\.alumia_(porta|passa)\\(\\)' as porta,
     has_function_privilege('anon', p.oid, 'execute') as anon, has_function_privilege('authenticated', p.oid, 'execute') as aut
@@ -290,6 +318,21 @@ await espera("portas: função que a regra não consegue trancar aparece em 'abe
 }, (r) => r.abertas.join() === "rede_teste_lista()");
 await recusa("portas: e a trava não liga com porta aberta", () => dono("select interno.alumia_entrada_ligar(true)"), "sem porta");
 await exec("drop function public.rede_teste_lista(); drop function public.rede_teste_nova(); drop function public.rede_teste_sql(integer);");
+// Onda 7: as funções do servidor da federação ficam fora da porta, e o que já tinha sido trancado se destranca.
+const portasFed = ler("supabase/migracoes/20261113-alumia-o7-portas-fediverso.sql");
+ok("portas do Fediverso: a migração está colada no FIM do install.sql", noFimDoInstall(portasFed, ler("supabase/install.sql")));
+await espera("portas do Fediverso: a regra não tranca rede_fed_servidor", async () => (await dono("select prosrc ~ 'interno\.alumia_porta' as t from pg_proc where proname = 'rede_fed_servidor'")).rows.every((r) => !r.t), (r) => r === true);
+await espera("portas do Fediverso: o que tinha sido trancado (como em produção) volta ao corpo de antes", async () => {
+  await exec(`create or replace function public.rede_teste_volta() returns text language plpgsql security definer set search_path = interno, pg_temp as $f$ begin return 'aberta'; end $f$;
+    create or replace function public.rede_teste_volta_sql(p_x integer) returns integer language sql stable security definer set search_path = interno, pg_temp as $f$ select p_x + 1 $f$;
+    grant execute on function public.rede_teste_volta(), public.rede_teste_volta_sql(integer) to anon, authenticated;`);
+  await dono("select interno.alumia_trancar()");
+  const n = (await dono("select interno.alumia_destrancar('rede_teste_volta') + interno.alumia_destrancar('rede_teste_volta_sql') as n")).rows[0].n;
+  const corpo = (await dono("select string_agg(l.lanname || ':' || (p.prosrc ~ 'alumia_porta')::text, ',' order by p.proname) as c from pg_proc p join pg_language l on l.oid = p.prolang where proname in ('rede_teste_volta', 'rede_teste_volta_sql')")).rows[0].c;
+  return [n, corpo, await rpc(como(P.intrusa), "rede_teste_volta"), await rpc(visitante(), "rede_teste_volta_sql", { p_x: 1 })];
+}, ([n, corpo, a, b]) => n === 2 && corpo === "plpgsql:false,sql:false" && a === "aberta" && b === 2);
+await espera("portas do Fediverso: a migração roda duas vezes sem estrago", async () => { await exec(portasFed); await exec(portasFed); return true; });
+await exec("drop function public.rede_teste_volta(); drop function public.rede_teste_volta_sql(integer);");
 await espera("portas: o próprio banco (agendador, SQL Editor) continua passando", async () => (await dono("select public.rede_avisos() as a, public.rede_pub_agendados_rodar() as b")).rows[0], (r) => Array.isArray(r.a));
 await espera("portas: a chave de serviço passa", () => rpc(servico, "rede_mod_niveis"), (r) => Array.isArray(r));
 
@@ -344,6 +387,7 @@ await espera("e a migração da entrada, rodada com a trava desligada, não apro
   await dono("delete from interno.alumia_entrada where usuario = $1", [P.furona]);
   await exec(sql);
   await exec(portas);
+  await exec(o7);
   return (await dono("select interno.alumia_situacao($1) as s", [P.furona])).rows[0].s;
 }, (s) => s === "sem_pedido");
 
@@ -351,6 +395,7 @@ await espera("e a migração da entrada, rodada com a trava desligada, não apro
 await espera("autenticador novo: quando passa a valer, a pessoa recebe o aviso de conta (uma vez)", async () => {
   await exec("create table if not exists auth.mfa_factors (id uuid primary key default gen_random_uuid(), user_id uuid not null, status text not null default 'unverified', created_at timestamptz not null default now())");
   await exec(portas);
+  await exec(o7);
   const avisos = async () => (await dono("select count(*)::int as n from interno.avisos where para = $1 and categoria = 'conta' and texto like 'Um aplicativo autenticador novo%'", [P.antiga])).rows[0].n;
   await dono("insert into auth.mfa_factors (user_id) values ($1)", [P.antiga]);
   const semValer = await avisos();
@@ -389,14 +434,49 @@ ok("ponte: resposta com token_hash estranho", mensagemDaPonte({ tipo: "sessao", 
 const figuras = figurasDaEntrada();
 const lista = JSON.parse(ler("lib/rede/entrada/silhuetas.json")).figuras;
 const creditos = JSON.parse(ler("lib/rede/entrada/creditos.json"));
-ok("silhuetas: as 9 figuras ligadas (a lista da coordenação com Mariátegui; a de Fanon espera a decisão sobre a foto)", ["lenin", "marx", "engels", "stalin", "gramsci", "freire", "rosa", "marielle", "mariategui"].every((id) => figuras.some((f) => f.id === id)) && figuras.length === 9);
+ok("silhuetas: as 9 figuras ligadas (a lista da coordenação de 12/11, com Che Guevara)", ["lenin", "marx", "engels", "rosa", "gramsci", "freire", "marielle", "stalin", "che"].every((id) => figuras.some((f) => f.id === id)) && figuras.length === 9);
+{
+  // As silhuetas que já existiam não mudam nem um byte (o desenho novo da parede não recorta nem refaz figura nenhuma).
+  const ANTES = { lenin: "b2be90d3f7d6294b", marx: "5a1aafe4317c5a95", engels: "85b56b90e13fbc24", rosa: "a5026b92cf03d293", stalin: "07e25aa08d29062f", gramsci: "a114ad47d535e69f", freire: "db5956a7c6c73a3f", marielle: "cd1a155086793976" };
+  const { createHash } = await import("node:crypto");
+  const mudou = Object.entries(ANTES).filter(([id, h]) => createHash("sha256").update(fs.readFileSync(path.join(raiz, "public/alumia/entrada", `${id}.webp`))).digest("hex").slice(0, 16) !== h);
+  ok(`silhuetas: as que já existiam estão byte a byte iguais (${mudou.map(([id]) => id).join(", ")})`, mudou.length === 0);
+}
+ok("silhuetas: Che Guevara fica ao lado de Stalin, no fim da parede (o último painel é o de quem chega)", figuras.map((f) => f.id).slice(-2).join() === "stalin,che");
+ok("silhuetas: sem Fanon nem Mariátegui (nem silhueta, nem crédito, nem texto da entrada)", !lista.some((f) => /fanon|mariategui/.test(f.id)) && !creditos.some((c) => /fanon|mariategui/.test(c.id)) && !fs.existsSync(path.join(raiz, "public/alumia/entrada/mariategui.webp")) && !fs.existsSync(path.join(raiz, "public/alumia/entrada/fanon.webp")) && !/Fanon|Mariátegui|Фанон|Мариатеги|法农|马里亚特吉/.test(ler("lib/rede/entrada/textos.ts") + ler("lib/rede/entrada/textos-parede.ts")));
+ok("silhuetas: a foto do Che não é o \"Guerrillero Heroico\" de Korda (disputa de direitos) e é de licença clara", (() => { const c = creditos.find((x) => x.id === "che"); return Boolean(c) && !/korda|guerrillero|heroico/i.test(JSON.stringify(c) + JSON.stringify(lista.find((f) => f.id === "che"))) && /^(CC0|Public domain)$/i.test(c.licenca) && c.autor.length > 3; })());
 ok("silhuetas: figura desligada não fica publicada (nem arquivo, nem crédito, nem nome no rótulo) e o motivo está escrito", lista.filter((f) => !f.ligada).every((f) => !fs.existsSync(path.join(raiz, "public/alumia/entrada", `${f.id}.webp`)) && !creditos.some((c) => c.id === f.id) && (f.motivo ?? "").length > 40) && !/Fanon|Фанон|法农/.test(ler("lib/rede/entrada/textos.ts")));
-ok("silhuetas: a grade conta as figuras (duas fileiras no celular, todas em linha no computador)", /\.ale-figuras \{[^}]*repeat\(var\(--ale-colunas, 5\), 1fr\)/.test(ler("styles/alumia-entrada.css")) && ler("styles/alumia-entrada.css").includes("grid-template-columns: repeat(var(--ale-n, 9), 1fr)") && /"--ale-n": figuras\.length/.test(ler("components/rede/entrada/Cena.tsx")));
+{
+  const css = ler("styles/alumia-entrada.css");
+  const parede = ler("components/rede/entrada/Parede.tsx");
+  ok(
+    "silhuetas: a parede tem cinco painéis por fileira (três no celular) e conta as fileiras com o painel de quem chega",
+    /\.ale-parede-grade \{[^}]*--ale-colunas: 3;[^}]*grid-template-columns: repeat\(var\(--ale-colunas\), 1fr\)/.test(css) &&
+      /@media \(min-width: 620px\) \{\s*\.ale-parede-grade \{[^}]*--ale-colunas: 5;/.test(css) &&
+      /Math\.ceil\(\(figuras\.length \+ 1\) \/ 5\)/.test(parede) &&
+      /Math\.ceil\(\(figuras\.length \+ 1\) \/ 3\)/.test(parede) &&
+      /<PainelDeVoce /.test(parede),
+  );
+}
+ok("silhuetas: cada figura entra inteira, no retrato do arquivo (3:4, sem recorte), e só a cor passa pelo filtro", /\.ale-painel \{[^}]*aspect-ratio: 3 \/ 4/.test(ler("styles/alumia-entrada.css")) && !/object-fit: cover[^}]*\}[^{]*\.ale-painel img/.test(ler("styles/alumia-entrada.css")) && /filter: url\(#ale-tritom\)/.test(ler("styles/alumia-entrada.css")));
 ok("silhuetas: a derivada de foto CC BY-SA diz que sai sob a mesma licença (e o repositório avisa que ela não é AGPL)", creditos.filter((c) => /^CC BY-SA /.test(c.licenca)).length === 2 && creditos.filter((c) => /^CC BY-SA /.test(c.licenca)).every((c) => c.licencaDerivada === c.licenca) && figuras.filter((f) => f.credito.licencaDerivada).length === 2 && /freire\.webp. é CC BY-SA 3\.0 e .marielle\.webp. é CC BY-SA 2\.0/.test(ler("README.md")) && /creditosDerivada/.test(ler("components/rede/entrada/Cena.tsx")));
 ok("silhuetas: pessoa viva sem autorização nunca entra", lista.filter((f) => f.viva && !f.autorizacao).every((f) => !figuras.some((x) => x.id === f.id)));
 ok("silhuetas: toda figura tem arquivo e crédito com licença livre", figuras.every((f) => fs.existsSync(path.join(raiz, "public", f.src)) && /^(Public domain|CC0|CC BY(-SA)? [0-9.]+)/i.test(f.credito.licenca) && /^https:\/\/commons\.wikimedia\.org\//.test(f.credito.fonte)));
 ok("silhuetas: licença CC traz o endereço da licença", creditos.filter((c) => /^CC BY/.test(c.licenca)).every((c) => /^https:\/\/creativecommons\.org\//.test(c.licencaUrl ?? "")));
 ok("silhuetas: a de Marielle Franco traz o cuidado com a imagem", creditos.find((c) => c.id === "marielle")?.cuidado?.includes("Instituto Marielle Franco"));
+
+// ═══════════════════ 3b. O painel de quem chega (lib/rede/entrada/voce.ts) ═══════════════════
+{
+  const total = COLUNAS_DO_PAINEL * LINHAS_DO_PAINEL;
+  ok("painel: vazio é sempre o mesmo (nada de sorteio por visita)", painelVazio().join() === painelVazio().join() && painelVazio().length === total);
+  ok("painel: o mesmo codinome escrito de outro jeito dá o mesmo rosto", painelDoCodinome("Faísca").join() === painelDoCodinome(" faisca").join() && sementeDoCodinome("Faísca!") === "faisca");
+  ok("painel: codinomes diferentes dão rostos diferentes", painelDoCodinome("Faísca").join() !== painelDoCodinome("Brasa Viva").join());
+  ok("painel: sem codinome que sirva, o painel fica vazio", painelDoCodinome("!!!").join() === painelVazio().join());
+  ok("painel: a foto reduzida vira uma cor por casa", painelDaFoto(new Uint8ClampedArray(total * 4).fill(255)).every((c) => c === "#ffffff") && painelDaFoto([]).join() === painelVazio().join());
+  ok("painel: cada casa assenta entre 0 e 1", atrasosDoPainel("faisca").every((x) => x >= 0 && x <= 1));
+  const voce = ler("components/rede/entrada/Voce.tsx");
+  ok("painel: nada vai ao servidor (sem rpc, fetch nem armazenamento) e a animação respeita prefers-reduced-motion", !/(rpc|fetch|localStorage|sessionStorage)/.test(voce.replace(/^\s*(\/\/|\*).*$/gm, "")) && /prefers-reduced-motion: reduce/.test(voce));
+}
 
 // ═══════════════════ 4. O site ═══════════════════
 ok("rota de API da ponte existe", fs.existsSync(path.join(raiz, "app/api/sessao/ponte/route.ts")));

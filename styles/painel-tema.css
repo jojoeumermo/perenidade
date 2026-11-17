@@ -2722,6 +2722,24 @@ html[data-escrita-foco="1"] #painel-corpo {
 .pn-trilha-atual > svg {
   flex: none;
 }
+/* O nome da seção encolhe com reticências (o nome inteiro fica no title), e a busca do meio cede antes da trilha. */
+.pn-trilha-nome {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (min-width: 64rem) {
+  .pn-barra-esq {
+    flex: 1 1 auto;
+  }
+  .pn-barra-dir {
+    flex: 0 0 auto;
+  }
+  .pn-barra-centro {
+    flex: 0 3 26rem;
+  }
+}
 /* Campos que já mostram o foco na moldura (a paleta, o filtro do menu): sem o anel em volta só do campo. */
 .pn-paleta.pn-portal [cmdk-input][cmdk-input]:focus-visible,
 .pn-menu .pn-menu-filtro input[type="search"]:focus-visible {

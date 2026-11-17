@@ -396,11 +396,14 @@ await espera("o Fórum só carrega sob demanda (dynamic import com esqueleto)", 
 const entrar = lerTexto("components/SignIn.tsx");
 await espera("a entrada tem o 'esqueci a senha'", () => Promise.resolve(entrar), (t) => t.includes("EsqueciASenha"));
 const senha = lerTexto("components/rede/consertos/EsqueciASenha.tsx");
-await espera("o 'esqueci a senha' usa resetPasswordForEmail e volta para a tela de entrar", () => Promise.resolve(senha), (t) => t.includes("resetPasswordForEmail") && t.includes("/entrar") && t.includes("captchaToken"));
+// Onda 9: o link sai pelo servidor do site (a prova no aparelho e o freio da porta), sem desafio de terceiros; a cópia local de
+// testes, sem as rotas, ainda pede direto.
+await espera("o 'esqueci a senha' pede pelo servidor e volta para a tela de entrar", () => Promise.resolve(senha), (t) => t.includes("avisoPelaPorta") && t.includes("resetPasswordForEmail") && t.includes("/entrar") && !t.includes("captchaToken"));
 const funcao = lerTexto("supabase/functions/avaliar-comunidade/index.ts");
-await espera("a função avaliar-comunidade aceita o tipo 'rede'", () => Promise.resolve(funcao), (t) => /"aula_chat", "rede"\]/.test(t));
+// Onda 9 (decisão da coordenação): post da Alumia não vai para a avaliação de outra empresa.
+await espera("a função avaliar-comunidade recusa o tipo 'rede'", () => Promise.resolve(funcao), (t) => /const TIPOS = \["topico", "resposta", "comentario", "aula_chat"\];/.test(t) && !/"aula_chat", "rede"\]/.test(t));
 const backend = lerTexto("lib/backend.ts");
-await espera("evaluatePost aceita 'rede'", () => Promise.resolve(backend), (t) => /"aula_chat" \| "rede"/.test(t));
+await espera("evaluatePost não aceita 'rede'", () => Promise.resolve(backend), (t) => /"comentario" \| "aula_chat", id/.test(t) && !/"aula_chat" \| "rede"/.test(t));
 await espera("nenhum arquivo do pacote lê disco", () => Promise.resolve(["lib/rede/tipos-consertos.ts", "lib/rede/cliente-consertos.ts", "components/rede/consertos/contexto.tsx", "components/rede/consertos/Convites.tsx"].map(lerTexto)), (l) => l.every((t) => !/from "node:fs"|require\("fs"\)|readFileSync/.test(t)));
 
 console.log(`\n${certos} certas, ${falhas.length} falhas.`);

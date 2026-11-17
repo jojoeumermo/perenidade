@@ -4,12 +4,19 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "@/components/Link";
 import { rede } from "@/lib/rede/cliente";
+import { linhaAberta, type AbaDaRegra, type PostDaLinha } from "@/lib/rede/cliente-linha";
+import { NUMEROS_DA_REGRA, type FiltroDaLinha, type ModoDaLinha } from "@/lib/rede/linha-aberta";
+import { filtroDosInteresses } from "@/lib/rede/interesses";
 import { redePub } from "@/lib/rede/cliente-publicar";
 import { misturarRepostes } from "@/lib/rede/publicar/alumia2";
 import { preencher } from "@/lib/rede/preencher";
+import { comReserva } from "@/lib/rede/reserva";
+import type { TextosDaLinha } from "@/lib/rede/textos-linha";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { lerSilenciosLocais, silenciadoNoAparelho, type SilencioLocal } from "@/lib/rede/silenciar-local";
 import type { Aba, Post } from "@/lib/rede/tipos";
+import { chaveDoItem, deForaVale, estadoInicialDeFora, limiteDaPagina, maisDeFora, misturarDeFora, misturarDeForaNaRoda, type EstadoDeFora } from "@/lib/rede/fediverso/tela/linha";
+import type { CartaoDeFora } from "@/lib/rede/fediverso/tela/tipos";
 import { CartaoDePost } from "./CartaoDePost";
 import { textoDoErro } from "./erros";
 import { EsqueletoDaLinha, EsqueletoDoPost } from "./Esqueletos";
@@ -33,6 +40,24 @@ interface Lembrada {
   repostesAte: string | null;
   geracao: number;
   quando: number;
+  corte: number | null;
+  /** Gente de fora na aba Seguindo (Fediverso): os cartões que já vieram, o cursor de fora e se ainda há o que pedir. */
+  fora: CartaoDeFora[];
+  estadoDeFora: EstadoDeFora;
+  foraTemMais: boolean;
+}
+
+/**
+ * A linha com regra aberta (supabase/migracoes/20261113-alumia-o7-linha.sql): a ordem (Em roda ou de chegada), de onde parte e o
+ * filtro de uma linha montada. Sem isto, a linha é a de sempre (rede_linha, ordem de chegada).
+ */
+export interface RegraDaLinha {
+  modo: ModoDaLinha;
+  base: AbaDaRegra;
+  filtro: FiltroDaLinha | null;
+  /** Distingue esta linha na memória da aba do navegador (a ordem e a linha montada). */
+  chave: string;
+  t: TextosDaLinha;
 }
 const memoria = new Map<string, Lembrada>();
 
@@ -62,6 +87,7 @@ export function Linha({
   vazio,
   aoEscreverCom,
   geracao = 0,
+  regra = null,
 }: {
   aba: Aba;
   lang: string;
@@ -73,10 +99,15 @@ export function Linha({
   aoEscreverCom?: (texto: string) => void;
   /** Sobe depois de publicar: a linha lembrada na memória deixa de valer. */
   geracao?: number;
+  /** A regra aberta (Em roda) ou uma linha montada; nulo = a linha de sempre. */
+  regra?: RegraDaLinha | null;
 }) {
   const al2 = useAlumia2();
   const previa = Boolean(al2?.previa) && !aba.includes(":");
-  const chave = `${aba}${previa ? ":previa" : ""}`;
+  // Os interesses deste aparelho (onda 11) mudam a ordem Em roda: a linha lembrada só vale para os mesmos interesses.
+  const [sinalDosInteresses] = useState(() => (regra?.modo === "roda" ? JSON.stringify(filtroDosInteresses() ?? "") : ""));
+  const chave = `${aba}${previa ? ":previa" : ""}${regra ? `:${regra.chave}` : ""}${sinalDosInteresses ? `:${sinalDosInteresses}` : ""}`;
+  const montada = Boolean(regra?.filtro) || regra?.base === "temas";
   const [lembrada] = useState<Lembrada | null>(() => {
     const m = memoria.get(chave);
     return m && m.geracao === geracao && Date.now() - m.quando < VALIDADE_DA_MEMORIA_MS ? m : null;
@@ -88,6 +119,8 @@ export function Linha({
   const [maisCarregando, setMaisCarregando] = useState(false);
   const [erroDoMais, setErroDoMais] = useState("");
   const [novos, setNovos] = useState(0);
+  // Onde a regra acabou e a linha continua em ordem de chegada (o que é mais velho que a janela da regra).
+  const [corte, setCorte] = useState<number | null>(() => lembrada?.corte ?? null);
   const [atualizando, setAtualizando] = useState(false);
   // Depois de "N posts novos", o foco vai para o primeiro post que chegou (quem usa teclado ou leitor de tela não fica perdido).
   const focarNovo = useRef(false);
@@ -99,7 +132,30 @@ export function Linha({
   const lista = useRef<HTMLDivElement>(null);
   const sentinela = useRef<HTMLDivElement>(null);
   // Na aba Seguindo da Alumia nova, os reposts de quem a pessoa segue entram na ordem de chegada (só com a flag "alumia-2").
-  const comReposts = Boolean(al2) && !previa && logado && aba === "seguindo";
+  const comReposts = Boolean(al2) && !previa && logado && aba === "seguindo" && !regra;
+  // Gente de fora (Fediverso) no meio da aba Seguindo, por data, sem aba à parte: só na casca nova, com "fediverso-total" ligado
+  // (e sessão) ou na prévia, na ordem de chegada e na regra aberta (Em roda: quem a pessoa segue lá fora entra na roda, pelo bloco
+  // de horas, misturarDeForaNaRoda; a linha montada, com filtro, não leva gente de fora). São duas listas
+  // com cursor próprio: lib/rede/fediverso/tela/linha.ts solta um cartão de fora só quando ele é mais novo que o post mais antigo
+  // da página daqui (a ordem não pula quando chega a página seguinte). A pílula "N posts novos" conta só os daqui.
+  const comFora = Boolean(al2) && aba === "seguindo" && (!regra || (regra.modo === "roda" && !regra.filtro && regra.base !== "temas")) && (previa || logado) && deForaVale(previa);
+  const [fora, setFora] = useState<CartaoDeFora[]>(() => lembrada?.fora ?? []);
+  const estadoDeFora = useRef<EstadoDeFora>(lembrada?.estadoDeFora ?? estadoInicialDeFora());
+  const [foraTemMais, setForaTemMais] = useState(() => lembrada?.foraTemMais ?? false);
+  const temMais = Boolean(proximo) || foraTemMais;
+  const modoDaRegra = regra?.modo ?? null;
+  const baseDaRegra = regra?.base ?? null;
+  const filtroDaRegra = regra?.filtro ?? null;
+  /** Uma tela da linha: pela regra aberta (com a de sempre de reserva, se o banco ainda não tem a função) ou a de sempre. */
+  const pedirTela = useCallback(
+    (cursor: string | null): Promise<{ itens: Post[]; proximo: string | null; naRegra?: boolean }> => {
+      if (!modoDaRegra || !baseDaRegra) return rede.linha(aba, cursor, 20);
+      const nova = () => linhaAberta.linha(baseDaRegra, modoDaRegra, filtroDaRegra, cursor).then((r) => ({ itens: r.itens as Post[], proximo: r.proximo, naRegra: r.na_regra }));
+      // Linha montada não tem reserva: sem a função no banco, o erro aparece (mostrar a aba inteira seria mentir sobre o filtro).
+      return filtroDaRegra || baseDaRegra === "temas" ? nova() : comReserva(nova, () => rede.linha(aba, cursor, 20));
+    },
+    [aba, modoDaRegra, baseDaRegra, filtroDaRegra],
+  );
   // Até onde já vieram reposts (o post mais antigo da última página carregada).
   const repostesAte = useRef<string | null>(lembrada?.repostesAte ?? null);
   // "Silenciar só neste aparelho": a lista fica no navegador e só esconde o que a tela mostra (o servidor não sabe dela).
@@ -114,8 +170,8 @@ export function Linha({
   // Guarda na memória o que está na tela, para a próxima vez abrir na hora.
   useEffect(() => {
     if (estado !== "ok") return;
-    memoria.set(chave, { itens, proximo, desde: desde.current, repostesAte: repostesAte.current, geracao, quando: Date.now() });
-  }, [chave, itens, proximo, estado, geracao]);
+    memoria.set(chave, { itens, proximo, desde: desde.current, repostesAte: repostesAte.current, geracao, quando: Date.now(), corte, fora, estadoDeFora: estadoDeFora.current, foraTemMais });
+  }, [chave, itens, proximo, estado, geracao, corte, fora, foraTemMais]);
 
   // Carrega a primeira página (e de novo quando a versão muda: "tentar de novo" e "N novos, mostrar"). Com a linha lembrada, a
   // primeira carga não acontece: a pílula "N novos" avisa o que chegou depois.
@@ -126,25 +182,31 @@ export function Linha({
     const antes = new Date().toISOString();
     // Prévia (NEXT_PUBLIC_ALUMIA_PREVIA=sim): os posts das pranchas, nunca misturados com os de verdade; "3 posts novos".
     // Os exemplos só são baixados na prévia (import sob demanda): fora dela, não pesam no pacote da Rede de hoje.
-    const pedido = previa
+    const pedido: Promise<{ itens: Post[]; proximo: string | null; desde?: string | null }> = previa
       ? import("@/lib/rede/publicar/exemplos-alumia2").then((m) => ({
           // Depois de tocar em "3 posts novos", os três chegam no alto (e entram animados, como os novos de verdade).
-          itens: versao > 0 ? [...m.postsNovosDeExemplo(), ...m.postsDeExemplo()] : m.postsDeExemplo(),
+          itens: arrumarPrevia(versao > 0 ? [...m.postsNovosDeExemplo(), ...m.postsDeExemplo()] : m.postsDeExemplo(), modoDaRegra, filtroDaRegra),
           proximo: null,
         }))
-      : rede.linha(aba, null, 20).then(async (r) => {
+      : pedirTela(null).then(async (r) => {
           if (!comReposts) return r;
           const m = await comRepostes(r.itens, r.proximo, null);
           return { itens: m.itens, proximo: r.proximo, desde: m.desde };
         });
+    // A primeira página de fora acompanha a daqui (maisDeFora nunca lança; em erro, a linha daqui segue sozinha).
     pedido
+      .then(async (r) => ({ ...r, deFora: comFora ? await maisDeFora(estadoInicialDeFora(), { ate: limiteDaPagina(r.itens, r.proximo), logado }) : null }))
       .then((r) => {
         if (!vivo) return;
         desde.current = antes;
         repostesAte.current = "desde" in r ? (r.desde ?? null) : null;
+        estadoDeFora.current = r.deFora?.estado ?? estadoInicialDeFora();
+        setFora(r.deFora?.itens ?? []);
+        setForaTemMais(r.deFora?.temMais ?? false);
         setItens(r.itens);
         setProximo(r.proximo);
-        setNovos(previa && versao === 0 ? 3 : 0);
+        setCorte(null);
+        setNovos(previa && versao === 0 && !montada ? 3 : 0);
         setEstado("ok");
         setAtualizando(false);
         if (focarNovo.current) {
@@ -166,7 +228,7 @@ export function Linha({
     return () => {
       vivo = false;
     };
-  }, [aba, s, versao, previa, comReposts, lembrada]);
+  }, [aba, s, versao, previa, comReposts, comFora, logado, lembrada, pedirTela, modoDaRegra, filtroDaRegra, montada]);
 
   /** Do zero, com esqueleto (depois de um erro). */
   const carregar = () => {
@@ -189,7 +251,8 @@ export function Linha({
 
   // A pílula "N novos": pergunta só enquanto a página está à vista e a linha já carregou (e logo ao abrir uma linha lembrada).
   useEffect(() => {
-    if (estado !== "ok" || previa) return;
+    // Linha montada não tem contador de novos (o contador é da aba, não do filtro).
+    if (estado !== "ok" || previa || montada) return;
     const perguntar = () => {
       if (document.visibilityState !== "visible") return;
       rede.novos(aba, desde.current).then((n) => setNovos(typeof n === "number" ? n : 0)).catch(() => undefined);
@@ -197,40 +260,54 @@ export function Linha({
     if (lembrada && versao === 0) perguntar();
     const id = window.setInterval(perguntar, ESPERA_DOS_NOVOS_MS);
     return () => window.clearInterval(id);
-  }, [aba, estado, previa, lembrada, versao]);
+  }, [aba, estado, previa, lembrada, versao, montada]);
 
   const maisPosts = useCallback(async () => {
-    if (!proximo || maisCarregando) return;
+    // A linha continua enquanto um dos dois lados (daqui ou de fora) tiver página.
+    if ((!proximo && !foraTemMais) || maisCarregando) return;
     setMaisCarregando(true);
     setErroDoMais("");
     try {
-      const r = await rede.linha(aba, proximo, 20);
-      let pagina = r.itens;
-      if (comReposts) {
-        const m = await comRepostes(r.itens, r.proximo, repostesAte.current, new Set(itens.map((p) => p.id)));
-        pagina = m.itens;
-        repostesAte.current = m.desde;
+      // A linha daqui já acabou e só falta o que veio de fora: o lado de fora vai até o fim (limite nulo).
+      let ate: string | null = null;
+      if (proximo) {
+        const r = await pedirTela(proximo);
+        let pagina = r.itens;
+        // A regra acabou nesta tela: daqui para trás é ordem de chegada (a faixa avisa onde).
+        if (modoDaRegra === "roda" && r.naRegra === false) setCorte((c) => c ?? itens.length);
+        if (comReposts) {
+          const m = await comRepostes(r.itens, r.proximo, repostesAte.current, new Set(itens.map((p) => p.id)));
+          pagina = m.itens;
+          repostesAte.current = m.desde;
+        }
+        setItens((atual) => {
+          const vistos = new Set(atual.map((p) => p.id));
+          return [...atual, ...pagina.filter((p) => !vistos.has(p.id))];
+        });
+        setProximo(r.proximo);
+        ate = limiteDaPagina(r.itens, r.proximo);
       }
-      setItens((atual) => {
-        const vistos = new Set(atual.map((p) => p.id));
-        return [...atual, ...pagina.filter((p) => !vistos.has(p.id))];
-      });
-      setProximo(r.proximo);
+      if (comFora) {
+        const f = await maisDeFora(estadoDeFora.current, { ate, logado });
+        estadoDeFora.current = f.estado;
+        setFora((atual) => [...atual, ...f.itens]);
+        setForaTemMais(f.temMais);
+      }
     } catch (e) {
       setErroDoMais(textoDoErro(s, e));
     } finally {
       setMaisCarregando(false);
     }
-  }, [aba, proximo, maisCarregando, comReposts, itens, s]);
+  }, [proximo, foraTemMais, maisCarregando, comReposts, comFora, logado, itens, s, pedirTela, modoDaRegra]);
 
   // A próxima página vem sozinha quando a pessoa chega a ~1 tela do fim (o botão continua lá para teclado e leitor de tela).
   useEffect(() => {
     const alvo = sentinela.current;
-    if (!alvo || !proximo || erroDoMais || typeof IntersectionObserver === "undefined") return;
+    if (!alvo || !temMais || erroDoMais || typeof IntersectionObserver === "undefined") return;
     const obs = new IntersectionObserver((e) => e.some((x) => x.isIntersecting) && void maisPosts(), { rootMargin: "0px 0px 900px 0px" });
     obs.observe(alvo);
     return () => obs.disconnect();
-  }, [proximo, maisPosts, erroDoMais]);
+  }, [temMais, maisPosts, erroDoMais]);
 
 
   if (estado === "carregando") return <EsqueletoDaLinha rotulo={s.estados.carregando} />;
@@ -260,7 +337,10 @@ export function Linha({
     );
   }
 
-  const visiveis = silencios.length ? itens.filter((p) => !silenciadoNoAparelho(p, silencios)) : itens;
+  // Os cartões de fora entram na hora de desenhar, por data (a nota que veio como original e como impulso aparece uma vez só).
+  // O cartão de fora tem as chaves de Post que a linha lê (id, criado_em, autor); o CartaoDePost o manda para o cartão de fora.
+  const juntos = fora.length ? ((regra ? misturarDeForaNaRoda(itens, fora, corte) : misturarDeFora(itens, fora)) as unknown as Post[]) : itens;
+  const visiveis = silencios.length ? juntos.filter((p) => !silenciadoNoAparelho(p, silencios)) : juntos;
   return (
     <div ref={lista} className="al2-linha">
       {al2 && (
@@ -323,15 +403,30 @@ export function Linha({
             const novo = Boolean(al2) && !jaMostrados.has(p.id);
             // Escada dentro de cada página de 20 (no máximo 10 passos de atraso).
             const i = Math.min(k % 20, 10);
+            const porque = regra ? (p as PostDaLinha).o7_porque : null;
+            const rotulo = porque === "aviso" ? regra?.t.porque.aviso : porque === "ato" ? regra?.t.porque.ato : porque === "ajudou" ? regra?.t.porque.ajudou : null;
+            const motivo = porque === "aviso" ? regra?.t.porque.avisoRegra : porque === "ato" ? preencher(regra?.t.porque.atoRegra ?? "", { horas: NUMEROS_DA_REGRA.perto_horas }) : porque === "ajudou" ? preencher(regra?.t.porque.ajudouRegra ?? "", { ajudou_piso: NUMEROS_DA_REGRA.ajudou_piso }) : "";
             return (
-              <li key={p.id} className={novo ? "al2-entra" : undefined} style={novo ? ({ "--i": Math.min(i, 10) } as React.CSSProperties) : undefined}>
+              <li key={chaveDoItem(p)} className={novo ? "al2-entra" : undefined} style={novo ? ({ "--i": Math.min(i, 10) } as React.CSSProperties) : undefined}>
+                {regra && corte !== null && p.id === itens[corte]?.id && (
+                  <div className="ro-corte" role="note">
+                    <strong className="al-cond">{regra.t.fim.regraAcabou}</strong>
+                    <span>{preencher(regra.t.fim.regraAcabouTexto, { dias: NUMEROS_DA_REGRA.janela_dias })}</span>
+                  </div>
+                )}
+                {rotulo && (
+                  <p className={`ro-porque ro-porque-${porque}`} title={motivo}>
+                    <span className="ro-porque-marca al-cond">{rotulo}</span>
+                    <span className="ro-porque-regra">{motivo}</span>
+                  </p>
+                )}
                 <CartaoDePost post={p} lang={lang} s={s} logado={logado} aoResponder={aoResponder} />
               </li>
             );
           })}
         </ol>
       )}
-      {proximo ? (
+      {temMais ? (
         <div ref={sentinela} className="px-[18px] py-4 text-center">
           {maisCarregando && al2 ? (
             <div aria-hidden>
@@ -348,10 +443,10 @@ export function Linha({
             {maisCarregando ? s.estados.carregando : erroDoMais ? s.estados.tentar : s.estados.maisPosts}
           </button>
         </div>
-      ) : itens.length > 0 && al2 ? (
+      ) : juntos.length > 0 && al2 ? (
         <FimDaLinha lang={lang} t={al2.t} />
       ) : (
-        itens.length > 0 && <p className="px-[18px] py-6 text-center font-sans text-sm text-ink-soft">{s.estados.fim}</p>
+        juntos.length > 0 && <p className="px-[18px] py-6 text-center font-sans text-sm text-ink-soft">{s.estados.fim}</p>
       )}
     </div>
   );
@@ -420,4 +515,20 @@ function MosaicoVazio() {
       })}
     </svg>
   );
+}
+
+/**
+ * Prévia (sem banco): os posts das pranchas arrumados como a regra arrumaria o que dá para ver neles: o chamado com data perto
+ * no alto e a conversa com resposta que ajudou marcada. Na ordem de chegada, só do mais novo para o mais velho. Com filtro de
+ * tipo, só os tipos pedidos.
+ */
+function arrumarPrevia(posts: Post[], modo: ModoDaLinha | null, filtro: FiltroDaLinha | null): Post[] {
+  if (!modo) return posts;
+  const tipos = filtro?.tipos;
+  const lista: PostDaLinha[] = (tipos?.length ? posts.filter((p) => (tipos as string[]).includes(p.tipo) || (tipos.includes("chamado") && p.chamado)) : posts).map((p) => ({ ...p }));
+  lista.sort((a, b) => Date.parse(b.criado_em) - Date.parse(a.criado_em));
+  if (modo === "chegada") return lista.map((p) => ({ ...p, o7_porque: "chegada" as const }));
+  for (const p of lista) p.o7_porque = p.chamado ? "ato" : p.aceita ? "ajudou" : "roda";
+  const peso = (p: PostDaLinha) => (p.o7_porque === "ato" ? 0 : p.o7_porque === "ajudou" ? 1 : 2);
+  return lista.map((p, i) => ({ p, i })).sort((a, b) => peso(a.p) - peso(b.p) || a.i - b.i).map((x) => x.p);
 }

@@ -16,6 +16,7 @@ import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDoPerfil } from "@/lib/rede/textos-perfil";
 import { enderecos, type PaginaDaLinha, type Post, type Situacao } from "@/lib/rede/tipos";
+import type { SecoesVistas } from "@/lib/rede/cliente-secoes-perfil";
 import type { ExtrasDoPerfil } from "@/lib/rede/tipos-org";
 import type { PerfilDaRede } from "@/lib/rede/tipos-perfil";
 import { CartaoDePost } from "../../CartaoDePost";
@@ -41,6 +42,7 @@ export function PaginaDoPerfil({
   dado: inicial,
   extras,
   lida,
+  secoes = null,
   t,
   sp,
   lang,
@@ -51,6 +53,8 @@ export function PaginaDoPerfil({
   dado: PerfilDaRede;
   extras: ExtrasDoPerfil | null;
   lida: AparenciaLida;
+  /** As seções escolhidas (onda 12); nulo = não deu para ler, e a fileira fica como sempre foi. */
+  secoes?: SecoesVistas | null;
   t: TextosDoPerfilLivre;
   sp: TextosDoPerfil | null;
   lang: string;
@@ -204,7 +208,14 @@ export function PaginaDoPerfil({
           </>
         }
       />
-      {fileira ? <FileiraDoPerfil handle={dado.handle} lang={lang} s={s} situacao={situacao} posts={destaquesDePosts} /> : null}
+      <FileiraDoPerfil
+        handle={dado.handle}
+        lang={lang}
+        s={s}
+        situacao={situacao}
+        posts={fileira ? destaquesDePosts : []}
+        secoes={secoes ? { vistas: secoes, selos: dado.selos, meu: dado.meu } : undefined}
+      />
       {abas.length > 1 ? (
         <Abas id={id} abas={abas} atual={aba} aoMudar={(n) => comTransicao(() => setAba(n))} rotulos={nomesDasAbas} rotulo={preencher(t.perfil.abas, { codinome: dado.codinome })} />
       ) : null}

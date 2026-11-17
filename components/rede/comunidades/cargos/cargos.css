@@ -1,0 +1,213 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * A aba Chegada da comunidade (onda 10, frente 10B): boas-vindas com interesses em ladrilhos, regras para aceitar, a etiqueta da
+ * pessoa, os cargos em cartões com as permissões em fichas e as ferramentas de quem cuida. Linguagem do Mosaico da Arquibancada:
+ * carimbo, ladrilhos, faixa tecida, Archivo condensada em caixa alta. Só usa os tokens de styles/alumia-tokens.css (vale no
+ * escuro, no claro, no contraste e no e-ink).
+ */
+
+.cg { container-type: inline-size; display: grid; gap: 1rem; padding: 1rem 1rem 3rem; color: var(--al-texto); font-family: var(--al-fonte); }
+@media (min-width: 1024px) { .cg { padding: 1.25rem 1.25rem 3.5rem; gap: 1.15rem; } }
+.cg .al-cond { font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 900; text-transform: uppercase; letter-spacing: -0.005em; line-height: 0.95; }
+.cg-so-leitor { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.cg-vazio-tela { padding: 2rem 1rem; text-align: center; color: var(--al-texto-2); }
+.cg-vazio-tela p { margin: 0 0 1rem; }
+
+/* ───── Seção: cartão de superfície com a faixa tecida no alto ───── */
+.cg-secao { position: relative; padding: 1.15rem 1.15rem 1.2rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); overflow: hidden; }
+.cg-secao::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--al-faixa); }
+.cg-titulo { margin: 0.15rem 0 0.4rem; font-size: 1.75rem; color: var(--al-texto); }
+.cg-subtitulo { margin: 1rem 0 0.25rem; font-size: 1.2rem; color: var(--al-texto); letter-spacing: 0.01em; }
+.cg-lead { margin: 0 0 0.85rem; max-width: 46rem; color: var(--al-texto-2); font-size: 0.95rem; line-height: 1.55; }
+.cg-nota { margin: 0.35rem 0 0; color: var(--al-texto-3); font-size: 0.84rem; line-height: 1.45; }
+.cg-vazio { margin: 0; padding: 0.75rem 0.9rem; border-radius: 10px; border: 1px dashed var(--al-superficie-2); color: var(--al-texto-3); font-size: 0.9rem; }
+.cg-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 0.9rem; }
+.cg-sem-margem { margin: 0; }
+.cg-depois { margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--al-linha); }
+.cg-depois-p { margin-top: 0.7rem; }
+
+/* O carimbo "CHEGADA" e o selo dourado ("Aceitas em…", "2 esperando"). */
+.cg-carimbo {
+  display: inline-flex; align-items: center; margin: 0.3rem 0 0.6rem; padding: 0.36rem 0.65rem 0.3rem; border: 2px solid var(--al-vermelho); border-radius: 6px;
+  box-shadow: inset 0 0 0 2px var(--al-superficie), inset 0 0 0 3px var(--al-vermelho); color: var(--al-vermelho-letra, var(--al-vermelho-texto));
+  font-size: 0.95rem; letter-spacing: 0.07em; transform: rotate(-1.4deg); transform-origin: left center;
+}
+.cg-selo { display: inline-flex; align-items: center; min-height: 2rem; padding: 0.2rem 0.65rem 0.12rem; border-radius: 6px; background: var(--al-dourado-fundo, var(--al-dourado)); color: var(--al-sobre-dourado); font-size: 1rem; letter-spacing: 0.04em; transform: rotate(-1deg); }
+@media (prefers-reduced-motion: reduce) { .cg-carimbo, .cg-selo { transform: none; } }
+:root:is([data-contrast], [data-eink]) :is(.cg-carimbo, .cg-selo) { transform: none; color: var(--al-texto); border-color: var(--al-texto); box-shadow: none; background: none; border: 2px solid var(--al-texto); }
+
+/* ───── Boas-vindas: o texto grande e os interesses em ladrilhos ───── */
+.cg-boas-texto { margin: 0; max-width: 46rem; color: var(--al-texto); font-size: 1.08rem; line-height: 1.6; text-wrap: pretty; }
+.cg-ladrilhos { list-style: none; margin: 0.7rem 0 0; padding: 0; display: grid; gap: 0.5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr)); }
+.cg-ladrilho {
+  position: relative; display: flex; align-items: center; gap: 0.6rem; width: 100%; min-height: 52px; padding: 0.55rem 0.85rem 0.55rem 0.7rem;
+  border: 1.5px solid var(--al-superficie-2); border-radius: 10px; background: var(--al-fundo); color: var(--al-texto); cursor: pointer; text-align: left;
+  font: inherit; font-weight: 700; font-size: 0.95rem; line-height: 1.25; transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.cg-ladrilho-marca { flex: none; width: 1.1rem; height: 1.1rem; border-radius: 3px; background: var(--al-vermelho); box-shadow: inset 0 0 0 2px var(--al-fundo); }
+.cg-ladrilho[data-n="1"] .cg-ladrilho-marca { background: var(--al-dourado); }
+.cg-ladrilho[data-n="2"] .cg-ladrilho-marca { background: var(--al-com-1); }
+.cg-ladrilho[data-n="3"] .cg-ladrilho-marca { background: var(--al-com-4); }
+.cg-ladrilho[data-n="4"] .cg-ladrilho-marca { background: var(--al-com-2); }
+.cg-ladrilho[data-n="5"] .cg-ladrilho-marca { background: var(--al-com-3); }
+.cg-ladrilho[aria-pressed="true"] { background: var(--al-saliente); border-color: var(--al-saliente); color: var(--al-sobre-saliente); }
+.cg-ladrilho[aria-pressed="true"] .cg-ladrilho-marca { box-shadow: inset 0 0 0 2px var(--al-saliente); }
+.cg-ladrilho[aria-pressed="true"]::after { content: "✓"; margin-left: auto; font-weight: 900; }
+.cg-ladrilho:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) { .cg-ladrilho:not([aria-pressed="true"]):hover { border-color: var(--al-texto-3); } }
+:root:is([data-contrast], [data-eink]) .cg-ladrilho[aria-pressed="true"] { outline: 2px solid var(--al-texto); }
+.cg-comeco { margin-top: 0.4rem; }
+.cg-comeco ol { list-style: none; margin: 0.4rem 0 0; padding: 0; display: grid; gap: 0.45rem; counter-reset: cg; }
+.cg-comeco li { counter-increment: cg; position: relative; display: grid; gap: 0.15rem; padding: 0.6rem 0.8rem 0.65rem 2.6rem; border-radius: 10px; background: var(--al-fundo); border-left: 4px solid var(--al-dourado); }
+.cg-comeco li::before { content: counter(cg); position: absolute; left: 0.8rem; top: 0.55rem; font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 900; font-size: 1.35rem; color: var(--al-dourado); }
+.cg-comeco li strong { color: var(--al-texto); font-size: 0.95rem; }
+.cg-comeco li span { color: var(--al-texto-2); font-size: 0.92rem; line-height: 1.5; }
+.cg-cadeado { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.8rem; }
+.cg-cadeado::before { content: ""; flex: none; width: 0.7rem; height: 0.7rem; border-radius: 2px; background: var(--al-texto-3); }
+
+/* ───── Regras para aceitar ───── */
+.cg-regras[data-precisa="sim"] { border-color: var(--al-vermelho); }
+.cg-regras-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; max-width: 46rem; }
+.cg-regras-lista li { display: flex; gap: 0.75rem; align-items: baseline; padding: 0.55rem 0.75rem; border-radius: 10px; background: var(--al-fundo); color: var(--al-texto); font-size: 0.95rem; line-height: 1.45; }
+.cg-regra-n { flex: none; display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 5px; background: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); font-size: 1rem; }
+.cg-regra-texto { color: var(--al-texto-2); }
+
+/* ───── Cartões de cargo e as fichas de permissão ───── */
+.cg-cartoes { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.65rem; }
+@container (min-width: 40rem) { .cg-cartoes-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container (min-width: 64rem) { .cg-cartoes-grade { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.cg-cartao { position: relative; display: flex; flex-direction: column; gap: 0.4rem; padding: 0.9rem 0.95rem 0.95rem 1.15rem; border-radius: 10px; background: var(--al-fundo); border: 1px solid var(--al-linha); overflow: hidden; }
+.cg-cartao::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--al-vermelho); }
+.cg-cartao[data-n="1"]::before { background: var(--al-dourado); }
+.cg-cartao[data-n="2"]::before { background: var(--al-com-1); }
+.cg-cartao[data-n="3"]::before { background: var(--al-com-4); }
+.cg-cartao[data-n="4"]::before { background: var(--al-com-2); }
+.cg-cartao[data-n="5"]::before { background: var(--al-com-3); }
+.cg-cartao[data-situacao="convidado"] { border-color: var(--al-dourado); border-style: dashed; }
+.cg-cartao-sobre { margin: 0; color: var(--al-texto-3); font-size: 0.85rem; letter-spacing: 0.06em; }
+.cg-cartao-nome { margin: 0; font-size: 1.45rem; color: var(--al-texto); }
+.cg-cartao-texto { margin: 0; color: var(--al-texto-2); font-size: 0.9rem; line-height: 1.5; }
+.cg-cartao-n { margin: auto 0 0; padding-top: 0.35rem; color: var(--al-texto-3); font-size: 0.82rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.cg-fichas { list-style: none; display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.15rem 0 0; padding: 0; }
+.cg-ficha {
+  display: inline-flex; align-items: center; min-height: 28px; padding: 0.1rem 0.6rem; border-radius: 999px; border: 1.5px solid var(--al-superficie-2);
+  background: var(--al-superficie); color: var(--al-texto); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.01em;
+}
+.cg-ficha::before { content: ""; width: 0.5rem; height: 0.5rem; margin-right: 0.4rem; border-radius: 2px; background: var(--al-vermelho); }
+.cg-ficha[data-perm="regras"]::before { background: var(--al-dourado); }
+.cg-ficha[data-perm="boas_vindas"]::before { background: var(--al-com-1); }
+.cg-ficha[data-perm="etiquetas"]::before { background: var(--al-com-4); }
+.cg-ficha[data-perm="fixar"]::before { background: var(--al-com-2); }
+.cg-sem-permissao { margin: 0.15rem 0 0; color: var(--al-texto-3); font-size: 0.82rem; font-style: italic; }
+
+/* ───── Etiqueta: a oferta e a escolha em pílulas ───── */
+.cg-oferta { margin: 0 0 0.9rem; padding: 0.75rem 0.9rem; border-radius: 10px; background: var(--al-dourado-fundo, var(--al-dourado)); color: var(--al-sobre-dourado); }
+.cg-oferta p { margin: 0; font-weight: 700; font-size: 0.93rem; line-height: 1.45; }
+.cg-oferta .cg-acoes { margin-top: 0.6rem; }
+.cg-oferta .al-botao-contorno { color: var(--al-sobre-dourado); border-color: var(--al-sobre-dourado); }
+.cg-escolha { display: flex; flex-wrap: wrap; gap: 0.45rem; border: 0; margin: 0; padding: 0; min-width: 0; }
+.cg-opcao { position: relative; }
+.cg-opcao input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.cg-opcao span {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 1rem; border-radius: 999px; border: 1.5px solid var(--al-superficie-2);
+  color: var(--al-texto-2); font-size: 0.9rem; font-weight: 700;
+}
+.cg-opcao input:checked + span { background: var(--al-saliente); border-color: var(--al-saliente); color: var(--al-sobre-saliente); }
+.cg-opcao input:focus-visible + span { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+.cg-opcao-nenhuma span { border-style: dashed; }
+.cg-escolha:disabled { opacity: 0.7; }
+:root:is([data-contrast], [data-eink]) .cg-opcao input:checked + span { outline: 2px solid var(--al-texto); }
+
+/* ───── A etiqueta no cartão do post ───── */
+.cg-etiqueta-cartao { margin: 0.35rem 0 0; }
+.cg-etiqueta-ficha {
+  display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.18rem 0.5rem 0.1rem; border-radius: 4px; border: 1.5px solid var(--al-dourado);
+  color: var(--al-texto); font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 800; font-size: 0.85rem;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.cg-etiqueta-ficha::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 1px; background: var(--al-dourado); }
+
+/* ───── Gestão: os blocos de quem cuida ───── */
+.cg-gestao { margin-top: 0.5rem; padding-top: 1.1rem; border-top: var(--al-faixa-altura, 6px) solid transparent; border-image: var(--al-faixa) 1; }
+.cg-gestao-cabeca { margin-bottom: 0.9rem; }
+.cg-gestao-grade { display: grid; gap: 1rem; }
+@container (min-width: 62rem) { .cg-gestao-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } .cg-largo { grid-column: 1 / -1; } }
+.cg-bloco { padding: 1.05rem 1.1rem 1.15rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); min-width: 0; }
+.cg-bloco-titulo { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.6rem; font-size: 1.45rem; color: var(--al-texto); }
+.cg-bloco-n { flex: none; display: inline-grid; place-items: center; width: 2rem; height: 2rem; border-radius: 6px; background: var(--al-dourado-fundo, var(--al-dourado)); color: var(--al-sobre-dourado); font-size: 1rem; letter-spacing: 0; }
+.cg-form { display: grid; gap: 0.8rem; }
+.cg-campo { display: grid; gap: 0.3rem; color: var(--al-texto-2); font-size: 0.86rem; font-weight: 700; min-width: 0; }
+.cg-campo :is(input, select, textarea) {
+  width: 100%; min-height: 44px; padding: 0.5rem 0.7rem; border-radius: 8px; border: 1.5px solid var(--al-superficie-2);
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-weight: 400; font-size: 0.95rem;
+}
+.cg-campo textarea { min-height: 4.5rem; line-height: 1.45; resize: vertical; }
+.cg-campo :is(input, select, textarea):focus-visible { outline: 3px solid var(--al-foco); outline-offset: 1px; }
+.cg-campo :is(input, textarea)::placeholder { color: var(--al-texto-3); opacity: 1; }
+.cg-linha { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: end; }
+.cg-linha .cg-campo { flex: 1 1 12rem; }
+
+.cg-permissoes { display: grid; gap: 0.4rem; border: 0; margin: 0; padding: 0; min-width: 0; }
+.cg-permissoes legend { margin-bottom: 0.35rem; color: var(--al-texto-2); font-size: 0.86rem; font-weight: 700; }
+.cg-permissao { display: flex; gap: 0.65rem; align-items: flex-start; padding: 0.55rem 0.7rem; border-radius: 10px; background: var(--al-fundo); border: 1.5px solid transparent; cursor: pointer; }
+.cg-permissao:has(input:checked) { border-color: var(--al-dourado); }
+.cg-permissao input { flex: none; width: 22px; height: 22px; margin: 0.1rem 0 0; accent-color: var(--al-vermelho); }
+.cg-permissao > span { display: grid; gap: 0.1rem; }
+.cg-permissao strong { color: var(--al-texto); font-size: 0.93rem; }
+.cg-permissao > span > span { color: var(--al-texto-2); font-size: 0.85rem; line-height: 1.45; }
+
+.cg-interruptor { display: flex; gap: 0.7rem; align-items: flex-start; padding: 0.7rem 0.8rem; border-radius: 10px; background: var(--al-fundo); cursor: pointer; }
+.cg-interruptor input { flex: none; width: 22px; height: 22px; margin: 0.1rem 0 0; accent-color: var(--al-vermelho); }
+.cg-interruptor > span { display: grid; gap: 0.15rem; }
+.cg-interruptor strong { color: var(--al-texto); font-size: 0.93rem; }
+.cg-interruptor > span > span { color: var(--al-texto-2); font-size: 0.85rem; line-height: 1.45; }
+
+.cg-lista-edit { display: grid; gap: 0.6rem; border: 0; margin: 0; padding: 0; min-width: 0; }
+.cg-lista-edit legend { margin-bottom: 0.35rem; color: var(--al-texto-2); font-size: 0.86rem; font-weight: 700; }
+.cg-lista-edit > .al-botao { justify-self: start; }
+.cg-item-edit { display: grid; gap: 0.5rem; padding: 0.65rem 0.7rem; border-radius: 10px; background: var(--al-fundo); border: 1px solid var(--al-linha); }
+@container (min-width: 36rem) { .cg-item-edit { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) auto; align-items: end; } }
+.cg-tirar { justify-self: start; }
+
+.cg-cargos-edit { list-style: none; margin: 0 0 0.9rem; padding: 0; display: grid; gap: 0.7rem; }
+@container (min-width: 62rem) { .cg-cargos-edit { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.cg-cargo-edit { display: grid; gap: 0.75rem; padding: 0.85rem 0.9rem; border-radius: 10px; background: var(--al-fundo); border: 1px solid var(--al-linha); min-width: 0; }
+.cg-cargo-linha { display: flex; gap: 0.6rem; align-items: flex-start; justify-content: space-between; }
+.cg-cargo-linha > div { display: grid; gap: 0.35rem; min-width: 0; }
+.cg-novo { justify-self: start; }
+.cg-perigo { color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+.cg-pessoas { padding-top: 0.65rem; border-top: 1px solid var(--al-linha); }
+.cg-pessoas-titulo { margin: 0 0 0.35rem; color: var(--al-texto-2); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+.cg-pessoas-lista { list-style: none; margin: 0 0 0.6rem; padding: 0; display: grid; gap: 0.3rem; }
+.cg-pessoas-lista li { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.55rem; min-height: 40px; }
+.cg-pessoa-nome { color: var(--al-texto); font-weight: 700; font-size: 0.92rem; }
+.cg-pessoa-handle { color: var(--al-texto-3); font-size: 0.85rem; }
+.cg-pessoa-situacao { padding: 0.08rem 0.45rem; border-radius: 4px; border: 1.5px solid var(--al-superficie-2); color: var(--al-texto-2); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+.cg-pessoa-situacao[data-situacao="convidado"] { border-color: var(--al-dourado); border-style: dashed; }
+.cg-pessoas-lista .al-botao { margin-left: auto; }
+
+.cg-fixados { list-style: none; margin: 0.7rem 0 0; padding: 0; display: grid; gap: 0.6rem; }
+.cg-fixado { padding: 0.7rem 0.8rem 0.8rem; border-radius: 10px; background: var(--al-fundo); border-left: 4px solid var(--al-dourado); }
+.cg-fixado-trecho { margin: 0; color: var(--al-texto); font-size: 0.92rem; font-weight: 700; line-height: 1.4; }
+.cg-fixado-prazo { margin: 0.25rem 0 0.5rem; color: var(--al-texto-3); font-size: 0.8rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
+.cg-prazos { display: flex; flex-wrap: wrap; gap: 0.35rem; border: 0; margin: 0; padding: 0; min-width: 0; }
+.cg-prazo { position: relative; }
+.cg-prazo input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.cg-prazo span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.85rem; border-radius: 999px; border: 1.5px solid var(--al-superficie-2); color: var(--al-texto-2); font-size: 0.85rem; font-weight: 700; }
+.cg-prazo input:checked + span { background: var(--al-saliente); border-color: var(--al-saliente); color: var(--al-sobre-saliente); }
+.cg-prazo input:focus-visible + span { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) { .cg-prazo input:not(:checked):hover + span { border-color: var(--al-texto-3); color: var(--al-texto); } }
+.cg-prazos:disabled { opacity: 0.7; }
+
+/* As partes da gestão recolhidas (revisão da onda 10): o título é o resumo, com alvo de toque de 44 px e a seta da casa. */
+.cg-recolhe > .cg-bloco-resumo { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; min-height: 44px; cursor: pointer; list-style: none; }
+.cg-recolhe > .cg-bloco-resumo::-webkit-details-marker { display: none; }
+.cg-recolhe > .cg-bloco-resumo::after { content: ""; flex: none; width: 0.6rem; height: 0.6rem; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform 0.15s; }
+.cg-recolhe[open] > .cg-bloco-resumo::after { transform: rotate(-135deg); }
+.cg-recolhe > .cg-bloco-resumo .cg-bloco-titulo { margin: 0; }
+.cg-recolhe > .cg-bloco-resumo:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+.cg-recolhe > .cg-bloco-corpo { margin-top: 0.6rem; }
+@media (prefers-reduced-motion: reduce) { .cg-recolhe > .cg-bloco-resumo::after { transition: none; } }
+:root[data-parado] .cg-recolhe > .cg-bloco-resumo::after { transition: none; }
+
+@media (pointer: coarse) { .cg-gestao :is(.al-botao-p, .al-botao-m), .cg-pessoas-lista li { min-height: 44px; } }

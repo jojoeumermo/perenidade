@@ -1,0 +1,80 @@
+{
+  "_rascunho": true,
+  "prova": {
+    "explica": "Contra robots, sin servicios de terceros: antes de que salga el pedido, tu dispositivo hace una cuenta corta. De tu dispositivo y tu red queda solo un resumen revuelto, que desaparece en un día.",
+    "fazendo": "El dispositivo está haciendo la cuenta contra robots…",
+    "fazendoAntes": "Tu dispositivo está haciendo un cálculo corto antes de enviar…",
+    "demorando": "Está tardando más de lo normal (hay muchos pedidos ahora). Puedes esperar: la cuenta sigue.",
+    "pronta": "Cuenta hecha. Enviando…",
+    "erros": {
+      "muitos_pedidos": "Demasiados pedidos desde esta red en esta hora. Inténtalo de nuevo más tarde.",
+      "porta_cheia": "Alumia recibió muchos pedidos en esta hora. Inténtalo de nuevo en un rato.",
+      "rede_barrada": "Desde esta red no se puede crear una cuenta ni pedir la entrada ahora.",
+      "desafio_vencido": "La cuenta tardó demasiado y venció. Inténtalo de nuevo.",
+      "email_nao_confirmado": "Confirma tu correo antes de pedir la entrada: el enlace llegó a tu bandeja.",
+      "cadastro_fechado": "El registro está cerrado en este momento. Vuelve pronto.",
+      "senha_fraca": "Esa contraseña no sirve. Elige otra más larga, que no uses en otro lugar.",
+      "sem_servico": "No pudimos hablar con el servidor ahora. Inténtalo de nuevo en un rato.",
+      "captcha": "La verificación contra robots de Cloudflare todavía no terminó o no pasó. Espera a que su casilla confirme e inténtalo de nuevo.",
+      "falha": "No funcionó ahora. Inténtalo de nuevo en un rato."
+    }
+  },
+  "pagina": {
+    "carimbo": "Invitación",
+    "titulo": "Alguien te invitó a Alumia",
+    "texto": "Alguien que ya está dentro te envió esta invitación. Lleva tu pedido a la revisión, como cualquier otro: no aprueba por sí sola.",
+    "sigilo": "La revisión solo ve que el pedido vino con invitación, nunca de quién. Cuando decide, ni esa marca queda.",
+    "guardado": "La invitación queda guardada solo en este dispositivo, hasta 7 días, hasta que salga tu pedido.",
+    "vale": "Vale hasta {data}.",
+    "conferindo": "Comprobando la invitación…",
+    "criar": "Crear cuenta y pedir la entrada",
+    "jaTenho": "Ya tengo cuenta",
+    "invalidoTitulo": "Esta invitación ya no vale",
+    "invalido": "Venció, ya se usó o fue cancelada. Aún puedes pedir la entrada sin invitación: la revisión lee todos los pedidos.",
+    "pedirSem": "Pedir la entrada sin invitación",
+    "semConferir": "No pudimos comprobar la invitación ahora. Queda guardada en este dispositivo y va junto a tu pedido; si ya no vale, el pedido sigue sin ella.",
+    "passos": [
+      { "titulo": "Crea la cuenta", "texto": "Correo y contraseña. Teléfono, nunca." },
+      { "titulo": "Pide la entrada", "texto": "Un nombre en clave y por qué quieres entrar. La invitación va junto." },
+      { "titulo": "La revisión lee", "texto": "Personas de la coordinación y de la mediación deciden. Aprobado, registras la aplicación de autenticación y entras." }
+    ]
+  },
+  "meus": {
+    "titulo": "Invitar a Alumia",
+    "texto": "Manda el enlace a quien conoces. La invitación lleva a la revisión y no aprueba por sí sola; Alumia no guarda quién invitó a quién.",
+    "restam": "Te quedan {n} de {teto} invitaciones este mes",
+    "restamUm": "Te queda 1 de {teto} invitaciones este mes",
+    "usados": "Usadas este mes: {n}",
+    "gerar": "Crear invitación",
+    "gerando": "Creando…",
+    "novoTitulo": "Invitación lista",
+    "novo": "Copia el enlace ahora: aparece solo esta vez. Vale 7 días, hasta {data}.",
+    "copiar": "Copiar el enlace",
+    "copiado": "Enlace copiado",
+    "rotuloLink": "Enlace de la invitación",
+    "lista": "Tus invitaciones",
+    "vazio": "Ninguna invitación todavía.",
+    "criado": "creada el {data}",
+    "situacoes": {
+      "aberto": "abierta hasta {data}",
+      "usado": "usada",
+      "vencido": "vencida",
+      "cancelado": "cancelada"
+    },
+    "nota": "La invitación usada sale de la lista y de la base de datos en el acto: Alumia no guarda cuál fue ni quién pidió la entrada con ella.",
+    "cancelar": "Cancelar",
+    "cancelarRotulo": "Cancelar la invitación creada el {data}",
+    "acabaram": "Las invitaciones de este mes se acabaron. El mes que viene habrá más.",
+    "desligados": "La coordinación desactivó las invitaciones por ahora.",
+    "soDentro": "Solo quien ya está dentro de Alumia crea invitaciones.",
+    "erro": "No funcionó ahora. Inténtalo de nuevo en un rato.",
+    "voltar": "Volver a Alumia"
+  },
+  "triagem": {
+    "marca": "vino con invitación",
+    "explica": "La revisión no sabe de quién. La marca desaparece cuando se decide el pedido."
+  },
+  "semTerceiro": {
+    "redeBarrada": { "entrar": "Desde esta red no se puede entrar ahora.", "aviso": "Desde esta red no se puede pedir ese correo ahora." }
+  }
+}

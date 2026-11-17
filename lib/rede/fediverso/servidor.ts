@@ -52,9 +52,9 @@ export const gruposLigados = () => modoTotal() && recursoDaFederacao("fediverso-
 
 export class ErroDoBanco extends Error {}
 
-/** Chama public.rede_fed_servidor com o segredo. */
-export async function banco<T>(acao: string, p: Record<string, unknown> = {}): Promise<T> {
-  const r = await fetch(`${urlDoBanco}/rest/v1/rpc/rede_fed_servidor`, {
+/** Chama public.rede_fed_servidor (ou outra função do servidor, como rede_fed_midia_servidor) com o segredo. */
+export async function banco<T>(acao: string, p: Record<string, unknown> = {}, funcao: "rede_fed_servidor" | "rede_fed_midia_servidor" | "rede_fed_mudanca_servidor" = "rede_fed_servidor"): Promise<T> {
+  const r = await fetch(`${urlDoBanco}/rest/v1/rpc/${funcao}`, {
     method: "POST",
     headers: { apikey: chavePublicaDoBanco, Authorization: `Bearer ${chavePublicaDoBanco}`, "Content-Type": "application/json" },
     body: JSON.stringify({ p_segredo: SEGREDO, p_acao: acao, p }),
@@ -235,6 +235,38 @@ export async function atorPorConta(usuario: string, dominio: string): Promise<At
   return href ? atorRemoto(href) : null;
 }
 
+// ── Memória curta do que foi lido lá fora ──
+
+const lembrados = new Map<string, { ate: number; valor: Promise<unknown> }>();
+
+/**
+ * Guarda por alguns minutos, na memória do servidor, o que acabou de ser lido em outra instância (o perfil e a caixa de saída de
+ * alguém, o WebFinger de uma conta): abrir a mesma página de novo, ou um link armado para muita gente clicar, não vira um pedido
+ * lá fora a cada visita, e a outra instância não fica sabendo a hora de cada leitura. O que não veio (nulo) fica só 1 minuto.
+ */
+export function lembrar<T>(chave: string, ms: number, buscar: () => Promise<T | null>): Promise<T | null> {
+  const agora = Date.now();
+  const tem = lembrados.get(chave);
+  if (tem && tem.ate > agora) return tem.valor as Promise<T | null>;
+  const valor = buscar().catch(() => null);
+  const item = { ate: agora + ms, valor };
+  lembrados.set(chave, item);
+  void valor.then((v) => {
+    if (v === null) item.ate = Math.min(item.ate, Date.now() + 60_000);
+  });
+  if (lembrados.size > 2000) {
+    for (const [k, v] of lembrados) if (v.ate <= agora) lembrados.delete(k);
+    for (const k of lembrados.keys()) {
+      if (lembrados.size <= 2000) break;
+      lembrados.delete(k);
+    }
+  }
+  return valor;
+}
+
+/** Esvazia a memória curta (os testes trocam os documentos de fora no meio). */
+export const esquecerOLembrado = () => lembrados.clear();
+
 // ── Limite de pedidos (por instância do servidor; o banco limita por pessoa) ──
 
 const janelas = new Map<string, number[]>();
@@ -275,7 +307,10 @@ export function urlDaMidia(url: unknown, agora = Date.now()): string | null {
   const chave = chaveDaMidia();
   if (!u || !chave) return null;
   const vence = (Math.floor(agora / 1000 / SEMANA_S) + 2) * SEMANA_S;
-  return `/api/fediverso/midia?u=${encodeURIComponent(u)}&e=${vence}&s=${assinarUrl(u, vence, chave)}`;
+  // encodeURIComponent deixa ! ' ( ) * como estão; a tela só aceita o que está escapado (midiaSegura), então eles também vão em %XX.
+  // A assinatura é sobre o endereço decodificado: continua valendo.
+  const escapado = encodeURIComponent(u).replace(/[!'()*]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
+  return `/api/fediverso/midia?u=${escapado}&e=${vence}&s=${assinarUrl(u, vence, chave)}`;
 }
 
 /** A assinatura de uma URL de mídia confere e ainda não venceu? (comparação em tempo constante) */
@@ -289,22 +324,57 @@ export function midiaAssinada(url: string, vence: string, s: string, agora = Dat
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
+const ID_LOCAL = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+// Um avatar que sai para a tela: o https de fora vira a rota-proxy assinada; o que já é a rota-proxy passa; qualquer outra coisa
+// ("//host", "/\host", http, data:) vira nulo.
+const avatarAssinado = (v: unknown) => (typeof v === "string" && /^https:/.test(v) ? urlDaMidia(v) : typeof v === "string" && /^\/api\/fediverso\/midia\?[A-Za-z0-9%&=._~+-]+$/.test(v) ? v : null);
+const CHAVES_DA_MIDIA = ["tipo", "alt", "largura", "altura", "blurhash"] as const;
+// Outros nomes que uma imagem de pessoa pode ter num objeto de fora: nunca saem crus.
+const OUTRAS_IMAGENS = ["foto", "capa", "imagem", "icone", "icon", "image", "header"] as const;
+
+/** Quem escreveu ou impulsionou: o avatar pelo proxy e nenhuma outra imagem. */
+function pessoaAssinada(v: unknown): unknown {
+  if (!v || typeof v !== "object" || Array.isArray(v)) return v;
+  const p = { ...(v as Record<string, unknown>) };
+  if ("avatar" in p) p.avatar = avatarAssinado(p.avatar);
+  for (const k of OUTRAS_IMAGENS) if (k in p) p[k] = avatarAssinado(p[k]);
+  return p;
+}
+
 /**
- * Troca, num cartão que veio do banco (linha mista, fio), os endereços de fora pela rota-proxy assinada: "avatar" e "midia[].url".
+ * Troca, em TUDO o que vai do banco para a tela (cartão da linha mista, do fio, das respostas; o perfil guardado, com os posts
+ * dele), os endereços de fora pela rota-proxy assinada: "avatar", "midia[]" (refeita só com as chaves conhecidas: url, tipo, alt,
+ * largura, altura, blurhash), "impulsionado_por" e "autor" (o avatar; outra imagem some) e, por dentro, "posts[]" e "citado".
  * Endereço que não serve some (o navegador nunca recebe a URL de fora para buscar sozinho).
+ * Um post DAQUI no meio do fio (id em uuid, sem origem 'fediverso') passa como veio: a mídia dele é do nosso depósito.
  */
 export function assinarCartao<T>(cartao: T): T {
   if (!cartao || typeof cartao !== "object" || Array.isArray(cartao)) return cartao;
   const c = { ...(cartao as Record<string, unknown>) };
-  if ("avatar" in c) c.avatar = typeof c.avatar === "string" && /^https:/.test(c.avatar) ? urlDaMidia(c.avatar) : typeof c.avatar === "string" && c.avatar.startsWith("/") ? c.avatar : null;
+  if (c.origem !== "fediverso" && typeof c.id === "string" && ID_LOCAL.test(c.id)) return cartao;
+  if ("avatar" in c) c.avatar = avatarAssinado(c.avatar);
   if (Array.isArray(c.midia)) {
     c.midia = c.midia
       .filter((m): m is Record<string, unknown> => Boolean(m) && typeof m === "object")
-      .map((m) => ({ ...m, url: urlDaMidia(m.url) }))
+      .map((m) => {
+        const limpa: Record<string, unknown> = { url: urlDaMidia(m.url) };
+        for (const k of CHAVES_DA_MIDIA) limpa[k] = m[k] ?? null;
+        return limpa;
+      })
       .filter((m) => m.url);
   }
+  for (const chave of ["impulsionado_por", "autor"]) if (chave in c) c[chave] = pessoaAssinada(c[chave]);
+  if (Array.isArray(c.posts)) c.posts = c.posts.map(assinarCartao);
+  if (c.citado && typeof c.citado === "object") c.citado = assinarCartao(c.citado);
   return c as T;
 }
+
+/**
+ * O código de erro que pode ir no corpo da resposta à tela: só os códigos da casa ("nao_encontrado", "invalido:post"). A mensagem
+ * crua do banco (um erro inesperado traz nome de tabela, de coluna ou de restrição) vira "falha".
+ */
+export const codigoParaATela = (codigo: unknown): string =>
+  codigo === "JWT expired" ? "entre_primeiro" : typeof codigo === "string" && /^[a-z][a-z_]{1,39}(:[a-z0-9_]{1,40})?$/.test(codigo) ? codigo : "falha";
 
 export const respostaAP = (corpo: unknown, status = 200, segundos = 60) =>
   new Response(JSON.stringify(corpo), {

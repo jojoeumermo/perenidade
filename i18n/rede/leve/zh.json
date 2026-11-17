@@ -1,0 +1,121 @@
+{
+  "titulo": "轻量与自己的节奏",
+  "lead": "给流量少、网络差或时间少的人。你在这里的选择只留在这台设备上。只有你发布的帖子和通知的静音时段会发送到服务器。",
+  "carimbo": "在这台设备上",
+  "secoes": "本页各部分",
+  "atalhos": {
+    "economia": "省流量",
+    "escrever": "写",
+    "linha": "纯文字",
+    "tempo": "时间",
+    "silencio": "静音"
+  },
+  "economia": {
+    "titulo": "节省流量",
+    "interruptor": "轻量 Alumia",
+    "dica": "帖子里的照片变成一块方格，点了才打开；视频只在你要求时播放。没有动画，使用设备自带的字体。",
+    "automatico": "你的设备要求节省流量，所以轻量 Alumia 已自动开启。可以在这里关闭。",
+    "verImagem": "点击查看图片",
+    "ligada": "已开启",
+    "desligada": "已关闭"
+  },
+  "linha": {
+    "titulo": "纯文字首页",
+    "dica": "没有照片、视频和装饰的时间线。每张图片只有点了才加载。",
+    "carregando": "正在加载帖子…",
+    "vazio": "这条时间线暂时没有内容。",
+    "mais": "显示更多",
+    "erro": "时间线没有加载出来。",
+    "semRede": "现在没有网络。网络恢复后，点击“重试”。",
+    "tentar": "重试",
+    "naComunidade": "在 {comunidade}",
+    "imagem": "查看图片",
+    "imagens": "查看第 {n} 张图片，共 {total} 张",
+    "semDescricao": "没有描述的图片",
+    "abrir": "打开帖子",
+    "aviso": "内容提醒：{aviso}",
+    "mostrar": "仍然显示",
+    "esconder": "再次隐藏",
+    "ato": "行动号召",
+    "visitante": "登录你的账号才能看到时间线。"
+  },
+  "escrever": {
+    "titulo": "轻量写作",
+    "dica": "没有网络时，帖子只保存在这台设备上，网络恢复且 Alumia 开着时会自动发出。服务器上没有任何东西在等待。",
+    "rotulo": "你想说什么？",
+    "publico": "谁能看到",
+    "membros": "有 Alumia 账号的人",
+    "seguidores": "只有关注你的人",
+    "publicar": "发布",
+    "guardar": "保存，网络恢复后发出",
+    "comRede": "有网络：帖子现在发出。",
+    "semRede": "没有网络：帖子保存在这台设备上。",
+    "guardado": "已保存在这台设备上。只要 Alumia 在这里开着，网络恢复后会自动发出。",
+    "repetido": "这段文字已经保存过了，不会保存两次。",
+    "publicado": "已发布。",
+    "abrirPost": "查看帖子",
+    "naoSaiu": "没有发出。{motivo}",
+    "vazio": "请先写点什么。",
+    "longo": "超过了 {max} 个字符。",
+    "cheia": "这台设备上已有 {max} 条帖子在等待。请先发送或删除一条。",
+    "semEspaco": "设备没有空间保存。什么都没有保存。",
+    "contador": "{n} / {max}",
+    "naoMembro": "要写帖子，请用已通过审核的账号登录。",
+    "soTexto": "这里只有文字。照片、投票和行动请在有网络时用平常的“写”。",
+    "previa": "预览中不会发布任何内容：帖子只会进入这台设备的队列。"
+  },
+  "fila": {
+    "titulo": "等待网络",
+    "vazia": "这台设备上没有等待的内容。",
+    "guardado": "{quando}前保存",
+    "publicoMembros": "有账号的人",
+    "publicoSeguidores": "关注你的人",
+    "enviar": "现在发送",
+    "apagar": "删除",
+    "apagarConfirma": "删除这条已保存的帖子？它会从这台设备上消失，不会发出。",
+    "parado": "已保存超过 {dias} 天：不会自动发出。现在发送或删除。",
+    "recusado": "服务器拒绝了。{motivo} 删除后重写，或再发送一次。",
+    "outraConta": "由这台设备上的另一个账号保存。只有那个账号登录时才会发出。",
+    "enviando": "正在发送…",
+    "saiu": "保存在这台设备上的帖子已发出。",
+    "saiuVarios": "保存在这台设备上的 {n} 条帖子已发出。",
+    "naoSaiu": "有一条已保存的帖子没有发出。请到“轻量与自己的节奏”查看。",
+    "ver": "查看",
+    "fechar": "关闭",
+    "sairRapido": "“快速离开”会把这个队列和 Alumia 在设备上保存的其他内容一起删除。"
+  },
+  "tempo": {
+    "titulo": "使用时间",
+    "dica": "计时只在这台设备上：没有排行，没有记录，不会发送到服务器。",
+    "parar": "该停下了",
+    "pararDica": "每晚一次提醒，在你选择的时间，之后五小时内有效。",
+    "hora": "时间",
+    "guardar": "保存时间",
+    "tirar": "取消",
+    "ligado": "{hora} 提醒。",
+    "desligado": "没有设置停下的时间。",
+    "lembreteTitulo": "你要求在 {hora} 停下",
+    "lembreteTexto": "斗争明天继续。休息也是在照顾集体。",
+    "fechar": "关闭",
+    "salvo": "已保存在这台设备上。"
+  },
+  "silencio": {
+    "titulo": "通知静音",
+    "dica": "你按这台设备的时钟选择时间。服务器只保存一天中的分钟数，不保存时区和城市。",
+    "abrir": "所有通知设置",
+    "visitante": "登录你的账号来选择静音时段。"
+  },
+  "ajustes": {
+    "titulo": "轻量与自己的节奏",
+    "texto": "节省流量、纯文字首页、等待网络的帖子、该停下的时间和通知静音。",
+    "abrir": "打开“轻量与自己的节奏”"
+  },
+  "offline": {
+    "aviso": "现在没有网络：什么都没有发出。文字还在这里。要让它在网络恢复后自动发出，请使用“轻量与自己的节奏”里的“轻量写作”。",
+    "jaSaiu": "同样的文字刚刚在网络恢复时从这台设备的保存中发出了。不会再发布一次。"
+  },
+  "erros": {
+    "desconhecido": "服务器没有说明原因。",
+    "rede": "没有网络。"
+  }
+}

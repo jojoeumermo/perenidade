@@ -584,8 +584,9 @@ await espera("as telas estão no registro, com import dinâmico, e o cartão usa
 await espera("nenhuma tela usa alert, confirm ou prompt do navegador", async () => {
   const dir = "components/rede/moderacao";
   const achados = [];
-  for (const arq of fs.readdirSync(new URL(`../${dir}`, import.meta.url))) {
-    if (/(^|[^\w.])(alert|confirm|prompt)\(/.test(lerTexto(`${dir}/${arq}`).replace(/aria-|role="alert"/g, ""))) achados.push(arq);
+  // Com as subpastas (a da comunidade, onda 9): só os arquivos de código.
+  for (const arq of fs.readdirSync(new URL(`../${dir}`, import.meta.url), { recursive: true }).map(String).filter((a) => /\.tsx?$/.test(a))) {
+    if (/(^|[^\w.])(alert|confirm|prompt)\(/.test(lerTexto(`${dir}/${arq.replace(/\\/g, "/")}`).replace(/aria-|role="alert"/g, ""))) achados.push(arq);
   }
   return achados;
 }, (a) => a.length === 0);

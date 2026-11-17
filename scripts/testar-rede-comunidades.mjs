@@ -635,11 +635,11 @@ await espera("as rotas do pacote existem, dão 404 com o recurso desligado e nã
   const rotas = [`${dir}/comunidades/page.tsx`, `${dir}/propor/page.tsx`, `${dir}/aula/[track]/[lesson]/page.tsx`, `${dir}/nucleos/page.tsx`, `${dir}/nucleos/[id]/page.tsx`];
   return rotas.map((a) => ({ a, ok: fs.existsSync(new URL(`../${a}`, import.meta.url)) && /notFound\(\)/.test(lerTexto(a)) && /ligado\("rede-v2"\)/.test(lerTexto(a)) && /index: false/.test(lerTexto(a)) }));
 }, (r) => r.every((x) => x.ok));
-await espera("a rota da comunidade traz os textos do pacote e a página da aula só entra com o recurso ligado, sem ler disco", async () => {
+await espera("a rota da comunidade traz os textos do pacote e o botão da aula só entra com a Alumia aberta, sem ler disco", async () => {
   const rota = lerTexto("app/[lang]/alumia/c/[slug]/page.tsx");
   const aula = lerTexto("app/[lang]/trilhas/[track]/[lesson]/page.tsx");
   const modulo = lerTexto("lib/rede/discutir-aula.ts");
-  return [/comTextos\(lang\)/.test(rota), /ligado\("rede-v2"\) && \(\s*<p[^>]*>\s*<Link href=\{enderecoDiscutirAula/.test(aula), /from "@\/lib\/rede\/discutir-aula"/.test(aula), /node:fs|readFile|from "@\//.test(modulo)];
+  return [/comTextos\(lang\)/.test(rota), /alumiaAbertaParaAula\(\) && <DiscutirNaAlumia /.test(aula), /from "@\/lib\/rede\/discutir-aula"/.test(aula), /node:fs|readFile|from "@\//.test(modulo)];
 }, (r) => r[0] && r[1] && r[2] && r[3] === false);
 await espera("o registro da Rede e o menu ligam as telas do pacote", async () => {
   const registro = lerTexto("components/rede/registro.tsx");

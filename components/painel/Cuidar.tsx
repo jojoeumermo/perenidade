@@ -7,7 +7,7 @@ import { can, getClient, type Me, recoverPending } from "@/lib/backend";
 import { agirOtimista, Aviso, data, useAcao, useLista } from "./comum";
 import { MoldeFila } from "./moldes";
 import { RespostasProntas } from "./RespostasProntas";
-import { Abas, Area, Botao, CabecalhoDeSecao, Campo, Cartao, confirmar, Esqueleto, Faixa, ItemDeLista, Lista, Marca, perguntar, Selecao, Selo, Vazio } from "./ui";
+import { Abas, Area, Botao, CabecalhoDeSecao, Campo, Cartao, confirmar, Esqueleto, Faixa, ItemDeLista, Lista, perguntar, Selecao, Selo, Vazio } from "./ui";
 
 interface Denuncia {
   id: string;
@@ -130,9 +130,8 @@ function Banimentos({ desfaz }: { desfaz: boolean }) {
         simbolo={Ban}
         sobre={
           <>
-            Banir é o último recurso, para quem insiste em ataque, ódio ou propaganda depois de ter mensagens recusadas. A conta banida continua lendo o site, mas não envia mais nada. O banimento
-            da origem de rede é para caso extremo (a pessoa volta com contas novas): ele barra todo envio vindo da mesma rede, e uma rede pode ser de uma escola, de um sindicato ou de uma lan
-            house inteira. Todo banimento fica no registro e a coordenação é avisada na hora{desfaz ? "." : "; só ela desfaz."}
+            Banir é o último recurso, para quem insiste em ataque, ódio ou propaganda depois de ter mensagens recusadas. A conta banida continua lendo o site, mas não envia mais nada. O site não guarda
+            endereço de rede, então não há banimento por rede aqui (na Alumia, o painel barra uma rede por prazo, pela impressão que não guarda o endereço). Todo banimento fica no registro e a coordenação é avisada na hora{desfaz ? "." : "; só ela desfaz."}
           </>
         }
       />
@@ -183,6 +182,7 @@ const motivos: Record<string, string> = {
   em_avaliacao: "a segunda avaliação começou e não terminou",
   avaliacao_externa: "a segunda avaliação ficou em dúvida",
   avaliacao_externa_falhou: "a segunda avaliação não respondeu",
+  leitura_humana: "post da Alumia que esperava a avaliação de fora (desligada na Alumia): espera a leitura da equipe",
   cuidado: "pode falar de autolesão: leia com cuidado e acolha",
 };
 
@@ -323,11 +323,6 @@ function Retidos({ media, aoBanir }: { media: boolean; aoBanir: () => void }) {
                     <div className="pn-secao">
                       <Campo rotulo="Motivo do banimento (fica no registro e vai para a coordenação)" value={banir.motivo} onChange={(e) => setBanir({ ...banir, motivo: e.target.value })} maxLength={300} />
                       <RespostasProntas tipo="banimento" usar={(texto) => setBanir({ ...banir, motivo: texto })} />
-                      <Marca
-                        rotulo="Caso extremo: barrar também a origem de rede desta pessoa (vale para qualquer conta e para envios sem conta vindos da mesma rede)"
-                        checked={banir.origem}
-                        onChange={(e) => setBanir({ ...banir, origem: e.target.checked })}
-                      />
                       <div className="flex flex-wrap gap-2">
                         <Botao variante="principal" perigo simbolo={Ban} disabled={acao.ocupado || banir.motivo.trim().length < 5} onClick={() => void confirmarBanimento(item)}>
                           Confirmar o banimento

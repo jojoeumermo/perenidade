@@ -614,7 +614,7 @@
   font-weight: 800;
   cursor: pointer;
 }
-[data-al="2"] .al-st-quem-op[aria-checked="true"] { background: var(--al-cartao-aceso); color: var(--al-sobre-papel); border-color: var(--al-cartao-aceso); }
+[data-al="2"] .al-st-quem-op[aria-checked="true"] { background: var(--al-saliente); color: var(--al-sobre-saliente); border-color: var(--al-saliente); }
 [data-al="2"] .al-st-regra { margin: 12px 0 0; color: var(--al-texto-3); font-size: 13px; line-height: 1.45; }
 [data-al="2"] .al-st-dica { margin: 6px 0 0; color: var(--al-texto-3); font-size: 13px; }
 [data-al="2"] .al-st-erro-criar { margin: 14px 0 0; color: #ff8a7a; font-size: 14px; font-weight: 700; }
@@ -646,7 +646,7 @@
 }
 
 /* A prévia (NEXT_PUBLIC_ALUMIA_PREVIA=sim): avisa que é exemplo. */
-[data-al="2"] .al-st-previa { margin: 0; padding: 6px 16px; background: var(--al-dourado); color: var(--al-sobre-dourado); font-size: 12px; font-weight: 800; }
+[data-al="2"] .al-st-previa { margin: 0; padding: 6px 16px; background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 12px; font-weight: 800; }
 
 /* ───────────── Ajustes contra as pranchas (revisão) ───────────── */
 /* Contagem como em celular-ver-story: mais estreita (~72 % da tela), recuada da esquerda e inclinada ~-3°. */
@@ -749,6 +749,8 @@
 [data-al="2"] .al-st-destaque:active .al-st-destaque-capa { transform: scale(0.95); }
 [data-al="2"] .al-st-destaque-capa-p { width: 40px; height: 40px; padding: 2px; flex: 0 0 40px; }
 [data-al="2"] .al-st-destaques-vazio { margin: 8px 16px; color: var(--al-texto-3); font-size: 13px; }
+/* No perfil, o nome do destaque (e o "Arrumar destaques") vai em até duas linhas, em vez de cortar com reticências. */
+[data-al="2"] .al-st-destaques .al-st-nome { max-width: 88px; white-space: normal; text-align: center; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 [data-al="2"] .al-st-guardar { max-height: calc(100% - 40px); overflow-y: auto; }
 [data-al="2"] .al-st-guardar-lista { display: grid; gap: 6px; margin: 0 0 12px; padding: 0; list-style: none; }
 [data-al="2"] .al-st-guardar-item { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 52px; padding: 6px 10px; border: 1px solid #3a3430; border-radius: 12px; background: #1b1917; color: #f3efe6; font: inherit; font-weight: 700; text-align: left; cursor: pointer; }
@@ -1244,3 +1246,7 @@
   [data-al="2"] :is(.al-st-cartao, .al-st-caixa-item, .al-fg-decor-botao, .al-st-arrumar-item) { transition: none; }
 }
 :root[data-parado] [data-al="2"] :is(.al-fg-decor, .al-fg-decor-chama, .al-fg-decor-brilho, .al-st-legenda-video, .al-st-resposta, .al-st-roda-caixa, .al-st-arrumar-caixa, .al-fg-vou-botao svg) { animation: none !important; }
+
+/* Onda 14: no tema claro o miolo do destaque escreve na cor do texto (a cor do anel, feita para a noite, caía abaixo de 4,5:1 sobre o
+   creme); o anel continua com a cor. */
+[data-al="2"][data-al-tema="claro"] .al-st-destaque-post-miolo { color: var(--al-texto); }

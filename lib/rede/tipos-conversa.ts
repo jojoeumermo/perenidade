@@ -130,17 +130,36 @@ export const recuoDoNivel = (nivel: number): number => Math.max(0, Math.min(nive
 /** A mesma forma que o banco usa para achar uma menção: @ com 3 a 20 letras minúsculas, números ou _, que não grudam em outra palavra. */
 const MENCAO = /(^|[^a-z0-9_@])@([a-z0-9_]{3,20})(?![a-z0-9_])/gi;
 
-export type TrechoDoTexto = { tipo: "texto"; valor: string } | { tipo: "mencao"; valor: string; handle: string };
+/**
+ * O domínio colado logo depois da menção ("@tiao" + "@mastodon.social"): a menção é a uma conta de FORA (Fediverso), não ao perfil
+ * daqui com o mesmo nome. Rótulos de 1 a 63 letras, números ou hífen, com um ponto pelo menos e terminação de 2 a 63 letras.
+ */
+const DOMINIO_COLADO = /^@((?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63})(?![a-z0-9_-])/i;
 
-/** Separa um texto em trechos comuns e menções (a tela faz link das menções para o perfil). Nunca perde nem troca uma letra. */
+export type TrechoDoTexto =
+  | { tipo: "texto"; valor: string }
+  | { tipo: "mencao"; valor: string; handle: string }
+  /** `conta`: "@nome@servidor", com o servidor em minúsculas. */
+  | { tipo: "mencao_de_fora"; valor: string; conta: string };
+
+/**
+ * Separa um texto em trechos comuns e menções (a tela faz link das menções para o perfil). Nunca perde nem troca uma letra.
+ * `@nome@servidor` vira uma menção de fora inteira (o link vai ao perfil de fora, nunca ao perfil daqui `@nome`). Limite: o nome
+ * antes do domínio segue a forma daqui (3 a 20 letras, números ou _); nome de fora com ponto, hífen ou mais curto fica como texto.
+ */
 export function trechosComMencoes(texto: string): TrechoDoTexto[] {
   const saida: TrechoDoTexto[] = [];
   let ultimo = 0;
   for (const m of texto.matchAll(MENCAO)) {
     const inicio = (m.index ?? 0) + m[1].length;
+    // Uma menção que começa dentro do domínio de uma menção de fora já lida não conta de novo.
+    if (inicio < ultimo) continue;
     if (inicio > ultimo) saida.push({ tipo: "texto", valor: texto.slice(ultimo, inicio) });
-    saida.push({ tipo: "mencao", valor: `@${m[2]}`, handle: m[2].toLowerCase() });
-    ultimo = inicio + 1 + m[2].length;
+    const fim = inicio + 1 + m[2].length;
+    const fora = DOMINIO_COLADO.exec(texto.slice(fim));
+    if (fora) saida.push({ tipo: "mencao_de_fora", valor: `@${m[2]}${fora[0]}`, conta: `@${m[2]}@${fora[1].toLowerCase()}` });
+    else saida.push({ tipo: "mencao", valor: `@${m[2]}`, handle: m[2].toLowerCase() });
+    ultimo = fim + (fora ? fora[0].length : 0);
   }
   if (ultimo < texto.length) saida.push({ tipo: "texto", valor: texto.slice(ultimo) });
   return saida;
@@ -247,4 +266,100 @@ export function trilhaDoCaminho(caminho: string): string {
   const trilha = caminho.replace(/^\/+/, "").replace(/^trilhas\//, "").split("/")[0] ?? "";
   const nome = trilha.replace(/-/g, " ").trim();
   return nome ? nome.charAt(0).toLocaleUpperCase("pt-BR") + nome.slice(1) : "";
+}
+
+// ── Onda 12 (frente 12C): assinar junto, "fonte?", marcar em foto e a nota com a checagem do Vale o Escrito ─────────────────
+// Contrato: supabase/migracoes/20261118-alumia-o12-coautoria.sql. Telas em components/rede/coautoria/.
+
+/** Quantas pessoas a autora convida para assinar junto, no máximo (o banco tem o mesmo teto). */
+export const COAUTORAS_NO_MAXIMO = 3;
+
+/** Uma pessoa como o cartão mostra: só o @ e o codinome. */
+export interface PessoaDoCartao {
+  handle: string | null;
+  codinome: string;
+}
+
+/** A fonte que a autora pôs no post: um link de fora, uma checagem do Vale o Escrito (o identificador do caso), ou os dois. */
+export interface FonteDoPost {
+  link: string | null;
+  vale: string | null;
+}
+
+/** O que `rede_coautoria_cartoes` devolve de cada post. Nunca quem pediu a fonte, quem recusou ou quem saiu. */
+export interface CoautoriaDoCartao {
+  /** As que ACEITARAM assinar junto. */
+  coautores: PessoaDoCartao[];
+  /** Quem lê foi convidada: 'convite' (sem resposta) ou 'aceita'. */
+  meu_convite: "convite" | "aceita" | null;
+  /** Só para a autora: os convites ainda sem resposta (o @ que ela mesma escreveu). */
+  convites: PessoaDoCartao[] | null;
+  pode_convidar: boolean;
+  fonte: FonteDoPost | null;
+  pedi_fonte: boolean;
+  pode_pedir_fonte: boolean;
+  /** Só para a autora e a mediação: se há pedido e o total (nulo abaixo de 3). */
+  pedidos_fonte: { ha: boolean; total: number | null } | null;
+  /** Só para a autora: o post aceita marcação (tem imagem; não é ato, resposta nem comunidade de luta). */
+  marcar_pode: boolean;
+  /** Só para a autora: as marcações que ela fez e ainda esperam o aceite. */
+  marcacoes_esperando: PessoaDoCartao[] | null;
+}
+
+export const COAUTORIA_VAZIA: CoautoriaDoCartao = {
+  coautores: [], meu_convite: null, convites: null, pode_convidar: false, fonte: null, pedi_fonte: false, pode_pedir_fonte: false,
+  pedidos_fonte: null, marcar_pode: false, marcacoes_esperando: null,
+};
+
+/** Um convite para assinar junto que espera a resposta de quem lê. */
+export interface ConviteDeCoautoria {
+  post: string;
+  codinome: string;
+  handle: string | null;
+  trecho: string;
+  convidada_em: string;
+}
+
+const CASO_DO_VALE = /^[a-z0-9][a-z0-9-]{1,79}$/;
+
+/**
+ * O caso do Vale o Escrito a partir do que a pessoa colou: o endereço da ficha (".../vale-o-escrito/caso/<id>", de qualquer
+ * idioma) ou só o identificador. Nulo para qualquer outra coisa (o link é sempre montado pela tela, nunca o colado).
+ */
+export function valeDoEndereco(colado: string): string | null {
+  const t = colado.trim().toLowerCase();
+  if (!t) return null;
+  const m = /\/vale-o-escrito\/caso\/([a-z0-9][a-z0-9-]{1,79})(?:[/?#]|$)/.exec(t);
+  if (m) return m[1];
+  return CASO_DO_VALE.test(t) ? t : null;
+}
+
+/** Parâmetros de rastreio que o banco recusa na fonte (a mesma lista dos links do perfil). */
+const RASTREIO_NO_LINK = /[?&](utm_[a-z_]+|fbclid|gclid|dclid|gbraid|wbraid|msclkid|mc_[a-z]+|igshid|igsh|si|ref_src|ref_url|_hsenc|_hsmi|yclid|twclid|ttclid|s_cid|mkt_tok)=/i;
+
+/** O link de fora que vale como fonte (a mesma regra do banco): http(s), sem usuário no endereço, de 10 a 500 letras, sem rastreio. */
+export function fonteDoLinkOk(link: string): boolean {
+  const t = link.trim();
+  return t.length >= 10 && t.length <= 500 && /^https?:\/\/[^/@\s]+(\/\S*)?$/i.test(t) && !RASTREIO_NO_LINK.test(t);
+}
+
+/** Os codinomes de quem assina junto, numa frase do idioma ("Ana, Bia e Caio"). Vazio quando não há ninguém. */
+export function linhaDaCoautoria(pessoas: readonly PessoaDoCartao[], lang: string): string {
+  const nomes = pessoas.map((p) => p.codinome);
+  if (nomes.length === 0) return "";
+  try {
+    return new Intl.ListFormat(lang, { style: "long", type: "conjunction" }).format(nomes);
+  } catch {
+    return nomes.join(", ");
+  }
+}
+
+/** A frase dos pedidos de fonte para a autora e a mediação: nada sem pedido; o número só a partir de 3. */
+export function textoDosPedidosDeFonte(
+  pedidos: { ha: boolean; total: number | null } | null | undefined,
+  t: { poucos: string; muitos: string },
+): string | null {
+  if (!pedidos?.ha) return null;
+  const n = totalVisivel(pedidos.total);
+  return n === null ? t.poucos : t.muitos.replace("{n}", String(n));
 }

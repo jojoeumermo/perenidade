@@ -3,7 +3,7 @@
     "selo": "Under construction",
     "aviso": "This Alumia screen is still being built. Nothing is stored here for now.",
     "voltar": "Back to the Alumia home",
-    "rodape": "Order of arrival · no ads · no tracking · always a code name",
+    "rodape": "Open rule · no ads · no tracking · code name by default",
     "marca": "Instituto Lúcia"
   },
   "telas": {
@@ -16,8 +16,13 @@
     "identidades": { "titulo": "Identities", "descricao": "More than one identity in the same account, without anyone linking one to the other." },
     "aparelhos": { "titulo": "Devices", "descricao": "The devices where your account is open, so you can sign out of one remotely. No network address." },
     "o-que-guardamos": { "titulo": "What we keep", "descricao": "What Alumia keeps about you, for how long and why, with the law alongside." },
-    "transparencia": { "titulo": "Transparency", "descricao": "Moderation numbers per semester, with nothing that points to a person." },
+    "transparencia": { "titulo": "Transparency", "descricao": "Moderation numbers per quarter, with nothing that points to a person." },
+    "rotulos": { "titulo": "Labels", "descricao": "Marks for scams, spam and coordinated harassment that you subscribe to, made by verified organizations and by mediation." },
     "listas": { "titulo": "Lists", "descricao": "Timelines you put together, with your own rules. Only you see your lists." },
-    "leve": { "titulo": "Light version", "descricao": "Alumia in text only, for weak connections and small data plans." }
+    "leve": { "titulo": "Light version", "descricao": "Alumia in text only, for weak connections and small data plans." },
+    "questoes": { "titulo": "Questions", "descricao": "Questions by subject and topic, with the right answer and the explanation only after you answer. Your score stays on your device." },
+    "redacao": { "titulo": "Peer essays", "descricao": "This week's correction circle: you mark an essay without knowing who wrote it and get two readings back, by the five ENEM competencies." },
+    "pontes": { "titulo": "Bridges", "descricao": "The organization’s bots, labeled and with a key, and the Telegram channel." },
+    "trabalhadores": { "titulo": "Workers' Board", "descricao": "Calls for struggle, strikes and solidarity from verified organizations, by type and by city." }
   }
 }

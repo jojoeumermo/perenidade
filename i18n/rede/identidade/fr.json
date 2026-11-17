@@ -1,0 +1,169 @@
+{
+  "_rascunho": true,
+  "titulo": "Comment vous apparaissez",
+  "ajuda": "Le choix est le vôtre : nom de code et visage en mosaïque, ou votre nom et votre photo. Vous pouvez changer quand vous voulez, dans les deux sens.",
+  "padrao": "par défaut",
+  "atual": "vous êtes ainsi",
+  "modos": {
+    "codinome": {
+      "nome": "Nom de code",
+      "descricao": "Un nom inventé et un visage en mosaïque. Tout compte commence ainsi."
+    },
+    "publica": {
+      "nome": "Nom et photo",
+      "descricao": "Le nom que vous écrivez et, si vous voulez, une photo de vous."
+    }
+  },
+  "escolher": "Apparaître avec nom et photo",
+  "indisponivel": "La coordination n'a pas encore ouvert le choix d'apparaître avec nom et photo. Vous gardez le nom de code, et rien ne change sans votre demande.",
+  "org": "Un compte d'organisation apparaît déjà avec le nom de l'organisation.",
+  "carregando": "Lecture de votre identité…",
+  "ciencia": {
+    "titulo": "Avant de changer",
+    "passo": "Étape {n} sur {total}",
+    "muda": {
+      "titulo": "Ce qui change",
+      "itens": [
+        "Votre nom remplace le nom de code partout : publications, réponses, profil, recherche, mentions, notifications et conversations.",
+        "Cela vaut aussi pour ce que vous avez déjà publié : les anciennes publications affichent le nom.",
+        "Votre photo remplace la mosaïque après vérification par la médiation. Jusque-là, vous seul·e la voyez."
+      ]
+    },
+    "quem": {
+      "titulo": "Qui pourra voir",
+      "itens": [
+        "Le nom : ceux qui voyaient déjà votre nom de code. Dans ce que vous publiez en ouvert, tout le monde.",
+        "La photo : seulement les personnes qui ont un compte Alumia.",
+        "Les personnes que vous avez bloquées ne vous voient toujours pas."
+      ],
+      "federa": "Vous avez activé le Fédivers : le nom part aussi vers les autres serveurs, qui peuvent garder une copie qu'Alumia ne peut pas effacer."
+    },
+    "nao": {
+      "titulo": "Ce qui ne change pas",
+      "itens": [
+        "Votre @nom reste le même (au retour au nom de code, vous pouvez le changer).",
+        "Votre e-mail et les données de votre inscription n'apparaissent jamais. Seul compte ce que vous écrivez ici.",
+        "Alumia ne vérifie aucun document : le nom est déclaré par vous."
+      ]
+    },
+    "volta": {
+      "titulo": "On peut revenir",
+      "texto": "Revenir au nom de code, c'est un bouton, à tout moment. Votre nom de code est gardé et personne ne le prend. Au retour, le nom quitte les publications, le profil et les notifications d'Alumia et la photo est effacée du serveur ; vous pouvez aussi changer votre @. Ce que quelqu'un a déjà vu ou copié, personne ne peut le défaire : qui a vu votre nom à côté de votre @ le sait toujours."
+    },
+    "pense": "Si apparaître avec votre nom peut vous exposer au travail, en famille ou face à la police, le nom de code protège. Rien ne presse.",
+    "continuar": "Continuer",
+    "voltar": "Retour",
+    "cancelar": "Garder le nom de code",
+    "fechar": "Fermer"
+  },
+  "nome": {
+    "rotulo": "Votre nom",
+    "ajuda": "Comment vous voulez être appelé·e. De 2 à 60 lettres. Ce peut être le nom d'usage.",
+    "erros": {
+      "curto": "Écrivez au moins 2 lettres.",
+      "longo": "Le nom dépasse 60 lettres.",
+      "formato": "Utilisez seulement lettres, espace, point, apostrophe et trait d'union. Sans chiffre, @ ni adresse.",
+      "reservado": "Ce nom ressemble à celui de l'Institut ou de l'équipe. Choisissez-en un autre."
+    }
+  },
+  "foto": {
+    "titulo": "Votre photo",
+    "opcional": "facultatif",
+    "ajuda": "JPG, PNG, WebP ou AVIF jusqu'à 12 Mo. La photo est recadrée et réenregistrée ici, sur votre appareil : position (GPS), modèle de l'appareil photo et date restent derrière avant l'envoi. Le serveur vérifie de nouveau.",
+    "escolher": "Choisir une photo",
+    "trocar": "Changer de photo",
+    "remover": "Effacer la photo",
+    "sem": "Sans photo, le visage en mosaïque reste.",
+    "pendente": "En attente de la médiation. Pour l'instant, vous seul·e la voyez.",
+    "aceita": "Visible pour qui a un compte.",
+    "pronta": "Recadrée et sans données de l'appareil. Elle part quand vous confirmez.",
+    "alt": "Votre photo",
+    "recorte": {
+      "titulo": "Recadrer la photo",
+      "ajuda": "Faites glisser pour cadrer. Au clavier : les flèches déplacent, + et - zooment.",
+      "area": "Zone de recadrage : utilisez les flèches pour déplacer",
+      "zoom": "Zoomer",
+      "usar": "Utiliser ce cadrage",
+      "cancelar": "Annuler"
+    },
+    "erros": {
+      "tipo": "Ce fichier n'est ni JPG, ni PNG, ni WebP, ni AVIF.",
+      "peso": "La photo dépasse 12 Mo.",
+      "abrir": "Impossible d'ouvrir cette image. Essayez-en une autre.",
+      "gravar": "Ce navigateur n'a pas pu enregistrer la photo sans les données de l'appareil. Essayez avec Firefox, Chrome ou Edge."
+    }
+  },
+  "confirmar": {
+    "titulo": "Vérifiez et confirmez",
+    "aparece": "Voici comment vous apparaîtrez",
+    "ciente": "J'ai lu ce qui change et qui pourra voir. Je veux apparaître avec ce nom.",
+    "enviar": "Apparaître avec nom et photo",
+    "enviando": "Changement…"
+  },
+  "publica": {
+    "desde": "Avec votre nom depuis le {data}.",
+    "trocarNome": "Changer le nom",
+    "salvarNome": "Enregistrer le nom",
+    "cancelar": "Annuler",
+    "voltar": "Revenir au nom de code",
+    "voltarAjuda": "Votre pseudonyme gardé est {codinome}. Revenir retire le nom des publications, du profil et des notifications d'Alumia et efface la photo du serveur. Ce que quelqu'un a déjà vu ou copié (et les copies gardées par d'autres serveurs du Fediverse), personne ne le défait.",
+    "confirmarVolta": {
+      "titulo": "Revenir au nom de code ?",
+      "texto": "Vous apparaissez de nouveau comme {codinome}, avec le visage en mosaïque. Le nom quitte les publications, le profil et les notifications d'Alumia, et la photo est effacée du serveur maintenant.",
+      "sim": "Revenir au nom de code",
+      "nao": "Rester comme je suis",
+      "voltando": "Retour…",
+      "arroba": "Changer aussi mon @",
+      "arrobaAjuda": "Qui a vu votre nom à côté de @{handle} sait toujours que ce @ c'est vous. Avec un nouveau @, ce que vous publierez désormais n'est plus lié au nom. Recommandé.",
+      "arrobaRotulo": "Le nouveau @",
+      "arrobaFederado": "Votre @ reste @{handle} : qui a vu votre nom à côté sait toujours que c'est vous. Tant que le Fediverse est activé sur votre profil, le @ ne peut pas être changé ici (c'est votre adresse sur les autres réseaux)."
+    }
+  },
+  "avisos": {
+    "virouPublica": "C'est fait. Vous apparaissez maintenant comme {nome}.",
+    "voltou": "C'est fait. Vous apparaissez de nouveau comme {codinome}. La photo a été effacée.",
+    "voltouTrocado": "Vous êtes revenu·e au nom de code. L'ancien n'était plus libre : le nouveau est {codinome}. Vous pouvez le changer dans À propos.",
+    "fotoEnviada": "Photo envoyée. La médiation la vérifie avant qu'elle apparaisse aux autres.",
+    "fotoNoAr": "Photo envoyée et déjà visible.",
+    "fotoApagada": "Photo effacée du serveur.",
+    "fotoFalhou": "Le nom a été changé, mais la photo n'a pas été envoyée. Réessayez ici.",
+    "nomeSalvo": "Nom changé.",
+    "trocouArroba": "C'est fait. Vous apparaissez de nouveau comme {codinome}, maintenant avec @{handle}."
+  },
+  "erros": {
+    "identidade_desligada": "La coordination a fermé, pour l'instant, le choix du nom et de la photo. Revenir au nom de code fonctionne toujours.",
+    "identidade_org": "Un compte d'organisation n'utilise pas ce choix.",
+    "identidade_codinome": "Pour envoyer une photo, choisissez d'abord d'apparaître avec votre nom.",
+    "nome_usado": "Ce nom est le pseudonyme de quelqu'un d'autre. Choisissez-en un autre.",
+    "nome_reservado": "Ce nom ressemble à celui de l'Institut ou de l'équipe. Choisissez-en un autre.",
+    "invalido_nome": "Ce nom ne convient pas. Utilisez lettres, espace, point, apostrophe et trait d'union.",
+    "invalido_imagem": "La photo n'a pas passé la vérification du serveur. Recadrez-la de nouveau et envoyez.",
+    "confirme_ciencia": "Cochez que vous avez lu ce qui change.",
+    "banco_desatualizado": "Cette partie n'est pas encore arrivée sur le serveur. Réessayez plus tard.",
+    "identidade_nome_travado": "Vous apparaissez avec votre nom. Pour le changer, ouvrez Identité.",
+    "handle_usado": "Ce @ appartient déjà à quelqu'un. Choisissez-en un autre.",
+    "handle_reservado": "Ce @ ressemble à celui de l'Institut ou de l'équipe. Choisissez-en un autre.",
+    "invalido_handle": "Le @ doit avoir de 3 à 20 minuscules, chiffres ou _.",
+    "handle_federado": "Avec le Fediverse activé, le @ ne peut pas être changé ici."
+  },
+  "selo": {
+    "rotulo": "nom et photo par choix",
+    "titulo": "Cette personne a choisi d'apparaître avec nom et photo. Alumia ne vérifie aucun document."
+  },
+  "sobre": {
+    "nomeTravado": "Vous apparaissez avec votre nom. Pour changer le nom ou revenir au nom de code, ouvrez Identité."
+  },
+  "lembrete": {
+    "texto": "À l'inscription, vous avez indiqué vouloir apparaître avec nom et photo. Choisir maintenant ?",
+    "sim": "Choisir maintenant",
+    "nao": "Pas maintenant"
+  },
+  "cadastro": {
+    "titulo": "Comment vous voulez apparaître",
+    "codinome": "Avec un nom de code et un visage en mosaïque",
+    "codinomeAjuda": "Personne ne voit votre nom ni votre photo.",
+    "publica": "Avec mon nom et ma photo",
+    "publicaAjuda": "Vous choisissez après être entré, sur un écran qui montre ce qui change et qui pourra le voir. Vous pouvez revenir au nom de code quand vous voulez.",
+    "nota": "Tout compte entre avec un nom de code : la personne qui examine la demande ne voit que le nom de code. Cette réponse reste uniquement sur cet appareil."
+  }
+}

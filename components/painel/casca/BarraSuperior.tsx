@@ -93,9 +93,9 @@ export function BarraSuperior({
           <span aria-hidden className="pn-trilha-sep pn-trilha-sep-espaco">
             /
           </span>
-          <span className="pn-trilha-atual" aria-current="page">
+          <span className="pn-trilha-atual" aria-current="page" title={atual.nome}>
             <Icone id={atual.id} className="pn-trilha-icone" />
-            {atual.nome}
+            <span className="pn-trilha-nome">{atual.nome}</span>
           </span>
         </nav>
       </div>

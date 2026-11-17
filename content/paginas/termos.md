@@ -37,6 +37,10 @@ Os textos, cartilhas, livros e manifestos reunidos aqui têm valor histórico, s
 
 Esta seção explica como o instituto entende o próprio trabalho. Ela não afasta os direitos que a lei garante a você nem as responsabilidades que a lei atribui a quem mantém um site.
 
+## Alumia, a rede social
+
+A Alumia tem termos de uso e política de privacidade próprios, em [Termos da Alumia](/alumia/termos) e [Privacidade da Alumia](/alumia/privacidade). Dentro da Alumia valem aqueles textos; onde eles e estes termos disserem coisas diferentes, vale o da Alumia.
+
 ## Regras de convivência
 
 O [Código de conduta](/conduta) detalha estas regras e a [Política de uso](/uso) as resume. Vale para a comunidade, as anotações, o Mural dos Trabalhadores e qualquer outro espaço em que você escreve:

@@ -1,0 +1,79 @@
+{
+  "prova": {
+    "explica": "Contra robôs, sem serviço de fora: antes de o pedido sair, o seu aparelho faz uma conta curta. Do seu aparelho e da sua rede, fica só um resumo embaralhado, que some em um dia.",
+    "fazendo": "O aparelho está fazendo a conta contra robôs…",
+    "fazendoAntes": "O aparelho está fazendo uma conta curta antes de enviar…",
+    "demorando": "Está levando mais que o normal (há muitos pedidos agora). Pode esperar: a conta continua.",
+    "pronta": "Conta feita. Enviando…",
+    "erros": {
+      "muitos_pedidos": "Muitos pedidos desta rede nesta hora. Tente de novo mais tarde.",
+      "porta_cheia": "A Alumia recebeu muitos pedidos nesta hora. Tente de novo daqui a pouco.",
+      "rede_barrada": "Desta rede não dá para criar conta nem pedir a entrada agora.",
+      "desafio_vencido": "A conta demorou demais e venceu. Tente de novo.",
+      "email_nao_confirmado": "Confirme o seu e-mail antes de pedir a entrada: o link chegou na sua caixa de entrada.",
+      "cadastro_fechado": "O cadastro está fechado no momento. Volte em breve.",
+      "senha_fraca": "Essa senha não serve. Escolha outra mais longa, que você não use em outro lugar.",
+      "sem_servico": "Não deu para falar com o servidor agora. Tente de novo daqui a pouco.",
+      "captcha": "A conferência contra robôs da Cloudflare ainda não terminou ou não passou. Espere a caixa dela confirmar e tente de novo.",
+      "falha": "Não deu certo agora. Tente de novo daqui a pouco."
+    }
+  },
+  "pagina": {
+    "carimbo": "Convite",
+    "titulo": "Alguém te chamou para a Alumia",
+    "texto": "Quem já está dentro te mandou este convite. Ele leva o seu pedido à triagem, como qualquer outro: não aprova sozinho.",
+    "sigilo": "A triagem vê só que o pedido veio por convite, nunca de quem. Quando ela decide, nem essa marca fica.",
+    "guardado": "O convite fica guardado só neste aparelho, por até 7 dias, até o seu pedido sair.",
+    "vale": "Vale até {data}.",
+    "conferindo": "Conferindo o convite…",
+    "criar": "Criar conta e pedir a entrada",
+    "jaTenho": "Já tenho conta",
+    "invalidoTitulo": "Este convite não vale mais",
+    "invalido": "Ele venceu, já foi usado ou foi cancelado. Você ainda pode pedir a entrada sem convite: a triagem lê todo pedido.",
+    "pedirSem": "Pedir a entrada sem convite",
+    "semConferir": "Não deu para conferir o convite agora. Ele fica guardado neste aparelho e segue junto do seu pedido; se não valer mais, o pedido segue sem ele.",
+    "passos": [
+      { "titulo": "Crie a conta", "texto": "E-mail e senha. Telefone, nunca." },
+      { "titulo": "Peça a entrada", "texto": "Um codinome e por que você quer entrar. O convite vai junto." },
+      { "titulo": "A triagem lê", "texto": "Gente da coordenação e da mediação decide. Aprovado, você cadastra o aplicativo autenticador e entra." }
+    ]
+  },
+  "meus": {
+    "titulo": "Convidar para a Alumia",
+    "texto": "Mande o link a quem você conhece. O convite leva à triagem e não aprova sozinho; a Alumia não guarda quem convidou quem.",
+    "restam": "Restam {n} de {teto} convites este mês",
+    "restamUm": "Resta 1 de {teto} convites este mês",
+    "usados": "Usados este mês: {n}",
+    "gerar": "Gerar convite",
+    "gerando": "Gerando…",
+    "novoTitulo": "Convite pronto",
+    "novo": "Copie o link agora: ele aparece só desta vez. Vale 7 dias, até {data}.",
+    "copiar": "Copiar o link",
+    "copiado": "Link copiado",
+    "rotuloLink": "Link do convite",
+    "lista": "Os seus convites",
+    "vazio": "Nenhum convite ainda.",
+    "criado": "gerado em {data}",
+    "situacoes": {
+      "aberto": "aberto até {data}",
+      "usado": "usado",
+      "vencido": "vencido",
+      "cancelado": "cancelado"
+    },
+    "nota": "O convite usado sai da lista e do banco na hora: a Alumia não guarda qual foi, nem quem pediu a entrada com ele.",
+    "cancelar": "Cancelar",
+    "cancelarRotulo": "Cancelar o convite gerado em {data}",
+    "acabaram": "Os convites deste mês acabaram. No mês que vem tem mais.",
+    "desligados": "Os convites estão desligados pela coordenação no momento.",
+    "soDentro": "Só quem já está dentro da Alumia gera convites.",
+    "erro": "Não deu certo agora. Tente de novo daqui a pouco.",
+    "voltar": "Voltar à Alumia"
+  },
+  "triagem": {
+    "marca": "veio por convite",
+    "explica": "A triagem não sabe de quem. A marca some quando o pedido é decidido."
+  },
+  "semTerceiro": {
+    "redeBarrada": { "entrar": "Desta rede não dá para entrar agora.", "aviso": "Desta rede não dá para pedir esse e-mail agora." }
+  }
+}

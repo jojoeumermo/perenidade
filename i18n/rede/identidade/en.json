@@ -1,0 +1,169 @@
+{
+  "_rascunho": true,
+  "titulo": "How you appear",
+  "ajuda": "The choice is yours: a codename and a mosaic face, or your name and your photo. You can switch whenever you want, both ways.",
+  "padrao": "default",
+  "atual": "this is you now",
+  "modos": {
+    "codinome": {
+      "nome": "Codename",
+      "descricao": "A made-up name and a mosaic face. Every account starts like this."
+    },
+    "publica": {
+      "nome": "Name and photo",
+      "descricao": "The name you write and, if you want, a photo of you."
+    }
+  },
+  "escolher": "Appear with name and photo",
+  "indisponivel": "The coordination has not opened the name and photo option yet. You keep your codename, and nothing changes unless you ask.",
+  "org": "Organization accounts already appear with the organization's name.",
+  "carregando": "Reading your identity…",
+  "ciencia": {
+    "titulo": "Before you switch",
+    "passo": "Step {n} of {total}",
+    "muda": {
+      "titulo": "What changes",
+      "itens": [
+        "Your name replaces the codename everywhere: posts, replies, profile, search, mentions, notifications and conversations.",
+        "It also applies to what you already published: old posts start showing the name.",
+        "Your photo replaces the mosaic after moderation checks it. Until then, only you see it."
+      ]
+    },
+    "quem": {
+      "titulo": "Who gets to see",
+      "itens": [
+        "The name: whoever already saw your codename. In what you publish openly, anyone.",
+        "The photo: only people with an Alumia account.",
+        "People you blocked still cannot see you."
+      ],
+      "federa": "You turned on the Fediverse: the name also goes to other servers, and they may keep a copy that Alumia cannot delete."
+    },
+    "nao": {
+      "titulo": "What does not change",
+      "itens": [
+        "Your @name stays the same (when going back to the codename, you can change it).",
+        "Your email and sign-up details never show. Only what you write here counts.",
+        "Alumia does not check documents: the name is declared by you."
+      ]
+    },
+    "volta": {
+      "titulo": "You can go back",
+      "texto": "Going back to the codename is one button, at any time. Your codename is kept and nobody can take it. When you go back, the name leaves Alumia posts, profile and notifications and the photo is deleted from the server; you can change your @ too. What someone already saw or copied, nobody can undo: whoever saw your name next to your @ still knows."
+    },
+    "pense": "If appearing with your name could bring risk at work, in your family or with the police, the codename protects you. There is no hurry.",
+    "continuar": "Continue",
+    "voltar": "Back",
+    "cancelar": "Keep the codename",
+    "fechar": "Close"
+  },
+  "nome": {
+    "rotulo": "Your name",
+    "ajuda": "What you want to be called. 2 to 60 letters. It can be your chosen name.",
+    "erros": {
+      "curto": "Write at least 2 letters.",
+      "longo": "The name is longer than 60 letters.",
+      "formato": "Use only letters, space, period, apostrophe and hyphen. No numbers, @ or addresses.",
+      "reservado": "That name looks like the Institute's or the team's. Choose another."
+    }
+  },
+  "foto": {
+    "titulo": "Your photo",
+    "opcional": "optional",
+    "ajuda": "JPG, PNG, WebP or AVIF up to 12 MB. The photo is cropped and re-encoded here, on your device: location (GPS), camera model and date are left behind before upload. The server checks again.",
+    "escolher": "Choose photo",
+    "trocar": "Change photo",
+    "remover": "Delete photo",
+    "sem": "Without a photo, the mosaic face stays.",
+    "pendente": "Waiting for moderation. For now, only you see it.",
+    "aceita": "Live for people with an account.",
+    "pronta": "Cropped and free of camera data. It goes along when you confirm.",
+    "alt": "Your photo",
+    "recorte": {
+      "titulo": "Crop the photo",
+      "ajuda": "Drag to frame. On the keyboard: arrows move, + and - zoom.",
+      "area": "Crop area: use the arrow keys to move",
+      "zoom": "Zoom",
+      "usar": "Use this crop",
+      "cancelar": "Cancel"
+    },
+    "erros": {
+      "tipo": "That file is not JPG, PNG, WebP or AVIF.",
+      "peso": "The photo is larger than 12 MB.",
+      "abrir": "Could not open that image. Try another.",
+      "gravar": "This browser could not save the photo without camera data. Try Firefox, Chrome or Edge."
+    }
+  },
+  "confirmar": {
+    "titulo": "Check and confirm",
+    "aparece": "This is how you will appear",
+    "ciente": "I read what changes and who gets to see. I want to appear with this name.",
+    "enviar": "Appear with name and photo",
+    "enviando": "Switching…"
+  },
+  "publica": {
+    "desde": "With your name since {data}.",
+    "trocarNome": "Change the name",
+    "salvarNome": "Save the name",
+    "cancelar": "Cancel",
+    "voltar": "Go back to the codename",
+    "voltarAjuda": "Your kept codename is {codinome}. Going back removes the name from Alumia posts, profile and notifications and deletes the photo from the server. What someone already saw or copied (and the copies other Fediverse servers kept) cannot be undone.",
+    "confirmarVolta": {
+      "titulo": "Go back to the codename?",
+      "texto": "You will appear as {codinome} again, with the mosaic face. The name leaves Alumia posts, profile and notifications, and the photo is deleted from the server now.",
+      "sim": "Go back to the codename",
+      "nao": "Stay as I am",
+      "voltando": "Going back…",
+      "arroba": "Also change my @",
+      "arrobaAjuda": "Whoever saw your name next to @{handle} still knows that @ is you. With a new @, what you post from now on is not tied to the name. Recommended.",
+      "arrobaRotulo": "The new @",
+      "arrobaFederado": "Your @ stays @{handle}: whoever saw your name next to it still knows it is you. While the Fediverse is on in your profile, the @ cannot be changed here (it is your address on the other networks)."
+    }
+  },
+  "avisos": {
+    "virouPublica": "Done. You now appear as {nome}.",
+    "voltou": "Done. You appear as {codinome} again. The photo was deleted.",
+    "voltouTrocado": "You are back to a codename. The old one was no longer free: the new one is {codinome}. You can change it under About.",
+    "fotoEnviada": "Photo sent. Moderation checks it before others can see it.",
+    "fotoNoAr": "Photo sent and already live.",
+    "fotoApagada": "Photo deleted from the server.",
+    "fotoFalhou": "The name was changed, but the photo was not sent. Try sending it again here.",
+    "nomeSalvo": "Name changed.",
+    "trocouArroba": "Done. You appear as {codinome} again, now with @{handle}."
+  },
+  "erros": {
+    "identidade_desligada": "The coordination has closed the name and photo option for now. Going back to the codename still works.",
+    "identidade_org": "Organization accounts do not use this option.",
+    "identidade_codinome": "To send a photo, first choose to appear with your name.",
+    "nome_usado": "This name is someone else's codename. Choose another.",
+    "nome_reservado": "That name looks like the Institute's or the team's. Choose another.",
+    "invalido_nome": "That name does not work. Use letters, space, period, apostrophe and hyphen.",
+    "invalido_imagem": "The photo did not pass the server check. Crop it again and send.",
+    "confirme_ciencia": "Tick that you read what changes.",
+    "banco_desatualizado": "This part has not reached the server yet. Try later.",
+    "identidade_nome_travado": "You appear with your name. To change it, open Identity.",
+    "handle_usado": "This @ already belongs to someone else. Choose another.",
+    "handle_reservado": "This @ looks like the Institute's or the team's. Choose another.",
+    "invalido_handle": "The @ must have 3 to 20 lowercase letters, numbers or _.",
+    "handle_federado": "With the Fediverse on, the @ cannot be changed here."
+  },
+  "selo": {
+    "rotulo": "name and photo by choice",
+    "titulo": "This person chose to appear with name and photo. Alumia does not check documents."
+  },
+  "sobre": {
+    "nomeTravado": "You appear with your name. To change the name or go back to the codename, open Identity."
+  },
+  "lembrete": {
+    "texto": "At sign-up you marked that you want to appear with name and photo. Choose now?",
+    "sim": "Choose now",
+    "nao": "Not now"
+  },
+  "cadastro": {
+    "titulo": "How you want to appear",
+    "codinome": "With a codename and a mosaic face",
+    "codinomeAjuda": "Nobody sees your name or your photo.",
+    "publica": "With my name and my photo",
+    "publicaAjuda": "You choose after you get in, on a screen that shows what changes and who gets to see it. You can go back to the codename whenever you want.",
+    "nota": "Every account comes in with a codename: whoever reviews the request only sees the codename. This answer stays on this device only."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "aviso": "Links are checked by Google Safe Browsing.",
+  "comoFunciona": "How it works",
+  "bloqueio": "You can't post with this link: Google Safe Browsing flags {host} as {tipo}. Remove the link and post again.",
+  "varios": "You can't post with these links: Google Safe Browsing flags {hosts} as dangerous. Remove the links and post again.",
+  "leitor": "link blocked: Google Safe Browsing flags {host} as {tipo}",
+  "tipos": {
+    "MALWARE": "a page that installs malicious software",
+    "SOCIAL_ENGINEERING": "a scam page that imitates another to steal passwords or data",
+    "UNWANTED_SOFTWARE": "a page that installs unwanted software",
+    "POTENTIALLY_HARMFUL_APPLICATION": "an app that may cause harm",
+    "outro": "dangerous"
+  }
+}
