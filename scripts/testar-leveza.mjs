@@ -195,7 +195,8 @@ const prefs = ler("lib", "prefs.ts");
 conferir("defaultPrefs tem pacote:false", /pacote: false,\n\};/.test(prefs));
 const listaFlags = /const flags = \[([\s\S]*?)\] as const;/.exec(prefs)?.[1] ?? "";
 const dosFlags = [...listaFlags.matchAll(/\["(\w+)", "(\w+)"\]/g)].map((m) => `${m[1]}:${m[2]}`).sort();
-const noScript = /\[\["contrast","contrast"\][\s\S]*?\]\]\.forEach/.exec(prefs)?.[0] ?? "";
+// O script que roda antes da primeira pintura mora em lib/prefs-script.ts (a página do chat o libera pelo hash).
+const noScript = /\[\["contrast","contrast"\][\s\S]*?\]\]\.forEach/.exec(ler("lib", "prefs-script.ts"))?.[0] ?? "";
 const dosScript = [...noScript.matchAll(/\["(\w+)","(\w+)"\]/g)].map((m) => `${m[1]}:${m[2]}`).sort();
 conferir("pacote está em flags", dosFlags.includes("pacote:pacote"));
 conferir("pacote está no prefsScript", dosScript.includes("pacote:pacote"));

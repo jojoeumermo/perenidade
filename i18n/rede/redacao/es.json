@@ -1,0 +1,207 @@
+{
+  "_rascunho": true,
+  "carimbo": "Rueda de redacción",
+  "titulo": "Redacción entre pares",
+  "chamada": "Escribe sobre el tema de la semana, corrige la redacción de otras personas con las 5 competencias del ENEM y recibe tus propias lecturas. **Nadie sabe de quién es la redacción, ni quién la corrigió.**",
+  "carregando": "Abriendo la rueda",
+  "entrar": "Entra en Alumia para participar en la rueda de redacción.",
+  "abas": {
+    "rotulo": "Partes de la rueda",
+    "escrever": "Escribir",
+    "corrigir": "Corregir",
+    "devolutivas": "Devoluciones",
+    "mediacao": "Mediación",
+    "temas": "Temas"
+  },
+  "tema": {
+    "rotulo": "Tema de la semana",
+    "ate": "Entregas hasta el {data}",
+    "motivadores": "Textos de apoyo",
+    "semTema": "La coordinación todavía no publicó el tema de esta semana. Vuelve pronto.",
+    "semTemaCoord": "Esta semana todavía no tiene tema. Publica uno en la pestaña Temas."
+  },
+  "troca": {
+    "titulo": "Tu intercambio",
+    "corrigidas": "corregidas en esta rueda",
+    "deDuas": "de 2",
+    "esperando": "esperando lectura",
+    "menosDe3": "menos de 3",
+    "pronta": "Intercambio cumplido",
+    "afastada": "Estás fuera de la rueda hasta el {data}, por una corrección que la mediación consideró abusiva."
+  },
+  "como": {
+    "titulo": "Cómo funciona la rueda",
+    "itens": [
+      {
+        "titulo": "A ciegas, en los dos sentidos",
+        "texto": "Quien corrige recibe solo el texto. Quien escribió recibe solo la ficha. Ni nombre ni seudónimo, de ningún lado."
+      },
+      {
+        "titulo": "Dos lecturas por redacción",
+        "texto": "Cada redacción la leen dos personas, con las 5 competencias del ENEM, con nota de 0 a 200 y un comentario en cada una."
+      },
+      {
+        "titulo": "Corrige para recibir",
+        "texto": "Tus lecturas llegan cuando corregiste dos redacciones de la misma rueda. Si la rueda está llena cuando pides, el intercambio queda cumplido."
+      },
+      {
+        "titulo": "Todo desaparece en 30 días",
+        "texto": "La redacción y las correcciones se borran para siempre 30 días después de la devolución. Después de la devolución, la base de datos no guarda quién leyó qué."
+      },
+      {
+        "titulo": "Corrección abusiva",
+        "texto": "Una lectura que ofende va a la mediación. Si es abusiva, sale de tu pantalla, tu redacción recibe otra lectura y quien la escribió queda fuera de la rueda, sin que nadie sepa quién es."
+      }
+    ]
+  },
+  "escrever": {
+    "titulo": "Tu redacción de esta semana",
+    "tituloCampo": "Título (opcional)",
+    "textoCampo": "Texto",
+    "dica": "Escribe el texto argumentativo aquí mismo. No lo firmes ni escribas tu nombre: la lectura es a ciegas.",
+    "linhas": "{n} de 30 líneas",
+    "minimo": "mínimo de 7 líneas",
+    "letras": "{n} caracteres",
+    "entregar": "Entregar a la rueda",
+    "entregando": "Entregando…",
+    "entregue": "Entregada. Tu redacción está en la rueda.",
+    "jaEntregou": "Ya entregaste la redacción de esta semana. Síguela en Devoluciones.",
+    "rascunho": "El borrador queda solo en este dispositivo hasta que lo entregues."
+  },
+  "corrigir": {
+    "titulo": "Corregir una redacción",
+    "chamada": "Pide una redacción de la rueda. Tienes 72 horas para devolver la ficha; si no puedes, suéltala y vuelve a la rueda.",
+    "pedir": "Pedir una redacción para leer",
+    "pedindo": "Sorteando…",
+    "nenhuma": "Ninguna redacción espera lectura ahora. Vuelve más tarde.",
+    "dispensada": "La rueda está llena: ninguna redacción espera lectura. Tu intercambio de esta rueda queda cumplido.",
+    "duasAbertas": "Ya tienes dos lecturas abiertas. Termina una antes de pedir otra.",
+    "jaLendo": "Ya estás leyendo una. Puedes tomar una más, hasta dos abiertas.",
+    "pedirOutra": "Pedir una más",
+    "prazo": "Devolver hasta el {data}",
+    "semTitulo": "Sin título",
+    "aRedacao": "La redacción",
+    "aFicha": "Tu ficha",
+    "nota": "Nota",
+    "comentario": "Comentario",
+    "comentarioDica": "Qué funcionó y qué mejorar, en al menos 20 caracteres.",
+    "geral": "Comentario general (opcional)",
+    "total": "Total",
+    "enviar": "Enviar corrección",
+    "enviando": "Enviando…",
+    "largar": "Soltar esta lectura",
+    "falta": "Falta la nota o el comentario de la competencia {n}.",
+    "enviada": "Corrección enviada. Gracias por leer con cuidado.",
+    "cega": "No sabes de quién es este texto, y quien lo escribió no sabrá que fuiste tú."
+  },
+  "competencias": [
+    {
+      "nome": "Competencia 1",
+      "resumo": "Dominio de la modalidad escrita formal de la lengua portuguesa."
+    },
+    {
+      "nome": "Competencia 2",
+      "resumo": "Comprender la propuesta y desarrollar el tema en un texto argumentativo, con conocimientos de varias áreas."
+    },
+    {
+      "nome": "Competencia 3",
+      "resumo": "Seleccionar, relacionar, organizar e interpretar informaciones, hechos y opiniones en defensa de un punto de vista."
+    },
+    {
+      "nome": "Competencia 4",
+      "resumo": "Usar los mecanismos lingüísticos que construyen la argumentación (cohesión)."
+    },
+    {
+      "nome": "Competencia 5",
+      "resumo": "Proponer una intervención para el problema, respetando los derechos humanos."
+    }
+  ],
+  "devolutivas": {
+    "titulo": "Tus redacciones",
+    "vazio": "Todavía no entregaste ninguna redacción.",
+    "semana": "Semana del {data}",
+    "naRoda": "En la rueda hasta el {data}.",
+    "faltaCorrigir": "Corrige {n} más para recibir tus lecturas.",
+    "faltaUma": "Corrige 1 más para recibir tus lecturas.",
+    "esperandoLeituras": "Cumpliste el intercambio. Las lecturas llegan juntas, cuando estén listas.",
+    "encerrada": "La rueda cerró y esta redacción no fue devuelta. Se borra el {data}.",
+    "devolvida": "Devuelta el {data}. Todo se borra el {apagar}.",
+    "leitura": "Lectura {n}",
+    "media": "Promedio de las lecturas",
+    "deMil": "de 1000",
+    "verTexto": "Ver el texto que entregaste",
+    "apagar": "Borrar ahora",
+    "apagarConfirma": "¿Borrar esta redacción y sus lecturas para siempre?",
+    "apagarSim": "Sí, borrar",
+    "cancelar": "Cancelar",
+    "removida": "La mediación quitó esta lectura. Tu redacción volvió a la rueda para una lectura nueva.",
+    "denunciar": "Denunciar esta lectura",
+    "denunciaMotivo": "¿Qué hay de abusivo en esta lectura?",
+    "denunciaDica": "Va a la mediación, que lee la corrección sin saber de quién es. Al menos 10 caracteres.",
+    "enviarDenuncia": "Enviar a la mediación",
+    "denunciaAberta": "Denunciada. La mediación la revisará.",
+    "denunciaNaoAbusiva": "La mediación la leyó y no encontró abuso en esta lectura.",
+    "denunciaAbusiva": "La mediación consideró abusiva esta lectura."
+  },
+  "mediacao": {
+    "titulo": "Denuncias de corrección",
+    "chamada": "Lecturas denunciadas por quien las recibió. No ves quién escribió la redacción ni quién corrigió. Abusiva: la lectura sale, la redacción recibe otra lectura y quien la escribió queda fuera de la rueda por 8 semanas, sin que el nombre aparezca para nadie.",
+    "vazio": "Ninguna denuncia en espera.",
+    "motivo": "Motivo de la denuncia",
+    "aCorrecao": "La corrección denunciada",
+    "verRedacao": "Ver la redacción corregida",
+    "nota": "Nota de la mediación (opcional)",
+    "abusiva": "Abusiva: quitar y apartar",
+    "naoAbusiva": "No es abusiva",
+    "pendente": "Considerada abusiva. Falta apartar.",
+    "tentarDeNovo": "Apartar ahora",
+    "feito": "Hecho. Quien la escribió está fuera de la rueda por 8 semanas; el nombre no aparece aquí.",
+    "semLacre": "La lectura salió. Esta corrección no podía vincularse a nadie, así que nadie fue apartado.",
+    "decidida": "Decidida."
+  },
+  "temas": {
+    "titulo": "Temas de la rueda",
+    "chamada": "Un tema por semana, de lunes a domingo. El tema solo cambia mientras nadie haya entregado una redacción sobre él.",
+    "semana": "Semana del {data}",
+    "estaSemana": "Esta semana",
+    "semTema": "Sin tema",
+    "redacoes": "{n} redacciones",
+    "poucas": "menos de 3 redacciones",
+    "tituloCampo": "Propuesta",
+    "motivadoresCampo": "Textos de apoyo (opcional)",
+    "salvar": "Guardar el tema",
+    "lancar": "Publicar tema",
+    "editar": "Editar",
+    "salvo": "Tema guardado.",
+    "fechado": "Esta semana ya tiene redacciones: el tema ya no cambia."
+  },
+  "erros": {
+    "generico": "No funcionó ahora. Inténtalo de nuevo en un momento.",
+    "sem_conexao": "Sin conexión con el servidor. Revisa internet e inténtalo de nuevo.",
+    "sem_servico": "La rueda de redacción todavía no está activada en este servidor.",
+    "banco_desatualizado": "La rueda de redacción todavía no está activada en este servidor.",
+    "muitos_pedidos": "Demasiados pedidos seguidos. Espera unos minutos.",
+    "entre_primeiro": "Entra en Alumia para participar.",
+    "afastada": "Por ahora estás fuera de la rueda.",
+    "sem_tema": "La coordinación todavía no publicó el tema de esta semana.",
+    "ja_entregou": "Ya entregaste la redacción de esta semana.",
+    "invalido:curta": "La redacción es demasiado corta. Escribe al menos 7 líneas.",
+    "invalido:longa": "La redacción pasó de las 30 líneas.",
+    "invalido:titulo": "El título puede tener hasta 100 caracteres.",
+    "leituras_abertas": "Ya tienes dos lecturas abiertas.",
+    "nao_encontrado": "No encontramos esta lectura. Quizá el plazo ya pasó.",
+    "prazo": "El plazo de esta lectura pasó. Volvió a la rueda.",
+    "invalido:nota": "Cada competencia necesita una nota de 0 a 200.",
+    "invalido:comentario": "Cada competencia necesita un comentario de 20 a 800 caracteres.",
+    "invalido:ficha": "La ficha está incompleta.",
+    "invalido:geral": "El comentario general puede tener hasta 800 caracteres.",
+    "invalido:motivo": "Explica el motivo en 10 a 1000 caracteres.",
+    "ja_denunciada": "Esta lectura ya fue denunciada.",
+    "ja_removida": "Esta lectura ya fue quitada.",
+    "ja_decidida": "Esta denuncia ya fue decidida.",
+    "sem_permissao": "No tienes permiso para esto.",
+    "invalido:semana": "Elige una semana desde esta hasta 12 semanas adelante.",
+    "ja_tem_redacao": "Esta semana ya tiene redacciones: el tema ya no cambia.",
+    "invalido:motivadores": "Los textos de apoyo pueden tener hasta 3000 caracteres."
+  }
+}

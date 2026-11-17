@@ -1,0 +1,100 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Perguntas ao vivo (/alumia/mapa/ao-vivo e dentro da caixa de perguntas), frente 13B. Linguagem do Mosaico da Arquibancada: faixa
+ * tecida, Archivo condensada em caixa alta, carimbos para o momento e a fila numerada como placas. Só usa os tokens de
+ * styles/alumia-tokens.css. Computador primeiro: a fila à esquerda e o "perguntar" à direita quando passa de 980 px.
+ */
+
+.av-pagina { container-type: inline-size; display: grid; gap: 1.25rem; padding: 1.25rem 16px 3rem; color: var(--al-texto); min-width: 0; }
+@media (min-width: 1024px) { .av-pagina { padding: 1.75rem 1.5rem 3.5rem; } }
+.av-agenda, .av-sessao { display: grid; gap: 1.1rem; min-width: 0; }
+
+.av-cabeca { display: grid; gap: 0.6rem; }
+.av-faixa { width: 7.5rem; border-radius: 2px; }
+.av-titulo { margin: 0; font-size: clamp(2.5rem, 6cqi, 4.2rem); line-height: 0.95; }
+.av-chamada { margin: 0; max-width: 68ch; color: var(--al-texto-2); font-size: 1.08rem; line-height: 1.5; }
+
+.av-colunas { display: grid; gap: 1.5rem; align-items: start; min-width: 0; }
+@container (min-width: 980px) { .av-colunas { grid-template-columns: minmax(0, 1.65fr) minmax(18rem, 1fr); gap: 2rem; } }
+.av-principal, .av-lado { display: grid; gap: 1.1rem; align-content: start; min-width: 0; }
+
+.av-subtitulo { margin: 0 0 0.5rem; font-size: 1.5rem; letter-spacing: 0.02em; line-height: 1.05; }
+.av-miudo { margin: 0; color: var(--al-texto-3); font-size: 0.92rem; line-height: 1.5; }
+.av-regra { margin: 0; max-width: 68ch; color: var(--al-texto-2); line-height: 1.5; font-weight: 600; }
+.av-nota { margin: 0; padding: 0.65rem 0.9rem; border-radius: 10px; background: var(--al-fundo); border-left: 4px solid var(--al-dourado-fundo); font-weight: 600; line-height: 1.45; }
+.av-aviso { margin: 0; min-height: 0; font-weight: 700; }
+.av-aviso:empty { display: none; }
+.av-aviso[data-erro] { color: var(--al-vermelho-letra); }
+.av-link { color: var(--al-texto); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; min-height: 44px; display: inline-flex; align-items: center; cursor: pointer; }
+.av-linha { display: flex; flex-wrap: wrap; gap: 0.4rem 0.7rem; align-items: center; }
+.av-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: center; }
+.av-acoes:empty { display: none; }
+
+.av-cartao {
+  display: grid; gap: 0.75rem; align-content: start; padding: 1.1rem 1.2rem; border-radius: var(--al-raio);
+  background: var(--al-superficie); border: 1px solid var(--al-linha); min-width: 0;
+}
+.av-cartao[data-momento="ao_vivo"] { border-left: 4px solid var(--al-vermelho); }
+.av-lista { display: grid; gap: 0.9rem; margin: 0; padding: 0; list-style: none; }
+
+.av-cabeca-sessao { display: grid; gap: 0.35rem; min-width: 0; }
+.av-titulo-sessao { margin: 0; font-size: clamp(1.6rem, 3.4cqi, 2.6rem); line-height: 1; overflow-wrap: anywhere; }
+h1.av-titulo-sessao { font-size: clamp(2.2rem, 5cqi, 3.6rem); }
+.av-quem { margin: 0; font-weight: 700; color: var(--al-texto-2); }
+
+.av-carimbo {
+  display: inline-flex; align-items: center; min-height: 1.75rem; padding: 0.1rem 0.6rem; border: 2px solid var(--al-dourado-fundo);
+  border-radius: 6px; color: var(--al-texto); font-family: var(--al-fonte); font-stretch: 70%; font-weight: 800; text-transform: uppercase;
+  font-size: 0.95rem; letter-spacing: 0.05em; transform: rotate(-2deg); white-space: nowrap;
+}
+.av-carimbo[data-tom="vermelho"] { border-color: var(--al-vermelho); color: var(--al-vermelho-letra); }
+.av-carimbo[data-tom="apagado"] { border-color: var(--al-texto-3); color: var(--al-texto-3); }
+
+/* ───── A fila ───── */
+.av-fila { display: grid; gap: 0.7rem; margin: 0; padding: 0; list-style: none; }
+.av-pergunta {
+  display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 0.8rem; padding: 0.9rem 1rem; border-radius: var(--al-raio);
+  background: var(--al-superficie); border: 1px solid var(--al-linha);
+}
+.av-pergunta[data-vez] { border-color: var(--al-dourado-fundo); box-shadow: inset 4px 0 0 var(--al-dourado-fundo); }
+.av-pergunta[data-situacao="retirada"], .av-pergunta[data-situacao="passada"] { background: transparent; }
+.av-posicao {
+  display: grid; place-items: center; height: 3rem; border-radius: 8px; background: var(--al-superficie-2); color: var(--al-texto-2);
+  font-size: 1.35rem; line-height: 1;
+}
+.av-pergunta[data-vez] .av-posicao { background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); }
+.av-pergunta[data-situacao="respondida"] .av-posicao { background: var(--al-vermelho); color: var(--al-sobre-vermelho); }
+.av-pergunta-corpo { display: grid; gap: 0.45rem; min-width: 0; }
+.av-pergunta-texto { margin: 0; font-weight: 700; line-height: 1.45; overflow-wrap: anywhere; }
+.av-resposta { display: grid; gap: 0.2rem; padding: 0.6rem 0.8rem; border-radius: 10px; background: var(--al-fundo); border-left: 3px solid var(--al-vermelho); }
+.av-resposta p { margin: 0; line-height: 1.55; overflow-wrap: anywhere; white-space: pre-line; }
+.av-selo {
+  display: inline-flex; align-items: center; padding: 0 0.45rem; border-radius: 4px; border: 1px solid var(--al-linha); font-weight: 700;
+  color: var(--al-texto-2); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em;
+}
+.av-selo[data-situacao="respondida"] { border-color: var(--al-vermelho); color: var(--al-vermelho-letra); }
+
+/* ───── Formulários ───── */
+.av-form { display: grid; gap: 0.75rem; }
+.av-campo { display: grid; gap: 0.35rem; min-width: 0; }
+.av-campo > span:first-child { font-weight: 700; font-size: 0.95rem; color: var(--al-texto-2); }
+.av-campo input, .av-campo select, .av-campo textarea {
+  width: 100%; min-height: 44px; padding: 0.55rem 0.75rem; border-radius: 10px; border: 1px solid var(--al-linha);
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; min-width: 0;
+}
+.av-campo textarea { min-height: 6rem; resize: vertical; }
+.av-campo input:focus-visible, .av-campo select:focus-visible, .av-campo textarea:focus-visible, .av-link:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+.av-campos { display: grid; gap: 0.75rem; }
+@container (min-width: 560px) { .av-campos { grid-template-columns: 1fr 1fr; } }
+.av-marcar { display: flex; gap: 0.6rem; align-items: center; min-height: 44px; }
+.av-marcar input { width: 1.25rem; height: 1.25rem; }
+.av-davez { margin: 0; padding: 0.7rem 0.9rem; border-radius: 10px; background: var(--al-fundo); border-left: 4px solid var(--al-dourado-fundo); }
+.av-davez p { margin: 0.2rem 0 0; font-weight: 700; line-height: 1.45; }
+.av-responder { border-color: var(--al-dourado-fundo); }
+.av-retirar { display: grid; gap: 0.6rem; padding-top: 0.6rem; border-top: 1px dashed var(--al-linha); }
+
+/* ───── Na caixa de perguntas ───── */
+.av-caixa { display: grid; gap: 0.7rem; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px dashed var(--al-linha); }
+.av-marcar-sessao > summary { list-style: none; }
+.av-marcar-sessao > summary::-webkit-details-marker { display: none; }
+.av-marcar-sessao[open] > summary { margin-bottom: 0.5rem; }

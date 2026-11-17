@@ -3,7 +3,7 @@
     "selo": "En construcción",
     "aviso": "Esta pantalla de Alumia todavía se está haciendo. Por ahora no se guarda nada aquí.",
     "voltar": "Volver al inicio de Alumia",
-    "rodape": "Orden de llegada · sin anuncios · sin rastreo · siempre un seudónimo",
+    "rodape": "Regla abierta · sin anuncios · sin rastreo · seudónimo por defecto",
     "marca": "Instituto Lúcia"
   },
   "telas": {
@@ -16,8 +16,13 @@
     "identidades": { "titulo": "Identidades", "descricao": "Más de una identidad en la misma cuenta, sin que nadie relacione una con otra." },
     "aparelhos": { "titulo": "Dispositivos", "descricao": "Los dispositivos donde tu cuenta está abierta, para cerrar uno a distancia. Sin dirección de red." },
     "o-que-guardamos": { "titulo": "Lo que guardamos", "descricao": "Lo que Alumia guarda sobre ti, por cuánto tiempo y por qué, con la ley al lado." },
-    "transparencia": { "titulo": "Transparencia", "descricao": "Los números de la moderación por semestre, sin nada que señale a una persona." },
+    "transparencia": { "titulo": "Transparencia", "descricao": "Los números de la moderación por trimestre, sin nada que señale a una persona." },
+    "rotulos": { "titulo": "Etiquetas", "descricao": "Marcas de estafa, spam y acoso coordinado a las que te suscribes, hechas por organizaciones con sello y por la mediación." },
     "listas": { "titulo": "Listas", "descricao": "Líneas armadas por ti, con tus reglas. Solo tú ves tus listas." },
-    "leve": { "titulo": "Versión ligera", "descricao": "Alumia solo en texto, para internet débil y pocos datos." }
+    "leve": { "titulo": "Versión ligera", "descricao": "Alumia solo en texto, para internet débil y pocos datos." },
+    "questoes": { "titulo": "Preguntas", "descricao": "Preguntas por materia y tema, con la respuesta correcta y la explicación solo después de responder. Tus aciertos quedan en tu dispositivo." },
+    "redacao": { "titulo": "Redacción entre pares", "descricao": "La ronda de corrección de la semana: corriges una redacción sin saber de quién es y recibes dos lecturas, por las cinco competencias del ENEM." },
+    "pontes": { "titulo": "Puentes", "descricao": "Los robots de la organización, con etiqueta y clave, y el canal de Telegram." },
+    "trabalhadores": { "titulo": "Mural del Trabajo", "descricao": "Llamados de lucha, huelga y solidaridad de las organizaciones con sello, por tipo y por ciudad." }
   }
 }

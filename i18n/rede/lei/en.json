@@ -1,0 +1,516 @@
+{
+  "_rascunho": true,
+  "nav": {
+    "rotulo": "Alumia law and help",
+    "termos": "Terms of use",
+    "privacidade": "Privacy",
+    "guardamos": "What we keep",
+    "regras": "Rules",
+    "ajuda": "Help"
+  },
+  "comum": {
+    "versao": "Version of {data}",
+    "revisao": "Text under legal review",
+    "indice": "On this page",
+    "carregando": "Loading…",
+    "erro": "That didn't work right now. Try again in a moment.",
+    "contato": "Talk to the coordination through the [Report](/denunciar) page (choose the subject \"personal data\") or by e-mail at institutolucia@tutamail.com. We answer within 15 days.",
+    "horas": "{n} hours",
+    "dias": "{n} days",
+    "enviar": "Send",
+    "enviando": "Sending…",
+    "cancelar": "Cancel"
+  },
+  "termos": {
+    "titulo": "Alumia terms of use",
+    "chamada": "The agreement between you and Instituto Lúcia for using Alumia: who can join, what each side does, what happens when a rule is broken and how to leave.",
+    "secoes": [
+      {
+        "id": "o-que-e",
+        "titulo": "What Alumia is",
+        "paragrafos": [
+          "Alumia is Instituto Lúcia's social network: communities, cells, actions, organizations and conversations for people who organize and study together. It is free, has no ads and sells nothing, not even your data.",
+          "Alumia is run by Instituto Lúcia, a free, non-profit educational project without a company registration (CNPJ), kept by volunteers. The project's coordination answers for it.",
+          "These terms apply to Alumia. The rest of the site follows the [site terms](/termos); where both cover the same thing, on Alumia what is written here applies, because it is more specific."
+        ]
+      },
+      {
+        "id": "quem-pode",
+        "titulo": "Who can join",
+        "paragrafos": [
+          "Only people **18 or older**. Alumia does not ask for documents or face photos to check age: you declare your age, and the entry screening, done by people from the house, reads the request and may talk to you before approving. If a report says an account may belong to a minor, it is held as a precaution until the mediation reads it (see the [rules](/alumia/regras#menores)).",
+          "To join you create an account with **e-mail and password**. E-mail is required and Alumia never asks for a phone number. Then you make the entry request (code name, why you want to join, your age and acceptance of these terms) and wait for screening. Once approved, you register an authenticator app: without its code, nobody gets in, not even with your password.",
+          "Each account belongs to one person. Organizations join with their own account and badge, which says the account is who it claims to be and is not an endorsement by the Institute."
+        ]
+      },
+      {
+        "id": "como-aparece",
+        "titulo": "How you appear",
+        "paragrafos": [
+          "By default you appear with a **code name** and an invented picture. If you want, you can choose to appear with your real name and photo, and go back to the code name whenever you like. Do not use another person's name or pretend to be an organization."
+        ]
+      },
+      {
+        "id": "convivencia",
+        "titulo": "Living together",
+        "paragrafos": [
+          "On Alumia the [Alumia rules](/alumia/regras) and each community's rules apply. In short: respect for people, no exposing anyone, nothing made up, no commercial advertising and nothing the law forbids. Disagreement about ideas is welcome; attacks on people are not."
+        ]
+      },
+      {
+        "id": "o-que-publica",
+        "titulo": "What you publish",
+        "paragrafos": [
+          "You remain the owner of what you write, photograph and record. By publishing, you allow Alumia to show the content to whoever you chose in the post's audience (followers, members, a community, a cell or the internet) and, if you turned on federation and marked the post as Internet, to send it to the Fediverse servers that follow you.",
+          "Alumia does not sell, license or hand over what you write to anyone for any other purpose. Do not publish what is not yours or what you have no right to share.",
+          "Deleting a post deletes the post. What already went to the Fediverse receives a deletion request, but Alumia does not control other servers."
+        ]
+      },
+      {
+        "id": "conta",
+        "titulo": "Your account and your security",
+        "paragrafos": [
+          "Keep your password and authenticator app safe. Also keep the second-factor recovery codes somewhere safe, away from your phone: each one works once, for when the device is lost.",
+          "The **Quick exit** button erases what Alumia stored on the device and opens an ordinary outside page. Use it on devices other people might look at.",
+          "The **panic password** is a personal safety tool against someone forcing access to your device. Turned on in Security settings, it works only on the device where it was created: typed instead of your password, it opens a decoy account with a neutral profile and removes your account from that device. The decoy account is a real account, with its own email, that goes through screening like any other; it is the only exception to the one-account-per-person rule and may not be used for anything else. Nothing is deleted on the server because of it, and Alumia keeps complying with the law and valid court orders using the real data."
+        ]
+      },
+      {
+        "id": "moderacao",
+        "titulo": "Moderation and appeal",
+        "paragrafos": [
+          "Alumia is moderated by the Institute's mediation and, in each community, by the people that community chose. The mediation can warn, hold a post for review, remove a post, lock a conversation, ban someone from a community and suspend or ban an account. Every decision cites the rule and the reason, stays in a record that cannot be erased and can be reviewed: you ask for review within 30 days and **another person** from the mediation answers within 7 days. The whole path is in the [rules](/alumia/regras#recurso).",
+          "No account is suspended by machine evaluation. The only hold that happens before a person reads is the one for a report of a minor, which holds the account as a precaution and goes to the front of the queue."
+        ]
+      },
+      {
+        "id": "ilegal",
+        "titulo": "Illegal content and court orders",
+        "paragrafos": [
+          "Anyone on Alumia can report illegal content through the [reporting channel](/alumia/regras#ilegal), with a protocol number and a 24-hour response deadline. Whatever is illegal is taken down after review, without waiting for a court order; the person who posted it is notified and can appeal.",
+          "A valid court order is complied with, and only with what exists: Alumia does not keep your network address, so it has no such data to hand over. What is kept, and for how long, is in [What we keep](/alumia/o-que-guardamos)."
+        ]
+      },
+      {
+        "id": "sair",
+        "titulo": "Leaving Alumia",
+        "paragrafos": [
+          "You can leave whenever you want. In [My data](/alumia/meus-dados) you download a copy of what is yours and delete the account. The moderation record about your account, if any, stays for its own period, because it is proof that the process was followed."
+        ]
+      },
+      {
+        "id": "limites",
+        "titulo": "The limits of what we promise",
+        "paragrafos": [
+          "Alumia is made by volunteers. It may go offline, change or close a feature. When a change affects what you accepted, we let you know beforehand. If Alumia closes, we will give notice in advance so everyone can download their own data.",
+          "What each person publishes is the responsibility of whoever published it. The mediation acts when it learns of a violation, following the path described in these terms."
+        ]
+      },
+      {
+        "id": "mudancas",
+        "titulo": "Changes to these terms",
+        "paragrafos": [
+          "When these terms or the privacy policy change in something you accepted, the date at the top changes, Alumia shows what changed and asks for your acceptance again before you continue. If you do not agree, you download your data and delete the account.",
+          "Brazilian law applies, including to people accessing from another country."
+        ]
+      }
+    ]
+  },
+  "privacidade": {
+    "titulo": "Alumia privacy policy",
+    "chamada": "What Alumia keeps about you, what for, for how long, who reads it and how you take it away or delete it. Written from what the system really keeps, according to Brazil's General Data Protection Law (Law 13,709/2018).",
+    "secoes": [
+      {
+        "id": "resumo",
+        "titulo": "In a few lines",
+        "itens": [
+          "**No selling, no ads, no profiling.** Alumia does not sell data, does not show ads and does not build a profile of what you read or how you behave. The feed follows an open rule, the same for everyone, which you can read in [How the feed is built](/alumia/como-a-linha).",
+          "**Network address is not kept.** Alumia does not record your network address (IP): not in the database, not in an access log.",
+          "**E-mail required, phone never.** E-mail is used to log in, recover the password and receive account security notices. It never appears on Alumia.",
+          "**Nobody sees lists of people.** Not of who liked, viewed, voted, signed, confirmed attendance or follows someone. Numbers of people only appear from 3 up.",
+          "**You take it away and delete it.** In [My data](/alumia/meus-dados)."
+        ]
+      },
+      {
+        "id": "quem-responde",
+        "titulo": "Who answers for your data",
+        "paragrafos": [
+          "The controller is Instituto Lúcia, a free, non-profit educational project without a company registration (CNPJ), kept by volunteers. The project's coordination answers for the processing of data and handles requests from data subjects."
+        ]
+      },
+      {
+        "id": "sensivel",
+        "titulo": "Why so much care",
+        "paragrafos": [
+          "On a network for political organizing, what you write, the communities you join and the actions you confirm can reveal political opinion or membership in a union or party. The law calls this **sensitive personal data** (art. 5, II). That is why Alumia keeps the minimum, shows no lists of people, and your entry depends on your specific and highlighted consent (art. 11, I)."
+        ]
+      },
+      {
+        "id": "o-que",
+        "titulo": "What we keep",
+        "paragrafos": [
+          "The full list, with where each item is stored, for how long and who reads it, is in [What we keep](/alumia/o-que-guardamos). The main points:"
+        ],
+        "itens": [
+          "**The account:** the e-mail, the password (only a digest of it, which does not allow reading the password) and the authenticator app secret, in the accounts service.",
+          "**The entry request:** the code name and the reason you wrote; the reason disappears 30 days after the decision.",
+          "**The acceptance:** the version of the norms and of these terms you accepted, and when.",
+          "**What you publish and do:** posts, replies, polls, reactions, saved items, folders, who you follow, the communities and cells you are in. What you delete disappears.",
+          "**Private conversations:** encrypted on your device; the server keeps the encrypted text, which it cannot read, until the conversation's deadline.",
+          "**Moderation:** reports, the record of decisions and appeals.",
+          "**Security:** a scrambled digest of the network the account came from, which does not allow recovering the address, for 30 days; usage counters to curb abuse, for 2 days; the record of some account actions, for up to 400 days."
+        ]
+      },
+      {
+        "id": "email",
+        "titulo": "What the e-mail is for",
+        "paragrafos": [
+          "E-mail is required because it is how you log in, confirm the account, recover the password and receive security notices (for example, when a new authenticator starts working on your account). The weekly e-mail digest is optional and off by default. The e-mail never appears on Alumia, not even to the mediation; inside the house, only the coordination has access. E-mails go out through a sending service with servers outside Brazil, which receives the address and the text only to deliver them."
+        ]
+      },
+      {
+        "id": "rede",
+        "titulo": "Network address",
+        "paragrafos": [
+          "Alumia does not keep your network address. To stop people coming back after a ban, the server turns the address, on the spot, into a scrambled digest using a secret key only it has. Only that digest is kept, which does not allow finding out the address, and it disappears on its own in 30 days. A network ban lasts at most 90 days.",
+          "To deliver the pages, hosting and attack-protection services receive the address, as on any website, and follow the [site policy](/privacidade)."
+        ]
+      },
+      {
+        "id": "fora",
+        "titulo": "Who else receives any data",
+        "paragrafos": [
+          "Nobody buys or receives Alumia data for ads or statistics. Some services process data only so Alumia can work:"
+        ],
+        "itens": [
+          "**Hosting, database and attack protection**, with part of the servers outside Brazil (international transfer, art. 33).",
+          "**E-mail sending**, only the address and the text of each message.",
+          "**Phone notifications**, if you turn them on: your browser's delivery service receives only an encrypted number, with no excerpt of a post and no name.",
+          "**Fediverse**, if you turn on federation: other servers receive the code name, the @handle, the bio and the posts marked as Internet, and keep copies under their own rules.",
+          "**Link checking by Google Safe Browsing**, when you publish a post with a link: Alumia's server turns each link into hashes (SHA-256) and sends Google only the first 4 bytes of each hash, which match a great many addresses; Google returns the hashes of dangerous pages that start that way, and the comparison is made on our server. The text of the post, your name and your account never go; the link is not stored. A link flagged as dangerous is not published, and the screen says why.",
+          "**Automatic message evaluation**, when the coordination turns it on: the title and text of a post, without your name or your account, go to a moderation service from an outside company, which returns a classification. No account is suspended by this evaluation."
+        ]
+      },
+      {
+        "id": "base-legal",
+        "titulo": "On what legal basis",
+        "itens": [
+          "**Specific and highlighted consent** (art. 11, I) to join Alumia, for federation and for phone notifications. You withdraw it by deleting the account, turning the feature off or through the contact below.",
+          "**Protection of the data subject and prevention of fraud and abuse** (art. 11, II, g; art. 7, IX) for the network digest, usage counters and the action record.",
+          "**Regular exercise of rights** (art. 7, VI; art. 11, II, d) for the moderation record and appeals, which are proof that the process was followed.",
+          "**Compliance with a legal obligation** (art. 7, II) when a valid court order asks for something that exists."
+        ]
+      },
+      {
+        "id": "direitos",
+        "titulo": "Your rights and how to exercise them",
+        "paragrafos": [
+          "The law guarantees (art. 18): confirming whether we process your data, access, correction, portability, deletion of what was processed with your consent, knowing who it was shared with, withdrawing consent and asking a person to review an automated decision (art. 20)."
+        ],
+        "itens": [
+          "**Download a copy** of what is yours and **delete the account**: [My data](/alumia/meus-dados). The copy brings no data about other people (not even who liked your post).",
+          "**Correct** code name, public name, photo and bio: in Edit profile.",
+          "**Ask for review** of a moderation decision: [Rules](/alumia/regras#recurso).",
+          "**Any other request**: through the contact below. We answer within 15 days. You can also complain to Brazil's National Data Protection Authority (ANPD)."
+        ]
+      },
+      {
+        "id": "menores",
+        "titulo": "Children and teenagers",
+        "paragrafos": [
+          "Alumia is only for people over 18 and does not process minors' data on purpose. We do not ask for documents or biometrics to check age: the entry screening is done by people, and a report that an account may belong to a minor holds the account as a precaution until the mediation reads it (Law 15,211/2025, Digital ECA; LGPD, art. 14)."
+        ]
+      },
+      {
+        "id": "aparelho",
+        "titulo": "On your device",
+        "paragrafos": [
+          "Alumia stores in the browser only what it needs: the session of whoever logged in and preferences such as the theme, text size and feed order. There are no third-party cookies and no audience measurement tools. **Quick exit** erases what Alumia stored on the device. The answers to the interests questionnaire also stay only here: they go along with each read of the feed and the server does not keep them.",
+          "If you turn on the **panic password**, the device keeps an encrypted vault (Web Crypto, with a key derived from the panic password) holding the decoy account's email and password. The vault never goes to the server. So that the panic password keeps working, Quick exit and the panic button do not delete the vault; turning off the panic password swaps it for an empty vault of the same format, like the one every device that enters Alumia receives. The decoy is treated like any other account, and Alumia complies with the law and valid court orders using the real data."
+        ]
+      },
+      {
+        "id": "seguranca",
+        "titulo": "Security and incidents",
+        "paragrafos": [
+          "Every read and write in the database goes through checks of who is asking and what that person may do; logging in requires the second factor. If there is an incident that may put you at risk, we notify the people affected and the ANPD."
+        ]
+      },
+      {
+        "id": "mudancas",
+        "titulo": "Changes to this policy",
+        "paragrafos": [
+          "When this policy changes in something you accepted, the date at the top changes and Alumia asks for your acceptance again, showing what changed."
+        ]
+      }
+    ]
+  },
+  "guardamos": {
+    "titulo": "What we keep",
+    "chamada": "Every piece of data Alumia keeps about you: where it is stored, for how long and who reads it. What is not here, Alumia does not keep.",
+    "lugares": "Where it is: the three places are in the same Institute database. The **account service** keeps the login (email, scrambled password and sessions); the **Alumia database**, what belongs to the network; the **Institute database**, what applies to the whole site.",
+    "colunas": {
+      "dado": "Data",
+      "onde": "Where it is",
+      "tempo": "For how long",
+      "quem": "Who reads it"
+    },
+    "grupos": [
+      {
+        "titulo": "Account and entry",
+        "linhas": [
+          { "dado": "E-mail", "onde": "Accounts service", "tempo": "Until you delete the account", "quem": "Only the coordination; never appears on Alumia" },
+          { "dado": "Password", "onde": "Accounts service, only a digest that does not allow reading the password", "tempo": "Until you change it or delete the account", "quem": "Nobody" },
+          { "dado": "Authenticator app secret", "onde": "Accounts service", "tempo": "Until you change the authenticator or delete the account", "quem": "Nobody" },
+          { "dado": "Code name, @handle, bio and photo (invented or real, if you choose)", "onde": "Alumia database", "tempo": "Until you change them or delete the account", "quem": "Whoever can see your profile" },
+          { "dado": "Reason for the entry request and reason for the decision", "onde": "Alumia database", "tempo": "Disappear 30 days after the decision", "quem": "Screening (coordination, vice-coordination and mediation)" },
+          { "dado": "Declared age (18 or over), version of the norms and of these terms accepted, and when", "onde": "Alumia database", "tempo": "While the account exists", "quem": "You and the coordination" },
+          { "dado": "Second-factor recovery codes", "onde": "Institute database, only a digest that does not reveal the code", "tempo": "Until you generate new ones; each works once", "quem": "No one" },
+          { "dado": "Invitations you created (a digest of the code and the deadline; a used invitation is deleted right away)", "onde": "Alumia database", "tempo": "45 days", "quem": "Only you see yours; who used an invitation is not kept" },
+          { "dado": "\"Came by invitation\" mark on the request to join", "onde": "Alumia database", "tempo": "Until the screening decides", "quem": "The screening, without knowing whose invitation it was" },
+          { "dado": "Request to delete the account", "onde": "Alumia database", "tempo": "The 7 days to change your mind; then the account is deleted", "quem": "You; the coordination only sees how many requests there are" }
+        ]
+      },
+      {
+        "titulo": "What you publish and do",
+        "linhas": [
+          { "dado": "Posts, replies, polls, audio and images (without location or camera data)", "onde": "Alumia database and file storage", "tempo": "Until you delete them", "quem": "Whoever you chose in each post's audience" },
+          { "dado": "Reactions, \"useful\", saved items, folders and saved searches", "onde": "Alumia database", "tempo": "Until you undo or delete them", "quem": "Only you; others see at most a total, from 3 up" },
+          { "dado": "Who you follow, communities and cells you are in", "onde": "Alumia database", "tempo": "Until you leave", "quem": "You; the place's moderation, to moderate; nobody sees member lists" },
+          { "dado": "Stories", "onde": "Alumia database and storage", "tempo": "24 hours (longer only if you put it in a highlight or it is under a report)", "quem": "The story's audience; there is no record of who viewed it" },
+          { "dado": "Drafts saved to the account", "onde": "Alumia database, encrypted on your device", "tempo": "30 days after the last change", "quem": "Only you, on the device that has the key" },
+          { "dado": "Attendance confirmation, vote in a consultation, petition signature", "onde": "Alumia database", "tempo": "While the action, consultation or petition exists", "quem": "Nobody sees a list of who went, voted or signed; totals only from 3 up" },
+          { "dado": "People, conversations and words you muted or blocked", "onde": "Alumia database", "tempo": "Until you undo it", "quem": "Only you; the muted person does not know" },
+          { "dado": "Interests you marked in the questionnaire (causes, study, pace)", "onde": "Only on your device; they go along with each read of the feed and the server does not keep them", "tempo": "Until you delete them in Settings or use Quick exit", "quem": "No one but you" }
+        ]
+      },
+      {
+        "titulo": "Conversations and notices",
+        "linhas": [
+          { "dado": "Private and group conversations", "onde": "Alumia database, encrypted on the writer's device", "tempo": "Until the conversation's deadline; an unanswered conversation request disappears in 30 days", "quem": "Only participants read the text; the server knows who is in each conversation" },
+          { "dado": "Notices (replies, mentions, moderation)", "onde": "Alumia database", "tempo": "Read ones disappear in 30 days; all in 120 days", "quem": "Only you" },
+          { "dado": "Device that receives phone notifications (if you turn them on)", "onde": "Alumia database", "tempo": "Until you turn them off", "quem": "Nobody; only the sending uses it" },
+          { "dado": "Quiet hours for phone notifications (if you choose them)", "onde": "Alumia database", "tempo": "Until you change them", "quem": "No one; only the sending uses it" }
+        ]
+      },
+      {
+        "titulo": "Moderation",
+        "linhas": [
+          { "dado": "Report you made (target, category, text, protocol)", "onde": "Alumia database", "tempo": "Until the report is closed and the appeal period has passed", "quem": "The mediation sees the report; your account, only you" },
+          { "dado": "Moderation record (action, rule, reason, who decided, when)", "onde": "Alumia database, insert-only", "tempo": "Not erased; retention is under legal review", "quem": "The mediation; the rule and reason, to the person moderated (without saying who decided)" },
+          { "dado": "Review request (appeal) and the decision", "onde": "Alumia database", "tempo": "Together with the record", "quem": "The mediation; the decision, to the person who asked" },
+          { "dado": "Precautionary hold (report of a minor)", "onde": "Alumia database", "tempo": "Until the mediation decides; then, together with the record", "quem": "The mediation and the coordination; the held person sees the situation" }
+        ]
+      },
+      {
+        "titulo": "Security",
+        "linhas": [
+          { "dado": "Network address (IP)", "onde": "Not kept", "tempo": "—", "quem": "—" },
+          { "dado": "Post links checked by Google Safe Browsing", "onde": "Not stored: the server checks on the spot and Google receives only the beginning of a hash of each link", "tempo": "—", "quem": "—" },
+          { "dado": "Scrambled digest of the network the account came from", "onde": "Alumia database", "tempo": "30 days without use", "quem": "Nobody reads it; the system only compares, to stop banned people" },
+          { "dado": "Usage counters per account (to curb abuse)", "onde": "Institute database", "tempo": "2 days", "quem": "Nobody; the system only counts" },
+          { "dado": "Record of some account actions (joining the network, requesting entry, accepting the terms, downloading data, moderation decisions)", "onde": "Institute database", "tempo": "Up to 400 days", "quem": "Only the coordination" },
+          { "dado": "Count of new accounts and requests per network (a digest that changes every hour, without the address)", "onde": "Alumia database", "tempo": "1 day", "quem": "No one; the system only counts, to slow down mass sign-ups" }
+        ]
+      }
+    ],
+    "nota": "Deleting the account deletes what is yours, except the moderation record, which is proof that the process was followed. To download a copy or delete, go to [My data](/alumia/meus-dados)."
+  },
+  "regras": {
+    "titulo": "Alumia rules",
+    "chamada": "The house rules, what the mediation can do, how fast it answers and how you ask for review of a decision. Each community may have more rules; none may have fewer.",
+    "lista": [
+      { "titulo": "Respect for people", "texto": "No racism, sexism, LGBTphobia, ableism, xenophobia, religious intolerance and no apology for Nazism or fascism. Disagreement about ideas is welcome; attacks on people are not." },
+      { "titulo": "Nobody exposed", "texto": "Do not publish another person's full name, address, phone, documents, workplace, license plate or face without their wanting it. Photos of actions: blur whoever did not ask to appear." },
+      { "titulo": "Nothing made up", "texto": "When you state a fact, say where it comes from. Fake news gets the fact-check note." },
+      { "titulo": "No business or scams", "texto": "No commercial advertising, chain letters, pyramids, betting or requests for money outside fundraisers of badged organizations." },
+      { "titulo": "Nothing the law forbids", "texto": "Threats, slander, incitement to violence against people, child sexual abuse, sale of forbidden things and any other crime." },
+      { "titulo": "One person, one account, 18 or older", "texto": "Do not pretend to be another person or an organization. Bots only with the automated account label." },
+      { "titulo": "No coordinated attacks", "texto": "Do not gather people to flood someone with replies, false reports or mentions. Reporting in bad faith also breaks the rules." }
+    ],
+    "escadaTitulo": "What the mediation can do",
+    "escada": [
+      "Leave a warning",
+      "Hold a post for review",
+      "Remove a post",
+      "Lock a conversation",
+      "Ban from a community",
+      "Suspend the account for a period",
+      "Ban the account"
+    ],
+    "escadaNota": "Every decision cites the rule and the reason, and the person moderated gets a notice. No account is suspended by machine evaluation. The only hold that happens before a person reads is the one for a report of a minor (below).",
+    "prazosTitulo": "How fast the mediation answers",
+    "prazos": [
+      { "rotulo": "Illegal content, minor, threat, exposure of data, incitement to violence, self-harm", "categorias": ["ilegal", "menores", "ameaca", "exposicao", "violencia", "autolesao"] },
+      { "rotulo": "Hate, harassment, scam", "categorias": ["odio", "assedio", "golpe"] },
+      { "rotulo": "Spam and the rest", "categorias": ["spam", "outro"] }
+    ],
+    "prazoRecurso": "Review request",
+    "recursoTitulo": "The appeal path",
+    "recurso": [
+      { "titulo": "The notice", "texto": "You receive the rule and the reason for the decision, and whether it was a person or an automatic hold. Never the name of who decided." },
+      { "titulo": "The request", "texto": "Within {janela} days, you explain why the decision is wrong. Post: in [Reports and appeals](/alumia/denuncias). Suspended or held account: below, even if you cannot get into Alumia." },
+      { "titulo": "Another person decides", "texto": "Whoever made the decision never reviews their own case. A suspension decided by the coordination can only be undone by the coordination or the vice-coordination." },
+      { "titulo": "The answer", "texto": "Within {prazo} days. If reversed, the decision is undone: the post comes back, the account comes back, and the case stops counting against your trust level." }
+    ],
+    "menoresTitulo": "Minors",
+    "menores": [
+      "Alumia is only for people over 18. We do not ask for documents or face photos: age is declared in the entry request, and the screening, done by people from the house, reads the request and may talk before approving.",
+      "If someone reports that an account may belong to a minor, the account is **held as a precaution** until the mediation reads it, within {horas} hours. The held person gets a notice and can write to the mediation on this page. Once the report is read, the mediation releases the account or keeps it suspended, with the usual appeal.",
+      "So the report does not become a weapon: only people on Alumia can hold an account this way, each person can hold at most two per month, and someone the mediation already released is not held again for the following 90 days. The report still goes to the front of the queue."
+    ],
+    "ilegal": {
+      "titulo": "Report illegal content",
+      "texto": "A crime in a post, profile or community on Alumia. The report goes to the front of the queue, with a protocol number and an answer within {horas} hours. The mediation does not see who reported, and the person reported is not told either.",
+      "alvo": "Post address, profile @ or community name",
+      "alvoAjuda": "Paste the post address (it ends with the post number), the person's @ or the community address.",
+      "descricao": "What is illegal",
+      "descricaoAjuda": "Say what is wrong and, if you know, which law. Do not write anyone's personal data.",
+      "enviar": "Send the report",
+      "pronto": "Report received. Protocol {protocolo}. The mediation answers by {quando}. You can follow it in [Reports and appeals](/alumia/denuncias).",
+      "ja": "You had already reported this. Protocol {protocolo}.",
+      "alvoInvalido": "We do not recognize that address. Paste the post address, the profile @ or the community address.",
+      "naoEncontrado": "We could not find it, or you cannot see it.",
+      "semConta": "To report here, log in to Alumia. Without an account, use the site's [Report](/denunciar) page.",
+      "proprio": "This is yours. To take it down, delete it."
+    },
+    "revisao": {
+      "titulo": "Ask for review of my account",
+      "texto": "For people whose account was suspended or held. It works even if Alumia does not open for you.",
+      "semConta": "Log in with your account to see the decisions about it.",
+      "entrar": "Log in",
+      "nada": "There is no decision about your account in the last 180 days.",
+      "retida": "Your account has been held as a precaution since {desde}. The mediation reads it by {ate}.",
+      "suspensa": "Your account is suspended.",
+      "acoes": {
+        "reter": "Account held as a precaution",
+        "suspender": "Account suspended"
+      },
+      "automatica": "automatic hold, before a person read it",
+      "pessoa": "decision by a person from the mediation",
+      "regra": "Rule: {regra}",
+      "regras": { "precaucao_menor": "report that the account belongs to someone under 18 (precautionary hold)", "menor_de_18": "Alumia is only for people aged 18 or over", "precaucao": "precautionary hold until the report is read" },
+      "motivo": "Reason: {motivo}",
+      "prazo": "You can ask for review until {quando}",
+      "situacoes": {
+        "aberto": "Request sent. Answer by {quando}.",
+        "mantido": "Reviewed by another person: decision kept.",
+        "revertido": "Reviewed by another person: decision undone."
+      },
+      "vencido": "The period to ask for review is over.",
+      "pedir": "Ask for review",
+      "campo": "Why the decision is wrong",
+      "campoAjuda": "From 10 to 2,000 characters. Another person from the mediation will read it.",
+      "pronto": "Request sent. Another person from the mediation answers by {quando}.",
+      "erros": {
+        "prazo_vencido": "The 30-day period for this decision is over.",
+        "recurso_ja_feito": "You already asked for review of this decision.",
+        "invalido:texto": "Write from 10 to 2,000 characters.",
+        "muitos_pedidos": "Too many requests in a row. Wait a little."
+      }
+    }
+  },
+  "ajuda": {
+    "titulo": "Alumia help",
+    "chamada": "The questions we get most. Didn't find yours? Write to the coordination.",
+    "grupos": [
+      {
+        "titulo": "Getting in",
+        "perguntas": [
+          { "p": "How do I join Alumia?", "r": "Create an account with e-mail and password on the entry screen, confirm the e-mail and make the entry request: code name, why you want to join, your age and acceptance of the rules. A person from screening reads the request. Once approved, you register the authenticator app and get in." },
+          { "p": "Why ask for e-mail and not a phone number?", "r": "E-mail is used to log in, recover the password and receive account security notices. A phone number links the account to your SIM card and to your name in the carrier's records: that is why Alumia never asks for it. The e-mail does not appear to anyone on Alumia." },
+          { "p": "My request was declined. What now?", "r": "The screen shows the reason. After 30 days you can ask again, explaining better why you want to join." },
+          { "p": "I forgot my password.", "r": "On the entry screen, use \"Forgot password\": a link arrives in your e-mail. After changing it, the authenticator code is still required." }
+        ]
+      },
+      {
+        "titulo": "Second factor",
+        "perguntas": [
+          { "p": "What is the second factor?", "r": "A six-digit code that changes every 30 seconds, generated by an authenticator app on your phone. Without it, whoever finds out your password cannot get in. On Alumia it is required for everyone." },
+          { "p": "How do I register the app?", "r": "Install an authenticator app (preferably open source). On Alumia, after approval, a QR code appears: point the app at it and type the code that shows up. Done." },
+          { "p": "What are recovery codes?", "r": "Single-use codes to get in when the authenticator phone is lost. Keep them on paper or in a password manager, away from the phone. Each code works once." },
+          { "p": "I lost my phone and do not have the codes.", "r": "Write to the coordination through the contact below, from the account's e-mail. It checks that the account is yours, removes the old authenticator and you register a new one." }
+        ]
+      },
+      {
+        "titulo": "How I appear",
+        "perguntas": [
+          { "p": "What is the difference between a code name and a public profile?", "r": "By default you appear with a code name and an invented picture, with nothing linking the account to your life outside. If you want, in Edit profile, you choose to appear with your real name and photo. You can go back to the code name whenever you like." },
+          { "p": "Who sees what I publish?", "r": "Whoever you choose in each post's audience: followers, Alumia members, a community, a cell or the internet. Nobody sees a list of who liked or viewed." },
+          { "p": "How is the feed built?", "r": "By an open rule, the same for everyone, written in [How the feed is built](/alumia/como-a-linha). You can switch to arrival order." }
+        ]
+      },
+      {
+        "titulo": "Reporting and appealing",
+        "perguntas": [
+          { "p": "How do I report a post or a person?", "r": "In the post or profile menu, choose Report and the category. You get a protocol number and can follow it in [Reports and appeals](/alumia/denuncias). Neither the mediation nor the reported person finds out it was you." },
+          { "p": "And illegal content?", "r": "Use the [illegal content channel](/alumia/regras#ilegal): it goes to the front of the queue, with an answer within 24 hours." },
+          { "p": "A post of mine was removed (or my account suspended). How do I ask for review?", "r": "Within 30 days. Post: in [Reports and appeals](/alumia/denuncias). Account: in [Rules](/alumia/regras#revisao), even if Alumia does not open for you. Another person from the mediation answers within 7 days." }
+        ]
+      },
+      {
+        "titulo": "Leaving and deleting",
+        "perguntas": [
+          { "p": "What does Quick exit do?", "r": "It erases what Alumia stored on this device and opens an ordinary outside page (the weather forecast), with nothing from the Institute. It is in your account menu and in More." },
+          { "p": "How do I download my data?", "r": "In [My data](/alumia/meus-dados). The copy brings what is yours, with no data about other people." },
+          { "p": "How do I delete my account?", "r": "In [My data](/alumia/meus-dados). Deleting takes the profile, the posts and the rest of what is yours. The moderation record, if any, stays for its own period." }
+        ]
+      }
+    ],
+    "mais": "Still have questions?"
+  },
+  "reaceite": {
+    "tituloNovo": "Read the Alumia terms",
+    "tituloMudou": "The Alumia terms have changed",
+    "texto": "To continue, read the [terms of use](/alumia/termos), the [privacy policy](/alumia/privacidade) and the [rules](/alumia/regras), version of {data}.",
+    "textoNaPagina": "The terms of use are right above, version of {data}. Also read the [privacy policy](/alumia/privacidade) and the [rules](/alumia/regras).",
+    "mudou": "What changed: {mudou}",
+    "caixa": "I have read and accept Alumia's terms of use, privacy policy and rules.",
+    "aceitar": "Accept and continue",
+    "aceito": "You accepted this version on {quando}.",
+    "naoQuer": "Don't agree? You can download your data and delete the account in [My data](/alumia/meus-dados)."
+  },
+  "painel": {
+    "titulo": "Law and deadlines",
+    "chamada": "What has a deadline in Alumia's moderation. Overdue in red.",
+    "contadores": {
+      "ilegais": "Open illegal content",
+      "ilegaisVencendo": "due in 6 h",
+      "ilegaisVencidas": "overdue",
+      "denunciasVencidas": "Reports past their deadline",
+      "retidas": "Held accounts (minor)",
+      "retidasVencidas": "overdue",
+      "recursos": "Open appeals",
+      "recursosVencidos": "overdue"
+    },
+    "ilegaisTitulo": "Illegal content",
+    "retidasTitulo": "Accounts held as a precaution",
+    "recursosTitulo": "Review requests",
+    "vazio": "Nothing here.",
+    "ate": "Answer by {quando}",
+    "venceu": "Overdue since {quando}",
+    "abrirFila": "Open in the queue",
+    "protocolo": "Protocol {protocolo}",
+    "denunciou": "You made this report: another person decides.",
+    "minha": "The decision was yours: another person reviews it.",
+    "liberar": "Release the account",
+    "manter": "Keep suspended",
+    "motivo": "Reason (10 characters or more)",
+    "manterRecurso": "Keep the decision",
+    "reverter": "Undo the decision",
+    "semPermissao": "Only the mediation sees this panel.",
+    "feito": "Done.",
+    "erros": {
+      "outra_pessoa": "Another person from the mediation must decide.",
+      "so_coordenacao": "The coordination decided this: only the coordination or the vice-coordination can undo it.",
+      "invalido:motivo": "Write the reason, with 10 characters or more."
+    }
+  },
+  "ajustes": {
+    "titulo": "Terms and privacy",
+    "texto": "Version in force: {data}.",
+    "aceita": "You accepted on {quando}.",
+    "pendente": "You have not accepted this version yet.",
+    "lerEAceitar": "Read and accept"
+  }
+}

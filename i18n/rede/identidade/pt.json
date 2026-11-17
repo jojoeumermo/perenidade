@@ -1,0 +1,168 @@
+{
+  "titulo": "Como você aparece",
+  "ajuda": "A escolha é sua: codinome e rosto em mosaico, ou o seu nome e a sua foto. Dá para trocar quando quiser, nos dois sentidos.",
+  "padrao": "padrão",
+  "atual": "você está assim",
+  "modos": {
+    "codinome": {
+      "nome": "Codinome",
+      "descricao": "Um nome inventado e um rosto em mosaico. Toda conta nasce assim."
+    },
+    "publica": {
+      "nome": "Nome e foto",
+      "descricao": "O nome que você escrever e, se quiser, uma foto sua."
+    }
+  },
+  "escolher": "Aparecer com nome e foto",
+  "indisponivel": "A coordenação ainda não abriu a escolha de aparecer com nome e foto. Você continua com o codinome, e nada muda sem você pedir.",
+  "org": "Conta de organização já aparece com o nome da organização.",
+  "carregando": "Lendo a sua identidade…",
+  "ciencia": {
+    "titulo": "Antes de trocar",
+    "passo": "Passo {n} de {total}",
+    "muda": {
+      "titulo": "O que muda",
+      "itens": [
+        "Seu nome entra no lugar do codinome em tudo: posts, respostas, perfil, busca, menções, avisos e conversas.",
+        "Vale também para o que você já publicou: os posts antigos passam a mostrar o nome.",
+        "Sua foto entra no lugar do mosaico depois que a mediação conferir. Até lá, só você a vê."
+      ]
+    },
+    "quem": {
+      "titulo": "Quem passa a ver",
+      "itens": [
+        "O nome: quem já via o seu codinome. No que você publica aberto, qualquer pessoa.",
+        "A foto: só quem tem conta na Alumia.",
+        "Quem você bloqueou continua sem ver você."
+      ],
+      "federa": "Você ligou o Fediverso: o nome também vai para os outros servidores, e eles podem guardar uma cópia que a Alumia não consegue apagar."
+    },
+    "nao": {
+      "titulo": "O que não muda",
+      "itens": [
+        "Seu @nome continua o mesmo (na volta ao codinome, dá para trocar).",
+        "Seu e-mail e os dados do seu cadastro nunca aparecem. Só vale o que você escrever aqui.",
+        "A Alumia não confere documento: o nome é declarado por você."
+      ]
+    },
+    "volta": {
+      "titulo": "Dá para voltar",
+      "texto": "Voltar ao codinome é um botão, a qualquer hora. O seu codinome fica guardado e ninguém pega. Na volta, o nome sai dos posts, do perfil e dos avisos da Alumia e a foto é apagada do servidor; dá para trocar o @ junto. O que alguém já viu ou copiou, ninguém desfaz: quem viu o seu nome ao lado do seu @ continua sabendo."
+    },
+    "pense": "Se aparecer com o seu nome pode trazer risco no trabalho, na família ou com a polícia, o codinome protege. Não há pressa.",
+    "continuar": "Continuar",
+    "voltar": "Voltar",
+    "cancelar": "Ficar com o codinome",
+    "fechar": "Fechar"
+  },
+  "nome": {
+    "rotulo": "Seu nome",
+    "ajuda": "Como você quer ser chamada ou chamado. De 2 a 60 letras. Pode ser o nome social.",
+    "erros": {
+      "curto": "Escreva pelo menos 2 letras.",
+      "longo": "O nome passa de 60 letras.",
+      "formato": "Use só letras, espaço, ponto, apóstrofo e hífen. Sem número, @ ou endereço.",
+      "reservado": "Esse nome parece o do Instituto ou da equipe. Escolha outro."
+    }
+  },
+  "foto": {
+    "titulo": "Sua foto",
+    "opcional": "opcional",
+    "ajuda": "JPG, PNG, WebP ou AVIF de até 12 MB. A foto é recortada e regravada aqui, no seu aparelho: localização (GPS), modelo da câmera e data ficam para trás antes do envio. O servidor confere de novo.",
+    "escolher": "Escolher foto",
+    "trocar": "Trocar foto",
+    "remover": "Apagar foto",
+    "sem": "Sem foto, fica o rosto em mosaico.",
+    "pendente": "Esperando a mediação. Por enquanto, só você vê.",
+    "aceita": "No ar para quem tem conta.",
+    "pronta": "Recortada e sem dados da câmera. Vai junto quando você confirmar.",
+    "alt": "A sua foto",
+    "recorte": {
+      "titulo": "Recortar a foto",
+      "ajuda": "Arraste para enquadrar. No teclado: setas movem, + e - aproximam.",
+      "area": "Área do recorte: use as setas para mover",
+      "zoom": "Aproximar",
+      "usar": "Usar este recorte",
+      "cancelar": "Cancelar"
+    },
+    "erros": {
+      "tipo": "Esse arquivo não é JPG, PNG, WebP nem AVIF.",
+      "peso": "A foto passa de 12 MB.",
+      "abrir": "Não deu para abrir essa imagem. Tente outra.",
+      "gravar": "Este navegador não conseguiu gravar a foto sem os dados da câmera. Tente pelo Firefox, Chrome ou Edge."
+    }
+  },
+  "confirmar": {
+    "titulo": "Confira e confirme",
+    "aparece": "É assim que você vai aparecer",
+    "ciente": "Li o que muda e quem passa a ver. Quero aparecer com este nome.",
+    "enviar": "Aparecer com nome e foto",
+    "enviando": "Trocando…"
+  },
+  "publica": {
+    "desde": "Com nome desde {data}.",
+    "trocarNome": "Trocar o nome",
+    "salvarNome": "Salvar o nome",
+    "cancelar": "Cancelar",
+    "voltar": "Voltar ao codinome",
+    "voltarAjuda": "Seu codinome guardado é {codinome}. Voltar tira o nome dos posts, do perfil e dos avisos da Alumia e apaga a foto do servidor. O que alguém já viu ou copiou (e as cópias que outros servidores do Fediverso guardaram) ninguém desfaz.",
+    "confirmarVolta": {
+      "titulo": "Voltar ao codinome?",
+      "texto": "Você volta a aparecer como {codinome}, com o rosto em mosaico. O nome sai dos posts, do perfil e dos avisos da Alumia, e a foto é apagada do servidor agora.",
+      "sim": "Voltar ao codinome",
+      "nao": "Continuar como estou",
+      "voltando": "Voltando…",
+      "arroba": "Trocar também o meu @",
+      "arrobaAjuda": "Quem viu o seu nome ao lado de @{handle} continua sabendo que esse @ é você. Com um @ novo, o que você publicar daqui em diante não fica ligado ao nome. Recomendado.",
+      "arrobaRotulo": "O @ novo",
+      "arrobaFederado": "O seu @ continua @{handle}: quem viu o seu nome ao lado dele continua sabendo que é você. Enquanto o Fediverso estiver ligado no seu perfil, o @ não pode ser trocado aqui (ele é o seu endereço nas outras redes)."
+    }
+  },
+  "avisos": {
+    "virouPublica": "Pronto. Você agora aparece como {nome}.",
+    "voltou": "Pronto. Você voltou a aparecer como {codinome}. A foto foi apagada.",
+    "voltouTrocado": "Você voltou ao codinome. O de antes não estava mais livre: o novo é {codinome}. Dá para trocar em Sobre.",
+    "fotoEnviada": "Foto enviada. A mediação confere antes de ela aparecer para os outros.",
+    "fotoNoAr": "Foto enviada e já no ar.",
+    "fotoApagada": "Foto apagada do servidor.",
+    "fotoFalhou": "O nome foi trocado, mas a foto não foi enviada. Tente enviar de novo aqui.",
+    "nomeSalvo": "Nome trocado.",
+    "trocouArroba": "Pronto. Você voltou a aparecer como {codinome}, agora com o @{handle}."
+  },
+  "erros": {
+    "identidade_desligada": "A coordenação fechou, por enquanto, a escolha de nome e foto. Voltar ao codinome continua funcionando.",
+    "identidade_org": "Conta de organização não usa esta escolha.",
+    "identidade_codinome": "Para enviar foto, primeiro escolha aparecer com nome.",
+    "nome_usado": "Esse nome é o codinome de outra pessoa. Escolha outro.",
+    "nome_reservado": "Esse nome parece o do Instituto ou da equipe. Escolha outro.",
+    "invalido_nome": "Esse nome não serve. Use letras, espaço, ponto, apóstrofo e hífen.",
+    "invalido_imagem": "A foto não passou na conferência do servidor. Recorte de novo e envie.",
+    "confirme_ciencia": "Marque que você leu o que muda.",
+    "banco_desatualizado": "Esta parte ainda não chegou ao servidor. Tente mais tarde.",
+    "identidade_nome_travado": "Você aparece com o seu nome. Para trocar, abra Identidade.",
+    "handle_usado": "Esse @ já é de outra pessoa. Escolha outro.",
+    "handle_reservado": "Esse @ parece o do Instituto ou da equipe. Escolha outro.",
+    "invalido_handle": "O @ tem de ter de 3 a 20 letras minúsculas, números ou _.",
+    "handle_federado": "Com o Fediverso ligado, o @ não pode ser trocado aqui."
+  },
+  "selo": {
+    "rotulo": "nome e foto por escolha",
+    "titulo": "Esta pessoa escolheu aparecer com nome e foto. A Alumia não confere documento."
+  },
+  "sobre": {
+    "nomeTravado": "Você aparece com o seu nome. Para trocar o nome ou voltar ao codinome, abra Identidade."
+  },
+  "lembrete": {
+    "texto": "No cadastro você marcou que quer aparecer com nome e foto. Quer escolher agora?",
+    "sim": "Escolher agora",
+    "nao": "Agora não"
+  },
+  "cadastro": {
+    "titulo": "Como você quer aparecer",
+    "codinome": "Com codinome e rosto em mosaico",
+    "codinomeAjuda": "Ninguém vê o seu nome nem a sua foto.",
+    "publica": "Com o meu nome e a minha foto",
+    "publicaAjuda": "Você escolhe depois de entrar, numa tela que mostra o que muda e quem passa a ver. Dá para voltar ao codinome quando quiser.",
+    "nota": "Toda conta entra com codinome: quem analisa o pedido só vê o codinome. Esta resposta fica só neste aparelho."
+  }
+}

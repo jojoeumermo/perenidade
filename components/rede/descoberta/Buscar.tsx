@@ -4,15 +4,26 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "@/components/Link";
+import { b1 } from "@/lib/rede/cliente-b1";
 import { redeDescoberta } from "@/lib/rede/cliente-descoberta";
 import { preencher } from "@/lib/rede/preencher";
+import { comReserva } from "@/lib/rede/reserva";
 import { enderecos } from "@/lib/rede/tipos";
 import { enderecosDescoberta, normalizarTag, tagOk, type Explorar, type OrdemDaBusca, type PaginaOrdenada, type ResultadoDaBusca } from "@/lib/rede/tipos-descoberta";
 import { corDaComunidadeNova } from "@/lib/rede/tipos-comunidades";
+import { useTextosDoAcabamento } from "../aparencia/base";
+import { useTextosB1 } from "../b1/base";
 import type { PropsDaTelaDoPacote } from "../registro";
-import { FaixaDaPrevia, IconeBusca, previa, useTextosAlumia3 } from "../conversa/base3";
+import { FaixaDaPrevia, IconeBusca, previa, Torradas, useAlumia2, useTextosAlumia3, useTorrada } from "../conversa/base3";
+import { LinkBotao } from "../ui/Botao";
+import { EstadoDaAlumia } from "../ui/Estado";
+import { BuscasSalvas } from "./BuscasSalvas";
 import { ListaOrdenada } from "./ListaOrdenada";
 import { descobertaDaPrevia } from "./previa";
+import { BuscaDeForaNaBusca, fediversoNaTela } from "../fediverso/encaixe";
+import { contaValida } from "@/lib/rede/fediverso/tela/tipos";
+import { EmAltaNaBusca } from "../linha/EmAlta";
+import { linhaAbertaLigada } from "../linha/base";
 import { useTextosDescoberta } from "./textos";
 // O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
 import "../conversa/alumia3.css";
@@ -24,6 +35,11 @@ import "../conversa/alumia3.css";
 export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoPacote) {
   const d = useTextosDescoberta(lang);
   const t3 = useTextosAlumia3(lang);
+  // As peças novas (buscas salvas, filtros escritos, "nada encontrado" desenhado) só existem na Alumia nova.
+  const nova = useAlumia2();
+  const tb = useTextosB1(nova ? lang : null);
+  const ta = useTextosDoAcabamento(nova ? lang : null);
+  const torradas = useTorrada();
   const pesquisa = useSearchParams();
   const q = (pesquisa.get("q") ?? "").trim().slice(0, 200);
   const ordemPedida = pesquisa.get("ordem") === "novos" ? "novos" : "relevancia";
@@ -33,6 +49,15 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
   const tag = q.startsWith("#") ? normalizarTag(q) : "";
   const r = achados?.q === q ? achados.r : null;
   const fonte = previa() ? descobertaDaPrevia : redeDescoberta;
+  const membro = situacao.logado && situacao.membro;
+  // A busca com filtros escritos (tag:, c:, de:, tipo:, desde:) é a da B1; num banco que ainda não a tem, a busca de sempre.
+  const buscar = (ordem: OrdemDaBusca, cursor: string | null) =>
+    previa() || !nova ? fonte.buscar(q, ordem, cursor) : comReserva(() => b1.buscar(q, ordem, cursor), () => redeDescoberta.buscar(q, ordem, cursor));
+  // Nada em lugar nenhum (nem posts, nem pessoas, nem comunidades): o estado próprio, com o que tentar.
+  // Um endereço do Fediverso (@nome@servidor) é achado pela peça de fora, logo acima: aí o "nada encontrado" desenhado (que diria
+  // "nada para @nome@servidor" embaixo da conta achada) dá lugar à frase curta da lista de posts.
+  const contaDeFora = Boolean(contaValida(q)) && fediversoNaTela();
+  const nadaMesmo = Boolean(r && r.pessoas.length === 0 && r.comunidades.length === 0 && !r.so_comuns && !contaDeFora);
   return (
     <section className="al3-tela al3-buscar" aria-labelledby="al3-buscar-titulo">
       {t3 && <FaixaDaPrevia t={t3} />}
@@ -49,20 +74,25 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
           </button>
         </form>
         <p className="mt-2 text-xs text-ink-soft">{b.dica}</p>
+        {tb && <p className="mt-1 text-xs text-ink-soft">{tb.busca.ajuda}</p>}
         {!situacao.logado && <p className="mt-1 text-xs text-ink-soft">{b.visitante}</p>}
         {tagOk(tag) && (
           <Link href={enderecosDescoberta.tag(lang, tag)} className="mt-2 inline-block text-sm font-bold underline">
             {preencher(b.irParaTag, { tag })}
           </Link>
         )}
+        {tb && ta && <BuscasSalvas lang={lang} q={q.length >= 2 ? q : ""} membro={membro} s={s} tb={tb} t={ta} torradas={torradas} />}
       </header>
 
       {q.length === 0 ? (
-        <Sugestoes lang={lang} d={d} />
+        <Sugestoes lang={lang} d={d} membro={membro} />
       ) : q.length < 2 ? (
         <p className="px-[18px] py-6 font-sans text-ink-soft">{b.curta}</p>
       ) : (
         <>
+          {/* @nome@servidor: a conta de fora (Fediverso), achada pelo servidor da Alumia, com link para o perfil de fora. Outro
+              texto, ou sem gente de fora na tela: nada (nem pedido, nem a peça baixada). */}
+          <BuscaDeForaNaBusca q={q} lang={lang} />
           {r && r.so_comuns && <p className="px-[18px] py-4 font-sans text-ink-soft">{b.soComuns}</p>}
           {r && r.pessoas.length > 0 && (
             <section className="border-b border-rule px-[18px] py-3 font-sans" aria-labelledby="busca-pessoas">
@@ -93,7 +123,8 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
               </ul>
             </section>
           )}
-          <h2 className="px-[18px] pt-3 font-serif text-lg font-semibold">{b.posts}</h2>
+          {/* Sem nada achado, o estado vazio fala sozinho: sem o título "Posts" solto em cima dele. */}
+          {!(r && nadaMesmo && r.itens.length === 0) && <h2 className="px-[18px] pt-3 font-serif text-lg font-semibold">{b.posts}</h2>}
           <ListaOrdenada
             lang={lang}
             s={s}
@@ -102,13 +133,29 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
             chave={`busca:${q}`}
             ordens={["relevancia", "novos"]}
             ordemInicial={ordemPedida}
-            carregar={(ordem, cursor) => fonte.buscar(q, ordem as OrdemDaBusca, cursor)}
+            carregar={(ordem, cursor) => buscar(ordem as OrdemDaBusca, cursor)}
             aoPagina={(p: PaginaOrdenada) => setAchados({ q, r: p as ResultadoDaBusca })}
             vazio={b.vazio}
+            vazioPeca={
+              ta && nadaMesmo ? (
+                <EstadoDaAlumia icone="lupa" titulo={preencher(ta.buscas.nenhumaTitulo, { q: q.length > 40 ? `${q.slice(0, 40)}…` : q })} texto={ta.buscas.nenhumaTexto}>
+                  <div className="w-full basis-full">
+                    <ul className="ac-dicas ac-dicas-centro">
+                      {ta.buscas.dicas.map((dica) => (
+                        <li key={dica}>{dica}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <LinkBotao href={enderecosDescoberta.buscar(lang)} variante="claro">{ta.buscas.limpar}</LinkBotao>
+                  <LinkBotao href={enderecosDescoberta.explorar(lang)} variante="contorno">{ta.buscas.explorar}</LinkBotao>
+                </EstadoDaAlumia>
+              ) : undefined
+            }
             aoResponder={aoEscrever}
           />
         </>
       )}
+      {nova && <Torradas estado={torradas} />}
     </section>
   );
 }
@@ -117,7 +164,9 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
  * A busca vazia não fica em branco: os #temas em alta da semana (os mesmos do Explorar, só os usados por 3 pessoas ou mais) e as
  * comunidades, para tocar e ir. Nada aqui depende de quem está olhando.
  */
-function Sugestoes({ lang, d }: { lang: string; d: NonNullable<ReturnType<typeof useTextosDescoberta>> }) {
+function Sugestoes({ lang, d, membro }: { lang: string; d: NonNullable<ReturnType<typeof useTextosDescoberta>>; membro: boolean }) {
+  // Com a linha com regra aberta, os assuntos em alta da busca são o mesmo bloco da coluna e de Minhas linhas.
+  const regraAberta = linhaAbertaLigada();
   const [x, setX] = useState<Explorar | null>(null);
   useEffect(() => {
     let vivo = true;
@@ -129,11 +178,12 @@ function Sugestoes({ lang, d }: { lang: string; d: NonNullable<ReturnType<typeof
       vivo = false;
     };
   }, []);
-  if (!x || (x.tags.length === 0 && x.comunidades.length === 0)) return null;
+  if (!regraAberta && (!x || (x.tags.length === 0 && x.comunidades.length === 0))) return null;
   const e = d.explorar;
   return (
     <div className="al3-entra space-y-6 px-[18px] py-5 font-sans">
-      {x.tags.length > 0 && (
+      {regraAberta ? <EmAltaNaBusca lang={lang} membro={membro} /> : null}
+      {x && !regraAberta && x.tags.length > 0 && (
         <section aria-labelledby="busca-em-alta">
           <h2 id="busca-em-alta" className="al3-cond al3-titulo-secao">{e.tags}</h2>
           <ul className="al3-fichas mt-2">
@@ -147,7 +197,7 @@ function Sugestoes({ lang, d }: { lang: string; d: NonNullable<ReturnType<typeof
           </ul>
         </section>
       )}
-      {x.comunidades.length > 0 && (
+      {x && x.comunidades.length > 0 && (
         <section aria-labelledby="busca-comunidades-sugeridas">
           <h2 id="busca-comunidades-sugeridas" className="al3-cond al3-titulo-secao">{e.comunidades}</h2>
           <ul className="al3-fichas mt-2">

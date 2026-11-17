@@ -19,8 +19,11 @@ const service = serviceOrigin();
 // O canal de tempo real do serviço (avisos entre painéis, sala das aulas ao vivo) é o mesmo endereço, por WebSocket.
 const realtime = service.replace(/^https:/, "wss:");
 
-// Desafio contra robôs da página de entrada: o único programa que o site carrega de fora.
-const captcha = "https://challenges.cloudflare.com";
+// Desafio contra robôs da entrada (Turnstile, da Cloudflare, que já está na frente do site inteiro): a única exceção, só para
+// challenges.cloudflare.com e só quando NEXT_PUBLIC_TURNSTILE_SITE_KEY existe. A resposta é conferida no servidor
+// (lib/rede/convites/turnstile.ts); a prova feita no aparelho continua valendo junto.
+const captcha = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ? " https://challenges.cloudflare.com" : "";
+
 // A sala de vídeo (Sala Lúcia, Reuniões e estudo em grupo): os servidores Jitsi de lib/jitsi.ts (públicos, sem limite
 // de tempo nem login de moderador); troca-se por um próprio em NEXT_PUBLIC_JITSI_DOMAIN.
 const jitsi = SERVIDORES_JITSI.map((d) => `https://${d}`).join(" ");
@@ -119,7 +122,7 @@ const policy = (script: string) =>
     // 'self': os laboratórios e editores do próprio site abertos dentro da Sala livre e da caixa das aulas (sem ele, o
     // navegador recusava o quadro e mostrava "este conteúdo está bloqueado"). blob: é a prévia, no próprio aparelho, de um
     // PDF ou DOCX recebido nas conversas (nunca um endereço de fora).
-    `frame-src 'self' blob: ${captcha} ${jitsi} ${galene} https://phet.colorado.edu ${labsExternos} ${videos} ${instagram} ${estudio}${vlibrasCodigo} ${quadroDaPonte}`.trim(),
+    `frame-src 'self' blob:${captcha} ${jitsi} ${galene} https://phet.colorado.edu ${labsExternos} ${videos} ${instagram} ${estudio}${vlibrasCodigo} ${quadroDaPonte}`.trim(),
     // Só o próprio site embute as páginas dele (os laboratórios abrem dentro da caixa das aulas); ninguém de fora.
     "frame-ancestors 'self'",
     "base-uri 'self'",
@@ -129,11 +132,41 @@ const policy = (script: string) =>
     ...(reporting ? [`report-uri ${reporting}`, "report-to sentinela"] : []),
   ].join("; ");
 
-// 'unsafe-inline' é exigido pelos scripts de hidratação das páginas estáticas do Next.
-const pages = policy(`'unsafe-inline' ${captcha} ${jitsi}${dev ? " 'unsafe-eval'" : ""}${vlibrasCodigo}`);
+// 'unsafe-inline' é exigido pelos scripts de hidratação das páginas estáticas do Next. 'wasm-unsafe-eval' deixa compilar
+// WebAssembly (e só isso: não libera eval de JavaScript): é como roda a biblioteca de cifra do Matrix no chat privado da Alumia
+// (lib/rede/chat/olm.ts). Vale para todas as páginas porque a navegação do Next não recarrega a política ao trocar de página.
+const pages = policy(`'unsafe-inline' 'wasm-unsafe-eval' ${captcha} ${jitsi}${dev ? " 'unsafe-eval'" : ""}${vlibrasCodigo}`);
 // Os interpretadores de Python e PHP rodam isolados em um Worker, sem acesso à página;
 // só ali é permitido compilar WebAssembly e código gerado em tempo de execução.
 const workers = policy("'wasm-unsafe-eval' 'unsafe-eval'");
+
+// As telas da Alumia (Onda 8, operação): nada de terceiros. Uma política própria, mais fechada que a de cima, para /[lang]/alumia/**
+// e para o endereço próprio da Alumia (alumia.*). Ela é um recorte da política do site: só o próprio domínio, o serviço de
+// contas (e o canal de tempo real dele), o quadro da ponte do login único e a sala de voz própria (Galène, quando configurada).
+// Fica de fora tudo o que o resto do site carrega de outros (vídeos, Instagram, Jitsi, laboratórios, VLibras, as figuras do Enem,
+// áudio de qualquer https). 'wasm-unsafe-eval' entra por causa da cifra do chat, que roda no navegador; não é de terceiros.
+// A entrada (a da Alumia e a do site) passa pelo servidor do site (app/api/alumia/porta/*, onda 9), com a prova feita no próprio
+// aparelho; o desafio da Cloudflare (Turnstile) é a única exceção, a mesma de cima (só challenges.cloudflare.com, só com a chave).
+const vozDaAlumia = galene ? `${galene} ${galene.replace(/^https:/, "wss:")}` : "";
+const politicaDaAlumia = [
+  "default-src 'self'",
+  `script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'${dev ? " 'unsafe-eval'" : ""}${captcha}`,
+  "style-src 'self' 'unsafe-inline'",
+  `img-src 'self' data: blob: ${service}`.trim(),
+  "font-src 'self'",
+  `connect-src 'self' ${service} ${realtime} ${vozDaAlumia}${dev ? " ws:" : ""}`.replace(/\s+/g, " ").trim(),
+  `media-src 'self' blob: ${service}`.trim(),
+  "worker-src 'self' blob:",
+  "manifest-src 'self'",
+  `frame-src 'self' blob: ${galene} ${quadroDaPonte}${captcha}`.replace(/\s+/g, " ").trim(),
+  "frame-ancestors 'self'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "object-src 'none'",
+  ...(reporting ? [`report-uri ${reporting}`, "report-to sentinela"] : []),
+].join("; ");
+// O endereço das conversas (conversas.*, Faixa 2) tem a política dele, com nonce: a regra da Alumia não vale lá.
+const foraDasConversas = [{ type: "host" as const, value: "conversas\\..*" }];
 
 const common = [
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
@@ -162,6 +195,15 @@ const cabecalhosDaPonte = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Os grupos cifrados (lib/rede/grupo-mls.ts) usam a suíte X-Wing do ts-mls, que vem do pacote "mlkem". O ts-mls também tenta
+  // carregar, sob demanda, dois opcionais que a suíte não usa (X448 e ML-KEM puro): no webpack eles viram módulo vazio, sem o
+  // aviso de "Module not found" em toda página. A importação continua dentro do try do ts-mls: nada muda na cifra.
+  webpack: (config: { resolve?: { alias?: Record<string, unknown> } }) => {
+    config.resolve = { ...config.resolve, alias: { ...config.resolve?.alias, "@hpke/dhkem-x448": false, "@hpke/ml-kem": false } };
+    return config;
+  },
+  // O mesmo no Turbopack (o padrão do next build e do next dev): os dois opcionais viram o módulo vazio.
+  turbopack: { resolveAlias: { "@hpke/dhkem-x448": "./lib/modulo-vazio.ts", "@hpke/ml-kem": "./lib/modulo-vazio.ts" } },
   // Endereço que nenhuma rota atende ganha a página de app/global-not-found.tsx: o layout do site vive dentro de
   // [lang], e sem isso o Next mostrava a tela branca dele, em inglês.
   experimental: { globalNotFound: true },
@@ -230,8 +272,15 @@ const nextConfig: NextConfig = {
       // O quadro da ponte fica FORA da regra geral: ele precisa ser embutido por alumia. e escola. (frame-ancestors na política
       // própria, abaixo), e a regra geral manda X-Frame-Options: SAMEORIGIN. Navegador atual ignora o X-Frame-Options quando há
       // frame-ancestors, mas a ponte não pode depender disso.
-      { source: "/((?!workers/|api/sessao/ponte(?:/|$)).*)", headers: [{ key: "Content-Security-Policy", value: pages }, ...common] },
+      // O cartão para colar em outro site (app/api/rede/embed, onda 13) também fica fora: a rota manda a política dele (nada roda,
+      // sandbox, qualquer site embute); aqui ele leva só os cabeçalhos da casa que não impedem de ser embutido.
+      { source: "/((?!workers/|api/sessao/ponte(?:/|$)|api/rede/embed/).*)", headers: [{ key: "Content-Security-Policy", value: pages }, ...common] },
+      { source: "/api/rede/embed/:resto*", headers: common.filter((c) => !["X-Frame-Options", "Cross-Origin-Opener-Policy", "Cross-Origin-Resource-Policy", "Referrer-Policy", "Permissions-Policy"].includes(c.key)) },
       { source: "/workers/:path*", headers: [{ key: "Content-Security-Policy", value: workers }, ...common] },
+      // As telas da Alumia: a política própria (acima) vem DEPOIS da geral e fica no lugar dela, pelo caminho do site e no
+      // endereço próprio. Os serviços (/api) e os arquivos do build seguem com a geral.
+      { source: "/:lang(pt|en|es|fr|ru|zh)/alumia/:path*", missing: foraDasConversas, headers: [{ key: "Content-Security-Policy", value: politicaDaAlumia }] },
+      { source: "/((?!api/|_next/|workers/).*)", has: [{ type: "host", value: "alumia\\..*" }], missing: foraDasConversas, headers: [{ key: "Content-Security-Policy", value: politicaDaAlumia }] },
       // O quadro da ponte de sessão: só os subdomínios embutem, só o próprio script roda, nada vai para o cache.
       { source: "/api/sessao/ponte/:resto*", headers: [{ key: "Content-Security-Policy", value: politicaDaPonte }, { key: "Cache-Control", value: "private, no-store" }, ...cabecalhosDaPonte] },
       // Os interpretadores são grandes e mudam raramente: o navegador pode guardá-los por uma semana.

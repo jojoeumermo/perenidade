@@ -25,6 +25,8 @@ export function detalhesQueFecham(el: HTMLDetailsElement | null): (() => void) |
     };
     const tecla = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
+      // Dentro de uma folha modal aberta (a denúncia), o Esc é dela: fecha a folha, não o menu.
+      if (e.target instanceof Element && e.target.closest("dialog[open]")) return;
       // O Esc fecha só este menu (o diálogo de fora, se houver, continua aberto).
       e.preventDefault();
       e.stopPropagation();

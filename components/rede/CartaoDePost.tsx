@@ -9,8 +9,8 @@ import { rede } from "@/lib/rede/cliente";
 import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Post } from "@/lib/rede/tipos";
-import { TextoComMencoes } from "./conversa/TextoComMencoes";
-import { TextoComTags } from "./descoberta/TextoComTags";
+import { TextoDoPost } from "./texto/TextoDoPost";
+import { CartaoDeForaNaLinha, eDeForaNaTela } from "./fediverso/encaixe";
 import { textoDoErro } from "./erros";
 import { AcoesDeCuidado, RotuloDoPost } from "./moderacao/NoCartao";
 import { SeloNoCartao } from "./org/SeloNoCartao";
@@ -75,9 +75,15 @@ type PropsDoCartao = {
 /**
  * O cartão de post. Dentro da casca nova (flag "alumia-2", contexto da Alumia 2) sai o cartão das pranchas
  * (publicar/alumia2/CartaoDaAlumia2); fora dela, o de sempre, sem mudar nada.
+ *
+ * Um post de FORA (origem "fediverso", com "fediverso-total" ligado ou na prévia) sai no cartão de fora (fediverso/CartaoRemoto):
+ * o id dele é o endereço https da nota, então o link e as ações do cartão de sempre apontariam para funções do banco que não o
+ * conhecem. O cartão de fora usa as rotas do Fediverso; o "responder" é dele (vira um post público daqui), por isso aoResponder
+ * não é repassado.
  */
 export function CartaoDePost(props: PropsDoCartao) {
   const al2 = useAlumia2();
+  if (al2 && eDeForaNaTela(props.post)) return <CartaoDeForaNaLinha post={props.post} lang={props.lang} logado={props.logado} completo={props.completo} />;
   return al2 ? <CartaoDaAlumia2 {...props} /> : <CartaoClassico {...props} />;
 }
 
@@ -198,10 +204,10 @@ function CartaoClassico({
             <summary className="cursor-pointer text-sm font-bold">
               {s.post.avisoConteudo}: {aviso}
             </summary>
-            <p className="mt-1 whitespace-pre-line break-words"><TextoComTags texto={longoTexto} lang={lang} Resto={TextoComMencoes} /></p>
+            <TextoDoPost texto={longoTexto} lang={lang} className="mt-1 whitespace-pre-line break-words" midia={post.midia} />
           </details>
         ) : (
-          <p className="mt-1 whitespace-pre-line break-words"><TextoComTags texto={longoTexto} lang={lang} Resto={TextoComMencoes} /></p>
+          <TextoDoPost texto={longoTexto} lang={lang} className="mt-1 whitespace-pre-line break-words" midia={post.midia} />
         )}
         {!completo && post.longo && (
           <Link href={enderecos.post(lang, post.id)} className="mt-1 inline-block text-sm underline">
@@ -252,7 +258,7 @@ function CartaoClassico({
               {a.util}
             </button>
           )}
-          {(post.tipo === "duvida" || post.tipo === "discussao") && post.util > 0 && <span>{preencher(s.post.util, { n: post.util })}</span>}
+          {(post.tipo === "duvida" || post.tipo === "discussao") && post.util != null && post.util > 0 && <span>{preencher(s.post.util, { n: post.util })}</span>}
           {logado && (
             <button type="button" className={botao} aria-pressed={post.salvei} disabled={ocupado} onClick={() => void salvar()}>
               <IconeDaAcao d={ICONES.salvar} />

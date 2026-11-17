@@ -1,0 +1,139 @@
+{
+  "rss": {
+    "descricaoPerfil": "{nome} 在 Alumia 上向互联网公开的帖子",
+    "descricaoComunidade": "{nome} 社区在 Alumia 上向互联网公开的帖子",
+    "aviso": "内容提醒：{aviso}",
+    "continua": "在 Alumia 继续阅读",
+    "semTitulo": "{codinome} 的帖子"
+  },
+  "cartao": {
+    "aviso": "内容提醒：{aviso}",
+    "mostrar": "显示",
+    "abrir": "在 Alumia 阅读",
+    "rodape": "来自 Alumia，Instituto Lúcia 的网络"
+  },
+  "acao": {
+    "botao": "带到外面"
+  },
+  "folha": {
+    "titulo": "带到外面",
+    "intro": "这里的一切都在你的设备上完成：图片和二维码不经过任何外部服务。",
+    "fechar": "关闭",
+    "link": "链接",
+    "copiar": "复制链接",
+    "copiado": "已复制。",
+    "naoCopiou": "无法复制。请选中文字手动复制。"
+  },
+  "arte": {
+    "titulo": "用于分享的图片",
+    "ajuda": "帖子的图片，可以发到群里或发到其他网络。",
+    "fundo": "背景",
+    "noite": "夜色",
+    "creme": "米色",
+    "formato": "格式",
+    "retrato": "竖版 4:5",
+    "quadrado": "方形",
+    "comQr": "在图片上加上链接的二维码",
+    "baixar": "下载图片",
+    "fazendo": "正在生成图片…",
+    "falhou": "无法在这台设备上生成图片。",
+    "alt": "{codinome} 的帖子图片",
+    "marca": "Alumia",
+    "chamada": "在 Alumia 阅读"
+  },
+  "qr": {
+    "tituloAto": "行动的二维码",
+    "tituloPost": "帖子的二维码",
+    "tituloPerfil": "主页的二维码",
+    "tituloComunidade": "社区的二维码",
+    "ajuda": "放在横幅、海报或屏幕上：用相机对准就能打开页面。",
+    "baixar": "下载二维码",
+    "fazendo": "正在生成二维码…",
+    "falhou": "无法在这台设备上生成二维码。",
+    "alt": "{nome} 的二维码"
+  },
+  "embed": {
+    "titulo": "贴到其他网站",
+    "ajuda": "一个只有文字的框，不在对方网站上运行任何东西：那里显示帖子和在 Alumia 阅读的按钮。如果帖子不再对互联网公开，框就不再显示它。",
+    "rotulo": "要粘贴的代码",
+    "copiar": "复制代码",
+    "conferindo": "正在确认帖子能否外出…",
+    "indisponivel": "这条帖子不能贴到其他网站。只有向互联网公开的一级帖子、来自个人主页或开放社区的才能外出。",
+    "previa": "效果预览",
+    "carregando": "正在加载预览…",
+    "tituloDoQuadro": "{codinome} 在 Alumia 的帖子"
+  },
+  "comunidade": {
+    "aba": "外带",
+    "titulo": "把社区带到外面",
+    "rss": "RSS",
+    "rssAjuda": "这个社区向互联网公开的帖子，任何 RSS 阅读器都能看，无需账号。",
+    "rssAbrir": "打开 RSS 地址",
+    "rssIndisponivel": "这个社区没有 RSS：只有开放社区，而且只有向互联网公开的帖子才有。",
+    "conferindo": "正在确认…"
+  },
+  "listas": {
+    "rotulo": "带走与带来",
+    "titulo": "我关注的人",
+    "intro": "这份名单只属于你：没有别人能看到你关注了谁。下载后可以带到联邦宇宙的其他网络，也可以从那里带回来。",
+    "carregando": "正在加载你的名单…",
+    "entrar": "登录后即可带走或带来你的关注名单。",
+    "exportar": {
+      "titulo": "带走",
+      "ajuda": "这个文件可用于联邦宇宙的其他网络，比如 Mastodon。",
+      "daqui": "本站主页 {n} 个",
+      "daqui1": "本站主页 1 个",
+      "fora": "联邦宇宙其他网络 {n} 个",
+      "fora1": "联邦宇宙其他网络 1 个",
+      "baixar": "下载名单",
+      "vazia": "你还没有关注任何人。"
+    },
+    "importar": {
+      "titulo": "带来",
+      "ajuda": "选择另一个网络给你的文件，或按 @名字@服务器 的格式每行粘贴一个地址。关注之前你可以先检查。",
+      "arquivo": "选择文件",
+      "colar": "或粘贴地址",
+      "exemplo": "@name@server.example",
+      "conferir": "检查名单",
+      "resumo": "本站 {daqui} 个 · 联邦宇宙其他网络 {fora} 个",
+      "ignoradas": "有 {n} 行不是地址，已略过。",
+      "demais": "这次先加入前 {n} 个，其余的之后再带来。",
+      "vazio": "没有 @名字@服务器 格式的地址。",
+      "seguirTodos": "全部关注",
+      "andamento": "正在关注 {feitos} / {total}",
+      "parar": "停止",
+      "parado": "已停止。已完成的保留。",
+      "pronto": "完成。",
+      "grande": "文件太大（最多 1 MB）。"
+    },
+    "situacoes": {
+      "esperando": "排队中",
+      "seguindo": "已关注",
+      "pedido": "已发送请求",
+      "naoAchado": "未找到",
+      "bloqueada": "实例已被屏蔽",
+      "fediverso": "需要先开启联邦宇宙",
+      "limite": "今日已达上限：明天再试",
+      "erro": "暂时没有成功"
+    },
+    "fediverso": {
+      "aviso": "要关注其他实例的人，请在个人主页开启联邦宇宙。",
+      "link": "开启联邦宇宙"
+    },
+    "perfil": {
+      "titulo": "你在外面的主页",
+      "rss": "主页 RSS",
+      "rssOrg": "这个组织向互联网公开的帖子，任何 RSS 阅读器都能看。",
+      "rssPessoa": "主页 RSS 只提供给有认证标志的组织。你向互联网公开的帖子通过你发帖的开放社区的 RSS 外出。"
+    }
+  },
+  "ajustes": {
+    "titulo": "带走与带来",
+    "texto": "下载你的关注名单，从其他实例带来名单，并获取你主页的二维码。",
+    "abrir": "打开"
+  },
+  "erros": {
+    "entre_primeiro": "请先登录。",
+    "generico": "暂时没有成功，请稍后再试。"
+  }
+}

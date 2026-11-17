@@ -1,0 +1,14 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# Dispara lucia-fediverso.service a cada 30 segundos. Uma rodada nunca começa antes de a anterior acabar.
+
+[Unit]
+Description=Instituto Lucia: cutuca a fila do Fediverso da Alumia a cada 30 segundos
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=30s
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

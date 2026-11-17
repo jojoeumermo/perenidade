@@ -28,7 +28,7 @@
 @keyframes pfe-vivo { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--pf-acento) 60%, transparent); } 100% { box-shadow: 0 0 0 9px transparent; } }
 [data-al="2"] .pfe-previa { border-top: 1px solid var(--al-superficie-2); view-transition-name: pfe-previa; }
 [data-al="2"] .pfe-previa .pf { pointer-events: none; }
-[data-al="2"] .pfe-previa-abas { display: flex; gap: 2px; overflow: hidden; padding: 0 8px; border-top: 1px solid var(--al-linha); background: var(--al-fundo); -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); }
+[data-al="2"] .pfe-previa-abas { display: flex; gap: 2px; overflow: hidden; padding: 0 8px; border-top: 1px solid var(--al-linha); background: var(--al-fundo); -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 72px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 72px), transparent); }
 [data-al="2"] .pfe-previa-abas span { flex: none; padding: 12px 10px; font-weight: 600; font-size: 0.9rem; color: var(--al-texto-3); border-bottom: 3px solid transparent; }
 [data-al="2"] .pfe-previa-abas span[data-atual] { color: var(--al-texto); font-weight: 800; border-bottom-color: var(--pf-acento); }
 [data-al="2"] .pfe-link { border: 0; background: none; color: var(--pf-ler); font: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; min-height: 32px; padding: 0 4px; text-transform: none; letter-spacing: 0; }
@@ -42,9 +42,9 @@
 [data-al="2"] .pfe-mini-nome { font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 [data-al="2"] .pfe-mini-faixa { margin: 0 !important; border-radius: 2px; }
 [data-al="2"] .pfe-secoes { display: flex; gap: 4px; overflow-x: auto; list-style: none; margin: 0; padding: 8px 12px; scrollbar-width: none; scroll-padding-inline: 12px; }
-/* No computador as oito partes cabem numa grade 4 × 2 (nada sai da coluna, nada corta). */
+/* No computador as nove partes cabem numa grade 3 × 3 (nada sai da coluna, nada corta, nenhuma fica sozinha numa fileira). */
 @media (min-width: 1024px) {
-  [data-al="2"] .pfe-secoes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; }
+  [data-al="2"] .pfe-secoes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: visible; }
   [data-al="2"] .pfe-secao { width: 100%; padding: 0 8px; }
 }
 [data-al="2"] .pfe-secoes::-webkit-scrollbar { display: none; }
@@ -93,6 +93,9 @@
 
 /* Cartões (clima, modelo) */
 [data-al="2"] .pfe-cartoes { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 128px), 1fr)); gap: 10px; margin-top: 12px; }
+/* Quatro cartões (o clima do cabeçalho) numa fileira só, ou 2 × 2 no celular: nenhum fica órfão. */
+[data-al="2"] .pfe-cartoes:has(> :nth-child(4):last-child) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 520px) { [data-al="2"] .pfe-cartoes:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 [data-al="2"] .pfe-cartao { display: grid; gap: 4px; align-content: start; padding: 10px; border-radius: 14px; border: 2px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); text-align: left; font: inherit; cursor: pointer; transition: border-color 0.2s, transform 0.35s var(--pf-mola); }
 [data-al="2"] .pfe-cartao:hover { transform: translateY(-2px); }
 [data-al="2"] .pfe-cartao[aria-checked="true"] { border-color: var(--pf-ler); box-shadow: inset 0 0 0 1px var(--pf-ler); }
@@ -192,7 +195,7 @@
 [data-al="2"] .pfe-item-link { grid-column: 1 / -1; display: flex; align-items: center; gap: 6px; margin: 0; font-size: 0.82rem; font-weight: 600; }
 [data-al="2"] .pfe-ok { color: #4cc38a; }
 [data-al="2"][data-al-tema="claro"] .pfe-ok { color: #1f7a4d; }
-[data-al="2"] .pfe-erro { color: var(--al-vermelho-texto); }
+[data-al="2"] .pfe-erro { color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] :is(.pfe-ok, .pfe-erro) { color: var(--al-texto); text-decoration: underline; }
 
 /* Abas */
@@ -227,7 +230,7 @@
 [data-al="2"] .pfe-conta :is(.bg-folha, .bg-parchment-deep) { background: var(--al-superficie) !important; }
 [data-al="2"] .pfe-conta :is(.border-rule, .border-ink) { border-color: var(--al-superficie-2) !important; }
 [data-al="2"] .pfe-conta .text-ink-soft { color: var(--al-texto-3) !important; }
-[data-al="2"] .pfe-conta .text-oxblood { color: var(--al-vermelho-texto) !important; }
+[data-al="2"] .pfe-conta .text-oxblood { color: var(--al-vermelho-letra, var(--al-vermelho-texto)) !important; }
 [data-al="2"] .pfe-conta .font-serif { font-family: var(--al-fonte) !important; font-weight: 800; }
 [data-al="2"] .pfe-conta > div > .px-\[18px\] { padding-inline: 0; }
 
@@ -256,7 +259,7 @@
 [data-al="2"] .pfe-salvar[data-sujo] { border-color: var(--pf-ler); transform: translateY(-4px); }
 [data-al="2"] .pfe-salvar-estado { margin: 0; font-size: 0.88rem; font-weight: 700; color: var(--al-texto-2); flex: 1 1 160px; }
 [data-al="2"] .pfe-salvar-ponto { display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; vertical-align: 1px; background: #4cc38a; transition: background-color 0.3s, transform 0.4s var(--pf-mola); }
-[data-al="2"] .pfe-salvar-estado[data-estado="sujo"] .pfe-salvar-ponto { background: var(--al-dourado); transform: scale(1.25); }
+[data-al="2"] .pfe-salvar-estado[data-estado="sujo"] .pfe-salvar-ponto { background: var(--al-dourado-fundo); transform: scale(1.25); }
 [data-al="2"] .pfe-salvar-estado[data-estado="erro"] .pfe-salvar-ponto { background: var(--al-vermelho); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .pfe-salvar-ponto { background: var(--al-texto) !important; }
 [data-al="2"] .pfe-salvar-botoes { display: flex; align-items: center; gap: 6px; }
@@ -334,4 +337,24 @@ html:has([data-al="2"] .pfe-salvar) { scroll-padding-top: 140px; scroll-padding-
 @media (max-width: 559px) {
   [data-al="2"] .pfe-dialogo-botoes > * { flex: 1 1 100%; }
   [data-al="2"] .pfe-dialogo { margin: auto 0 0; width: 100%; max-width: 100%; border-radius: 20px 20px 0 0; padding-bottom: calc(22px + var(--recuo-baixo, 0px)); }
+}
+
+/* A barra "Tudo salvo / Salvar" fica presa embaixo: o fim de cada aba ganha o espaço dela, para o último aviso (como o da volta
+   ao codinome, na aba Identidade) não ficar escondido atrás da barra. */
+[data-al="2"] .pfe-painel { padding-bottom: 6rem; }
+@media (max-width: 1023px) { [data-al="2"] .pfe-painel { padding-bottom: calc(11rem + var(--recuo-baixo, 0px)); } }
+
+/* Onda 14 (celular): no celular as amostras não encolhem abaixo de 44 px (8 cores em 4 + 4, 10 em 5 + 5, as pequenas também), as
+   partes do editor e os links da prévia chegam a 44 px de altura. */
+@media (max-width: 559px) {
+  [data-al="2"] .pfe-amostras,
+  [data-al="2"] .pfe-amostras-p,
+  [data-al="2"] .pfe-amostras:has(> :nth-child(10):last-child) { --amostra: 44px; }
+  [data-al="2"] .pfe-amostras:has(> :nth-child(8):last-child) { grid-template-columns: repeat(4, var(--amostra)); }
+}
+@media (pointer: coarse), (max-width: 1023px) {
+  [data-al="2"] .pfe-secao, [data-al="2"] .pfe-link { min-height: 44px; }
+  /* Os botões de ícone menores (desfazer e refazer na barra do salvar, os dos chips) ganham área de toque invisível de 44 px. */
+  [data-al="2"] :is(.pfe-salvar, .pfe-chips) .pfe-icone { position: relative; }
+  [data-al="2"] :is(.pfe-salvar, .pfe-chips) .pfe-icone::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 44px); height: max(100%, 44px); transform: translate(-50%, -50%); }
 }

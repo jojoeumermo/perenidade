@@ -19,19 +19,7 @@ e o plano antigo com Oracle e Coolify, que não foi usado.
 **Voltar para uma versão anterior:** na VPS, `lucia-atualizar <commit completo>` (as 3 últimas imagens ficam guardadas; as
 outras são baixadas de novo do GHCR, que guarda todas).
 
-**Entrar na VPS:** só com a chave SSH do Instituto (`~/.ssh/contabo_lucia` no computador da coordenação), porta alta
-(a 22 também funciona, mas algumas redes interceptam a 22 e só deixam passar senha): `ssh lucia-vps` (apelido no `~/.ssh/config` da coordenação, com o IP, a porta e a chave; o IP não vai para o repositório).
-Senha não entra (`PasswordAuthentication no`). O apelido, uma vez, no `~/.ssh/config` do computador da coordenação
-(o IP vem do painel da Contabo; nunca escreva o IP neste repositório, que é público):
-
-```
-Host lucia-vps
-  HostName <IP da VPS>
-  Port <porta SSH>
-  User root
-  IdentityFile ~/.ssh/contabo_lucia
-```
- Se perder a chave: painel da Contabo → Reset credentials → SSH-Key.
+**Entrar na VPS:** só com a chave SSH do Instituto, nunca com senha. Os dados de acesso ficam com a coordenação, fora do repositório.
 
 **Chaves do site:** `infra/contabo/segredos.ps1` pergunta cada chave e grava em `/opt/lucia/site.env` sem mostrar na tela; a
 VPS reinicia o site com as chaves novas em até 2 minutos, sem tirar do ar. O assistente em todo o site (T03) lê ali `GROQ_API_KEY`, `GEMINI_API_KEY`, `CEREBRAS_API_KEY` e `OPENROUTER_API_KEY` (planos gratuitos; basta uma, e o script já pergunta as quatro) e, opcionais, `ASSISTENTE_POR_HORA`, `ASSISTENTE_POR_DIA`, `ASSISTENTE_LIMITE_GLOBAL`, `ASSISTENTE_ORDEM` e `ASSISTENTE_PUBLICO=0` (desliga): `docs/RECURSOS.md`, seção `assistente-publico`. As variáveis públicas (`NEXT_PUBLIC_*`) ficam no
@@ -44,6 +32,8 @@ variável `VERCEL_VOLTOU = sim` (`scripts/vercel-ignorar.mjs`).
 **Preparar uma VPS nova do zero:** `infra/contabo/preparar.sh` e depois `infra/contabo/instalar.sh` (com os arquivos da pasta
 em `/root/lucia-infra/`), o certificado de origem (gerar `origem.key` e `origem.csr` na VPS, criar o certificado no Cloudflare
 com "Usar minha própria chave privada e CSR" e gravar `origem.pem`) e as chaves do site.
+
+**Cópia diária do banco:** o plano gratuito do Supabase não faz backup; a VPS faz uma cópia por dia (`infra/contabo/backup-banco.sh`).
 
 **Hoje (5 de novembro de 2026) o site continua na Vercel** (conta nova desde 2 de novembro), como paliativo: veja "Situação
 atual" logo abaixo. O destino planejado é um servidor próprio, que ainda não existe; quando ele sair, terá três peças (mais uma
@@ -248,7 +238,7 @@ A sala de vídeo das aulas ao vivo é um servidor à parte, o **Galène** (licen
 
 **Ligar no site:** na Vercel, `NEXT_PUBLIC_GALENE_URL` = `https://aula.institutolucia.org` (pública, lida **na montagem**: publique de novo), `GALENE_JWT_KEY` = a chave do `.env` da máquina (segredo, só no servidor do site) e, opcionais, `GALENE_GRUPOS` (o mesmo `GRUPOS` do `.env`) e `GALENE_PERMISSOES_ALUNO` (padrão `message`). `NEXT_PUBLIC_VIDEO_HOSTS` lista os domínios do PeerTube do instituto para o plano B e para as gravações. Sem `NEXT_PUBLIC_GALENE_URL` e `GALENE_JWT_KEY` o site fica como antes: a opção "Sala do instituto" nem aparece no painel e a rota `POST /api/aula-ao-vivo/entrada` responde "desligada".
 
-**Servidor próprio (VPS da Contabo):** a rotina `producao.yml` repassa à montagem da imagem `NEXT_PUBLIC_GALENE_URL` e `NEXT_PUBLIC_VAPID_PUBLIC_KEY` (variáveis do repositório no GitHub, em Settings > Variables), além das `NEXT_PUBLIC_*` do banco, do site, do recurso, dos vídeos, do Jitsi, do Turnstile e do estúdio. Sem elas, a sala própria e o aviso no celular não aparecem. Os segredos (`GALENE_JWT_KEY`, `VAPID_PRIVATE_KEY`) ficam só em `/opt/lucia/site.env`.
+**Servidor próprio (VPS da Contabo):** a rotina `producao.yml` repassa à montagem da imagem `NEXT_PUBLIC_GALENE_URL` e `NEXT_PUBLIC_VAPID_PUBLIC_KEY` (variáveis do repositório no GitHub, em Settings > Variables), além das `NEXT_PUBLIC_*` do banco, do site, do recurso, dos vídeos, do Jitsi e do estúdio. Sem elas, a sala própria e o aviso no celular não aparecem. Os segredos (`GALENE_JWT_KEY`, `VAPID_PRIVATE_KEY`) ficam só em `/opt/lucia/site.env`.
 
 **Depois de cada aula gravada:** `bash listar-gravacoes.sh`, baixar o arquivo (`scp`), subir no PeerTube ou no YouTube do instituto, colar o link no campo "Gravação" da aula (toca na página, só depois do clique) e **apagar o arquivo da máquina** para não encher o disco. Atualizar o Galène: trocar `GALENE_REF` no `.env`, `docker compose build --no-cache galene && docker compose up -d`. Trocar a chave: apagar a linha `GALENE_JWT_KEY=` do `.env`, rodar `preparar.sh`, copiar a nova para a Vercel e publicar.
 
@@ -267,7 +257,8 @@ Regra de ouro: **nenhuma chave vai para o repositório nem para o chat**; cada u
 | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` | pública (montagem) | o projeto do Supabase; sem elas o site não fala com o banco |
 | `NEXT_PUBLIC_SITE_URL` | pública | endereço do site (links, sitemap, cartões) |
 | `NEXT_PUBLIC_RECURSOS` | pública | recursos ligados: `todos` hoje; `escola`, `vale-o-escrito` e `rede-v2` só ligam pelo nome (`docs/RECURSOS.md`) |
-| `NEXT_PUBLIC_VIDEO_HOSTS`, `NEXT_PUBLIC_JITSI_DOMAIN`, `NEXT_PUBLIC_ESTUDIO_URL`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_ESPELHOS` | públicas | PeerTube, Jitsi, Worker do estúdio, chave pública do captcha e lista de espelhos da página de estado |
+| `NEXT_PUBLIC_VIDEO_HOSTS`, `NEXT_PUBLIC_JITSI_DOMAIN`, `NEXT_PUBLIC_ESTUDIO_URL`, `NEXT_PUBLIC_ESPELHOS` | públicas | PeerTube, Jitsi, Worker do estúdio e lista de espelhos da página de estado |
+| `ALUMIA_VOTO_SEGREDO` | **segredo do servidor** (só no servidor do site, 32 letras ou mais) | o voto secreto da Alumia e da equipe (`docs/rede/VOTO-SECRETO.md` §7): chave das cédulas cifradas e marcas de "já votou". Nunca troque com uma consulta aberta |
 | `NEXT_PUBLIC_GALENE_URL` | pública | endereço da sala de aula ao vivo (seção acima) |
 | `NEXT_PUBLIC_VAPID_PUBLIC_KEY` | pública (montagem) | chave pública do aviso no celular da Rede (`docs/rede/AVISOS.md`); sem ela o botão "Avisar neste aparelho" não aparece |
 | `GALENE_JWT_KEY` (+ `GALENE_GRUPOS`, `GALENE_PERMISSOES_ALUNO`) | segredo | assina o token de entrada da sala; **a mesma chave** do `.env` da máquina da sala |

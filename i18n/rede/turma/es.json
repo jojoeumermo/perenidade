@@ -1,0 +1,103 @@
+{
+  "_rascunho": "Borrador de traducción del texto en portugués (pt.json es el final).",
+  "titulo": "Grupos de estudio",
+  "chamada": "Un grupo pequeño, un acuerdo por semana. Cada persona marca su propia semana; el grupo ve solo el total, cuando al menos 3 marcaron y al menos 3 todavía no.",
+  "entre": "Los grupos de estudio son de quien está en Alumia. Entra en tu cuenta para empezar un grupo o unirte con un código.",
+  "tentar": "Intentar de nuevo",
+  "lado": "Empezar o unirse a un grupo",
+  "minhas": {
+    "titulo": "Tus grupos",
+    "vazioTitulo": "Ningún grupo todavía",
+    "vazio": "Empieza un grupo y envía el código a quien estudia contigo, o únete con el código que alguien te envió."
+  },
+  "turma": {
+    "cuida": "Tú lo cuidas",
+    "pessoas": "{n} personas en el grupo",
+    "poucasPessoas": "Menos de 3 personas en el grupo",
+    "combinado": "Acuerdo de la semana"
+  },
+  "semana": {
+    "titulo": "Semana del {dia}",
+    "total": "personas lo cumplieron hasta ahora",
+    "poucos": "Sin número por ahora. Aparece cuando al menos 3 marcaron y al menos 3 todavía no, para que nadie descubra quién fue.",
+    "marcar": "Hice la de esta semana",
+    "fiz": "Hecho esta semana",
+    "marcado": "Marcado. Solo tú sabes que fuiste tú.",
+    "desmarcado": "Desmarcado.",
+    "soVoce": "Solo tú ves tu marca. ¿Tocaste sin querer? Toca de nuevo para desmarcar.",
+    "ninguemVe": "Nadie ve quién marcó ni quién no: el grupo ve solo el total."
+  },
+  "fileira": {
+    "titulo": "Las últimas 8 semanas",
+    "acesa": "Semana del {dia}: {n} personas lo cumplieron.",
+    "apagada": "Semana del {dia}: sin número.",
+    "regra": "Cada baldosa es una semana. Se enciende con el número cuando al menos 3 personas cumplen el acuerdo y al menos 3 no; si no, queda apagada y sin número."
+  },
+  "convite": {
+    "titulo": "Código del grupo",
+    "copiar": "Copiar la invitación",
+    "copiado": "Invitación copiada. Envíala solo a quien quieras en el grupo.",
+    "copieVoce": "No se pudo copiar. La invitación es: {endereco}",
+    "novo": "Cambiar el código",
+    "novoFeito": "Código nuevo. El anterior dejó de valer.",
+    "dica": "Quien tiene el código entra. El grupo admite hasta 12 personas."
+  },
+  "editar": {
+    "abrir": "Cambiar el acuerdo",
+    "titulo": "Cambiar el nombre y el acuerdo",
+    "aviso": "Quien está en el grupo recibe un aviso del acuerdo nuevo.",
+    "salvar": "Guardar",
+    "cancelar": "Cancelar",
+    "feito": "Grupo actualizado."
+  },
+  "sair": {
+    "botao": "Salir del grupo",
+    "titulo": "¿Salir de “{nome}”?",
+    "texto": "Tu marca de esta semana sale contigo. Para volver, necesitas el código de nuevo.",
+    "textoCuida": "Tu marca de esta semana sale contigo. Si nadie más cuida del grupo, quien está en él hace más tiempo pasa a cuidarlo. Si eres la última persona, el grupo termina.",
+    "sim": "Salir",
+    "nao": "Quedarme",
+    "feito": "Saliste de “{nome}”."
+  },
+  "entrar": {
+    "titulo": "Unirse con un código",
+    "texto": "Pega el código o la invitación que alguien del grupo te envió.",
+    "campo": "Código del grupo",
+    "botao": "Unirme al grupo",
+    "feito": "Te uniste a “{nome}”."
+  },
+  "comecar": {
+    "titulo": "Empezar un grupo",
+    "texto": "Ponle un nombre y escribe el acuerdo de la semana. Después solo envía el código.",
+    "botao": "Empezar el grupo",
+    "feito": "Grupo “{nome}” creado. Envía el código a quien estudia contigo."
+  },
+  "campos": {
+    "nome": "Nombre del grupo",
+    "nomeExemplo": "Redacción del sábado",
+    "meta": "Acuerdo de la semana"
+  },
+  "regra": {
+    "titulo": "Cómo cuenta el grupo",
+    "itens": [
+      "Cada persona marca solo su propia semana, y puede desmarcarla.",
+      "El grupo ve el total de la semana, y solo cuando llega a 3. Por debajo, nadie ve número.",
+      "Nadie ve quién marcó, quién no, ni quién está en el grupo: solo cuántas personas, a partir de 3.",
+      "Sin marcador, sin rachas, sin comparación entre grupos.",
+      "Cuando la semana cierra, queda solo el número del grupo: la marca de cada persona se borra."
+    ]
+  },
+  "erros": {
+    "nao_encontrado": "No encontramos ningún grupo con ese código. Consulta con quien lo envió.",
+    "turma_cheia": "Ese grupo ya tiene 12 personas.",
+    "limite_de_turmas": "Ya estás en 5 grupos. Sal de uno para entrar en otro.",
+    "sem_permissao": "Solo quien cuida del grupo puede hacer eso.",
+    "muitos_pedidos": "Demasiados intentos seguidos. Espera un poco e intenta de nuevo.",
+    "invalido:nome": "El nombre necesita de 3 a 60 caracteres.",
+    "invalido:meta": "El acuerdo necesita de 3 a 120 caracteres.",
+    "entre_primeiro": "Entra en tu cuenta para continuar.",
+    "alumia_entrada": "Tu cuenta todavía espera la aprobación de Alumia.",
+    "sem_servico": "Alumia está fuera de línea ahora. Intenta en un rato.",
+    "generico": "No funcionó ahora. Intenta de nuevo."
+  }
+}

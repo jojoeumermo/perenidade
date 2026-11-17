@@ -27,6 +27,9 @@ import { AtosDaOrganizacao } from "./b1/AtosDaOrg";
 import { CaixaTransparente } from "./b1/Caixa";
 import { ConviteDoLink } from "./b1/Convite";
 import { FuncoesDaOrganizacao } from "./b1/Funcoes";
+import { AbaComunicacao } from "./comunicacao/AbaComunicacao";
+import { BoletimNoPerfil, DominioNoPerfil } from "./comunicacao/NoPerfil";
+import { previaLigada } from "@/lib/rede/org/exemplos";
 import { clienteOrgB1 } from "@/lib/rede/cliente-org-b1";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import "./org.css";
@@ -48,6 +51,11 @@ export interface PropsDoPerfilDaOrg {
   abaInicial?: string | null;
   /** O que as frentes penduram acima das abas (a fileira de destaques dos stories, components/rede/perfil/FileiraDoPerfil.tsx). */
   acimaDasAbas?: ReactNode;
+  /**
+   * A aba Espaços (onda 10, components/rede/comunidades/estrutura/EspacosDaOrg.tsx): as comunidades e os núcleos da organização num
+   * lugar só. Sem ela (o perfil de exemplo), a aba não aparece.
+   */
+  espacos?: ReactNode;
   /** O aviso de cima (o perfil de exemplo põe "Dados ilustrativos"). */
   aviso?: ReactNode;
   /** As ações de quem gerencia (só no perfil de verdade; aparecem só quando o banco diz `gerencio`). */
@@ -65,8 +73,14 @@ export interface PropsDoPerfilDaOrg {
  * As abas do perfil: as cinco da prancha e "Núcleos" (núcleos, funções, eleições e o Lampião). Antes esses blocos ficavam DEPOIS
  * do painel de qualquer aba, e trocar de aba só mudava um trecho no meio de uma página muito longa.
  */
-const ABAS_DO_PERFIL = [...ABAS_DA_ORG, "nucleos"] as const;
-type AbaDoPerfil = AbaDaOrg | "nucleos";
+const ABAS_DO_PERFIL = [...ABAS_DA_ORG, "nucleos", "espacos", "comunicacao"] as const;
+type AbaDoPerfil = AbaDaOrg | "nucleos" | "espacos" | "comunicacao";
+
+/** O nome da aba Espaços nos 6 idiomas (o resto dos textos dela vem de i18n/rede/estrutura/). */
+const NOME_DOS_ESPACOS: Record<string, string> = { pt: "Espaços", en: "Spaces", es: "Espacios", fr: "Espaces", ru: "Пространства", zh: "空间" };
+
+/** O nome da aba Comunicação nos 6 idiomas (o "aba" de i18n/rede/org/comunicacao/; o resto dos textos vem de lá). */
+const NOME_DA_COMUNICACAO: Record<string, string> = { pt: "Comunicação", en: "Communication", es: "Comunicación", fr: "Communication", ru: "Коммуникация", zh: "宣传" };
 
 /** Rola até o bloco dos núcleos e leva o foco a ele; espera um instante porque o bloco só existe depois de a aba trocar. */
 function levarAosNucleos(nucleos: RefObject<HTMLElement | null>, abas: RefObject<HTMLDivElement | null>) {
@@ -76,10 +90,14 @@ function levarAosNucleos(nucleos: RefObject<HTMLElement | null>, abas: RefObject
   }, 0);
 }
 
-export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInicial, aviso, cuidar, aoMudar, s, vivo = false, acimaDasAbas = null }: PropsDoPerfilDaOrg) {
+export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInicial, aviso, cuidar, aoMudar, s, vivo = false, acimaDasAbas = null, espacos = null }: PropsDoPerfilDaOrg) {
   const tp = t.perfil;
   const id = useId();
-  const inicial = (ABAS_DO_PERFIL as readonly string[]).includes(abaInicial ?? "") ? (abaInicial as AbaDoPerfil) : "posts";
+  // A aba Comunicação (onda 12) só para quem é de dentro, no perfil de verdade: o banco ainda confere se a pessoa fala pela
+  // organização ou media um núcleo dela (senão a aba diz só o que carrega e não mostra nada).
+  const comunicacao = vivo && membro && (org.gerencio || org.dentro === true || previaLigada());
+  const abasDoPerfil: readonly AbaDoPerfil[] = ABAS_DO_PERFIL.filter((a) => (a !== "espacos" || espacos) && (a !== "comunicacao" || comunicacao));
+  const inicial = (abasDoPerfil as readonly string[]).includes(abaInicial ?? "") ? (abaInicial as AbaDoPerfil) : "posts";
   const [aba, setAba] = useState<AbaDoPerfil>(inicial);
   const [sigo, setSigo] = useState(org.sigo);
   const [sino, setSino] = useState(org.sino);
@@ -173,6 +191,8 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
         ) : null}
       </>
     ),
+    espacos,
+    comunicacao: comunicacao ? <AbaComunicacao handle={org.handle} lang={lang} /> : null,
   };
 
   return (
@@ -202,6 +222,7 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
               ) : (
                 <span>{t.selo.semSelo}</span>
               )}
+              {vivo && org.verificadaEm ? <DominioNoPerfil handle={org.handle} lang={lang} /> : null}
             </div>
             {org.bio ? <p className="al-perfil-bio">{org.bio}</p> : null}
             <div className="al-perfil-acoes">
@@ -221,6 +242,7 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
                 {tp.entrarNucleo}
               </Botao>
             </div>
+            {vivo && membro ? <BoletimNoPerfil handle={org.handle} lang={lang} /> : null}
             {!membro ? <p className="al-perfil-nota">{tp.entreParaSeguir}</p> : null}
             {org.gerencio ? <p className="al-perfil-nota">{tp.gerencio}</p> : null}
             <p className="al-perfil-nota">{tp.semContagens}</p>
@@ -240,7 +262,7 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
           ) : null}
 
           {acimaDasAbas}
-          <Abas ref={abasRef} id={id} abas={ABAS_DO_PERFIL} atual={aba} aoMudar={setAba} rotulos={{ ...tp.abas, nucleos: tp.nucleos.titulo }} rotulo={preencher(tp.abas.rotulo, { codinome: org.codinome })} />
+          <Abas ref={abasRef} id={id} abas={abasDoPerfil} atual={aba} aoMudar={setAba} rotulos={{ ...tp.abas, nucleos: tp.nucleos.titulo, espacos: NOME_DOS_ESPACOS[lang] ?? NOME_DOS_ESPACOS.pt, comunicacao: NOME_DA_COMUNICACAO[lang] ?? NOME_DA_COMUNICACAO.pt }} rotulo={preencher(tp.abas.rotulo, { codinome: org.codinome })} />
           <div id={`${id}-painel`} role="tabpanel" aria-labelledby={`${id}-aba-${aba}`} className="al-painel">
             {painel[aba]}
           </div>

@@ -70,6 +70,8 @@ import { FontesAbertas } from "../FontesAbertas";
 import { ValeOEscritoCuradoria } from "../ValeOEscrito";
 import { RedeOrganizacoes } from "../RedeOrganizacoes";
 import { AlumiaEntrada } from "../AlumiaEntrada";
+import { PainelUnicoSobDemanda } from "../alumia/admin/SobDemanda";
+import { PainelDaAlumiaSobDemanda } from "../alumia/SobDemanda";
 import { ligado } from "@/lib/recursos";
 import { orgLigada } from "@/lib/rede/org/flag";
 import { RedePropostas } from "../RedePropostas";
@@ -176,7 +178,7 @@ const DENTRO_DE: Record<string, string> = {
 };
 
 /** As seções "tela" ocupam a altura inteira, sem margem e sem cabeçalho (o nome fica na trilha). */
-const TELA = new Set(["conversas", "reunioes"]);
+const TELA = new Set(["conversas", "reunioes", "alumia-painel", "alumia-admin"]);
 /** As seções amplas ocupam a largura inteira. */
 const AMPLAS = new Set(["rede", "estudio", "escritorio", "caderno"]);
 
@@ -212,6 +214,9 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
   const podcastAoVivo = useLista<{ pode?: boolean }>("podcast_ao_vivo_estado", {}, { quieta: true });
   // Aulas em vídeo esperando a curadoria.
   const videos = useLista<number>("videoaulas_contagem");
+  // O painel de controle da Alumia: quem decide se a seção existe para esta conta é o banco (coordenação ou o admin da Alumia).
+  // Para todo o resto a resposta é só { pode: false }, e a seção não aparece nem responde pelo endereço.
+  const painelDaAlumia = useLista<{ pode?: boolean; papel?: string }>("alumia_painel_eu", {}, { quieta: true });
   const r = resumo.dados;
   const atualizarResumo = resumo.recarregar;
   // De minuto em minuto o painel diz que a pessoa está por aqui, pergunta se chegou mensagem nova e refaz as
@@ -298,6 +303,10 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
       { id: "rede-propostas", nome: "Rede: propostas de comunidade", sobre: "Comunidade nova da Alumia só nasce por proposta: ler o objetivo e as regras, conferir os moderadores e aprovar ou recusar com o motivo.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "vice") },
       { id: "rede-semeadura", nome: "Alumia: semeadura", sobre: "O roteiro da semeadura em números: posts reais por comunidade e se há 2 pessoas moderando. Nada aqui publica.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "vice") },
       { id: "rede-organizacoes", nome: "Alumia: selo das organizações", sobre: "Pedidos do selo das organizações: conferir o documento público e dar o selo ou recusar com o motivo. Quem pediu não aparece.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "vice") && orgLigada() },
+      // O painel único de admin (17/11): a coordenação tem tudo da Alumia ali, com o segundo fator; quem decide é o banco, em cada função.
+      { id: "alumia-admin", nome: "Alumia: painel de admin", sobre: "Tudo da Alumia num lugar só, com plenos poderes e registro: o beta fechado, todos os recursos, a entrada e os convites, banir, apagar posts, moderação, comunidades, Fediverso, bloqueio na borda e a saúde. Só a coordenação, com o código do aplicativo autenticador.", grupo: "Atendimento", mostra: can(eu, "coordenacao") },
+      // O painel de controle continua para o admin da Alumia (que não é da coordenação); para a coordenação, tudo dele está no painel de admin.
+      { id: "alumia-painel", nome: "Alumia: painel de controle", sobre: "Cadastros, pessoas, posts, denúncias, papéis, comunidades, funções e o registro, para o admin da Alumia. A coordenação usa o painel de admin.", grupo: "Atendimento", mostra: painelDaAlumia.dados?.pode === true && painelDaAlumia.dados?.papel !== "coordenacao" },
       { id: "alumia-entrada", nome: "Alumia: pedidos de entrada", sobre: "Quem criou conta pela Alumia espera aqui: ler o pedido (codinome e o motivo) e aprovar ou recusar com o motivo. Nada de e-mail nem nome civil.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "vice", "mediacao") && ligado("alumia-entrada") },
       { id: "reforco", nome: "Aula de reforço", sobre: "Dúvidas de estudantes esperando resposta.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mentoria", "educacao"), conta: r?.reforco },
       { id: "mural", nome: "Mural dos Trabalhadores", sobre: "Anúncios esperando a decisão da coordenação ou da mediação.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mediacao"), conta: r?.mural },
@@ -636,6 +645,8 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
                         {atual.id === "rede-semeadura" && <RedeSemeadura />}
                         {atual.id === "rede-organizacoes" && <RedeOrganizacoes />}
                         {atual.id === "alumia-entrada" && <AlumiaEntrada />}
+                        {atual.id === "alumia-painel" && <PainelDaAlumiaSobDemanda />}
+                        {atual.id === "alumia-admin" && <PainelUnicoSobDemanda />}
                         {atual.id === "traducoes" && <Traducoes irEscrever={() => ir("escrever")} />}
                         {atual.id === "triagem" && <Fila key="triagem" me={eu} triagem />}
                         {atual.id === "curriculo" && <DisciplinasETrilhas me={eu} />}

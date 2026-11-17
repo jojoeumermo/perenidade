@@ -1,0 +1,95 @@
+{
+  "fio": {
+    "ligar": "组成串帖",
+    "desligar": "改回单块",
+    "ajuda": "分块书写，一次全部发布：第一块开启对话，其余按顺序接续。",
+    "bloco": "第 {n} 块，共 {total} 块",
+    "mais": "再加一块",
+    "tirar": "移除第 {n} 块",
+    "dividir": "把文字分成几块",
+    "limite": "一个串帖最多 10 块。",
+    "vazio": "有一块是空的：请写上内容或移除。",
+    "grande": "第 {n} 块超过 500 个字符。",
+    "semAgenda": "串帖会立即发出。若要定时，请只发布一块。",
+    "esperando": "串帖的开头已发出。其余 {n} 块等待调解员阅读上一块，放行后随即发出。",
+    "publicar": "发布串帖",
+    "desfeito": "串帖已撤回。文字仍在这里。"
+  },
+  "imagens": {
+    "arranjo": "图片的排列方式",
+    "grade": "网格",
+    "carrossel": "轮播",
+    "colagem": "拼贴",
+    "legenda": "图注",
+    "legendaDica": "第 {n} 张图片的图注（所有人可见）",
+    "anterior": "上一张图片",
+    "proxima": "下一张图片",
+    "posicao": "第 {n} 张，共 {total} 张",
+    "antes": "把第 {n} 张图片前移",
+    "depois": "把第 {n} 张图片后移",
+    "maximo": "每帖最多 10 张图片。"
+  },
+  "fuso": {
+    "rotulo": "时区",
+    "ajuda": "时间按你选择的时区计算。Alumia 不会去查你在哪里。",
+    "doBrasil": "巴西的时区",
+    "outros": "其他时区",
+    "vaiSair": "将于 {quando} 发出。",
+    "naFila": "排队中：{quando}",
+    "cidades": {
+      "Noronha": "费尔南多-迪诺罗尼亚",
+      "Sao_Paulo": "巴西利亚、圣保罗、里约、南部",
+      "Bahia": "萨尔瓦多",
+      "Fortaleza": "福塔莱萨",
+      "Recife": "累西腓",
+      "Belem": "贝伦",
+      "Manaus": "马瑙斯",
+      "Cuiaba": "库亚巴",
+      "Campo_Grande": "大坎普",
+      "Porto_Velho": "韦柳港",
+      "Boa_Vista": "博阿维斯塔",
+      "Rio_Branco": "里约布朗库"
+    }
+  },
+  "rascunho": {
+    "agendar": "定时"
+  },
+  "figurinhas": {
+    "escolher": "添加贴纸",
+    "pacote": "本站贴纸包",
+    "tirar": "移除贴纸",
+    "so": "只发贴纸，不配文字",
+    "texto": "[贴纸：{nome}]",
+    "nomes": {
+      "punho": "高举的拳头",
+      "lampiao": "点亮的提灯",
+      "megafone": "扩音器",
+      "estrela": "星星",
+      "cravo": "红色康乃馨",
+      "coracao": "瓷砖拼成的心",
+      "livro": "打开的书",
+      "sol": "初升的太阳",
+      "cafe": "现煮咖啡",
+      "presente": "在场！",
+      "na-luta": "斗争中",
+      "valeu": "谢谢！"
+    },
+    "carimbos": {
+      "presente": "在场！",
+      "na-luta": "斗争中",
+      "valeu": "谢谢！"
+    }
+  },
+  "link": {
+    "doServidor": "标题、摘要和图片由我们的服务器获取。"
+  },
+  "erros": {
+    "invalido_fio": "串帖需要 2 到 10 块，每块都要有文字。",
+    "invalido_arranjo": "请选择网格、轮播或拼贴。",
+    "invalido_figurinha": "这张贴纸不在本站贴纸包里。",
+    "invalido_legenda": "图注最多 280 个字符。",
+    "legenda_revisar": "有一条图注含有需要调解员先阅读的词。请修改或移除该图注。",
+    "invalido_fuso": "请从列表中选择时区。",
+    "nivel_imagens": "你的信任等级暂时不允许在一帖中放这么多图片。"
+  }
+}

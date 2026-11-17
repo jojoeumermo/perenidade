@@ -8,6 +8,7 @@
 import { proporcaoDoMosaico } from "../mosaico";
 import { elosDaCorrente } from "./corrente";
 import { dubleDosQuadros } from "./exemplos-quadros";
+import { dubleDosEventos } from "./exemplos-eventos";
 import { COMUNIDADES_DE_EXEMPLO } from "../publicar/exemplos-alumia2";
 import type { Ato, Corrente, EstadoDoFarol, FarolDoAto, FiltroDosAtos, OrgQuePosso, PaginaDeAtos, PedidoDeMudanca, RespostaDoVou } from "../tipos-atos";
 
@@ -223,6 +224,8 @@ export function criarDuble(estado: EstadoDoDuble = { atos: atosDeExemplo(), faro
   return {
     // B1: tarefas, caronas, petição, meta e link (lib/rede/atos/exemplos-quadros.ts).
     ...dubleDosQuadros(achar),
+    // 10F: série, organizações juntas, álbum e linha ao vivo (lib/rede/atos/exemplos-eventos.ts).
+    ...dubleDosEventos(achar),
     rede_atos(a: { p_filtro?: FiltroDosAtos; p_cidade?: string | null; p_comunidade?: string | null }): PaginaDeAtos {
       let lista = [...estado.atos].sort(porData);
       if (a.p_comunidade) lista = lista.filter((x) => x.ato.comunidade?.slug === a.p_comunidade);

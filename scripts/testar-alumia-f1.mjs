@@ -162,7 +162,7 @@ ok("exemplos fora do pacote", ![redeTsx, linha].some((x) => /^import [^;]*exempl
 const css = ler("styles/alumia.css");
 const novas = css.slice(css.indexOf("Alumia nova (Onda 5, F1"));
 const seletores = novas.replace(/\/\*[\s\S]*?\*\//g, "").match(/[^{}]+(?=\{)/g) ?? [];
-const soltos = seletores.map((s) => s.trim()).filter((s) => s && !s.startsWith("@") && !/data-al="2"/.test(s) && !/^(from|to|\d+%)$/.test(s));
+const soltos = seletores.map((s) => s.trim()).filter((s) => s && !s.startsWith("@") && !/data-al="2"/.test(s) && !/^(from|to|\d+%)(\s*,\s*\d+%)*$/.test(s));
 igual("todo estilo novo fica dentro de [data-al=\"2\"]", soltos, []);
 
 // ── Funções das pranchas presentes (nada só de enfeite) ──

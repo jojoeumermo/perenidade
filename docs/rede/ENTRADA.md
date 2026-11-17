@@ -31,12 +31,17 @@ linha de cada uma. Ficam de fora, de propósito, só as que a pessoa precisa **a
 Passam pela porta sem sessão de pessoa: a **chave de serviço** (federação, rotas do servidor) e o **próprio banco** (agendador e SQL
 Editor, que não escolhem papel de API nem trazem token).
 
-### Decisão que fica com a coordenação
+### Decisão da coordenação (12/11/2026): o diretório fica aberto, as comunidades não
 
-Com a trava ligada, o **diretório de organizações com selo** (`rede_org_*`) e a **lista de comunidades** (`rede_com_lista`,
-`rede_alumia_ativas`) também deixam de responder a visitante. É a leitura mais estreita de "sem conta aprovada ninguém vê a
-Alumia". Se a coordenação quiser que continuem públicas, acrescente o nome da função em `interno.alumia_porta_aberta` (na migração
-das portas e na cópia do `install.sql`) e na lista `ABERTAS` do teste. O teste falha se as duas listas não baterem.
+Com a trava ligada, o **diretório de organizações com selo** continua visível sem conta: `rede_org_diretorio` (só organização com
+selo, sem contagem de pessoas) e `rede_org_mapa` (estados e cidades escritas, sem número). A página `/alumia/organizacoes` abre sem
+sessão, e a entrada aponta para ela no pé. Do diretório para dentro (o perfil da organização, os atos, as atas), só com conta
+aprovada e o segundo fator. A **lista de comunidades** (`rede_com_lista`, `rede_alumia_ativas`) fica **fechada**.
+
+Quem faz isso: `supabase/migracoes/20261113-alumia-o7-entrada.sql`, que troca a lista de `interno.alumia_porta_aberta`, tira a
+porta das duas funções e roda a regra de novo. Rodar a migração das portas sozinha volta a fechar o diretório: rode a da onda 7 em
+seguida. Para abrir ou fechar outra função, mude a lista nas duas migrações e a lista `ABERTAS` do teste: o teste falha se não
+baterem.
 
 ### Função nova
 
@@ -171,6 +176,12 @@ Fotos do Wikimedia Commons, em domínio público ou com licença livre, viradas 
 - Pessoa viva só entra com a autorização dela anotada.
 - As silhuetas de **Paulo Freire** (CC BY-SA 3.0) e **Marielle Franco** (CC BY-SA 2.0) são obras derivadas e saem sob a mesma
   licença da foto, não sob a AGPL do código. Os créditos na tela dizem isso.
-- A de **Frantz Fanon** está desligada até a coordenação decidir: a foto é da sobrecapa de um livro dos EUA de 1967, de autor
-  desconhecido. É domínio público pela regra dos EUA, mas no Brasil obra anônima fica protegida por 70 anos a contar da publicação
-  (Lei 9.610, arts. 43 e 44). Para voltar: outra foto com base clara, ou a decisão anotada no `silhuetas.json`, e `"ligada": true`.
+- A parede de 12/11/2026: Lenin, Marx, Engels, Rosa Luxemburgo, Gramsci, Paulo Freire, Marielle Franco, Stalin e **Che Guevara**
+  (ao lado de Stalin), e por último o painel de quem chega. Fanon e Mariátegui saíram da entrada por decisão da coordenação.
+- A foto do **Che** é a do acervo Anefo do Nationaal Archief (Países Baixos), liberada em CC0. O "Guerrillero Heroico" de Korda
+  **não** entra: tem disputa de direitos.
+- As silhuetas que já existem **não mudam**: nem o arquivo, nem o recorte, nem a fonte. Para acrescentar uma figura sem refazer as
+  outras: `npm run alumia:silhuetas -- --so=<id>`. Na parede, o ladrilho é só o rejunte desenhado por cima e a cor vem de um filtro
+  da página; o desenho de cada figura é o do arquivo.
+- O último painel é o de quem chega: forma o rosto em mosaico do codinome (ou a foto que a pessoa escolheu mostrar) enquanto ela
+  entra ou pede a conta. Tudo no aparelho: nada vai ao servidor por causa dele, nada é guardado, e ninguém mais o vê.

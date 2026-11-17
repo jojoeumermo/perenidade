@@ -3,7 +3,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "@/components/Link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { localePath } from "@/i18n/config";
 import { redeMod } from "@/lib/rede/cliente-moderacao";
 import { preencher } from "@/lib/rede/preencher";
@@ -12,11 +12,39 @@ import type { TextosDaRede } from "@/lib/rede/textos";
 import type { Post } from "@/lib/rede/tipos";
 import { enderecosModeracao, type RotuloDeChecagem } from "@/lib/rede/tipos-moderacao";
 import type { TextosDaModeracao } from "@/lib/rede/textos-moderacao";
+import type { PrazoDaSoneca } from "@/lib/rede/comunidade-moderacao";
 import { estilo, mensagemDeErro, useTextosMod } from "./base";
+import { EscolhaDoPrazo, fraseDaSoneca } from "./Soneca";
 
 // Os formulários só chegam ao navegador quando alguém abre um deles.
 const FormularioDeDenuncia = dynamic(() => import("./FormularioDeDenuncia").then((m) => m.FormularioDeDenuncia), { ssr: false });
 const PainelDoPost = dynamic(() => import("./PainelDoPost").then((m) => m.PainelDoPost), { ssr: false });
+
+/**
+ * A denúncia abre numa folha modal (dialog com showModal): com fundo escurecido e rolagem própria, ela não cobre o post solto
+ * nem estica a página além do fim. Esc e o fundo fecham.
+ */
+function FolhaDaDenuncia({ aoFechar, children }: { aoFechar: () => void; children: ReactNode }) {
+  const ref = useRef<HTMLDialogElement>(null);
+  useEffect(() => {
+    const d = ref.current;
+    // Sem close() na limpeza: ele dispararia o "close" (e o aoFechar) na remontagem do modo estrito. Ao sair da página, o
+    // dialog sai junto.
+    if (d && !d.open) d.showModal();
+  }, []);
+  return (
+    <dialog
+      ref={ref}
+      onClose={aoFechar}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) e.currentTarget.close();
+      }}
+      className="m-auto max-h-[min(90dvh,48rem)] w-[min(36rem,calc(100vw-2rem))] overflow-y-auto overscroll-contain rounded-xl border border-[var(--al-superficie-2,var(--rule))] bg-[var(--al-superficie,var(--folha))] p-4 text-[var(--al-texto,var(--ink))] shadow-xl backdrop:bg-black/60"
+    >
+      {children}
+    </dialog>
+  );
+}
 
 // ── Rótulos de desinformação: uma chamada para todos os posts da tela (em lote), não uma por post ──
 const cacheDeRotulos = new Map<string, RotuloDeChecagem | null>();
@@ -81,9 +109,13 @@ export function RotuloDoPost({ post, lang }: { post: Post; lang: string }) {
   );
 }
 
-/** Silenciar a pessoa ou a conversa: na conta (todos os aparelhos) ou só neste aparelho. Ninguém é avisado. */
+/**
+ * Silenciar (a soneca) a pessoa ou a conversa: na conta, com prazo (1 dia, 1 semana, 1 mês ou até desfazer), em todos os
+ * aparelhos; ou só neste aparelho, sem prazo. Ninguém é avisado.
+ */
 function MenuDeSilencio({ post, lang, s, sm, aoFechar }: { post: Post; lang: string; s: TextosDaRede; sm: TextosDaModeracao; aoFechar: () => void }) {
   const [soAparelho, setSoAparelho] = useState(false);
+  const [prazo, setPrazo] = useState<PrazoDaSoneca>(7);
   const [feito, setFeito] = useState("");
   const [erro, setErro] = useState("");
   const [ocupado, setOcupado] = useState(false);
@@ -101,8 +133,8 @@ function MenuDeSilencio({ post, lang, s, sm, aoFechar }: { post: Post; lang: str
         if (!gravarSilenciosLocais(armazem, lista)) throw Object.assign(new Error("armazenamento"), { code: "falha" });
         setFeito(sm.silenciar.feitoAparelho);
       } else {
-        await redeMod.silenciar(tipo, valor);
-        setFeito(sm.silenciar.feito);
+        await redeMod.silenciar(tipo, valor, prazo);
+        setFeito(fraseDaSoneca(sm, lang, prazo));
       }
     } catch (e) {
       setErro(mensagemDeErro(s, sm, e));
@@ -116,13 +148,14 @@ function MenuDeSilencio({ post, lang, s, sm, aoFechar }: { post: Post; lang: str
       <div className="flex flex-wrap gap-2">
         {post.autor.handle && post.autor.perfil && (
           <button type="button" disabled={ocupado} className={estilo.botao} onClick={() => void silenciar("pessoa")}>
-            {preencher(sm.silenciar.pessoa, { nome: post.autor.codinome })}
+            {preencher(sm.o9.soneca.pessoa, { nome: post.autor.codinome })}
           </button>
         )}
         <button type="button" disabled={ocupado} className={estilo.botao} onClick={() => void silenciar("conversa")}>
-          {sm.silenciar.conversa}
+          {sm.o9.soneca.conversa}
         </button>
       </div>
+      {soAparelho ? <p className="text-xs text-ink-soft">{sm.o9.soneca.aparelhoSemPrazo}</p> : <EscolhaDoPrazo sm={sm} valor={prazo} aoMudar={setPrazo} desligado={ocupado} />}
       <label className="flex min-h-11 cursor-pointer items-center gap-2 text-sm">
         <input type="checkbox" checked={soAparelho} onChange={(e) => setSoAparelho(e.target.checked)} />
         {sm.silenciar.soAparelho}
@@ -139,9 +172,10 @@ function MenuDeSilencio({ post, lang, s, sm, aoFechar }: { post: Post; lang: str
 
 /**
  * As ações de cuidado do cartão de post: Denunciar (com protocolo), Silenciar e, para quem modera o lugar, Moderar. Visitante vai para a
- * página Denunciar do site. Os textos do pacote só são baixados quando alguém abre uma das ações.
+ * página Denunciar do site. Os textos do pacote só são baixados quando alguém abre uma das ações. Post cifrado: o formulário oferece
+ * mandar o trecho aberto neste aparelho. Na prévia (`previa`), só Denunciar, e nada vai ao banco.
  */
-export function AcoesDeCuidado({ post, lang, s, logado, classe }: { post: Post; lang: string; s: TextosDaRede; logado: boolean; classe: string }) {
+export function AcoesDeCuidado({ post, lang, s, logado, classe, previa = false }: { post: Post; lang: string; s: TextosDaRede; logado: boolean; classe: string; previa?: boolean }) {
   const [aberto, setAberto] = useState<null | "denunciar" | "silenciar" | "moderar">(null);
   const sm = useTextosMod(lang, aberto !== null);
   if (!logado) {
@@ -159,18 +193,22 @@ export function AcoesDeCuidado({ post, lang, s, logado, classe }: { post: Post; 
           {s.acoes.denunciar}
         </button>
       )}
-      {!post.meu && (
+      {!post.meu && !previa && (
         <button type="button" className={classe} aria-expanded={aberto === "silenciar"} onClick={() => alterna("silenciar")}>
           {s.acoes.mais}
         </button>
       )}
-      {post.modero && (
+      {post.modero && !previa && (
         <button type="button" className={classe} aria-expanded={aberto === "moderar"} onClick={() => alterna("moderar")}>
           {sm?.moderar.titulo ?? "…"}
         </button>
       )}
       {aberto && !sm && <p className="w-full basis-full text-sm text-ink-soft" role="status">…</p>}
-      {aberto === "denunciar" && sm && <FormularioDeDenuncia lang={lang} s={s} sm={sm} alvoTipo="post" alvo={post.id} aoFechar={() => setAberto(null)} />}
+      {aberto === "denunciar" && sm && (
+        <FolhaDaDenuncia aoFechar={() => setAberto(null)}>
+          <FormularioDeDenuncia lang={lang} s={s} sm={sm} alvoTipo="post" alvo={post.id} post={post} previa={previa} aoFechar={() => setAberto(null)} />
+        </FolhaDaDenuncia>
+      )}
       {aberto === "silenciar" && sm && <MenuDeSilencio post={post} lang={lang} s={s} sm={sm} aoFechar={() => setAberto(null)} />}
       {aberto === "moderar" && sm && <PainelDoPost post={post} s={s} sm={sm} aoFechar={() => setAberto(null)} />}
     </>

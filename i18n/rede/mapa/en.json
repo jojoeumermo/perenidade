@@ -1,0 +1,64 @@
+{
+  "titulo": "Map",
+  "chamada": "Calls to action, events and local groups by city, over the next {dias} days. Each dot is a whole municipality: the map knows no street, no neighborhood and nobody's location.",
+  "desenho": "Map of Brazil with {n} cities marked",
+  "carregando": "Loading the map…",
+  "erro": "Could not load the map right now.",
+  "tentar": "Try again",
+  "vazio": "No calls, events or local groups on the map yet.",
+  "filtro": {
+    "titulo": "What to show",
+    "chamados": "Calls",
+    "eventos": "Events",
+    "nucleos": "Local groups"
+  },
+  "legenda": {
+    "titulo": "How to read it",
+    "chamados": "Call: a protest or a community work day.",
+    "eventos": "Event: assembly, circle, class and other gatherings.",
+    "nucleos": "Local group of a verified organization that chose to appear on the map.",
+    "tamanho": "The tile grows with the number, which only shows from 3 up. Local groups never get a number."
+  },
+  "estado": {
+    "rotulo": "State",
+    "brasil": "All of Brazil",
+    "voltar": "See all of Brazil",
+    "nenhuma": "No city marked in this state."
+  },
+  "cidades": {
+    "titulo": "Cities on the map",
+    "tituloEstado": "Cities in {uf}",
+    "escolher": "Tap a city on the map or in the list to see what is there."
+  },
+  "toque": {
+    "titulo": "Cities at this spot",
+    "explica": "There is more than one city at this spot on the map. Choose one.",
+    "estado": "Show only {uf}",
+    "fechar": "Close"
+  },
+  "cidade": {
+    "fechar": "Close",
+    "chamados": "{n} calls",
+    "chamadosPoucos": "Calls: fewer than 3",
+    "eventos": "{n} events",
+    "eventosPoucos": "Events: fewer than 3",
+    "nucleos": "Local groups",
+    "orgs": "Organizations with a local group here",
+    "atos": "Upcoming calls and events",
+    "atosCarregando": "Looking for this city's calls…",
+    "atosVazio": "No call or event in this city that you can see right now.",
+    "atosMenos": "The map's number joins every way of writing this city's name and the next 60 days. The list shows the next ones the Nearby search finds by that name; some may have been written another way.",
+    "atosErro": "Could not fetch this city's calls.",
+    "verTodos": "See all actions in {cidade}",
+    "rotuloPonto": "{cidade} ({uf}): {resumo}"
+  },
+  "fora": {
+    "titulo": "Cities we could not find on the map",
+    "texto": "These cities were written without the state and the name exists in more than one state, or the name matches no municipality. Writing the city with the state, like \"Bom Jesus - PI\", puts the dot in place.",
+    "varios": "exists in {ufs}",
+    "nenhum": "no municipality with this name"
+  },
+  "fonte": "Map of Brazil drawn by Alumia from IBGE's public boundary data. Nothing is loaded from outside.",
+  "aoVivo": "Live questions",
+  "aoVivoTexto": "Scheduled \"Ask…\" sessions."
+}

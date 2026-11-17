@@ -10,7 +10,7 @@
 // da ação "ator" do banco (contrato 3.1).
 import { documentoDoAtor, documentoDoAtorSaindo, imagemDoBanco } from "@/lib/rede/fediverso/documentos";
 import { HANDLE_FED, modoTotal } from "@/lib/rede/fediverso/enderecos";
-import { conferirTeto, querHtml } from "@/lib/rede/fediverso/rotas";
+import { conferirLeitor, conferirTeto, querHtml } from "@/lib/rede/fediverso/rotas";
 import { atorComChaves, fed, respostaAP } from "@/lib/rede/fediverso/servidor";
 
 export const runtime = "nodejs";
@@ -26,6 +26,8 @@ interface ExtrasDoAtor {
 export async function GET(pedido: Request, { params }: { params: Promise<{ handle: string }> }) {
   const barrado = conferirTeto(pedido, "ator");
   if (barrado) return barrado;
+  const recusado = await conferirLeitor(pedido);
+  if (recusado) return recusado;
   const handle = (await params).handle.toLowerCase();
   if (!HANDLE_FED.test(handle)) return new Response("Not Found", { status: 404 });
   if (querHtml(pedido)) return Response.redirect(fed.paginaDoPerfil(handle), 302);

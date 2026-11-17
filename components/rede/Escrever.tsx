@@ -2,7 +2,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { evaluatePost } from "@/lib/backend";
 import { rede } from "@/lib/rede/cliente";
 import { redeMod } from "@/lib/rede/cliente-moderacao";
 import { redePub } from "@/lib/rede/cliente-publicar";
@@ -122,8 +121,7 @@ export function Escrever({
         return;
       }
       const post = await rede.publicar(pedido);
-      // Retido para a segunda avaliação (avaliar-comunidade): pede agora; se falhar, o post segue retido para a mediação.
-      if (post.avaliar && post.id) void evaluatePost("rede", post.id);
+      // A avaliação de fora (avaliar-comunidade) não recebe post da Alumia (onda 9): o retido espera a mediação.
       pub.limpar();
       aoPublicar(post);
       if (post.retido) {

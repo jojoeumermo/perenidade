@@ -8,12 +8,15 @@
   },
   "fed": {
     "titulo": "Alumia 与联邦宇宙",
-    "lead": "联邦宇宙是一组彼此互通的自由社交网络，例如 Mastodon。开启联邦后，那里的人可以关注你并阅读你的公开帖子，你也可以关注那里的人。在你开启之前一直是关闭的。",
+    "lead": "联邦宇宙是一组彼此互通的自由社交网络，例如 Mastodon。开启联邦后，那里的人可以关注你并阅读你的公开帖子，你也可以关注那里的人。",
+    "leadDesligada": "在你开启之前一直是关闭的。",
+    "leadLigada": "你的联邦已开启：可以在下方关闭，外部服务器会收到删除请求。",
     "foraDoAr": "Alumia 服务器尚未开启联邦。开启后，你可以在这里开启你自己的联邦。",
     "endereco": "你在联邦宇宙的地址",
     "ligadaDesde": "自 {quando} 起已开启。",
     "desligada": "已关闭：你的任何内容都不会离开 Alumia。",
     "numeros": "关注你的外部用户：{seguidores}。你关注的外部用户：{seguindo}。",
+    "menosDeTres": "少于 3",
     "consentimento": {
       "titulo": "开启前请仔细阅读",
       "itens": [

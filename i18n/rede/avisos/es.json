@@ -25,7 +25,10 @@
     "conversa_seguida": {"um": "{a} respondió en una conversación que sigues.", "vezes": "{a} respondió {n} veces en una conversación que sigues.", "varios": "{a} y {n} más respondieron en una conversación que sigues.", "anonimo": "Hay una respuesta nueva en una conversación que sigues.", "anonimoVarios": "{n} personas respondieron en una conversación que sigues."},
     "ajudou": {"um": "Tu respuesta ayudó a quien abrió la conversación.", "vezes": "Tu respuesta ayudó a quien abrió la conversación.", "varios": "Tus respuestas ayudaron en {n} conversaciones.", "anonimo": "Tu respuesta ayudó a quien abrió la conversación.", "anonimoVarios": "Tus respuestas ayudaron en {n} conversaciones."},
     "reacao_story": {"um": "Alguien reaccionó a tu historia.", "vezes": "Tu historia recibió {n} reacciones.", "varios": "Tu historia recibió reacciones.", "anonimo": "Alguien reaccionó a tu historia.", "anonimoVarios": "Tu historia recibió reacciones."},
-    "lembrete": {"um": "Pediste que te recordáramos este post ahora.", "vezes": "Pediste que te recordáramos este post ahora.", "varios": "Pediste que te recordáramos estos posts ahora.", "anonimo": "Pediste que te recordáramos este post ahora.", "anonimoVarios": "Pediste que te recordáramos estos posts ahora."}
+    "lembrete": {"um": "Pediste que te recordáramos este post ahora.", "vezes": "Pediste que te recordáramos este post ahora.", "varios": "Pediste que te recordáramos estos posts ahora.", "anonimo": "Pediste que te recordáramos este post ahora.", "anonimoVarios": "Pediste que te recordáramos estos posts ahora."},
+    "marcacao": {"um":"{a} te etiquetó en una publicación, o pidió hacerlo. La solicitud solo aparece si la aceptas.","vezes":"{a} te etiquetó en una publicación, o pidió hacerlo. La solicitud solo aparece si la aceptas.","varios":"{a} y {n} más te etiquetaron, o pidieron hacerlo.","anonimo":"Alguien te etiquetó en una publicación, o pidió hacerlo. La solicitud solo aparece si la aceptas.","anonimoVarios":"{n} personas te etiquetaron, o pidieron hacerlo."},
+    "estou_bem": {"um":"Mensaje de {a}, contacto de seguridad: está bien. El mensaje desaparece en 24 horas.","vezes":"Mensaje de {a}, contacto de seguridad: está bien. El mensaje desaparece en 24 horas.","varios":"Mensajes de tus contactos de seguridad: están bien.","anonimo":"Mensaje de un contacto de seguridad: está bien. El mensaje desaparece en 24 horas.","anonimoVarios":"Mensajes de tus contactos de seguridad: están bien."},
+    "detido": {"um":"Mensaje urgente de {a}, contacto de seguridad: lo detuvieron. Abre el Modo acto para ver qué hacer.","vezes":"Mensaje urgente de {a}, contacto de seguridad: lo detuvieron. Abre el Modo acto para ver qué hacer.","varios":"Mensajes urgentes de contactos de seguridad: los detuvieron. Abre el Modo acto para ver qué hacer.","anonimo":"Mensaje urgente de un contacto de seguridad: lo detuvieron. Abre el Modo acto para ver qué hacer.","anonimoVarios":"Mensajes urgentes de contactos de seguridad: los detuvieron. Abre el Modo acto para ver qué hacer."}
   },
   "prefs": {
     "titulo": "Cómo quieres que te avisemos",
@@ -47,7 +50,10 @@
         "ajudou": "Cuando tu respuesta ayudó (nunca quién la marcó)",
         "ato": "Actos que sigues (faro, cadena, consulta)",
         "reacao_story": "Reacciones a tus historias (nunca quién reaccionó)",
-        "lembrete": "Recordatorios: los que marcaste y los de los actos que confirmaste"
+        "lembrete": "Recordatorios: los que marcaste y los de los actos que confirmaste",
+        "marcacao": "Etiquetas en publicaciones con imagen (incluso las que esperan tu aprobación)",
+        "estou_bem": "Mensajes “Estoy bien” de tus contactos de seguridad",
+        "detido": "Mensajes “Me detuvieron” de tus contactos de seguridad"
       }
     },
     "resumo": {
@@ -57,7 +63,8 @@
       "ver": "Ver qué se enviaría ahora",
       "nada": "Nada que enviar ahora: no tienes avisos nuevos.",
       "fechar": "Cerrar la vista previa",
-      "precisaEntrar": "Para recibir correo de Alumia, primero entra en Alumia (18 años o más, con las normas aceptadas)."
+      "precisaEntrar": "Para recibir correo de Alumia, primero entra en Alumia (18 años o más, con las normas aceptadas).",
+      "outro": "Es un correo. El resumen de las comunidades (títulos públicos de las comunidades que elijas) es otro, que se activa aparte en Seguridad > Puentes."
     },
     "push": {
       "titulo": "Aviso en el celular",
@@ -72,6 +79,17 @@
       "ios": "En iPhone y iPad, primero añade el sitio a la pantalla de inicio (Compartir → Añadir a pantalla de inicio) y ábrelo desde allí.",
       "naoConfigurado": "El aviso en el celular todavía no está activado en este sitio.",
       "precisaEntrar": "Para recibir avisos en el celular, primero entra en Alumia (18 años o más, con las normas aceptadas)."
+    },
+    "silencio": {
+      "titulo": "Horario de silencio",
+      "descricao": "En ese horario el celular no suena por Alumia. Los avisos esperan y llegan juntos, en un solo aviso, cuando el horario termina. El aviso sigue sin nombres ni fragmentos de publicaciones.",
+      "inicio": "Empieza a las",
+      "fim": "Termina a las",
+      "salvar": "Guardar el horario",
+      "tirar": "Quitar el horario de silencio",
+      "ligado": "Silencio de {inicio} a {fim}.",
+      "desligado": "Sin horario de silencio: el aviso llega a cualquier hora.",
+      "igual": "El inicio y el fin deben ser distintos."
     }
   },
   "servidor": {

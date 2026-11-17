@@ -19,6 +19,9 @@ import { useIndice } from "@/components/estudo/indice";
 import { AcoesDeCuidado } from "../moderacao/NoCartao";
 import { CartaoDaAlumia2 } from "../publicar/alumia2/CartaoDaAlumia2";
 import { useAlumia2 as useCascaNova } from "../publicar/alumia2/contexto";
+import { postCifrado } from "../publicar/restrito/grupo";
+import { TextoDoGrupo } from "../publicar/restrito/NaTela";
+import { useTextosDoRestrito } from "../publicar/restrito/textos";
 import { Avatar16 } from "../ui/Avatar16";
 
 /** A Alumia nova está ligada nesta página? Vem do layout por contexto (./Alumia2.tsx), com a decisão do servidor. */
@@ -408,6 +411,9 @@ export function PostCompacto({
   const [cuidado, setCuidado] = useState(false);
   const idDoCuidado = useId();
   const com = useComunidadeDoPost(comComunidade ? post.comunidade : null);
+  // Post restrito cifrado (P21): o texto abre neste aparelho, com a chave do grupo.
+  const cifrado = postCifrado(post);
+  const tr = useTextosDoRestrito(lang, cifrado);
   const handle = post.org?.handle ?? post.autor.handle ?? "";
   const respostas = post.respostas === 1 ? t.comum.respostaUma : preencher(t.comum.respostas, { n: post.respostas });
   const salvar = async () => {
@@ -461,12 +467,29 @@ export function PostCompacto({
           </span>
         </p>
         {post.titulo && <p className="al3-post-texto"><strong>{post.titulo}</strong></p>}
-        <p className="al3-post-texto">
-          <Link href={enderecos.post(lang, post.id)}>{post.texto}</Link>
-        </p>
+        {cifrado ? (
+          <TextoDoGrupo
+            post={post}
+            t={tr}
+            previa={previaDaAlumiaLigada()}
+            mostrar={(claro) => (
+              <p className="al3-post-texto">
+                <Link href={enderecos.post(lang, post.id)}>{claro}</Link>
+              </p>
+            )}
+          />
+        ) : (
+          <p className="al3-post-texto">
+            <Link href={enderecos.post(lang, post.id)}>{post.texto}</Link>
+          </p>
+        )}
         {post.cita && <CartaoDeAula lang={lang} cita={post.cita} t={t} />}
         <div className="al3-post-acoes">
-          <Link href={enderecos.post(lang, post.id)} className="al3-acao">{respostas}</Link>
+          <Link href={enderecos.post(lang, post.id)} className="al3-acao">
+            {/* Com "ocultar números" (Aparência e leitura) a contagem dá lugar a "Responder". */}
+            <span data-al-numero="">{respostas}</span>
+            <span data-al-sem-numero="">{t.comum.responder}</span>
+          </Link>
           <BotaoAcender t={t} logado={logado} {...acoes} />
           <BotaoSalvar t={t} logado={logado} {...acoes} salvar={salvar} />
         </div>

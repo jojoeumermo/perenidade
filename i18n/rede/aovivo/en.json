@@ -1,0 +1,121 @@
+{
+  "titulo": "Live questions",
+  "chamada": "Scheduled \"Ask…\": the invited person answers in text, in the order the questions arrived. Nobody votes on questions.",
+  "carregando": "Loading…",
+  "erroCarregar": "Could not load right now.",
+  "tentar": "Try again",
+  "voltar": "Back to live questions",
+  "agenda": {
+    "agora": "Live now",
+    "proximas": "In the next 14 days",
+    "convites": "Invitations for you to answer",
+    "vazioAgora": "No session live right now.",
+    "vazioProximas": "No session scheduled in the next 14 days.",
+    "abrir": "Open the session",
+    "aceitar": "Accept and answer",
+    "recusar": "Decline",
+    "aceito": "Invitation accepted. The session shows up for whoever can see the question box.",
+    "recusado": "Invitation declined.",
+    "comoMarcar": "To schedule a session, open your question box on your profile, or the one of the community you moderate."
+  },
+  "momento": {
+    "antes": "Scheduled",
+    "ao_vivo": "Live",
+    "encerrada": "Ended",
+    "convite": "Invitation",
+    "recusada": "Declined",
+    "cancelada": "Cancelled"
+  },
+  "sessao": {
+    "pergunteA": "Ask {nome}",
+    "naComunidade": "in the {nome} community",
+    "quando": "{dia}, from {inicio} to {fim}",
+    "perguntas": "{n} questions",
+    "regra": "Questions come in the order they arrive and are answered in that order. Nobody votes to jump the queue.",
+    "quemPerguntou": "Who asked only shows if they wanted. One day after the end, Alumia forgets who asked each question.",
+    "aguarde": "The session starts {quando}. You can already send a question.",
+    "encerrada": "This session is over. The answers stay here.",
+    "cancelar": "Cancel the session",
+    "cancelarConfirmar": "Cancel the session? Its questions go away too.",
+    "cancelada": "Session cancelled."
+  },
+  "perguntar": {
+    "rotulo": "Your question",
+    "mostrarNome": "Show my alias with the question",
+    "enviar": "Send question",
+    "enviada": "Question in the queue.",
+    "contador": "{n} of {max}",
+    "entrar": "Sign in to ask."
+  },
+  "fila": {
+    "titulo": "The questions, in order of arrival",
+    "vazia": "No questions yet.",
+    "posicao": "#{n}",
+    "daVez": "Up now",
+    "esperando": "Queued",
+    "respondida": "Answered",
+    "passada": "Passed",
+    "retirada": "Removed by moderation",
+    "alguem": "Someone asked",
+    "perguntou": "{quem} asked",
+    "minha": "Your question",
+    "retirarMinha": "Withdraw mine",
+    "retiradaMinha": "Your question left the queue."
+  },
+  "responder": {
+    "titulo": "You answer now",
+    "explica": "You answer or pass the first question in the queue. The next one shows up right after.",
+    "rotulo": "Your answer",
+    "publicar": "Answer",
+    "passar": "Pass this one",
+    "respondida": "Answer published.",
+    "passou": "Question passed.",
+    "antes": "You answer from the start of the session.",
+    "nada": "The queue is empty. When a question arrives, it shows up here."
+  },
+  "moderar": {
+    "retirar": "Remove",
+    "motivo": "Reason",
+    "confirmar": "Remove the question",
+    "feito": "Question removed.",
+    "desistir": "Keep it",
+    "motivos": {
+      "ofensa": "offensive",
+      "dado_pessoal": "personal data",
+      "fora_do_tema": "off topic",
+      "repetida": "repeated"
+    }
+  },
+  "caixa": {
+    "titulo": "Live",
+    "nenhuma": "No session scheduled.",
+    "marcar": "Schedule a live session",
+    "tituloRotulo": "Topic",
+    "inicioRotulo": "Starts at",
+    "duracaoRotulo": "Duration",
+    "minutos": "{n} minutes",
+    "convidadaRotulo": "Who answers (the @ of the person you invite)",
+    "convidadaAjuda": "The person gets an invitation and the session only shows up after they accept.",
+    "salvar": "Schedule",
+    "marcada": "Session scheduled.",
+    "convidada": "Invitation sent. The session shows up when the person accepts.",
+    "limite": "Up to {n} upcoming sessions per box."
+  },
+  "erros": {
+    "entre_primeiro": "Sign in first.",
+    "consentimento": "Only people on Alumia can do this.",
+    "sem_permissao": "You can't do this here.",
+    "nao_encontrado": "We couldn't find this session.",
+    "travado": "This session no longer takes questions.",
+    "dado_pessoal": "Remove the personal data (phone, email, ID or address) and send again.",
+    "muitos_pedidos": "You already have the maximum waiting. Wait for an answer before sending another.",
+    "fila_cheia": "This session's queue is full.",
+    "fora_da_vez": "This is not the question up now. The screen was refreshed.",
+    "fora_do_horario": "Outside the session's time.",
+    "invalido": "Check what you filled in.",
+    "conta_suspensa": "Your account is suspended.",
+    "alumia_entrada": "This opens after your entry to Alumia is approved.",
+    "desligado": "Live sessions are turned off right now.",
+    "outro": "Something went wrong. Try again."
+  }
+}

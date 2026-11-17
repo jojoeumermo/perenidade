@@ -1,0 +1,110 @@
+{
+  "titulo": "Protection against attacks",
+  "chamada": "For when a post of yours becomes a target: close the door for a while, fold away whoever keeps pushing and choose who can talk to you.",
+  "carregando": "Reading your protection…",
+  "erro": "Could not save right now. Try again in a moment.",
+  "erroAoLer": "Could not read your protection right now. Try again in a moment.",
+  "blindagem": {
+    "rotulo": "Protected mode",
+    "texto": "For a while, only people you follow can reply to your posts, mention you and quote you. People you don't follow can still read, but they don't join the conversation.",
+    "ligar24": "Turn on for 24 hours",
+    "ligar7": "Turn on for 7 days",
+    "ligada": "On until {quando}",
+    "ligadaTexto": "Only people you follow can reply, mention and quote. It turns itself off when the time is up.",
+    "desligar": "Turn off now",
+    "ligou": "Protected mode on until {quando}.",
+    "desligou": "Protected mode turned off."
+  },
+  "mencao": {
+    "rotulo": "Who can mention me",
+    "texto": "A mention from someone who can't stays written in their post, but it doesn't reach you and doesn't show up in your mentions.",
+    "opcoes": {
+      "todos": "Everyone on Alumia",
+      "seguindo": "Only people I follow",
+      "ninguem": "Nobody"
+    },
+    "salvo": "Choice saved."
+  },
+  "marcacao": {
+    "rotulo": "Tags in photos",
+    "texto": "Nobody tags you without your choice. Posts about an action never have tags, and Alumia does not recognize faces.",
+    "quem": "Who can tag me",
+    "opcoes": {
+      "ninguem": "Nobody",
+      "seguindo": "Only people I follow",
+      "todos": "Everyone on Alumia"
+    },
+    "aprovar": "Approve before it shows",
+    "aprovarTexto": "The tag only shows on the post after you accept it.",
+    "pendentes": "Waiting for your approval",
+    "nenhuma": "No tags waiting for you.",
+    "de": "{codinome} wants to tag you",
+    "aceitar": "Accept",
+    "recusar": "Decline",
+    "aceitou": "Tag accepted: it now shows on the post.",
+    "recusou": "Tag declined: it doesn't show and can't be made again on that post.",
+    "naFoto": "In the photo",
+    "tirarMinha": "Remove my tag",
+    "tirou": "Your tag was removed from the post.",
+    "voceFoiMarcada": "Someone asked to tag you in this post."
+  },
+  "restringir": {
+    "rotulo": "Restricted people",
+    "texto": "Lighter than blocking: the person can still reply, but in your conversations their reply stays folded, marked “waiting for the conversation owner”. They see the mark on their own reply; you open it with a tap and release it if you want. Their replies, mentions and quotes don't become notifications for you.",
+    "campo": "@ of the person you want to restrict",
+    "botao": "Restrict",
+    "nenhuma": "You haven't restricted anyone.",
+    "desde": "since {quando}",
+    "tirar": "Stop restricting",
+    "restringiu": "Replies from {handle} are now folded in your conversations.",
+    "tirou": "Replies from {handle} show like everyone else's again.",
+    "naoAchou": "We couldn't find that @ on Alumia.",
+    "propria": "You can't restrict your own account."
+  },
+  "cartao": {
+    "restringir": "Restrict {handle}",
+    "tirarRestricao": "Stop restricting {handle}",
+    "soltar": "Detach my post from this quote",
+    "soltarConfirma": "The quoting post stays up, but without your post inside, and that person won't be able to quote it again.",
+    "soltarSim": "Detach",
+    "soltou": "Your post was detached from the quote.",
+    "liberar": "Release this reply",
+    "recolher": "Fold it again",
+    "liberou": "Reply released: everyone can read it now.",
+    "recolheu": "Reply folded again.",
+    "aguardando": "Waiting for the conversation owner",
+    "aguardandoOutros": "This reply is folded until the conversation owner decides.",
+    "aguardandoAutora": "Your reply is waiting for the conversation owner. For other people, it shows folded.",
+    "aguardandoDona": "Reply from someone you restricted. Only you can open it.",
+    "mostrar": "Show",
+    "esconder": "Fold",
+    "solta": "The author of the quoted post detached it from this quote.",
+    "cancelar": "Cancel"
+  },
+  "link": {
+    "rotulo": "Suspicious link warning",
+    "texto": "Before opening an outside link, Alumia checks the address against an open list of scam patterns, right here on your device. The address is not sent to anyone. This is the list:",
+    "titulo": "Check this link before opening it",
+    "vaiPara": "This link goes to",
+    "porque": "What triggered the warning:",
+    "motivos": {
+      "perigo": "The link runs code or opens embedded content instead of going to a page.",
+      "numero": "The address is a number, with no site name: common in scams.",
+      "alfabeto": "The site name uses letters from another alphabet that imitate ours.",
+      "encurtador": "It's a shortened link: the destination only appears after the click.",
+      "arroba": "There is an @ before the address: what comes before it is decoration, the real site comes after.",
+      "imitacao": "The name imitates a government service or the Institute, but the site is a different one.",
+      "terminacao": "The address ends like a file name (.zip, .mov), which is confusing.",
+      "sem_cadeado": "The link doesn't use a secure connection (no padlock): what you type there can be read along the way."
+    },
+    "voltar": "Go back",
+    "abrir": "Open anyway",
+    "naoAbre": "This kind of link doesn't open from Alumia.",
+    "antesDePublicar": "A link in your post triggers the suspicious link warning: {motivos}. Readers will see the warning before opening it. Check that it's the right address. Tapping Post again sends it anyway."
+  },
+  "topo": {
+    "protegida": "Protected mode until {quando}",
+    "pendentes": "Tags waiting for your approval",
+    "ver": "See"
+  }
+}

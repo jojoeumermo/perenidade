@@ -38,7 +38,7 @@
     "visitante": "Visiteur",
     "entrar": "Entrer dans Alumia",
     "sairRapido": "Sortie rapide",
-    "sairRapidoAjuda": "Efface ce qu’Alumia a gardé sur cet appareil et ouvre une page ordinaire extérieure (la météo), sans rien de l’Institut.",
+    "sairRapidoAjuda": "Se déconnecte sur cet appareil, efface ce qu’Alumia y a gardé, y compris les clés de la messagerie privée et des groupes, et ouvre une page ordinaire extérieure (la météo), sans rien de l’Institut.",
     "sairDaConta": "Se déconnecter",
     "voltarAoSite": "Retour au site",
     "cuidados": "Précautions",
@@ -50,7 +50,10 @@
     "acessibilidade": "Accessibilité",
     "ajuda": "Questions fréquentes",
     "seguranca": "Sécurité",
-    "verPerfil": "Voir votre profil"
+    "verPerfil": "Voir votre profil",
+    "aparencia": "Apparence et lecture",
+    "series": "Publications récurrentes",
+    "temas": "Sujets suivis"
   },
   "linha": {
     "titulo": "Accueil",
@@ -93,6 +96,7 @@
     "copiado": "Lien copié.",
     "mais": "Plus d’actions",
     "doFediverso": "du Fédivers · {servidor}",
+    "seloTitulo": "Du Fédivers : ce compte est sur {servidor}, un serveur en dehors d'Alumia.",
     "orgVerificada": "Organisation vérifiée",
     "regraDoSelo": "Le badge dit que le compte appartient à qui il prétend être, vérifié par un document public. Ce n’est pas un soutien de l’Institut.",
     "aula": "Cours de l’Instituto Lúcia",
@@ -195,7 +199,7 @@
     "fediTexto": "Des gens de Mastodon, Lemmy et Misskey vous suivent et répondent ici même, dans le même fil. Votre adresse :",
     "fediSemNome": "Choisissez un @nom sur votre profil pour avoir votre adresse.",
     "fediVer": "Comment ça marche",
-    "rodape": "Ordre d’arrivée · sans pub · sans pistage · toujours un pseudonyme"
+    "rodape": "Règle ouverte · sans pub · sans pistage · pseudonyme par défaut"
   },
   "previa": {
     "aviso": "Aperçu avec des données d’exemple. Rien ici n’est réel et rien n’est publié.",
@@ -341,5 +345,36 @@
     "texto": "Cette adresse n'existe pas sur Alumia, ou la publication a été retirée. Votre fil est toujours au même endroit.",
     "voltar": "Retour à l'accueil d'Alumia",
     "buscar": "Rechercher"
+  },
+  "visibilidade": {
+    "eu": "Moi seul·e",
+    "euAjuda": "Privé : vous seul·e le voyez. Il ne sort pas d’Alumia.",
+    "roda": "Ami·es proches",
+    "rodaAjuda": "Seulement les personnes de votre cercle de confiance. Personne n’est prévenu d’y être ajouté. Il ne sort pas d’Alumia.",
+    "seguidores": "Abonné·es",
+    "seguidoresAjuda": "Seulement les personnes qui vous suivent sur Alumia. Il ne sort pas d’Alumia.",
+    "membros": "Tout Alumia",
+    "membrosAjuda": "Les personnes qui ont un compte Alumia. Il reste uniquement ici : il ne va ni au Fediverse ni ailleurs.",
+    "internet": "Alumia et le Fediverse",
+    "internetAjuda": "N’importe qui sur le Fédivers (Mastodon, Lemmy et d’autres) peut le voir et le partager ; les personnes qui vous suivent le reçoivent. Il sort d’Alumia.",
+    "internetComunidade": "Ouvert sur internet et le Fediverse",
+    "internetComunidadeAjuda": "N’importe qui, même sans compte, et le Fediverse. Il sort d’Alumia.",
+    "comunidade": "Seulement la communauté",
+    "comunidadeAjuda": "Seulement les membres de cette communauté. Il ne sort pas d’Alumia.",
+    "comunidadeFechadaAjuda": "Seulement les membres de cette communauté, et il est chiffré : même le serveur ne le lit pas. Il ne sort pas d’Alumia.",
+    "equipe": "Seulement l’équipe",
+    "equipeAjuda": "Seulement l’équipe de l’institut. Il ne sort pas d’Alumia.",
+    "ficaNaAlumia": "Reste sur Alumia",
+    "saiDaAlumia": "Sort d’Alumia",
+    "desligadaNoPerfil": "Votre profil n’est pas encore sur le Fediverse. Activez-le dans Profil, Fediverse, pour utiliser cette option.",
+    "impedida": "Votre profil ne peut pas sortir sur le Fediverse pour l’instant (sans @nom, invisible ou suspendu).",
+    "avisoFediverso": "Ce post sort d’Alumia. D’autres serveurs du Fediverse peuvent en garder une copie, et le supprimer ici plus tard ne garantit pas qu’il disparaisse là-bas.",
+    "fediversoDesligado": "Le Fediverse n’est pas encore activé sur Alumia : pour l’instant, rien de ce que vous publiez sur votre profil ne sort d’ici.",
+    "mencionadosCifrado": "Post chiffré avec « seulement les personnes que je mentionne » : pour savoir qui peut répondre, les @ mentionnés partent en clair vers le serveur. Seulement les noms ; le texte reste chiffré.",
+    "mencionadosLista": "Envoyés avec : {lista}",
+    "mencionadosNinguem": "Vous n’avez mentionné personne avec @ : vous seul·e pourrez répondre.",
+    "maisFerramentas": "Il y a d’autres outils : faites défiler sur le côté",
+    "internetPresa": "Alumia seulement (ne sort pas)",
+    "naoSaiComVida": "Avec « Non listé » ou « Disparaît », ce post ne sort pas d’Alumia : il reste uniquement ici."
   }
 }

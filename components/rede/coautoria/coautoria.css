@@ -1,0 +1,136 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/* Assinar junto e reagir (onda 12, frente 12C), no Mosaico da Arquibancada: carimbo, ladrilhos e a faixa tecida no painel. Só
+   tokens da Alumia (claro e escuro); nenhuma cor escrita à mão. */
+
+.co-anexo { margin-top: 0.6rem; display: grid; gap: 0.5rem; min-width: 0; }
+.co-oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.co-texto { margin: 0; color: var(--al-texto-2); font-size: 0.88rem; line-height: 1.5; }
+.co-forte { color: var(--al-texto); font-weight: 700; }
+.co-linha { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem 0.6rem; }
+
+/* Ladrilhos do mosaico (três, nas cores da casa). */
+.co-ladrilhos { display: inline-flex; gap: 2px; flex: none; }
+.co-ladrilhos i { width: 8px; height: 8px; border-radius: 2px; background: var(--al-vermelho); }
+.co-ladrilhos i:nth-child(2) { background: var(--al-dourado); }
+.co-ladrilhos i:nth-child(3) { background: var(--al-texto); }
+
+/* "Assinado junto com…" */
+.co-assinado { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.55rem; margin: 0; color: var(--al-texto); font-size: 0.9rem; font-weight: 700; }
+.co-assinado > span:not(.co-ladrilhos) { min-width: 0; overflow-wrap: anywhere; }
+
+/* O convite para quem foi chamada: borda tracejada dourada (o mesmo "aguardando" da proteção). */
+.co-convite {
+  display: grid; gap: 0.45rem; padding: 0.65rem 0.8rem; border-radius: 10px;
+  border: 1.5px dashed var(--al-dourado); background: color-mix(in srgb, var(--al-dourado) 8%, var(--al-superficie));
+}
+.co-convite-titulo { margin: 0; color: var(--al-texto); font-size: 1.05rem; letter-spacing: 0.03em; text-transform: uppercase; line-height: 1.1; }
+
+/* A fonte da autora: carimbo + link + selo do Vale o Escrito. */
+.co-fonte { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; margin: 0; font-size: 0.88rem; min-width: 0; }
+.co-carimbo {
+  display: inline-block; padding: 0.18em 0.5em 0.12em; border: 2px solid currentColor; border-radius: 5px; transform: rotate(-1.5deg);
+  color: var(--al-vermelho-letra, var(--al-vermelho-texto)); font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.1;
+}
+:root[data-eink] .co-carimbo { transform: none; }
+.co-link { color: var(--al-texto); text-decoration: underline; text-underline-offset: 2px; overflow-wrap: anywhere; min-width: 0; }
+.co-link:hover { color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+.co-vale {
+  display: inline-flex; align-items: center; gap: 0.3rem; min-height: 44px; padding: 0.15rem 0.55rem; border-radius: 999px;
+  background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 0.82rem; font-weight: 800; text-decoration: none;
+}
+.co-vale:hover { box-shadow: inset 0 0 0 2px var(--al-dourado); }
+.co-vale:focus-visible, .co-link:focus-visible { outline: 2px solid var(--al-foco, var(--al-dourado)); outline-offset: 2px; }
+
+/* "Fonte?": uma reação a mais, com o nome escrito. */
+.co-linha-fonte { gap: 0.5rem 0.75rem; }
+.co-chip {
+  display: inline-flex; align-items: center; gap: 0.4rem; min-height: 44px; padding: 0.25rem 0.75rem 0.25rem 0.35rem; border-radius: 999px;
+  border: 1.5px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); font: inherit; font-size: 0.85rem;
+  font-weight: 700; cursor: pointer;
+}
+.co-chip:hover { border-color: var(--al-dourado); }
+.co-chip:focus-visible { outline: 2px solid var(--al-foco, var(--al-dourado)); outline-offset: 2px; }
+.co-chip[aria-pressed="true"] { border-color: var(--al-dourado); background: color-mix(in srgb, var(--al-dourado) 14%, var(--al-superficie)); }
+.co-chip-marca {
+  display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 4px; background: var(--al-vermelho); color: var(--al-sobre-vermelho);
+  font-weight: 900; font-size: 0.9rem; line-height: 1;
+}
+.co-chip[aria-pressed="true"] .co-chip-marca { background: var(--al-dourado-fundo, var(--al-dourado)); color: var(--al-sobre-dourado); }
+.co-pedidos { color: var(--al-texto-2); font-size: 0.85rem; font-weight: 700; }
+
+/* Os botões. */
+.co-botao {
+  min-height: 44px; padding: 0.3rem 0.75rem; border-radius: 8px; border: 1.5px solid var(--al-superficie-2); background: var(--al-superficie);
+  color: var(--al-texto); font: inherit; font-size: 0.85rem; font-weight: 700; cursor: pointer;
+}
+.co-botao:hover:not(:disabled) { border-color: var(--al-dourado); }
+.co-botao:focus-visible { outline: 2px solid var(--al-foco, var(--al-dourado)); outline-offset: 2px; }
+.co-botao:disabled { opacity: 0.55; cursor: default; }
+/* O vermelho de fundo onde vai texto pequeno (--al-vermelho-texto: branco em cima dá 5,1:1); no hover só escurece, nos dois temas. */
+.co-botao-cheio { border-color: var(--al-vermelho-texto); background: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); }
+.co-botao-cheio:hover:not(:disabled) { border-color: var(--al-vermelho-texto); filter: brightness(0.88); }
+.co-botao-leve { min-height: 44px; padding: 0.15rem 0.55rem; font-size: 0.8rem; background: transparent; }
+/* 44 px sempre (no computador também: tela de toque com mouse, mão que treme). */
+
+/* O painel da autora (assinar junto, fonte, marcar): faixa tecida no alto. */
+.co-painel {
+  position: relative; display: grid; gap: 0.55rem; padding: 1rem 0.9rem 0.85rem; border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--al-linha); background: var(--al-fundo);
+}
+.co-painel::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 5px;
+  background: repeating-linear-gradient(90deg, var(--al-vermelho) 0 22px, var(--al-dourado) 22px 30px, var(--al-fundo) 30px 34px);
+}
+.co-painel-alto { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.co-painel-titulo { margin: 0; color: var(--al-texto); font-size: 1.2rem; letter-spacing: 0.03em; text-transform: uppercase; line-height: 1.05; }
+.co-form { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.45rem; }
+.co-form label { flex: 1 1 100%; color: var(--al-texto); font-size: 0.86rem; font-weight: 700; }
+.co-form-coluna { display: grid; gap: 0.35rem; }
+.co-form-coluna .co-linha { margin-top: 0.35rem; }
+.co-campo {
+  flex: 1 1 12rem; min-width: 0; min-height: 44px; padding: 0.5rem 0.75rem; border-radius: 10px;
+  border: 1.5px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); font: inherit; font-size: 0.95rem;
+}
+.co-campo:focus-visible { outline: 2px solid var(--al-foco, var(--al-dourado)); outline-offset: 1px; }
+.co-campo[aria-invalid="true"] { border-color: var(--al-vermelho); }
+.co-form .co-botao { min-height: 44px; }
+.co-dica { color: var(--al-texto-3); font-size: 0.8rem; line-height: 1.4; }
+
+/* Listas da própria pessoa (convites sem resposta, marcações esperando, convites recebidos). */
+.co-lista { display: grid; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+.co-item {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.75rem; padding: 0.5rem 0.7rem; border-radius: 10px;
+  background: var(--al-superficie); border: 1px solid var(--al-linha);
+}
+.co-item > span:first-child, .co-item > div:first-child { flex: 1 1 10rem; min-width: 0; }
+.co-item strong { color: var(--al-texto); font-size: 0.9rem; }
+.co-item small { display: block; color: var(--al-texto-3); font-size: 0.8rem; }
+.co-item p { margin: 0.2rem 0; color: var(--al-texto-2); font-size: 0.86rem; overflow-wrap: anywhere; }
+.co-item-estado {
+  padding: 0.15em 0.5em; border-radius: 5px; background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 0.75rem; font-weight: 800;
+}
+
+.co-nota { margin: 0; color: var(--al-texto-2); font-size: 0.85rem; font-weight: 600; }
+.co-nota[data-erro] { color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+
+/* No alto do Início. */
+.co-topo {
+  display: grid; gap: 0.5rem; margin: 0 0 0.6rem; padding: 0.55rem 0.8rem; border-radius: 10px;
+  border: 1.5px solid var(--al-dourado); background: var(--al-superficie); color: var(--al-texto);
+}
+.co-topo-alto { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.75rem; }
+.co-topo-frase { flex: 1 1 14rem; min-width: 0; margin: 0; font-size: 0.92rem; font-weight: 700; }
+
+/* A checagem do Vale o Escrito dentro da nota de contexto (components/rede/conversa/NotasDeContexto.tsx). */
+.co-nota-vale { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; margin-top: 0.4rem; }
+
+/* No celular (abaixo de ~480 px), o convite do alto do Início empilha: o texto na largura toda e Aceitar e Recusar embaixo, em
+   vez de espremer o título e o trecho numa coluna estreita ao lado dos botões. */
+@media (max-width: 30rem) {
+  .co-item-convite { display: grid; gap: 0.5rem; }
+  .co-item-convite > .co-linha .co-botao { flex: 1 1 8rem; }
+}
+
+/* O erro da checagem do Vale o Escrito embaixo do campo, na nota de contexto (components/rede/conversa/NotasDeContexto.tsx). */
+.b1-painel .b1-cinza[data-erro] { color: var(--al-vermelho-letra, var(--al-vermelho-texto)); font-weight: 700; }
+.b1-painel .b1-campo[aria-invalid="true"] { border-color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }

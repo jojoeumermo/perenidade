@@ -21,7 +21,8 @@
     "assedio": { "rotulo": "骚扰或跟踪", "ajuda": "对某人纠缠不休、羞辱或迫害。" },
     "golpe": { "rotulo": "诈骗", "ajuda": "企图欺骗他人以获取钱财或数据。" },
     "spam": { "rotulo": "广告或重复刷屏", "ajuda": "重复的消息，或不合时宜的销售与宣传。" },
-    "outro": { "rotulo": "其他原因", "ajuda": "违反 Alumia 规则但不在以上选项中的内容。" }
+    "outro": { "rotulo": "其他原因", "ajuda": "违反 Alumia 规则但不在以上选项中的内容。" },
+    "ilegal": { "rotulo": "违法内容", "ajuda": "犯罪或法律禁止的内容。24 小时内答复。" }
   },
   "prioridade": { "1": "优先级 1", "2": "优先级 2", "3": "优先级 3" },
   "denunciar": {
@@ -38,7 +39,18 @@
     "retido": "出于谨慎，该帖子已被暂扣，直到管理员阅读举报。",
     "acompanhe": "你可以在“通知”和“举报与申诉”中查看进展。",
     "acompanhar": "查看我的举报",
-    "visitante": "没有账号？请使用网站的“举报”页面：公开内容同样会进入队列。"
+    "visitante": "没有账号？请使用网站的“举报”页面：公开内容同样会进入队列。",
+    "cifrado": {
+      "titulo": "这条帖子是加密的",
+      "grupoPequeno": "在小群组里，作者可能推断出举报来自群组里的某个人：只有群组成员才能打开这条帖子。",
+      "abrindo": "正在此设备上打开帖子…",
+      "naoAbre": "这条帖子无法在此设备上打开。审核方没有群组密钥：举报将不含内容，只有类别和你写的话。",
+      "mandar": "以明文向审核方发送一段摘录",
+      "custo": "注意：审核方会读到这段摘录；其余部分仍然加密。摘录会脱离加密，并与举报一起保存。",
+      "semTrecho": "没有摘录，举报将不含内容：审核方没有群组密钥，只能看到类别和你写的话。",
+      "rotulo": "摘录（删去不需要的部分，最多 1000 个字符）",
+      "foraDoPost": "摘录必须出自帖子，用词相同。可以删减，但不要改写。"
+    }
   },
   "silenciar": {
     "titulo": "静音",
@@ -96,7 +108,7 @@
     "abrir": "打开",
     "alvo": { "post": "帖子", "perfil": "个人主页", "comunidade": "社区" },
     "situacao": { "aberta": "未结", "em_analise": "审核中", "resolvida": "已解决", "descartada": "已驳回" },
-    "autor": "作者：{nome}（等级 {nivel}）",
+    "autor": "作者：{nome}（{nivel}）",
     "procedentes": "最近 90 天成立的处理决定：{n}",
     "historico": "此对象上已做过的处理",
     "descartar": "未违规：驳回",
@@ -106,7 +118,9 @@
     "liberar": "放行（恢复）",
     "vazia": "此列表中没有举报。",
     "vazioRetidos": "没有等待阅读的帖子。",
-    "abrirRetido": "处理"
+    "abrirRetido": "处理",
+    "aberto": "举报人在自己设备上打开并以明文发送的摘录。由该举报人提供：Alumia 无法与仍然加密的帖子核对。",
+    "cifradoSem": "加密帖子：审核方没有群组密钥，举报未附内容。"
   },
   "recursos": {
     "titulo": "申诉",
@@ -121,11 +135,15 @@
     "vazio": "没有待处理的申诉。"
   },
   "lugares": {
-    "titulo": "慢速模式与屏蔽名单",
+    "titulo": "屏蔽名单",
     "escolha": "选择地点",
     "comunidade": "社区",
     "nucleo": "学习小组",
-    "outraComunidade": "其他社区（slug）",
+    "outraComunidade": "其他社区（地址）",
+    "listaAjudaComunidade": "人员：不能在这个社区发言。团队成员永远不会进入名单。",
+    "palavrasNoFiltro": "这个社区的词语和慢速模式在“社区”标签页的“自动过滤”里。",
+    "exemploPalavra": "例如：中奖领钱",
+    "exemploPessoa": "@名字",
     "lista": "屏蔽名单",
     "listaAjuda": "词语：帖子会被暂扣，由调解人阅读。人员：不能在此处发言。团队成员永远不会进入名单。",
     "palavra": "词语或短语",
@@ -180,6 +198,7 @@
     "noAparelho": "仅在此设备",
     "palavra": "静音一个词",
     "palavraDica": "词语或短语",
+    "dicaPalavra": "写下词语（至少 2 个字）才能静音。",
     "adicionar": "静音",
     "ate": "至 {data}",
     "tipo": { "pessoa": "人员", "conversa": "对话", "comunidade": "社区", "palavra": "词语" },
@@ -238,6 +257,159 @@
     "prazo_vencido": "30 天的申诉期限已过。",
     "recurso_ja_feito": "此决定已经有一份申诉。",
     "muitos_silenciados": "你已达到静音项目的上限（200）。",
-    "lista_cheia": "名单已达到 300 项的上限。"
+    "lista_cheia": "名单已达到 300 项的上限。",
+    "responda_perguntas": "这个社区在申请前会提问：请先回答再申请。"
+  },
+  "o9": {
+    "tempo": {
+      "s": "{n} 秒",
+      "min": "{n} 分钟",
+      "h": "{n} 小时"
+    },
+    "motivos": {
+      "automod_links": "社区过滤：链接太多",
+      "automod_dominio": "社区过滤：链接指向名单上的地址",
+      "automod_conta_nova": "社区过滤：新账号",
+      "recem_chegada": "新来者队列",
+      "lista_da_mediacao": "调解名单上的词",
+      "precaucao": "举报后的预防措施"
+    },
+    "prazo": {
+      "ate": "请在 {quando} 前回复",
+      "venceu": "已超过期限（{quando}）"
+    },
+    "automatica": "自动决定",
+    "nivelEmFrase": {"0": "新账号", "1": "近期账号", "2": "加入几周的成员", "3": "老的活跃账号", "4": "指定的负责人"},
+    "regras": {"precaucao_menor": "预防性保留：有举报说该账号属于未满 18 岁的人", "menor_de_18": "Alumia 只面向 18 岁及以上的人", "precaucao": "预防性保留，直到举报被阅读", "painel": "协调组通过面板作出的决定", "ninguem_exposto": "不让任何人被迫曝光"},
+    "conta": "账号：{nome}",
+    "ferramentas": {
+      "titulo": "照看社区",
+      "escolha": "社区",
+      "outra": "其他社区（地址）",
+      "nenhuma": "你还没有管理任何社区。"
+    },
+    "filtro": {
+      "titulo": "自动过滤",
+      "lead": "过滤只是把帖子留下，等管理员阅读。不会删除任何内容，作者能看到帖子在等待，规则也会显示给在这里发帖的人。",
+      "links": "每帖链接数",
+      "linksNada": "无规则（按等级上限）",
+      "linksZero": "所有带链接的帖子都要等待阅读",
+      "linksAcima": "超过 {n} 个要等待阅读",
+      "dominios": "需要等待阅读的地址",
+      "dominiosAjuda": "每行一个，例如 duan.example。子域名同样适用。",
+      "dominioRuim": "这看起来不像地址：{d}",
+      "contaNova": "新账号",
+      "contaNovaNada": "无规则",
+      "contaNovaDias": "注册不满 {n} 天的账号",
+      "novatos": "新来者队列",
+      "novatosNada": "关闭",
+      "novatosN": "前 {n} 个帖子",
+      "combinado": "新账号和队列同时开启时，只有新账号的前几个帖子要等待。只开新账号：它的所有帖子都要等待。只开队列：任何新来者的前几个帖子。",
+      "palavras": "词语",
+      "palavrasAjuda": "含有这些词之一的帖子要等待阅读。名单只属于管理员：发帖的人知道有名单，但不知道内容。",
+      "palavraNova": "词或短语",
+      "palavraPor": "加入名单",
+      "palavrasVazia": "名单里没有词。",
+      "explicacao": "用文字写下规则（在这里发帖的人会读到）",
+      "explicacaoDica": "例如：含有多个链接的帖子要等管理员阅读。不会删除任何内容。",
+      "salvar": "保存过滤",
+      "salvando": "正在保存…",
+      "salvo": "过滤已保存，规则已生效。"
+    },
+    "lento": {
+      "titulo": "慢速模式",
+      "ajuda": "每人每隔一段时间只能发一个帖子。管理员不用等待。写之前，大家能看到还剩多久。",
+      "desligado": "关闭",
+      "cada": "每 {tempo} 发 1 个帖子",
+      "feito": "慢速模式已更新。"
+    },
+    "brigada": {
+      "titulo": "围攻警报",
+      "ajuda": "当很多社区外的账号在短时间内回复同一个帖子时，只有管理员会收到警报。Alumia 不说是谁回复的，只说有多少个账号。",
+      "contas": "从多少个外部账号起（至少 3 个）",
+      "minutos": "在多少分钟内",
+      "alertas": "未关闭的警报",
+      "vazio": "没有未关闭的警报。",
+      "contasTexto": "{n} 个外部账号在 {min} 分钟内回复",
+      "atualizado": "最后计入的回复：{quando}",
+      "lentoConversa": "对这条讨论开 10 分钟慢速模式",
+      "lentoLigado": "已开启 {tempo} 慢速模式",
+      "travar": "锁定讨论",
+      "travada": "讨论已锁定",
+      "regraTravar": "围攻",
+      "motivoTravar": "短时间内有很多来自社区外账号的回复：管理员锁定了讨论，让它回到正轨。",
+      "encerrar": "关闭警报",
+      "encerrado": "警报已关闭。",
+      "feito": "完成，已记入管理记录。",
+      "verPost": "查看帖子"
+    },
+    "perguntas": {
+      "titulo": "入群问题",
+      "ajuda": "最多 3 个问题，给申请加入的人。只有管理员能读到回答，申请有了决定后回答就会消失。",
+      "pergunta": "问题 {n}",
+      "salvar": "保存问题",
+      "salvo": "问题已保存。",
+      "soRestrita": "只有需要申请加入的社区（受限社区）才提问。"
+    },
+    "pedidos": {
+      "titulo": "加入申请",
+      "vazio": "没有等待中的申请。",
+      "aceitar": "接受",
+      "recusar": "拒绝",
+      "semResposta": "在社区设置问题之前申请的。",
+      "aceito": "申请已接受，已通知对方。",
+      "recusado": "申请已拒绝，已通知对方。"
+    },
+    "responder": {
+      "titulo": "申请之前，管理员想问几个问题",
+      "ajuda": "只有这个社区的管理员能读到回答，申请有了决定后回答就会消失。",
+      "enviar": "申请加入",
+      "enviando": "正在发送…",
+      "cancelar": "取消"
+    },
+    "regras": {
+      "titulo": "这个社区如何管理",
+      "links0": "带链接的帖子要等管理员阅读。",
+      "linksN": "超过 {n} 个链接的帖子要等管理员阅读。",
+      "dominios": "指向这些地址的链接要等待阅读：{lista}。",
+      "contaNova": "注册不满 {n} 天的账号：帖子要等待阅读。",
+      "contaNovaFila": "注册不满 {dias} 天的账号：前 {n} 个帖子要等待阅读。",
+      "novatos": "新来者的前 {n} 个帖子要等待阅读。",
+      "palavras": "管理员有一份词语名单：含有其中一个词的帖子要等待阅读。",
+      "lento": "慢速模式：每 {tempo} 发 1 个帖子。",
+      "nada": "这里没有开启自动过滤。",
+      "nadaApaga": "过滤不会删除任何内容：管理员阅读后放行。",
+      "novata": "你在新来者队列中：你的下一个帖子会等管理员阅读。",
+      "falta": "你可以在 {tempo} 后再在这里发帖。"
+    },
+    "antes": {
+      "lento": "这个社区开启了慢速模式：你可以在 {tempo} 后再在这里发帖。",
+      "filtro": "这个帖子会等管理员阅读（{motivo}）。不会删除任何内容。"
+    },
+    "soneca": {
+      "titulo": "暂时静音",
+      "explica": "暂停：在一段时间内从你的动态中消失，之后自动回来。不会通知任何人。",
+      "pessoa": "暂时静音 {nome}",
+      "conversa": "暂时静音这条讨论",
+      "comunidade": "暂时静音这个社区",
+      "prazo": "多长时间",
+      "prazos": {
+        "1": "1 天",
+        "7": "1 周",
+        "30": "1 个月",
+        "sempre": "直到我取消"
+      },
+      "feito": "静音到 {data}。不会通知任何人。",
+      "feitoSempre": "已静音，直到你取消。不会通知任何人。",
+      "aparelhoSemPrazo": "只在这台设备上的静音没有期限：会一直保留到你取消。",
+      "comunidadeCampo": "暂时静音一个社区",
+      "comunidadeDica": "社区地址（例如 zhufang）",
+      "dicaComunidade": "写下社区地址才能开启暂停。"
+    },
+    "abas": {
+      "lei": "法律与期限",
+      "alertas": "围攻",
+      "comunidades": "社区"
+    }
   }
 }

@@ -1,0 +1,129 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ *
+ * O questionário de interesses (onda 11, 11F) na linguagem do Mosaico da Arquibancada: faixa tecida no alto, ladrilhos do caminho,
+ * título em Archivo condensada em caixa alta, opções como ladrilhos e pílulas. Só tokens: dentro da entrada valem os --ale-*,
+ * dentro da Alumia os --al-*; os dois seguem o tema da Alumia (claro e escuro). Nenhuma cor literal.
+ */
+.in-quadro,
+.in-ajustes {
+  --in-fundo: var(--ale-sup, var(--al-superficie));
+  --in-fundo-2: var(--ale-sup-2, var(--al-superficie-2));
+  --in-linha: var(--ale-linha, var(--al-linha));
+  --in-texto: var(--ale-texto, var(--al-texto));
+  --in-texto-2: var(--ale-texto-2, var(--al-texto-2));
+  --in-texto-3: var(--ale-texto-3, var(--al-texto-3));
+  --in-vermelho: var(--ale-vermelho, var(--al-vermelho));
+  /* O vermelho de fundo onde vai texto pequeno (branco em cima: 5,1:1), não o das pranchas (4,3:1). */
+  --in-botao: var(--ale-vermelho-texto, var(--al-vermelho-texto, var(--al-vermelho)));
+  --in-sobre-botao: var(--al-sobre-vermelho, var(--ale-texto));
+  --in-dourado: var(--ale-dourado, var(--al-dourado));
+  --in-foco: var(--ale-foco, var(--al-foco));
+  --in-fonte: var(--ale-fonte, var(--al-fonte));
+}
+.in-quadro {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 0 20px 20px;
+  overflow: hidden;
+  border: 1.5px solid var(--in-linha);
+  border-radius: 22px;
+  background: var(--in-fundo);
+  color: var(--in-texto);
+  font-family: var(--in-fonte);
+}
+.in-carregando { min-height: 280px; }
+.in-faixa {
+  height: 8px;
+  margin: 0 -20px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--in-vermelho) 0 18px,
+    var(--in-dourado) 18px 26px,
+    var(--in-texto) 26px 30px,
+    var(--in-vermelho) 30px 48px,
+    var(--in-fundo-2) 48px 54px
+  );
+}
+.in-cond {
+  font-family: var(--in-fonte);
+  font-stretch: 62%;
+  font-variation-settings: "wdth" 62;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+}
+.in-sr {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+.in-alto { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.in-ladrilhos { display: flex; gap: 5px; }
+.in-ladrilhos span { width: 22px; height: 22px; border-radius: 6px; border: 1.5px solid var(--in-linha); background: transparent; }
+.in-ladrilhos span[data-e="feito"] { background: var(--in-vermelho); border-color: var(--in-vermelho); }
+.in-ladrilhos span[data-e="agora"] { background: var(--in-dourado); border-color: var(--in-dourado); transform: rotate(-6deg); }
+.in-passo { font-size: 15px; color: var(--in-dourado); letter-spacing: 0.04em; }
+.in-pergunta { display: grid; gap: 10px; min-width: 0; margin: 0; padding: 0; border: 0; }
+.in-titulo { margin: 0; font-size: clamp(30px, 4.2vw, 44px); color: var(--in-texto); }
+.in-titulo:focus { outline: none; }
+.in-titulo:focus-visible { outline: 2px solid var(--in-foco); outline-offset: 4px; }
+.in-chamada { margin: 0; max-width: 62ch; font-size: 16px; line-height: 1.5; color: var(--in-texto-2); }
+.in-ajuda { margin: 0 0 4px; font-size: 15px; color: var(--in-texto-3); }
+
+.in-opcao { position: relative; display: flex; align-items: flex-start; gap: 10px; cursor: pointer; border: 1.5px solid var(--in-linha); background: var(--in-fundo-2); color: var(--in-texto); transition: border-color 120ms, background 120ms, transform 120ms; }
+.in-opcao input { flex: none; width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--in-vermelho); }
+.in-opcao:hover { border-color: var(--in-texto-3); }
+.in-opcao:focus-within { outline: 2px solid var(--in-foco); outline-offset: 2px; }
+.in-opcao[data-marcada] { border-color: var(--in-vermelho); box-shadow: inset 0 0 0 1.5px var(--in-vermelho); }
+
+.in-ladrilhos-grandes { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.in-ladrilhos-grandes.in-tres { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.in-opcao-grande { min-height: 76px; padding: 14px; border-radius: 16px; }
+.in-opcao-grande > span { display: grid; gap: 3px; min-width: 0; }
+.in-opcao-grande strong { font-size: 16px; line-height: 1.25; }
+.in-opcao-grande small { font-size: 14px; line-height: 1.4; color: var(--in-texto-3); }
+
+.in-pilulas { display: flex; flex-wrap: wrap; gap: 8px; }
+.in-pilula { align-items: center; min-height: 44px; padding: 8px 16px 8px 12px; border-radius: 999px; font-weight: 700; font-size: 15px; }
+.in-pilula input { margin: 0; width: 18px; height: 18px; }
+
+.in-resumo { display: grid; gap: 8px; font-size: 15px; line-height: 1.5; color: var(--in-texto-2); }
+.in-resumo p { margin: 0; }
+.in-resumo-rotulo { font-size: 16px; color: var(--in-dourado); letter-spacing: 0.03em; }
+.in-resumo-lista { display: grid; gap: 6px; margin: 0; padding-left: 18px; }
+.in-temas { display: inline-flex; flex-wrap: wrap; gap: 6px; vertical-align: middle; }
+.in-tema { padding: 2px 9px; border-radius: 999px; background: var(--in-fundo-2); border: 1px solid var(--in-linha); font-size: 13px; font-weight: 700; color: var(--in-texto); }
+.in-cinza { color: var(--in-texto-3); }
+.in-link { justify-self: start; color: var(--in-texto); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.in-link:focus-visible { outline: 2px solid var(--in-foco); outline-offset: 2px; }
+
+.in-aparelho { display: flex; align-items: flex-start; gap: 8px; margin: 0; padding: 10px 12px; border-radius: 12px; border: 1px dashed var(--in-linha); font-size: 13.5px; line-height: 1.45; color: var(--in-texto-3); }
+.in-aparelho svg { flex: none; margin-top: 2px; color: var(--in-dourado); }
+
+.in-botoes { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.in-botao { min-height: 44px; padding: 0 20px; border-radius: 999px; font: inherit; font-weight: 800; font-size: 15px; cursor: pointer; border: 1.5px solid transparent; }
+.in-botao:focus-visible { outline: 2px solid var(--in-foco); outline-offset: 2px; }
+.in-botao-cheio { background: var(--in-botao); color: var(--in-sobre-botao); border-color: var(--in-botao); }
+.in-botao-contorno { background: transparent; color: var(--in-texto); border-color: var(--in-texto-3); }
+.in-botao-texto { background: transparent; color: var(--in-texto-2); padding: 0 10px; text-decoration: underline; text-underline-offset: 3px; }
+.in-pular { margin-left: auto; }
+
+@media (max-width: 520px) {
+  .in-quadro { padding: 0 14px 16px; gap: 14px; }
+  .in-faixa { margin: 0 -14px; }
+  .in-ladrilhos-grandes, .in-ladrilhos-grandes.in-tres { grid-template-columns: 1fr; }
+  .in-opcao-grande { min-height: 0; }
+  .in-pular { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .in-opcao, .in-ladrilhos span { transition: none; transform: none; }
+}
+
+/* Ajustes: o resumo sem a faixa, os botões e as notas. */
+.in-ajustes { display: grid; gap: 12px; color: var(--in-texto); font-family: var(--in-fonte); }
+.in-ajustes-texto, .in-ajustes-nota, .in-ajustes-aviso { margin: 0; font-size: 14.5px; line-height: 1.5; }
+.in-ajustes-texto { color: var(--in-texto-2); }
+.in-ajustes-nota { color: var(--in-texto-3); font-size: 13.5px; }
+.in-ajustes-aviso { font-weight: 700; color: var(--in-texto); }
+.in-quadro-baixo { padding: 14px 16px; gap: 8px; border-radius: 16px; }

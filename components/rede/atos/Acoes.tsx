@@ -236,7 +236,7 @@ export function BotaoConversa({ ato, t, lang, longo, tamanho = "m", className = 
   return (
     <LinkBotao href={enderecos.post(lang, ato.id)} variante="contorno" tamanho={tamanho} className={className} aria-label={`${rotulo}: ${preencherAto(t.acoes.respostas, { n: ato.respostas })}`}>
       {rotulo}
-      {ato.respostas > 0 ? ` · ${ato.respostas}` : ""}
+      {ato.respostas > 0 && <span data-al-numero="">{` · ${ato.respostas}`}</span>}
     </LinkBotao>
   );
 }

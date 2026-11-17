@@ -1044,7 +1044,7 @@
  "Ano da primeira publicação": "Год первой публикации",
  "Ano de nascimento": "Год рождения",
  "Anônimo": "Аноним",
- "Anônimo de verdade: o banco não guarda quem respondeu. A coordenação só vê a média, e só com cinco respostas ou mais.": "По-настоящему анонимно: база не хранит, кто ответил. Координация видит только среднее и только при пяти ответах и больше.",
+ "Anônimo de verdade: a resposta cai numa urna sem nome, separada do registro de quem já respondeu. A coordenação só vê a média, e só com cinco respostas ou mais.": "По-настоящему анонимно: ответ попадает в урну без имени, отдельно от отметки о том, кто уже ответил. Координация видит только среднее и только при пяти ответах и больше.",
  "anos finais do fundamental": "средняя школа (5–9 классы)",
  "anos iniciais do fundamental": "начальная школа",
  "Anotação descartada.": "Заметка отклонена.",
@@ -3990,6 +3990,7 @@
  "Ideia para a divulgação": "Идея для продвижения",
  "Ideias de post, datas e pautas mandadas por qualquer pessoa da equipe pela Mesa.": "Идеи постов, даты и темы, которые любой член команды присылает через «Рабочий стол».",
  "Identidade recuperada. As conversas vão abrir em instantes.": "Идентичность восстановлена. Разговоры откроются через несколько секунд.",
+ "Identidade recuperada. Por segurança, este aparelho só passa a valer daqui a 24 horas, ou antes, se você o aprovar de um aparelho que já funciona (Conversas → Aparelhos).": "Идентичность восстановлена. Ради безопасности это устройство начнёт действовать только через 24 часа или раньше, если вы одобрите его с устройства, которое уже работает (Разговоры → Устройства).",
  "Identidade verificada pessoalmente": "Идентичность проверена лично",
  "Identificador (slug, só letras minúsculas, números e hífen)": "Идентификатор (slug: только строчные буквы, цифры и дефис)",
  "Identificador (slug)": "Идентификатор (slug)",
@@ -8128,5 +8129,6 @@
  "Para ocultar ou trancar uma conversa que já está no ar, abra o tópico na Alumia: os botões aparecem para quem cuida.": "Чтобы скрыть или заблокировать уже опубликованный разговор, откройте тему на странице «Alumia»: кнопки видны тем, кто за ним следит.",
  "Pausar agora tudo o que o público pode enviar? Contribuições, mensagens da Alumia, anúncios, pedidos de reforço e assinaturas do boletim param até alguém reabrir.": "Приостановить сейчас всё, что может присылать публика? Вклады, сообщения «Alumia», объявления, запросы о помощи в учёбе и подписки на рассылку остановятся, пока кто-нибудь их снова не откроет.",
  "Quem cuida da Alumia, do Mural dos Trabalhadores e da Gaveta Aberta.": "Кто заботится о сообществе, «Доске трудящихся» и «Открытом ящике».",
- "Segunda avaliação da Alumia": "Вторая проверка Alumia"
+ "Segunda avaliação da Alumia": "Вторая проверка Alumia",
+ "Voto secreto com menos de 3 votos: o resultado não aparece.": "Тайное голосование, меньше 3 голосов: итог не показывается."
 }

@@ -1,0 +1,67 @@
+{
+  "codigo": {
+    "rotulo": "代码",
+    "copiar": "复制",
+    "copiado": "已复制",
+    "naoCopiou": "无法复制。请选中后手动复制。"
+  },
+  "formula": {
+    "rotulo": "公式"
+  },
+  "imagem": {
+    "falta": "图片 {n}（未附加）"
+  },
+  "link": {
+    "fora": "打开其他网站"
+  },
+  "barra": {
+    "rotulo": "文本格式",
+    "negrito": "粗体",
+    "italico": "斜体",
+    "codigo": "行内代码",
+    "blocoDeCodigo": "代码块",
+    "formula": "公式",
+    "titulo": "小标题",
+    "lista": "列表",
+    "citacao": "引用",
+    "link": "链接",
+    "imagem": "把图片 {n} 放在这里",
+    "escrever": "编写",
+    "verComoFica": "预览效果",
+    "ajuda": "如何排版"
+  },
+  "exemplo": {
+    "negrito": "粗体文字",
+    "italico": "斜体文字",
+    "codigo": "代码",
+    "blocoDeCodigo": "在这里写代码",
+    "formula": "x^2 + y^2 = r^2",
+    "titulo": "小标题",
+    "item": "第一项",
+    "citacao": "引用的段落",
+    "link": "链接文字",
+    "imagem": "图片说明"
+  },
+  "ajuda": {
+    "titulo": "如何排版",
+    "intro": "用下面这些符号书写。读者看到的是排好版的文字；不属于这些符号的内容，会按你写的原样显示。",
+    "itens": [
+      { "escreva": "**粗体**", "vira": "粗体" },
+      { "escreva": "_斜体_", "vira": "斜体" },
+      { "escreva": "## 小标题", "vira": "小标题（### 更小一级）" },
+      { "escreva": "- 项目", "vira": "列表（1. 为编号列表）" },
+      { "escreva": "> 段落", "vira": "引用" },
+      { "escreva": "`代码`", "vira": "行内代码" },
+      { "escreva": "```python", "vira": "代码块（在单独一行用 ``` 结束）" },
+      { "escreva": "$$x^2$$", "vira": "LaTeX 公式（单独成行时会突出显示）" },
+      { "escreva": "[文字](https://…)", "vira": "链接" },
+      { "escreva": "![说明](imagem:1)", "vira": "你附加的第 1 张图片，放在文中这个位置" }
+    ],
+    "cifrao": "单个美元符号不是公式：R$ 10 仍然表示钱。想写出符号而不排版，在前面加反斜杠：\\*",
+    "imagens": "只接受附加在这条帖子里的图片（保存前会去掉位置和设备信息）。其他网站的图片不会加载。"
+  },
+  "previa": {
+    "titulo": "显示效果",
+    "vazia": "还没有可显示的内容。"
+  }
+}

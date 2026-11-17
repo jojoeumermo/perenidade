@@ -109,6 +109,8 @@ export const icones: Record<string, LucideIcon> = {
   "rede-propostas": MessageSquarePlus,
   "rede-organizacoes": BadgeCheck,
   "alumia-entrada": UserCheck,
+  "alumia-painel": SlidersHorizontal,
+  "alumia-admin": ShieldCheck,
   "rede-semeadura": Sprout,
   reforco: LifeBuoy,
   mural: ClipboardList,

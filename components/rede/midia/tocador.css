@@ -1,0 +1,62 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/* O tocador próprio do áudio (TocadorDeAudio.tsx): botão redondo de 44 px, a barra deslizante (o que já tocou em ouro) e o tempo.
+   Só tokens: o da Alumia (--al-*) e, fora dela, os do site (--ink, --rule…), no claro e no escuro. */
+.al-tocador {
+  /* O trilho do que ainda não tocou passa de 3:1 sobre a superfície nos dois temas (parte de controle, WCAG 1.4.11). */
+  --al-tocador-trilho: color-mix(in srgb, var(--al-texto-3, var(--ink-soft, #5c554d)) 70%, transparent);
+  --al-tocador-tocou: var(--al-dourado, var(--ink, #0f0e0d));
+  display: inline-flex;
+  flex: 1 1 14rem;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+  max-width: 24rem;
+}
+.al-tocador audio { display: none; }
+.al-tocador-botao {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  background: var(--al-vermelho-texto, #bc2217);
+  color: var(--al-sobre-vermelho, #fff);
+}
+.al-tocador-botao:hover { filter: brightness(0.9); }
+.al-tocador-botao:focus-visible,
+.al-tocador-barra:focus-visible { outline: 2px solid var(--al-foco, var(--al-dourado, currentColor)); outline-offset: 2px; }
+/* A barra: um controle deslizante de verdade, com área de toque de 44 px de altura e o trilho fino no meio. */
+.al-tocador-barra {
+  flex: 1 1 auto;
+  min-width: 4rem;
+  height: 44px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.al-tocador-barra::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--al-tocador-tocou) var(--al-tocou, 0%), var(--al-tocador-trilho) var(--al-tocou, 0%));
+}
+.al-tocador-barra::-moz-range-track { height: 6px; border-radius: 999px; background: var(--al-tocador-trilho); }
+.al-tocador-barra::-moz-range-progress { height: 6px; border-radius: 999px; background: var(--al-tocador-tocou); }
+.al-tocador-barra::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -5px;
+  border-radius: 999px;
+  border: 2px solid var(--al-fundo, var(--folha, #fff));
+  background: var(--al-tocador-tocou);
+}
+.al-tocador-barra::-moz-range-thumb { width: 14px; height: 14px; border-radius: 999px; border: 2px solid var(--al-fundo, var(--folha, #fff)); background: var(--al-tocador-tocou); }
+.al-tocador-tempo { flex: none; font-size: 0.8125rem; font-variant-numeric: tabular-nums; color: var(--al-texto-2, var(--ink-soft, #5c554d)); }
+:root[data-eink] .al-tocador { --al-tocador-tocou: var(--al-texto, #000); }
+:root:is([data-contrast], [data-eink]) .al-tocador-barra::-webkit-slider-runnable-track { outline: 1px solid currentColor; }

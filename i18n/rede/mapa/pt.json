@@ -1,0 +1,64 @@
+{
+  "titulo": "Mapa",
+  "chamada": "Chamados, eventos e núcleos por cidade, nos próximos {dias} dias. Cada ponto é um município inteiro: o mapa não sabe rua, bairro nem onde alguém está.",
+  "desenho": "Mapa do Brasil com {n} cidades marcadas",
+  "carregando": "Carregando o mapa…",
+  "erro": "Não deu para carregar o mapa agora.",
+  "tentar": "Tentar de novo",
+  "vazio": "Nenhum chamado, evento ou núcleo no mapa por enquanto.",
+  "filtro": {
+    "titulo": "O que mostrar",
+    "chamados": "Chamados",
+    "eventos": "Eventos",
+    "nucleos": "Núcleos"
+  },
+  "legenda": {
+    "titulo": "Como ler",
+    "chamados": "Chamado: ato ou mutirão.",
+    "eventos": "Evento: assembleia, roda, aula e outros encontros.",
+    "nucleos": "Núcleo de uma organização com selo que quis aparecer no mapa.",
+    "tamanho": "O ladrilho cresce com o número, que só aparece a partir de 3. Núcleo nunca tem número."
+  },
+  "estado": {
+    "rotulo": "Estado",
+    "brasil": "Brasil inteiro",
+    "voltar": "Ver o Brasil inteiro",
+    "nenhuma": "Nenhuma cidade marcada neste estado."
+  },
+  "cidades": {
+    "titulo": "Cidades no mapa",
+    "tituloEstado": "Cidades em {uf}",
+    "escolher": "Toque numa cidade do mapa ou da lista para ver o que tem nela."
+  },
+  "toque": {
+    "titulo": "Cidades neste ponto",
+    "explica": "Neste ponto do mapa há mais de uma cidade. Escolha uma.",
+    "estado": "Ver só {uf}",
+    "fechar": "Fechar"
+  },
+  "cidade": {
+    "fechar": "Fechar",
+    "chamados": "{n} chamados",
+    "chamadosPoucos": "Chamados: menos de 3",
+    "eventos": "{n} eventos",
+    "eventosPoucos": "Eventos: menos de 3",
+    "nucleos": "Núcleos",
+    "orgs": "Organizações com núcleo aqui",
+    "atos": "Próximos chamados e eventos",
+    "atosCarregando": "Buscando os chamados desta cidade…",
+    "atosVazio": "Nenhum chamado ou evento desta cidade que você possa ver agora.",
+    "atosMenos": "O número do mapa junta todas as formas de escrever esta cidade e os próximos 60 dias. A lista mostra os próximos que a busca de Perto acha com o nome dela; alguns podem ter sido escritos de outro jeito.",
+    "atosErro": "Não deu para buscar os chamados desta cidade.",
+    "verTodos": "Ver todos os atos de {cidade}",
+    "rotuloPonto": "{cidade} ({uf}): {resumo}"
+  },
+  "fora": {
+    "titulo": "Cidades que não achamos no mapa",
+    "texto": "Estas cidades foram escritas sem o estado e o nome existe em mais de um estado, ou o nome não bate com nenhum município. Escrever a cidade com o estado, como \"Bom Jesus - PI\", põe o ponto no lugar.",
+    "varios": "existe em {ufs}",
+    "nenhum": "sem município com esse nome"
+  },
+  "fonte": "Desenho do Brasil feito pela Alumia com a malha pública do IBGE. Nada é carregado de fora.",
+  "aoVivo": "Perguntas ao vivo",
+  "aoVivoTexto": "Sessões de \"Pergunte a…\" com hora marcada."
+}

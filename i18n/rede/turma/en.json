@@ -1,0 +1,103 @@
+{
+  "_rascunho": "Draft translation of the Portuguese text (pt.json is the final one).",
+  "titulo": "Study groups",
+  "chamada": "A small group, one weekly agreement. Each person marks their own week; the group sees only the total, once at least 3 have marked and at least 3 have not yet.",
+  "entre": "Study groups are for people on Alumia. Sign in to start a group or join one with a code.",
+  "tentar": "Try again",
+  "lado": "Start or join a group",
+  "minhas": {
+    "titulo": "Your groups",
+    "vazioTitulo": "No group yet",
+    "vazio": "Start a group and send the code to the people you study with, or join with a code someone sent you."
+  },
+  "turma": {
+    "cuida": "You look after it",
+    "pessoas": "{n} people in the group",
+    "poucasPessoas": "Fewer than 3 people in the group",
+    "combinado": "This week's agreement"
+  },
+  "semana": {
+    "titulo": "Week of {dia}",
+    "total": "people have done it so far",
+    "poucos": "No number for now. It shows once at least 3 have marked and at least 3 have not yet, so no one can tell who it was.",
+    "marcar": "I did this week's",
+    "fiz": "Done this week",
+    "marcado": "Marked. Only you know it was you.",
+    "desmarcado": "Unmarked.",
+    "soVoce": "Only you see your mark. Tapped by mistake? Tap again to unmark.",
+    "ninguemVe": "Nobody sees who marked or who didn't: the group sees only the total."
+  },
+  "fileira": {
+    "titulo": "The last 8 weeks",
+    "acesa": "Week of {dia}: {n} people did it.",
+    "apagada": "Week of {dia}: no number.",
+    "regra": "Each tile is a week. It lights up with the number when at least 3 people keep the agreement and at least 3 do not; otherwise it stays dark and without a number."
+  },
+  "convite": {
+    "titulo": "Group code",
+    "copiar": "Copy the invite",
+    "copiado": "Invite copied. Send it only to people you want in the group.",
+    "copieVoce": "Could not copy. The invite is: {endereco}",
+    "novo": "Change the code",
+    "novoFeito": "New code. The old one no longer works.",
+    "dica": "Anyone with the code can join. A group holds up to 12 people."
+  },
+  "editar": {
+    "abrir": "Change the agreement",
+    "titulo": "Change the name and the agreement",
+    "aviso": "People in the group get a notice about the new agreement.",
+    "salvar": "Save",
+    "cancelar": "Cancel",
+    "feito": "Group updated."
+  },
+  "sair": {
+    "botao": "Leave the group",
+    "titulo": "Leave “{nome}”?",
+    "texto": "Your mark for this week goes with you. To come back, you need the code again.",
+    "textoCuida": "Your mark for this week goes with you. If nobody else looks after the group, the person who has been in it longest takes over. If you are the last person, the group ends.",
+    "sim": "Leave",
+    "nao": "Stay",
+    "feito": "You left “{nome}”."
+  },
+  "entrar": {
+    "titulo": "Join with a code",
+    "texto": "Paste the code or the invite someone in the group sent you.",
+    "campo": "Group code",
+    "botao": "Join the group",
+    "feito": "You joined “{nome}”."
+  },
+  "comecar": {
+    "titulo": "Start a group",
+    "texto": "Give it a name and write this week's agreement. Then just send the code.",
+    "botao": "Start the group",
+    "feito": "Group “{nome}” started. Send the code to the people you study with."
+  },
+  "campos": {
+    "nome": "Group name",
+    "nomeExemplo": "Saturday essay group",
+    "meta": "Weekly agreement"
+  },
+  "regra": {
+    "titulo": "How the group counts",
+    "itens": [
+      "Each person marks only their own week, and can unmark it.",
+      "The group sees the week's total, and only once it reaches 3. Below that, nobody sees a number.",
+      "Nobody sees who marked, who didn't, or who is in the group: only how many people, from 3 up.",
+      "No scoreboard, no streaks, no comparison between groups.",
+      "When the week closes, only the group's number remains: each person's mark is erased."
+    ]
+  },
+  "erros": {
+    "nao_encontrado": "We found no group with that code. Check with whoever sent it.",
+    "turma_cheia": "That group already has 12 people.",
+    "limite_de_turmas": "You are already in 5 groups. Leave one to join another.",
+    "sem_permissao": "Only whoever looks after the group can do that.",
+    "muitos_pedidos": "Too many tries in a row. Wait a bit and try again.",
+    "invalido:nome": "The name needs 3 to 60 characters.",
+    "invalido:meta": "The agreement needs 3 to 120 characters.",
+    "entre_primeiro": "Sign in to continue.",
+    "alumia_entrada": "Your account is still waiting for Alumia approval.",
+    "sem_servico": "Alumia is offline right now. Try again shortly.",
+    "generico": "That didn't work right now. Try again."
+  }
+}

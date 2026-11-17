@@ -7,11 +7,15 @@
 // são desenhados a partir de palavras e dígitos. Nada de CSS, HTML ou URL livre. Alto contraste e e-ink passam por cima de tudo.
 import type { CSSProperties, ReactNode } from "react";
 import { linkLimpo, variaveisDoAcento, type AparenciaDoPerfil } from "@/lib/rede/aparencia";
+import { useFotoPublica } from "@/lib/rede/fotos-publicas";
 import { dataCurta } from "@/lib/rede/org/contagem";
 import { origemDaImagem } from "@/lib/rede/perfil";
 import { preencher } from "@/lib/rede/preencher";
 import type { CampoDoPerfil, StatusDoPerfil } from "@/lib/rede/tipos-org";
 import type { ImagemDePerfil } from "@/lib/rede/tipos-perfil";
+import type { PublicoDoStatus, StatusDaLista } from "@/lib/rede/secoes-perfil";
+import { useTextosDasSecoes } from "../secoes/textos";
+import { SeloDeIdentidade } from "../../identidade/Selo";
 import { Avatar16 } from "../../ui/Avatar16";
 import { Avatar } from "../Avatar";
 import { BioFormatada, CapaDeMosaico, FaixaPropria, RostoDePixels } from "./Pecas";
@@ -23,7 +27,8 @@ export interface DadosDoCabecalho {
   handle: string;
   pronomes: string | null;
   bio: string;
-  status: { tipo: StatusDoPerfil; texto: string; ate: string | null } | null;
+  /** O tipo é da lista fechada (com "na luta" e "ausente", onda 12); `publico` só chega à dona ('roda' = só a roda vê). */
+  status: { tipo: StatusDoPerfil | StatusDaLista; texto: string; ate: string | null; publico?: PublicoDoStatus | null } | null;
   campos: CampoDoPerfil[];
   avatar: ImagemDePerfil;
   capa: ImagemDePerfil;
@@ -64,9 +69,17 @@ export function CabecalhoDoPerfil({
   const passarFoco = previa ? -1 : undefined;
 
   const cartaz = a.layout === "cartaz";
+  const ts = useTextosDasSecoes(lang);
+  // Os rótulos de antes vêm dos textos do perfil livre; os dois da onda 12, dos textos das seções.
+  const rotuloDoStatus = (tipo: StatusDoPerfil | StatusDaLista): string =>
+    (t.agora.statusTipos as Record<string, string>)[tipo] ?? (ts?.status.tipos as Record<string, string> | undefined)?.[tipo] ?? "";
+  const fotoPublica = useFotoPublica(dados.handle);
   const rosto = (
     <div className="pf-rosto-moldura" style={{ width: tamanhoDoRosto, height: tamanhoDoRosto }}>
-      {a.rosto ? (
+      {fotoPublica ? (
+        // Quem escolheu aparecer com nome e foto: a foto vale em todo lugar, também aqui (o Avatar16 a desenha).
+        <Avatar16 handle={dados.handle} tamanho={tamanhoDoRosto} />
+      ) : a.rosto ? (
         <RostoDePixels px={a.rosto} tamanho={tamanhoDoRosto} />
       ) : origemDaImagem(dados.avatar, "avatar") ? (
         <Avatar imagem={dados.avatar} codinome={dados.codinome} tamanho={tamanhoDoRosto} />
@@ -82,6 +95,7 @@ export function CabecalhoDoPerfil({
       <p className="pf-handle">
         <span>@{dados.handle}</span>
         {dados.pronomes ? <span className="pf-pronomes">{dados.pronomes}</span> : null}
+        <SeloDeIdentidade handle={dados.handle} lang={lang} />
       </p>
     </div>
   );
@@ -110,7 +124,7 @@ export function CabecalhoDoPerfil({
         {cartaz ? <div aria-hidden className="pf-capa-veu" /> : null}
         {dados.status ? (
           <span aria-hidden className="al-cond pf-carimbo" data-tipo={dados.status.tipo} key={dados.status.tipo}>
-            {t.agora.statusTipos[dados.status.tipo]}
+            {rotuloDoStatus(dados.status.tipo)}
           </span>
         ) : null}
         {cartaz ? (
@@ -137,11 +151,12 @@ export function CabecalhoDoPerfil({
             {dados.status ? (
               <p className={temDetalheDoStatus ? "pf-status" : "sr-only"}>
                 <span aria-hidden className="pf-status-ponto" />
-                <span className="sr-only">{t.agora.statusTipos[dados.status.tipo]}: </span>
+                <span className="sr-only">{rotuloDoStatus(dados.status.tipo)}: </span>
                 {dados.status.texto ? <span className="pf-status-texto">{dados.status.texto}</span> : null}
                 {dados.status.ate ? <span className="pf-status-ate">{preencher(t.perfil.ate, { data: dataCurta(dados.status.ate, lang) })}</span> : null}
               </p>
             ) : null}
+            {dados.status?.publico === "roda" && ts ? <p className="pf-status-roda">{ts.status.soRoda}</p> : null}
             {a.tocando ? (
               <p className="pf-tocando">
                 <span aria-hidden className="pf-equalizador">

@@ -1,0 +1,158 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * O mapa (/alumia/mapa), frente 13B. Linguagem do Mosaico da Arquibancada: faixa tecida, Archivo condensada em caixa alta, ladrilhos
+ * no lugar de alfinetes e carimbos para os números. Só usa os tokens de styles/alumia-tokens.css (vale no escuro, no claro, no
+ * contraste e no e-ink). Computador primeiro: o desenho à esquerda e a cidade à direita quando a tela passa de 980 px; no celular,
+ * uma coluna só, sem rolar para o lado.
+ */
+
+.mp-pagina { container-type: inline-size; display: grid; gap: 1.25rem; padding: 1.25rem 16px 3rem; color: var(--al-texto); min-width: 0; }
+@media (min-width: 1024px) { .mp-pagina { padding: 1.75rem 1.5rem 3.5rem; } }
+
+.mp-cabeca { display: grid; gap: 0.6rem; }
+.mp-faixa { width: 7.5rem; border-radius: 2px; }
+.mp-titulo { margin: 0; font-size: clamp(2.5rem, 6cqi, 4.2rem); line-height: 0.95; }
+.mp-chamada { margin: 0; max-width: 68ch; color: var(--al-texto-2); font-size: 1.08rem; line-height: 1.5; }
+
+.mp-colunas { display: grid; gap: 1.5rem; align-items: start; min-width: 0; }
+@container (min-width: 980px) { .mp-colunas { grid-template-columns: minmax(0, 1.7fr) minmax(19rem, 1fr); gap: 2rem; } }
+.mp-principal, .mp-lado { display: grid; gap: 1rem; align-content: start; min-width: 0; }
+
+.mp-rotulo { font-weight: 700; font-size: 0.95rem; color: var(--al-texto-2); }
+.mp-subtitulo { margin: 0; font-size: 1.45rem; letter-spacing: 0.02em; line-height: 1.05; }
+.mp-miudo { margin: 0; color: var(--al-texto-3); font-size: 0.92rem; line-height: 1.5; }
+.mp-uf { color: var(--al-texto-3); font-size: 0.8em; letter-spacing: 0.06em; }
+.mp-link { color: var(--al-texto); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; min-height: 44px; display: inline-flex; align-items: center; }
+
+/* ───── Filtros ───── */
+.mp-filtros { display: flex; flex-wrap: wrap; gap: 0.5rem 0.6rem; align-items: center; border: 0; margin: 0; padding: 0; min-width: 0; }
+.mp-filtros > legend { float: left; width: 100%; margin-bottom: 0.25rem; padding: 0; }
+.mp-filtro {
+  display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0.35rem 0.9rem; border-radius: var(--al-raio-pilula);
+  border: 1px solid var(--al-linha); background: var(--al-superficie); color: var(--al-texto-3); font: inherit; font-weight: 700; cursor: pointer;
+}
+.mp-filtro[aria-pressed="true"] { color: var(--al-texto); border-color: var(--al-texto-3); }
+.mp-filtro[aria-pressed="false"] .mp-filtro-ladrilho { opacity: 0.35; }
+.mp-filtro:focus-visible, .mp-cidade-botao:focus-visible, .mp-estado select:focus-visible, .mp-aovivo:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+.mp-filtro-ladrilho { width: 0.8rem; height: 0.8rem; border-radius: 2px; background: currentColor; }
+.mp-filtro[data-tipo="chamados"] .mp-filtro-ladrilho { background: var(--al-vermelho); }
+.mp-filtro[data-tipo="eventos"] .mp-filtro-ladrilho { background: var(--al-dourado-fundo); }
+.mp-filtro[data-tipo="nucleos"] .mp-filtro-ladrilho { background: var(--al-com-1); }
+.mp-estado { display: inline-flex; align-items: center; gap: 0.5rem; margin-left: auto; }
+.mp-estado select {
+  min-height: 44px; padding: 0.4rem 0.7rem; border-radius: 10px; border: 1px solid var(--al-linha); background: var(--al-fundo); color: var(--al-texto); font: inherit;
+}
+@container (max-width: 560px) { .mp-estado { margin-left: 0; width: 100%; } .mp-estado select { flex: 1; } }
+
+/* ───── O desenho ───── */
+.mp-desenho {
+  position: relative; border-radius: var(--al-raio); background: var(--al-fundo); border: 1px solid var(--al-linha);
+  padding: clamp(0.5rem, 2cqi, 1.25rem); min-width: 0;
+}
+.mp-desenho svg { display: block; width: 100%; height: auto; max-height: min(72vh, 46rem); margin: 0 auto; }
+.mp-estado-forma { fill: var(--al-superficie-2); stroke: var(--al-linha); stroke-linejoin: round; cursor: zoom-in; transition: fill 0.15s; }
+.mp-estado-forma:hover { stroke: var(--al-texto-3); }
+.mp-estado-forma[data-escolhido] { fill: var(--al-superficie-2); stroke: var(--al-texto-3); cursor: default; }
+.mp-estado-forma[data-apagado] { opacity: 0.3; }
+.mp-siglas text {
+  fill: var(--al-texto-3); font-family: var(--al-fonte); font-stretch: 70%; font-weight: 800; letter-spacing: 0.04em;
+  text-anchor: middle; dominant-baseline: central; pointer-events: none;
+}
+.mp-siglas text[data-apagado] { opacity: 0.35; }
+.mp-ponto { cursor: pointer; }
+.mp-ponto rect[data-tipo] { stroke: var(--al-fundo); }
+.mp-ponto rect[data-tipo="chamados"] { fill: var(--al-vermelho); }
+.mp-ponto rect[data-tipo="eventos"] { fill: var(--al-dourado-fundo); }
+.mp-ponto rect[data-tipo="nucleos"] { fill: var(--al-com-1); }
+.mp-ponto:hover rect[data-tipo] { stroke: var(--al-texto); }
+.mp-ponto-anel { fill: none; stroke: var(--al-texto); }
+
+/* ───── Ladrilhos na lista e na legenda ───── */
+.mp-ladrilhos { display: inline-flex; gap: 3px; flex: none; align-items: center; }
+.mp-ladrilhos > span { width: 0.75rem; height: 0.75rem; border-radius: 2px; }
+.mp-ladrilhos > [data-tipo="chamados"] { background: var(--al-vermelho); }
+.mp-ladrilhos > [data-tipo="eventos"] { background: var(--al-dourado-fundo); }
+.mp-ladrilhos > [data-tipo="nucleos"] { background: var(--al-com-1); }
+
+.mp-legenda { display: grid; gap: 0.55rem; padding-top: 0.9rem; border-top: 1px dashed var(--al-linha); }
+.mp-legenda ul { display: grid; gap: 0.45rem; margin: 0; padding: 0; list-style: none; }
+.mp-legenda li { display: flex; gap: 0.6rem; align-items: center; color: var(--al-texto-2); line-height: 1.4; }
+
+/* ───── Cartões do lado ───── */
+.mp-cartao {
+  display: grid; gap: 0.8rem; align-content: start; padding: 1.1rem 1.2rem; border-radius: var(--al-raio);
+  background: var(--al-superficie); border: 1px solid var(--al-linha); min-width: 0;
+}
+.mp-cartao-topo { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
+.mp-cidade { border-color: var(--al-texto-3); }
+.mp-cidade-nome { margin: 0; font-size: clamp(1.8rem, 3.2cqi, 2.4rem); line-height: 1; overflow-wrap: anywhere; }
+.mp-bloco { display: grid; gap: 0.55rem; padding-top: 0.8rem; border-top: 1px dashed var(--al-linha); }
+
+.mp-carimbos { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.mp-carimbo {
+  display: inline-flex; align-items: center; min-height: 1.9rem; padding: 0.1rem 0.6rem; border: 2px solid var(--al-dourado-fundo); border-radius: 6px;
+  font-family: var(--al-fonte); font-stretch: 70%; font-weight: 800; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 0.04em;
+  transform: rotate(-2deg); white-space: nowrap;
+}
+.mp-carimbo[data-tipo="chamados"] { border-color: var(--al-vermelho); color: var(--al-vermelho-letra); }
+.mp-carimbo[data-tipo="nucleos"] { border-color: var(--al-com-1); transform: rotate(1.5deg); }
+
+.mp-orgs, .mp-atos { display: grid; gap: 0.45rem; margin: 0; padding: 0; list-style: none; }
+.mp-orgs a, .mp-atos a { color: var(--al-texto); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.mp-atos li { display: grid; gap: 0.1rem; }
+
+.mp-cidades { display: grid; gap: 0.15rem; margin: 0; padding: 0; list-style: none; max-height: 32rem; overflow-y: auto; }
+.mp-cidade-botao, .mp-fora-item {
+  display: flex; gap: 0.7rem; align-items: center; width: 100%; min-height: 44px; padding: 0.45rem 0.55rem; border-radius: 10px;
+  border: 1px solid transparent; background: none; color: var(--al-texto); font: inherit; text-align: left; cursor: pointer;
+}
+.mp-fora-item { cursor: default; }
+.mp-cidade-botao:hover { background: var(--al-superficie-2); }
+.mp-cidade-botao[aria-current="true"] { border-color: var(--al-texto-3); background: var(--al-superficie-2); }
+.mp-cidade-texto { display: block; min-width: 0; line-height: 1.35; }
+.mp-cidade-texto > .mp-miudo { display: block; }
+.mp-cidade-botao > .mp-ladrilhos, .mp-fora-item > .mp-ladrilhos { width: calc(3 * 0.75rem + 6px); }
+.mp-cidade-texto strong { overflow-wrap: anywhere; }
+
+.mp-fora > summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; gap: 0.6rem; list-style: none; }
+.mp-fora > summary::-webkit-details-marker { display: none; }
+/* O sinal de abrir (o display:flex tira o triângulo do <details>): "+" fechado, "−" aberto, como nos outros da Alumia. */
+.mp-fora > summary::before {
+  content: "+"; display: inline-grid; place-items: center; flex: none; width: 1.6rem; height: 1.6rem; border-radius: 6px;
+  border: 1.5px solid var(--al-linha); font-family: var(--al-fonte); font-weight: 800; color: var(--al-texto-2);
+}
+.mp-fora[open] > summary::before { content: "−"; }
+.mp-fora > summary:focus-visible, .mp-cidade-nome:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+.mp-cidade-nome:focus:not(:focus-visible) { outline: none; }
+.mp-aovivo { color: var(--al-texto); text-decoration: none; gap: 0.3rem; border-left: 4px solid var(--al-vermelho); }
+.mp-aovivo:hover { background: var(--al-superficie-2); }
+
+.mp-esqueleto { display: grid; gap: 1rem; }
+.mp-esqueleto > span { height: 22rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.mp-esqueleto > span + span { height: 8rem; }
+
+@media (prefers-reduced-motion: reduce) { .mp-estado-forma { transition: none; } }
+
+/* A área de toque de cada cidade: invisível, 44 px na tela, por baixo do ladrilho. */
+.mp-ponto-alvo { fill: transparent; stroke: none; }
+
+/* A lista do toque: quando o toque cai na área de mais de uma cidade (no celular, com o Brasil inteiro), as cidades daquele ponto
+   aparecem embaixo do desenho, em botões de 44 px, com o caminho para ver só o Estado. */
+.mp-toque { display: grid; gap: 0.55rem; margin-top: 0.75rem; padding: 0.9rem 1rem 1rem; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-texto-3); }
+.mp-toque-topo { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.mp-toque-topo h2:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+.mp-toque-topo h2:focus:not(:focus-visible) { outline: none; }
+.mp-toque-lista { display: grid; gap: 0.25rem; margin: 0; padding: 0; list-style: none; max-height: 18rem; overflow-y: auto; }
+.mp-toque-cidade, .mp-toque-estado, .mp-toque-fechar {
+  min-height: 44px; border-radius: 10px; font: inherit; color: var(--al-texto); cursor: pointer;
+}
+.mp-toque-cidade {
+  display: block; width: 100%; padding: 0.45rem 0.65rem; text-align: left; line-height: 1.35; background: var(--al-fundo); border: 1px solid var(--al-linha);
+}
+.mp-toque-cidade > .mp-miudo { display: block; }
+.mp-toque-cidade strong { overflow-wrap: anywhere; }
+.mp-toque-cidade:hover { background: var(--al-superficie-2); }
+.mp-toque-estado { justify-self: start; padding: 0.4rem 0.9rem; background: none; border: 1px solid var(--al-texto-3); font-weight: 700; }
+.mp-toque-estado:hover { background: var(--al-superficie-2); }
+.mp-toque-fechar { flex: none; padding: 0.4rem 0.8rem; background: none; border: 1px solid transparent; color: var(--al-texto-2); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.mp-toque-cidade:focus-visible, .mp-toque-estado:focus-visible, .mp-toque-fechar:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }

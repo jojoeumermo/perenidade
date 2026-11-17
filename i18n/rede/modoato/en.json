@@ -1,0 +1,183 @@
+{
+  "titulo": "Protest mode",
+  "chamada": "For the day on the street: the screen gets simpler, numbers disappear, photos with people ask for a check before going out, and panic, “I’m safe” and the no-signal guide stay at hand.",
+  "carregando": "Loading protest mode…",
+  "menu": "Protest mode",
+  "chave": {
+    "rotulo": "On this device",
+    "titulo": "Protest mode",
+    "ligado": "On since {hora}",
+    "desligado": "Off",
+    "ligar": "Turn on protest mode",
+    "desligar": "Turn off",
+    "itens": [
+      "No like, reply or follower numbers on screen",
+      "Before posting a photo: a reminder to check and blur faces",
+      "Licence plate, CPF, phone number or address in the text: a warning before it goes out",
+      "Photos go out without the hidden file data: place, device and time"
+    ],
+    "soAqui": "It stays on this device only, and nobody finds out you turned it on."
+  },
+  "estouBem": {
+    "rotulo": "After the protest",
+    "titulo": "I’m safe",
+    "texto": "One tap tells your safety contacts that you are safe. It goes only to people you chose and who accepted, carries no location and disappears in 24 hours.",
+    "botao": "Say I’m safe",
+    "enviando": "Sending…",
+    "feito": "Done: {n} contacts received it. The message disappears in 24 hours.",
+    "feitoUm": "Done: 1 contact received it. The message disappears in 24 hours.",
+    "semContatos": "To send it, choose a safety contact below and wait for them to accept."
+  },
+  "contatos": {
+    "rotulo": "Who receives",
+    "titulo": "Safety contacts",
+    "texto": "Up to 10 people you trust. Each one accepts before receiving any message from you, and only you see this list.",
+    "campo": "The person’s @",
+    "pedir": "Ask",
+    "pedido": "Request sent. The person answers in their own Protest mode.",
+    "aguardando": "Waiting for acceptance",
+    "aceito": "Accepted",
+    "tirar": "Remove",
+    "vazio": "No contacts yet.",
+    "pedidosTitulo": "Asked you to be their contact",
+    "aceitar": "Accept",
+    "recusar": "Decline",
+    "souTitulo": "You receive messages from",
+    "sair": "Stop receiving",
+    "limite": "You already have 10 contacts. Remove one to ask someone else.",
+    "naoEncontrado": "We couldn’t find that @, or it is not possible to ask that account."
+  },
+  "recados": {
+    "rotulo": "For you",
+    "titulo": "Messages",
+    "vazio": "No messages right now.",
+    "estouBem": "{nome} said they are safe",
+    "detido": "{nome} said they were detained",
+    "viaOrg": "It came through the legal support of {org}.",
+    "quando": "At {hora} · disappears {quando}",
+    "apagar": "Remove",
+    "oQueFazer": "What to do now",
+    "passos": [
+      "Call the organisation’s legal support line or the city’s Public Defender’s Office.",
+      "Find out which police station the person was taken to. Bring an ID of theirs if you have one.",
+      "Tell their family or the person they usually name.",
+      "Do not spread their name in public unless they or their family agree."
+    ]
+  },
+  "detido": {
+    "rotulo": "If you are taken",
+    "titulo": "I was detained",
+    "texto": "Sends a ready-made message to your safety contacts and, if you choose, to an organisation’s legal support. No location and no free text: nobody reads anything beyond “I was detained”.",
+    "org": "Legal support",
+    "semOrg": "Only my contacts",
+    "botao": "Say I was detained",
+    "confirmar": "Send the message now?",
+    "sim": "Yes, send",
+    "nao": "Cancel",
+    "enviando": "Sending…",
+    "feito": "Done: {n} people received it.",
+    "feitoUm": "Done: 1 person received it.",
+    "feitoOrg": "The legal support received it too.",
+    "panico": "If you need to, also use the panic button above: it signs your account out of every device.",
+    "direitosTitulo": "Your rights",
+    "direitos": [
+      "Give your name and show an ID. About everything else, you have the right to remain silent.",
+      "Ask to speak to a lawyer or to the Public Defender’s Office.",
+      "Ask them to tell your family or the person you name.",
+      "Ask for the name of whoever arrested you and which police station you are going to.",
+      "Do not sign anything without reading it, and preferably not without your lawyer present.",
+      "Within 24 hours you must be brought before a judge, at the custody hearing. Say there if there was violence."
+    ],
+    "semContatos": "To send it, choose a safety contact (and wait for them to accept) or a legal support."
+  },
+  "assessoria": {
+    "rotulo": "For organisations",
+    "titulo": "Legal support line",
+    "texto": "Whoever manages a verified organisation publishes its legal support line here: who answers and how to call. Anyone detained who chooses the organisation alerts whoever manages its account.",
+    "campo": "Legal support text for {org}",
+    "ajuda": "10 to 400 characters. Leave it empty to remove.",
+    "guardar": "Save",
+    "guardado": "Saved.",
+    "invalido": "Write 10 to 400 characters, without < or >."
+  },
+  "semSinal": {
+    "titulo": "No signal?",
+    "texto": "The guide for when the internet goes down. Open it once now: afterwards it opens on this device even without internet.",
+    "abrir": "Open the guide"
+  },
+  "barra": {
+    "titulo": "Protest mode on",
+    "desde": "since {hora}",
+    "panico": "Panic: leave everything",
+    "estouBem": "I’m safe",
+    "abrir": "Open protest mode"
+  },
+  "anexo": {
+    "texto": "Back from the protest?",
+    "botao": "Say I’m safe"
+  },
+  "verificar": {
+    "cpf": "The text has a CPF ({trecho}). Remove it before posting.",
+    "telefone": "The text has a phone number ({trecho}). Remove it before posting.",
+    "email": "The text has an email address ({trecho}). Remove it before posting.",
+    "endereco": "The text has a street address with a number ({trecho}). Remove it before posting.",
+    "placa": "The text seems to have a licence plate ({trecho}). A plate leads to a person. Tap post again to send it anyway.",
+    "fixo": "The text seems to have a phone number ({trecho}). Tap post again to send it anyway.",
+    "foto": "Protest mode: check whether anyone’s face shows and blur it before posting. Tap post again to send it anyway."
+  },
+  "erros": {
+    "falha": "That didn’t work right now. Try again.",
+    "semServico": "Alumia has no connection to the database right now.",
+    "desligado": "This part has been turned off by the coordination.",
+    "muitos": "Too many attempts in a row. Wait a minute.",
+    "tentar": "Try again"
+  },
+  "guia": {
+    "titulo": "No signal?",
+    "chamada": "What to do when the internet goes down in the middle of a protest. This guide stays saved on this device after the first visit.",
+    "secoes": [
+      {
+        "titulo": "Before you leave",
+        "itens": [
+          "Open this guide once with internet: from then on it opens without a network.",
+          "Agree with your group on a meeting point and a time, in case you get separated.",
+          "Write down on paper two trusted phone numbers and the legal support number.",
+          "Leave with a full battery and, if you can, a power bank."
+        ]
+      },
+      {
+        "titulo": "When the internet goes down",
+        "itens": [
+          "Calls and SMS sometimes get through even when the internet doesn’t. Short messages work better.",
+          "With lots of people together the network gets congested: a higher or more open spot helps.",
+          "When you can, send one short message at a time instead of many attempts in a row."
+        ]
+      },
+      {
+        "titulo": "Airplane mode",
+        "itens": [
+          "Without signal, the phone uses a lot of battery searching for a network. Airplane mode stops that search.",
+          "With airplane mode on, the phone does not talk to the carrier’s antennas: it gets no calls and does not register with them either.",
+          "You can turn Wi-Fi or Bluetooth on while airplane mode is on.",
+          "Turn airplane mode off only to call or send a message, and turn it on again afterwards."
+        ]
+      },
+      {
+        "titulo": "Phone to phone",
+        "itens": [
+          "There are apps that pass messages from one phone to another over Bluetooth, without internet (mesh networks).",
+          "They are not part of Alumia. If your group is going to use one, install and test it together before the protest."
+        ]
+      },
+      {
+        "titulo": "When the network is back",
+        "itens": [
+          "Say you are safe through Protest mode: it goes only to your safety contacts.",
+          "If someone from the group did not show up at the meeting point, contact the legal support line."
+        ]
+      }
+    ],
+    "direitosTitulo": "If you are detained",
+    "voltar": "Back to protest mode"
+  }
+}

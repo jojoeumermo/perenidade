@@ -3,7 +3,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Dict } from "@/i18n/types";
-import { BackendError, evaluatePost, hasBackend, rpc, useMe } from "@/lib/backend";
+import { BackendError, hasBackend, rpc, useMe } from "@/lib/backend";
 import { NOME_REDE } from "@/lib/rede/alumia";
 import { consertos } from "@/lib/rede/cliente-consertos";
 import { agruparConvite, conviteOk, rotuloDosNovos } from "@/lib/rede/tipos-consertos";
@@ -721,7 +721,7 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
     setOcupado(true);
     setMensagem("");
     try {
-      const publicado = await rpc<{ id?: string; avaliar?: boolean }>("rede_postar", {
+      await rpc<{ id?: string }>("rede_postar", {
         p: {
           texto,
           alcance,
@@ -734,8 +734,7 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
           chamado: chamado && chamado.quando ? { tipo: chamado.tipo, quando: new Date(chamado.quando).toISOString(), onde: chamado.onde } : undefined,
         },
       });
-      // O banco pede a segunda avaliação (função avaliar-comunidade, tipo "rede"): o post espera retido até ela voltar.
-      if (publicado?.avaliar && publicado.id) void evaluatePost("rede", publicado.id);
+      // A avaliação de fora (avaliar-comunidade) não recebe post da Rede (onda 9): o retido espera a mediação.
       setTexto("");
       setAviso(null);
       setCita(null);

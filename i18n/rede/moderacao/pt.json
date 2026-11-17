@@ -20,7 +20,8 @@
     "assedio": { "rotulo": "Assédio ou perseguição", "ajuda": "Insistência, humilhação ou perseguição contra alguém." },
     "golpe": { "rotulo": "Golpe ou fraude", "ajuda": "Tentativa de enganar para tirar dinheiro ou dados." },
     "spam": { "rotulo": "Propaganda ou repetição", "ajuda": "Mensagem repetida, venda ou divulgação fora de lugar." },
-    "outro": { "rotulo": "Outro motivo", "ajuda": "Algo que fere as normas da Alumia e não está nas opções acima." }
+    "outro": { "rotulo": "Outro motivo", "ajuda": "Algo que fere as normas da Alumia e não está nas opções acima." },
+    "ilegal": { "rotulo": "Conteúdo ilegal", "ajuda": "Crime ou conteúdo proibido por lei. Resposta em até 24 horas." }
   },
   "prioridade": { "1": "Prioridade 1", "2": "Prioridade 2", "3": "Prioridade 3" },
   "denunciar": {
@@ -37,7 +38,18 @@
     "retido": "Por precaução, o post ficou retido até a moderação ler a denúncia.",
     "acompanhe": "Você acompanha o andamento em Avisos e em Denúncias e recursos.",
     "acompanhar": "Acompanhar minhas denúncias",
-    "visitante": "Sem conta? Use a página Denunciar do site: o conteúdo público também entra na fila."
+    "visitante": "Sem conta? Use a página Denunciar do site: o conteúdo público também entra na fila.",
+    "cifrado": {
+      "titulo": "Este post é cifrado",
+      "grupoPequeno": "Num grupo pequeno, quem escreveu pode deduzir que a denúncia veio de alguém do grupo: só quem é dele abre o post.",
+      "abrindo": "Abrindo o post neste aparelho…",
+      "naoAbre": "Este post não abre neste aparelho. A moderação não tem a chave do grupo: a denúncia vai sem o conteúdo, só com a categoria e o que você escrever.",
+      "mandar": "Mandar um trecho em texto aberto para a moderação",
+      "custo": "Atenção: a moderação vai ler este trecho; o resto continua cifrado. O trecho sai do cifrado e fica guardado com a denúncia.",
+      "semTrecho": "Sem o trecho, a denúncia vai sem o conteúdo: a moderação não tem a chave do grupo e vê só a categoria e o que você escrever.",
+      "rotulo": "O trecho (corte o que não for preciso, até 1.000 caracteres)",
+      "foraDoPost": "O trecho tem de estar no post, com as mesmas palavras. Corte, mas não reescreva."
+    }
   },
   "silenciar": {
     "titulo": "Silenciar",
@@ -95,7 +107,7 @@
     "abrir": "Abrir",
     "alvo": { "post": "Post", "perfil": "Perfil", "comunidade": "Comunidade" },
     "situacao": { "aberta": "Aberta", "em_analise": "Em análise", "resolvida": "Resolvida", "descartada": "Descartada" },
-    "autor": "Autor: {nome} (nível {nivel})",
+    "autor": "Autor: {nome} ({nivel})",
     "procedentes": "Decisões procedentes nos últimos 90 dias: {n}",
     "historico": "O que já foi feito neste alvo",
     "descartar": "Sem violação: descartar",
@@ -105,7 +117,9 @@
     "liberar": "Liberar (restaurar)",
     "vazia": "Nenhuma denúncia nesta lista.",
     "vazioRetidos": "Nenhum post esperando leitura.",
-    "abrirRetido": "Decidir"
+    "abrirRetido": "Decidir",
+    "aberto": "Trecho que quem denunciou abriu no aparelho e mandou em texto aberto. Foi escrito por essa pessoa: a Alumia não consegue conferir com o post, que continua cifrado.",
+    "cifradoSem": "Post cifrado: a moderação não tem a chave do grupo e a denúncia veio sem o conteúdo."
   },
   "recursos": {
     "titulo": "Recursos",
@@ -120,11 +134,15 @@
     "vazio": "Nenhum recurso esperando."
   },
   "lugares": {
-    "titulo": "Modo lento e listas de bloqueio",
+    "titulo": "Listas de bloqueio",
     "escolha": "Escolha o lugar",
     "comunidade": "Comunidade",
     "nucleo": "Núcleo",
-    "outraComunidade": "Outra comunidade (slug)",
+    "outraComunidade": "Outra comunidade (endereço)",
+    "listaAjudaComunidade": "Pessoa: não escreve nesta comunidade. A equipe nunca entra na lista.",
+    "palavrasNoFiltro": "As palavras desta comunidade e o modo lento ficam na aba Comunidades, no Filtro automático.",
+    "exemploPalavra": "ex.: pix premiado",
+    "exemploPessoa": "@nome",
     "lista": "Lista de bloqueio",
     "listaAjuda": "Palavra: o post fica retido para a mediação ler. Pessoa: não escreve neste lugar. A equipe nunca entra na lista.",
     "palavra": "Palavra ou expressão",
@@ -179,6 +197,7 @@
     "noAparelho": "Só neste aparelho",
     "palavra": "Silenciar uma palavra",
     "palavraDica": "Palavra ou expressão",
+    "dicaPalavra": "Escreva a palavra (2 letras ou mais) para silenciar.",
     "adicionar": "Silenciar",
     "ate": "até {data}",
     "tipo": { "pessoa": "Pessoa", "conversa": "Conversa", "comunidade": "Comunidade", "palavra": "Palavra" },
@@ -237,6 +256,159 @@
     "prazo_vencido": "O prazo de 30 dias para recorrer terminou.",
     "recurso_ja_feito": "Esta decisão já tem um recurso.",
     "muitos_silenciados": "Você chegou ao limite de itens silenciados (200).",
-    "lista_cheia": "A lista chegou ao limite de 300 itens."
+    "lista_cheia": "A lista chegou ao limite de 300 itens.",
+    "responda_perguntas": "Esta comunidade faz perguntas antes do pedido: responda para pedir."
+  },
+  "o9": {
+    "tempo": {
+      "s": "{n} s",
+      "min": "{n} min",
+      "h": "{n} h"
+    },
+    "motivos": {
+      "automod_links": "filtro da comunidade: links demais",
+      "automod_dominio": "filtro da comunidade: link de um endereço da lista",
+      "automod_conta_nova": "filtro da comunidade: conta nova",
+      "recem_chegada": "fila de recém-chegados",
+      "lista_da_mediacao": "palavra da lista da mediação",
+      "precaucao": "precaução depois de uma denúncia"
+    },
+    "prazo": {
+      "ate": "Responder até {quando}",
+      "venceu": "Prazo vencido ({quando})"
+    },
+    "automatica": "Decisão automática",
+    "nivelEmFrase": {"0": "conta nova", "1": "conta recente", "2": "membro há algumas semanas", "3": "conta antiga e ativa", "4": "liderança designada"},
+    "regras": {"precaucao_menor": "retenção por precaução: denúncia de que a conta é de menor de 18 anos", "menor_de_18": "a Alumia é só para quem tem 18 anos ou mais", "precaucao": "retenção por precaução até a leitura da denúncia", "painel": "decisão da coordenação pelo painel", "ninguem_exposto": "ninguém exposto sem querer"},
+    "conta": "Conta: {nome}",
+    "ferramentas": {
+      "titulo": "Cuidar da comunidade",
+      "escolha": "Comunidade",
+      "outra": "Outra comunidade (endereço)",
+      "nenhuma": "Você ainda não modera nenhuma comunidade."
+    },
+    "filtro": {
+      "titulo": "Filtro automático",
+      "lead": "O filtro só segura o post para a moderação ler. Nada é apagado, quem escreveu vê que o post espera e a regra aparece para quem escreve aqui.",
+      "links": "Links por post",
+      "linksNada": "Sem regra (vale o limite do nível)",
+      "linksZero": "Todo post com link espera leitura",
+      "linksAcima": "Mais de {n} espera leitura",
+      "dominios": "Endereços que esperam leitura",
+      "dominiosAjuda": "Um por linha, como encurta.exemplo. Vale também para os subdomínios.",
+      "dominioRuim": "Isto não parece um endereço: {d}",
+      "contaNova": "Conta nova",
+      "contaNovaNada": "Sem regra",
+      "contaNovaDias": "Conta com menos de {n} dias",
+      "novatos": "Fila de recém-chegados",
+      "novatosNada": "Desligada",
+      "novatosN": "Os {n} primeiros posts",
+      "combinado": "Com conta nova e fila juntas, só os primeiros posts da conta nova esperam. Só conta nova: todo post dela espera. Só a fila: os primeiros posts de qualquer pessoa que chega.",
+      "palavras": "Palavras",
+      "palavrasAjuda": "Post com uma destas palavras espera leitura. A lista é só da moderação: quem escreve sabe que ela existe, não o que tem nela.",
+      "palavraNova": "Palavra ou expressão",
+      "palavraPor": "Pôr na lista",
+      "palavrasVazia": "Nenhuma palavra na lista.",
+      "explicacao": "A regra em palavras (quem escreve aqui lê isto)",
+      "explicacaoDica": "Ex.: Post com mais de um link espera a leitura da moderação. Nada é apagado.",
+      "salvar": "Salvar o filtro",
+      "salvando": "Salvando…",
+      "salvo": "Filtro salvo. A regra já vale."
+    },
+    "lento": {
+      "titulo": "Modo lento",
+      "ajuda": "Um post a cada tanto tempo, por pessoa. Quem modera não espera. Antes de escrever, a pessoa vê quanto falta.",
+      "desligado": "Desligado",
+      "cada": "1 post a cada {tempo}",
+      "feito": "Modo lento atualizado."
+    },
+    "brigada": {
+      "titulo": "Alerta de brigada",
+      "ajuda": "Quando muitas contas de fora da comunidade respondem ao mesmo post em pouco tempo, só a moderação recebe um alerta. A Alumia não diz quem respondeu: só quantas contas.",
+      "contas": "A partir de quantas contas de fora (mínimo 3)",
+      "minutos": "Em quantos minutos",
+      "alertas": "Alertas abertos",
+      "vazio": "Nenhum alerta aberto.",
+      "contasTexto": "{n} contas de fora responderam em {min} min",
+      "atualizado": "Última resposta contada: {quando}",
+      "lentoConversa": "Modo lento de 10 min na conversa",
+      "lentoLigado": "Modo lento de {tempo} ligado",
+      "travar": "Travar a conversa",
+      "travada": "Conversa travada",
+      "regraTravar": "brigada",
+      "motivoTravar": "Muitas respostas de contas de fora da comunidade em pouco tempo: a moderação travou a conversa para ela voltar ao rumo.",
+      "encerrar": "Encerrar o alerta",
+      "encerrado": "Alerta encerrado.",
+      "feito": "Feito. Ficou no registro da moderação.",
+      "verPost": "Ver o post"
+    },
+    "perguntas": {
+      "titulo": "Perguntas para entrar",
+      "ajuda": "Até 3 perguntas para quem pede para entrar. Só a moderação lê as respostas, e elas somem quando o pedido é decidido.",
+      "pergunta": "Pergunta {n}",
+      "salvar": "Salvar as perguntas",
+      "salvo": "Perguntas salvas.",
+      "soRestrita": "Só comunidade com pedido de entrada (restrita) faz perguntas."
+    },
+    "pedidos": {
+      "titulo": "Pedidos para entrar",
+      "vazio": "Nenhum pedido esperando.",
+      "aceitar": "Aceitar",
+      "recusar": "Recusar",
+      "semResposta": "Pediu antes de a comunidade ter perguntas.",
+      "aceito": "Pedido aceito. A pessoa foi avisada.",
+      "recusado": "Pedido recusado. A pessoa foi avisada."
+    },
+    "responder": {
+      "titulo": "Antes de pedir, a moderação pergunta",
+      "ajuda": "Só a moderação desta comunidade lê as respostas, e elas somem quando o pedido for decidido.",
+      "enviar": "Pedir para entrar",
+      "enviando": "Enviando…",
+      "cancelar": "Cancelar"
+    },
+    "regras": {
+      "titulo": "Como esta comunidade modera",
+      "links0": "Post com link espera a leitura da moderação.",
+      "linksN": "Post com mais de {n} links espera a leitura da moderação.",
+      "dominios": "Links destes endereços esperam leitura: {lista}.",
+      "contaNova": "Conta com menos de {n} dias: o post espera leitura.",
+      "contaNovaFila": "Conta com menos de {dias} dias: os primeiros {n} posts esperam leitura.",
+      "novatos": "Os primeiros {n} posts de quem chega esperam leitura.",
+      "palavras": "A moderação mantém uma lista de palavras: post com uma delas espera leitura.",
+      "lento": "Modo lento: 1 post a cada {tempo}.",
+      "nada": "Nenhum filtro automático ligado aqui.",
+      "nadaApaga": "O filtro não apaga nada: a moderação lê e libera.",
+      "novata": "Você está na fila de recém-chegados: seu próximo post vai esperar a leitura da moderação.",
+      "falta": "Você pode postar aqui de novo em {tempo}."
+    },
+    "antes": {
+      "lento": "Modo lento nesta comunidade: você pode postar aqui de novo em {tempo}.",
+      "filtro": "Este post vai esperar a leitura da moderação ({motivo}). Nada é apagado."
+    },
+    "soneca": {
+      "titulo": "Soneca",
+      "explica": "Soneca: some da sua linha por um tempo e volta sozinha. Ninguém é avisado.",
+      "pessoa": "Soneca de {nome}",
+      "conversa": "Soneca desta conversa",
+      "comunidade": "Soneca desta comunidade",
+      "prazo": "Por quanto tempo",
+      "prazos": {
+        "1": "1 dia",
+        "7": "1 semana",
+        "30": "1 mês",
+        "sempre": "Até eu desfazer"
+      },
+      "feito": "Soneca até {data}. Ninguém é avisado.",
+      "feitoSempre": "Silenciado até você desfazer. Ninguém é avisado.",
+      "aparelhoSemPrazo": "Só neste aparelho não tem prazo: fica até você desfazer.",
+      "comunidadeCampo": "Soneca de uma comunidade",
+      "comunidadeDica": "Endereço da comunidade (ex.: moradia)",
+      "dicaComunidade": "Escreva o endereço da comunidade para ligar a soneca."
+    },
+    "abas": {
+      "lei": "Lei e prazos",
+      "alertas": "Brigadas",
+      "comunidades": "Comunidades"
+    }
   }
 }

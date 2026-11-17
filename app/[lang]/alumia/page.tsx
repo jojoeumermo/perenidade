@@ -7,6 +7,7 @@ import { pickSections } from "@/i18n/core";
 import { I18nProvider } from "@/components/I18n";
 import { RedeSobDemanda } from "@/components/rede/RedeSobDemanda";
 import { alumiaComEndereco, enderecoDaAlumia } from "@/lib/rede/alumia";
+import { imagensDaAlumia } from "@/lib/rede/marca-da-alumia";
 import { textosDaRede, tituloDaTela } from "@/lib/rede/textos";
 import { textosDosConsertos } from "@/lib/rede/textos-consertos";
 import { ligado } from "@/lib/recursos";
@@ -18,7 +19,11 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/alumia">):
   // O nome da rede é Alumia (o nome interno continua "comunidade"/"rede"). Com o endereço próprio ligado, o endereço canônico é o dela.
   const s = textosDaRede(lang);
   // Com a Rede nova, "Início · Alumia" (como as outras telas: cada aba se distingue); sem ela, a marca, como sempre.
-  const meta = paginaMeta(lang, "/alumia", ligado("rede-v2") ? tituloDaTela(lang, "inicio") : s.marca, s.alumia.descricao, { kicker: s.alumia.lema, titulo: s.marca });
+  const pagina = paginaMeta(lang, "/alumia", ligado("rede-v2") ? tituloDaTela(lang, "inicio") : s.marca, s.alumia.descricao, { kicker: s.alumia.lema, titulo: s.marca });
+  // O cartão é o da Alumia (public/cartao-alumia.png), não o gerado com a identidade do instituto: esta página define o próprio
+  // openGraph, que troca o do layout inteiro, então repete a imagem aqui.
+  const imagens = imagensDaAlumia(lang);
+  const meta: Metadata = { ...pagina, openGraph: { ...pagina.openGraph, siteName: s.marca, images: imagens.openGraph }, twitter: { ...pagina.twitter, images: imagens.twitter } };
   if (!alumiaComEndereco) return meta;
   return {
     ...meta,
@@ -26,7 +31,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/alumia">):
       canonical: enderecoDaAlumia(lang),
       languages: { ...Object.fromEntries(locales.map((code) => [htmlLang[code], enderecoDaAlumia(code)])), "x-default": enderecoDaAlumia("pt") },
     },
-    openGraph: { ...meta.openGraph, siteName: s.marca, url: enderecoDaAlumia(lang) },
+    openGraph: { ...meta.openGraph, url: enderecoDaAlumia(lang) },
   };
 }
 

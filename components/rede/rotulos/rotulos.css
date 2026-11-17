@@ -1,0 +1,237 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Rótulos e transparência da Alumia: o relatório público (/alumia/transparencia), a tela dos rótulos (/alumia/rotulos), a tarja no
+ * cartão e o bloco do painel de controle. Linguagem do Mosaico da Arquibancada: carimbo, ladrilhos, faixa tecida, Archivo condensada
+ * em caixa alta. Só usa os tokens de styles/alumia-tokens.css (vale no escuro, no claro, no contraste e no e-ink).
+ */
+
+.rt-pagina { container-type: inline-size; padding: 1.5rem 1rem 3.5rem; color: var(--al-texto); }
+@media (min-width: 1024px) { .rt-pagina { padding: 1.9rem 1.5rem 4rem; } }
+
+/* ───── Cabeçalho ───── */
+.rt-cabeca { position: relative; margin-bottom: 1.5rem; padding-bottom: 1.4rem; }
+.rt-cabeca::after { content: ""; position: absolute; inset: auto 0 0; height: var(--al-faixa-altura, 6px); background: var(--al-faixa); border-radius: 2px; }
+.rt-cabeca h1 { margin: 0; font-size: clamp(2.4rem, 7cqi, 4.1rem); color: var(--al-texto); text-wrap: balance; }
+.rt-chamada { margin: 0.9rem 0 0; max-width: 48rem; color: var(--al-texto-2); font-size: 1.06rem; line-height: 1.55; }
+.rt-carimbo {
+  display: inline-flex; align-items: center; margin: 0 0 1rem; padding: 0.42rem 0.75rem 0.34rem; border: 2px solid var(--al-vermelho); border-radius: 6px;
+  box-shadow: inset 0 0 0 2px var(--al-fundo), inset 0 0 0 3px var(--al-vermelho); color: var(--al-vermelho-letra, var(--al-vermelho-texto));
+  font-size: 1.05rem; letter-spacing: 0.06em; transform: rotate(-1.2deg); transform-origin: left center;
+}
+@media (prefers-reduced-motion: reduce) { .rt-carimbo { transform: none; } }
+:root:is([data-contrast], [data-eink]) .rt-carimbo { transform: none; color: var(--al-texto); border-color: var(--al-texto); box-shadow: none; }
+
+.rt-bloco { margin: 0 0 2.4rem; scroll-margin-top: 1.25rem; }
+.rt-bloco-titulo { margin: 0 0 0.9rem; font-size: 2rem; color: var(--al-texto); }
+.rt-bloco-chamada { margin: -0.4rem 0 1rem; max-width: 48rem; color: var(--al-texto-2); font-size: 0.97rem; line-height: 1.55; }
+.rt-texto { margin: 0 0 0.85rem; max-width: 46rem; color: var(--al-texto-2); font-size: 1rem; line-height: 1.65; }
+.rt-texto strong { color: var(--al-texto); }
+.rt-link { color: var(--al-texto); font-weight: 600; text-decoration: underline; text-decoration-color: var(--al-dourado); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.rt-link:hover { color: var(--al-dourado); }
+
+/* ───── O aviso de ordem sigilosa: um carimbo grande, dourado quando vale, vermelho quando venceu ───── */
+.rt-canario {
+  position: relative; display: grid; gap: 0.9rem 1.4rem; margin: 0 0 2.2rem; padding: 1.25rem 1.25rem 1.3rem; border-radius: var(--al-raio);
+  background: var(--al-superficie); border: 2px solid var(--al-dourado); overflow: hidden;
+}
+@container (min-width: 40rem) { .rt-canario { grid-template-columns: auto minmax(0, 1fr); align-items: center; } }
+.rt-canario[data-vencido="sim"] { border-color: var(--al-vermelho); }
+.rt-canario-selo {
+  display: grid; place-items: center; width: 6.6rem; height: 6.6rem; border-radius: 50%; border: 3px double var(--al-dourado);
+  color: var(--al-dourado); text-align: center; font-size: 0.95rem; line-height: 1.05; letter-spacing: 0.04em; transform: rotate(-6deg);
+}
+.rt-canario[data-vencido="sim"] .rt-canario-selo { border-color: var(--al-vermelho); color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+.rt-canario-selo strong { display: block; font-size: 1.7rem; line-height: 1; }
+@media (prefers-reduced-motion: reduce) { .rt-canario-selo { transform: none; } }
+.rt-canario h2 { margin: 0 0 0.35rem; font-size: 1.05rem; letter-spacing: 0.08em; color: var(--al-texto-3); }
+.rt-canario-frase { margin: 0; color: var(--al-texto); font-size: 1.22rem; font-weight: 700; line-height: 1.4; max-width: 44rem; }
+.rt-canario-nota { margin: 0.5rem 0 0; color: var(--al-texto-2); font-size: 0.92rem; line-height: 1.5; max-width: 44rem; }
+
+/* ───── Escolher o trimestre ───── */
+.rt-abas { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 0.6rem; padding: 6px; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-linha); width: fit-content; max-width: 100%; }
+.rt-aba {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 1rem; border: 0; border-radius: 8px; background: none; cursor: pointer;
+  color: var(--al-texto-3); font: inherit; font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 800;
+  font-size: 1.15rem; letter-spacing: 0.03em; text-transform: uppercase;
+}
+.rt-aba[aria-pressed="true"] { background: var(--al-saliente); color: var(--al-sobre-saliente); box-shadow: inset 0 -3px 0 var(--al-vermelho); }
+.rt-aba:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) { .rt-aba:not([aria-pressed="true"]):hover { background: var(--al-superficie-2); color: var(--al-texto); } }
+.rt-periodo { margin: 0 0 1.4rem; color: var(--al-texto-3); font-size: 0.9rem; }
+.rt-periodo strong { color: var(--al-texto); font-weight: 700; }
+
+/* ───── Ladrilhos dos destaques ───── */
+.rt-ladrilhos { list-style: none; margin: 0 0 2.2rem; padding: 0; display: grid; gap: 0.6rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@container (min-width: 44rem) { .rt-ladrilhos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.rt-ladrilho { aspect-ratio: auto; position: relative; padding: 0.95rem 1rem 1rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); overflow: hidden; }
+.rt-ladrilho::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--al-vermelho); }
+.rt-ladrilho:nth-child(6n + 2)::before { background: var(--al-dourado); }
+.rt-ladrilho:nth-child(6n + 3)::before { background: var(--al-com-1); }
+.rt-ladrilho:nth-child(6n + 4)::before { background: var(--al-com-4); }
+.rt-ladrilho:nth-child(6n + 5)::before { background: var(--al-com-2); }
+.rt-ladrilho:nth-child(6n + 6)::before { background: var(--al-com-3); }
+.rt-ladrilho > span:not(.rt-n) { display: block; color: var(--al-texto-2); font-size: 0.86rem; font-weight: 700; line-height: 1.3; }
+.rt-n { display: block; font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 800; font-size: 2.9rem; line-height: 1; color: var(--al-texto); font-variant-numeric: tabular-nums; margin-bottom: 0.35rem; }
+.rt-n[data-pouco="sim"] { font-size: 1.35rem; line-height: 2.15rem; color: var(--al-texto-3); letter-spacing: 0.02em; text-transform: uppercase; }
+
+/* ───── Denúncias por tipo: barras de ladrilho ───── */
+.rt-tipos { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+.rt-tipos-cabeca, .rt-tipo { display: grid; grid-template-columns: minmax(0, 1fr) 5.5rem 5.5rem; gap: 0.75rem; align-items: center; }
+@container (min-width: 44rem) { .rt-tipos-cabeca, .rt-tipo { grid-template-columns: minmax(10rem, 15rem) minmax(0, 1fr) 6.5rem 6.5rem; } }
+.rt-tipos-cabeca { padding: 0 0.85rem 0.4rem; color: var(--al-texto-3); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.rt-tipo { padding: 0.65rem 0.85rem; border-radius: 10px; background: var(--al-superficie); }
+.rt-tipo-nome { color: var(--al-texto); font-size: 0.95rem; font-weight: 700; }
+.rt-tipo-num { text-align: right; font-variant-numeric: tabular-nums; color: var(--al-texto); font-weight: 700; }
+.rt-tipo-num[data-pouco="sim"] { color: var(--al-texto-3); font-weight: 600; font-size: 0.85rem; }
+.rt-barra { display: none; height: 0.85rem; border-radius: 3px; background: repeating-linear-gradient(90deg, var(--al-vermelho) 0 10px, transparent 10px 12px); }
+.rt-barra[data-vazia="sim"] { background: none; border: 1px dashed var(--al-linha); }
+@container (min-width: 44rem) {
+  .rt-barra { display: block; }
+  .rt-tipos-cabeca span:nth-child(2) { visibility: hidden; }
+}
+@container (max-width: 43.99rem) { .rt-tipos-cabeca span:nth-child(2) { display: none; } }
+:root:is([data-contrast], [data-eink]) .rt-barra { background: var(--al-texto); }
+.rt-nota { margin: 0.9rem 0 0; color: var(--al-texto-2); font-size: 0.92rem; line-height: 1.5; }
+
+/* ───── Três cartões lado a lado (contas, recursos, rótulos) ───── */
+.rt-tres { display: grid; gap: 0.75rem; margin: 0 0 2.4rem; }
+@container (min-width: 50rem) { .rt-tres { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.rt-cartao { position: relative; padding: 1rem 1rem 1.05rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); overflow: hidden; }
+.rt-cartao::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--al-faixa); }
+.rt-cartao h3 { margin: 0.2rem 0 0.7rem; font-size: 1.45rem; color: var(--al-texto); }
+.rt-lista { margin: 0; display: grid; gap: 0.55rem; }
+.rt-lista div { display: flex; justify-content: space-between; align-items: baseline; gap: 0.8rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--al-linha); }
+.rt-lista div:last-child { border-bottom: 0; padding-bottom: 0; }
+.rt-lista dt { color: var(--al-texto-2); font-size: 0.9rem; line-height: 1.35; }
+.rt-lista dd { margin: 0; flex: none; color: var(--al-texto); font-weight: 800; font-variant-numeric: tabular-nums; font-size: 1.05rem; }
+.rt-lista dd[data-pouco="sim"] { color: var(--al-texto-3); font-weight: 600; font-size: 0.84rem; }
+
+/* ───── Pedidos de autoridade ───── */
+.rt-autoridade { display: grid; gap: 0.75rem; }
+@container (min-width: 50rem) { .rt-autoridade { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.rt-autoridade-topo { display: grid; gap: 0.6rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 0.75rem; }
+
+/* ───── Como ler ───── */
+.rt-itens { list-style: none; margin: 0; padding: 0; max-width: 50rem; display: grid; gap: 0.7rem; }
+.rt-itens li { position: relative; padding-left: 1.5rem; color: var(--al-texto-2); font-size: 0.98rem; line-height: 1.6; }
+.rt-itens li strong { color: var(--al-texto); }
+.rt-itens li::before { content: ""; position: absolute; left: 0.1rem; top: 0.55em; width: 0.6rem; height: 0.6rem; border-radius: 2px; background: var(--al-vermelho); }
+.rt-itens li:nth-child(4n + 2)::before { background: var(--al-dourado); }
+.rt-itens li:nth-child(4n + 3)::before { background: var(--al-com-1); }
+.rt-itens li:nth-child(4n + 4)::before { background: var(--al-com-4); }
+
+.rt-vazio { padding: 1.4rem 1.25rem; border-radius: var(--al-raio); border: 2px dashed var(--al-linha); margin: 0 0 2.2rem; }
+.rt-vazio h2 { margin: 0 0 0.4rem; font-size: 1.7rem; color: var(--al-texto); }
+.rt-vazio p { margin: 0; color: var(--al-texto-2); line-height: 1.55; }
+.rt-erro { margin: 0.9rem 0 0; padding: 0.7rem 0.85rem; border-radius: 9px; border-left: 4px solid var(--al-vermelho); background: var(--al-superficie); color: var(--al-texto); font-size: 0.92rem; line-height: 1.5; }
+.rt-ok { margin: 0.9rem 0 0; padding: 0.7rem 0.85rem; border-radius: 9px; border-left: 4px solid var(--al-com-1); background: var(--al-fundo); color: var(--al-texto); font-size: 0.92rem; line-height: 1.5; }
+
+/* ───── Rótulos: como funciona ───── */
+.rt-como { list-style: none; margin: 0 0 2.4rem; padding: 0; display: grid; gap: 0.65rem; counter-reset: rt-c; }
+@container (min-width: 46rem) { .rt-como { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container (min-width: 72rem) { .rt-como { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.rt-como li { counter-increment: rt-c; position: relative; padding: 0.95rem 1rem 1rem 3.7rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.rt-como li::before {
+  content: counter(rt-c); position: absolute; left: 0.9rem; top: 0.95rem; display: grid; place-items: center; width: 2.1rem; height: 2.1rem; border-radius: 6px;
+  background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 800; font-size: 1.2rem;
+}
+.rt-como h3 { margin: 0 0 0.25rem; font-size: 1.25rem; color: var(--al-texto); }
+.rt-como p { margin: 0; color: var(--al-texto-2); font-size: 0.9rem; line-height: 1.5; }
+
+/* ───── Rótulos: os rotuladores ───── */
+.rt-rotuladores { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.8rem; }
+@container (min-width: 60rem) { .rt-rotuladores { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.rt-rotulador { display: flex; flex-direction: column; gap: 0.75rem; padding: 1.05rem 1.05rem 1.1rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.rt-rotulador[data-assina="sim"] { border-color: var(--al-dourado); box-shadow: inset 0 0 0 1px var(--al-dourado); }
+.rt-rotulador-topo { display: flex; align-items: center; gap: 0.75rem; }
+.rt-escudo {
+  flex: none; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 8px; background: var(--al-saliente); color: var(--al-sobre-saliente);
+  font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 800; font-size: 0.95rem; letter-spacing: 0.02em; box-shadow: inset 0 -3px 0 var(--al-vermelho);
+}
+.rt-rotulador[data-tipo="mediacao"] .rt-escudo { background: var(--al-vermelho); color: var(--al-sobre-vermelho); box-shadow: inset 0 -3px 0 var(--al-dourado); }
+.rt-rotulador h3 { margin: 0; font-size: 1.45rem; line-height: 1.05; color: var(--al-texto); }
+.rt-rotulador-sub { margin: 0.15rem 0 0; color: var(--al-texto-3); font-size: 0.82rem; }
+.rt-rotulador-regras { margin: 0; color: var(--al-texto-2); font-size: 0.93rem; line-height: 1.55; }
+.rt-numeros { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; margin: 0; color: var(--al-texto-3); font-size: 0.84rem; }
+.rt-numeros strong { color: var(--al-texto); font-variant-numeric: tabular-nums; }
+
+/* O seletor do efeito: três botões numa fileira, o escolhido aceso. */
+.rt-efeito { border: 0; margin: auto 0 0; padding: 0; min-width: 0; }
+.rt-efeito legend { padding: 0; margin: 0 0 0.45rem; color: var(--al-texto); font-size: 0.85rem; font-weight: 700; }
+.rt-efeito-opcoes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 10px; background: var(--al-fundo); border: 1px solid var(--al-linha); }
+.rt-efeito label { position: relative; display: grid; place-items: center; min-height: 44px; padding: 0 0.4rem; border-radius: 7px; cursor: pointer; color: var(--al-texto-2); font-size: 0.9rem; font-weight: 700; text-align: center; }
+.rt-efeito input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.rt-efeito label:has(input:checked) { background: var(--al-saliente); color: var(--al-sobre-saliente); }
+/* A escolha acesa tem a mesma cor em qualquer opção: "Esconder" em vermelho lia como erro. */
+.rt-efeito label:has(input:focus-visible) { outline: 2px solid var(--al-foco); outline-offset: 1px; }
+.rt-efeito-texto { margin: 0.5rem 0 0; color: var(--al-texto-3); font-size: 0.84rem; line-height: 1.45; min-height: 2.45em; }
+.rt-dica { display: block; margin: 0.35rem 0 0; color: var(--al-texto-2); font-size: 0.82rem; line-height: 1.4; }
+.rt-aviso-ninguem { margin: 0.9rem 0 0; color: var(--al-texto-3); font-size: 0.86rem; }
+
+/* ───── Rótulos: listas de marcas (sobre mim, minhas, fila) ───── */
+.rt-marcas { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.rt-marca { padding: 0.9rem 1rem; border-radius: 10px; background: var(--al-superficie); border: 1px solid var(--al-linha); }
+.rt-marca[data-situacao="contestado"] { border-left: 4px solid var(--al-dourado); }
+.rt-marca[data-situacao="vale"] { border-left: 4px solid var(--al-vermelho); }
+.rt-marca-topo { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; margin-bottom: 0.45rem; color: var(--al-texto-3); font-size: 0.82rem; }
+.rt-selo {
+  display: inline-flex; align-items: center; min-height: 1.6rem; padding: 0 0.55rem; border-radius: 5px; border: 1.5px solid currentColor;
+  font-size: 0.86rem; letter-spacing: 0.04em; color: var(--al-texto-2);
+}
+.rt-selo-rotulo { color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+.rt-selo-dourado { color: var(--al-dourado); }
+.rt-marca p { margin: 0.25rem 0; color: var(--al-texto-2); font-size: 0.92rem; line-height: 1.5; }
+.rt-marca p strong { color: var(--al-texto); }
+.rt-marca blockquote { margin: 0.45rem 0; padding: 0.45rem 0.7rem; border-left: 3px solid var(--al-superficie-2); color: var(--al-texto-2); font-size: 0.88rem; line-height: 1.5; }
+
+/* ───── Formulários ───── */
+.rt-form { position: relative; padding: 1.15rem 1.15rem 1.25rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); overflow: hidden; }
+.rt-form::before { content: ""; position: absolute; inset: 0 0 auto; height: 5px; background: var(--al-faixa); }
+.rt-form > p { margin: 0.2rem 0 0.9rem; color: var(--al-texto-2); font-size: 0.93rem; line-height: 1.55; }
+.rt-campos { display: grid; gap: 0 0.9rem; }
+@container (min-width: 44rem) { .rt-campos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.rt-campo { display: grid; gap: 0.35rem; margin: 0 0 0.85rem; min-width: 0; }
+.rt-campo-largo { grid-column: 1 / -1; }
+.rt-campo label, .rt-campo > span { color: var(--al-texto); font-size: 0.88rem; font-weight: 700; }
+.rt-campo input, .rt-campo textarea, .rt-campo select {
+  width: 100%; min-height: 44px; padding: 0.55rem 0.75rem; border-radius: 9px; border: 1.5px solid var(--al-superficie-2);
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-size: 0.95rem;
+}
+.rt-campo textarea { min-height: 5.5rem; resize: vertical; line-height: 1.5; }
+.rt-campo input:focus-visible, .rt-campo textarea:focus-visible, .rt-campo select:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 1px; border-color: transparent; }
+.rt-campo small { color: var(--al-texto-3); font-size: 0.8rem; line-height: 1.4; }
+.rt-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 0.4rem; }
+.rt-acoes .al-botao { min-height: 44px; padding-inline: 1.1rem; }
+.rt-duas { display: grid; gap: 1rem; }
+@container (min-width: 60rem) { .rt-duas { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }
+.rt-detalhes > summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 0.6rem; min-height: 44px; color: var(--al-texto); font-size: 1.35rem; }
+.rt-detalhes > summary::-webkit-details-marker { display: none; }
+.rt-detalhes > summary::before { content: "+"; display: grid; place-items: center; width: 1.8rem; height: 1.8rem; border-radius: 6px; background: var(--al-superficie-2); font-weight: 800; }
+.rt-detalhes[open] > summary::before { content: "−"; }
+.rt-detalhes > summary:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; border-radius: 6px; }
+
+/* ───── A tarja no cartão (só para quem assina) ───── */
+.rt-tarja {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.55rem; margin: 0.55rem 0 0.15rem; padding: 0.45rem 0.65rem; border-radius: 8px;
+  background: var(--al-fundo); border: 1.5px dashed var(--al-vermelho); color: var(--al-texto-2); font-size: 0.84rem; line-height: 1.35;
+}
+.rt-tarja strong { color: var(--al-texto); }
+.rt-tarja .rt-selo { min-height: 1.4rem; font-size: 0.8rem; }
+
+/* ───── O bloco do painel ───── */
+.rt-painel { container-type: inline-size; color: var(--al-texto); }
+.rt-painel > h2 { margin: 0 0 0.3rem; font-size: 2rem; }
+.rt-painel > p { margin: 0 0 1.2rem; color: var(--al-texto-3); font-size: 0.92rem; }
+.rt-tabela { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.9rem; }
+.rt-tabela th { padding: 0.55rem 0.7rem; text-align: left; color: var(--al-texto-3); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: 2px solid var(--al-superficie-2); }
+.rt-tabela td { padding: 0.6rem 0.7rem; border-bottom: 1px solid var(--al-linha); color: var(--al-texto-2); vertical-align: middle; }
+.rt-tabela td:first-child { color: var(--al-texto); font-weight: 700; white-space: nowrap; }
+.rt-tabela .al-botao { min-height: 44px; padding-inline: 1rem; }
+@container (max-width: 44rem) {
+  .rt-tabela thead { display: none; }
+  .rt-tabela, .rt-tabela tbody, .rt-tabela tr, .rt-tabela td { display: block; }
+  .rt-tabela tr { margin: 0 0 0.6rem; padding: 0.7rem 0.85rem; border-radius: 10px; background: var(--al-superficie); }
+  .rt-tabela td { padding: 0.15rem 0; border: 0; }
+  .rt-tabela td[data-rotulo]::before { content: attr(data-rotulo) " · "; color: var(--al-texto-3); font-size: 0.78rem; font-weight: 700; }
+}
+.rt-renovacoes { list-style: none; margin: 0.6rem 0 0; padding: 0; color: var(--al-texto-3); font-size: 0.85rem; display: grid; gap: 0.2rem; }

@@ -86,7 +86,7 @@
     "comunidade": "Comunidade (opcional)",
     "saltarParaConteudo": "Ir para a linha",
     "sairRapido": "Sair rápido",
-    "sairRapidoAjuda": "Apaga o que a Alumia guardou neste aparelho e abre uma página comum de fora (a previsão do tempo), sem nada do Instituto.",
+    "sairRapidoAjuda": "Sai da conta neste aparelho, apaga o que a Alumia guardou aqui, inclusive as chaves do chat privado e dos grupos, e abre uma página comum de fora (a previsão do tempo), sem nada do Instituto.",
     "cartaoSeguranca": "Segurança primeiro: nunca poste endereço de casa, telefone ou documento. Se algo preocupar, denuncie.",
     "cuidados": {
       "titulo": "Cuidado",
@@ -118,9 +118,9 @@
     "entreNaConta": "Entre na sua conta para participar. Você pode ler as dúvidas das disciplinas sem conta.",
     "entrar": "Entrar na conta",
     "pitch": [
-      "Sem anúncio, sem rastreador e sem algoritmo: a linha é em ordem de chegada.",
+      "Sem anúncio e sem rastreador. A ordem da linha segue uma regra aberta, igual para todos e escrita na tela.",
       "Só para maiores de 18 anos.",
-      "Você aparece com um codinome, nunca com o nome civil."
+      "Você aparece com um codinome por padrão; nome e foto só se você quiser."
     ],
     "criarConta": "Criar conta",
     "jaTenhoConta": "Já tenho conta",
@@ -178,7 +178,10 @@
     "nivel_imagens": "Seu nível ainda não permite tantas imagens num post. Veja os limites em Como a Alumia cuida.",
     "limite_diario": "Você chegou ao limite de posts de hoje para o seu nível.",
     "limite_identidades": "Você já tem o máximo de 5 contas desse tipo (identidades ou organizações).",
-    "lista_bloqueio": "A mediação deste lugar não permite posts seus aqui."
+    "lista_bloqueio": "A mediação deste lugar não permite posts seus aqui.",
+    "leia_as_regras": "Esta comunidade pede que você aceite as regras antes de postar. Veja a aba Chegada.",
+    "so_leitura": "Esta é uma comunidade de avisos: só a moderação abre post aqui.",
+    "so_leitura_respostas": "Nesta comunidade de avisos, a regra não deixa você responder."
   },
   "alumia": {
     "voltarAoSite": "Voltar ao site do Instituto Lúcia",
@@ -228,5 +231,9 @@
       "O que falta no site para você estudar melhor?"
     ],
     "doZero": "Escrever do zero"
+  },
+  "avisoFixado": {
+    "rotulo": "Aviso da coordenação",
+    "abrir": "Abrir"
   }
 }

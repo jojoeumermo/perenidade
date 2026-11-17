@@ -1,8 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // As chamadas do pacote de moderação ao banco: uma função por rpc (supabase/migracoes/2026-11-rede-moderacao.sql).
-// Usa `chamar` da fundação. Sem "@/" de propósito.
+// Usa `chamar` da fundação; na prévia (NEXT_PUBLIC_ALUMIA_PREVIA=sim), o dublê com exemplos (previa-moderacao.ts). Sem "@/" de propósito.
 import { chamar, type Chamar } from "./cliente";
+import { chamarDaModeracao } from "./comunidade-moderacao";
+import { chamarDubleDaFila } from "./previa-moderacao";
 import type {
   AcaoDeModeracao, AlvoDeDenuncia, CategoriaDeDenuncia, Decisao, DenunciaAberta, EscopoDeModeracao, ItemDaFila, ItemDeLista, MeuNivel, MinhaDenuncia,
   PostRetido, RecursoDaFila, RegraDeNivel, ResultadoDeDenuncia, RotuloDeChecagem, Silenciado, SituacaoDaDenuncia, TipoDeSilencio,
@@ -17,9 +19,12 @@ export function criarClienteModeracao(c: Chamar) {
     /** Só a coordenação designa líder (nível 4). */
     lider: (handle: string, sim: boolean) => c<{ lider: boolean }>("rede_mod_lider", { p_handle: handle, p_sim: sim }),
 
-    /** Denunciar um post (id), um perfil (@handle) ou uma comunidade (slug). Quem denuncia nunca é revelado. */
-    denunciar: (tipo: AlvoDeDenuncia, alvo: string, categoria: CategoriaDeDenuncia, texto = "") =>
-      c<ResultadoDeDenuncia>("rede_mod_denunciar", { p_alvo_tipo: tipo, p_alvo: alvo, p_categoria: categoria, p_texto: texto }),
+    /**
+     * Denunciar um post (id), um perfil (@handle) ou uma comunidade (slug). Quem denuncia nunca é revelado. `trecho`: só de post
+     * cifrado, o pedaço que a pessoa abriu no aparelho e escolheu mandar em texto aberto (vai só quando há trecho).
+     */
+    denunciar: (tipo: AlvoDeDenuncia, alvo: string, categoria: CategoriaDeDenuncia, texto = "", trecho = "") =>
+      c<ResultadoDeDenuncia>("rede_mod_denunciar", { p_alvo_tipo: tipo, p_alvo: alvo, p_categoria: categoria, p_texto: texto, ...(trecho ? { p_trecho: trecho } : {}) }),
     minhasDenuncias: () => c<MinhaDenuncia[]>("rede_mod_minhas_denuncias"),
 
     fila: (situacao: "abertas" | "fechadas" = "abertas") => c<ItemDaFila[]>("rede_mod_fila", { p_situacao: situacao }),
@@ -55,4 +60,4 @@ export function criarClienteModeracao(c: Chamar) {
   };
 }
 
-export const redeMod = criarClienteModeracao(chamar);
+export const redeMod = criarClienteModeracao(process.env.NEXT_PUBLIC_ALUMIA_PREVIA === "sim" ? chamarDubleDaFila(chamarDaModeracao) : chamar);

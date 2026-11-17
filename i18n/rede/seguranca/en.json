@@ -1,0 +1,226 @@
+{
+  "titulo": "Account security",
+  "chamada": "What protects your account and what to do if a device falls into the wrong hands.",
+  "carregando": "Loading…",
+  "panico": {
+    "carimbo": "Panic",
+    "titulo": "Leave everything now",
+    "texto": "Signs your account out of every device, this one included, and erases what the site and Alumia stored on this device: drafts, chat keys, saved pages. Then it opens an ordinary page from elsewhere.",
+    "botao": "Leave everything",
+    "confirmarTitulo": "Leave everything now?",
+    "esconder": "Also hide my profile until I come back",
+    "esconderAjuda": "It disappears from search, suggestions, mentions and the profile page. When you come back, you can show it again here.",
+    "confirmar": "Yes, leave everything",
+    "cancelar": "Cancel",
+    "saindo": "Leaving…",
+    "atalhoTitulo": "Esc Esc Esc shortcut",
+    "atalhoTexto": "With the shortcut on, pressing Esc three times in a row leaves this device at once, on any screen. It lasts until you close this tab.",
+    "atalhoLigar": "Turn on the shortcut",
+    "atalhoDesligar": "Turn off the shortcut",
+    "atalhoLigado": "Shortcut on in this tab"
+  },
+  "escondido": {
+    "titulo": "Your profile is hidden",
+    "texto": "Hidden by the panic button on {quando}. Nobody can find your profile while it stays like this.",
+    "mostrar": "Show my profile again",
+    "mostrado": "Your profile is visible again."
+  },
+  "fator": {
+    "titulo": "Authenticator app",
+    "ligado": "On. A password alone does not open your account.",
+    "desligado": "No authenticator app on this account.",
+    "desligadoTexto": "On Alumia, the 6-digit code is asked at every sign-in. Set up the app when the sign-in asks for it.",
+    "alertaTitulo": "New sign-in alert",
+    "alertaTexto": "Every time your account signs in on a device, an alert arrives here on Alumia and in your email, with the browser, the system, the day and the time. If it was not you, sign the devices out."
+  },
+  "codigos": {
+    "titulo": "Recovery codes",
+    "texto": "Ten single-use codes to get in if you lose the phone with the app. Using a code removes the app from the account: you set up another right away, and the other devices are signed out.",
+    "restantes": "{n} of 10 codes still valid",
+    "nenhum": "You do not have recovery codes yet.",
+    "geradosEm": "Created on {quando}",
+    "gerar": "Create codes",
+    "gerarDeNovo": "Create new codes",
+    "deNovoAviso": "The codes you have today will stop working.",
+    "confirmarGerar": "Create and cancel the old ones",
+    "cancelar": "Cancel",
+    "mostrarTitulo": "Your new codes",
+    "mostrarTexto": "They are shown only once. Download or copy them and keep them away from your phone: paper in a drawer or a password manager.",
+    "baixar": "Download as text",
+    "copiar": "Copy",
+    "copiados": "Codes copied.",
+    "pronto": "I have saved the codes",
+    "precisaFator": "The codes depend on the authenticator app. Set up the app first.",
+    "arquivo": {
+      "titulo": "Alumia: second-factor recovery codes",
+      "geradosEm": "Created on {quando}",
+      "instrucoes": ["Each code works once.", "Use one if you lose the phone with the authenticator app.", "Keep away from your phone."]
+    }
+  },
+  "aparelhos": {
+    "titulo": "Connected devices",
+    "texto": "Where your account is open now: the browser, the system and the days. The network address does not appear anywhere.",
+    "este": "This device",
+    "rotulo": "{navegador} on {sistema}",
+    "desde": "Signed in on {dia}",
+    "ultima": "Last activity: {dia}",
+    "hoje": "today",
+    "ontem": "yesterday",
+    "semCodigo": "Signed in without the app code",
+    "semCodigoAjuda": "Don't recognize it? Disconnect it.",
+    "desconectar": "Sign out",
+    "desconectarOutros": "Sign out all the others",
+    "confirmarOutros": "Sign out the other devices? They will need to sign in again, with password and code.",
+    "confirmar": "Sign out",
+    "cancelar": "Cancel",
+    "desconectado": "Device signed out.",
+    "desconectados": "Other devices signed out.",
+    "so": "Only this device is connected.",
+    "ver": "See the devices",
+    "resumo": "{n} devices connected",
+    "indisponivel": "The device list is not available right now.",
+    "outroNavegador": "Unknown browser",
+    "outroSistema": "unknown system",
+    "ios": "iPhone or iPad",
+    "voltar": "Account security"
+  },
+  "busca": {
+    "titulo": "Out of search",
+    "texto": "You disappear from people search, @ suggestions and who-to-follow lists. Anyone who already has your full @ can still find your profile.",
+    "rotulo": "Stay out of search",
+    "salvo": "Done."
+  },
+  "tor": {
+    "titulo": "Connect through Tor",
+    "texto": "With Tor Browser, Alumia's chat opens without our server or anyone on your network knowing where you connect from. It has its own .onion address.",
+    "endereco": "The chat's .onion address",
+    "semEndereco": "The chat's .onion address has not been published yet.",
+    "comoUsar": "Open the address in Tor Browser (torproject.org) and chat by text.",
+    "comoFunciona": "How the .onion service is set up (in the open source code)",
+    "abreFora": "opens GitHub, outside Alumia"
+  },
+  "recuperar": {
+    "link": "I lost the phone with the app",
+    "titulo": "Sign in with a recovery code",
+    "texto": "Type one of the ten codes you saved. The authenticator app leaves the account and you set up another right after; the other devices are signed out.",
+    "rotulo": "Recovery code",
+    "botao": "Use the code",
+    "errado": "Wrong or already used code.",
+    "certo": "Code accepted. Now set up the authenticator app again.",
+    "voltar": "Back to the app code"
+  },
+  "erros": {
+    "confirme": "Confirm the authenticator app code in this session and try again.",
+    "falha": "That did not work now. Try again in a moment.",
+    "muitos": "Too many attempts. Wait a little and try again.",
+    "tentar": "Try again"
+  },
+  "isca": {
+    "carimbo": "Decoy account",
+    "titulo": "Panic password",
+    "texto": "A second password, for this device only. If someone forces you to open Alumia, type the panic password instead of yours: the device signs in to a decoy account with a neutral profile and removes your account from here, the way Quick exit does. The sign-in screen is the same either way.",
+    "servidor": "Nothing is deleted on the server. It is a personal safety tool against someone forcing access to your device: Alumia complies with the law and valid court orders using the real data.",
+    "ativar": "Turn on the panic password",
+    "ativarTroca": "If this device already has a panic password, the new one takes its place. To prepare or turn off the one that exists, use Prepare the decoy account.",
+    "senha": "Panic password",
+    "senhaAjuda": "Different from your sign-in password and easy to remember under pressure. At least 8 characters.",
+    "senhaDeNovo": "Panic password again",
+    "real": "Your sign-in password",
+    "realAjuda": "Only to check that the two are different. It does not leave this device and is not stored.",
+    "email": "Decoy account email",
+    "emailAjuda": "An email of yours that is not this account's (an email alias works). It receives the confirmation link.",
+    "codinome": "Decoy account code name",
+    "codinomeAjuda": "An ordinary code name that does not resemble yours.",
+    "criar": "Create the decoy account",
+    "criando": "Creating the decoy account…",
+    "cancelar": "Cancel",
+    "criada": "Decoy account created, and its vault is stored, encrypted, on this device. Next, confirm the decoy's email.",
+    "ativa": "On for this device",
+    "ativaTexto": "The vault with the decoy account stays encrypted in this browser, and the panic password works only here. On another device, it has to be turned on there.",
+    "preparar": "Prepare the decoy account",
+    "prepararTexto": "Type the panic password to open the decoy here, without leaving your account, and see what it still needs.",
+    "abrir": "Open the decoy",
+    "abrindo": "Opening the decoy…",
+    "fechar": "Close the decoy",
+    "enviar": "Send",
+    "enviando": "Sending…",
+    "desativar": "Turn off the panic password",
+    "desativarTexto": "Deletes the decoy's vault from this device. The decoy account still exists: to delete it, sign in to it and use the normal account deletion.",
+    "desativarConfirmar": "Yes, turn it off",
+    "desativada": "Panic password turned off on this device.",
+    "etapas": {
+      "confirmar_email": {
+        "titulo": "Confirm the decoy's email",
+        "texto": "Open the link sent to the decoy account's email in a private window or on another device: opened in this browser, it swaps your account for the decoy. Then come back here.",
+        "botao": "I have confirmed"
+      },
+      "sem_pedido": {
+        "titulo": "Decoy's request to join",
+        "texto": "The decoy goes through screening like any account. Write an ordinary reason, with nothing that links the decoy to you.",
+        "botao": "Send the decoy's request"
+      },
+      "em_analise": {
+        "titulo": "In screening",
+        "texto": "The decoy's request is waiting for screening. Come back after the answer.",
+        "botao": "Check again"
+      },
+      "recusada": {
+        "titulo": "Screening did not approve the decoy",
+        "texto": "Turn off the panic password and create another decoy with another email.",
+        "botao": "Check again"
+      },
+      "suspensa": {
+        "titulo": "The decoy is suspended",
+        "texto": "Turn off the panic password and create another decoy with another email.",
+        "botao": "Check again"
+      },
+      "cadastrar_fator": {
+        "titulo": "Decoy's authenticator app",
+        "texto": "On Alumia every account asks for the app code, the decoy too. Add the decoy to your authenticator app under a name that draws no attention. When you sign in with the panic password, the code asked is the decoy's.",
+        "botao": "Confirm the code"
+      },
+      "pedir_codigo": {
+        "titulo": "Decoy's code",
+        "texto": "Type the decoy's code from your authenticator app to finish preparing it.",
+        "botao": "Confirm the code"
+      },
+      "povoar": {
+        "titulo": "Neutral profile",
+        "texto": "The decoy finishes its first visit without choices and can follow a pack of public profiles, so it does not look empty. It posts nothing.",
+        "botao": "Make the decoy ready"
+      },
+      "pronta": {
+        "titulo": "The decoy is ready",
+        "texto": "At sign-in, the panic password instead of yours opens the decoy and removes your account from this device. The code asked next is the decoy's.",
+        "botao": "Check again"
+      }
+    },
+    "motivo": "Why do you want to join",
+    "maior": "I am 18 or older",
+    "aceite": "I have read and accept Alumia's terms and rules",
+    "qr": "QR code for the authenticator app",
+    "segredo": "Or type this secret in the app:",
+    "codigo": "6-digit code",
+    "nenhumPacote": "Do not follow any pack",
+    "pacotesTitulo": "Pack of public profiles",
+    "erros": {
+      "curta": "The panic password needs at least 8 characters.",
+      "diferentes": "The two panic passwords do not match.",
+      "igual": "The panic password cannot be the same as your sign-in password.",
+      "semReal": "Type your sign-in password, to check that it is a different one.",
+      "email": "Check the decoy account's email.",
+      "emailIgual": "Use an email different from this account's.",
+      "codinome": "The code name needs 3 to 30 characters, with no @ or address.",
+      "motivo": "Write the reason in 10 to 500 characters, with no email or phone.",
+      "idade": "Confirm that the decoy belongs to someone 18 or older.",
+      "aceite": "Accept the terms and the rules.",
+      "errada": "That is not this device's panic password.",
+      "semArmazenamento": "This browser did not let the vault be stored. Outside a private window, try again.",
+      "cadastroFechado": "Sign-up is closed right now. Try later.",
+      "captcha": "Complete the challenge before continuing.",
+      "muitos": "Too many attempts. Wait a little and try again.",
+      "codigo": "Wrong code. Check the app and try again.",
+      "falha": "It did not work right now. Try again in a moment."
+    }
+  }
+}

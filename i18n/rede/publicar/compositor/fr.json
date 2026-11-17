@@ -1,0 +1,95 @@
+{
+  "fio": {
+    "ligar": "Monter un fil",
+    "desligar": "Revenir à un seul bloc",
+    "ajuda": "Écrivez en blocs et publiez tout d’un coup : le premier ouvre la conversation et les autres suivent, dans l’ordre.",
+    "bloco": "Bloc {n} sur {total}",
+    "mais": "Un bloc de plus",
+    "tirar": "Retirer le bloc {n}",
+    "dividir": "Découper le texte en blocs",
+    "limite": "Un fil compte jusqu’à 10 blocs.",
+    "vazio": "Un bloc est vide : écrivez dedans ou retirez-le.",
+    "grande": "Le bloc {n} dépasse 500 caractères.",
+    "semAgenda": "Le fil part tout de suite. Pour programmer, publiez un seul bloc.",
+    "esperando": "Le début du fil est parti. Les {n} autres blocs attendent que la médiation lise le bloc du dessus et partent quand il est libéré.",
+    "publicar": "Publier le fil",
+    "desfeito": "Fil annulé. Le texte est toujours là."
+  },
+  "imagens": {
+    "arranjo": "Disposition des images",
+    "grade": "Grille",
+    "carrossel": "Carrousel",
+    "colagem": "Collage",
+    "legenda": "Légende",
+    "legendaDica": "Légende de l’image {n} (tout le monde la voit)",
+    "anterior": "Image précédente",
+    "proxima": "Image suivante",
+    "posicao": "Image {n} sur {total}",
+    "antes": "Déplacer l’image {n} vers l’avant",
+    "depois": "Déplacer l’image {n} vers l’arrière",
+    "maximo": "Jusqu’à 10 images par publication."
+  },
+  "fuso": {
+    "rotulo": "Fuseau horaire",
+    "ajuda": "L’heure vaut dans le fuseau que vous choisissez. Alumia ne cherche pas à savoir où vous êtes.",
+    "doBrasil": "Fuseaux du Brésil",
+    "outros": "Autres fuseaux",
+    "vaiSair": "Part le {quando}.",
+    "naFila": "en attente : {quando}",
+    "cidades": {
+      "Noronha": "Fernando de Noronha",
+      "Sao_Paulo": "Brasília, São Paulo, Rio, Sud",
+      "Bahia": "Salvador",
+      "Fortaleza": "Fortaleza",
+      "Recife": "Recife",
+      "Belem": "Belém",
+      "Manaus": "Manaus",
+      "Cuiaba": "Cuiabá",
+      "Campo_Grande": "Campo Grande",
+      "Porto_Velho": "Porto Velho",
+      "Boa_Vista": "Boa Vista",
+      "Rio_Branco": "Rio Branco"
+    }
+  },
+  "rascunho": {
+    "agendar": "Programmer"
+  },
+  "figurinhas": {
+    "escolher": "Ajouter un autocollant",
+    "pacote": "Pack de la maison",
+    "tirar": "Retirer l’autocollant",
+    "so": "Seulement l’autocollant, sans texte",
+    "texto": "[Autocollant : {nome}]",
+    "nomes": {
+      "punho": "Poing levé",
+      "lampiao": "Lanterne allumée",
+      "megafone": "Mégaphone",
+      "estrela": "Étoile",
+      "cravo": "Œillet rouge",
+      "coracao": "Cœur en carreaux",
+      "livro": "Livre ouvert",
+      "sol": "Soleil levant",
+      "cafe": "Café tout juste fait",
+      "presente": "Présent !",
+      "na-luta": "Dans la lutte",
+      "valeu": "Merci !"
+    },
+    "carimbos": {
+      "presente": "PRÉSENT !",
+      "na-luta": "EN LUTTE",
+      "valeu": "MERCI !"
+    }
+  },
+  "link": {
+    "doServidor": "Titre, résumé et image récupérés par notre serveur."
+  },
+  "erros": {
+    "invalido_fio": "Le fil doit avoir de 2 à 10 blocs, tous avec du texte.",
+    "invalido_arranjo": "Choisissez grille, carrousel ou collage.",
+    "invalido_figurinha": "Cet autocollant ne fait pas partie du pack de la maison.",
+    "invalido_legenda": "Une légende compte jusqu’à 280 caractères.",
+    "legenda_revisar": "Une légende contient un mot qui part à la lecture de la médiation. Changez la légende ou retirez-la.",
+    "invalido_fuso": "Choisissez un fuseau dans la liste.",
+    "nivel_imagens": "Votre niveau de confiance ne permet pas encore autant d’images dans une publication."
+  }
+}

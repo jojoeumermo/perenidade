@@ -16,7 +16,10 @@ export const hasBackend = Boolean(url && key);
 /** Verdadeiro só no ambiente de teste local, onde existe a entrada simplificada. */
 export const localBackend = /^http:\/\/(127\.0\.0\.1|localhost)[:/]/.test(url);
 export const storageUrl = (path: string) => `${url}/storage/v1/object/public/${path}`;
-/** Chave pública do desafio contra robôs na entrada. Sem ela, o desafio não aparece. */
+/**
+ * Chave pública do desafio contra robôs (Turnstile, da Cloudflare, que já está na frente do site) na entrada. Sem ela, o desafio
+ * não aparece e a porta segue só com a prova feita no aparelho. A resposta é conferida no servidor (lib/rede/convites/turnstile.ts).
+ */
 export const captchaKey = localBackend ? "" : (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "");
 
 export class BackendError extends Error {
@@ -223,8 +226,9 @@ export function useMe(): MeState & { reload: () => void } {
 /**
  * Pede ao serviço a segunda avaliação de uma mensagem da Comunidade que ficou esperando por ela. Daqui só sai o pedido:
  * o texto é lido do banco e a decisão é tomada do lado de lá. Sem resposta, devolve "" e a mensagem segue na fila de revisão.
+ * Post da Alumia não entra aqui (onda 9): a avaliação é de outra empresa, e nada da Alumia vai para fora.
  */
-export async function evaluatePost(kind: "topico" | "resposta" | "comentario" | "aula_chat" | "rede", id: string): Promise<string> {
+export async function evaluatePost(kind: "topico" | "resposta" | "comentario" | "aula_chat", id: string): Promise<string> {
   try {
     const supabase = await getClient();
     const { data } = await supabase.auth.getSession();

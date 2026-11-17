@@ -9,22 +9,30 @@
 //   aprovada, sem fator  → cadastrar o aplicativo autenticador   · com fator, sessão aal1 → o código
 //   aprovada e aal2      → a Alumia
 // O banco confere tudo de novo (20261110-alumia-entrada.sql): esconder a tela não é a trava, é só o caminho.
+// Todas as telas usam a mesma cena (Cena.tsx): o chamado e a parede de ladrilhos de um lado, o cartão do outro. O que muda é o
+// cartão. A cada troca, o título novo recebe o foco e uma linha de estado diz ao leitor de tela onde a pessoa está.
+// Sem conta, duas coisas da Alumia continuam abertas: as páginas "o que guardamos" e "transparência", e o diretório das
+// organizações com selo (decisão da coordenação; a lista de comunidades fica fechada).
 // Coordenação e militante da Escola chegam como "aprovada" direto (sem pedido nem triagem); o segundo fator vale para todo mundo.
 import "@/styles/alumia-entrada.css";
 import { usePathname } from "next/navigation";
-import { type ReactNode, useCallback, useEffect, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import type { Locale } from "@/i18n/config";
 import { BackendError, getClient, hasBackend, hasSession, rpc, signOut } from "@/lib/backend";
 import { useCadastro } from "@/lib/cadastro";
 import { previaDaAlumiaLigada } from "@/lib/rede/conversa/exemplos";
 import type { FiguraDaEntrada } from "@/lib/rede/entrada/figuras";
 import type { TextosDaEntrada } from "@/lib/rede/entrada/textos";
+import { registrarRede } from "@/lib/rede/painel/cliente-rede";
 import { pararPonte, ponteDisponivel, trazerSessaoDoSite } from "@/lib/sessao/cliente-ponte";
 import { KEYS, useHydrated, useStored } from "@/lib/storage";
 import { enderecoDoSite } from "../VoltarAoSite";
 import { Cena } from "./Cena";
-import { enviarPedido, FormCriar, FormEntrar, FormNovaSenha, FormPedido, lerPedidoGuardado, Mensagem } from "./Formularios";
+import { Caminho, enviarPedido, raizDaAlumia, FormCriar, FormEntrar, FormNovaSenha, FormPedido, lerPedidoGuardado, Mensagem } from "./Formularios";
 import { CadastrarFator, PedirCodigo } from "./SegundoFator";
+import { ProvedorDeVoce, useVoce } from "./Voce";
+// A porta de entrada (onda 8) pendura aqui pelo encaixe dela: a página do convite abre sem conta.
+import { LIVRES_DA_PORTA } from "../convites/encaixe-da-entrada";
 
 interface EuNaEntrada {
   logado: boolean;
@@ -53,8 +61,18 @@ type Fase =
   | { f: "fator-codigo"; fator: string; conta: string }
   | { f: "dentro" };
 
-/** Telas da Alumia que abrem sem conta: o que guardamos e a transparência (informação pública sobre a própria rede). */
-const LIVRES = /\/(o-que-guardamos|transparencia)\/?$/;
+/**
+ * Telas da Alumia que abrem sem conta: o que guardamos, a transparência e, da onda 8, os termos, a privacidade, as regras e a ajuda
+ * (informação pública sobre a própria rede; quem teve a conta suspensa pede a revisão pelas regras) e, da onda 9, o guia "Sem sinal?"
+ * do modo ato (abre sem sessão e sem rede, no dia do ato).
+ */
+const LIVRES = /\/(o-que-guardamos|transparencia|termos|privacidade|regras|ajuda|modo-ato\/sem-sinal)\/?$/;
+/**
+ * O diretório das organizações com selo ("Traga sua organização"): com a trava ligada continua visível para quem não tem sessão
+ * (o banco deixa rede_org_diretorio e rede_org_mapa abertas: 20261113-alumia-o7-entrada.sql). Quem tem sessão e ainda não passou
+ * pela entrada vê a entrada, porque a página dela abriria a casca da rede, que o banco recusa.
+ */
+const DIRETORIO = /\/organizacoes\/?$/;
 
 /** A fase pedida no endereço da prévia; nula para o que não é uma das telas sem banco. */
 function faseDaPrevia(nome: string | null): Fase | null {
@@ -63,7 +81,16 @@ function faseDaPrevia(nome: string | null): Fase | null {
     case "fora":
     case "suspensa":
     case "atualizando":
+    case "conferindo":
+    case "sem-servico":
+    case "nova-senha":
       return { f: nome };
+    case "fator":
+      return { f: "fator-cadastrar" };
+    case "codigo":
+      return { f: "fator-codigo", fator: "exemplo", conta: "" };
+    case "recusada-pode":
+      return { f: "recusada", pode: true, eu: { ...eu, situacao: "recusada", motivo_recusa: "Pedido de exemplo, sem relação com a organização." } };
     case "pedido":
       return { f: "pedido", eu: { ...eu, codinome: null } };
     case "analise":
@@ -75,10 +102,62 @@ function faseDaPrevia(nome: string | null): Fase | null {
   }
 }
 
-export function PortaoDaAlumia({ lang, t, figuras, site: siteDoServidor, children }: { lang: Locale; t: TextosDaEntrada; figuras: FiguraDaEntrada[]; site: string; children: ReactNode }) {
+interface PropsDoPortao {
+  lang: Locale;
+  t: TextosDaEntrada;
+  figuras: FiguraDaEntrada[];
+  site: string;
+  /** O diretório das organizações com selo está no ar (rotas da Alumia nova com "alumia-org")? Então a entrada aponta para ele. */
+  comDiretorio?: boolean;
+  children: ReactNode;
+}
+
+export function PortaoDaAlumia(props: PropsDoPortao) {
+  return (
+    <ProvedorDeVoce>
+      <Portao {...props} />
+    </ProvedorDeVoce>
+  );
+}
+
+/** O nome de cada tela, para a linha de estado que o leitor de tela anuncia quando o cartão muda. */
+function nomeDaTela(t: TextosDaEntrada, fase: Fase): string {
+  switch (fase.f) {
+    case "conferindo":
+      return t.carregando;
+    case "ponte":
+      return t.ponte;
+    case "fora":
+      return t.abas;
+    case "sem-servico":
+      return t.semServicoTitulo;
+    case "atualizando":
+      return t.atualizando;
+    case "nova-senha":
+      return t.novaSenhaTitulo;
+    case "suspensa":
+      return t.suspensaTitulo;
+    case "analise":
+      return `${t.p.carimbos.analise}. ${t.analiseTitulo}`;
+    case "recusada":
+      return `${t.p.carimbos.recusada}. ${t.recusadaTitulo}`;
+    case "pedido":
+      return t.pedidoTitulo;
+    case "fator-cadastrar":
+      return `${t.p.carimbos.aprovada}. ${t.fatorTitulo}`;
+    case "fator-codigo":
+      return t.codigoTitulo;
+    default:
+      return "";
+  }
+}
+
+function Portao({ lang, t, figuras, site: siteDoServidor, comDiretorio = false, children }: PropsDoPortao) {
   const caminho = usePathname() ?? "";
+  const { definirCodinome, definirFoto } = useVoce();
   // O endereço do site só se acerta no navegador (no host alumia.* sem a variável, "/pt" seria a própria Alumia).
-  const site = useHydrated() ? enderecoDoSite(lang) : siteDoServidor;
+  const hidratado = useHydrated();
+  const site = hidratado ? enderecoDoSite(lang) : siteDoServidor;
   const sessao = useStored(KEYS.session);
   const [fase, setFase] = useState<Fase>({ f: "conferindo" });
   const [vez, setVez] = useState(0);
@@ -92,6 +171,8 @@ export function PortaoDaAlumia({ lang, t, figuras, site: siteDoServidor, childre
         // Na prévia com dados de exemplo (NEXT_PUBLIC_ALUMIA_PREVIA=sim) não há banco: "?portao=fora" (ou pedido, analise,
         // recusada, suspensa, atualizando) mostra a tela pedida, para conferir os formulários. Nada é enviado.
         const pedida = previaDaAlumiaLigada() ? faseDaPrevia(new URLSearchParams(window.location.search).get("portao")) : null;
+        if (vivo && pedida && "eu" in pedida && pedida.eu.codinome) definirCodinome(pedida.eu.codinome);
+        if (vivo && pedida && (pedida.f === "fator-cadastrar" || pedida.f === "fator-codigo")) definirCodinome("Faísca");
         return ir(pedida ?? { f: "sem-servico" });
       }
       const url = window.location.hash + window.location.search;
@@ -111,6 +192,8 @@ export function PortaoDaAlumia({ lang, t, figuras, site: siteDoServidor, childre
         }
         return ir({ f: "fora" });
       }
+      // De que rede a conta entrou (só o resumo, calculado no servidor): se a rede está barrada, a situação abaixo já vem "suspensa".
+      await registrarRede("entrada");
       let eu: EuNaEntrada;
       try {
         eu = await rpc<EuNaEntrada>("alumia_entrada_eu");
@@ -121,6 +204,8 @@ export function PortaoDaAlumia({ lang, t, figuras, site: siteDoServidor, childre
         return ir({ f: "fora" });
       }
       if (!eu?.logado) return ir({ f: "fora" });
+      // O painel da pessoa na parede se forma com o codinome da conta que entrou (desenhado aqui, no aparelho).
+      if (vivo && eu.codinome) definirCodinome(eu.codinome);
       switch (eu.situacao) {
         case "suspensa":
           return ir({ f: "suspensa" });
@@ -168,84 +253,109 @@ export function PortaoDaAlumia({ lang, t, figuras, site: siteDoServidor, childre
     return () => {
       vivo = false;
     };
-  }, [sessao, vez]);
+  }, [sessao, vez, definirCodinome]);
 
   const sair = useCallback(() => {
     pararPonte();
+    // Quem sai leva o rosto junto: o painel da parede volta a ficar vazio.
+    definirCodinome("");
+    definirFoto(null);
     void signOut().then(conferirDeNovo);
-  }, [conferirDeNovo]);
+  }, [conferirDeNovo, definirCodinome, definirFoto]);
 
-  if (fase.f === "dentro" || LIVRES.test(caminho)) return <>{children}</>;
+  // Quando o cartão troca de tela (não na primeira), o foco vai para o título novo: teclado e leitor de tela seguem dali.
+  const cartao = useRef<HTMLDivElement>(null);
+  const telaAnterior = useRef<Fase["f"] | null>(null);
+  useEffect(() => {
+    const antes = telaAnterior.current;
+    telaAnterior.current = fase.f;
+    if (!antes || antes === fase.f || antes === "conferindo" || antes === "ponte") return;
+    // Tela que já abre com o foco num campo (o código do aplicativo) fica como está.
+    if (document.activeElement instanceof HTMLInputElement && cartao.current?.contains(document.activeElement)) return;
+    cartao.current?.querySelector<HTMLElement>("[data-ale-foco]")?.focus();
+  }, [fase.f]);
 
-  const sozinho = (conteudo: ReactNode) => (
-    <Cena t={t} figuras={figuras} site={site}>
-      <main className="ale-sozinho" id="conteudo">
-        <section className="ale-cartao" aria-live="polite">
-          <div aria-hidden className="ale-faixa ale-cartao-faixa" />
-          <div className="ale-cartao-corpo">{conteudo}</div>
-        </section>
-      </main>
+  if (fase.f === "dentro" || LIVRES.test(caminho) || LIVRES_DA_PORTA.test(caminho) || (fase.f === "fora" && DIRETORIO.test(caminho))) return <>{children}</>;
+
+  const diretorio = comDiretorio ? (hidratado ? `${raizDaAlumia(lang).replace(/\/$/, "")}/organizacoes` : `/${lang}/alumia/organizacoes`) : null;
+  const titulo = (texto: string) => (
+    <h2 tabIndex={-1} data-ale-foco="" className="ale-cond ale-cartao-titulo">
+      {texto}
+    </h2>
+  );
+  const cena = (conteudo: ReactNode, opcoes: { comoEntrar?: boolean; ocupado?: boolean } = {}) => (
+    <Cena t={t} figuras={figuras} site={site} organizacoes={diretorio} comoEntrar={opcoes.comoEntrar} ocupado={opcoes.ocupado}>
+      <p className="ale-sr" role="status">{nomeDaTela(t, fase)}</p>
+      <div ref={cartao} key={fase.f} className="ale-pilha">
+        {conteudo}
+      </div>
     </Cena>
   );
 
   switch (fase.f) {
     case "conferindo":
     case "ponte":
-      return (
-        <Cena t={t} figuras={figuras} site={site}>
-          <main className="ale-espera" id="conteudo" aria-busy="true">
-            <div>
-              <span aria-hidden className="ale-giro" style={{ display: "inline-block" }} />
-              <p role="status">{fase.f === "ponte" ? t.ponte : t.carregando}</p>
-            </div>
-          </main>
-        </Cena>
+      return cena(
+        <div className="ale-espera">
+          <span aria-hidden className="ale-giro" />
+          <p>{fase.f === "ponte" ? t.ponte : t.carregando}</p>
+        </div>,
+        { ocupado: true },
       );
     case "fora":
-      return <Landing lang={lang} t={t} figuras={figuras} site={site} aoEntrar={conferirDeNovo} />;
+      return cena(<Landing lang={lang} t={t} aoEntrar={conferirDeNovo} />, { comoEntrar: true });
     case "sem-servico":
-      return sozinho(
+      return cena(
         <>
-          <h1 className="ale-cond ale-cartao-titulo">{t.semServicoTitulo}</h1>
-          <p className="ale-cartao-texto">{t.semServico}</p>
-          <div className="ale-form">
+          {titulo(t.semServicoTitulo)}
+          <Mensagem tipo="info">{t.semServico}</Mensagem>
+          <div className="ale-linha-de-elos">
             <button type="button" className="ale-botao ale-botao-contorno" onClick={conferirDeNovo}>{t.tentar}</button>
             <a className="ale-link" href={site}>{t.voltar}</a>
           </div>
         </>,
       );
     case "atualizando":
-      return sozinho(
+      return cena(
         <>
           <Mensagem tipo="info">{t.atualizando}</Mensagem>
-          <div className="ale-form">
-            <button type="button" className="ale-botao ale-botao-contorno" onClick={conferirDeNovo}>{t.tentar}</button>
+          <div className="ale-linha-de-elos">
+            <button type="button" data-ale-foco="" className="ale-botao ale-botao-contorno" onClick={conferirDeNovo}>{t.tentar}</button>
+            <a className="ale-link" href={site}>{t.voltar}</a>
           </div>
         </>,
       );
     case "nova-senha":
-      return sozinho(
+      return cena(
         <>
-          <h1 className="ale-cond ale-cartao-titulo">{t.novaSenhaTitulo}</h1>
+          {titulo(t.novaSenhaTitulo)}
           <FormNovaSenha t={t} aoSalvar={conferirDeNovo} />
         </>,
       );
     case "suspensa":
-      return sozinho(
+      return cena(
         <>
-          <h1 className="ale-cond ale-cartao-titulo">{t.suspensaTitulo}</h1>
+          <span className="ale-carimbo ale-carimbo-cinza">{t.p.carimbos.suspensa}</span>
+          {titulo(t.suspensaTitulo)}
           <p className="ale-cartao-texto">{t.suspensaTexto}</p>
-          <div className="ale-form"><button type="button" className="ale-botao ale-botao-contorno" onClick={sair}>{t.sair}</button></div>
+          <div className="ale-linha-de-elos"><button type="button" className="ale-botao ale-botao-contorno" onClick={sair}>{t.sair}</button></div>
         </>,
       );
     case "analise":
-      return sozinho(
+      return cena(
         <>
-          <p className="ale-chamada">{fase.eu.codinome ?? t.codinome}</p>
-          <h1 className="ale-cond ale-cartao-titulo" style={{ marginTop: 14 }}>{t.analiseTitulo}</h1>
+          <Caminho t={t} agora={2} />
+          <span className="ale-carimbo ale-carimbo-ouro">{t.p.carimbos.analise}</span>
+          {titulo(t.analiseTitulo)}
           <p className="ale-cartao-texto">{t.analiseTexto}</p>
-          {fase.eu.pedido_em && <p className="ale-ajuda" style={{ marginTop: 10 }}>{t.analiseData.replace("{data}", data(lang, fase.eu.pedido_em))}</p>}
-          <div className="ale-form">
+          {(fase.eu.codinome || fase.eu.pedido_em) && (
+            <p className="ale-ajuda">
+              {fase.eu.codinome ? <b>{fase.eu.codinome}</b> : null}
+              {fase.eu.codinome && fase.eu.pedido_em ? " · " : null}
+              {fase.eu.pedido_em ? t.analiseData.replace("{data}", data(lang, fase.eu.pedido_em)) : null}
+            </p>
+          )}
+          <div className="ale-linha-de-elos">
             <button type="button" className="ale-botao ale-botao-contorno" onClick={conferirDeNovo}>{t.conferir}</button>
             <button type="button" className="ale-link" onClick={sair}>{t.sair}</button>
           </div>
@@ -254,35 +364,44 @@ export function PortaoDaAlumia({ lang, t, figuras, site: siteDoServidor, childre
     case "recusada": {
       const podeEm = fase.eu.pedir_de_novo_em ? new Date(fase.eu.pedir_de_novo_em) : null;
       const pode = fase.pode;
-      return sozinho(
+      return cena(
         <>
-          <h1 className="ale-cond ale-cartao-titulo">{t.recusadaTitulo}</h1>
+          <Caminho t={t} agora={pode ? 1 : 2} />
+          <span className="ale-carimbo ale-carimbo-cinza">{t.p.carimbos.recusada}</span>
+          {titulo(t.recusadaTitulo)}
           <p className="ale-cartao-texto">{t.recusadaTexto}</p>
           {fase.eu.motivo_recusa && <Mensagem tipo="info"><strong>{t.recusadaMotivo}:</strong> {fase.eu.motivo_recusa}</Mensagem>}
           {pode ? (
             <FormPedido t={t} lang={lang} codinomeInicial={fase.eu.codinome ?? ""} motivoInicial="" versao={fase.eu.regras_versao ?? 1} aoEnviar={conferirDeNovo} />
           ) : (
-            podeEm && <p className="ale-ajuda" style={{ marginTop: 12 }}>{t.recusadaDeNovo.replace("{data}", data(lang, podeEm.toISOString()))}</p>
+            podeEm && <p className="ale-ajuda">{t.recusadaDeNovo.replace("{data}", data(lang, podeEm.toISOString()))}</p>
           )}
-          <div className="ale-form"><button type="button" className="ale-link" onClick={sair}>{t.sair}</button></div>
+          <div className="ale-linha-de-elos"><button type="button" className="ale-link" onClick={sair}>{t.sair}</button></div>
         </>,
       );
     }
     case "pedido": {
       const guardado = lerPedidoGuardado();
-      return sozinho(
+      return cena(
         <>
-          <h1 className="ale-cond ale-cartao-titulo">{t.pedidoTitulo}</h1>
+          <Caminho t={t} agora={1} />
+          {titulo(t.pedidoTitulo)}
           <p className="ale-cartao-texto">{t.pedidoTexto}</p>
           <FormPedido t={t} lang={lang} codinomeInicial={guardado?.codinome ?? fase.eu.codinome ?? ""} motivoInicial={guardado?.motivo ?? ""} versao={fase.eu.regras_versao ?? 1} aoEnviar={conferirDeNovo} />
-          <div className="ale-form"><button type="button" className="ale-link" onClick={sair}>{t.sair}</button></div>
+          <div className="ale-linha-de-elos"><button type="button" className="ale-link" onClick={sair}>{t.sair}</button></div>
         </>,
       );
     }
     case "fator-cadastrar":
-      return sozinho(<CadastrarFator t={t} aoConfirmar={conferirDeNovo} aoSair={sair} />);
+      return cena(
+        <>
+          <Caminho t={t} agora={3} />
+          <span className="ale-carimbo ale-carimbo-vermelho">{t.p.carimbos.aprovada}</span>
+          <CadastrarFator t={t} aoConfirmar={conferirDeNovo} aoSair={sair} />
+        </>,
+      );
     case "fator-codigo":
-      return sozinho(<PedirCodigo t={t} fator={fase.fator} conta={fase.conta} aoConfirmar={conferirDeNovo} aoSair={sair} />);
+      return cena(<PedirCodigo t={t} lang={lang} fator={fase.fator} conta={fase.conta} aoConfirmar={conferirDeNovo} aoSair={sair} />);
   }
 }
 
@@ -294,68 +413,44 @@ function data(lang: string, iso: string): string {
   }
 }
 
-/** A entrada de quem não tem sessão: o chamado forte, os 4 passos e o cartão com Entrar / Criar conta. */
-function Landing({ lang, t, figuras, site, aoEntrar }: { lang: Locale; t: TextosDaEntrada; figuras: FiguraDaEntrada[]; site: string; aoEntrar: () => void }) {
+/** O cartão de quem não tem sessão: as abas Entrar / Criar conta, com os formulários. */
+function Landing({ lang, t, aoEntrar }: { lang: Locale; t: TextosDaEntrada; aoEntrar: () => void }) {
   const cadastro = useCadastro();
+  const { definirCodinome, definirFoto } = useVoce();
   const [aba, setAba] = useState<"entrar" | "criar">(() => (typeof window !== "undefined" && new URLSearchParams(window.location.search).has("criar") ? "criar" : "entrar"));
+  const trocar = (nova: "entrar" | "criar") => {
+    if (nova === aba) return;
+    // Quem desiste de criar a conta e volta para "Entrar" leva o rascunho junto: o painel da parede esvazia.
+    if (nova === "entrar") {
+      definirCodinome("");
+      definirFoto(null);
+    }
+    setAba(nova);
+  };
   const teclas = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowRight" || e.key === "ArrowLeft" || e.key === "Home" || e.key === "End") {
       e.preventDefault();
       const nova = e.key === "Home" ? "entrar" : e.key === "End" ? "criar" : aba === "entrar" ? "criar" : "entrar";
-      setAba(nova);
+      trocar(nova);
       document.getElementById(`ale-aba-${nova}`)?.focus();
     }
   };
   return (
-    <Cena t={t} figuras={figuras} site={site}>
-      <main className="ale-corpo" id="conteudo">
-        <section aria-labelledby="ale-titulo">
-          <p className="ale-chamada">{t.chamada}</p>
-          <h1 id="ale-titulo" className="ale-cond ale-titulo">
-            Alumia<span>{t.titulo}</span>
-          </h1>
-          <p className="ale-lema">{t.lema}</p>
-          <p className="ale-texto">{t.texto}</p>
-          <ul className="ale-sinais">
-            {t.sinais.map((s) => (
-              <li key={s}>{s}</li>
-            ))}
-          </ul>
-          <section className="ale-como" aria-labelledby="ale-como">
-            <h2 id="ale-como" className="ale-cond">{t.comoEntrar}</h2>
-            <ol className="ale-passos">
-              {t.passos.map((p, i) => (
-                <li key={p.titulo} className="ale-passo">
-                  <span aria-hidden className="ale-cond ale-passo-n">{i + 1}</span>
-                  <span>
-                    <strong>{p.titulo}</strong>
-                    <span>{p.texto}</span>
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </section>
-        </section>
-        <section className="ale-cartao" aria-label={t.abas}>
-          <div aria-hidden className="ale-faixa ale-cartao-faixa" />
-          <div className="ale-cartao-corpo">
-            <div className="ale-abas" role="tablist" aria-label={t.abas} onKeyDown={teclas}>
-              <button id="ale-aba-entrar" type="button" role="tab" className="ale-aba" aria-selected={aba === "entrar"} aria-controls="ale-painel-entrar" tabIndex={aba === "entrar" ? 0 : -1} onClick={() => setAba("entrar")}>
-                {t.abaEntrar}
-              </button>
-              <button id="ale-aba-criar" type="button" role="tab" className="ale-aba" aria-selected={aba === "criar"} aria-controls="ale-painel-criar" tabIndex={aba === "criar" ? 0 : -1} onClick={() => setAba("criar")}>
-                {t.abaCriar}
-              </button>
-            </div>
-            <div id="ale-painel-entrar" role="tabpanel" aria-labelledby="ale-aba-entrar" hidden={aba !== "entrar"}>
-              {aba === "entrar" && <FormEntrar t={t} lang={lang} aoEntrar={aoEntrar} />}
-            </div>
-            <div id="ale-painel-criar" role="tabpanel" aria-labelledby="ale-aba-criar" hidden={aba !== "criar"}>
-              {aba === "criar" && <FormCriar t={t} lang={lang} aberto={!cadastro.pronto || cadastro.aberto} />}
-            </div>
-          </div>
-        </section>
-      </main>
-    </Cena>
+    <>
+      <div className="ale-abas" role="tablist" aria-label={t.abas} onKeyDown={teclas}>
+        <button id="ale-aba-entrar" type="button" role="tab" data-ale-foco="" className="ale-aba" aria-selected={aba === "entrar"} aria-controls="ale-painel-entrar" tabIndex={aba === "entrar" ? 0 : -1} onClick={() => trocar("entrar")}>
+          {t.abaEntrar}
+        </button>
+        <button id="ale-aba-criar" type="button" role="tab" className="ale-aba" aria-selected={aba === "criar"} aria-controls="ale-painel-criar" tabIndex={aba === "criar" ? 0 : -1} onClick={() => trocar("criar")}>
+          {t.abaCriar}
+        </button>
+      </div>
+      <div id="ale-painel-entrar" role="tabpanel" aria-labelledby="ale-aba-entrar" className="ale-pilha" hidden={aba !== "entrar"}>
+        {aba === "entrar" && <FormEntrar t={t} lang={lang} aoEntrar={aoEntrar} />}
+      </div>
+      <div id="ale-painel-criar" role="tabpanel" aria-labelledby="ale-aba-criar" className="ale-pilha" hidden={aba !== "criar"}>
+        {aba === "criar" && <FormCriar t={t} lang={lang} aberto={!cadastro.pronto || cadastro.aberto} />}
+      </div>
+    </>
   );
 }

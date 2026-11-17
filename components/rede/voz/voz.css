@@ -1,0 +1,25 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * A sala de voz cifrada do grupo (docs/rede/VOZ.md). Só tokens: os da Alumia (styles/alumia-tokens.css) e, fora da casca nova, os
+ * do site (app/globals.css). Claro, escuro, alto contraste e e-ink saem dos mesmos seletores; nada de cor literal.
+ */
+.al-voz-sala {
+  display: grid; gap: 0.75rem; border: 1px solid var(--al-superficie-2, var(--rule)); border-radius: var(--al-raio, 12px);
+  background: var(--al-superficie, transparent); padding: 1rem; font-size: 0.875rem; color: var(--al-texto, var(--ink));
+}
+.al-voz-sala-titulo { font-weight: 800; font-size: 1rem; }
+.al-voz-sala-explica { color: var(--al-texto-2, var(--ink-soft)); line-height: 1.45; }
+.al-voz-sala-nota { font-weight: 700; line-height: 1.45; }
+.al-voz-sala-aviso { font-weight: 700; color: var(--al-vermelho-texto, var(--oxblood)); }
+.al-voz-sala-lista { display: grid; gap: 0.25rem; }
+.al-voz-sala-lista li { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.al-voz-sala-ponto { width: 0.5rem; height: 0.5rem; border-radius: 999px; background: var(--al-dourado, var(--ink)); }
+.al-voz-sala-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.al-voz-botao {
+  min-height: 44px; padding: 0 1rem; border-radius: 999px; cursor: pointer; font-weight: 700;
+  border: 1px solid var(--al-texto-3, var(--ink)); background: transparent; color: var(--al-texto, var(--ink));
+}
+.al-voz-botao:focus-visible { outline: 2px solid var(--al-foco, var(--ink)); outline-offset: 2px; }
+.al-voz-botao:disabled { opacity: 0.6; cursor: progress; }
+.al-voz-botao-entrar { justify-self: start; border-color: var(--al-texto, var(--ink)); background: var(--al-texto, var(--ink)); color: var(--al-fundo, var(--parchment)); }
+.al-voz-botao-sair { border-color: var(--al-vermelho-texto, var(--oxblood)); color: var(--al-vermelho-texto, var(--oxblood)); }

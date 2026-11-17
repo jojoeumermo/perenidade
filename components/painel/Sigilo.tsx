@@ -103,6 +103,8 @@ export function TextoAberto({ aberto, antiga = false }: { aberto: Aberto | null 
         <span className="mt-1 block border-l-2 border-[var(--pn-erro)] pl-2 text-xs font-semibold not-italic text-[var(--pn-erro)]">Não foi possível verificar o autor desta mensagem: a assinatura não confere com a identidade de quem aparece como autor.</span>
       )}
       {aberto.autoria === "sem_identidade" && <span className="mt-1 block text-[0.65rem] not-italic opacity-70">Autor ainda sem identidade conhecida neste aparelho.</span>}
+      {/* Mensagem nova sem a assinatura do autor: quem tem a chave da conversa e escreve no banco poderia tê-la posto em nome de outro. */}
+      {aberto.autoria === "sem_assinatura" && <span className="mt-1 block text-[0.65rem] font-semibold not-italic opacity-80">Mensagem sem assinatura do autor: não dá para confirmar quem escreveu.</span>}
     </>
   );
 }
@@ -238,6 +240,7 @@ export function AparelhoPendente({ chaveiro }: { chaveiro: Chaveiro }) {
     setAviso("");
     try {
       if (!(await chaveiro.recuperar(chave))) setAviso("Esta chave de recuperação não abre a sua cópia. Confira letra por letra.");
+      else if (chaveiro.estado !== "aprovado") setAviso("Identidade recuperada. Por segurança, este aparelho só passa a valer daqui a 24 horas, ou antes, se você o aprovar de um aparelho que já funciona (Conversas → Aparelhos).");
       else setAviso("Identidade recuperada. As conversas vão abrir em instantes.");
     } catch (erro) {
       setAviso(erro instanceof BackendError && erro.code === "sem_copia" ? "Não existe cópia de recuperação guardada para a sua conta." : textoDoErro(erro));
@@ -324,7 +327,12 @@ interface Aparelho {
   visto_em: string;
   aprovado_em: string | null;
   estado: "aprovado" | "pendente";
+  /** Aparelho que se certificou sozinho numa conta que já tinha identidade: só vale a partir daqui (a espera de 24 horas). */
+  vale_desde?: string | null;
 }
+
+/** Ainda na espera de 24 horas (o banco diz "pendente" até lá, mesmo com certificado)? */
+const naEspera = (aparelho: Aparelho) => aparelho.estado === "pendente" && Boolean(aparelho.vale_desde) && Date.parse(aparelho.vale_desde ?? "") > Date.now();
 
 /** Os aparelhos que abrem as conversas desta conta: aprovar os novos, remover os perdidos (remover troca a chave de todas as conversas). */
 export function Aparelhos({ chaveiro }: { chaveiro: Chaveiro }) {
@@ -378,6 +386,11 @@ export function Aparelhos({ chaveiro }: { chaveiro: Chaveiro }) {
                 {aparelho.id === chaveiro.aparelho && " (este)"}
               </span>
               <span className="pn-item-meta tabular-nums">desde {data(aparelho.criado_em)} · usado em {data(aparelho.visto_em)}</span>
+              {naEspera(aparelho) && (
+                <span className="pn-item-meta tabular-nums">
+                  Passa a valer sozinho em {dataHora(aparelho.vale_desde ?? "")}. Não foi você? Remova agora.
+                </span>
+              )}
             </span>
             {aparelho.estado === "pendente" && <Selo tom="aviso" ponto>aguardando aprovação</Selo>}
             <span className="pn-item-acoes">

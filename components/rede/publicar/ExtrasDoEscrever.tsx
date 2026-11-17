@@ -5,13 +5,18 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { redePub } from "@/lib/rede/cliente-publicar";
 import { preencher } from "@/lib/rede/preencher";
 import { checarTexto } from "@/lib/rede/publicar/checagem";
+import { agendaCabe, type Arranjo, arranjoQueVale, LIMITE_DA_LEGENDA, LIMITE_DE_IMAGENS, paredeDeAgora, quandoNoFuso } from "@/lib/rede/publicar/compositor";
+import { redeCompositor } from "@/lib/rede/publicar/cliente-compositor";
+import type { NomeDaFigurinha } from "@/lib/rede/publicar/figurinhas";
 import type { TextosPublicar } from "@/lib/rede/textos-publicar";
 import type { TipoDePost } from "@/lib/rede/tipos";
 import { type Agendado, type CitarQuem, LIMITES_PUBLICAR, type PedidoPublicar, type PreviaDoPost, type RespondeQuem } from "@/lib/rede/tipos-publicar";
 import { enviarMidia, gerarPrevia } from "./api";
+import { TocadorDeAudio } from "../midia/TocadorDeAudio";
 import { BorrarRostos } from "./BorrarRostos";
 import { aplicarBorrado, type AreaBorrada, ErroDeImagem, prepararImagem } from "./imagem";
 import { useTextosPublicar } from "./textos";
+import { fusoGuardado } from "./compositor/FusoDoAgendar";
 
 const CHAVE_RASCUNHO = "lucia:rede:rascunho:v1";
 const PRAZOS = [1, 6, 24, 72, 168] as const;
@@ -24,6 +29,8 @@ export interface ImagemEscolhida {
   largura: number;
   altura: number;
   alt: string;
+  /** Onda 12: a legenda que aparece embaixo da imagem, para todo mundo (até 280). */
+  legenda: string;
   areas: AreaBorrada[];
 }
 
@@ -61,9 +68,6 @@ export const escreverRascunho = (r: RascunhoGuardado | null) => {
 };
 
 const primeiroLink = (texto: string): string | null => texto.match(/https?:\/\/[^\s<>"')]+/i)?.[0].replace(/[.,;:!?]+$/, "") ?? null;
-
-/** Valor para <input type="datetime-local"> (hora local) a partir de um instante. */
-const paraCampoLocal = (d: Date) => new Date(d.getTime() - d.getTimezoneOffset() * 60_000).toISOString().slice(0, 16);
 
 /**
  * O estado dos campos que o pacote publicar acrescenta ao Escrever: enquete, imagens (com texto alternativo e borrado de
@@ -106,15 +110,26 @@ export function useEscreverPub({
   const [repetir, setRepetir] = useState<number>(0);
   const [aposAto, setAposAto] = useState<string>("");
   const [fio, setFio] = useState(respostaPropria);
+  // Agendar (onda 12, L2-33): o dia e a hora valem no FUSO que a pessoa escolhe (o ponto de partida é o último que ela escolheu neste
+  // aparelho, ou o do relógio dele; nunca o endereço de rede). O banco converte de novo (rede_pub_o12_agendar).
   const [agendar, setAgendarBruto] = useState("");
+  const [fuso, setFusoBruto] = useState(() => (typeof window === "undefined" ? "America/Sao_Paulo" : fusoGuardado()));
   const [agendaOk, setAgendaOk] = useState(true);
-  // Os limites do campo de data são fixados quando o Escrever abre (o banco confere de novo na hora de agendar).
-  const [limitesDaAgenda] = useState(() => ({ minimo: paraCampoLocal(new Date(Date.now() + 6 * 60_000)), maximo: paraCampoLocal(new Date(Date.now() + 30 * 86_400_000)) }));
+  const confere = (valor: string, f: string) => setAgendaOk(!valor || agendaCabe(valor, f, Date.now()));
+  // Os limites do campo de data, no fuso escolhido, contados quando o Escrever abre ou o fuso muda (o banco confere de novo).
+  const [abertoEm] = useState(() => Date.now());
+  const limitesDaAgenda = useMemo(() => ({ minimo: paredeDeAgora(fuso, abertoEm, 6 * 60_000), maximo: paredeDeAgora(fuso, abertoEm, 30 * 86_400_000) }), [fuso, abertoEm]);
   const setAgendar = (valor: string) => {
     setAgendarBruto(valor);
-    const ms = valor ? new Date(valor).getTime() : 0;
-    setAgendaOk(!valor || (ms >= Date.now() + 5 * 60_000 && ms <= Date.now() + 30 * 86_400_000));
+    confere(valor, fuso);
   };
+  const setFuso = (f: string) => {
+    setFusoBruto(f);
+    confere(agendar, f);
+  };
+  // Onda 12 (12A): como as imagens aparecem e a figurinha (o pacote da casa).
+  const [arranjo, setArranjo] = useState<Arranjo>("grade");
+  const [figurinha, setFigurinha] = useState<NomeDaFigurinha | null>(null);
   const [recuperado, setRecuperado] = useState(false);
   const subidas = useRef(new Map<string, { caminho: string; largura: number | null; altura: number | null }>());
   const enquete = tipo === "enquete" && !resposta;
@@ -167,28 +182,28 @@ export function useEscreverPub({
     [],
   );
 
-  const achados = useMemo(() => checarTexto(`${titulo}\n${texto}\n${corpo}\n${enquete ? opcoes.join("\n") : ""}\n${imagens.map((i) => i.alt).join("\n")}`), [titulo, texto, corpo, enquete, opcoes, imagens]);
+  const achados = useMemo(() => checarTexto(`${titulo}\n${texto}\n${corpo}\n${enquete ? opcoes.join("\n") : ""}\n${imagens.map((i) => `${i.alt}\n${i.legenda}`).join("\n")}`), [titulo, texto, corpo, enquete, opcoes, imagens]);
   const opcoesValidas = opcoes.map((o) => o.trim()).filter(Boolean);
   const enqueteOk = !enquete || (opcoesValidas.length >= LIMITES_PUBLICAR.opcoesMin && new Set(opcoesValidas.map((o) => o.toLowerCase())).size === opcoesValidas.length);
 
   const adicionarImagem = useCallback(
     async (arquivos: FileList | File[]): Promise<string> => {
-      const lista = Array.from(arquivos).slice(0, LIMITES_PUBLICAR.imagens);
+      const lista = Array.from(arquivos).slice(0, LIMITE_DE_IMAGENS);
       let erro = "";
       const novas: ImagemEscolhida[] = [];
       for (const f of lista) {
-        if (imagens.length + novas.length >= LIMITES_PUBLICAR.imagens) {
+        if (imagens.length + novas.length >= LIMITE_DE_IMAGENS) {
           erro = "maximo";
           break;
         }
         try {
           const { blob, largura, altura } = await prepararImagem(f);
-          novas.push({ id: crypto.randomUUID(), base: blob, final: blob, url: URL.createObjectURL(blob), largura, altura, alt: "", areas: [] });
+          novas.push({ id: crypto.randomUUID(), base: blob, final: blob, url: URL.createObjectURL(blob), largura, altura, alt: "", legenda: "", areas: [] });
         } catch (e) {
           erro = e instanceof ErroDeImagem ? e.codigo : "invalida";
         }
       }
-      if (novas.length) setImagens((atual) => [...atual, ...novas].slice(0, LIMITES_PUBLICAR.imagens));
+      if (novas.length) setImagens((atual) => [...atual, ...novas].slice(0, LIMITE_DE_IMAGENS));
       return erro;
     },
     [imagens.length],
@@ -200,6 +215,17 @@ export function useEscreverPub({
       return atual.filter((x) => x.id !== id);
     });
   const mudarAlt = (id: string, alt: string) => setImagens((atual) => atual.map((i) => (i.id === id ? { ...i, alt: alt.slice(0, LIMITES_PUBLICAR.textoAlt) } : i)));
+  const mudarLegenda = (id: string, legenda: string) => setImagens((atual) => atual.map((i) => (i.id === id ? { ...i, legenda: legenda.slice(0, LIMITE_DA_LEGENDA) } : i)));
+  /** Muda a ordem (a do carrossel e da colagem): a imagem troca de lugar com a vizinha. */
+  const moverImagem = (id: string, passo: -1 | 1) =>
+    setImagens((atual) => {
+      const i = atual.findIndex((x) => x.id === id);
+      const j = i + passo;
+      if (i < 0 || j < 0 || j >= atual.length) return atual;
+      const nova = [...atual];
+      [nova[i], nova[j]] = [nova[j], nova[i]];
+      return nova;
+    });
   const borrar = async (id: string, areas: AreaBorrada[]) => {
     const i = imagens.find((x) => x.id === id);
     if (!i) return;
@@ -221,7 +247,7 @@ export function useEscreverPub({
           s = { caminho: r.caminho, largura: r.largura, altura: r.altura };
           subidas.current.set(i.id, s);
         }
-        midia.push({ caminho: s.caminho, alt: i.alt.trim(), largura: s.largura, altura: s.altura });
+        midia.push({ caminho: s.caminho, alt: i.alt.trim(), largura: s.largura, altura: s.altura, ...(i.legenda.trim() ? { legenda: i.legenda.trim() } : {}) });
       }
       campos.midia = midia;
     }
@@ -241,8 +267,15 @@ export function useEscreverPub({
     if (aviso.trim()) campos.aviso = aviso.trim();
     if (!resposta) campos.citar_quem = citarQuem;
     if (respostaPropria && fio) campos.fio = true;
+    // Onda 12: o arranjo (só com 2 imagens ou mais) e a figurinha. Só a figurinha, sem texto: o texto vira o nome dela (no Escrever).
+    const vale = arranjoQueVale(arranjo, imagens.length);
+    if (vale !== "grade") (campos as Record<string, unknown>).arranjo = vale;
+    if (figurinha) (campos as Record<string, unknown>).figurinha = figurinha;
     return campos;
   }
+
+  /** O pedido precisa das funções da onda 12 (mais de 4 imagens, legenda, arranjo ou figurinha)? */
+  const usaCompositor = imagens.length > 4 || imagens.some((i) => i.legenda.trim()) || arranjoQueVale(arranjo, imagens.length) !== "grade" || Boolean(figurinha);
 
   function limpar() {
     escreverRascunho(null);
@@ -253,6 +286,7 @@ export function useEscreverPub({
   return {
     t, enquete, opcoes, setOpcoes, horas, setHoras, multipla, setMultipla, imagens, adicionarImagem, tirarImagem, mudarAlt, borrar, audio, setAudio,
     previa: previa && alvo === previa.url ? previa : null, previaEstado: alvo ? previaEstado : ("parada" as const), alvo, limitesDaAgenda, agendaOk, tirarPrevia: () => { setPreviaTirada(alvo); setPrevia(null); setPreviaEstado("parada"); },
+    fuso, setFuso, arranjo, setArranjo, figurinha, setFigurinha, mudarLegenda, moverImagem, usaCompositor,
     respondeQuem, setRespondeQuem, fio, setFio, agendar, setAgendar, recuperado, achados, enqueteOk, preparar, limpar,
     aviso, setAviso, soNoFim, setSoNoFim, embaralhar, setEmbaralhar, citarQuem, setCitarQuem, repetir, setRepetir, aposAto, setAposAto,
     /** Pode enviar? Não há dado pessoal nem endereço com número (o banco confere de novo) e a enquete está completa. */
@@ -262,7 +296,16 @@ export function useEscreverPub({
 export type PubDoEscrever = ReturnType<typeof useEscreverPub>;
 
 /** O gravador de áudio (até 1 minuto). `classeBotao` troca a cara dos botões (o Escrever novo usa os da Alumia); `comecarJa` grava ao abrir. */
-export function Gravador({ t, aoGravar, audio, aoTirar, classeBotao, comecarJa = false }: { t: TextosPublicar; audio: AudioGravado | null; aoGravar: (a: AudioGravado) => void; aoTirar: () => void; classeBotao?: string; comecarJa?: boolean }) {
+/**
+ * O tocador do áudio gravado na Alumia nova (o Escrever e a caixa de resposta): o tocador próprio (components/rede/midia), no lugar
+ * dos controles do navegador. O áudio é o do próprio aparelho (a URL do blob); nada sai daqui.
+ */
+function TocadorGravado({ t, audio }: { t: TextosPublicar; audio: AudioGravado }) {
+  return <TocadorDeAudio src={audio.url} duracao={audio.duracao} t={{ tocar: preencher(t.audio.ouvir, { s: Math.max(1, audio.duracao) }), pausar: t.audio.pausar, posicao: t.audio.posicao }} />;
+}
+
+// `tocadorDaAlumia` ficou sem efeito: todo áudio gravado toca no tocador próprio (components/rede/midia/TocadorDeAudio.tsx).
+export function Gravador({ t, aoGravar, audio, aoTirar, classeBotao, comecarJa = false }: { t: TextosPublicar; audio: AudioGravado | null; aoGravar: (a: AudioGravado) => void; aoTirar: () => void; classeBotao?: string; comecarJa?: boolean; tocadorDaAlumia?: boolean }) {
   const [gravando, setGravando] = useState(false);
   const [segundos, setSegundos] = useState(0);
   const [erro, setErro] = useState("");
@@ -334,7 +377,7 @@ export function Gravador({ t, aoGravar, audio, aoTirar, classeBotao, comecarJa =
         </>
       ) : audio ? (
         <>
-          <audio controls src={audio.url} className="h-11 max-w-full" />
+          <TocadorGravado t={t} audio={audio} />
           <button type="button" className={botao} onClick={() => { URL.revokeObjectURL(audio.url); aoTirar(); void comecar(); }}>
             {t.audio.regravar}
           </button>
@@ -354,23 +397,25 @@ export function Gravador({ t, aoGravar, audio, aoTirar, classeBotao, comecarJa =
 
 /** As publicações agendadas (abre a lista ao abrir). */
 export function Agendados({ t, lang, b1 }: { t: TextosPublicar; lang: string; /** B1: os rótulos de "toda semana" e "quando o ato terminar". */ b1?: { naFilaRepetir: string; naFilaAto: string } }) {
-  const [lista, setLista] = useState<Agendado[] | null>(null);
-  const carregar = useCallback(() => void redePub.agendados().then(setLista, () => setLista([])), []);
-  const quando = (iso: string) => {
-    try {
-      return new Intl.DateTimeFormat(lang, { dateStyle: "short", timeStyle: "short" }).format(new Date(iso));
-    } catch {
-      return iso;
-    }
-  };
+  const [lista, setLista] = useState<(Agendado & { fuso?: string | null })[] | null>(null);
+  // Com a onda 12 no banco, a fila vem com o fuso escolhido em cada agendado; sem ela, a de sempre (na hora do aparelho).
+  const carregar = useCallback(
+    () =>
+      void redeCompositor
+        .agendados()
+        .catch(() => redePub.agendados())
+        .then(setLista, () => setLista([])),
+    [],
+  );
+  const quando = (a: Agendado & { fuso?: string | null }) => quandoNoFuso(a.quando, a.fuso, lang) || a.quando;
   return (
     <details onToggle={(e) => (e.currentTarget as HTMLDetailsElement).open && carregar()}>
-      <summary className="cursor-pointer text-sm font-bold">{t.agendar.fila}</summary>
+      <summary className="cursor-pointer py-3 text-sm font-bold">{t.agendar.fila}</summary>
       <ul className="mt-1 space-y-1 text-sm">
         {(lista ?? []).filter((a) => a.estado !== "publicado").map((a) => (
           <li key={a.id} className="flex flex-wrap items-center gap-2 rounded-md border border-rule bg-folha px-2 py-1">
             <span className="min-w-0 flex-1 break-words">
-              {quando(a.quando)}: {a.texto}
+              {quando(a)}: {a.texto}
               {b1 && a.repetir === "semanal" && a.repetir_vezes ? <span className="block text-xs opacity-80">{preencher(b1.naFilaRepetir, { n: a.vezes ?? 1, total: a.repetir_vezes })}</span> : null}
               {b1 && a.apos_ato && <span className="block text-xs opacity-80">{b1.naFilaAto}</span>}
               {a.estado === "falhou" && <span className="block text-oxblood">{preencher(t.agendar.falhou, { erro: a.erro })}</span>}

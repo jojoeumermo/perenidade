@@ -11,14 +11,19 @@ import {
   APARENCIA_PADRAO, arrumarAbas, arrumarPalavraDaCapa, DURACOES, LAYOUTS_DO_PERFIL, LIMITES_DA_APARENCIA, linkLimpo, mesmaAparencia, PALETA_DO_PERFIL, CORES_DA_PALETA,
   rostoSorteado, rostoValido, TEMAS_DO_PERFIL, type AparenciaDoPerfil, type CorDaPaleta, type LayoutDoPerfil, type TemaDoPerfil,
 } from "@/lib/rede/aparencia";
+import { redeIdentidade } from "@/lib/rede/cliente-identidade";
 import { redePerfil } from "@/lib/rede/cliente-perfil";
+import type { MinhaIdentidade } from "@/lib/rede/identidade";
 import { BIO_MAXIMA } from "@/lib/rede/perfil";
 import { preencher } from "@/lib/rede/preencher";
 import { enderecos, type Post } from "@/lib/rede/tipos";
-import { LIMITES, STATUS_DO_PERFIL, type CampoDoPerfil, type ExtrasDoPerfil, type PedidoDeExtras, type StatusDoPerfil } from "@/lib/rede/tipos-org";
+import { LIMITES, type CampoDoPerfil, type ExtrasDoPerfil, type PedidoDeExtras } from "@/lib/rede/tipos-org";
+import { PUBLICOS_DO_STATUS, STATUS_TODOS, type PublicoDoStatus, type StatusDaLista } from "@/lib/rede/secoes-perfil";
 import type { PerfilMeu } from "@/lib/rede/tipos-perfil";
 import { codigoDoErro, textoDoErro } from "../../erros";
 import { EsqueletoDaLinha } from "../../Esqueletos";
+import { PainelDeIdentidade } from "../../identidade/Identidade";
+import { useTextosDaIdentidade } from "../../identidade/textos";
 import type { PropsDaTelaDoPacote } from "../../registro";
 import { CabecalhoDoPerfil, estiloDoAcento } from "./Cabecalho";
 import { avisarCodinome } from "@/lib/rede/codinome-da-conta";
@@ -27,12 +32,17 @@ import { CartoesDeEscolha, EditorDePixels, EscolhaDeCor, OrdemDasAbas, TearDaFai
 import { comTransicao } from "./PaginaDoPerfil";
 import { CapaDeMosaico, FaixaPropria, RostoDePixels } from "./Pecas";
 import { useTextosDoPerfilLivre, type TextosDoPerfilLivre } from "./textos";
+import { EditorDeLinks, EditorDePacotes, EditorDeSecoes } from "../secoes/Editores";
+import { useTextosDasSecoes } from "../secoes/textos";
 import "./editor.css";
 
 // ───────────────────────────── O rascunho e o histórico ─────────────────────────────
 
 interface StatusEditado {
-  tipo: StatusDoPerfil;
+  /** Da lista fechada (com "na luta" e "ausente", onda 12). */
+  tipo: StatusDaLista;
+  /** Quem vê: todos ou só a roda de confiança (onda 12). */
+  publico: PublicoDoStatus;
   texto: string;
   horas: number;
   /** Até quando (só para a prévia mostrar; o banco conta as horas a partir do salvar). */
@@ -61,7 +71,14 @@ interface Historico {
   quando: number;
 }
 
-type Acao = { tipo: "mudar"; f: (r: Rascunho) => Rascunho; grupo: string } | { tipo: "desfazer" } | { tipo: "refazer" } | { tipo: "repor"; r: Rascunho } | { tipo: "fechar" };
+type Acao =
+  | { tipo: "mudar"; f: (r: Rascunho) => Rascunho; grupo: string }
+  | { tipo: "desfazer" }
+  | { tipo: "refazer" }
+  | { tipo: "repor"; r: Rascunho }
+  | { tipo: "fechar" }
+  // O nome mostrado mudou pela identidade (já está salvo no banco): vale para o rascunho inteiro, e o desfazer não o traz de volta.
+  | { tipo: "nome"; nome: string };
 
 function historico(h: Historico, a: Acao): Historico {
   switch (a.tipo) {
@@ -83,10 +100,16 @@ function historico(h: Historico, a: Acao): Historico {
       return { passado: [], atual: a.r, futuro: [], grupo: "", quando: 0 };
     case "fechar":
       return { ...h, grupo: "" };
+    case "nome": {
+      const com = (x: Rascunho): Rascunho => ({ ...x, codinome: a.nome });
+      return { ...h, passado: h.passado.map(com), atual: com(h.atual), futuro: h.futuro.map(com), grupo: "" };
+    }
   }
 }
 
-const SECOES = ["cores", "rosto", "capa", "sobre", "abas", "vitrine", "agora", "conta"] as const;
+// As três da onda 12 (Seções, Links e Pacotes) salvam no próprio botão: são listas que vão inteiras ao banco, fora do rascunho.
+const SECOES = ["cores", "rosto", "capa", "sobre", "identidade", "abas", "vitrine", "agora", "secoes", "links", "pacotes", "conta"] as const;
+const PARTES_DA_ONDA12: readonly Secao[] = ["secoes", "links", "pacotes"];
 type Secao = (typeof SECOES)[number];
 
 const CODINOME_OK = /^[\p{L}0-9][\p{L}0-9 .'_-]*$/u;
@@ -119,7 +142,7 @@ function fugirDasBarras(alvo: EventTarget, raiz: HTMLElement) {
 
 export default function EditorDoPerfil({ lang, s, situacao, conta }: PropsDaTelaDoPacote & { conta: ReactNode }) {
   const t = useTextosDoPerfilLivre(lang);
-  const [base, setBase] = useState<{ meu: PerfilMeu; rascunho: Rascunho } | null>(null);
+  const [base, setBase] = useState<{ meu: PerfilMeu; rascunho: Rascunho; identidade: MinhaIdentidade | null } | null>(null);
   const [falha, setFalha] = useState("");
 
   useEffect(() => {
@@ -130,9 +153,12 @@ export default function EditorDoPerfil({ lang, s, situacao, conta }: PropsDaTela
         const meu = previa() ? meuDaPrevia() : await redePerfil.meu();
         const handle = meu.handle;
         const [lida, extras] = handle ? await Promise.all([aparenciaDe(handle), extrasDe(handle)]) : [{ aparencia: { ...APARENCIA_PADRAO }, orgs: [] }, null];
+        // Como a pessoa aparece (codinome ou nome e foto por escolha). Sem resposta, o editor segue como sempre foi.
+        const identidade = handle ? await redeIdentidade.minha().catch(() => null) : null;
         if (!vivo) return;
         setBase({
           meu,
+          identidade,
           rascunho: {
             aparencia: lida.aparencia,
             orgs: lida.orgs,
@@ -164,15 +190,37 @@ export default function EditorDoPerfil({ lang, s, situacao, conta }: PropsDaTela
   if (falha) return <p className="pfe-vazio" role="alert">{falha}</p>;
   if (!base) return <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={3} />;
   if (!base.meu.handle) return <div className="pfe-conta-so">{conta}</div>;
-  return <Editor key={base.meu.id} meu={base.meu} inicial={base.rascunho} t={t} lang={lang} s={s} conta={conta} />;
+  return <Editor key={base.meu.id} meu={base.meu} inicial={base.rascunho} identidadeInicial={base.identidade} t={t} lang={lang} s={s} conta={conta} />;
 }
 
-function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: Rascunho; t: TextosDoPerfilLivre; lang: string; s: PropsDaTelaDoPacote["s"]; conta: ReactNode }) {
+/** O que o endereço pede ao abrir: `?parte=<seção>` abre naquela seção; `?identidade=escolher` abre a escolha da identidade. */
+function pedidoDoEndereco(): { secao: Secao; escolher: boolean } {
+  if (typeof window === "undefined") return { secao: "cores", escolher: false };
+  const q = new URLSearchParams(window.location.search);
+  const escolher = q.get("identidade") === "escolher";
+  const parte = q.get("parte") as Secao | null;
+  return { secao: escolher ? "identidade" : parte && SECOES.includes(parte) ? parte : "cores", escolher };
+}
+
+function Editor({ meu, inicial, identidadeInicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: Rascunho; identidadeInicial: MinhaIdentidade | null; t: TextosDoPerfilLivre; lang: string; s: PropsDaTelaDoPacote["s"]; conta: ReactNode }) {
   const handle = meu.handle!;
   const [salvo, setSalvo] = useState(inicial);
   const [h, despachar] = useReducer(historico, { passado: [], atual: inicial, futuro: [], grupo: "", quando: 0 });
   const r = h.atual;
-  const [secao, setSecao] = useState<Secao>("cores");
+  const [pedido] = useState(pedidoDoEndereco);
+  const [secao, setSecao] = useState<Secao>(pedido.secao);
+  // Em público, o nome mostrado é o que a pessoa escolheu na Identidade: o campo do codinome (Sobre) fica travado.
+  const [publica, setPublica] = useState(identidadeInicial?.modo === "publica");
+  const ti = useTextosDaIdentidade(lang);
+  const ts = useTextosDasSecoes(lang);
+  const aoMudarIdentidade = useCallback((eu: MinhaIdentidade) => {
+    setPublica(eu.modo === "publica");
+    const nome = (eu.modo === "publica" ? eu.nome : eu.codinome) ?? "";
+    if (!nome) return;
+    // Já está no banco: entra no rascunho e no "salvo" de uma vez, sem virar mudança por salvar.
+    setSalvo((x) => (x.codinome === nome ? x : { ...x, codinome: nome }));
+    despachar({ tipo: "nome", nome });
+  }, []);
   const [salvando, setSalvando] = useState(false);
   // O aviso (salvo / erro) vale só para o rascunho em que nasceu: mexeu de novo, volta o estado de sempre.
   const [avisoGuardado, setAviso] = useState<{ texto: string; erro: boolean; de: Rascunho } | null>(null);
@@ -209,21 +257,21 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
   const sujo = useMemo(
     () =>
       !mesmaAparencia(r.aparencia, salvo.aparencia) ||
-      r.codinome.trim() !== salvo.codinome.trim() ||
+      (!publica && r.codinome.trim() !== salvo.codinome.trim()) ||
       r.bio.trim() !== salvo.bio.trim() ||
       r.pronomes.trim() !== salvo.pronomes.trim() ||
       JSON.stringify(r.campos) !== JSON.stringify(salvo.campos) ||
       r.status !== undefined,
-    [r, salvo],
+    [r, salvo, publica],
   );
   const problemas = useMemo(() => {
     const p: string[] = [];
-    if (!codinomeValido(r.codinome)) p.push(t.sobre.erros.invalido_codinome);
+    if (!publica && !codinomeValido(r.codinome)) p.push(t.sobre.erros.invalido_codinome);
     if (r.campos.some((c) => /^https?:\/\//i.test(c.valor.trim()) && !linkLimpo(c.valor.trim()))) p.push(t.sobre.linkRuim);
     if (r.aparencia.tocando?.link && !linkLimpo(r.aparencia.tocando.link)) p.push(t.sobre.linkRuim);
     if (r.aparencia.capa && !r.aparencia.capa.palavra.trim()) p.push(t.capa.palavraVazia);
     return p;
-  }, [r, t]);
+  }, [r, t, publica]);
 
   // Sair com mudança não salva: o navegador pergunta.
   useEffect(() => {
@@ -287,7 +335,7 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
         const lida = await salvarAparencia(handle, limpa, r.orgs);
         novo = { ...novo, aparencia: lida.aparencia, orgs: lida.orgs.length ? lida.orgs : r.orgs.filter((o) => lida.aparencia.orgs.includes(o.handle)) };
       }
-      if (r.codinome.trim() !== salvo.codinome.trim()) {
+      if (!publica && r.codinome.trim() !== salvo.codinome.trim()) {
         novo.codinome = await trocarCodinome(handle, r.codinome.trim());
         // O cartão da conta na casca troca o nome na hora (lib/rede/codinome-da-conta.ts).
         avisarCodinome(novo.codinome);
@@ -300,7 +348,8 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
       const pedido: PedidoDeExtras = {};
       if (r.pronomes.trim() !== salvo.pronomes.trim()) pedido.pronomes = r.pronomes.trim() || null;
       if (JSON.stringify(r.campos) !== JSON.stringify(salvo.campos)) pedido.campos = r.campos.filter((c) => c.rotulo.trim() && c.valor.trim()).map((c) => ({ rotulo: c.rotulo.trim(), valor: limparValor(c.valor) }));
-      if (r.status !== undefined) pedido.status = r.status ? { tipo: r.status.tipo, texto: r.status.texto.trim(), horas: r.status.horas } : null;
+      // O tipo e o público novos (onda 12) vão como o banco aceita; o tipo de PedidoDeExtras (tipos-org) ainda é o de antes.
+      if (r.status !== undefined) pedido.status = r.status ? ({ tipo: r.status.tipo, texto: r.status.texto.trim(), horas: r.status.horas, publico: r.status.publico } as unknown as PedidoDeExtras["status"]) : null;
       if (Object.keys(pedido).length) {
         const ex = await salvarExtras(handle, pedido, { status: r.statusAtual, pronomes: salvo.pronomes || null, campos: salvo.campos, destaques: [] });
         novo = { ...novo, pronomes: ex.pronomes ?? "", campos: ex.campos, status: undefined, statusAtual: ex.status };
@@ -315,7 +364,7 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
     } finally {
       setSalvando(false);
     }
-  }, [salvando, sujo, problemas, r, salvo, handle, t, s]);
+  }, [salvando, sujo, problemas, r, salvo, handle, t, s, publica]);
 
   // Atalhos: Ctrl+Z, Ctrl+Shift+Z / Ctrl+Y, Ctrl+S. Dentro de campo de texto, o desfazer do próprio campo vale.
   useEffect(() => {
@@ -338,7 +387,7 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
     return () => window.removeEventListener("keydown", f);
   }, [salvar]);
 
-  const statusParaVer = r.status === undefined ? r.statusAtual : r.status ? { tipo: r.status.tipo, texto: r.status.texto, ate: r.status.ate } : null;
+  const statusParaVer = r.status === undefined ? r.statusAtual : r.status ? { tipo: r.status.tipo, texto: r.status.texto, ate: r.status.ate, publico: r.status.publico } : null;
   const dados = { codinome: r.codinome.trim() || meu.codinome || "", handle, pronomes: r.pronomes.trim() || null, bio: r.bio, status: statusParaVer, campos: r.campos.filter((c) => c.rotulo.trim() && c.valor.trim()), avatar: meu.avatar, capa: meu.capa };
 
   const painel: Record<Secao, () => ReactNode> = {
@@ -445,10 +494,14 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
         )}
       </div>
     ),
-    sobre: () => <Sobre r={r} mudar={mudar} t={t} />,
+    sobre: () => <Sobre r={r} mudar={mudar} t={t} nomeTravado={publica ? (ti?.sobre.nomeTravado ?? "") : null} aoAbrirIdentidade={() => comTransicao(() => setSecao("identidade"))} rotuloDaIdentidade={t.abasDoEditor.identidade} />,
+    identidade: () => <PainelDeIdentidade lang={lang} handle={handle} s={s} aoMudar={aoMudarIdentidade} abrirJa={pedido.escolher} />,
     abas: () => <OrdemDasAbas abas={r.aparencia.abas} aoMudar={(abas) => ap((a) => ({ ...a, abas: arrumarAbas(abas) }))} t={t} />,
     vitrine: () => <Vitrine r={r} mudar={mudar} t={t} handle={handle} />,
-    agora: () => <Agora r={r} mudar={mudar} t={t} />,
+    agora: () => <Agora r={r} mudar={mudar} t={t} lang={lang} />,
+    secoes: () => <EditorDeSecoes lang={lang} />,
+    links: () => <EditorDeLinks lang={lang} handle={handle} />,
+    pacotes: () => <EditorDePacotes lang={lang} />,
     conta: () => (
       <div className="pfe-bloco pfe-conta">
         <h3 className="pfe-titulo">{t.conta.titulo}</h3>
@@ -458,7 +511,7 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
     ),
   };
 
-  const rotuloDaSecao = (x: Secao) => t.abasDoEditor[x];
+  const rotuloDaSecao = (x: Secao) => (t.abasDoEditor as Record<string, string>)[x] ?? (ts ? ts.editor[x as "secoes" | "links" | "pacotes"] : "…");
 
   return (
     <div className="pfe" style={estiloDoAcento(r.aparencia.acento)} onFocus={(e) => fugirDasBarras(e.target, e.currentTarget)}>
@@ -534,6 +587,7 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
           </div>
 
           <section key={secao} className="pfe-painel" aria-label={rotuloDaSecao(secao)}>
+            {PARTES_DA_ONDA12.includes(secao) && ts ? <p className="pfe-ajuda pfe-a-parte">{ts.editor.aParte}</p> : null}
             {painel[secao]()}
           </section>
 
@@ -670,7 +724,15 @@ function Alternador<V extends string>({ rotulo, valor, opcoes, aoMudar }: { rotu
 
 // ───────────────────────────── Sobre: codinome, pronomes, bio, campos ─────────────────────────────
 
-function Sobre({ r, mudar, t }: { r: Rascunho; mudar: (f: (r: Rascunho) => Rascunho, grupo?: string) => void; t: TextosDoPerfilLivre }) {
+function Sobre({ r, mudar, t, nomeTravado, aoAbrirIdentidade, rotuloDaIdentidade }: {
+  r: Rascunho;
+  mudar: (f: (r: Rascunho) => Rascunho, grupo?: string) => void;
+  t: TextosDoPerfilLivre;
+  /** Em identidade pública: a frase que explica por que o nome não se troca aqui (nulo = codinome, campo livre). */
+  nomeTravado: string | null;
+  aoAbrirIdentidade: () => void;
+  rotuloDaIdentidade: string;
+}) {
   const bio = useRef<HTMLTextAreaElement>(null);
   function envolver(marca: string) {
     const el = bio.current;
@@ -699,11 +761,22 @@ function Sobre({ r, mudar, t }: { r: Rascunho; mudar: (f: (r: Rascunho) => Rascu
   return (
     <>
       <div className="pfe-bloco">
-        <label className="pfe-campo">
-          <span>{t.sobre.codinome}</span>
-          <input type="text" value={r.codinome} maxLength={30} aria-invalid={!codinomeValido(r.codinome)} aria-describedby="pfe-codinome-ajuda" onChange={(e) => mudar((x) => ({ ...x, codinome: e.target.value }), "codinome")} />
-          <small id="pfe-codinome-ajuda">{codinomeValido(r.codinome) ? t.sobre.codinomeAjuda : t.sobre.erros.invalido_codinome}</small>
-        </label>
+        {nomeTravado !== null ? (
+          <div className="pfe-campo pfe-nome-travado">
+            <span>{rotuloDaIdentidade}</span>
+            <strong>{r.codinome}</strong>
+            <small>{nomeTravado}</small>
+            <button type="button" className="al-botao al-botao-contorno al-botao-p" onClick={aoAbrirIdentidade}>
+              {rotuloDaIdentidade}
+            </button>
+          </div>
+        ) : (
+          <label className="pfe-campo">
+            <span>{t.sobre.codinome}</span>
+            <input type="text" value={r.codinome} maxLength={30} aria-invalid={!codinomeValido(r.codinome)} aria-describedby="pfe-codinome-ajuda" onChange={(e) => mudar((x) => ({ ...x, codinome: e.target.value }), "codinome")} />
+            <small id="pfe-codinome-ajuda">{codinomeValido(r.codinome) ? t.sobre.codinomeAjuda : t.sobre.erros.invalido_codinome}</small>
+          </label>
+        )}
         <label className="pfe-campo">
           <span>{t.sobre.pronomes}</span>
           <input type="text" value={r.pronomes} maxLength={LIMITES.pronomes} aria-describedby="pfe-pronomes-ajuda" onChange={(e) => mudar((x) => ({ ...x, pronomes: e.target.value }), "pronomes")} />
@@ -918,14 +991,22 @@ function Vitrine({ r, mudar, t, handle }: { r: Rascunho; mudar: (f: (r: Rascunho
 
 // ───────────────────────────── Agora: status com prazo e "tocando agora" ─────────────────────────────
 
-function Agora({ r, mudar, t }: { r: Rascunho; mudar: (f: (r: Rascunho) => Rascunho, grupo?: string) => void; t: TextosDoPerfilLivre }) {
+function Agora({ r, mudar, t, lang }: { r: Rascunho; mudar: (f: (r: Rascunho) => Rascunho, grupo?: string) => void; t: TextosDoPerfilLivre; lang: string }) {
   const [agora] = useState(() => Date.now());
-  const status: StatusEditado | null = r.status === undefined ? (r.statusAtual ? { tipo: r.statusAtual.tipo, texto: r.statusAtual.texto, horas: 24, ate: r.statusAtual.ate ?? new Date(agora + 24 * 3600e3).toISOString() } : null) : r.status;
+  const ts = useTextosDasSecoes(lang);
+  const atual = r.statusAtual as (ExtrasDoPerfil["status"] & { publico?: PublicoDoStatus | null }) | null;
+  const status: StatusEditado | null =
+    r.status === undefined
+      ? atual
+        ? { tipo: atual.tipo as StatusDaLista, publico: atual.publico === "roda" ? "roda" : "todos", texto: atual.texto, horas: 24, ate: atual.ate ?? new Date(agora + 24 * 3600e3).toISOString() }
+        : null
+      : r.status;
+  const rotulo = (o: StatusDaLista) => (t.agora.statusTipos as Record<string, string>)[o] ?? (ts?.status.tipos as Record<string, string> | undefined)?.[o] ?? o;
   const tocando = r.aparencia.tocando;
   const horasDoTocando = tocando ? Math.max(1, Math.round((new Date(tocando.ate).getTime() - agora) / 3600e3)) : 8;
   const duracaoMaisPerto = (h: number) => DURACOES.reduce((m, d) => (Math.abs(d - h) < Math.abs(m - h) ? d : m), DURACOES[0]);
   const link = tocando?.link ? linkLimpo(tocando.link) : null;
-  const opcoesStatus = ["nenhum", ...STATUS_DO_PERFIL] as const;
+  const opcoesStatus = ["nenhum", ...STATUS_TODOS] as const;
   return (
     <>
       <div className="pfe-bloco">
@@ -941,9 +1022,9 @@ function Agora({ r, mudar, t }: { r: Rascunho; mudar: (f: (r: Rascunho) => Rascu
                 role="radio"
                 aria-checked={marcado}
                 className="pfe-pilula"
-                onClick={() => mudar((x) => ({ ...x, status: o === "nenhum" ? null : { tipo: o, texto: status?.texto ?? "", horas: status?.horas ?? 24, ate: daquiA(status?.horas ?? 24) } }))}
+                onClick={() => mudar((x) => ({ ...x, status: o === "nenhum" ? null : { tipo: o, publico: status?.publico ?? "todos", texto: status?.texto ?? "", horas: status?.horas ?? 24, ate: daquiA(status?.horas ?? 24) } }))}
               >
-                {o === "nenhum" ? t.agora.semStatus : t.agora.statusTipos[o]}
+                {o === "nenhum" ? t.agora.semStatus : rotulo(o)}
               </button>
             );
           })}
@@ -965,6 +1046,20 @@ function Agora({ r, mudar, t }: { r: Rascunho; mudar: (f: (r: Rascunho) => Rascu
               </select>
             </label>
           </div>
+        ) : null}
+        {status && ts ? (
+          <>
+            <p className="pfe-ajuda" id="pfe-status-publico">
+              {ts.status.publico}
+            </p>
+            <div role="radiogroup" aria-labelledby="pfe-status-publico" className="pfe-pilulas">
+              {PUBLICOS_DO_STATUS.map((p) => (
+                <button key={p} type="button" role="radio" aria-checked={status.publico === p} className="pfe-pilula" onClick={() => mudar((x) => ({ ...x, status: { ...status, publico: p } }))}>
+                  {ts.status.publicos[p]}
+                </button>
+              ))}
+            </div>
+          </>
         ) : null}
       </div>
 

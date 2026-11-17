@@ -8,12 +8,15 @@
   },
   "fed": {
     "titulo": "Alumia dans le Fédivers",
-    "lead": "Le Fédivers est un ensemble de réseaux sociaux libres qui communiquent entre eux, comme Mastodon. Si vous activez la fédération, des personnes de là-bas peuvent vous suivre et lire vos publications publiques, et vous pouvez suivre des personnes de là-bas. Elle reste désactivée tant que vous ne l'activez pas.",
+    "lead": "Le Fédivers est un ensemble de réseaux sociaux libres qui communiquent entre eux, comme Mastodon. Si vous activez la fédération, des personnes de là-bas peuvent vous suivre et lire vos publications publiques, et vous pouvez suivre des personnes de là-bas.",
+    "leadDesligada": "Elle reste désactivée tant que vous ne l'activez pas.",
+    "leadLigada": "La vôtre est activée : vous pouvez la désactiver juste en dessous, et les serveurs d'ailleurs reçoivent la demande de suppression.",
     "foraDoAr": "La fédération n'est pas encore activée sur le serveur d'Alumia. Quand elle le sera, vous pourrez activer la vôtre ici.",
     "endereco": "Votre adresse dans le Fédivers",
     "ligadaDesde": "Activée depuis le {quando}.",
     "desligada": "Désactivée : rien de vous ne sort d'Alumia.",
     "numeros": "Personnes d'ailleurs qui vous suivent : {seguidores}. Personnes d'ailleurs que vous suivez : {seguindo}.",
+    "menosDeTres": "moins de 3",
     "consentimento": {
       "titulo": "Avant d'activer, lisez attentivement",
       "itens": [

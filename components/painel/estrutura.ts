@@ -86,6 +86,8 @@ export const MAPA: Record<string, Mapeamento> = {
   "rede-propostas": { espaco: "comunidade", molde: "fila" },
   "rede-organizacoes": { espaco: "comunidade", molde: "fila" },
   "alumia-entrada": { espaco: "comunidade", molde: "fila" },
+  "alumia-painel": { espaco: "comunidade", molde: "registro" },
+  "alumia-admin": { espaco: "comunidade", molde: "registro" },
   "rede-semeadura": { espaco: "comunidade", molde: "tabela" },
   reforco: { espaco: "comunidade", molde: "fila" },
   mural: { espaco: "comunidade", molde: "fila" },

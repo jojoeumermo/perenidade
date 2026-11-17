@@ -1,0 +1,183 @@
+{
+  "titulo": "Mode manif",
+  "chamada": "Pour le jour dans la rue : l’écran se simplifie, les chiffres disparaissent, une photo avec des gens demande une vérification avant de partir, et la panique, le « Je vais bien » et le guide sans réseau restent à portée de main.",
+  "carregando": "Chargement du mode manif…",
+  "menu": "Mode manif",
+  "chave": {
+    "rotulo": "Sur cet appareil",
+    "titulo": "Mode manif",
+    "ligado": "Activé depuis {hora}",
+    "desligado": "Désactivé",
+    "ligar": "Activer le mode manif",
+    "desligar": "Désactiver",
+    "itens": [
+      "Aucun chiffre de j’aime, de réponses ni d’abonnés à l’écran",
+      "Avant de publier une photo : un rappel pour vérifier et flouter les visages",
+      "Plaque d’immatriculation, CPF, téléphone ou adresse dans le texte : un avertissement avant l’envoi",
+      "Les photos partent sans les données cachées du fichier : lieu, appareil et heure"
+    ],
+    "soAqui": "Cela reste sur cet appareil et personne ne sait que vous l’avez activé."
+  },
+  "estouBem": {
+    "rotulo": "Après la manif",
+    "titulo": "Je vais bien",
+    "texto": "Un toucher prévient vos contacts de sécurité que vous allez bien. Le message ne va qu’aux personnes choisies qui ont accepté, ne contient aucun lieu et disparaît en 24 heures.",
+    "botao": "Dire que je vais bien",
+    "enviando": "Envoi…",
+    "feito": "C’est fait : {n} contacts l’ont reçu. Le message disparaît en 24 heures.",
+    "feitoUm": "C’est fait : 1 contact l’a reçu. Le message disparaît en 24 heures.",
+    "semContatos": "Pour prévenir, choisissez un contact de sécurité ci-dessous et attendez qu’il accepte."
+  },
+  "contatos": {
+    "rotulo": "Qui reçoit",
+    "titulo": "Contacts de sécurité",
+    "texto": "Jusqu’à 10 personnes de confiance. Chacune accepte avant de recevoir le moindre message de vous, et vous seul voyez cette liste.",
+    "campo": "@ de la personne",
+    "pedir": "Demander",
+    "pedido": "Demande envoyée. La personne répond dans son propre Mode manif.",
+    "aguardando": "En attente d’acceptation",
+    "aceito": "A accepté",
+    "tirar": "Retirer",
+    "vazio": "Aucun contact pour l’instant.",
+    "pedidosTitulo": "Vous ont demandé comme contact",
+    "aceitar": "Accepter",
+    "recusar": "Refuser",
+    "souTitulo": "Vous recevez les messages de",
+    "sair": "Ne plus recevoir",
+    "limite": "Vous avez déjà 10 contacts. Retirez-en un pour en demander un autre.",
+    "naoEncontrado": "Nous n’avons pas trouvé ce @, ou il n’est pas possible de demander ce compte."
+  },
+  "recados": {
+    "rotulo": "Pour vous",
+    "titulo": "Messages",
+    "vazio": "Aucun message pour l’instant.",
+    "estouBem": "{nome} a prévenu qu’il va bien",
+    "detido": "{nome} a prévenu qu’il a été arrêté",
+    "viaOrg": "Arrivé par le soutien juridique de {org}.",
+    "quando": "À {hora} · disparaît {quando}",
+    "apagar": "Retirer",
+    "oQueFazer": "Que faire maintenant",
+    "passos": [
+      "Appelez la permanence juridique de l’organisation ou la Défense publique de la ville.",
+      "Trouvez dans quel commissariat la personne a été emmenée. Apportez une pièce d’identité à elle, si vous en avez une.",
+      "Prévenez sa famille ou la personne qu’elle indique d’habitude.",
+      "Ne diffusez pas son nom en public sans son accord ou celui de sa famille."
+    ]
+  },
+  "detido": {
+    "rotulo": "Si on vous emmène",
+    "titulo": "J’ai été arrêté",
+    "texto": "Envoie un message tout prêt à vos contacts de sécurité et, si vous le choisissez, au soutien juridique d’une organisation. Aucun lieu et aucun texte libre : personne ne lit rien d’autre que « j’ai été arrêté ».",
+    "org": "Soutien juridique",
+    "semOrg": "Seulement mes contacts",
+    "botao": "Prévenir que j’ai été arrêté",
+    "confirmar": "Envoyer le message maintenant ?",
+    "sim": "Oui, envoyer",
+    "nao": "Annuler",
+    "enviando": "Envoi…",
+    "feito": "C’est fait : {n} personnes l’ont reçu.",
+    "feitoUm": "C’est fait : 1 personne l’a reçu.",
+    "feitoOrg": "Le soutien juridique l’a reçu aussi.",
+    "panico": "Si besoin, utilisez aussi la panique ci-dessus : elle déconnecte votre compte de tous les appareils.",
+    "direitosTitulo": "Vos droits",
+    "direitos": [
+      "Donnez votre nom et montrez une pièce d’identité. Pour le reste, vous avez le droit de garder le silence.",
+      "Demandez à parler à un avocat ou à la Défense publique.",
+      "Demandez qu’on prévienne votre famille ou la personne que vous indiquez.",
+      "Demandez le nom de la personne qui vous a arrêté et dans quel commissariat vous allez.",
+      "Ne signez rien sans le lire, et de préférence pas sans votre avocat.",
+      "Dans les 24 heures, vous devez être présenté à un juge, à l’audience de garde à vue. Dites-y s’il y a eu des violences."
+    ],
+    "semContatos": "Pour envoyer, choisissez un contact de sécurité (et attendez qu’il accepte) ou un soutien juridique."
+  },
+  "assessoria": {
+    "rotulo": "Pour les organisations",
+    "titulo": "Permanence juridique",
+    "texto": "Qui gère une organisation vérifiée publie ici sa permanence juridique : qui répond et comment appeler. Toute personne arrêtée qui choisit l’organisation prévient qui gère son compte.",
+    "campo": "Texte de la permanence de {org}",
+    "ajuda": "De 10 à 400 caractères. Laissez vide pour retirer.",
+    "guardar": "Enregistrer",
+    "guardado": "Enregistré.",
+    "invalido": "Écrivez de 10 à 400 caractères, sans < ni >."
+  },
+  "semSinal": {
+    "titulo": "Pas de réseau ?",
+    "texto": "Le guide pour quand internet tombe. Ouvrez-le une fois maintenant : ensuite il s’ouvre sur cet appareil même sans internet.",
+    "abrir": "Ouvrir le guide"
+  },
+  "barra": {
+    "titulo": "Mode manif activé",
+    "desde": "depuis {hora}",
+    "panico": "Panique : tout quitter",
+    "estouBem": "Je vais bien",
+    "abrir": "Ouvrir le mode manif"
+  },
+  "anexo": {
+    "texto": "De retour de la manif ?",
+    "botao": "Dire que je vais bien"
+  },
+  "verificar": {
+    "cpf": "Le texte contient un CPF ({trecho}). Retirez-le avant de publier.",
+    "telefone": "Le texte contient un téléphone ({trecho}). Retirez-le avant de publier.",
+    "email": "Le texte contient une adresse e-mail ({trecho}). Retirez-la avant de publier.",
+    "endereco": "Le texte contient une adresse avec un numéro ({trecho}). Retirez-la avant de publier.",
+    "placa": "Le texte semble contenir une plaque d’immatriculation ({trecho}). Une plaque mène à une personne. Touchez publier à nouveau pour l’envoyer quand même.",
+    "fixo": "Le texte semble contenir un téléphone ({trecho}). Touchez publier à nouveau pour l’envoyer quand même.",
+    "foto": "Mode manif : vérifiez si le visage de quelqu’un apparaît et floutez-le avant de publier. Touchez publier à nouveau pour l’envoyer quand même."
+  },
+  "erros": {
+    "falha": "Cela n’a pas marché. Réessayez.",
+    "semServico": "Alumia n’a pas de connexion à la base de données en ce moment.",
+    "desligado": "Cette partie a été désactivée par la coordination.",
+    "muitos": "Trop de tentatives d’affilée. Attendez une minute.",
+    "tentar": "Réessayer"
+  },
+  "guia": {
+    "titulo": "Pas de réseau ?",
+    "chamada": "Que faire quand internet tombe en pleine manif. Ce guide reste enregistré sur cet appareil après la première visite.",
+    "secoes": [
+      {
+        "titulo": "Avant de partir",
+        "itens": [
+          "Ouvrez ce guide une fois avec internet : ensuite il s’ouvre sans réseau.",
+          "Convenez avec votre groupe d’un point de rendez-vous et d’une heure, au cas où vous seriez séparés.",
+          "Notez sur papier deux numéros de confiance et celui de la permanence juridique.",
+          "Partez avec la batterie pleine et, si possible, une batterie externe."
+        ]
+      },
+      {
+        "titulo": "Quand internet tombe",
+        "itens": [
+          "Les appels et les SMS passent parfois même quand internet ne passe pas. Un message court passe mieux.",
+          "Avec beaucoup de monde au même endroit, le réseau sature : un endroit plus haut ou plus dégagé aide.",
+          "Quand c’est possible, envoyez un message court à la fois plutôt que plusieurs tentatives d’affilée."
+        ]
+      },
+      {
+        "titulo": "Mode avion",
+        "itens": [
+          "Sans réseau, le téléphone use beaucoup de batterie à chercher un signal. Le mode avion arrête cette recherche.",
+          "En mode avion, le téléphone ne parle pas aux antennes de l’opérateur : il ne reçoit pas d’appels et ne s’y enregistre pas non plus.",
+          "On peut activer le Wi-Fi ou le Bluetooth avec le mode avion activé.",
+          "Désactivez le mode avion seulement pour appeler ou envoyer un message, puis réactivez-le."
+        ]
+      },
+      {
+        "titulo": "De téléphone à téléphone",
+        "itens": [
+          "Il existe des applications qui font passer des messages d’un téléphone à l’autre par Bluetooth, sans internet (les réseaux maillés).",
+          "Elles ne font pas partie d’Alumia. Si votre groupe en utilise une, installez-la et testez-la ensemble avant la manif."
+        ]
+      },
+      {
+        "titulo": "Quand le réseau revient",
+        "itens": [
+          "Prévenez que vous allez bien avec le Mode manif : le message ne va qu’à vos contacts de sécurité.",
+          "Si quelqu’un du groupe n’est pas venu au point convenu, contactez la permanence juridique."
+        ]
+      }
+    ],
+    "direitosTitulo": "Si vous êtes arrêté",
+    "voltar": "Retour au mode manif"
+  }
+}

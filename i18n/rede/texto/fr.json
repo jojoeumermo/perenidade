@@ -1,0 +1,67 @@
+{
+  "codigo": {
+    "rotulo": "Code",
+    "copiar": "Copier",
+    "copiado": "Copié",
+    "naoCopiou": "Impossible de copier. Sélectionnez et copiez à la main."
+  },
+  "formula": {
+    "rotulo": "Formule"
+  },
+  "imagem": {
+    "falta": "Image {n} (non jointe)"
+  },
+  "link": {
+    "fora": "ouvre un autre site"
+  },
+  "barra": {
+    "rotulo": "Mise en forme du texte",
+    "negrito": "Gras",
+    "italico": "Italique",
+    "codigo": "Code dans la phrase",
+    "blocoDeCodigo": "Bloc de code",
+    "formula": "Formule",
+    "titulo": "Sous-titre",
+    "lista": "Liste",
+    "citacao": "Citation",
+    "link": "Lien",
+    "imagem": "Mettre l’image {n} ici",
+    "escrever": "Écrire",
+    "verComoFica": "Aperçu",
+    "ajuda": "Comment mettre en forme"
+  },
+  "exemplo": {
+    "negrito": "texte en gras",
+    "italico": "texte en italique",
+    "codigo": "code",
+    "blocoDeCodigo": "écrivez le code ici",
+    "formula": "x^2 + y^2 = r^2",
+    "titulo": "Sous-titre",
+    "item": "premier élément",
+    "citacao": "passage cité",
+    "link": "texte du lien",
+    "imagem": "description de l’image"
+  },
+  "ajuda": {
+    "titulo": "Comment mettre en forme",
+    "intro": "Écrivez avec ces signes. Les lecteurs voient le texte déjà mis en forme ; ce qui n’est pas un de ces signes s’affiche tel que vous l’avez écrit.",
+    "itens": [
+      { "escreva": "**gras**", "vira": "gras" },
+      { "escreva": "_italique_", "vira": "italique" },
+      { "escreva": "## Sous-titre", "vira": "un sous-titre (### pour un plus petit)" },
+      { "escreva": "- élément", "vira": "liste (1. pour une liste numérotée)" },
+      { "escreva": "> passage", "vira": "citation" },
+      { "escreva": "`code`", "vira": "code dans la phrase" },
+      { "escreva": "```python", "vira": "bloc de code (fermez avec ``` sur une ligne seule)" },
+      { "escreva": "$$x^2$$", "vira": "formule LaTeX (sur des lignes seules, elle est mise en avant)" },
+      { "escreva": "[texte](https://…)", "vira": "lien" },
+      { "escreva": "![description](imagem:1)", "vira": "l’image 1 que vous avez jointe, à cet endroit du texte" }
+    ],
+    "cifrao": "Un dollar seul n’est pas une formule : R$ 10 reste de l’argent. Pour écrire un signe sans mise en forme, mettez une barre oblique inverse devant : \\*",
+    "imagens": "Seules les images jointes à cette publication sont acceptées (avant d’être enregistrées, elles perdent la localisation et les données de l’appareil). Les images d’autres sites ne sont pas chargées."
+  },
+  "previa": {
+    "titulo": "Ce que ça donnera",
+    "vazia": "Rien à afficher pour l’instant."
+  }
+}

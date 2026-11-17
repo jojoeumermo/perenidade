@@ -3,7 +3,7 @@
     "selo": "En construction",
     "aviso": "Cet écran d'Alumia est encore en préparation. Rien n'est enregistré ici pour l'instant.",
     "voltar": "Retour à l'accueil d'Alumia",
-    "rodape": "Ordre d'arrivée · sans publicité · sans pistage · toujours un pseudonyme",
+    "rodape": "Règle ouverte · sans publicité · sans pistage · pseudonyme par défaut",
     "marca": "Instituto Lúcia"
   },
   "telas": {
@@ -16,8 +16,13 @@
     "identidades": { "titulo": "Identités", "descricao": "Plus d'une identité sur le même compte, sans que personne ne relie l'une à l'autre." },
     "aparelhos": { "titulo": "Appareils", "descricao": "Les appareils où votre compte est ouvert, pour en déconnecter un à distance. Sans adresse réseau." },
     "o-que-guardamos": { "titulo": "Ce que nous gardons", "descricao": "Ce qu'Alumia garde sur vous, combien de temps et pourquoi, avec la loi à côté." },
-    "transparencia": { "titulo": "Transparence", "descricao": "Les chiffres de la modération par semestre, sans rien qui désigne une personne." },
+    "transparencia": { "titulo": "Transparence", "descricao": "Les chiffres de la modération par trimestre, sans rien qui désigne une personne." },
+    "rotulos": { "titulo": "Étiquettes", "descricao": "Des marques d’arnaque, de spam et de harcèlement coordonné auxquelles vous vous abonnez, posées par des organisations labellisées et par la médiation." },
     "listas": { "titulo": "Listes", "descricao": "Des fils composés par vous, avec vos règles. Vous seul·e voyez vos listes." },
-    "leve": { "titulo": "Version légère", "descricao": "Alumia en texte seulement, pour une connexion faible et un petit forfait." }
+    "leve": { "titulo": "Version légère", "descricao": "Alumia en texte seulement, pour une connexion faible et un petit forfait." },
+    "questoes": { "titulo": "Questions", "descricao": "Des questions par matière et par thème, avec la bonne réponse et l’explication seulement après votre réponse. Vos résultats restent sur votre appareil." },
+    "redacao": { "titulo": "Rédaction entre pairs", "descricao": "Le cercle de correction de la semaine : vous corrigez une rédaction sans savoir qui l’a écrite et recevez deux lectures, selon les cinq compétences de l’ENEM." },
+    "pontes": { "titulo": "Passerelles", "descricao": "Les robots de l’organisation, étiquetés et avec une clé, et le canal Telegram." },
+    "trabalhadores": { "titulo": "Mur du travail", "descricao": "Appels à la lutte, à la grève et à la solidarité des organisations vérifiées, par type et par ville." }
   }
 }

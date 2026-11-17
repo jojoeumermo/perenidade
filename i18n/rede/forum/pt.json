@@ -1,0 +1,140 @@
+{
+  "aba": "Fórum",
+  "titulo": "Fórum",
+  "lead": "Cada assunto é um tópico. Quem abriu ou a moderação marca quando ele foi resolvido.",
+  "abrir": "Abrir tópico",
+  "entrarParaAbrir": "Para abrir tópico, participe da comunidade.",
+  "carregando": "Carregando o fórum…",
+  "carregarMais": "Carregar mais",
+  "erro": "Não deu para carregar o fórum.",
+  "tentar": "Tentar de novo",
+  "fixados": "Fixados pela moderação",
+  "lista": "Tópicos",
+  "ordem": {
+    "rotulo": "Ordem da lista",
+    "ultima": "Última resposta",
+    "novos": "Mais novos",
+    "sem_resposta": "Sem resposta",
+    "regra": {
+      "ultima": "O tópico sobe quando alguém responde. A regra é a mesma para todo mundo: nenhuma reação, alcance ou perfil entra na conta.",
+      "novos": "Do tópico aberto mais recentemente para o mais antigo, para todo mundo igual.",
+      "sem_resposta": "Só os tópicos que ainda esperam a primeira resposta, do mais novo para o mais antigo."
+    }
+  },
+  "estado": {
+    "rotulo": "Situação",
+    "todos": "Todos",
+    "aberto": "Aberto",
+    "encaminhado": "Encaminhado",
+    "resolvido": "Resolvido",
+    "filtro": {
+      "aberto": "Abertos",
+      "encaminhado": "Encaminhados",
+      "resolvido": "Resolvidos"
+    },
+    "regra": {
+      "aberto": "Ainda em conversa.",
+      "encaminhado": "Virou aula, wiki ou tarefa.",
+      "resolvido": "A dúvida foi respondida ou o assunto se fechou."
+    }
+  },
+  "etiqueta": {
+    "rotulo": "Etiqueta",
+    "todas": "Todas as etiquetas",
+    "nenhuma": "Sem etiqueta"
+  },
+  "item": {
+    "respostas": "{n} respostas",
+    "resposta": "1 resposta",
+    "nenhuma": "Sem resposta ainda",
+    "ultima": "última resposta há {quando}",
+    "aberto": "aberto há {quando}",
+    "por": "por {codinome}",
+    "duvida": "Dúvida",
+    "discussao": "Discussão",
+    "travado": "Travado",
+    "veio": "Veio de outra conversa",
+    "novas": "Novas",
+    "novasRegra": "Respostas depois da sua última visita. Até onde você leu fica guardado só neste aparelho."
+  },
+  "resumo": {
+    "daModeracao": "Resumo da moderação",
+    "daAutora": "Resumo de quem abriu",
+    "escrever": "Escrever o resumo",
+    "trocar": "Trocar o resumo",
+    "tirar": "Tirar o resumo",
+    "campo": "Resumo em uma linha",
+    "dica": "Até 140 caracteres, numa linha só. Fica no alto do tópico e na lista do fórum.",
+    "conta": "{n} de 140",
+    "salvar": "Salvar o resumo",
+    "cancelar": "Cancelar",
+    "salvo": "Resumo salvo.",
+    "tirado": "Resumo tirado."
+  },
+  "topico": {
+    "carimbo": "Tópico do fórum",
+    "situacao": "Situação do tópico",
+    "mudou": "Agora o tópico está: {estado}.",
+    "regraMudar": "Quem abriu o tópico ou a moderação muda a situação e o resumo.",
+    "veioDe": "Este tópico continua uma conversa.",
+    "verOriginal": "Ver a conversa de onde veio",
+    "continuaEm": "Continua no fórum",
+    "levar": "Levar para o fórum",
+    "abrirForum": "Ver o fórum da comunidade"
+  },
+  "virar": {
+    "titulo": "Virar tópico do fórum",
+    "acao": "Virar tópico",
+    "lead": "Abre um tópico novo no fórum, citando esta mensagem. A conversa original fica onde está, com a marca de onde ela continua.",
+    "avisoAutora": "A mensagem não é sua: quem escreveu recebe um aviso de que ela foi levada para o fórum.",
+    "comunidade": "Comunidade",
+    "escolha": "Escolha a comunidade",
+    "carregandoComunidades": "Carregando as suas comunidades…",
+    "semComunidade": "Você ainda não participa de nenhuma comunidade onde possa abrir tópico.",
+    "tituloCampo": "Título do tópico",
+    "tipo": "Tipo",
+    "corpo": "Primeira mensagem do tópico",
+    "corpoPadrao": "Este assunto começou numa conversa e continua aqui, para não se perder.",
+    "enviar": "Abrir o tópico",
+    "cancelar": "Cancelar",
+    "feito": "O tópico foi aberto.",
+    "ver": "Ver o tópico",
+    "avaliar": "O tópico vai esperar a leitura da moderação antes de aparecer.",
+    "fechar": "Fechar"
+  },
+  "novo": {
+    "titulo": "Novo tópico",
+    "tituloCampo": "Título",
+    "tituloDica": "De 5 a 140 caracteres.",
+    "tipo": "Tipo",
+    "corpo": "Mensagem",
+    "corpoDica": "Pelo menos 10 caracteres.",
+    "etiqueta": "Etiqueta",
+    "enviar": "Publicar o tópico",
+    "cancelar": "Cancelar",
+    "feito": "Tópico publicado.",
+    "avaliar": "O tópico vai esperar a leitura da moderação antes de aparecer."
+  },
+  "novas": {
+    "barra": "{n} respostas novas desde a sua última visita",
+    "uma": "1 resposta nova desde a sua última visita",
+    "pular": "Pular para a primeira nova",
+    "regua": "Novas daqui para baixo",
+    "selo": "Nova",
+    "regra": "Até onde você leu fica guardado só neste aparelho."
+  },
+  "vazio": {
+    "todos": "Nenhum tópico ainda. Que tal abrir o primeiro?",
+    "filtro": "Nenhum tópico com esse filtro."
+  },
+  "erros": {
+    "ja_virou": "Esta mensagem já virou tópico nessa comunidade.",
+    "invalido:topico": "Esta conversa não é um tópico do fórum.",
+    "invalido:estado": "Situação desconhecida.",
+    "invalido:resumo": "O resumo não pôde ser salvo: revise o texto.",
+    "invalido:titulo": "O título precisa ter de 5 a 140 caracteres.",
+    "invalido:corpo": "A mensagem precisa ter pelo menos 10 caracteres.",
+    "invalido:comunidade": "Escolha uma comunidade.",
+    "invalido:flair": "Essa etiqueta não existe nesta comunidade."
+  }
+}

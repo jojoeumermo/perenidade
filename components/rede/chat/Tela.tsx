@@ -2,8 +2,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { ativarNesteAparelho, estadoDoAparelho } from "@/lib/rede/chat-chaveiro";
-import type { Eu } from "@/lib/rede/chat-privado";
+import { ativarNesteAparelho, estadoDoAparelho, type OrganizacaoDaConversa, receberMensagens, resumoDasConversas } from "@/lib/rede/chat-chaveiro";
+import type { Eu } from "@/lib/rede/chat-chaveiro";
+import { aoApagarTudoDoChat } from "@/lib/rede/chat/gaveta";
 import { chat, type ConversaDoChat, type SituacaoDoChat } from "@/lib/rede/cliente-chat";
 import { preencher } from "@/lib/rede/preencher";
 import { carregarTextosDoChat, type TextosDoChat } from "@/lib/rede/textos-chat";
@@ -16,7 +17,7 @@ import { Conversa } from "./Conversa";
 import { codigoDoErro } from "../erros";
 import { botaoForte, botaoLeve, erroDoChat } from "./comum";
 
-type Aparelho = { estado: "carregando" } | { estado: "pronto"; eu: Eu } | { estado: "sem_chave" } | { estado: "outro_aparelho" } | { estado: "erro"; texto: string; calmo: boolean };
+type Aparelho = { estado: "carregando" } | { estado: "pronto"; eu: Eu } | { estado: "sem_chave" } | { estado: "outro_aparelho"; tinhaChaveAqui: boolean } | { estado: "apagado" } | { estado: "erro"; texto: string; calmo: boolean };
 
 /**
  * Conversas da Alumia (/alumia/conversas): o chat privado, cifrado de ponta a ponta com a mesma tecnologia das conversas da
@@ -32,6 +33,11 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const [aviso, setAviso] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const [ajustes, setAjustes] = useState(false);
+  const [entendi, setEntendi] = useState(false);
+  // O que só este aparelho sabe de cada conversa: pasta, soneca, lembretes e não lidas (o banco não sabe mais quantas chegaram).
+  const [resumo, setResumo] = useState<Map<string, OrganizacaoDaConversa & { naoLidas: number }>>(new Map());
+  const [pasta, setPasta] = useState("");
+  const [agora, setAgora] = useState(() => new Date().toISOString());
 
   useEffect(() => {
     let vivo = true;
@@ -59,8 +65,22 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
         const estado = await estadoDoAparelho(nova);
         if (!vivo) return;
         setAparelho(estado);
-        const com = new URLSearchParams(window.location.search).get("com");
-        if (com) {
+        const busca = new URLSearchParams(window.location.search);
+        const com = busca.get("com");
+        // Veio de "Combinar pelo chat" de uma carona (lib/rede/chat/carona.ts): abre a conversa pelo id e tira o id do endereço.
+        const daCarona = busca.get("conversa");
+        if (daCarona) {
+          busca.delete("conversa");
+          const resto = busca.toString();
+          window.history.replaceState(window.history.state, "", `${window.location.pathname}${resto ? `?${resto}` : ""}${window.location.hash}`);
+          const ja = conversas.find((c) => c.id === daCarona);
+          if (ja?.situacao === "aberta") setAberta(ja);
+          // Pedido que a outra pessoa mandou: ele está na lista de pedidos, para aceitar ou recusar.
+          else if (ja && !ja.pedi) setAviso(preencher(t.lista.pedidoDe, { nome: ja.com.codinome }));
+          else if (ja) setAviso(t.lista.pedidoEnviado);
+          // A conversa existe, mas esta pessoa a apagou da lista: ela volta quando chegar mensagem nova.
+          else setAviso(t.lista.conversaApagada);
+        } else if (com) {
           const ja = conversas.find((c) => c.com.handle === com.toLowerCase());
           if (ja) setAberta(ja);
           else setHandle(com);
@@ -74,14 +94,50 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
     };
   }, [situacao.logado, situacao.membro, t, s, recarregar]);
 
+  // Busca a caixa selada e refaz o resumo deste aparelho (não lidas, pastas, sonecas, lembretes).
+  const eu = aparelho.estado === "pronto" ? aparelho.eu : null;
+  const resumir = useCallback(async () => {
+    if (!eu) return;
+    await receberMensagens(eu).catch(() => 0);
+    setResumo(await resumoDasConversas(eu.usuario).catch(() => new Map()));
+    setAgora(new Date().toISOString());
+  }, [eu]);
+  useEffect(() => {
+    // resumir é assíncrona: o estado muda depois da caixa selada responder, não durante o efeito.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (!aberta) void resumir();
+  }, [aberta, resumir]);
+
+  // "Sair rápido" ou "apagar tudo do chat" (nesta aba ou em OUTRA, ou a saída do site apagando o banco do chat): a tela esquece
+  // a lista de conversas e o resumo deste aparelho, fecha a conversa aberta e volta à ativação, com texto próprio ("o chat foi
+  // apagado deste aparelho": não é verdade que ele esteja ativo em outro). A lista não é buscada de novo sozinha (só com a
+  // chave ativa).
+  useEffect(
+    () =>
+      aoApagarTudoDoChat(() => {
+        setAberta(null);
+        setLista([]);
+        setResumo(new Map());
+        setPasta("");
+        setHandle("");
+        setAjustes(false);
+        setEntendi(false);
+        setAparelho({ estado: "apagado" });
+      }),
+    [],
+  );
+
   // A lista se atualiza sozinha a cada 30 s, só com a aba visível e sem conversa aberta.
   useEffect(() => {
     if (aparelho.estado !== "pronto" || aberta) return;
     const id = window.setInterval(() => {
-      if (document.visibilityState === "visible") void recarregar().catch(() => undefined);
+      if (document.visibilityState === "visible") {
+        void recarregar().catch(() => undefined);
+        void resumir();
+      }
     }, 30_000);
     return () => window.clearInterval(id);
-  }, [aparelho.estado, aberta, recarregar]);
+  }, [aparelho.estado, aberta, recarregar, resumir]);
 
   async function ativar() {
     if (!sit || ocupado || !t) return;
@@ -179,7 +235,10 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
   }
 
   const pedidos = (lista ?? []).filter((c) => c.situacao === "pedido" && !c.pedi);
-  const conversas = (lista ?? []).filter((c) => !(c.situacao === "pedido" && !c.pedi));
+  const todas = (lista ?? []).filter((c) => !(c.situacao === "pedido" && !c.pedi));
+  const pastas = [...new Set([...resumo.values()].map((o) => o.pasta).filter(Boolean))].sort();
+  const conversas = pasta ? todas.filter((c) => resumo.get(c.id)?.pasta === pasta) : todas;
+  const lembretesVencidos = todas.flatMap((c) => (resumo.get(c.id)?.lembretes ?? []).filter((l) => l.quando <= agora).map((l) => ({ ...l, conversa: c })));
 
   return (
     <section aria-labelledby="alumia-chat-titulo" className="font-sans">
@@ -201,10 +260,22 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
         )
       ) : aparelho.estado !== "pronto" ? (
         <div className="px-[18px] py-6">
-          <h2 className="font-serif text-xl font-bold">{aparelho.estado === "sem_chave" ? t.ativar.titulo : t.ativar.outroTitulo}</h2>
-          <p className="mt-2 max-w-prose text-ink-soft">{aparelho.estado === "sem_chave" ? t.ativar.texto : t.ativar.outroTexto}</p>
-          <button type="button" disabled={ocupado} onClick={() => void ativar()} className={`${botaoForte} mt-4`}>
-            {aparelho.estado === "sem_chave" ? t.ativar.botao : t.ativar.outroBotao}
+          <h2 className="font-serif text-xl font-bold">{aparelho.estado === "sem_chave" ? t.ativar.titulo : aparelho.estado === "apagado" ? t.ativar.apagadoTitulo : t.ativar.outroTitulo}</h2>
+          <p className="mt-2 max-w-prose text-ink-soft">{aparelho.estado === "sem_chave" ? t.ativar.texto : aparelho.estado === "apagado" ? t.ativar.apagadoTexto : t.ativar.outroTexto}</p>
+          {aparelho.estado !== "sem_chave" && (
+            // Outra chave no servidor para a PRÓPRIA conta, ou a chave daqui foi apagada: criar uma nova não é um clique. Primeiro o
+            // risco, depois o "entendi".
+            <div className="mt-3 max-w-prose space-y-3">
+              {aparelho.estado === "outro_aparelho" && aparelho.tinhaChaveAqui && <p role="alert" className="rounded-md border border-oxblood px-3 py-2 font-semibold">{t.ativar.outroTinha}</p>}
+              <p>{t.ativar.outroRisco}</p>
+              <label className="flex min-h-11 items-start gap-2">
+                <input type="checkbox" className="mt-1 h-5 w-5 shrink-0" checked={entendi} onChange={(e) => setEntendi(e.target.checked)} />
+                <span>{t.ativar.outroEntendi}</span>
+              </label>
+            </div>
+          )}
+          <button type="button" disabled={ocupado || (aparelho.estado !== "sem_chave" && !entendi)} onClick={() => void ativar()} className={`${botaoForte} mt-4`}>
+            {aparelho.estado === "sem_chave" ? t.ativar.botao : aparelho.estado === "apagado" ? t.ativar.apagadoBotao : t.ativar.outroBotao}
           </button>
         </div>
       ) : ajustes && sit ? (
@@ -257,6 +328,29 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
             </div>
           )}
 
+          {lembretesVencidos.length > 0 && (
+            <div className="border-b border-rule px-[18px] py-3 text-sm" role="status">
+              <p className="font-semibold">{t.organizar.lembretes}</p>
+              <ul className="mt-1 space-y-1">
+                {lembretesVencidos.map((l) => (
+                  <li key={l.id}>
+                    <button type="button" className="text-left underline" onClick={() => setAberta(l.conversa)}>
+                      {l.conversa.com.codinome}: “{l.trecho}”
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {pastas.length > 0 && (
+            <div className="flex flex-wrap gap-2 border-b border-rule px-[18px] py-3 text-sm" role="group" aria-label={t.organizar.pastas}>
+              {["", ...pastas].map((p) => (
+                <button key={p || "todas"} type="button" aria-pressed={pasta === p} onClick={() => setPasta(p)} className={`min-h-9 rounded-full border px-3 ${pasta === p ? "border-ink bg-ink text-parchment" : "border-rule"}`}>
+                  {p || t.organizar.todas}
+                </button>
+              ))}
+            </div>
+          )}
           <h2 className="sr-only">{t.lista.rotulo}</h2>
           {lista === null ? (
             <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={3} />
@@ -277,11 +371,17 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
                       <span className="block truncate font-semibold">{c.com.codinome}</span>
                       <span className="block truncate text-sm text-ink-soft">
                         {c.situacao === "pedido" ? t.lista.pedidoEnviado : c.com.handle ? `@${c.com.handle}` : ""}
+                        {resumo.get(c.id)?.pasta ? ` · ${resumo.get(c.id)?.pasta}` : ""}
                       </span>
                     </span>
-                    {c.nao_lidas > 0 && (
-                      <span className="rounded-full bg-[#c21f16] px-2 py-0.5 text-xs font-bold text-white">{preencher(t.lista.naoLidas, { n: String(c.nao_lidas) })}</span>
-                    )}
+                    {(resumo.get(c.id)?.sonecaAte ?? "") > agora && <span className="text-xs text-ink-soft">{t.organizar.silenciada}</span>}
+                    {(() => {
+                      // Não lidas: contadas neste aparelho (o banco não sabe mais quantas chegaram). Silenciada: sem o número vermelho.
+                      const n = resumo.get(c.id)?.naoLidas ?? (eu?.olm ? 0 : c.nao_lidas);
+                      if (n <= 0) return null;
+                      if ((resumo.get(c.id)?.sonecaAte ?? "") > agora) return <span className="rounded-full border border-rule px-2 py-0.5 text-xs">{n}</span>;
+                      return <span className="rounded-full bg-[#c21f16] px-2 py-0.5 text-xs font-bold text-white">{preencher(t.lista.naoLidas, { n: String(n) })}</span>;
+                    })()}
                   </button>
                 </li>
               ))}

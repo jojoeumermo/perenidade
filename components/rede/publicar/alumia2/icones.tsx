@@ -48,6 +48,17 @@ export const ICONES = {
   silenciar: "M4 9.5h3.5L12 5.5v13l-4.5-4H4zM16 9.5l4.5 5M20.5 9.5 16 14.5",
   organizacao: "M4 20V9l8-4.5L20 9v11M9.5 20v-5h5v5M3 20h18",
   idioma: "M4 5.5h9M8.5 4v1.5c0 4-2 7-4.5 8.5M6 9c1.2 2.4 3 4 5.5 5M12.5 20l3.5-8.5 3.5 8.5M13.7 17.5h4.6",
+  // Acabamento da Faixa 1 (aparência, pastas, séries, temas).
+  sol: "M12 7.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9zM12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4",
+  lua: "M20 14.6A8.5 8.5 0 0 1 9.4 4 8.5 8.5 0 1 0 20 14.6z",
+  aparelho: "M4 5h16v11H4zM9 20h6M12 16v4",
+  celular: "M7.5 3.5h9v17h-9zM11 17.5h2",
+  pasta: "M3.5 6h6l2 2.5h9V19h-17z",
+  pastaMais: "M3.5 6h6l2 2.5h9V19h-17zM12 11.5v5M9.5 14h5",
+  repetir: "M17.5 3.5l3 3-3 3M20.5 6.5h-11a5 5 0 0 0-5 5M6.5 20.5l-3-3 3-3M3.5 17.5h11a5 5 0 0 0 5-5",
+  tema: "M9.5 4 7.5 20M16.5 4l-2 16M4.5 9.5h16M3.5 14.5h16",
+  lixeira: "M5 7h14M9.5 7V4.5h5V7M7 7l.8 12.5h8.4L17 7M10 10.5v6M14 10.5v6",
+  marcador: "M6.5 4h11v16.5L12 16.6l-5.5 3.9z",
 } as const;
 
 export type NomeDoIcone = keyof typeof ICONES;

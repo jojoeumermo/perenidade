@@ -1,0 +1,257 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ *
+ * O banco de questões (frente 11A), na linguagem do Mosaico da Arquibancada: as partes e as matérias são ladrilhos com a faixa de
+ * cor no alto, a questão é um cartão com a faixa tecida e o carimbo "QUESTÃO", cada alternativa tem a letra num quadrado (como as
+ * pastilhas do mosaico), o resultado é um carimbo torto. Só tokens da Alumia (styles/alumia-tokens.css), nos dois temas; no alto
+ * contraste a cor vira borda; nada se mexe. */
+
+.qst { padding: 0 16px 2rem; container-type: inline-size; color: var(--al-texto); }
+.qst h1, .qst h2, .qst h3, .qst h4 { margin: 0; }
+.qst-cond { font-family: var(--al-fonte); font-stretch: 70%; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.02; }
+.qst-topo { position: relative; padding-top: calc(var(--al-faixa-altura, 6px) + 1rem); }
+.qst-topo::before { content: ""; position: absolute; inset: 0 0 auto 0; height: var(--al-faixa-altura, 6px); background: var(--al-faixa, var(--al-vermelho)); border-radius: 2px; }
+.qst-titulo { font-size: clamp(2.4rem, 6vw, 3.6rem); }
+.qst-intro { margin: 0.45rem 0 0; max-width: 62ch; font-size: 1.05rem; }
+.qst-regra { margin: 0.35rem 0 0; max-width: 62ch; font-size: 0.88rem; color: var(--al-texto-3); }
+.qst-subtitulo { font-size: 1.9rem; }
+.qst-discreto { margin: 0; font-size: 0.88rem; color: var(--al-texto-3); }
+.qst-vazio { margin: 1rem 0; color: var(--al-texto-2); }
+.qst-erro { margin: 0.6rem 0 0; padding: 0.55rem 0.75rem; border-left: 4px solid var(--al-vermelho); background: var(--al-superficie-2); color: var(--al-texto); font-weight: 600; }
+ul.qst-erro { padding-left: 1.8rem; }
+.qst-nota { margin: 0.6rem 0 0; padding: 0.55rem 0.75rem; border-left: 4px solid var(--al-dourado); background: var(--al-superficie-2); font-weight: 600; }
+.qst-link { padding: 0; border: 0; background: none; color: var(--al-vermelho-letra, var(--al-vermelho-texto)); text-decoration: underline; font: inherit; font-weight: 700; cursor: pointer; min-height: 44px; }
+
+/* As partes: ladrilhos lado a lado (no celular, dois por linha). */
+.qst-partes { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem; margin: 1.1rem 0 1.25rem; padding: 0; list-style: none; }
+/* Do tablet para cima, as partes numa fileira só (com cinco, a última não fica sozinha embaixo). */
+@media (min-width: 640px) { .qst-partes { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); } }
+.qst-parte, .qst-materia {
+  position: relative;
+  width: 100%;
+  min-height: 64px;
+  padding: 0.75rem 0.85rem 0.6rem;
+  border: 2px solid var(--al-linha);
+  border-radius: 6px;
+  background: var(--al-superficie);
+  color: var(--al-texto);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  overflow: hidden;
+}
+.qst-parte::before, .qst-materia::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--qst-cor, var(--al-vermelho)); }
+.qst-parte .qst-cond { display: block; font-size: 1.12rem; }
+.qst-parte small, .qst-materia small { display: block; margin-top: 0.2rem; font-size: 0.8rem; color: var(--al-texto-3); }
+.qst-parte[aria-current="true"] { border-color: var(--al-texto); background: var(--al-texto); color: var(--al-fundo); }
+.qst-parte[aria-current="true"] small { color: var(--al-fundo); opacity: 0.8; }
+.qst-partes li:nth-child(5n + 1) .qst-parte, .qst-materias li:nth-child(6n + 1) .qst-materia { --qst-cor: var(--al-vermelho); }
+.qst-partes li:nth-child(5n + 2) .qst-parte, .qst-materias li:nth-child(6n + 2) .qst-materia { --qst-cor: var(--al-dourado); }
+.qst-partes li:nth-child(5n + 3) .qst-parte, .qst-materias li:nth-child(6n + 3) .qst-materia { --qst-cor: var(--al-com-1); }
+.qst-partes li:nth-child(5n + 4) .qst-parte, .qst-materias li:nth-child(6n + 4) .qst-materia { --qst-cor: var(--al-com-4); }
+.qst-partes li:nth-child(5n + 5) .qst-parte, .qst-materias li:nth-child(6n + 5) .qst-materia { --qst-cor: var(--al-com-2); }
+.qst-materias li:nth-child(6n + 6) .qst-materia { --qst-cor: var(--al-com-3); }
+
+/* As matérias: grade de ladrilhos maiores. */
+.qst-materias { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 0.6rem; margin: 0.9rem 0 0; padding: 0; list-style: none; }
+.qst-materia { min-height: 96px; padding-top: 1rem; }
+.qst-materia .qst-cond { display: block; font-size: 1.5rem; }
+.qst-materia:hover, .qst-parte:hover { border-color: var(--al-texto); }
+
+.qst-cabeca { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 0.75rem; }
+.qst-temas { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.9rem 0 0; }
+.qst-tema-botao {
+  min-height: 44px;
+  padding: 0 0.9rem;
+  border: 2px solid var(--al-linha);
+  border-radius: var(--al-raio-pilula, 999px);
+  background: var(--al-superficie);
+  color: var(--al-texto);
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.qst-tema-botao small { margin-left: 0.25rem; color: var(--al-texto-3); font-weight: 600; }
+.qst-tema-botao[aria-pressed="true"] { border-color: var(--al-texto); background: var(--al-texto); color: var(--al-fundo); }
+.qst-tema-botao[aria-pressed="true"] small { color: var(--al-fundo); }
+
+/* A questão. */
+.qst-lista { display: grid; gap: 1rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+.qst-cartao {
+  position: relative;
+  display: grid;
+  gap: 0.85rem;
+  padding: calc(var(--al-faixa-altura, 6px) + 0.9rem) 1.1rem 1rem;
+  border: 1px solid var(--al-linha);
+  border-radius: var(--al-raio, 14px);
+  background: var(--al-superficie);
+  overflow: hidden;
+  max-width: 820px;
+}
+.qst-cartao::before { content: ""; position: absolute; inset: 0 0 auto 0; height: var(--al-faixa-altura, 6px); background: var(--al-faixa, var(--al-vermelho)); }
+.qst-cartao-cabeca { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem 0.65rem; }
+.qst-cartao-cabeca .qst-cond { font-size: 1.05rem; }
+.qst-tema { color: var(--al-texto-2); font-weight: 600; }
+.qst-carimbo {
+  display: inline-block;
+  padding: 0.05rem 0.5rem;
+  border: 2px solid var(--al-vermelho-texto);
+  border-radius: 3px;
+  color: var(--al-vermelho-letra, var(--al-vermelho-texto));
+  font-family: var(--al-fonte);
+  font-stretch: 70%;
+  font-weight: 900;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transform: rotate(-2deg);
+}
+.qst-pilula { display: inline-flex; align-items: center; min-height: 26px; padding: 0 0.6rem; border-radius: var(--al-raio-pilula, 999px); background: var(--al-superficie-2); font-size: 0.8rem; font-weight: 700; }
+.qst-pilula-alerta { background: var(--al-dourado-fundo, var(--al-dourado)); color: var(--al-sobre-dourado, var(--al-texto)); }
+.qst-enunciado { font-size: 1.05rem; }
+
+.qst-alternativas { display: grid; gap: 0.45rem; margin: 0; padding: 0; border: 0; min-width: 0; }
+.qst-alternativa {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 52px;
+  padding: 0.45rem 0.75rem 0.45rem 0.5rem;
+  border: 2px solid var(--al-linha);
+  border-radius: 8px;
+  background: var(--al-fundo);
+  cursor: pointer;
+}
+.qst-alternativa input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.qst-alternativa:hover { border-color: var(--al-texto-2); }
+.qst-alternativa:has(input:checked) { border-color: var(--al-texto); box-shadow: inset 0 0 0 1px var(--al-texto); }
+.qst-alternativa:has(input:focus-visible) { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+.qst-alternativas:disabled .qst-alternativa { cursor: default; }
+.qst-letra {
+  display: inline-grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 4px;
+  background: var(--al-superficie-2);
+  color: var(--al-texto);
+  font-family: var(--al-fonte);
+  font-stretch: 70%;
+  font-weight: 900;
+  font-size: 1.15rem;
+}
+.qst-alternativa:has(input:checked) .qst-letra { background: var(--al-texto); color: var(--al-fundo); }
+.qst-alternativa-texto { min-width: 0; overflow-wrap: anywhere; }
+.qst-alternativa[data-certa] { border-color: var(--al-dourado); background: var(--al-superficie-2); }
+.qst-alternativa[data-certa] .qst-letra { background: var(--al-dourado-fundo, var(--al-dourado)); color: var(--al-sobre-dourado, var(--al-texto)); }
+.qst-alternativa[data-errada] { border-color: var(--al-vermelho); border-style: dashed; }
+.qst-alternativa[data-errada] .qst-letra { background: var(--al-vermelho); color: var(--al-sobre-vermelho, var(--al-fundo)); }
+.qst-marca { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; }
+.qst-marca-certa { color: var(--al-texto); }
+.qst-marca-errada { color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+
+.qst-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.qst-botao {
+  min-height: 44px;
+  padding: 0 1.2rem;
+  border: 2px solid var(--al-vermelho);
+  border-radius: var(--al-raio-pilula, 999px);
+  background: var(--al-vermelho);
+  color: var(--al-sobre-vermelho, var(--al-fundo));
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+.qst-botao:disabled { opacity: 0.6; cursor: default; }
+.qst-botao-contorno { border-color: var(--al-texto); background: transparent; color: var(--al-texto); }
+.qst-botao-icone { min-width: 44px; min-height: 44px; border: 1px solid var(--al-linha); border-radius: 6px; background: var(--al-superficie); color: var(--al-texto); font-size: 1.3rem; cursor: pointer; }
+.qst-botao:focus-visible, .qst-botao-icone:focus-visible, .qst-parte:focus-visible, .qst-materia:focus-visible, .qst-tema-botao:focus-visible, .qst-link:focus-visible, .qst-entrada:focus-visible {
+  outline: 3px solid var(--al-foco);
+  outline-offset: 2px;
+}
+.qst-mais { margin-top: 1rem; }
+.qst-fim { margin-top: 1rem; }
+
+/* O resultado: o carimbo torto e a explicação. */
+.qst-resultado { display: grid; gap: 0.6rem; justify-items: start; }
+.qst-veredito {
+  margin: 0;
+  padding: 0.15rem 0.7rem;
+  border: 3px solid currentColor;
+  border-radius: 4px;
+  font-family: var(--al-fonte);
+  font-stretch: 70%;
+  font-weight: 900;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  transform: rotate(-2.5deg);
+}
+.qst-veredito-certo { color: var(--al-texto); background: var(--al-dourado-fundo, var(--al-dourado)); border-color: var(--al-dourado); color: var(--al-sobre-dourado, var(--al-texto)); }
+.qst-veredito-errado { color: var(--al-vermelho-letra, var(--al-vermelho-texto)); }
+.qst-explicacao { justify-self: stretch; padding: 0.8rem 0.9rem; border-left: 4px solid var(--al-dourado); border-radius: 0 8px 8px 0; background: var(--al-superficie-2); }
+.qst-explicacao h4 { margin-bottom: 0.4rem; font-size: 1.05rem; }
+.qst-ja { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.5rem; }
+.qst-rodape { border-top: 1px dashed var(--al-linha); padding-top: 0.4rem; }
+.qst-denuncia { display: grid; gap: 0.3rem; margin: 0; padding: 0.6rem 0 0; border: 0; }
+.qst-denuncia legend { font-weight: 800; }
+.qst-opcao { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; cursor: pointer; }
+.qst-opcao input { width: 1.15rem; height: 1.15rem; accent-color: var(--al-vermelho); }
+
+/* Escrever. */
+.qst-form { display: grid; gap: 1rem; max-width: 820px; }
+.qst-linha-dupla { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 0.75rem; }
+.qst-campo { display: grid; gap: 0.3rem; min-width: 0; }
+.qst-rotulo { font-weight: 800; }
+.qst-entrada {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.5rem 0.7rem;
+  border: 2px solid var(--al-linha);
+  border-radius: 8px;
+  background: var(--al-superficie);
+  color: var(--al-texto);
+  font: inherit;
+}
+.qst-entrada[aria-invalid="true"] { border-color: var(--al-vermelho); }
+.qst-alternativas-form { display: grid; gap: 0.5rem; margin: 0; padding: 0; border: 0; min-width: 0; }
+.qst-alternativa-form { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; gap: 0.6rem; padding: 0.4rem; border: 2px solid transparent; border-radius: 8px; }
+.qst-alternativa-form[data-certa] { border-color: var(--al-dourado); background: var(--al-superficie-2); }
+.qst-alternativa-campos { display: grid; gap: 0.2rem; min-width: 0; }
+.qst-previa-curta { font-size: 0.9rem; color: var(--al-texto-2); padding-left: 0.2rem; }
+.qst-opcao-certa { font-size: 0.88rem; font-weight: 700; white-space: nowrap; }
+
+/* Minhas e denunciadas: a questão inteira, com a certa marcada. */
+.qst-cartao-resumo { gap: 0.6rem; }
+.qst-alternativas-resumo { display: grid; gap: 0.35rem; margin: 0; padding: 0; list-style: none; }
+.qst-alternativas-resumo li { display: flex; align-items: center; gap: 0.6rem; }
+.qst-alternativas-resumo li[data-certa] .qst-letra { background: var(--al-dourado-fundo, var(--al-dourado)); color: var(--al-sobre-dourado, var(--al-texto)); }
+.qst-detalhes summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 700; }
+
+/* Meus acertos (só deste aparelho): o próprio número, sem comparação com ninguém. */
+.qst-acertos { display: grid; gap: 0.8rem; max-width: 720px; justify-items: start; }
+.qst-placar-proprio { margin: 0; }
+.qst-placar-proprio .qst-cond { font-size: 2.4rem; }
+.qst-por-materia { display: grid; gap: 0.45rem; width: 100%; margin: 0; padding: 0; list-style: none; }
+.qst-por-materia li { display: grid; grid-template-columns: minmax(7rem, 12rem) minmax(0, 1fr) auto; align-items: center; gap: 0.75rem; }
+.qst-barra { display: block; height: 10px; border-radius: 2px; background: var(--al-superficie-2); overflow: hidden; }
+.qst-barra > span { display: block; height: 100%; background: var(--al-dourado); }
+
+@container (max-width: 560px) {
+  .qst-linha-dupla { grid-template-columns: 1fr; }
+  .qst-partes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .qst-materias { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .qst-materia .qst-cond { font-size: 1.2rem; }
+  .qst-alternativa-form { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .qst-alternativa-form .qst-opcao-certa { grid-column: 2 / 4; }
+  .qst-por-materia li { grid-template-columns: minmax(0, 1fr) auto; }
+  .qst-por-materia .qst-barra { grid-column: 1 / -1; grid-row: 2; }
+  .qst-cartao { padding-left: 0.8rem; padding-right: 0.8rem; }
+}
+
+@media (forced-colors: active) {
+  .qst-parte[aria-current="true"], .qst-tema-botao[aria-pressed="true"] { forced-color-adjust: none; background: Highlight; color: HighlightText; }
+  .qst-alternativa[data-certa] { border: 3px double CanvasText; }
+  .qst-alternativa[data-errada] { border: 3px dashed CanvasText; }
+  .qst-barra > span { background: CanvasText; }
+}

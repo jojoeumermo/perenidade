@@ -1,0 +1,108 @@
+{
+  "aparencia": {
+    "titulo": "Aparência e leitura",
+    "lead": "Estas escolhas ficam só neste aparelho. Nada disso vai para o servidor, e o Sair rápido apaga tudo.",
+    "tema": {
+      "titulo": "Tema",
+      "dica": "O escuro é o desenho original da Alumia. O claro usa as mesmas cores sobre papel creme.",
+      "sistema": "O do aparelho",
+      "claro": "Claro",
+      "escuro": "Escuro"
+    },
+    "leitura": "Leitura",
+    "letra": {
+      "titulo": "Tamanho da letra",
+      "dica": "Vale no site inteiro.",
+      "opcoes": ["Normal", "Maior", "Grande", "Bem grande"]
+    },
+    "contraste": {
+      "titulo": "Contraste alto",
+      "dica": "Preto e branco puros e bordas à vista. Vale no site inteiro."
+    },
+    "movimento": {
+      "titulo": "Menos movimento",
+      "dica": "Para as animações e as transições. Vale no site inteiro."
+    },
+    "bemEstar": "Bem-estar",
+    "numeros": {
+      "titulo": "Ocultar números",
+      "dica": "Esconde seguidores e contagens de apoios, respostas e membros. Os números continuam existindo; só não aparecem para você."
+    },
+    "amostra": {
+      "titulo": "Assim fica",
+      "nome": "Rosa Vermelha",
+      "comunidade": "Estudantes UFPE",
+      "texto": "A assembleia aprovou a paralisação de quinta. O núcleo panfleta no RU amanhã, cola com a gente.",
+      "respostas": "18 respostas",
+      "seguidores": "214 seguidores",
+      "acender": "Acender",
+      "salvar": "Salvar",
+      "carimbo": "Confirmado"
+    },
+    "maisAjustes": "Mais ajustes de acessibilidade",
+    "maisAjustesDica": "Letra para dislexia, guia de leitura, espaço entre as linhas e o resto do painel de acessibilidade."
+  },
+  "pastas": {
+    "lead": "Guarde os salvos por assunto. Tocar numa pasta mostra só o que está nela.",
+    "abrir": "Abrir a pasta “{nome}”",
+    "opcoes": "Opções da pasta “{nome}”",
+    "salvarNome": "Salvar o nome",
+    "cancelar": "Cancelar",
+    "fechar": "Fechar",
+    "naoCarregou": "As pastas não carregaram.",
+    "tentar": "Tentar de novo",
+    "naoApagar": "Manter a pasta",
+    "carregando": "Abrindo a pasta…",
+    "semNenhuma": "Você ainda não tem pastas. Crie a primeira para separar os salvos por assunto.",
+    "tirarDaqui": "Tirar desta pasta"
+  },
+  "buscas": {
+    "nenhumaTitulo": "Nada para “{q}”",
+    "nenhumaTexto": "A busca só mostra o que você pode ver. Tente de outro jeito:",
+    "dicas": ["Confira as letras. Acento e plural não fazem diferença.", "Use menos palavras, ou uma só.", "Para um assunto, busque o #tema."],
+    "limpar": "Limpar a busca",
+    "explorar": "Abrir o Explorar",
+    "erroTitulo": "A busca não respondeu",
+    "tentar": "Tentar de novo",
+    "refazer": "Refazer a busca “{nome}”",
+    "salvarDica": "A busca salva fica só na sua conta. Cabem até 10.",
+    "jaSalva": "Busca salva",
+    "entre": "Entre na sua conta para salvar buscas."
+  },
+  "series": {
+    "titulo": "Posts que se repetem",
+    "lead": "O que você agendou para repetir. Só você vê esta lista.",
+    "vazioTitulo": "Nenhuma série por aqui",
+    "vazio": "Para criar uma, abra o Escrever, toque em Mais tarde e escolha Repetir.",
+    "escrever": "Escrever",
+    "ate": "até {quando}",
+    "deVezes": "{n}ª de {total}",
+    "confirmarTitulo": "Parar esta série?",
+    "confirmarTexto": "As próximas publicações não saem. O que já foi publicado continua no ar.",
+    "manter": "Manter",
+    "erroTitulo": "As séries não carregaram",
+    "tentar": "Tentar de novo",
+    "entre": "Entre na sua conta para ver o que você agendou.",
+    "semTexto": "(sem texto)",
+    "verSeries": "Ver os posts que se repetem"
+  },
+  "temas": {
+    "vazioTitulo": "Nenhum tema seguido",
+    "nadaTitulo": "Tudo em dia",
+    "erroTitulo": "Os temas não carregaram",
+    "tentar": "Tentar de novo",
+    "explorar": "Achar temas no Explorar",
+    "entre": "Entre na sua conta para seguir #temas.",
+    "filtro": "Qual tema mostrar",
+    "abrirTema": "Abrir a página de #{tag}",
+    "ordem": "Do mais novo para o mais antigo, igual para todo mundo."
+  },
+  "topo": {
+    "buscar": "Buscar"
+  },
+  "app": {
+    "titulo": "A Alumia não fica neste aplicativo",
+    "texto": "A rede tem endereço próprio e vai ganhar um aplicativo só dela. Por enquanto, abra pelo navegador do aparelho.",
+    "voltar": "Voltar ao início"
+  }
+}

@@ -146,7 +146,7 @@ export function Sintese({
       )}
 
       {retirando && (
-        <div role="alertdialog" aria-label={q.retirar} className="mt-2 rounded-lg border border-oxblood px-3 py-3">
+        <div role="alertdialog" aria-label={q.retirar} className="mt-2 rounded-lg border border-oxblood px-3 py-3" onKeyDown={(e) => { if (e.key === "Escape") setRetirando(false); }}>
           <p>{q.confirmarRetirar}</p>
           <div className="mt-2 flex gap-2">
             <button type="button" disabled={ocupado} className={`${botao} bg-[#c21f16] text-white hover:bg-[#1f1a14]`} onClick={() => void retirar()}>

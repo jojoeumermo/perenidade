@@ -4,18 +4,27 @@
 import { useEffect, useState } from "react";
 import { rede } from "@/lib/rede/cliente";
 import { redePub } from "@/lib/rede/cliente-publicar";
+import { comVotoLembrado } from "@/lib/rede/voto/cliente";
 import { preencher } from "@/lib/rede/preencher";
+import { LinkDoLeitor } from "../protecao/LinkDoLeitor";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosPublicar } from "@/lib/rede/textos-publicar";
 import type { MidiaDoPost, Post } from "@/lib/rede/tipos";
 import type { DetalhesDoPost, EdicaoAnterior, EnqueteDoPost } from "@/lib/rede/tipos-publicar";
 import { textoDoErro } from "../erros";
+import { TocadorDeAudio } from "../midia/TocadorDeAudio";
 import { enderecoDaMidia } from "./api";
 import { detalhesDe, invalidar, publicarVencidosUmaVez } from "./detalhes";
 import { textoDoErroPublicar, useTextosPublicar } from "./textos";
 import { useAlumia2 } from "./alumia2/contexto";
 import { CorrigirDoPost } from "./alumia2/CorrigirDoPost";
 import { EnqueteDaAlumia2 } from "./alumia2/EnqueteDaAlumia2";
+import { EXEMPLOS_DO_COMPOSITOR, imagemDeExemplo, sementeDoExemplo } from "@/lib/rede/publicar/exemplos-compositor";
+import { FigurinhaDaCasa } from "../figurinhas/PacoteDaCasa";
+import { CartaoDoLink } from "./compositor/CartaoDoLink";
+import { useEscolhasDoPost } from "./compositor/escolhas";
+import { ImagensDoPost } from "./compositor/ImagensDoPost";
+import { useTextosDoCompositor } from "./compositor/textos";
 
 const codigoDe = (e: unknown) => (typeof e === "object" && e !== null && "code" in e ? String((e as { code: unknown }).code) : "falha");
 const quando = (iso: string, lang: string) => {
@@ -37,12 +46,16 @@ interface TextosDoSelo {
 /**
  * Uma imagem do post: o endereço assinado é pedido só quando o cartão aparece; sem ele, o texto alternativo fica no lugar. Na casca
  * nova, o selo ALT abre a descrição por cima da imagem para quem enxerga (o leitor de tela já lê o alt pela própria imagem).
+ * `preencher`: ocupa a altura toda do ladrilho (colagem e carrossel, onda 12) em vez da proporção da foto. As imagens de exemplo da
+ * prévia (ids "exemplo-…") são desenhos feitos no código e não vão ao banco.
  */
-function ImagemDoPost({ m, n, total, t, selo }: { m: MidiaDoPost; n: number; total: number; t: TextosPublicar; selo?: TextosDoSelo }) {
-  const [url, setUrl] = useState("");
+export function ImagemDoPost({ m, n, total, t, selo, preencher: encher = false }: { m: MidiaDoPost; n: number; total: number; t: TextosPublicar; selo?: TextosDoSelo; preencher?: boolean }) {
+  const semente = sementeDoExemplo(m.id);
+  const [url, setUrl] = useState(() => (semente !== null ? imagemDeExemplo(semente, m.largura ?? 800, m.altura ?? 600) : ""));
   const [falhou, setFalhou] = useState(false);
   const [verAlt, setVerAlt] = useState(false);
   useEffect(() => {
+    if (semente !== null) return;
     let vivo = true;
     enderecoDaMidia(m.id).then(
       (u) => vivo && setUrl(u),
@@ -51,8 +64,8 @@ function ImagemDoPost({ m, n, total, t, selo }: { m: MidiaDoPost; n: number; tot
     return () => {
       vivo = false;
     };
-  }, [m.id]);
-  const proporcao = m.largura && m.altura ? { aspectRatio: `${m.largura} / ${m.altura}` } : { aspectRatio: "4 / 3" };
+  }, [m.id, semente]);
+  const proporcao = encher ? { height: "100%" } : m.largura && m.altura ? { aspectRatio: `${m.largura} / ${m.altura}` } : { aspectRatio: "4 / 3" };
   const idDoAlt = `alt-${m.id}`;
   return (
     <figure className={`relative m-0 overflow-hidden rounded-lg ${selo ? "border border-[var(--al-superficie-2)] bg-[var(--al-superficie)]" : "border border-rule bg-parchment-deep"}`} style={proporcao}>
@@ -92,7 +105,9 @@ function AudioDoPost({ id, duracao, t }: { id: string; duracao: number; t: Texto
   const [estado, setEstado] = useState<"parado" | "carregando" | "falhou">("parado");
   if (url)
     return (
-      <audio controls autoPlay src={url} className="mt-2 h-11 w-full max-w-sm" />
+      <div className="mt-2">
+        <TocadorDeAudio src={url} duracao={duracao} tocarJa t={{ tocar: preencher(t.audio.ouvir, { s: duracao }), pausar: t.audio.pausar, posicao: t.audio.posicao }} />
+      </div>
     );
   return (
     <div className="mt-2">
@@ -114,11 +129,11 @@ function AudioDoPost({ id, duracao, t }: { id: string; duracao: number; t: Texto
 
 /** A enquete: votar (voto secreto, só uma vez) e os totais para quem pode vê-los. */
 function EnqueteDoPost({ post, inicial, t, lang, logado, s }: { post: Post; inicial: EnqueteDoPost; t: TextosPublicar; lang: string; logado: boolean; s: TextosDaRede }) {
-  const [e, setE] = useState(inicial);
+  const [e, setE] = useState(() => comVotoLembrado(post.id, inicial));
   const [marcadas, setMarcadas] = useState<string[]>([]);
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState("");
-  const jaVotei = e.votei.length > 0;
+  const jaVotei = e.votei.length > 0 || e.votou === true;
   const mostra = e.opcoes.some((o) => o.votos !== null && o.votos !== undefined);
   const total = Math.max(1, e.total ?? 0);
   const podeVotar = logado && !e.encerrada && !jaVotei;
@@ -312,6 +327,12 @@ export function Complementos({
   const t = useTextosPublicar(lang);
   // Dentro da casca nova (flag "alumia-2"), a enquete sai com as barras da prancha.
   const al2 = useAlumia2();
+  // Onda 12 (12A): o arranjo das imagens, as legendas, a figurinha e o cartão do link (só na casca nova).
+  const tc = useTextosDoCompositor(lang);
+  const naPrevia = Boolean(al2?.previa);
+  const escolhas = useEscolhasDoPost(post.id, naPrevia);
+  const exemplo = naPrevia ? EXEMPLOS_DO_COMPOSITOR[post.id] : undefined;
+  const midia = post.midia.length ? post.midia : (exemplo?.midia ?? []);
   const [det, setDet] = useState<DetalhesDoPost | null>(detalhesIniciais ?? null);
   const [editando, setEditando] = useState(false);
   const [corrigindo, setCorrigindo] = useState(false);
@@ -331,18 +352,31 @@ export function Complementos({
   const podeEditar = post.meu && !post.retido && !post.travado && post.tipo !== "aviso" && post.tipo !== "enquete" && post.tipo !== "chamado";
   // B1: corrigir o aviso, a descrição e tirar imagem vale para todo post da própria pessoa (enquete e chamado também), menos aviso da equipe.
   const podeCorrigir = Boolean(al2) && post.meu && !post.retido && post.tipo !== "aviso";
-  const temAlgo = post.midia.length > 0 || det || podeEditar || podeCorrigir;
+  const previaDoLink = det?.previa ?? exemplo?.previa;
+  const temAlgo = midia.length > 0 || det || podeEditar || podeCorrigir || Boolean(escolhas?.figurinha) || Boolean(previaDoLink);
   if (!t || !temAlgo) return null;
 
   return (
     <div>
-      {post.midia.length > 0 && (
-        <div className={`mt-2 grid gap-1.5 ${post.midia.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}>
-          {post.midia.map((m, n) => (
-            <ImagemDoPost key={m.id} m={m} n={n} total={post.midia.length} t={t} selo={al2?.t.b1} />
-          ))}
-        </div>
+      {al2 && tc && escolhas?.figurinha && (
+        <FigurinhaDaCasa nome={escolhas.figurinha} t={tc.figurinhas} rotulo className={`cp-figurinha-post ${escolhas.so_figurinha ? "cp-figurinha-so" : ""}`} />
       )}
+      {midia.length > 0 &&
+        (al2 && tc ? (
+          <ImagensDoPost
+            midia={midia}
+            arranjo={escolhas?.arranjo ?? "grade"}
+            legendas={escolhas?.legendas ?? {}}
+            t={tc}
+            imagem={({ m, n, total, preencher: encher }) => <ImagemDoPost key={m.id} m={m} n={n} total={total} t={t} selo={al2.t.b1} preencher={encher} />}
+          />
+        ) : (
+          <div className={`mt-2 grid gap-1.5 ${midia.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}>
+            {midia.map((m, n) => (
+              <ImagemDoPost key={m.id} m={m} n={n} total={midia.length} t={t} selo={al2?.t.b1} />
+            ))}
+          </div>
+        ))}
       {det?.audio && <AudioDoPost id={det.audio.id} duracao={det.audio.duracao} t={t} />}
       {det?.enquete &&
         (al2 ? (
@@ -350,8 +384,12 @@ export function Complementos({
         ) : (
           <EnqueteDoPost post={post} inicial={det.enquete} t={t} lang={lang} logado={logado} s={s} />
         ))}
-      {det?.previa && (
-        <a href={det.previa.url} target="_blank" rel="noopener noreferrer nofollow ugc" className="mt-2 flex overflow-hidden rounded-lg border border-rule bg-folha text-sm hover:border-ink">
+      {al2 && previaDoLink ? (
+        // Onda 12 (12A): o cartão do link com o que o servidor já busca (título, resumo e imagem pelo proxy), conferido do lado de quem lê.
+        <CartaoDoLink previa={previaDoLink} lang={lang} t={tc} exemplo={Boolean(exemplo?.previa) && !det?.previa} />
+      ) : det?.previa && (
+        // Conferido no Safe Browsing do lado de quem lê: o link perigoso sai como texto, sem clique.
+        <LinkDoLeitor href={det.previa.url} lang={lang} className="mt-2 flex overflow-hidden rounded-lg border border-rule bg-folha text-sm hover:border-ink">
           {det.previa.imagem && (
             // O proxy assinado do nosso servidor: o navegador de quem lê não toca no site de fora.
             // eslint-disable-next-line @next/next/no-img-element
@@ -362,13 +400,13 @@ export function Complementos({
             {det.previa.titulo && <span className="block font-serif font-semibold">{det.previa.titulo}</span>}
             {det.previa.descricao && <span className="block text-ink-soft">{det.previa.descricao}</span>}
           </span>
-        </a>
+        </LinkDoLeitor>
       )}
       <div className="mt-1 flex flex-wrap items-center gap-x-3 text-xs text-ink-soft">
         {det?.fio && <span className="rounded bg-parchment-deep px-1.5">{t.fio.badge}</span>}
         {det && det.responde_quem !== "todos" && <span>{preencher(t.quem.so, { quem: t.quem[det.responde_quem].toLowerCase() })}</span>}
         {podeEditar && !editando && (
-          <button type="button" className="min-h-11 cursor-pointer font-bold underline" onClick={() => setEditando(true)}>
+          <button type="button" className="min-h-11 min-w-11 cursor-pointer font-bold underline" onClick={() => setEditando(true)}>
             {t.editar.botao}
           </button>
         )}

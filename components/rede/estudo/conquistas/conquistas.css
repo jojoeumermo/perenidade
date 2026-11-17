@@ -1,0 +1,159 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * A ponte com a Escola (onda 11, frente 11E): as conquistas, a faixa de ajuda, o mural de aprovados, as medalhas no perfil e o
+ * tópico da aula. Linguagem do Mosaico da Arquibancada: carimbo, ladrilhos, faixa tecida, Archivo condensada em caixa alta. A
+ * medalha é um ladrilho de 3 por 3 pedras: o nível acende as fileiras. Só usa os tokens de styles/alumia-tokens.css (vale no
+ * escuro, no claro, no contraste e no e-ink).
+ */
+
+.cq { container-type: inline-size; display: grid; gap: 1rem; padding: 1rem 1rem 3rem; color: var(--al-texto); font-family: var(--al-fonte); }
+@media (min-width: 1024px) { .cq { padding: 1.25rem 1.25rem 3.5rem; gap: 1.15rem; } }
+.cq .al-cond, .cq-cond { font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 900; text-transform: uppercase; letter-spacing: -0.005em; line-height: 0.95; }
+.cq-vazio-tela { padding: 2rem 1rem; text-align: center; color: var(--al-texto-2); }
+.cq-vazio-tela p { margin: 0 0 1rem; }
+
+/* ───── O alto da tela: carimbo, título e a chamada ───── */
+.cq-alto { position: relative; padding: 1.2rem 1.15rem 1.15rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); overflow: hidden; }
+.cq-alto::before, .cq-secao::before { content: ""; position: absolute; inset: 0 0 auto; height: var(--al-faixa-altura, 6px); background: var(--al-faixa); }
+.cq-carimbo {
+  display: inline-flex; align-items: center; margin: 0.35rem 0 0.6rem; padding: 0.36rem 0.65rem 0.3rem; border: 2px solid var(--al-vermelho); border-radius: 6px;
+  box-shadow: inset 0 0 0 2px var(--al-superficie), inset 0 0 0 3px var(--al-vermelho); color: var(--al-vermelho-sobre-escuro, var(--al-vermelho-texto));
+  font-size: 0.95rem; letter-spacing: 0.07em; transform: rotate(-1.4deg); transform-origin: left center;
+}
+.cq-titulo { margin: 0.1rem 0 0.45rem; font-size: clamp(1.9rem, 4cqi, 2.6rem); color: var(--al-texto); }
+.cq-lead { margin: 0; max-width: 48rem; color: var(--al-texto-2); font-size: 1rem; line-height: 1.55; text-wrap: pretty; }
+.cq-alto-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.9rem; }
+
+/* ───── Seções ───── */
+.cq-secao { position: relative; padding: 1.15rem 1.15rem 1.2rem; border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); overflow: hidden; }
+.cq-secao::before { height: 4px; }
+.cq-subtitulo { margin: 0.2rem 0 0.45rem; font-size: 1.45rem; color: var(--al-texto); }
+.cq-nota { margin: 0.35rem 0 0; color: var(--al-texto-3); font-size: 0.86rem; line-height: 1.45; }
+.cq-vazio { margin: 0; padding: 0.8rem 0.9rem; border-radius: 10px; border: 1px dashed var(--al-superficie-2); color: var(--al-texto-3); font-size: 0.92rem; line-height: 1.5; }
+.cq-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 0.85rem; }
+.cq-duas { display: grid; gap: 1rem; }
+@container (min-width: 60rem) { .cq-duas { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: start; } }
+
+/* ───── A medalha: um ladrilho de 3 x 3 pedras ───── */
+.cq-emblema { flex: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; width: 3.4rem; height: 3.4rem; padding: 5px; border-radius: 9px; background: var(--al-mosaico-fundo, var(--al-fundo)); border: 1.5px solid var(--al-linha); }
+.cq-emblema i { display: block; border-radius: 2px; background: var(--al-cartao-apagado, var(--al-superficie-2)); }
+.cq-emblema[data-medalha="trilha"] i[data-aceso] { background: var(--al-dourado); }
+.cq-emblema[data-medalha="redacao"] i[data-aceso] { background: var(--al-vermelho); }
+.cq-emblema[data-medalha="monitoria"] i[data-aceso] { background: var(--al-cartao-aceso, var(--al-texto)); }
+.cq-emblema[data-medalha] i[data-aceso][data-ouro] { background: var(--al-dourado); }
+.cq-emblema-p { width: 2.4rem; height: 2.4rem; gap: 2px; padding: 4px; border-radius: 7px; }
+:root:is([data-contrast], [data-eink]) .cq-emblema i[data-aceso] { background: var(--al-texto) !important; }
+
+.cq-medalhas { list-style: none; margin: 0.4rem 0 0; padding: 0; display: grid; gap: 0.6rem; }
+@container (min-width: 44rem) { .cq-medalhas { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.cq-medalha { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.85rem; align-items: start; padding: 0.85rem 0.9rem 0.9rem; border-radius: 12px; background: var(--al-fundo); border: 1px solid var(--al-linha); }
+.cq-medalha[data-mostrar="sim"] { border-color: var(--al-dourado); box-shadow: inset 4px 0 0 var(--al-dourado); }
+.cq-medalha-rotulo { margin: 0; color: var(--al-texto-3); font-size: 0.82rem; letter-spacing: 0.08em; }
+.cq-medalha-nome { margin: 0.15rem 0 0.25rem; color: var(--al-texto); font-size: 1.05rem; font-weight: 800; line-height: 1.3; }
+.cq-medalha-info { margin: 0; color: var(--al-texto-2); font-size: 0.88rem; line-height: 1.45; }
+.cq-medalha-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; margin-top: 0.6rem; }
+.cq-estado { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 1.7rem; padding: 0.1rem 0.55rem; border-radius: 6px; font-size: 0.82rem; font-weight: 700; color: var(--al-texto-3); background: var(--al-superficie); }
+.cq-estado[data-mostrar="sim"] { background: var(--al-dourado-fundo, var(--al-dourado)); color: var(--al-sobre-dourado); }
+
+/* O interruptor "Mostrar no perfil" (um botão com aria-pressed). */
+.cq-chave { display: inline-flex; align-items: center; gap: 0.55rem; min-height: 44px; padding: 0 0.85rem 0 0.4rem; border: 1.5px solid var(--al-superficie-2); border-radius: var(--al-raio-pilula); background: var(--al-superficie); color: var(--al-texto); font: inherit; font-weight: 700; font-size: 0.9rem; cursor: pointer; }
+.cq-chave-trilho { position: relative; flex: none; width: 2.4rem; height: 1.4rem; border-radius: 999px; background: var(--al-superficie-2); transition: background-color 0.15s ease; }
+.cq-chave-trilho::after { content: ""; position: absolute; top: 0.2rem; left: 0.2rem; width: 1rem; height: 1rem; border-radius: 50%; background: var(--al-texto-3); transition: transform 0.15s ease, background-color 0.15s ease; }
+.cq-chave[aria-pressed="true"] { border-color: var(--al-dourado); }
+.cq-chave[aria-pressed="true"] .cq-chave-trilho { background: var(--al-dourado-fundo, var(--al-dourado)); }
+.cq-chave[aria-pressed="true"] .cq-chave-trilho::after { transform: translateX(1rem); background: var(--al-sobre-dourado); }
+.cq-chave:focus-visible, .cq-ladrilho:focus-visible, .cq-link:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+.cq-chave:disabled { opacity: 0.55; cursor: progress; }
+@media (prefers-reduced-motion: reduce) { .cq-chave-trilho, .cq-chave-trilho::after, .cq-carimbo { transition: none; transform: none; } }
+.cq-link { color: var(--al-texto-2); font-size: 0.88rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; background: none; border: 0; padding: 0.4rem 0.2rem; min-height: 44px; cursor: pointer; font-family: inherit; }
+.cq-link-perigo { color: var(--al-vermelho-sobre-escuro, var(--al-vermelho-texto)); }
+/* Texto vermelho sobre o cartão escuro: o vermelho de texto (#FF4F3A, 5,4:1), não o das pranchas; no e-ink, tinta. */
+:root[data-eink] .cq-link-perigo { color: var(--al-texto); }
+
+/* ───── Trilhas do aparelho: ladrilhos ───── */
+.cq-ladrilhos { list-style: none; margin: 0.6rem 0 0; padding: 0; display: grid; gap: 0.5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
+.cq-ladrilho {
+  display: flex; align-items: center; gap: 0.6rem; width: 100%; min-height: 52px; padding: 0.5rem 0.75rem 0.5rem 0.6rem; border: 1.5px solid var(--al-superficie-2);
+  border-radius: 10px; background: var(--al-fundo); color: var(--al-texto); text-align: left; font: inherit; font-weight: 700; font-size: 0.93rem; line-height: 1.25; cursor: pointer;
+}
+.cq-ladrilho-nome { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.cq-ladrilho-acao { flex: none; font-size: 0.8rem; color: var(--al-texto-3); }
+.cq-ladrilho[aria-pressed="true"] { background: var(--al-saliente); border-color: var(--al-saliente); color: var(--al-sobre-saliente); }
+.cq-ladrilho[aria-pressed="true"] .cq-ladrilho-acao { color: inherit; }
+@media (hover: hover) and (pointer: fine) { .cq-ladrilho:not([aria-pressed="true"]):hover { border-color: var(--al-texto-3); } }
+.cq-outra { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: end; margin-top: 0.85rem; }
+.cq-campo { display: grid; gap: 0.3rem; min-width: 0; flex: 1 1 16rem; }
+.cq-campo label, .cq-campo legend { color: var(--al-texto-2); font-size: 0.88rem; font-weight: 700; }
+.cq-campo input, .cq-campo textarea, .cq-campo select {
+  width: 100%; min-height: 44px; padding: 0.55rem 0.7rem; border-radius: 10px; border: 1.5px solid var(--al-superficie-2); background: var(--al-fundo);
+  color: var(--al-texto); font: inherit; font-size: 0.95rem;
+}
+.cq-campo textarea { min-height: 5rem; resize: vertical; }
+.cq-campo input:focus-visible, .cq-campo textarea:focus-visible, .cq-campo select:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 1px; border-color: transparent; }
+.cq-dica { color: var(--al-texto-3); font-size: 0.8rem; }
+
+/* ───── A faixa de ajuda: a regra escrita em três degraus ───── */
+.cq-faixas { list-style: none; margin: 0.7rem 0 0; padding: 0; display: grid; gap: 0.45rem; }
+.cq-faixa { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.2rem 0.75rem; align-items: center; padding: 0.6rem 0.8rem; border-radius: 10px; background: var(--al-fundo); border: 1px solid var(--al-linha); }
+.cq-faixa-marca { grid-row: span 2; display: flex; gap: 3px; }
+.cq-faixa-marca i { width: 0.7rem; height: 1.6rem; border-radius: 2px; background: var(--al-superficie-2); }
+.cq-faixa-marca i[data-aceso] { background: var(--al-vermelho); }
+.cq-faixa-marca i[data-aceso]:nth-child(2) { background: var(--al-dourado); }
+.cq-faixa-marca i[data-aceso]:nth-child(3) { background: var(--al-cartao-aceso, var(--al-texto)); }
+.cq-faixa-nome { color: var(--al-texto); font-size: 1rem; font-weight: 800; }
+.cq-faixa-texto { color: var(--al-texto-3); font-size: 0.85rem; }
+.cq-faixa[data-minha="sim"] { border-color: var(--al-dourado); box-shadow: inset 4px 0 0 var(--al-dourado); }
+.cq-hoje { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px solid var(--al-linha); }
+.cq-hoje-rotulo { color: var(--al-texto-3); font-size: 0.85rem; font-weight: 700; }
+.cq-selo { display: inline-flex; align-items: center; min-height: 2rem; padding: 0.25rem 0.7rem 0.15rem; border-radius: 6px; background: var(--al-dourado-fundo, var(--al-dourado)); color: var(--al-sobre-dourado); font-size: 1.05rem; letter-spacing: 0.04em; transform: rotate(-1deg); }
+:root:is([data-contrast], [data-eink]) :is(.cq-carimbo, .cq-selo) { transform: none; color: var(--al-texto); border: 2px solid var(--al-texto); box-shadow: none; background: none; }
+:root:is([data-contrast], [data-eink]) .cq-faixa-marca i[data-aceso] { background: var(--al-texto) !important; }
+
+/* ───── O mural de aprovados ───── */
+.cq-mural { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
+@container (min-width: 40rem) { .cq-mural { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container (min-width: 66rem) { .cq-mural { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.cq-inscricao { position: relative; display: flex; flex-direction: column; gap: 0.35rem; padding: 1rem 1rem 0.9rem 1.2rem; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-linha); overflow: hidden; }
+.cq-inscricao::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 6px; background: var(--al-vermelho); }
+.cq-inscricao[data-n="1"]::before { background: var(--al-dourado); }
+.cq-inscricao[data-n="2"]::before { background: var(--al-com-1); }
+.cq-inscricao[data-n="3"]::before { background: var(--al-com-4); }
+.cq-inscricao[data-n="4"]::before { background: var(--al-com-2); }
+.cq-inscricao[data-minha="sim"] { border-color: var(--al-dourado); }
+.cq-inscricao-nome { margin: 0; font-size: 1.45rem; color: var(--al-texto); overflow-wrap: anywhere; }
+.cq-inscricao-curso { margin: 0; color: var(--al-texto); font-weight: 800; font-size: 1rem; line-height: 1.3; }
+.cq-inscricao-inst { margin: 0; color: var(--al-texto-2); font-size: 0.9rem; }
+.cq-inscricao-recado { margin: 0.25rem 0 0; padding-left: 0.7rem; border-left: 3px solid var(--al-superficie-2); color: var(--al-texto-2); font-size: 0.95rem; line-height: 1.5; font-style: italic; overflow-wrap: anywhere; }
+.cq-inscricao-pe { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.8rem; margin-top: auto; padding-top: 0.45rem; color: var(--al-texto-3); font-size: 0.82rem; }
+.cq-inscricao-pe a { color: var(--al-texto-2); font-weight: 700; }
+.cq-voce { display: inline-flex; align-items: center; padding: 0.1rem 0.5rem; border-radius: 5px; background: var(--al-dourado-fundo, var(--al-dourado)); color: var(--al-sobre-dourado); font-size: 0.78rem; font-weight: 800; }
+
+.cq-form { display: grid; gap: 0.85rem; margin-top: 0.4rem; }
+.cq-form fieldset { margin: 0; padding: 0; border: 0; display: grid; gap: 0.45rem; }
+.cq-opcao { display: flex; align-items: center; gap: 0.6rem; min-height: 44px; padding: 0.45rem 0.75rem; border-radius: 10px; border: 1.5px solid var(--al-superficie-2); background: var(--al-fundo); color: var(--al-texto); font-size: 0.93rem; cursor: pointer; }
+.cq-opcao:has(input:checked) { border-color: var(--al-dourado); box-shadow: inset 4px 0 0 var(--al-dourado); }
+.cq-opcao input { accent-color: var(--al-vermelho); width: 1.1rem; height: 1.1rem; }
+.cq-form-linha { display: grid; gap: 0.85rem; }
+@container (min-width: 40rem) { .cq-form-linha { grid-template-columns: 1fr 1fr; } }
+
+/* ───── No perfil: uma fileira de medalhas ───── */
+.cq-perfil { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.7rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--al-linha); font-family: var(--al-fonte); color: var(--al-texto); }
+.cq-perfil-titulo { margin: 0 0.3rem 0 0; color: var(--al-texto-3); font-size: 0.85rem; letter-spacing: 0.08em; }
+.cq-perfil-lista { list-style: none; display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0; padding: 0; }
+.cq-perfil-item { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.2rem 0.65rem 0.2rem 0.25rem; border-radius: 10px; background: var(--al-superficie); border: 1px solid var(--al-linha); font-size: 0.85rem; font-weight: 700; max-width: 100%; }
+.cq-perfil-item span { overflow-wrap: anywhere; }
+
+/* ───── O tópico da aula ───── */
+.cq-topico { margin: 0.9rem 0 0; padding: 0.9rem 1rem; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-linha); border-left: 6px solid var(--al-dourado); display: grid; gap: 0.5rem; }
+.cq-topico-titulo { margin: 0; color: var(--al-texto); font-size: 1.05rem; font-weight: 800; line-height: 1.35; overflow-wrap: anywhere; }
+.cq-topico-carimbo { margin: 0; color: var(--al-texto-3); font-size: 0.82rem; letter-spacing: 0.08em; }
+.cq-topico p { margin: 0; }
+
+/* O "Ver o perfil" do mural: alvo de 44 px de altura. */
+.cq-inscricao-pe a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* O esqueleto do nome enquanto a lista das trilhas chega (nada do fim do endereço piscando antes do nome de verdade). */
+.cq-esqueleto { display: inline-block; width: 9.5rem; max-width: 100%; height: 0.95em; border-radius: 4px; background: var(--al-superficie-2); vertical-align: middle; }
+.cq-esqueleto-campo { display: block; width: 100%; height: 44px; border-radius: 10px; }
+@media (prefers-reduced-motion: no-preference) { .cq-esqueleto { animation: cq-esqueleto 1.4s ease-in-out infinite; } }
+@keyframes cq-esqueleto { 50% { opacity: 0.55; } }

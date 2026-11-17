@@ -6,7 +6,8 @@
  * TUDO aqui vale só dentro de [data-al="2"], que o layout põe quando as flags "rede-v2" E "alumia-2" estão ligadas. Com a flag
  * desligada nenhum seletor desta folha casa com nada: a Alumia de hoje (styles/alumia.css) não muda um pixel.
  *
- * Variantes: escuro é o padrão (as pranchas); [data-al-tema="claro"] é a variante clara; o alto contraste e o e-ink do site
+ * Variantes: escuro é o padrão (as pranchas); [data-al-tema="claro"] é a variante clara, que a pessoa escolhe em Aparência e
+ * leitura (lib/rede/aparencia-da-rede.ts põe o atributo antes da primeira pintura); o alto contraste e o e-ink do site
  * (:root[data-contrast], :root[data-eink]) trocam os tokens por versões sem cor de enfeite, e o movimento some com
  * prefers-reduced-motion e com o modo parado do site (:root[data-parado]).
  */
@@ -25,17 +26,38 @@
   /* As duas cores da casa. */
   --al-vermelho: #e8321f;
   --al-vermelho-escuro: #4d1a14;
-  /* O vermelho escuro da chama do lampião (components/rede/ui/Lampiao.tsx). Só enfeite da marca. */
+  /* O vermelho escuro de brasa (a chama "brasa" dos núcleos, components/rede/org/b1/b1.css). Só enfeite; o lampião da marca não usa. */
   --al-vermelho-chama: #b8261a;
   /* O vermelho de FUNDO onde vai texto pequeno (selo, botão primário p e m): branco sobre #D42A18 dá 5,1:1 (WCAG 1.4.3, AA).
      O #E8321F das pranchas (branco em cima dá 4,3:1) fica só onde é enfeite ou texto grande (botão g: negrito de 19 px). */
   --al-vermelho-texto: #d42a18;
+  /* O vermelho de LETRA (erro, carimbo, selo pequeno escrito em vermelho sobre a noite): 6,2:1 sobre a superfície e 6,9:1 sobre a
+     noite (AA). O #E8321F e o #D42A18 em letra pequena sobre o escuro ficam em 3,4:1 a 3,8:1. No claro é o mesmo #BC2217. */
+  --al-vermelho-letra: #ff6b57;
   --al-dourado: #ffc21a;
   /* O que vai escrito em cima de cada cor. No alto contraste do site o vermelho clareia e o texto vira preto (mais de 7:1).
      Noite sobre dourado dá 12:1. */
   --al-sobre-vermelho: #ffffff;
   --al-sobre-dourado: #0f0e0d;
   --al-sobre-papel: #0f0e0d;
+  /* O dourado de FUNDO (a faixa do próximo ato, o emblema, o botão dourado). No escuro é o mesmo dourado; no claro o dourado de
+     texto escurece para dar contraste sobre o creme e o de fundo continua o das pranchas, com tinta escura em cima. */
+  --al-dourado-fundo: #ffc21a;
+  /* O que SALTA na tela (o botão claro, a opção escolhida de um seletor): papel sobre a noite; no claro, tinta sobre o creme. */
+  --al-saliente: #f3efe6;
+  --al-sobre-saliente: #0f0e0d;
+  /* A sombra das folhas e dos menus que abrem por cima. */
+  --al-sombra: rgba(0, 0, 0, 0.55);
+  /* As miniaturas dos dois temas na tela de Aparência: as cores FIXAS de cada um, para a miniatura não depender do tema em que a
+     tela está (não mudam no tema claro de propósito). */
+  --al-amostra-escuro-fundo: #0f0e0d;
+  --al-amostra-escuro-cartao: #1b1917;
+  --al-amostra-escuro-linha: #f3efe6;
+  --al-amostra-escuro-vermelho: #e8321f;
+  --al-amostra-claro-fundo: #f3efe6;
+  --al-amostra-claro-cartao: #fbf8f2;
+  --al-amostra-claro-linha: #0f0e0d;
+  --al-amostra-claro-vermelho: #bc2217;
   /* Cores por comunidade (a pílula e a faixa do cartão). */
   --al-com-1: #1fc2b5;
   --al-com-2: #ff5c8a;
@@ -81,22 +103,61 @@
   font-family: var(--al-fonte);
 }
 
-/* Variante clara (opção da pessoa; o padrão das pranchas é o escuro). */
-[data-al="2"][data-al-tema="claro"] {
+/*
+ * Variante clara (escolha da pessoa; o padrão das pranchas é o escuro). O fundo é o creme da prancha traga-sua-organizacao; a
+ * tinta é a noite. Contraste conferido (WCAG 1.4.3, AA): texto #0f0e0d sobre o creme 16,6:1; texto-2 #2f2a25 12,3:1; texto-3
+ * #5c554d 6,4:1 (5,5:1 sobre a superfície-2); vermelho #bc2217 5,4:1 sobre o creme e 6,2:1 com branco em cima; dourado de texto
+ * #7a5800 5,6:1 sobre o creme; tinta sobre o dourado de fundo #ffc21a 12:1. As cores de comunidade escurecem para passar de 4,5:1
+ * como texto da pílula. O mosaico do ato continua um painel escuro (é um placar de arquibancada): ele não muda de tema.
+ */
+[data-al="2"][data-al-tema="claro"],
+:root:has([data-al="2"][data-al-tema="claro"]) .al-pele {
   --al-fundo: #f3efe6;
-  --al-superficie: #ffffff;
-  --al-superficie-2: #e7e1d6;
-  --al-linha: #d9d3c9;
+  --al-superficie: #fbf8f2;
+  --al-superficie-2: #e6dfd2;
+  --al-linha: #d5cdbf;
   --al-texto: #0f0e0d;
-  --al-texto-2: #2a2622;
+  --al-texto-2: #2f2a25;
   --al-texto-3: #5c554d;
-  --al-vermelho: #c8261a;
-  --al-vermelho-texto: #c8261a;
+  --al-vermelho: #bc2217;
+  --al-vermelho-escuro: #f1cfc9;
+  --al-vermelho-texto: #bc2217;
+  --al-vermelho-letra: #bc2217;
   --al-vermelho-chama: #9e1f15;
-  --al-dourado: #b98600;
-  --al-sobre-dourado: #ffffff;
+  --al-vermelho-sobre-escuro: #bc2217;
+  --al-dourado: #7a5800;
+  --al-dourado-fundo: #ffc21a;
+  --al-sobre-dourado: #0f0e0d;
+  --al-saliente: #0f0e0d;
+  --al-sobre-saliente: #f3efe6;
+  --al-sombra: rgba(15, 14, 13, 0.22);
+  --al-com-1: #0b6f67;
+  --al-com-2: #b3204f;
+  --al-com-3: #a14a00;
+  --al-com-4: #2a52be;
+  --al-com-5: #6a3fd0;
   --al-mosaico-fundo: #0f0e0d;
+  /* O rosto de 16 ladrilhos: no claro, a casa "papel" vira tinta (creme sobre creme sumia). */
+  --al-avatar-papel: #0f0e0d;
+  --al-foco: #0f0e0d;
   color-scheme: light;
+  color: var(--al-texto);
+}
+:root:not([data-contrast]):not([data-eink]) [data-al="2"][data-al-tema="claro"],
+:root:not([data-contrast]):not([data-eink]):has([data-al="2"][data-al-tema="claro"]) .al-pele {
+  /* Os tokens do site que as telas antigas ainda usam (ink, parchment, rule…): os valores do claro DAQUI, sem depender do tema
+     que a pessoa escolheu no site (com o site no escuro e a Alumia no claro, a tinta continuaria clara sobre o creme). */
+  --parchment: #f3efe6;
+  --parchment-deep: #e6dfd2;
+  --paper: #fbf8f2;
+  --ink: #0f0e0d;
+  --ink-soft: #5c554d;
+  --gold: #7a5800;
+  --oxblood: #b3231a;
+  --rule: #d5cdbf;
+  --folha: #fbf8f2;
+  --borda-forte: #5c554d;
+  --texto-meio: #2f2a25;
 }
 
 /* Alto contraste do site: preto e branco puros, cores mais fortes, bordas visíveis nos cartões. */
@@ -111,10 +172,15 @@
   --al-texto-3: #e6e6e6;
   --al-vermelho: #ff5a45;
   --al-vermelho-texto: #ff5a45;
+  --al-vermelho-letra: #ff5a45;
   --al-vermelho-chama: #c43a2a;
   --al-dourado: #ffd400;
   --al-sobre-vermelho: #000000;
   --al-sobre-dourado: #000000;
+  --al-dourado-fundo: #ffd400;
+  --al-saliente: #ffffff;
+  --al-sobre-saliente: #000000;
+  --al-sombra: rgba(0, 0, 0, 0.8);
   --al-mosaico-fundo: #000000;
   --al-cartao-aceso: #ffffff;
   --al-cartao-apagado: #000000;
@@ -124,6 +190,7 @@
   --al-letra-apagada: #a8382a;
   --al-cartao-borda: #ffffff;
   --al-foco: #ffd400;
+  color-scheme: dark;
 }
 
 /* E-ink: papel branco, tinta preta, nada de cor; o que a cor dizia passa a ser dito por borda, peso e texto. */
@@ -139,11 +206,16 @@
   --al-vermelho: #000000;
   --al-vermelho-escuro: #ffffff;
   --al-vermelho-texto: #000000;
+  --al-vermelho-letra: #000000;
   --al-vermelho-chama: #000000;
   --al-dourado: #000000;
   --al-sobre-vermelho: #ffffff;
   --al-sobre-dourado: #ffffff;
   --al-sobre-papel: #ffffff;
+  --al-dourado-fundo: #000000;
+  --al-saliente: #000000;
+  --al-sobre-saliente: #ffffff;
+  --al-sombra: transparent;
   --al-com-1: #000000;
   --al-com-2: #000000;
   --al-com-3: #000000;
@@ -257,9 +329,9 @@
 [data-al="2"] .al-botao-primario { background: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); }
 /* Só o botão grande (negrito de 19 px = texto grande) leva o vermelho das pranchas: ali 4,3:1 passa (WCAG 1.4.3). */
 [data-al="2"] .al-botao-primario.al-botao-g { background: var(--al-vermelho); }
-[data-al="2"] .al-botao-claro { background: var(--al-cartao-aceso); color: var(--al-sobre-papel); }
+[data-al="2"] .al-botao-claro { background: var(--al-saliente); color: var(--al-sobre-saliente); }
 [data-al="2"] .al-botao-contorno { background: transparent; color: var(--al-texto); border-color: var(--al-superficie-2); }
-[data-al="2"] .al-botao-dourado { background: var(--al-dourado); color: var(--al-sobre-dourado); }
+[data-al="2"] .al-botao-dourado { background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); }
 [data-al="2"] .al-botao-fantasma { background: transparent; color: var(--al-texto-2); padding-inline: 0.4rem; }
 [data-al="2"] .al-botao:not(:disabled):hover { filter: brightness(1.08); }
 /* Clarear o primário de texto pequeno derrubaria o contraste abaixo de 4,5:1: ele escurece. */
@@ -286,10 +358,21 @@
   text-decoration: none;
   white-space: nowrap;
 }
+/* No claro, a pílula fica mais leve: fundo de 6% e a letra da cor da comunidade escurecida (80% da cor com a tinta). Com 16%, a letra
+   pequena caía abaixo de 4,5:1 sobre o creme; com 8%, passava raspando no creme (4,7:1) e caía sobre a superfície 2. Assim fica
+   acima de 5,4:1 nas cinco cores, no creme, na folha e na superfície 2 (AA para letra pequena). */
+[data-al="2"][data-al-tema="claro"] .al-pilula,
+:root:has([data-al="2"][data-al-tema="claro"]) .al-pele .al-pilula {
+  background: color-mix(in srgb, var(--al-cor, var(--al-com-1)) 6%, transparent);
+  color: color-mix(in srgb, var(--al-cor, var(--al-com-1)) 80%, var(--al-texto));
+}
 [data-al="2"] .al-pilula-p { padding: 0.12rem 0.55rem; font-size: 0.75rem; }
 [data-al="2"] .al-pilula-m { padding: 0.3rem 0.85rem; font-size: 1.05rem; }
 [data-al="2"] .al-pilula-ponto { width: 0.6em; height: 0.6em; border-radius: 2px; background: currentColor; }
 [data-al="2"] a.al-pilula:hover { text-decoration: underline; }
+/* A pílula pequena que é link: o desenho fica com 22 px, mas a área de toque chega a 44 px de altura (WCAG 2.5.8). */
+[data-al="2"] a.al-pilula-p { position: relative; }
+[data-al="2"] a.al-pilula-p::after { content: ""; position: absolute; inset: -11px 0; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al-pilula { background: transparent; border: 1px solid currentColor; }
 
 /* Carimbo: cores por situação; tamanhos. */
@@ -352,7 +435,7 @@
 [data-al="2"] .al-em-construcao-rodape { margin: 1.5rem 0 0; font-size: 0.8rem; color: var(--al-texto-3); }
 
 /*
- * A Alumia é sempre escura (as pranchas; a variante clara é só [data-al-tema="claro"]): o tema claro salvo no site
+ * A Alumia é escura por padrão (as pranchas; a variante clara é [data-al-tema="claro"], escolha da pessoa): o tema claro salvo no site
  * (data-theme="light") não vale aqui dentro. As telas que ainda usam os tokens do site (ink, parchment, rule...) recebem os
  * valores do escuro, e o texto sem cor própria sai claro sobre o fundo noite (e não tinta escura sobre escuro). O alto contraste
  * e o e-ink continuam mandando (têm os próprios tokens).
@@ -376,7 +459,6 @@
 /* O vermelho do TEXTO sobre o escuro (carimbo "CONFIRMADO" de 16 px): #FF4F3A dá 5,4:1 sobre o cartão (#1B1917). O #E8321F das
    pranchas (4,1:1) fica para os fundos e o que é grande. */
 [data-al="2"], :root:has([data-al="2"]) .al-pele { --al-vermelho-sobre-escuro: #ff4f3a; }
-[data-al="2"][data-al-tema="claro"] { --al-vermelho-sobre-escuro: #c8261a; }
 [data-al="2"] .al-carimbo-confirmado { color: var(--al-vermelho-sobre-escuro); }
 /* O selo "Novo" dos avisos (11,5 px): branco sobre o vermelho de texto pequeno (#D42A18, 5,1:1). */
 [data-al="2"] .al3-aviso-novo { background: var(--al-vermelho-texto); }
@@ -394,3 +476,9 @@
  * avisos, salvos, stories, atos, editar perfil) somem quando a faixa da casca está na tela; sem ela, continuam.
  */
 [data-al="2"] .al2:has(> .al2-aviso-previa) :is(.al3-previa, .al-atos-previa, .al-st-previa, .pfe-nota-previa:not(.pfe-nota-conta)) { display: none !important; }
+
+/* No claro, a contagem do Próximo ato fica como na prancha: um ladrilho noite por grupo, com o número creme (o creme sobre creme
+   do fundo da Alumia sumia, e o fio da dobradiça parecia texto riscado). */
+:root:not([data-contrast]):not([data-eink]) [data-al="2"][data-al-tema="claro"] .al-flap { background: #0f0e0d; color: #f3efe6; box-shadow: none; }
+:root:not([data-contrast]):not([data-eink]) [data-al="2"][data-al-tema="claro"] .al-flap-vivo { --al-flap-fundo: #0f0e0d; }
+:root:not([data-contrast]):not([data-eink]) [data-al="2"][data-al-tema="claro"] .al-faixa-ato-flaps .al-flaps-grupo { background: #0f0e0d; }

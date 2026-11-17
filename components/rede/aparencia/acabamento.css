@@ -1,0 +1,225 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ *
+ * As telas que fecharam a Faixa 1: aparência e leitura, pastas dos salvos, buscas salvas, posts que se repetem e a linha dos
+ * #temas. Só tokens (styles/alumia-tokens.css): nenhuma cor escrita aqui, para o claro, o escuro, o alto contraste e o e-ink
+ * saírem do mesmo desenho. Alvo de toque de 44 px em tudo que se toca. O que se mexe para com "menos movimento" (a regra geral
+ * dos tokens) e com o modo parado do site.
+ */
+
+/* ───────────── A moldura das telas ───────────── */
+[data-al="2"] .ac-tela { color: var(--al-texto); font-family: var(--al-fonte); }
+[data-al="2"] .ac-cabeca { padding: 1.25rem 18px 1rem; border-bottom: 1px solid var(--al-linha); }
+[data-al="2"] .ac-titulo { margin: 0; font-size: clamp(2rem, 6vw, 2.9rem); overflow-wrap: anywhere; }
+[data-al="2"] .ac-lead { margin: 0.5rem 0 0; max-width: 60ch; font-size: 0.95rem; line-height: 1.5; color: var(--al-texto-2); }
+[data-al="2"] .ac-secao { margin: 0; font-size: 1.35rem; letter-spacing: 0.01em; }
+[data-al="2"] .ac-dica { margin: 0.6rem 0 0; font-size: 0.85rem; line-height: 1.5; color: var(--al-texto-3); }
+[data-al="2"] .ac-bloco { padding: 1.25rem 18px; border-bottom: 1px solid var(--al-linha); }
+[data-al="2"] .ac-bloco > .ac-secao { margin-bottom: 0.75rem; }
+
+/* ───────────── Aparência e leitura ───────────── */
+/* Uma coluna só (a coluna do meio tem até 720 px): os ajustes e, embaixo, a amostra presa ao pé no computador. */
+[data-al="2"] .ac-grade { display: grid; grid-template-columns: minmax(0, 1fr); }
+[data-al="2"] .ac-amostra { padding: 1.25rem 18px 2rem; }
+[data-al="2"] .ac-amostra > .ac-secao { margin-bottom: 0.75rem; }
+[data-al="2"] .ac-amostra-cartao { border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); padding: 1rem; font-size: 0.95rem; }
+[data-al="2"] .ac-amostra-acoes { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; margin-top: 0.7rem; font-size: 0.85rem; font-weight: 700; color: var(--al-texto-3); }
+[data-al="2"] .ac-amostra-pe { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 0.9rem; padding-top: 0.8rem; border-top: 1px solid var(--al-linha); font-size: 0.85rem; font-weight: 700; color: var(--al-texto-2); min-height: 2.5rem; }
+[data-al="2"] .ac-amostra-pe > :last-child { margin-left: auto; }
+
+/* Os três temas: cada botão traz uma miniatura pintada com as cores DAQUELE tema (os mesmos tokens, fixados na miniatura). */
+[data-al="2"] .ac-temas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
+[data-al="2"] .ac-tema {
+  display: flex; flex-direction: column; gap: 0.5rem; min-height: 44px; padding: 0.5rem; border-radius: var(--al-raio);
+  border: 1.5px solid var(--al-linha); background: var(--al-superficie); color: var(--al-texto-2); font: inherit; font-weight: 700;
+  font-size: 0.9rem; text-align: left; cursor: pointer; transition: border-color 0.15s ease, transform 0.15s ease;
+}
+[data-al="2"] .ac-tema:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .ac-tema:hover { border-color: var(--al-texto-3); } }
+[data-al="2"] .ac-tema[aria-checked="true"] { border-color: var(--al-texto); color: var(--al-texto); box-shadow: inset 0 0 0 1px var(--al-texto); }
+[data-al="2"] .ac-tema-nome { display: flex; align-items: center; gap: 0.4rem; padding: 0 0.2rem 0.15rem; line-height: 1.2; }
+[data-al="2"] .ac-tema[aria-checked="true"] .ac-tema-nome svg { color: var(--al-vermelho); }
+[data-al="2"] .ac-mini {
+  /* O escuro das pranchas, fixo, para a miniatura não depender do tema em que a tela está. */
+  --ac-m-fundo: var(--al-amostra-escuro-fundo); --ac-m-cartao: var(--al-amostra-escuro-cartao); --ac-m-linha: var(--al-amostra-escuro-linha); --ac-m-vermelho: var(--al-amostra-escuro-vermelho);
+  display: block; position: relative; overflow: hidden; aspect-ratio: 16 / 10; border-radius: 9px; background: var(--ac-m-fundo);
+  border: 1px solid var(--al-linha);
+}
+[data-al="2"] .ac-tema[data-tema="claro"] .ac-mini { --ac-m-fundo: var(--al-amostra-claro-fundo); --ac-m-cartao: var(--al-amostra-claro-cartao); --ac-m-linha: var(--al-amostra-claro-linha); --ac-m-vermelho: var(--al-amostra-claro-vermelho); }
+/* "O do aparelho": metade noite, metade creme, cortado na diagonal. */
+[data-al="2"] .ac-tema[data-tema="sistema"] .ac-mini { background: linear-gradient(115deg, var(--al-amostra-escuro-fundo) 0 50%, var(--al-amostra-claro-fundo) 50% 100%); }
+[data-al="2"] .ac-tema[data-tema="sistema"] .ac-mini-cartao { background: linear-gradient(115deg, var(--al-amostra-escuro-cartao) 0 46%, var(--al-amostra-claro-cartao) 46% 100%); }
+[data-al="2"] .ac-tema[data-tema="sistema"] .ac-mini-linha { background: linear-gradient(115deg, var(--al-amostra-escuro-linha) 0 44%, var(--al-amostra-claro-linha) 44% 100%); }
+[data-al="2"] .ac-mini-faixa { position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--al-faixa); }
+[data-al="2"] .ac-mini-cartao { position: absolute; inset: 22% 12% 14% 12%; display: grid; align-content: center; gap: 12%; padding: 0 10%; border-radius: 6px; background: var(--ac-m-cartao); }
+[data-al="2"] .ac-mini-linha { display: block; height: 5px; border-radius: 3px; background: var(--ac-m-linha); }
+[data-al="2"] .ac-mini-curta { width: 60%; opacity: 0.55; }
+[data-al="2"] .ac-mini-botao { display: block; width: 38%; height: 8px; border-radius: 4px; background: var(--ac-m-vermelho); }
+:root[data-eink] [data-al="2"] .ac-mini { filter: grayscale(1) contrast(1.4); }
+
+/* As linhas de ajuste: título, dica e o controle à direita. A linha inteira do interruptor é o botão. */
+[data-al="2"] .ac-linha {
+  display: flex; align-items: center; gap: 1rem; width: 100%; min-height: 56px; padding: 0.7rem 0; border: 0; border-top: 1px solid var(--al-linha);
+  background: none; color: inherit; font: inherit; text-align: left;
+}
+[data-al="2"] .ac-bloco > .ac-secao + .ac-linha { border-top: 0; padding-top: 0.2rem; }
+[data-al="2"] button.ac-linha { cursor: pointer; border-radius: 0; }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] button.ac-linha:hover .ac-linha-titulo { text-decoration: underline; text-underline-offset: 3px; } }
+[data-al="2"] .ac-linha-coluna { flex-direction: column; align-items: stretch; gap: 0.7rem; }
+[data-al="2"] .ac-linha-titulo { display: block; font-weight: 800; font-size: 1rem; line-height: 1.25; }
+[data-al="2"] .ac-linha-dica { display: block; margin-top: 0.15rem; font-size: 0.85rem; line-height: 1.45; color: var(--al-texto-3); }
+[data-al="2"] .ac-linha-link svg { color: var(--al-texto-3); }
+[data-al="2"] .ac-linha-pausa { padding-inline: 0; }
+[data-al="2"] .ac-linha-pausa > label { width: 100%; padding-inline: 0; }
+
+/* O interruptor: trilho e pino. Ligado, o trilho fica vermelho e o pino vai para a direita (e o estado vai no aria-checked). */
+[data-al="2"] .ac-chave {
+  position: relative; flex: none; width: 52px; height: 30px; border-radius: 999px; background: var(--al-superficie-2);
+  border: 1.5px solid var(--al-texto-3); transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+[data-al="2"] .ac-chave-pino {
+  position: absolute; top: 50%; left: 3px; width: 21px; height: 21px; border-radius: 50%; background: var(--al-texto-2);
+  transform: translateY(-50%); transition: transform 0.2s cubic-bezier(0.3, 1.4, 0.5, 1), background-color 0.18s ease;
+}
+[data-al="2"] .ac-interruptor[aria-checked="true"] .ac-chave { background: var(--al-vermelho-texto); border-color: var(--al-vermelho-texto); }
+[data-al="2"] .ac-interruptor[aria-checked="true"] .ac-chave-pino { transform: translate(22px, -50%); background: var(--al-sobre-vermelho); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .ac-chave { border-color: var(--al-texto); background: var(--al-fundo); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .ac-interruptor[aria-checked="true"] .ac-chave { background: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .ac-interruptor[aria-checked="true"] .ac-chave-pino { background: var(--al-fundo); }
+
+/* O tamanho da letra: quatro "A" que crescem, com o nome embaixo. */
+[data-al="2"] .ac-letras { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
+[data-al="2"] .ac-letra {
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 0.2rem; min-height: 64px; padding: 0.45rem 0.25rem;
+  border-radius: 12px; border: 1.5px solid var(--al-linha); background: var(--al-superficie); color: var(--al-texto-2); font-family: inherit;
+  font-weight: 800; line-height: 1; cursor: pointer;
+}
+[data-al="2"] .ac-letra-nome { font-size: 0.72rem; font-weight: 700; line-height: 1.15; text-align: center; overflow-wrap: anywhere; }
+[data-al="2"] .ac-letra[aria-checked="true"] { background: var(--al-saliente); border-color: var(--al-saliente); color: var(--al-sobre-saliente); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .ac-letra:not([aria-checked="true"]):hover { border-color: var(--al-texto-3); } }
+
+/* ───────────── Ocultar números (bem-estar) ───────────── */
+/* O que está marcado com data-al-numero (seguidores, contagens de apoios, respostas, membros) some para quem pediu. O número
+   continua existindo; só não é desenhado. O separador "·" que vinha colado no número sai junto (data-al-numero no par). */
+[data-al="2"][data-al-sem-numeros] [data-al-numero] { display: none !important; }
+/* O que entra no lugar do número (o "Responder" no lugar de "12 respostas"): escondido, a não ser com a opção ligada. */
+[data-al="2"] [data-al-sem-numero] { display: none; }
+[data-al="2"][data-al-sem-numeros] [data-al-sem-numero] { display: inline; }
+
+/* ───────────── Peças comuns das telas novas ───────────── */
+[data-al="2"] .ac-fichas { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+[data-al="2"] .ac-fichas-rolam { flex-wrap: nowrap; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; margin-inline: -18px; padding: 2px 18px; }
+[data-al="2"] .ac-fichas-rolam::-webkit-scrollbar { display: none; }
+[data-al="2"] .ac-fichas-rolam > li { flex: none; }
+/* No computador cabe tudo: as fichas quebram linha em vez de rolar escondidas para o lado. */
+@media (min-width: 1024px) { [data-al="2"] .ac-fichas-rolam { flex-wrap: wrap; overflow: visible; margin-inline: 0; padding-inline: 0; } }
+[data-al="2"] .ac-ficha {
+  display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; max-width: 100%; padding: 0 0.95rem; border-radius: 999px;
+  border: 1.5px solid var(--al-superficie-2); background: transparent; color: var(--al-texto-2); font: inherit; font-size: 0.92rem; font-weight: 800;
+  text-decoration: none; white-space: nowrap; cursor: pointer; transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+[data-al="2"] .ac-ficha:active { transform: scale(0.96); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .ac-ficha:hover { color: var(--al-texto); border-color: var(--al-texto-3); } }
+[data-al="2"] .ac-ficha:is([aria-pressed="true"], [aria-checked="true"], [aria-current="true"], [aria-current="page"]) { background: var(--al-saliente); border-color: var(--al-saliente); color: var(--al-sobre-saliente); }
+[data-al="2"] .ac-ficha-n { font-weight: 700; opacity: 0.75; font-variant-numeric: tabular-nums; }
+/* Cada salvo com o "Escolher pasta" embaixo do texto (alinhado com ele, depois do rosto) e a linha que separa os salvos depois dos
+   dois: antes a linha do cartão ficava entre o post e o botão, e o botão parecia ser do post seguinte. */
+[data-al="2"] .ac-salvo { border-bottom: 1px solid var(--al-linha); }
+[data-al="2"] .ac-salvo :is(.al2-cartao, .al3-post) { border-bottom: 0; }
+[data-al="2"] .ac-salvo-pasta { margin: -0.4rem 0 0; padding: 0 18px 0.6rem calc(18px + 52px); }
+/* A ficha discreta (o "Escolher pasta" embaixo de cada salvo): sem borda, para não pesar mais que o post. */
+[data-al="2"] .ac-ficha-quieta { border-color: transparent; background: none; color: var(--al-texto-3); font-weight: 600; padding-inline: 0.5rem; margin-left: -0.5rem; }
+[data-al="2"] .ac-ficha-nova { border-style: dashed; border-color: var(--al-texto-3); color: var(--al-texto); }
+[data-al="2"] .ac-ficha-nucleo { border-color: color-mix(in srgb, var(--al-dourado) 60%, transparent); }
+[data-al="2"] .ac-ficha svg { width: 1.1rem; height: 1.1rem; flex: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .ac-ficha { border-color: var(--al-texto); }
+
+/* Um botão só de ícone, de 44 px (opções, fechar, apagar). */
+[data-al="2"] .ac-icone {
+  display: inline-grid; place-items: center; width: 44px; height: 44px; flex: none; border: 0; border-radius: 12px; background: none;
+  color: var(--al-texto-2); cursor: pointer;
+}
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .ac-icone:hover { background: var(--al-superficie); color: var(--al-texto); } }
+
+/* A barra de uma pasta aberta ou de um filtro: nome, contagem e as ações. */
+[data-al="2"] .ac-barra { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.75rem; padding: 0.6rem 18px; border-bottom: 1px solid var(--al-linha); background: var(--al-superficie); }
+[data-al="2"] .ac-barra-nome { min-width: 0; flex: 1 1 12rem; font-weight: 800; font-size: 1.05rem; overflow-wrap: anywhere; }
+[data-al="2"] .ac-barra-n { font-weight: 700; color: var(--al-texto-3); font-size: 0.85rem; }
+
+/* O formulário curto numa linha (nome da pasta, nome da busca). */
+[data-al="2"] .ac-form { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+[data-al="2"] .ac-campo {
+  min-width: 0; flex: 1 1 12rem; min-height: 44px; padding: 0 0.9rem; border-radius: 12px; border: 1.5px solid var(--al-superficie-2);
+  background: var(--al-superficie); color: var(--al-texto); font: inherit;
+}
+[data-al="2"] .ac-campo::placeholder { color: var(--al-texto-3); }
+[data-al="2"] select.ac-campo { flex: 0 1 auto; cursor: pointer; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .ac-campo { border-color: var(--al-texto); }
+
+/* A folha "Guardar em uma pasta": um <dialog> que sobe do pé no celular e fica no meio no computador. */
+[data-al="2"] dialog.ac-folha {
+  width: min(100%, 26rem); max-height: min(88vh, 40rem); margin: auto; padding: 0; border: 1px solid var(--al-linha); border-radius: 18px;
+  background: var(--al-superficie); color: var(--al-texto); box-shadow: 0 18px 50px var(--al-sombra); overflow: hidden;
+}
+[data-al="2"] dialog.ac-folha::backdrop { background: color-mix(in srgb, var(--al-mosaico-fundo) 62%, transparent); }
+[data-al="2"] dialog.ac-folha[open] { animation: ac-folha-sobe 0.26s cubic-bezier(0.2, 0.9, 0.3, 1) both; }
+@keyframes ac-folha-sobe { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+[data-al="2"] .ac-folha-miolo { display: flex; flex-direction: column; max-height: inherit; }
+[data-al="2"] .ac-folha-cabeca { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.6rem 0.6rem 1.1rem; border-bottom: 1px solid var(--al-linha); }
+[data-al="2"] .ac-folha-titulo { margin: 0; flex: 1; font-size: 1.4rem; }
+[data-al="2"] .ac-folha-corpo { overflow-y: auto; overscroll-behavior: contain; padding: 0.4rem 0.6rem 0.9rem; }
+[data-al="2"] .ac-folha-pe { padding: 0.8rem 1.1rem 1rem; border-top: 1px solid var(--al-linha); }
+[data-al="2"] .ac-opcao {
+  display: flex; align-items: center; gap: 0.75rem; width: 100%; min-height: 48px; padding: 0.3rem 0.6rem; border: 0; border-radius: 12px;
+  background: none; color: var(--al-texto); font: inherit; font-weight: 700; text-align: left; cursor: pointer;
+}
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .ac-opcao:hover { background: var(--al-superficie-2); } }
+[data-al="2"] .ac-opcao-caixa { display: grid; place-items: center; width: 24px; height: 24px; flex: none; border-radius: 7px; border: 2px solid var(--al-texto-3); color: transparent; }
+[data-al="2"] .ac-opcao[aria-checked="true"] .ac-opcao-caixa { background: var(--al-vermelho-texto); border-color: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); }
+[data-al="2"] .ac-opcao-sub { display: block; font-size: 0.78rem; font-weight: 400; color: var(--al-texto-3); }
+@media (max-width: 639.98px) {
+  [data-al="2"] dialog.ac-folha { width: 100%; max-width: none; margin: auto 0 0; border-radius: 20px 20px 0 0; border-bottom: 0; padding-bottom: var(--recuo-baixo, 0px); }
+}
+
+/* Uma linha de lista com corpo e ações à direita (as séries, as buscas salvas). */
+[data-al="2"] .ac-itens { margin: 0; padding: 0; list-style: none; }
+[data-al="2"] .ac-item { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.6rem 1rem; padding: 1rem 18px; border-bottom: 1px solid var(--al-linha); }
+[data-al="2"] .ac-item-corpo { min-width: 0; flex: 1 1 16rem; }
+[data-al="2"] .ac-item-texto { margin: 0.45rem 0 0; font-size: 1rem; line-height: 1.5; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+[data-al="2"] .ac-item-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.7rem; margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--al-texto-3); }
+[data-al="2"] .ac-item-meta strong { color: var(--al-texto); font-weight: 800; }
+/* O selo da repetição ("Toda semana"): um carimbo reto, na tinta dourada. */
+[data-al="2"] .ac-selo {
+  display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.2rem 0.6rem; border-radius: 6px; border: 1.5px solid currentColor;
+  color: var(--al-dourado); font-size: 0.8rem; letter-spacing: 0.04em;
+}
+[data-al="2"] .ac-selo svg { width: 0.95rem; height: 0.95rem; }
+
+/* O estado vazio com dicas (a busca sem resultado): lista curta, alinhada, sem ponto de enfeite colorido. */
+[data-al="2"] .ac-dicas { display: grid; gap: 0.35rem; margin: 0.9rem auto 0; padding: 0; max-width: 40ch; list-style: none; text-align: left; font-size: 0.92rem; line-height: 1.45; color: var(--al-texto-2); }
+[data-al="2"] .ac-dicas > li { display: flex; gap: 0.6rem; }
+[data-al="2"] .ac-dicas > li::before { content: ""; flex: none; width: 0.5rem; height: 0.5rem; margin-top: 0.45rem; border-radius: 2px; background: var(--al-texto-3); }
+/* Dentro de um estado centralizado (a busca sem resultado), as dicas também centralizadas, sem o quadradinho. */
+[data-al="2"] .ac-dicas-centro { text-align: center; }
+[data-al="2"] .ac-dicas-centro > li { display: block; }
+[data-al="2"] .ac-dicas-centro > li::before { content: none; }
+
+/* Esqueleto de linhas (as séries e as pastas carregando). */
+[data-al="2"] .ac-esqueleto { display: grid; gap: 0.6rem; padding: 1rem 18px; border-bottom: 1px solid var(--al-linha); }
+[data-al="2"] .ac-esqueleto > span { display: block; height: 0.9rem; border-radius: 6px; background: var(--al-superficie-2); animation: ac-pulsa 1.4s ease-in-out infinite; }
+[data-al="2"] .ac-esqueleto > span:nth-child(1) { width: 34%; }
+[data-al="2"] .ac-esqueleto > span:nth-child(2) { width: 86%; }
+[data-al="2"] .ac-esqueleto > span:nth-child(3) { width: 58%; }
+@keyframes ac-pulsa { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+:root[data-eink] [data-al="2"] .ac-esqueleto > span { animation: none; border: 1px solid var(--al-texto); background: none; }
+
+/* ───────────── Alvos de toque de 44 px ───────────── */
+/* No toque, o que é pequeno de propósito (o rosto do post, a hora, a pílula da comunidade, a marca do alto, o "abrir sempre nesta
+   aba") ganha uma área de toque invisível de pelo menos 44 x 44 px em volta, sem mudar o desenho. */
+@media (pointer: coarse), (max-width: 1023px) {
+  [data-al="2"] :is(a.al-pilula, .al2-alvo, a.al2-nome-link, a.al-selo) { position: relative; }
+  [data-al="2"] :is(a.al-pilula, .al2-alvo, a.al2-nome-link, a.al-selo)::after {
+    content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 44px); height: max(100%, 44px); transform: translate(-50%, -50%);
+  }
+  /* Os botões e campos de 40 px (o botão médio, a ficha de seleção, os idiomas, a cidade do ato) chegam a 44 px no toque. */
+  [data-al="2"] :is(.al-botao, .al2-chip, .al2-idioma, .al-ato-form-cidade-campo) { min-height: 44px; }
+}

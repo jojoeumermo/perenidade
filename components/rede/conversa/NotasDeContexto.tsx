@@ -2,14 +2,27 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { localePath } from "@/i18n/config";
+import { ligado, type Recurso } from "@/lib/recursos";
 import { conversa } from "@/lib/rede/cliente-conversa";
 import { faltaFuncaoNoBanco } from "@/lib/rede/reserva";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { NotasDoPost } from "@/lib/rede/tipos-b1";
 import type { Situacao } from "@/lib/rede/tipos";
+import { valeDoEndereco } from "@/lib/rede/tipos-conversa";
 import { Contador, erroDaB1, quandoCurto, useTextosB1 } from "../b1/base";
 import { codigoDoErro } from "../erros";
 import { previa } from "./base3";
+import { SeloDoVale } from "../coautoria/AnexoDaCoautoria";
+import { casoPublicado, coautoria } from "../coautoria/cliente";
+import { textoDoErro } from "../coautoria/textos";
+import { useTextosDaCoautoria } from "../coautoria/use-cartao";
+
+/**
+ * Onda 12 (12C, L1-8): a nota pode citar uma checagem do Vale o Escrito já publicada no site (só o caso; o link é interno, montado
+ * aqui). Atrás de "alumia-coautoria": desligado, a nota fica como era.
+ */
+const VALE_LIGADO = ligado("alumia-coautoria" as Recurso);
 
 /** Na prévia (sem banco): nenhuma nota, e a pessoa pode propor e avaliar, para ver o formulário. */
 const NOTAS_DA_PREVIA: NotasDoPost = { mostradas: [], para_avaliar: [], minha: null, pode_propor: true, pode_avaliar: true, modera: false, ocultas: null };
@@ -29,6 +42,11 @@ export function NotasDeContexto({ post, lang, s, situacao, aoAvisar }: { post: s
   const [fonte, setFonte] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const [nova, setNova] = useState<string | null>(null);
+  const [vales, setVales] = useState<Record<string, string>>({});
+  const [vale, setVale] = useState("");
+  // O caso colado não está publicado no Vale o Escrito (conferido ao enviar): o erro fica embaixo do campo, não num aviso solto.
+  const [valeNaoAchado, setValeNaoAchado] = useState(false);
+  const tv = useTextosDaCoautoria(lang);
   const idRegra = useId();
   const idForm = useId();
   const caixa = useRef<HTMLTextAreaElement>(null);
@@ -49,6 +67,10 @@ export function NotasDeContexto({ post, lang, s, situacao, aoAvisar }: { post: s
         setDado({ post, n: { ...NOTAS_DA_PREVIA, pode_propor: false, pode_avaliar: false } });
         if (!faltaFuncaoNoBanco(e) && codigoDoErro(e) !== "nao_encontrado") erroRef.current(e);
       });
+    // As checagens do Vale o Escrito citadas pelas notas que a pessoa vê (sem a migração da 12C, nenhuma: a nota fica como era).
+    if (VALE_LIGADO && !previa()) {
+      coautoria.valesDasNotas(post).then((v) => vivo && setVales(v)).catch(() => vivo && setVales({}));
+    }
     return () => {
       vivo = false;
     };
@@ -73,13 +95,33 @@ export function NotasDeContexto({ post, lang, s, situacao, aoAvisar }: { post: s
     if (!t) return;
     setOcupado(true);
     try {
-      if (!previa()) await conversa.proporNota(post, texto, fonte);
+      // A checagem do Vale o Escrito: confere na própria ficha do site antes de mandar (o banco ainda recusa caso retirado).
+      if (caso && (await casoPublicado(lang, caso)) === false) {
+        setValeNaoAchado(true);
+        document.getElementById(`${idForm}-vale`)?.focus();
+        return;
+      }
+      const fonteFinal = fonte.trim() || (caso ? `${window.location.origin}${localePath(lang, `/vale-o-escrito/caso/${caso}`)}` : fonte);
+      const antes = n.minha ? (vales[n.minha.id] ?? null) : null;
+      if (!previa()) {
+        const r = await conversa.proporNota(post, texto, fonteFinal);
+        if (VALE_LIGADO && (caso ?? null) !== antes) {
+          try {
+            await coautoria.ligarVale(r.id, caso);
+          } catch (e) {
+            if (tv) avisar.current(textoDoErro(tv, e), true);
+          }
+        }
+      }
       avisar.current(nt.enviada);
       setEscrevendo(false);
       setTexto("");
       setFonte("");
-      if (previa()) setDado({ post, n: { ...n, minha: { id: "previa", texto, fonte, situacao: "proposta" } } });
-      else setVersao((v) => v + 1);
+      setVale("");
+      if (previa()) {
+        setDado({ post, n: { ...n, minha: { id: "previa", texto, fonte: fonteFinal, situacao: "proposta" } } });
+        setVales((v) => (caso ? { ...v, previa: caso } : v));
+      } else setVersao((v) => v + 1);
     } catch (e) {
       erro(e);
     } finally {
@@ -129,7 +171,10 @@ export function NotasDeContexto({ post, lang, s, situacao, aoAvisar }: { post: s
     }
   }
 
-  const fonteOk = /^https?:\/\/[^/@\s]+(\/\S*)?$/i.test(fonte.trim()) && fonte.trim().length >= 10;
+  const caso = VALE_LIGADO && vale.trim() ? valeDoEndereco(vale) : null;
+  const valeOk = !VALE_LIGADO || !vale.trim() || caso !== null;
+  const fonteOk = (/^https?:\/\/[^/@\s]+(\/\S*)?$/i.test(fonte.trim()) && fonte.trim().length >= 10) || (caso !== null && !fonte.trim());
+  const selo = (id: string) => (VALE_LIGADO && tv && vales[id] ? <p className="co-nota-vale"><SeloDoVale lang={lang} vale={vales[id]} t={tv} /></p> : null);
   const textoOk = texto.trim().length >= 20 && texto.trim().length <= 500;
 
   return (
@@ -161,6 +206,7 @@ export function NotasDeContexto({ post, lang, s, situacao, aoAvisar }: { post: s
               {m.fonte.replace(/^https?:\/\//, "").slice(0, 80)}
             </a>
           </p>
+          {selo(m.id)}
           <p className="b1-cinza mt-1">
             <time dateTime={m.criado_em}>{quandoCurto(lang, m.criado_em)}</time>
           </p>
@@ -174,6 +220,7 @@ export function NotasDeContexto({ post, lang, s, situacao, aoAvisar }: { post: s
             <span className="b1-selo">{nt.situacao[n.minha.situacao]}</span>
           </p>
           <p className="mt-1">{n.minha.texto}</p>
+          {selo(n.minha.id)}
           {n.minha.situacao !== "oculta" && (
             <div className="b1-botoes">
               <button
@@ -182,6 +229,7 @@ export function NotasDeContexto({ post, lang, s, situacao, aoAvisar }: { post: s
                 onClick={() => {
                   setTexto(n.minha?.texto ?? "");
                   setFonte(n.minha?.fonte ?? "");
+                  setVale(n.minha ? (vales[n.minha.id] ?? "") : "");
                   setEscrevendo(true);
                 }}
               >
@@ -208,6 +256,7 @@ export function NotasDeContexto({ post, lang, s, situacao, aoAvisar }: { post: s
                   {x.fonte.replace(/^https?:\/\//, "").slice(0, 80)}
                 </a>
               </p>
+              {selo(x.id)}
               {x.mostrada && <p className="b1-cinza mt-1">{nt.jaAparece}</p>}
               <div className="b1-botoes">
                 <button type="button" className="b1-botao" aria-pressed={x.minha === true} disabled={ocupado} onClick={() => void avaliar(x.id, x.minha === true ? null : true)}>
@@ -257,17 +306,25 @@ export function NotasDeContexto({ post, lang, s, situacao, aoAvisar }: { post: s
           className="b1-painel"
           onSubmit={(e) => {
             e.preventDefault();
-            if (textoOk && fonteOk) void enviar();
+            if (textoOk && fonteOk && valeOk) void enviar();
           }}
         >
           <label className="b1-rotulo" htmlFor={`${idForm}-texto`}>{nt.textoRotulo}</label>
           <textarea ref={caixa} id={`${idForm}-texto`} className="b1-area" maxLength={500} value={texto} onChange={(e) => setTexto(e.target.value)} required minLength={20} />
           <Contador n={texto.length} max={500} modelo={nt.contador} />
           <label className="b1-rotulo" htmlFor={`${idForm}-fonte`}>{nt.fonteRotulo}</label>
-          <input id={`${idForm}-fonte`} className="b1-campo" type="url" inputMode="url" maxLength={500} value={fonte} onChange={(e) => setFonte(e.target.value)} required placeholder="https://" />
+          <input id={`${idForm}-fonte`} className="b1-campo" type="url" inputMode="url" maxLength={500} value={fonte} onChange={(e) => setFonte(e.target.value)} required={!caso} placeholder="https://" aria-describedby={VALE_LIGADO && tv ? `${idForm}-um-basta` : undefined} />
+          {VALE_LIGADO && tv && <p id={`${idForm}-um-basta`} className="b1-cinza mt-1">{tv.vale.umBasta}</p>}
+          {VALE_LIGADO && tv && (
+            <>
+              <label className="b1-rotulo" htmlFor={`${idForm}-vale`}>{tv.vale.rotulo}</label>
+              <input id={`${idForm}-vale`} className="b1-campo" maxLength={300} value={vale} onChange={(e) => { setVale(e.target.value); setValeNaoAchado(false); }} spellCheck={false} aria-invalid={!valeOk || valeNaoAchado} aria-describedby={`${idForm}-vale-dica`} />
+              <p id={`${idForm}-vale-dica`} className="b1-cinza mt-1" data-erro={!valeOk || valeNaoAchado ? "" : undefined} role={valeNaoAchado ? "alert" : undefined}>{valeOk && !valeNaoAchado ? tv.vale.dica : tv.vale.naoAchou}</p>
+            </>
+          )}
           <p className="b1-cinza mt-2">{nt.regra}</p>
           <div className="b1-botoes">
-            <button type="submit" className="b1-botao" data-cheio="" disabled={ocupado || !textoOk || !fonteOk}>
+            <button type="submit" className="b1-botao" data-cheio="" disabled={ocupado || !textoOk || !fonteOk || !valeOk}>
               {nt.enviar}
             </button>
             <button type="button" className="b1-botao" onClick={() => setEscrevendo(false)}>

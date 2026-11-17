@@ -798,7 +798,8 @@ const NOMES_DA_ATIVIDADE: Record<string, string> = {
 const SUSPEITOS = new Set(["codigo_recuperacao_errado", "segundo_fator_recuperado", "aparelho_novo", "senha_redefinida", "auth:user_recovery_requested"]);
 
 function Atividade() {
-  const lista = useLista<{ acao: string; quando: string; ip: string }[]>("conta_atividade");
+  // Sem o endereço de rede: o banco não devolve (nem para a própria pessoa).
+  const lista = useLista<{ acao: string; quando: string }[]>("conta_atividade");
   return (
     <Cartao titulo="Atividade recente" sobre="Entradas, trocas de senha e mudanças de segurança desta conta, das mais novas para as mais antigas. Viu algo que não foi você? Troque a senha, saia dos outros aparelhos e avise a coordenação.">
       {lista.dados ? (
@@ -813,7 +814,6 @@ function Atividade() {
                   {SUSPEITOS.has(e.acao) && <TriangleAlert aria-hidden width={13} height={13} />}
                   {NOMES_DA_ATIVIDADE[e.acao] ?? e.acao.replace(/^auth:/, "").replace(/_/g, " ")}
                 </span>
-                {e.ip && <span className="pn-rotulo-mono tabular-nums">IP {e.ip}</span>}
               </li>
             ))}
           </ul>

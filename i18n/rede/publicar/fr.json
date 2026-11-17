@@ -55,6 +55,8 @@
     "semPermissao": "Pas d'autorisation pour le micro.",
     "ouvir": "Écouter l'audio ({s} s)",
     "carregando": "Chargement…",
+    "pausar": "Pause",
+    "posicao": "Position dans l'audio",
     "falha": "Impossible de charger l'audio."
   },
   "previa": {
@@ -124,6 +126,8 @@
     "invalido_responde_quem": "Vérifiez qui peut répondre.",
     "ja_votou": "Vous avez déjà voté dans ce sondage.",
     "encerrada": "Ce sondage est terminé.",
-    "dado_pessoal": "Retirez du texte CPF, téléphone, e-mail ou adresse avec numéro : les données personnelles ne vont pas sur Alumia."
+    "dado_pessoal": "Retirez du texte CPF, téléphone, e-mail ou adresse avec numéro : les données personnelles ne vont pas sur Alumia.",
+    "protegido": "La personne à qui vous répondez ou que vous citez a activé le mode protégé : pour l’instant, seules les personnes qu’elle suit répondent, mentionnent et citent.",
+    "citacao_solta": "Cette personne a détaché son post de votre citation. Vous ne pouvez plus citer ce post."
   }
 }

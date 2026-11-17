@@ -1,0 +1,516 @@
+{
+  "_rascunho": true,
+  "nav": {
+    "rotulo": "Loi et aide d'Alumia",
+    "termos": "Conditions d'utilisation",
+    "privacidade": "Confidentialité",
+    "guardamos": "Ce que nous gardons",
+    "regras": "Règles",
+    "ajuda": "Aide"
+  },
+  "comum": {
+    "versao": "Version du {data}",
+    "revisao": "Texte en relecture juridique",
+    "indice": "Sur cette page",
+    "carregando": "Chargement…",
+    "erro": "Ça n'a pas marché pour l'instant. Réessayez dans un moment.",
+    "contato": "Parlez à la coordination par la page [Signaler](/denunciar) (choisissez le sujet « données personnelles ») ou par e-mail à institutolucia@tutamail.com. Nous répondons sous 15 jours.",
+    "horas": "{n} heures",
+    "dias": "{n} jours",
+    "enviar": "Envoyer",
+    "enviando": "Envoi…",
+    "cancelar": "Annuler"
+  },
+  "termos": {
+    "titulo": "Conditions d'utilisation d'Alumia",
+    "chamada": "L'accord entre vous et l'Instituto Lúcia pour utiliser Alumia : qui peut entrer, ce que fait chaque partie, ce qui se passe quand une règle est enfreinte et comment partir.",
+    "secoes": [
+      {
+        "id": "o-que-e",
+        "titulo": "Ce qu'est Alumia",
+        "paragrafos": [
+          "Alumia est le réseau social de l'Instituto Lúcia : communautés, noyaux, actions, organisations et conversations pour celles et ceux qui s'organisent et étudient ensemble. Il est gratuit, sans publicité et ne vend rien, pas même vos données.",
+          "Alumia est tenu par l'Instituto Lúcia, un projet éducatif gratuit, à but non lucratif et sans CNPJ (immatriculation d'entreprise), animé par des bénévoles. La coordination du projet en répond.",
+          "Ces conditions valent pour Alumia. Le reste du site suit les [conditions du site](/termos) ; là où les deux parlent de la même chose, sur Alumia c'est ce texte qui vaut, car il est plus précis."
+        ]
+      },
+      {
+        "id": "quem-pode",
+        "titulo": "Qui peut entrer",
+        "paragrafos": [
+          "Seulement les personnes de **18 ans ou plus**. Alumia ne demande ni pièce d'identité ni photo du visage pour vérifier l'âge : la personne déclare son âge, et le tri à l'entrée, fait par des gens de la maison, lit la demande et peut discuter avant d'approuver. Si un signalement dit qu'un compte peut appartenir à un mineur, il est retenu par précaution jusqu'à ce que la médiation le lise (voir les [règles](/alumia/regras#menores)).",
+          "Pour entrer, vous créez un compte avec **e-mail et mot de passe**. L'e-mail est obligatoire et Alumia ne demande jamais de téléphone. Ensuite vous faites la demande d'entrée (pseudonyme, pourquoi vous voulez entrer, l'âge et l'acceptation de ces conditions) et attendez le tri. Une fois le compte approuvé, vous enregistrez une application d'authentification : sans son code, personne n'entre, même avec votre mot de passe.",
+          "Chaque compte appartient à une personne. Les organisations entrent avec leur propre compte et un badge, qui dit que le compte est bien celui qu'il prétend être et n'est pas un soutien de l'Institut."
+        ]
+      },
+      {
+        "id": "como-aparece",
+        "titulo": "Comment vous apparaissez",
+        "paragrafos": [
+          "Par défaut, vous apparaissez avec un **pseudonyme** et une photo inventée. Si vous voulez, vous choisissez d'apparaître avec votre vrai nom et votre vraie photo ; vous pouvez revenir au pseudonyme quand vous voulez. N'utilisez pas le nom d'une autre personne et ne vous faites pas passer pour une organisation."
+        ]
+      },
+      {
+        "id": "convivencia",
+        "titulo": "Vivre ensemble",
+        "paragrafos": [
+          "Sur Alumia valent les [Règles d'Alumia](/alumia/regras) et les règles de chaque communauté. En résumé : respect des personnes, n'exposer personne, rien d'inventé, pas de publicité commerciale et rien que la loi interdit. Le désaccord d'idées est bienvenu ; l'attaque contre les personnes, non."
+        ]
+      },
+      {
+        "id": "o-que-publica",
+        "titulo": "Ce que vous publiez",
+        "paragrafos": [
+          "Vous restez propriétaire de ce que vous écrivez, photographiez et enregistrez. En publiant, vous autorisez Alumia à montrer le contenu à qui vous avez choisi dans le public de la publication (abonnés, membres, une communauté, un noyau ou internet) et, si vous avez activé la fédération et marqué la publication comme Internet, à l'envoyer aux serveurs du Fédivers qui vous suivent.",
+          "Alumia ne vend pas, ne concède pas de licence et ne remet à personne ce que vous écrivez pour un autre usage. Ne publiez pas ce qui n'est pas à vous ni ce que vous n'avez pas le droit de partager.",
+          "Supprimer une publication supprime la publication. Ce qui est déjà parti vers le Fédivers reçoit la demande de suppression, mais Alumia ne commande pas les autres serveurs."
+        ]
+      },
+      {
+        "id": "conta",
+        "titulo": "Votre compte et votre sécurité",
+        "paragrafos": [
+          "Gardez votre mot de passe et l'application d'authentification. Gardez aussi les codes de récupération du second facteur en lieu sûr, hors du téléphone : chacun vaut une fois, pour le jour où l'appareil se perd.",
+          "Le bouton **Sortie rapide** efface ce qu'Alumia a gardé sur l'appareil et ouvre une page ordinaire extérieure. Utilisez-le sur un appareil que quelqu'un d'autre peut regarder.",
+          "Le **mot de passe de panique** est un outil de sécurité personnelle contre qui force l'accès à votre appareil. Activé dans les Réglages de sécurité, il ne vaut que sur l'appareil où il a été créé : tapé à la place de votre mot de passe, il ouvre un compte leurre, au profil neutre, et retire votre compte de cet appareil. Le compte leurre est un vrai compte, avec son propre e-mail, qui passe par l'examen comme n'importe quel autre ; c'est la seule exception à la règle d'un compte par personne et il ne peut servir à rien d'autre. Rien n'est effacé sur le serveur à cause de lui, et Alumia continue de respecter la loi et les décisions de justice valables avec les données réelles."
+        ]
+      },
+      {
+        "id": "moderacao",
+        "titulo": "Modération et recours",
+        "paragrafos": [
+          "Alumia est modéré par la médiation de l'Institut et, dans chaque communauté, par les personnes que la communauté a choisies. La médiation peut avertir, retenir une publication pour lecture, retirer une publication, verrouiller une conversation, bannir quelqu'un d'une communauté et suspendre ou bannir un compte. Toute décision cite la règle et le motif, reste dans un registre qui ne s'efface pas et peut être revue : vous demandez une révision sous 30 jours et **une autre personne** de la médiation répond sous 7 jours. Le chemin complet est dans les [règles](/alumia/regras#recurso).",
+          "Aucun compte n'est suspendu par une évaluation de machine. La seule retenue qui a lieu avant qu'une personne lise est celle du signalement de mineur, qui retient le compte par précaution et passe en tête de file."
+        ]
+      },
+      {
+        "id": "ilegal",
+        "titulo": "Contenu illégal et demandes de la Justice",
+        "paragrafos": [
+          "Toute personne d'Alumia peut signaler un contenu illégal par le [canal de signalement](/alumia/regras#ilegal), avec un numéro de protocole et un délai de réponse de 24 heures. Ce qui est illégal est retiré après lecture, sans attendre de décision judiciaire ; la personne qui a publié est prévenue et peut faire recours.",
+          "Une décision judiciaire valide est respectée, et seulement avec ce qui existe : Alumia ne garde pas votre adresse réseau, elle n'a donc pas cette donnée à remettre. Ce qui est gardé, et combien de temps, est dans [Ce que nous gardons](/alumia/o-que-guardamos)."
+        ]
+      },
+      {
+        "id": "sair",
+        "titulo": "Quitter Alumia",
+        "paragrafos": [
+          "Vous pouvez partir quand vous voulez. Dans [Mes données](/alumia/meus-dados), vous téléchargez une copie de ce qui est à vous et supprimez le compte. Le registre de modération sur votre compte, s'il existe, reste pour sa durée, car c'est la preuve que la procédure a été suivie."
+        ]
+      },
+      {
+        "id": "limites",
+        "titulo": "Les limites de ce que nous promettons",
+        "paragrafos": [
+          "Alumia est fait par des bénévoles. Il peut être hors ligne, changer ou fermer une fonction. Quand un changement touche ce que vous avez accepté, nous prévenons avant. Si Alumia ferme, nous prévenons à l'avance pour que chacun puisse télécharger ses propres données.",
+          "Ce que chaque personne publie relève de la responsabilité de qui l'a publié. La médiation agit quand elle apprend une violation, par le chemin décrit dans ces conditions."
+        ]
+      },
+      {
+        "id": "mudancas",
+        "titulo": "Changements de ces conditions",
+        "paragrafos": [
+          "Quand ces conditions ou la politique de confidentialité changent sur un point que vous avez accepté, la date en haut change, Alumia montre ce qui a changé et vous redemande votre accord avant de continuer. Si vous n'êtes pas d'accord, vous téléchargez vos données et supprimez le compte.",
+          "La loi brésilienne s'applique, y compris à qui se connecte depuis un autre pays."
+        ]
+      }
+    ]
+  },
+  "privacidade": {
+    "titulo": "Politique de confidentialité d'Alumia",
+    "chamada": "Ce qu'Alumia garde sur vous, pour quoi, combien de temps, qui le lit et comment vous l'emportez ou l'effacez. Écrite à partir de ce que le système garde vraiment, selon la Loi générale de protection des données du Brésil (Loi 13.709/2018).",
+    "secoes": [
+      {
+        "id": "resumo",
+        "titulo": "En quelques lignes",
+        "itens": [
+          "**Ni vente, ni publicité, ni profilage.** Alumia ne vend pas de données, ne montre pas de publicité et ne construit pas de profil de ce que vous lisez ou de votre comportement. Le fil suit une règle ouverte, la même pour tous, que vous lisez dans [Comment le fil est construit](/alumia/como-a-linha).",
+          "**L'adresse réseau n'est pas gardée.** Alumia n'enregistre pas votre adresse réseau (IP) : ni dans la base, ni dans un journal d'accès.",
+          "**E-mail obligatoire, téléphone jamais.** L'e-mail sert à se connecter, récupérer le mot de passe et recevoir les alertes de sécurité du compte. Il n'apparaît jamais sur Alumia.",
+          "**Personne ne voit de listes de personnes.** Ni de qui a aimé, vu, voté, signé, confirmé sa présence ou suit quelqu'un. Les nombres de personnes n'apparaissent qu'à partir de 3.",
+          "**Vous emportez et vous effacez.** Dans [Mes données](/alumia/meus-dados)."
+        ]
+      },
+      {
+        "id": "quem-responde",
+        "titulo": "Qui répond de vos données",
+        "paragrafos": [
+          "Le responsable du traitement est l'Instituto Lúcia, projet éducatif gratuit, à but non lucratif et sans CNPJ, animé par des bénévoles. La coordination du projet répond du traitement des données et traite les demandes des personnes concernées."
+        ]
+      },
+      {
+        "id": "sensivel",
+        "titulo": "Pourquoi tant de soin",
+        "paragrafos": [
+          "Dans un réseau d'organisation politique, ce que vous écrivez, les communautés que vous rejoignez et les actions que vous confirmez peuvent révéler une opinion politique ou une adhésion à un syndicat ou un parti. La loi appelle cela une **donnée personnelle sensible** (art. 5, II). C'est pourquoi Alumia garde le minimum, ne montre pas de listes de personnes, et votre entrée dépend de votre consentement spécifique et mis en évidence (art. 11, I)."
+        ]
+      },
+      {
+        "id": "o-que",
+        "titulo": "Ce que nous gardons",
+        "paragrafos": [
+          "La liste complète, avec où se trouve chaque donnée, combien de temps et qui la lit, est dans [Ce que nous gardons](/alumia/o-que-guardamos). Les points principaux :"
+        ],
+        "itens": [
+          "**Le compte :** l'e-mail, le mot de passe (seulement une empreinte, qui ne permet pas de le lire) et le secret de l'application d'authentification, dans le service de comptes.",
+          "**La demande d'entrée :** le pseudonyme et le motif que vous avez écrit ; le motif disparaît 30 jours après la décision.",
+          "**L'acceptation :** la version des normes et de ces conditions que vous avez acceptée, et quand.",
+          "**Ce que vous publiez et faites :** publications, réponses, sondages, réactions, enregistrements, dossiers, qui vous suivez, les communautés et noyaux dont vous faites partie. Ce que vous effacez disparaît.",
+          "**Conversations privées :** chiffrées sur votre appareil ; le serveur garde le texte chiffré, qu'il ne lit pas, jusqu'au délai de la conversation.",
+          "**Modération :** les signalements, le registre des décisions et les recours.",
+          "**Sécurité :** une empreinte brouillée du réseau d'où vient le compte, qui ne permet pas de retrouver l'adresse, pendant 30 jours ; des compteurs d'usage pour freiner les abus, pendant 2 jours ; le registre de certaines actions du compte, jusqu'à 400 jours."
+        ]
+      },
+      {
+        "id": "email",
+        "titulo": "À quoi sert l'e-mail",
+        "paragrafos": [
+          "L'e-mail est obligatoire parce que c'est avec lui que vous vous connectez, confirmez le compte, récupérez le mot de passe et recevez les alertes de sécurité (par exemple, quand un nouvel authentificateur devient valable sur votre compte). Le résumé hebdomadaire par e-mail est facultatif et désactivé par défaut. L'e-mail n'apparaît jamais sur Alumia, pas même pour la médiation ; dans la maison, seule la coordination y a accès. Les e-mails partent par un service d'envoi dont les serveurs sont hors du Brésil, qui reçoit l'adresse et le texte uniquement pour les remettre."
+        ]
+      },
+      {
+        "id": "rede",
+        "titulo": "Adresse réseau",
+        "paragrafos": [
+          "Alumia ne garde pas votre adresse réseau. Pour arrêter qui revient après un bannissement, le serveur transforme l'adresse, sur le moment, en une empreinte brouillée avec une clé secrète que lui seul possède. Seule cette empreinte reste, elle ne permet pas de découvrir l'adresse et disparaît d'elle-même en 30 jours. Un bannissement par réseau dure au plus 90 jours.",
+          "Pour livrer les pages, les services d'hébergement et de protection contre les attaques reçoivent l'adresse, comme sur tout site, et suivent la [politique du site](/privacidade)."
+        ]
+      },
+      {
+        "id": "fora",
+        "titulo": "Qui d'autre reçoit des données",
+        "paragrafos": [
+          "Personne n'achète ni ne reçoit de données d'Alumia pour la publicité ou les statistiques. Certains services traitent des données seulement pour qu'Alumia fonctionne :"
+        ],
+        "itens": [
+          "**Hébergement, base de données et protection contre les attaques**, avec une partie des serveurs hors du Brésil (transfert international, art. 33).",
+          "**Envoi d'e-mails**, seulement l'adresse et le texte de chaque message.",
+          "**Notification sur le téléphone**, si vous l'activez : le service de livraison de votre navigateur reçoit seulement un nombre chiffré, sans extrait de publication ni nom.",
+          "**Fédivers**, si vous activez la fédération : les autres serveurs reçoivent le pseudonyme, l'@nom, la bio et les publications marquées Internet, et en gardent des copies selon leurs règles.",
+          "**Vérification des liens par Google Safe Browsing**, quand vous publiez un post avec un lien : le serveur d'Alumia transforme chaque lien en empreintes (SHA-256) et n'envoie à Google que les 4 premiers octets de chaque empreinte, qui correspondent à un très grand nombre d'adresses ; Google renvoie les empreintes des pages dangereuses qui commencent ainsi et la comparaison se fait sur notre serveur. Le texte du post, votre nom et votre compte ne partent jamais ; le lien n'est pas conservé. Un lien signalé comme dangereux n'est pas publié, et l'écran dit pourquoi.",
+          "**Évaluation automatique des messages**, quand la coordination l'active : le titre et le texte d'une publication, sans votre nom ni votre compte, vont à un service de modération d'une entreprise extérieure, qui renvoie une classification. Aucun compte n'est suspendu par cette évaluation."
+        ]
+      },
+      {
+        "id": "base-legal",
+        "titulo": "Sur quelle base légale",
+        "itens": [
+          "**Consentement spécifique et mis en évidence** (art. 11, I) pour entrer dans Alumia, pour la fédération et pour la notification sur le téléphone. Vous le retirez en supprimant le compte, en désactivant la fonction ou par le contact ci-dessous.",
+          "**Protection de la personne concernée et prévention de la fraude et des abus** (art. 11, II, g ; art. 7, IX) pour l'empreinte réseau, les compteurs d'usage et le registre d'actions.",
+          "**Exercice régulier de droits** (art. 7, VI ; art. 11, II, d) pour le registre de modération et les recours, qui prouvent que la procédure a été suivie.",
+          "**Respect d'une obligation légale** (art. 7, II) quand une décision judiciaire valide demande quelque chose qui existe."
+        ]
+      },
+      {
+        "id": "direitos",
+        "titulo": "Vos droits et comment les exercer",
+        "paragrafos": [
+          "La loi garantit (art. 18) : confirmer si nous traitons vos données, y accéder, les corriger, les emporter (portabilité), effacer ce qui a été traité avec votre consentement, savoir avec qui elles ont été partagées, retirer le consentement et demander qu'une personne revoie une décision automatique (art. 20)."
+        ],
+        "itens": [
+          "**Télécharger une copie** de ce qui est à vous et **supprimer le compte** : [Mes données](/alumia/meus-dados). La copie ne contient pas de données d'autres personnes (pas même qui a aimé votre publication).",
+          "**Corriger** pseudonyme, nom public, photo et bio : dans Modifier le profil.",
+          "**Demander une révision** d'une décision de modération : [Règles](/alumia/regras#recurso).",
+          "**Toute autre demande** : par le contact ci-dessous. Nous répondons sous 15 jours. Vous pouvez aussi vous plaindre auprès de l'Autorité nationale de protection des données du Brésil (ANPD)."
+        ]
+      },
+      {
+        "id": "menores",
+        "titulo": "Enfants et adolescents",
+        "paragrafos": [
+          "Alumia est réservé aux plus de 18 ans et ne traite pas volontairement de données de mineurs. Nous ne demandons ni pièce d'identité ni biométrie pour vérifier l'âge : le tri à l'entrée est fait par des personnes, et le signalement qu'un compte peut appartenir à un mineur retient le compte par précaution jusqu'à ce que la médiation le lise (Loi 15.211/2025, ECA numérique ; LGPD, art. 14)."
+        ]
+      },
+      {
+        "id": "aparelho",
+        "titulo": "Sur votre appareil",
+        "paragrafos": [
+          "Alumia garde dans le navigateur seulement ce qu'il faut : la session de qui s'est connecté et des préférences comme le thème, la taille du texte et l'ordre du fil. Il n'y a ni cookie tiers ni outil de mesure d'audience. La **Sortie rapide** efface ce qu'Alumia a gardé sur l'appareil. Les réponses au questionnaire de centres d'intérêt restent aussi seulement ici : elles accompagnent chaque lecture du fil et le serveur ne les garde pas.",
+          "Si vous activez le **mot de passe de panique**, l'appareil garde un coffre chiffré (Web Crypto, avec une clé tirée du mot de passe de panique) contenant l'e-mail et le mot de passe du compte leurre. Le coffre ne va pas au serveur. Pour que le mot de passe de panique continue de valoir, Sortie rapide et le bouton de panique n'effacent pas le coffre ; désactiver le mot de passe de panique le remplace par un coffre vide du même format, comme celui que reçoit tout appareil qui entre dans Alumia. Le leurre est traité comme n'importe quel autre compte, et Alumia respecte la loi et les décisions de justice valables avec les données réelles."
+        ]
+      },
+      {
+        "id": "seguranca",
+        "titulo": "Sécurité et incidents",
+        "paragrafos": [
+          "Chaque lecture et écriture dans la base passe par des vérifications de qui demande et de ce que cette personne peut faire ; la connexion exige le second facteur. En cas d'incident pouvant vous exposer à un risque, nous prévenons les personnes concernées et l'ANPD."
+        ]
+      },
+      {
+        "id": "mudancas",
+        "titulo": "Changements de cette politique",
+        "paragrafos": [
+          "Quand cette politique change sur un point que vous avez accepté, la date en haut change et Alumia vous redemande votre accord, en montrant ce qui a changé."
+        ]
+      }
+    ]
+  },
+  "guardamos": {
+    "titulo": "Ce que nous gardons",
+    "chamada": "Chaque donnée qu'Alumia garde sur vous : où elle se trouve, combien de temps et qui la lit. Ce qui n'est pas ici, Alumia ne le garde pas.",
+    "lugares": "Où elle se trouve : les trois lieux sont dans la même base de données de l'Institut. Le **service de comptes** garde la connexion (e-mail, mot de passe brouillé et sessions) ; la **base d'Alumia**, ce qui relève du réseau ; la **base de l'Institut**, ce qui vaut pour tout le site.",
+    "colunas": {
+      "dado": "Donnée",
+      "onde": "Où elle se trouve",
+      "tempo": "Combien de temps",
+      "quem": "Qui la lit"
+    },
+    "grupos": [
+      {
+        "titulo": "Compte et entrée",
+        "linhas": [
+          { "dado": "E-mail", "onde": "Service de comptes", "tempo": "Jusqu'à la suppression du compte", "quem": "Seulement la coordination ; n'apparaît jamais sur Alumia" },
+          { "dado": "Mot de passe", "onde": "Service de comptes, seulement une empreinte qui ne permet pas de le lire", "tempo": "Jusqu'à ce que vous le changiez ou supprimiez le compte", "quem": "Personne" },
+          { "dado": "Secret de l'application d'authentification", "onde": "Service de comptes", "tempo": "Jusqu'à ce que vous changiez d'authentificateur ou supprimiez le compte", "quem": "Personne" },
+          { "dado": "Pseudonyme, @nom, bio et photo (inventée ou réelle, si vous choisissez)", "onde": "Base d'Alumia", "tempo": "Jusqu'à ce que vous les changiez ou supprimiez le compte", "quem": "Qui peut voir votre profil" },
+          { "dado": "Motif de la demande d'entrée et motif de la décision", "onde": "Base d'Alumia", "tempo": "Disparaissent 30 jours après la décision", "quem": "Le tri (coordination, vice-coordination et médiation)" },
+          { "dado": "Âge déclaré (18 ou plus), version des normes et de ces conditions acceptée, et quand", "onde": "Base d'Alumia", "tempo": "Tant que le compte existe", "quem": "Vous et la coordination" },
+          { "dado": "Codes de récupération du second facteur", "onde": "Base de données de l'Institut, seulement une empreinte qui ne permet pas de lire le code", "tempo": "Jusqu'à ce que vous en génériez d'autres ; chacun vaut une fois", "quem": "Personne" },
+          { "dado": "Invitations que vous avez créées (une empreinte du code et le délai ; l'invitation utilisée est supprimée aussitôt)", "onde": "Base de données d'Alumia", "tempo": "45 jours", "quem": "Vous seul·e voyez les vôtres ; qui a utilisé une invitation n'est pas gardé" },
+          { "dado": "Marque « venu par invitation » sur la demande d'entrée", "onde": "Base de données d'Alumia", "tempo": "Jusqu'à la décision de l'accueil", "quem": "L'accueil, sans savoir de qui venait l'invitation" },
+          { "dado": "Demande de suppression du compte", "onde": "Base de données d'Alumia", "tempo": "Les 7 jours pour changer d'avis ; ensuite, le compte est supprimé", "quem": "Vous ; la coordination voit seulement combien de demandes il y a" }
+        ]
+      },
+      {
+        "titulo": "Ce que vous publiez et faites",
+        "linhas": [
+          { "dado": "Publications, réponses, sondages, audios et images (sans localisation ni données de l'appareil photo)", "onde": "Base et dépôt de fichiers d'Alumia", "tempo": "Jusqu'à ce que vous les effaciez", "quem": "Qui vous avez choisi dans le public de chaque publication" },
+          { "dado": "Réactions, « utile », enregistrements, dossiers et recherches enregistrées", "onde": "Base d'Alumia", "tempo": "Jusqu'à ce que vous les annuliez ou effaciez", "quem": "Seulement vous ; les autres voient au plus un total, à partir de 3" },
+          { "dado": "Qui vous suivez, communautés et noyaux dont vous faites partie", "onde": "Base d'Alumia", "tempo": "Jusqu'à ce que vous partiez", "quem": "Vous ; la modération du lieu, pour modérer ; personne ne voit de liste de membres" },
+          { "dado": "Stories", "onde": "Base et dépôt d'Alumia", "tempo": "24 heures (plus seulement si vous la mettez à la une ou si elle fait l'objet d'un signalement)", "quem": "Le public de la story ; aucun registre de qui l'a vue" },
+          { "dado": "Brouillons enregistrés dans le compte", "onde": "Base d'Alumia, chiffrés sur votre appareil", "tempo": "30 jours après la dernière modification", "quem": "Seulement vous, sur l'appareil qui a la clé" },
+          { "dado": "Confirmation à une action, vote à une consultation, signature de pétition", "onde": "Base d'Alumia", "tempo": "Tant que l'action, la consultation ou la pétition existe", "quem": "Personne ne voit de liste de qui est venu, a voté ou signé ; totaux seulement à partir de 3" },
+          { "dado": "Personnes, conversations et mots que vous avez masqués ou bloqués", "onde": "Base d'Alumia", "tempo": "Jusqu'à ce que vous annuliez", "quem": "Seulement vous ; la personne masquée ne le sait pas" },
+          { "dado": "Centres d'intérêt cochés dans le questionnaire (causes, études, rythme)", "onde": "Seulement sur votre appareil ; ils accompagnent chaque lecture du fil et le serveur ne les garde pas", "tempo": "Jusqu'à ce que vous les effaciez dans Réglages ou utilisiez la Sortie rapide", "quem": "Personne d'autre que vous" }
+        ]
+      },
+      {
+        "titulo": "Conversations et notifications",
+        "linhas": [
+          { "dado": "Conversations privées et de groupe", "onde": "Base d'Alumia, chiffrées sur l'appareil de qui écrit", "tempo": "Jusqu'au délai de la conversation ; une demande de conversation sans réponse disparaît en 30 jours", "quem": "Seuls les participants lisent le texte ; le serveur sait qui est dans chaque conversation" },
+          { "dado": "Notifications (réponses, mentions, modération)", "onde": "Base d'Alumia", "tempo": "Lues : disparaissent en 30 jours ; toutes en 120 jours", "quem": "Seulement vous" },
+          { "dado": "Appareil qui reçoit les notifications sur le téléphone (si vous les activez)", "onde": "Base d'Alumia", "tempo": "Jusqu'à ce que vous les désactiviez", "quem": "Personne ; seul l'envoi l'utilise" },
+          { "dado": "Heures de silence des notifications sur le téléphone (si vous les choisissez)", "onde": "Base de données d'Alumia", "tempo": "Jusqu'à ce que vous les changiez", "quem": "Personne ; seul l'envoi s'en sert" }
+        ]
+      },
+      {
+        "titulo": "Modération",
+        "linhas": [
+          { "dado": "Signalement que vous avez fait (cible, catégorie, texte, protocole)", "onde": "Base d'Alumia", "tempo": "Jusqu'à la clôture du signalement et la fin du délai de recours", "quem": "La médiation voit le signalement ; votre compte, seulement vous" },
+          { "dado": "Registre de modération (action, règle, motif, qui a décidé, quand)", "onde": "Base d'Alumia, en ajout seul", "tempo": "Ne s'efface pas ; la durée de conservation est en relecture juridique", "quem": "La médiation ; la règle et le motif, à la personne modérée (sans dire qui a décidé)" },
+          { "dado": "Demande de révision (recours) et la décision", "onde": "Base d'Alumia", "tempo": "Avec le registre", "quem": "La médiation ; la décision, à qui l'a demandée" },
+          { "dado": "Retenue par précaution (signalement de mineur)", "onde": "Base d'Alumia", "tempo": "Jusqu'à la décision de la médiation ; ensuite, avec le registre", "quem": "La médiation et la coordination ; la personne retenue voit sa situation" }
+        ]
+      },
+      {
+        "titulo": "Sécurité",
+        "linhas": [
+          { "dado": "Adresse réseau (IP)", "onde": "Pas gardée", "tempo": "—", "quem": "—" },
+          { "dado": "Liens des posts vérifiés par Google Safe Browsing", "onde": "Non conservé : le serveur vérifie sur le moment et Google ne reçoit que le début d'une empreinte de chaque lien", "tempo": "—", "quem": "—" },
+          { "dado": "Empreinte brouillée du réseau d'où vient le compte", "onde": "Base d'Alumia", "tempo": "30 jours sans usage", "quem": "Personne ne la lit ; le système compare seulement, pour arrêter qui a été banni" },
+          { "dado": "Compteurs d'usage par compte (pour freiner les abus)", "onde": "Base de l'Institut", "tempo": "2 jours", "quem": "Personne ; le système compte seulement" },
+          { "dado": "Registre de certaines actions du compte (entrer dans le réseau, demander l'entrée, accepter les conditions, télécharger les données, décisions de modération)", "onde": "Base de l'Institut", "tempo": "Jusqu'à 400 jours", "quem": "Seulement la coordination" },
+          { "dado": "Nombre de comptes et de demandes nouveaux par réseau (une empreinte qui change toutes les heures, sans l'adresse)", "onde": "Base de données d'Alumia", "tempo": "1 jour", "quem": "Personne ; le système ne fait que compter, pour freiner les inscriptions en masse" }
+        ]
+      }
+    ],
+    "nota": "Supprimer le compte efface ce qui est à vous, sauf le registre de modération, qui prouve que la procédure a été suivie. Pour télécharger une copie ou supprimer, allez dans [Mes données](/alumia/meus-dados)."
+  },
+  "regras": {
+    "titulo": "Règles d'Alumia",
+    "chamada": "Les règles de la maison, ce que la médiation peut faire, en combien de temps elle répond et comment demander la révision d'une décision. Chaque communauté peut avoir des règles en plus ; aucune ne peut en avoir moins.",
+    "lista": [
+      { "titulo": "Respect des personnes", "texto": "Pas de racisme, sexisme, LGBTphobie, validisme, xénophobie, intolérance religieuse ni d'apologie du nazisme et du fascisme. Le désaccord d'idées est bienvenu ; l'attaque contre les personnes, non." },
+      { "titulo": "Personne exposé", "texto": "Ne publiez pas le nom complet, l'adresse, le téléphone, les papiers, le lieu de travail, la plaque d'immatriculation ou le visage d'une autre personne sans qu'elle le veuille. Photo d'action : floutez qui n'a pas demandé à apparaître." },
+      { "titulo": "Rien d'inventé", "texto": "Quand vous affirmez un fait, dites d'où il vient. Une fausse nouvelle reçoit la note de vérification." },
+      { "titulo": "Ni commerce ni arnaque", "texto": "Pas de publicité commerciale, de chaîne, de pyramide, de pari ni de demande d'argent hors des cagnottes d'organisations à badge." },
+      { "titulo": "Rien que la loi interdit", "texto": "Menace, calomnie, incitation à la violence contre des personnes, abus sexuel d'enfant, vente d'objets interdits et tout autre crime." },
+      { "titulo": "Une personne, un compte, 18 ans ou plus", "texto": "Ne vous faites pas passer pour une autre personne ni pour une organisation. Robots seulement avec l'étiquette de compte automatique." },
+      { "titulo": "Pas d'attaque concertée", "texto": "Ne rassemblez pas des gens pour inonder quelqu'un de réponses, de faux signalements ou de mentions. Signaler de mauvaise foi, c'est aussi enfreindre les règles." }
+    ],
+    "escadaTitulo": "Ce que la médiation peut faire",
+    "escada": [
+      "Laisser un avertissement",
+      "Retenir une publication pour lecture",
+      "Retirer une publication",
+      "Verrouiller une conversation",
+      "Bannir d'une communauté",
+      "Suspendre le compte pour une durée",
+      "Bannir le compte"
+    ],
+    "escadaNota": "Toute décision cite la règle et le motif, et la personne modérée reçoit une notification. Aucun compte n'est suspendu par une évaluation de machine. La seule retenue qui a lieu avant qu'une personne lise est celle du signalement de mineur (ci-dessous).",
+    "prazosTitulo": "En combien de temps la médiation répond",
+    "prazos": [
+      { "rotulo": "Contenu illégal, mineur, menace, exposition de données, incitation à la violence, automutilation", "categorias": ["ilegal", "menores", "ameaca", "exposicao", "violencia", "autolesao"] },
+      { "rotulo": "Haine, harcèlement, arnaque", "categorias": ["odio", "assedio", "golpe"] },
+      { "rotulo": "Spam et le reste", "categorias": ["spam", "outro"] }
+    ],
+    "prazoRecurso": "Demande de révision",
+    "recursoTitulo": "Le chemin du recours",
+    "recurso": [
+      { "titulo": "La notification", "texto": "Vous recevez la règle et le motif de la décision, et si c'était une personne ou une retenue automatique. Jamais le nom de qui a décidé." },
+      { "titulo": "La demande", "texto": "Sous {janela} jours, vous expliquez pourquoi la décision est fausse. Publication : dans [Signalements et recours](/alumia/denuncias). Compte suspendu ou retenu : ci-dessous, même sans pouvoir entrer dans Alumia." },
+      { "titulo": "Une autre personne décide", "texto": "Qui a pris la décision ne revoit jamais son propre dossier. Une suspension décidée par la coordination ne peut être annulée que par la coordination ou la vice-coordination." },
+      { "titulo": "La réponse", "texto": "Sous {prazo} jours. Si elle est renversée, la décision est annulée : la publication revient, le compte revient, et le cas cesse de compter contre votre niveau de confiance." }
+    ],
+    "menoresTitulo": "Mineurs",
+    "menores": [
+      "Alumia est réservé aux plus de 18 ans. Nous ne demandons ni pièce d'identité ni photo du visage : l'âge est déclaré dans la demande d'entrée, et le tri, fait par des gens de la maison, lit la demande et peut discuter avant d'approuver.",
+      "Si quelqu'un signale qu'un compte peut appartenir à un mineur, le compte est **retenu par précaution** jusqu'à ce que la médiation lise, sous {horas} heures. La personne retenue reçoit une notification et peut écrire à la médiation sur cette page. Une fois le signalement lu, la médiation libère le compte ou le garde suspendu, avec le recours habituel.",
+      "Pour que le signalement ne devienne pas une arme : seules les personnes d'Alumia retiennent un compte ainsi, chacune en retient au plus deux par mois, et qui la médiation a déjà libéré n'est pas retenu à nouveau pendant les 90 jours suivants. Le signalement passe toujours en tête de file."
+    ],
+    "ilegal": {
+      "titulo": "Signaler un contenu illégal",
+      "texto": "Un crime dans une publication, un profil ou une communauté d'Alumia. Le signalement passe en tête de file, avec un protocole et une réponse sous {horas} heures. La médiation ne voit pas qui a signalé, et la personne signalée n'est pas prévenue non plus.",
+      "alvo": "Adresse de la publication, @ du profil ou nom de la communauté",
+      "alvoAjuda": "Collez l'adresse de la publication (elle finit par le numéro de la publication), l'@ de la personne ou l'adresse de la communauté.",
+      "descricao": "Ce qui est illégal",
+      "descricaoAjuda": "Dites ce qui ne va pas et, si vous le savez, quelle loi. N'écrivez les données personnelles de personne.",
+      "enviar": "Envoyer le signalement",
+      "pronto": "Signalement reçu. Protocole {protocolo}. La médiation répond d'ici {quando}. Vous le suivez dans [Signalements et recours](/alumia/denuncias).",
+      "ja": "Vous aviez déjà signalé cela. Protocole {protocolo}.",
+      "alvoInvalido": "Nous ne reconnaissons pas cette adresse. Collez l'adresse de la publication, l'@ du profil ou l'adresse de la communauté.",
+      "naoEncontrado": "Nous ne l'avons pas trouvé, ou vous ne pouvez pas le voir.",
+      "semConta": "Pour signaler ici, connectez-vous à Alumia. Sans compte, utilisez la page [Signaler](/denunciar) du site.",
+      "proprio": "C'est à vous. Pour le retirer, supprimez-le."
+    },
+    "revisao": {
+      "titulo": "Demander la révision de mon compte",
+      "texto": "Pour qui a eu son compte suspendu ou retenu. Ça marche même si Alumia ne s'ouvre pas pour vous.",
+      "semConta": "Connectez-vous avec votre compte pour voir les décisions le concernant.",
+      "entrar": "Se connecter",
+      "nada": "Aucune décision sur votre compte ces 180 derniers jours.",
+      "retida": "Votre compte est retenu par précaution depuis le {desde}. La médiation le lit d'ici le {ate}.",
+      "suspensa": "Votre compte est suspendu.",
+      "acoes": {
+        "reter": "Compte retenu par précaution",
+        "suspender": "Compte suspendu"
+      },
+      "automatica": "retenue automatique, avant qu'une personne lise",
+      "pessoa": "décision d'une personne de la médiation",
+      "regra": "Règle : {regra}",
+      "regras": { "precaucao_menor": "signalement indiquant que le compte appartient à une personne de moins de 18 ans (rétention par précaution)", "menor_de_18": "Alumia est réservée aux personnes de 18 ans ou plus", "precaucao": "rétention par précaution jusqu'à la lecture du signalement" },
+      "motivo": "Motif : {motivo}",
+      "prazo": "Vous pouvez demander une révision jusqu'au {quando}",
+      "situacoes": {
+        "aberto": "Demande envoyée. Réponse d'ici le {quando}.",
+        "mantido": "Revu par une autre personne : décision maintenue.",
+        "revertido": "Revu par une autre personne : décision annulée."
+      },
+      "vencido": "Le délai pour demander une révision est passé.",
+      "pedir": "Demander une révision",
+      "campo": "Pourquoi la décision est fausse",
+      "campoAjuda": "De 10 à 2 000 caractères. Une autre personne de la médiation va lire.",
+      "pronto": "Demande envoyée. Une autre personne de la médiation répond d'ici le {quando}.",
+      "erros": {
+        "prazo_vencido": "Le délai de 30 jours pour cette décision est passé.",
+        "recurso_ja_feito": "Vous avez déjà demandé la révision de cette décision.",
+        "invalido:texto": "Écrivez de 10 à 2 000 caractères.",
+        "muitos_pedidos": "Trop de demandes d'affilée. Attendez un peu."
+      }
+    }
+  },
+  "ajuda": {
+    "titulo": "Aide d'Alumia",
+    "chamada": "Les questions qui reviennent le plus. Vous n'avez pas trouvé la vôtre ? Écrivez à la coordination.",
+    "grupos": [
+      {
+        "titulo": "Entrer",
+        "perguntas": [
+          { "p": "Comment entrer dans Alumia ?", "r": "Créez un compte avec e-mail et mot de passe sur l'écran d'entrée, confirmez l'e-mail et faites la demande d'entrée : pseudonyme, pourquoi vous voulez entrer, l'âge et l'acceptation des règles. Une personne du tri lit la demande. Une fois approuvée, vous enregistrez l'application d'authentification et vous entrez." },
+          { "p": "Pourquoi demander un e-mail et pas un téléphone ?", "r": "L'e-mail sert à se connecter, récupérer le mot de passe et recevoir les alertes de sécurité du compte. Le téléphone lie le compte à votre carte SIM et à votre nom chez l'opérateur : c'est pourquoi Alumia ne le demande jamais. L'e-mail n'apparaît pour personne sur Alumia." },
+          { "p": "Ma demande a été refusée. Et maintenant ?", "r": "L'écran montre le motif. Après 30 jours vous pouvez redemander, en expliquant mieux pourquoi vous voulez entrer." },
+          { "p": "J'ai oublié mon mot de passe.", "r": "Sur l'écran d'entrée, utilisez « Mot de passe oublié » : un lien arrive dans votre e-mail. Après le changement, le code de l'authentificateur reste demandé." }
+        ]
+      },
+      {
+        "titulo": "Second facteur",
+        "perguntas": [
+          { "p": "Qu'est-ce que le second facteur ?", "r": "Un code à six chiffres qui change toutes les 30 secondes, généré par une application d'authentification sur votre téléphone. Sans lui, qui découvre votre mot de passe n'entre pas. Sur Alumia il est obligatoire pour tout le monde." },
+          { "p": "Comment enregistrer l'application ?", "r": "Installez une application d'authentification (de préférence libre). Sur Alumia, après l'approbation, un QR apparaît : pointez l'application vers lui et tapez le code affiché. C'est fait." },
+          { "p": "Que sont les codes de récupération ?", "r": "Des codes à usage unique pour entrer quand le téléphone de l'authentificateur est perdu. Gardez-les sur papier ou dans un gestionnaire de mots de passe, loin du téléphone. Chaque code vaut une fois." },
+          { "p": "J'ai perdu mon téléphone et je n'ai pas les codes.", "r": "Écrivez à la coordination par le contact ci-dessous, depuis l'e-mail du compte. Elle vérifie que le compte est à vous, retire l'ancien authentificateur et vous en enregistrez un nouveau." }
+        ]
+      },
+      {
+        "titulo": "Comment j'apparais",
+        "perguntas": [
+          { "p": "Quelle différence entre pseudonyme et profil public ?", "r": "Par défaut vous apparaissez avec un pseudonyme et une photo inventée, sans rien qui relie le compte à votre vie en dehors. Si vous voulez, dans Modifier le profil, vous choisissez d'apparaître avec votre vrai nom et votre vraie photo. Vous pouvez revenir au pseudonyme quand vous voulez." },
+          { "p": "Qui voit ce que je publie ?", "r": "Qui vous choisissez dans le public de chaque publication : abonnés, membres d'Alumia, une communauté, un noyau ou internet. Personne ne voit de liste de qui a aimé ou vu." },
+          { "p": "Comment le fil est-il construit ?", "r": "Par une règle ouverte, la même pour tous, écrite dans [Comment le fil est construit](/alumia/como-a-linha). Vous pouvez passer à l'ordre d'arrivée." }
+        ]
+      },
+      {
+        "titulo": "Signaler et faire recours",
+        "perguntas": [
+          { "p": "Comment signaler une publication ou une personne ?", "r": "Dans le menu de la publication ou du profil, choisissez Signaler et la catégorie. Vous recevez un protocole et le suivez dans [Signalements et recours](/alumia/denuncias). Ni la médiation ni la personne signalée ne savent que c'était vous." },
+          { "p": "Et le contenu illégal ?", "r": "Utilisez le [canal de contenu illégal](/alumia/regras#ilegal) : il passe en tête de file, avec une réponse sous 24 heures." },
+          { "p": "Une de mes publications a été retirée (ou mon compte suspendu). Comment demander une révision ?", "r": "Sous 30 jours. Publication : dans [Signalements et recours](/alumia/denuncias). Compte : dans [Règles](/alumia/regras#revisao), même si Alumia ne s'ouvre pas pour vous. Une autre personne de la médiation répond sous 7 jours." }
+        ]
+      },
+      {
+        "titulo": "Partir et effacer",
+        "perguntas": [
+          { "p": "Que fait la Sortie rapide ?", "r": "Elle efface ce qu'Alumia a gardé sur cet appareil et ouvre une page ordinaire extérieure (la météo), sans rien de l'Institut. Elle est dans le menu de votre compte et dans Plus." },
+          { "p": "Comment télécharger mes données ?", "r": "Dans [Mes données](/alumia/meus-dados). La copie contient ce qui est à vous, sans données d'autres personnes." },
+          { "p": "Comment supprimer mon compte ?", "r": "Dans [Mes données](/alumia/meus-dados). Supprimer emporte le profil, les publications et le reste de ce qui est à vous. Le registre de modération, s'il existe, reste pour sa durée." }
+        ]
+      }
+    ],
+    "mais": "Encore une question ?"
+  },
+  "reaceite": {
+    "tituloNovo": "Lisez les conditions d'Alumia",
+    "tituloMudou": "Les conditions d'Alumia ont changé",
+    "texto": "Pour continuer, lisez les [conditions d'utilisation](/alumia/termos), la [politique de confidentialité](/alumia/privacidade) et les [règles](/alumia/regras), version du {data}.",
+    "textoNaPagina": "Les conditions d'utilisation sont juste au-dessus, version du {data}. Lisez aussi la [politique de confidentialité](/alumia/privacidade) et les [règles](/alumia/regras).",
+    "mudou": "Ce qui a changé : {mudou}",
+    "caixa": "J'ai lu et j'accepte les conditions d'utilisation, la politique de confidentialité et les règles d'Alumia.",
+    "aceitar": "Accepter et continuer",
+    "aceito": "Vous avez accepté cette version le {quando}.",
+    "naoQuer": "Pas d'accord ? Vous pouvez télécharger vos données et supprimer le compte dans [Mes données](/alumia/meus-dados)."
+  },
+  "painel": {
+    "titulo": "Loi et délais",
+    "chamada": "Ce qui a un délai dans la modération d'Alumia. En retard en rouge.",
+    "contadores": {
+      "ilegais": "Contenu illégal ouvert",
+      "ilegaisVencendo": "échéance dans 6 h",
+      "ilegaisVencidas": "en retard",
+      "denunciasVencidas": "Signalements hors délai",
+      "retidas": "Comptes retenus (mineur)",
+      "retidasVencidas": "en retard",
+      "recursos": "Recours ouverts",
+      "recursosVencidos": "en retard"
+    },
+    "ilegaisTitulo": "Contenu illégal",
+    "retidasTitulo": "Comptes retenus par précaution",
+    "recursosTitulo": "Demandes de révision",
+    "vazio": "Rien ici.",
+    "ate": "Répondre d'ici le {quando}",
+    "venceu": "En retard depuis le {quando}",
+    "abrirFila": "Ouvrir dans la file",
+    "protocolo": "Protocole {protocolo}",
+    "denunciou": "Vous avez fait ce signalement : une autre personne décide.",
+    "minha": "La décision était la vôtre : une autre personne la revoit.",
+    "liberar": "Libérer le compte",
+    "manter": "Garder suspendu",
+    "motivo": "Motif (10 caractères ou plus)",
+    "manterRecurso": "Maintenir la décision",
+    "reverter": "Annuler la décision",
+    "semPermissao": "Seule la médiation voit ce panneau.",
+    "feito": "Fait.",
+    "erros": {
+      "outra_pessoa": "Une autre personne de la médiation doit décider.",
+      "so_coordenacao": "C'est la coordination qui a décidé : seule la coordination ou la vice-coordination peut annuler.",
+      "invalido:motivo": "Écrivez le motif, avec 10 caractères ou plus."
+    }
+  },
+  "ajustes": {
+    "titulo": "Conditions et confidentialité",
+    "texto": "Version en vigueur : {data}.",
+    "aceita": "Vous avez accepté le {quando}.",
+    "pendente": "Vous n'avez pas encore accepté cette version.",
+    "lerEAceitar": "Lire et accepter"
+  }
+}

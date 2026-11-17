@@ -1,0 +1,183 @@
+{
+  "titulo": "Modo ato",
+  "chamada": "Para o dia da rua: a tela fica mais simples, os números somem, foto com gente pede revisão antes de sair, e o pânico, o “Estou bem” e o guia sem sinal ficam à mão.",
+  "carregando": "Carregando o modo ato…",
+  "menu": "Modo ato",
+  "chave": {
+    "rotulo": "Neste aparelho",
+    "titulo": "Modo ato",
+    "ligado": "Ligado desde {hora}",
+    "desligado": "Desligado",
+    "ligar": "Ligar o modo ato",
+    "desligar": "Desligar",
+    "itens": [
+      "Sem números de curtidas, respostas e seguidores na tela",
+      "Antes de publicar foto: aviso para conferir e borrar rostos",
+      "Placa de carro, CPF, telefone e endereço no texto: aviso antes de sair",
+      "As fotos saem sem os dados escondidos do arquivo: lugar, aparelho e hora"
+    ],
+    "soAqui": "Fica só neste aparelho e ninguém fica sabendo que você ligou."
+  },
+  "estouBem": {
+    "rotulo": "Depois do ato",
+    "titulo": "Estou bem",
+    "texto": "Um toque avisa os seus contatos de segurança que você está bem. Vai só para quem você escolheu e aceitou, não leva lugar nenhum e some em 24 horas.",
+    "botao": "Avisar que estou bem",
+    "enviando": "Avisando…",
+    "feito": "Pronto: {n} contatos receberam. O recado some em 24 horas.",
+    "feitoUm": "Pronto: 1 contato recebeu. O recado some em 24 horas.",
+    "semContatos": "Para avisar, escolha um contato de segurança aqui embaixo e espere o aceite."
+  },
+  "contatos": {
+    "rotulo": "Quem recebe",
+    "titulo": "Contatos de segurança",
+    "texto": "Até 10 pessoas de confiança. Cada uma aceita antes de receber qualquer recado seu, e só você vê esta lista.",
+    "campo": "@ da pessoa",
+    "pedir": "Pedir",
+    "pedido": "Pedido enviado. A pessoa responde no Modo ato dela.",
+    "aguardando": "Esperando aceite",
+    "aceito": "Aceitou",
+    "tirar": "Tirar",
+    "vazio": "Nenhum contato ainda.",
+    "pedidosTitulo": "Pediram você como contato",
+    "aceitar": "Aceitar",
+    "recusar": "Recusar",
+    "souTitulo": "Você recebe os recados de",
+    "sair": "Deixar de receber",
+    "limite": "Você já tem 10 contatos. Tire um para pedir outro.",
+    "naoEncontrado": "Não achamos esse @, ou não dá para pedir a essa conta."
+  },
+  "recados": {
+    "rotulo": "Chegou para você",
+    "titulo": "Recados",
+    "vazio": "Nenhum recado agora.",
+    "estouBem": "{nome} avisou que está bem",
+    "detido": "{nome} avisou que foi detido",
+    "viaOrg": "Chegou pela assessoria jurídica de {org}.",
+    "quando": "Às {hora} · some {quando}",
+    "apagar": "Tirar",
+    "oQueFazer": "O que fazer agora",
+    "passos": [
+      "Ligue para o plantão jurídico da organização ou para a Defensoria Pública da cidade.",
+      "Descubra para qual delegacia a pessoa foi levada. Leve um documento dela, se tiver.",
+      "Avise a família ou quem ela costuma indicar.",
+      "Não espalhe o nome dela em público sem ela ou a família concordarem."
+    ]
+  },
+  "detido": {
+    "rotulo": "Se levarem você",
+    "titulo": "Fui detido",
+    "texto": "Manda um recado pronto aos seus contatos de segurança e, se você escolher, à assessoria jurídica de uma organização. Sem localização e sem texto livre: ninguém lê nada além de “fui detido”.",
+    "org": "Assessoria jurídica",
+    "semOrg": "Só os meus contatos",
+    "botao": "Avisar que fui detido",
+    "confirmar": "Mandar o recado agora?",
+    "sim": "Sim, mandar",
+    "nao": "Cancelar",
+    "enviando": "Mandando…",
+    "feito": "Pronto: {n} pessoas receberam.",
+    "feitoUm": "Pronto: 1 pessoa recebeu.",
+    "feitoOrg": "A assessoria jurídica também recebeu.",
+    "panico": "Se precisar, use também o pânico logo acima: ele tira a sua conta de todos os aparelhos.",
+    "direitosTitulo": "Seus direitos",
+    "direitos": [
+      "Diga o seu nome e mostre documento. Sobre o resto, você tem o direito de ficar em silêncio.",
+      "Peça para falar com advogado ou com a Defensoria Pública.",
+      "Peça que avisem a sua família ou a pessoa que você indicar.",
+      "Pergunte o nome de quem prendeu você e para qual delegacia vai.",
+      "Não assine nada sem ler, e de preferência sem o advogado ao lado.",
+      "Em até 24 horas você deve ser levado a um juiz, na audiência de custódia. Conte lá se houve violência."
+    ],
+    "semContatos": "Para mandar, escolha um contato de segurança (e espere o aceite) ou uma assessoria jurídica."
+  },
+  "assessoria": {
+    "rotulo": "Para organizações",
+    "titulo": "Plantão jurídico",
+    "texto": "Quem gere uma organização com selo publica aqui o plantão jurídico dela: quem atende e como chamar. Quem for detido e escolher a organização avisa quem gere a conta dela.",
+    "campo": "Texto do plantão de {org}",
+    "ajuda": "De 10 a 400 letras. Deixe vazio para tirar.",
+    "guardar": "Guardar",
+    "guardado": "Guardado.",
+    "invalido": "Escreva de 10 a 400 letras, sem < nem >."
+  },
+  "semSinal": {
+    "titulo": "Sem sinal?",
+    "texto": "O guia para quando a internet cai. Abra uma vez agora: depois ele abre neste aparelho mesmo sem internet.",
+    "abrir": "Abrir o guia"
+  },
+  "barra": {
+    "titulo": "Modo ato ligado",
+    "desde": "desde {hora}",
+    "panico": "Pânico: sair de tudo",
+    "estouBem": "Estou bem",
+    "abrir": "Abrir o modo ato"
+  },
+  "anexo": {
+    "texto": "Voltou do ato?",
+    "botao": "Avisar que estou bem"
+  },
+  "verificar": {
+    "cpf": "O texto tem um CPF ({trecho}). Tire antes de publicar.",
+    "telefone": "O texto tem um telefone ({trecho}). Tire antes de publicar.",
+    "email": "O texto tem um e-mail ({trecho}). Tire antes de publicar.",
+    "endereco": "O texto tem um endereço com número ({trecho}). Tire antes de publicar.",
+    "placa": "Parece ter uma placa de carro no texto ({trecho}). Placa leva até uma pessoa. Toque em publicar de novo para mandar assim mesmo.",
+    "fixo": "Parece ter um telefone no texto ({trecho}). Toque em publicar de novo para mandar assim mesmo.",
+    "foto": "Modo ato: confira se aparece o rosto de alguém e borre antes de publicar. Toque em publicar de novo para mandar assim mesmo."
+  },
+  "erros": {
+    "falha": "Não deu certo agora. Tente de novo.",
+    "semServico": "A Alumia está sem conexão com o banco agora.",
+    "desligado": "Esta parte está desligada pela coordenação.",
+    "muitos": "Muitas tentativas seguidas. Espere um minuto.",
+    "tentar": "Tentar de novo"
+  },
+  "guia": {
+    "titulo": "Sem sinal?",
+    "chamada": "O que fazer quando a internet cai no meio do ato. Este guia fica guardado neste aparelho depois da primeira visita.",
+    "secoes": [
+      {
+        "titulo": "Antes de sair",
+        "itens": [
+          "Abra este guia uma vez com internet: ele passa a abrir sem rede.",
+          "Combine com o seu grupo um ponto de encontro e um horário, para o caso de se perderem.",
+          "Anote num papel dois telefones de confiança e o do plantão jurídico.",
+          "Saia com a bateria cheia e, se puder, com um carregador portátil."
+        ]
+      },
+      {
+        "titulo": "Quando a internet cai",
+        "itens": [
+          "Ligação e SMS às vezes passam mesmo quando a internet não passa. Mensagem curta passa melhor.",
+          "Com muita gente junta a rede congestiona: um lugar mais alto ou mais aberto ajuda.",
+          "Quando der, mande um recado curto de cada vez, em vez de várias tentativas seguidas."
+        ]
+      },
+      {
+        "titulo": "Modo avião",
+        "itens": [
+          "Sem sinal, o celular gasta muita bateria procurando rede. O modo avião para essa busca.",
+          "Com o modo avião ligado, o celular não fala com as antenas da operadora: não recebe ligação e também não se registra nelas.",
+          "Dá para ligar o Wi-Fi ou o Bluetooth com o modo avião ligado.",
+          "Desligue o modo avião só para ligar ou mandar recado, e ligue de novo depois."
+        ]
+      },
+      {
+        "titulo": "Celular com celular",
+        "itens": [
+          "Existem aplicativos que trocam mensagens de um celular para o outro por Bluetooth, sem internet (as redes em malha).",
+          "Eles não fazem parte da Alumia. Se o seu grupo for usar um, instalem e testem juntos antes do ato."
+        ]
+      },
+      {
+        "titulo": "Quando a rede voltar",
+        "itens": [
+          "Avise que está bem pelo Modo ato: vai só para os seus contatos de segurança.",
+          "Se alguém do grupo não apareceu no ponto combinado, procure o plantão jurídico."
+        ]
+      }
+    ],
+    "direitosTitulo": "Se você for detido",
+    "voltar": "Voltar ao modo ato"
+  }
+}

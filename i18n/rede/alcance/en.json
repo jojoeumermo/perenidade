@@ -1,0 +1,139 @@
+{
+  "rss": {
+    "descricaoPerfil": "Posts open to the internet by {nome} on Alumia",
+    "descricaoComunidade": "Posts open to the internet in the {nome} community on Alumia",
+    "aviso": "Content warning: {aviso}",
+    "continua": "Continues on Alumia",
+    "semTitulo": "Post by {codinome}"
+  },
+  "cartao": {
+    "aviso": "Content warning: {aviso}",
+    "mostrar": "show",
+    "abrir": "Read on Alumia",
+    "rodape": "on Alumia, the network of Instituto Lúcia"
+  },
+  "acao": {
+    "botao": "Take it outside"
+  },
+  "folha": {
+    "titulo": "Take it outside",
+    "intro": "Everything here is made on your device: the image and the QR code do not go through any outside service.",
+    "fechar": "Close",
+    "link": "Link",
+    "copiar": "Copy the link",
+    "copiado": "Copied.",
+    "naoCopiou": "Could not copy. Select the text and copy it by hand."
+  },
+  "arte": {
+    "titulo": "Art to share (image)",
+    "ajuda": "An image of the post to send to a group or post on another network.",
+    "fundo": "Background",
+    "noite": "Night",
+    "creme": "Cream",
+    "formato": "Format",
+    "retrato": "Portrait 4:5",
+    "quadrado": "Square",
+    "comQr": "Add the link's QR code to the image",
+    "baixar": "Download the image",
+    "fazendo": "Making the image…",
+    "falhou": "Could not make the image on this device.",
+    "alt": "Image of the post by {codinome}",
+    "marca": "Alumia",
+    "chamada": "Read it on Alumia"
+  },
+  "qr": {
+    "tituloAto": "QR code of the action",
+    "tituloPost": "QR code of the post",
+    "tituloPerfil": "QR code of the profile",
+    "tituloComunidade": "QR code of the community",
+    "ajuda": "On a banner, a poster or a screen: whoever points a camera at it opens the page.",
+    "baixar": "Download the QR code",
+    "fazendo": "Making the QR code…",
+    "falhou": "Could not make the QR code on this device.",
+    "alt": "QR code of {nome}"
+  },
+  "embed": {
+    "titulo": "Paste on another site",
+    "ajuda": "A text-only frame, with nothing that runs on the other site: it shows the post and the button to read it on Alumia. If the post stops being open to the internet, the frame stops showing it.",
+    "rotulo": "Code to paste",
+    "copiar": "Copy the code",
+    "conferindo": "Checking whether the post can go out…",
+    "indisponivel": "This post does not go out to other sites. Only top-level posts open to the internet, from a profile or an open community, go out.",
+    "previa": "How it looks",
+    "carregando": "Loading the preview…",
+    "tituloDoQuadro": "Post by {codinome} on Alumia"
+  },
+  "comunidade": {
+    "aba": "Share",
+    "titulo": "Take the community outside",
+    "rss": "RSS",
+    "rssAjuda": "This community's posts open to the internet, in any RSS reader, with no account.",
+    "rssAbrir": "Open the RSS address",
+    "rssIndisponivel": "This community has no RSS: only open communities, and only with posts open to the internet.",
+    "conferindo": "Checking…"
+  },
+  "listas": {
+    "rotulo": "Take and bring",
+    "titulo": "Who I follow",
+    "intro": "The list is yours alone: nobody else sees who you follow. Download it to take to another Fediverse network, or bring it from there.",
+    "carregando": "Loading your list…",
+    "entrar": "Log in to take and bring the list of who you follow.",
+    "exportar": {
+      "titulo": "Take",
+      "ajuda": "The file works on other Fediverse networks, such as Mastodon.",
+      "daqui": "{n} profiles from here",
+      "daqui1": "1 profile from here",
+      "fora": "{n} from other Fediverse networks",
+      "fora1": "1 from another Fediverse network",
+      "baixar": "Download the list",
+      "vazia": "You do not follow anyone yet."
+    },
+    "importar": {
+      "titulo": "Bring",
+      "ajuda": "Choose the file the other network gave you, or paste the addresses as @name@server, one per line. You check before following.",
+      "arquivo": "Choose the file",
+      "colar": "Or paste the addresses",
+      "exemplo": "@name@server.example",
+      "conferir": "Check the list",
+      "resumo": "{daqui} from here · {fora} from other Fediverse networks",
+      "ignoradas": "Lines that were not addresses and were left out: {n}.",
+      "demais": "The first {n} go in this time. Bring the rest afterwards.",
+      "vazio": "No address in the @name@server format.",
+      "seguirTodos": "Follow all",
+      "andamento": "Following {feitos} of {total}",
+      "parar": "Stop",
+      "parado": "Stopped. What was done stays.",
+      "pronto": "Done.",
+      "grande": "File too large (up to 1 MB)."
+    },
+    "situacoes": {
+      "esperando": "queued",
+      "seguindo": "following",
+      "pedido": "request sent",
+      "naoAchado": "not found",
+      "bloqueada": "instance blocked",
+      "fediverso": "turn on the Fediverse first",
+      "limite": "daily limit: try tomorrow",
+      "erro": "did not work now"
+    },
+    "fediverso": {
+      "aviso": "To follow someone from another instance, turn on the Fediverse in your profile.",
+      "link": "Turn on the Fediverse"
+    },
+    "perfil": {
+      "titulo": "Your profile outside",
+      "rss": "Profile RSS",
+      "rssOrg": "This organization's posts open to the internet, in any RSS reader.",
+      "rssPessoa": "Profile RSS is only for organizations with a seal. Your posts open to the internet go out through the RSS of the open communities where you write."
+    }
+  },
+  "ajustes": {
+    "titulo": "Take and bring",
+    "texto": "Download the list of who you follow, bring one from another instance and get your profile's QR code.",
+    "abrir": "Open"
+  },
+  "erros": {
+    "entre_primeiro": "Log in first.",
+    "generico": "It did not work now. Try again in a moment."
+  }
+}

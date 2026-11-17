@@ -4,6 +4,7 @@ import { defaultLocale, locales } from "@/i18n/config";
 import { type EstadoDaInterdicao, fechado, lerEstado, semIdioma, semInterdicao } from "@/lib/interdicao";
 import { caminhoDoSiteParaEscola, ESCOLA_URL, escolaComEndereco, hostDaEscola, rotaNaEscola, siteVistoDaEscola } from "@/lib/escola/endereco";
 import { caminhoDoSiteParaAlumia, hostDaAlumia, rotaNaAlumia } from "@/lib/rede/alumia";
+import { arquivoNoChat, CHAT_ONION, caminhoDoSiteParaOChat, hashesDosScripts, hostDoChat, novoNonce, politicaDoChat, rotaNoChat } from "@/lib/rede/chat/origem";
 import { destinoDireto, destinoNovo, pedidoAntigo } from "@/lib/rede/antigos";
 import { caminhoNovoDaAlumia } from "@/lib/rede/rota-alumia";
 import { ligado } from "@/lib/recursos";
@@ -126,6 +127,15 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     note(request, event);
     return new NextResponse(null, { status: 404, headers: { "Cache-Control": "public, max-age=3600", "X-Robots-Tag": "noindex" } });
   }
+  // O endereço do chat (conversas.* e o .onion, lib/rede/chat/origem.ts): lá só responde o que o chat usa. Pelo .onion o pedido
+  // chega sem passar pela Cloudflare, e a API inteira, os dados abertos (.json, .xml) e o .well-known ficam de fora (404).
+  const hostDoPedido = (request.headers.get("host") ?? "").toLowerCase();
+  const noChat = hostDoChat(hostDoPedido);
+  if (noChat) {
+    const arquivo = arquivoNoChat(pathname);
+    if (arquivo === "barrar") return new NextResponse(null, { status: 404, headers: { "Cache-Control": "no-store", "X-Robots-Tag": "noindex" } });
+    if (arquivo === "seguir") return;
+  }
   const estado = await interdicao();
   // Os serviços do próprio site (dicionário, frases, checagens…) também param quando o site inteiro sai do ar.
   if (pathname.startsWith("/api/")) {
@@ -137,8 +147,8 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   // Na VPS, o Cloudflare entrega os pedidos de escola.institutolucia.org com o host do instituto (regra de origem, para a
   // Caddy servir os dois) e conta o host pedido de verdade em x-lucia-host. A regra de transformação do Cloudflare
   // ESCREVE esse cabeçalho em todo pedido (sobrescreve o que vier de fora), e a VPS só aceita o Cloudflare: não se forja.
-  const hostDoPedido = (request.headers.get("host") ?? "").toLowerCase();
-  const hostMarcado = (request.headers.get("x-lucia-host") ?? "").toLowerCase();
+  // No endereço do chat a marca não vale: pelo .onion ninguém da Cloudflare a escreveu, quem pede escolhe.
+  const hostMarcado = noChat ? "" : (request.headers.get("x-lucia-host") ?? "").toLowerCase();
   const pelaMarca = hostDaEscola(hostMarcado);
   if (pelaMarca || hostDaEscola(hostDoPedido)) {
     const decisao = rotaNaEscola(pathname);
@@ -153,6 +163,40 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     const paraEscola = caminhoDoSiteParaEscola(pathname, request.nextUrl.search);
     if (paraEscola) return NextResponse.redirect(paraEscola, 307);
   }
+  // O chat privado no endereço próprio (lib/rede/chat/origem.ts): lá só abre o chat, com uma
+  // política de scripts estrita (nonce sorteado a cada pedido); fora de lá, com NEXT_PUBLIC_CHAT_URL ligada, as conversas vão
+  // para lá. Sem a variável e fora do endereço do chat, nada muda.
+  if (noChat) {
+    const decisao = rotaNoChat(pathname);
+    if (decisao.tipo === "site") return NextResponse.redirect(new URL(decisao.destino + request.nextUrl.search, dominio), 307);
+    if (decisao.tipo === "chat") {
+      const url = request.nextUrl.clone();
+      url.pathname = decisao.destino;
+      url.search = "";
+      return NextResponse.redirect(url, 307);
+    }
+    const destino = decisao.tipo === "reescrever" ? decisao.destino : pathname;
+    if (fechado(destino, estado)) return NextResponse.redirect(new URL(`/${semIdioma(destino)[0]}/fora-do-ar`, dominio), 307);
+    const nonce = novoNonce();
+    const politica = politicaDoChat(nonce, process.env.NODE_ENV === "development", await hashesDosScripts());
+    const cabecalhos = new Headers(request.headers);
+    cabecalhos.set("x-nonce", nonce);
+    cabecalhos.set("content-security-policy", politica);
+    let resposta: NextResponse;
+    if (decisao.tipo === "reescrever") {
+      const url = request.nextUrl.clone();
+      url.pathname = destino;
+      resposta = NextResponse.rewrite(url, { request: { headers: cabecalhos } });
+    } else resposta = NextResponse.next({ request: { headers: cabecalhos } });
+    resposta.headers.set("Content-Security-Policy", politica);
+    resposta.headers.set("Cache-Control", "private, no-store");
+    resposta.headers.set("X-Robots-Tag", "noindex");
+    // Fora do Tor, o Navegador Tor oferece abrir o mesmo endereço pelo serviço onion.
+    if (CHAT_ONION && !hostDoPedido.endsWith(".onion")) resposta.headers.set("Onion-Location", `http://${CHAT_ONION}${pathname}`);
+    return resposta;
+  }
+  const paraOChat = caminhoDoSiteParaOChat(pathname, request.nextUrl.search);
+  if (paraOChat) return NextResponse.redirect(paraOChat, 307);
   // Alumia: o caminho de verdade (alvo) de um pedido no host dela; fora dele, a Alumia vai para o endereço próprio.
   let alvo = pathname;
   let reescrever = false;
@@ -162,7 +206,7 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     if (decisao.tipo === "redirecionar") {
       const url = request.nextUrl.clone();
       url.pathname = decisao.destino;
-      url.search = "";
+      url.search = decisao.busca ?? "";
       return NextResponse.redirect(url, 307);
     }
     // O endereço antigo (/pt/comunidade/…) no host da Alumia: 308 para o caminho curto (/, /p/<id>), com a busca. Um endereço
@@ -177,6 +221,9 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     if (decisao.tipo === "reescrever") {
       alvo = decisao.destino;
       reescrever = true;
+      // As conversas, no endereço da Alumia, com o endereço do chat ligado: vão para lá.
+      const conversas = caminhoDoSiteParaOChat(alvo, request.nextUrl.search);
+      if (conversas) return NextResponse.redirect(conversas, 307);
       // O perfil e o post pedidos em ActivityPub vão direto ao documento da federação.
       if (alvo.startsWith("/api/")) {
         if (estado.geral) return NextResponse.json({ erro: "area_interditada" }, { status: 503, headers: { "Cache-Control": "no-store", "Retry-After": "600" } });
@@ -232,6 +279,9 @@ export const config = {
     "/((?!_next|api/|\\.well-known|.*\\..*).*)",
     // Os serviços do próprio site, só para pararem junto com o site inteiro.
     "/api/:path*",
+    // O endereço do chat inteiro (também os arquivos e o .well-known): lá o proxy decide o que responde (arquivoNoChat).
+    { source: "/:path*", has: [{ type: "host", value: "conversas\\..*" }] },
+    { source: "/:path*", has: [{ type: "host", value: ".*\\.onion" }] },
     // As iscas com cara de arquivo, fora das pastas onde o site guarda arquivos de verdade.
     "/((?!_next|pyodide|php|workers|arquivos|imagens)(?:.*\\.(?:php\\d?|phtml|asp|aspx|ashx|asmx|axd|jsp|jspx|jsf|action|do|cgi|pl|env|sql|sqlite|db|bak|old|orig|swp|ini|conf|cfg|yml|yaml|log|pem|key|p12|pfx|tar|tgz|gz|rar|7z)|\\.(?:env|git|svn|hg|aws|ssh|docker|vscode|idea|ds_store|htaccess|htpasswd).*))",
   ],

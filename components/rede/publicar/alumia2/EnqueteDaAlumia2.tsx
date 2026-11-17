@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { redePub } from "@/lib/rede/cliente-publicar";
+import { comVotoLembrado } from "@/lib/rede/voto/cliente";
 import { preencher } from "@/lib/rede/preencher";
 import { porcentagensDaEnquete } from "@/lib/rede/publicar/alumia2";
 import type { TextosDaRede } from "@/lib/rede/textos";
@@ -35,16 +36,17 @@ function daquiA(iso: string, lang: string): string {
  * aparece ("poucos votos"): com tão pouca gente, o número diria quem votou (PLANO-ALUMIA §6.1; LGPD art. 11, opinião política).
  */
 export function EnqueteDaAlumia2({ postId, inicial, t, tp, s, lang, logado }: { postId: string; inicial: EnqueteDoPost; t: TextosAlumia2; tp: TextosPublicar; s: TextosDaRede; lang: string; logado: boolean }) {
-  const [e, setE] = useState(inicial);
+  const [e, setE] = useState(() => comVotoLembrado(postId, inicial));
   const [marcadas, setMarcadas] = useState<string[]>([]);
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState("");
-  const jaVotei = e.votei.length > 0;
+  const jaVotei = e.votei.length > 0 || e.votou === true;
   const podeVotar = logado && !e.encerrada && !jaVotei;
   const votos = e.opcoes.map((o) => (o.votos === undefined ? null : o.votos));
   const total = e.total ?? null;
-  // Com menos de 3 votos, nem a porcentagem: 1 voto = 100 % diria em quem a única pessoa votou.
-  const pct = total !== null && total < 3 ? null : porcentagensDaEnquete(votos);
+  // Com menos de 3 votos, nem a porcentagem: 1 voto = 100 % diria em quem a única pessoa votou. O banco já não manda os números.
+  const poucos = e.poucos === true || (total !== null && total < 3);
+  const pct = poucos ? null : porcentagensDaEnquete(votos);
 
   async function votar() {
     if (!marcadas.length || ocupado) return;
@@ -104,8 +106,8 @@ export function EnqueteDaAlumia2({ postId, inicial, t, tp, s, lang, logado }: { 
         </button>
       )}
       <p className="mt-2 text-xs text-[var(--al-texto-3)]" role="status">
-        {total !== null && (total >= 3 ? preencher(t.enquete.votos, { n: total.toLocaleString(lang) }) : t.enquete.poucos)}
-        {total !== null && " · "}
+        {poucos ? t.enquete.poucos : total !== null && preencher(t.enquete.votos, { n: total.toLocaleString(lang) })}
+        {(poucos || total !== null) && " · "}
         {e.encerrada ? t.enquete.encerrada : preencher(t.enquete.fecha, { quando: daquiA(e.prazo, lang) })}
         {/* B1: "resultado só no fim" — nem quem votou nem quem fez vê a parcial (em assembleia, a parcial puxa o voto). */}
         {e.so_no_fim && !e.encerrada && ` · ${t.b1.resultadoNoFim}`}

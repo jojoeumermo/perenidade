@@ -1,0 +1,67 @@
+{
+  "codigo": {
+    "rotulo": "Código",
+    "copiar": "Copiar",
+    "copiado": "Copiado",
+    "naoCopiou": "No se pudo copiar. Selecciónalo y cópialo a mano."
+  },
+  "formula": {
+    "rotulo": "Fórmula"
+  },
+  "imagem": {
+    "falta": "Imagen {n} (no adjunta)"
+  },
+  "link": {
+    "fora": "abre otro sitio"
+  },
+  "barra": {
+    "rotulo": "Formato del texto",
+    "negrito": "Negrita",
+    "italico": "Cursiva",
+    "codigo": "Código en la frase",
+    "blocoDeCodigo": "Bloque de código",
+    "formula": "Fórmula",
+    "titulo": "Subtítulo",
+    "lista": "Lista",
+    "citacao": "Cita",
+    "link": "Enlace",
+    "imagem": "Poner la imagen {n} aquí",
+    "escrever": "Escribir",
+    "verComoFica": "Ver cómo queda",
+    "ajuda": "Cómo dar formato"
+  },
+  "exemplo": {
+    "negrito": "texto en negrita",
+    "italico": "texto en cursiva",
+    "codigo": "código",
+    "blocoDeCodigo": "escribe el código aquí",
+    "formula": "x^2 + y^2 = r^2",
+    "titulo": "Subtítulo",
+    "item": "primer elemento",
+    "citacao": "fragmento citado",
+    "link": "texto del enlace",
+    "imagem": "descripción de la imagen"
+  },
+  "ajuda": {
+    "titulo": "Cómo dar formato",
+    "intro": "Escribe con estos signos. Quien lee ve el texto ya formateado; lo que no sea uno de estos signos aparece tal como lo escribiste.",
+    "itens": [
+      { "escreva": "**negrita**", "vira": "negrita" },
+      { "escreva": "_cursiva_", "vira": "cursiva" },
+      { "escreva": "## Subtítulo", "vira": "un subtítulo (### para uno menor)" },
+      { "escreva": "- elemento", "vira": "lista (1. para numerada)" },
+      { "escreva": "> fragmento", "vira": "cita" },
+      { "escreva": "`código`", "vira": "código en la frase" },
+      { "escreva": "```python", "vira": "bloque de código (ciérralo con ``` en una línea sola)" },
+      { "escreva": "$$x^2$$", "vira": "fórmula en LaTeX (en líneas solas, queda destacada)" },
+      { "escreva": "[texto](https://…)", "vira": "enlace" },
+      { "escreva": "![descripción](imagem:1)", "vira": "la imagen 1 que adjuntaste, en este punto del texto" }
+    ],
+    "cifrao": "Un signo de dólar solo no es fórmula: R$ 10 sigue siendo dinero. Para escribir un signo sin formato, pon una barra antes: \\*",
+    "imagens": "Solo entran imágenes adjuntas a esta publicación (antes de guardarse, pierden la ubicación y los datos del aparato). Las imágenes de otros sitios no se cargan."
+  },
+  "previa": {
+    "titulo": "Cómo va a quedar",
+    "vazia": "Nada que mostrar todavía."
+  }
+}

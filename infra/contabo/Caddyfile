@@ -74,3 +74,6 @@ institutolucia.org, alumia.institutolucia.org, escola.institutolucia.org {
 		}
 	}
 }
+
+# Os blocos que só existem na VPS (fora do repositório). Sem nenhum arquivo, nada muda.
+import /etc/caddy/extra/*.caddy

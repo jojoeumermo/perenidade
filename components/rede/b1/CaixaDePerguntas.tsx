@@ -1,8 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useId, useState } from "react";
 import { b1 } from "@/lib/rede/cliente-b1";
+import { aoVivoLigado } from "@/lib/rede/mapa/ligado";
 import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { CaixaDePerguntas as Caixa } from "@/lib/rede/tipos-b1";
@@ -16,10 +18,15 @@ const CAIXA_DA_PREVIA: Caixa = {
   minhas: [], fila: null,
 };
 
+// O "ao vivo" da caixa (frente 13B): só chega ao navegador com "alumia-ao-vivo" ligado.
+const SessoesDaCaixa = dynamic(() => import("../aovivo/SessoesDaCaixa").then((m) => m.SessoesDaCaixa), { ssr: false });
+const AO_VIVO = aoVivoLigado();
+
 /**
  * "Pergunte a…" (Onda B, F3): a caixa de perguntas de uma pessoa (alvo.handle) ou de uma comunidade (alvo.slug). Fila por ordem
  * de chegada; anônima só para nível 1 ou mais e quando a caixa aceita; nenhuma pergunta com dado pessoal (o banco confere). Quem
  * perguntou só aparece se quis; quem respondeu pela comunidade nunca aparece. Quem cuida vê a fila, responde, recusa e ajusta.
+ * Com "alumia-ao-vivo" (onda 13, L1-17), a caixa ganha as sessões com hora marcada (components/rede/aovivo/SessoesDaCaixa.tsx).
  */
 export function CaixaDePerguntas({ alvo, nome, lang, s, situacao, aoAvisar }: { alvo: { handle?: string; slug?: string }; nome: string; lang: string; s: TextosDaRede; situacao: Situacao; aoAvisar: (texto: string, erro?: boolean) => void }) {
   const t = useTextosB1(lang);
@@ -77,6 +84,8 @@ export function CaixaDePerguntas({ alvo, nome, lang, s, situacao, aoAvisar }: { 
       <p className="b1-cinza mt-1">{p.regra}</p>
 
       {!c.aberta && !c.cuida && <p className="al3-vazio">{c.existe ? p.fechada : p.nuncaAberta}</p>}
+
+      {AO_VIVO && (situacao.logado || !!alvo.slug) && <SessoesDaCaixa alvo={alvo} lang={lang} />}
 
       {c.pode_perguntar && situacao.logado && (
         <form

@@ -7,6 +7,9 @@
 // obra derivada e segue a licença da original (CC BY-SA continua CC BY-SA, com o crédito).
 //
 // Pessoa viva só passa com "autorizacao" preenchida (Código Civil art. 20; LGPD art. 7º). Uso: npm run alumia:silhuetas
+//
+// Para acrescentar uma figura SEM refazer as que já existem (a silhueta publicada não muda nem um byte, e o crédito dela fica
+// como está): npm run alumia:silhuetas -- --so=che (ou --so=che,outra). Só as figuras pedidas são baixadas e gravadas.
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -19,6 +22,11 @@ const saida = path.join(raiz, "public/alumia/entrada");
 const temporaria = fs.mkdtempSync(path.join(os.tmpdir(), "alumia-silhuetas-"));
 const AGENTE = { "User-Agent": "perenidade-build/1.0 (roteiro de montagem do site)" };
 const LIVRE = /^(public domain|domínio público|pd|cc0|cc by(-sa)? [0-9.]+( [a-z]{2})?)$/i;
+// "--so=id,id": só essas figuras são feitas; as outras ficam com o arquivo e o crédito que já têm.
+const so = (process.argv.find((a) => a.startsWith("--so="))?.slice(5) ?? "").split(",").map((x) => x.trim()).filter(Boolean);
+const caminhoDosCreditos = path.join(raiz, "lib/rede/entrada/creditos.json");
+const creditosDeAntes = so.length && fs.existsSync(caminhoDosCreditos) ? JSON.parse(fs.readFileSync(caminhoDosCreditos, "utf8")) : [];
+for (const id of so) if (!lista.figuras.some((f) => f.id === id)) throw new Error(`${id}: não está em silhuetas.json`);
 const limpo = (html) => String(html ?? "").replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim().replace(/^(.+?) \1$/, "$1");
 
 /** fetch com paciência: o Commons responde 429 quando se pede rápido demais; espera e tenta de novo (até 4 vezes). */
@@ -39,6 +47,13 @@ for (const f of lista.figuras) {
     continue;
   }
   if (f.viva && !String(f.autorizacao ?? "").trim()) throw new Error(`${f.id}: pessoa viva sem autorização anotada; não entra`);
+  if (so.length && !so.includes(f.id)) {
+    // Figura que já existe: nada é baixado nem regravado. Sem arquivo ou sem crédito, o roteiro para (rode sem "--so").
+    const antigo = creditosDeAntes.find((c) => c.id === f.id);
+    if (!antigo || !fs.existsSync(path.join(saida, `${f.id}.webp`))) throw new Error(`${f.id}: falta a silhueta ou o crédito; rode sem --so`);
+    creditos.push(antigo);
+    continue;
+  }
   const u = `https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=640&iiextmetadatafilter=LicenseShortName|LicenseUrl|Artist&titles=${encodeURIComponent(f.arquivo)}`;
   const resposta = await buscar(u);
   if (!resposta.ok) throw new Error(`${f.id}: Commons respondeu ${resposta.status}`);
@@ -56,7 +71,17 @@ for (const f of lista.figuras) {
   fs.writeFileSync(bruto, Buffer.from(await imagem.arrayBuffer()));
   // A silhueta: retrato 3:4 com foco no rosto (attention), cinza, contraste puxado, escurecida e desfocada. Na tela ela entra
   // em "multiply" sobre o vermelho: o claro vira vermelho, o escuro vira a figura.
-  await sharp(bruto)
+  // "recorte" (opcional, em silhuetas.json): [esquerda, topo, largura], em fração da foto, para fechar no rosto quando a figura
+  // é pequena na foto (o Che, de perfil, com a boina e o fundo ocupando o alto). A altura sai da largura, no retrato 3:4.
+  let base = sharp(bruto);
+  if (Array.isArray(f.recorte)) {
+    const { width: w = 0, height: h = 0 } = await sharp(bruto).metadata();
+    const [x0, y0, lx] = f.recorte;
+    const largura = Math.round(lx * w);
+    const altura = Math.min(Math.round((largura * 4) / 3), h - Math.round(y0 * h));
+    base = sharp(bruto).extract({ left: Math.round(x0 * w), top: Math.round(y0 * h), width: largura, height: altura });
+  }
+  await base
     .resize(480, 640, { fit: "cover", position: sharp.strategy.attention })
     .grayscale()
     .normalise()
@@ -80,6 +105,8 @@ for (const f of lista.figuras) {
   console.log(`✓ ${f.id} · ${licenca}`);
   await new Promise((r) => setTimeout(r, 600));
 }
-fs.writeFileSync(path.join(raiz, "lib/rede/entrada/creditos.json"), `${JSON.stringify(creditos, null, 2)}\n`);
+// Silhueta de figura que saiu da lista não fica publicada.
+for (const arquivo of fs.readdirSync(saida)) if (/\.webp$/.test(arquivo) && !lista.figuras.some((f) => f.ligada && `${f.id}.webp` === arquivo)) fs.rmSync(path.join(saida, arquivo));
+fs.writeFileSync(caminhoDosCreditos, `${JSON.stringify(creditos, null, 2)}\n`);
 fs.rmSync(temporaria, { recursive: true, force: true });
 console.log(`${creditos.length} silhuetas em public/alumia/entrada; créditos em lib/rede/entrada/creditos.json`);

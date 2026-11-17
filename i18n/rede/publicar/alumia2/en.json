@@ -38,7 +38,7 @@
     "visitante": "Visitor",
     "entrar": "Join Alumia",
     "sairRapido": "Quick exit",
-    "sairRapidoAjuda": "Erases what Alumia stored on this device and opens an ordinary outside page (the weather forecast), with nothing from the Institute.",
+    "sairRapidoAjuda": "Signs out on this device, erases what Alumia stored here, including the keys of the private chat and of the groups, and opens an ordinary outside page (the weather forecast), with nothing from the Institute.",
     "sairDaConta": "Sign out",
     "voltarAoSite": "Back to the site",
     "cuidados": "Care",
@@ -50,7 +50,10 @@
     "acessibilidade": "Accessibility",
     "ajuda": "Frequently asked questions",
     "seguranca": "Security",
-    "verPerfil": "See your profile"
+    "verPerfil": "See your profile",
+    "aparencia": "Appearance and reading",
+    "series": "Repeating posts",
+    "temas": "Topics I follow"
   },
   "linha": {
     "titulo": "Home",
@@ -93,6 +96,7 @@
     "copiado": "Link copied.",
     "mais": "More actions",
     "doFediverso": "from the Fediverse · {servidor}",
+    "seloTitulo": "From the Fediverse: this account is on {servidor}, a server outside Alumia.",
     "orgVerificada": "Verified organization",
     "regraDoSelo": "The badge says the account belongs to who it claims to be, checked against a public document. It is not an endorsement by the Institute.",
     "aula": "Instituto Lúcia lesson",
@@ -195,7 +199,7 @@
     "fediTexto": "People on Mastodon, Lemmy and Misskey follow you and reply right here, in the same feed. Your address:",
     "fediSemNome": "Choose a @name on your profile to get your address.",
     "fediVer": "How it works",
-    "rodape": "Order of arrival · no ads · no tracking · always a codename"
+    "rodape": "Open rule · no ads · no tracking · codename by default"
   },
   "previa": {
     "aviso": "Preview with sample data. Nothing here is real and nothing is posted.",
@@ -341,5 +345,36 @@
     "texto": "This address doesn't exist on Alumia, or the post was taken down. Your timeline is right where you left it.",
     "voltar": "Back to the Alumia home",
     "buscar": "Search"
+  },
+  "visibilidade": {
+    "eu": "Only me",
+    "euAjuda": "Private: only you see it. It doesn't leave Alumia.",
+    "roda": "Close friends",
+    "rodaAjuda": "Only people in your trusted circle. Nobody is notified when added to it. It doesn't leave Alumia.",
+    "seguidores": "Followers",
+    "seguidoresAjuda": "Only people who follow you on Alumia. It doesn't leave Alumia.",
+    "membros": "Everyone on Alumia",
+    "membrosAjuda": "People with an Alumia account. It stays on Alumia only: it doesn't go to the Fediverse or anywhere else.",
+    "internet": "Alumia and the Fediverse",
+    "internetAjuda": "Anyone on the Fediverse (Mastodon, Lemmy and others) can see and share it; people who follow you get it. It leaves Alumia.",
+    "internetComunidade": "Open on the internet and the Fediverse",
+    "internetComunidadeAjuda": "Anyone, even without an account, and the Fediverse. It leaves Alumia.",
+    "comunidade": "Only the community",
+    "comunidadeAjuda": "Only members of this community. It doesn't leave Alumia.",
+    "comunidadeFechadaAjuda": "Only members of this community, and it's encrypted: not even the server can read it. It doesn't leave Alumia.",
+    "equipe": "Only the team",
+    "equipeAjuda": "Only the institute's team. It doesn't leave Alumia.",
+    "ficaNaAlumia": "Stays on Alumia",
+    "saiDaAlumia": "Leaves Alumia",
+    "desligadaNoPerfil": "Your profile isn't on the Fediverse yet. Turn it on in Profile, Fediverse, to use this option.",
+    "impedida": "Your profile can't go out to the Fediverse right now (no @name, invisible or suspended).",
+    "avisoFediverso": "This post leaves Alumia. Other Fediverse servers may keep a copy, and deleting it here later doesn't guarantee it disappears there.",
+    "fediversoDesligado": "The Fediverse isn't turned on in Alumia yet: for now, nothing you post on your profile leaves here.",
+    "mencionadosCifrado": "Encrypted post with “only people I mention”: so the server knows who can reply, the tagged @names are sent in the clear. Only the names; the text stays encrypted.",
+    "mencionadosLista": "Sent along: {lista}",
+    "mencionadosNinguem": "You didn't tag anyone with @: only you will be able to reply.",
+    "maisFerramentas": "More tools: scroll sideways",
+    "internetPresa": "Alumia only (doesn't leave)",
+    "naoSaiComVida": "With “Unlisted” or “Disappears”, this post doesn't leave Alumia: it stays here only."
   }
 }

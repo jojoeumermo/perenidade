@@ -10,7 +10,13 @@
     "botao": "Turn on messages here",
     "outroTitulo": "Your messages are active on another device",
     "outroTexto": "If you turn them on here, this becomes your messaging device: conversations get a new key, and the other device stops opening what arrives from now on. What was already written stays readable only there.",
-    "outroBotao": "Use this device"
+    "outroBotao": "Use this device",
+    "outroTinha": "Warning: this device already had your chat key, but the server now shows a different one. If you turned on messages on another device, that is why. If it was not you, someone may have got into your account: change your password before going on.",
+    "outroRisco": "Creating a new key here changes your safety key. People you talk to get a warning, verified conversations lose the mark and you have to compare the code again. What was written before will not open on this device.",
+    "outroEntendi": "I understand the risk and want to create a new key on this device",
+    "apagadoTitulo": "Chat off on this device",
+    "apagadoTexto": "The chat isn't active on this device and its key is no longer here. To chat here, create a new key.",
+    "apagadoBotao": "Turn on messages here again"
   },
   "nova": {
     "rotulo": "Message @",
@@ -24,6 +30,7 @@
     "pedidos": "Message requests",
     "pedidoDe": "{nome} wants to talk with you.",
     "pedidoEnviado": "Request sent. Once the person accepts, you can both write.",
+    "conversaApagada": "You deleted the conversation with this person here. It comes back to the list when a new message arrives.",
     "aceitar": "Accept",
     "recusar": "Decline",
     "recusarExplica": "Declining deletes the request, and the person cannot ask again for 30 days. They are not told.",
@@ -47,7 +54,17 @@
     "apagarMensagem": "Delete",
     "apagarMensagemConfirma": "Delete this message for both of you?",
     "bloqueada": "Conversation closed: there is a block between you.",
-    "voce": "You"
+    "voce": "You",
+    "faltam": "A message may be missing here: deleted by the writer, expired or held back on the way.",
+    "repetida": "Repeated message: this device had already received this same message. It is not shown again.",
+    "duvidosa": "This device cannot check whether this message is a repeat (it uses a key that has already closed here). Be wary if it does not make sense now.",
+    "foraDeOrdem": "Out of order: the server time does not match the order in which the message was written.",
+    "semConfirmar": "When the other person wrote their last message, they had not received this one yet.",
+    "mudouVerificada": "{nome}'s safety key changed, and this conversation was verified. The verified mark was removed. It may be a new device, or someone trying to pass as this person. Nothing is sent until you compare the code again.",
+    "grupoPedido": "Ask {nome}, in person or through a channel where you recognise each other, for the six groups their screen shows as “your groups” (in Options, under the security code). “Groups so-and-so of the whole code” does not count. Type the six groups:",
+    "grupoRotulo": "Six groups of {nome}",
+    "grupoConferir": "Check",
+    "grupoErrado": "It does not match. Do not go on: someone may be in the middle. Talk to the person through another channel."
   },
   "acoes": {
     "rotulo": "Conversation options",
@@ -59,12 +76,23 @@
     "codigoExplica": "Compare these numbers with the other person, in person or through a channel where you recognize each other. If they match, nobody is in the middle.",
     "verificado": "We compared and it matches",
     "jaVerificado": "Verified on this device.",
+    "meusGrupos": "Your six groups (they come only from your key). If someone needs to compare with you again, read out these:",
+    "naoVerificado": "Not verified on this device",
     "bloquear": "Block",
     "desbloquear": "Unblock",
     "bloquearConfirma": "Block this person? They will no longer be able to reach you, here or on Alumia.",
     "denunciar": "Report",
     "apagar": "Delete the conversation",
-    "apagarConfirma": "Remove this conversation from your list? It disappears for you. The other person keeps the messages until their time limit ends."
+    "apagarConfirma": "Remove this conversation from your list? It disappears for you. The other person keeps the messages until their time limit ends.",
+    "qrRotulo": "Safety code as a QR, for the other person to scan with the camera",
+    "qrLer": "Scan the other person's QR",
+    "qrFechar": "Close the camera",
+    "qrAponte": "Point at the QR on the other person's screen. The camera image does not leave this device.",
+    "qrSemCamera": "Could not open the camera. Compare the numbers.",
+    "qrConfere": "The codes match: conversation verified on this device.",
+    "qrNaoConfere": "The codes do NOT match. Do not mark as verified: someone may be in the middle.",
+    "qrOutro": "This QR is not an Alumia safety code.",
+    "negavel": "Messages carry no signature. Only the two of you have the key to this conversation: the receiver knows it came from the other person, but no message works as proof, to anyone else, of who wrote it."
   },
   "denuncia": {
     "titulo": "Report",
@@ -87,7 +115,8 @@
     "enviar": "Send report",
     "cancelar": "Cancel",
     "feito": "Report received. Reference {protocolo}. Follow it in My reports.",
-    "emergencia": "In danger right now? In Brazil, call 190. Child or teenager at risk: dial 100."
+    "emergencia": "In danger right now? In Brazil, call 190. Child or teenager at risk: dial 100.",
+    "aberto": "Warning: the messages you tick leave the encryption and go in plain text to the moderation team. The rest of the conversation stays encrypted."
   },
   "ajustes": {
     "titulo": "Message settings",
@@ -101,7 +130,8 @@
     "apagarTudo": "Delete all my messages",
     "apagarTudoExplica": "Removes all conversations from your list and deletes your key and your settings. The other person in each conversation keeps the messages until their time limit ends. Your account stays. Brazil's LGPD, art. 18, VI.",
     "apagarTudoConfirma": "Remove ALL conversations from your list and delete your messaging key? This cannot be undone.",
-    "apagado": "All your messages were deleted."
+    "apagado": "All your messages were deleted.",
+    "sairRapido": "Alumia's Quick exit button also erases the chat key on this device and signs you out. After that you have to sign in and turn messages on again, and what was written before will no longer open here. All verifications are lost too: compare the code again with each person before writing anything sensitive."
   },
   "erros": {
     "dm_fechada": "You cannot message this person right now.",
@@ -111,6 +141,84 @@
     "consentimento": "Private messages are only for people who have joined Alumia (18 or older).",
     "nao_encontrado": "This conversation no longer exists.",
     "texto_grande": "The message is too long.",
-    "sem_indexeddb": "This browser does not keep the key (private mode?). Messages work only while the tab stays open."
+    "sem_indexeddb": "This browser does not keep the key (private mode?). Messages work only while the tab stays open.",
+    "dm_exige_comparar": "Compare the safety code again before sending.",
+    "dm_aguardando": "The other person hasn't opened this conversation on their device yet. Once they do, you can write.",
+    "historico_travado": "The history is locked. Enter the lock password to open it.",
+    "dm_fora_do_registro": "The key doesn't match the public log: nothing was sent.",
+    "kt_quebrado": "Warning: the public key log doesn't add up (someone changed its past). Nothing is sent. Tell the coordination."
+  },
+  "selado": {
+    "someEm": "Disappears in",
+    "padrao": "the conversation's time limit",
+    "cincoMin": "5 minutes",
+    "umaHora": "1 hour",
+    "verUmaVez": "View once",
+    "verUmaVezExplica": "The other person sees it once and the message disappears. No copy is kept, not even by you.",
+    "abrirUmaVez": "View-once message: tap to open",
+    "fecharUmaVez": "Close (the message disappears)",
+    "marcaUmaVez": "view once",
+    "aguardando": "The other person hasn't opened this conversation on their device yet. Once they do, you can write.",
+    "travado": "The history on this device is locked.",
+    "senhaDaTrava": "Lock password",
+    "destravar": "Open",
+    "travarTitulo": "History lock",
+    "travarExplica": "Conversation history stays only on this device, encrypted. With the lock, it only opens with your password (which is not stored anywhere). If you forget the password, the history can no longer be opened, not even with help from the team.",
+    "travar": "Lock with password",
+    "travadoOk": "History locked.",
+    "senhaCurta": "Use a password of 8 characters or more.",
+    "fecharAgora": "Close the history now",
+    "trancadoAgora": "The history was closed in this tab."
+  },
+  "registro": {
+    "nao_confere": "Warning: the key the server shows for this person is not the one in the public log. Don't write anything sensitive and compare the safety code with them through another channel.",
+    "meu": "Warning: the public log says YOUR chat key is a different one. If you didn't activate the chat on another device, someone may have accessed your account: change your password.",
+    "quebrado": "Warning: the public key log doesn't add up (someone changed its past). Nothing is sent. Tell the coordination.",
+    "carimbo": "Public log checked up to {carimbo}. If the other person sees the same number with a different ending, tell the coordination."
+  },
+  "voz": {
+    "titulo": "Voice room",
+    "explica": "End-to-end encrypted voice, only among group members (up to 8 people). Audio goes through a relay server that can't listen, and no one in the room sees the network address of anyone in it.",
+    "entrar": "Join the room",
+    "sair": "Leave",
+    "mudo": "Turn microphone off",
+    "falar": "Turn microphone on",
+    "naSala": "In the room:",
+    "sozinho": "Just you for now.",
+    "alguem": "Group member",
+    "ligado": "connected",
+    "ligando": "connecting…",
+    "erros": {
+      "voz_desligada": "Voice hasn't been turned on on the server yet.",
+      "voz_sem_retransmissao": "Without the relay server, the room doesn't open (your network address would show to the others).",
+      "voz_cheia": "The room is full (8 people).",
+      "voz_sem_canal": "Couldn't open the room right now. Try again.",
+      "sem_chave": "This device doesn't have the group key yet.",
+      "entre_primeiro": "Sign in first.",
+      "nao_encontrado": "Only group members can join the room.",
+      "NotAllowedError": "The microphone wasn't allowed.",
+      "outro": "Couldn't join the room."
+    },
+    "pelOnion": "Over Tor, the voice room stays closed: voice doesn't go through Tor, and the relay server would see your network address. Use text."
+  },
+  "organizar": {
+    "soAqui": "Organize (only on this device; the other person never knows):",
+    "pasta": "Folder",
+    "pastas": "Folders",
+    "todas": "All",
+    "nota": "Note just for me",
+    "soneca": "Mute",
+    "escolha": "Choose",
+    "silenciada": "muted",
+    "silenciadaAte": "Muted until {quando}",
+    "umaHora": "1 hour",
+    "oitoHoras": "8 hours",
+    "umDia": "1 day",
+    "umaSemana": "1 week",
+    "desligar": "Don't mute",
+    "lembrar": "Remind me in 1 h",
+    "lembretes": "Reminders",
+    "dispensar": "Dismiss",
+    "novas": "New messages"
   }
 }

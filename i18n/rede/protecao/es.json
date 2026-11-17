@@ -1,0 +1,110 @@
+{
+  "titulo": "Protección contra ataques",
+  "chamada": "Para cuando una publicación tuya se vuelve blanco: cierra la puerta por un tiempo, recoge a quien insiste y elige quién habla contigo.",
+  "carregando": "Leyendo tu protección…",
+  "erro": "No se pudo guardar ahora. Inténtalo de nuevo en un momento.",
+  "erroAoLer": "No se pudo leer tu protección ahora. Inténtalo de nuevo en un momento.",
+  "blindagem": {
+    "rotulo": "Modo protegido",
+    "texto": "Por un tiempo, solo quien sigues responde a tus publicaciones, te menciona y te cita. Quien no sigues sigue leyendo, pero no entra en la conversación.",
+    "ligar24": "Activar por 24 horas",
+    "ligar7": "Activar por 7 días",
+    "ligada": "Activado hasta {quando}",
+    "ligadaTexto": "Solo quien sigues responde, menciona y cita. Se apaga solo al final del plazo.",
+    "desligar": "Apagar ahora",
+    "ligou": "Modo protegido activado hasta {quando}.",
+    "desligou": "Modo protegido apagado."
+  },
+  "mencao": {
+    "rotulo": "Quién puede mencionarme",
+    "texto": "La mención de quien no puede sigue escrita en su publicación, pero no te llega y no entra en tus menciones.",
+    "opcoes": {
+      "todos": "Todo el mundo en Alumia",
+      "seguindo": "Solo quien sigo",
+      "ninguem": "Nadie"
+    },
+    "salvo": "Elección guardada."
+  },
+  "marcacao": {
+    "rotulo": "Etiquetas en fotos",
+    "texto": "Nadie te etiqueta sin tu elección. Las publicaciones de un acto nunca tienen etiquetas, y Alumia no reconoce rostros.",
+    "quem": "Quién puede etiquetarme",
+    "opcoes": {
+      "ninguem": "Nadie",
+      "seguindo": "Solo quien sigo",
+      "todos": "Todo el mundo en Alumia"
+    },
+    "aprovar": "Aprobar antes de que aparezca",
+    "aprovarTexto": "La etiqueta solo aparece en la publicación después de que la aceptes.",
+    "pendentes": "Esperando tu aprobación",
+    "nenhuma": "Ninguna etiqueta te está esperando.",
+    "de": "{codinome} quiere etiquetarte",
+    "aceitar": "Aceptar",
+    "recusar": "Rechazar",
+    "aceitou": "Etiqueta aceptada: ahora aparece en la publicación.",
+    "recusou": "Etiqueta rechazada: no aparece y no se puede volver a hacer en esa publicación.",
+    "naFoto": "En la foto",
+    "tirarMinha": "Quitar mi etiqueta",
+    "tirou": "Tu etiqueta salió de la publicación.",
+    "voceFoiMarcada": "Pidieron etiquetarte en esta publicación."
+  },
+  "restringir": {
+    "rotulo": "Personas restringidas",
+    "texto": "Más leve que bloquear: la persona sigue respondiendo, pero en tus conversaciones su respuesta queda recogida, con la marca “esperando a la dueña de la conversación”. Ella ve la marca en su propia respuesta; tú la abres con un toque y la liberas si quieres. Sus respuestas, menciones y citas no se convierten en avisos para ti.",
+    "campo": "@ de quien quieres restringir",
+    "botao": "Restringir",
+    "nenhuma": "No has restringido a nadie.",
+    "desde": "desde {quando}",
+    "tirar": "Dejar de restringir",
+    "restringiu": "Las respuestas de {handle} ahora quedan recogidas en tus conversaciones.",
+    "tirou": "Las respuestas de {handle} vuelven a aparecer como las de todos.",
+    "naoAchou": "No encontramos ese @ en Alumia.",
+    "propria": "No se puede restringir la propia cuenta."
+  },
+  "cartao": {
+    "restringir": "Restringir a {handle}",
+    "tirarRestricao": "Dejar de restringir a {handle}",
+    "soltar": "Desvincular mi publicación de esta cita",
+    "soltarConfirma": "La publicación de quien citó sigue en línea, pero sin tu publicación dentro, y esa persona no podrá citarla de nuevo.",
+    "soltarSim": "Desvincular",
+    "soltou": "Tu publicación fue desvinculada de la cita.",
+    "liberar": "Liberar esta respuesta",
+    "recolher": "Recoger de nuevo",
+    "liberou": "Respuesta liberada: ahora todos la leen.",
+    "recolheu": "Respuesta recogida de nuevo.",
+    "aguardando": "Esperando a la dueña de la conversación",
+    "aguardandoOutros": "Esta respuesta está recogida hasta que la dueña de la conversación decida.",
+    "aguardandoAutora": "Tu respuesta espera a la dueña de la conversación. Para las demás personas, aparece recogida.",
+    "aguardandoDona": "Respuesta de alguien que restringiste. Solo tú la abres.",
+    "mostrar": "Mostrar",
+    "esconder": "Recoger",
+    "solta": "Quien escribió la publicación citada la desvinculó de esta cita.",
+    "cancelar": "Cancelar"
+  },
+  "link": {
+    "rotulo": "Aviso de enlace sospechoso",
+    "texto": "Antes de abrir un enlace de fuera, Alumia revisa la dirección con una lista abierta de patrones de estafa, aquí en tu dispositivo. La dirección no se envía a nadie. La lista es esta:",
+    "titulo": "Revisa este enlace antes de abrirlo",
+    "vaiPara": "Este enlace lleva a",
+    "porque": "Lo que encendió el aviso:",
+    "motivos": {
+      "perigo": "El enlace ejecuta código o abre contenido incrustado, en vez de llevar a una página.",
+      "numero": "La dirección es un número, sin nombre de sitio: es común en estafas.",
+      "alfabeto": "El nombre del sitio usa letras de otro alfabeto que imitan las nuestras.",
+      "encurtador": "Es un enlace acortado: el destino solo aparece después del clic.",
+      "arroba": "Hay una @ antes de la dirección: lo que va antes es adorno, el sitio de verdad viene después.",
+      "imitacao": "El nombre imita un servicio del gobierno o al Instituto, pero el sitio es otro.",
+      "terminacao": "La dirección termina como nombre de archivo (.zip, .mov), lo que confunde.",
+      "sem_cadeado": "El enlace no usa conexión segura (sin candado): lo que escribas allí puede leerse por el camino."
+    },
+    "voltar": "Volver",
+    "abrir": "Abrir de todos modos",
+    "naoAbre": "Este tipo de enlace no se abre desde Alumia.",
+    "antesDePublicar": "Un enlace de tu publicación enciende el aviso de enlace sospechoso: {motivos}. Quien lea verá el aviso antes de abrirlo. Revisa que sea la dirección correcta. Tocar Publicar otra vez la envía igual."
+  },
+  "topo": {
+    "protegida": "Modo protegido hasta {quando}",
+    "pendentes": "Etiquetas esperando tu aprobación",
+    "ver": "Ver"
+  }
+}

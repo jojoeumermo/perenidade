@@ -18,8 +18,19 @@ export const TIPOS_DE_AVISO = [
   "ato",
   "reacao_story",
   "lembrete",
+  // Onda 9 (proteção e modo ato), ligáveis desde a onda 10 (20261116-alumia-onda10-fim.sql): a marcação em post com imagem e os
+  // recados "Estou bem" e "Fui detido" dos contatos de segurança. O recado continua no Modo ato com o aviso desligado.
+  "marcacao",
+  "estou_bem",
+  "detido",
 ] as const;
 export type TipoDeAviso = (typeof TIPOS_DE_AVISO)[number];
+
+/**
+ * Os tipos da federação (supabase/migracoes/20261109-fediverso-total.sql, seção 4). Não entram em TIPOS_DE_AVISO: a preferência é
+ * a do tipo de sempre (curtida = apoio, impulso = citação). A tela os desenha pela peça do Fediverso (components/rede/fediverso).
+ */
+export const TIPOS_DE_AVISO_DE_FORA = ["fed_seguidor", "fed_resposta", "fed_mencao", "fed_curtida", "fed_impulso"] as const;
 
 /** Os tipos que agrupam ("Ana e mais 3 responderam"); os outros trazem o próprio texto, escrito sem trecho de post. */
 export const TIPOS_AGRUPADOS = ["resposta", "mencao", "citacao", "seguidor", "apoio", "conversa_seguida"] as const;
@@ -49,6 +60,13 @@ export interface ItemDeAviso {
   /** Até 2 codinomes, mais novo primeiro; nulo = pessoa fora do perfil visível. Sempre vazio em apoio. */
   atores: (string | null)[];
   texto: string | null;
+  /**
+   * Só nos avisos da federação: quem é de fora (o mais recente do grupo) e a nota de fora. Em curtida e impulso o banco manda
+   * nulo (ninguém é dito; 20261110-fediverso-privacidade.sql). O endereço do avatar não vem: rosto de fora é sempre o mosaico.
+   */
+  ator_remoto?: { ator: string; handle: string | null; nome: string | null; servidor: string | null } | null;
+  atores_remotos?: unknown[];
+  objeto_remoto?: string | null;
 }
 
 export interface PaginaDeAvisos {

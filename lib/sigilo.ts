@@ -89,17 +89,61 @@ export function novaChave(): Promise<CryptoKey> {
   return crypto.subtle.generateKey({ name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
 }
 
-/** Embrulha 32 bytes para outro aparelho: só ele (com a parte pública de quem embrulhou e o mesmo contexto) desembrulha. */
-export async function embrulharBytes(crua: Bytes, minhaPrivada: CryptoKey, publicaDoOutro: string, contexto: string): Promise<string> {
+// ── O embrulho "h1": HPKE (RFC 9180) pela biblioteca @hpke, no modo autenticado ──
+// DHKEM(P-256, HKDF-SHA256), HKDF-SHA256, AES-256-GCM, com a chave do aparelho de quem embrulha (modo Auth): só o aparelho de
+// destino abre, e ele sabe de qual aparelho veio. Usa os mesmos pares ECDH P-256 dos aparelhos (a parte privada continua não
+// exportável). O contexto vai como "info" do HPKE. É o formato novo; o "w1" (feito à mão: ECDH + HKDF + AES-GCM) só é LIDO.
+
+const FORMATO_EMBRULHO_H1 = new RegExp(`^h1\\.(${B64}{87})\\.(${B64}{64})$`);
+let suiteDoEmbrulho: Promise<import("@hpke/core").CipherSuite> | null = null;
+function suiteH1() {
+  suiteDoEmbrulho ??= import("@hpke/core").then(({ CipherSuite, DhkemP256HkdfSha256, HkdfSha256, Aes256Gcm }) => new CipherSuite({ kem: new DhkemP256HkdfSha256(), kdf: new HkdfSha256(), aead: new Aes256Gcm() }));
+  return suiteDoEmbrulho;
+}
+const lerPublicaHpke = (publica: string) => {
+  if (!FORMATO_PUBLICA.test(publica)) throw new Error("publica_invalida");
+  return crypto.subtle.importKey("raw", deBase64(publica), { name: "ECDH", namedCurve: "P-256" }, true, []);
+};
+
+/**
+ * Embrulha 32 bytes para outro aparelho: só ele (com a parte pública de quem embrulhou e o mesmo contexto) desembrulha. Com
+ * `minhaPublica`, sai no formato "h1" (HPKE, biblioteca); sem ela, no "w1" antigo (só para quem ainda não foi trocado).
+ */
+export async function embrulharBytes(crua: Bytes, minhaPrivada: CryptoKey, publicaDoOutro: string, contexto: string, minhaPublica?: string): Promise<string> {
   if (crua.length !== 32) throw new Error("tamanho_invalido");
+  if (minhaPublica) {
+    const suite = await suiteH1();
+    const { ct, enc } = await suite.seal(
+      { recipientPublicKey: await lerPublicaHpke(publicaDoOutro), senderKey: { privateKey: minhaPrivada, publicKey: await lerPublicaHpke(minhaPublica) }, info: encoder.encode(contexto) },
+      crua,
+    );
+    return `h1.${paraBase64(new Uint8Array(enc))}.${paraBase64(new Uint8Array(ct))}`;
+  }
   const entre = await chaveEntre(minhaPrivada, await lerPublica(publicaDoOutro), contexto);
   const iv = vetor();
   const fechada = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv, additionalData: encoder.encode(contexto) }, entre, crua));
   return `w1.${paraBase64(iv)}.${paraBase64(fechada)}`;
 }
 
-/** Devolve os 32 bytes, ou null se o embrulho não foi feito para este aparelho (ou foi adulterado). */
-export async function desembrulharBytes(embrulho: string, minhaPrivada: CryptoKey, publicaDeQuemEmbrulhou: string, contexto: string): Promise<Bytes | null> {
+/**
+ * Devolve os 32 bytes, ou null se o embrulho não foi feito para este aparelho (ou foi adulterado, ou veio de outro aparelho).
+ * O "h1" (HPKE) precisa de `minhaPublica` (a parte pública deste aparelho).
+ */
+export async function desembrulharBytes(embrulho: string, minhaPrivada: CryptoKey, publicaDeQuemEmbrulhou: string, contexto: string, minhaPublica?: string): Promise<Bytes | null> {
+  const h1 = FORMATO_EMBRULHO_H1.exec(embrulho);
+  if (h1) {
+    if (!minhaPublica) return null;
+    try {
+      const suite = await suiteH1();
+      const aberto = new Uint8Array(await suite.open(
+        { recipientKey: { privateKey: minhaPrivada, publicKey: await lerPublicaHpke(minhaPublica) }, enc: deBase64(h1[1]), senderPublicKey: await lerPublicaHpke(publicaDeQuemEmbrulhou), info: encoder.encode(contexto) },
+        deBase64(h1[2]),
+      )) as Bytes;
+      return aberto.length === 32 ? aberto : null;
+    } catch {
+      return null;
+    }
+  }
   const partes = FORMATO_EMBRULHO.exec(embrulho);
   if (!partes) return null;
   try {
@@ -111,18 +155,18 @@ export async function desembrulharBytes(embrulho: string, minhaPrivada: CryptoKe
   }
 }
 
-export async function embrulhar(chave: CryptoKey, minhaPrivada: CryptoKey, publicaDoOutro: string, contexto: string): Promise<string> {
+export async function embrulhar(chave: CryptoKey, minhaPrivada: CryptoKey, publicaDoOutro: string, contexto: string, minhaPublica?: string): Promise<string> {
   const crua = new Uint8Array(await crypto.subtle.exportKey("raw", chave));
   try {
-    return await embrulharBytes(crua, minhaPrivada, publicaDoOutro, contexto);
+    return await embrulharBytes(crua, minhaPrivada, publicaDoOutro, contexto, minhaPublica);
   } finally {
     crua.fill(0);
   }
 }
 
 /** Devolve a chave da conversa, ou null se o embrulho não foi feito para este aparelho (ou foi adulterado). */
-export async function desembrulhar(embrulho: string, minhaPrivada: CryptoKey, publicaDeQuemEmbrulhou: string, contexto: string): Promise<CryptoKey | null> {
-  const crua = await desembrulharBytes(embrulho, minhaPrivada, publicaDeQuemEmbrulhou, contexto);
+export async function desembrulhar(embrulho: string, minhaPrivada: CryptoKey, publicaDeQuemEmbrulhou: string, contexto: string, minhaPublica?: string): Promise<CryptoKey | null> {
+  const crua = await desembrulharBytes(embrulho, minhaPrivada, publicaDeQuemEmbrulhou, contexto, minhaPublica);
   if (!crua) return null;
   try {
     return await crypto.subtle.importKey("raw", crua, "AES-GCM", true, ["encrypt", "decrypt"]);
@@ -226,6 +270,25 @@ export const certificarAparelho = (identidade: Identidade, usuario: string, publ
 export const aparelhoCertificado = (identidadePublica: string, usuario: string, publica: string, certificado: string | null) =>
   certificado ? verificar(identidadePublica, certificado, contextoDoAparelho(usuario, publica)) : Promise.resolve(false);
 
+/**
+ * De que chaves de aparelho um embrulho de chave de conversa pode vir: a deste aparelho e a de cada aparelho CERTIFICADO pela
+ * identidade que este aparelho conhece da pessoa dona dele (`identidadeDe` devolve nulo para quem não se conhece). Quem só
+ * escreve no banco não tem uma identidade aceita para certificar uma chave sua: o embrulho que ele fizer não é aberto
+ * (lib/chaveiro.ts, carregar).
+ */
+export async function origensDeEmbrulho(
+  propria: string,
+  aparelhos: readonly { usuario: string; publica: string; certificado: string | null }[],
+  identidadeDe: (usuario: string) => string | null,
+): Promise<Set<string>> {
+  const origens = new Set<string>([propria]);
+  for (const a of aparelhos) {
+    const identidade = identidadeDe(a.usuario);
+    if (identidade && (await aparelhoCertificado(identidade, a.usuario, a.publica, a.certificado))) origens.add(a.publica);
+  }
+  return origens;
+}
+
 // ── Assinatura do autor em cada mensagem ──
 
 const amarraDaAssinatura = (contexto: string, versao: number, texto: string) => `mensagem:${contexto}:v${versao}:${texto}`;
@@ -317,7 +380,11 @@ export function lerQrDoPedido(texto: string): { codigo: string; publica: string 
 
 const RODADAS_DA_IMPRESSAO = 5200;
 
-async function metadeDoCodigo(identidade: string): Promise<string> {
+/**
+ * A metade do código que vem de UMA identidade (trinta números, seis grupos). Quem compara o código precisa saber qual metade é
+ * a sua e qual é a da outra pessoa: só a da outra muda quando a identidade dela é trocada (lib/rede/chat/verificacao.ts).
+ */
+export async function metadeDoCodigo(identidade: string): Promise<string> {
   let bytes: Uint8Array<ArrayBuffer> = encoder.encode(`lucia:seguranca:1:${identidade}`);
   for (let i = 0; i < RODADAS_DA_IMPRESSAO; i++) bytes = new Uint8Array(await crypto.subtle.digest("SHA-512", bytes));
   let saida = "";

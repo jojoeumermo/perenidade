@@ -26,7 +26,7 @@ export function AbaInicialDaAlumia2({ aba }: { aba: string }) {
       </span>
       <button
         type="button"
-        className="al2-acao !min-h-9 text-xs"
+        className="al2-acao al2-alvo !min-h-9 text-xs"
         aria-pressed={marcada}
         onClick={() => {
           const nova = marcada ? null : (aba as AbaInicial);

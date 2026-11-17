@@ -1,0 +1,141 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/* A proteção contra ataque (onda 9, frente 9A), no Mosaico da Arquibancada: carimbos, faixa tecida e ladrilhos. Só tokens da
+   Alumia (claro e escuro); nenhuma cor escrita à mão. */
+
+/* ───── Ajustes ───── */
+.pt-secao { display: grid; gap: 0.9rem; }
+.pt-chamada { margin: 0; color: var(--al-texto-2); font-size: 0.95rem; line-height: 1.55; }
+.pt-parte { padding: 0.95rem 1rem 1rem; border-radius: 12px; background: var(--al-fundo); border: 1px solid var(--al-linha); min-width: 0; }
+.pt-parte-titulo { display: flex; align-items: center; gap: 0.5rem; margin: 0 0 0.35rem; font-size: 1.12rem; letter-spacing: 0.02em; color: var(--al-texto); }
+.pt-texto { margin: 0 0 0.75rem; color: var(--al-texto-2); font-size: 0.92rem; line-height: 1.55; }
+.pt-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; }
+.pt-nota { margin: 0.6rem 0 0; color: var(--al-texto-2); font-size: 0.88rem; font-weight: 600; }
+.pt-nota-erro { color: var(--al-vermelho-sobre-escuro, var(--al-vermelho)); }
+
+/* A blindagem: a faixa tecida no alto quando está ligada, e o carimbo com o prazo. */
+.pt-blindagem { position: relative; overflow: hidden; }
+.pt-blindagem[data-ligada] { border: 2px solid var(--al-vermelho); padding-top: 1.3rem; }
+.pt-blindagem[data-ligada]::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 6px;
+  background: repeating-linear-gradient(90deg, var(--al-vermelho) 0 22px, var(--al-dourado) 22px 30px, var(--al-fundo) 30px 34px);
+}
+.pt-carimbo {
+  display: inline-block; margin: 0.15rem 0 0.6rem; padding: 0.3em 0.6em 0.24em; border: 2px solid currentColor; border-radius: 6px;
+  color: var(--al-vermelho-sobre-escuro, var(--al-vermelho)); font-size: 1.1rem; letter-spacing: 0.05em; transform: rotate(-1.5deg);
+  box-shadow: inset 0 0 0 1px var(--al-fundo), inset 0 0 0 2px currentColor;
+}
+:root[data-eink] .pt-carimbo { transform: none; }
+
+/* As escolhas (três ladrilhos lado a lado; no celular, um embaixo do outro). */
+.pt-escolhas { display: grid; gap: 0.5rem; grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr)); margin: 0; padding: 0; border: 0; }
+.pt-escolhas legend { margin-bottom: 0.45rem; padding: 0; color: var(--al-texto); font-size: 0.95rem; font-weight: 800; }
+.pt-escolha {
+  display: flex; align-items: center; gap: 0.6rem; min-height: 44px; padding: 0.55rem 0.75rem; border-radius: 10px; cursor: pointer;
+  border: 1.5px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); font-size: 0.92rem; font-weight: 600;
+}
+.pt-escolha:has(input:checked) { border-color: var(--al-dourado); box-shadow: inset 0 0 0 1px var(--al-dourado); }
+.pt-escolha:has(input:focus-visible) { outline: 2px solid var(--al-dourado); outline-offset: 2px; }
+.pt-escolha input { width: 18px; height: 18px; margin: 0; accent-color: var(--al-vermelho); }
+.pt-marcar { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.65rem; align-items: start; margin-top: 0.8rem; cursor: pointer; min-height: 44px; }
+.pt-marcar input { width: 22px; height: 22px; margin-top: 0.1rem; accent-color: var(--al-vermelho); }
+.pt-marcar strong { display: block; color: var(--al-texto); font-size: 0.95rem; }
+.pt-marcar span span { color: var(--al-texto-2); font-size: 0.88rem; }
+
+/* Listas da própria pessoa (restritas e marcações pendentes). */
+.pt-lista { display: grid; gap: 0.5rem; margin: 0.75rem 0 0; padding: 0; list-style: none; }
+.pt-item {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem;
+  padding: 0.6rem 0.75rem; border-radius: 10px; background: var(--al-superficie); border: 1px solid var(--al-linha);
+}
+.pt-item > div { min-width: 0; flex: 1 1 14rem; }
+.pt-item strong { color: var(--al-texto); }
+.pt-item small { display: block; color: var(--al-texto-3); font-size: 0.82rem; }
+.pt-item p { margin: 0.2rem 0 0; color: var(--al-texto-2); font-size: 0.88rem; overflow-wrap: anywhere; }
+.pt-vazio { margin: 0.6rem 0 0; color: var(--al-texto-3); font-size: 0.9rem; }
+.pt-campo-linha { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: stretch; }
+.pt-campo-linha label { flex: 1 1 100%; color: var(--al-texto); font-size: 0.9rem; font-weight: 700; }
+.pt-campo {
+  flex: 1 1 14rem; min-width: 0; min-height: 44px; padding: 0.55rem 0.8rem; border-radius: 10px;
+  border: 1.5px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); font: inherit;
+}
+.pt-campo:focus-visible { outline: 2px solid var(--al-dourado); outline-offset: 1px; }
+
+/* A lista aberta do aviso de link. */
+.pt-padroes { display: grid; gap: 0.35rem; margin: 0; padding: 0; list-style: none; counter-reset: pt; }
+.pt-padroes li { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: 0.5rem; color: var(--al-texto-2); font-size: 0.88rem; line-height: 1.5; }
+.pt-padroes li::before {
+  counter-increment: pt; content: counter(pt); display: grid; place-items: center; width: 1.45rem; height: 1.45rem; border-radius: 4px;
+  background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-weight: 800; font-size: 0.78rem;
+}
+
+/* Ladrilhos pequenos do título (o mosaico). */
+.pt-ladrilhos { display: inline-flex; gap: 3px; }
+.pt-ladrilhos i { width: 10px; height: 10px; border-radius: 2px; background: var(--al-vermelho); }
+.pt-ladrilhos i:nth-child(2) { background: var(--al-dourado); }
+.pt-ladrilhos i:nth-child(3) { background: var(--al-texto); }
+
+/* ───── No cartão ───── */
+.pt-anexo { margin-top: 0.6rem; display: grid; gap: 0.45rem; }
+.pt-aguardando {
+  display: grid; gap: 0.4rem; padding: 0.6rem 0.75rem; border-radius: 10px;
+  border: 1.5px dashed var(--al-dourado); background: color-mix(in srgb, var(--al-dourado) 8%, var(--al-superficie));
+}
+.pt-aguardando-alto { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.75rem; }
+.pt-selo {
+  display: inline-block; padding: 0.22em 0.5em 0.16em; border-radius: 5px;
+  background: var(--al-dourado-fundo); color: var(--al-sobre-dourado); font-size: 0.82rem; letter-spacing: 0.05em;
+}
+.pt-aguardando p { margin: 0; color: var(--al-texto-2); font-size: 0.86rem; line-height: 1.45; }
+.pt-solta { margin: 0; padding: 0.5rem 0.7rem; border-radius: 10px; border: 1px solid var(--al-superficie-2); color: var(--al-texto-2); font-size: 0.86rem; }
+.pt-marcacoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; margin: 0; color: var(--al-texto-2); font-size: 0.85rem; }
+.pt-marcacoes span.pt-chip { padding: 0.15rem 0.5rem; border-radius: 999px; background: var(--al-superficie-2); color: var(--al-texto); font-weight: 600; }
+.pt-botao-mini {
+  min-height: 36px; padding: 0.3rem 0.7rem; border-radius: 8px; border: 1.5px solid var(--al-superficie-2); background: var(--al-superficie);
+  color: var(--al-texto); font: inherit; font-size: 0.85rem; font-weight: 700; cursor: pointer;
+}
+.pt-botao-mini:hover { border-color: var(--al-dourado); }
+.pt-botao-mini:focus-visible { outline: 2px solid var(--al-dourado); outline-offset: 2px; }
+@media (pointer: coarse) { .pt-botao-mini { min-height: 44px; } }
+
+/* O texto da resposta recolhida some do cartão de quem não abre (a marca é posta pelo anexo, no bloco do texto do próprio post). */
+[data-pt-recolhida="1"] { display: none !important; }
+
+/* ───── O aviso do link ───── */
+.pt-dialogo {
+  position: fixed; inset: 0; margin: auto; height: fit-content;
+  width: min(34rem, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); padding: 0; border: 2px solid var(--al-vermelho); border-radius: 16px;
+  background: var(--al-superficie); color: var(--al-texto); overflow: auto;
+}
+.pt-dialogo::backdrop { background: color-mix(in srgb, var(--al-fundo) 78%, transparent); }
+.pt-dialogo-faixa { height: 8px; background: repeating-linear-gradient(90deg, var(--al-vermelho) 0 22px, var(--al-dourado) 22px 30px, var(--al-superficie) 30px 34px); }
+.pt-dialogo-corpo { padding: 1.1rem 1.2rem 1.25rem; }
+.pt-dialogo h2 { margin: 0 0 0.7rem; font-size: 1.6rem; line-height: 1.05; }
+.pt-destino {
+  margin: 0.2rem 0 0.9rem; padding: 0.55rem 0.7rem; border-radius: 8px; background: var(--al-fundo); border: 1px solid var(--al-linha);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9rem; overflow-wrap: anywhere; color: var(--al-texto);
+}
+.pt-motivos { display: grid; gap: 0.4rem; margin: 0.35rem 0 1rem; padding-left: 1.1rem; color: var(--al-texto-2); font-size: 0.92rem; line-height: 1.5; }
+
+/* ───── No alto do Início ───── */
+.pt-topo {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.9rem; margin: 0 0 0.6rem; padding: 0.55rem 0.8rem; border-radius: 10px;
+  border: 1.5px solid var(--al-vermelho); background: var(--al-superficie); color: var(--al-texto); font-size: 0.92rem;
+}
+.pt-topo strong { letter-spacing: 0.03em; }
+/* O modo protegido ligado: faixa própria, com carimbo e o botão de desligar. */
+.pt-topo-protegido { border-color: var(--al-dourado); }
+.pt-topo-carimbo {
+  display: inline-block; padding: 0.15rem 0.5rem; border: 2px solid var(--al-dourado); border-radius: 4px; transform: rotate(-1.5deg);
+  font-size: 0.8rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.pt-topo-botao {
+  margin-left: auto; min-height: 44px; padding: 0 0.9rem; border-radius: 999px; border: 1.5px solid var(--al-texto-3);
+  background: transparent; color: var(--al-texto); font-weight: 700; cursor: pointer;
+}
+.pt-topo-botao:hover { border-color: var(--al-texto); }
+.pt-topo-botao:focus-visible { outline: 2px solid var(--al-dourado); outline-offset: 2px; }
+.pt-topo-botao:disabled { opacity: 0.6; cursor: default; }
+/* As marcações esperando o aceite: aviso neutro, com a borda da linha (não é erro). */
+.pt-topo-neutro { border: 1px solid var(--al-linha); }
+.pt-topo a { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.pt-topo a { color: var(--al-texto); font-weight: 700; text-decoration: underline; text-decoration-color: var(--al-dourado); text-underline-offset: 3px; }

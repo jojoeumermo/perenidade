@@ -1,0 +1,145 @@
+{
+  "_rascunho": true,
+  "aba": "Achievements",
+  "carregando": "Loading…",
+  "tentar": "Try again",
+  "ajustes": {
+    "titulo": "Study and achievements",
+    "texto": "Medals and the helper band show on your profile only if you turn them on. The wall of admissions is only for those who sign up.",
+    "conquistas": "My achievements",
+    "mural": "Wall of admissions"
+  },
+  "tela": {
+    "carimbo": "Achievements",
+    "titulo": "My achievements",
+    "lead": "Medals for what you did: finishing tracks, correcting essays, giving tutoring. Each one starts hidden and shows on your profile only if you turn it on. There is no scoreboard and no comparison between people.",
+    "medalhasTitulo": "Medals",
+    "vazio": "You have no medals yet. They come when you finish a track, correct essays in peer review or give tutoring.",
+    "mostrar": "Show on profile",
+    "noPerfil": "On your profile",
+    "escondida": "Only you see it",
+    "apagar": "Delete",
+    "apagarTitulo": "Delete this medal?",
+    "apagarTexto": "It is gone for good, along with what you had already done towards it.",
+    "apagarSim": "Delete",
+    "nao": "Go back",
+    "feitos": "You have done {n}.",
+    "faltam": "{n} more for the next level.",
+    "topo": "Top level.",
+    "nivel": "Level {n} of 3",
+    "verMural": "See the wall of admissions"
+  },
+  "trilhas": {
+    "titulo": "Finished tracks",
+    "lead": "Mark the tracks you finished. The suggestions come from lessons completed on this device and do not leave it unless you tap.",
+    "sugestoes": "Studied on this device",
+    "nenhuma": "No lesson completed on this device yet.",
+    "terminei": "I finished it",
+    "marcada": "Marked",
+    "desmarcar": "Unmark",
+    "outra": "Another track",
+    "outraDica": "The end of the track address, like historia-do-brasil",
+    "escolher": "Choose the track",
+    "marcar": "Mark"
+  },
+  "medalhas": {
+    "trilha": {
+      "rotulo": "Track",
+      "nome": "Finished {trilha}",
+      "como": "You mark it when you finish the track."
+    },
+    "redacao": {
+      "rotulo": "Essay",
+      "niveis": ["First essay corrected", "Corrects essays in the circle", "Essay panel of the circle"],
+      "como": "Each essay you correct and return in peer review counts."
+    },
+    "monitoria": {
+      "rotulo": "Tutoring",
+      "niveis": ["First tutoring given", "Tutor of the circle", "Reference tutor"],
+      "como": "Each scheduled tutoring session you give counts."
+    }
+  },
+  "faixa": {
+    "titulo": "Helper band",
+    "lead": "Instead of points, a written band. It counts the conversations where the person who asked marked your reply as the one that helped, or accepted it, in the last 12 months. Each conversation counts once, and your own question does not count.",
+    "regra": "The rule, the same for everyone",
+    "desligada": "Off: the band does not show on your profile.",
+    "ligada": "On: the band shows on your profile, with no number.",
+    "ligar": "Show the band on my profile",
+    "desligar": "Hide the band",
+    "suaHoje": "Your band today",
+    "nenhumaAinda": "You have no band yet: the first one starts at 3 conversations."
+  },
+  "faixas": {
+    "semente": { "nome": "Seed of the circle", "texto": "3 to 9 conversations" },
+    "apoio": { "nome": "Support of the circle", "texto": "10 to 29 conversations" },
+    "referencia": { "nome": "Reference of the circle", "texto": "30 conversations or more" }
+  },
+  "perfil": {
+    "titulo": "Achievements",
+    "faixa": "Helper band",
+    "editar": "Choose what shows"
+  },
+  "mural": {
+    "carimbo": "Admitted",
+    "titulo": "Wall of admissions",
+    "lead": "People who passed the ENEM or an entrance exam and wanted to share it. Only those who sign up are here, with their profile name or with a code name just for the wall, and they leave whenever they want.",
+    "vazio": "Nobody has signed up yet. Did you pass? Tell us here.",
+    "mais": "See more",
+    "voce": "You",
+    "mes": "Joined in {mes}",
+    "entrar": "Sign me up",
+    "editar": "Change my entry",
+    "sair": "Leave the wall",
+    "sairTitulo": "Leave the wall?",
+    "sairTexto": "Your entry is gone at once. You can sign up again later.",
+    "sairSim": "Leave",
+    "verPerfil": "See profile",
+    "form": {
+      "titulo": "Your entry",
+      "como": "How to appear",
+      "perfil": "With my profile name, linking to it",
+      "codinome": "With a code name just for the wall, no link",
+      "codinomeCampo": "Code name",
+      "curso": "Course (optional)",
+      "cursoDica": "Like Medicine or Education",
+      "instituicao": "Institution (optional)",
+      "recado": "Message (optional)",
+      "recadoDica": "Up to 140 characters. No phone, email or ID.",
+      "salvar": "Save",
+      "cancelar": "Cancel"
+    },
+    "tirar": "Remove from the wall",
+    "tirarTitulo": "Remove this entry?",
+    "tirarMotivo": "Reason (goes to the log and to the person)",
+    "tirarSim": "Remove"
+  },
+  "aula": {
+    "topicoCarimbo": "Lesson topic",
+    "abrirTopico": "Open this lesson's topic",
+    "criarTopico": "Start this lesson's topic",
+    "semTopico": "This lesson has no topic yet. Whoever arrives first starts it; those who come later land in it.",
+    "outros": "Conversations about this lesson"
+  },
+  "ok": {
+    "salvo": "Saved.",
+    "saiu": "You left the wall.",
+    "apagada": "Medal deleted.",
+    "tirada": "Entry removed."
+  },
+  "erros": {
+    "dado_pessoal": "Remove phone, email or ID from the text.",
+    "invalido:codinome": "The code name needs 2 to 40 characters, with no insults.",
+    "invalido:curso": "The course needs 2 to 80 characters, with no insults.",
+    "invalido:instituicao": "The institution needs 2 to 80 characters, with no insults.",
+    "invalido:recado": "The message needs 2 to 140 characters, with no insults.",
+    "invalido:trilha": "That track address does not work: use only lowercase letters, numbers and hyphens.",
+    "invalido:muitas": "You have already marked the maximum number of tracks (60).",
+    "invalido:motivo": "Write the reason, with 3 to 300 characters.",
+    "sem_permissao": "Only mediation can do this.",
+    "nao_encontrado": "Not found.",
+    "confirme_codinome": "Choose your Alumia code name first.",
+    "muitos_pedidos": "Too many changes in a row. Wait a little.",
+    "generico": "It did not work now. Try again."
+  }
+}

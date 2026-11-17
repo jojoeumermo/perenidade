@@ -48,7 +48,10 @@ function explain(failure: unknown): PasskeyResult {
   return { outcome: "failed", detail: [error?.status, code || name, error?.message].filter(Boolean).join(" · ").slice(0, 200) };
 }
 
-/** Entra na conta com a digital. Não pede e-mail: o aparelho mostra as chaves que tem para este site. */
+/**
+ * Entra na conta com a digital. Não pede e-mail: o aparelho mostra as chaves que tem para este site. Vai direto do navegador ao
+ * serviço de contas; com o desafio da Cloudflare ligado lá, a resposta dele vai junto.
+ */
 export async function signInWithFingerprint(captchaToken?: string): Promise<PasskeyResult> {
   if (!passkeyCapable()) return { outcome: "unsupported", detail: "" };
   try {

@@ -21,7 +21,8 @@
     "assedio": { "rotulo": "Harcèlement ou poursuite", "ajuda": "Insistance, humiliation ou persécution contre quelqu'un." },
     "golpe": { "rotulo": "Arnaque ou fraude", "ajuda": "Tentative de tromper pour obtenir de l'argent ou des données." },
     "spam": { "rotulo": "Publicité ou répétition", "ajuda": "Message répété, vente ou promotion déplacée." },
-    "outro": { "rotulo": "Autre motif", "ajuda": "Quelque chose qui enfreint les règles d’Alumia et ne figure pas ci-dessus." }
+    "outro": { "rotulo": "Autre motif", "ajuda": "Quelque chose qui enfreint les règles d’Alumia et ne figure pas ci-dessus." },
+    "ilegal": { "rotulo": "Contenu illégal", "ajuda": "Crime ou contenu interdit par la loi. Réponse sous 24 heures." }
   },
   "prioridade": { "1": "Priorité 1", "2": "Priorité 2", "3": "Priorité 3" },
   "denunciar": {
@@ -38,7 +39,18 @@
     "retido": "Par précaution, le message est retenu jusqu'à ce que la modération lise le signalement.",
     "acompanhe": "Vous suivez l'avancement dans Avis et dans Signalements et recours.",
     "acompanhar": "Suivre mes signalements",
-    "visitante": "Pas de compte ? Utilisez la page Signaler du site : le contenu public entre aussi dans la file."
+    "visitante": "Pas de compte ? Utilisez la page Signaler du site : le contenu public entre aussi dans la file.",
+    "cifrado": {
+      "titulo": "Ce post est chiffré",
+      "grupoPequeno": "Dans un petit groupe, l’auteur peut deviner que le signalement vient de quelqu’un du groupe : seuls ses membres ouvrent le post.",
+      "abrindo": "Ouverture du post sur cet appareil…",
+      "naoAbre": "Ce post ne s'ouvre pas sur cet appareil. La modération n'a pas la clé du groupe : le signalement part sans le contenu, seulement avec la catégorie et ce que vous écrivez.",
+      "mandar": "Envoyer un extrait en clair à la modération",
+      "custo": "Attention : la modération va lire cet extrait ; le reste reste chiffré. L'extrait sort du chiffrement et est conservé avec le signalement.",
+      "semTrecho": "Sans l'extrait, le signalement part sans le contenu : la modération n'a pas la clé du groupe et ne voit que la catégorie et ce que vous écrivez.",
+      "rotulo": "L'extrait (coupez ce qui n'est pas utile, jusqu'à 1 000 caractères)",
+      "foraDoPost": "L'extrait doit être dans le post, avec les mêmes mots. Coupez, mais ne réécrivez pas."
+    }
   },
   "silenciar": {
     "titulo": "Mettre en sourdine",
@@ -96,7 +108,7 @@
     "abrir": "Ouvrir",
     "alvo": { "post": "Message", "perfil": "Profil", "comunidade": "Communauté" },
     "situacao": { "aberta": "Ouvert", "em_analise": "En analyse", "resolvida": "Résolu", "descartada": "Écarté" },
-    "autor": "Auteur : {nome} (niveau {nivel})",
+    "autor": "Auteur : {nome} ({nivel})",
     "procedentes": "Décisions fondées ces 90 derniers jours : {n}",
     "historico": "Ce qui a déjà été fait sur cette cible",
     "descartar": "Pas d'infraction : écarter",
@@ -106,7 +118,9 @@
     "liberar": "Libérer (rétablir)",
     "vazia": "Aucun signalement dans cette liste.",
     "vazioRetidos": "Aucun message en attente de lecture.",
-    "abrirRetido": "Décider"
+    "abrirRetido": "Décider",
+    "aberto": "Extrait que la personne qui signale a ouvert sur son appareil et envoyé en clair. Il a été écrit par cette personne : Alumia ne peut pas le comparer au post, qui reste chiffré.",
+    "cifradoSem": "Post chiffré : la modération n'a pas la clé du groupe et le signalement est arrivé sans le contenu."
   },
   "recursos": {
     "titulo": "Recours",
@@ -121,11 +135,15 @@
     "vazio": "Aucun recours en attente."
   },
   "lugares": {
-    "titulo": "Mode lent et listes de blocage",
+    "titulo": "Listes de blocage",
     "escolha": "Choisissez le lieu",
     "comunidade": "Communauté",
     "nucleo": "Cercle",
-    "outraComunidade": "Autre communauté (slug)",
+    "outraComunidade": "Autre communauté (adresse)",
+    "listaAjudaComunidade": "Personne : n’écrit pas dans cette communauté. L’équipe n’entre jamais dans la liste.",
+    "palavrasNoFiltro": "Les mots de cette communauté et le mode lent sont dans l’onglet Communautés, dans le Filtre automatique.",
+    "exemploPalavra": "ex. : gain d’argent facile",
+    "exemploPessoa": "@nom",
     "lista": "Liste de blocage",
     "listaAjuda": "Mot : le message est retenu pour que la médiation le lise. Personne : n'écrit pas dans ce lieu. L'équipe n'entre jamais dans la liste.",
     "palavra": "Mot ou expression",
@@ -180,6 +198,7 @@
     "noAparelho": "Seulement sur cet appareil",
     "palavra": "Mettre un mot en sourdine",
     "palavraDica": "Mot ou expression",
+    "dicaPalavra": "Écrivez le mot (2 caractères ou plus) pour le masquer.",
     "adicionar": "Mettre en sourdine",
     "ate": "jusqu'au {data}",
     "tipo": { "pessoa": "Personne", "conversa": "Conversation", "comunidade": "Communauté", "palavra": "Mot" },
@@ -238,6 +257,159 @@
     "prazo_vencido": "Le délai de 30 jours pour faire recours est terminé.",
     "recurso_ja_feito": "Cette décision a déjà un recours.",
     "muitos_silenciados": "Vous avez atteint la limite d'éléments en sourdine (200).",
-    "lista_cheia": "La liste a atteint sa limite de 300 éléments."
+    "lista_cheia": "La liste a atteint sa limite de 300 éléments.",
+    "responda_perguntas": "Cette communauté pose des questions avant la demande : répondez-y pour demander."
+  },
+  "o9": {
+    "tempo": {
+      "s": "{n} s",
+      "min": "{n} min",
+      "h": "{n} h"
+    },
+    "motivos": {
+      "automod_links": "filtre de la communauté : trop de liens",
+      "automod_dominio": "filtre de la communauté : lien vers une adresse de la liste",
+      "automod_conta_nova": "filtre de la communauté : compte récent",
+      "recem_chegada": "file des nouvelles arrivées",
+      "lista_da_mediacao": "mot de la liste de la médiation",
+      "precaucao": "précaution après un signalement"
+    },
+    "prazo": {
+      "ate": "Répondre avant {quando}",
+      "venceu": "Délai dépassé ({quando})"
+    },
+    "automatica": "Décision automatique",
+    "nivelEmFrase": {"0": "compte nouveau", "1": "compte récent", "2": "membre depuis quelques semaines", "3": "compte ancien et actif", "4": "responsable désigné"},
+    "regras": {"precaucao_menor": "retenue par précaution : signalement que le compte est celui d’une personne de moins de 18 ans", "menor_de_18": "Alumia est réservée aux personnes de 18 ans ou plus", "precaucao": "retenue par précaution jusqu’à la lecture du signalement", "painel": "décision de la coordination par le panneau", "ninguem_exposto": "personne exposé sans le vouloir"},
+    "conta": "Compte : {nome}",
+    "ferramentas": {
+      "titulo": "Prendre soin de la communauté",
+      "escolha": "Communauté",
+      "outra": "Autre communauté (adresse)",
+      "nenhuma": "Vous ne modérez encore aucune communauté."
+    },
+    "filtro": {
+      "titulo": "Filtre automatique",
+      "lead": "Le filtre ne fait que retenir la publication pour que la modération la lise. Rien n'est supprimé, l'auteur voit que la publication attend et la règle s'affiche pour qui publie ici.",
+      "links": "Liens par publication",
+      "linksNada": "Pas de règle (la limite du niveau s'applique)",
+      "linksZero": "Toute publication avec un lien attend la lecture",
+      "linksAcima": "Plus de {n} attend la lecture",
+      "dominios": "Adresses qui attendent la lecture",
+      "dominiosAjuda": "Une par ligne, comme raccourci.exemple. Les sous-domaines comptent aussi.",
+      "dominioRuim": "Cela ne ressemble pas à une adresse : {d}",
+      "contaNova": "Compte récent",
+      "contaNovaNada": "Pas de règle",
+      "contaNovaDias": "Compte de moins de {n} jours",
+      "novatos": "File des nouvelles arrivées",
+      "novatosNada": "Désactivée",
+      "novatosN": "Les {n} premières publications",
+      "combinado": "Avec compte récent et file ensemble, seules les premières publications du compte récent attendent. Compte récent seul : toutes ses publications attendent. File seule : les premières publications de toute personne qui arrive.",
+      "palavras": "Mots",
+      "palavrasAjuda": "Une publication avec l'un de ces mots attend la lecture. La liste n'appartient qu'à la modération : qui publie sait qu'elle existe, pas ce qu'elle contient.",
+      "palavraNova": "Mot ou expression",
+      "palavraPor": "Ajouter à la liste",
+      "palavrasVazia": "Aucun mot dans la liste.",
+      "explicacao": "La règle en mots (qui publie ici lit ceci)",
+      "explicacaoDica": "Ex. : Une publication avec plus d'un lien attend la lecture de la modération. Rien n'est supprimé.",
+      "salvar": "Enregistrer le filtre",
+      "salvando": "Enregistrement…",
+      "salvo": "Filtre enregistré. La règle s'applique déjà."
+    },
+    "lento": {
+      "titulo": "Mode lent",
+      "ajuda": "Une publication de temps en temps, par personne. La modération n'attend pas. Avant d'écrire, la personne voit combien de temps il reste.",
+      "desligado": "Désactivé",
+      "cada": "1 publication toutes les {tempo}",
+      "feito": "Mode lent mis à jour."
+    },
+    "brigada": {
+      "titulo": "Alerte de raid",
+      "ajuda": "Quand beaucoup de comptes extérieurs à la communauté répondent à la même publication en peu de temps, seule la modération reçoit une alerte. Alumia ne dit pas qui a répondu : seulement combien de comptes.",
+      "contas": "À partir de combien de comptes extérieurs (minimum 3)",
+      "minutos": "En combien de minutes",
+      "alertas": "Alertes ouvertes",
+      "vazio": "Aucune alerte ouverte.",
+      "contasTexto": "{n} comptes extérieurs ont répondu en {min} min",
+      "atualizado": "Dernière réponse comptée : {quando}",
+      "lentoConversa": "Mode lent de 10 min sur la discussion",
+      "lentoLigado": "Mode lent de {tempo} activé",
+      "travar": "Verrouiller la discussion",
+      "travada": "Discussion verrouillée",
+      "regraTravar": "raid",
+      "motivoTravar": "Beaucoup de réponses de comptes extérieurs à la communauté en peu de temps : la modération a verrouillé la discussion pour qu'elle retrouve son cours.",
+      "encerrar": "Clore l'alerte",
+      "encerrado": "Alerte close.",
+      "feito": "C'est fait. C'est inscrit au registre de la modération.",
+      "verPost": "Voir la publication"
+    },
+    "perguntas": {
+      "titulo": "Questions pour entrer",
+      "ajuda": "Jusqu'à 3 questions pour qui demande à entrer. Seule la modération lit les réponses, qui disparaissent quand la demande est tranchée.",
+      "pergunta": "Question {n}",
+      "salvar": "Enregistrer les questions",
+      "salvo": "Questions enregistrées.",
+      "soRestrita": "Seule une communauté avec demande d'entrée (restreinte) pose des questions."
+    },
+    "pedidos": {
+      "titulo": "Demandes d'entrée",
+      "vazio": "Aucune demande en attente.",
+      "aceitar": "Accepter",
+      "recusar": "Refuser",
+      "semResposta": "A demandé avant que la communauté ait des questions.",
+      "aceito": "Demande acceptée. La personne a été prévenue.",
+      "recusado": "Demande refusée. La personne a été prévenue."
+    },
+    "responder": {
+      "titulo": "Avant la demande, la modération pose des questions",
+      "ajuda": "Seule la modération de cette communauté lit les réponses, qui disparaissent quand la demande sera tranchée.",
+      "enviar": "Demander à entrer",
+      "enviando": "Envoi…",
+      "cancelar": "Annuler"
+    },
+    "regras": {
+      "titulo": "Comment cette communauté modère",
+      "links0": "Une publication avec un lien attend la lecture de la modération.",
+      "linksN": "Une publication avec plus de {n} liens attend la lecture de la modération.",
+      "dominios": "Les liens vers ces adresses attendent la lecture : {lista}.",
+      "contaNova": "Compte de moins de {n} jours : la publication attend la lecture.",
+      "contaNovaFila": "Compte de moins de {dias} jours : les {n} premières publications attendent la lecture.",
+      "novatos": "Les {n} premières publications de qui arrive attendent la lecture.",
+      "palavras": "La modération tient une liste de mots : une publication avec l'un d'eux attend la lecture.",
+      "lento": "Mode lent : 1 publication toutes les {tempo}.",
+      "nada": "Aucun filtre automatique activé ici.",
+      "nadaApaga": "Le filtre ne supprime rien : la modération lit et libère.",
+      "novata": "Vous êtes dans la file des nouvelles arrivées : votre prochaine publication attendra la lecture de la modération.",
+      "falta": "Vous pourrez publier ici de nouveau dans {tempo}."
+    },
+    "antes": {
+      "lento": "Mode lent dans cette communauté : vous pourrez publier ici de nouveau dans {tempo}.",
+      "filtro": "Cette publication attendra la lecture de la modération ({motivo}). Rien n'est supprimé."
+    },
+    "soneca": {
+      "titulo": "Mise en sourdine",
+      "explica": "Mise en veille : disparaît de votre fil pendant un temps et revient toute seule. Personne n’est prévenu.",
+      "pessoa": "Mettre {nome} en sourdine",
+      "conversa": "Mettre cette discussion en sourdine",
+      "comunidade": "Mettre cette communauté en sourdine",
+      "prazo": "Pour combien de temps",
+      "prazos": {
+        "1": "1 jour",
+        "7": "1 semaine",
+        "30": "1 mois",
+        "sempre": "Jusqu'à ce que j'annule"
+      },
+      "feito": "En sourdine jusqu'au {data}. Personne n'est prévenu.",
+      "feitoSempre": "En sourdine jusqu'à ce que vous annuliez. Personne n'est prévenu.",
+      "aparelhoSemPrazo": "Sur cet appareil seulement, il n'y a pas de durée : cela reste jusqu'à ce que vous annuliez.",
+      "comunidadeCampo": "Mettre une communauté en sourdine",
+      "comunidadeDica": "Adresse de la communauté (ex. : logement)",
+      "dicaComunidade": "Écrivez l’adresse de la communauté pour activer la mise en veille."
+    },
+    "abas": {
+      "lei": "Loi et délais",
+      "alertas": "Raids",
+      "comunidades": "Communautés"
+    }
   }
 }

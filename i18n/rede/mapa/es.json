@@ -1,0 +1,64 @@
+{
+  "titulo": "Mapa",
+  "chamada": "Convocatorias, eventos y núcleos por ciudad, en los próximos {dias} días. Cada punto es un municipio entero: el mapa no conoce calles ni barrios, ni dónde está nadie.",
+  "desenho": "Mapa de Brasil con {n} ciudades marcadas",
+  "carregando": "Cargando el mapa…",
+  "erro": "No se pudo cargar el mapa ahora.",
+  "tentar": "Intentar de nuevo",
+  "vazio": "Todavía no hay convocatorias, eventos ni núcleos en el mapa.",
+  "filtro": {
+    "titulo": "Qué mostrar",
+    "chamados": "Convocatorias",
+    "eventos": "Eventos",
+    "nucleos": "Núcleos"
+  },
+  "legenda": {
+    "titulo": "Cómo leer",
+    "chamados": "Convocatoria: acto o jornada de trabajo colectivo.",
+    "eventos": "Evento: asamblea, ronda, clase y otros encuentros.",
+    "nucleos": "Núcleo de una organización con sello que quiso aparecer en el mapa.",
+    "tamanho": "La baldosa crece con el número, que solo aparece a partir de 3. El núcleo nunca tiene número."
+  },
+  "estado": {
+    "rotulo": "Estado",
+    "brasil": "Todo Brasil",
+    "voltar": "Ver todo Brasil",
+    "nenhuma": "Ninguna ciudad marcada en este estado."
+  },
+  "cidades": {
+    "titulo": "Ciudades en el mapa",
+    "tituloEstado": "Ciudades en {uf}",
+    "escolher": "Toca una ciudad del mapa o de la lista para ver lo que hay en ella."
+  },
+  "toque": {
+    "titulo": "Ciudades en este punto",
+    "explica": "En este punto del mapa hay más de una ciudad. Elige una.",
+    "estado": "Ver solo {uf}",
+    "fechar": "Cerrar"
+  },
+  "cidade": {
+    "fechar": "Cerrar",
+    "chamados": "{n} convocatorias",
+    "chamadosPoucos": "Convocatorias: menos de 3",
+    "eventos": "{n} eventos",
+    "eventosPoucos": "Eventos: menos de 3",
+    "nucleos": "Núcleos",
+    "orgs": "Organizaciones con núcleo aquí",
+    "atos": "Próximas convocatorias y eventos",
+    "atosCarregando": "Buscando las convocatorias de esta ciudad…",
+    "atosVazio": "Ninguna convocatoria o evento de esta ciudad que puedas ver ahora.",
+    "atosMenos": "El número del mapa junta todas las formas de escribir esta ciudad y los próximos 60 días. La lista muestra los próximos que la búsqueda de Cerca encuentra con ese nombre; algunos pueden estar escritos de otra forma.",
+    "atosErro": "No se pudieron buscar las convocatorias de esta ciudad.",
+    "verTodos": "Ver todos los actos de {cidade}",
+    "rotuloPonto": "{cidade} ({uf}): {resumo}"
+  },
+  "fora": {
+    "titulo": "Ciudades que no encontramos en el mapa",
+    "texto": "Estas ciudades se escribieron sin el estado y el nombre existe en más de un estado, o el nombre no coincide con ningún municipio. Escribir la ciudad con el estado, como \"Bom Jesus - PI\", pone el punto en su lugar.",
+    "varios": "existe en {ufs}",
+    "nenhum": "ningún municipio con ese nombre"
+  },
+  "fonte": "Dibujo de Brasil hecho por Alumia con la malla pública del IBGE. No se carga nada de fuera.",
+  "aoVivo": "Preguntas en vivo",
+  "aoVivoTexto": "Sesiones de \"Pregunta a…\" con hora fijada."
+}

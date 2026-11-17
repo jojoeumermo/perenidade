@@ -7,8 +7,19 @@ import fs from "node:fs";
 
 const install = fs.readFileSync("supabase/install.sql", "utf8");
 const unicos = (re) => [...new Set([...install.matchAll(re)].map((m) => m[1].toLowerCase()))].sort();
-const tabelas = unicos(/create table (?:if not exists )?([a-z_]+\.[a-z_0-9]+)/gi);
-const funcoes = unicos(/create (?:or replace )?function ([a-z_]+\.[a-z_0-9]+)\s*\(/gi);
+/** O que uma migração mais adiante apaga (drop depois da última criação) não é esperado no banco (ex.: interno.votacao_marca). */
+const semApagados = (nomes, criar, apagar) => {
+  const ultimo = (re) => {
+    const pos = new Map();
+    for (const m of install.matchAll(re)) pos.set(m[1].toLowerCase(), m.index);
+    return pos;
+  };
+  const criados = ultimo(criar);
+  const apagados = ultimo(apagar);
+  return nomes.filter((n) => !(apagados.get(n) > (criados.get(n) ?? -1)));
+};
+const tabelas = semApagados(unicos(/create table (?:if not exists )?([a-z_]+\.[a-z_0-9]+)/gi), /create table (?:if not exists )?([a-z_]+\.[a-z_0-9]+)/gi, /drop table (?:if exists )?([a-z_]+\.[a-z_0-9]+)/gi);
+const funcoes = semApagados(unicos(/create (?:or replace )?function ([a-z_]+\.[a-z_0-9]+)\s*\(/gi), /create (?:or replace )?function ([a-z_]+\.[a-z_0-9]+)\s*\(/gi, /drop function (?:if exists )?([a-z_]+\.[a-z_0-9]+)\s*\(/gi);
 const depositos = unicos(/storage\.buckets \(id[^)]*\)\s*values \('([a-z-]+)'/gi);
 const rotinas = unicos(/cron\.schedule\('([a-z-]+)'/gi);
 const lista = (nomes) => `array[${nomes.map((n) => `'${n}'`).join(", ")}]`;

@@ -1,0 +1,161 @@
+{
+  "_rascunho": true,
+  "aba": "Structure",
+  "abaEspacos": "Espaces",
+  "carregando": "Chargement…",
+  "tentar": "Réessayer",
+  "salvar": "Enregistrer",
+  "salvo": "Enregistré.",
+  "cancelar": "Annuler",
+  "aceitar": "Accepter",
+  "recusar": "Refuser",
+  "desfazer": "Annuler l'action",
+  "enviar": "Envoyer",
+  "enviado": "Demande envoyée.",
+  "nenhuma": "Aucune pour l'instant.",
+  "postsSemana": "{n} publications cette semaine",
+  "semanaQuieta": "Calme cette semaine",
+  "tipo": { "aberta": "Ouverte", "restrita": "Restreinte", "fechada": "Fermée" },
+  "estrutura": {
+    "titulo": "Comment cette communauté s'organise",
+    "moraEm": "Vit à l'intérieur de",
+    "subcomunidades": "Sous-communautés",
+    "semSub": "Aucune sous-communauté ne vit ici.",
+    "onde": "Où",
+    "ondeVazio": "La modération n'a pas encore écrit la ville.",
+    "verCidade": "Autres communautés de {cidade}",
+    "org": "Organisation",
+    "verEspacos": "Voir les Espaces de l'organisation",
+    "soLeitura": "Communauté d'annonces",
+    "soLeituraTexto": "Seule la modération ouvre des publications ici.",
+    "respostasTexto": {
+      "todos": "Tout le monde peut répondre aux annonces.",
+      "membros": "Les membres de la communauté peuvent répondre aux annonces.",
+      "ninguem": "Les annonces ne reçoivent pas de réponse."
+    },
+    "herancaTexto": {
+      "propria": "A sa propre modération.",
+      "mae": "La modération de {mae} s'occupe aussi d'ici."
+    }
+  },
+  "ajustar": {
+    "titulo": "Ajuster la structure",
+    "intro": "Seule la modération voit cette partie. Tout s'applique tout de suite et reste écrit dans l'onglet pour qui lit.",
+    "soLeitura": "Communauté d'annonces (seule la modération ouvre des publications)",
+    "respostas": "Qui répond aux annonces",
+    "respostasOpcoes": { "todos": "Tout le monde", "membros": "Les membres de la communauté", "ninguem": "Personne" },
+    "reposts": "Qui peut apporter ici des publications d'une autre communauté",
+    "repostsOpcoes": { "todos": "Qui peut publier ici", "moderacao": "Seulement la modération", "ninguem": "Personne" },
+    "local": "Ville et quartier",
+    "localAjuda": "Écrivez la commune et, si vous voulez, le quartier. Nous n'utilisons ni la localisation de l'appareil ni de carte externe.",
+    "uf": "État",
+    "ufVazia": "Choisir",
+    "municipio": "Commune",
+    "municipioExemplo": "Ex. : Campinas",
+    "bairro": "Quartier (facultatif)",
+    "bairroExemplo": "Ex. : Vila Industrial",
+    "mae": "Vivre à l'intérieur d'une autre communauté",
+    "maeAjuda": "Écrivez l'adresse de la communauté mère (ce qui vient après /c/). Sa modération reçoit la demande et décide. Un seul niveau : la mère ne vit pas dans une autre, et celle qui accueille des sous-communautés ne déménage pas dans une autre.",
+    "maeCampo": "Adresse de la communauté mère",
+    "maeExemplo": "Ex. : logement",
+    "maeEsperando": "En attente de la décision de {mae}.",
+    "maeSair": "Quitter {mae}",
+    "naoPodeSerFilha": "Cette communauté accueille des sous-communautés, elle ne déménage donc pas dans une autre.",
+    "heranca": "Modération",
+    "herancaOpcoes": {
+      "propria": "Seule notre modération s'occupe d'ici",
+      "mae": "La modération de la communauté mère s'occupe aussi d'ici"
+    },
+    "herancaAjuda": "Avec la deuxième option, qui modère la mère modère aussi cette communauté avec les mêmes pouvoirs, tant qu'elle y vit.",
+    "pedidosFilhas": "Demandes pour vivre ici",
+    "pedidoFilha": "{nome} veut être une sous-communauté d'ici.",
+    "pedidoFilhaHerda": "{nome} veut être une sous-communauté d'ici et que la modération d'ici s'en occupe aussi.",
+    "tirarFilha": "Cesser d'accueillir",
+    "org": "Apparaître dans les Espaces d'une organisation",
+    "orgAjuda": "Seulement les organisations avec sceau. Qui gère l'organisation reçoit la demande et décide.",
+    "orgCampo": "@ de l'organisation",
+    "orgExemplo": "Ex. : @collectif",
+    "orgEsperando": "En attente de la décision de @{handle}.",
+    "orgSair": "Quitter les Espaces de @{handle}",
+    "salvarRegras": "Enregistrer les règles de publication",
+    "salvarLocal": "Enregistrer la ville et le quartier",
+    "filhasAqui": "Sous-communautés hébergées ici"
+  },
+  "espacos": {
+    "titulo": "Espaces",
+    "intro": "Les communautés et les noyaux de cette organisation, en un seul endroit. Ici apparaissent des lieux, jamais qui participe.",
+    "comunidades": "Communautés",
+    "nucleos": "Noyaux",
+    "semComunidades": "Aucune communauté liée pour l'instant.",
+    "semNucleos": "Aucun noyau pour l'instant.",
+    "dentro": "Sous-communautés : {nomes}",
+    "pedidos": "Communautés qui demandent à apparaître ici",
+    "pedido": "{nome} a demandé à apparaître dans les Espaces.",
+    "tirar": "Retirer des Espaces",
+    "semSelo": "Les Espaces apparaissent à tout le monde quand l'organisation a un sceau."
+  },
+  "cidade": {
+    "porCategoria": "Par thème",
+    "porCidade": "Par ville",
+    "titulo": "Communautés par ville",
+    "intro": "La ville et le quartier sont écrits par la modération de chaque communauté. Aucune localisation de l'appareil.",
+    "filtrar": "Chercher une commune",
+    "contagem": "{n} communautés",
+    "contagemUma": "1 communauté",
+    "vazio": "Aucune communauté n'a encore écrit sa ville.",
+    "nenhum": "Aucune commune avec ce nom.",
+    "voltar": "Toutes les villes",
+    "cidadeToda": "Toute la ville",
+    "escolha": "Choisissez une commune pour voir ses communautés."
+  },
+  "levar": {
+    "botao": "Emmener dans une autre communauté",
+    "titulo": "Emmener cette publication dans une autre communauté",
+    "intro": "La publication part citée, avec la communauté d'origine en vue. Qui là-bas ne peut pas voir l'original voit seulement qu'il est restreint.",
+    "destino": "Communauté",
+    "destinoVazio": "Choisissez la communauté",
+    "semDestino": "Vous ne participez pas encore à une autre communauté où vous pouvez publier.",
+    "comentario": "Pourquoi l'apporter là-bas ?",
+    "comentarioExemplo": "Ex. : Cela vaut aussi pour notre quartier.",
+    "enviar": "Emmener",
+    "levado": "Emmenée dans {nome}."
+  },
+  "origem": {
+    "trazido": "Apportée de {nome}",
+    "restrita": "Apportée d'une communauté restreinte",
+    "perfil": "Apportée d'un profil"
+  },
+  "proposta": {
+    "titulo": "Lieu et maison (facultatif)",
+    "intro": "Si la communauté est celle d'une ville ou d'un quartier, écrivez-le ici. Si elle va vivre dans une autre, dites laquelle : sa modération décide après l'approbation.",
+    "maeCampo": "Communauté mère (adresse)",
+    "aviso": "La proposition a été envoyée, mais la ville ou la communauté mère n'a pas été enregistrée : {erro}"
+  },
+  "avisos": {
+    "carimbo": "Communauté d'annonces",
+    "paraQuemLe": "Seule la modération ouvre des posts ici. Vous pouvez répondre aux annonces, selon la règle de la communauté.",
+    "paraModeracao": "Seule la modération (et les rôles autorisés) ouvre des posts ici."
+  },
+  "antes": {
+    "soLeitura": "C'est une communauté d'annonces : seule la modération ouvre des publications ici. Vous pouvez répondre aux annonces, selon la règle de la communauté."
+  },
+  "erros": {
+    "so_leitura": "C'est une communauté d'annonces : seule la modération ouvre des publications ici.",
+    "so_leitura_respostas": "Dans cette communauté d'annonces, la règle ne vous laisse pas répondre.",
+    "mae_e_filha": "Cette communauté vit déjà dans une autre ; choisissez-en une qui ne soit pas une sous-communauté.",
+    "filha_e_mae": "Cette communauté accueille des sous-communautés et ne peut pas vivre dans une autre.",
+    "sem_selo": "Seules les organisations avec sceau ont des Espaces.",
+    "repostar_publico": "Cette publication appartient à un public fermé et ne quitte pas son lieu.",
+    "repostar_fechado": "La communauté de destination n'accepte pas les publications venues d'ailleurs (ou seulement de sa modération).",
+    "mesma_comunidade": "La publication est déjà dans cette communauté.",
+    "citar_fechado": "La personne qui a écrit cette publication ne permet pas de la citer.",
+    "ja_decidida": "La proposition a déjà été décidée.",
+    "invalido": "Vérifiez ce qui a été écrit."
+  },
+  "ufs": {
+    "AC": "Acre", "AL": "Alagoas", "AP": "Amapá", "AM": "Amazonas", "BA": "Bahia", "CE": "Ceará", "DF": "District fédéral",
+    "ES": "Espírito Santo", "GO": "Goiás", "MA": "Maranhão", "MT": "Mato Grosso", "MS": "Mato Grosso do Sul", "MG": "Minas Gerais",
+    "PA": "Pará", "PB": "Paraíba", "PR": "Paraná", "PE": "Pernambouc", "PI": "Piauí", "RJ": "Rio de Janeiro", "RN": "Rio Grande do Norte",
+    "RS": "Rio Grande do Sul", "RO": "Rondônia", "RR": "Roraima", "SC": "Santa Catarina", "SP": "São Paulo", "SE": "Sergipe", "TO": "Tocantins"
+  }
+}

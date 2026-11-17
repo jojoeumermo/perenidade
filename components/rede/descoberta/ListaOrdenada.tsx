@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import type { TextosDaDescoberta } from "@/lib/rede/textos-descoberta";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { Post } from "@/lib/rede/tipos";
@@ -29,6 +29,7 @@ export function ListaOrdenada({
   ordemInicial,
   carregar,
   vazio,
+  vazioPeca,
   aoResponder,
   aoPagina,
 }: {
@@ -41,6 +42,8 @@ export function ListaOrdenada({
   ordemInicial: string;
   carregar: (ordem: string, cursor: string | null) => Promise<PaginaOrdenada>;
   vazio: string;
+  /** Um estado vazio desenhado (título, dicas, botões) no lugar da frase `vazio`. */
+  vazioPeca?: ReactNode;
   aoResponder?: (post: Post) => void;
   /** Avisa a tela de cada primeira página recebida (a página da tag usa para mostrar a linha temática). */
   aoPagina?: (pagina: PaginaOrdenada) => void;
@@ -99,9 +102,11 @@ export function ListaOrdenada({
 
   const o = d.ordens as unknown as Record<string, { nome: string; formula: string }>;
   const pronto = estado?.pedido === pedido;
+  // Sem nenhum resultado, a escolha da ordem não tem o que ordenar (vazio numa ordem é vazio na outra): some.
+  const semNada = pronto && estado.fase === "ok" && itens.length === 0;
   return (
     <div className="al3-tela">
-      <div className="border-b border-rule px-[18px] py-3 font-sans">
+      <div className="border-b border-rule px-[18px] py-3 font-sans" hidden={semNada}>
         {/* A pílula clara desliza até a ordem escolhida (régua de movimento.ts); setas do teclado trocam, como num grupo de rádio. */}
         <div role="radiogroup" aria-label={d.ordens.rotulo} className="al3-segmento" ref={grupo}>
           <span className="al3-segmento-regua" aria-hidden />
@@ -146,7 +151,7 @@ export function ListaOrdenada({
       ) : (
         <>
           {itens.length === 0 ? (
-            <p className="px-[18px] py-8 font-sans text-ink-soft">{vazio}</p>
+            (vazioPeca ?? <p className="px-[18px] py-8 font-sans text-ink-soft">{vazio}</p>)
           ) : (
             <ol aria-label={o[ordem]?.nome} className="al3-lista-entra" key={pedido}>
               {itens.map((p, i) => (

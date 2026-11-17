@@ -8,19 +8,26 @@ import { useAnuncio, useQuadro } from "./usarQuadro";
 import { codigoDoErro } from "@/lib/rede/atos/erros";
 import { conferirPeticao } from "@/lib/rede/atos/quadros";
 import { dataLongaNaFrase, doCampoLocal } from "@/lib/rede/atos/tempo";
-import { atos as cliente } from "@/lib/rede/cliente-atos";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
-import { LIMITES_DO_ATO, type Ato, type PeticaoDoAto } from "@/lib/rede/tipos-atos";
+import { LIMITES_DO_ATO, type Ato } from "@/lib/rede/tipos-atos";
+import { clienteDoApoio } from "../apoio/cliente";
+import { CuidarDaPeticao, PlacarDaMeta } from "../apoio/PeticaoMeta";
+import { lerMetaDaPeticao, type PeticaoComMeta } from "../apoio/regras";
+import { useTextosDoApoio, type TextosDoApoio } from "../apoio/textos";
 import "./quadros.css";
 
 /**
  * O abaixo-assinado do ato (PLANO-ALUMIA §4.2, "petição sem lista"): para quem, o que pede, o prazo e o total. NINGUÉM vê quem
  * assinou, nem quem criou; o total só aparece a partir de 3 e anda de 15 em 15 minutos (a mesma regra do mosaico, para ninguém
  * deduzir quem acabou de assinar). A petição não está no post: nunca sai para o Fediverso. Só quem organiza o ato abre e encerra.
+ * Onda 13 (components/rede/apoio): a meta de assinaturas (opcional) e, só para quem organiza, o documento de entrega com o número
+ * e o texto. Nenhum nome, nem para quem organiza.
  */
 export function Peticao({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; lang: string; logado: boolean }) {
-  const carregar = useCallback(() => cliente.peticao(ato.id), [ato.id]);
-  const { estado, trocar } = useQuadro<PeticaoDoAto | null>(carregar, ato.id);
+  const cliente = clienteDoApoio();
+  const ta = useTextosDoApoio(lang);
+  const carregar = useCallback(() => clienteDoApoio().peticao(ato.id), [ato.id]);
+  const { estado, trocar } = useQuadro<PeticaoComMeta | null>(carregar, ato.id);
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
   const [criando, setCriando] = useState(false);
@@ -40,7 +47,7 @@ export function Peticao({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
     requestAnimationFrame(() => (para === "criar" ? criar.current : titulo.current)?.focus());
   }, [criando]);
 
-  if (estado.fase !== "pronto") return null;
+  if (estado.fase !== "pronto" || !ta) return null;
   const p = estado.dados;
   if (!p && !ato.meu) return null;
 
@@ -86,6 +93,7 @@ export function Peticao({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
         {criando ? (
           <NovaPeticao
             t={t}
+            ta={ta}
             aoFechar={() => {
               depoisDeCriar.current = "criar";
               setCriando(false);
@@ -140,6 +148,7 @@ export function Peticao({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
           </p>
         ) : null}
       </div>
+      <PlacarDaMeta p={p} t={ta} lang={lang} />
       <p id={idExplica} className="al-q-explica">
         {t.peticao.explica}
       </p>
@@ -178,6 +187,7 @@ export function Peticao({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
           )
         ) : null}
       </div>
+      <CuidarDaPeticao key={`${p.id}:${p.meta ?? ""}`} p={p} t={ta} lang={lang} aoMudar={trocar} />
       {!logado ? <p className="al-q-ajuda">{t.peticao.entrar}</p> : null}
       {erro ? (
         <p role="alert" className="al-ato-erro">
@@ -191,26 +201,30 @@ export function Peticao({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
   );
 }
 
-function NovaPeticao({ t, aoFechar, aoAbrir }: { t: TextosDosAtos; aoFechar: () => void; aoAbrir: (p: { alvo: string; texto: string; prazo: string | null }) => Promise<void> }) {
+function NovaPeticao({ t, ta, aoFechar, aoAbrir }: {
+  t: TextosDosAtos; ta: TextosDoApoio; aoFechar: () => void; aoAbrir: (p: { alvo: string; texto: string; prazo: string | null; meta: number | null }) => Promise<void>;
+}) {
   const [alvo, setAlvo] = useState("");
+  const [meta, setMeta] = useState("");
   const [texto, setTexto] = useState("");
   const [prazo, setPrazo] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
   // Qual campo está errado: ganha aria-invalid, aponta para a mensagem (aria-describedby) e recebe o foco.
-  const [ruim, setRuim] = useState<"alvo" | "texto" | "prazo" | null>(null);
+  const [ruim, setRuim] = useState<"alvo" | "texto" | "prazo" | "meta" | null>(null);
   const primeiro = useRef<HTMLInputElement>(null);
   const campoTexto = useRef<HTMLTextAreaElement>(null);
   const campoPrazo = useRef<HTMLInputElement>(null);
+  const campoMeta = useRef<HTMLInputElement>(null);
   const id = useId();
   const idErro = `${id}-erro`;
   useEffect(() => {
     primeiro.current?.focus();
   }, []);
-  const marcar = (campo: "alvo" | "texto" | "prazo" | null, mensagem: string) => {
+  const marcar = (campo: "alvo" | "texto" | "prazo" | "meta" | null, mensagem: string) => {
     setErro(mensagem);
     setRuim(campo);
-    (campo === "texto" ? campoTexto.current : campo === "prazo" ? campoPrazo.current : primeiro.current)?.focus();
+    (campo === "texto" ? campoTexto.current : campo === "prazo" ? campoPrazo.current : campo === "meta" ? campoMeta.current : primeiro.current)?.focus();
   };
   const enviar = async (e: FormEvent) => {
     e.preventDefault();
@@ -222,20 +236,25 @@ function NovaPeticao({ t, aoFechar, aoAbrir }: { t: TextosDosAtos; aoFechar: () 
       marcar(campo, dado ? t.erros.dado_pessoal : campo === "prazo" ? t.erros.data : t.erros.texto);
       return;
     }
+    const metaLida = lerMetaDaPeticao(meta);
+    if (metaLida === "numero") {
+      marcar("meta", ta.peticao.metaInvalida);
+      return;
+    }
     setOcupado(true);
     setErro(null);
     setRuim(null);
     try {
-      await aoAbrir({ alvo: alvo.replace(/\s+/g, " ").trim(), texto: texto.trim(), prazo: prazoIso });
+      await aoAbrir({ alvo: alvo.replace(/\s+/g, " ").trim(), texto: texto.trim(), prazo: prazoIso, meta: metaLida });
     } catch (e) {
       const c = codigoDoErro(e);
-      const campo = c === "data" ? "prazo" : c === "texto" || c === "dado_pessoal" ? (/alvo/.test(String((e as Error)?.message)) ? "alvo" : "texto") : null;
-      marcar(campo, c === "generico" ? t.tela.erro : frase(t, e));
+      const campo = c === "data" ? "prazo" : c === "meta" ? "meta" : c === "texto" || c === "dado_pessoal" ? (/alvo/.test(String((e as Error)?.message)) ? "alvo" : "texto") : null;
+      marcar(campo, c === "generico" ? t.tela.erro : c === "meta" ? ta.peticao.metaInvalida : frase(t, e));
     } finally {
       setOcupado(false);
     }
   };
-  const invalido = (campo: "alvo" | "texto" | "prazo") => (ruim === campo ? { "aria-invalid": true as const } : {});
+  const invalido = (campo: "alvo" | "texto" | "prazo" | "meta") => (ruim === campo ? { "aria-invalid": true as const } : {});
   return (
     <form
       className="al-q-form"
@@ -281,6 +300,11 @@ function NovaPeticao({ t, aoFechar, aoAbrir }: { t: TextosDosAtos; aoFechar: () 
       <label className="al-q-campo">
         <span>{t.peticao.prazoRotulo}</span>
         <input ref={campoPrazo} className="al-ato-form-campo" type="datetime-local" value={prazo} onChange={(e) => setPrazo(e.target.value)} {...invalido("prazo")} aria-describedby={ruim === "prazo" ? idErro : undefined} />
+      </label>
+      <label className="al-q-campo">
+        <span>{ta.peticao.metaCampo}</span>
+        <input ref={campoMeta} className="al-ato-form-campo" inputMode="numeric" autoComplete="off" value={meta} onChange={(e) => setMeta(e.target.value)} {...invalido("meta")} aria-describedby={`${id}-meta${ruim === "meta" ? ` ${idErro}` : ""}`} />
+        <small id={`${id}-meta`} className="al-q-ajuda">{ta.peticao.metaAjuda}</small>
       </label>
       {erro ? (
         <p id={idErro} role="alert" className="al-ato-erro">

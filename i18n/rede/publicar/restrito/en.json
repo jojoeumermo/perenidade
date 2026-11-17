@@ -1,0 +1,26 @@
+{
+  "selo": "Encrypted for the group",
+  "explicaNucleo": "Only members of the nucleus can read it: the text is encrypted on this device, and the server keeps only the ciphertext.",
+  "explicaComunidade": "Only members of the community can read it: the text is encrypted on this device, and the server keeps only the ciphertext.",
+  "custosTitulo": "What changes with encryption",
+  "custos": [
+    "Search finds this post only on the devices of group members.",
+    "The new-post notification comes without a preview of the text.",
+    "Whoever reports it sends the excerpt in plain text, as in the chat.",
+    "It never goes out to the Fediverse."
+  ],
+  "semAgendar": "An encrypted post goes out right away: it can't be scheduled, set to disappear or have its images arranged.",
+  "cifrando": "Encrypting on this device…",
+  "semChave": "This device is still joining the group. Try again in a few seconds.",
+  "suspeito": "You can't write in this group right now: someone's key changed",
+  "falha": "Couldn't encrypt right now. Nothing was posted.",
+  "abrindo": "Opening on this device…",
+  "naoAbre": "Can't open on this device",
+  "naoAbreAjuda": "Whoever joined the group after the post, or opens it on a new device, reads what comes from then on.",
+  "previa": "In the preview, nothing is encrypted or posted.",
+  "voz": {
+    "abrir": "Open the voice room",
+    "fechar": "Close the voice room",
+    "carregando": "Loading the room…"
+  }
+}

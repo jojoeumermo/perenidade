@@ -28,7 +28,7 @@ export default function NaoEncontradaNaAlumia() {
       <Faixa />
       <header className="mx-auto flex max-w-[1100px] items-center px-4 pt-5">
         <Link href={localePath(lang, "/alumia")} className="flex items-center gap-3" aria-label={t?.marca.inicio}>
-          <Lampiao tamanho={30} />
+          <Lampiao tamanho={38} />
           <span className="leading-none">
             <span className="al-cond block text-[1.75rem] font-black uppercase tracking-tight">{t?.marca.nome ?? "Alumia"}</span>
             <span className="al-marca-instituto block text-[0.85rem] text-[var(--al-texto-2)]">{t?.marca.instituto ?? "Instituto Lúcia"}</span>

@@ -1,0 +1,14 @@
+{
+  "aviso": "Les liens sont vérifiés par Google Safe Browsing.",
+  "comoFunciona": "Comment ça marche",
+  "bloqueio": "Impossible de publier avec ce lien : Google Safe Browsing signale {host} comme {tipo}. Retirez le lien et publiez à nouveau.",
+  "varios": "Impossible de publier avec ces liens : Google Safe Browsing signale {hosts} comme dangereux. Retirez les liens et publiez à nouveau.",
+  "leitor": "lien bloqué : Google Safe Browsing signale {host} comme {tipo}",
+  "tipos": {
+    "MALWARE": "page qui installe un logiciel malveillant",
+    "SOCIAL_ENGINEERING": "page d'arnaque, qui en imite une autre pour voler un mot de passe ou des données",
+    "UNWANTED_SOFTWARE": "page qui installe un logiciel indésirable",
+    "POTENTIALLY_HARMFUL_APPLICATION": "application qui peut causer du tort",
+    "outro": "dangereuse"
+  }
+}

@@ -1,0 +1,214 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * O painel único de admin da Alumia (components/painel/alumia/admin), por cima de styles/alumia-painel.css: o estado do beta
+ * fechado à vista, a faixa vermelha do perigo e a ordem de abrir. Cores só pelos tokens de styles/alumia-tokens.css (claro,
+ * escuro, alto contraste e e-ink acompanham). Primeiro o computador (1440 × 900); em 390 px tudo empilha.
+ */
+
+/*
+ * No tema claro, os cartões do mosaico (ladrilhos, dados da ficha, opção escolhida, etiqueta "papel") são fixos do escuro nos
+ * tokens da Alumia: aqui eles viram creme (apagado) e tinta (aceso), para ler bem sobre o fundo claro.
+ */
+.ap.aa[data-al-tema="claro"],
+.ap-janela[data-al-tema="claro"] {
+  --al-cartao-apagado: var(--al-superficie-2);
+  --al-cartao-aceso: #0f0e0d;
+  --al-cartao-borda: var(--al-linha);
+  --al-sobre-papel: #f3efe6;
+}
+.ap.aa[data-al-tema="claro"] .ap-ladrilho[data-aceso="true"] .ap-ladrilho-nota {
+  color: var(--al-sobre-papel);
+}
+
+/* A faixa do perigo entra como mais uma linha da grade do painel (a última continua sendo a que cresce). */
+.ap.aa:has(> .aa-faixa-perigo) {
+  grid-template-rows: auto auto auto 1fr;
+}
+
+.aa-sinal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 32px;
+  padding: 0 0.8rem;
+  border: 1.5px solid var(--al-superficie-2);
+  border-radius: var(--al-raio-pilula, 999px);
+  background: transparent;
+  color: var(--al-texto);
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
+  word-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.aa-sinal::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--al-texto-3);
+}
+.aa-sinal[data-tom="bom"] {
+  border-color: var(--al-dourado);
+  color: var(--al-dourado);
+}
+.aa-sinal[data-tom="bom"]::before {
+  background: var(--al-dourado);
+}
+.aa-sinal[data-tom="perigo"] {
+  /* O vermelho de fundo onde vai texto pequeno (branco em cima passa de 4,5:1 nos dois temas). */
+  border-color: var(--al-vermelho-texto);
+  background: var(--al-vermelho-texto);
+  color: var(--al-sobre-vermelho);
+}
+.aa-sinal[data-tom="perigo"]::before {
+  background: var(--al-sobre-vermelho);
+}
+.aa-sinal[data-tom="atencao"] {
+  border-color: var(--al-vermelho);
+  color: var(--al-vermelho-texto);
+}
+.aa-sinal[data-tom="atencao"]::before {
+  background: var(--al-vermelho);
+}
+.aa-sinal:focus-visible {
+  outline: 2px solid var(--al-foco);
+  outline-offset: 2px;
+}
+
+/* A faixa do perigo: aberta sem a trava. Vermelha, logo abaixo do alto, em todas as abas. */
+.aa-faixa-perigo {
+  margin: 0;
+  padding: 0.7rem 1.75rem;
+  background: var(--al-vermelho-texto);
+  color: var(--al-sobre-vermelho);
+  font-weight: 700;
+}
+
+/* O estado do beta, grande, no alto da primeira aba. */
+.aa-estado {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "rotulo numeros" "texto numeros";
+  gap: 0.35rem 1.5rem;
+  align-items: center;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--al-linha);
+  border-left: 6px solid var(--al-texto-3);
+  border-radius: var(--al-raio, 10px);
+  background: var(--al-superficie);
+}
+.aa-estado[data-tom="bom"] {
+  border-left-color: var(--al-dourado);
+}
+.aa-estado[data-tom="atencao"] {
+  border-left-color: var(--al-vermelho);
+}
+.aa-estado[data-tom="perigo"] {
+  border-color: var(--al-vermelho);
+  border-left-color: var(--al-vermelho);
+  box-shadow: inset 0 0 0 1px var(--al-vermelho);
+}
+.aa-estado-rotulo {
+  grid-area: rotulo;
+  font-size: 1.6rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.aa-estado[data-tom="perigo"] .aa-estado-rotulo {
+  color: var(--al-vermelho-texto);
+}
+.aa-estado[data-tom="bom"] .aa-estado-rotulo {
+  color: var(--al-dourado);
+}
+.aa-estado-texto {
+  grid-area: texto;
+  color: var(--al-texto-2);
+  max-width: 62ch;
+}
+.aa-estado-numeros {
+  grid-area: numeros;
+  display: flex;
+  gap: 1.25rem;
+  margin: 0;
+}
+.aa-estado-numeros div {
+  display: grid;
+  gap: 0.1rem;
+  text-align: right;
+}
+.aa-estado-numeros dt {
+  color: var(--al-texto-3);
+  font-size: 0.8125rem;
+}
+.aa-estado-numeros dd {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* A ordem para abrir o beta. */
+.aa-passos {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.aa-passos li {
+  display: grid;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  gap: 0.6rem;
+  align-items: start;
+  color: var(--al-texto-2);
+}
+.aa-passos li[data-feito] {
+  color: var(--al-texto);
+}
+.aa-passo-marca {
+  display: inline-grid;
+  place-items: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 1.5px solid var(--al-texto-3);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.aa-passos li[data-feito] .aa-passo-marca {
+  border-color: var(--al-dourado);
+  background: var(--al-dourado);
+  color: var(--al-sobre-dourado);
+}
+
+.aa-tecnico {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  color: var(--al-texto-3);
+}
+.aa .ap-miudo[data-tom="perigo"] {
+  color: var(--al-vermelho-texto);
+  font-weight: 600;
+}
+
+@media (max-width: 40rem) {
+  .aa-faixa-perigo {
+    padding: 0.6rem 1rem;
+  }
+  .aa-estado {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "rotulo" "texto" "numeros";
+    padding: 0.9rem 1rem;
+  }
+  .aa-estado-rotulo {
+    font-size: 1.3rem;
+  }
+  .aa-estado-numeros {
+    justify-content: space-between;
+  }
+  .aa-estado-numeros div {
+    text-align: left;
+  }
+}

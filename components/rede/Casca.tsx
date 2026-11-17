@@ -124,7 +124,7 @@ export function Casca({
 
       <aside className="hidden px-5 py-6 xl:block" aria-label={s.menu.principal}>
         <div className="sticky top-[calc(var(--altura-topo,0px)+1rem)]">
-          <p className="flex items-center gap-2 font-serif text-[1.75rem] font-extrabold leading-none tracking-tight"><MarcaDaAlumia className="h-8 w-8" />{s.marca}</p>
+          <p className="flex items-center gap-2 font-serif text-[1.75rem] font-extrabold leading-none tracking-tight"><MarcaDaAlumia tamanho={34} />{s.marca}</p>
           <p className="mt-1 pl-10 font-sans text-xs font-bold uppercase tracking-[0.14em] text-[#c21f16]">{s.alumia.lema}</p>
           <nav className="mt-4" aria-label={s.menu.principal}>
             <ul className="space-y-1">
@@ -188,7 +188,7 @@ export function Casca({
       <main id="rede-linha" className="min-w-0 border-rule bg-parchment xl:border-x" aria-label={s.marca}>
         {/* No celular: a marca, a busca e o "sair rápido" ficam no alto, no lugar das colunas dos lados. */}
         <div className="flex items-center gap-2 border-b border-rule px-4 py-2 xl:hidden">
-          <p className="flex items-center gap-1.5 font-serif text-lg font-extrabold"><MarcaDaAlumia className="h-5 w-5" />{s.marca}</p>
+          <p className="flex items-center gap-1.5 font-serif text-lg font-extrabold"><MarcaDaAlumia tamanho={22} />{s.marca}</p>
           <form action={localePath(lang, "/alumia/buscar")} method="get" role="search" className="ml-auto min-w-0 flex-1">
             <label className="sr-only" htmlFor="rede-busca-celular">{s.menu.busca}</label>
             <input id="rede-busca-celular" name="q" type="search" placeholder={s.menu.busca} className="min-h-11 w-full rounded-full border border-rule bg-folha px-4 font-sans" />

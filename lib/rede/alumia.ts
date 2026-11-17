@@ -33,10 +33,27 @@ export const ROTAS_DA_ALUMIA = [
   // Onda 5 (PLANO-ALUMIA, F0): as rotas novas, cada uma atrás da sua flag (lib/rede/rotas-novas.ts; 404 com a flag desligada).
   "atos", "ato", "organizacoes", "stories", "seguranca", "identidades", "aparelhos", "o-que-guardamos", "transparencia",
   "calendario", "listas", "leve",
+  // Acabamento da Faixa 1: aparência e leitura, posts que se repetem e a linha dos #temas.
+  "aparencia", "series", "temas",
+  // A linha com regra aberta (interruptor "alumia-linha-aberta").
+  "linhas", "como-a-linha",
+  // Onda 8: a lei e a ajuda da Alumia, os meus dados e os convites (no host próprio, as da Alumia, não as do site).
+  "termos", "privacidade", "regras", "ajuda", "meus-dados", "convite",
+  // Onda 9: o modo ato (com o guia sem sinal) e os rótulos assináveis.
+  "modo-ato", "rotulos",
+  // Onda 11: o estudo (questões, turmas, agenda, redação) e as conquistas com o mural de aprovados.
+  "questoes", "turmas", "agenda", "redacao", "conquistas", "aprovados",
+  // Onda 12: o pacote inicial (/alumia/pacote/[slug]), com quem aceitou entrar nele (nunca indexado).
+  "pacote",
+  // Onda 13: o mapa e o ao vivo (/alumia/mapa, /alumia/mapa/ao-vivo), as pontes e o Mural dos Trabalhadores.
+  "mapa", "pontes", "trabalhadores",
 ] as const;
 
-/** Páginas do site que também abrem no endereço da Alumia (entrar na conta, regras, privacidade): a sessão é por endereço. */
-export const PAGINAS_LIVRES_NA_ALUMIA = ["entrar", "conduta", "privacidade", "termos", "meus-dados", "fora-do-ar"] as const;
+/**
+ * Páginas do site que também abrem no endereço da Alumia (entrar na conta, conduta do site): a sessão é por endereço. Os termos,
+ * a privacidade e os meus dados da Alumia (onda 8) são telas dela, em ROTAS_DA_ALUMIA.
+ */
+export const PAGINAS_LIVRES_NA_ALUMIA = ["entrar", "conduta", "fora-do-ar"] as const;
 
 /** O host (com ou sem porta) é o da Alumia? */
 export function hostDaAlumia(host: string | null | undefined): boolean {
@@ -84,13 +101,18 @@ export type DecisaoDaAlumia =
    * ?t=/?post= do Fórum ir direto ao destino final, num salto só.
    */
   | { tipo: "mover"; destino: string; completo: string }
-  /** Redirecionar (307) para outro caminho no mesmo host da Alumia. */
-  | { tipo: "redirecionar"; destino: string }
+  /**
+   * Redirecionar (307) para outro caminho no mesmo host da Alumia. `busca` (com o "?") vai junto quando existe: o proxy a põe no
+   * endereço novo (sem ela, a busca do pedido é tirada).
+   */
+  | { tipo: "redirecionar"; destino: string; busca?: string }
   /** O resto do site mora no endereço do instituto: redirecionar (307) para lá, mesmo caminho. */
   | { tipo: "site"; destino: string };
 
 const ACTIVITY = /application\/(activity\+json|ld\+json)/i;
 const HANDLE = /^[a-z0-9_]{3,20}$/;
+/** nome@servidor de uma conta de fora: o nome como os outros servidores aceitam (com ponto e hífen no meio), o servidor com ponto. */
+const CONTA_DE_FORA = /^([a-z0-9_](?:[a-z0-9_.-]{0,62}[a-z0-9_])?)@((?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63})$/;
 const ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /**
@@ -104,6 +126,9 @@ export function rotaNaAlumia(pathname: string, aceita = ""): DecisaoDaAlumia {
   // /@nome: o endereço curto de um perfil, como nas outras redes do Fediverso.
   if (partes.length === 1 && partes[0].startsWith("@")) {
     const handle = partes[0].slice(1).toLowerCase();
+    // /@nome@servidor: "ver esta conta daqui", como nas outras redes do Fediverso. Vai para o perfil de fora (/alumia/fediverso
+    // ?conta=); é redirecionamento, e não reescrita, porque a busca não cabe no caminho reescrito. A página confere a flag.
+    if (!ap && CONTA_DE_FORA.test(handle)) return { tipo: "redirecionar", destino: "/pt/alumia/fediverso", busca: `?conta=${encodeURIComponent(`@${handle}`)}` };
     if (!HANDLE.test(handle)) return { tipo: "reescrever", destino: "/pt/alumia/u/-" };
     return { tipo: "reescrever", destino: ap ? `/api/fediverso/u/${handle}` : `/pt/alumia/u/${handle}` };
   }

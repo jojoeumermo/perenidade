@@ -2,14 +2,15 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { Dict } from "@/i18n/types";
 import { getClient, hasBackend, localBackend, rpc, signOut, useMe } from "@/lib/backend";
 import { useCadastro } from "@/lib/cadastro";
 import { senhaVazada } from "@/lib/senha";
 import { fingerprintAvailable, signInWithFingerprint } from "@/lib/passkey";
 import { KEYS, useHydrated, useStored } from "@/lib/storage";
-import { Captcha, captchaEnabled } from "./Captcha";
+import { avisoPelaPorta, criarContaPelaPorta, entrarPelaPorta } from "@/lib/rede/convites/cliente";
+import { Captcha, useCaptcha } from "./Captcha";
 import { L, useI18n } from "./I18n";
 import { SenhaCampo, senhaForte, type SenhaLabels } from "./SenhaCampo";
 import { EsqueciASenha } from "./rede/consertos/EsqueciASenha";
@@ -31,6 +32,8 @@ interface Invite {
  * comunidade (sem função nenhuma: o que ela escreve espera a mediação); quem recebeu um convite da coordenação cria a
  * conta pelo endereço do convite, já com a função combinada; e quem recebeu um link de senha nova escolhe a senha aqui.
  * "Esqueci a senha" pede o link de senha nova ao serviço de contas (components/rede/consertos/EsqueciASenha.tsx).
+ * Entrar, criar a conta, mandar de novo a confirmação e o esqueci a senha passam pelo servidor do site (app/api/alumia/porta/*),
+ * com a prova contra robôs feita no próprio aparelho e o freio da porta: nenhum desafio de terceiros.
  */
 export function SignIn({ s }: { s: Dict["auth"] }) {
   const { lang, t } = useI18n();
@@ -58,9 +61,6 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   /** O aplicativo autenticador cadastrado na conta que acabou de acertar a senha. */
   const [factor, setFactor] = useState("");
   const [digits, setDigits] = useState("");
-  const [token, setToken] = useState("");
-  const [round, setRound] = useState(0);
-  const receive = useCallback((value: string) => setToken(value), []);
   /** O aparelho tem leitor de digital e sabe usar chave de acesso: só então o botão aparece. */
   const [finger, setFinger] = useState(false);
   const [fingerNote, setFingerNote] = useState<"" | "cancelled" | "failed">("");
@@ -109,6 +109,9 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     return () => stop();
   }, [recovering]);
 
+  // O desafio da Cloudflare (Turnstile), quando ligado: a resposta vai junto do pedido e o servidor a confere; cada uma vale uma vez.
+  const desafio = useCaptcha();
+
   useEffect(() => {
     let cancelled = false;
     void fingerprintAvailable().then((value) => {
@@ -120,15 +123,9 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   }, []);
 
   if (!hasBackend) return <p className="mt-8 text-lg text-ink-soft">{s.offline}</p>;
-  const waiting = captchaEnabled && !token;
   const creating = Boolean(code);
   const opening = !creating && cadastro.aberto && (signingUp || (asked && !dismissed));
   const address = invite?.email || email;
-  const done = () => {
-    // A resposta do desafio vale uma vez só: pede outra para a próxima tentativa.
-    setToken("");
-    setRound((value) => value + 1);
-  };
 
   /** Senha certa (ou digital conferida) não basta para quem cadastrou o aplicativo autenticador: a entrada só termina com o código. */
   async function finish() {
@@ -147,8 +144,8 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   async function enterWithFingerprint() {
     setState("sending");
     setFingerNote("");
-    const result = await signInWithFingerprint(token);
-    done();
+    const result = await signInWithFingerprint(desafio.token);
+    desafio.spend();
     if (result.outcome !== "ok") {
       setDetail(result.detail);
       setFingerNote(result.outcome === "cancelled" ? "cancelled" : "failed");
@@ -181,13 +178,26 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     setFingerNote("");
     if (!localBackend && (await bloqueado("entrada_situacao", email))) {
       setState("blocked");
-      done();
       return;
     }
     try {
       const supabase = await getClient();
-      const { error } = await supabase.auth.signInWithPassword({ email, password: localBackend ? "local" : password, options: { captchaToken: token || undefined } });
-      if (error) throw error;
+      if (localBackend) {
+        const { error } = await supabase.auth.signInWithPassword({ email, password: "local" });
+        if (error) throw error;
+      } else {
+        // Pelo servidor do site: a prova no aparelho, o freio, e a sessão pedida ao serviço de contas.
+        const r = await entrarPelaPorta({ email, senha: password, turnstile: desafio.token });
+        desafio.spend();
+        if (!r.ok && r.motivo === "bloqueado") {
+          setEspera(r.minutos ?? 15);
+          setState("blocked");
+          return;
+        }
+        if (!r.ok) throw { code: r.motivo === "credenciais" ? "invalid_credentials" : r.motivo === "nao_confirmado" ? "email_not_confirmed" : r.motivo };
+        const { error } = await supabase.auth.setSession(r.sessao);
+        if (error) throw error;
+      }
       void rpc("entrada_certa").catch(() => undefined);
       await finish();
     } catch (failure) {
@@ -202,8 +212,6 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
       setDetail(code === "invalid_credentials" ? "" : [reason.status, code, reason.message].filter(Boolean).join(" · ").slice(0, 200));
       if (code === "invalid_credentials" && !localBackend && (await bloqueado("entrada_falhou", email))) return setState("blocked");
       setState(code === "invalid_credentials" ? "wrong" : "failed");
-    } finally {
-      done();
     }
   }
 
@@ -211,16 +219,19 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   async function resend() {
     setState("sending");
     try {
-      const supabase = await getClient();
-      const { error } = await supabase.auth.resend({ type: "signup", email, options: { emailRedirectTo: back, captchaToken: token || undefined } });
-      if (error) throw error;
+      if (localBackend) {
+        const { error } = await (await getClient()).auth.resend({ type: "signup", email, options: { emailRedirectTo: back } });
+        if (error) throw error;
+      } else {
+        const r = await avisoPelaPorta({ tipo: "confirmacao", email, volta: back ?? "", turnstile: desafio.token });
+        desafio.spend();
+        if (!r.ok) throw { code: r.motivo };
+      }
       setState("resent");
     } catch (failure) {
       const reason = failure as { code?: string; status?: number; message?: string };
       setDetail([reason.status, reason.code, reason.message].filter(Boolean).join(" · ").slice(0, 200));
       setState("failed");
-    } finally {
-      done();
     }
   }
 
@@ -245,20 +256,26 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     // Senha que já apareceu em vazamento é a primeira que um invasor tenta: não serve.
     if ((await senhaVazada(password)) === true) {
       setState("leaked");
-      done();
       return;
     }
     try {
-      const supabase = await getClient();
-      const { data, error } = await supabase.auth.signUp({ email: address, password, options: { data: { ...(code ? { convite: code } : {}), ...(apelido.trim() ? { apelido: apelido.trim().slice(0, 40) } : {}) }, captchaToken: token || undefined, emailRedirectTo: back } });
-      if (error) throw error;
+      let comSessao = false;
+      if (localBackend) {
+        const supabase = await getClient();
+        const { data, error } = await supabase.auth.signUp({ email: address, password, options: { data: { ...(code ? { convite: code } : {}), ...(apelido.trim() ? { apelido: apelido.trim().slice(0, 40) } : {}) }, emailRedirectTo: back } });
+        if (error) throw error;
+        comSessao = Boolean(data.session);
+      } else {
+        // A porta de entrada: a prova no aparelho, e o servidor cria a conta (pela API de administração do serviço de contas).
+        const r = await criarContaPelaPorta({ email: address, senha: password, codinome: apelido.trim().slice(0, 40), volta: back ?? "", turnstile: desafio.token, ...(code ? { convite: code } : {}) });
+        desafio.spend();
+        if (!r.ok) throw new Error(r.motivo);
+      }
       // Tira o código do endereço: ele já foi gasto e não precisa ficar no histórico do navegador.
       window.history.replaceState(null, "", `/${lang}/entrar`);
-      setState(data.session ? "idle" : "confirm");
+      setState(comSessao ? "idle" : "confirm");
     } catch {
       setState("invalid");
-    } finally {
-      done();
     }
   }
 
@@ -309,7 +326,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   );
   const fingerprint = finger && (
     <div className="space-y-2">
-      <button type="button" disabled={state === "sending" || waiting} onClick={() => void enterWithFingerprint()} className={known ? `${primary} flex items-center justify-center gap-2.5` : secondary}>
+      <button type="button" disabled={state === "sending" || desafio.waiting} onClick={() => void enterWithFingerprint()} className={known ? `${primary} flex items-center justify-center gap-2.5` : secondary}>
         <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
           <path d="M6.5 6.2A8 8 0 0 1 20 12v1.5M4 12a8 8 0 0 1 .7-3.3M8 19.5A12 12 0 0 1 7 12a5 5 0 0 1 10 0c0 2.6.3 4.6.9 6.3M12 12c0 3.4.5 6 1.6 8.5M4.6 15.5c.2 1 .5 2 .9 2.9M10 20.8A15 15 0 0 1 9.4 15" />
         </svg>
@@ -381,8 +398,8 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
         </label>
         {campoApelido}
         {twice}
-        <Captcha action="convite" lang={lang} round={round} onToken={receive} />
-        <button type="submit" disabled={state === "sending" || !address.includes("@") || waiting || weak} className={primary}>{s.create}</button>
+        <Captcha action="conta" lang={lang} round={desafio.round} onToken={desafio.receive} />
+        <button type="submit" disabled={state === "sending" || !address.includes("@") || weak || desafio.waiting} className={primary}>{s.create}</button>
         {state === "invalid" && <p role="alert" className="text-oxblood">{s.inviteInvalid}</p>}
         {state === "leaked" && <p role="alert" className="text-oxblood">{s.leaked}</p>}
         <p className="text-ink-soft">{s.inviteWhy}</p>
@@ -401,8 +418,8 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
         </label>
         {campoApelido}
         {twice}
-        <Captcha action="cadastro" lang={lang} round={round} onToken={receive} />
-        <button type="submit" disabled={state === "sending" || !email.includes("@") || waiting || weak} className={primary}>{s.create}</button>
+        <Captcha action="conta" lang={lang} round={desafio.round} onToken={desafio.receive} />
+        <button type="submit" disabled={state === "sending" || !email.includes("@") || weak || desafio.waiting} className={primary}>{s.create}</button>
         {state === "invalid" && <p role="alert" className="text-oxblood">{s.createFailed}</p>}
         {state === "leaked" && <p role="alert" className="text-oxblood">{s.leaked}</p>}
         <p className="text-ink-soft">{s.createWhy}</p>
@@ -441,19 +458,19 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
         {s.password}
         <SenhaCampo value={password} onChange={setPassword} labels={senhaLabels} autoComplete="current-password" required className={field} />
       </label>
-      <Captcha action="entrar" lang={lang} round={round} onToken={receive} />
-      <button type="submit" disabled={state === "sending" || !email.includes("@") || waiting || password.length < 1} className={primary}>{s.enter}</button>
+      <Captcha action="entrar" lang={lang} round={desafio.round} onToken={desafio.receive} />
+      <button type="submit" disabled={state === "sending" || !email.includes("@") || password.length < 1 || desafio.waiting} className={primary}>{s.enter}</button>
       {state === "wrong" && <p role="alert" className="text-oxblood">{s.wrong}</p>}
       {state === "blocked" && <p role="alert" className="border-l-2 border-oxblood pl-3 text-oxblood">{s.blocked.replace("{min}", String(espera))}</p>}
       {expired && state === "idle" && <p role="alert" className="border-l-2 border-oxblood pl-3 text-oxblood">{s.expired}</p>}
       {state === "unconfirmed" && (
         <div role="alert" className="space-y-3 border-l-2 border-oxblood pl-3">
           <p className="text-oxblood">{s.unconfirmed}</p>
-          <button type="button" disabled={waiting} onClick={() => void resend()} className={secondary}>{s.resend}</button>
+          <button type="button" onClick={() => void resend()} disabled={desafio.waiting} className={secondary}>{s.resend}</button>
         </div>
       )}
       {state === "resent" && <p role="status" className="border-l-2 border-ok pl-3">{s.resent}</p>}
-      <EsqueciASenha lang={lang} email={email} token={token} esperandoDesafio={waiting} aoUsarDesafio={done} />
+      <EsqueciASenha lang={lang} email={email} />
       {state === "failed" && (
         <p role="alert" className="text-oxblood">
           {s.failed}

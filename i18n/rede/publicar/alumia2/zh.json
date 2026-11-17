@@ -38,7 +38,7 @@
     "visitante": "访客",
     "entrar": "加入 Alumia",
     "sairRapido": "快速离开",
-    "sairRapidoAjuda": "清除 Alumia 在这台设备上保存的内容，并打开一个外部的普通页面（天气预报），不显示任何与学院有关的内容。",
+    "sairRapidoAjuda": "在这台设备上退出账户，清除 Alumia 在这里保存的内容（包括私人聊天和小组的密钥），并打开一个外部的普通页面（天气预报），不显示任何与学院有关的内容。",
     "sairDaConta": "退出登录",
     "voltarAoSite": "返回网站",
     "cuidados": "安全",
@@ -50,7 +50,10 @@
     "acessibilidade": "无障碍",
     "ajuda": "常见问题",
     "seguranca": "安全",
-    "verPerfil": "查看你的个人资料"
+    "verPerfil": "查看你的个人资料",
+    "aparencia": "外观与阅读",
+    "series": "重复发布的帖子",
+    "temas": "我关注的话题"
   },
   "linha": {
     "titulo": "首页",
@@ -93,6 +96,7 @@
     "copiado": "链接已复制。",
     "mais": "更多操作",
     "doFediverso": "来自联邦宇宙 · {servidor}",
+    "seloTitulo": "来自联邦宇宙：此账号属于 {servidor}，一个 Alumia 之外的服务器。",
     "orgVerificada": "已认证组织",
     "regraDoSelo": "徽章表示账号属于其声称的主体，已通过公开文件核实。这不代表研究所的支持。",
     "aula": "Instituto Lúcia 课程",
@@ -195,7 +199,7 @@
     "fediTexto": "Mastodon、Lemmy 和 Misskey 上的人可以关注你，并在这里、在同一条时间线里回复你。你的地址：",
     "fediSemNome": "在个人主页选择一个 @用户名 来获得地址。",
     "fediVer": "如何运作",
-    "rodape": "按到达顺序 · 无广告 · 无追踪 · 始终使用代号"
+    "rodape": "公开规则 · 无广告 · 无追踪 · 默认使用代号"
   },
   "previa": {
     "aviso": "使用示例数据的预览。这里的内容都不是真的，也不会发布。",
@@ -341,5 +345,36 @@
     "texto": "Alumia 上没有这个地址，或者这条帖子已经撤下。你的时间线还在原处。",
     "voltar": "回到 Alumia 首页",
     "buscar": "搜索"
+  },
+  "visibilidade": {
+    "eu": "仅自己",
+    "euAjuda": "私密：只有你能看到。不会离开 Alumia。",
+    "roda": "亲密好友",
+    "rodaAjuda": "只有你的信任圈里的人。被加入的人不会收到通知。不会离开 Alumia。",
+    "seguidores": "关注者",
+    "seguidoresAjuda": "只有在 Alumia 关注你的人。不会离开 Alumia。",
+    "membros": "Alumia 所有人",
+    "membrosAjuda": "有 Alumia 账号的人。只留在 Alumia：不会发到联邦宇宙，也不会去别处。",
+    "internet": "Alumia 和联邦宇宙",
+    "internetAjuda": "联邦宇宙（Mastodon、Lemmy 等）上的任何人都能看到并转发；关注你的人会收到。会离开 Alumia。",
+    "internetComunidade": "在互联网和联邦宇宙公开",
+    "internetComunidadeAjuda": "任何人，即使没有账号，以及联邦宇宙。会离开 Alumia。",
+    "comunidade": "仅社区",
+    "comunidadeAjuda": "只有这个社区的成员。不会离开 Alumia。",
+    "comunidadeFechadaAjuda": "只有这个社区的成员，并且经过加密：连服务器也读不到。不会离开 Alumia。",
+    "equipe": "仅团队",
+    "equipeAjuda": "只有研究所的团队。不会离开 Alumia。",
+    "ficaNaAlumia": "留在 Alumia",
+    "saiDaAlumia": "离开 Alumia",
+    "desligadaNoPerfil": "你的主页还没有加入联邦宇宙。请在“主页 › 联邦宇宙”中开启后再使用此选项。",
+    "impedida": "你的主页目前不能发到联邦宇宙（没有 @名字、隐身或被暂停）。",
+    "avisoFediverso": "这条帖子会离开 Alumia。联邦宇宙的其他服务器可能保存副本，之后在这里删除并不能保证那边也会消失。",
+    "fediversoDesligado": "Alumia 尚未开启联邦宇宙：目前你在主页发布的内容都不会离开这里。",
+    "mencionadosCifrado": "设为“仅我提到的人”的加密帖子：为了让服务器知道谁可以回复，被 @ 的名字会以明文发送。只有名字；正文仍然加密。",
+    "mencionadosLista": "一同发送：{lista}",
+    "mencionadosNinguem": "你没有用 @ 标记任何人：只有你可以回复。",
+    "maisFerramentas": "还有更多工具：请横向滑动",
+    "internetPresa": "仅在 Alumia（不会离开）",
+    "naoSaiComVida": "选择“不公开列出”或“自动消失”后，这条帖子不会离开 Alumia：只留在这里。"
   }
 }

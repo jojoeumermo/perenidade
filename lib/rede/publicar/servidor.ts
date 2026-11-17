@@ -17,7 +17,17 @@ export function tokenDe(pedido: Request): string | null {
 
 const cabecalhos = (token: string, extra: Record<string, string> = {}) => ({ apikey: chave, Authorization: `Bearer ${token}`, ...extra });
 
-/** Chama uma função pública do banco com o token da pessoa. Devolve o dado ou o código de erro (a mensagem da função). */
+/**
+ * O código de erro que pode sair para a tela (pedido P13): só os códigos da casa ("nao_encontrado", "invalido:post",
+ * "muitos_pedidos"). A mensagem crua do banco num erro inesperado (nome de tabela, de coluna, de restrição) vira "falha"; a sessão
+ * vencida vira "entre_primeiro". A mesma regra das rotas do Fediverso (codigoParaATela, lib/rede/fediverso/servidor.ts).
+ */
+export function codigoDaCasa(mensagem: unknown): string {
+  if (mensagem === "JWT expired") return "entre_primeiro";
+  return typeof mensagem === "string" && /^[a-z][a-z0-9_]{1,59}(:[a-z0-9_-]{1,60})?$/.test(mensagem) ? mensagem : "falha";
+}
+
+/** Chama uma função pública do banco com o token da pessoa. Devolve o dado ou o código de erro (só os códigos da casa). */
 export async function chamarComoPessoa<T>(token: string, funcao: string, argumentos: Record<string, unknown> = {}): Promise<{ ok: true; dado: T } | { ok: false; codigo: string; status: number }> {
   if (!servicoLigado) return { ok: false, codigo: "sem_servico", status: 503 };
   try {
@@ -25,7 +35,7 @@ export async function chamarComoPessoa<T>(token: string, funcao: string, argumen
     const corpo = (await r.json().catch(() => null)) as unknown;
     if (r.ok) return { ok: true, dado: corpo as T };
     const mensagem = typeof corpo === "object" && corpo !== null && "message" in corpo ? String((corpo as { message: unknown }).message) : "falha";
-    return { ok: false, codigo: mensagem.slice(0, 80), status: r.status };
+    return { ok: false, codigo: codigoDaCasa(mensagem), status: r.status };
   } catch {
     return { ok: false, codigo: "sem_conexao", status: 504 };
   }
