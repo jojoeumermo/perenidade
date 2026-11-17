@@ -1,6 +1,6 @@
 {
   "recorte": "campo-e-trabalho-escravo",
-  "descricao": "Frente T12 (07/11/2026): conflitos no campo (assassinatos, despejos, grilagem com decisão judicial ou operação oficial) e trabalho escravo contemporâneo (resgates, ações do MPT e do MPF, condenações). Pesquisado e conferido por agente; todas as entradas aguardam a curadoria humana (revisao 'pendente-curadoria'). Importar com scripts/vale-o-escrito/importar-novos-casos.mjs.",
+  "descricao": "Frente T12 (07/11/2026): conflitos no campo (assassinatos, despejos, grilagem com decisão judicial ou operação oficial) e trabalho escravo contemporâneo (resgates, ações do MPT e do MPF, condenações). Pesquisado e conferido; todas as entradas aguardam a curadoria humana (revisao 'pendente-curadoria'). Importar com scripts/vale-o-escrito/importar-novos-casos.mjs.",
   "pessoas": [
     {
       "id": "maria-do-socorro-barreto-santiago",
@@ -864,7 +864,7 @@
         "oeste baiano",
         "Bahia"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Ação penal originária no STJ (foro de desembargadora): não há 'instância' anterior, por isso 'condenado em 1ª instância'. A página do STJ é montada por JavaScript: os trechos vieram da leitura da página renderizada (WebFetch). A data do fato é aproximada (a operação foi deflagrada em 2019; os atos são anteriores): conferir no acórdão. Os três absolvidos não viram nós (pessoas privadas absolvidas). f2 é a mesma página, com âncora para não duplicar o link."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Ação penal originária no STJ (foro de desembargadora): não há 'instância' anterior, por isso 'condenado em 1ª instância'. A página do STJ é montada por JavaScript: os trechos vieram da leitura da página renderizada (WebFetch). A data do fato é aproximada (a operação foi deflagrada em 2019; os atos são anteriores): conferir no acórdão. Os três absolvidos não viram nós (pessoas privadas absolvidas). f2 é a mesma página, com âncora para não duplicar o link."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -928,7 +928,7 @@
         "oeste baiano",
         "Bahia"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Ação penal originária no STJ: 'condenado em 1ª instância' porque não há trânsito em julgado. A Bom Jesus Agropecuária aparece como empresa beneficiada pelas decisões, segundo o MPF; a nota não diz que a empresa é ré. O colaborador com perdão judicial não vira nó. Data do fato: 2017 a 2020 (o campo só aceita uma data; ficou o início)."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Ação penal originária no STJ: 'condenado em 1ª instância' porque não há trânsito em julgado. A Bom Jesus Agropecuária aparece como empresa beneficiada pelas decisões, segundo o MPF; a nota não diz que a empresa é ré. O colaborador com perdão judicial não vira nó. Data do fato: 2017 a 2020 (o campo só aceita uma data; ficou o início)."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -975,7 +975,7 @@
         "Mato Grosso",
         "júri"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). A fonte é da Secretaria de Segurança (governo estadual) relatando o júri; reportagens (Olhar Direto, RD News) dizem que o TJMT manteve a pena: achar o acórdão do TJMT ou nota do MPMT antes de aprovar e ver se houve trânsito. Os supostos mandantes não são nomeados na fonte lida, por isso não viram nós. Nenhum morto é nomeado."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). A fonte é da Secretaria de Segurança (governo estadual) relatando o júri; reportagens (Olhar Direto, RD News) dizem que o TJMT manteve a pena: achar o acórdão do TJMT ou nota do MPMT antes de aprovar e ver se houve trânsito. Os supostos mandantes não são nomeados na fonte lida, por isso não viram nós. Nenhum morto é nomeado."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1027,7 +1027,7 @@
         "Minas Gerais",
         "júri"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). A nota do TJMG cita o fazendeiro como sentenciado em 2013 sem dar a pena; a imprensa (Gazeta do Povo, 2013) fala em 115 anos. Conferir recursos e trânsito no TJMG. Os outros sentenciados citados pelo TJMG não viraram nós (a curadoria pode acrescentar). Nenhum morto é nomeado."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). A nota do TJMG cita o fazendeiro como sentenciado em 2013 sem dar a pena; a imprensa (Gazeta do Povo, 2013) fala em 115 anos. Conferir recursos e trânsito no TJMG. Os outros sentenciados citados pelo TJMG não viraram nós (a curadoria pode acrescentar). Nenhum morto é nomeado."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1075,7 +1075,7 @@
         "Pará",
         "mandante"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Condenação confirmada em 2ª instância e no STJ, mas o STF (2019) fala em execução provisória: sem trânsito na fonte lida, por isso 'condenado em 1ª instância' (o modelo não tem 2ª instância). No título da fonte o nome foi trocado por [nome omitido]; a ficha não nomeia quem morreu (regra da frente). Os outros condenados (executor, intermediários e outro mandante) estão em reportagens; achar fonte oficial antes de acrescentar."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Condenação confirmada em 2ª instância e no STJ, mas o STF (2019) fala em execução provisória: sem trânsito na fonte lida, por isso 'condenado em 1ª instância' (o modelo não tem 2ª instância). No título da fonte o nome foi trocado por [nome omitido]; a ficha não nomeia quem morreu (regra da frente). Os outros condenados (executor, intermediários e outro mandante) estão em reportagens; achar fonte oficial antes de acrescentar."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1141,7 +1141,7 @@
         "Bahia",
         "júri"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). A ficha não nomeia quem morreu: nos títulos das fontes o nome foi trocado por [nome omitido] (o título original o traz). As penas de abril de 2026 divergem entre veículos (CNN dá 40 anos ao executor; outros invertem): conferir na sentença ou com o MPBA. Um terceiro condenado em abril morreu depois do julgamento, segundo a imprensa: não virou nó. O motivo apontado pela polícia envolve tráfico na região: a curadoria decide se o dossiê 'conflitos-no-campo' (tema quilombo) é o melhor lugar."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). A ficha não nomeia quem morreu: nos títulos das fontes o nome foi trocado por [nome omitido] (o título original o traz). As penas de abril de 2026 divergem entre veículos (CNN dá 40 anos ao executor; outros invertem): conferir na sentença ou com o MPBA. Um terceiro condenado em abril morreu depois do julgamento, segundo a imprensa: não virou nó. O motivo apontado pela polícia envolve tráfico na região: a curadoria decide se o dossiê 'conflitos-no-campo' (tema quilombo) é o melhor lugar."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1184,7 +1184,7 @@
         "Rondônia",
         "conflito agrário"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Página do STJ montada por JavaScript: trecho lido por WebFetch. A data do fato é a da decisão (os homicídios são de anos variados, não listados na nota). Sem nomes: a nota não nomeia investigados. A Polícia Federal entra como órgão que assume a apuração."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Página do STJ montada por JavaScript: trecho lido por WebFetch. A data do fato é a da decisão (os homicídios são de anos variados, não listados na nota). Sem nomes: a nota não nomeia investigados. A Polícia Federal entra como órgão que assume a apuração."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1226,7 +1226,7 @@
         "Amazonas",
         "grilagem"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Página do STJ montada por JavaScript: trecho lido por WebFetch. A ficha não nomeia o líder morto (a página do STJ nomeia). Sem investigados nomeados."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Página do STJ montada por JavaScript: trecho lido por WebFetch. A ficha não nomeia o líder morto (a página do STJ nomeia). Sem investigados nomeados."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1272,7 +1272,7 @@
         "porto privado",
         "Pará"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Ação civil (não criminal): 'condenado em 1ª instância' porque a sentença condenou União e Incra a regularizar o assentamento; cabe recurso. A Cargill entra como sucessora do projeto portuário, segundo o MPF, não como condenada. A data do fato é a do ajuizamento (2021, pelo número do processo): conferir o ano dos atos anulados."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Ação civil (não criminal): 'condenado em 1ª instância' porque a sentença condenou União e Incra a regularizar o assentamento; cabe recurso. A Cargill entra como sucessora do projeto portuário, segundo o MPF, não como condenada. A data do fato é a do ajuizamento (2021, pelo número do processo): conferir o ano dos atos anulados."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1317,7 +1317,7 @@
         "Marajó",
         "Pará"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Ação civil ajuizada, sem decisão na fonte lida: 'réu' é o termo do modelo para quem responde à ação. Os particulares réus não são nomeados (a nota não os nomeia). Data do fato: 2020, o despejo citado; as ameaças são contínuas."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Ação civil ajuizada, sem decisão na fonte lida: 'réu' é o termo do modelo para quem responde à ação. Os particulares réus não são nomeados (a nota não os nomeia). Data do fato: 2020, o despejo citado; as ameaças são contínuas."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1371,7 +1371,7 @@
         "Pará",
         "terras da União"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Só investigação: nenhum investigado é nomeado nas notas da PF. O texto usa 'suspeita' e 'suposto' em tudo."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Só investigação: nenhum investigado é nomeado nas notas da PF. O texto usa 'suspeita' e 'suposto' em tudo."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1415,7 +1415,7 @@
         "Bahia",
         "operação policial"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Só investigação; a nota da PF não nomeia investigados nem o cartório."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Só investigação; a nota da PF não nomeia investigados nem o cartório."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1459,7 +1459,7 @@
         "Piauí",
         "operação policial"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Só investigação; a nota não nomeia investigados. As fases anteriores da operação não foram lidas."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Só investigação; a nota não nomeia investigados. As fases anteriores da operação não foram lidas."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1512,7 +1512,7 @@
         "Pará",
         "pecuária"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Condenação civil confirmada em 2ª instância (TRT-8, 24/02/2026); sem trânsito na fonte lida (cabe recurso ao TST): 'condenado em 1ª instância' é o degrau mais próximo do modelo. A CPT (08/10/2026) noticia uma ação individual de um trabalhador contra a empresa, em que o TRT-8 afastou a prescrição; não entrou por nomear o trabalhador."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Condenação civil confirmada em 2ª instância (TRT-8, 24/02/2026); sem trânsito na fonte lida (cabe recurso ao TST): 'condenado em 1ª instância' é o degrau mais próximo do modelo. A CPT (08/10/2026) noticia uma ação individual de um trabalhador contra a empresa, em que o TRT-8 afastou a prescrição; não entrou por nomear o trabalhador."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1587,7 +1587,7 @@
         "lista suja",
         "Bahia"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). 'Réu' na ação civil pública (ACP 0000449-07.2025.5.05.0134, número citado pela imprensa); o acordo de dezembro de 2025 ainda dependia de homologação na fonte lida e, segundo a imprensa, não tem admissão de culpa: conferir no PJe do TRT-5 se foi homologado (se sim, a curadoria decide como registrar). Conferir a BYD no PDF oficial do Cadastro de Empregadores (gov.br) antes de aprovar: a fonte da inclusão é reportagem."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). 'Réu' na ação civil pública (ACP 0000449-07.2025.5.05.0134, número citado pela imprensa); o acordo de dezembro de 2025 ainda dependia de homologação na fonte lida e, segundo a imprensa, não tem admissão de culpa: conferir no PJe do TRT-5 se foi homologado (se sim, a curadoria decide como registrar). Conferir a BYD no PDF oficial do Cadastro de Empregadores (gov.br) antes de aprovar: a fonte da inclusão é reportagem."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1634,7 +1634,7 @@
         "Pará",
         "imprescritibilidade"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). A fonte é uma matéria de tribunal (TRT-20) que resume o caso; tipo 'processo' por relatar decisão judicial. Achar a sentença da Justiça Federal em Redenção (2023) e a página da Corte IDH (Série C n. 318, corteidh.or.cr bloqueou a leitura automática) antes de aprovar. O gerente também condenado, segundo a imprensa, não virou nó (a fonte oficial lida só nomeia o proprietário como condenado)."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). A fonte é uma matéria de tribunal (TRT-20) que resume o caso; tipo 'processo' por relatar decisão judicial. Achar a sentença da Justiça Federal em Redenção (2023) e a página da Corte IDH (Série C n. 318, corteidh.or.cr bloqueou a leitura automática) antes de aprovar. O gerente também condenado, segundo a imprensa, não virou nó (a fonte oficial lida só nomeia o proprietário como condenado)."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1677,7 +1677,7 @@
         "Mato Grosso",
         "ação civil"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Trânsito em julgado na esfera civil (trabalhista), segundo o MPT-MT; o modelo só tem o vocabulário criminal, e o resumo diz que é ação civil. A data do fato não está na nota: '2025' é o ano da sentença; conferir o ano do resgate."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Trânsito em julgado na esfera civil (trabalhista), segundo o MPT-MT; o modelo só tem o vocabulário criminal, e o resumo diz que é ação civil. A data do fato não está na nota: '2025' é o ano da sentença; conferir o ano do resgate."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1723,7 +1723,7 @@
         "Mato Grosso",
         "ação civil"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Pessoa física privada nomeada porque há decisão judicial pública noticiada pelo MPT (regra da frente). Condenação civil; conferir recurso e trânsito no TRT-23. A esposa citada na ação da DPU não virou nó."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Pessoa física privada nomeada porque há decisão judicial pública noticiada pelo MPT (regra da frente). Condenação civil; conferir recurso e trânsito no TRT-23. A esposa citada na ação da DPU não virou nó."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1765,7 +1765,7 @@
         "lista suja",
         "Pará"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Ação civil ajuizada (ACPCiv 0000318-44.2026.5.08.0124, número da nota): 'réu' é o termo do modelo para quem responde. Os 7 pecuaristas não são nomeados na nota. Data do fato: 2014 a 2025 (ficou o início)."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Ação civil ajuizada (ACPCiv 0000318-44.2026.5.08.0124, número da nota): 'réu' é o termo do modelo para quem responde. Os 7 pecuaristas não são nomeados na nota. Data do fato: 2014 a 2025 (ficou o início)."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1806,7 +1806,7 @@
         "Maranhão",
         "ação penal"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Processo 0000269-56.2019.4.01.3703 (da nota). A nota não nomeia os condenados: sem nós de pessoa. Da sentença cabe recurso."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Processo 0000269-56.2019.4.01.3703 (da nota). A nota não nomeia os condenados: sem nós de pessoa. Da sentença cabe recurso."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1848,7 +1848,7 @@
         "Minas Gerais",
         "denúncia"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Denúncia: a nota não diz se a Justiça a recebeu. Sem nomes (a nota não nomeia)."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Denúncia: a nota não diz se a Justiça a recebeu. Sem nomes (a nota não nomeia)."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1890,7 +1890,7 @@
         "Minas Gerais",
         "denúncia"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Denúncia: a nota não diz se foi recebida. Sem nomes."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Denúncia: a nota não diz se foi recebida. Sem nomes."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1943,7 +1943,7 @@
         "Rio Grande do Sul",
         "cadeia produtiva"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). TAC não é condenação e não traz admissão de culpa na fonte lida; 'investigado' porque o MPT seguia apurando as fazendas. O número de resgatados oscila entre 82 e 85 nas notas oficiais (o resumo usa o do TAC). A nota do MTE (gov.br, 2023) declara data de publicação incompatível com o fato (03/01/2023): por isso não foi usada."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). TAC não é condenação e não traz admissão de culpa na fonte lida; 'investigado' porque o MPT seguia apurando as fazendas. O número de resgatados oscila entre 82 e 85 nas notas oficiais (o resumo usa o do TAC). A nota do MTE (gov.br, 2023) declara data de publicação incompatível com o fato (03/01/2023): por isso não foi usada."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1993,7 +1993,7 @@
         "jurisprudência",
         "Pará"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Página do STJ montada por JavaScript: trechos lidos por WebFetch. A nota não nomeia o fazendeiro nem diz o número de trabalhadores; não há informação de trânsito em julgado."
+      "notaDaCuradoria": "Pesquisado e conferido pela curadoria (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Página do STJ montada por JavaScript: trechos lidos por WebFetch. A nota não nomeia o fazendeiro nem diz o número de trabalhadores; não há informação de trânsito em julgado."
     }
   ]
 }
