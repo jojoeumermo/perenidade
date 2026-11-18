@@ -131,9 +131,13 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   async function finish() {
     const supabase = await getClient();
     const [{ data: level }, { data: factors }] = await Promise.all([supabase.auth.mfa.getAuthenticatorAssuranceLevel(), supabase.auth.mfa.listFactors()]);
-    const verified = factors?.totp?.find((item) => item.status === "verified");
-    if (verified && level?.currentLevel !== "aal2") {
-      setFactor(verified.id);
+    // Pode haver mais de um aplicativo confirmado (uma troca no painel que não apagou o antigo): o código é conferido
+    // em todos, do mais novo para o mais antigo. Escolher só o primeiro recusava o código certo do aplicativo novo.
+    const verified = (factors?.totp ?? [])
+      .filter((item) => item.status === "verified")
+      .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+    if (verified.length > 0 && level?.currentLevel !== "aal2") {
+      setFactor(verified.map((item) => item.id).join(","));
       setDigits("");
       setState("code");
     } else {
@@ -239,7 +243,12 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     setState("sending");
     try {
       const supabase = await getClient();
-      const { error } = await supabase.auth.mfa.challengeAndVerify({ factorId: factor, code: digits.replace(/\D/g, "") });
+      const codigo = digits.replace(/\D/g, "");
+      let error: unknown = new Error("sem aplicativo");
+      for (const factorId of factor.split(",").filter(Boolean)) {
+        ({ error } = await supabase.auth.mfa.challengeAndVerify({ factorId, code: codigo }));
+        if (!error) break;
+      }
       if (error) throw error;
       me.reload();
       setState("idle");
