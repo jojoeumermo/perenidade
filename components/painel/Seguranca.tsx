@@ -36,7 +36,9 @@ function motivoDoErro(erro: unknown): string {
   if (codigo === "mfa_factor_not_found") return "Este cadastro do aplicativo não vale mais (demorou demais ou foi aberto em outra aba). Toque em Cancelar e comece de novo.";
   if (codigo === "over_request_rate_limit" || codigo.includes("rate_limit") || falha.status === 429) return "Muitas tentativas seguidas. Espere um minuto e tente de novo com o código que estiver no aplicativo.";
   if (falha.name === "AuthRetryableFetchError" || falha.name === "TypeError" || falha.status === 0) return "Sem conexão com o serviço de contas. Confira a internet e tente de novo.";
-  return "Não deu certo. Confira o código e tente de novo.";
+  // O motivo exato vai junto: sem ele, ninguém sabe o que consertar (o código pode estar certo e a falha ser outra).
+  const detalhe = [falha.status, codigo, falha.name, falha.message].filter(Boolean).join(" · ").slice(0, 200);
+  return `Não deu certo. Confira o código e tente de novo.${detalhe ? ` (${detalhe})` : ""}`;
 }
 
 /** A chave em blocos de quatro letras, como os aplicativos mostram e como é mais fácil de conferir ao digitar. */
