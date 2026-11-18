@@ -153,6 +153,10 @@ await dono("alter table interno.codigos_recuperacao drop constraint if exists co
 await dono("insert into interno.codigos_recuperacao (usuario, hash) values ($1, interno.codigo_hash('ABCDE-12345'))", [P.duda]);
 await espera("a migração instala sobre o install.sql", () => exec(sql));
 await espera("de novo (idempotente)", () => exec(sql));
+// O conserto de 18/11 (20261118-mfa-endereco-depois.sql): o pedido de código do autenticador guarda o endereço enquanto vale.
+const mfa = ler("supabase/migracoes/20261118-mfa-endereco-depois.sql");
+await espera("o conserto do autenticador instala por cima", () => exec(mfa));
+await espera("e de novo (idempotente)", () => exec(mfa));
 // ═══════════════════ 1b. Endereço de rede: nem a Alumia nem o serviço de contas guardam ═══════════════════
 await espera("o que o serviço de contas já tinha gravado ficou sem o endereço", () => dono(`select (select count(*) from auth.sessions where ip is not null)::int as s,
   (select count(*) from auth.mfa_challenges where ip_address <> '0.0.0.0')::int as m, (select count(*) from auth.audit_log_entries where ip_address <> '')::int as a`),
@@ -164,7 +168,26 @@ await espera("e o que ele grava daqui em diante também", async () => {
   await dono("insert into auth.audit_log_entries (payload, ip_address) values ('{}', '192.0.2.23')");
   return dono(`select (select count(*) from auth.sessions where ip is not null)::int as s, (select count(*) from auth.mfa_challenges where ip_address <> '0.0.0.0')::int as m,
     (select count(*) from auth.audit_log_entries where ip_address <> '')::int as a`);
-}, (r) => r.rows[0].s === 0 && r.rows[0].m === 0 && r.rows[0].a === 0);
+}, (r) => r.rows[0].s === 0 && r.rows[0].m === 1 && r.rows[0].a === 0);
+// O serviço de contas compara o endereço do pedido de código com o de quem confirma (422 mfa_ip_address_mismatch se diferem):
+// zerar na hora travava todo código, até o certo. O endereço fica só enquanto o pedido vale e sai depois de 15 minutos.
+await espera("o pedido de código novo guarda o endereço (sem ele, o serviço de contas recusa todo código)", () =>
+  dono("select ip_address::text as ip from auth.mfa_challenges where ip_address <> '0.0.0.0'"), (r) => r.rows.length === 1 && r.rows[0].ip.startsWith("192.0.2.22"));
+await espera("e confirmar o código (o serviço de contas grava a hora) não apaga o endereço", async () => {
+  await dono("update auth.mfa_challenges set created_at = created_at where ip_address <> '0.0.0.0'");
+  return dono("select count(*)::int as n from auth.mfa_challenges where ip_address <> '0.0.0.0'");
+}, (r) => r.rows[0].n === 1);
+await espera("o pedido que passou dos 15 minutos perde o endereço no próximo pedido", async () => {
+  await dono("update auth.mfa_challenges set created_at = now() - interval '20 minutes'");
+  await dono("insert into auth.mfa_challenges (factor_id, ip_address) values (gen_random_uuid(), '192.0.2.24')");
+  return dono("select ip_address::text as ip from auth.mfa_challenges where ip_address <> '0.0.0.0'");
+}, (r) => r.rows.length === 1 && r.rows[0].ip.startsWith("192.0.2.24"));
+await espera("e a faxina sozinha (a do pg_cron) zera o que passou do prazo", async () => {
+  await dono("update auth.mfa_challenges set created_at = now() - interval '20 minutes'");
+  const n = (await dono("select interno.mfa_endereco_zerar() as n")).rows[0].n;
+  return { n, resta: (await dono("select count(*)::int as c from auth.mfa_challenges where ip_address <> '0.0.0.0'")).rows[0].c };
+}, (r) => r.n === 1 && r.resta === 0);
+ok("nem o conserto lê o endereço: só zera", !/select [^;]*ip_address[^;]* from auth/i.test(mfa.replace(/--.*$/gm, "")));
 await exec("delete from auth.sessions; delete from auth.mfa_challenges; delete from auth.audit_log_entries;");
 await espera("o segredo fixo das origens saiu do banco", () => dono("select count(*)::int as n from interno.origem_segredo"), (r) => r.rows[0].n === 0);
 await espera("entrar não grava a origem no perfil", async () => {
