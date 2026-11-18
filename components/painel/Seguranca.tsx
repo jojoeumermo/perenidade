@@ -248,9 +248,16 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
       const novo = Boolean(cadastro);
       setCadastro(null);
       setCodigo("");
-      if (novo && trocando) {
-        // O novo aplicativo já confirmou: o antigo sai da conta.
-        await supabase.auth.mfa.unenroll({ factorId: trocando }).catch(() => null);
+      if (novo) {
+        // O novo aplicativo já confirmou: todos os outros saem da conta. O unenroll devolve o erro em vez de lançar,
+        // e antes a falha passava calada: a conta ficava com dois aplicativos e a entrada conferia o código no antigo.
+        const { data: lista } = await supabase.auth.mfa.listFactors();
+        const antigos = (lista?.all ?? []).filter((item) => item.factor_type === "totp" && item.id !== fator).map((item) => item.id);
+        if (trocando && !antigos.includes(trocando)) antigos.push(trocando);
+        for (const factorId of antigos) {
+          const { error: falha } = await supabase.auth.mfa.unenroll({ factorId });
+          if (falha) console.warn("Não deu para tirar o aplicativo antigo", falha.message);
+        }
         setTrocando(null);
       }
       if (novo) await rpc("conta_evento", { p_acao: "segundo_fator_ativado" }).catch(() => null);
