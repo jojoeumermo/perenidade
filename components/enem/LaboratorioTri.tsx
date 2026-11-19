@@ -11,11 +11,11 @@ const claro = "cursor-pointer border-2 border-ink px-3 py-1.5 font-semibold hove
 const campo = "border-2 border-ink bg-parchment px-2 py-1.5";
 const pontos = (x: number) => String(Math.round(x));
 const dec = (x: number, casas = 2) => x.toFixed(casas).replace(".", ",");
-const ANOS = Array.from({ length: 15 }, (_, i) => 2023 - i);
+const ANOS = Array.from({ length: 17 }, (_, i) => 2025 - i);
 const AREAS: AreaDoEnem[] = ["linguagens", "humanas", "natureza", "matematica"];
 
 /**
- * O laboratório da TRI com itens reais: a pessoa escolhe uma prova do Enem (2009 a 2023) e uma área, marca o que
+ * O laboratório da TRI com itens reais: a pessoa escolhe uma prova do Enem (2009 a 2025) e uma área, marca o que
  * acertou (ou cola as letras das respostas, corrigidas pelo gabarito oficial) e vê a nota estimada pelo método do Inep
  * (modelo de 3 parâmetros, EAP, escala 500 e 100), com os parâmetros que o Inep publica nos microdados. Tudo roda no
  * aparelho; o único pedido de rede é o arquivo estático da prova (public/tri/enem-AAAA.json). Aviso fixo: é uma estimativa.
