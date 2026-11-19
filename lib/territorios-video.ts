@@ -11,6 +11,7 @@ export function temVideoLocal(slug: string): boolean {
   try {
     if (slug === "noizocupa") return fs.existsSync(path.join(process.cwd(), "public", "territorios", "noizocupa", "anuncio.mp4"));
     if (slug === "coletivo-kamikaze") return fs.existsSync(path.join(process.cwd(), "public", "territorios", "coletivo-kamikaze", "anuncio.mp4"));
+    if (slug === "oriki-futuro") return fs.existsSync(path.join(process.cwd(), "public", "territorios", "oriki-futuro", "anuncio.mp4"));
   } catch {
     // Sem leitura de disco (ambiente restrito): cai no embed do Instagram, que só abre com o clique.
   }

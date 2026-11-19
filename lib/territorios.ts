@@ -43,7 +43,7 @@ export interface Territorio {
    * A identidade visual própria da página (components/territorios/PaginaDoColetivo.tsx, cores em
    * lib/territorios-identidades.ts); sem ela, vale o desenho do Na Atividade.
    */
-  visual?: "noizocupa" | "kamikaze" | "desordem" | "noisme";
+  visual?: "noizocupa" | "kamikaze" | "desordem" | "noisme" | "oriki";
   /** A logo do coletivo (a foto de perfil do Instagram, cedida pela parceria), com o crédito que aparece embaixo dela. */
   logo?: Foto & { credito: string; grande?: string };
   slogan?: string;

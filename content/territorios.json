@@ -676,6 +676,122 @@
           "credito": "Vídeo: @noismemostudios com @xangssss no Instagram, uso autorizado pelo estúdio."
         }
       ]
+    },
+    {
+      "slug": "oriki-futuro",
+      "numero": 6,
+      "nome": "Oriki Futuro",
+      "linha": "Plataforma independente de música, arte e narrativas: vozes que ecoam.",
+      "sobre": "A Oriki Futuro é uma plataforma independente dedicada à música, à arte e às narrativas de artistas negros, LGBTQIA+ e independentes. Por meio de crítica, pesquisa e curadoria editorial, amplia vozes, valoriza trajetórias e conecta artistas a novos públicos. Agora junto com o Instituto Lúcia.",
+      "quem": "Quem funda e edita a Oriki é William Souza, o Uill: o projeto nasceu como um hobby que unia poesia, arte e expressão e virou um projeto cultural, político e social, dedicado a conectar pessoas e valorizar novas narrativas. Uill estuda Publicidade e Propaganda e tem formação em Audiovisual. A cidade da Oriki entra aqui quando o coletivo confirmar.",
+      "instagram": "orikifuturo",
+      "pessoas": [
+        {
+          "nome": "William Souza (Uill)",
+          "papel": "Fundador e editor criativo",
+          "instagram": "uilliamfotos"
+        }
+      ],
+      "temas": [
+        "Vozes que ecoam",
+        "Música, arte e narrativas",
+        "Artistas negros, LGBTQIA+ e independentes",
+        "Radar Oriki",
+        "Guia de escuta",
+        "Oriki do Mês",
+        "Crítica · pesquisa · curadoria",
+        "Descoberta musical",
+        "Cultura como transformação"
+      ],
+      "edicoes": [
+        {
+          "titulo": "Radar Oriki",
+          "tipo": "Curadoria · artistas independentes",
+          "ano": "2026",
+          "cor": "preto"
+        },
+        {
+          "titulo": "Oriki do Mês",
+          "tipo": "Editorial · artista em destaque",
+          "ano": "2026",
+          "cor": "vermelho"
+        },
+        {
+          "titulo": "Disco · Faixa · Preview",
+          "tipo": "Vitrine de lançamentos",
+          "ano": "2026",
+          "cor": "papel"
+        }
+      ],
+      "editoria": "Cultura de Quebrada",
+      "pautas": [],
+      "trilhas": [
+        "musica-popular-brasileira",
+        "cultura-negra-e-cultura-brasileira",
+        "comunicacao-popular"
+      ],
+      "visual": "oriki",
+      "logo": {
+        "src": "/territorios/oriki-futuro/logo.webp",
+        "grande": "/territorios/oriki-futuro/logo-1920.webp",
+        "alt": "Logo da Oriki Futuro: três círculos concêntricos dourados com uma haste vertical que sai do círculo miolo, sobre fundo creme",
+        "credito": "Logo cedida pelo coletivo"
+      },
+      "slogan": "Vozes que ecoam.",
+      "lema": "Crítica · pesquisa · curadoria editorial",
+      "historia": {
+        "titulo": "De hobby a plataforma",
+        "paragrafos": [
+          "A Oriki Futuro nasceu como um espaço autoral de expressão e pesquisa cultural e se expandiu para uma plataforma de curadoria, descoberta musical e valorização artística.",
+          "Entre 30 de julho e 28 de outubro de 2026 foram 1,2 milhão de visualizações no Instagram, 94,8% vindas de quem ainda não seguia a Oriki: a curadoria chegando a público novo. Em novembro o projeto ganhou site próprio, “um território digital de cultura, identidade e expressão”."
+        ]
+      },
+      "citacao": {
+        "titulo": "Compromisso antirracista",
+        "texto": "A Oriki Futuro assume um compromisso antirracista e antidiscriminatório, valorizando vozes historicamente marginalizadas e combatendo todas as formas de preconceito. Entendemos a arte como um espaço de pertencimento, representatividade e transformação coletiva."
+      },
+      "destaque": {
+        "chapeu": "O projeto editorial · 2026",
+        "titulo": "Radar Oriki",
+        "texto": "A curadoria da Oriki para artistas independentes e talentos em ascensão: trajetórias, lançamentos e identidades artísticas em resenhas, carrosséis, guias de escuta e reels. De Parelheiros, no extremo sul de São Paulo, o músico e cineasta RAVIH é um dos talentos que o Radar já apresentou para o mundo."
+      },
+      "marcos": {
+        "titulo": "O caminho até aqui",
+        "itens": [
+          {
+            "quando": "2026",
+            "titulo": "Nasce a Oriki Futuro",
+            "texto": "De hobby que unia poesia, arte e expressão a projeto cultural, político e social."
+          },
+          {
+            "quando": "30 de julho a 28 de outubro de 2026",
+            "titulo": "1,2 milhão de visualizações",
+            "texto": "126 mil contas alcançadas e 218 mil interações no Instagram, 94,8% de pessoas que ainda não seguiam a Oriki."
+          },
+          {
+            "quando": "3 de novembro de 2026",
+            "titulo": "O site no ar",
+            "texto": "Um território digital próprio para reunir projetos, publicações, descobertas musicais e conteúdos editoriais."
+          },
+          {
+            "quando": "Novembro de 2026",
+            "titulo": "Parceria com o Instituto Lúcia",
+            "texto": "A Oriki Futuro e o Instituto Lúcia passam a caminhar juntos."
+          }
+        ]
+      },
+      "credito": "Textos: portfólio 2026 da Oriki Futuro, cedido pelo coletivo, uso autorizado. Logo cedida pelo coletivo, redesenhada em vetor a partir da capa do portfólio. A arte do território é conceitual, gerada pelo Instituto Lúcia e aprovada pela Oriki Futuro. Vídeo: @orikifuturo e @institutoluciaorg no Instagram, uso autorizado pelo coletivo. A logo e a arte não estão sob a licença livre do site.",
+      "capa": {
+        "src": "/territorios/oriki-futuro/arte-territorio.webp",
+        "alt": "Arte conceitual do território da Oriki Futuro: uma dançarina, uma cantora com microfone e um poeta com caderno em dourado e preto sobre creme, com morros, um vinil como lua e ondas sonoras concêntricas"
+      },
+      "anuncio": {
+        "post": "DfyZPbPuNAw",
+        "titulo": "O anúncio da parceria: Oriki Futuro × Instituto Lúcia",
+        "texto": "Use fone: o som desse vídeo anda em volta da sua cabeça. No caderno da Oriki tem o Radar Oriki, o Guia de Escuta, o Oriki do Mês, as Faixas, os Discos e o Oriki Preview. Cultura como resistência, com compromisso antirracista. Ẹ kú iṣẹ́, Oriki: bom trabalho!",
+        "vertical": true,
+        "capa": "/territorios/oriki-futuro/anuncio-capa.webp"
+      }
     }
   ]
 }

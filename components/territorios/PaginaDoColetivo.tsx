@@ -8,7 +8,7 @@ import { originalLang, Untranslated } from "@/components/Untranslated";
 import type { Dict } from "@/i18n/types";
 import { localePath, type Locale } from "@/i18n/config";
 import { getTracks } from "@/lib/content";
-import { letraDesordem, letraKamikaze, letraNoisme, letraNoiz } from "@/lib/fontes-coletivos";
+import { letraDesordem, letraKamikaze, letraNoisme, letraNoiz, letraOriki } from "@/lib/fontes-coletivos";
 import { site } from "@/lib/site";
 import { codigoDePostValido, enderecoDoVideo, temVideoLocal } from "@/lib/territorios-video";
 import { ehVisual, IDENTIDADES, type Visual } from "@/lib/territorios-identidades";
@@ -20,7 +20,7 @@ const doPost = (codigo?: string) => (codigo && codigoDePostValido(codigo) ? `htt
 const doReel = (codigo: string) => (codigoDePostValido(codigo) ? `https://www.instagram.com/reel/${codigo}/` : null);
 
 /** A letra de título de cada coletivo (lib/fontes-coletivos.ts): só a do coletivo da página entra no desenho. */
-const LETRA: Record<Visual, string> = { noizocupa: letraNoiz.variable, kamikaze: letraKamikaze.variable, desordem: letraDesordem.variable, noisme: letraNoisme.variable };
+const LETRA: Record<Visual, string> = { noizocupa: letraNoiz.variable, kamikaze: letraKamikaze.variable, desordem: letraDesordem.variable, noisme: letraNoisme.variable, oriki: letraOriki.variable };
 
 /** A faixa de temas de cada um (as classes são literais para o Tailwind enxergar). */
 const LETREIRO: Record<Visual, { estilo: string; separador: string }> = {
@@ -28,6 +28,7 @@ const LETREIRO: Record<Visual, { estilo: string; separador: string }> = {
   kamikaze: { estilo: "border-y-[3px] border-[#111010] bg-[#0a6631] text-[#ffe14d] uppercase", separador: "text-[#ff7eb6]" },
   desordem: { estilo: "-rotate-1 border-y-[3px] border-[#0e0c0b] bg-[#ffd21f] text-[#0e0c0b] uppercase", separador: "text-[#d7261e]" },
   noisme: { estilo: "border-y border-[#0a0a0a] bg-[#0a0a0a] text-white uppercase tracking-[0.12em]", separador: "text-white" },
+  oriki: { estilo: "border-y-[3px] border-[#16110a] bg-[#bb9416] text-[#16110a] uppercase", separador: "text-[#f5ead0]" },
 };
 
 /** As letras do nome do Desordem, cada uma girada (só no desenho: o leitor de tela lê o nome inteiro). */
@@ -53,8 +54,9 @@ export default function PaginaDoColetivo({ territorio, lang, t }: { territorio: 
   const local = anuncio && temVideoLocal(territorio.slug) ? enderecoDoVideo(territorio.slug) : null;
   const videos = territorio.videos ?? [];
   const numero = s.partner.replace("{n}", String(territorio.numero).padStart(2, "0"));
-  // No Kamikaze a cor de cada bloco gira pela paleta dos cartazes (amarelo, verde, rosa, azul); nos outros é fixa.
-  const acento = (i: number) => (visual === "kamikaze" ? id.acentos[i % id.acentos.length] : id.destaque);
+  // No Kamikaze e na Oriki a cor de cada bloco gira pela paleta (no Kamikaze, a dos cartazes; na Oriki, o dourado, o
+  // creme e o amarelo vivo do vídeo de anúncio); nos outros é fixa.
+  const acento = (i: number) => (visual === "kamikaze" || visual === "oriki" ? id.acentos[i % id.acentos.length] : id.destaque);
   const cores = { "--col-fundo": id.fundo, "--col-papel": id.papel, "--col-tinta": id.tinta, "--col-destaque": id.destaque, "--col-rotulo": id.rotulo, "--col-botao-texto": id.botaoTexto } as CSSProperties;
 
   const linkDoPost = (codigo?: string, sobre?: string, cor?: string) => {
@@ -234,8 +236,49 @@ export default function PaginaDoColetivo({ territorio, lang, t }: { territorio: 
         </section>
       )}
 
+      {visual === "oriki" && (
+        /* Oriki Futuro: a capa do portfólio. O nome na letra gorda e redonda, em dourado; a faixa creme de "vozes que
+           ecoam", levemente torta, como o pôster; e a logo (os círculos com a haste) numa capa de caderno com a espiral
+           na lateral, como o caderno do portfólio. */
+        <section className="col-abertura col-grao relative overflow-hidden">
+          <div className="relative mx-auto grid max-w-[78rem] items-center gap-12 px-4 pt-10 pb-16 sm:px-8 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] md:pt-16 md:pb-20">
+            <div className="min-w-0">
+              <p className="col-selo">{numero}</p>
+              <h1 className="ori-nome mt-6">{territorio.nome}</h1>
+              {territorio.slogan && (
+                <p className="ori-faixa mt-7">
+                  <span>{territorio.slogan}</span>
+                </p>
+              )}
+              {territorio.lema && <p className="col-meta mt-6">{territorio.lema}</p>}
+              {/* O som da página: o equalizador, cinco barras que dançam (parado para quem pede menos movimento). */}
+              <span className="ori-eq mt-6" aria-hidden="true">
+                <i />
+                <i />
+                <i />
+                <i />
+                <i />
+              </span>
+              <div className="mt-8 flex flex-wrap gap-3">{seguir}</div>
+              {aviso}
+            </div>
+            <div className="relative mx-auto w-full max-w-[28rem] px-2 pl-8">
+              {logo("ori-caderno", <span aria-hidden className="ori-espiral" />)}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* A faixa dos temas: anda sempre (só para no botão, para quem pede menos movimento e no modo leve). */}
       <Letreiro temas={territorio.temas} rotulo={s.letreiroRotulo} pausar={s.letreiroPausar} retomar={s.letreiroRetomar} estilo={`col-letreiro ${LETREIRO[visual].estilo}`} separador={LETREIRO[visual].separador} />
+
+      {/* Oriki Futuro: a arte conceitual do território (a capa), aprovada pelo coletivo, em cartaz de palco logo
+          abaixo do letreiro. */}
+      {visual === "oriki" && territorio.capa && (
+        <figure className="ori-arte">
+          <Image src={territorio.capa.src} alt={territorio.capa.alt} width={1638} height={701} priority sizes="(min-width: 1280px) 76rem, 100vw" className="h-auto w-full object-cover" />
+        </figure>
+      )}
 
       {/* Quem são: o texto do coletivo (bio, história e manifesto), sem nada inventado. */}
       <section aria-labelledby="quem-titulo" className="col-sec">
@@ -267,7 +310,7 @@ export default function PaginaDoColetivo({ territorio, lang, t }: { territorio: 
             )}
             <ul className="flex flex-wrap content-start gap-2" aria-label={s.letreiroRotulo}>
               {territorio.temas.map((tema, i) => (
-                <li key={tema} className="col-tema" style={visual === "kamikaze" ? { borderColor: acento(i) } : undefined}>
+                <li key={tema} className="col-tema" style={visual === "kamikaze" || visual === "oriki" ? { borderColor: acento(i) } : undefined}>
                   {tema}
                 </li>
               ))}

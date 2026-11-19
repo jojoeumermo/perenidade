@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-label="Oriki Futuro">
+  <rect width="1000" height="1000" fill="#f4efe7"/>
+  <g fill="none" stroke="#bb9416" stroke-width="48">
+    <circle cx="500" cy="440" r="400"/>
+    <circle cx="500" cy="440" r="262"/>
+    <circle cx="500" cy="440" r="122"/>
+  </g>
+  <rect x="478" y="505" width="44" height="430" fill="#bb9416"/>
+</svg>
