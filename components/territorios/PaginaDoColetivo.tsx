@@ -275,6 +275,8 @@ export default function PaginaDoColetivo({ territorio, lang, t }: { territorio: 
            torta, como a fita de marcação de palco; e a logo (o QF tribal de chamas) emoldurada como lambe de
            divulgação, com sombra dura vermelha e fita no canto. */
         <section className="col-abertura col-grao relative overflow-hidden">
+          {/* As brasas da fênix: sobem devagar pela abertura (só CSS; paradas para quem pede menos movimento). */}
+          <span aria-hidden className="fenix-brasas" />
           <div className="relative mx-auto grid max-w-[78rem] items-center gap-12 px-4 pt-10 pb-16 sm:px-8 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] md:pt-16 md:pb-20">
             <div className="min-w-0">
               <p className="col-selo">{numero}</p>

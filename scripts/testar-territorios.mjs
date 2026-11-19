@@ -157,6 +157,23 @@ ok("Quebrada Fênix: sétimo território, com identidade própria e o conteúdo 
   }
 });
 
+// 19/11/2026: efeitos de fogo na Quebrada Fênix (pedido do Jonathan): brasas que sobem na abertura, lampejo no
+// letreiro e o nome pulsando. Só CSS, sem JS; acesos apenas no modo escuro para quem não pediu menos movimento.
+ok("Quebrada Fênix: efeitos de fogo com respeito ao modo leve e ao menos movimento", () => {
+  const css = ler("styles", "territorios-coletivos.css");
+  const pagina = ler("components", "territorios", "PaginaDoColetivo.tsx");
+  assert.match(pagina, /className="fenix-brasas"/);
+  assert.match(css, /\.fenix-brasas \{/);
+  assert.match(css, /@keyframes fenix-brasas-sobem/);
+  assert.match(css, /@keyframes fenix-letreiro-fogo/);
+  assert.match(css, /@keyframes fenix-nome-brasa/);
+  const trechoFogo = css.slice(css.indexOf(".fenix-brasas {"));
+  assert.match(trechoFogo, /@media \(prefers-reduced-motion: no-preference\)/);
+  assert.match(trechoFogo, /:root:not\(\[data-light\]\) \.fenix-brasas/);
+  assert.match(trechoFogo, /:root:not\(\[data-light\]\) \[data-identidade="fenix"\] \.col-letreiro/);
+  assert.match(trechoFogo, /:root:not\(\[data-light\]\) \.fenix-nome/);
+});
+
 ok("Oriki Futuro: sexto território, com identidade própria e o conteúdo do portfólio", () => {
   const o = por("oriki-futuro");
   assert.equal(o.numero, 6);
