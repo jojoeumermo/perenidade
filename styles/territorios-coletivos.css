@@ -910,3 +910,112 @@
     animation: ori-eco 2.8s ease-in-out infinite;
   }
 }
+
+/* ——— Quebrada Fênix: a passarela do A-SOL ——— */
+[data-identidade="fenix"] {
+  --col-letra: var(--letra-fenix), "Comic Sans MS", system-ui, sans-serif;
+}
+[data-identidade="fenix"] .col-h2,
+[data-identidade="fenix"] .col-h3 {
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+[data-identidade="fenix"] .col-h2::after {
+  content: "";
+  display: block;
+  width: 3.5rem;
+  height: 5px;
+  margin-top: 0.9rem;
+  background: var(--col-destaque);
+}
+.fenix-nome {
+  font-family: var(--col-letra);
+  font-size: clamp(2.8rem, 10vw, 5.4rem);
+  line-height: 0.95;
+  color: var(--col-destaque);
+  text-wrap: balance;
+  text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.45);
+}
+/* A tira do slogan, como a fita de marcação de palco: vermelho vivo, levemente torta, sombra rosa. */
+.fenix-faixa {
+  display: inline-block;
+  transform: rotate(-1.2deg);
+  background: var(--col-destaque);
+  color: var(--col-botao-texto);
+  padding: 0.55rem 1rem;
+  box-shadow: 5px 5px 0 var(--col-rotulo);
+}
+.fenix-faixa > span {
+  font-family: var(--col-letra);
+  font-size: clamp(1.15rem, 4vw, 1.7rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+/* A logo tribal emoldurada como lambe de divulgação: borda clara, sombra dura vermelha, fita adesiva no canto. */
+.fenix-moldura {
+  position: relative;
+  border: 3px solid var(--col-tinta);
+  background: #0b0909;
+  padding: 0.9rem;
+  transform: rotate(1.2deg);
+  box-shadow: 8px 8px 0 var(--col-destaque);
+}
+.fenix-fita {
+  position: absolute;
+  z-index: 2;
+  top: -0.9rem;
+  left: 2rem;
+  width: 6.5rem;
+  height: 1.7rem;
+  background: var(--col-destaque);
+  opacity: 0.95;
+  transform: rotate(-6deg);
+}
+[data-identidade="fenix"] .col-citacao,
+[data-identidade="fenix"] .col-trilha-cartao {
+  border-color: var(--col-destaque);
+}
+[data-identidade="fenix"] .col-tela {
+  border-color: var(--col-destaque);
+}
+[data-identidade="fenix"] .col-letreiro .letreiro-trilho {
+  font-family: var(--col-letra);
+  letter-spacing: 0.04em;
+}
+/* O elenco do desfile no A-SOL em cartaz de palco: retrato, borda clara, sombra dura vermelha. */
+.fenix-arte {
+  margin: 0;
+  border-bottom: 3px solid var(--col-destaque);
+  background: var(--col-papel);
+  padding: 2.5rem 1rem;
+}
+.fenix-arte img {
+  display: block;
+  margin-inline: auto;
+  max-width: 26rem;
+  border: 3px solid var(--col-tinta);
+  box-shadow: 8px 8px 0 var(--col-destaque);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fenix-faixa,
+  .fenix-moldura,
+  .fenix-fita {
+    transform: none;
+  }
+}
+/* Vida na identidade: a sombra do lambe da logo tremula como chama. Fora do modo leve e só para quem não pediu
+   menos movimento. */
+@keyframes fenix-chama {
+  0%,
+  100% {
+    box-shadow: 8px 8px 0 var(--col-destaque);
+  }
+  50% {
+    box-shadow: 10px 10px 0 var(--col-rotulo);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-light]) .fenix-moldura {
+    animation: fenix-chama 2.4s ease-in-out infinite;
+  }
+}

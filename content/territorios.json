@@ -792,6 +792,172 @@
         "vertical": true,
         "capa": "/territorios/oriki-futuro/anuncio-capa.webp"
       }
+    },
+    {
+      "slug": "quebrada-fenix",
+      "numero": 7,
+      "nome": "Quebrada Fênix",
+      "linha": "Moda autoral e sustentável da periferia de Guarulhos: vestimos o mundo de futuro.",
+      "sobre": "O Quebrada Fênix é um movimento sociopolítico, uma marca de moda autoral e sustentável e um ecossistema de impacto social, cultural e econômico que nasce e se fortalece na periferia de Guarulhos. Como organização sem fins lucrativos, o coletivo usa a arte, a cultura, a moda e o ativismo como ferramentas de transformação e resistência social, promovendo a emancipação intelectual, estética e financeira de pessoas e grupos historicamente marginalizados.",
+      "quem": "O projeto começou em 2023, quando Uta Theodoro criou um clube de moda na E.E. Professor Allyrio de Figueiredo Brasil, escola de tempo integral de Guarulhos, com aulas de moda sustentável, oficinas de maquiagem, palestras e o primeiro desfile, \"Liberdade de Expressão\". Em 2024 chegou Dani Pereira Lopes, primeiro como modelo; o desfile no centro comunitário A-SOL tirou o projeto dos muros da escola, e a união da pesquisa prática de moda do Uta com a bagagem da Dani na escrita e no teatro virou o coletivo e a marca Quebrada Fênix.",
+      "instagram": "quebradafenix",
+      "pessoas": [
+        {
+          "nome": "Uta Theodoro",
+          "papel": "Fundador e pesquisador de moda",
+          "instagram": "odiamantenigga"
+        },
+        {
+          "nome": "Dani Pereira Lopes",
+          "papel": "Escrita, teatro e autoria do projeto OKUARA",
+          "instagram": "pacoteaberto"
+        }
+      ],
+      "temas": [
+        "Moda autoral e sustentável",
+        "Upcycling e reconstrução têxtil",
+        "Desfiles de quebrada",
+        "Projeto OKUARA",
+        "Content Days",
+        "Moda, hip-hop e audiovisual",
+        "Economia criativa da periferia",
+        "Guarulhos em cena"
+      ],
+      "edicoes": [
+        {
+          "titulo": "Desfile \"Liberdade de Expressão\"",
+          "tipo": "E.E. Professor Allyrio de Figueiredo Brasil",
+          "ano": "2023",
+          "cor": "vermelho"
+        },
+        {
+          "titulo": "Desfile no A-SOL",
+          "tipo": "Centro comunitário · Guarulhos",
+          "ano": "2024",
+          "cor": "preto"
+        },
+        {
+          "titulo": "Content Days",
+          "tipo": "Laboratório de portfólio e produção",
+          "ano": "2026",
+          "cor": "papel"
+        }
+      ],
+      "editoria": "Cultura de Quebrada",
+      "pautas": [],
+      "trilhas": [
+        "moda-periferica-e-apropriacao",
+        "editorial-de-rua-com-o-celular",
+        "croche-para-vender",
+        "historia-das-favelas"
+      ],
+      "visual": "fenix",
+      "logo": {
+        "src": "/territorios/quebrada-fenix/logo.webp",
+        "grande": "/territorios/quebrada-fenix/logo-1920.webp",
+        "alt": "Logo do Quebrada Fênix: o monograma QF em traço tribal branco, cercado por um círculo de chamas em preto e branco",
+        "credito": "Logo cedida pelo coletivo"
+      },
+      "slogan": "Vestimos o mundo de futuro.",
+      "lema": "Movidos pela força de quem abriu caminhos",
+      "historia": {
+        "titulo": "Do clube de moda ao coletivo",
+        "paragrafos": [
+          "A história começou simples em 2023, com o clube de moda que o Uta abriu numa escola de tempo integral de Guarulhos: aulas de moda sustentável, oficinas de maquiagem, palestras e o primeiro desfile, com o tema \"Liberdade de Expressão\".",
+          "Em 2024, com a chegada da Dani, o projeto saltou os muros da escola com o desfile no centro comunitário A-SOL. Da sintonia entre a pesquisa prática de moda e a bagagem da escrita e do teatro nasceu a marca Quebrada Fênix: reconstrução, transmutação têxtil e upcycling tratados como tecnologia ancestral de sustentabilidade e justiça socioambiental.",
+          "Hoje o coletivo funciona como uma rede de apoio que acolhe, conecta e impulsiona artistas e fazedores da cultura, com curadoria, mentoria contínuas e um banco de talentos voltado principalmente à moda e ao audiovisual."
+        ]
+      },
+      "citacao": {
+        "titulo": "Do manifesto do coletivo",
+        "texto": "O futuro do coletivo não é apenas quando renascemos das cinzas. O futuro é o rastro que já estamos deixando por onde passamos. Somos grandes por sermos maioria, e é aqui que se vive a grandiosidade. Somos potência e referência para a arte e para quem a faz acontecer."
+      },
+      "destaque": {
+        "chapeu": "Projeto OKUARA · cultura, educação e impacto comunitário",
+        "titulo": "OKUARA e os Content Days",
+        "texto": "O OKUARA, plataforma integrada concebida e escrita por Dani Pereira Lopes, organiza as ações do coletivo em quatro eixos: dignidade, cuidado e saúde integral; educação e formação crítica; moda, hip-hop e audiovisual; e economia criativa. É desse último eixo que nascem os Content Days, encontros imersivos em que jovens e artistas da quebrada produzem ensaios fotográficos, vídeos, styling e maquiagem: um laboratório real de mercado, onde cada participante monta o próprio portfólio, aprende técnicas de produção e conecta o seu talento a oportunidades concretas de trabalho."
+      },
+      "marcos": {
+        "titulo": "Do clube de moda à fênix",
+        "itens": [
+          {
+            "quando": "2023",
+            "titulo": "O clube de moda",
+            "texto": "Uta cria o clube de moda na E.E. Professor Allyrio de Figueiredo Brasil, escola de tempo integral de Guarulhos."
+          },
+          {
+            "quando": "2023",
+            "titulo": "Primeiro desfile",
+            "texto": "\"Liberdade de Expressão\" estreia dentro da escola, com aulas de moda sustentável, oficinas de maquiagem e palestras."
+          },
+          {
+            "quando": "2024",
+            "titulo": "A Dani chega",
+            "texto": "Dani entra como modelo e vira parceira de criação; o desfile no centro comunitário A-SOL tira o projeto dos muros da escola."
+          },
+          {
+            "quando": "2024",
+            "titulo": "Nasce a marca Quebrada Fênix",
+            "texto": "O clube de moda vira coletivo e marca autoral e sustentável."
+          },
+          {
+            "quando": "2026",
+            "titulo": "OKUARA e Content Days",
+            "texto": "A plataforma integrada consolida os quatro eixos do coletivo, e os Content Days viram laboratório de portfólio e renda."
+          },
+          {
+            "quando": "Novembro de 2026",
+            "titulo": "Parceria com o Instituto Lúcia",
+            "texto": "O Quebrada Fênix e o Instituto Lúcia passam a caminhar juntos."
+          }
+        ]
+      },
+      "credito": "Textos: manifesto do coletivo, cedido pelo Quebrada Fênix, uso autorizado. Logo cedida pelo coletivo (a foto de perfil do Instagram). Fotos: @quebradafenix no Instagram, uso autorizado pelo coletivo. A logo e as fotos não estão sob a licença livre do site.",
+      "capa": {
+        "src": "/territorios/quebrada-fenix/desfile-a-sol-elenco.webp",
+        "alt": "O elenco do desfile do Quebrada Fênix reunido sob a faixa do Centro Comunitário A-SOL, em Guarulhos: looks de crochê multicolorido, denim reconstruído, renda branca e pelúcia rosa"
+      },
+      "galeria": {
+        "titulo": "O desfile no A-SOL e os looks da quebrada",
+        "fotos": [
+          {
+            "src": "/territorios/quebrada-fenix/balaclava-croche.webp",
+            "alt": "Retrato de modelo ajustando a balaclava e o casaco de crochê multicolorido feitos de fio reaproveitado, peças autorais do Quebrada Fênix"
+          },
+          {
+            "src": "/territorios/quebrada-fenix/desfile-listras-e-tule.webp",
+            "alt": "Modelos no desfile do Quebrada Fênix: calça listrada em preto e branco com tule, balaclava de crochê multicolorida e botas de pelúcia rosa"
+          },
+          {
+            "src": "/territorios/quebrada-fenix/look-vermelho-correntes.webp",
+            "alt": "Modelo de peruca vermelha e maquiagem teatral, com vestido vermelho de tiras, correntes e bolsa vermelha no desfile do Quebrada Fênix"
+          },
+          {
+            "src": "/territorios/quebrada-fenix/look-vermelho-a-sol.webp",
+            "alt": "Modelo com top e saia vermelhos de tiras reconstruídas e meia-calça trabalhada sob a faixa do Centro Comunitário A-SOL"
+          },
+          {
+            "src": "/territorios/quebrada-fenix/look-rosa-pelucia.webp",
+            "alt": "Modelo com look rosa de pelúcia e estampa, correntes e bolsa rosa, com looks de denim ao fundo, no desfile do Quebrada Fênix"
+          },
+          {
+            "src": "/territorios/quebrada-fenix/look-onca-reconstruido.webp",
+            "alt": "Modelo com jaqueta e calça reconstruídas em estampa de onça e apliques de retalhos no desfile do Quebrada Fênix"
+          },
+          {
+            "src": "/territorios/quebrada-fenix/denim-reconstruido.webp",
+            "alt": "Três modelos com looks de denim reconstruído, renda branca e crochê sob a faixa do Centro Comunitário A-SOL"
+          },
+          {
+            "src": "/territorios/quebrada-fenix/look-branco-renda.webp",
+            "alt": "Modelo de cabelo vermelho com look branco de renda, luvas e meias no desfile do Quebrada Fênix"
+          },
+          {
+            "src": "/territorios/quebrada-fenix/look-preto-e-branco.webp",
+            "alt": "Modelo com blusa gráfica preta e branca e calça de retalhos de denim escuro no desfile do Quebrada Fênix"
+          }
+        ]
+      }
     }
   ]
 }

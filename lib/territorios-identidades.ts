@@ -26,6 +26,9 @@ export const IDENTIDADES = {
   // Oriki Futuro: jornalismo e curadoria musical, "vozes que ecoam". O dourado do portfólio (#bb9416, o mesmo valor
   // medido na capa) sobre o preto quente, o creme da capa como tinta; a espiral e a capa de caderno do portfólio.
   oriki: { fundo: "#16110a", papel: "#261e0f", tinta: "#f5ead0", destaque: "#bb9416", rotulo: "#bb9416", botaoTexto: "#16110a", acentos: ["#bb9416", "#f5ead0", "#e8b953"] },
+  // Quebrada Fênix: moda autoral e sustentável de Guarulhos. O preto da logo tribal de chamas e da passarela do A-SOL,
+  // o vermelho vivo e o rosa dos looks, o branco da renda e o azul do denim reconstruído.
+  fenix: { fundo: "#131011", papel: "#251a1d", tinta: "#f5ece1", destaque: "#ff5348", rotulo: "#ff8fa3", botaoTexto: "#131011", acentos: ["#ff5348", "#ff8fa3", "#f5ece1", "#7fa7d9"] },
 } as const;
 
 export type Visual = keyof typeof IDENTIDADES;
