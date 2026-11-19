@@ -97,11 +97,13 @@ const json = (...p) => JSON.parse(fs.readFileSync(path.join(raiz, ...p), "utf8")
 // ── 6. Os parâmetros reais de public/tri/ ──
 {
   const indice = json("public", "tri", "indice.json");
-  conferir("índice cobre 2009 a 2023", indice.anos.length === 15 && indice.anos[0] === 2009 && indice.anos[14] === 2023);
+  conferir("índice cobre 2009 a 2025", indice.anos.length === 17 && indice.anos[0] === 2009 && indice.anos[16] === 2025);
   let abandonados = 0;
   for (const ano of indice.anos) {
     const prova = json("public", "tri", `enem-${ano}.json`);
-    const questoes = json("public", "questoes", `enem-${ano}.json`).questoes;
+    // 2024 e 2025 ainda não têm banco de questões no site: os itens ficam sem ligação e os testes de ligação pulam.
+    const arqQ = path.join(raiz, "public", "questoes", `enem-${ano}.json`);
+    const questoes = fs.existsSync(arqQ) ? JSON.parse(fs.readFileSync(arqQ, "utf8")).questoes : [];
     const porId = new Map(questoes.map((q) => [q.id, q]));
     conferir(`${ano}: cita o zip dos microdados do Inep`, prova.url === `https://download.inep.gov.br/microdados/microdados_enem_${ano}.zip`);
     for (const area of ["linguagens", "humanas", "natureza", "matematica"]) {
@@ -140,6 +142,15 @@ const json = (...p) => JSON.parse(fs.readFileSync(path.join(raiz, ...p), "utf8")
   conferir("2022 humanas: item 140506 igual ao CSV do Inep", h22.prova === 1055 && h22.cor === "AZUL" && i1 && i1.p === 46 && i1.g === "D" && i1.a === 0.98121 && i1.b === 1.34897 && i1.c === 0.06218);
   conferir("2022 humanas: item 111984 igual ao CSV do Inep", i2 && i2.p === 90 && i2.g === "A" && i2.a === 1.90716 && i2.b === 1.36087 && i2.c === 0.22521);
   conferir("2022 humanas: o item 84199 (bisserial negativa) está fora da conta", json("public", "tri", "enem-2022.json").areas.humanas.itens.some((i) => i.co === 84199 && i.aban));
+
+  // Valores lidos à mão do ITENS_PROVA_2024.csv (caderno azul de matemática, CO_PROVA 1407, 1ª aplicação):
+  const m24 = json("public", "tri", "enem-2024.json").areas.matematica;
+  const j1 = m24.itens.find((i) => i.co === 111708), j2 = m24.itens.find((i) => i.co === 15394);
+  conferir("2024 matemática: item 111708 igual ao CSV do Inep", m24.prova === 1407 && m24.cor === "AZUL" && j1 && j1.p === 150 && j1.g === "C" && j1.a === 1.02692 && j1.b === 3.36222 && j1.c === 0.18689);
+  conferir("2024 matemática: item 15394 igual ao CSV do Inep", j2 && j2.p === 151 && j2.g === "E" && j2.a === 3.90485 && j2.b === 2.50442 && j2.c === 0.11173);
+  // Valores lidos à mão do ITENS_PROVA_2025.csv (caderno azul de matemática, CO_PROVA 1471, 1ª aplicação):
+  const m25 = json("public", "tri", "enem-2025.json").areas.matematica;
+  conferir("2025 matemática: caderno 1471 AZUL da 1ª aplicação", m25.prova === 1471 && m25.cor === "AZUL");
 
   // Uma prova de verdade: acertar tudo e errar tudo dão notas plausíveis e o acaso (o c) não deixa a nota despencar.
   const m22 = itensDaArea(json("public", "tri", "enem-2022.json").areas.matematica).filter((i) => !i.fora);

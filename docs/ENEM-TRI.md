@@ -1,6 +1,6 @@
 # Laboratório da TRI do Enem (Etapa 6, B12)
 
-Página: `/[lang]/enem/laboratorio-tri` (recurso `enem-curso`). A pessoa escolhe uma prova (2009 a 2023) e uma área,
+Página: `/[lang]/enem/laboratorio-tri` (recurso `enem-curso`). A pessoa escolhe uma prova (2009 a 2025) e uma área,
 marca o que acertou (ou cola as letras das respostas, corrigidas pelo gabarito oficial) e vê a **nota estimada** pelo
 método do Inep, com os parâmetros **reais** dos itens. Não há item inventado.
 
@@ -23,10 +23,15 @@ em `lib/enem-tri.ts`.
 
 ## Parâmetros reais: `public/tri/`
 
-`scripts/enem/gerar-parametros-tri.mjs` gera `public/tri/enem-AAAA.json` (15 arquivos, ~16 KB cada) e `indice.json`.
+`scripts/enem/gerar-parametros-tri.mjs` gera `public/tri/enem-AAAA.json` (17 arquivos, ~16 KB cada) e `indice.json`.
 O zip dos microdados tem 0,5 a 1,5 GB, então o script lê só a central de diretório e o CSV de itens por requisições HTTP
 `Range` (`scripts/enem/zip-remoto.mjs`); nada de zip inteiro. Rodar: `node scripts/enem/gerar-parametros-tri.mjs [anos]`
-(ou `--csv-dir pasta` com `itens-AAAA.csv` já baixados). Já foi rodado para 2009 a 2023.
+(ou `--csv-dir pasta` com `itens-AAAA.csv` já baixados). Já foi rodado para 2009 a 2025 (2024 e 2025 em nov/2026: como ainda não há questões desses anos em
+`public/questoes/`, nenhuma questão foi ligada e o caderno usado é o da `PREFERENCIA_CADERNO` no script — em 2024 o
+menor CO_PROVA é a REAPLICAÇÃO, então o caderno da 1ª aplicação regular foi fixado à mão: LC 1395, CH 1383, CN 1419,
+MT 1407, conferido com o tipo_aplicacao do catálogo do analise-enem; 2025 não precisou). Atenção a duas mudanças de
+formato nos microdados novos: `TP_LINGUA` vem como "0.0"/"1.0" (não "0"/"1") e `CO_POSICAO` segue a numeração global
+da prova (CH 46–90, CN 91–135, MT 136–180).
 
 Por item: `co` (CO_ITEM), `p` (CO_POSICAO), `g` (TX_GABARITO), `a`, `b`, `c`, `h` (habilidade), `aban` (fora da conta) e
 `q` (id da questão correspondente em `public/questoes/enem-AAAA.json`).
@@ -55,7 +60,7 @@ decidir inscrição ou curso.
 - Textos: `i18n/estudo/pt.json` (`enem.tri`). Em en, es, fr, ru e zh ficou só o título; o resto aparece em português
   com o aviso de "ainda não traduzido" (as traduções antigas descreviam o laboratório de itens inventados).
 - Teste: `npm run testar:tri` (`scripts/testar-tri.mjs`, 457 conferências): contas feitas à mão, EAP contra integral por
-  outro caminho, escala, quadratura, propriedades (coerência, monotonia), integridade dos 15 arquivos, 5 valores lidos do
+  outro caminho, escala, quadratura, propriedades (coerência, monotonia), integridade dos 17 arquivos, 5 valores lidos do
   `ITENS_PROVA_2022.csv` e gabarito de cada questão ligada contra o do Inep.
 
 ## Privacidade
