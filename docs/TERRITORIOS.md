@@ -48,6 +48,14 @@ Páginas novas em `/territorios/noizocupa` e `/territorios/coletivo-kamikaze`, m
 
 - Grafia: "NoizOcupa" (N e O maiúsculos, junto). O nome aparece sem `uppercase` no CSS para não virar "NOIZOCUPA".
 
+## Oriki Futuro: sexto território (19/11/2026)
+
+- Oriki Futuro (`/territorios/oriki-futuro`), plataforma independente de jornalismo e curadoria musical (“vozes que ecoam”), dedicada à música, à arte e às narrativas de artistas negros, LGBTQIA+ e independentes. Fundador e editor criativo: William Souza, o Uill (@uilliamfotos).
+- Conteúdo do portfólio 2026 do coletivo (feito pelo Uill, cedido pelo Jonathan): a apresentação, os valores, os números do Instagram (1,2 mi de visualizações entre 30/07 e 28/10/2026), o site próprio no ar em 03/11/2026 e os formatos editoriais (Radar Oriki, Oriki do Mês, Disco, Faixa, Preview).
+- Identidade própria (`visual: "oriki"`): o dourado medido na capa do portfólio (#bb9416) sobre preto quente, o creme da capa, a letra gorda e redonda do nome (Bungee) e a espiral de caderno na moldura da logo. A logo (os círculos concêntricos com a haste) foi redesenhada em vetor a partir da capa do portfólio: **pedir ao coletivo o arquivo original**.
+- Pendente: a **cidade** do coletivo (não consta no portfólio nem no Instagram) e as fotos/cartazes do perfil, se o coletivo quiser ceder. O **vídeo de anúncio** da parceria está na página nos moldes dos outros territórios: o reel em colaboração @institutoluciaorg × @orikifuturo (instagram.com/reel/DfyZPbPuNAw/, publicado em 16/11/2026) baixado e servido do próprio site (`anuncio.mp4` + `anuncio-capa.webp`, player com preload="none"). Pendem as **legendas (.vtt)**: o vídeo é musical (áudio 8D, sem fala aparente) e o PlayerDoAnuncio ainda não tem trilha de legenda - quando tiver, registrar o .vtt. A arte conceitual do território (o cartaz de palco abaixo do letreiro) foi gerada pelo Instituto Lúcia e aprovada pelo coletivo; o site do coletivo é orikifuturo.com.br.
+- A autorização de uso dos textos, da logo e das imagens foi informada pelo Jonathan em nome do coletivo; guardar o registro por escrito, como com os outros coletivos.
+
 ## Lei (conferida em planalto.gov.br)
 
 - Lei 9.610/1998, art. 29, caput: a utilização da obra depende de autorização prévia e expressa do autor. A liberação dos coletivos para vídeos e imagens foi informada pelo Jonathan; guardar o registro por escrito. O crédito aparece na página e o vídeo do Instagram não é baixado nem copiado.

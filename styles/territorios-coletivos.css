@@ -741,3 +741,172 @@
   font-weight: 900;
   letter-spacing: -0.02em;
 }
+
+/* ───────────────────────── Oriki Futuro ───────────────────────── */
+/* Jornalismo e curadoria musical: o dourado do portfólio sobre o preto quente, o nome na letra gorda e redonda da
+   capa, a faixa creme de "vozes que ecoam" e a logo numa capa de caderno com a espiral na lateral. */
+[data-identidade="oriki"] {
+  --col-letra: var(--letra-oriki), "Arial Black", system-ui, sans-serif;
+}
+[data-identidade="oriki"] .col-h2,
+[data-identidade="oriki"] .col-h3 {
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+[data-identidade="oriki"] .col-h2::after {
+  content: "";
+  display: block;
+  width: 3.5rem;
+  height: 5px;
+  margin-top: 0.9rem;
+  background: var(--col-destaque);
+}
+.ori-nome {
+  font-family: var(--col-letra);
+  font-size: clamp(2.6rem, 10vw, 5.2rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: var(--col-destaque);
+  text-wrap: balance;
+}
+/* A faixa do slogan, como o pôster: creme sobre o dourado, levemente torta. */
+.ori-faixa {
+  display: inline-block;
+  transform: rotate(-1.2deg);
+  background: var(--col-tinta);
+  color: var(--col-fundo);
+  padding: 0.55rem 1rem;
+  box-shadow: 5px 5px 0 var(--col-destaque);
+}
+.ori-faixa > span {
+  font-family: var(--col-letra);
+  font-size: clamp(1.15rem, 4vw, 1.7rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+/* A capa de caderno: creme, borda dourada, e a espiral preta na lateral esquerda. */
+.ori-caderno {
+  position: relative;
+  border: 3px solid var(--col-destaque);
+  background: #f4efe7;
+  padding: 0.9rem;
+  transform: rotate(1deg);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.35);
+}
+.ori-espiral {
+  position: absolute;
+  z-index: 2;
+  top: 0.75rem;
+  bottom: 0.75rem;
+  left: -1.35rem;
+  width: 1.6rem;
+  background-image: radial-gradient(circle at 50% 50%, var(--col-fundo) 0 5px, var(--col-tinta) 5px 7px, transparent 7px);
+  background-size: 1.6rem 2.2rem;
+  background-repeat: repeat-y;
+}
+[data-identidade="oriki"] .col-citacao,
+[data-identidade="oriki"] .col-trilha-cartao {
+  border-color: var(--col-destaque);
+}
+[data-identidade="oriki"] .col-tela {
+  border-color: var(--col-destaque);
+}
+[data-identidade="oriki"] .col-letreiro .letreiro-trilho {
+  font-family: var(--col-letra);
+  letter-spacing: 0.02em;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ori-faixa,
+  .ori-caderno {
+    transform: none;
+  }
+}
+/* A arte conceitual do território, em cartaz de palco: faixa de largura inteira logo abaixo do letreiro. */
+.ori-arte {
+  margin: 0;
+  border-bottom: 3px solid var(--col-destaque);
+  background: var(--col-papel);
+  padding: 2.5rem 1rem;
+}
+.ori-arte img {
+  display: block;
+  margin-inline: auto;
+  max-width: 78rem;
+  border: 3px solid var(--col-destaque);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.35);
+}
+/* O equalizador da abertura: cinco barras (dourado, creme e o amarelo vivo do vídeo) que dançam no ritmo. */
+.ori-eq {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 2rem;
+}
+.ori-eq i {
+  width: 6px;
+  height: 100%;
+  background: var(--col-destaque);
+  transform-origin: bottom;
+}
+.ori-eq i:nth-child(2) {
+  background: var(--col-tinta);
+}
+.ori-eq i:nth-child(3) {
+  background: #e8b953;
+}
+.ori-eq i:nth-child(4) {
+  background: var(--col-tinta);
+}
+@keyframes ori-eq-pula {
+  from {
+    transform: scaleY(0.25);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-light]) .ori-eq i {
+    animation: ori-eq-pula 1.1s ease-in-out infinite alternate;
+  }
+  :root:not([data-light]) .ori-eq i:nth-child(2) {
+    animation-duration: 1.4s;
+    animation-delay: -0.4s;
+  }
+  :root:not([data-light]) .ori-eq i:nth-child(3) {
+    animation-duration: 0.8s;
+    animation-delay: -0.2s;
+  }
+  :root:not([data-light]) .ori-eq i:nth-child(4) {
+    animation-duration: 1.25s;
+    animation-delay: -0.6s;
+  }
+  :root:not([data-light]) .ori-eq i:nth-child(5) {
+    animation-duration: 0.95s;
+    animation-delay: -0.3s;
+  }
+}
+/* Vida na identidade: a espiral do caderno desce devagar, como rolo de filme, e a faixa do slogan pulsa o eco
+   ("vozes que ecoam") na sombra dourada. Fora do modo leve e só para quem não pediu menos movimento. */
+@keyframes ori-espiral-desce {
+  to {
+    background-position-y: 2.2rem;
+  }
+}
+@keyframes ori-eco {
+  0%,
+  100% {
+    box-shadow: 5px 5px 0 var(--col-destaque);
+  }
+  50% {
+    box-shadow: 8px 8px 0 var(--col-destaque);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-light]) .ori-espiral {
+    animation: ori-espiral-desce 3.2s linear infinite;
+  }
+  :root:not([data-light]) .ori-faixa {
+    animation: ori-eco 2.8s ease-in-out infinite;
+  }
+}

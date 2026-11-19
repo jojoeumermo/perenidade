@@ -28,6 +28,7 @@ const PAGINAS: [string, RegExp | null][] = [
   ["/pt/territorios/na-atividade", null],
   ["/pt/territorios/noizocupa", /NoizOcupa/],
   ["/pt/territorios/coletivo-kamikaze", /Kamikaze/],
+  ["/pt/territorios/oriki-futuro", /Oriki Futuro/],
   ["/pt/jogos", null],
 ];
 

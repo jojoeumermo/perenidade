@@ -129,6 +129,29 @@ ok("Desordem e noismemo studios: territórios novos com Instagram e visual próp
   assert.equal(new Set(dados.map((t) => t.numero)).size, dados.length);
 });
 
+// 19/11/2026: sexto território, Oriki Futuro (jornalismo e curadoria musical), já com identidade própria tirada do
+// portfólio 2026 cedido pelo coletivo: o dourado, o creme da capa, a letra gorda e redonda e a espiral de caderno.
+ok("Oriki Futuro: sexto território, com identidade própria e o conteúdo do portfólio", () => {
+  const o = por("oriki-futuro");
+  assert.equal(o.numero, 6);
+  assert.equal(o.nome, "Oriki Futuro");
+  assert.equal(o.instagram, "orikifuturo");
+  assert.equal(o.visual, "oriki");
+  assert.ok(o.temas.length >= 4, "poucos temas");
+  assert.ok(o.trilhas.length >= 1, "sem trilha");
+  assert.match(o.quem, /William Souza/);
+  assert.equal(o.pessoas[0].instagram, "uilliamfotos");
+  assert.equal(o.anuncio.post, "DfyZPbPuNAw", "o anúncio é o reel em colaboração com o @institutoluciaorg");
+  assert.match(o.anuncio.titulo, /Oriki Futuro × Instituto Lúcia/);
+  const videoOriki = path.join(raiz, "public", "territorios", "oriki-futuro", "anuncio.mp4");
+  assert.ok(fs.existsSync(videoOriki), "anuncio.mp4 local");
+  assert.ok(fs.statSync(videoOriki).size <= 20 * 1024 * 1024, "anuncio.mp4 acima de 20 MB");
+  assert.ok(fs.existsSync(path.join(raiz, "public", o.anuncio.capa)), "capa do anúncio");
+  assert.match(o.credito, /@orikifuturo e @institutoluciaorg no Instagram, uso autorizado pelo coletivo/);
+  assert.ok(o.capa && o.capa.src.endsWith("arte-territorio.webp"), "a arte conceitual aprovada é a capa");
+  assert.match(o.credito, /arte do território é conceitual/, "crédito da arte conceitual");
+});
+
 ok("cada coletivo com identidade própria tem a sua (nenhum repete o desenho de outro)", () => {
   const visuais = comVisual.map((t) => t.visual);
   assert.equal(new Set(visuais).size, visuais.length);
@@ -231,10 +254,10 @@ ok("vídeos novos: arquivo local, capa, crédito com o link do reel e player com
 
 ok("redesenho: uma letra por coletivo via next/font e o material de cada mundo no CSS", () => {
   const f = ler("lib", "fontes-coletivos.ts");
-  for (const fonte of ["Titan_One", "Anton", "Rubik_Spray_Paint", "Inter_Tight"]) assert.match(f, new RegExp(fonte));
-  assert.equal((f.match(/preload: false/g) ?? []).length, 4);
+  for (const fonte of ["Titan_One", "Anton", "Rubik_Spray_Paint", "Inter_Tight", "Bungee"]) assert.match(f, new RegExp(fonte));
+  assert.equal((f.match(/preload: false/g) ?? []).length, 5);
   const css = ler("styles", "territorios-coletivos.css");
-  for (const v of ["noizocupa", "kamikaze", "desordem", "noisme"]) assert.match(css, new RegExp(`\\[data-identidade="${v}"\\]`));
+  for (const v of ["noizocupa", "kamikaze", "desordem", "noisme", "oriki"]) assert.match(css, new RegExp(`\\[data-identidade="${v}"\\]`));
   assert.match(css, /prefers-reduced-motion: reduce/);
   assert.match(css, /:focus-visible/);
 });

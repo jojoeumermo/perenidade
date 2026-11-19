@@ -23,6 +23,9 @@ export const IDENTIDADES = {
   // noismemo studios: estúdio de pesquisa e criação. Preto e branco puro, a elipse "NM" da logo, letra grotesca pesada
   // e apertada em caixa alta, jeito de ficha técnica.
   noisme: { fundo: "#ffffff", papel: "#f1f1f1", tinta: "#0a0a0a", destaque: "#0a0a0a", rotulo: "#4d4d4d", botaoTexto: "#ffffff", acentos: ["#0a0a0a"] },
+  // Oriki Futuro: jornalismo e curadoria musical, "vozes que ecoam". O dourado do portfólio (#bb9416, o mesmo valor
+  // medido na capa) sobre o preto quente, o creme da capa como tinta; a espiral e a capa de caderno do portfólio.
+  oriki: { fundo: "#16110a", papel: "#261e0f", tinta: "#f5ead0", destaque: "#bb9416", rotulo: "#bb9416", botaoTexto: "#16110a", acentos: ["#bb9416", "#f5ead0", "#e8b953"] },
 } as const;
 
 export type Visual = keyof typeof IDENTIDADES;
