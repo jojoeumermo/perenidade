@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CalculadoraSisu } from "@/components/enem/CalculadoraSisu";
+import { SimuladorSisu } from "@/components/enem/SimuladorSisu";
 import { PageHeading } from "@/components/PageHeading";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
@@ -18,7 +18,8 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/enem/sisu"
   return paginaMeta(lang, "/enem/sisu", s.enem.sisu.titulo, s.enem.sisu.lead);
 }
 
-/** A média ponderada do Sisu (recurso "enem-curso"): notas e pesos digitados pela pessoa; sem nota de corte. */
+/** A média ponderada do Sisu (recurso "enem-curso"): as notas da pessoa contra as ofertas reais do Sisu,
+ * com os pesos de cada curso e as notas de corte da ampla concorrência desde 2020 (dados do sisu-data, MIT). */
 export default async function Page({ params }: PageProps<"/[lang]/enem/sisu">) {
   if (!ligado("enem-curso")) notFound();
   const { lang, t } = await loadLang(params);
@@ -37,11 +38,13 @@ export default async function Page({ params }: PageProps<"/[lang]/enem/sisu">) {
       <p className="mt-6 font-sans text-sm">
         {s.sisu.comoFunciona} {formatarFato(fato)} (<a href={ed.fontes[fato.fonte].url} className="underline hover:text-oxblood" rel="noopener noreferrer">{ed.fontes[fato.fonte].titulo}</a>).
       </p>
-      <CalculadoraSisu nomes={nomes} s={s.sisu} />
+      <SimuladorSisu nomes={nomes} s={s.sisu} />
       <p className="mt-6 font-sans text-sm">
-        {s.sisu.semCorte}{" "}
+        {s.sisu.fonte}{" "}
+        <a href="https://github.com/maiakanegae/sisu-data" className="underline hover:text-oxblood" rel="noopener noreferrer">sisu-data</a>{" · "}
         <a href={ed.fontes.sisu.url} className="underline hover:text-oxblood" rel="noopener noreferrer">{ed.fontes.sisu.titulo}</a>
       </p>
+      <p className="mt-2 font-mono text-xs">{s.sisu.conta}</p>
     </div>
   );
 }

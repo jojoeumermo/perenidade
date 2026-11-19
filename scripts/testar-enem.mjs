@@ -241,6 +241,18 @@ conferir("seções do ENEM: aula de orientação na reta final não cobra", conf
   conferir("Sisu: média ponderada", mediaPonderada(notas, { linguagens: 1, humanas: 1, natureza: 2, matematica: 3, redacao: 1 }) === (600 + 650 + 1100 + 2100 + 800) / 8);
   conferir("Sisu: nota faltando ou fora de 0 a 1000 não calcula", mediaPonderada({ ...notas, redacao: undefined }, { linguagens: 1, humanas: 1, natureza: 1, matematica: 1, redacao: 1 }) === null && mediaPonderada({ ...notas, matematica: 1200 }, { linguagens: 1, humanas: 1, natureza: 1, matematica: 1, redacao: 1 }) === null);
   conferir("Sisu: pesos zerados não calculam", mediaPonderada(notas, { linguagens: 0, humanas: 0, natureza: 0, matematica: 0, redacao: 0 }) === null);
+
+  // O catálogo estático de ofertas (public/sisu/ofertas.json, gerado do sisu-data, MIT)
+  const { mediaDaOferta, ultimoCorte } = await import("../lib/enem-sisu.ts");
+  const catalogo = JSON.parse(fs.readFileSync(new URL("../public/sisu/ofertas.json", import.meta.url), "utf8"));
+  conferir("Sisu: catálogo com milhares de ofertas", catalogo.ofertas.length > 5000);
+  conferir("Sisu: toda oferta tem os 5 pesos positivos, uf e ao menos um corte", catalogo.ofertas.every((o) => o.p.length === 5 && o.p.every((p) => p > 0) && o.uf.length === 2 && Object.keys(o.c).length > 0));
+  conferir("Sisu: cortes dentro de 0 a 1000 e anos de 2020 a 2025", catalogo.ofertas.every((o) => Object.entries(o.c).every(([a, n]) => Number(a) >= 2020 && Number(a) <= 2025 && n > 0 && n <= 1000)));
+  const amostra = catalogo.ofertas.find((o) => o.p[0] !== o.p[1]);
+  conferir("Sisu: média da oferta usa os pesos dela", mediaDaOferta(notas, amostra) === mediaPonderada(notas, { linguagens: amostra.p[0], humanas: amostra.p[1], natureza: amostra.p[2], matematica: amostra.p[3], redacao: amostra.p[4] }));
+  const so2025 = catalogo.ofertas.filter((o) => o.c["2025"] !== undefined);
+  conferir("Sisu: último corte é o ano mais novo registrado", so2025.every((o) => ultimoCorte(o).ano === 2025 && ultimoCorte(o).nota === o.c["2025"]));
+  conferir("Sisu: quase todas as ofertas têm corte de 2025 (edição mais nova)", so2025.length / catalogo.ofertas.length > 0.9);
 }
 
 // ── 12. Caderno de erros: o erro que se repete sobe; os erros da semana ──

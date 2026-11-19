@@ -21,3 +21,35 @@ export function mediaPonderada(notas: Partial<Record<ProvaDoSisu, number>>, peso
   }
   return somaPesos > 0 ? soma / somaPesos : null;
 }
+
+/** Uma oferta do Sisu em public/sisu/ofertas.json: identidade, os 5 pesos na ordem de PROVAS_DO_SISU,
+ * vagas da última edição e a nota de corte da ampla concorrência por ano ("2020" a "2025"). */
+export type OfertaSisu = {
+  curso: string;
+  grau: string;
+  turno: string;
+  campus: string;
+  cidade: string;
+  uf: string;
+  ies: string;
+  sg: string;
+  p: [number, number, number, number, number];
+  v: number;
+  c: Record<string, number>;
+  co: number;
+};
+
+export type CatalogoSisu = { fonte: string; gerado: string; anos: number[]; ofertas: OfertaSisu[] };
+
+/** A média ponderada das notas da pessoa com os pesos desta oferta (os pesos mudam de curso para curso). */
+export function mediaDaOferta(notas: Partial<Record<ProvaDoSisu, number>>, oferta: OfertaSisu): number | null {
+  const pesos: Partial<Record<ProvaDoSisu, number>> = {};
+  PROVAS_DO_SISU.forEach((prova, i) => (pesos[prova] = oferta.p[i]));
+  return mediaPonderada(notas, pesos);
+}
+
+/** O ano mais recente com nota de corte registrada para a oferta (null quando não há nenhuma). */
+export function ultimoCorte(oferta: OfertaSisu): { ano: number; nota: number } | null {
+  const anos = Object.keys(oferta.c).map(Number).sort((a, b) => b - a);
+  return anos.length === 0 ? null : { ano: anos[0], nota: oferta.c[String(anos[0])] };
+}
