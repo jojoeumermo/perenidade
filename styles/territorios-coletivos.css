@@ -1019,3 +1019,106 @@
     animation: fenix-chama 2.4s ease-in-out infinite;
   }
 }
+
+/* Os efeitos de fogo da fênix (19/11/2026, pedido do Jonathan): brasas que sobem pela abertura, um lampejo
+   correndo pelo letreiro e o nome pulsando como brasa viva. Tudo em CSS, animando só transform, opacity e
+   background-position; escondido por padrão e aceso apenas no modo escuro para quem não pediu menos movimento. */
+.fenix-brasas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: none;
+}
+@keyframes fenix-brasas-sobem {
+  to {
+    transform: translateY(-260px);
+  }
+}
+@keyframes fenix-brasas-sobem-longe {
+  to {
+    transform: translateY(-380px);
+  }
+}
+@keyframes fenix-brasas-piscam {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+@keyframes fenix-letreiro-fogo {
+  from {
+    background-position: 130% 0;
+  }
+  to {
+    background-position: -130% 0;
+  }
+}
+@keyframes fenix-nome-brasa {
+  from {
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.45), 0 0 16px rgba(255, 83, 72, 0.28);
+  }
+  to {
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.45), 0 0 30px rgba(255, 143, 163, 0.5);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-light]) .fenix-brasas {
+    display: block;
+  }
+  :root:not([data-light]) .fenix-brasas::before,
+  :root:not([data-light]) .fenix-brasas::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-repeat: repeat;
+    -webkit-mask-image: linear-gradient(to top, transparent, black 12%, black 60%, transparent 96%);
+    mask-image: linear-gradient(to top, transparent, black 12%, black 60%, transparent 96%);
+  }
+  /* Camada perto: brasas maiores e mais vivas, sobem em 9s num ladrilho de 260px. */
+  :root:not([data-light]) .fenix-brasas::before {
+    bottom: -260px;
+    background-image:
+      radial-gradient(circle at 0 0, rgba(255, 83, 72, 0.95), rgba(255, 83, 72, 0.95) 2px, transparent 3.5px),
+      radial-gradient(circle at 0 0, rgba(255, 143, 163, 0.85), rgba(255, 143, 163, 0.85) 1.5px, transparent 3px),
+      radial-gradient(circle at 0 0, rgba(245, 236, 225, 0.7), rgba(245, 236, 225, 0.7) 1.5px, transparent 3px),
+      radial-gradient(circle at 0 0, rgba(255, 83, 72, 0.8), rgba(255, 83, 72, 0.8) 2px, transparent 3.5px);
+    background-size: 260px 260px;
+    background-position: 46px 208px, 172px 74px, 228px 148px, 108px 22px;
+    animation:
+      fenix-brasas-sobem 9s linear infinite,
+      fenix-brasas-piscam 1.7s ease-in-out infinite alternate;
+  }
+  /* Camada longe: fagulhas miúdas e lentas, num ladrilho de 380px. */
+  :root:not([data-light]) .fenix-brasas::after {
+    bottom: -380px;
+    background-image:
+      radial-gradient(circle at 0 0, rgba(255, 143, 163, 0.55), rgba(255, 143, 163, 0.55) 1.5px, transparent 2.5px),
+      radial-gradient(circle at 0 0, rgba(255, 83, 72, 0.5), rgba(255, 83, 72, 0.5) 1.5px, transparent 2.5px),
+      radial-gradient(circle at 0 0, rgba(245, 236, 225, 0.45), rgba(245, 236, 225, 0.45) 1px, transparent 2px);
+    background-size: 380px 380px;
+    background-position: 84px 300px, 262px 120px, 190px 12px;
+    opacity: 0.5;
+    animation: fenix-brasas-sobem-longe 16s linear infinite;
+  }
+  /* O letreiro vermelho ganha um lampejo de labareda correndo devagar. */
+  :root:not([data-light]) [data-identidade="fenix"] .col-letreiro {
+    background-image: linear-gradient(
+      105deg,
+      transparent 35%,
+      rgba(255, 236, 225, 0.26) 46%,
+      rgba(255, 143, 163, 0.34) 50%,
+      rgba(255, 236, 225, 0.26) 54%,
+      transparent 65%
+    );
+    background-size: 240% 100%;
+    animation: fenix-letreiro-fogo 6.5s linear infinite;
+  }
+  /* O nome pulsa baixinho, como brasa viva. */
+  :root:not([data-light]) .fenix-nome {
+    animation: fenix-nome-brasa 2.8s ease-in-out infinite alternate;
+  }
+}
