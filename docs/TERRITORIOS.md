@@ -56,6 +56,15 @@ Páginas novas em `/territorios/noizocupa` e `/territorios/coletivo-kamikaze`, m
 - Pendente: a **cidade** do coletivo (não consta no portfólio nem no Instagram) e as fotos/cartazes do perfil, se o coletivo quiser ceder. O **vídeo de anúncio** da parceria está na página nos moldes dos outros territórios: o reel em colaboração @institutoluciaorg × @orikifuturo (instagram.com/reel/DfyZPbPuNAw/, publicado em 16/11/2026) baixado e servido do próprio site (`anuncio.mp4` + `anuncio-capa.webp`, player com preload="none"). Pendem as **legendas (.vtt)**: o vídeo é musical (áudio 8D, sem fala aparente) e o PlayerDoAnuncio ainda não tem trilha de legenda - quando tiver, registrar o .vtt. A arte conceitual do território (o cartaz de palco abaixo do letreiro) foi gerada pelo Instituto Lúcia e aprovada pelo coletivo; o site do coletivo é orikifuturo.com.br.
 - A autorização de uso dos textos, da logo e das imagens foi informada pelo Jonathan em nome do coletivo; guardar o registro por escrito, como com os outros coletivos.
 
+## Quebrada Fênix: sétimo território (19/11/2026)
+
+- Quebrada Fênix (`/territorios/quebrada-fenix`), movimento sociopolítico, marca de moda autoral e sustentável e ecossistema de impacto social de Guarulhos (SP): “movidos pela força de quem abriu caminhos, vestimos o mundo de futuro”. Fundador: Uta Theodoro (@odiamantenigga); com Dani Pereira Lopes (@pacoteaberto), autora do projeto OKUARA.
+- Conteúdo do manifesto cedido pelo coletivo (enviado pelo Jonathan): a origem no clube de moda da E.E. Professor Allyrio de Figueiredo Brasil (2023, primeiro desfile “Liberdade de Expressão”), a chegada da Dani e o desfile no centro comunitário A-SOL (2024), a reconstrução, a transmutação têxtil e o upcycling, os quatro eixos do OKUARA e os Content Days como laboratório de portfólio e renda.
+- Identidade própria (`visual: "fenix"`): o preto da logo tribal de chamas e da passarela, o vermelho vivo e o rosa dos looks, o branco da renda e o azul do denim reconstruído; a letra de mão de rua (Sedgwick Ave Display). A logo é a foto de perfil do Instagram (o QF tribal, 150 px ampliada): **pedir ao coletivo o arquivo original**.
+- **Sem arte conceitual** (pedido do Jonathan, diferente do Oriki): a capa e a galeria usam as fotos do desfile no A-SOL publicadas no perfil (set/out/2026).
+- Pendente: vídeo de anúncio da parceria (quando houver, nos moldes dos outros territórios, com legenda .vtt) e a confirmação do coletivo de que quem aparece nas fotos autorizou a imagem (Código Civil, art. 20).
+- A autorização de uso dos textos, da logo e das imagens foi informada pelo Jonathan em nome do coletivo; guardar o registro por escrito, como com os outros coletivos.
+
 ## Lei (conferida em planalto.gov.br)
 
 - Lei 9.610/1998, art. 29, caput: a utilização da obra depende de autorização prévia e expressa do autor. A liberação dos coletivos para vídeos e imagens foi informada pelo Jonathan; guardar o registro por escrito. O crédito aparece na página e o vídeo do Instagram não é baixado nem copiado.

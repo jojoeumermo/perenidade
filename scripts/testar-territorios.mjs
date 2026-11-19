@@ -131,6 +131,32 @@ ok("Desordem e noismemo studios: territórios novos com Instagram e visual próp
 
 // 19/11/2026: sexto território, Oriki Futuro (jornalismo e curadoria musical), já com identidade própria tirada do
 // portfólio 2026 cedido pelo coletivo: o dourado, o creme da capa, a letra gorda e redonda e a espiral de caderno.
+// 19/11/2026: sétimo território, Quebrada Fênix (moda autoral e sustentável de Guarulhos), com identidade própria
+// tirada da logo tribal de chamas e das fotos do desfile no A-SOL. Sem arte conceitual (pedido do Jonathan): a capa
+// e a galeria usam as fotos do perfil, com uso de imagem autorizado.
+ok("Quebrada Fênix: sétimo território, com identidade própria e o conteúdo do manifesto", () => {
+  const q = por("quebrada-fenix");
+  assert.equal(q.numero, 7);
+  assert.equal(q.nome, "Quebrada Fênix");
+  assert.equal(q.instagram, "quebradafenix");
+  assert.equal(q.visual, "fenix");
+  assert.ok(q.temas.length >= 4, "poucos temas");
+  assert.ok(q.trilhas.length >= 1, "sem trilha");
+  assert.match(q.quem, /Uta Theodoro/);
+  assert.match(q.quem, /Dani Pereira Lopes/);
+  assert.equal(q.pessoas[0].instagram, "odiamantenigga");
+  assert.equal(q.pessoas[1].instagram, "pacoteaberto");
+  assert.match(q.credito, /@quebradafenix no Instagram, uso autorizado pelo coletivo/);
+  const fotos = [q.capa, ...(q.galeria?.fotos ?? [])].filter(Boolean);
+  assert.ok(fotos.length >= 3, "poucas imagens");
+  for (const f of fotos) {
+    assert.match(f.src, /^\/territorios\/quebrada-fenix\/[a-z0-9-]+\.webp$/, f.src);
+    assert.ok(fs.existsSync(path.join(raiz, "public", f.src)), f.src);
+    assert.ok(fs.statSync(path.join(raiz, "public", f.src)).size < 300_000, `${f.src} grande demais`);
+    assert.ok(f.alt && f.alt.length > 10, `${f.src} sem alt`);
+  }
+});
+
 ok("Oriki Futuro: sexto território, com identidade própria e o conteúdo do portfólio", () => {
   const o = por("oriki-futuro");
   assert.equal(o.numero, 6);
@@ -254,10 +280,10 @@ ok("vídeos novos: arquivo local, capa, crédito com o link do reel e player com
 
 ok("redesenho: uma letra por coletivo via next/font e o material de cada mundo no CSS", () => {
   const f = ler("lib", "fontes-coletivos.ts");
-  for (const fonte of ["Titan_One", "Anton", "Rubik_Spray_Paint", "Inter_Tight", "Bungee"]) assert.match(f, new RegExp(fonte));
-  assert.equal((f.match(/preload: false/g) ?? []).length, 5);
+  for (const fonte of ["Titan_One", "Anton", "Rubik_Spray_Paint", "Inter_Tight", "Bungee", "Sedgwick_Ave_Display"]) assert.match(f, new RegExp(fonte));
+  assert.equal((f.match(/preload: false/g) ?? []).length, 6);
   const css = ler("styles", "territorios-coletivos.css");
-  for (const v of ["noizocupa", "kamikaze", "desordem", "noisme", "oriki"]) assert.match(css, new RegExp(`\\[data-identidade="${v}"\\]`));
+  for (const v of ["noizocupa", "kamikaze", "desordem", "noisme", "oriki", "fenix"]) assert.match(css, new RegExp(`\\[data-identidade="${v}"\\]`));
   assert.match(css, /prefers-reduced-motion: reduce/);
   assert.match(css, /:focus-visible/);
 });

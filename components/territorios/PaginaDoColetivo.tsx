@@ -8,7 +8,7 @@ import { originalLang, Untranslated } from "@/components/Untranslated";
 import type { Dict } from "@/i18n/types";
 import { localePath, type Locale } from "@/i18n/config";
 import { getTracks } from "@/lib/content";
-import { letraDesordem, letraKamikaze, letraNoisme, letraNoiz, letraOriki } from "@/lib/fontes-coletivos";
+import { letraDesordem, letraFenix, letraKamikaze, letraNoisme, letraNoiz, letraOriki } from "@/lib/fontes-coletivos";
 import { site } from "@/lib/site";
 import { codigoDePostValido, enderecoDoVideo, temVideoLocal } from "@/lib/territorios-video";
 import { ehVisual, IDENTIDADES, type Visual } from "@/lib/territorios-identidades";
@@ -20,7 +20,7 @@ const doPost = (codigo?: string) => (codigo && codigoDePostValido(codigo) ? `htt
 const doReel = (codigo: string) => (codigoDePostValido(codigo) ? `https://www.instagram.com/reel/${codigo}/` : null);
 
 /** A letra de título de cada coletivo (lib/fontes-coletivos.ts): só a do coletivo da página entra no desenho. */
-const LETRA: Record<Visual, string> = { noizocupa: letraNoiz.variable, kamikaze: letraKamikaze.variable, desordem: letraDesordem.variable, noisme: letraNoisme.variable, oriki: letraOriki.variable };
+const LETRA: Record<Visual, string> = { noizocupa: letraNoiz.variable, kamikaze: letraKamikaze.variable, desordem: letraDesordem.variable, noisme: letraNoisme.variable, oriki: letraOriki.variable, fenix: letraFenix.variable };
 
 /** A faixa de temas de cada um (as classes são literais para o Tailwind enxergar). */
 const LETREIRO: Record<Visual, { estilo: string; separador: string }> = {
@@ -29,6 +29,7 @@ const LETREIRO: Record<Visual, { estilo: string; separador: string }> = {
   desordem: { estilo: "-rotate-1 border-y-[3px] border-[#0e0c0b] bg-[#ffd21f] text-[#0e0c0b] uppercase", separador: "text-[#d7261e]" },
   noisme: { estilo: "border-y border-[#0a0a0a] bg-[#0a0a0a] text-white uppercase tracking-[0.12em]", separador: "text-white" },
   oriki: { estilo: "border-y-[3px] border-[#16110a] bg-[#bb9416] text-[#16110a] uppercase", separador: "text-[#f5ead0]" },
+  fenix: { estilo: "border-y-[3px] border-[#f5ece1] bg-[#ff5348] text-[#131011] uppercase", separador: "text-[#f5ece1]" },
 };
 
 /** As letras do nome do Desordem, cada uma girada (só no desenho: o leitor de tela lê o nome inteiro). */
@@ -56,7 +57,7 @@ export default function PaginaDoColetivo({ territorio, lang, t }: { territorio: 
   const numero = s.partner.replace("{n}", String(territorio.numero).padStart(2, "0"));
   // No Kamikaze e na Oriki a cor de cada bloco gira pela paleta (no Kamikaze, a dos cartazes; na Oriki, o dourado, o
   // creme e o amarelo vivo do vídeo de anúncio); nos outros é fixa.
-  const acento = (i: number) => (visual === "kamikaze" || visual === "oriki" ? id.acentos[i % id.acentos.length] : id.destaque);
+  const acento = (i: number) => (visual === "kamikaze" || visual === "oriki" || visual === "fenix" ? id.acentos[i % id.acentos.length] : id.destaque);
   const cores = { "--col-fundo": id.fundo, "--col-papel": id.papel, "--col-tinta": id.tinta, "--col-destaque": id.destaque, "--col-rotulo": id.rotulo, "--col-botao-texto": id.botaoTexto } as CSSProperties;
 
   const linkDoPost = (codigo?: string, sobre?: string, cor?: string) => {
@@ -269,6 +270,31 @@ export default function PaginaDoColetivo({ territorio, lang, t }: { territorio: 
         </section>
       )}
 
+      {visual === "fenix" && (
+        /* Quebrada Fênix: a passarela do A-SOL. O nome na letra de mão de rua, em vermelho vivo; o slogan numa tira
+           torta, como a fita de marcação de palco; e a logo (o QF tribal de chamas) emoldurada como lambe de
+           divulgação, com sombra dura vermelha e fita no canto. */
+        <section className="col-abertura col-grao relative overflow-hidden">
+          <div className="relative mx-auto grid max-w-[78rem] items-center gap-12 px-4 pt-10 pb-16 sm:px-8 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] md:pt-16 md:pb-20">
+            <div className="min-w-0">
+              <p className="col-selo">{numero}</p>
+              <h1 className="fenix-nome mt-6">{territorio.nome}</h1>
+              {territorio.slogan && (
+                <p className="fenix-faixa mt-7">
+                  <span>{territorio.slogan}</span>
+                </p>
+              )}
+              {territorio.lema && <p className="col-meta mt-6">{territorio.lema}</p>}
+              <div className="mt-8 flex flex-wrap gap-3">{seguir}</div>
+              {aviso}
+            </div>
+            <div className="relative mx-auto w-full max-w-[28rem] px-2">
+              {logo("fenix-moldura", <span aria-hidden className="fenix-fita" />)}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* A faixa dos temas: anda sempre (só para no botão, para quem pede menos movimento e no modo leve). */}
       <Letreiro temas={territorio.temas} rotulo={s.letreiroRotulo} pausar={s.letreiroPausar} retomar={s.letreiroRetomar} estilo={`col-letreiro ${LETREIRO[visual].estilo}`} separador={LETREIRO[visual].separador} />
 
@@ -277,6 +303,14 @@ export default function PaginaDoColetivo({ territorio, lang, t }: { territorio: 
       {visual === "oriki" && territorio.capa && (
         <figure className="ori-arte">
           <Image src={territorio.capa.src} alt={territorio.capa.alt} width={1638} height={701} priority sizes="(min-width: 1280px) 76rem, 100vw" className="h-auto w-full object-cover" />
+        </figure>
+      )}
+
+      {/* Quebrada Fênix: o elenco do desfile no A-SOL (a capa) em cartaz de palco logo abaixo do letreiro.
+          Sem arte conceitual: a página usa as fotos do perfil, com uso autorizado pelo coletivo. */}
+      {visual === "fenix" && territorio.capa && (
+        <figure className="fenix-arte">
+          <Image src={territorio.capa.src} alt={territorio.capa.alt} width={960} height={1280} priority sizes="(min-width: 768px) 26rem, 86vw" className="h-auto w-full" />
         </figure>
       )}
 
@@ -310,7 +344,7 @@ export default function PaginaDoColetivo({ territorio, lang, t }: { territorio: 
             )}
             <ul className="flex flex-wrap content-start gap-2" aria-label={s.letreiroRotulo}>
               {territorio.temas.map((tema, i) => (
-                <li key={tema} className="col-tema" style={visual === "kamikaze" || visual === "oriki" ? { borderColor: acento(i) } : undefined}>
+                <li key={tema} className="col-tema" style={visual === "kamikaze" || visual === "oriki" || visual === "fenix" ? { borderColor: acento(i) } : undefined}>
                   {tema}
                 </li>
               ))}
