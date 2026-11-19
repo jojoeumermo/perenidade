@@ -20,12 +20,19 @@ const RAIZ = process.cwd();
 const SAIDA = path.join(RAIZ, "public", "tri");
 const AREAS = { linguagens: "LC", humanas: "CH", natureza: "CN", matematica: "MT" };
 const COR_REGULAR = /^(azul|amarela?|branca?|rosa|cinza)$/i;
+
+// Preferência explícita de caderno quando não há questões do site para casar (fallback do menor CO_PROVA nem sempre
+// acerta: em 2024 o menor número é a REAPLICAÇÃO). Identificado pelo tipo_aplicacao do catálogo do projeto
+// analise-enem (HenriqueLindemann, AGPL-3.0) e conferido nos microdados: a 1ª aplicação regular de 2024 é
+// LC 1395, CH 1383, CN 1419, MT 1407. 2025 não precisa: o menor CO_PROVA já é a 1ª aplicação.
+const PREFERENCIA_CADERNO = { 2024: { LC: 1395, CH: 1383, CN: 1419, MT: 1407 } };
 const LETRAS = ["A", "B", "C", "D", "E"];
 
 const args = process.argv.slice(2);
 const iDir = args.indexOf("--csv-dir");
 const dirCsv = iDir >= 0 ? args[iDir + 1] : null;
-const anos = args.filter((a, i) => /^\d{4}$/.test(a) && i !== iDir + 1).map(Number);
+// Sem --csv-dir, iDir é -1 e nenhum ano pode ser descartado; com --csv-dir, só o valor da opção fica de fora.
+const anos = args.filter((a, i) => /^\d{4}$/.test(a) && (iDir < 0 || i !== iDir + 1)).map(Number);
 const lista = anos.length ? anos : Array.from({ length: 15 }, (_, i) => 2009 + i);
 
 const num = (s) => (s === undefined || s.trim() === "" ? null : Number(s.replace(",", ".")));
@@ -126,8 +133,13 @@ async function gerarAno(ano) {
     const casou = melhor.m.acertos >= 20;
     let escolhido = melhor;
     if (!casou) {
-      // sem ligação segura com as questões do site: usa o primeiro caderno regular, sem ligar nenhuma questão
-      const [prova, l] = porCaderno(linhas, sigla).sort((x, y) => Number(x[0]) - Number(y[0]))[0];
+      // sem ligação segura com as questões do site: usa o caderno preferido do ano (PREFERENCIA_CADERNO) ou o
+      // primeiro regular, sem ligar nenhuma questão
+      const cadernos = porCaderno(linhas, sigla);
+      const pref = PREFERENCIA_CADERNO[ano]?.[sigla];
+      const alvo = (pref !== undefined && cadernos.find(([p]) => Number(p) === pref))
+        || cadernos.sort((x, y) => Number(x[0]) - Number(y[0]))[0];
+      const [prova, l] = alvo;
       escolhido = { prova, cor: l[0].TX_COR.toUpperCase(), itens: itensDoCaderno(l), m: { acertos: 0, desloc: 0, mapa: new Map() } };
     }
     const { itens, m } = escolhido;
