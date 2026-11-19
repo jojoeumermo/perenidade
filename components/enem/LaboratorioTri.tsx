@@ -24,7 +24,7 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
   const [ano, setAno] = useState(2022);
   const [area, setArea] = useState<AreaDoEnem>("matematica");
   const [idioma, setIdioma] = useState<"ingles" | "espanhol">("ingles");
-  const [D, setD] = useState(1.7);
+  const [D, setD] = useState(1);
   const [prova, setProva] = useState<ProvaDoArquivo | null>(null);
   const [erro, setErro] = useState(false);
   const [marcas, setMarcas] = useState<Record<string, number[]>>({});

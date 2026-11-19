@@ -14,12 +14,16 @@ método do Inep, com os parâmetros **reais** dos itens. Não há item inventado
 - Fontes: Inep, "Enem: procedimentos de análise"; nota técnica "Procedimento de cálculo das notas do Enem" (2011);
   "Entenda a sua nota no Enem" (2013); microdados do Enem (arquivo `ITENS_PROVA_AAAA.csv`).
 
-## Dúvida declarada: a constante D
+## A constante D (dúvida resolvida em nov/2026)
 
-O texto público do Inep traz a fórmula numa figura e não diz, em texto, se usa D = 1,7 ou D = 1. O padrão é 1,7 (costume do
-BILOG-MG e da literatura brasileira), e o laboratório deixa trocar em "Detalhes do cálculo", avisando que isso soma à
-margem de erro. Sem acesso à calibração do Inep não dá para provar qual vale; se alguém tiver o valor, mude `D_PADRAO`
-em `lib/enem-tri.ts`.
+O texto público do Inep traz a fórmula numa figura e não diz, em texto, se usa D = 1,7 ou D = 1. A literatura
+brasileira costuma usar 1,7 (costume do BILOG-MG), mas a evidência empírica diz 1: o projeto analise-enem
+(HenriqueLindemann, AGPL-3.0, github.com/HenriqueLindemann/analise-enem) reproduziu 262 milhões de notas oficiais
+(2009–2025) com D = 1 e erro médio de 0,03 ponto; com D = 1,7 o erro dispara. Conferência própria: nos 136 padrões de
+resposta dos golden files deles, o EAP de `lib/enem-tri.ts` com D = 1 ficou mais perto da nota oficial do que com
+D = 1,7 (erro médio absoluto 9,5 × 16,4 pontos nos 16 padrões de 2024/2025; 27,8 × 33,4 no conjunto todo, que inclui
+registros inconsistentes documentados por eles). Por isso `D_PADRAO = 1` em `lib/enem-tri.ts`. O laboratório deixa
+trocar em "Detalhes do cálculo", para a pessoa ver quanto isso mexe na nota.
 
 ## Parâmetros reais: `public/tri/`
 
@@ -48,7 +52,7 @@ São os valores do Inep e ficam como estão; o teste só exige que sejam finitos
 ## Margem de erro (aviso honesto)
 
 A página mostra o intervalo de 95% pela posteriori (±1,96 desvio-padrão, tipicamente 30 a 60 pontos). Ele vem só do
-número de itens. Não inclui: a constante D, a recalibração dos itens pelo Inep, a cor do caderno feito (mesmos itens,
+número de itens. Não inclui: a recalibração dos itens pelo Inep, a cor do caderno feito (mesmos itens,
 outra ordem) nem os itens que a pessoa não contou. O aviso fixo do topo diz que é estimativa e que não serve para
 decidir inscrição ou curso.
 
