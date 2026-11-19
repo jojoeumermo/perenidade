@@ -16,7 +16,7 @@ const json = (...p) => JSON.parse(fs.readFileSync(path.join(raiz, ...p), "utf8")
 
 // ── 1. A conta do modelo (feita à mão) ──
 {
-  conferir("D padrão é 1,7", D_PADRAO === 1.7);
+  conferir("D padrão é 1 (o que reproduz as notas oficiais)", D_PADRAO === 1);
   for (const D of [1, 1.7]) conferir(`P(θ = b) = c + (1 − c)/2 com D = ${D}`, perto(probabilidadeD({ a: 1.3, b: 0.4, c: 0.2 }, 0.4, D), 0.6, 1e-12));
   // a = 1, b = 0, c = 0,2, θ = 1, D = 1,7: 0,2 + 0,8 / (1 + e^−1,7) = 0,2 + 0,8 × 0,845535 = 0,876428
   conferir("P(1 | a=1, b=0, c=0,2, D=1,7) = 0,876428", perto(probabilidadeD({ a: 1, b: 0, c: 0.2 }, 1, 1.7), 0.876428, 1e-6));
@@ -162,8 +162,8 @@ const json = (...p) => JSON.parse(fs.readFileSync(path.join(raiz, ...p), "utf8")
   const faixa = faixaPorAcertos(m22);
   const meio = faixa[Math.floor(m22.length / 2)];
   conferir("2022 matemática: com a metade de acertos, a nota varia mais de 50 pontos conforme o padrão", meio.max - meio.min > 50, String(meio.max - meio.min));
-  const d1 = estimarEap(m22, m22.map((_, i) => i % 2 === 0), { D: 1 }).nota;
-  conferir("trocar D de 1,7 para 1 muda a nota (por isso o laboratório avisa)", Math.abs(d1 - media.nota) > 1);
+  const d17 = estimarEap(m22, m22.map((_, i) => i % 2 === 0), { D: 1.7 }).nota;
+  conferir("trocar D de 1 para 1,7 muda a nota (por isso o laboratório deixa trocar)", Math.abs(d17 - media.nota) > 1);
 }
 
 // ── 7. Texto e script ──

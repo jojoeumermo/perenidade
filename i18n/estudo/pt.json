@@ -600,9 +600,9 @@
           "mlNao": "Pela máxima verossimilhança não há estimativa: acertar ou errar tudo não tem máximo.",
           "avancado": "Detalhes do cálculo",
           "constante": "Constante de escala D da curva logística",
-          "d17": "D = 1,7 (padrão, como no BILOG-MG)",
-          "d1": "D = 1",
-          "constanteAviso": "O texto público do Inep não diz qual D usa. Mude e veja: a nota muda poucos pontos, e essa dúvida soma à margem de erro.",
+          "d17": "D = 1,7",
+          "d1": "D = 1 (padrão; é o que reproduz as notas oficiais)",
+          "constanteAviso": "O texto público do Inep não diz qual D usa, mas as contas com D = 1 são as que reproduzem as notas oficiais (conferido em milhões de provas). Mude e veja: a nota muda poucos pontos.",
           "compare": "Como ler",
           "explicacoes": [
             "O Inep não conta acertos: para cada item, a curva diz a chance de acerto de quem tem cada proficiência. O padrão de respostas inteiro escolhe a proficiência mais plausível.",

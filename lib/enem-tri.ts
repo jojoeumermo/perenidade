@@ -60,11 +60,14 @@ export const ITENS_ILUSTRATIVOS: Item[] = [-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2
 
 /**
  * Constante de escala da logística. O texto público do Inep dá o modelo (Birnbaum, 3 parâmetros), mas a fórmula está
- * numa figura e não diz, em texto, se usa D = 1,7 (aproxima a ogiva normal; é o costume do BILOG-MG e da literatura
- * brasileira, Andrade, Tavares e Valle, 2000) ou D = 1. Padrão aqui: 1,7. O laboratório deixa trocar, para a pessoa
- * ver quanto isso mexe na nota, e a página declara a dúvida.
+ * numa figura e não diz, em texto, qual D usa. A literatura brasileira costuma usar 1,7 (costume do BILOG-MG), mas a
+ * evidência empírica diz 1: o projeto analise-enem (HenriqueLindemann, AGPL-3.0) reproduziu 262 milhões de notas
+ * oficiais (2009–2025) com D = 1 e erro médio de 0,03 ponto — com D = 1,7 o erro dispara. Conferido aqui também: nos
+ * 136 padrões de resposta dos golden files deles, o EAP deste arquivo com D = 1 fica mais perto da nota oficial do
+ * que com D = 1,7 (erro médio absoluto 9,5 × 16,4 pontos em 2024/2025). Padrão aqui: 1. O laboratório deixa trocar,
+ * para a pessoa ver quanto isso mexe na nota.
  */
-export const D_PADRAO = 1.7;
+export const D_PADRAO = 1;
 
 /** P(acerto | θ) = c + (1 − c) / (1 + e^(−D·a·(θ − b))). */
 export function probabilidadeD(item: Item, theta: number, D: number = D_PADRAO): number {
