@@ -9,7 +9,7 @@
 // Uso:  npm run orcamento:peso              (depois do build: tudo)
 //       npm run orcamento:peso -- --sem-build   (só os textos do núcleo, que não precisam de build)
 // Limites ajustáveis por variável de ambiente (bytes):
-//   ORCAMENTO_JS_AULA        JS da primeira carga da aula, descomprimido (padrão 716800, 700 KiB)
+//   ORCAMENTO_JS_AULA        JS da primeira carga da aula, descomprimido (padrão 1048576, 1024 KiB)
 //   ORCAMENTO_FONTES_AULA    fontes pré-carregadas pela aula (padrão 0: nenhuma, para o modo leve não baixar fonte)
 //   ORCAMENTO_I18N_PT, _EN, _ES, _FR, _ZH, _RU   núcleo de tradução de cada idioma, em JSON
 //   ORCAMENTO_RSC_AULA       carga RSC inteira de uma aula (só avisa; padrão 130000 caracteres)
@@ -42,7 +42,10 @@ const numero = (nome, padrao) => {
 // usam): pt 41.148, en 39.761, es 42.473, fr 44.610, zh 37.973, ru 63.014. Antes de tirar as áreas: pt 51.755,
 // en 50.375, es 53.564, fr 56.116, zh 47.310, ru 80.220. O russo pesa mais porque o cirílico ocupa 2 bytes em UTF-8.
 // JS da aula: 702.349 bytes no build de 29/10; o limite de 700 KiB (716.800 bytes) deixa uns 2% de folga.
-const LIMITE_JS = numero("ORCAMENTO_JS_AULA", 716_800);
+// 20/11/2026: com o chrome novo do redesign (atalhos/busca, leitor de voz, barras do celular), que toda página carrega,
+// a aula mede 975.318 bytes (react-dom 229 KB, runtime Next ~174 KB, polyfills 113 KB, chrome ~344 KB, aula em si 154 KB).
+// O dono decidiu reajustar a régua em vez de cortar recurso: 1024 KiB deixam ~7% de folga sobre a medida de hoje.
+const LIMITE_JS = numero("ORCAMENTO_JS_AULA", 1_048_576);
 const LIMITE_FONTES = numero("ORCAMENTO_FONTES_AULA", 0);
 const LIMITE_RSC = numero("ORCAMENTO_RSC_AULA", 130_000);
 const LIMITE_I18N = {
