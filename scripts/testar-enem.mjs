@@ -255,6 +255,29 @@ conferir("seções do ENEM: aula de orientação na reta final não cobra", conf
   conferir("Sisu: quase todas as ofertas têm corte de 2025 (edição mais nova)", so2025.length / catalogo.ofertas.length > 0.9);
 }
 
+// ── 11b. Ranking de escolas: o catálogo gerado dos microdados do Inep ──
+{
+  // public/escolas/: índice com o top nacional + um arquivo por UF (gerador: scripts/enem/gerar-ranking-escolas.mjs)
+  const ler = (nome) => JSON.parse(fs.readFileSync(new URL(`../public/escolas/${nome}`, import.meta.url), "utf8"));
+  const indice = ler("indice.json");
+  conferir("Escolas: ranking com mais de 20 mil escolas", indice.escolas > 20000);
+  conferir("Escolas: índice tem o top nacional de 200", indice.topo.length === 200);
+  conferir("Escolas: as UFs somam o total de escolas", Object.values(indice.ufs).reduce((a, b) => a + b, 0) === indice.escolas);
+  const linhaValida = (e) => e.length === 11 && typeof e[0] === "string" && e[0].length > 0 && typeof e[1] === "string" && e[1].length > 0
+    && typeof e[2] === "string" && e[3] >= 1 && e[3] <= 4 && e[4] >= indice.participantesMinimo
+    && e.slice(5).every((n) => typeof n === "number" && n >= 0 && n <= 1000);
+  conferir("Escolas: toda linha do top nacional é válida", indice.topo.every(linhaValida));
+  conferir("Escolas: top nacional ordenado pela média geral", indice.topo.every((e, i, a) => i === 0 || a[i - 1][5] >= e[5]));
+  conferir("Escolas: a primeira do Brasil passa de 700 (rankings públicos dão ~790)", indice.topo[0][5] > 700);
+  for (const uf of ["rj", "ce", "sp"]) {
+    const lista = ler(`uf-${uf}.json`);
+    conferir(`Escolas (${uf}): contagem bate com o índice`, lista.length === indice.ufs[uf.toUpperCase()]);
+    conferir(`Escolas (${uf}): toda linha é válida e ordenada`, lista.every(linhaValida) && lista.every((e, i, a) => i === 0 || a[i - 1][5] >= e[5]));
+  }
+  const rj = ler("uf-rj.json");
+  conferir("Escolas (RJ): o CPII aparece com nome próprio", rj.some((e) => e[1].startsWith("CPII - Campus")));
+}
+
 // ── 12. Caderno de erros: o erro que se repete sobe; os erros da semana ──
 {
   const { filaDeErros } = await import("../lib/estudo.ts");

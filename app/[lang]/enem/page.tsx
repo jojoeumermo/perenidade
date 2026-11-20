@@ -134,6 +134,9 @@ export default async function Page({ params }: PageProps<"/[lang]/enem">) {
           <Link href={to("/enem/sisu")} className="inline-block border-2 border-ink px-3 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">{s.secoes.sisu}</Link>
         </li>
         <li>
+          <Link href={to("/enem/escolas")} className="inline-block border-2 border-ink px-3 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">{s.secoes.escolas}</Link>
+        </li>
+        <li>
           <Link href={to("/laboratorios/simulacoes")} className="inline-block border-2 border-ink px-3 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">{t.labs.simulacoes}</Link>
         </li>
       </ul>
