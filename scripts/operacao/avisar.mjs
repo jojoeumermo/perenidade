@@ -11,6 +11,8 @@
 // Actions), sem e-mail de ninguém no código:
 //   variável OPERACAO_DESTINO   "gancho" (padrão), "issue" ou "os-dois" (a issue só num repositório privado)
 //   segredo  OPERACAO_GANCHO    um endereço https que recebe POST {"titulo", "texto"} (ntfy, Matrix, um bot próprio...)
+//   variável OPERACAO_EMAIL     se preenchida, o alerta também sai por e-mail (Resend), para este endereço;
+//                               usa o segredo RESEND_API_KEY e a variável EMAIL_REMETENTE, os mesmos dos boletins.
 //
 // Uso: node scripts/operacao/avisar.mjs falha  --etiqueta monitor --titulo "..." --arquivo relatorio.md
 //      node scripts/operacao/avisar.mjs voltou --etiqueta monitor
@@ -59,6 +61,27 @@ async function gancho(titulo, texto) {
   return Boolean(r?.ok);
 }
 
+/** O alerta por e-mail (Resend, o mesmo serviço dos boletins): config válida ou null. Puro (o teste chama direto). */
+export function emailConfigurado(ambiente = process.env) {
+  const para = String(ambiente.OPERACAO_EMAIL ?? "").trim();
+  const de = String(ambiente.EMAIL_REMETENTE ?? "").trim();
+  const chave = String(ambiente.RESEND_API_KEY ?? "").trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(para) || !de || !chave) return null;
+  return { para, de, chave };
+}
+
+async function email(titulo, texto) {
+  const cfg = emailConfigurado();
+  if (!cfg) return false;
+  const r = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${cfg.chave}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ from: cfg.de, to: [cfg.para], subject: titulo, text: texto }),
+    signal: AbortSignal.timeout(15_000),
+  }).catch(() => null);
+  return Boolean(r?.ok);
+}
+
 async function principal() {
   const a = argumentos(process.argv.slice(2));
   const etiqueta = /^[a-z-]{3,30}$/.test(a.etiqueta ?? "") ? a.etiqueta : "operacao";
@@ -81,9 +104,11 @@ async function principal() {
       console.log(aberta ? `Comentado na issue #${aberta.number}.` : "Issue aberta.");
     }
     if (destino !== "issue" || !usaIssue) console.log((await gancho(title, texto)) ? "Gancho avisado." : "Gancho não configurado ou sem resposta.");
+    console.log((await email(title, texto)) ? "E-mail avisado." : "E-mail não configurado ou sem resposta.");
     return;
   }
   if (a.modo === "voltou") {
+    console.log((await email(`Voltou: ${a.titulo || "operação"}`, "A conferência seguinte passou.")) ? "E-mail de volta avisado." : "E-mail não configurado ou sem resposta.");
     if (!usaIssue) return;
     const aberta = await issueAberta(etiqueta);
     if (!aberta) return;

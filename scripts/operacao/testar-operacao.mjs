@@ -10,7 +10,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { criarBanco } from "../banco-local.mjs";
 import { avaliar, textoDoRelatorio } from "./monitor.mjs";
-import { corpoDoAviso, podeAbrirIssue } from "./avisar.mjs";
+import { corpoDoAviso, emailConfigurado, podeAbrirIssue } from "./avisar.mjs";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const ler = (c) => fs.readFileSync(path.join(raiz, c), "utf8");
@@ -75,6 +75,15 @@ ok("o aviso da issue é texto curto, sem dado de pessoa", (() => {
   return c.title.length <= 120 && c.body.includes("502") && !/@/.test(c.body);
 })());
 ok("a issue de alerta só num repositório privado (num público, ou sem resposta do GitHub, não)", podeAbrirIssue({ private: true }) && !podeAbrirIssue({ private: false }) && !podeAbrirIssue(null) && !podeAbrirIssue({}));
+
+{
+  const cfg = emailConfigurado({ OPERACAO_EMAIL: "alerta@exemplo.org", EMAIL_REMETENTE: "Instituto <ola@institutolucia.org>", RESEND_API_KEY: "re_teste" });
+  ok("o alerta por e-mail sai com endereço, remetente e chave", cfg?.para === "alerta@exemplo.org" && cfg?.de.includes("institutolucia.org"));
+  ok("o alerta por e-mail some sem endereço, sem chave ou com endereço inválido",
+    emailConfigurado({}) === null &&
+    emailConfigurado({ OPERACAO_EMAIL: "alerta@exemplo.org" }) === null &&
+    emailConfigurado({ OPERACAO_EMAIL: "isso-nao-e-email", EMAIL_REMETENTE: "x@y.org", RESEND_API_KEY: "re_teste" }) === null);
+}
 
 // ═══════════════════ 2. A política das telas da Alumia ═══════════════════
 {
