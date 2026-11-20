@@ -137,7 +137,7 @@ export function RankingEscolas({ areas, s }: { areas: string[]; s: TextosDoEstud
                 <td className="py-1 pr-2">{e[2]}</td>
                 <td className="py-1 pr-2">{e[4]}</td>
                 <td className="py-1 pr-2 font-semibold">{fmt(e[5])}</td>
-                {e.slice(6).map((n, j) => (
+                {(e.slice(6) as number[]).map((n, j) => (
                   <td key={j} className="py-1 pr-2">{fmt(n)}</td>
                 ))}
               </tr>
