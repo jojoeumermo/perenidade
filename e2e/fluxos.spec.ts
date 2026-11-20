@@ -72,8 +72,8 @@ test("o painel abre com o menu da função de quem entra", async ({ page, isMobi
   await abrir(page, "/pt/painel");
   // No celular, o menu fica atrás do botão Menu, na barra do alto.
   if (isMobile) await page.getByRole("button", { name: "Menu", exact: true }).click();
-  // O menu agrupa as telas por assunto; quem produz conteúdo tem o grupo Produção.
-  await expect(page.getByRole("button", { name: "Produção" })).toBeVisible();
+  // O menu agrupa as telas por assunto; quem produz conteúdo tem o grupo "Escrever e produzir".
+  await expect(page.getByRole("button", { name: "Escrever e produzir" })).toBeVisible();
 });
 
 test("contribuir: o formulário público abre e explica o caminho", async ({ page }) => {
