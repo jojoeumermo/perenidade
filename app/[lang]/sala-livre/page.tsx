@@ -1,10 +1,12 @@
 // Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import { Cartaz } from "@/components/Cartaz";
+import { I18nProvider } from "@/components/I18n";
 import { ComoFunciona } from "@/components/ComoFunciona";
 import { SalaLivre } from "@/components/SalaLivre";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { pickSections } from "@/i18n/core";
 import { paginaMeta } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/sala-livre">): Promise<Metadata> {
@@ -22,7 +24,9 @@ export default async function SalaLivrePage({ params }: PageProps<"/[lang]/sala-
       </Cartaz>
       <Untranslated lang={lang} t={t} show={lang !== "pt"} />
       <div lang="pt-BR">
-        <SalaLivre />
+        <I18nProvider lang={lang} t={pickSections(t, ["labs"])}>
+          <SalaLivre />
+        </I18nProvider>
         {/* A Sala livre só existe em português, como o resto desta página. */}
         <ComoFunciona
           s={{

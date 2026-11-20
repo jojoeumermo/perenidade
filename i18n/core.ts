@@ -4,7 +4,7 @@ import type { Dict } from "./types";
 // Só os textos usados em todas as páginas viajam para o navegador. Os de uma página específica
 // (comunidade, ferramentas, formulários) chegam como propriedade do componente daquela página,
 // para ninguém baixar o que não vai usar.
-export const coreSections = ["common", "nav", "areas", "groups", "stages", "tracks", "lesson", "library", "search", "a11y", "notFound", "errors", "radio", "lists", "labs", "blocks", "celular"] as const;
+export const coreSections = ["common", "nav", "areas", "groups", "stages", "tracks", "lesson", "library", "search", "a11y", "notFound", "errors", "radio", "lists", "blocks", "celular"] as const;
 export type CoreSection = (typeof coreSections)[number];
 export type CoreDict = Pick<Dict, CoreSection>;
 
@@ -14,7 +14,9 @@ export type CoreDict = Pick<Dict, CoreSection>;
 // Rotas que a acrescentam hoje: acervo, ao-vivo, ao-vivo/sala, comunidade, contribuir, entrar, estantes/[area], gaveta,
 // glossario, painel, questoes, reforco, trilhas, videoaulas e voluntarios. Componente novo que lê t.areas pelo
 // useI18n precisa da rota nessa lista (em desenvolvimento, o useI18n avisa com o nome da seção que faltou).
-export const extraSections = ["areas"] as const satisfies readonly CoreSection[];
+// "labs" (os nomes e os textos dos laboratórios) é a segunda maior e só serve às rotas dos laboratórios, à sala-livre
+// e ao painel (a prévia do editor de blocos). Quem lê t.labs no servidor recebe o dicionário inteiro, sem provedor.
+export const extraSections = ["areas", "labs"] as const satisfies readonly CoreSection[];
 export type ExtraSection = (typeof extraSections)[number];
 export const baseSections = coreSections.filter((s): s is Exclude<CoreSection, ExtraSection> => !(extraSections as readonly string[]).includes(s));
 
