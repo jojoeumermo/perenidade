@@ -159,7 +159,7 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
             </p>
           )}
           {/* A estimativa: a página pronta pesa uns 45 KB além do texto da aula (marcação, estilos embutidos). */}
-          {ready.length > 0 && <SaveOffline paths={[to(`/trilhas/${track.slug}`), ...ready.map((item) => to(item.path))]} s={t.tracks} estimativa={(ready.length + 1) * 45 * 1024 + track.lessons.reduce((soma, l) => soma + l.body.length * 2, 0)} />}
+          {ready.length > 0 && <SaveOffline lang={lang} paths={[to(`/trilhas/${track.slug}`), ...ready.map((item) => to(item.path))]} s={t.tracks} estimativa={(ready.length + 1) * 45 * 1024 + track.lessons.reduce((soma, l) => soma + l.body.length * 2, 0)} />}
           <Compartilhar url={`${site.url}${to(`/trilhas/${track.slug}`)}`} texto={`${t.compartilhar.trilha} ${track.title}`} s={t.compartilhar} />
           {ready.length > 0 && (
             <p className="mt-4 flex flex-wrap gap-x-5 gap-y-1 font-sans text-sm">
