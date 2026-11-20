@@ -76,8 +76,8 @@ test("fumaça: painel logado com a conta de teste", async ({ page, isMobile }, i
   await abrir(page, "/pt/painel");
   // Com a sessão guardada, o painel não manda para a tela de entrar.
   expect(new URL(page.url()).pathname).not.toMatch(/\/entrar/);
-  // No celular, o menu fica atrás do botão Menu, na barra do alto.
-  if (isMobile) await page.getByRole("button", { name: "Menu", exact: true }).click();
+  // No celular, o menu fica atrás do botão "Mais" da barra de baixo (redesign do painel: antes era "Menu", na barra do alto).
+  if (isMobile) await page.getByRole("navigation", { name: "Atalhos do painel" }).getByRole("button", { name: "Mais", exact: true }).click();
   // O menu agrupa as telas por assunto; quem produz conteúdo tem o grupo "Escrever e produzir".
   await expect(page.getByRole("button", { name: "Escrever e produzir" })).toBeVisible();
   await capturar(page, "painel", info.project.name);
