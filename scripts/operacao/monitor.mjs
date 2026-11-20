@@ -13,14 +13,17 @@
 import fs from "node:fs";
 import { pathToFileURL } from "node:url";
 
-/** Busca com prazo. Devolve {status, json?, erro?}; status 0 quando nem respondeu. */
+/** Busca com prazo. Devolve {status, json?, desafio?, erro?}; status 0 quando nem respondeu. */
 async function buscar(url, { json = false, prazo = 15_000 } = {}) {
   try {
     const r = await fetch(url, { redirect: "follow", headers: { "User-Agent": "MonitorAlumia/1.0", Accept: json ? "application/json" : "text/html" }, signal: AbortSignal.timeout(prazo) });
     let corpo;
     if (json) corpo = await r.json().catch(() => undefined);
     else await r.arrayBuffer().catch(() => undefined);
-    return { status: r.status, ...(corpo !== undefined ? { json: corpo } : {}) };
+    // A Cloudflare responde 403 com "cf-mitigated: challenge" ao desafio de robôs (até para um User-Agent de navegador:
+    // sem JavaScript, nenhum buscador simples passa). A borda respondendo não é queda, então o aviso não dispara.
+    const desafio = r.status === 403 && (r.headers.get("cf-mitigated") === "challenge" || (r.headers.get("server-timing") ?? "").includes("chlray"));
+    return { status: r.status, ...(corpo !== undefined ? { json: corpo } : {}), ...(desafio ? { desafio: true } : {}) };
   } catch (erro) {
     return { status: 0, erro: erro?.name === "TimeoutError" ? "tempo" : "sem_resposta" };
   }
@@ -28,7 +31,7 @@ async function buscar(url, { json = false, prazo = 15_000 } = {}) {
 
 /**
  * Decide o que está errado, a partir das respostas. Pura (o teste chama direto).
- * @param {{ saude: {status: number, json?: any, erro?: string}, alumia: {status: number, erro?: string} }} r
+ * @param {{ saude: {status: number, json?: any, desafio?: boolean, erro?: string}, alumia: {status: number, desafio?: boolean, erro?: string} }} r
  * @returns {{ estado: "ok" | "falha" | "interditado", problemas: string[], notas: string[] }}
  */
 export function avaliar(r) {
@@ -40,7 +43,8 @@ export function avaliar(r) {
     notas.push("O site está interditado pela coordenação (painel): nada a avisar.");
     return { estado: "interditado", problemas, notas };
   }
-  if (s.status === 0) problemas.push(`O site não respondeu à conferência de saúde (${s.erro === "tempo" ? "passou do prazo" : "sem resposta"}).`);
+  if (s.desafio) notas.push("A conferência de saúde caiu no desafio de robôs da Cloudflare: a borda respondeu (não é queda), mas a leitura interna (banco, filas) ficou de fora desta rodada.");
+  else if (s.status === 0) problemas.push(`O site não respondeu à conferência de saúde (${s.erro === "tempo" ? "passou do prazo" : "sem resposta"}).`);
   else if (s.status !== 200) problemas.push(`A conferência de saúde respondeu ${s.status}.`);
   else {
     if (j.banco === "sem_resposta") problemas.push("O site não alcança o banco.");
@@ -52,7 +56,8 @@ export function avaliar(r) {
     if (f.emails === undefined && f.agendados === undefined) notas.push("O banco ainda não tem a conferência das filas (falta a migração da operação).");
   }
   const a = r.alumia ?? { status: 0 };
-  if (a.status === 0) problemas.push(`A página da Alumia não respondeu (${a.erro === "tempo" ? "passou do prazo" : "sem resposta"}).`);
+  if (a.desafio) notas.push("A página da Alumia caiu no desafio de robôs da Cloudflare: a borda respondeu (não é queda).");
+  else if (a.status === 0) problemas.push(`A página da Alumia não respondeu (${a.erro === "tempo" ? "passou do prazo" : "sem resposta"}).`);
   else if (a.status >= 400) problemas.push(`A página da Alumia respondeu ${a.status}.`);
   return { estado: problemas.length ? "falha" : "ok", problemas, notas };
 }
