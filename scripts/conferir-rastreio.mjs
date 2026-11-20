@@ -19,7 +19,13 @@ const servidor = path.join(raiz, ".next", "server");
 // 724 mil, só por mais arquivos em content/ (sem módulo novo lendo disco no layout). Deploys medidos: 680 mil em 25–29
 // min. Acima de ~760 mil o envio fica perto dos 45 min da Vercel: aí é preciso tirar content/acervo e content/exercicios
 // das funções que não os leem na hora (outputFileTracingExcludes), não subir este número de novo.
-const LIMITE_TOTAL = 760_000;
+// 20/11/2026: 760 mil → 1 milhão (decisão do dono). O motivo do teto antigo morreu: o site saiu da Vercel e hoje roda
+// numa VPS da Contabo com Caddy + Cloudflare (docs/HOSPEDAGEM.md), numa imagem Docker montada no GitHub — não há mais
+// upload de funções para plataforma. O total medido chegou a 910 mil só por crescimento de conteúdo (os includes de
+// tracing do next.config duplicam content/ inteiro em dezenas de funções; nenhum módulo novo lendo disco). Se a imagem
+// ficar pesada demais, o caminho continua sendo o outputFileTracingExcludes, não este número. O limite de funções que
+// levam o projeto inteiro (abaixo) segue valendo.
+const LIMITE_TOTAL = 1_000_000;
 const LIMITE_FUNCOES_COM_PROJETO = 6;
 
 if (!fs.existsSync(servidor)) {
