@@ -6,7 +6,6 @@ import { PageHeading } from "@/components/PageHeading";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { fill, localePath } from "@/i18n/config";
-import { matrizDoEnem } from "@/lib/enem-conteudo";
 import { ligado } from "@/lib/recursos";
 import { paginaMeta } from "@/lib/seo";
 import { textosDoEstudo } from "@/lib/textos-estudo";
@@ -24,9 +23,8 @@ export default async function Page({ params }: PageProps<"/[lang]/enem/escolas">
   const { lang, t } = await loadLang(params);
   const { s: todos, traduzido } = textosDoEstudo(lang);
   const s = todos.enem;
-  const m = matrizDoEnem();
-  // a ordem das médias nos arquivos de public/escolas/ é CN, CH, LC, MT, RED
-  const areas = [m.areas.natureza.nome, m.areas.humanas.nome, m.areas.linguagens.nome, m.areas.matematica.nome, s.escolas.redacao];
+  // a ordem das médias nos arquivos de public/escolas/ é CN, CH, LC, MT, RED (siglas: os nomes inteiros não cabem na tabela)
+  const areas = ["CN", "CH", "LC", "MT", s.escolas.redacao];
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
       <PageHeading eyebrow={s.titulo} title={s.escolas.titulo} voltar={{ href: localePath(lang, "/enem"), texto: s.titulo }}>
