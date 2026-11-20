@@ -55,6 +55,9 @@ jobs:
         run: npx playwright test e2e/fumaca --project=computador --project=s24
         env:
           CI: "1"
+          # Valor de teste, sem valor nenhum fora desta rotina (o banco aqui é o local, descartável). Sem ele a rota
+          # /api/alumia/voto/marca responde 503 "sem_servico" e o painel logado acusa erro. Não é o segredo de produção.
+          ALUMIA_VOTO_SEGREDO: "segredo-so-de-teste-do-e2e-0123456789abcdef"
       # O pacote completo, só sob pedido. Roda mesmo se a fumaça falhar, para o relatório mostrar tudo de uma vez.
       - name: Todos os fluxos (computador)
         if: (success() || failure()) && (github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'ponta-a-ponta'))
