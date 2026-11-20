@@ -66,6 +66,14 @@ ok("site interditado pela coordenação não abre alarme (é decisão da casa)",
   return r.estado === "interditado" && r.problemas.length === 0;
 })());
 ok("Alumia com 404 avisa", avaliar({ ...tudoBem, alumia: { status: 404 } }).problemas.length === 1);
+ok("desafio da Cloudflare não é queda: nota sem alarme", (() => {
+  const r = avaliar({ saude: { status: 403, desafio: true }, alumia: { status: 403, desafio: true } });
+  return r.estado === "ok" && r.problemas.length === 0 && r.notas.length === 2 && /Cloudflare/.test(r.notas[0]);
+})());
+ok("desafio só na saúde: o resto continua valendo", (() => {
+  const r = avaliar({ saude: { status: 403, desafio: true }, alumia: { status: 500 } });
+  return r.estado === "falha" && r.problemas.length === 1 && /500/.test(r.problemas[0]) && r.notas.length === 1;
+})());
 ok("o relatório não leva endereço de rede nem e-mail", (() => {
   const texto = textoDoRelatorio(avaliar({ saude: { status: 500 }, alumia: { status: 502 } }), "2026-11-14T10:00:00Z");
   return !/@|\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/.test(texto) && /500/.test(texto);
