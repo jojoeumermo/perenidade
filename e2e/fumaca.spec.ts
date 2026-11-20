@@ -78,8 +78,8 @@ test("fumaça: painel logado com a conta de teste", async ({ page, isMobile }, i
   expect(new URL(page.url()).pathname).not.toMatch(/\/entrar/);
   // No celular, o menu fica atrás do botão Menu, na barra do alto.
   if (isMobile) await page.getByRole("button", { name: "Menu", exact: true }).click();
-  // O menu agrupa as telas por assunto; quem produz conteúdo tem o grupo Produção.
-  await expect(page.getByRole("button", { name: "Produção" })).toBeVisible();
+  // O menu agrupa as telas por assunto; quem produz conteúdo tem o grupo "Escrever e produzir".
+  await expect(page.getByRole("button", { name: "Escrever e produzir" })).toBeVisible();
   await capturar(page, "painel", info.project.name);
   expect(erros, "erros no painel").toEqual([]);
 });
