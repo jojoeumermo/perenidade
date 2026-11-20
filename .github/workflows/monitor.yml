@@ -57,10 +57,16 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           OPERACAO_DESTINO: ${{ vars.OPERACAO_DESTINO }}
           OPERACAO_GANCHO: ${{ secrets.OPERACAO_GANCHO }}
+          OPERACAO_EMAIL: ${{ vars.OPERACAO_EMAIL }}
+          EMAIL_REMETENTE: ${{ vars.EMAIL_REMETENTE }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
         run: 'node scripts/operacao/avisar.mjs falha --etiqueta monitor --titulo "Monitor da Alumia: algo parou" --arquivo monitor-relatorio.md'
       - name: Fechar o aviso anterior
         if: steps.conferir.outputs.falhou == 'nao' || steps.de-novo.outputs.falhou == 'nao'
         env:
           GITHUB_TOKEN: ${{ github.token }}
           OPERACAO_DESTINO: ${{ vars.OPERACAO_DESTINO }}
+          OPERACAO_EMAIL: ${{ vars.OPERACAO_EMAIL }}
+          EMAIL_REMETENTE: ${{ vars.EMAIL_REMETENTE }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
         run: node scripts/operacao/avisar.mjs voltou --etiqueta monitor
