@@ -27,9 +27,9 @@ export function OfflineSupport() {
   return <AvisoDeRede />;
 }
 
-/** "1,4 MB", "320 KB": o tamanho do que ficou guardado, para a pessoa saber quanto do aparelho a trilha ocupa. */
-function tamanho(bytes: number) {
-  return bytes >= 1024 * 1024 ? `${(bytes / 1024 / 1024).toLocaleString(undefined, { maximumFractionDigits: 1 })} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`;
+/** "1,4 MB", "320 KB": o tamanho do que ficou guardado, para a pessoa saber quanto do aparelho a trilha ocupa. O idioma vai sempre declarado: sem ele o servidor e o navegador podem discordar (vírgula contra ponto) e o React quebra a hidratação. */
+function tamanho(bytes: number, lang: string) {
+  return bytes >= 1024 * 1024 ? `${new Intl.NumberFormat(lang, { maximumFractionDigits: 1 }).format(bytes / 1024 / 1024)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`;
 }
 
 /** Soma o tamanho das páginas desta trilha que já estão guardadas no aparelho (0 se nenhuma). */
@@ -48,7 +48,7 @@ async function guardadas(paths: string[]) {
 /** Guarda no aparelho todas as aulas de uma trilha, para ler no ônibus ou onde não houver sinal, e diz quanto ocupa. */
 // Etapa 3: "Guardar trilha" virou "Guardar curso", com o tamanho estimado à vista ANTES de guardar (estimativa em bytes,
 // calculada no servidor pelo tamanho das aulas); depois de guardado vale o tamanho medido.
-export function SaveOffline({ paths, s, estimativa }: { paths: string[]; s: Dict["tracks"]; estimativa?: number }) {
+export function SaveOffline({ paths, s, estimativa, lang }: { paths: string[]; s: Dict["tracks"]; estimativa?: number; lang: string }) {
   const [state, setState] = useState<"idle" | "saving" | "saved" | "failed" | "unsupported" | "removed">("idle");
   const [bytes, setBytes] = useState(0);
 
@@ -110,9 +110,9 @@ export function SaveOffline({ paths, s, estimativa }: { paths: string[]; s: Dict
           {state === "saving" ? s.offlineSaving : s.saveCourse}
         </button>
       )}
-      {state !== "saved" && estimativa !== undefined && estimativa > 0 && <span className="ml-2 text-ink-soft">({s.saveSize.replace("{n}", Math.max(0.1, estimativa / 1024 / 1024).toLocaleString(undefined, { maximumFractionDigits: 1 }))})</span>}
+      {state !== "saved" && estimativa !== undefined && estimativa > 0 && <span className="ml-2 text-ink-soft">({s.saveSize.replace("{n}", new Intl.NumberFormat(lang, { maximumFractionDigits: 1 }).format(Math.max(0.1, estimativa / 1024 / 1024)))})</span>}
       <span role="status" className="ml-3 text-ink-soft">
-        {state === "saved" && `${s.offlineSaved} ${bytes > 0 ? s.offlineSize.replace("{tamanho}", tamanho(bytes)) : ""}`}
+        {state === "saved" && `${s.offlineSaved} ${bytes > 0 ? s.offlineSize.replace("{tamanho}", tamanho(bytes, lang)) : ""}`}
         {state === "failed" && s.offlineFailed}
         {state === "unsupported" && s.offlineUnsupported}
         {state === "removed" && s.offlineRemoved}

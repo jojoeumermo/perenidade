@@ -40,7 +40,7 @@ export function LevarEstaAula({
           <span className="lev-nota"> · {s.livroDica}</span>
         </li>
         <li>
-          <SaveOffline paths={paginasDaTrilha} s={trilhas} />
+          <SaveOffline lang={lang} paths={paginasDaTrilha} s={trilhas} />
         </li>
       </ul>
       {espelhos.length > 0 && (
