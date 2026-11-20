@@ -1,9 +1,10 @@
 name: Publicar no servidor
 
-# Põe no ar a versão nova do site, no servidor próprio (Oracle + Coolify + Cloudflare). Passo a passo em docs/HOSPEDAGEM.md.
-# 1. Monta a imagem numa máquina ARM do GitHub, igual ao processador do servidor (o servidor não monta nada).
+# Põe no ar a versão nova do site, no servidor próprio (VPS da Contabo + Caddy + Cloudflare). Passo a passo em docs/HOSPEDAGEM.md.
+# 1. Monta a imagem numa máquina do GitHub com o mesmo processador do servidor (o servidor não monta nada).
 # 2. Guarda a imagem no GitHub Container Registry, com o nome do commit (dá para voltar a qualquer versão).
-# 3. Pede ao Coolify a troca: ele sobe a versão nova, confere a saúde e só então desliga a antiga, sem tirar o site do ar.
+# 3. A VPS confere a cada 2 minutos se a imagem :producao mudou e troca sozinha, sem tirar o site do ar
+#    (infra/contabo/atualizar.sh); com Coolify configurado (COOLIFY_URL), é ele quem troca, com checagem de saúde.
 on:
   push:
     branches: [master]
