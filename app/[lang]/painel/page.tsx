@@ -14,7 +14,7 @@ export default async function PaginaDoPainel({ params }: PageProps<"/[lang]/pain
   return (
     <div lang="pt-BR">
       <Suspense>
-        <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><Painel /></I18nProvider>
+        <I18nProvider lang={lang} t={pickSections(t, ["areas", "labs"])}><Painel /></I18nProvider>
       </Suspense>
     </div>
   );
