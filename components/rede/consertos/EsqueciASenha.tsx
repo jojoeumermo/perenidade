@@ -59,7 +59,7 @@ export function EsqueciASenha({ lang, email }: { lang: string; email: string }) 
   }
   return (
     <div className="space-y-2 border-l-2 border-ink pl-3">
-      <Captcha action="aviso" lang={lang as Locale} round={desafio.round} onToken={desafio.receive} />
+      <Captcha action="aviso" lang={lang as Locale} round={desafio.round} onToken={desafio.receive} onFalha={desafio.fail} />
       <button
         type="button"
         disabled={estado === "enviando" || !email.includes("@") || desafio.waiting}

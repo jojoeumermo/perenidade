@@ -407,7 +407,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
         </label>
         {campoApelido}
         {twice}
-        <Captcha action="conta" lang={lang} round={desafio.round} onToken={desafio.receive} />
+        <Captcha action="conta" lang={lang} round={desafio.round} onToken={desafio.receive} onFalha={desafio.fail} />
         <button type="submit" disabled={state === "sending" || !address.includes("@") || weak || desafio.waiting} className={primary}>{s.create}</button>
         {state === "invalid" && <p role="alert" className="text-oxblood">{s.inviteInvalid}</p>}
         {state === "leaked" && <p role="alert" className="text-oxblood">{s.leaked}</p>}
@@ -427,7 +427,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
         </label>
         {campoApelido}
         {twice}
-        <Captcha action="conta" lang={lang} round={desafio.round} onToken={desafio.receive} />
+        <Captcha action="conta" lang={lang} round={desafio.round} onToken={desafio.receive} onFalha={desafio.fail} />
         <button type="submit" disabled={state === "sending" || !email.includes("@") || weak || desafio.waiting} className={primary}>{s.create}</button>
         {state === "invalid" && <p role="alert" className="text-oxblood">{s.createFailed}</p>}
         {state === "leaked" && <p role="alert" className="text-oxblood">{s.leaked}</p>}
@@ -467,7 +467,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
         {s.password}
         <SenhaCampo value={password} onChange={setPassword} labels={senhaLabels} autoComplete="current-password" required className={field} />
       </label>
-      <Captcha action="entrar" lang={lang} round={desafio.round} onToken={desafio.receive} />
+      <Captcha action="entrar" lang={lang} round={desafio.round} onToken={desafio.receive} onFalha={desafio.fail} />
       <button type="submit" disabled={state === "sending" || !email.includes("@") || password.length < 1 || desafio.waiting} className={primary}>{s.enter}</button>
       {state === "wrong" && <p role="alert" className="text-oxblood">{s.wrong}</p>}
       {state === "blocked" && <p role="alert" className="border-l-2 border-oxblood pl-3 text-oxblood">{s.blocked.replace("{min}", String(espera))}</p>}

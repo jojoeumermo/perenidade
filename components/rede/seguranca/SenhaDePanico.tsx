@@ -135,7 +135,7 @@ function Ativar({ t, lang, aoAtivar, aoCancelar }: { t: TI; lang: string; aoAtiv
       <Campo id={`${id}-codinome`} rotulo={t.codinome} ajuda={t.codinomeAjuda} erro={marcado("codinome")}>
         <input id={`${id}-codinome`} className="sg-entrada" autoComplete="off" maxLength={30} value={codinome} onChange={mudar(setCodinome)} aria-describedby={`${id}-codinome-ajuda`} aria-invalid={marcado("codinome")} />
       </Campo>
-      <Captcha action="conta" lang={lang as Locale} round={desafio.round} onToken={desafio.receive} />
+      <Captcha action="conta" lang={lang as Locale} round={desafio.round} onToken={desafio.receive} onFalha={desafio.fail} />
       {erro && <p role="alert" className="sg-nota sg-nota-erro">{t.erros[erro]}</p>}
       <div className="sg-acoes">
         <Botao type="submit" variante="dourado" tamanho="m" disabled={ocupado} aria-busy={ocupado || undefined}>{ocupado ? t.criando : t.criar}</Botao>
@@ -354,7 +354,7 @@ function Preparar({ t, lang, aoDesativar }: { t: TI; lang: string; aoDesativar: 
       <Campo id={`${id}-senha`} rotulo={t.senha} erro={erro === "errada" || undefined}>
         <input id={`${id}-senha`} className="sg-entrada" type="password" autoComplete="off" value={senha} onChange={(e) => { setSenha(e.target.value); if (erro) setErro(""); }} aria-invalid={erro === "errada" || undefined} />
       </Campo>
-      <Captcha action="entrar" lang={lang as Locale} round={desafio.round} onToken={desafio.receive} />
+      <Captcha action="entrar" lang={lang as Locale} round={desafio.round} onToken={desafio.receive} onFalha={desafio.fail} />
       {erro && <p role="alert" className="sg-nota sg-nota-erro">{t.erros[erro]}</p>}
       <div className="sg-acoes">
         <Botao type="submit" variante="dourado" tamanho="m" disabled={ocupado || !senha} aria-busy={ocupado || undefined}>{ocupado ? t.abrindo : t.abrir}</Botao>
