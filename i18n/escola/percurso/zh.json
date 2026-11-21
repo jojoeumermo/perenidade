@@ -97,12 +97,32 @@
       "quem": "能看到的人：{publico}。",
       "ligar": "明白了，展示",
       "cancelar": "暂不"
+    },
+    "tag": {
+      "titulo": "革命者标签",
+      "texto": "在革命阵线中的人（报名获批或完成学校学习）拥有这个标签。只有你在这里打开，它才会出现在你的 Alumia 个人主页上，面向上面选择的同一群人，并显示你的行动阵线。",
+      "ligar": "在个人主页显示标签和我的阵线",
+      "semPublico": "要显示标签，请先在上面选择谁能看到你的成就。",
+      "semFrente": "你还不在阵线中：报名获批或完成学校学习后，标签才会出现。",
+      "salvo": "好了。",
+      "privacidade": "标签永远不会变成名单：没有人，包括协调组，能调出谁有这个标签，它也不会出现在搜索和计数中。"
     }
   },
   "selos": {
     "carteirinha": "学校活动人士",
     "degrau": "学校第 {n} 阶",
     "caderno": "学校学习册 {n}",
-    "aulas": "学校课程：{n} 节"
+    "aulas": "学校课程：{n} 节",
+    "revolucionario": "革命者",
+    "frente": "阵线：{nome}",
+    "frentes": {
+      "estudantil": "学生运动",
+      "bairros": "社区与住房",
+      "trabalho": "劳动与工会",
+      "agitprop": "鼓动与宣传",
+      "atos": "集会与动员",
+      "cultura": "文化与城郊",
+      "solidariedade": "团结互助"
+    }
   }
 }

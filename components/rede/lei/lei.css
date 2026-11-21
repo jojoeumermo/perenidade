@@ -280,3 +280,56 @@
 .le-cartao blockquote { margin: 0.4rem 0; padding: 0.45rem 0.7rem; border-left: 3px solid var(--al-superficie-2); color: var(--al-texto-2); font-size: 0.88rem; }
 .le-cartao textarea { width: 100%; min-height: 4rem; margin: 0.5rem 0; padding: 0.5rem 0.65rem; border-radius: 8px; border: 1.5px solid var(--al-superficie-2); background: var(--al-fundo); color: var(--al-texto); font: inherit; font-size: 0.9rem; }
 .le-vazio { margin: 0; padding: 0.8rem 0.9rem; border-radius: 10px; border: 1px dashed var(--al-superficie-2); color: var(--al-texto-3); font-size: 0.88rem; }
+
+/* ── A janela dos termos (P5, A6): por cima de tudo, bloqueia o uso até o aceite. Grande no computador, tela cheia no celular. ── */
+.le-janela-fundo { position: fixed; inset: 0; z-index: 2147483000; display: flex; align-items: center; justify-content: center; padding: 0; background: color-mix(in srgb, #000 62%, transparent); }
+@media (min-width: 768px) { .le-janela-fundo { padding: 4vh 1.5rem; } }
+.le-janela { display: flex; flex-direction: column; width: 100%; max-width: 980px; height: 100%; max-height: 100dvh; overflow: hidden; background: var(--al-fundo); color: var(--al-texto); box-shadow: 0 24px 64px -24px var(--al-sombra); }
+@media (min-width: 768px) { .le-janela { height: auto; max-height: 92vh; border-radius: var(--al-raio); border: 1px solid var(--al-superficie-2); } }
+.le-janela-cabeca { position: relative; flex: none; padding: 1.1rem 1rem 0.8rem; border-bottom: 1px solid var(--al-superficie-2); }
+.le-janela-cabeca::before { content: ""; position: absolute; inset: 0 0 auto; height: 6px; background: var(--al-faixa); }
+.le-janela-cabeca h2 { margin: 0.35rem 0 0.35rem; font-size: clamp(1.5rem, 4vw, 2rem); line-height: 1.05; }
+.le-janela-cabeca h2:focus { outline: none; }
+.le-janela-cabeca p { margin: 0 0 0.4rem; max-width: 62ch; font-size: 0.95rem; line-height: 1.5; }
+.le-janela-topo-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; }
+@media (min-width: 768px) { .le-janela-cabeca { padding: 1.25rem 1.5rem 0.9rem; } .le-janela-topo-acoes { position: absolute; top: 1.1rem; right: 1.25rem; margin: 0; } .le-janela-cabeca h2, .le-janela-cabeca p { padding-right: 15rem; } }
+.le-janela-sair { border: 1.5px solid currentColor; }
+.le-janela-corpo { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.le-janela-corpo .le-pagina { margin: 0; }
+.le-janela-pe.le-reaceite { flex: none; margin: 0; border-radius: 0; border-width: 1px 0 0; box-shadow: none; padding: 0.6rem 1rem calc(0.8rem + env(safe-area-inset-bottom)); }
+.le-janela-pe.le-reaceite::before { display: none; }
+.le-janela-pe label { margin: 0.2rem 0 0.5rem; }
+.le-janela-pe .le-pequeno { margin: 0.5rem 0 0; }
+@media (min-width: 768px) { .le-janela-pe.le-reaceite { padding: 0.8rem 1.5rem 1rem; } }
+
+/* ── Denunciar na Alumia (P5, A5): a página de denúncia da própria Alumia, com o desenho dela. ── */
+.le-denunciar-corpo { display: grid; gap: 1rem; max-width: 46rem; margin-top: 1.1rem; }
+.le-denunciar-urgente { margin: 0; padding: 0.7rem 0.85rem; border-radius: 9px; border-left: 4px solid var(--al-dourado); background: var(--al-superficie); color: var(--al-texto); font-size: 0.92rem; line-height: 1.5; }
+.le-campo select {
+  width: 100%; min-height: 44px; padding: 0.6rem 0.75rem; border-radius: 9px; border: 1.5px solid var(--al-superficie-2);
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-size: 0.95rem;
+}
+.le-campo select:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 1px; border-color: transparent; }
+.le-janela-fundo .le-janela-cabeca h2:focus-visible { outline: none; box-shadow: none; }
+[data-al="2"] .le-janela-sair { border: 1.5px solid var(--al-linha); background: var(--al-superficie); color: var(--al-texto); }
+[data-al="2"] .le-janela-sair:hover { border-color: var(--al-vermelho); }
+
+/* ── A primeira vez na Alumia (P5, A12): o passeio e os primeiros passos, no alto do Início. ── */
+.le-pv { position: relative; margin: 0.9rem 1rem 0.4rem; padding: 1.1rem 1.1rem 1rem; border-radius: var(--al-raio); border: 1px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); overflow: hidden; }
+@media (min-width: 1024px) { .le-pv { margin-inline: 1.25rem; } }
+.le-pv::before { content: ""; position: absolute; inset: 0 0 auto; height: 5px; background: var(--al-faixa); }
+.le-pv-alto span:last-child { white-space: nowrap; }
+.le-pv-alto { display: flex; justify-content: space-between; gap: 0.75rem; margin: 0.15rem 0 0.2rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--al-texto-3); }
+.le-pv h2 { margin: 0 0 0.4rem; font-size: 1.6rem; line-height: 1.05; }
+.le-pv p { margin: 0 0 0.6rem; font-size: 0.95rem; line-height: 1.55; max-width: 62ch; }
+.le-pv-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; }
+.le-pv-links a, .le-pv-lista a { font-weight: 700; color: var(--al-texto); text-decoration: underline; text-decoration-color: var(--al-vermelho); text-underline-offset: 3px; }
+.le-pv-pontos { display: flex; gap: 6px; margin: 0.2rem 0 0.8rem; padding: 0; list-style: none; }
+.le-pv-pontos li { width: 22px; height: 6px; border-radius: 3px; background: var(--al-superficie-2); }
+.le-pv-pontos li[data-atual] { background: var(--al-vermelho); }
+.le-pv-acoes { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem; }
+.le-pv-avanco { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.le-pv-lista { display: grid; gap: 0.35rem; margin: 0 0 0.8rem; padding: 0; list-style: none; }
+.le-pv-lista li { display: flex; align-items: center; gap: 0.6rem; min-height: 44px; }
+.le-pv-lista input { width: 22px; height: 22px; flex: none; accent-color: var(--al-vermelho); cursor: pointer; }
+.le-pv-lista a[data-feito] { color: var(--al-texto-3); text-decoration-line: line-through; }

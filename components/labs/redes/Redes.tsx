@@ -4,6 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import exercicios from "@/content/laboratorios/redes.json";
 import { type Cabo, COMANDOS_DO_IOS, comandoDeHost, comandoDeIos, completar, type Dispositivo, type Estado, estadoNovo, type Evento, type ExercicioDeRede, LIMITE_DE_DISPOSITIVOS, mascaraValida, navegar, novoDispositivo, pedirDhcp, prompt, type Resultado, type Sessao, servicosPadrao, type TipoDeDispositivo, type Topologia, validarTopologia, verificar, vizinho, ipValido } from "@/lib/redes/motor";
+import { confirmar } from "@/components/perguntar";
 
 const TIPOS: { tipo: TipoDeDispositivo; nome: string; icone: string }[] = [
   { tipo: "pc", nome: "PC", icone: "M4 5h16v11H4zM9 20h6M12 16v4" },
@@ -189,7 +190,7 @@ export function LabRedes() {
         <button type="button" className={claro} onClick={baixar}>Baixar JSON</button>
         <button type="button" className={claro} onClick={() => arquivo.current?.click()}>Abrir JSON</button>
         <input ref={arquivo} type="file" accept="application/json,.json" className="sr-only" onChange={(e) => { void abrir(e.target.files?.[0]); e.target.value = ""; }} />
-        <button type="button" className="cursor-pointer underline" onClick={() => { if (window.confirm("Começar uma rede vazia?")) { setHistorico((h) => [...h, t]); setT(vazia()); setEstado(estadoNovo()); } }}>Nova</button>
+        <button type="button" className="cursor-pointer underline" onClick={async () => { if ((await confirmar("Começar uma rede vazia?"))) { setHistorico((h) => [...h, t]); setT(vazia()); setEstado(estadoNovo()); } }}>Nova</button>
         <details className="relative ml-auto">
           <summary className="cursor-pointer underline">Exercícios ({lista.length})</summary>
           {/* Abre para a esquerda, a partir da borda direita do botão: no celular, a lista cabia só metade na tela. */}
@@ -306,7 +307,7 @@ function Painel({ d, t, estado, mudar, apagar, simular }: { d: Dispositivo; t: T
     <div className="border-2 border-ink bg-parchment-deep p-3">
       <div className="flex items-center justify-between gap-2">
         <input value={nome} onChange={(e) => setNome(e.target.value.slice(0, 20))} onBlur={() => nome.trim() && nome !== d.nome && editar((x) => { x.nome = nome.trim(); })} aria-label="Nome" className="min-w-0 flex-1 border-b-2 border-ink bg-transparent font-serif text-lg font-semibold outline-none" />
-        <button type="button" className="cursor-pointer text-xs underline hover:text-oxblood" onClick={() => { if (window.confirm(`Apagar ${d.nome}?`)) apagar(); }}>apagar</button>
+        <button type="button" className="cursor-pointer text-xs underline hover:text-oxblood" onClick={async () => { if ((await confirmar(`Apagar ${d.nome}?`))) apagar(); }}>apagar</button>
       </div>
       <p className="font-mono text-[0.65rem] uppercase tracking-widest text-gold">{TIPOS.find((x) => x.tipo === d.tipo)?.nome}</p>
       <div className="mt-2 flex gap-1" role="tablist">

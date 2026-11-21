@@ -2,7 +2,7 @@
 //
 // As chamadas do pacote avisos ao banco (supabase/migracoes/2026-11-rede-avisos.sql): uma função por rpc. Sem "@/" de propósito.
 import { chamar, type Chamar } from "./cliente";
-import type { CanalDeAviso, PaginaDeAvisos, PreferenciasDeAviso, ResumoDeAviso, TipoDeAviso } from "./tipos-avisos";
+import type { AvisosDeSeguranca, CanalDeAviso, PaginaDeAvisos, PreferenciasDeAviso, ResumoDeAviso, TipoDeAviso } from "./tipos-avisos";
 
 export function criarClienteDeAvisos(c: Chamar) {
   return {
@@ -18,6 +18,10 @@ export function criarClienteDeAvisos(c: Chamar) {
     /** O que o resumo semanal levaria agora (nada é enviado). */
     resumoVer: () => c<ResumoDeAviso>("rede_aviso_resumo_ver"),
     pushAssinar: (endpoint: string, p256dh: string, auth: string, lang: string) => c<PreferenciasDeAviso>("rede_aviso_push_assinar", { p_endpoint: endpoint, p_p256dh: p256dh, p_auth: auth, p_lang: lang }),
+    /** Os avisos de segurança da conta (entrada nova, autenticador), que moram na Segurança (20261126-p5-avisos.sql). */
+    seguranca: () => c<AvisosDeSeguranca>("rede_aviso_seguranca_listar"),
+    /** Marca como lidos os avisos de segurança da conta. */
+    segurancaLer: () => c<{ ok: boolean; nao_lidos: number }>("rede_aviso_seguranca_ler"),
     pushCancelar: (endpoint: string | null = null) => c<{ removidos: number; push_aparelhos: number }>("rede_aviso_push_cancelar", { p_endpoint: endpoint }),
   };
 }

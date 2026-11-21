@@ -131,6 +131,7 @@
     "trocouArroba": "完成。你重新以 {codinome} 出现，现在是 @{handle}。"
   },
   "erros": {
+    "nome_com_selo": "名字里不能有类似认证标记的符号（✓、✔、☑、✅、🔵），也不能有“已认证”“官方”等字样。请换一个。",
     "identidade_desligada": "协调组暂时关闭了名字和照片的选项。换回代号仍然可用。",
     "identidade_org": "组织账号不使用这个选项。",
     "identidade_codinome": "要发送照片，请先选择用名字出现。",

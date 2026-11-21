@@ -1,0 +1,48 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Ação coletiva (/alumia/acao-coletiva) e o aviso de Pix no cartão, Prompt 4 (Parte F). Só usa os tokens de styles/alumia-tokens.css
+ * (vale no escuro, no claro, no contraste e no e-ink). Uma coluna no celular, sem rolar para o lado; alvos de toque de 44 px; sem
+ * animação com movimento reduzido.
+ */
+.ac-pagina { container-type: inline-size; display: grid; gap: 1.25rem; padding: 1.25rem 16px 3rem; color: var(--al-texto); min-width: 0; }
+@media (min-width: 1024px) { .ac-pagina { padding: 1.75rem 1.5rem 3.5rem; } }
+.ac-cabeca { display: grid; gap: 0.6rem; justify-items: start; }
+.ac-faixa { width: 7.5rem; border-radius: 2px; }
+.ac-titulo { margin: 0; font-size: clamp(2.2rem, 6cqi, 3.6rem); line-height: 0.95; }
+.ac-chamada { margin: 0; max-width: 68ch; color: var(--al-texto-2); font-size: 1.04rem; line-height: 1.5; }
+.ac-abas { display: flex; flex-wrap: wrap; gap: 0.4rem; border-bottom: 1px solid var(--al-linha); padding-bottom: 0.5rem; }
+.ac-aba { min-height: 44px; min-width: 44px; padding: 0.5rem 0.9rem; border: 1px solid var(--al-linha); border-radius: 999px; background: transparent; color: var(--al-texto-2); font: inherit; font-weight: 700; cursor: pointer; }
+.ac-aba[aria-selected="true"] { border-color: var(--al-dourado); background: var(--al-superficie); color: var(--al-texto); }
+.ac-aba:focus-visible, .ac-pagina button:focus-visible, .ac-pagina a:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+.ac-bloco { display: grid; gap: 0.85rem; min-width: 0; }
+.ac-subtitulo { margin: 0; font-size: 1.4rem; letter-spacing: 0.02em; line-height: 1.1; }
+.ac-miudo { margin: 0; color: var(--al-texto-3); font-size: 0.92rem; line-height: 1.5; overflow-wrap: anywhere; }
+.ac-erro { margin: 0; padding: 0.55rem 0.8rem; border-radius: 8px; border-left: 4px solid var(--al-vermelho); background: var(--al-superficie); color: var(--al-texto); font-size: 0.94rem; }
+.ac-ok { margin: 0; color: var(--al-texto-2); font-size: 0.94rem; }
+.ac-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.ac-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; min-width: 0; }
+.ac-cartao { display: grid; gap: 0.45rem; padding: 0.9rem 1rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); min-width: 0; }
+.ac-cartao h3, .ac-cartao h4 { margin: 0; font-size: 1.12rem; line-height: 1.25; overflow-wrap: anywhere; }
+.ac-cartao p { margin: 0; line-height: 1.5; overflow-wrap: anywhere; white-space: pre-line; }
+.ac-etiqueta { display: inline-flex; align-items: center; gap: 0.35rem; margin: 0; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--al-texto-3); }
+.ac-form { display: grid; gap: 0.7rem; padding: 0.9rem 1rem; border: 1px dashed var(--al-linha); border-radius: var(--al-raio); min-width: 0; }
+.ac-form label, .ac-form fieldset { display: grid; gap: 0.3rem; font-weight: 700; font-size: 0.95rem; color: var(--al-texto-2); min-width: 0; }
+.ac-form fieldset { margin: 0; padding: 0; border: 0; }
+.ac-form legend { padding: 0; margin-bottom: 0.3rem; }
+.ac-form input[type="text"], .ac-form input[type="url"], .ac-form input[type="date"], .ac-form input[type="number"], .ac-form input[type="email"], .ac-form input[type="tel"], .ac-form textarea, .ac-form select {
+  min-height: 44px; width: 100%; max-width: 100%; box-sizing: border-box; padding: 0.5rem 0.7rem; border: 1px solid var(--al-linha); border-radius: 8px;
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-weight: 400;
+}
+.ac-form textarea { min-height: 6rem; resize: vertical; }
+.ac-opcao { display: flex !important; gap: 0.6rem; align-items: center; min-height: 44px; font-weight: 400 !important; color: var(--al-texto) !important; cursor: pointer; }
+.ac-opcao input { width: 22px; height: 22px; flex: none; }
+.ac-pagina .al-botao, .ac-pagina a.ac-link, .ac-pix .al-botao, .ac-pix a { min-height: 44px; min-width: 44px; }
+.ac-pagina a.ac-link { display: inline-flex; align-items: center; color: var(--al-texto); text-decoration: underline; text-underline-offset: 3px; }
+.ac-documento { margin: 0; padding: 1rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-fundo); color: var(--al-texto); font: inherit; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+.ac-panfleto { width: 100%; max-width: 420px; height: auto; border: 1px solid var(--al-linha); border-radius: 8px; background: #fff; }
+.ac-cores { display: flex; gap: 0.35rem; }
+.ac-cor { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--al-linha); }
+.ac-pix { display: grid; gap: 0.4rem; margin: 0.4rem 0 0; padding: 0.6rem 0.8rem; border-radius: 8px; border-left: 4px solid var(--al-vermelho); background: var(--al-superficie); color: var(--al-texto); font-size: 0.94rem; }
+.ac-pix p { margin: 0; line-height: 1.45; overflow-wrap: anywhere; }
+.ac-pix a { display: inline-flex; align-items: center; color: var(--al-texto); text-decoration: underline; }
+@media (prefers-reduced-motion: reduce) { .ac-pagina *, .ac-pix * { transition: none !important; animation: none !important; } }

@@ -39,7 +39,6 @@ export function criarClienteComunidades(c: Chamar) {
     nucleos: () => c<{ itens: NucleoResumo[] }>("rede_com_nucleos"),
     nucleo: (id: string) => c<PaginaDoNucleo>("rede_com_nucleo", { p_id: id }),
     linhaDoNucleo: (id: string, cursor: string | null = null, limite = 20) => c<PaginaDaLinha>("rede_com_nucleo_linha", { p_id: id, p_cursor: cursor, p_limite: limite }),
-    sairDoNucleo: (id: string) => c<{ ok: boolean }>("rede_com_nucleo_sair", { p_id: id }),
     salvarEncontro: (p: { nucleo: string; quando: string; local_tipo: string; local_texto: string }) => c<{ id: string }>("rede_com_encontro_salvar", { p }),
     removerEncontro: (id: string) => c<{ ok: boolean }>("rede_com_encontro_remover", { p_id: id }),
     // Onda 5 (PLANO-ALUMIA F3): supabase/migracoes/20261109-alumia-f3.sql. Só as telas novas (rede-v2 + alumia-2) chamam.

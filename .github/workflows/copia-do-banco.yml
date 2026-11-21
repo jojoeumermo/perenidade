@@ -41,7 +41,7 @@ jobs:
       - name: Copia e cifra
         if: steps.ligada.outputs.sim == 'sim'
         run: |
-          /usr/lib/postgresql/17/bin/pg_dump "$SUPABASE_DB_URL" --format=custom --no-owner --no-privileges --schema=interno --schema=public --schema=auth --file=banco.dump
+          /usr/lib/postgresql/17/bin/pg_dump "$SUPABASE_DB_URL" --format=custom --no-owner --no-privileges --schema=interno --schema=public --schema=auth --exclude-table-data=interno.origem_segredo --exclude-table-data=interno.origem_sal --exclude-table-data=interno.vale_sal --exclude-table-data=interno.rede_fed_apelido_segredo --exclude-table-data=interno.segredos --file=banco.dump
           gpg --batch --yes --symmetric --cipher-algo AES256 --passphrase "$COPIA_SENHA" --output "banco-$(date +%F).dump.gpg" banco.dump
           rm banco.dump
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

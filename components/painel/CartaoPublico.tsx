@@ -87,7 +87,10 @@ export function VisaoPublica({ me }: { me: Me }) {
 
   const fotoVista = tirarFoto ? "" : foto || meu?.no_ar.foto || "";
   return (
-    <Cartao titulo="Visão pública: o seu cartão de educador" sobre="É o cartão que aparece no fim das aulas da sua disciplina. Você pede a foto, a biografia e as redes; a coordenação aprova antes de ir ao ar.">
+    <Cartao
+      titulo="Visão pública: o seu cartão de educador"
+      sobre="É o cartão que aparece no fim das aulas da sua disciplina. Tudo é opcional: dá para aparecer só com o nome público (o da aba Perfil, que pode ser um apelido), sem foto nem redes. Você pede a foto, a biografia e as redes (Lattes, LinkedIn…); a coordenação aprova antes de ir ao ar. A foto é refeita no seu aparelho, sem os dados escondidos da câmera (lugar, data, aparelho)."
+    >
       <div className="grid gap-5 md:grid-cols-[10rem_minmax(0,1fr)]">
         <div className="space-y-2">
           <div className="flex aspect-square w-40 items-center justify-center overflow-hidden rounded-xl border border-[var(--pn-borda)] bg-[var(--pn-fundo-2,#f3efe6)] text-4xl">

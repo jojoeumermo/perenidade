@@ -7,6 +7,15 @@ import { chamar } from "./cliente";
 import { CHAVE_DA_PREVIA_DO_PERFIL } from "./codinome-da-conta";
 import { arrumarNomePublico, fotoAceitavel, type MinhaIdentidade } from "./identidade";
 import { faltaFuncaoNoBanco } from "./reserva";
+import { trocarRostoDaConta } from "./rosto-da-conta";
+
+/** Depois de trocar a foto da identidade, o rosto do menu relê o perfil (A10 do Prompt 5). */
+function releRostoDaConta(): void {
+  chamar<{ avatar?: unknown } | null>("rede_perfil_meu").then(
+    (m) => trocarRostoDaConta((m?.avatar ?? null) as Parameters<typeof trocarRostoDaConta>[0]),
+    () => undefined,
+  );
+}
 
 const previa = () => process.env.NEXT_PUBLIC_ALUMIA_PREVIA === "sim";
 
@@ -97,11 +106,15 @@ export const redeIdentidade = {
       await espera(500);
       return guardarPrevia({ ...lerPrevia(), foto: { dados, pendente: true } });
     }
-    return chamar<MinhaIdentidade>("rede_identidade_foto_enviar", { p_dados: dados });
+    const r = await chamar<MinhaIdentidade>("rede_identidade_foto_enviar", { p_dados: dados });
+    releRostoDaConta();
+    return r;
   },
   async removerFoto(): Promise<MinhaIdentidade> {
     if (previa()) return guardarPrevia({ ...lerPrevia(), foto: null });
-    return chamar<MinhaIdentidade>("rede_identidade_foto_remover");
+    const r = await chamar<MinhaIdentidade>("rede_identidade_foto_remover");
+    releRostoDaConta();
+    return r;
   },
   /** Dos @ pedidos, quais estão em público (e o carimbo da foto de cada um). */
   async de(handles: string[]): Promise<IdentidadesPublicas> {

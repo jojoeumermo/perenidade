@@ -9,6 +9,7 @@ import type { DenunciaAberta, EscopoDeModeracao, ItemDaFila, ItemDeLista, PostRe
 
 const H = 3_600_000;
 const daqui = (horas: number) => new Date(Date.now() + horas * H).toISOString();
+const dia = (dias: number) => daqui(dias * 24).slice(0, 10);
 
 export function chamarDubleDaFila(depois: Chamar): Chamar {
   const escopo: EscopoDeModeracao = { cuida: true, coord: false, comunidades: ["moradia", "passe-livre"], nomes: { moradia: "Moradia digna", "passe-livre": "Passe Livre" }, nucleos: [] };
@@ -17,6 +18,9 @@ export function chamarDubleDaFila(depois: Chamar): Chamar {
     { id: "d2", protocolo: "5A2C7E19F0", alvo_tipo: "perfil", alvo: "faisca_do_norte", categoria: "menores", prioridade: 1, situacao: "aberta", criado_em: daqui(-5), texto: "Escreveu numa resposta que tem 15 anos.", comunidade: null, titulo: null, trecho: null, nucleo: false, mesmas: 1, responder_ate: daqui(19), vencida: false },
     { id: "d3", protocolo: "C04E9B21D7", alvo_tipo: "post", alvo: "p3", categoria: "assedio", prioridade: 2, situacao: "em_analise", criado_em: daqui(-30), texto: "", comunidade: "passe-livre", titulo: null, trecho: "Vocês da comissão são todos uns...", nucleo: false, mesmas: 1, responder_ate: daqui(42), vencida: false },
     { id: "d4", protocolo: "91B0F3E6A4", alvo_tipo: "post", alvo: "p4", categoria: "spam", prioridade: 3, situacao: "aberta", criado_em: daqui(-2), texto: "", comunidade: "moradia", titulo: null, trecho: "Ganhe dinheiro em casa, link na bio!!!", nucleo: false, mesmas: 4, responder_ate: daqui(166), vencida: false },
+    // Denúncia com prova (onda R2): trechos de uma conversa a dois, conferidos pelo servidor; sem nada da caixa.
+    { id: "d5", protocolo: "3D8E61B2C5", alvo_tipo: "perfil", alvo: "vento_leste", categoria: "ameaca", prioridade: 1, situacao: "aberta", criado_em: daqui(-4), texto: "Mandou isto depois que eu falei do ato.", comunidade: null, titulo: null, trecho: null, nucleo: false, mesmas: 1, responder_ate: daqui(20), vencida: false,
+      prova: [{ texto: "Se você aparecer no ato de quinta, vai se arrepender.", dia: dia(-1), origem: "conversa" }, { texto: "Sei onde você mora.", dia: dia(-1), origem: "conversa" }] },
   ];
   let retidos: PostRetido[] = [
     { id: "r1", titulo: null, trecho: "Gente, olhem isso: https://encurta.exemplo/x9 e https://encurta.exemplo/y2", comunidade: "moradia", motivo: "automod_links", criado_em: daqui(-1), autor: "Vento Sul", autor_nivel: 0 },

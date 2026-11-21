@@ -17,7 +17,7 @@ const DE_VOZ = /^lucia-voz/;
 /** As bases conhecidas, para os navegadores que não sabem listar as bases (indexedDB.databases). */
 // As da Alumia: o chat (com o histórico guardado no aparelho) e os pares dos grupos cifrados (pedido P16). As lojas da biblioteca do
 // chat têm o id da conta no nome ("lucia-alumia-olm-…"): saem pela lista quando o navegador a dá, e pela limpeza do chat registrada.
-export const BASES_CONHECIDAS = ["lucia-busca", "lucia-sigilo", "lucia-explicacoes", "lucia-alumia-chat", "lucia-alumia-historico", "lucia-alumia-grupos"];
+export const BASES_CONHECIDAS = ["lucia-busca", "lucia-sigilo", "lucia-explicacoes", "lucia-alumia-chat", "lucia-alumia-historico", "lucia-alumia-grupos", "lucia-alumia-r2", "lucia-alumia-voto", "lucia-alumia-rascunhos", "lucia-alumia-seguranca"];
 
 type Sessao = Pick<Storage, "getItem" | "setItem" | "removeItem">;
 
@@ -64,19 +64,47 @@ export function desligarModoSeguro(armazenamento: Sessao | null = sessao()) {
   avisar();
 }
 
-/** As chaves que a saída apaga: toda chave que começa com "lucia" (as do site). As de outros sites nem existem aqui. */
+/**
+ * As chaves do chat da R2 que não começam com "lucia": os passes anônimos do dia (lib/rede/passes/cliente.ts) e as caixas e o ajuste
+ * do tráfego de cobertura (lib/rede/caixas/agenda.ts). Quem copiasse os passes poderia gastá-los; as caixas de cobertura são deste
+ * aparelho.
+ */
+export const CHAVES_DA_R2 = ["alumia-passes-r2", "alumia-passes-r2-vista", "alumia-cobertura-r2", "alumia-cobertura-r2-ligada"];
+
+/** As chaves que a saída apaga: toda chave que começa com "lucia" (as do site) e as do chat da R2. As de outros sites nem existem aqui. */
 export function chavesParaApagar(armazenamento: Pick<Storage, "length" | "key">): string[] {
   const chaves: string[] = [];
   for (let i = 0; i < armazenamento.length; i++) {
     const chave = armazenamento.key(i);
-    if (chave && chave.startsWith("lucia")) chaves.push(chave);
+    if (chave && (chave.startsWith("lucia") || CHAVES_DA_R2.includes(chave))) chaves.push(chave);
   }
   return chaves;
 }
 
-/** As bases do IndexedDB que saem: as "lucia-*" que não são de voz. */
+/** A pasta do OPFS em que o motor de cifra do chat (@wireapp/core-crypto) guarda as lojas: conversa a dois, grupos e equipe. */
+export const PASTA_DO_MOTOR = "core-crypto";
+
+/** Apaga do OPFS a pasta inteira do motor de cifra (todas as lojas do chat, dos grupos e da equipe, de todas as contas). */
+async function apagarLojasDoMotor() {
+  try {
+    const raiz = await globalThis.navigator?.storage?.getDirectory?.();
+    await raiz?.removeEntry(PASTA_DO_MOTOR, { recursive: true });
+  } catch {
+    // sem OPFS, ou a pasta não existe
+  }
+}
+
+/**
+ * Os começos de nome das lojas do motor de cifra do chat (@wireapp/core-crypto): conversa a dois da R2 ("alumia-r2-<conta>",
+ * lib/rede/chat/r2/loja.ts), grupos ("grupos-<conta>", lib/rede/grupos/apagar.ts) e equipe ("equipe-<aparelho>", lib/chaveiro.ts).
+ * O motor guarda no OPFS, mas o WebAssembly dele também abre o IndexedDB com o MESMO nome (a migração da loja antiga): se ficar
+ * uma base com esse nome, ela sai junto. Sem isso, a saída do site (que só levava "lucia-*") deixava a base do motor no aparelho.
+ */
+export const PREFIXOS_DO_MOTOR = ["alumia-r2-", "grupos-", "equipe-"] as const;
+
+/** As bases do IndexedDB que saem: as "lucia-*" que não são de voz e as do motor de cifra do chat. */
 export function basesParaApagar(nomes: readonly string[]): string[] {
-  return [...new Set(nomes)].filter((nome) => nome.startsWith("lucia-") && !DE_VOZ.test(nome));
+  return [...new Set(nomes)].filter((nome) => (nome.startsWith("lucia-") && !DE_VOZ.test(nome)) || PREFIXOS_DO_MOTOR.some((p) => nome.startsWith(p)));
 }
 
 /** Os caches que saem: os do site (páginas guardadas para ler sem internet e arquivos), menos os modelos de voz. */
@@ -210,7 +238,7 @@ export async function apagarDoAparelho(limiteMs = 700) {
   // antes de o banco sumir por baixo delas. A limpeza do chat tem teto próprio (contando baixar o módulo): passou disso, as
   // bases são apagadas do mesmo jeito. Tudo dentro do teto da saída: o que ficar pela metade o navegador termina sozinho.
   const bases = Promise.race([limparOChat(), new Promise((resolve) => setTimeout(resolve, TETO_DO_CHAT_MS))]).then(apagarBases);
-  await Promise.race([Promise.all([bases, apagarCaches(), rodarLimpezasExtras()]), new Promise((resolve) => setTimeout(resolve, limiteMs))]);
+  await Promise.race([Promise.all([bases, apagarCaches(), apagarLojasDoMotor(), rodarLimpezasExtras()]), new Promise((resolve) => setTimeout(resolve, limiteMs))]);
 }
 
 /**

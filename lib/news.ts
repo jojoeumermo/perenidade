@@ -82,3 +82,21 @@ export async function getNews(): Promise<{ latest: Headline[]; outlets: Outlet[]
     .slice(0, 30);
   return { latest, outlets, at: new Date().toISOString() };
 }
+
+/** A notícia do dia (Explorar da Alumia, Prompt 5, A19): só título, veículo, data e link. Sem imagem e sem o texto da matéria. */
+export interface NoticiaDoDia {
+  titulo: string;
+  veiculo: string;
+  link: string;
+  data: string;
+}
+
+/**
+ * Escolhe a notícia do dia entre as manchetes do giro: a mais recente das últimas 36 horas. Sem nenhuma recente (veículos fora do
+ * ar), nenhuma: a tela não mostra notícia velha como "do dia".
+ */
+export function escolherNoticiaDoDia(latest: readonly Headline[], agora = Date.now()): NoticiaDoDia | null {
+  const recentes = latest.filter((h) => agora - Date.parse(h.date) <= 36 * 3_600_000);
+  const h = [...recentes].sort((a, b) => b.date.localeCompare(a.date))[0];
+  return h ? { titulo: h.title, veiculo: h.source, link: h.link, data: h.date } : null;
+}

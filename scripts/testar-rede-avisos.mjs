@@ -514,7 +514,20 @@ await espera("fraseDoAviso monta 'Ana e mais 3 responderam', os singulares, o se
   fraseDoAviso({ tipo: "apoio", total: 3, pessoas: 3, atores: ["Escapou"], texto: null }, frases, "r"),
   fraseDoAviso({ tipo: null, total: 1, pessoas: 1, atores: [], texto: "Sua denúncia andou." }, frases, "r"),
   fraseDoAviso({ tipo: "chamado", total: 1, pessoas: 1, atores: [], texto: null }, frases, "reserva"),
-], ([a, b, c, d, e, f, g]) => a === "Ana e mais 3 responderam ao seu post." && b === "Ana respondeu ao seu post." && c === "Ana respondeu 3 vezes ao seu post." && d === "2 pessoas mencionaram você." && e === "3 pessoas apoiaram o seu post." && f === "Sua denúncia andou." && g === "reserva");
+], ([a, b, c, d, e, f, g]) => a === "Ana e mais 3 responderam ao seu post." && b === "Ana respondeu ao seu post." && c === "Ana respondeu 3 vezes ao seu post." && d === "Alguém mencionou você." && e === "3 pessoas acenderam o seu post." && f === "Sua denúncia andou." && g === "reserva");
+// Prompt 5 (A8): nenhum número abaixo de 3 numa notificação. Com menos de 3 outras pessoas, os nomes que podem aparecer ou "mais alguém".
+{
+  const juntar = JSON.parse(lerTexto("i18n/rede/avisos/pt.json")).juntar;
+  await espera("fraseDoAviso nunca diz número abaixo de 3 (Ana e Bia, Ana e mais alguém, Ana e mais algumas pessoas, Alguém)", () => [
+    fraseDoAviso({ tipo: "resposta", total: 2, pessoas: 2, atores: ["Ana", "Bia"], texto: null }, frases, "r", undefined, juntar),
+    fraseDoAviso({ tipo: "resposta", total: 2, pessoas: 2, atores: ["Ana", null], texto: null }, frases, "r", undefined, juntar),
+    fraseDoAviso({ tipo: "seguidor", total: 3, pessoas: 3, atores: ["Ana", "Bia"], texto: null }, frases, "r", undefined, juntar),
+    fraseDoAviso({ tipo: "apoio", total: 2, pessoas: 2, atores: [], texto: null }, frases, "r", undefined, juntar),
+    fraseDoAviso({ tipo: "mencao", total: 2, pessoas: 2, atores: [null, null], texto: null }, frases, "r", undefined, juntar),
+  ], ([a, b, c, d, e]) => a === "Ana e Bia responderam ao seu post." && b === "Ana e mais alguém responderam ao seu post."
+    && c === "Ana e mais algumas pessoas começaram a seguir você." && d === "Alguém acendeu o seu post." && e === "Alguém mencionou você."
+    && [a, b, c, d, e].every((x) => !/[12]/.test(x)));
+}
 await espera("os seis idiomas têm as mesmas chaves (pt é o texto final; os outros são rascunho marcado)", async () => {
   const achatar = (o, pre = "") => Object.entries(o).flatMap(([k, v]) => (v && typeof v === "object" ? achatar(v, `${pre}${k}.`) : [`${pre}${k}`]));
   const pt = achatar(JSON.parse(lerTexto("i18n/rede/avisos/pt.json"))).sort();

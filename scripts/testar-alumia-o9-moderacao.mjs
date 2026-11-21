@@ -121,7 +121,7 @@ await espera("de novo (idempotente)", () => exec(sql));
 await espera("e uma terceira vez sem estrago", () => exec(sql));
 await espera("a regra da porta não deixa nenhuma função aberta", async () => (await dono("select interno.alumia_trancar() as r")).rows[0].r, (r) => r.abertas.length === 0);
 await espera("toda função pública nova passa pela porta", async () =>
-  (await dono(`select p.proname, p.prosrc from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and p.proname like any (array['alumia_mod_%', 'alumia_com_%', 'rede_mod_recursos'])`)).rows,
+  (await dono(`select p.proname, p.prosrc from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and p.proname like any (array['alumia\\_mod\\_%', 'alumia\\_com\\_%', 'rede_mod_recursos'])`)).rows,
 (rs) => rs.length === 10 && rs.every((r) => /interno\.alumia_porta\(\)/.test(r.prosrc)));
 for (const t of tabelas) {
   await espera(`${t}: RLS ligada e nenhuma política`, async () => (await dono("select c.relrowsecurity as r, (select count(*)::int from pg_policies p where p.schemaname = 'interno' and p.tablename = $2) as n from pg_class c where c.oid = $1::regclass", [`interno.${t}`, t])).rows[0],

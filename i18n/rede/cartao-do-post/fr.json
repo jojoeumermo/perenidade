@@ -1,0 +1,51 @@
+{
+  "_rascunho": true,
+  "reacoes": {
+    "titulo": "Réactions de cette communauté",
+    "ajuda": "La modération choisit jusqu’à 6 emojis pour les réactions aux posts d’ici. Personne ne voit qui a réagi : seulement le total de chaque emoji, et seulement à partir de 3.",
+    "rotulo": "Emojis (jusqu’à 6)",
+    "salvar": "Enregistrer la liste",
+    "padrao": "Revenir à la liste par défaut",
+    "salvo": "Liste enregistrée.",
+    "voltou": "La communauté est revenue à la liste par défaut.",
+    "propria": "Liste propre à cette communauté",
+    "daAlumia": "Liste par défaut d’Alumia",
+    "previa": "Aperçu",
+    "sairam": "Les réactions avec un emoji qui quitte la liste ne s’affichent plus et reviennent s’il revient.",
+    "erros": {
+      "muitos": "6 emojis au maximum.",
+      "emoji": "Uniquement des emojis, sans lettres, chiffres ni geste obscène.",
+      "repetido": "Un emoji est répété.",
+      "geral": "Impossible d’enregistrer. Réessayez."
+    }
+  },
+  "pasta": {
+    "tornar": "Rendre ce dossier public",
+    "publica": "Ce dossier est public : il apparaît comme collection sur votre profil.",
+    "ajuda": "Seuls les posts ouverts entrent dans la collection. Les restreints (abonnés, communauté, noyau ou équipe) restent seulement ici, et qui lit la collection ne voit que ce qu’il pouvait déjà voir.",
+    "ficouFora": "Certains posts de ce dossier sont restreints et sont restés ici.",
+    "privada": "Redevenir privé",
+    "verNoPerfil": "Voir sur mon profil",
+    "semHandle": "Pour avoir une collection publique, choisissez d’abord votre @ sur le profil.",
+    "erro": "Impossible de modifier. Réessayez."
+  },
+  "traducao": {
+    "noAparelho": "Traduit sur l’appareil : le texte n’en est pas sorti.",
+    "noServidor": "Traduit par le serveur d’Alumia : le texte est allé à notre serveur, pas à des tiers.",
+    "baixarAjuda": "La première fois, le navigateur télécharge le modèle de traduction de son propre éditeur. Le texte du post ne quitte pas l’appareil.",
+    "leve": "En mode léger, la traduction sur l’appareil est désactivée."
+  },
+  "imagem": {
+    "semAutora": "Cacher qui a écrit",
+    "destino": "Destination",
+    "destinos": {
+      "instagram-feed": "Instagram (fil)",
+      "instagram-stories": "Instagram (stories)",
+      "whatsapp": "WhatsApp",
+      "whatsapp-status": "WhatsApp (statut)"
+    },
+    "compartilhar": "Partager",
+    "restrito": "Seul un post ouvert à internet devient une image.",
+    "ajuda": "L’image est faite ici sur l’appareil et porte l’adresse d’Alumia et @institutoluciaorg."
+  }
+}

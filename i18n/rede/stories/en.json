@@ -61,7 +61,8 @@
       "pessoa": "@ Person",
       "campanha": "#Campaign",
       "resposta": "Answer",
-      "decorativa": "Decoration"
+      "decorativa": "Decoration",
+      "teste": "Quiz"
     },
     "quemVe": "Who sees it",
     "publico": {
@@ -88,7 +89,7 @@
     "vazio": "Write some text, draw, take a photo or choose from the gallery.",
     "deUmPost": "Story from a post: the link to the post goes along.",
     "erro": {
-      "grande": "Image too large (up to 3 MB once ready).",
+      "grande": "Image too large (up to 6 MB once ready).",
       "invalida": "Couldn't read this image. Use JPG, PNG or WEBP.",
       "link": "The link must start with https:// and have a valid address.",
       "ato": "Pick an action for the countdown.",
@@ -98,7 +99,10 @@
       "semConta": "Sign in to post.",
       "limite": "You've posted many stories just now. Wait a bit.",
       "banco": "The database doesn't have stories yet (the server update is missing).",
-      "falha": "Couldn't post. Try again."
+      "semHandle": "To post a story, first choose your @name in Edit profile.",
+      "falha": "Couldn't post. Try again.",
+      "teste": "Write the question and at least two different quiz options, and mark the right one.",
+      "contagemLivre": "Name the countdown and pick a time in the future (up to a year)."
     },
     "camera": "Camera",
     "galeriaAjuda": "Photo or video (up to 60 s)",
@@ -160,7 +164,14 @@
       "foto": "Story photo",
       "semMetadadoVideo": "The video is rebuilt on your device at 720p: no location and no camera data.",
       "altVideo": "Describe the video for people who can't see it (optional)",
-      "lendo": "Opening the video…"
+      "lendo": "Opening the video…",
+      "ajustes": {
+        "titulo": "Adjustments",
+        "brilho": "Brightness",
+        "contraste": "Contrast",
+        "saturacao": "Saturation",
+        "zerar": "Back to normal"
+      }
     },
     "progresso": {
       "preparando": "Preparing the video on your device… {pct}%",
@@ -195,7 +206,15 @@
       "desavisar": "Stop reminding me",
       "comecou": "Already started",
       "verAto": "See the action",
-      "falta": "{dias} days, {horas} hours and {min} minutes until {titulo}"
+      "falta": "{dias} days, {horas} hours and {min} minutes until {titulo}",
+      "rotuloLivre": "Countdown",
+      "seg": "Sec",
+      "tipo": "Countdown to",
+      "doAto": "An action",
+      "livre": "Another moment",
+      "nomeDoMomento": "What will happen",
+      "nomeVazio": "Assembly, strike, party…",
+      "quando": "When"
     },
     "pergunta": {
       "rotulo": "Question",
@@ -230,6 +249,26 @@
       "nenhuma": "You're not in any community yet.",
       "carregando": "Loading your communities…",
       "abrir": "Open the community {nome}"
+    },
+    "teste": {
+      "rotulo": "Quiz",
+      "pergunta": "Quiz question",
+      "perguntaVazia": "Ask something",
+      "opcao": "Option {n}",
+      "qualCerta": "Which is the right answer",
+      "marcarCerta": "Mark option {n} as the right one",
+      "tirarOpcao": "Remove option {n}",
+      "maisOpcao": "+ Option",
+      "notaCriar": "Tap the letter of the right answer. Only you see how many people picked each option, and only from 3. Nobody sees who answered.",
+      "certa": "the right one",
+      "errada": "yours, wrong",
+      "total": "{n} answers",
+      "notaAutora": "Only you see the total. Nobody sees who answered.",
+      "poucas": "Few people have answered yet: the total shows from 3.",
+      "nota": "Only {nome} sees the total. Your name does not show.",
+      "acertou": "You got it right!",
+      "errou": "Not this time. The right one is marked.",
+      "jaRespondeu": "You already answered this quiz."
     }
   },
   "visor": {
@@ -642,5 +681,65 @@
       "porNoStory": "Add to story",
       "ajuda": "Creates a story with this action's card (date and city; gone in 24 h)"
     }
+  },
+  "p5": {
+    "abasRotulo": "What to add to the story",
+    "abas": {
+      "figurinhas": "Stickers",
+      "enfeites": "Decorations",
+      "midia": "Photo and video"
+    },
+    "quadros": {
+      "titulo": "Frames",
+      "ajuda": "Each frame becomes a story, in order, one after the other.",
+      "novo": "New frame",
+      "ir": "Go to frame {n}",
+      "atual": "Frame {n} (editing)",
+      "tirar": "Remove this frame",
+      "limite": "You reached {max} frames.",
+      "vazio": "Frame {n} empty",
+      "progresso": "Frame {k} of {n}",
+      "erroNoQuadro": "Frame {n}: {erro}"
+    },
+    "colagem": {
+      "botao": "Collage",
+      "titulo": "Photo collage",
+      "modelo": "Layout",
+      "modelos": {
+        "dupla": "Two, one above the other",
+        "lado": "Two side by side",
+        "tres": "Three",
+        "quatro": "Four"
+      },
+      "escolher": "Choose photo {n}",
+      "trocar": "Change photo {n}",
+      "usar": "Use the collage",
+      "cancelar": "Cancel",
+      "falta": "Choose all the photos.",
+      "ajuda": "The photos are redrawn here, without location or camera data.",
+      "fundo": "Color between the photos",
+      "lendo": "Building the collage…"
+    },
+    "rascunhos": {
+      "botao": "Drafts",
+      "titulo": "Story drafts",
+      "guardar": "Save draft",
+      "guardado": "Draft saved on this device only.",
+      "abrir": "Open",
+      "apagar": "Delete",
+      "apagarTodos": "Delete all",
+      "vazio": "No drafts on this device.",
+      "aviso": "Drafts stay on this device only (nothing goes to the server) and disappear in 30 days. Anyone holding the unlocked device can see them; \"Leave everything\" deletes them.",
+      "quadros": "{n} frames",
+      "umQuadro": "1 frame",
+      "fechar": "Close",
+      "modoSeguro": "In safe mode nothing is saved on the device.",
+      "grande": "Video too large to save as a draft.",
+      "falha": "Could not save on this device.",
+      "substituir": "Open the draft in place of what is on screen?",
+      "substituirSim": "Open",
+      "semArmazenamento": "This browser does not allow saving drafts."
+    },
+    "alta": "The photo goes in high resolution plus a smaller version that opens right away for viewers."
   }
 }

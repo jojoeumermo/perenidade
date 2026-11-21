@@ -35,6 +35,7 @@ export const papeis: Record<Role["papel"], string> = {
   representante: "Representante do departamento",
   porta_voz: "Porta-voz",
   saude: "Profissional de saúde",
+  parceiro: "Parceiro do instituto",
 };
 
 /** Funções que o banco só aceita como apelido (hoje: "design", que virou a Comunicação): não aparecem para escolher. */
@@ -59,6 +60,7 @@ export const oQueFaz: Record<Role["papel"], string> = {
   desenvolvimento: "UI/UX e Desenvolvimento. Cuida do design da interface (telas, acessibilidade) e do código: vê o estado técnico do site (publicação, avaliação automática, faxina, sinais de varredura) e atende pedidos de ajuda das outras funções.",
   representante: "Primeira entrada e organizador de um departamento, nomeado pela coordenação, coordenação pedagógica ou supervisão: administra o grupo do departamento nas conversas, combina e delega tarefas, sem ser chefe. Não dá nem tira funções. O departamento é tudo o que a área engloba: o de Tecnologia, por exemplo, reúne informática, programação, modelagem 3D, edição de vídeo e de foto. Um departamento pode ter mais de um representante.",
   saude: "Profissional de saúde com registro ativo que aparece no Mural de Saúde: preenche o próprio perfil (registro no conselho, abordagem, contato), aceita o termo da vitrine e aprova o texto antes de ir ao ar. A coordenação confere o registro no conselho a cada seis meses. Não vê o resto do painel nem dado de ninguém.",
+  parceiro: "Coletivo parceiro do instituto, ligado ao seu território: posta as novidades do território e edita a página dele em Territórios (só a dele), entra em Parcerias e no grupo de conversa do departamento. Só a coordenação confia, escolhendo o território. Não vê a fila, a equipe nem dado de ninguém.",
   porta_voz: "Um título, não uma função de trabalho: soma-se ao que a pessoa já faz (mediação, tradução, aulas…). O porta-voz leva a palavra do instituto a escolas, sindicatos, movimentos e eventos, em qualquer cidade, e traz de volta o que ouviu. Nomeado pela coordenação, coordenação pedagógica ou supervisão.",
 };
 
@@ -119,6 +121,10 @@ const erros: Record<string, string> = {
   versao_ocupada: "A chave desta conversa acabou de ser trocada. Envie de novo.",
   aparelho_desconhecido: "Este aparelho foi removido das suas conversas. Recarregue a página para criar uma chave nova.",
   aparelho_pendente: "Este aparelho ainda não foi aprovado: aprove-o de um aparelho seu que já funciona.",
+  aparelho_pedido_vencido: "O código desse aparelho venceu (vale dez minutos). Use o código novo que aparece na tela dele.",
+  sem_chave: "Este aparelho ainda não entrou no grupo cifrado desta conversa. Ele entra assim que alguém da conversa estiver com o painel aberto: tente de novo em seguida.",
+  grupo_suspeito: "Um aparelho desta conversa apareceu com uma chave que não confere com a identidade que este aparelho conhece da pessoa. Nada foi enviado: compare os códigos de segurança.",
+  motor_ocupado: "As conversas estão abertas em outra aba deste navegador. Feche a outra aba e tente de novo.",
   identidade_existe: "A sua conta já tem uma identidade: este aparelho precisa ser aprovado por um aparelho que já funciona.",
   identidade_diferente: "Esta cópia de recuperação é de outra identidade, não da atual da sua conta.",
   sem_copia: "Não existe cópia de recuperação guardada para a sua conta.",

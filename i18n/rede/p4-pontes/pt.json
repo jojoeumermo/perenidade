@@ -1,0 +1,80 @@
+{
+  "carregando": "Carregando…",
+  "erros": {
+    "desligado": "Isto ainda não está ligado.",
+    "sem_permissao": "Você não pode fazer isto.",
+    "nao_encontrado": "Não achamos isto, ou você não pode ver.",
+    "invalido:dominio": "Escreva só o nome do servidor, como mastodon.social.",
+    "invalido:propria": "Você não pode marcar a sua própria resposta.",
+    "so_comunidade_aberta": "Só comunidade aberta pode escolher a ponte.",
+    "generico": "Não deu certo. Tente de novo daqui a pouco."
+  },
+  "midia": {
+    "video": "Vídeo em {servidor}",
+    "audio": "Áudio em {servidor}",
+    "abrir": "Assistir no site de origem",
+    "ouvir": "Ouvir no site de origem",
+    "aviso": "Abre fora da Alumia: o servidor de lá passa a ver o seu acesso. A miniatura aqui vem pela Alumia."
+  },
+  "aprovados": {
+    "titulo": "Federar só com servidores aprovados",
+    "texto": "Ligado, a Alumia só conversa com os servidores desta lista (e com os subdomínios deles). Os outros contam como bloqueados: nada entra e nada sai. Ligar não apaga nada; desligar volta ao que era. O bloqueio fixo (Threads e Bridgy Fed) continua valendo.",
+    "modo": "Só servidores aprovados",
+    "campo": "Servidor (ex.: mastodon.social)",
+    "aprovar": "Aprovar",
+    "tirar": "Tirar",
+    "vazia": "Nenhum servidor aprovado ainda. Com o modo ligado e a lista vazia, a Alumia não conversa com ninguém de fora.",
+    "desde": "desde {data}"
+  },
+  "bluesky": {
+    "titulo": "Ponte com o Bluesky",
+    "texto": "Os posts públicos desta comunidade apareceriam no Bluesky pela ponte Bridgy Fed. A ponte está desligada por decisão do Instituto: a escolha fica guardada, mas nada sai enquanto a decisão não mudar.",
+    "escolher": "Quero a ponte quando ela for liberada",
+    "barrada": "A ponte está desligada por decisão do Instituto. Nada sai para o Bluesky.",
+    "fechada": "Só comunidade aberta pode escolher."
+  },
+  "avisos": {
+    "soSeguidos": "Menções e respostas só de quem eu sigo",
+    "soSeguidosAjuda": "As outras continuam na lista de avisos; só não chegam como notificação no aparelho."
+  },
+  "poucoUtil": {
+    "marcar": "Pouco útil",
+    "marcado": "Você marcou como pouco útil",
+    "ajuda": "Ninguém vê quem marcou nem quantas marcas há. A resposta só desce na conversa a partir de 3 marcas de pessoas diferentes. Não some nem é escondida."
+  },
+  "fio": {
+    "abrir": "Ler como texto",
+    "titulo": "O fio como texto",
+    "de": "Fio de {autor}",
+    "partes": "{n} partes",
+    "voltar": "Voltar à conversa",
+    "foco": "Modo foco",
+    "sairFoco": "Sair do modo foco",
+    "ouvir": "Ouvir",
+    "parar": "Parar",
+    "nota": "Só aparece o que você já pode ver. As respostas de outras pessoas ficam na conversa."
+  },
+  "salvos": {
+    "buscar": "Procurar nos salvos",
+    "ajuda": "A busca roda só neste aparelho: o servidor não sabe o que você procurou.",
+    "nenhum": "Nada nos salvos com “{termo}”.",
+    "achados": "{n} nos salvos"
+  },
+  "libras": {
+    "fixar": "Fixar na janela de Libras",
+    "tirar": "Tirar da janela de Libras",
+    "titulo": "Janela de Libras",
+    "maior": "Aumentar",
+    "menor": "Diminuir",
+    "lado": "Trocar de lado",
+    "ajuda": "Escolha quem está interpretando em Libras: a imagem fica fixa, sempre à vista, neste aparelho. A escolha não sai daqui."
+  },
+  "legendas": {
+    "ligar": "Legendas",
+    "desligar": "Tirar as legendas",
+    "titulo": "Legendas ao vivo",
+    "ajuda": "Feitas neste aparelho, pelo reconhecimento de fala do próprio navegador. Nada é gravado nem enviado. Podem errar.",
+    "semSuporte": "Este navegador não faz legendas sem mandar o áudio para fora; por isso, aqui elas não aparecem.",
+    "alguem": "Alguém"
+  }
+}

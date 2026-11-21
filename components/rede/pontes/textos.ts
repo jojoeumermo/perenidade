@@ -3,6 +3,7 @@
 // Os textos das pontes (frente 13E): i18n/rede/pontes/{pt,en,es,fr,ru,zh}.json (pt é o texto final; os outros têm "_rascunho": true
 // até a revisão). Um idioma por vez, por import dinâmico; o hook fica em usarTextos.ts.
 import type pt from "../../../i18n/rede/pontes/pt.json";
+import { prontoOu } from "../../../lib/rede/textos-prontos";
 
 export type TextosDasPontes = typeof pt;
 
@@ -11,7 +12,7 @@ const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"] as const;
 export async function carregarTextosDasPontes(lang: string): Promise<TextosDasPontes> {
   const l = (IDIOMAS as readonly string[]).includes(lang) ? lang : "pt";
   try {
-    return ((await import(`../../../i18n/rede/pontes/${l}.json`)) as { default: TextosDasPontes }).default;
+    return prontoOu(((await import(`../../../i18n/rede/pontes/${l}.json`)) as { default: TextosDasPontes }).default, async () => ((await import("../../../i18n/rede/pontes/pt.json")) as { default: TextosDasPontes }).default);
   } catch {
     return ((await import("../../../i18n/rede/pontes/pt.json")) as { default: TextosDasPontes }).default;
   }

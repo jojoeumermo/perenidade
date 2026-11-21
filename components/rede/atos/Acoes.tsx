@@ -18,6 +18,7 @@ import { podeMexer, MOLAS, vibrar } from "@/lib/rede/atos/movimento";
 import { enderecos } from "@/lib/rede/tipos";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
 import type { Ato } from "@/lib/rede/tipos-atos";
+import { entradaDaAlumia } from "@/lib/rede/alumia";
 
 export interface PropsDasAcoes {
   ato: Ato;
@@ -143,7 +144,7 @@ export function BotaoVou({ ato, t, lang, logado = true, tamanho = "m", className
   if (ato.situacao === "cancelado") return null;
   if (!logado) {
     return (
-      <LinkBotao href={`/${lang}/entrar`} variante="primario" tamanho={tamanho} className={className}>
+      <LinkBotao href={entradaDaAlumia(lang, "/alumia/atos")} variante="primario" tamanho={tamanho} className={className}>
         {t.acoes.entrarParaIr}
       </LinkBotao>
     );
@@ -332,7 +333,7 @@ export function ColunaDeAcoes({ ato, t, lang, logado = true, lembrete = false }:
         </div>
       ) : (
         <div className="al-ato-acao">
-          <Link href={`/${lang}/entrar`} className="al-ato-quadrado al-ato-quadrado-vou" aria-labelledby={`al-vou-${ato.id}`}>
+          <Link href={entradaDaAlumia(lang, "/alumia/atos")} className="al-ato-quadrado al-ato-quadrado-vou" aria-labelledby={`al-vou-${ato.id}`}>
             {Icone.visto(30)}
           </Link>
           <span id={`al-vou-${ato.id}`} className="al-ato-acao-rotulo">

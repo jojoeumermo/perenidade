@@ -1,0 +1,48 @@
+{
+  "titulo": "O app da Alumia",
+  "lead": "Para conversar na Alumia com o chat cifrado, use o app do celular ou do computador. O código do chat vai dentro do app: o que roda no seu aparelho não chega do servidor a cada vez que você abre. E cada versão fica registrada num livro público que qualquer pessoa pode conferir.",
+  "soApp": {
+    "titulo": "Para conversar, use o app",
+    "texto": "No site fica a rede social. O chat cifrado roda no app do celular ou do computador, com o código dentro dele e cada versão registrada num livro público.",
+    "baixar": "Baixar e conferir o app",
+    "voltar": "Voltar à Alumia"
+  },
+  "baixar": {
+    "titulo": "Baixar",
+    "android": "Android",
+    "windows": "Windows",
+    "macos": "macOS",
+    "linux": "Linux",
+    "iphone": "Ainda não há app para iPhone. Quem usa iPhone continua conversando pelo site enquanto o chat do site estiver aberto.",
+    "semVersao": "Nenhuma versão foi publicada ainda. Quando houver, ela aparece aqui, com o resumo de cada arquivo e o registro no livro público.",
+    "versao": "Versão {versao}",
+    "arquivo": "Arquivo",
+    "para": "Para",
+    "tamanho": "Tamanho",
+    "resumo": "Resumo SHA-256",
+    "livro": "No livro público",
+    "entrada": "entrada {indice}",
+    "pacote": "pacote de conferência"
+  },
+  "conferir": {
+    "titulo": "Conferir antes de instalar",
+    "texto": "Cada arquivo dos apps é assinado pelo fluxo de lançamento do repositório público do Instituto, numa tag de versão, e registrado no Rekor, o livro público de assinaturas do Sigstore. Ninguém guarda uma chave que possa assinar por fora: a assinatura sai da identidade do fluxo, e o livro torna cada uma pública para sempre.",
+    "passos": [
+      "Baixe o arquivo e o pacote de conferência dele (o arquivo com o mesmo nome terminado em .sigstore.json).",
+      "Confira com um dos comandos abaixo. Os dois dizem se o arquivo é exatamente o que o fluxo assinou e se a assinatura está no livro.",
+      "Só instale se a conferência passar. Se der errado, não instale e avise a coordenação."
+    ],
+    "comandoNode": "Com o código do repositório (Node 22 ou mais novo):",
+    "comandoCosign": "Com a ferramenta oficial do Sigstore:",
+    "roteiro": "Roteiro para montar o app do zero e chegar ao mesmo arquivo",
+    "trocar": "Troque {versao} pela versão e {arquivo} pelo nome do arquivo."
+  },
+  "sistema": {
+    "titulo": "O aviso do Windows e do macOS",
+    "texto": "O app não tem a assinatura paga da Microsoft nem a da Apple. Por isso o sistema avisa que o programa vem de origem desconhecida. A confiança vem de outro lugar: do livro público e do build reproduzível. Confira o resumo antes de abrir."
+  },
+  "atualizacao": {
+    "titulo": "Atualizações",
+    "texto": "O app só instala uma atualização que esteja no livro público, assinada pelo fluxo de lançamento do repositório. Fora do livro, ele recusa e diz por quê. Uma versão instalada por outro caminho que não esteja no livro abre, mas o chat não abre."
+  }
+}

@@ -6,6 +6,7 @@ import { somaDaEnquete } from "@/lib/rede/stories/visual";
 import type { TextosDosStories } from "@/lib/rede/textos-stories";
 import { LIMITES_DO_STORY, type FigurinhaEnquete } from "@/lib/rede/tipos-stories";
 import { preencherStory } from "../stories/usar";
+import { PorQueSemNumero } from "../uso/PorQueSemNumero";
 
 type T = TextosDosStories["figurinha"]["enquete"];
 
@@ -43,6 +44,7 @@ export function EnqueteVer({ f, t, nome, meu, ocupado, aoVotar }: { f: Figurinha
       </div>
       <p className="al-fg-nota" aria-live="polite">
         {meu ? (soma ? `${preencherStory(t.total, { n: soma.total })} · ${t.notaAutora}` : `${t.poucas} ${t.notaAutora}`) : votei ? t.votou : preencherStory(t.nota, { nome })}
+        {meu && !soma ? <PorQueSemNumero motivo="piso" /> : null}
       </p>
     </div>
   );

@@ -113,7 +113,8 @@ export const dadosDaFuncao = (id: FuncaoDaMesa): DadosDaFuncao => FUNCOES_DA_MES
 
 /**
  * De qual função é cada papel do banco. Supervisão fica com a Coordenação (acompanha a equipe e a segurança); Design vai
- * para Comunicação (a arte é do Marketing, B10). Representante e quem não tem papel ficam na Geral.
+ * para Comunicação (a arte é do Marketing, B10). Representante, parceiro do instituto (por território) e quem não tem papel ficam
+ * na Geral.
  */
 export const FUNCAO_DO_PAPEL: Record<string, FuncaoDaMesa> = {
   coordenacao: "coordenacao",

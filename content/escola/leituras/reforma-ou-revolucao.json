@@ -1,0 +1,53 @@
+{
+  "obra": "reforma-ou-revolucao",
+  "titulo": "Reforma ou Revolução?",
+  "revisao": "em-revisao",
+  "apresentacao": "Leia uma parte por vez, na edição indicada na ficha do Acervo, e responda com as suas palavras. Não há resposta certa para decorar: as perguntas ajudam a entender o texto e a discutir em grupo.",
+  "secoes": [
+    {
+      "id": "o-debate",
+      "titulo": "Introdução: do que se trata",
+      "referencia": "A introdução: o debate dentro da social-democracia alemã com as ideias de Eduard Bernstein, e a pergunta que dá nome ao livro.",
+      "perguntas": [
+        "Qual era a proposta de Bernstein, segundo Rosa Luxemburgo?",
+        "Para a autora, reforma e revolução são caminhos opostos? Qual é a relação entre as duas, segundo a introdução?"
+      ]
+    },
+    {
+      "id": "a-adaptacao-do-capitalismo",
+      "titulo": "Primeira parte: o capitalismo se adapta?",
+      "referencia": "A primeira parte: a ideia de que o crédito, os cartéis e outras mudanças teriam acabado com as crises, e a resposta da autora.",
+      "perguntas": [
+        "Que argumentos Bernstein usava para dizer que o capitalismo tinha aprendido a evitar as crises?",
+        "Como Rosa Luxemburgo responde? Você vê esse debate hoje?"
+      ]
+    },
+    {
+      "id": "reformas-e-socialismo",
+      "titulo": "Reformas sociais, sindicatos e cooperativas",
+      "referencia": "As partes sobre a realização do socialismo por meio de reformas sociais, sobre os sindicatos, as cooperativas e a democracia política.",
+      "perguntas": [
+        "Para a autora, para que servem as reformas e os sindicatos? E o que eles não podem fazer sozinhos?",
+        "O que o texto diz sobre as cooperativas dentro do capitalismo?"
+      ]
+    },
+    {
+      "id": "conquista-do-poder",
+      "titulo": "A conquista do poder político",
+      "referencia": "A parte sobre a conquista do poder político e as consequências práticas do revisionismo.",
+      "perguntas": [
+        "Por que, segundo Rosa Luxemburgo, quem escolhe só as reformas acaba escolhendo outro objetivo?",
+        "Explique com as suas palavras a relação entre a luta do dia a dia e o objetivo final."
+      ]
+    },
+    {
+      "id": "para-conversar",
+      "titulo": "Para conversar",
+      "referencia": "O texto inteiro, depois da leitura.",
+      "perguntas": [
+        "Que debate de hoje na esquerda lembra o deste livro? Onde você se coloca, e por quê?",
+        "Que pergunta você levaria para discutir em grupo?"
+      ]
+    }
+  ]
+}

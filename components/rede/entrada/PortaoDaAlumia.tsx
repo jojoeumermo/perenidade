@@ -30,6 +30,9 @@ import { enderecoDoSite } from "../VoltarAoSite";
 import { Cena } from "./Cena";
 import { Caminho, enviarPedido, raizDaAlumia, FormCriar, FormEntrar, FormNovaSenha, FormPedido, lerPedidoGuardado, Mensagem } from "./Formularios";
 import { CadastrarFator, PedirCodigo } from "./SegundoFator";
+// R1 (A3.2): a situação do pedido em quatro passos e os códigos de recuperação logo depois do aplicativo.
+import { CodigosNaEntrada, etapaDe, SituacaoDoPedido } from "../uso/NaEntrada";
+import { useTextosDoUso } from "../uso/textos";
 import { ProvedorDeVoce, useVoce } from "./Voce";
 // A porta de entrada (onda 8) pendura aqui pelo encaixe dela: a página do convite abre sem conta.
 import { LIVRES_DA_PORTA } from "../convites/encaixe-da-entrada";
@@ -37,6 +40,8 @@ import { LIVRES_DA_PORTA } from "../convites/encaixe-da-entrada";
 interface EuNaEntrada {
   logado: boolean;
   situacao?: "sem_pedido" | "em_analise" | "aprovada" | "recusada" | "suspensa" | "sem_conta";
+  /** R1: "na_fila" enquanto ninguém da triagem viu o pedido, "em_analise" depois (o banco nunca diz quem viu nem quando). */
+  etapa?: string | null;
   direto?: boolean;
   aal2?: boolean;
   codinome?: string | null;
@@ -58,15 +63,17 @@ type Fase =
   | { f: "recusada"; eu: EuNaEntrada; pode: boolean }
   | { f: "suspensa" }
   | { f: "fator-cadastrar" }
+  | { f: "codigos" }
   | { f: "fator-codigo"; fator: string; conta: string }
   | { f: "dentro" };
 
 /**
  * Telas da Alumia que abrem sem conta: o que guardamos, a transparência e, da onda 8, os termos, a privacidade, as regras e a ajuda
  * (informação pública sobre a própria rede; quem teve a conta suspensa pede a revisão pelas regras) e, da onda 9, o guia "Sem sinal?"
- * do modo ato (abre sem sessão e sem rede, no dia do ato).
+ * do modo ato (abre sem sessão e sem rede, no dia do ato), da onda R3, a página de baixar e conferir o app (/alumia/app), e do P5
+ * a página de denúncia da Alumia (/alumia/denunciar), que vale para quem está sem conta.
  */
-const LIVRES = /\/(o-que-guardamos|transparencia|termos|privacidade|regras|ajuda|modo-ato\/sem-sinal)\/?$/;
+const LIVRES = /\/(o-que-guardamos|transparencia|termos|privacidade|regras|ajuda|denunciar|modo-ato\/sem-sinal|app)\/?$/;
 /**
  * O diretório das organizações com selo ("Traga sua organização"): com a trava ligada continua visível para quem não tem sessão
  * (o banco deixa rede_org_diretorio e rede_org_mapa abertas: 20261113-alumia-o7-entrada.sql). Quem tem sessão e ainda não passou
@@ -94,7 +101,11 @@ function faseDaPrevia(nome: string | null): Fase | null {
     case "pedido":
       return { f: "pedido", eu: { ...eu, codinome: null } };
     case "analise":
-      return { f: "analise", eu: { ...eu, situacao: "em_analise" } };
+      return { f: "analise", eu: { ...eu, situacao: "em_analise", etapa: "em_analise" } };
+    case "fila":
+      return { f: "analise", eu: { ...eu, situacao: "em_analise", etapa: "na_fila" } };
+    case "codigos":
+      return { f: "codigos" };
     case "recusada":
       return { f: "recusada", pode: false, eu: { ...eu, situacao: "recusada", motivo_recusa: "Pedido de exemplo, sem relação com a organização.", pedir_de_novo_em: new Date(Date.now() + 20 * 86_400_000).toISOString() } };
     default:
@@ -147,6 +158,8 @@ function nomeDaTela(t: TextosDaEntrada, fase: Fase): string {
       return `${t.p.carimbos.aprovada}. ${t.fatorTitulo}`;
     case "fator-codigo":
       return t.codigoTitulo;
+    case "codigos":
+      return t.p.carimbos.aprovada;
     default:
       return "";
   }
@@ -162,6 +175,7 @@ function Portao({ lang, t, figuras, site: siteDoServidor, comDiretorio = false, 
   const [fase, setFase] = useState<Fase>({ f: "conferindo" });
   const [vez, setVez] = useState(0);
   const conferirDeNovo = useCallback(() => setVez((v) => v + 1), []);
+  const tu = useTextosDoUso(lang);
 
   useEffect(() => {
     let vivo = true;
@@ -172,7 +186,7 @@ function Portao({ lang, t, figuras, site: siteDoServidor, comDiretorio = false, 
         // recusada, suspensa, atualizando) mostra a tela pedida, para conferir os formulários. Nada é enviado.
         const pedida = previaDaAlumiaLigada() ? faseDaPrevia(new URLSearchParams(window.location.search).get("portao")) : null;
         if (vivo && pedida && "eu" in pedida && pedida.eu.codinome) definirCodinome(pedida.eu.codinome);
-        if (vivo && pedida && (pedida.f === "fator-cadastrar" || pedida.f === "fator-codigo")) definirCodinome("Faísca");
+        if (vivo && pedida && (pedida.f === "fator-cadastrar" || pedida.f === "fator-codigo" || pedida.f === "codigos")) definirCodinome("Faísca");
         return ir(pedida ?? { f: "sem-servico" });
       }
       const url = window.location.hash + window.location.search;
@@ -275,7 +289,11 @@ function Portao({ lang, t, figuras, site: siteDoServidor, comDiretorio = false, 
     cartao.current?.querySelector<HTMLElement>("[data-ale-foco]")?.focus();
   }, [fase.f]);
 
-  if (fase.f === "dentro" || LIVRES.test(caminho) || LIVRES_DA_PORTA.test(caminho) || (fase.f === "fora" && DIRETORIO.test(caminho))) return <>{children}</>;
+  // P5 (A3): "Entrar" e "Criar conta" de qualquer tela da Alumia trazem ?entrar ou ?criar (lib/rede/alumia.ts, entradaDaAlumia):
+  // aí o portão aparece também nas telas que abrem sem conta (o diretório das organizações, os termos), e depois de entrar a
+  // pessoa fica na mesma tela.
+  const pedeEntrada = hidratado && /[?&](entrar|criar)(?:[=&]|$)/.test(window.location.search);
+  if (fase.f === "dentro" || (!pedeEntrada && (LIVRES.test(caminho) || LIVRES_DA_PORTA.test(caminho) || (fase.f === "fora" && DIRETORIO.test(caminho))))) return <>{children}</>;
 
   const diretorio = comDiretorio ? (hidratado ? `${raizDaAlumia(lang).replace(/\/$/, "")}/organizacoes` : `/${lang}/alumia/organizacoes`) : null;
   const titulo = (texto: string) => (
@@ -345,9 +363,10 @@ function Portao({ lang, t, figuras, site: siteDoServidor, comDiretorio = false, 
       return cena(
         <>
           <Caminho t={t} agora={2} />
-          <span className="ale-carimbo ale-carimbo-ouro">{t.p.carimbos.analise}</span>
+          <span className="ale-carimbo ale-carimbo-ouro">{etapaDe(fase.eu) === "na_fila" && tu ? tu.entrada.passos.na_fila : t.p.carimbos.analise}</span>
           {titulo(t.analiseTitulo)}
           <p className="ale-cartao-texto">{t.analiseTexto}</p>
+          <SituacaoDoPedido lang={lang} etapa={etapaDe(fase.eu) === "na_fila" ? "na_fila" : "em_analise"} />
           {(fase.eu.codinome || fase.eu.pedido_em) && (
             <p className="ale-ajuda">
               {fase.eu.codinome ? <b>{fase.eu.codinome}</b> : null}
@@ -370,6 +389,7 @@ function Portao({ lang, t, figuras, site: siteDoServidor, comDiretorio = false, 
           <span className="ale-carimbo ale-carimbo-cinza">{t.p.carimbos.recusada}</span>
           {titulo(t.recusadaTitulo)}
           <p className="ale-cartao-texto">{t.recusadaTexto}</p>
+          <SituacaoDoPedido lang={lang} etapa="recusada" />
           {fase.eu.motivo_recusa && <Mensagem tipo="info"><strong>{t.recusadaMotivo}:</strong> {fase.eu.motivo_recusa}</Mensagem>}
           {pode ? (
             <FormPedido t={t} lang={lang} codinomeInicial={fase.eu.codinome ?? ""} motivoInicial="" versao={fase.eu.regras_versao ?? 1} aoEnviar={conferirDeNovo} />
@@ -397,7 +417,15 @@ function Portao({ lang, t, figuras, site: siteDoServidor, comDiretorio = false, 
         <>
           <Caminho t={t} agora={3} />
           <span className="ale-carimbo ale-carimbo-vermelho">{t.p.carimbos.aprovada}</span>
-          <CadastrarFator t={t} aoConfirmar={conferirDeNovo} aoSair={sair} />
+          <CadastrarFator t={t} aoConfirmar={() => setFase({ f: "codigos" })} aoSair={sair} />
+        </>,
+      );
+    case "codigos":
+      return cena(
+        <>
+          <Caminho t={t} agora={3} />
+          <span className="ale-carimbo ale-carimbo-vermelho">{t.p.carimbos.aprovada}</span>
+          <CodigosNaEntrada lang={lang} aoPronto={conferirDeNovo} />
         </>,
       );
     case "fator-codigo":

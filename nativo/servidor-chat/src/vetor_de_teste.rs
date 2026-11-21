@@ -1,0 +1,10 @@
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+//
+// Um vetor de teste de verdade, feito pelo TypeScript (lib/rede/passes/servidor.ts, emitirLote, com uma chave RSA de teste sorteada
+// só para isto e jogada fora): a chave pública da semana 2969, um passe geral e um passe da mesma chave com contexto (que não
+// vale como passe geral). Prova que o Rust confere o que o site emite. Só nos testes.
+
+pub const SEMANA: i64 = 2969;
+pub const SPKI: &str = "MIIBUjA9BgkqhkiG9w0BAQowMKANMAsGCWCGSAFlAwQCAqEaMBgGCSqGSIb3DQEBCDALBglghkgBZQMEAgKiAwIBMAOCAQ8AMIIBCgKCAQEAuvcZSTKyw8I4_P13A-wPJeOtWAIgKDCj82ir4uEYDGGrS8VFyIPfeAfwfR2NGBCefwZJZwrw-Ho1rmW65Zh-XqCX-0EZrUkbUpe0OxYDFaA-cb5S5Eq5ZkJGV6HTSG9OJl7LZ-ho2F2GZWSIlXfPMtAHvqC3iBsWSAhNSP33ZEYmkYvdL-YihbMBXZdXM3WkxNFWbiyClqQ49YKiFnDf4FOnINhxlkf69n8KHbayON-X3B4rY5_EeI5eU8E8KFfpAblBvQCDNkZZcCMUprZH1lAKEz-_P-UXb-pVUEczWdUKjLWQPzX5asVkfJzkleR0s0nl9QB8OtVTBllJp8281wIDAQAB"; // gitleaks:allow (valor de teste)
+pub const PASSE: &str = "AAIT0dzFDM12gE9QRAX29voSU65yIuE-fQt3fw-CIt4P92jMCzCdmw5ahAslvUKuQoAHd-IzeVte9bfOmuqVuTAlMhbV16NJdus9_wSSB4fXUKmI4CPIaC2YhPH6-bpM1hWyuqyCo3HTWbNpJVa4lxeewD8fdXUaP2QZzpAow2NaqhjheNxFXaEQLbXFDOT0WDH0uRt1j75wDYXv-1spNpKRQ4OJNiFMouCTRx03TbcGooqjK8aG_BVCY7Br403RXvkulQUCVcccWll2aQw7UeH3cQTEO9JsGTg4FLECYKsA17kKeH8xq64LFb5JYikR4SoWrn4Tl5LOC1O900J8usI0RAbUgO9x1SX9W9TmzOt4ftUstVVXVWQg3iU3jFgLqR4WOYPqHdJpuQVHTIR3wR6dKcZgYTvM58CfO3odqYJw-vC3gdKqy97uO9HLtJC9TYncY3EBywtB1unbSq4S2odP"; // gitleaks:allow (valor de teste)
+pub const COM_CONTEXTO: &str = "AALjcgAn19QlEz8RPbldQBXeLtzaz-IaoewzSoD6Gt4NfWHRtVSKotFE9pBuoUxDbzAVNsgx7WB9fNP2yDIu9GJfMhbV16NJdus9_wSSB4fXUKmI4CPIaC2YhPH6-bpM1hVXs1vQw4gO7KAE1BBpTUUPJFRpTegZi9m8CA_DkNso00o7m9RuhUJpPFvJ0JzEPR8nHa6XMWg3XfuDFNqd7b-ovxF0RKvIp-jztDxvLdcZ_a8HlbaUNEZf_0Nq3ivjHf_VF-eLW8O0ShG4nqsLrfmIKfOiNB329Xv6XrG6WAWq7N_mk21HZ1fvgyTBq6ZR_ihekz2viBuNHtaq1ysPCCbnOkcsoKPgQswwQEQfabWzjehjnNHS6V3lal8kZ2oba-VL9UcvYY6mlAB6Oyt8g-QvEWT6BpiQwT3mOgMxF546cwx-63Zd7Vbj2KhDQTwzVGDrj3TgaJOCrg8fJ5KS3xT7"; // gitleaks:allow (valor de teste)

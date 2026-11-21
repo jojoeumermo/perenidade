@@ -1,0 +1,150 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/* Prompt 4, itens 1 e 6: o conteúdo protegido contra print (no navegador) e o "ativo recentemente". Nada anima. */
+
+[data-p4-protegido] {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+[data-p4-protegido] img,
+[data-p4-protegido] video {
+  -webkit-user-drag: none;
+}
+.p4-protegido {
+  position: relative;
+}
+/* A janela saiu da frente: o conteúdo some (não só fica coberto) e a capa fica no lugar. */
+[data-p4-escondido] > :not(.p4-capa):not(.p4-marca) {
+  visibility: hidden !important;
+}
+/* Na impressão (Ctrl+P, "salvar como PDF"), o conteúdo protegido não sai. */
+@media print {
+  [data-p4-protegido] {
+    visibility: hidden !important;
+  }
+}
+
+/* A marca d'água: o codinome de quem lê, repetido em diagonal, discreto, sem pegar o toque. */
+.p4-marca {
+  position: absolute;
+  inset: -20%;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  justify-content: space-around;
+  gap: 2.5rem 3rem;
+  overflow: hidden;
+  transform: rotate(-24deg);
+  pointer-events: none;
+  opacity: 0.16;
+  color: #ffffff;
+  mix-blend-mode: difference;
+  font: 700 0.8rem/1 system-ui, sans-serif;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.p4-protegido > .p4-marca {
+  inset: 0;
+  gap: 0.6rem 1rem;
+  font-size: 0.6rem;
+  transform: none;
+}
+
+/* A capa de quando a janela saiu da frente: opaca, cobre tudo. */
+.p4-capa {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: #0f1730;
+  color: #f3efe6;
+  font: 600 0.95rem/1.35 system-ui, sans-serif;
+  text-align: center;
+}
+.p4-protegido > .p4-capa {
+  font-size: 0.65rem;
+  padding: 0.25rem;
+  border-radius: inherit;
+}
+
+/* O aviso fixo do limite, pequeno, no pé do conteúdo protegido. */
+.p4-aviso-fixo {
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: calc(5.5rem + var(--recuo-baixo, 0px));
+  z-index: 4;
+  pointer-events: none;
+  color: #f3efe6;
+  font: 500 0.7rem/1.3 system-ui, sans-serif;
+  text-align: center;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.8);
+}
+
+/* "ativo recentemente" no perfil (só para a roda de confiança). */
+.p4-recente {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.p4-recente::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: #2f9e5b;
+}
+
+/* Os ajustes: cada escolha é uma linha inteira de toque (44 px no mínimo). */
+.p4-ajustes {
+  display: grid;
+  gap: 0.75rem;
+}
+.p4-escolha {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  min-height: 44px;
+  padding: 0.5rem 0;
+  cursor: pointer;
+}
+.p4-escolha input {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.1rem 0 0;
+}
+.p4-escolha small {
+  display: block;
+  margin-top: 0.25rem;
+  font-weight: 400;
+  opacity: 0.85;
+}
+.p4-nota {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+
+/* A foto de perfil protegida: a própria moldura redonda é o conteúdo protegido; a marca e a capa ficam dentro do círculo. */
+.pf-rosto-moldura[data-p4-protegido] {
+  overflow: hidden;
+}
+.pf-rosto-moldura[data-p4-protegido] > .p4-marca {
+  inset: 0;
+  gap: 0.3rem 0.6rem;
+  font-size: 0.55rem;
+  transform: none;
+}
+.pf-rosto-moldura[data-p4-protegido] > .p4-capa {
+  padding: 0.5rem;
+  border-radius: 50%;
+  font-size: 0.6rem;
+}

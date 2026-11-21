@@ -61,7 +61,8 @@
       "pessoa": "@ Personne",
       "campanha": "#Campagne",
       "resposta": "Réponse",
-      "decorativa": "Décor"
+      "decorativa": "Décor",
+      "teste": "Quiz"
     },
     "quemVe": "Qui voit",
     "publico": {
@@ -88,7 +89,7 @@
     "vazio": "Écrivez un texte, dessinez, prenez une photo ou choisissez dans la galerie.",
     "deUmPost": "Story à partir d'une publication : le lien l'accompagne.",
     "erro": {
-      "grande": "Image trop lourde (3 Mo maximum une fois prête).",
+      "grande": "Image trop lourde (jusqu’à 6 Mo une fois prête).",
       "invalida": "Impossible de lire cette image. Utilisez JPG, PNG ou WEBP.",
       "link": "Le lien doit commencer par https:// et avoir une adresse valide.",
       "ato": "Choisissez une action pour le compte à rebours.",
@@ -98,7 +99,10 @@
       "semConta": "Connectez-vous pour publier.",
       "limite": "Vous avez publié beaucoup de stories à l'instant. Patientez un peu.",
       "banco": "La base de données n'a pas encore les stories (la mise à jour du serveur manque).",
-      "falha": "Publication impossible. Réessayez."
+      "semHandle": "Pour publier une story, choisissez d’abord votre @nom dans Modifier le profil.",
+      "falha": "Publication impossible. Réessayez.",
+      "teste": "Écrivez la question et au moins deux options différentes du quiz, et marquez la bonne.",
+      "contagemLivre": "Nommez le compte à rebours et choisissez une heure future (jusqu’à un an)."
     },
     "camera": "Caméra",
     "galeriaAjuda": "Photo ou vidéo (jusqu'à 60 s)",
@@ -160,7 +164,14 @@
       "foto": "Photo de la story",
       "semMetadadoVideo": "La vidéo est refaite sur votre appareil en 720p : sans localisation ni données de l'appareil photo.",
       "altVideo": "Décrivez la vidéo pour qui ne voit pas (facultatif)",
-      "lendo": "Ouverture de la vidéo…"
+      "lendo": "Ouverture de la vidéo…",
+      "ajustes": {
+        "titulo": "Réglages",
+        "brilho": "Luminosité",
+        "contraste": "Contraste",
+        "saturacao": "Saturation",
+        "zerar": "Revenir à la normale"
+      }
     },
     "progresso": {
       "preparando": "Préparation de la vidéo sur votre appareil… {pct} %",
@@ -195,7 +206,15 @@
       "desavisar": "Ne plus me prévenir",
       "comecou": "Déjà commencé",
       "verAto": "Voir l'action",
-      "falta": "Encore {dias} jours, {horas} heures et {min} minutes avant {titulo}"
+      "falta": "Encore {dias} jours, {horas} heures et {min} minutes avant {titulo}",
+      "rotuloLivre": "Compte à rebours",
+      "seg": "Sec",
+      "tipo": "Compte à rebours pour",
+      "doAto": "Une action",
+      "livre": "Un autre moment",
+      "nomeDoMomento": "Ce qui va se passer",
+      "nomeVazio": "Assemblée, grève, fête…",
+      "quando": "Quand"
     },
     "pergunta": {
       "rotulo": "Question",
@@ -230,6 +249,26 @@
       "nenhuma": "Vous n'êtes encore dans aucune communauté.",
       "carregando": "Chargement de vos communautés…",
       "abrir": "Ouvrir la communauté {nome}"
+    },
+    "teste": {
+      "rotulo": "Quiz",
+      "pergunta": "Question du quiz",
+      "perguntaVazia": "Posez une question",
+      "opcao": "Option {n}",
+      "qualCerta": "Quelle est la bonne réponse",
+      "marcarCerta": "Marquer l’option {n} comme la bonne",
+      "tirarOpcao": "Retirer l’option {n}",
+      "maisOpcao": "+ Option",
+      "notaCriar": "Touchez la lettre de la bonne réponse. Vous seule voyez combien de personnes ont choisi chaque option, et seulement à partir de 3. Personne ne voit qui a répondu.",
+      "certa": "la bonne",
+      "errada": "la vôtre, fausse",
+      "total": "{n} réponses",
+      "notaAutora": "Vous seule voyez le total. Personne ne voit qui a répondu.",
+      "poucas": "Peu de personnes ont répondu : le total apparaît à partir de 3.",
+      "nota": "Le total reste avec {nome}. Votre nom n’apparaît pas.",
+      "acertou": "Bonne réponse !",
+      "errou": "Pas cette fois. La bonne est marquée.",
+      "jaRespondeu": "Vous avez déjà répondu à ce quiz."
     }
   },
   "visor": {
@@ -642,5 +681,65 @@
       "porNoStory": "Mettre en story",
       "ajuda": "Crée une story avec la carte de cette action (date et ville ; disparaît en 24 h)"
     }
+  },
+  "p5": {
+    "abasRotulo": "Quoi mettre dans la story",
+    "abas": {
+      "figurinhas": "Autocollants",
+      "enfeites": "Décorations",
+      "midia": "Photo et vidéo"
+    },
+    "quadros": {
+      "titulo": "Cadres",
+      "ajuda": "Chaque cadre devient une story, dans l’ordre, l’une après l’autre.",
+      "novo": "Nouveau cadre",
+      "ir": "Aller au cadre {n}",
+      "atual": "Cadre {n} (en cours)",
+      "tirar": "Retirer ce cadre",
+      "limite": "Vous avez atteint {max} cadres.",
+      "vazio": "Cadre {n} vide",
+      "progresso": "Cadre {k} sur {n}",
+      "erroNoQuadro": "Cadre {n} : {erro}"
+    },
+    "colagem": {
+      "botao": "Collage",
+      "titulo": "Collage de photos",
+      "modelo": "Modèle",
+      "modelos": {
+        "dupla": "Deux, l’une au-dessus de l’autre",
+        "lado": "Deux côte à côte",
+        "tres": "Trois",
+        "quatro": "Quatre"
+      },
+      "escolher": "Choisir la photo {n}",
+      "trocar": "Changer la photo {n}",
+      "usar": "Utiliser le collage",
+      "cancelar": "Annuler",
+      "falta": "Choisissez toutes les photos.",
+      "ajuda": "Les photos sont refaites ici, sans localisation ni données de l’appareil.",
+      "fundo": "Couleur entre les photos",
+      "lendo": "Montage du collage…"
+    },
+    "rascunhos": {
+      "botao": "Brouillons",
+      "titulo": "Brouillons de story",
+      "guardar": "Enregistrer le brouillon",
+      "guardado": "Brouillon enregistré seulement sur cet appareil.",
+      "abrir": "Ouvrir",
+      "apagar": "Supprimer",
+      "apagarTodos": "Tout supprimer",
+      "vazio": "Aucun brouillon sur cet appareil.",
+      "aviso": "Les brouillons restent seulement sur cet appareil (rien ne va au serveur) et disparaissent en 30 jours. Qui prend l’appareil déverrouillé peut les voir ; « Tout quitter » les supprime.",
+      "quadros": "{n} cadres",
+      "umQuadro": "1 cadre",
+      "fechar": "Fermer",
+      "modoSeguro": "En mode sûr, rien n’est enregistré sur l’appareil.",
+      "grande": "Vidéo trop lourde pour un brouillon.",
+      "falha": "Impossible d’enregistrer sur cet appareil.",
+      "substituir": "Ouvrir le brouillon à la place de ce qui est à l’écran ?",
+      "substituirSim": "Ouvrir",
+      "semArmazenamento": "Ce navigateur ne permet pas d’enregistrer des brouillons."
+    },
+    "alta": "La photo part en haute résolution et dans une version plus petite, qui s’ouvre tout de suite."
   }
 }

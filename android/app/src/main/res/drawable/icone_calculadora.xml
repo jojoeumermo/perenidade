@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). Ícone do disfarce "Calculadora". -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="48dp" android:height="48dp" android:viewportWidth="48" android:viewportHeight="48">
+    <path android:fillColor="#FF37474F" android:pathData="M8,2h32a4,4 0,0 1,4 4v36a4,4 0,0 1,-4 4h-32a4,4 0,0 1,-4 -4v-36a4,4 0,0 1,4 -4z" />
+    <path android:fillColor="#FFB2DFDB" android:pathData="M10,8h28v9h-28z" />
+    <path android:fillColor="#FFECEFF1" android:pathData="M10,21h7v6h-7zM20.5,21h7v6h-7zM31,21h7v6h-7zM10,30h7v6h-7zM20.5,30h7v6h-7zM10,39h7v4h-7zM20.5,39h7v4h-7z" />
+    <path android:fillColor="#FFFF7043" android:pathData="M31,30h7v13h-7z" />
+</vector>

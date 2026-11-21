@@ -1,10 +1,12 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-// Vale o Escrito, pacote "mapa": o Mapa do Brasil neon (visão "mapa" da página). MapLibre GL desenha SÓ as malhas do IBGE
-// geradas em arquivo (public/vale-o-escrito/malhas/, por scripts/vale-o-escrito/gerar-malhas.mjs) sobre fundo preto: não
-// há tiles, glifos nem estilo de terceiros, então nenhuma requisição sai do site (sem rastreio). Zoom em três níveis
-// nomeados: país (27 UFs) → estado (municípios da UF) → município. Cada caso é um ponto neon na cor do dossiê; clicar abre a
+// Vale o Escrito, pacote "mapa": o mapa neon do mundo (visão "mapa" da página; Prompt 5, C1). MapLibre GL desenha SÓ malhas
+// geradas em arquivo (public/vale-o-escrito/malhas/): o mundo da Natural Earth 1:110m, domínio público
+// (scripts/vale-o-escrito/gerar-mundo.mjs), e o Brasil do IBGE (scripts/vale-o-escrito/gerar-malhas.mjs), sobre fundo preto: não
+// há tiles, glifos nem estilo de terceiros, então nenhuma requisição sai do site (sem rastreio). Zoom em quatro níveis
+// nomeados: mundo → país (no Brasil, as 27 UFs) → estado (municípios da UF) → município. Fora do Brasil o mapa para no país
+// (o caso fica no centro dele, "local aproximado"). Cada caso é um ponto neon na cor do dossiê; clicar abre a
 // ficha (aoEscolher). O peso (maplibre-gl) só é baixado quando este componente monta, isto é, quando a visão Mapa abre:
 // o import é dinâmico, dentro do efeito. Substitui o marcador do pacote visual mantendo as props de PropsDoMapa
 // (lib/vale-o-escrito/visual.ts) e o export default; textosMapa (chave "mapa" do i18n) e baseDasMalhas são opcionais.
@@ -53,6 +55,9 @@ export interface TextosDoMapa {
   ativarMovimento?: string;
   fecharRamos?: string;
   abrirFonte?: string;
+  /** Prompt 5, C1 (mapa do mundo); opcionais pelo mesmo motivo. */
+  mundo?: string;
+  aproximadoPais?: string;
 }
 
 const TEXTOS_PT: TextosDoMapa = {
@@ -66,8 +71,8 @@ const TEXTOS_PT: TextosDoMapa = {
   casosAqui: "Casos neste ponto",
   abrirFicha: "Abrir a ficha",
   listaDeCasos: "Casos no mapa (lista para teclado e leitor de tela)",
-  aria: "Mapa do Brasil com os casos publicados, por estado e município",
-  credito: "Malhas territoriais: IBGE. Sem mapa de terceiros e sem rastreio.",
+  aria: "Mapa do mundo com os casos publicados; no Brasil, também por estado e município",
+  credito: "Malhas: Natural Earth (mundo, domínio público) e IBGE (Brasil). Sem mapa de terceiros e sem rastreio.",
   nivel: "Nível do mapa",
   aproximado: "local aproximado (centro do estado)",
   ramos: "Ligações do caso",
@@ -75,6 +80,8 @@ const TEXTOS_PT: TextosDoMapa = {
   ativarMovimento: "Ativar movimento",
   fecharRamos: "Fechar ramificações",
   abrirFonte: "Abrir a fonte",
+  mundo: "Mundo",
+  aproximadoPais: "local aproximado (centro do país)",
 };
 
 /** Quantas ramificações o ponto abre de uma vez (o resto fica na ficha). */
@@ -86,7 +93,33 @@ export type PropsDoMapaNeon = PropsDoMapa & { baseDasMalhas?: string };
 
 const BASE_PADRAO = "/vale-o-escrito/malhas/";
 const CAIXA_BRASIL: Caixa = [-74, -34, -34, 5.6];
-const NIVEIS: readonly NivelDeZoom[] = ["pais", "estado", "municipio"];
+// O mundo sem a Antártida (que a malha não traz) e sem os polos: é o que cabe na tela de um celular em pé.
+const CAIXA_MUNDO: Caixa = [-168, -56, 180, 75];
+const NIVEIS: readonly NivelDeZoom[] = ["mundo", "pais", "estado", "municipio"];
+/** O centro do Brasil, para caso brasileiro sem UF (o IBGE não tem um "centro do país" pronto). */
+const CENTRO_DO_BRASIL: Par = [-51.9, -10.8];
+
+/** O nome do país no idioma da página, pelo próprio navegador (Intl); sem ele, o código. */
+function nomeDoPais(iso: string, idioma: string | undefined, reserva?: string): string {
+  if (!iso) return reserva || "";
+  try {
+    return new Intl.DisplayNames([idioma || "pt", "pt"], { type: "region" }).of(iso) ?? reserva ?? iso;
+  } catch {
+    return reserva || iso;
+  }
+}
+
+/** A caixa de um país; país que atravessa a linha da data (Rússia, Fiji, EUA com as Aleutas) fica com a do maior pedaço. */
+function caixaDoPais(fs: readonly Feature[]): Caixa | undefined {
+  const c = uniaoDeCaixas(fs.map((x) => caixa(x.geometry)));
+  if (!c || c[2] - c[0] <= 180) return c;
+  let melhor: Caixa | undefined;
+  for (const f of fs) {
+    const k = caixa(f.geometry);
+    if (k && (!melhor || (k[2] - k[0]) * (k[3] - k[1]) > (melhor[2] - melhor[0]) * (melhor[3] - melhor[1]))) melhor = k;
+  }
+  return melhor;
+}
 
 // Cores do painel de investigação do Vale (preto profundo e vermelho sangue; o mapa não segue a identidade do instituto, de propósito).
 const FUNDO = "#070707";
@@ -126,7 +159,7 @@ const semWebgl = (): boolean => {
 };
 
 /** Contagem de casos escrita nas propriedades de cada polígono (alimenta a intensidade do preenchimento). */
-function comContagem(col: Colecao, chave: "sigla" | "codigo", contagem: Record<string, number>): Colecao {
+function comContagem(col: Colecao, chave: "sigla" | "codigo" | "iso", contagem: Record<string, number>): Colecao {
   return {
     type: "FeatureCollection",
     features: col.features.map((f) => ({
@@ -154,6 +187,8 @@ export default function Mapa({
   aoSelecionarNo,
   destaque = null,
   qualidadeBaixa = false,
+  pais: paisFiltro = null,
+  idioma,
 }: PropsDoMapaNeon) {
   const t: TextosDoMapa = { ...TEXTOS_PT, ...(textosMapa as Partial<TextosDoMapa> | undefined) };
   const base = baseDasMalhas ?? BASE_PADRAO;
@@ -165,7 +200,8 @@ export default function Mapa({
       titulo: e.titulo,
       dossie: e.dossie,
       cor: cor.get(e.dossie) ?? "amarelo",
-      // Só o Brasil tem malha aqui: fora dele a regiao é outro código e o caso fica só na lista em texto.
+      pais: e.lugar.pais || "BR",
+      // UF e município só no Brasil (a malha do IBGE); fora dele o ponto fica no centro do país.
       uf: e.lugar.pais === "BR" ? e.lugar.regiao : undefined,
       municipioIbge: e.lugar.pais === "BR" ? e.lugar.municipioIbge : undefined,
       situacao: textos.situacao[e.situacao] ?? e.situacao,
@@ -177,20 +213,26 @@ export default function Mapa({
   const mapa = useRef<MapaGL | null>(null);
   const prontoRef = useRef(false);
   const brasil = useRef<Colecao>(vazio());
+  const mundo = useRef<Colecao>(vazio());
+  const centrosPais = useRef<Record<string, Par>>({ BR: CENTRO_DO_BRASIL });
+  const idiomaRef = useRef(idioma);
   const ufs = useRef(new Map<string, Colecao>());
   const centrosUf = useRef<Record<string, Par>>({});
   const centrosMun = useRef<Record<string, Par>>({});
   const casosRef = useRef(casos);
-  const nivelRef = useRef<NivelDeZoom>("pais");
+  const nivelRef = useRef<NivelDeZoom>("mundo");
   const ufSelRef = useRef<string | null>(null);
   const munSelRef = useRef<string | null>(null);
   const aoEscolherRef = useRef(aoEscolher);
   const aoMudarZoomRef = useRef(aoMudarZoom);
   const textosRef = useRef(t);
-  const api = useRef<{ voltar: () => void; pais: () => void; atualizar: () => Promise<void>; posicionarRamos: () => void } | null>(null);
+  const api = useRef<{ voltar: () => void; mundo: () => void; pais: (iso: string) => void; atualizar: () => Promise<void>; posicionarRamos: () => void } | null>(null);
 
   const [carga, setCarga] = useState<"carregando" | "pronto" | "sem-webgl" | "sem-malha">("carregando");
-  const [nivel, setNivel] = useState<NivelDeZoom>("pais");
+  const [nivel, setNivel] = useState<NivelDeZoom>("mundo");
+  // O país aberto (nível "pais" e abaixo): "BR" desce a estado e município; os outros param no país.
+  const [paisSel, setPaisSel] = useState<string | null>(null);
+  const paisSelRef = useRef<string | null>(null);
   const [ufSel, setUfSel] = useState<string | null>(null);
   const [munSel, setMunSel] = useState<{ codigo: string; nome: string } | null>(null);
   const [agrupado, setAgrupado] = useState<Agrupado | null>(null);
@@ -214,6 +256,7 @@ export default function Mapa({
     calmoRef.current = calmo;
     baixaRef.current = qualidadeBaixa;
     ramosAbertosRef.current = ramosAbertos;
+    idiomaRef.current = idioma;
   });
 
   const mudarNivel = useCallback((n: NivelDeZoom) => {
@@ -263,16 +306,17 @@ export default function Mapa({
     const atualizar = async () => {
       if (!m || !prontoRef.current) return;
       const lista = casosRef.current;
-      const { porUf, porMunicipio } = contarCasos(lista);
+      const { porPais, porUf, porMunicipio } = contarCasos(lista);
       // Só baixa a malha das UFs que têm caso com município (para o centro do ponto); os outros ficam no centro da UF.
-      const precisam = [...new Set(lista.filter((c) => c.municipioIbge).map(ufDoCaso).filter((s): s is string => !!s))];
+      const precisam = [...new Set(lista.filter((c) => (c.pais ?? "BR") === "BR" && c.municipioIbge).map(ufDoCaso).filter((s): s is string => !!s))];
       await Promise.all(precisam.map(lerUf));
       if (cancelado || !m) return;
+      fonte("mundo")?.setData(comContagem(mundo.current, "iso", porPais) as never);
       fonte("brasil")?.setData(comContagem(brasil.current, "sigla", porUf) as never);
       const atual = ufSelRef.current;
       const col = atual ? ufs.current.get(atual) : undefined;
       fonte("uf")?.setData((col ? comContagem(col, "codigo", porMunicipio) : vazio()) as never);
-      const pts = pontosDosCasos(lista, centrosUf.current, centrosMun.current);
+      const pts = pontosDosCasos(lista, centrosUf.current, centrosMun.current, centrosPais.current);
       pontosRef.current = new Map(pts.features.map((f) => [f.properties.id, { coord: f.geometry.coordinates as Par, aproximado: f.properties.aproximado === 1 }]));
       fonte("casos")?.setData(pts as never);
       posicionarRamos();
@@ -298,6 +342,8 @@ export default function Mapa({
       if (cancelado || !m) return;
       ufSelRef.current = sigla;
       munSelRef.current = null;
+      paisSelRef.current = "BR";
+      setPaisSel("BR");
       setUfSel(sigla);
       setMunSel(null);
       const { porMunicipio } = contarCasos(casosRef.current);
@@ -325,7 +371,8 @@ export default function Mapa({
       if (c) ir(c, 80);
     };
 
-    const voltarAoPais = () => {
+    /** Sai da UF (e do município): a malha dos municípios some e os filtros voltam ao país inteiro. */
+    const limparUf = () => {
       if (!m) return;
       setAgrupado(null);
       ufSelRef.current = null;
@@ -335,16 +382,41 @@ export default function Mapa({
       m.setFilter("brasil-fill", ["!=", ["get", "sigla"], ""]);
       m.setFilter("uf-sel", ["==", ["get", "codigo"], ""]);
       fonte("uf")?.setData(vazio() as never);
+    };
+
+    /** Abre um país: o Brasil com as 27 UFs (como era o mapa antes); os outros, na caixa dele, sem descer mais. */
+    const selecionarPais = (iso: string) => {
+      if (!m) return;
+      limparUf();
+      paisSelRef.current = iso;
+      setPaisSel(iso);
+      m.setFilter("mundo-sel", ["==", ["get", "iso"], iso === "BR" ? "-" : iso]);
       mudarNivel("pais");
-      ir(CAIXA_BRASIL, 24);
+      if (iso === "BR") {
+        ir(CAIXA_BRASIL, 24);
+        return;
+      }
+      const alvo = caixaDoPais(mundo.current.features.filter((x) => x.properties.iso === iso));
+      if (alvo) ir(alvo, 40);
+    };
+
+    const voltarAoMundo = () => {
+      if (!m) return;
+      limparUf();
+      paisSelRef.current = null;
+      setPaisSel(null);
+      m.setFilter("mundo-sel", ["==", ["get", "iso"], "-"]);
+      mudarNivel("mundo");
+      ir(CAIXA_MUNDO, 12);
     };
 
     const voltarUmNivel = () => {
       if (nivelRef.current === "municipio" && ufSelRef.current) void selecionarUf(ufSelRef.current);
-      else if (nivelRef.current === "estado") voltarAoPais();
+      else if (nivelRef.current === "estado") selecionarPais("BR");
+      else if (nivelRef.current === "pais") voltarAoMundo();
     };
 
-    api.current = { voltar: voltarUmNivel, pais: voltarAoPais, atualizar, posicionarRamos };
+    api.current = { voltar: voltarUmNivel, mundo: voltarAoMundo, pais: selecionarPais, atualizar, posicionarRamos };
 
     (async () => {
       try {
@@ -363,17 +435,22 @@ export default function Mapa({
           // Estilo próprio, sem fonte externa: só fundo preto (as camadas vêm das malhas do IBGE).
           style: { version: 8, sources: {}, layers: [{ id: "fundo", type: "background", paint: { "background-color": FUNDO } }] },
           bounds: [
-            [CAIXA_BRASIL[0], CAIXA_BRASIL[1]],
-            [CAIXA_BRASIL[2], CAIXA_BRASIL[3]],
+            [CAIXA_MUNDO[0], CAIXA_MUNDO[1]],
+            [CAIXA_MUNDO[2], CAIXA_MUNDO[3]],
           ],
-          fitBoundsOptions: { padding: 24 },
+          fitBoundsOptions: { padding: 12 },
+          // Um mundo só (sem as cópias ao lado), para o mapa inteiro caber e ser lido de uma vez.
+          renderWorldCopies: false,
           attributionControl: false,
           dragRotate: false,
           pitchWithRotate: false,
           touchPitch: false,
-          minZoom: 2,
+          minZoom: 0,
           maxZoom: 13,
           fadeDuration: 0,
+          // Prompt 5, C2: no máximo 2 pixels por ponto (tela 4K ou zoom do navegador pediam até 3 ou 4, e a memória de vídeo do
+          // mapa cresce com o quadrado disso).
+          pixelRatio: Math.min(2, window.devicePixelRatio || 1),
         });
         m = nova;
         mapa.current = nova;
@@ -382,16 +459,27 @@ export default function Mapa({
         nova.on("load", async () => {
           if (cancelado || !m) return;
           let col: Colecao;
+          let doMundo: Colecao;
           try {
-            const r = await fetch(`${base}brasil.geojson`);
+            // As duas malhas juntas: o Brasil do IBGE (~25 KB comprimido) e o mundo da Natural Earth (~50 KB comprimido).
+            const [r, rm] = await Promise.all([fetch(`${base}brasil.geojson`), fetch(`${base}mundo.geojson`).catch(() => null)]);
             if (!r.ok) throw new Error(String(r.status));
             col = (await r.json()) as Colecao;
+            // Sem a malha do mundo (servidor que ainda não a tem), o mapa continua sendo o do Brasil.
+            doMundo = rm?.ok ? ((await rm.json()) as Colecao) : vazio();
           } catch {
             if (!cancelado) setCarga("sem-malha");
             return;
           }
           if (cancelado || !m) return;
           brasil.current = col;
+          mundo.current = doMundo;
+          for (const f of doMundo.features) {
+            const iso = String(f.properties.iso ?? "");
+            const c = centro(f.geometry);
+            // País com vários pedaços (ilhas): o centro do maior pedaço (centro() já escolhe o maior).
+            if (iso && c && !centrosPais.current[iso]) centrosPais.current[iso] = c;
+          }
           const nomes: Record<string, string> = {};
           for (const f of col.features) {
             const c = centro(f.geometry);
@@ -400,8 +488,9 @@ export default function Mapa({
             if (s) nomes[s] = String(f.properties.nome ?? s);
           }
           setNomeDaUf(nomes);
-          const { porUf } = contarCasos(casosRef.current);
+          const { porUf, porPais } = contarCasos(casosRef.current);
 
+          m.addSource("mundo", { type: "geojson", data: comContagem(doMundo, "iso", porPais) as never });
           m.addSource("brasil", { type: "geojson", data: comContagem(col, "sigla", porUf) as never });
           m.addSource("uf", { type: "geojson", data: vazio() as never });
           m.addSource("casos", { type: "geojson", data: pontosDosCasos([], {}, {}) as never });
@@ -410,8 +499,15 @@ export default function Mapa({
           // Sem preenchimento sólido: região sem caso fica quase apagada (o preenchimento mínimo só serve para o clique e a
           // dica acharem a UF); com casos, um vermelho escuro que cresce com a quantidade. O brilho mesmo vem do calor abaixo.
           const intensidade = ["interpolate", ["linear"], ["get", "casos"], 0, 0.01, 1, 0.12, 8, 0.28, 40, 0.45] as never;
+          // O mundo: os países com a mesma linha fraca das UFs e o mesmo vermelho que cresce com os casos. Sem brilho (o brilho
+          // largo é só do contorno do Brasil e dos pontos), para o mapa inteiro continuar leve num celular fraco.
+          m.addLayer({ id: "mundo-fill", type: "fill", source: "mundo", paint: { "fill-color": PREENCHE, "fill-opacity": ["interpolate", ["linear"], ["get", "casos"], 0, 0.06, 1, 0.18, 8, 0.32, 40, 0.45] as never } });
+          m.addLayer({ id: "mundo-linha", type: "line", source: "mundo", paint: { "line-color": CONTORNO, "line-opacity": ["interpolate", ["linear"], ["zoom"], 0, 0.22, 4, 0.32] as never, "line-width": 0.5 } });
+          m.addLayer({ id: "mundo-hover", type: "line", source: "mundo", filter: ["==", ["get", "iso"], "-"], paint: { "line-color": LINHA_FORTE, "line-width": 1.6 } });
+          m.addLayer({ id: "mundo-sel", type: "line", source: "mundo", filter: ["==", ["get", "iso"], "-"], paint: { "line-color": "#ffffff", "line-width": 1.8 } });
           m.addLayer({ id: "brasil-fill", type: "fill", source: "brasil", filter: ["!=", ["get", "sigla"], ""], paint: { "fill-color": PREENCHE, "fill-opacity": intensidade } });
-          m.addLayer({ id: "brasil-linha", type: "line", source: "brasil", paint: { "line-color": CONTORNO, "line-opacity": 0.16, "line-width": 0.6 } });
+          // As divisas das UFs só aparecem ao chegar perto: no mundo inteiro, o Brasil é só o contorno.
+          m.addLayer({ id: "brasil-linha", type: "line", source: "brasil", paint: { "line-color": CONTORNO, "line-opacity": ["interpolate", ["linear"], ["zoom"], 1.5, 0, 3, 0.16] as never, "line-width": 0.6 } });
           m.addLayer({ id: "contorno-brilho", type: "line", source: "contorno", paint: { "line-color": CONTORNO, "line-opacity": 0.3, "line-width": 5, "line-blur": 4 } });
           m.addLayer({ id: "contorno", type: "line", source: "contorno", paint: { "line-color": CONTORNO, "line-opacity": 0.9, "line-width": 0.9 } });
           m.addLayer({ id: "brasil-hover", type: "line", source: "brasil", filter: ["==", ["get", "sigla"], ""], paint: { "line-color": LINHA_FORTE, "line-width": 2 } });
@@ -501,11 +597,17 @@ export default function Mapa({
             }
             const nm = m.queryRenderedFeatures(e.point, { layers: ["uf-fill"] })[0];
             const us = m.queryRenderedFeatures(e.point, { layers: ["brasil-fill"] })[0];
+            const ps = nm || us ? undefined : m.queryRenderedFeatures(e.point, { layers: ["mundo-fill"] })[0];
+            // No mundo inteiro, o Brasil é um país só (a dica diz "Brasil", não a UF).
+            const noMundo = nivelRef.current === "mundo";
             m.setFilter("uf-hover", ["==", ["get", "codigo"], String(nm?.properties?.codigo ?? "")]);
-            m.setFilter("brasil-hover", ["==", ["get", "sigla"], nm ? "" : String(us?.properties?.sigla ?? "")]);
-            m.getCanvas().style.cursor = nm || us ? "pointer" : "";
+            m.setFilter("brasil-hover", ["==", ["get", "sigla"], nm || noMundo ? "" : String(us?.properties?.sigla ?? "")]);
+            m.setFilter("mundo-hover", ["==", ["get", "iso"], String(ps?.properties?.iso || "-")]);
+            m.getCanvas().style.cursor = nm || us || ps?.properties?.iso ? "pointer" : "";
             if (nm) dicaEm(e, `${String(nm.properties?.nome || nm.properties?.codigo)} · ${contagemTexto(Number(nm.properties?.casos ?? 0))}`);
+            else if (us && noMundo) dicaEm(e, `${nomeDoPais("BR", idiomaRef.current, textosRef.current.brasil)} · ${contagemTexto(contarCasos(casosRef.current).porPais.BR ?? 0)}`);
             else if (us) dicaEm(e, `${String(us.properties?.nome ?? us.properties?.sigla)} · ${contagemTexto(Number(us.properties?.casos ?? 0))}`);
+            else if (ps) dicaEm(e, `${nomeDoPais(String(ps.properties?.iso ?? ""), idiomaRef.current, String(ps.properties?.nome ?? ""))} · ${contagemTexto(Number(ps.properties?.casos ?? 0))}`);
             else dicaEm(e, null);
           });
           m.on("mouseout", () => {
@@ -519,6 +621,13 @@ export default function Mapa({
               const vistos = new Map<string, string>();
               for (const p of pts) vistos.set(String(p.properties?.id), String(p.properties?.titulo ?? ""));
               const itens = [...vistos].map(([id, titulo]) => ({ id, titulo }));
+              // No mundo inteiro, os casos de um país se amontoam num ponto só: o clique abre o país (e lá os pontos se separam).
+              const doPais = new Set(pts.map((p) => String(p.properties?.pais ?? "BR")));
+              if (itens.length > 1 && nivelRef.current === "mundo" && doPais.size === 1) {
+                setAgrupado(null);
+                selecionarPais([...doPais][0]);
+                return;
+              }
               if (itens.length === 1) {
                 setAgrupado(null);
                 setRamosFechados(null);
@@ -533,7 +642,14 @@ export default function Mapa({
               return;
             }
             const uf = m.queryRenderedFeatures(e.point, { layers: ["brasil-fill"] })[0];
-            if (uf) void selecionarUf(String(uf.properties?.sigla));
+            // No mundo inteiro, o primeiro clique no Brasil abre o Brasil (as UFs); o seguinte, a UF.
+            if (uf && nivelRef.current === "mundo") selecionarPais("BR");
+            else if (uf) void selecionarUf(String(uf.properties?.sigla));
+            else {
+              const p = m.queryRenderedFeatures(e.point, { layers: ["mundo-fill"] })[0];
+              const iso = String(p?.properties?.iso ?? "");
+              if (iso && iso !== paisSelRef.current) selecionarPais(iso);
+            }
           });
 
           // As ramificações acompanham o ponto enquanto o mapa anda ou aproxima.
@@ -571,10 +687,19 @@ export default function Mapa({
     m.setFilter("casos-sel", ["==", ["get", "id"], selecionadoId ?? ""]);
   }, [selecionadoId, carga, casos]);
 
-  // Quem manda o nível de fora (os botões de zoom da página) volta o mapa ao país.
+  // Quem manda o nível de fora (os botões de zoom da página) volta o mapa ao mundo, ou ao país aberto.
   useEffect(() => {
-    if (zoom === "pais" && nivelRef.current !== "pais") api.current?.pais();
+    if (zoom === "mundo" && nivelRef.current !== "mundo") api.current?.mundo();
+    else if (zoom === "pais" && nivelRef.current !== "pais") api.current?.pais(paisSelRef.current ?? "BR");
   }, [zoom]);
+
+  // O filtro por país da página: o mapa vai ao país escolhido (ou volta ao mundo).
+  useEffect(() => {
+    if (carga !== "pronto") return;
+    if (paisFiltro) {
+      if (paisSelRef.current !== paisFiltro || nivelRef.current === "mundo") api.current?.pais(paisFiltro);
+    } else if (nivelRef.current !== "mundo") api.current?.mundo();
+  }, [paisFiltro, carga]);
 
   // Caso aberto mudou (no mapa, na lista ou em outra visão): reposiciona as ramificações.
   useEffect(() => {
@@ -592,34 +717,10 @@ export default function Mapa({
     m.setLayoutProperty("casos-calor", "visibility", qualidadeBaixa ? "none" : "visible");
   }, [destaque, qualidadeBaixa, carga]);
 
-  // Pulsação do brilho dos pontos (o "neon respirando"). Orçamento: ~10 quadros por segundo, parada quando a pessoa pede
-  // menos movimento, no modo leve, com a aba escondida ou com o palco fora da tela (data-parado, ver desempenho.ts).
-  useEffect(() => {
-    if (carga !== "pronto") return;
-    let id = 0;
-    let espera = 0;
-    let ultimo = 0;
-    const passo = (agora: number) => {
-      const m = mapa.current;
-      if (!m) return;
-      const parado = calmoRef.current || baixaRef.current || document.visibilityState !== "visible" || !!raiz.current?.closest("[data-parado]");
-      if (parado) {
-        m.setPaintProperty("casos-brilho", "circle-opacity", 0.4);
-        espera = window.setTimeout(() => (id = requestAnimationFrame(passo)), 500);
-        return;
-      }
-      if (agora - ultimo > 100) {
-        ultimo = agora;
-        m.setPaintProperty("casos-brilho", "circle-opacity", 0.32 + 0.16 * Math.sin(agora / 520));
-      }
-      id = requestAnimationFrame(passo);
-    };
-    id = requestAnimationFrame(passo);
-    return () => {
-      cancelAnimationFrame(id);
-      window.clearTimeout(espera);
-    };
-  }, [carga]);
+  // Prompt 5, C2: o brilho dos pontos ficou parado. A pulsação ("neon respirando") mudava a pintura da camada a cada 100 ms, e
+  // cada mudança redesenha o mapa inteiro em WebGL (com o calor e o halo borrado de todos os pontos), sem parar, enquanto o
+  // mapa estivesse aberto. Junto com o fundo vivo e a teia, era o que mais pesava na página que caía ("This page couldn't load").
+  // O halo continua (opacidade 0.4, a mesma do repouso de antes); só não pisca mais.
 
   const ramos = useMemo(() => (ramosAbertos && ramosDe ? ramosDe(ramosAbertos) : []), [ramosAbertos, ramosDe]);
   const casoAberto = ramosAbertos ? casos.find((c) => c.id === ramosAbertos) : undefined;
@@ -645,6 +746,7 @@ export default function Mapa({
   }, [ancora, ramos]);
 
   const nomeAberto = ufSel ? (nomeDaUf[ufSel] ?? ufSel) : "";
+  const nomeDoPaisAberto = paisSel ? (paisSel === "BR" ? t.brasil : nomeDoPais(paisSel, idioma)) : "";
 
   return (
     // absolute inset-0 (não h-full): o palco (.ve-viz) só tem min-height no celular, então 100% da altura dele dava "auto"
@@ -657,7 +759,8 @@ export default function Mapa({
       <div ref={raiz} className="absolute inset-0 h-full w-full" />
 
       {/* Níveis de zoom nomeados + trilha (Brasil / estado / município). */}
-      <div className="pointer-events-none absolute left-3 top-3 flex max-w-[calc(100%-1.5rem)] flex-col gap-2">
+      {/* A largura deixa o botão "Reduzir movimento" (no canto direito) de fora: no celular, os quatro níveis quebram a linha. */}
+      <div className="pointer-events-none absolute left-3 top-3 flex max-w-[calc(100%-11rem)] flex-col gap-2">
         <ol className="pointer-events-auto flex flex-wrap gap-x-3 gap-y-1" aria-label={t.nivel}>
           {NIVEIS.map((n, i) => (
             <li key={n} className={n === nivel ? "text-[#ff4d5e]" : "text-[#8f8f8a]"} aria-current={n === nivel ? "step" : undefined}>
@@ -666,15 +769,16 @@ export default function Mapa({
           ))}
         </ol>
         <div className="pointer-events-auto flex flex-wrap items-center gap-2">
-          {nivel !== "pais" && (
+          {nivel !== "mundo" && (
             <button type="button" onClick={() => api.current?.voltar()} className="border border-[#3b2a2e] bg-black/80 px-2 py-1 text-[#ff4d5e] hover:border-[#ff4d5e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff4d5e]">
               {"< "}
               {t.voltar}
             </button>
           )}
           <span className="text-[#f1f1ed]">
-            {t.brasil}
-            {nomeAberto && nivel !== "pais" ? ` / ${nomeAberto}` : ""}
+            {t.mundo ?? TEXTOS_PT.mundo}
+            {nomeDoPaisAberto && nivel !== "mundo" ? ` / ${nomeDoPaisAberto}` : ""}
+            {nomeAberto && nivel !== "pais" && nivel !== "mundo" ? ` / ${nomeAberto}` : ""}
             {munSel && nivel === "municipio" ? ` / ${munSel.nome}` : ""}
           </span>
         </div>
@@ -777,8 +881,8 @@ export default function Mapa({
                 <span aria-hidden style={{ color: COR_NEON[c.cor] }}>
                   {"● "}
                 </span>
-                {c.titulo} ({ufDoCaso(c) ?? "-"}, {c.situacao}
-                {!c.municipioIbge && ufDoCaso(c) ? `, ${t.aproximado ?? TEXTOS_PT.aproximado}` : ""})
+                {c.titulo} ({(c.pais ?? "BR") === "BR" ? (ufDoCaso(c) ?? "-") : nomeDoPais(c.pais ?? "", idioma)}, {c.situacao}
+                {(c.pais ?? "BR") !== "BR" ? `, ${t.aproximadoPais ?? TEXTOS_PT.aproximadoPais}` : !c.municipioIbge && ufDoCaso(c) ? `, ${t.aproximado ?? TEXTOS_PT.aproximado}` : ""})
               </button>
             </li>
           ))}

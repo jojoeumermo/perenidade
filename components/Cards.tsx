@@ -1,4 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import { caminhoDaTrilha } from "@/lib/escola/aulas-abertas";
 import Link from "@/components/Link";
 import { fill, localePath, type Locale } from "@/i18n/config";
 import type { Book, Source, Track } from "@/lib/content";
@@ -24,7 +25,7 @@ export function TrackCard({ track, lang, t }: Props & { track: Track }) {
         {t.areas[track.area][0]} · {t.stages[track.stage]} · {vazia ? t.tracks.underConstruction : fill(t.tracks.ready, { a: ready, b: track.plan.length })}
       </p>
       <h3 className="mt-2 text-2xl font-semibold" {...originalLang(track.translated)}>
-        <Link href={localePath(lang, `/trilhas/${track.slug}`)} className="hover:text-oxblood">
+        <Link href={localePath(lang, caminhoDaTrilha(track))} className="hover:text-oxblood">
           {track.title}
         </Link>
       </h3>

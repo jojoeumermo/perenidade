@@ -8,7 +8,6 @@
 // Nada sai do aparelho além dos pedidos de seguir.
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "@/components/Link";
-import { localePath } from "@/i18n/config";
 import { minhaLista, PREVIA_DO_ALCANCE, rotaResponde, seguirConta, type MinhaLista, type SituacaoDaConta } from "@/lib/rede/alcance/cliente";
 import { arquivoDaLista, handleDaqui, lerLista, MAXIMO_POR_VEZ, rotasDoAlcance } from "@/lib/rede/alcance/regras";
 import { textoDoErroDoAlcance, type TextosDoAlcance } from "@/lib/rede/alcance/textos";
@@ -17,6 +16,7 @@ import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { baixarArquivo, copiarTexto, dominiosDaqui, enderecoDaTela, origemAqui, useQr, useTextosDoAlcance } from "./usar";
 import "./alcance.css";
+import { entradaDaAlumia } from "@/lib/rede/alumia";
 
 const UM_MEGA = 1024 * 1024;
 const codigo = (e: unknown) => (typeof e === "object" && e && "code" in e ? String((e as { code: unknown }).code) : "");
@@ -36,7 +36,7 @@ export default function TelaDasListas({ lang, s, situacao }: PropsDaTelaDoPacote
         <div className="alc-bloco">
           <p className="alc-lead">{t.listas.entrar}</p>
           <div className="alc-acoes">
-            <Link href={`${localePath(lang, "/entrar")}?volta=/alumia/listas`} className="al-botao al-botao-primario al-botao-m">
+            <Link href={entradaDaAlumia(lang, "/alumia/listas")} className="al-botao al-botao-primario al-botao-m">
               {s.entrada.entrar}
             </Link>
           </div>

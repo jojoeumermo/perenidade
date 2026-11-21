@@ -3,6 +3,7 @@
 // Os textos da ponte com a Escola: i18n/rede/conquistas/{pt,en,es,fr,ru,zh}.json (pt é o texto final; os outros têm "_rascunho":
 // true até a revisão). Um idioma por vez, por import dinâmico; o hook fica em usarTextos.ts.
 import type pt from "../../../../i18n/rede/conquistas/pt.json";
+import { prontoOu } from "../../../../lib/rede/textos-prontos";
 
 export type TextosDasConquistas = typeof pt;
 
@@ -11,7 +12,7 @@ const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"] as const;
 export async function carregarTextosDasConquistas(lang: string): Promise<TextosDasConquistas> {
   const l = (IDIOMAS as readonly string[]).includes(lang) ? lang : "pt";
   try {
-    return ((await import(`../../../../i18n/rede/conquistas/${l}.json`)) as { default: TextosDasConquistas }).default;
+    return prontoOu(((await import(`../../../../i18n/rede/conquistas/${l}.json`)) as { default: TextosDasConquistas }).default, async () => ((await import("../../../../i18n/rede/conquistas/pt.json")) as { default: TextosDasConquistas }).default);
   } catch {
     return ((await import("../../../../i18n/rede/conquistas/pt.json")) as { default: TextosDasConquistas }).default;
   }

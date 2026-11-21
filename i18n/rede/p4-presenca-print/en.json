@@ -1,0 +1,26 @@
+{
+  "_rascunho": true,
+  "ajustes": {
+    "titulo": "Presence and screenshot protection",
+    "carregando": "Loading…",
+    "erro": "Could not save right now. Try again.",
+    "presenca": "Show “recently active” to my trust circle",
+    "presencaAjuda": "Off by default. When on, only people in your trust circle see it, and only “recently active” (you used Alumia in the last one or two hours), never the exact time. The server keeps a single field, rounded to the full hour and overwritten: there is no history. Turning it off deletes the field. Whoever sees it may realise they are in your circle.",
+    "foto": "Protect my profile photo",
+    "fotoAjuda": "On your profile page, the photo disappears when the viewer's window leaves the front, cannot be copied or dragged, and carries a discreet watermark with the viewer's codename.",
+    "story": "To protect a story, open it and choose “Protect this story” in the menu.",
+    "sairRapido": "Tapping the Alumia logo three times in a row also does Quick exit."
+  },
+  "aviso": "This prevents careless screenshots. It does not prevent a photo of the screen taken with another phone. Only send what you would accept seeing leaked.",
+  "avisoNavegador": "In the browser the protection is weaker: it hides the content when the window leaves the front and turns off copy and drag, but it cannot block the system screenshot.",
+  "avisoApp": "In the Android app, the system turns screenshots and screen recordings of Alumia black. Even so, it cannot stop a photo of the screen taken with another phone.",
+  "naoAvisa": "Nobody is notified of screenshots, not even the author: that would create a record of who reads.",
+  "escondido": "Protected content. Come back to this window to see it.",
+  "protegido": "Protected against careless screenshots",
+  "storyProteger": "Protect this story",
+  "storyDesproteger": "Remove protection from this story",
+  "storyProtegido": "Story protected against careless screenshots. In the browser the protection is weaker.",
+  "storyDesprotegido": "This story's protection was removed.",
+  "recente": "recently active",
+  "recenteAjuda": "This person chose to show their trust circle that they were on Alumia in the last few hours."
+}

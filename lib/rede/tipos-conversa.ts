@@ -214,15 +214,21 @@ export const REACOES = [
 export type NomeDaReacao = (typeof REACOES)[number]["nome"];
 export const reacaoOk = (emoji: string): boolean => REACOES.some((r) => r.emoji === emoji);
 
-/** As reações de um post como a tela mostra: só as da lista fechada, na ordem da lista, com o total já passado pelo mínimo. */
+/**
+ * As reações de um post como a tela mostra: só as da lista em vigor, na ordem dela, com o total já passado pelo mínimo. Sem
+ * `paleta`, a lista fechada de sempre; com ela (Prompt 4, item 30: a lista que a mediação da comunidade escolheu, vinda do banco),
+ * só os emojis dela. `nome` é nulo para emoji fora da lista fechada (a tela lê o próprio emoji).
+ */
 export function reacoesParaMostrar(
   reacoes: readonly { emoji: string; total: number | null; minha: boolean }[] | undefined,
-): { emoji: string; nome: NomeDaReacao; total: number | null; minha: boolean }[] {
+  paleta?: readonly string[] | null,
+): { emoji: string; nome: NomeDaReacao | null; total: number | null; minha: boolean }[] {
   if (!reacoes) return [];
-  return REACOES.flatMap((r) => {
-    const achada = reacoes.find((x) => x.emoji === r.emoji);
+  const lista: readonly string[] = paleta && paleta.length > 0 ? paleta : REACOES.map((r) => r.emoji);
+  return lista.flatMap((emoji) => {
+    const achada = reacoes.find((x) => x.emoji === emoji);
     if (!achada || (!achada.minha && achada.total === 0)) return [];
-    return [{ emoji: r.emoji, nome: r.nome, total: totalVisivel(achada.total), minha: achada.minha }];
+    return [{ emoji, nome: REACOES.find((r) => r.emoji === emoji)?.nome ?? null, total: totalVisivel(achada.total), minha: achada.minha }];
   });
 }
 

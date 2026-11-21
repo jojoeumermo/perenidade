@@ -78,7 +78,7 @@ export function VaralDaGaleria({ lang, s, slogan, pecas }: { lang: string; s: Di
                 <li key={peca.slug} className={`varal-cartaz relative ${celular ? "" : "max-sm:hidden"}`} style={estilo}>
                   <a href={`#${peca.slug}`} tabIndex={-1} className="varal-folha block">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`/imagens/galeria/varal/${peca.slug}.webp`} alt="" width={Math.round(300 * proporcao)} height={300} decoding="async" className="block h-auto w-full" />
+                    <img src={`/imagens/galeria/varal/${peca.slug}.webp`} alt="" width={Math.round(300 * proporcao)} height={300} loading="lazy" decoding="async" className="block h-auto w-full" />
                   </a>
                   <span className="varal-pregador" />
                 </li>

@@ -10,6 +10,8 @@ import type { Comunidade } from "@/lib/rede/tipos";
 import { useTextosMod } from "../moderacao/base";
 import { FerramentasDaComunidade } from "../moderacao/comunidade/FerramentasDaComunidade";
 import { botao, botaoClaro, campo, erroCom, idDoPost } from "./util";
+import { pontesP4Ligado } from "@/lib/rede/p4/pontes/ligado";
+import { PonteBluesky } from "../p4/pontes/PonteBluesky";
 
 /**
  * As ferramentas de quem modera a comunidade (só chegam aqui quem o banco confirmou como moderação): o filtro automático, o modo
@@ -62,6 +64,9 @@ export default function Moderar({
       ) : (
         <p className="text-sm text-ink-soft" role="status">{s.estados.carregando}</p>
       )}
+
+      {/* Prompt 4, item 85: a escolha da ponte com o Bluesky (guardada; a ponte não liga enquanto o Bridgy Fed estiver no bloqueio fixo). */}
+      {pontesP4Ligado() && <PonteBluesky slug={comunidade.slug} lang={lang} />}
 
       <section aria-labelledby="mod-regras">
         <h3 id="mod-regras" className="font-serif text-lg font-semibold">{m.regras}</h3>

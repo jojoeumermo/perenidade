@@ -1,12 +1,15 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// O DUBLÊ dos núcleos e da turma do mês (rede_com_nucleos, rede_com_nucleo, rede_com_nucleo_linha, rede_com_nucleo_sair,
+// O DUBLÊ dos núcleos e da turma do mês (rede_com_nucleos, rede_com_nucleo, rede_com_nucleo_linha,
 // rede_com_encontro_salvar, rede_com_encontro_remover, rede_com_turma, rede_com_turma_entrar), só para a prévia
 // (NEXT_PUBLIC_ALUMIA_PREVIA=sim). Tudo na memória da aba; nada sai do aparelho. Encontros só em lugar público, como no banco;
 // a mediação aparece por codinome. Nomes inventados, nenhuma pessoa real. Sem "@/" de propósito (roda no Node nos testes).
 import { postDeExemplo } from "./conversa/exemplos";
 import type { PaginaDaLinha } from "./tipos";
 import type { EncontroDoNucleo, LocalDoEncontro, NucleoResumo, PaginaDoNucleo, SituacaoDaTurma } from "./tipos-comunidades";
+
+/** Um núcleo do dublê, com o que só os aparelhos de quem é do núcleo teriam (mediação, encontros) para o mural de exemplo. */
+type NucleoDoExemplo = NucleoResumo & { mediacao: string[]; encontros: EncontroDoNucleo[]; saiu: boolean };
 
 const DIA = 86_400_000;
 const MIN = 60_000;
@@ -18,7 +21,7 @@ export const NUCLEOS_DE_EXEMPLO = {
 } as const;
 
 interface Estado {
-  nucleos: (PaginaDoNucleo & { saiu: boolean })[];
+  nucleos: NucleoDoExemplo[];
   turma: SituacaoDaTurma;
   seq: number;
 }
@@ -70,8 +73,8 @@ export function criarDubleDosNucleos(agora: number = Date.now(), mes = new Date(
     if (!n) throw erro("nao_encontrado");
     return n;
   };
-  const resumo = ({ id, nome, cidade, trilha, papel }: PaginaDoNucleo): NucleoResumo => ({ id, nome, cidade, trilha, papel });
-  const mural = (n: PaginaDoNucleo): PaginaDaLinha => {
+  const resumo = ({ id, nome, cidade, trilha, papel }: NucleoDoExemplo): NucleoResumo => ({ id, nome, cidade, trilha, papel });
+  const mural = (n: NucleoDoExemplo): PaginaDaLinha => {
     const base = { comunidade: null, publico: "nucleo" as const };
     const itens =
       n.id === NUCLEOS_DE_EXEMPLO.itaquera
@@ -91,16 +94,12 @@ export function criarDubleDosNucleos(agora: number = Date.now(), mes = new Date(
       return { itens: estado.nucleos.filter((n) => !n.saiu).map(resumo) };
     },
     rede_com_nucleo(a: { p_id?: string }): PaginaDoNucleo {
-      const { saiu: _saiu, ...n } = achar(a.p_id);
-      void _saiu;
-      return { ...n, encontros: [...n.encontros].sort((x, y) => x.quando.localeCompare(y.quando)) };
+      // Como o servidor da R2: só o perfil público e a entrada (o resto mora no grupo, nos aparelhos).
+      const n = achar(a.p_id);
+      return { id: n.id, nome: n.nome, cidade: n.cidade, trilha: n.trilha, org: null, entrada: null };
     },
     rede_com_nucleo_linha(a: { p_id?: string }) {
       return mural(achar(a.p_id));
-    },
-    rede_com_nucleo_sair(a: { p_id?: string }) {
-      achar(a.p_id).saiu = true;
-      return { ok: true };
     },
     rede_com_encontro_salvar(a: { p?: { nucleo?: string; quando?: string; local_tipo?: LocalDoEncontro; local_texto?: string } }) {
       const p = a.p ?? {};

@@ -218,7 +218,7 @@ function TelaDaConversaDeHoje({
   );
 }
 
-type PropsDaConversa = { id: string; lang: string; s: TextosDaRede; situacao: Situacao; aoResponder: (p: Post) => void };
+type PropsDaConversa = { id: string; lang: string; s: TextosDaRede; situacao: Situacao; aoResponder: (p: Post) => void; aoResponderCom?: (p: Post, texto: string) => void };
 
 /**
  * A conversa de um post. Com a Alumia nova ligada ("rede-v2" + "alumia-2", o layout põe [data-al="2"]) é a da prancha
@@ -226,5 +226,5 @@ type PropsDaConversa = { id: string; lang: string; s: TextosDaRede; situacao: Si
  */
 export default function TelaDaConversa(props: PropsDaConversa) {
   const nova = useAlumia2();
-  return nova ? <TelaDaConversaAlumia id={props.id} lang={props.lang} s={props.s} situacao={props.situacao} /> : <TelaDaConversaDeHoje {...props} />;
+  return nova ? <TelaDaConversaAlumia id={props.id} lang={props.lang} s={props.s} situacao={props.situacao} aoExpandir={props.aoResponderCom} /> : <TelaDaConversaDeHoje {...props} />;
 }

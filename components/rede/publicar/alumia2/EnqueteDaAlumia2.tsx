@@ -13,6 +13,7 @@ import { textoDoErro } from "../../erros";
 import { invalidar } from "../detalhes";
 import { textoDoErroPublicar } from "../textos";
 import type { TextosAlumia2 } from "./textos";
+import { PorQueSemNumero } from "../../uso/PorQueSemNumero";
 
 const codigoDe = (e: unknown) => (typeof e === "object" && e !== null && "code" in e ? String((e as { code: unknown }).code) : "falha");
 
@@ -107,6 +108,7 @@ export function EnqueteDaAlumia2({ postId, inicial, t, tp, s, lang, logado }: { 
       )}
       <p className="mt-2 text-xs text-[var(--al-texto-3)]" role="status">
         {poucos ? t.enquete.poucos : total !== null && preencher(t.enquete.votos, { n: total.toLocaleString(lang) })}
+        {poucos ? <PorQueSemNumero lang={lang} motivo="piso" /> : null}
         {(poucos || total !== null) && " · "}
         {e.encerrada ? t.enquete.encerrada : preencher(t.enquete.fecha, { quando: daquiA(e.prazo, lang) })}
         {/* B1: "resultado só no fim" — nem quem votou nem quem fez vê a parcial (em assembleia, a parcial puxa o voto). */}

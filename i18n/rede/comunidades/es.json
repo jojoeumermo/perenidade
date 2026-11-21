@@ -121,7 +121,8 @@
     "entrarNaComunidade": "Entra en la comunidad para escribir sobre la clase."
   },
   "nucleos": {
-    "titulo": "Núcleos y grupo",
+    "titulo": "Núcleos y grupos",
+    "turmasDeEstudo": "Tus grupos de estudio (con agenda y encuentros)",
     "intro": "El espacio cerrado de los núcleos de estudio de que haces parte y la conversación del grupo del mes. Solo lo ve quien es del núcleo o del grupo.",
     "meus": "Tus núcleos",
     "vazio": "Aún no haces parte de ningún núcleo. La entrada es por invitación de la mediación del núcleo.",
@@ -155,7 +156,11 @@
     "turmaIntro": "Quien se inscribió en el grupo del mes entra en su conversación.",
     "turmaNao": "No estás inscrito en este grupo.",
     "turmaEntrar": "Entrar en la conversación del grupo",
-    "turmaAbrir": "Abrir la conversación del grupo"
+    "turmaAbrir": "Abrir la conversación del grupo",
+    "noAparelhoTitulo": "El núcleo vive en los dispositivos",
+    "noAparelho": "Quién es de este núcleo, la mediación, el mural y los encuentros quedan solo en los dispositivos de quienes son del núcleo, cifrados. El servidor de Alumia no sabe quién es de aquí, quién pidió entrar ni quién aceptó: el pedido va cifrado de tu dispositivo a la mediación.",
+    "entradaPronta": "La entrada de este núcleo está publicada y firmada por la clave del núcleo. El pedido cifrado sale de este dispositivo cuando el chat nuevo esté activado.",
+    "semEntrada": "Quien creó este núcleo todavía no publicó su entrada."
   },
   "erros": {
     "invalido:slug": "Esta dirección no sirve o ya está en uso.",

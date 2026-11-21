@@ -105,6 +105,27 @@
     "texto": "La guía para cuando se cae internet. Ábrela una vez ahora: después abre en este aparato incluso sin internet.",
     "abrir": "Abrir la guía"
   },
+  "semInternet": {
+    "rotulo": "Cerca, sin internet",
+    "titulo": "Celulares cercanos",
+    "texto": "Cuando se cae internet en la protesta, la app puede pasar mensajes cortos, el Faro y el \"Estoy bien\" de celular en celular, por Bluetooth. Cada celular guarda y reenvía paquetes cifrados que no abre: no sabe de quién son ni para quién van. Todos los paquetes tienen el mismo tamaño y desaparecen en 24 horas.",
+    "aviso": "Al encenderlo, los celulares cercanos notan que hay un aparato participando. No notan quién eres ni lo que envías.",
+    "entendi": "Entendí: los celulares cercanos notan que hay un aparato participando.",
+    "ligar": "Encender",
+    "desligar": "Apagar y borrar lo guardado",
+    "ligada": "Encendido en este celular. Se apaga solo cuando se cierra la app.",
+    "soNoApp": "Solo en la app de Alumia para Android. En el sitio, el celular no habla con los que están cerca.",
+    "semSessao": "El \"Estoy bien\" sin internet solo llega a contactos de seguridad con quienes ya tienes conversación en el chat.",
+    "farolPronto": "El Faro de tu próximo acto confirmado llega a este celular incluso sin internet.",
+    "farolSem": "Para que el Faro llegue sin internet, confirma tu asistencia al acto y activa esto antes, todavía con internet.",
+    "farolChegou": "Faro, sin internet: {estado}",
+    "estados": {
+      "tranquilo": "Tranquilo",
+      "atencao": "Atención",
+      "dispersar": "Dispersar",
+      "ponto2": "Punto de encuentro 2"
+    }
+  },
   "barra": {
     "titulo": "Modo acto activado",
     "desde": "desde las {hora}",

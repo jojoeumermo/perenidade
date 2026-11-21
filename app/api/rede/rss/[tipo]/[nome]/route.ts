@@ -7,6 +7,7 @@
 import { alcanceLigado } from "@/lib/rede/alcance/ligado";
 import { HANDLE_OK, idiomaOk, montarRss, rotasDoAlcance, SLUG_OK } from "@/lib/rede/alcance/regras";
 import { alumiaInterditada, basesDoServidor, lerCanal, textosDoServidor } from "@/lib/rede/alcance/servidor";
+import { responderFeed } from "@/lib/rede/descoberta-estudo/rotas-feed";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -17,6 +18,8 @@ const naoAchado = () =>
 export async function GET(pedido: Request, { params }: { params: Promise<{ tipo: string; nome: string }> }) {
   if (!alcanceLigado() || (await alumiaInterditada())) return naoAchado();
   const { tipo: letra, nome: cru } = await params;
+  // Prompt 4, item 50: o RSS de um #tema (/api/rede/rss/t/<tema>), atrás também de "alumia-p4-descoberta-estudo".
+  if (letra === "t") return responderFeed(pedido, "rss", letra, cru);
   const tipo = letra === "u" ? "perfil" : letra === "c" ? "comunidade" : null;
   const nome = cru.toLowerCase().replace(/^(@|%40)/, "");
   if (!tipo) return naoAchado();

@@ -184,7 +184,8 @@ export function guardarLinhas(linhas: LinhaMontada[], g?: Guarda | null): void {
 
 /** Um id novo para a linha (só serve dentro do aparelho). */
 export function idNovo(): string {
-  const a = typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID().slice(0, 13) : Math.random().toString(36).slice(2, 12);
+  // Só o sorteio do sistema (nunca Math.random): randomUUID onde há (só em página segura), senão getRandomValues (existe sempre).
+  const a = typeof crypto.randomUUID === "function" ? crypto.randomUUID().slice(0, 13) : Array.from(crypto.getRandomValues(new Uint8Array(6)), (b: number) => b.toString(16).padStart(2, "0")).join("");
   return `l-${a}`;
 }
 

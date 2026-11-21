@@ -3,10 +3,14 @@
 
 import { useEffect, useRef, useState, type MouseEvent as EventoDeMouse, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import Link from "@/components/Link";
 import { localePath } from "@/i18n/config";
 import { rede } from "@/lib/rede/cliente";
 import { redePub } from "@/lib/rede/cliente-publicar";
+import { criarInterruptor, type Interruptor } from "@/lib/rede/otimista";
+import { precarregarTela } from "@/lib/rede/precarregar";
+import { navegarComTransicao } from "./TransicaoDaTela";
 import { preencher } from "@/lib/rede/preencher";
 import { enderecoParaCompartilhar, podeRepostar, servidorDoFediverso, tempoCurto } from "@/lib/rede/publicar/alumia2";
 import { jaRepostei } from "@/lib/rede/publicar/repostados";
@@ -26,6 +30,7 @@ import { SeloDoServidor } from "../../fediverso/SeloDoServidor";
 import { Selo } from "../../ui/Selo";
 import { Complementos } from "../Complementos";
 import { detalhesDe } from "../detalhes";
+import { ApagarNoMenu } from "./ApagarNoMenu";
 import { CitarNoCartao } from "./CitarNoCartao";
 import { useAlumia2 } from "./contexto";
 import { Icone } from "./icones";
@@ -35,6 +40,12 @@ import { useEscolhasDoPost } from "../compositor/escolhas";
 import { ArquivarNoMenu, marcarLinkAberto, PerguntaLeiaAntes, SelosDaVida, useVidaDoPost, type PostComVida } from "../vida/NoCartao";
 import { textoDoErroDaVida, useTextosDaVida } from "../vida/textos";
 import { postCifrado } from "../restrito/grupo";
+import { seloContagensLigado } from "@/lib/rede/selo-contagens/cliente";
+
+// Prompt 4, item 5 (a peça é do lote selo e contagens; quem a encaixa no cartão é o lote do cartão, D10): os apoios de um post para
+// quem não escreveu, só se a autora escolheu mostrar e nunca abaixo de 3. Desligado ("alumia-p4-selo-contagens"), nada é pedido.
+const CONTAGENS_P4 = seloContagensLigado();
+const ApoiosPublicos = dynamic(() => import("../../selo-contagens/PecasDoSelo").then((m) => m.ApoiosPublicos), { ssr: false });
 import { TextoDoGrupo } from "../restrito/NaTela";
 import { useTextosDoRestrito } from "../restrito/textos";
 
@@ -127,8 +138,12 @@ export function CartaoDaAlumia2({
   const relogioDaNota = useRef(0);
   useEffect(() => () => window.clearTimeout(relogioDaNota.current), []);
   const [ocupado, setOcupado] = useState(false);
+  // Apagado pela própria autora no menu: o cartão vira uma linha "Post apagado." (a lista não precisa recarregar).
+  const [apagado, setApagado] = useState(false);
   // A ação que a pessoa acabou de tocar: só ela anima (o que já vinha aceso, salvo ou repostado aparece parado).
   const [tocou, setTocou] = useState<"repostar" | "acender" | "salvar" | null>(null);
+  // O Acender otimista (A17): criado no primeiro toque, com o estado que o banco mandou.
+  const acendedor = useRef<Interruptor | null>(null);
   // B1: o aviso de conteúdo cobre o texto e as imagens até a pessoa tocar ("sempre abrir avisos de X" fica neste aparelho).
   const [cwAberto, setCwAberto] = useState(false);
   const [cwSempre, setCwSempre] = useState(false);
@@ -226,14 +241,21 @@ export function CartaoDaAlumia2({
     }
   }
 
-  const acender = () =>
-    acao(async () => {
-      const quer = !post.apoiei;
-      if (exemplo) return setPost((p) => ({ ...p, apoiei: quer }));
-      const r = await rede.reagir(post.id, "apoio", quer);
+  // A17 (interface otimista): o Acender muda no toque e o banco confirma depois (lib/rede/otimista.ts). O pedido leva o estado querido
+  // ("aceso" ou não), nunca "inverta": repetido, não duplica. Um pedido por vez; o último toque vale; erro volta ao que o banco disse.
+  const acender = () => {
+    if (exemplo) return setPost((p) => ({ ...p, apoiei: !p.apoiei }));
+    setErro("");
+    setNota("");
+    acendedor.current ??= criarInterruptor(post.apoiei, {
+      enviar: (quer) => rede.reagir(post.id, "apoio", quer),
+      confirmado: (r) => r.apoiei,
       // O total de "Acender" só volta para quem escreveu; para os outros, só o próprio estado.
-      setPost((p) => ({ ...p, apoiei: r.apoiei, apoios: p.apoios === null ? null : Math.max(0, p.apoios + (quer ? 1 : -1)) }));
+      mostrar: (aceso) => setPost((p) => (p.apoiei === aceso ? p : { ...p, apoiei: aceso, apoios: p.apoios === null ? null : Math.max(0, p.apoios + (aceso ? 1 : -1)) })),
+      aoFalhar: (e) => setErro(faltaNoBanco(e) ? t.cartao.indisponivel : textoDoErro(s, e)),
     });
+    acendedor.current.querer(!acendedor.current.atual());
+  };
   const util = () =>
     acao(async () => {
       const quer = !post.util_eu;
@@ -320,7 +342,12 @@ export function CartaoDaAlumia2({
     if (aberta || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     if ((e.target as HTMLElement).closest("a, button, input, textarea, select, label, summary, details, audio, video, [role=button]")) return;
     if (window.getSelection()?.toString()) return;
-    router.push(caminhoDoPost);
+    // A17: a troca de tela anima por View Transitions (sem a API ou com menos movimento, só navega).
+    navegarComTransicao(router, caminhoDoPost);
+  };
+  // A17: a conversa começa a descer quando a pessoa mostra intenção (dedo, mouse ou teclado no cartão), e o toque abre na hora.
+  const preparar = () => {
+    if (!aberta && !exemplo) precarregarTela(router, caminhoDoPost, () => import("../../conversa/TelaDaConversa"));
   };
   const cabeca = (
     <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[0.8125rem] text-[var(--al-texto-3)]">
@@ -495,7 +522,7 @@ export function CartaoDaAlumia2({
           </button>
         )}
         {logado && !post.meu && (
-          <button type="button" className="al2-acao al2-acao-acender" aria-pressed={post.apoiei} data-tocou={tocou === "acender" ? "" : undefined} disabled={ocupado} onClick={() => {
+          <button type="button" className="al2-acao al2-acao-acender" aria-pressed={post.apoiei} data-tocou={tocou === "acender" ? "" : undefined} onClick={() => {
               setTocou("acender");
               void acender();
             }}>
@@ -511,6 +538,8 @@ export function CartaoDaAlumia2({
             {preencher(t.cartao.acesoSoVoce, { n: post.apoios })}
           </span>
         )}
+        {/* Prompt 4, item 5: a contagem pública que a autora escolheu mostrar (o banco só responde se ela escolheu). */}
+        {CONTAGENS_P4 && !exemplo && !post.meu && <ApoiosPublicos post={post.id} lang={lang} />}
         {logado && !post.meu && comTitulo && (
           <button type="button" className="al2-acao" aria-pressed={post.util_eu} disabled={ocupado} onClick={() => void util()}>
             <Icone nome="util" className="h-[18px] w-[18px]" />
@@ -556,6 +585,16 @@ export function CartaoDaAlumia2({
                 aoErro={(e) => setErro(faltaNoBanco(e) ? t.cartao.indisponivel : (vt && textoDoErroDaVida(vt, codigoDoErro(e))) || textoDoErro(s, e))}
               />
             )}
+            {post.meu && (
+              <ApagarNoMenu
+                postId={post.id}
+                t={t.cartao}
+                classe="al2-acao justify-start"
+                previa={exemplo}
+                aoApagar={() => setApagado(true)}
+                aoErro={(e) => setErro(faltaNoBanco(e) ? t.cartao.indisponivel : textoDoErro(s, e))}
+              />
+            )}
             {ENCAIXES.acoesDoCartao.map((Acao, i) => (
               <Acao key={i} {...ctx} post={post} />
             ))}
@@ -592,6 +631,14 @@ export function CartaoDaAlumia2({
     </>
   );
 
+  if (apagado) {
+    return (
+      <p role="status" className="al2-cartao px-4 py-4 text-sm text-[var(--al-texto-3)] md:px-5">
+        {t.cartao.apagado}
+      </p>
+    );
+  }
+
   return (
     <article
       className={`al2-cartao al2-cartao-${densidade} ${aberta ? "px-4 pb-3 pt-5 md:px-5" : `flex gap-3 px-4 md:px-5 ${densidade === "compacta" ? "py-4" : "py-5"}`}`}
@@ -599,6 +646,9 @@ export function CartaoDaAlumia2({
       data-tipo={post.tipo}
       data-abre={aberta ? undefined : ""}
       onClick={abrir}
+      onPointerEnter={preparar}
+      onTouchStart={preparar}
+      onFocus={preparar}
       onClickCapture={(e) => marcarLinkAberto(e.target)}
     >
       {aberta ? (

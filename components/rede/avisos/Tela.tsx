@@ -18,10 +18,13 @@ import { Avatar16 } from "../ui/Avatar16";
 import { useRegua } from "../conversa/movimento";
 import { avisosDaPrevia } from "../descoberta/previa";
 import { AvisoDeForaNaLista, destinoDoAvisoDeFora, eAvisoDeFora, fediversoNaTela } from "../fediverso/encaixe";
+import { pontesP4Ligado } from "@/lib/rede/p4/pontes/ligado";
+import { SoDeQuemSigo } from "../p4/pontes/SoDeQuemSigo";
 import { desligarPush, estadoDoPush, ligarPush, type EstadoDoPush } from "./push";
 import { HorarioDeSilencio } from "./HorarioDeSilencio";
 // O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
 import "../conversa/alumia3.css";
+import { entradaDaAlumia } from "@/lib/rede/alumia";
 
 type Aba = "avisos" | "preferencias";
 
@@ -198,6 +201,8 @@ function Preferencias({ t, lang, s, situacao }: { t: TextosDeAvisos; lang: strin
             {TIPOS_DE_AVISO.map((tipo) => (
               <Interruptor key={tipo} id={`av-push-${tipo}`} rotulo={p.site.tipos[tipo]} ligado={prefs.push[tipo]} aoMudar={(v) => void guardar(tipo, "push", v)} />
             ))}
+            {/* Prompt 4, item 131: só com o lote ligado e fora da prévia (a prévia não tem conta). */}
+            {pontesP4Ligado() && !previa() && <SoDeQuemSigo lang={lang} />}
           </fieldset>
         )}
       </section>
@@ -286,6 +291,13 @@ function ListaDeAvisos({ t, lang, s }: { t: TextosDeAvisos; lang: string; s: Pro
           {erro}
         </p>
       )}
+      {/* A8: os avisos de segurança da conta (entrada nova, autenticador) moram na Segurança, não aqui. */}
+      <p className="px-[18px] pb-3 text-sm text-ink-soft">
+        {l.seguranca}{" "}
+        <Link href={`/${lang}/alumia/seguranca#sg-avisos-t`} className="font-bold underline">
+          {l.abrirSeguranca}
+        </Link>
+      </p>
       {itens.length === 0 ? (
         <p className="px-[18px] py-8 text-ink-soft">{l.vazio}</p>
       ) : (
@@ -295,7 +307,7 @@ function ListaDeAvisos({ t, lang, s }: { t: TextosDeAvisos; lang: string; s: Pro
             // impulso, nunca quem foi, e o número só a partir de 3) e diz para onde o aviso leva. O link e o botão são os de sempre.
             const deFora = eAvisoDeFora(item);
             const href = deFora ? destinoDoAvisoDeFora(lang, item) : destino(lang, item);
-            const frase = deFora ? "" : fraseDoAviso(item, frases, l.reserva, t.servidor);
+            const frase = deFora ? "" : fraseDoAviso(item, frases, l.reserva, t.servidor, t.juntar);
             // O rosto em mosaico de quem fez (só o primeiro codinome do grupo, que a frase já diz; nunca a lista) com o ícone do tipo
             // no canto; sem ninguém (apoio, moderação, ato), só o ícone.
             const quem = item.tipo === "apoio" ? null : (item.atores[0] ?? null);
@@ -368,7 +380,7 @@ export default function TelaDeAvisos({ lang, s, situacao }: PropsDaTelaDoPacote)
     return (
       <section className="px-[18px] py-8 font-sans">
         <p className="text-ink-soft">{s.entrada.entreNaConta}</p>
-        <Link href={localePath(lang, "/entrar")} className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#c21f16] px-5 font-bold text-white hover:bg-[#1f1a14]">
+        <Link href={entradaDaAlumia(lang, "/alumia/avisos")} className="mt-4 inline-flex min-h-11 items-center rounded-full bg-[#c21f16] px-5 font-bold text-white hover:bg-[#1f1a14]">
           {s.entrada.entrar}
         </Link>
       </section>

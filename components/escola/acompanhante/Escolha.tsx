@@ -9,6 +9,7 @@ import { fill, htmlLang, type Locale } from "@/i18n/config";
 import { apagarConversas, type Conversa as ConversaGuardada, LIMITES, lerConversas } from "@/lib/escola/acompanhante";
 import { Conversa, type Textos, useModoSeguro } from "./Conversa";
 import { OutroJeito } from "./OutroJeito";
+import { confirmar } from "@/components/perguntar";
 
 // A entrada do acompanhante (/escola/acompanhante): a escolha do modo e o histórico guardado neste aparelho, com
 // "Apagar tudo". O histórico começa vazio no servidor e na hidratação e chega no primeiro efeito (useGuardado).
@@ -94,8 +95,8 @@ function Historico({ s }: { s: Textos }) {
               type="button"
               className="acompanhante-botao-claro"
               data-apagar-tudo
-              onClick={() => {
-                if (!window.confirm(h.confirmar)) return;
+              onClick={async () => {
+                if (!(await confirmar(h.confirmar))) return;
                 apagarConversas();
                 setAviso(h.apagadas);
               }}

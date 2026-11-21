@@ -6,6 +6,7 @@ import { useGuardado } from "@/components/estudo/guardado";
 import { fill } from "@/i18n/config";
 import type { TextosDosCursos } from "@/i18n/escola/cursos";
 import { apagarRespostas, gravarResposta, type LeituraGuiada as Leitura, lerRespostas, MAX_RESPOSTA, respondidas } from "@/lib/escola/leituras";
+import { confirmar } from "@/components/perguntar";
 
 const SEM_RESPOSTAS: Record<string, string[]> = {};
 
@@ -67,8 +68,8 @@ export function LeituraGuiada({ leitura, s }: { leitura: Leitura; s: TextosDosCu
     setAviso(gravarResposta(leitura.obra, secao, i, pendente.texto) ? "guardado" : "erro");
   };
 
-  const apagar = () => {
-    if (!window.confirm(s.apagarConfirma)) return;
+  const apagar = async () => {
+    if (!(await confirmar(s.apagarConfirma))) return;
     for (const k of Object.keys(espera.current)) window.clearTimeout(espera.current[k]);
     for (const k of Object.keys(pendentes.current)) delete pendentes.current[k];
     setRascunho({});

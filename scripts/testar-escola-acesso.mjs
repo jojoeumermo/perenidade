@@ -74,12 +74,14 @@ await espera("entrar no departamento cria a militância (degrau 1) e a carteirin
 await dono("update interno.perfis set rede_codinome = 'Faísca', rede_codinome_ok = true, rede_handle = 'faisca' where id = $1", [ids.militante]);
 await dono("update interno.perfis set rede_codinome = 'Jurema', rede_codinome_ok = true, rede_handle = 'jurema' where id = $1", [ids.jurema]);
 const nucleo = (await dono("insert into interno.rede_nucleos (nome, cidade) values ('Núcleo Zona Leste', 'São Paulo') returning id")).rows[0].id;
-await dono("update interno.escola_militancia set degrau = 2, nucleo = $2, acompanha = $3, frente = 'bairros' where usuario = $1", [ids.militante, nucleo, ids.jurema]);
+// Desde a R2 (membros escondidos) o banco não guarda o núcleo de ninguém, nem na Escola: a militância recusa o núcleo.
+await espera("desde a R2 a militância não guarda o núcleo (o banco recusa)", () => dono("update interno.escola_militancia set nucleo = $2 where usuario = $1", [ids.militante, nucleo]).then(() => "aceitou", (e) => String(e.message)), (m) => m.includes("escola_militancia_sem_nucleo"));
+await dono("update interno.escola_militancia set degrau = 2, acompanha = $2, frente = 'bairros' where usuario = $1", [ids.militante, ids.jurema]);
 await dono("update interno.escola_militancia set degrau = 3 where usuario = $1", [ids.jurema]);
 
-await espera("militante: escola_eu com codinome, degrau, núcleo e quem acompanha", () => rpc(como(ids.militante), "escola_eu"), (r) =>
+await espera("militante: escola_eu com codinome, degrau e quem acompanha, sem núcleo (desde a R2)", () => rpc(como(ids.militante), "escola_eu"), (r) =>
   r.militante === true && r.codinome === "Faísca" && r.handle === "faisca" && r.degrau === 2 && r.frente === "bairros" &&
-  r.nucleo?.id === nucleo && r.nucleo?.nome === "Núcleo Zona Leste" && r.acompanha?.codinome === "Jurema" && r.acompanha?.handle === "jurema" &&
+  (r.nucleo ?? null) === null && r.acompanha?.codinome === "Jurema" && r.acompanha?.handle === "jurema" &&
   r.publico === "ninguem" && r.coordena === false && typeof r.desde === "string");
 await espera("escola_eu nunca leva o nome civil", () => rpc(como(ids.militante), "escola_eu"), (r) => !JSON.stringify(r).includes("Nome Civil") && !("nome" in r));
 await dono("update interno.perfis set rede_invisivel = true where id = $1", [ids.jurema]);
@@ -174,7 +176,9 @@ confere("a migração está inteira no install.sql", semCR(ler("supabase", "inst
 
 // ───────────────────────────── 2. O contrato ─────────────────────────────
 const DO_PLANO = ["escola_eu", "escola_aulas_hoje", "escola_gravacoes", "escola_nucleo", "escola_encontro_salvar", "escola_tarefa_pegar", "escola_levar_ao_nucleo", "escola_pergunta_da_semana", "escola_pergunta_definir", "escola_recados", "escola_recado_salvar", "escola_acompanhar", "escola_banca_marcar", "escola_banca_decidir", "escola_militantes_listar", "escola_militante_ajustar", "escola_conquista_declarar", "escola_publico_definir", "escola_conquistas_minhas", "escola_frente_escolher", "escola_frentes_somadas"];
-confere("contrato: todas as funções públicas do plano (4.1 a 4.6)", DO_PLANO.every((n) => n in FUNCOES_DA_ESCOLA) && Object.keys(FUNCOES_DA_ESCOLA).length === DO_PLANO.length);
+// P5 (B3 e B5): a tag de revolucionária(o) e a frente no perfil da Alumia (20261126-p5-escola.sql).
+const DO_P5 = ["escola_tag_definir", "escola_tag_minha"];
+confere("contrato: todas as funções públicas do plano (4.1 a 4.6) e do P5", [...DO_PLANO, ...DO_P5].every((n) => n in FUNCOES_DA_ESCOLA) && Object.keys(FUNCOES_DA_ESCOLA).length === DO_PLANO.length + DO_P5.length);
 const contratoTs = ler("lib", "escola", "contratos.ts");
 confere("contrato: cada função também no tipo FuncoesDaEscola", DO_PLANO.every((n) => new RegExp(`\\n  ${n}: \\{ frente: "F\\d"`).test(contratoTs)));
 confere("contrato: as funções da F1 estão na migração da F1", Object.entries(FUNCOES_DA_ESCOLA).filter(([, f]) => f === "F1").every(([n]) => MIGRACAO.includes(`public.${n}(`)) && MIGRACOES_DA_ESCOLA.F1 === "20261108-escola-formacao-base.sql");

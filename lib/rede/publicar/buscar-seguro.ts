@@ -4,7 +4,9 @@
 // fetch comum: o nome do site é resolvido AQUI, no momento de conectar, e a conexão só sai se TODOS os endereços forem
 // públicos (um nome pode apontar para 127.0.0.1 ou 169.254.169.254; conferir antes e deixar o fetch resolver de novo
 // abriria uma brecha de troca no meio do caminho). Redirecionamentos são seguidos à mão (até 3), cada um conferido; há
-// tempo limite e tamanho máximo, e o corpo é lido aos poucos (para nunca encher a memória).
+// tempo limite e tamanho máximo, e o corpo é lido aos poucos (para nunca encher a memória). O tempo limite é duplo: o de silêncio
+// (o "timeout" do Node, que recomeça a cada pedaço que chega) e um prazo TOTAL para a busca inteira: sem ele, um site que manda
+// um byte de cada vez prendia a conexão do servidor para sempre. Corpo cortado no meio (a conexão caiu antes do fim) não vale.
 import dns from "node:dns";
 import http from "node:http";
 import https from "node:https";
@@ -12,6 +14,8 @@ import { ipPrivado, urlSegura } from "./previa";
 
 export interface OpcoesDeBusca {
   tempoMs?: number;
+  /** O prazo da busca inteira (cada salto), do pedido ao último byte. Padrão: o dobro de tempoMs. */
+  prazoTotalMs?: number;
   maxBytes?: number;
   maxRedirecionamentos?: number;
   /** Tipos aceitos (começo do Content-Type). */
@@ -39,6 +43,16 @@ function umaBusca(url: URL, o: Required<Pick<OpcoesDeBusca, "tempoMs" | "maxByte
   const resolver = o.resolver ?? resolverPadrao;
   return new Promise((resolve, reject) => {
     const modulo = url.protocol === "https:" ? https : http;
+    let esgotou = false;
+    // O prazo total: vence mesmo que os bytes continuem pingando (o "timeout" de silêncio não vê isso).
+    const prazo = setTimeout(() => {
+      esgotou = true;
+      pedido.destroy(new Error("tempo_esgotado"));
+    }, o.prazoTotalMs ?? o.tempoMs * 2);
+    const sair = (erro: Error) => {
+      clearTimeout(prazo);
+      reject(erro);
+    };
     const pedido = modulo.request(
       url,
       {
@@ -64,6 +78,7 @@ function umaBusca(url: URL, o: Required<Pick<OpcoesDeBusca, "tempoMs" | "maxByte
       (resposta) => {
         const status = resposta.statusCode ?? 0;
         if (status >= 300 && status < 400 && resposta.headers.location) {
+          clearTimeout(prazo);
           resposta.resume();
           resolve({ status, local: String(resposta.headers.location), tipo: "", corpo: new Uint8Array(), truncado: false });
           return;
@@ -82,14 +97,22 @@ function umaBusca(url: URL, o: Required<Pick<OpcoesDeBusca, "tempoMs" | "maxByte
           }
           pedacos.push(p);
         });
-        const fim = () => resolve({ status, tipo, corpo: new Uint8Array(Buffer.concat(pedacos)), truncado });
+        let acabou = false;
+        const fim = () => {
+          if (acabou) return;
+          acabou = true;
+          // Passou do prazo, ou a conexão caiu antes do fim (e não fomos nós que cortamos no tamanho máximo): não vale.
+          if (esgotou || (!truncado && !resposta.complete)) return sair(new Error(esgotou ? "tempo_esgotado" : "incompleto"));
+          clearTimeout(prazo);
+          resolve({ status, tipo, corpo: new Uint8Array(Buffer.concat(pedacos)), truncado });
+        };
         resposta.on("end", fim);
         resposta.on("close", fim);
         resposta.on("error", () => fim());
       },
     );
     pedido.on("timeout", () => pedido.destroy(new Error("tempo_esgotado")));
-    pedido.on("error", reject);
+    pedido.on("error", sair);
     pedido.end();
   });
 }

@@ -131,6 +131,7 @@
     "trocouArroba": "Listo. Vuelves a aparecer como {codinome}, ahora con @{handle}."
   },
   "erros": {
+    "nome_com_selo": "Los signos parecidos al sello de verificado (✓, ✔, ☑, ✅, 🔵) y las palabras “verificado” y “oficial” no pueden ir en un nombre. Elige otro.",
     "identidade_desligada": "La coordinación cerró, por ahora, la opción de nombre y foto. Volver al nombre en clave sigue funcionando.",
     "identidade_org": "La cuenta de organización no usa esta opción.",
     "identidade_codinome": "Para enviar foto, primero elige aparecer con nombre.",

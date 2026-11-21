@@ -101,4 +101,5 @@ export const ERROS_DO_ADMIN: Record<string, string> = {
   cloudflare_fora_do_ar: "A Cloudflare não respondeu agora. Nada foi gravado; tente de novo em um minuto.",
   sem_conexao: "O servidor não respondeu agora.",
   sem_servico: "Sem banco nesta montagem.",
+  alumia_so_leitura: "A Alumia está em modo só leitura: ninguém publica nem muda nada até a coordenação desligar o modo.",
 };

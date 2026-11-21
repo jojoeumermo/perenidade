@@ -72,7 +72,7 @@ function sairRapido() {
 /** Sair da conta neste endereço (a sessão da Alumia é guardada à parte da do site: docs/rede/ALUMIA-DOMINIO.md). */
 async function sairDaConta() {
   try {
-    if (hasSession()) await (await getClient()).auth.signOut();
+    if (hasSession()) await (await getClient()).auth.signOut({ scope: "local" });
   } catch {
     // sem serviço: não havia sessão para encerrar
   }

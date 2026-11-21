@@ -1,0 +1,59 @@
+{
+  "foto": {
+    "botao": "Foto que abre uma vez",
+    "explica": "A foto é refeita neste aparelho (sai sem lugar, câmera nem data), cifrada e só abre uma vez para quem recebe.",
+    "rotulo": "Foto de ver uma vez",
+    "abrir": "Abrir a foto uma vez",
+    "escondido": "A foto some quando esta janela sai da frente.",
+    "aviso": "Protegida contra cópia só neste navegador: não impede foto da tela nem de outra câmera. Quem mandou nunca é avisada.",
+    "invalida": "Não deu para ler esta imagem. Use JPG, PNG ou WebP de até 3 MB."
+  },
+  "encaminhar": {
+    "acao": "Encaminhar",
+    "titulo": "Encaminhar para",
+    "explica": "Vai como mensagem nova sua, cifrada, com a marca de encaminhada. O servidor não fica sabendo.",
+    "limite": "Esta já foi encaminhada muitas vezes: só para uma conversa por vez.",
+    "ate": "Até {n} conversas de uma vez.",
+    "enviar": "Encaminhar",
+    "cancelar": "Cancelar",
+    "nenhuma": "Nenhuma outra conversa aberta neste aparelho.",
+    "erro": "Não deu para encaminhar. Tente de novo.",
+    "marca": "Encaminhada",
+    "muitas": "Encaminhada muitas vezes"
+  },
+  "notas": {
+    "titulo": "Notas para mim",
+    "linha": "Só você lê. Cifradas, nos seus aparelhos.",
+    "explica": "Só você lê. Cada nota fica cifrada neste aparelho e vai, cifrada, só para os seus outros aparelhos ligados ao chat. O servidor não sabe que elas existem. O Sair rápido apaga as notas deste aparelho.",
+    "escreva": "Escreva uma nota",
+    "guardar": "Guardar nota",
+    "vazio": "Nenhuma nota ainda.",
+    "apagar": "Apagar",
+    "apagarConfirma": "Apagar esta nota deste e dos seus outros aparelhos?",
+    "erro": "Não deu para guardar ou ler as notas. Tente de novo."
+  },
+  "silencio": {
+    "descricao": "No horário escolhido, o aviso da Alumia chega sem som nem vibração. A janela fica só neste aparelho: o servidor não sabe se, nem quando, você silencia. Cada aparelho tem a sua.",
+    "levado": "O horário que estava guardado no servidor veio para este aparelho e foi apagado de lá."
+  },
+  "agendar": {
+    "botao": "Agendar envio",
+    "titulo": "Agendar este texto",
+    "aviso": "Fica só neste aparelho e sai na hora se ele estiver ligado com o chat da Alumia aberto. Se estiver desligado, sai quando você abrir o chat de novo. O servidor só fica sabendo quando a mensagem sair.",
+    "quando": "Sai em",
+    "confirmar": "Agendar",
+    "cancelar": "Cancelar",
+    "hora": "Escolha uma hora entre 1 minuto e 30 dias daqui.",
+    "erro": "Não deu para agendar. Tente de novo.",
+    "marca": "agendada para {quando}, só neste aparelho",
+    "desistir": "Desistir do envio"
+  },
+  "transcrever": {
+    "botao": "Transcrever neste aparelho",
+    "ouvindo": "Transcrevendo neste aparelho…",
+    "rotulo": "Transcrição",
+    "aviso": "Feita por este aparelho, sem mandar o áudio para fora. Pode ter erros. Não fica guardada.",
+    "vazia": "Não deu para entender nenhuma palavra.",
+    "falhou": "Este navegador parou a transcrição. Ouça a nota."
+  }
+}

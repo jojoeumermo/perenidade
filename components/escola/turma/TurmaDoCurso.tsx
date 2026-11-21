@@ -16,6 +16,7 @@ import {
   type TurmaDoCursoNoMes,
 } from "@/lib/escola/turma-do-curso";
 import { JITSI_DOMINIO } from "@/lib/jitsi";
+import { SalaDaTurma } from "@/components/SalaDeVideo";
 import { useCompleted } from "@/lib/progress";
 
 type S = TextosDaTurma["turma"];
@@ -154,15 +155,15 @@ export function EntrarNaTurma({
           </p>
           <div className="turma-botoes">
             {situacao.sala && !proxima && (
-              <a
+              <SalaDaTurma
+                sala={situacao.sala}
+                entrada={{ origem: "turma-curso", mes, curso }}
+                lang={lang}
+                rotulo={s.abrirSala}
                 href={`https://${JITSI_DOMINIO}/${situacao.sala}`}
-                target="_blank"
-                rel="noreferrer"
                 className="botao botao-tinta"
-                data-turma-sala=""
-              >
-                {s.abrirSala}
-              </a>
+                nome={quem.status === "in" ? quem.me.nome : ""}
+              />
             )}
             <button
               type="button"

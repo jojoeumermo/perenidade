@@ -1,0 +1,59 @@
+{
+  "botoes": {
+    "voz": "Chamada de voz",
+    "video": "Chamada de vídeo"
+  },
+  "tocando": {
+    "voz": "{nome} está ligando",
+    "video": "{nome} está ligando com vídeo",
+    "atender": "Atender",
+    "atenderSoVoz": "Atender só com voz",
+    "atenderComCamera": "Atender com câmera",
+    "recusar": "Recusar"
+  },
+  "fases": {
+    "ligando": "Chamando {nome}…",
+    "conectando": "Conectando com {nome}…",
+    "emChamada": "Em chamada com {nome}"
+  },
+  "acoes": {
+    "mudo": "Desligar o microfone",
+    "falar": "Ligar o microfone",
+    "cameraDesligar": "Desligar a câmera",
+    "cameraLigar": "Ligar a câmera",
+    "desligar": "Desligar",
+    "desistir": "Desistir",
+    "fechar": "Fechar"
+  },
+  "voce": "Você",
+  "semCamera": "{nome} está sem câmera.",
+  "fim": {
+    "cancelou": "{nome} desistiu de ligar.",
+    "recusou": "{nome} recusou a chamada.",
+    "desligou": "{nome} desligou.",
+    "atendida": "A chamada acabou.",
+    "nao_atendeu": "{nome} não atendeu.",
+    "nao_conectou": "A conexão não abriu. Tente de novo.",
+    "saiu": "A chamada acabou.",
+    "eu": "Chamada encerrada.",
+    "erro": "Não deu para fazer a chamada."
+  },
+  "erros": {
+    "NotAllowedError": "O navegador não deixou usar o microfone ou a câmera. Libere nas permissões do site.",
+    "NotFoundError": "Nenhum microfone ou câmera encontrado neste aparelho.",
+    "NotReadableError": "Outro programa está usando o microfone ou a câmera.",
+    "voz_desligada": "As chamadas estão desligadas neste servidor.",
+    "voz_sem_retransmissao": "O servidor de retransmissão não respondeu. Sem ele a chamada não abre: é ele que esconde o seu endereço.",
+    "voz_sem_canal": "O canal da chamada não abriu. Tente de novo.",
+    "sem_chat": "Abra o chat neste aparelho antes de ligar.",
+    "chamada_nao_saiu": "O toque não saiu: nenhum aparelho da outra pessoa está pronto.",
+    "dm_aguardando": "A conversa ainda não foi aceita.",
+    "dm_fechada": "Esta conversa está fechada.",
+    "dm_identidade_mudou": "A identidade da outra pessoa mudou. Confira o código antes de ligar.",
+    "dm_exige_comparar": "A identidade da outra pessoa mudou. Compare o código antes de ligar.",
+    "dm_fora_do_registro": "O registro público não confirma a identidade da outra pessoa. Não dá para ligar.",
+    "outro": "Não deu para fazer a chamada. Tente de novo."
+  },
+  "privacidade": "Cifrada de ponta a ponta. O toque vai dentro da conversa cifrada; a voz e o vídeo passam pela retransmissão, que não consegue ouvir nem ver. Nenhum registro de chamada fica guardado.",
+  "limite": "O toque só chega se a Alumia estiver aberta no aparelho da outra pessoa, e pode levar até um minuto e meio."
+}

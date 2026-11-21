@@ -1,4 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import { TrechoDaEscola } from "@/components/escola/aulas/TrechoDaEscola";
+import { textosDasAulasAbertas } from "@/i18n/escola/aulas";
+import { areaNaEscola, caminhoDaAula, caminhoDaEstante, caminhoDaTrilha } from "@/lib/escola/aulas-abertas";
 import GithubSlugger from "github-slugger";
 import type { Metadata } from "next";
 import { ExerciciosDaAula } from "@/components/ExerciciosDaAula";
@@ -89,7 +92,7 @@ export const dynamicParams = true;
 
 export function generateStaticParams() {
   return nosIdiomasDoTexto(
-    getTracks(defaultLocale).flatMap((track) => track.lessons.map((lesson) => ({ params: { track: track.slug, lesson: lesson.slug }, file: lesson.file }))),
+    getTracks(defaultLocale).filter((track) => !areaNaEscola(track.area)).flatMap((track) => track.lessons.map((lesson) => ({ params: { track: track.slug, lesson: lesson.slug }, file: lesson.file }))),
   );
 }
 
@@ -98,7 +101,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { track: trackSlug, lesson: lessonSlug } = await params;
   const track = getTrack(trackSlug, lang);
   const lesson = track?.lessons.find((l) => l.slug === lessonSlug);
-  return track && lesson ? paginaMeta(lang, `/trilhas/${track.slug}/${lesson.slug}`, `${lesson.title} · ${track.title}`, lesson.summary, { titulo: lesson.title, subtitulo: `${track.title} · ${t.areas[track.area][0]}`, kicker: t.nav.disciplines }, { idiomas: idiomasDe(lesson.file) }) : {};
+  return track && lesson ? paginaMeta(lang, caminhoDaAula(track, lesson.slug), `${lesson.title} · ${track.title}`, lesson.summary, { titulo: lesson.title, subtitulo: `${track.title} · ${t.areas[track.area][0]}`, kicker: t.nav.disciplines }, { idiomas: idiomasDe(lesson.file) }) : {};
 }
 
 /** Subtítulos (##) da aula, com as mesmas âncoras que o texto recebe. */
@@ -124,7 +127,9 @@ export default async function LessonPage({ params }: Props) {
   if (!track || index < 0) notFound();
 
   const to = (path: string) => localePath(lang, path);
-  const path = (slug: string) => `/trilhas/${track.slug}/${slug}`;
+  // Teoria revolucionária e Lutas do povo moram na Escola (P5, B2): os caminhos vêm de lib/escola/aulas-abertas.ts.
+  const path = (slug: string) => caminhoDaAula(track, slug);
+  const caminhoDaPropriaTrilha = caminhoDaTrilha(track);
   const lesson = track.lessons[index];
   // Sem tradução do texto neste idioma: vai para a aula em português (veja lib/params.ts).
   if (lang !== defaultLocale && !lesson.translated) permanentRedirect(localePath(defaultLocale, path(lesson.slug)));
@@ -219,25 +224,25 @@ export default async function LessonPage({ params }: Props) {
   return (
     <div className="pagina-da-aula pont">
       {/* A faixa preta da aula: a trilha, a posição, quanto já foi lido e os botões de ouvir, anotar, alargar e focar. */}
-      <BarraDaAula voltar={to(`/trilhas/${track.slug}`)} trilha={track.title} posicao={fill(t.lesson.position, { i: index + 1, n: track.lessons.length })} minutos={fill(t.tracks.minutes, { n: lesson.minutes })} aula={id} ferramentas={t.tools.box.open} letra={sa?.letra} />
+      <BarraDaAula voltar={to(caminhoDaPropriaTrilha)} trilha={track.title} posicao={fill(t.lesson.position, { i: index + 1, n: track.lessons.length })} minutos={fill(t.tracks.minutes, { n: lesson.minutes })} aula={id} ferramentas={t.tools.box.open} letra={sa?.letra} />
     <div className="grade-da-aula mx-auto grid max-w-[86rem] gap-10 px-4 py-12 app:max-md:gap-8 app:max-md:px-5 app:max-md:pt-4! sm:px-6 md:grid-cols-[14rem_minmax(0,1fr)] lg:px-8 xl:grid-cols-[14rem_minmax(0,1fr)_15rem]">
-      <DadosEstruturados dados={[recursoDeAula(lang, track, lesson), migalhas(lang, [[t.nav.disciplines, "/trilhas"], [track.title, `/trilhas/${track.slug}`], [lesson.title, `/trilhas/${track.slug}/${lesson.slug}`]])]} />
+      <DadosEstruturados dados={[recursoDeAula(lang, track, lesson), migalhas(lang, [[t.nav.disciplines, "/trilhas"], [track.title, caminhoDaPropriaTrilha], [lesson.title, path(lesson.slug)]])]} />
       <ReadingChrome />
       <AcoesDaAula
         id={id}
         anterior={prev && { id: lessonId(track.slug, prev.slug), path: path(prev.slug), title: prev.title }}
         proxima={next && { id: lessonId(track.slug, next.slug), path: path(next.slug), title: next.title }}
         aulas={track.plan.map((item) => ({ id: lessonId(track.slug, item.slug), path: path(item.slug), title: item.title, ready: item.ready }))}
-        escola={sa ? { umaMao: sa.umaMao, letra: sa.letra, trilha: `/trilhas/${track.slug}` } : undefined}
+        escola={sa ? { umaMao: sa.umaMao, letra: sa.letra, trilha: caminhoDaPropriaTrilha } : undefined}
       />
       <RememberLesson path={path(lesson.slug)} title={lesson.title} track={track.title} area={track.area} />
       {(ligado("meu-estudo") || ligado("metas")) && <RegistroDeConclusao />}
 
       {/* No aplicativo o texto vem primeiro, como em um leitor de livros; a lista das aulas da disciplina fica depois dele. */}
       <aside className="indice-da-trilha no-print no-focus font-sans text-sm app:max-md:order-2 app:max-md:border-t app:max-md:border-rule app:max-md:pt-6 md:sticky md:top-6 md:self-start">
-        <Link href={to(`/estantes/${track.area}`)} className="font-mono text-xs uppercase tracking-[0.1em] text-ink-soft hover:text-prelo-texto">← {t.areas[track.area][0]}</Link>
+        <Link href={to(caminhoDaEstante(track.area))} className="font-mono text-xs uppercase tracking-[0.1em] text-ink-soft hover:text-prelo-texto">← {t.areas[track.area][0]}</Link>
         <h2 className="mt-3 font-serif text-xl font-semibold" {...originalLang(track.translated)}>
-          <Link href={to(`/trilhas/${track.slug}`)} className="hover:text-oxblood">{track.title}</Link>
+          <Link href={to(caminhoDaPropriaTrilha)} className="hover:text-oxblood">{track.title}</Link>
         </h2>
         <div className="mt-4" {...originalLang(track.translated)}>
           <LessonList
@@ -277,7 +282,7 @@ export default async function LessonPage({ params }: Props) {
             hrefEmPortugues={localePath(defaultLocale, path(lesson.slug))}
             textoBytes={tamanhoDoTexto(lesson.title, lesson.summary, lesson.body)}
             caminhos={caminhosDeLevar(lang, track.slug, lesson.slug)}
-            paginasDaTrilha={[to(`/trilhas/${track.slug}`), ...track.lessons.map((l) => to(path(l.slug)))]}
+            paginasDaTrilha={[to(caminhoDaPropriaTrilha), ...track.lessons.map((l) => to(path(l.slug)))]}
             trilhas={t.tracks}
             espelhos={espelhosDoSite()}
             s={textosDaLeveza(lang)}
@@ -321,6 +326,8 @@ export default async function LessonPage({ params }: Props) {
           )}
           {sa && letraGrande && <OuvirParagrafo raiz="#texto-da-aula" s={sa.ouvir} />}
           {sa && letraGrande && facil && <OuvirParagrafo raiz="#texto-facil" s={sa.ouvir} />}
+          {/* P5, B2: aula do site que cita uma aula de Teoria revolucionária ou de Lutas do povo abre o trecho numa janela ali mesmo. */}
+          {ligado("escola") && !areaNaEscola(track.area) && <TrechoDaEscola lang={lang} s={textosDasAulasAbertas(lang)} />}
           {sa && <BarraDeSelecao termos={glossarioDaAula} titulo={lesson.title} endereco={site.url} s={sa.selecao} cartao={sa.cartao} />}
           {lesson.quiz.length > 0 && <Quiz key={id} questions={lesson.quiz} registro={id} guardarNoAparelho={ligado("meu-estudo")} audio={letraGrande} />}
           {exercicios.length > 0 && <ExerciciosComExplicacao exercicios={exercicios} aula={id} s={estudo.exercicios} corrigir={`/contribuir?corrigir=${encodeURIComponent(path(lesson.slug))}`} praticar="/meu-estudo/praticar" />}

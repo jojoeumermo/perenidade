@@ -4,14 +4,17 @@
 import { CircleCheck, Lock, LockOpen, Plus, Square, Vote, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { can, type Me } from "@/lib/backend";
-import { votoPeloServidor } from "@/lib/rede/voto/cliente";
+import { naUrna, urna, votoPeloServidor } from "@/lib/rede/voto/cliente";
+import { UrnaSecreta } from "@/components/rede/voto/UrnaSecreta";
 import { NOMES_DOS_DEPARTAMENTOS } from "./Departamentos";
 import { Aviso, dataHora, useAcao, useLista } from "./comum";
 import { Area, Botao, CabecalhoDeSecao, Campo, Cartao, Esqueleto, Marca, Selecao, Selo, Vazio } from "./ui";
 
 // Assembleias e votações (supabase/install.sql, "Assembleias e votações"): a coordenação abre para a equipe toda; o
-// representante, para o departamento dele. Voto secreto de verdade e resultado só depois do fim. O voto secreto vai pelo servidor
-// do site (app/api/alumia/voto/marca): o banco guarda a marca de quem votou (HMAC com o segredo do servidor), nunca a pessoa.
+// representante, para o departamento dele. Voto secreto de verdade e resultado só depois do fim. O voto secreto é em limiar (R2,
+// item 1.7; supabase/migracoes/20261124-r2-voto.sql): a cédula sai cifrada deste aparelho para a chave das guardiãs da coordenação
+// (components/rede/voto/UrnaSecreta.tsx), e vai pelo servidor do site (app/api/alumia/voto/marca), que grava só a marca de quem
+// votou (HMAC com o segredo do servidor), nunca a pessoa; o servidor não abre a cédula.
 
 interface Votacao {
   id: string;
@@ -29,6 +32,10 @@ interface Votacao {
   votei: boolean;
   votantes: number;
   aptos: number;
+  /** Secreta com a chave das guardiãs publicada. */
+  chave?: boolean;
+  /** Encerrada com cédula cifrada esperando as guardiãs abrirem. */
+  apurar?: boolean;
   resultado: { opcao: number; texto: string; votos: number; quem: string[] | null }[] | null;
 }
 
@@ -56,6 +63,8 @@ export function Assembleias({ me }: { me: Me }) {
   useEffect(() => {
     if (!secretasAbertas) return;
     let vivo = true;
+    // Onda R3 (urna anônima): o passe da urna de cada votação secreta aberta é pego CEDO, com a sessão; o voto sai depois, sem ela.
+    for (const id of secretasAbertas.split(",")) void urna.prepararCedula("equipe", id);
     votoPeloServidor<string[]>({ tipo: "equipe_ver", votacoes: secretasAbertas.split(",") }).then(
       (ids) => vivo && setVoteiSecretas(ids),
       () => undefined,
@@ -68,14 +77,22 @@ export function Assembleias({ me }: { me: Me }) {
     setVotando(true);
     setAvisoSecreto("");
     try {
-      await votoPeloServidor({ tipo: "equipe", votacao: id, opcao });
+      await naUrna(() => urna.votar("equipe", id, [opcao]));
       setVoteiSecretas((l) => [...l, id]);
       setAvisoSecreto("Voto registrado. Obrigado por decidir junto.");
       lista.recarregar();
     } catch (e) {
       const c = (e as { code?: string }).code;
-      if (c === "ja_votou") setVoteiSecretas((l) => [...l, id]);
-      setAvisoSecreto(c === "ja_votou" ? "Você já tinha votado nesta votação." : c === "encerrada" ? "Esta votação já foi encerrada." : "Não deu para registrar o voto agora. Tente de novo daqui a pouco.");
+      if (c === "ja_votou" || c === "passe_usado" || c === "ja_pegou") setVoteiSecretas((l) => [...l, id]);
+      setAvisoSecreto(
+        c === "ja_votou" || c === "passe_usado" ? "Você já tinha votado nesta votação."
+        : c === "ja_pegou" ? "A cédula desta votação já foi pega por um aparelho seu: o voto sai de lá."
+        : c === "encerrada" ? "Esta votação já foi encerrada."
+        : c === "sem_chave" ? "Esta votação ainda não tem a chave das guardiãs: quem a abriu precisa escolhê-las antes do primeiro voto."
+        : c === "chave_nao_confere" || c === "identidade_trocada" ? "A chave desta votação não confere. Nada foi enviado: avise a coordenação."
+        : c === "alumia_entrada" || c === "entre_primeiro" ? "O voto secreto usa a sua conta da Alumia (o chat novo guarda a sua identidade). Entre na Alumia para votar em segredo."
+        : "Não deu para registrar o voto agora. Tente de novo daqui a pouco.",
+      );
     } finally {
       setVotando(false);
     }
@@ -85,7 +102,7 @@ export function Assembleias({ me }: { me: Me }) {
     <div className="pn-tela">
       <div className="pn-tela-cabeca">
         <p className="max-w-2xl text-sm text-ink-soft">
-          Decisões da equipe por voto. No voto secreto, o banco não guarda quem votou: guarda só uma marca embaralhada com um segredo que fica fora dele, para ninguém votar duas vezes, e o voto separado dela. O resultado só aparece no fim, para ninguém ir atrás da maioria.
+          Decisões da equipe por voto. No voto secreto, a cédula sai cifrada do seu aparelho para a chave das guardiãs da coordenação: só algumas delas juntas, depois do fim, abrem as cédulas, sem saber de quem são; nem o servidor abre. O banco não guarda quem votou: guarda só uma marca embaralhada com um segredo que fica fora dele, para ninguém votar duas vezes. O resultado só aparece no fim, para ninguém ir atrás da maioria.
         </p>
         {abre && !nova && (
           <Botao variante="principal" simbolo={Plus} onClick={() => setNova(true)}>
@@ -146,8 +163,9 @@ export function Assembleias({ me }: { me: Me }) {
                 ) : (
                   <p className="pn-ajuda mt-3">Esta votação é de outro departamento.</p>
                 )}
+                {v.secreta && <UrnaSecreta tipo="equipe" alvo={v.id} lang="pt" aoMudar={lista.recarregar} />}
                 {(v.minha || can(me, "coordenacao")) && (
-                  <Botao variante="discreto" pequeno className="mt-3" simbolo={Square} disabled={acao.ocupado} onClick={() => void acao.agir("votacao_encerrar", { p_id: v.id }, "Votação encerrada. O resultado já aparece.")}>
+                  <Botao variante="discreto" pequeno className="mt-3" simbolo={Square} disabled={acao.ocupado} onClick={() => void acao.agir("votacao_encerrar", { p_id: v.id }, v.secreta ? "Votação encerrada. Agora as guardiãs abrem a urna; o resultado aparece depois." : "Votação encerrada. O resultado já aparece.")}>
                     Encerrar agora
                   </Botao>
                 )}
@@ -190,7 +208,8 @@ export function Assembleias({ me }: { me: Me }) {
                         );
                       })}
                     </ul>
-                    {v.secreta && v.resultado === null && <p className="pn-ajuda mt-3">Voto secreto com menos de 3 votos: o resultado não aparece.</p>}
+                    {v.secreta && v.apurar && <UrnaSecreta tipo="equipe" alvo={v.id} lang="pt" fechada aoMudar={lista.recarregar} />}
+                    {v.secreta && v.resultado === null && !v.apurar && <p className="pn-ajuda mt-3">Voto secreto com menos de 3 votos: o resultado não aparece.</p>}
                   </Cartao>
                 </li>
               );

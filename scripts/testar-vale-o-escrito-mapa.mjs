@@ -1,12 +1,13 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 // Confere o pacote "mapa" do Vale o Escrito: contas de geografia (lib/vale-o-escrito/geo.ts), os arquivos de malha do IBGE
-// e o municipios.json (quando já gerados), os textos nos 6 idiomas e as promessas do componente (carga sob demanda, nenhum
-// endereço de terceiros). Sem rede, sem navegador.
+// e o municipios.json (quando já gerados), a malha do mundo (Natural Earth, Prompt 5 C1), os textos nos 6 idiomas e as
+// promessas do componente (carga sob demanda, nenhum endereço de terceiros). Sem rede, sem navegador.
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
-import { SIGLAS_DE_UF, caixa, centro, contarCasos, contornoExterno, pontosDosCasos, ufDoMunicipio, uniaoDeCaixas } from "../lib/vale-o-escrito/geo.ts";
+import { SIGLAS_DE_UF, caixa, centro, contarCasos, contornoExterno, paisDoCaso, pontosDosCasos, ufDoMunicipio, uniaoDeCaixas } from "../lib/vale-o-escrito/geo.ts";
 import { IDIOMAS_VE } from "../lib/vale-o-escrito/tipos.ts";
+import { lugarDoNo } from "../lib/vale-o-escrito/visual.ts";
 
 let total = 0;
 const caso = (nome, fn) => {
@@ -134,6 +135,66 @@ caso("T31: mapa neon (contorno fino, calor por densidade, ramificações, reduzi
   const m = ler("components", "vale-o-escrito", "Mapa.tsx");
   for (const t of ['"contorno"', '"casos-calor"', "heatmap-density", "ve-ramos", "ramosDe", "aoSelecionarNo", "aria-pressed={calmo}", "t.aproximado"]) assert.ok(m.includes(t), t);
   assert.ok(!/https?:\/\/(?!www\.w3)/.test(m.replace(/\/\/.*$/gm, "")), "nenhum endereço de terceiros");
+});
+
+// ───────────── Prompt 5, C1: do Brasil para o mundo ─────────────
+caso("C1: a malha do mundo vem da Natural Earth pelo world-atlas, sem endereço de fora, e é leve", () => {
+  const s = ler("scripts", "vale-o-escrito", "gerar-mundo.mjs");
+  assert.match(s, /world-atlas\/countries-110m\.json/);
+  assert.doesNotMatch(s, /https?:\/\//, "o script não baixa nada");
+  const arq = path.join(raiz, "public", "vale-o-escrito", "malhas", "mundo.geojson");
+  assert.ok(fs.existsSync(arq), "falta public/vale-o-escrito/malhas/mundo.geojson (node scripts/vale-o-escrito/gerar-mundo.mjs)");
+  assert.ok(fs.statSync(arq).size < 300_000, `mundo.geojson pesado: ${fs.statSync(arq).size}`);
+  const mundo = JSON.parse(fs.readFileSync(arq, "utf8"));
+  const isos = mundo.features.map((f) => f.properties.iso);
+  assert.ok(mundo.features.length > 150, "países demais faltando");
+  for (const p of ["US", "IL", "AR", "PT", "CN"]) assert.ok(isos.includes(p), `falta ${p}`);
+  assert.ok(!isos.includes("BR"), "o Brasil é do IBGE, não da Natural Earth");
+  assert.ok(!isos.includes("AQ"), "a Antártida fica de fora");
+  assert.ok(mundo.features.every((f) => f.properties.iso === "" || /^[A-Z]{2}$/.test(f.properties.iso)));
+  assert.ok(mundo.features.every((f) => centro(f.geometry)), "todo país tem centro");
+});
+caso("C1: contagem por país e ponto no centro do país para caso de fora; o Brasil continua por UF e município", () => {
+  const casos = [
+    { id: "br", titulo: "BR", dossie: "x", cor: "vermelho", pais: "BR", municipioIbge: "1500602", situacao: "Réu" },
+    { id: "us", titulo: "US", dossie: "x", cor: "azul", pais: "US", situacao: "Investigado" },
+    { id: "il", titulo: "IL", dossie: "x", cor: "amarelo", pais: "il", situacao: "Investigado" },
+    { id: "zz", titulo: "ZZ", dossie: "x", cor: "amarelo", pais: "ZZ", situacao: "Investigado" },
+    { id: "antigo", titulo: "sem país", dossie: "x", cor: "amarelo", uf: "PA", situacao: "Investigado" },
+  ];
+  const { porPais, porUf, porMunicipio } = contarCasos(casos);
+  assert.deepEqual(porPais, { BR: 2, US: 1, IL: 1, ZZ: 1 });
+  assert.equal(porUf.PA, 2, "o caso sem país é do Brasil (os de antes)");
+  assert.equal(porMunicipio["1500602"], 1);
+  const pts = pontosDosCasos(casos, { PA: [-52, -4] }, { "1500602": [-52.2, -3.2] }, { US: [-98, 39], IL: [35, 31], BR: [-51.9, -10.8] });
+  const por = Object.fromEntries(pts.features.map((f) => [f.properties.id, f]));
+  assert.deepEqual(por.us.geometry.coordinates, [-98, 39]);
+  assert.equal(por.us.properties.aproximado, 1);
+  assert.deepEqual(por.il.geometry.coordinates, [35, 31], "o código minúsculo também vale");
+  assert.equal(por.zz, undefined, "país sem malha fica só na lista");
+  assert.equal(por.br.properties.aproximado, 0);
+  assert.equal(paisDoCaso({}), "BR");
+});
+caso("C1: o mapa começa no mundo, desce ao país, dá o nome do país pelo navegador e mantém a lista acessível", () => {
+  const m = ler("components", "vale-o-escrito", "Mapa.tsx");
+  for (const t of ['"mundo"', "mundo.geojson", "Intl.DisplayNames", "renderWorldCopies: false", "selecionarPais", "t.aproximadoPais", "t.listaDeCasos", "paisFiltro"]) assert.ok(m.includes(t), t);
+  assert.match(m, /NIVEIS: readonly NivelDeZoom\[\] = \["mundo", "pais", "estado", "municipio"\]/);
+  // O mundo não ganha brilho largo (line-blur) nem calor próprio: o peso fica no que já existia.
+  assert.ok(!/id: "mundo-[a-z]+"[^\n]*line-blur/.test(m), "o mundo sem brilho largo");
+  for (const l of IDIOMAS_VE) {
+    const j = JSON.parse(ler("i18n", "vale-o-escrito", `${l}.json`).replace(/^﻿/, ""));
+    assert.match(j.mapa.credito, /Natural Earth/, l);
+    assert.ok(j.zoom.mundo && j.visual.filtroPais && j.visual.todosPaises && j.casca.contadores.paises, l);
+  }
+  const o = ler("components", "vale-o-escrito", "Observatorio.tsx");
+  assert.match(o, /useState<NivelDeZoom>\("mundo"\)/);
+  assert.match(o, /ve-filtro-pais/);
+});
+caso("C1: na teia, caso de fora sem região liga-se ao país; no Brasil, nada muda", () => {
+  assert.deepEqual(lugarDoNo({ lugar: { pais: "US", nome: "Estados Unidos" } }), { id: "US", rotulo: "Estados Unidos" });
+  assert.deepEqual(lugarDoNo({ lugar: { pais: "IL" } }), { id: "IL", rotulo: "IL" });
+  assert.equal(lugarDoNo({ lugar: { pais: "BR" } }), null);
+  assert.deepEqual(lugarDoNo({ lugar: { pais: "BR", regiao: "PA" } }), { id: "BR-PA", rotulo: "PA" });
 });
 
 console.log(`\n${total} conferências do mapa passaram.`);

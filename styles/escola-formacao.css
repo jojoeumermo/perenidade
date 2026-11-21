@@ -1481,3 +1481,189 @@ main#conteudo .ef-conteudo :is(.py-12, .pt-12) > :first-child > .cabeca-da-pagin
   background: var(--ef-fundo);
   color: var(--ef-giz);
 }
+
+/* ───────────── P5, B1: dentro da Escola, tudo no desenho da Escola ─────────────
+   Os redondos flutuantes do site (acessibilidade, voltar ao topo) e os painéis que eles abrem ficam FORA da moldura da
+   Escola (moram no layout do site), por isso são pegos pelo :root que tem a Escola dentro, como a Alumia faz com os dela
+   (styles/alumia.css). Cores fixas: os tokens --ef-* só existem dentro de [data-escola-formacao]. */
+:root:root:has([data-escola-formacao]) :is(button.a11y-gatilho, button.voltar-ao-topo) {
+  border: 1px solid #3d2a24;
+  border-radius: 999px;
+  background: #110c0a;
+  color: #f1eee6;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
+}
+:root:root:has([data-escola-formacao]) :is(button.a11y-gatilho, button.voltar-ao-topo):hover,
+:root:root:has([data-escola-formacao]) button.a11y-gatilho[aria-expanded="true"] {
+  border-color: #f2c94c;
+  background: #f2c94c;
+  color: #110c0a;
+}
+:root:has([data-escola-formacao]) :is(.a11y-gatilho, .voltar-ao-topo):focus-visible {
+  outline: 3px solid #f2c94c;
+  outline-offset: 3px;
+}
+:root:has([data-escola-formacao]) .a11y-painel {
+  border: 1px solid #3d2a24;
+  border-radius: 18px;
+  background: #1a1311;
+  color: #f1eee6;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+  font-family: var(--font-escola-texto), "Atkinson Hyperlegible", system-ui, sans-serif;
+  --ink: #f1eee6;
+  --ink-soft: #cdbfb5;
+  --parchment: #1a1311;
+  --parchment-deep: #241a17;
+  --folha: #221815;
+  --rule: #3d2a24;
+  --gold: #f2c94c;
+  --oxblood: #f08a7e;
+  --sombra: #000;
+}
+:root:has([data-escola-formacao]) .a11y-painel h2 {
+  font-family: var(--font-escola-titulo), "Bricolage Grotesque", system-ui, sans-serif;
+  font-variation-settings: "wdth" 80;
+  font-weight: 800;
+}
+:root:has([data-escola-formacao]) .a11y-painel .rotulo {
+  color: #f2c94c;
+}
+:root:has([data-escola-formacao]) .a11y-painel :is(.a11y-opcao, .a11y-botao, .a11y-fechar, .a11y-vlibras, .a11y-vlibras button) {
+  border-radius: 12px;
+  box-shadow: none;
+}
+:root:has([data-escola-formacao]) .a11y-opcao[aria-pressed="true"] {
+  border-color: #f2c94c;
+  background: #f2c94c;
+  color: #110c0a;
+}
+:root:has([data-escola-formacao]) .a11y-chave,
+:root:has([data-escola-formacao]) .a11y-chave::after {
+  border-radius: 999px;
+}
+:root:is([data-contrast], [data-eink]):has([data-escola-formacao]) :is(.a11y-gatilho, .voltar-ao-topo, .a11y-painel) {
+  border: 2px solid currentColor;
+  box-shadow: none;
+}
+
+/* A "quadradização" acabou: as peças do site que ainda entram na Escola (cartões, campos, botões, caixas de aviso das
+   páginas antigas, do formulário militante e das aulas) perdem o canto reto e a sombra dura de carimbo e ganham o canto
+   redondo das telas da Escola. Só o desenho muda; nada some. O redondo de verdade (rounded-full) continua redondo. */
+[data-escola-formacao] :is(.cartao, .cartao-v, .caixa, .botao, .aba-pasta, fieldset):not(.rounded-full),
+[data-escola-formacao] :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select, textarea),
+[data-escola-formacao] :is([class*="border-2"], [class*="shadow-["]):not(.rounded-full):not([class*="ef-"]):not([class*="efa-"]):not([class*="eff-"]) {
+  border-radius: 12px;
+}
+[data-escola-formacao] :is(.cartao, .cartao-v, .botao, [class*="shadow-["]):not([class*="ef-"]):not([class*="efa-"]):not([class*="eff-"]) {
+  box-shadow: none;
+}
+[data-escola-formacao] .cartao-v::before,
+[data-escola-formacao] .cartao-v::after {
+  display: none;
+}
+[data-escola-formacao] .botao-prelo {
+  border-color: transparent;
+  background: #c21f16;
+  color: #fff;
+  font-weight: 700;
+  min-height: 48px;
+}
+[data-escola-formacao] .botao-prelo:hover:not(:disabled) {
+  background: #b3140e;
+}
+[data-escola-formacao] .botao-prelo:disabled {
+  opacity: 0.55;
+}
+
+/* O formulário de inscrição militante (o do voluntariado, components/VolunteerForm.tsx) no desenho da Escola: um cartão
+   escuro de canto redondo, sem a caixa reta de sombra vermelha, campos redondos e a caixa do consentimento em ouro. */
+.ef-militantes-form .cartao-v {
+  margin-top: 0;
+  border: 0;
+  background: transparent;
+  padding-inline: 0;
+}
+.ef-militantes-form h2 {
+  font-family: var(--font-escola-titulo), "Bricolage Grotesque", system-ui, sans-serif;
+  font-variation-settings: "wdth" 80;
+  font-weight: 800;
+  font-size: 30px;
+}
+.ef-militantes-form :is(input:not([type="checkbox"]), select, textarea) {
+  min-height: 48px;
+  border-width: 1.5px;
+  border-radius: 12px;
+  padding-inline: 12px;
+}
+.ef-militantes-form span.flex:has(> input) {
+  border-width: 1.5px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.ef-militantes-form span.flex:has(> input) > input {
+  min-height: 44px;
+  border: 0;
+  border-radius: 0;
+}
+.ef-militantes-form fieldset[data-militante-cuidado] {
+  border: 1.5px solid #f2c94c;
+  border-radius: 14px;
+  background: #221815;
+}
+.ef-militantes-form fieldset[data-militante-cuidado] legend {
+  color: #f2c94c;
+}
+.ef-militantes-form input[type="checkbox"] {
+  accent-color: #f2c94c;
+}
+
+/* Os botões da aula (ouvir a aula, a voz, Libras, estudar mais leve) na folha da aula da Escola: redondos, sem carimbo. */
+[data-escola-formacao] .efa-folha :is(button, summary, a.botao):not(.rounded-full):not([class*="ef-"]):not([class*="efa-"]) {
+  border-radius: 12px;
+  box-shadow: none;
+}
+[data-escola-formacao] .efa-folha :is(.lev-mais, .lev-tela, .lev > details, .lev > div) {
+  border-radius: 14px;
+}
+/* O link-botão cheio das páginas do site (bg-ink) perdia o texto: o "a { color: inherit }" das páginas antigas pintava a letra
+   da cor do fundo dele. Volta a cor de letra que ele pede; no tema escuro do site ele também não vira o vermelho do site (a
+   Escola é escura nos dois temas e tem as cores dela). */
+:root:root .ef-conteudo:not(:has([data-escola-escura])) :is(a, button).bg-ink {
+  border-color: var(--ink);
+  background-color: var(--ink);
+  color: var(--parchment);
+}
+:root:root .ef-conteudo:not(:has([data-escola-escura])) :is(a, button).bg-ink:hover {
+  color: var(--ef-fundo-fundo);
+  background: var(--ef-ouro);
+}
+/* A folha da aula do site dentro da Escola (as aulas abertas de Teoria revolucionária e Lutas do povo): os mesmos botões
+   redondos e sem carimbo da folha da aula da Formação. */
+[data-escola-formacao] .folha-da-aula :is(button, summary, a.botao, select):not(.rounded-full):not([class*="ef-"]):not([class*="efa-"]) {
+  border-radius: 12px;
+  box-shadow: none;
+}
+[data-escola-formacao] .folha-da-aula :is(.lev-mais, .lev-tela, aside, details, [class*="border-2"]):not(.rounded-full) {
+  border-radius: 14px;
+  box-shadow: none;
+}
+/* P5, B4: o lugar fixo da aula ao vivo na tela Hoje, também sem aula marcada. */
+.ef-aovivo-texto {
+  margin: 8px 0 0;
+  color: var(--ef-giz-2);
+  line-height: 1.5;
+}
+.ef-aovivo-nota {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: var(--ef-apagado);
+}
+.ef-aovivo-sub {
+  margin: 16px 0 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ef-ouro);
+}
+.ef-aovivo li a {
+  color: var(--ef-giz);
+}

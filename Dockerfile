@@ -9,7 +9,9 @@
 # lidas na hora em que o site roda.
 
 # ---- 1. Montagem -----------------------------------------------------------------------------------------------------
-FROM node:24-bookworm-slim AS montagem
+# A imagem de base vai fixada pelo resumo (@sha256), não só pela etiqueta: a etiqueta pode passar a apontar para outra imagem.
+# O dependabot (ecossistema docker) propõe a troca do resumo quando sai uma imagem nova.
+FROM node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54 AS montagem
 ENV NEXT_TELEMETRY_DISABLED=1 \
     NEXT_OUTPUT_STANDALONE=1 \
     NODE_OPTIONS=--max-old-space-size=8192
@@ -27,7 +29,7 @@ COPY . .
 RUN npm run build
 
 # ---- 2. O site no ar -------------------------------------------------------------------------------------------------
-FROM node:24-bookworm-slim AS site
+FROM node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54 AS site
 LABEL org.opencontainers.image.source="https://github.com/jojoeumermo/perenidade" \
       org.opencontainers.image.description="Instituto Lúcia: escola livre e gratuita" \
       org.opencontainers.image.licenses="AGPL-3.0-or-later"

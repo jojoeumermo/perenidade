@@ -4,7 +4,7 @@
 // O aceite dos termos dentro da Alumia: quem entrou antes desta versão (ou nunca aceitou os termos da Alumia) vê o cartão no alto
 // da linha de Início e na página dos termos, e só some depois de aceitar. O aceite do cadastro é gravado pelo banco junto do
 // consentimento do pedido de entrada; este cartão é o reaceite (alumia_termos_aceitar).
-import { useEffect, useId, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 import { quando, Rico } from "./base";
 import { lei, type TermosEu } from "./cliente";
 import { por } from "./textos";
@@ -12,6 +12,9 @@ import { useTextosDaLei } from "./usarTextos";
 import { dataDaVersao } from "./versao";
 
 /** O estado do aceite de quem está na Alumia; nulo enquanto não sabe (ou sem sessão, ou banco sem a migração). */
+/** O aviso de que o aceite mudou nesta página (a janela dos termos, o cartão da página dos termos): os outros leitores se acertam. */
+const TERMOS_MUDARAM = "alumia:termos-mudaram";
+
 export function useTermos(ligado = true): [TermosEu | null, (t: TermosEu) => void] {
   const [termos, setTermos] = useState<TermosEu | null>(null);
   useEffect(() => {
@@ -21,11 +24,18 @@ export function useTermos(ligado = true): [TermosEu | null, (t: TermosEu) => voi
       (r) => vivo && setTermos(r),
       () => undefined,
     );
+    // Aceitou na janela: a seção de Ajustes (e quem mais lê o aceite) muda junto, sem pedir de novo ao banco.
+    const mudou = (e: Event) => setTermos((e as CustomEvent<TermosEu>).detail);
+    window.addEventListener(TERMOS_MUDARAM, mudou);
     return () => {
       vivo = false;
+      window.removeEventListener(TERMOS_MUDARAM, mudou);
     };
   }, [ligado]);
-  return [termos, setTermos];
+  const avisar = useCallback((t: TermosEu) => {
+    window.dispatchEvent(new CustomEvent(TERMOS_MUDARAM, { detail: t }));
+  }, []);
+  return [termos, avisar];
 }
 
 export function Reaceite({ lang, naPagina = false, logado = true }: { lang: string; naPagina?: boolean; logado?: boolean }) {

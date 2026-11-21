@@ -4,6 +4,7 @@
 // outros cinco são rascunho. Carrega só o idioma pedido, sob demanda, e guarda o que já carregou. Sem "@/" de propósito (os
 // testes também leem daqui).
 import type pt from "../../i18n/rede/protecao/pt.json";
+import { prontoDe } from "./textos-prontos";
 
 export type TextosDaProtecao = typeof pt;
 
@@ -23,7 +24,7 @@ export function carregarTextosDaProtecao(lang: string): Promise<TextosDaProtecao
   const chave = CARREGAR[lang] ? lang : "pt";
   let p = prontos.get(chave);
   if (!p) {
-    p = CARREGAR[chave]().then((m) => m.default as TextosDaProtecao);
+    p = prontoDe(CARREGAR[chave], CARREGAR.pt).then((d) => d as TextosDaProtecao);
     prontos.set(chave, p);
   }
   return p;

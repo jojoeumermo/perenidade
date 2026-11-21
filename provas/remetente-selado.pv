@@ -1,0 +1,84 @@
+(* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   Remetente selado com caixas anônimas (onda R2, itens 1.1 e 1.2; onda R3, item 2.5): SIGILO e AUTENTICAÇÃO.
+   O código: lib/rede/chat/r2/conversa.ts (mandar, receber), envelope.ts (selar, abrir), lib/rede/franquia/protocolo.ts.
+
+   O que o modelo diz, em bytes do código:
+     id_h      = SHA-256(rótulo ‖ id da caixa)                         -> h(idcaixa)
+     c         = HMAC(kf, rótulo ‖ id_h ‖ bloco sem kf)                 -> hc(kf, (h(idcaixa), m))
+     envelope  = HPKE X-Wing(pk da semana de B, aad = id_h ‖ c ‖ semana, (aparelho de A, Proteus(bloco)))
+                                                                         -> hpke(pk(skB), (h(idcaixa), c), (aparelho, senc((m, kf), kab)), r)
+     depósito  = o servidor recebe (id_h, c, envelope) e o entrega a quem tem o passe de leitura da caixa.
+   O Proteus (Double Ratchet) entra como uma cifra simétrica com a chave da sessão entre os dois aparelhos (kab); a ordem e a
+   repetição (contador e "anterior", lib/rede/chat/r2/ordem.ts) não estão no modelo: a autenticação aqui é a não injetiva.
+
+   Atacante: o servidor inteiro (vê e muda todo depósito) e a rede. Ele também tem a sua própria conta e conversa com B (o
+   aparelho E, com a sessão kEB que ele conhece) e escolhe mensagens que A manda: pode mandar a B o que quiser em nome DELE.
+   Propriedades: a mensagem de A para B fica secreta; se B aceita uma mensagem como vinda do aparelho de A, A mandou essa
+   mensagem para essa caixa, com essa franquia (o c que o servidor guardou é o do bloco que B abriu). *)
+
+free c: channel.
+
+type skey.
+type pkey.
+type key.
+
+fun pk(skey): pkey.
+(* HPKE (RFC 9180) com o KEM X-Wing: probabilístico (r) e sem revelar a chave pública do destino. Só abre com a privada certa e os
+   mesmos dados associados. *)
+fun hpke(pkey, bitstring, bitstring, bitstring): bitstring.
+reduc forall k: skey, a: bitstring, m: bitstring, r: bitstring; abrir(hpke(pk(k), a, m, r), k, a) = m.
+(* O Proteus, abstraído como a cifra simétrica autenticada da sessão. *)
+fun senc(bitstring, key): bitstring.
+reduc forall m: bitstring, k: key; sdec(senc(m, k), k) = m.
+fun h(bitstring): bitstring.
+fun hc(bitstring, bitstring): bitstring.
+
+(* Os aparelhos (as chaves Ed25519 de cada aparelho são públicas, no diretório). *)
+free aparelhoA, aparelhoE: bitstring.
+free segredo: bitstring [private].
+
+event Mandou(bitstring, bitstring, bitstring, bitstring).   (* aparelho, id_h, mensagem, c *)
+event Recebeu(bitstring, bitstring, bitstring, bitstring).
+
+query attacker(segredo).
+query i: bitstring, m: bitstring, x: bitstring; event(Recebeu(aparelhoA, i, m, x)) ==> event(Mandou(aparelhoA, i, m, x)).
+
+let Remetente(eu: bitstring, kab: key, pkb: pkey, idcaixa: bitstring, m: bitstring) =
+  new r: bitstring;
+  new kf: bitstring;
+  let idh = h(idcaixa) in
+  let cc = hc(kf, (idh, m)) in
+  event Mandou(eu, idh, m, cc);
+  out(c, (idh, cc, hpke(pkb, (idh, cc), (eu, senc((m, kf), kab)), r))).
+
+(* B conhece dois aparelhos: o de A (sessão kab) e o do atacante, E (sessão keb). *)
+let Destinatario(skb: skey, idcaixa: bitstring, kab: key, keb: key) =
+  in(c, (idh: bitstring, cc: bitstring, env: bitstring));
+  if idh = h(idcaixa) then
+  let (quem: bitstring, x: bitstring) = abrir(env, skb, (idh, cc)) in
+  if quem = aparelhoA then
+  (
+    let (m: bitstring, kf: bitstring) = sdec(x, kab) in
+    if cc = hc(kf, (idh, m)) then
+    event Recebeu(quem, idh, m, cc)
+  )
+  else if quem = aparelhoE then
+  (
+    let (m: bitstring, kf: bitstring) = sdec(x, keb) in
+    if cc = hc(kf, (idh, m)) then
+    event Recebeu(quem, idh, m, cc)
+  ).
+
+process
+  new skB: skey;
+  new kAB: key;
+  new idcaixa: bitstring;
+  (* O atacante tem a conversa dele com B: a caixa (B a anuncia a quem conversa com ela) e a sessão kEB. *)
+  new kEB: key;
+  out(c, (pk(skB), idcaixa, kEB));
+  (
+    (!Remetente(aparelhoA, kAB, pk(skB), idcaixa, segredo))
+  | (!in(c, m: bitstring); Remetente(aparelhoA, kAB, pk(skB), idcaixa, m))
+  | (!Destinatario(skB, idcaixa, kAB, kEB))
+  )

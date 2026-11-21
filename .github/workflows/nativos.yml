@@ -1,0 +1,170 @@
+name: Apps e servidor do chat
+
+# Onda R3: o que é Rust e Kotlin, a cada mudança de código nessas pastas (o resto do Rust, o núcleo do computador e o servidor do
+# chat, também roda no ferramentas.yml com o RustSec).
+#   - spqr-wasm: o WebAssembly da camada pós-quântica (nativo/spqr-wasm) montado de novo no contêiner oficial do Rust, fixado pelo
+#     resumo, tem de dar o MESMO arquivo que está no repositório (build reproduzível); o build de teste roda os vetores do FIPS 203
+#     contra o ML-KEM de dentro dele; cargo test, clippy e cargo audit no próprio crate (com o protoc oficial, conferido pelo sha256).
+#   - computador: o núcleo (nativo/nucleo) e o app (desktop/src-tauri, com a casca do chat montada antes): fmt, clippy e test.
+#   - servidor-chat: fmt, clippy, test e cargo audit do servidor do chat separado.
+#   - android: os testes de unidade do Kotlin e o build reproduzível do APK (duas pastas, o mesmo arquivo), sem assinar.
+on:
+  pull_request:
+    paths:
+      - "nativo/**"
+      - "desktop/**"
+      - "android/**"
+      - "casca/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "public/cifra/**"
+      - "lib/rede/casca/**"
+      - "lib/rede/chat/r3/**"
+      - ".github/workflows/nativos.yml"
+  push:
+    branches: [master]
+    paths:
+      - "nativo/**"
+      - "desktop/**"
+      - "android/**"
+      - "casca/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "public/cifra/**"
+      - "lib/rede/casca/**"
+      - "lib/rede/chat/r3/**"
+      - ".github/workflows/nativos.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nativos-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  spqr-wasm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # O build de referência: o mesmo arquivo, byte a byte (sha256 f09b59f4060ef17ffbd81668b3e1f992c82239ceea140410097bca444b1a04c9).
+      - name: Montar de novo no contêiner fixado e comparar
+        working-directory: nativo/spqr-wasm
+        run: |
+          docker run --rm -v "$PWD":/alumia -w /alumia rust:1.99.0-bookworm@sha256:114c7a4425406451c2866b6aafe69fe29b1b298832db1277d411ac73c82d04d6 bash montar.sh
+          sudo chown -R "$(id -u):$(id -g)" .
+          git diff --exit-code -- spqr-1.7.0.wasm
+          echo "f09b59f4060ef17ffbd81668b3e1f992c82239ceea140410097bca444b1a04c9  spqr-1.7.0.wasm" | sha256sum -c -
+      # No mesmo contêiner: o build de TESTE (as funções mlkem_* para os vetores), cargo test, clippy e cargo audit (o build.rs do spqr
+      # precisa do protoc: o montar.sh o baixou e conferiu, numa pasta de /tmp do contêiner; aqui ele é baixado de novo, igual).
+      - name: Build de teste, cargo test, clippy e cargo audit
+        working-directory: nativo/spqr-wasm
+        run: |
+          docker run --rm -v "$PWD":/alumia -w /alumia rust:1.99.0-bookworm@sha256:114c7a4425406451c2866b6aafe69fe29b1b298832db1277d411ac73c82d04d6 bash -euo pipefail -c '
+            curl -fsSL https://github.com/protocolbuffers/protobuf/releases/download/v36.2/protoc-36.2-linux-x86_64.zip -o /tmp/protoc.zip
+            echo "121f6c7afe1d4d0e3ea6aab9432038599250134cbf4474cb1167d2c7decd4278  /tmp/protoc.zip" | sha256sum -c -
+            python3 -c "import zipfile; zipfile.ZipFile(\"/tmp/protoc.zip\").extractall(\"/tmp/protoc\")"
+            chmod +x /tmp/protoc/bin/protoc
+            export PROTOC=/tmp/protoc/bin/protoc
+            rustup target add wasm32-unknown-unknown >/dev/null
+            rustup component add clippy >/dev/null
+            RUSTFLAGS="--cfg getrandom_backend=\"custom\"" cargo build --release --locked --target wasm32-unknown-unknown --features teste --target-dir target/teste
+            cargo test --locked
+            cargo clippy --locked --all-targets -- -D warnings
+            cargo install cargo-audit --version 0.22.2 --locked
+            cargo audit
+          '
+          sudo chown -R "$(id -u):$(id -g)" .
+      - run: npm run testar:r3-pq-vetores
+
+  computador:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 24
+          cache: npm
+      - name: Bibliotecas do sistema e Rust 1.99.0
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf
+          rustup toolchain install 1.99.0 --profile minimal -c clippy,rustfmt
+          rustup default 1.99.0
+      - run: npm ci
+      # O app do computador embute a casca do chat (casca/saida): sem ela o build.rs do Tauri para.
+      - run: npm run casca:montar
+      - name: Núcleo do computador
+        working-directory: nativo/nucleo
+        run: |
+          cargo fmt --check
+          cargo clippy --locked --all-targets -- -D warnings
+          cargo test --locked
+      - name: App do computador (a raiz do Cargo é só dele)
+        working-directory: desktop/src-tauri
+        run: |
+          cargo fmt --check
+          cargo clippy --locked --all-targets -- -D warnings
+          cargo test --locked
+      - name: cargo audit (o Cargo.lock da raiz)
+        run: |
+          cargo install cargo-audit --version 0.22.2 --locked
+          cargo audit
+
+  servidor-chat:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: Rust 1.99.0
+        run: |
+          rustup toolchain install 1.99.0 --profile minimal -c clippy,rustfmt
+          rustup default 1.99.0
+      - name: fmt, clippy, test e cargo audit
+        working-directory: nativo/servidor-chat
+        run: |
+          cargo fmt --check
+          cargo clippy --locked --all-targets -- -D warnings
+          cargo test --locked
+          cargo install cargo-audit --version 0.22.2 --locked
+          cargo audit
+
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
+        with:
+          distribution: temurin
+          java-version: "21"
+      # O runner já traz o Android SDK (ANDROID_HOME); falta a plataforma 36.
+      - name: Android SDK 36
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0" >/dev/null
+      - run: npm ci
+      - run: npm run app:casca
+      - name: Testes de unidade do Kotlin
+        run: cd android && ./gradlew --no-daemon :app:testDebugUnitTest
+      # O APK de lançamento sem assinatura, montado em duas pastas: o mesmo arquivo (a assinatura é do dono, fora daqui).
+      - run: npm run testar:r3-android-build

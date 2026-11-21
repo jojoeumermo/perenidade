@@ -1,0 +1,46 @@
+(* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   Passes anônimos por assinatura cega (onda R2, item 2.4, Privacy Pass; onda R3, item 2.3 do desenho: RSA cego, RFC 9578 tipo
+   0x0002; onda R3, item 2.5): o passe GASTO não se liga a quem o PEDIU.
+   Quem pede o passe se identifica (a emissão é com sessão: o servidor sabe que a pessoa U1 pediu um lote); quem gasta não (o
+   depósito nas caixas e a urna anônima são sem sessão). O servidor é o emissor: tem a chave privada e assina o que lhe mandam.
+   Equivalência observacional: U1 e U2 pedem um passe cada (o servidor vê quem pediu o quê, cego), e depois UM passe é gasto: o
+   servidor não distingue "o gasto é o de U1" de "o gasto é o de U2". (Os dois pedem: o fato de pedir é público.)
+   O RSA cego é o do @cloudflare/privacypass-ts (RFC 9474/9578); aqui, a equação clássica da assinatura cega.
+   Fora do modelo: o momento (quem pede e gasta na mesma hora se liga pelo tempo: o cliente pede em lotes de 30 e gasta depois) e
+   o contexto da urna (um passe da urna por consulta: o contexto é público e igual para todos da consulta). *)
+
+free c: channel.
+
+type skey.
+type pkey.
+
+fun pk(skey): pkey.
+fun cegar(bitstring, bitstring): bitstring.
+fun assinar(bitstring, skey): bitstring.
+reduc forall m: bitstring, r: bitstring, k: skey; descegar(assinar(cegar(m, r), k), r) = assinar(m, k).
+reduc forall m: bitstring, k: skey; conferir(assinar(m, k), pk(k)) = m.
+
+free pessoaU1, pessoaU2: bitstring.
+
+(* Pedir: com a sessão da pessoa (o servidor vê "eu"); devolve o passe já descegado, por um canal privado do próprio aparelho. *)
+let Pedir(eu: bitstring, pkS: pkey, guardar: channel) =
+  new nonce: bitstring;
+  new r: bitstring;
+  out(c, (eu, cegar(nonce, r)));
+  in(c, s: bitstring);
+  let passe = descegar(s, r) in
+  if conferir(passe, pkS) = nonce then
+  out(guardar, (nonce, passe)).
+
+process
+  new skS: skey;
+  out(c, skS);
+  new g1: channel;
+  new g2: channel;
+  (
+    Pedir(pessoaU1, pk(skS), g1)
+  | Pedir(pessoaU2, pk(skS), g2)
+  (* Gastar um: o de U1 de um lado, o de U2 do outro, sem sessão. *)
+  | (in(g1, (n1: bitstring, p1: bitstring)); in(g2, (n2: bitstring, p2: bitstring)); out(c, choice[(n1, p1), (n2, p2)]))
+  )

@@ -4,7 +4,11 @@
 // (public.alumia_painel_servico_de_contas, chamada com a sessão de quem pediu; o banco decide se a pessoa tem o painel) e quais
 // variáveis secretas do servidor estão postas (lib/rede/seguranca/variaveis.ts: o nome e "presente", "curta" ou "falta"; nunca o
 // valor). POST com a sessão no Authorization. Quem não tem o painel recebe 404, igual a um endereço que não existe.
+// P5 (A7): também as peças da federação (lib/rede/fediverso/saude.ts): o recurso, o endereço, o segredo no servidor e o que o banco
+// guarda. Sem valor, sem tamanho, sem endereço.
 import { deOutraOrigem, resposta } from "@/lib/rede/convites/servidor";
+import { saudeDaFederacao, type FederacaoNoBanco } from "@/lib/rede/fediverso/saude";
+import { banco, ErroDoBanco } from "@/lib/rede/fediverso/servidor";
 import { rpcComToken } from "@/lib/rede/seguranca/servico-de-contas";
 import { situacaoDasVariaveis } from "@/lib/rede/seguranca/variaveis";
 
@@ -20,5 +24,16 @@ export async function POST(pedido: Request) {
   const r = await rpcComToken<Record<string, unknown>>("alumia_painel_servico_de_contas", {}, token);
   // Sem a resposta do banco (a pessoa não tem o painel, ou a migração da onda 14 não rodou), nada sai: quem tem o painel, o banco diz.
   if (!r.ok) return naoExiste();
-  return resposta({ banco: r.dado, variaveis: situacaoDasVariaveis() });
+  const doBanco = await rpcComToken<FederacaoNoBanco>("alumia_admin_federacao", {}, token);
+  const federacao = await saudeDaFederacao(doBanco.ok ? doBanco.dado : null, async () => {
+    try {
+      // Só leitura: o estado de um domínio que não existe. Responde só se o SHA-256 do segredo confere.
+      await banco("dominio_estado", { dominio: "saude.invalid" });
+      return true;
+    } catch (e) {
+      if (e instanceof ErroDoBanco && /sem_permissao/.test(e.message)) return false;
+      throw e;
+    }
+  });
+  return resposta({ banco: r.dado, variaveis: situacaoDasVariaveis(), federacao });
 }

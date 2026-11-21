@@ -3,6 +3,7 @@
 // Os textos do pacote descoberta: i18n/rede/descoberta/{pt,en,es,fr,ru,zh}.json. O português é o texto final; os outros cinco são
 // rascunho marcado ("_rascunho") até a revisão. Carrega UM idioma por vez, sob demanda (import dinâmico): o navegador nunca baixa os seis.
 import type pt from "../../i18n/rede/descoberta/pt.json";
+import { carregarPronto } from "./textos-prontos";
 
 export type TextosDaDescoberta = typeof pt;
 
@@ -17,6 +18,5 @@ const CARREGADORES: Record<string, () => Promise<{ default: unknown }>> = {
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export async function carregarTextosDescoberta(lang: string): Promise<TextosDaDescoberta> {
-  const carregar = CARREGADORES[lang] ?? CARREGADORES.pt;
-  return (await carregar()).default as TextosDaDescoberta;
+  return (await carregarPronto(CARREGADORES, lang)) as TextosDaDescoberta;
 }

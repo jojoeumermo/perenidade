@@ -1,0 +1,63 @@
+{
+  "obra": "salario-preco-e-lucro",
+  "titulo": "Salário, Preço e Lucro",
+  "revisao": "em-revisao",
+  "apresentacao": "Leia uma parte por vez, na edição indicada na ficha do Acervo, e responda com as suas palavras. Não há resposta certa para decorar: as perguntas ajudam a entender o texto e a discutir em grupo.",
+  "secoes": [
+    {
+      "id": "a-tese-de-weston",
+      "titulo": "I e II. A tese do cidadão Weston",
+      "referencia": "As duas primeiras partes: a tese de um operário da Associação Internacional dos Trabalhadores, segundo a qual aumentar salários não adianta, e as primeiras respostas de Marx.",
+      "perguntas": [
+        "Qual era, com as suas palavras, a tese que Marx responde nesta conferência?",
+        "Você já ouviu alguém dizer hoje que aumento de salário só faz os preços subirem? Onde?"
+      ]
+    },
+    {
+      "id": "oferta-procura-e-precos",
+      "titulo": "III a V. Dinheiro, oferta e procura, salários e preços",
+      "referencia": "As partes sobre a circulação do dinheiro, sobre oferta e procura e sobre a relação entre salários e preços.",
+      "perguntas": [
+        "Por que, segundo Marx, a oferta e a procura não bastam para explicar o preço de uma mercadoria?",
+        "O que acontece, segundo o texto, quando os salários sobem: os preços de tudo sobem junto?"
+      ]
+    },
+    {
+      "id": "valor-e-forca-de-trabalho",
+      "titulo": "VI e VII. Valor e trabalho, a força de trabalho",
+      "referencia": "As partes em que Marx explica de onde vem o valor das mercadorias e o que o trabalhador vende ao patrão.",
+      "perguntas": [
+        "De onde vem o valor de uma mercadoria, segundo esta parte?",
+        "Qual é a diferença entre o trabalho e a força de trabalho? Por que essa diferença importa?"
+      ]
+    },
+    {
+      "id": "mais-valia-e-lucro",
+      "titulo": "VIII a XII. A mais-valia e o lucro",
+      "referencia": "As partes sobre a produção da mais-valia, o valor do trabalho, o lucro, as partes em que a mais-valia se divide e a relação entre lucros, salários e preços.",
+      "perguntas": [
+        "Explique com um exemplo do seu dia a dia o que é a mais-valia.",
+        "Segundo o texto, o lucro vem de vender a mercadoria acima do valor dela? Qual é a resposta de Marx?",
+        "Entre quem a mais-valia é repartida, segundo esta parte?"
+      ]
+    },
+    {
+      "id": "a-luta-por-salarios",
+      "titulo": "XIII e XIV. A luta por salários e os seus resultados",
+      "referencia": "As duas últimas partes: os casos em que os trabalhadores lutam por aumento, o que essa luta consegue e o que ela não consegue sozinha.",
+      "perguntas": [
+        "Por que, segundo Marx, a luta por salários vale a pena?",
+        "Que limite o texto vê na luta só por salários? O que ele propõe no lugar da palavra de ordem de um salário justo?"
+      ]
+    },
+    {
+      "id": "para-conversar",
+      "titulo": "Para conversar",
+      "referencia": "O texto inteiro, depois da leitura.",
+      "perguntas": [
+        "Que trecho desta conferência você usaria numa conversa com colegas de trabalho? Por quê?",
+        "Que pergunta você levaria para discutir em grupo?"
+      ]
+    }
+  ]
+}

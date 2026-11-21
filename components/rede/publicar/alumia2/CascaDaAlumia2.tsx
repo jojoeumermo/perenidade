@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Link from "@/components/Link";
 import { localePath } from "@/i18n/config";
@@ -15,8 +15,10 @@ import { registrarLimpezaDaSaida } from "@/lib/modo-seguro";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Situacao } from "@/lib/rede/tipos";
 import { enderecosDescoberta } from "@/lib/rede/tipos-descoberta";
+import { rotaNovaLigada } from "@/lib/rede/rotas-novas";
 import type { ItemDoMenu } from "../../Casca";
 import { BuscaDaColuna } from "../../comunidades/ComunidadesAtivas";
+import { SobreAoLado } from "../../comunidades/SobreAoLado";
 import { ENCAIXES, type ContextoDoEncaixe } from "../../encaixes";
 import { encaixe as encaixeDosAtos } from "../../atos/encaixe";
 import { encaixe as encaixeDaConversa } from "../../conversa/encaixe";
@@ -25,11 +27,16 @@ import { EsqueletoDaCasca } from "../../Esqueletos";
 import { Faixa } from "../../ui/Faixa";
 import { Lampiao } from "../../ui/Lampiao";
 import { useAlumia2 } from "./contexto";
-import { BotaoMais, Conta, type DestinoDoMais } from "./ContaDaAlumia2";
+import { BotaoMais, BotaoSeguranca, Conta, type DestinoDoMais } from "./ContaDaAlumia2";
+import { economizandoDados } from "@/lib/rede/precarregar";
+import { trocaEmCurso, useTransicaoNosLinks } from "./TransicaoDaTela";
 import { Icone, type NomeDoIcone } from "./icones";
 import { LembreteDePausa } from "./LembreteDePausa";
 import { comMovimento } from "./TopoDaLinha2";
 import { AoVivoDuble, AtosPertoDuble, ComunidadesAtivasDuble } from "./previa/Dubles";
+import AvisosFixados from "../../protecao/AvisosFixados";
+import { tresToquesNaMarca } from "../../presenca/tres-toques";
+import { useMarcarPresenca } from "../../presenca/usar";
 
 /** O que a casca nova sabe abrir no compositor: o tipo já escolhido (o "Chamar ato" do compositor da linha abre no Ato). */
 export type TipoAoEscrever = "post" | "ato" | "enquete" | "longo" | "imagem";
@@ -43,16 +50,17 @@ interface Destino {
   href: (lang: string, s: Situacao) => string | null;
 }
 
-// O menu das pranchas (computador-inicio), na ordem delas. "chamados" é o item Atos: a F2 troca o destino pelo encaixe; sem ela,
+// O dia a dia (P5, A9): Início, Explorar, Avisos, Conversas, Comunidades, Núcleos e turmas, Atos, Salvos e Perfil. O resto mora no
+// grupo "Mais" do menu, no painel de Segurança ou no menu da conta. "chamados" é o item Atos: a F2 troca o destino pelo encaixe; sem ela,
 // vai para /alumia/atos (a rota nova da F0, que só existe com "alumia-2", a mesma flag desta casca).
 const DESTINOS: Destino[] = [
   { chave: "inicio", icone: "inicio", rotulo: (t) => t.menu.inicio, href: (l) => enderecos.linha(l) },
   { chave: "explorar", icone: "explorar", rotulo: (t) => t.menu.explorar, href: (l) => enderecosDescoberta.explorar(l) },
-  { chave: "chamados", icone: "atos", rotulo: (t) => t.menu.atos, href: (l) => `${enderecos.linha(l)}/atos` },
-  { chave: "comunidades", icone: "comunidades", rotulo: (t) => t.menu.comunidades, href: (l) => `${enderecos.linha(l)}/comunidades` },
-  { chave: "nucleos", icone: "nucleos", rotulo: (t) => t.menu.nucleos, href: (l) => `${enderecos.linha(l)}/nucleos` },
   { chave: "avisos", icone: "avisos", rotulo: (t) => t.menu.avisos, href: (l) => `${enderecos.linha(l)}/avisos` },
   { chave: "conversas", icone: "conversas", rotulo: (t) => t.menu.conversas, href: (l, s) => (s.logado ? `${enderecos.linha(l)}/conversas` : null) },
+  { chave: "comunidades", icone: "comunidades", rotulo: (t) => t.menu.comunidades, href: (l) => `${enderecos.linha(l)}/comunidades` },
+  { chave: "nucleos", icone: "nucleos", rotulo: (t) => t.menu.nucleos, href: (l) => `${enderecos.linha(l)}/nucleos` },
+  { chave: "chamados", icone: "atos", rotulo: (t) => t.menu.atos, href: (l) => `${enderecos.linha(l)}/atos` },
   { chave: "salvos", icone: "salvos", rotulo: (t) => t.menu.salvos, href: (l, s) => (s.logado ? `${enderecos.linha(l)}/salvos` : null) },
   { chave: "perfil", icone: "perfil", rotulo: (t) => t.menu.perfil, href: (l, s) => (s.handle ? enderecos.perfil(l, s.handle) : s.logado ? `${enderecos.linha(l)}/editar-perfil` : null) },
 ];
@@ -89,24 +97,28 @@ function ordemDaDireita(pecas: readonly React.ComponentType<ContextoDoEncaixe>[]
 
 /** A última tela aberta (para a próxima entrar com movimento, e a primeira da visita entrar parada). */
 let telaAnterior: string | null = null;
+
+/** A17: o código do Escrever começa a descer quando a pessoa chega no botão (dedo, mouse ou teclado), e a janela abre na hora. */
+const prepararEscrever = () => {
+  if (!economizandoDados()) void import("./EscreverDaAlumia2").catch(() => undefined);
+};
 /** A casa da barra de baixo da tela anterior (o traço sai dela). */
 let barraAnterior: number | null = null;
 
-// Os painéis do site (components/A11yWidget.tsx e assistente/BotaoDoAssistente.tsx) escutam estes eventos. Pelo nome, sem importar
-// os módulos deles: o pacote da Alumia não leva o código dos painéis.
+// O painel de acessibilidade do site (components/A11yWidget.tsx) escuta este evento. Pelo nome, sem importar o módulo dele: o pacote
+// da Alumia não leva o código do painel. As perguntas frequentes são as da própria Alumia (/alumia/ajuda; P5, A5), não as do site.
 const alternarAcessibilidade = () => window.dispatchEvent(new Event("lucia:alternar-acessibilidade"));
-const alternarAjuda = () => window.dispatchEvent(new Event("lucia:alternar-assistente"));
 
 /** Acessibilidade e perguntas frequentes como botões da casa, no pé do menu (no lugar dos redondos flutuantes do site). */
-function BotoesDoSite({ t }: { t: NonNullable<ReturnType<typeof useAlumia2>>["t"] }) {
+function BotoesDoSite({ t, lang }: { t: NonNullable<ReturnType<typeof useAlumia2>>["t"]; lang: string }) {
   return (
     <>
       <button type="button" className="al2-acao al2-botao-site" data-alterna-acessibilidade="" onClick={alternarAcessibilidade} aria-label={t.conta.acessibilidade} title={t.conta.acessibilidade}>
         <Icone nome="acessibilidade" className="h-[22px] w-[22px]" />
       </button>
-      <button type="button" className="al2-acao al2-botao-site" onClick={alternarAjuda} aria-label={t.conta.ajuda} title={t.conta.ajuda}>
+      <Link href={localePath(lang, "/alumia/ajuda")} className="al2-acao al2-botao-site" aria-label={t.conta.ajuda} title={t.conta.ajuda}>
         <Icone nome="ajuda" className="h-[22px] w-[22px]" />
-      </button>
+      </Link>
     </>
   );
 }
@@ -136,14 +148,18 @@ export function CascaDaAlumia2({
 }) {
   const al2 = useAlumia2();
   const caminho = usePathname() ?? "";
-  // A tela nova entra com movimento só quando veio de outra tela da Alumia (a primeira da visita aparece parada, sem pulo).
-  const [entrando] = useState(() => telaAnterior !== null && telaAnterior !== caminho);
+  // A tela nova entra com movimento só quando veio de outra tela da Alumia (a primeira da visita aparece parada, sem pulo). Quando a
+  // troca veio animada por View Transitions (TransicaoDaTela, A17), ela não anima de novo.
+  const [entrando] = useState(() => telaAnterior !== null && telaAnterior !== caminho && !trocaEmCurso());
+  // A17: os links da Alumia trocam de tela com View Transitions enquanto esta casca está na tela.
+  const roteador = useRouter();
+  useTransicaoNosLinks(roteador);
   useEffect(() => {
     telaAnterior = caminho;
   }, [caminho]);
   const membroLogado = Boolean(situacao?.logado && situacao?.membro);
   const [naoLidos, setNaoLidos] = useState(0);
-  const [doBanco, setDoBanco] = useState<{ conversas: number; atos: number } | null>(null);
+  const [doBanco, setDoBanco] = useState<{ conversas: number; atos: number; seguranca: number } | null>(null);
   useEffect(() => {
     if (!membroLogado || al2?.previa) return;
     let vivo = true;
@@ -154,7 +170,7 @@ export function CascaDaAlumia2({
         (e) => {
           if (!vivo || !e) return;
           if (typeof e.avisos === "number") setNaoLidos(e.avisos);
-          setDoBanco({ conversas: Number(e.conversas) || 0, atos: Number(e.atos) || 0 });
+          setDoBanco({ conversas: Number(e.conversas) || 0, atos: Number(e.atos) || 0, seguranca: Number(e.seguranca) || 0 });
         },
         () => avisos.contar().then((n) => vivo && typeof n === "number" && setNaoLidos(n)),
       )
@@ -236,6 +252,9 @@ export function CascaDaAlumia2({
     };
   }, [prontoParaVaga]);
 
+  // Prompt 4, item 6: o "estou aqui" de quem ligou o status online ("alumia-p4-presenca-print"; desligado, nada é chamado).
+  useMarcarPresenca(Boolean(situacao?.logado && situacao.membro && !al2?.previa));
+
   if (!situacao || !al2) return <EsqueletoDaCasca rotulo={s.estados.carregando} />;
   const { t, previa } = al2;
   const pode = situacao.logado && situacao.membro;
@@ -248,27 +267,44 @@ export function CascaDaAlumia2({
     conversas: previa ? null : (doBanco?.conversas ?? null),
     chamados: previa ? 2 : (emblemaDe("chamados", lang, s, situacao) ?? doBanco?.atos ?? null),
   };
+  // A8: o botão Segurança (e, no celular, o item da conta no bloco Segurança do "Mais") mostra os avisos da conta não lidos, que
+  // saíram das notificações.
+  const emblemaDaSeguranca = previa ? null : (doBanco?.seguranca ?? null);
   const sairRapido = () => void sairRapidoDaRede(DESTINO_DA_SAIDA, ENCAIXES.aoSairRapido);
+  // Prompt 4, item 9: três toques seguidos na marca também fazem o Sair rápido (desligado: a marca é só o link do Início).
+  const naMarca = tresToquesNaMarca(sairRapido);
   const ctx = { lang, s, situacao };
   const direitaEncaixada = ordemDaDireita(ENCAIXES.colunaDireita);
   // O "Mais" do celular: o que não cabe na barra de baixo. Acende quando a tela atual é uma destas (ou uma das telas da conta).
   const linha = enderecos.linha(lang);
+  // O grupo "Mais" (P5, A9): o calendário e as organizações (quando as rotas estão ligadas) e o que as frentes encaixam no lugar
+  // "mais" (o padrão): Mural do Trabalho, Modo ato, Turmas, Agenda, Questões, Redação…
+  const extras: DestinoDoMais[] = [
+    ...(rotaNovaLigada("calendario") ? [{ chave: "calendario", href: `${linha}/calendario`, rotulo: t.menu.calendario, icone: "calendario" as NomeDoIcone, atual: encaixeAtivo(`${linha}/calendario`, caminho), emblema: null }] : []),
+    ...(rotaNovaLigada("organizacoes") ? [{ chave: "organizacoes", href: `${linha}/organizacoes`, rotulo: t.menu.organizacoes, icone: "organizacao" as NomeDoIcone, atual: encaixeAtivo(`${linha}/organizacoes`, caminho), emblema: null }] : []),
+    ...ENCAIXES.menu
+      .filter((m) => !m.substitui && (m.lugar ?? "mais") === "mais")
+      .map((m) => {
+        const href = m.href(ctx);
+        const rotulo = m.rotulo(ctx);
+        const inteiro = m.rotuloInteiro?.(ctx);
+        return { chave: `encaixe-${m.chave}`, href, rotulo, titulo: inteiro && inteiro !== rotulo ? inteiro : undefined, icone: m.icone as React.ReactNode, atual: href !== null && encaixeAtivo(href, caminho), emblema: m.emblema?.(ctx) ?? null };
+      })
+      .filter((d) => d.href !== null),
+  ];
+  // As telas do painel de Segurança: ali o botão Segurança acende (no celular, o "Mais").
+  const naSeguranca = ativo === "fediverso" || /\/alumia\/(seguranca|aparelhos|identidades|silenciados|denuncias|cuidado|regras|termos|privacidade|fediverso|o-que-guardamos|meus-dados)(\/|$)/.test(caminho);
+  const moderacao: DestinoDoMais[] = situacao.cuida
+    ? [{ chave: "moderacao", href: `${linha}/moderacao`, rotulo: t.menu.moderacao, icone: "moderar", atual: encaixeAtivo(`${linha}/moderacao`, caminho), emblema: null }]
+    : [];
   const destinosDoMais: DestinoDoMais[] = [
-    ...(["comunidades", "nucleos", "conversas", "salvos"] as Chave[]).map((chave) => {
+    ...(["conversas", "comunidades", "nucleos", "salvos"] as Chave[]).map((chave) => {
       const d = DESTINOS.find((x) => x.chave === chave) as Destino;
       const href = hrefDe(d, lang, s, situacao);
       return { chave, href, rotulo: d.rotulo(t), icone: d.icone, atual: atualDe(d, href), emblema: emblemas[chave] ?? null };
     }),
-    { chave: "calendario", href: `${linha}/calendario`, rotulo: t.menu.calendario, icone: "calendario", atual: encaixeAtivo(`${linha}/calendario`, caminho), emblema: null },
-    { chave: "organizacoes", href: `${linha}/organizacoes`, rotulo: t.menu.organizacoes, icone: "organizacao", atual: encaixeAtivo(`${linha}/organizacoes`, caminho), emblema: null },
-    { chave: "fediverso", href: `${linha}/fediverso`, rotulo: t.menu.fediverso, icone: "fediverso", atual: ativo === "fediverso", emblema: null },
-    ...ENCAIXES.menu
-      .filter((m) => !m.substitui)
-      .map((m) => {
-        const href = m.href(ctx);
-        return { chave: `encaixe-${m.chave}`, href, rotulo: m.rotulo(ctx), icone: m.icone as React.ReactNode, atual: href !== null && encaixeAtivo(href, caminho), emblema: m.emblema?.(ctx) ?? null };
-      })
-      .filter((d) => d.href !== null),
+    ...moderacao,
+    ...extras,
   ];
 
   return (
@@ -292,7 +328,7 @@ export function CascaDaAlumia2({
               num pé que não encolhe, sempre à vista (o Sair rápido é a saída de segurança). */}
           <div className="al2-menu-lateral sticky top-0 flex flex-col">
           <div className="al2-menu-rola min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pt-6 xl:px-5 2xl:px-6">
-            <Link href={enderecos.linha(lang)} className="flex items-center gap-3 px-2" aria-label={t.marca.inicio}>
+            <Link href={enderecos.linha(lang)} className="al2-menu-marca flex items-center gap-3 px-2" aria-label={t.marca.inicio} onClick={naMarca}>
               <Lampiao tamanho={42} />
               <span className="leading-none">
                 <span className="al-cond block text-[2rem] font-black uppercase tracking-tight">{t.marca.nome}</span>
@@ -340,29 +376,22 @@ export function CascaDaAlumia2({
                     <span>{t.menu.buscar}</span>
                   </Link>
                 </li>
-                {/* Itens novos que as frentes encaixam (sem "substitui"). */}
-                {ENCAIXES.menu
-                  .filter((m) => !m.substitui)
-                  .map((m) => {
-                    const href = m.href(ctx);
-                    if (!href) return null;
-                    const n = m.emblema?.(ctx) ?? null;
-                    // O nome inteiro (quando o do menu é curto) vai como descrição, e não como aria-label: o nome acessível continua
-                    // contendo o texto que se vê (WCAG 2.5.3), e quem comanda por voz diz o que está escrito.
-                    const rotulo = m.rotulo(ctx);
-                    const inteiro = m.rotuloInteiro?.(ctx);
-                    return (
-                      <li key={m.chave}>
-                        <Link href={href} className="al2-menu-item" aria-current={encaixeAtivo(href, caminho) ? "page" : undefined} title={inteiro && inteiro !== rotulo ? inteiro : undefined}>
-                          <svg aria-hidden viewBox="0 0 24 24" className="h-[22px] w-[22px]" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
-                            {m.icone}
-                          </svg>
-                          <span>{rotulo}</span>
-                          {n !== null && n > 0 && <span className="al2-emblema al2-emblema-dourado">{n}</span>}
-                        </Link>
-                      </li>
-                    );
-                  })}
+              </ul>
+              {/* P5 (A9): o que não é do dia a dia (Mural do Trabalho, Modo ato, estudo, calendário, organizações e o que as frentes
+                  pendurarem) num grupo "Mais" que abre aqui mesmo; a Segurança abre o painel dela; a moderação, só para quem modera. */}
+              <ul className="al2-menu-extra mt-1.5 space-y-0.5 border-t border-[var(--al-linha)] pt-1.5">
+                {extras.length > 0 && <GrupoMais t={t} itens={extras} />}
+                <li>
+                  <BotaoSeguranca lang={lang} s={s} situacao={situacao} atual={naSeguranca} emblema={emblemaDaSeguranca} />
+                </li>
+                {situacao.cuida && (
+                  <li>
+                    <Link href={`${linha}/moderacao`} className="al2-menu-item" aria-current={encaixeAtivo(`${linha}/moderacao`, caminho) ? "page" : undefined}>
+                      <Icone nome="moderar" className="h-[22px] w-[22px]" />
+                      <span>{t.menu.moderacao}</span>
+                    </Link>
+                  </li>
+                )}
               </ul>
             </nav>
             {/* O esmaecido preso no pé da parte que rola: com itens abaixo da dobra (as entradas do estudo, numa tela baixa), mostra que
@@ -372,7 +401,7 @@ export function CascaDaAlumia2({
             <div className="al2-menu-pe shrink-0 space-y-2.5 border-t border-[var(--al-linha)] px-4 pb-5 pt-3 xl:px-5 2xl:px-6">
               {/* Escrever, a ação principal, fica no pé que não rola: com mais itens no menu, ele não some atrás do cartão da conta. */}
               {pode && (
-                <button type="button" onClick={() => aoEscrever()} className="al2-menu-escrever al-botao al-botao-primario al-botao-g al2-aperta w-full">
+                <button type="button" onClick={() => aoEscrever()} onPointerEnter={prepararEscrever} onFocus={prepararEscrever} className="al2-menu-escrever al-botao al-botao-primario al-botao-g al2-aperta w-full">
                   <Icone nome="escrever" className="h-5 w-5" />
                   {t.menu.escrever}
                 </button>
@@ -384,7 +413,7 @@ export function CascaDaAlumia2({
                 <button type="button" onClick={sairRapido} className="al-botao al-botao-contorno al-botao-m al2-aperta min-w-0 flex-1 !px-2 whitespace-nowrap" title={t.conta.sairRapidoAjuda}>
                   {t.conta.sairRapido}
                 </button>
-                <BotoesDoSite t={t} />
+                <BotoesDoSite t={t} lang={lang} />
               </div>
             </div>
           </div>
@@ -396,7 +425,7 @@ export function CascaDaAlumia2({
         <div id="rede-linha" tabIndex={-1} className="min-w-0 border-[var(--al-linha)] outline-none xl:border-r">
           {/* Celular: marca, busca e avisos no alto (prancha celular-inicio); a acessibilidade e o menu "Mais" no canto. */}
           <header className="flex items-center gap-2 px-4 pb-1 pt-4 lg:hidden">
-            <Link href={enderecos.linha(lang)} className="al2-alvo flex min-w-0 items-center gap-2.5" aria-label={t.marca.inicio}>
+            <Link href={enderecos.linha(lang)} className="al2-alvo flex min-w-0 items-center gap-2.5" aria-label={t.marca.inicio} onClick={naMarca}>
               <Lampiao tamanho={38} />
               <span className="leading-none">
                 <span className="al-cond block text-[1.75rem] font-black uppercase tracking-tight">{t.marca.nome}</span>
@@ -423,8 +452,10 @@ export function CascaDaAlumia2({
             </span>
             {/* O Sair rápido mora no alto do painel "Mais" (o primeiro botão dele), para o alto ficar como na prancha: busca e avisos,
                 mais a vaga da acessibilidade e o menu. */}
-            <BotaoMais lang={lang} situacao={situacao} destinos={destinosDoMais} naConta={naConta} aoSairRapido={sairRapido} />
+            <BotaoMais lang={lang} s={s} situacao={situacao} destinos={destinosDoMais} naConta={naConta || naSeguranca} aoSairRapido={sairRapido} emblemaDaSeguranca={emblemaDaSeguranca} />
           </header>
+          {/* O alto de toda página (Prompt 5, D1): os avisos fixados pela coordenação e a faixa do modo só leitura. */}
+          {membroLogado && !al2?.previa && <AvisosFixados lang={lang} s={s} />}
           <div key={caminho} className={entrando ? "al2-tela-entra" : undefined}>
             {children}
           </div>
@@ -443,6 +474,8 @@ export function CascaDaAlumia2({
                 <input id="al2-busca" name="q" type="search" placeholder={t.direita.buscar} autoComplete="off" enterKeyHint="search" maxLength={100} className="al2-campo min-h-12 !rounded-xl !py-2 !pl-10 text-sm" />
               </span>
             </form>
+            {/* Na página de uma comunidade, "Sobre a comunidade" com as regras vem primeiro (A11); fora dela, nada. */}
+            <SobreAoLado />
             {direitaEncaixada.map((Peca, i) => (
               <Peca key={i} {...ctx} />
             ))}
@@ -503,7 +536,7 @@ export function CascaDaAlumia2({
             if (i !== 2) return item;
             return [
               <li key="escrever" className="grid place-items-center">
-                <button type="button" onClick={() => aoEscrever()} disabled={!pode} aria-label={t.menu.escrever} title={pode ? t.menu.escrever : t.menu.entreParaUsar} className="al2-mais grid h-14 w-[4.5rem] place-items-center rounded-2xl disabled:cursor-not-allowed disabled:opacity-40">
+                <button type="button" onClick={() => aoEscrever()} onTouchStart={prepararEscrever} disabled={!pode} aria-label={t.menu.escrever} title={pode ? t.menu.escrever : t.menu.entreParaUsar} className="al2-mais grid h-14 w-[4.5rem] place-items-center rounded-2xl disabled:cursor-not-allowed disabled:opacity-40">
                   <Icone nome="mais" className="h-8 w-8" grosso />
                 </button>
               </li>,
@@ -513,6 +546,72 @@ export function CascaDaAlumia2({
         </ul>
       </nav>
     </div>
+  );
+}
+
+const CHAVE_DO_MAIS = "al2-menu-mais";
+
+/**
+ * O grupo "Mais" do menu do computador (P5, A9): um botão que mostra ou esconde, ali mesmo, os itens que não são do dia a dia. Assim
+ * o menu inteiro cabe na tela sem rolar (o Mural do Trabalho não fica mais escondido embaixo). Abre sozinho quando a tela atual é
+ * uma das dele; aberto ou fechado fica lembrado neste aparelho (só a preferência, nada vai para o servidor).
+ */
+function GrupoMais({ t, itens }: { t: NonNullable<ReturnType<typeof useAlumia2>>["t"]; itens: DestinoDoMais[] }) {
+  const aquiDentro = itens.some((d) => d.atual);
+  // A casca só desenha o menu depois de saber quem está vendo (no servidor sai o esqueleto): ler o aparelho já na montagem não
+  // desencontra a hidratação.
+  const [aberto, setAberto] = useState(() => {
+    try {
+      return typeof window !== "undefined" && window.localStorage.getItem(CHAVE_DO_MAIS) === "1";
+    } catch {
+      return false; // sem armazenamento: começa fechado
+    }
+  });
+  const mostrar = aberto || aquiDentro;
+  const novidade = itens.some((d) => (d.emblema ?? 0) > 0);
+  const alternar = () => {
+    const novo = !mostrar;
+    setAberto(novo);
+    try {
+      window.localStorage.setItem(CHAVE_DO_MAIS, novo ? "1" : "0");
+    } catch {
+      // sem armazenamento (janela anônima): vale só nesta visita
+    }
+  };
+  return (
+    <li>
+      <button type="button" className="al2-menu-item w-full" aria-expanded={mostrar} aria-controls="al2-menu-mais" onClick={alternar} title={mostrar ? t.menu.maisEsconder : t.menu.maisMostrar}>
+        <Icone nome="pontos" className="h-[22px] w-[22px]" />
+        <span>{t.menu.mais}</span>
+        {!mostrar && novidade && <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-[var(--al-dourado-fundo)]" />}
+        <Icone nome="chevron" className={`al2-menu-mais-seta ml-auto h-4 w-4 text-[var(--al-texto-3)]`} />
+      </button>
+      <ul id="al2-menu-mais" className="al2-menu-mais-lista space-y-0.5" hidden={!mostrar}>
+        {itens.map((d, i) => {
+          const n = d.emblema ?? 0;
+          return (
+            <li key={d.chave} style={{ ["--i" as string]: i }}>
+              <Link href={d.href as string} className="al2-menu-item al2-menu-item-mais" aria-current={d.atual ? "page" : undefined} title={d.titulo}>
+                {typeof d.icone === "string" ? (
+                  <Icone nome={d.icone as NomeDoIcone} className="h-5 w-5" grosso={d.atual} />
+                ) : (
+                  <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                    {d.icone}
+                  </svg>
+                )}
+                <span>{d.rotulo}</span>
+                {n > 0 && (
+                  <span className="al2-emblema al2-emblema-dourado">
+                    <span aria-hidden>{n > 99 ? "99+" : n}</span>
+                    <span className="sr-only">{preencher(t.menu.emblema, { n })}</span>
+                  </span>
+                )}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </li>
   );
 }
 

@@ -4,7 +4,7 @@
 // que está selecionado (ou de um exemplo, já selecionado para a pessoa escrever por cima). Puro: devolve o texto novo e a seleção.
 // Sem "@/": roda no Node dos testes.
 
-export type Marca = "negrito" | "italico" | "codigo" | "blocoDeCodigo" | "formula" | "titulo" | "lista" | "citacao" | "link" | `imagem${1 | 2 | 3 | 4}`;
+export type Marca = "negrito" | "italico" | "codigo" | "blocoDeCodigo" | "formula" | "titulo" | "lista" | "citacao" | "link" | `imagem${number}`;
 
 export interface Edicao {
   valor: string;
@@ -72,8 +72,8 @@ export function aplicarMarca(valor: string, inicio: number, fim: number, marca: 
     return { valor: `${antes}${trecho}${depois}`, inicio: i, fim: i + "https://".length };
   }
 
-  // imagem1 a imagem4: a imagem anexada, numa linha só dela.
-  const n = Number(marca.slice(-1));
+  // imagem1 a imagem20: a imagem anexada, numa linha só dela.
+  const n = Number(marca.slice("imagem".length));
   const [abre, fecha] = emLinhaPropria(antes, depois);
   const trecho = `![${miolo}](imagem:${n})`;
   const i = a + abre.length + 2;

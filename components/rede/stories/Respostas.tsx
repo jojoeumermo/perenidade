@@ -16,6 +16,7 @@ import { enderecos } from "@/lib/rede/tipos";
 import { PALETA_DO_STORY } from "@/lib/rede/stories/visual";
 import { Avatar16 } from "../ui/Avatar16";
 import { noPlural, preencherStory, useAgora } from "./usar";
+import { PorQueSemNumero } from "../uso/PorQueSemNumero";
 
 type T = TextosDosStories;
 
@@ -47,6 +48,7 @@ export function ResumoDaAutora({ t, lang, respostas, reacoes, aoAbrir }: { t: T;
       {reac ? (
         <p className="al-st-resumo-reacoes" title={b.soVoce}>
           {reac}
+          {reacoes?.poucas && !reacoes.total ? <PorQueSemNumero lang={lang} motivo="piso" /> : null}
         </p>
       ) : null}
       <p className="sr-only">{b.soVoce}</p>

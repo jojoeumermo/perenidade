@@ -3,11 +3,14 @@
 // Pedidos a outras instâncias do Fediverso, pelo servidor, sem abrir porta para dentro de casa (SSRF). A mesma trava da prévia de
 // link (lib/rede/publicar/buscar-seguro.ts): o nome é resolvido no momento de conectar e a conexão só sai se TODOS os endereços forem
 // públicos; só https na porta 443; tempo limite e tamanho máximo; o corpo é lido aos poucos. GET segue até 3 redirecionamentos (cada
-// um conferido de novo); POST não segue nenhum. Sem "@/".
+// um conferido de novo); POST não segue nenhum. Além do tempo de silêncio, um prazo TOTAL por salto: uma instância que manda um
+// byte de cada vez não prende a conexão do servidor para sempre. Corpo cortado no meio (a conexão caiu antes do fim) não vale.
+// Sem "@/".
 import dns from "node:dns";
 import http from "node:http";
 import https from "node:https";
 import { NOME_REDE } from "../alumia";
+import { hostCanonico } from "./enderecos";
 import { ipPrivado, urlSegura } from "../publicar/previa";
 
 export interface OpcoesDoPedido {
@@ -15,6 +18,8 @@ export interface OpcoesDoPedido {
   cabecalhos?: Record<string, string>;
   corpo?: string;
   tempoMs?: number;
+  /** O prazo de cada salto inteiro, do pedido ao último byte. Padrão: o dobro de tempoMs. */
+  prazoTotalMs?: number;
   maxBytes?: number;
   /** Devolve também os bytes crus do corpo (imagem da rota-proxy de mídia), além do texto. */
   binario?: boolean;
@@ -43,6 +48,8 @@ export function urlDoFediverso(texto: string, teste = false): URL | null {
   const u = urlSegura(texto, { qualquerPorta: teste });
   if (!u) return null;
   if (u.protocol !== "https:" && !teste) return null;
+  // Nome disfarçado (letra de largura cheia, %2E, ponto no fim, usuário@): o bloqueio do banco não o reconheceria. Não sai nada.
+  if (u.protocol === "https:" && !hostCanonico(texto.trim())) return null;
   return u;
 }
 
@@ -54,6 +61,16 @@ function umPedido(url: URL, o: OpcoesDoPedido): Promise<RespostaCrua> {
   const max = o.maxBytes ?? 1024 * 1024;
   return new Promise((resolve, reject) => {
     const modulo = url.protocol === "https:" ? https : http;
+    let esgotou = false;
+    // O prazo total: vence mesmo que os bytes continuem pingando (o "timeout" de silêncio recomeça a cada pedaço).
+    const prazo = setTimeout(() => {
+      esgotou = true;
+      pedido.destroy(new Error("tempo_esgotado"));
+    }, o.prazoTotalMs ?? (o.tempoMs ?? 8000) * 2);
+    const sair = (erro: Error) => {
+      clearTimeout(prazo);
+      reject(erro);
+    };
     const pedido = modulo.request(
       url,
       {
@@ -76,6 +93,7 @@ function umPedido(url: URL, o: OpcoesDoPedido): Promise<RespostaCrua> {
       (resposta) => {
         const status = resposta.statusCode ?? 0;
         if (status >= 300 && status < 400 && resposta.headers.location) {
+          clearTimeout(prazo);
           resposta.resume();
           resolve({ status, local: String(resposta.headers.location), tipo: "", texto: "" });
           return;
@@ -96,6 +114,9 @@ function umPedido(url: URL, o: OpcoesDoPedido): Promise<RespostaCrua> {
         const fim = () => {
           if (acabou) return;
           acabou = true;
+          // Passou do prazo, ou a conexão caiu antes do fim (e não fomos nós que cortamos no tamanho máximo): não vale.
+          if (esgotou || (total <= max && !resposta.complete)) return sair(new Error(esgotou ? "tempo_esgotado" : "incompleto"));
+          clearTimeout(prazo);
           if (total > max) return resolve({ status, tipo, texto: "", retryAfter });
           const tudo = Buffer.concat(pedacos);
           resolve({ status, tipo, texto: o.binario ? "" : tudo.toString("utf8"), ...(o.binario ? { bytes: tudo } : {}), retryAfter });
@@ -106,7 +127,7 @@ function umPedido(url: URL, o: OpcoesDoPedido): Promise<RespostaCrua> {
       },
     );
     pedido.on("timeout", () => pedido.destroy(new Error("tempo_esgotado")));
-    pedido.on("error", reject);
+    pedido.on("error", sair);
     if (o.corpo !== undefined) pedido.write(o.corpo);
     pedido.end();
   });

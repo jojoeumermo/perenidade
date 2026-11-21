@@ -40,7 +40,29 @@ function disparar() {
   avisar.forEach((g) => g());
 }
 
+// A troca de tela animada da Alumia (Prompt 5, A17; components/rede/publicar/alumia2/TransicaoDaTela.tsx): a casca da Alumia registra
+// aqui quem cuida da navegação. Sem registro (o site, a Escola, o painel), o link navega como sempre.
+type NavegacaoAnimada = (href: string) => boolean;
+let navegacaoAnimada: NavegacaoAnimada | null = null;
+export function registrarNavegacaoAnimada(f: NavegacaoAnimada): () => void {
+  navegacaoAnimada = f;
+  return () => {
+    if (navegacaoAnimada === f) navegacaoAnimada = null;
+  };
+}
+
 export default function Link(props: ComponentProps<typeof NextLink>) {
   const poupar = useSyncExternalStore(assinar, economia, () => false);
-  return <NextLink {...props} prefetch={poupar ? false : props.prefetch} />;
+  const { onNavigate, href, replace } = props;
+  return (
+    <NextLink
+      {...props}
+      prefetch={poupar ? false : props.prefetch}
+      onNavigate={(e) => {
+        onNavigate?.(e);
+        // Só a navegação dentro do site (o Next chama isto só para ela), com endereço em texto e sem "replace".
+        if (navegacaoAnimada && typeof href === "string" && !replace && navegacaoAnimada(href)) e.preventDefault();
+      }}
+    />
+  );
 }

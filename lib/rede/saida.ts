@@ -117,6 +117,18 @@ export async function sairRapido(destino: string, limpezas: readonly LimpezaAoSa
   window.location.replace(destino);
 }
 
+/** A janela dos três toques na marca da Alumia (prompt 4, item 9): três toques em até 1,2 s acionam o Sair rápido. */
+export const JANELA_DOS_TRES_TOQUES = 1200;
+
+/**
+ * Três toques na marca em até `janela` ms? Recebe os instantes dos últimos toques e devolve a lista atualizada e a resposta (a mesma
+ * conta dos três Esc do site, lib/modo-seguro.ts). Depois de acionar, a lista volta vazia: um quarto toque não aciona de novo.
+ */
+export function tresToques(instantes: readonly number[], agora: number, janela = JANELA_DOS_TRES_TOQUES): { instantes: number[]; sair: boolean } {
+  const recentes = [...instantes, agora].filter((t) => t <= agora && agora - t <= janela).slice(-3);
+  return recentes.length >= 3 ? { instantes: [], sair: true } : { instantes: recentes, sair: false };
+}
+
 /**
  * Espera uma promessa por no máximo `limiteMs` e diz se ela terminou bem a tempo. Nunca lança (o pânico segue mesmo sem rede).
  */

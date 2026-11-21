@@ -1,0 +1,26 @@
+{
+  "_rascunho": true,
+  "ajustes": {
+    "titulo": "Présence et protection contre les captures",
+    "carregando": "Chargement…",
+    "erro": "Impossible d’enregistrer maintenant. Réessayez.",
+    "presenca": "Montrer « actif récemment » à mon cercle de confiance",
+    "presencaAjuda": "Désactivé par défaut. Activé, seules les personnes de votre cercle de confiance le voient, et seulement « actif récemment » (vous avez utilisé Alumia dans les une ou deux dernières heures), jamais l’heure exacte. Le serveur garde un seul champ, arrondi à l’heure pleine et écrasé : il n’y a pas d’historique. Désactiver efface le champ. Qui le voit peut comprendre qu’il est dans votre cercle.",
+    "foto": "Protéger ma photo de profil",
+    "fotoAjuda": "Sur la page de votre profil, la photo disparaît quand la fenêtre de la personne qui regarde passe à l’arrière-plan, ne peut être ni copiée ni glissée et porte un filigrane discret avec le pseudonyme de cette personne.",
+    "story": "Pour protéger une story, ouvrez-la et choisissez « Protéger cette story » dans le menu.",
+    "sairRapido": "Toucher trois fois de suite le logo d’Alumia déclenche aussi la Sortie rapide."
+  },
+  "aviso": "Cela empêche la capture par inadvertance. Cela n’empêche pas une photo de l’écran prise avec un autre téléphone. N’envoyez que ce que vous accepteriez de voir fuiter.",
+  "avisoNavegador": "Dans le navigateur la protection est plus faible : elle cache le contenu quand la fenêtre passe à l’arrière-plan et désactive copier et glisser, mais ne bloque pas la capture du système.",
+  "avisoApp": "Dans l’app Android, le système rend noires les captures et les enregistrements d’écran d’Alumia. Cela n’empêche pas pour autant une photo de l’écran prise avec un autre téléphone.",
+  "naoAvisa": "Personne n’est averti des captures, pas même l’autrice : cela créerait un registre de qui lit.",
+  "escondido": "Contenu protégé. Revenez à cette fenêtre pour le voir.",
+  "protegido": "Protégé contre les captures par inadvertance",
+  "storyProteger": "Protéger cette story",
+  "storyDesproteger": "Retirer la protection de cette story",
+  "storyProtegido": "Story protégée contre les captures par inadvertance. Dans le navigateur la protection est plus faible.",
+  "storyDesprotegido": "La protection de cette story a été retirée.",
+  "recente": "actif récemment",
+  "recenteAjuda": "Cette personne a choisi de montrer à son cercle de confiance qu’elle était sur Alumia ces dernières heures."
+}

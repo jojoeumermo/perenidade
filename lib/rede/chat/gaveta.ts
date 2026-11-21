@@ -352,12 +352,19 @@ export async function apagarTudoDoChat(limiteMs = 400): Promise<void> {
     avisarAsOutrasAbas();
     if (typeof indexedDB === "undefined") return;
     apagarLojasDaBiblioteca(lojasAbertas);
-    // O histórico das conversas neste aparelho (lib/rede/chat/historico.ts).
-    try {
-      indexedDB.deleteDatabase("lucia-alumia-historico");
-    } catch {
-      // segue
+    // O histórico das conversas neste aparelho (lib/rede/chat/historico.ts) e a loja do chat a dois da R2 (lib/rede/chat/r2/loja.ts:
+    // chaves da conta e do aparelho, lista de conversas, caixas).
+    for (const nome of ["lucia-alumia-historico", "lucia-alumia-r2"]) {
+      try {
+        indexedDB.deleteDatabase(nome);
+      } catch {
+        // segue
+      }
     }
+    // A loja do motor (sessões Proteus), no OPFS: "core-crypto/alumia-r2-<conta>", e a base IndexedDB de mesmo nome que o
+    // WebAssembly do motor abre. Sem esperar (o limite de tempo vale abaixo).
+    void apagarLojasDoMotorR2();
+    void apagarBasesDoMotorR2(indexedDB);
     await new Promise<void>((pronto) => {
       const relogio = setTimeout(pronto, limiteMs);
       const fim = () => {
@@ -377,6 +384,43 @@ export async function apagarTudoDoChat(limiteMs = 400): Promise<void> {
   } catch {
     // nunca lança: a pessoa precisa sair JÁ
   }
+}
+
+/** Apaga do OPFS as lojas do motor do chat a dois da R2 (as sessões Proteus de cada conta). Nunca lança. */
+async function apagarLojasDoMotorR2(): Promise<void> {
+  try {
+    const pasta = await (await navigator.storage.getDirectory()).getDirectoryHandle("core-crypto");
+    const nomes: string[] = [];
+    for await (const [nome] of (pasta as unknown as { entries(): AsyncIterable<[string, unknown]> }).entries()) if (nome.startsWith("alumia-r2-")) nomes.push(nome);
+    for (const nome of nomes) await pasta.removeEntry(nome, { recursive: true }).catch(() => undefined);
+  } catch {
+    // sem OPFS ou sem a pasta: nada a apagar
+  }
+}
+
+/** O começo do nome da loja do motor da R2 (igual a lib/rede/chat/r2/loja.ts; este arquivo não importa nada, de propósito). */
+export const PREFIXO_DO_MOTOR_R2 = "alumia-r2-";
+
+/**
+ * Apaga do IndexedDB as bases "alumia-r2-<conta>" (o nome que o motor da R2 recebe em Database.open; o WebAssembly dele abre o
+ * IndexedDB com esse nome para a migração da loja antiga). Lista as bases quando o navegador sabe listar. Nunca lança; devolve os
+ * nomes pedidos (para o teste).
+ */
+export async function apagarBasesDoMotorR2(idb: Pick<IDBFactory, "deleteDatabase"> & { databases?: () => Promise<{ name?: string }[]> }): Promise<string[]> {
+  const nomes: string[] = [];
+  try {
+    for (const b of (await idb.databases?.()) ?? []) if (b.name?.startsWith(PREFIXO_DO_MOTOR_R2)) nomes.push(b.name);
+    for (const nome of nomes) {
+      try {
+        idb.deleteDatabase(nome);
+      } catch {
+        // segue com as outras
+      }
+    }
+  } catch {
+    // navegador sem a lista: a saída do site (lib/modo-seguro.ts) apaga pelo mesmo prefixo quando a lista existir
+  }
+  return nomes;
 }
 
 /** Só para os testes: volta a aceitar gravações depois de um "apagar tudo" (no site, isso só acontece ao ativar o chat de novo). */

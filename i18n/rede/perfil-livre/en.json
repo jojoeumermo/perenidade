@@ -158,6 +158,7 @@
     "codinome": "Code name",
     "codinomeAjuda": "The name shown on Alumia: 3 to 30 letters. Never your legal name.",
     "erros": {
+      "nome_com_selo": "Symbols that look like the verified badge (✓, ✔, ☑, ✅, 🔵) and the words “verified” and “official” can’t be part of a name. Choose another.",
       "codinome_usado": "That code name already belongs to someone else.",
       "codinome_civil": "It looks like your legal name. Pick another one, for your safety.",
       "codinome_reservado": "That name is reserved.",
@@ -254,6 +255,8 @@
     "tirar": "Remove"
   },
   "perfil": {
+    "verificadoEquipe": "Verified: institute team. The badge comes from the team role and goes away when it ends.",
+    "verificadoCoordenacao": "Verified: institute coordination.",
     "tocando": "Now playing",
     "ouvirEm": "listen on {dominio}",
     "ate": "until {data}",

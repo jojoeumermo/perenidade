@@ -11,7 +11,7 @@ import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Convites } from "./Convites";
 import { Departamentos, FotosParaAprovar, TermosAceitos } from "./PessoasExtras";
 import { ListaDePessoas } from "./ListaDePessoas";
-import { EscolhaDeFuncoes, type FuncaoEscolhida } from "./EscolhaDeFuncoes";
+import { EscolhaDeFuncoes, type FuncaoEscolhida, Passo } from "./EscolhaDeFuncoes";
 import { NOMES_DOS_DEPARTAMENTOS_DO_INSTITUTO } from "./departamentos-do-instituto";
 import { TrocarEmail } from "./TrocarEmail";
 
@@ -205,7 +205,7 @@ export function Pessoas({ me }: { me: Me }) {
   // A coordenação não se concede por aqui (muda de mãos em Segurança e sucessão); vice e supervisão, só a coordenação nomeia;
   // curadoria e mediação ficam com coordenação e vice.
   const concediveis = (Object.keys(papeis) as Role["papel"][]).filter(
-    (papel) => papel !== "coordenacao" && !papelAposentado(papel) && nivelDoPapel(papel) < meuNivel && (!["vice", "supervisao"].includes(papel) || lider) && (!["curadoria", "mediacao"].includes(papel) || coordena),
+    (papel) => papel !== "coordenacao" && !papelAposentado(papel) && nivelDoPapel(papel) < meuNivel && (!["vice", "supervisao"].includes(papel) || lider) && (!["curadoria", "mediacao", "parceiro"].includes(papel) || coordena),
   );
   /** Posso mexer nos cargos desta pessoa? Nunca nos meus; a coordenação em todos; os outros, só em quem está abaixo. */
   const podeMexer = (pessoa: { id: string; nivel: number }) => pessoa.id !== me.id && (lider || pessoa.nivel < meuNivel);
@@ -399,15 +399,16 @@ export function Pessoas({ me }: { me: Me }) {
           titulo="Confiar funções"
           sobre={<>Procure a pessoa pelo nome{coordena ? " ou pelo e-mail" : ""}. Ela precisa ter entrado no site pelo menos uma vez para aparecer na busca. Junte quantas funções, disciplinas e departamentos quiser e confie tudo de uma vez: o novo se soma ao que a pessoa já tem, e ela recebe um recado só.</>}
         />
-        <Cartao as="div">
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">
-          <div className="pn-campo-bloco">
-            <span className="pn-rotulo">Pessoa</span>
+        {/* Em passos, de cima para baixo: pessoa → função → disciplinas (ou território, ou departamento) → departamentos →
+            confirmar. Antes era uma coluna com a busca solta ao lado de uma lista longa. */}
+        <Cartao as="div" className="space-y-5">
+        <Passo n={1} titulo="Pessoa" ajuda="Ou marque várias pessoas na lista de Pessoas e use “Dar função a estas”.">
+          <div className="max-w-xl">
             <BuscaDePessoa escolhida={quem} escolher={setQuem} reserva={pessoas.dados ?? []} />
-            <p className="pn-ajuda mt-1">Ou marque várias pessoas na lista de Pessoas e use “Dar função a estas”.</p>
           </div>
-          <EscolhaDeFuncoes concediveis={concediveis} escolhidas={escolhidas} aoMudar={setEscolhidas} departamentos={deps} aoMudarDepartamentos={setDeps} podeSensivel={coordena} />
-        </div>
+        </Passo>
+        <EscolhaDeFuncoes concediveis={concediveis} escolhidas={escolhidas} aoMudar={setEscolhidas} departamentos={deps} aoMudarDepartamentos={setDeps} podeSensivel={coordena} primeiroPasso={2} />
+        <Passo n={5} titulo="Confirmar" ajuda={nadaEscolhido ? "Acrescente pelo menos uma função ou um departamento." : `${quem ? quem.nome : lote.length > 0 ? `${lote.length} ${lote.length === 1 ? "pessoa" : "pessoas"}` : "A pessoa escolhida"} vai receber: ${resumoDoEscolhido.toLocaleLowerCase("pt-BR")}.`}>
         {lote.length > 0 && (
           <Faixa tom="bordo" className="mt-3" titulo={`Para ${lote.length} ${lote.length === 1 ? "pessoa" : "pessoas"} de uma vez:`}>
             <p className="text-sm">{(pessoas.dados ?? []).filter((p) => lote.includes(p.id)).map((p) => p.nome).join(", ")}</p>
@@ -439,7 +440,6 @@ export function Pessoas({ me }: { me: Me }) {
         {alvoForaDoAlcance && <Aviso texto={`${quem?.nome} está no seu nível ou acima na hierarquia: só quem está acima confia ou retira funções dessa pessoa.`} />}
         <Botao
           variante={lote.length > 0 ? "padrao" : "principal"}
-          className="mt-3"
           simbolo={UserCheck}
           disabled={!quem || alvoForaDoAlcance || nadaEscolhido}
           carregando={acao.ocupado}
@@ -452,6 +452,7 @@ export function Pessoas({ me }: { me: Me }) {
         >
           {nadaEscolhido ? "Confiar" : `Confiar ${resumoDoEscolhido.toLocaleLowerCase("pt-BR")}`}
         </Botao>
+        </Passo>
         </Cartao>
         {[...new Set(escolhidas.map((e) => e.papel))].map((papel) => (
           <Faixa key={papel} tom="info" titulo={`${papeis[papel]}:`}>

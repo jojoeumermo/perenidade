@@ -23,6 +23,19 @@
     "questoes": { "titulo": "Questions", "descricao": "Questions by subject and topic, with the right answer and the explanation only after you answer. Your score stays on your device." },
     "redacao": { "titulo": "Peer essays", "descricao": "This week's correction circle: you mark an essay without knowing who wrote it and get two readings back, by the five ENEM competencies." },
     "pontes": { "titulo": "Bridges", "descricao": "The organization’s bots, labeled and with a key, and the Telegram channel." },
-    "trabalhadores": { "titulo": "Workers' Board", "descricao": "Calls for struggle, strikes and solidarity from verified organizations, by type and by city." }
+    "trabalhadores": { "titulo": "Workers' Board", "descricao": "Calls for struggle, strikes and solidarity from verified organizations, by type and by city." },
+    "avisos-de-local": { "titulo": "Local alerts", "descricao": "Street alerts in the style of Waze, without an author, in a square of about 200 m, gone in 2 hours." },
+    "seguranca-pessoal": { "titulo": "Personal safety", "descricao": "Abuse record, legal hotline and disappearance switch, encrypted on your device." },
+    "criacao-coletiva": { "titulo": "Making together", "descricao": "Collective draft of a statement or manifesto, notes in the margin of the archive, posters and zines made on your device." },
+    "cultura": { "titulo": "Culture", "descricao": "Serial works with new-chapter alerts, an art wall under pen names, film club, book club and a shared community playlist." },
+    "memoria-da-luta": { "titulo": "Memory of the struggle", "descricao": "The victories, campaigns, living archive and podcasts of your communities." },
+    "desafio": { "titulo": "Daily challenge", "descricao": "Five glossary questions, the same for everyone today. Your score stays on your device." },
+    "organizar": { "titulo": "Organize", "descricao": "Your organization's board, meetings and decisions; your community's board, time bank and support points." },
+    "acao-coletiva": { "titulo": "Collective action", "descricao": "Pressure, bill tracker, documents, letters, surveys, protests, lodging, membership, rotas and organizations." },
+    "perto": { "titulo": "Nearby", "descricao": "Location shared only encrypted with your trusted circle, help request and walk home." },
+    "descobrir": { "titulo": "Discover", "descricao": "Topics on the move, lines other people follow, Fediverse #topics from approved servers and RSS and Atom addresses." },
+    "estudar": { "titulo": "Study", "descricao": "Pace and review decks only on your device, class mock exam, mentoring, sources, digital security, sign-ups, calls and the glossary." },
+    "conta": { "titulo": "Account and community", "descricao": "Protection levels, mentions, office hours, care for your communities, diary and travel mode." },
+    "fio-texto": { "titulo": "Thread as text", "descricao": "An author’s thread as continuous text, with only what you can already see." }
   }
 }

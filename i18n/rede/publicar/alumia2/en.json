@@ -11,7 +11,7 @@
     "explorar": "Explore",
     "atos": "Actions",
     "comunidades": "Communities",
-    "nucleos": "Cells",
+    "nucleos": "Cells and classes",
     "avisos": "Notifications",
     "avisosNovos": "Notifications, {n} new",
     "emblema": "{n} with something new",
@@ -30,7 +30,10 @@
     "fechar": "Close",
     "organizacoes": "Organizations",
     "calendario": "Calendar",
-    "aqui": "you are here"
+    "aqui": "you are here",
+    "moderacao": "Moderation",
+    "maisMostrar": "Show more items",
+    "maisEsconder": "Hide the extra items"
   },
   "conta": {
     "rotulo": "Your account",
@@ -53,7 +56,23 @@
     "verPerfil": "See your profile",
     "aparencia": "Appearance and reading",
     "series": "Repeating posts",
-    "temas": "Topics I follow"
+    "temas": "Topics I follow",
+    "linhaDoTempo": "Timeline"
+  },
+  "seguranca": {
+    "titulo": "Security",
+    "abrir": "Open the Security panel",
+    "intro": "Everything that protects you on Alumia, in one place.",
+    "conta": "Password, authenticator and panic",
+    "aparelhos": "Connected devices",
+    "silenciados": "Muted",
+    "denuncias": "My reports",
+    "regras": "Rules and care",
+    "termos": "Terms of use",
+    "fediverso": "Fediverse privacy",
+    "guardamos": "What Alumia keeps",
+    "minhaConta": "My account and my data",
+    "fechar": "Close"
   },
   "linha": {
     "titulo": "Home",
@@ -67,6 +86,10 @@
     "novosUm": "new post",
     "novosOutros": "new posts",
     "mostrarNovos": "Show {n} new posts",
+    "aCaminho": "Sending…",
+    "aCaminhoNota": "Others see it when sending finishes.",
+    "aCaminhoImagem": "+ {n} image",
+    "aCaminhoImagens": "+ {n} images",
     "erroTitulo": "The timeline didn't load",
     "fimTitulo": "You're all caught up",
     "fimTexto": "Nothing more from the people you follow for now. No endless scrolling: how about a community or an action?",
@@ -104,7 +127,12 @@
     "materia": "Instituto Lúcia article",
     "indisponivel": "This arrives with the next Alumia update.",
     "naoRepostavel": "You can only repost someone else's post written for everyone (not a reply, nor a post for a smaller group).",
-    "veioDeRepost": "Reposted by someone you follow"
+    "veioDeRepost": "Reposted by someone you follow",
+    "apagar": "Delete post",
+    "apagarPergunta": "Delete this post? If someone already replied or quoted it, “[post deleted]” stays in its place.",
+    "apagarSim": "Delete",
+    "apagarNao": "Keep",
+    "apagado": "Post deleted."
   },
   "enquete": {
     "rotulo": "Poll",
@@ -345,6 +373,13 @@
     "texto": "This address doesn't exist on Alumia, or the post was taken down. Your timeline is right where you left it.",
     "voltar": "Back to the Alumia home",
     "buscar": "Search"
+  },
+  "naoAbriu": {
+    "titulo": "This screen didn't open",
+    "texto": "Something went wrong opening this part of Alumia. Your account and your drafts are still there.",
+    "atualizando": "Alumia has a new version. Updating the page…",
+    "tentar": "Try again",
+    "recarregar": "Reload the page"
   },
   "visibilidade": {
     "eu": "Only me",

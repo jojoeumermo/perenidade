@@ -30,6 +30,8 @@ export async function POST(pedido: Request) {
   const c = (await pedido.json().catch(() => null)) as { leitura?: unknown; ficha?: unknown } | null;
   const leitura = typeof c?.leitura === "string" ? c.leitura.toLowerCase() : "";
   if (!UUID.test(leitura) || !c?.ficha || typeof c.ficha !== "object") return resposta({ ok: false, motivo: "invalido" }, 400);
+  // O jsonb do Postgres não aceita o caractere zero (\u0000) em texto nenhum: recusa aqui em vez de deixar o banco recusar com erro.
+  if (JSON.stringify(c.ficha).includes("\\u0000")) return resposta({ ok: false, motivo: "invalido" }, 400);
 
   const correcao = idDaCorrecao();
   const segredo = segredoDoLacre();

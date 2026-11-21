@@ -16,6 +16,7 @@
 import { ID_DE_POST, HANDLE_FED } from "../enderecos";
 import { fed } from "../servidor";
 import { escaparHtml, htmlParaTexto, textoCurto } from "../texto";
+import { pontesP4LigadoNoSite } from "../../p4/pontes/ligado";
 
 export const PUBLICOS = new Set(["https://www.w3.org/ns/activitystreams#Public", "as:Public", "Public"]);
 export const TIPOS_DE_NOTA = new Set(["Note", "Article", "Page", "Question", "Video"]);
@@ -359,7 +360,8 @@ function urlDaPagina(nota: Record<string, unknown>): string | null {
 
 /** A miniatura de um vídeo (icon do PeerTube): entra como imagem, para o cartão ter o que mostrar. */
 function miniaturaDe(nota: Record<string, unknown>): MidiaRecebida | null {
-  const icones = Array.isArray(nota.icon) ? nota.icon : nota.icon ? [nota.icon] : [];
+  // O PeerTube manda a miniatura em "icon"; o Funkwhale e o Castopod, a capa em "image".
+  const icones = [nota.icon, ...(pontesP4LigadoNoSite() ? [nota.image] : [])].flatMap((v) => (Array.isArray(v) ? v : v ? [v] : []));
   for (const i of icones.slice(0, 5)) {
     if (!i || typeof i !== "object") continue;
     const ic = i as Record<string, unknown>;
@@ -380,14 +382,16 @@ export function lerNota(
   { seguidores }: { seguidores?: string | null } = {},
 ): { ok: true; nota: NotaRecebida } | { ok: false; motivo: string } {
   const tipo = String(nota.type ?? "");
-  if (!TIPOS_DE_NOTA.has(tipo)) return { ok: false, motivo: "ignorado" };
+  // Prompt 4, item 83: com "alumia-p4-pontes", também a faixa de áudio (Audio, do Funkwhale), que vira cartão de áudio.
+  const audio = tipo === "Audio" && pontesP4LigadoNoSite();
+  if (!TIPOS_DE_NOTA.has(tipo) && !audio) return { ok: false, motivo: "ignorado" };
   const id = urlHttps(idDe(nota), 500);
   if (!id || dominio(id) !== dominio(autor) || autorDe(nota) !== autor) return { ok: false, motivo: "nota_de_outro" };
   const visibilidade = visibilidadeDe(nota, autor, seguidores);
   // Mensagem direta ou limitada: a Alumia não tem DM federada; nada é guardado, e quem mandou recebe 202 como sempre.
   if (visibilidade === "direto") return { ok: false, motivo: "direto" };
   const conteudo = conteudoDe(nota);
-  const titulo = tipo === "Article" || tipo === "Page" || tipo === "Video" ? textoCurto(nota.name, 300) : "";
+  const titulo = tipo === "Article" || tipo === "Page" || tipo === "Video" || audio ? textoCurto(nota.name, 300) : "";
   const opcoes = tipo === "Question" ? opcoesDaEnquete(nota) : [];
   const emMarkdown = String(nota.mediaType ?? "").toLowerCase() === "text/markdown";
   let html = emMarkdown ? markdownParaHtml(conteudo) : limparHtml(conteudo);
@@ -408,7 +412,15 @@ export function lerNota(
     texto = `${texto}\n\n${u}`.trim();
   }
   const midia = midiaDe(nota);
-  if (tipo === "Video" && midia.length < 4) {
+  // A faixa de áudio (item 83): o endereço do arquivo vem em "url" (um Link de áudio); fica só como marca do tipo para o cartão
+  // (a rota-proxy só serve imagem, e o áudio nunca é buscado pela Alumia).
+  if (audio && !midia.some((m) => m.tipo.startsWith("audio/")) && midia.length < 4) {
+    const links = Array.isArray(nota.url) ? nota.url : [nota.url];
+    const link = links.find((u) => u && typeof u === "object" && /^audio\/[a-z0-9.+-]{1,40}$/i.test(String((u as { mediaType?: unknown }).mediaType ?? "")));
+    const href = link ? urlHttps((link as { href?: unknown }).href, 1000) : null;
+    if (href) midia.push({ url: href, tipo: String((link as { mediaType: string }).mediaType).toLowerCase(), alt: "", largura: null, altura: null, blurhash: null });
+  }
+  if ((tipo === "Video" || audio) && midia.length < 4) {
     const miniatura = miniaturaDe(nota);
     if (miniatura && !midia.some((m) => m.url === miniatura.url)) midia.push(miniatura);
   }

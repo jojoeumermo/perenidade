@@ -9,6 +9,7 @@ import { useI18n } from "../I18n";
 import { Selo } from "../Selo";
 import { EditorDeCodigo } from "./EditorDeCodigo";
 import { ISOLAR_WORKER } from "@/lib/isolamento";
+import { confirmar, perguntar } from "@/components/perguntar";
 
 const TEXTOS: Record<string, Record<string, string>> = {
   pt: { arquivos: "Arquivos", novo: "Novo arquivo", apagar: "Apagar", renomear: "Renomear", executar: "Executar", parar: "Parar", limpar: "Limpar", saida: "Saída", previa: "Prévia", baixar: "Baixar (.zip)", abrir: "Abrir arquivo ou .zip", exemplo: "Exemplo", restaurar: "Restaurar rascunho", guardado: "Rascunho guardado neste navegador", carregando: "Carregando o interpretador…", primeira: "Na primeira vez o navegador baixa o interpretador:", carregar: "Carregar e executar", semWasm: "Este navegador não tem WebAssembly ou Web Workers: use o Chrome, o Firefox ou o Edge atualizados.", tempo: "O programa passou de 20 segundos e foi interrompido. Confira se não há um laço sem fim.", falhou: "O interpretador não carregou. Recarregue a página e tente de novo.", entradas: "Entradas (uma por linha, para input)", testes: "Conferir o exercício", passou: "passou", falhou2: "falhou", dica: "Dica", solucao: "Ver a solução", naoRoda: "O que não roda aqui", privacidade: "O que você escreve não sai deste aparelho: o código roda no navegador e o rascunho fica só aqui. Baixe o projeto para guardar.", simples: "Editor simples", realce: "Realce", fonte: "Letra", parabens: "Tudo certo! Exercício concluído.", quase: "Ainda não: veja o que falhou e a dica.", teclas: "Ctrl+Enter executa · Ctrl+S guarda · Tab recua", apagarConfirma: "Apagar este arquivo?", modelos: "Modelos", compartilhar: "Compartilhar link", copiado: "Link copiado: quem abrir vê uma cópia do projeto (o código vai no próprio link, não fica guardado em servidor nenhum).", grandeDemais: "O projeto é grande demais para caber num link: baixe o .zip.", ladoALado: "Console ao lado", projeto: "Projeto livre", console: "Console", tabela: "Tabela", tarefa: "Exercício", mais: "Mais opções", consoleVazio: "Aperte Executar (ou Ctrl+Enter) e a saída aparece aqui.", tempoDeExecucao: "terminou em {ms} ms", erroDeTipo: "erro de tipo", doLink: "Projeto aberto a partir de um link compartilhado.", deOutro: "Este código foi escrito por outra pessoa e chegou por um link. Só execute se confiar em quem mandou.", executarMesmo: "Executar mesmo assim" },
@@ -252,22 +253,22 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
     w.onerror = () => parar(s.falhou);
   }
 
-  function novoArquivo() {
+  async function novoArquivo() {
     const sugestao: Record<Perfil, string> = { web: "pagina.html", python: "modulo.py", php: "funcoes.php", sql: "outra.sql", js: "outro.js", ts: "util.ts", cpp: "outro.cpp", ruby: "util.rb", lua: "util.lua" };
-    const nome = window.prompt(s.novo, sugestao[perfil])?.trim();
+    const nome = (await perguntar(s.novo, sugestao[perfil]))?.trim();
     if (!nome || !/^[\w.-]{1,60}$/.test(nome) || arquivos.some((a) => a.nome === nome) || arquivos.length >= 30) return;
     setArquivos([...arquivos, { nome, conteudo: "" }]);
     setAtivo(nome);
   }
-  function renomear() {
+  async function renomear() {
     if (!atual) return;
-    const nome = window.prompt(s.renomear, atual.nome)?.trim();
+    const nome = (await perguntar(s.renomear, atual.nome))?.trim();
     if (!nome || !/^[\w.-]{1,60}$/.test(nome) || arquivos.some((a) => a.nome === nome)) return;
     setArquivos(arquivos.map((a) => (a.nome === atual.nome ? { ...a, nome } : a)));
     setAtivo(nome);
   }
-  function apagar() {
-    if (!atual || arquivos.length <= 1 || !window.confirm(s.apagarConfirma)) return;
+  async function apagar() {
+    if (!atual || arquivos.length <= 1 || !(await confirmar(s.apagarConfirma))) return;
     const resto = arquivos.filter((a) => a.nome !== atual.nome);
     setArquivos(resto);
     setAtivo(resto[0].nome);

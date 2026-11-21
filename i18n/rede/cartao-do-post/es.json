@@ -1,0 +1,51 @@
+{
+  "_rascunho": true,
+  "reacoes": {
+    "titulo": "Reacciones de esta comunidad",
+    "ajuda": "La mediación elige hasta 6 emojis para las reacciones de los posts de aquí. Nadie ve quién reaccionó: solo el total de cada emoji, y solo a partir de 3.",
+    "rotulo": "Emojis (hasta 6)",
+    "salvar": "Guardar la lista",
+    "padrao": "Volver a la lista estándar",
+    "salvo": "Lista guardada.",
+    "voltou": "La comunidad volvió a la lista estándar.",
+    "propria": "Lista propia de esta comunidad",
+    "daAlumia": "Lista estándar de Alumia",
+    "previa": "Cómo queda",
+    "sairam": "Las reacciones con un emoji que sale de la lista dejan de aparecer y vuelven si él vuelve.",
+    "erros": {
+      "muitos": "Como máximo 6 emojis.",
+      "emoji": "Solo emojis, sin letras, números ni el gesto obsceno.",
+      "repetido": "Hay un emoji repetido.",
+      "geral": "No se pudo guardar. Inténtalo de nuevo."
+    }
+  },
+  "pasta": {
+    "tornar": "Hacer pública esta carpeta",
+    "publica": "Esta carpeta es pública: aparece como colección en tu perfil.",
+    "ajuda": "Solo entran en la colección los posts abiertos. Los restringidos (de seguidores, de comunidad, de núcleo o del equipo) siguen solo aquí, y quien lee la colección solo ve lo que ya podría ver.",
+    "ficouFora": "Algunos posts de esta carpeta son restringidos y se quedaron solo aquí.",
+    "privada": "Volver a privada",
+    "verNoPerfil": "Ver en mi perfil",
+    "semHandle": "Para tener una colección pública, elige antes tu @ en el perfil.",
+    "erro": "No se pudo cambiar. Inténtalo de nuevo."
+  },
+  "traducao": {
+    "noAparelho": "Traducido en el dispositivo: el texto no salió de aquí.",
+    "noServidor": "Traducido por el servidor de Alumia: el texto fue a nuestro servidor, no a terceros.",
+    "baixarAjuda": "La primera vez, el navegador descarga el modelo de traducción de su propio fabricante. El texto del post no sale del dispositivo.",
+    "leve": "En el modo ligero, la traducción en el dispositivo está apagada."
+  },
+  "imagem": {
+    "semAutora": "Ocultar quién escribió",
+    "destino": "Para dónde",
+    "destinos": {
+      "instagram-feed": "Instagram (feed)",
+      "instagram-stories": "Instagram (stories)",
+      "whatsapp": "WhatsApp",
+      "whatsapp-status": "WhatsApp (estado)"
+    },
+    "compartilhar": "Compartir",
+    "restrito": "Solo los posts abiertos a internet se vuelven imagen.",
+    "ajuda": "La imagen se hace aquí en el dispositivo y lleva la dirección de Alumia y @institutoluciaorg."
+  }
+}

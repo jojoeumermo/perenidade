@@ -23,6 +23,7 @@ import type { CaixaComVaquinha, CaixasComVaquinha } from "../../apoio/regras";
 import { useTextosDoApoio, type TextosDoApoio } from "../../apoio/textos";
 import { VaquinhaDoCaixa } from "../../apoio/Vaquinha";
 import "./b1.css";
+import { confirmar } from "@/components/perguntar";
 
 const LIMITE_DA_NOTA = 400_000;
 
@@ -176,7 +177,7 @@ function UmCaixa({ c, t, ta, lang, handle, selo, tesouraria, gerencio, dentro, o
                   {l.carimbos === 2 ? <span className="b1-conferido" title={l.conferidoEm ? dataCurta(l.conferidoEm, lang) : undefined}>{tc.conferido}</span> : <span className="b1-meio">{l.carimbos === 1 ? tc.umCarimbo : tc.semCarimbo}</span>}
                   {l.possoConferir && tesouraria ? <Botao tamanho="p" variante="dourado" disabled={ocupado} onClick={() => void fazer(() => cli.conferir(l.id))}>{tc.conferir}</Botao> : null}
                   {l.nota && dentro ? <Botao tamanho="p" variante="fantasma" onClick={() => void verNota(l.id)}>{tc.verNota}</Botao> : null}
-                  {l.carimbos < 2 && (l.meu || gerencio) ? <Botao tamanho="p" variante="fantasma" disabled={ocupado} onClick={() => window.confirm(tc.retirarConfirma) && void fazer(() => cli.retirarLancamento(l.id))}>{tc.retirar}</Botao> : null}
+                  {l.carimbos < 2 && (l.meu || gerencio) ? <Botao tamanho="p" variante="fantasma" disabled={ocupado} onClick={async () => (await confirmar(tc.retirarConfirma)) && void fazer(() => cli.retirarLancamento(l.id))}>{tc.retirar}</Botao> : null}
                 </td>
               </tr>
             ))}

@@ -10,10 +10,18 @@
     "It never goes out to the Fediverse."
   ],
   "semAgendar": "An encrypted post goes out right away: it can't be scheduled, set to disappear or have its images arranged.",
+  "semAnexo": "An encrypted post carries text only: images, audio and video are not encrypted yet and would reach the server in the open.",
   "cifrando": "Encrypting on this device…",
   "semChave": "This device is still joining the group. Try again in a few seconds.",
   "suspeito": "You can't write in this group right now: someone's key changed",
   "falha": "Couldn't encrypt right now. Nothing was posted.",
+  "semIdentidade": "To write and read in encrypted groups, turn on the chat on this device first (its identity is what signs this device).",
+  "avisoForte": {
+    "titulo": "New device in the group",
+    "texto": "An account this device already knew joined the group with a new device. It came signed by the person's identity, checked against the public key log. If you didn't expect it, ask them and compare the safety code in the chat.",
+    "trocada": "This account's identity also changed (the person turned the chat on again, or someone took over the account). Confirm with them before writing anything sensitive.",
+    "entendi": "Got it"
+  },
   "abrindo": "Opening on this device…",
   "naoAbre": "Can't open on this device",
   "naoAbreAjuda": "Whoever joined the group after the post, or opens it on a new device, reads what comes from then on.",

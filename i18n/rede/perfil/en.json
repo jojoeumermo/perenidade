@@ -12,6 +12,7 @@
     "fixado": "Pinned post",
     "escolherHandle": "Choose your @name to get a page in Alumia.",
     "selos": {
+      "coordenacao": "Institute coordination",
       "equipe": "Institute team",
       "educador": "Education",
       "moderacao": "Moderation",
@@ -25,6 +26,17 @@
       "degrau": "School step {n}",
       "caderno": "School workbook {n}",
       "aulas": "School lessons: {n}",
+      "revolucionario": "Revolutionary",
+      "frente": "Front: {nome}",
+      "frentes": {
+        "estudantil": "Student movement",
+        "bairros": "Neighbourhoods and housing",
+        "trabalho": "Work and unions",
+        "agitprop": "Agitation and propaganda",
+        "atos": "Rallies and mobilization",
+        "cultura": "Culture and the outskirts",
+        "solidariedade": "Solidarity"
+      },
       "ajuda": "School lessons and workbooks are declared by the person; the card and the step are checked by the coordination."
     }
   },

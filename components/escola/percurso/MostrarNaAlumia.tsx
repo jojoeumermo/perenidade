@@ -10,6 +10,7 @@ import { aDeclarar, pedeConsentimento, selosPrevistos, type CadernoParaPercurso 
 import { PUBLICOS_DAS_CONQUISTAS, type ConquistaDaEscola, type EscolaEuDentro, type FuncaoDaEscola, type FuncoesDaEscola, type PublicoDasConquistas } from "@/lib/escola/contratos";
 import { preencher } from "@/lib/escola/textos";
 import { SelosDaEscola } from "./SelosDaEscola";
+import { TagNaAlumia } from "./TagNaAlumia";
 
 type Motivo = Extract<LidoDaEscola<unknown>, { ok: false }>["motivo"];
 
@@ -194,6 +195,9 @@ export function MostrarNaAlumia({ eu, t, tSelos, lang, cadernos, feitas }: {
           </p>
         )}
       </div>
+
+      {/* P5, B3 e B5: a tag de revolucionária(o) e a frente, com o público já escolhido aqui em cima. */}
+      {lido && <TagNaAlumia publico={lido.publico} t={t} tSelos={tSelos} />}
 
       {lido && (
         <div className="ep-previa">

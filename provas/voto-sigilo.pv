@@ -1,0 +1,53 @@
+(* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   Voto em limiar (onda R2, item 1.7; onda R3, item 2.5): SIGILO DO VOTO contra quem tem o banco (o servidor que lê tudo).
+   A propriedade clássica (Delaune, Kremer e Ryan): trocar os votos de duas eleitoras não muda nada que o atacante veja.
+   Esquerda: V1 vota "a" e V2 vota "b". Direita: V1 vota "b" e V2 vota "a". O atacante vê o registro, as duas cédulas cifradas
+   para a chave da votação, as marcas de "já votou" (às claras: o banco sabe quem votou) e o resultado, que a abridora publica
+   SEM ORDEM (lib/rede/voto/urna.ts: abre, embaralha e manda só as escolhas; aqui, a contagem).
+   Neste modelo a urna recebe as cédulas por um canal que o atacante NÃO muda (ele lê tudo, como quem tem uma cópia do banco, mas
+   não troca cédula). O caso do servidor que troca cédulas está em voto-sigilo-servidor-ativo.pv (lá o ProVerif acha o ataque).
+   A abertura com K guardiãs é a de voto-limiar.pv; aqui a abridora já tem a privada da votação. *)
+
+free c: channel.
+
+type skey.
+type pkey.
+
+fun pk(skey): pkey.
+fun hpke(pkey, bitstring, bitstring, bitstring): bitstring.
+reduc forall k: skey, a: bitstring, m: bitstring, r: bitstring; abrir(hpke(pk(k), a, m, r), k, a) = m.
+
+const votacao: bitstring.
+const votoA, votoB: bitstring.
+const resultadoAB: bitstring.
+const votou: bitstring.
+free eleitoraV1, eleitoraV2: bitstring.
+
+let Eleitora(eu: bitstring, pkV: pkey, v: bitstring, urna: channel) =
+  new r: bitstring;
+  let cedula = hpke(pkV, votacao, v, r) in
+  (* "Já votou" com a sessão; a cédula vai à urna à parte. *)
+  out(c, (eu, votou));
+  out(c, cedula);
+  out(urna, cedula).
+
+(* A abridora (com as K partes): abre as duas cédulas e publica só a contagem. *)
+let Abridora(skV: skey, urna: channel) =
+  in(urna, c1: bitstring);
+  in(urna, c2: bitstring);
+  if c1 <> c2 then
+  let x1 = abrir(c1, skV, votacao) in
+  let x2 = abrir(c2, skV, votacao) in
+  (* Só a contagem: aqui, "uma a e uma b" (o único resultado possível com as duas eleitoras honestas). *)
+  if (x1 = votoA && x2 = votoB) || (x1 = votoB && x2 = votoA) then out(c, resultadoAB).
+
+process
+  new skV: skey;
+  new urna: channel;
+  out(c, pk(skV));
+  (
+    Eleitora(eleitoraV1, pk(skV), choice[votoA, votoB], urna)
+  | Eleitora(eleitoraV2, pk(skV), choice[votoB, votoA], urna)
+  | Abridora(skV, urna)
+  )

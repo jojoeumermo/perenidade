@@ -182,7 +182,9 @@
     "lista_bloqueio": "此处的调解人不允许你在这里发帖。",
     "leia_as_regras": "这个社区要求发帖前先接受规则。请看\"入门\"标签页。",
     "so_leitura": "这是一个公告社区：这里只有版务可以发帖。",
-    "so_leitura_respostas": "在这个公告社区，规则不允许你回复。"
+    "so_leitura_respostas": "在这个公告社区，规则不允许你回复。",
+    "alumia_so_leitura": "根据协调组的决定，Alumia 目前为只读模式：可以阅读、屏蔽和举报，但暂时不能发布或修改任何内容。",
+    "nome_reservado": "这个名字或 @ 与某位公众人物相似，已被保留。请另选一个；如果就是你本人，请在个人资料中申请认证标志。"
   },
   "alumia": {
     "voltarAoSite": "返回 Instituto Lúcia 网站",
@@ -235,6 +237,8 @@
   },
   "avisoFixado": {
     "rotulo": "协调组通知",
-    "abrir": "打开"
+    "abrir": "打开",
+    "soLeituraRotulo": "只读",
+    "soLeitura": "根据协调组的决定，Alumia 目前为只读模式。可以阅读、屏蔽、举报和聊天；关闭该模式后即可恢复发布、评论和回应。"
   }
 }

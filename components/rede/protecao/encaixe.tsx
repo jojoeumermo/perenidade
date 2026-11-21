@@ -7,7 +7,7 @@ import { JANELA_DO_SEGUNDO_TOQUE_MS } from "@/lib/rede/modoato/antes-de-publicar
 import { analisarLink, linksDoTexto } from "./link-suspeito";
 
 // O aviso fixado pela coordenação (painel de controle da Alumia): só chega ao navegador quando a linha de Início o desenha.
-const AvisosFixados = dynamic(() => import("./AvisosFixados"), { ssr: false });
+const AvisosFixados = dynamic<ContextoDoEncaixe>(() => import("./AvisosFixados"), { ssr: false });
 // Proteção contra ataque (onda 9, frente 9A).
 const NoTopoDaProtecao = dynamic(() => import("./NoTopoDaProtecao"), { ssr: false });
 const ProtegidoNoTopo = (ctx: ContextoDoEncaixe) => <NoTopoDaProtecao {...ctx} parte="protegido" />;
@@ -81,7 +81,9 @@ const PROTECAO = ligado("alumia-2");
 export const topoDaProtecao = PROTECAO ? { protegido: ProtegidoNoTopo, marcacoes: MarcacoesNoTopo } : null;
 
 export const encaixe: Encaixe = {
-  topoDaLinha: [AvisosFixados],
+  // Na Alumia nova ("alumia-2"), os avisos fixados saíram do alto do Início para o alto de toda página (Prompt 5, D1:
+  // CascaDaAlumia2). Na casca de antes continuam aqui.
+  topoDaLinha: PROTECAO ? [] : [AvisosFixados],
   ...(PROTECAO
     ? {
         anexosDoCartao: [AnexoDeProtecao],

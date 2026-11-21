@@ -222,3 +222,14 @@
   color: var(--al-texto); font-family: ui-monospace, "Cascadia Mono", "DejaVu Sans Mono", monospace; font-size: 0.85rem; overflow-wrap: anywhere; user-select: all;
 }
 .sg-tor-uso { margin-top: 0.6rem; }
+
+/* Os avisos de segurança da conta (A8 do Prompt 5): saíram das notificações e moram aqui. */
+.sg-avisos { list-style: none; margin: 0.75rem 0 0; padding: 0; display: grid; gap: 0.5rem; }
+.sg-aviso { display: flex; gap: 0.65rem; align-items: flex-start; padding: 0.7rem 0.8rem; border-radius: 10px; background: var(--al-fundo); border: 1px solid var(--al-linha); }
+.sg-aviso[data-novo] { border-left: 4px solid var(--al-vermelho); }
+.sg-aviso-icone { margin-top: 0.1rem; color: var(--al-texto-2); }
+.sg-aviso[data-novo] .sg-aviso-icone { color: var(--al-vermelho); }
+.sg-aviso-novo { display: inline-block; margin-right: 0.4rem; padding: 0 0.45rem; border-radius: 999px; background: var(--al-vermelho); color: var(--al-sobre-vermelho, #fff); font-size: 0.72rem; font-weight: 800; line-height: 1.5; vertical-align: 0.1em; }
+.sg-aviso-texto { color: var(--al-texto); font-size: 0.92rem; line-height: 1.45; overflow-wrap: anywhere; }
+.sg-aviso[data-novo] .sg-aviso-texto { font-weight: 700; }
+.sg-aviso-quando { display: block; margin-top: 0.2rem; color: var(--al-texto-3); font-size: 0.8rem; }

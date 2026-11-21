@@ -20,9 +20,12 @@ function lerVistos(): Set<string> {
   }
 }
 
-/** Quantos destes atos são novos (não cancelados e ainda não vistos aqui). Puro, para o teste. */
-export function contarNovos(itens: readonly Pick<Ato, "id" | "situacao">[], vistos: ReadonlySet<string>): number {
-  return itens.filter((a) => a.situacao !== "cancelado" && !vistos.has(a.id)).length;
+/**
+ * Quantos destes atos são novos (não cancelados, ainda não vistos aqui e chamados por OUTRA pessoa: o ato que eu mesma chamei
+ * não é novidade para mim, e contava no emblema logo depois de publicar). Puro, para o teste.
+ */
+export function contarNovos(itens: readonly (Pick<Ato, "id" | "situacao"> & { meu?: boolean })[], vistos: ReadonlySet<string>): number {
+  return itens.filter((a) => a.situacao !== "cancelado" && !a.meu && !vistos.has(a.id)).length;
 }
 
 let contagem: number | null = null;

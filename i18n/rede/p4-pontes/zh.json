@@ -1,0 +1,81 @@
+{
+  "_rascunho": "葡萄牙语文本的翻译草稿（pt.json 为最终文本）。",
+  "carregando": "加载中…",
+  "erros": {
+    "desligado": "此功能尚未开启。",
+    "sem_permissao": "你不能执行此操作。",
+    "nao_encontrado": "找不到，或你无权查看。",
+    "invalido:dominio": "只写服务器名称，例如 mastodon.social。",
+    "invalido:propria": "不能标记你自己的回复。",
+    "so_comunidade_aberta": "只有开放社区可以选择这座桥。",
+    "generico": "没有成功。请稍后再试。"
+  },
+  "midia": {
+    "video": "{servidor} 上的视频",
+    "audio": "{servidor} 上的音频",
+    "abrir": "在来源网站观看",
+    "ouvir": "在来源网站收听",
+    "aviso": "将在 Alumia 之外打开：那个服务器会看到你的访问。这里的缩略图经由 Alumia 提供。"
+  },
+  "aprovados": {
+    "titulo": "只与已批准的服务器联邦",
+    "texto": "开启后，Alumia 只与此列表中的服务器（及其子域名）通信。其他服务器都视为已屏蔽：什么都不进也不出。开启不会删除任何内容；关闭后恢复原样。固定屏蔽（Threads 和 Bridgy Fed）仍然有效。",
+    "modo": "仅限已批准的服务器",
+    "campo": "服务器（例如 mastodon.social）",
+    "aprovar": "批准",
+    "tirar": "移除",
+    "vazia": "还没有已批准的服务器。模式开启且列表为空时，Alumia 不与任何外部服务器通信。",
+    "desde": "自 {data} 起"
+  },
+  "bluesky": {
+    "titulo": "与 Bluesky 的桥",
+    "texto": "本社区的公开帖子将通过 Bridgy Fed 桥出现在 Bluesky 上。根据研究所的决定，这座桥目前关闭：选择会被保存，但在决定改变之前不会发出任何内容。",
+    "escolher": "桥开放时我想使用",
+    "barrada": "根据研究所的决定，这座桥已关闭。不会向 Bluesky 发出任何内容。",
+    "fechada": "只有开放社区可以选择。"
+  },
+  "avisos": {
+    "soSeguidos": "只接收我关注的人的提及和回复",
+    "soSeguidosAjuda": "其他的仍留在通知列表中，只是不会作为通知推送到设备。"
+  },
+  "poucoUtil": {
+    "marcar": "不太有用",
+    "marcado": "你已标记为不太有用",
+    "ajuda": "没有人能看到谁标记了，也看不到有多少标记。只有收到 3 个不同的人的标记后，回复才会在对话中下移。回复不会被删除或隐藏。"
+  },
+  "fio": {
+    "abrir": "以文本阅读",
+    "titulo": "以文本阅读串",
+    "de": "{autor} 的串",
+    "partes": "共 {n} 部分",
+    "voltar": "返回对话",
+    "foco": "专注模式",
+    "sairFoco": "退出专注模式",
+    "ouvir": "朗读",
+    "parar": "停止",
+    "nota": "这里只显示你已经能看到的内容。其他人的回复仍在对话中。"
+  },
+  "salvos": {
+    "buscar": "在收藏中搜索",
+    "ajuda": "搜索只在本设备上进行：服务器不知道你搜索了什么。",
+    "nenhum": "收藏中没有与“{termo}”相关的内容。",
+    "achados": "收藏中有 {n} 条"
+  },
+  "libras": {
+    "fixar": "固定到手语窗口",
+    "tirar": "从手语窗口移除",
+    "titulo": "手语窗口",
+    "maior": "放大",
+    "menor": "缩小",
+    "lado": "换一边",
+    "ajuda": "选择谁在做巴西手语（Libras）翻译：画面会固定显示在本设备上，始终可见。这个选择不会离开本设备。"
+  },
+  "legendas": {
+    "ligar": "字幕",
+    "desligar": "关闭字幕",
+    "titulo": "实时字幕",
+    "ajuda": "由本设备上浏览器自带的语音识别生成。不会录制或发送任何内容。可能有误。",
+    "semSuporte": "此浏览器无法在不把音频发出去的情况下生成字幕，因此这里不显示。",
+    "alguem": "某人"
+  }
+}

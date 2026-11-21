@@ -24,7 +24,10 @@
 // Cada texto cifrado vai amarrado ao lugar de onde veio (conversa, versão e autor, ou canal do mural): o banco não
 // consegue trocar uma mensagem de conversa ou de autor sem que ela pare de abrir.
 //
-// Este arquivo não depende do navegador além do WebCrypto, para poder ser testado no Node (scripts/testar-sigilo.mjs).
+// Este arquivo não depende do navegador além do WebCrypto e da libsodium (o Argon2id dos selos por código), para poder ser
+// testado no Node (scripts/testar-sigilo.mjs).
+import { ARGON2ID } from "./rede/cifra/sodio";
+import { derivar } from "./rede/cofre/argon";
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
@@ -311,12 +314,18 @@ export async function abrirTexto(aberto: string, identidadeDoAutor: string | nul
 
 // ───────────────────────────── Aprovação de aparelho novo ─────────────────────────────
 //
-// O aparelho novo mostra um código de oito números (e um QR). Quem aprova, num aparelho já aprovado, digita o código (ou
+// O aparelho novo mostra um código de doze números (e um QR). Quem aprova, num aparelho já aprovado, digita o código (ou
 // lê o QR). A chave pública do aparelho novo chega ao aprovador cifrada com uma chave derivada do código: o servidor, que
-// não sabe o código, não consegue trocar a chave por uma dele. Quem quisesse forçar o código precisaria testar até cem
-// milhões de possibilidades, cada uma com uma derivação lenta, dentro do prazo de validade do pedido.
+// não sabe o código, não consegue trocar a chave por uma dele. Quem quisesse forçar o código precisaria testar até um
+// trilhão de possibilidades, cada uma com uma derivação lenta (Argon2id, 64 MiB e 3 passadas: lib/rede/cofre/argon.ts), dentro
+// do prazo do pedido: DEZ MINUTOS, contados no próprio pedido (a hora vai cifrada junto da chave pública, e quem aprova recusa
+// pedido mais velho pelo relógio dele, sem depender do servidor). O aparelho novo troca o código antes de vencer. Com o QR, a
+// chave pública vem da câmera, e o código só confere que o pedido no banco é o mesmo.
 
-const DIGITOS_DO_CODIGO = 8;
+const DIGITOS_DO_CODIGO = 12;
+/** Quanto tempo um pedido de aparelho vale (o aparelho novo troca o código antes). */
+export const VALIDADE_DO_PEDIDO_MS = 10 * 60_000;
+/** As rodadas do PBKDF2 dos pedidos de antes (só para abrir os que ainda estiverem valendo). */
 const RODADAS_DO_CODIGO = 300_000;
 
 export function novoCodigo(): string {
@@ -326,7 +335,26 @@ export function novoCodigo(): string {
 
 export const FORMATO_CODIGO = new RegExp(`^[0-9]{${DIGITOS_DO_CODIGO}}$`);
 
-async function chaveDoSegredo(segredo: string, sal: Bytes, rodadas: number, finalidade: string): Promise<CryptoKey> {
+// Os selos por código (pedido de aparelho e cópia de recuperação) usam o Argon2id com os valores fixos de lib/rede/cifra/sodio.ts
+// (o formato guardado no banco é só sal, vetor e cifrado, e o banco confere esse formato). Os selos de antes, com PBKDF2-SHA-256,
+// continuam abrindo: quem abre tenta o Argon2id e, se a cifra recusar, o PBKDF2 de antes (as rodadas de cada finalidade).
+
+/** A chave AES-GCM de um selo, pelo Argon2id. */
+async function chaveDoSegredo(segredo: string, sal: Bytes, finalidade: string): Promise<CryptoKey> {
+  const { chave } = await derivar(`${finalidade}:${segredo}`, { v: 1, alg: "argon2id13", m: ARGON2ID.memoria / 1024, t: ARGON2ID.passadas, p: 1, sal: btoa(String.fromCharCode(...sal)) });
+  try {
+    const crua = new Uint8Array(new ArrayBuffer(32));
+    crua.set(chave);
+    const k = await crypto.subtle.importKey("raw", crua, { name: "AES-GCM" }, false, ["encrypt", "decrypt"]);
+    crua.fill(0);
+    return k;
+  } finally {
+    chave.fill(0);
+  }
+}
+
+/** A chave de um selo de antes (PBKDF2-SHA-256): só para abrir o que já estava guardado. */
+async function chaveDoSegredoDeAntes(segredo: string, sal: Bytes, rodadas: number, finalidade: string): Promise<CryptoKey> {
   const base = await crypto.subtle.importKey("raw", encoder.encode(`${finalidade}:${segredo}`), "PBKDF2", false, ["deriveKey"]);
   return crypto.subtle.deriveKey({ name: "PBKDF2", hash: "SHA-256", salt: sal, iterations: rodadas }, base, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
 }
@@ -337,39 +365,54 @@ export interface Selado {
   cifrado: string;
 }
 
-async function selar(segredo: string, rodadas: number, finalidade: string, dados: Uint8Array<ArrayBuffer>, usuario: string): Promise<Selado> {
+async function selar(segredo: string, finalidade: string, dados: Uint8Array<ArrayBuffer>, usuario: string): Promise<Selado> {
   const sal = crypto.getRandomValues(new Uint8Array(new ArrayBuffer(16)));
   const iv = vetor();
-  const chave = await chaveDoSegredo(segredo, sal, rodadas, finalidade);
+  const chave = await chaveDoSegredo(segredo, sal, finalidade);
   const cifrado = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv, additionalData: encoder.encode(`${finalidade}:${usuario}`) }, chave, dados));
   return { sal: paraBase64(sal), iv: paraBase64(iv), cifrado: paraBase64(cifrado) };
 }
 
-async function abrirSelado(segredo: string, rodadas: number, finalidade: string, selado: Selado, usuario: string): Promise<Bytes | null> {
-  try {
-    const chave = await chaveDoSegredo(segredo, deBase64(selado.sal), rodadas, finalidade);
-    return new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: deBase64(selado.iv), additionalData: encoder.encode(`${finalidade}:${usuario}`) }, chave, deBase64(selado.cifrado)));
-  } catch {
-    return null;
-  }
+/** Abre um selo: pelo Argon2id; se a cifra recusar, pelo PBKDF2 de antes (`rodadasDeAntes`). Nulo se nenhum abrir. */
+async function abrirSelado(segredo: string, rodadasDeAntes: number, finalidade: string, selado: Selado, usuario: string): Promise<Bytes | null> {
+  const tentar = async (chave: () => Promise<CryptoKey>): Promise<Bytes | null> => {
+    try {
+      return new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: deBase64(selado.iv), additionalData: encoder.encode(`${finalidade}:${usuario}`) }, await chave(), deBase64(selado.cifrado)));
+    } catch {
+      return null;
+    }
+  };
+  const sal = (() => {
+    try {
+      return deBase64(selado.sal);
+    } catch {
+      return null;
+    }
+  })();
+  if (!sal) return null;
+  return (await tentar(() => chaveDoSegredo(segredo, sal, finalidade))) ?? (await tentar(() => chaveDoSegredoDeAntes(segredo, sal, rodadasDeAntes, finalidade)));
 }
 
 /** O aparelho novo sela a própria chave pública com o código que mostra na tela. */
-export const selarPedido = (codigo: string, usuario: string, publica: string) => selar(codigo, RODADAS_DO_CODIGO, "pedido", encoder.encode(publica), usuario);
+export const selarPedido = (codigo: string, usuario: string, publica: string, agora = Date.now()) =>
+  selar(codigo, "pedido", encoder.encode(`${publica}|${Math.floor(agora)}`), usuario);
 
 /** Quem aprova abre o pedido com o código digitado: devolve a chave pública do aparelho novo, ou null se o código não serve. */
-export async function abrirPedido(codigo: string, usuario: string, pedido: Selado): Promise<string | null> {
+export async function abrirPedido(codigo: string, usuario: string, pedido: Selado, agora = Date.now()): Promise<string | null> {
   if (!FORMATO_CODIGO.test(codigo)) return null;
   const bytes = await abrirSelado(codigo, RODADAS_DO_CODIGO, "pedido", pedido, usuario);
   if (!bytes) return null;
-  const publica = decoder.decode(bytes);
-  return FORMATO_PUBLICA.test(publica) ? publica : null;
+  const partes = /^(B[A-Za-z0-9_-]{86})\|([0-9]{1,15})$/.exec(decoder.decode(bytes));
+  if (!partes || !FORMATO_PUBLICA.test(partes[1])) return null;
+  // Vencido (ou com hora adiantada além de um minuto de diferença entre relógios): recusado aqui, não importa o que o banco diga.
+  const idade = agora - Number(partes[2]);
+  return idade <= VALIDADE_DO_PEDIDO_MS && idade >= -60_000 ? partes[1] : null;
 }
 
 /** O conteúdo do QR que o aparelho novo mostra: o código e a chave pública, para quem lê nem precisar digitar. */
 export const qrDoPedido = (codigo: string, publica: string) => `lucia:aparelho:${codigo}:${publica}`;
 export function lerQrDoPedido(texto: string): { codigo: string; publica: string } | null {
-  const partes = /^lucia:aparelho:([0-9]{8}):(B[A-Za-z0-9_-]{86})$/.exec(texto.trim());
+  const partes = /^lucia:aparelho:([0-9]{12}):(B[A-Za-z0-9_-]{86})$/.exec(texto.trim());
   return partes ? { codigo: partes[1], publica: partes[2] } : null;
 }
 
@@ -417,6 +460,7 @@ export function lerQrDaSeguranca(texto: string): string | null {
 // de recuperação sorteada aqui e mostrada uma única vez. Sem ela, quem perde todos os aparelhos perde a identidade (os
 // colegas veem "a chave de segurança mudou") e o histórico. O banco guarda só o cifrado; a chave nunca sai do aparelho.
 
+/** As rodadas do PBKDF2 das cópias de antes (só para abrir as que já estavam guardadas). */
 const RODADAS_DA_RECUPERACAO = 100_000;
 const ALFABETO = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // sem 0, O, 1 e I, para não confundir ao anotar
 
@@ -438,7 +482,7 @@ export interface Copia {
 }
 
 export async function selarCopia(chaveDeRecuperacao: string, usuario: string, copia: Copia): Promise<Selado> {
-  return selar(limparChave(chaveDeRecuperacao), RODADAS_DA_RECUPERACAO, "recuperacao", encoder.encode(JSON.stringify(copia)), usuario);
+  return selar(limparChave(chaveDeRecuperacao), "recuperacao", encoder.encode(JSON.stringify(copia)), usuario);
 }
 
 export async function abrirCopia(chaveDeRecuperacao: string, usuario: string, selado: Selado): Promise<Copia | null> {

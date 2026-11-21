@@ -13,7 +13,8 @@ import { Area, Botao, CabecalhoDeSecao, Campo, Cartao, Esqueleto, Faixa, ItemDeL
 
 // Cuidado com a equipe (supabase/install.sql, "Cuidado com a equipe"): agradecer em público, férias de verdade, o
 // termômetro de bem-estar da semana, a caixa de críticas anônimas e o botão de pânico. O termômetro vai pelo servidor do site
-// (app/api/alumia/voto/marca): o banco guarda só a resposta e uma marca embaralhada com um segredo que fica fora dele.
+// (app/api/alumia/voto/marca): o banco guarda só a resposta e uma marca embaralhada com um segredo que fica fora dele. A crítica
+// vai pelo mesmo servidor: ele confere a pessoa e conta a cota de três por dia na memória dele; o banco guarda só o texto.
 
 const NIVEIS: [number, string][] = [
   [1, "No limite"],
@@ -81,9 +82,16 @@ export function Termometro() {
   );
 }
 
+/** As férias de agora ("ferias_ate") e as marcadas para depois ("proxima_de" e "proxima_ate"), de public.ferias_ver. */
+interface Ferias {
+  ferias_ate: string | null;
+  proxima_de?: string | null;
+  proxima_ate?: string | null;
+}
+
 /** Na Mesa: quem está de férias vê o lembrete (e volta com um clique). */
 export function FeriasNaMesa() {
-  const ferias = useLista<{ ferias_ate: string | null }>("ferias_ver");
+  const ferias = useLista<Ferias>("ferias_ver");
   const acao = useAcao(ferias.recarregar);
   const ate = ferias.dados?.ferias_ate;
   if (!ate) return null;
@@ -91,7 +99,7 @@ export function FeriasNaMesa() {
     <Faixa
       tom="aviso"
       acao={
-        <Botao pequeno carregando={acao.ocupado} onClick={() => void acao.agir("ferias_marcar", { p_ate: null }, "Bem-vindo de volta.")}>
+        <Botao pequeno carregando={acao.ocupado} onClick={() => void acao.agir("ferias_marcar", { p_de: null, p_ate: null }, "Bem-vindo de volta.")}>
           Voltar agora
         </Botao>
       }
@@ -192,15 +200,19 @@ const PARA: [string, string][] = [
 
 /** Em Minha conta: férias, a caixa de críticas anônimas e o botão de pânico. */
 export function CuidadoNaConta({ me, sair }: { me: Me; sair: () => void }) {
-  const ferias = useLista<{ ferias_ate: string | null }>("ferias_ver");
+  const ferias = useLista<Ferias>("ferias_ver");
   const acao = useAcao(ferias.recarregar);
+  const [de, setDe] = useState("");
   const [ate, setAte] = useState("");
   const [critica, setCritica] = useState("");
   const [para, setPara] = useState("geral");
   const [motivo, setMotivo] = useState("");
   const [confirmar, setConfirmar] = useState(false);
-  // De hoje até 120 dias (o limite do banco), fixados quando a aba abre.
-  const [[hoje, limite]] = useState(() => [new Date().toISOString().slice(0, 10), new Date(Date.now() + 120 * 86_400_000).toISOString().slice(0, 10)]);
+  // O começo, de hoje até um ano; o fim, até 120 dias depois do começo (os limites do banco), fixados quando a aba abre.
+  const [[hoje, umAno]] = useState(() => [new Date().toISOString().slice(0, 10), new Date(Date.now() + 365 * 86_400_000).toISOString().slice(0, 10)]);
+  const comeco = de || hoje;
+  const limite = new Date(Date.parse(`${comeco}T12:00:00Z`) + 120 * 86_400_000).toISOString().slice(0, 10);
+  const datasOk = Boolean(ate) && ate >= comeco && ate <= limite && (!de || (de >= hoje && de <= umAno));
   const voluntario = me.papeis.length > 0;
 
   async function panico() {
@@ -219,20 +231,40 @@ export function CuidadoNaConta({ me, sair }: { me: Me; sair: () => void }) {
   return (
     <div className="space-y-6">
       <Aviso texto={acao.aviso} />
-      <Cartao titulo="Férias de verdade" nivelDoTitulo={3} sobre="Marque até quando você vai estar fora. A equipe vê “de férias” ao lado do seu nome e ninguém espera resposta.">
+      <Cartao
+        titulo="Férias de verdade"
+        nivelDoTitulo={3}
+        sobre="Marque de quando até quando você vai estar fora. Nesses dias a equipe vê “de férias” ao lado do seu nome, ninguém espera resposta e você não recebe e-mail de pendências. No fim, você volta sozinho."
+      >
         {ferias.dados?.ferias_ate ? (
           <p className="mt-3 flex flex-wrap items-center gap-3">
             <Selo tom="aviso" ponto>
               De férias até {data(`${ferias.dados.ferias_ate}T12:00:00`)}.
             </Selo>
-            <Botao carregando={acao.ocupado} onClick={() => void acao.agir("ferias_marcar", { p_ate: null }, "Bem-vindo de volta.")}>
+            <Botao carregando={acao.ocupado} onClick={() => void acao.agir("ferias_marcar", { p_de: null, p_ate: null }, "Bem-vindo de volta.")}>
               Voltar agora
+            </Botao>
+          </p>
+        ) : ferias.dados?.proxima_de && ferias.dados.proxima_ate ? (
+          <p className="mt-3 flex flex-wrap items-center gap-3">
+            <Selo tom="info" ponto>
+              Férias marcadas de {data(`${ferias.dados.proxima_de}T12:00:00`)} até {data(`${ferias.dados.proxima_ate}T12:00:00`)}.
+            </Selo>
+            <Botao carregando={acao.ocupado} onClick={() => void acao.agir("ferias_marcar", { p_de: null, p_ate: null }, "Férias desmarcadas.")}>
+              Desmarcar
             </Botao>
           </p>
         ) : (
           <div className="mt-3 flex flex-wrap items-end gap-3">
-            <Campo rotulo="Até" type="date" value={ate} min={hoje} max={limite} onChange={(e) => setAte(e.target.value)} className="w-auto" />
-            <Botao variante="principal" simbolo={AlarmClock} disabled={!ate} carregando={acao.ocupado} onClick={() => void acao.agir("ferias_marcar", { p_ate: ate }, "Férias marcadas. Bom descanso!")}>
+            <Campo rotulo="De (vazio = hoje)" type="date" value={de} min={hoje} max={umAno} onChange={(e) => setDe(e.target.value)} className="w-auto" />
+            <Campo rotulo="Até" type="date" value={ate} min={comeco} max={limite} onChange={(e) => setAte(e.target.value)} className="w-auto" />
+            <Botao
+              variante="principal"
+              simbolo={AlarmClock}
+              disabled={!datasOk}
+              carregando={acao.ocupado}
+              onClick={() => void acao.agir("ferias_marcar", { p_de: de || null, p_ate: ate }, de && de > hoje ? "Férias marcadas. Começam sozinhas no dia." : "Férias marcadas. Bom descanso!")}
+            >
               Marcar férias
             </Botao>
           </div>
@@ -257,8 +289,15 @@ export function CuidadoNaConta({ me, sair }: { me: Me; sair: () => void }) {
               disabled={critica.trim().length < 10}
               carregando={acao.ocupado}
               onClick={async () => {
-                const ok = await acao.agir("critica_enviar", { p_texto: critica, p_para: para }, "Crítica enviada, sem o seu nome. Obrigado pela coragem.");
-                if (ok !== null) setCritica("");
+                // Pelo servidor do site: ele confere a pessoa e conta a cota; o banco recebe só o texto e o destino.
+                acao.setAviso("");
+                try {
+                  await votoPeloServidor({ tipo: "critica", texto: critica, para });
+                  acao.setAviso("Crítica recebida, sem o seu nome. Ela chega à equipe em até uma hora. Obrigado pela coragem.");
+                  setCritica("");
+                } catch (e) {
+                  acao.setAviso(textoDoErro(e));
+                }
               }}
             >
               Enviar sem o meu nome

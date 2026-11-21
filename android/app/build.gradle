@@ -1,0 +1,67 @@
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+//
+// O app de Android (onda R3, item 1.2). Build reproduzível (docs/APP-LOJA.md): o pacote de lançamento sai SEM assinatura
+// (`./gradlew assembleRelease` → app-release-unsigned.apk) e é assinado à parte, fora do projeto; nada que mude de uma máquina para
+// outra entra no pacote (sem informação do git, sem o bloco de dependências do Google, sem data). Sem Google Play Services.
+apply plugin: 'com.android.application'
+
+// O endereço do servidor (a rede social e as rotas do chat). Fixo no pacote; o de teste só no build de depuração.
+def base = System.getenv('ALUMIA_APP_BASE') ?: 'https://institutolucia.org'
+def versao = System.getenv('ALUMIA_APP_VERSAO') ?: '0.1.0'
+
+android {
+    namespace = "org.institutolucia.app"
+    compileSdk = rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "org.institutolucia.app"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName versao
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        resValue "string", "alumia_base", base
+        aaptOptions {
+             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
+             // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
+            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+        }
+        vectorDrawables.useSupportLibrary = false
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // Sem assinatura aqui: a chave de produção nunca fica no projeto nem no CI.
+            signingConfig null
+            vcsInfo.include false
+        }
+    }
+    // O bloco de dependências que o Google cifra com a chave dele não entra (não se confere e varia).
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
+    lint {
+        checkReleaseBuilds false
+    }
+}
+
+repositories {
+    flatDir{
+        dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
+    implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
+    implementation project(':capacitor-android')
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+    implementation project(':capacitor-cordova-android-plugins')
+}
+
+apply from: 'capacitor.build.gradle'

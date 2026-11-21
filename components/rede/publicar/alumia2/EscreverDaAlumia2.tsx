@@ -3,6 +3,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ligado } from "@/lib/recursos";
+import { novaChaveDeEnvio } from "@/lib/backend-envio";
+import { anunciarPostACaminho, retirarPostACaminho } from "@/lib/rede/otimista";
 import { chamar, rede } from "@/lib/rede/cliente";
 import { alumia } from "@/lib/rede/cliente-alumia";
 import { comunidades as clienteComunidades } from "@/lib/rede/cliente-comunidades";
@@ -57,6 +59,11 @@ import { textoDoErroDoCompositor, useTextosDoCompositor } from "../compositor/te
 import { grupoDoPost, pedidoCifrado, postCifrado } from "../restrito/grupo";
 import { SeloDaCifra } from "../restrito/NaTela";
 import { textoDaCifra, useTextosDoRestrito } from "../restrito/textos";
+import { confirmar } from "@/components/perguntar";
+import { camposDoP4, ESCOLHAS_VAZIAS, fonteDoCampo, usaP4, type EscolhasDoP4 } from "@/lib/rede/publicar/p4-compositor";
+import { redeP4, type PedidoDoP4 } from "@/lib/rede/publicar/cliente-p4";
+import { CamposDoP4 } from "../p4/CamposDoP4";
+import { textoDoErroDoP4, useTextosDoP4 } from "../p4/textos";
 
 /** O que dá para focar com Tab dentro do diálogo (para prender o foco nele). */
 const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), summary, [tabindex]';
@@ -142,6 +149,7 @@ export function EscreverDaAlumia2({
   tipoInicial,
   aoFechar,
   aoPublicar,
+  barrinha,
 }: {
   s: TextosDaRede;
   lang: string;
@@ -152,10 +160,17 @@ export function EscreverDaAlumia2({
   tipoInicial?: TipoAoEscrever;
   aoFechar: () => void;
   aoPublicar: (post: Post) => void;
+  /**
+   * A barrinha (A15 do P5, com o compositor do prompt 4): o mesmo Escrever, sem janela, numa caixa de texto que publica dali (com o
+   * Desfazer, a chave do envio e as verificações de sempre). `aoExpandir` abre o editor completo com o texto; `acoes` são os
+   * botões de imagem, enquete e ato que já abriam o Escrever no tipo certo. Depois de publicar, `aoFechar` limpa a barrinha.
+   */
+  barrinha?: { aoExpandir: (texto: string) => void; acoes?: React.ReactNode };
 }) {
   const al2 = useAlumia2();
   const previa = Boolean(al2?.previa);
   const resposta = Boolean(respostaA);
+  const naBarrinha = Boolean(barrinha);
   const encaixeDoAto = ENCAIXES.tiposDoCompositor.find((x) => x.tipo === "ato");
   const temAto = !resposta && (Boolean(encaixeDoAto) || previa);
   const [tipo, setTipo] = useState<TipoDoCompositor>(tipoInicial === "ato" && temAto ? "ato" : tipoInicial === "enquete" ? "enquete" : tipoInicial === "longo" ? "longo" : "post");
@@ -183,6 +198,10 @@ export function EscreverDaAlumia2({
   const [fioBlocos, setFioBlocos] = useState<string[] | null>(null);
   const [pedirAgenda, setPedirAgenda] = useState(0);
   const [notaDaOfensa, setNotaDaOfensa] = useState(false);
+  // Prompt 4 (compositor, "alumia-p4-compositor"): versão curta, capa, "Mande a sua" e fonte. Desligado, nada disso aparece nem vai.
+  const p4Ligado = ligado("alumia-p4-compositor");
+  const tp4 = useTextosDoP4(lang, p4Ligado);
+  const [escolhasP4, setEscolhasP4] = useState<EscolhasDoP4>(ESCOLHAS_VAZIAS);
   const [lugares, setLugares] = useState<Lugar[]>(() =>
     previa ? Object.entries(COMUNIDADES_DE_EXEMPLO).map(([slug, c]) => ({ slug, nome: c.nome, categoria: "lutas", cor: c.cor })) : [],
   );
@@ -193,7 +212,13 @@ export function EscreverDaAlumia2({
   // mudou o texto ou o tipo, ele não aparece mais (nulo: aviso que não depende do texto, como o de agendado).
   const [avisoDe, setAvisoDe] = useState<string | null>(null);
   const [ocupado, setOcupado] = useState(false);
-  const [envio, setEnvio] = useState<{ desde: number } | null>(null);
+  const [envio, setEnvio] = useState<{ desde: number; chave: string } | null>(null);
+  // O envio que o relógio já disparou: um envio sai UMA vez, mesmo que a tela redesenhe (o relógio era refeito a cada desenho e,
+  // parado em "0 s", mandava o mesmo post de novo até a primeira resposta chegar: os posts repetidos).
+  const disparado = useRef<string | null>(null);
+  // A chave deste conteúdo (lib/backend-envio.ts): a mesma enquanto o envio não deu certo (o reenvio depois de uma queda de rede
+  // não duplica o post); nova depois de publicar ou desfazer.
+  const chaveDoEnvio = useRef<string | null>(null);
   const [agora, setAgora] = useState(0);
   const [lembrouAlt, setLembrouAlt] = useState(false);
   const [rascunhoId, setRascunhoId] = useState<string | null>(null);
@@ -289,7 +314,7 @@ export function EscreverDaAlumia2({
   // Os rascunhos guardados na conta (só com "guardar na conta" ligado, para quem abre o Escrever vazio, e nunca para resposta).
   // Cada um chega cifrado e é aberto aqui, com a chave deste aparelho; o servidor nunca viu o texto.
   useEffect(() => {
-    if (resposta || previa || textoInicial || !naConta) return;
+    if (resposta || previa || textoInicial || !naConta || naBarrinha) return;
     let vivo = true;
     redePub.rascunhos().then(
       async (lista) => {
@@ -312,7 +337,7 @@ export function EscreverDaAlumia2({
     return () => {
       vivo = false;
     };
-  }, [resposta, previa, textoInicial, naConta]);
+  }, [resposta, previa, textoInicial, naConta, naBarrinha]);
 
   // A roda (só a dona lê) chega quando a pessoa abre "Quem vê": é dela que sai o número "N na roda".
   useEffect(() => {
@@ -346,8 +371,10 @@ export function EscreverDaAlumia2({
     return () => window.clearTimeout(id);
   }, [tipoInicial]);
 
-  // Foco (WCAG 2.4.3): ao abrir, vai para o campo principal (no Ato, o nome do ato); ao fechar, volta para quem abriu.
+  // Foco (WCAG 2.4.3): ao abrir, vai para o campo principal (no Ato, o nome do ato); ao fechar, volta para quem abriu. A barrinha
+  // fica na página: não puxa o foco ao aparecer.
   useEffect(() => {
+    if (naBarrinha) return;
     const antes = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const id = window.setTimeout(() => {
       const d = dialogo.current;
@@ -358,7 +385,7 @@ export function EscreverDaAlumia2({
       window.clearTimeout(id);
       if (antes?.isConnected) antes.focus();
     };
-  }, []);
+  }, [naBarrinha]);
 
   // O "Enviando em N s": o foco vai para o Desfazer; desfeito, volta para o botão principal.
   const botaoDesfazer = useRef<HTMLButtonElement>(null);
@@ -398,7 +425,8 @@ export function EscreverDaAlumia2({
     [rascunhoId, tipo, texto, titulo, corpo, onde, publico, pub.respondeQuem],
   );
   useEffect(() => {
-    if (resposta || previa || envio) return;
+    // A barrinha não guarda rascunho a cada tecla (o "Expandir" leva o texto para o Escrever, que guarda).
+    if (resposta || previa || envio || barrinha) return;
     const id = window.setTimeout(() => {
       // Desligado (o padrão), servidor sem a função, ou rascunho de ato: fica só no aparelho (o ato diz onde e quando: nunca sai daqui).
       if (!naConta || semServidor.current || tipo === "ato") {
@@ -471,7 +499,7 @@ export function EscreverDaAlumia2({
   const comVida = !resposta && tipo !== "ato" && (vaiPelaVida(publico) || naoListado || someEm !== null);
   /** "Alumia e Fediverso" escolhido, mas a vida do post (não listado, some sozinho) não deixa sair. */
   const internetPresa = !resposta && publico === "internet" && (naoListado || someEm !== null);
-  const assinaturaDoTexto = JSON.stringify([tipo, titulo, texto, corpo, fioBlocos]);
+  const assinaturaDoTexto = JSON.stringify([tipo, titulo, texto, corpo, fioBlocos, escolhasP4]);
   const avisoVisivel = aviso && (avisoDe === null || avisoDe === assinaturaDoTexto) ? aviso : "";
   const tipos: TipoDoCompositor[] = ["post", ...(temAto ? (["ato"] as TipoDoCompositor[]) : []), "enquete", "longo", ...(situacao.equipe ? (["aviso"] as TipoDoCompositor[]) : [])];
   const nomeDoAto = typeof dadosDoAto.nome === "string" ? dadosDoAto.nome : "";
@@ -487,6 +515,12 @@ export function EscreverDaAlumia2({
   const grupoCifrado =
     tipo !== "post" || fioLigado ? null : respostaA ? (postCifrado(respostaA) ? respostaA.grupo : null) : grupoDoPost({ publico, comunidade: onde, tipoDaComunidade: lugar?.tipo });
   const tr = useTextosDoRestrito(lang, grupoCifrado !== null);
+  // O que vai do prompt 4 neste pedido (só o que vale aqui: a capa que caiu fora das imagens, por exemplo, não vai).
+  const imagensAnexadas = pub.imagens.length;
+  const camposP4 = useMemo(
+    () => (p4Ligado && !resposta && tipo !== "ato" ? camposDoP4(escolhasP4, { longo, resposta, tipo: tipoBanco, imagens: imagensAnexadas }) : {}),
+    [p4Ligado, resposta, tipo, escolhasP4, longo, tipoBanco, imagensAnexadas],
+  );
   // Só a figurinha (onda 12): sem texto, o post é a figurinha, e o texto que vai é o nome dela.
   const soFigurinha = Boolean(pub.figurinha) && !texto.trim() && !longo && tipo !== "enquete" && tipo !== "ato" && !fioLigado;
   // O formulário do ato da F2 entrega o que conferiu ({ pronto, problemas }); o dublê da prévia só tem o nome.
@@ -511,9 +545,13 @@ export function EscreverDaAlumia2({
   }, [resposta, texto, respostaA, pub, tipo, dadosDoAto, publicoBanco, onde, tipoBanco, longo, titulo, corpo, soFigurinha, tco]);
 
   // O envio de verdade, depois dos 10 s.
-  const enviarDeVerdade = useCallback(async () => {
+  const enviarDeVerdade = useCallback(async (chave: string) => {
     setOcupado(true);
     setErro("");
+    /** Deu certo: a próxima publicação ganha outra chave. */
+    const publicado = () => {
+      if (chaveDoEnvio.current === chave) chaveDoEnvio.current = null;
+    };
     try {
       if (previa) {
         setAviso(al2?.t.previa.aviso ?? "");
@@ -524,7 +562,8 @@ export function EscreverDaAlumia2({
       if (tipo === "ato" && encaixeDoAto && typeof dadosDoAto.pronto === "boolean") {
         // O ato é da F2: rede_ato_publicar (que chama o rede_publicar por dentro, com o nome, a palavra, a data, o ponto e a cidade).
         const { atos } = await import("@/lib/rede/cliente-atos");
-        await atos.publicar(dadosDoAto as unknown as Parameters<typeof atos.publicar>[0], { publico: publicoBanco, comunidade: onde });
+        await atos.publicar(dadosDoAto as unknown as Parameters<typeof atos.publicar>[0], { publico: publicoBanco, comunidade: onde, chave_envio: chave });
+        publicado();
         if (desfeitoNoEnvio.current) {
           setErro(al2?.t.escrever.naoDesfez ?? "");
           return;
@@ -546,14 +585,18 @@ export function EscreverDaAlumia2({
         }
         pedido = pedidoCifrado(montado, cifra) as PedidoPublicar;
       }
+      pedido = { ...pedido, chave_envio: chave };
       if (!resposta && (pub.agendar || pub.aposAto) && tipo !== "ato") {
         // Com repetição ou "quando o ato terminar", pelo rede_pub_agendar_mais; sem a B1 no banco, a data única de antes.
         const opcoes = { ...(pub.repetir ? { repetir: "semanal" as const, vezes: pub.repetir } : {}), ...(pub.aposAto ? { apos_ato: pub.aposAto } : {}) };
         // Onda 12 (L2-33): o dia e a hora valem no fuso escolhido, e o banco converte (rede_pub_o12_agendar). Num banco sem a onda 12, o
         // instante convertido aqui vai pelo caminho de antes, só quando o pedido não leva nada que só a onda 12 guarda.
         const local = pub.aposAto ? null : pub.agendar;
-        const agendado = await redeCompositor.agendar(pedido as PedidoDoCompositor, local, local ? pub.fuso : null, opcoes).catch((e) => {
-          if (!faltaNoBanco(e) || pub.usaCompositor) throw e;
+        const agendado = await (usaP4(camposP4)
+          ? // Prompt 4: a versão curta, a capa, o convite e a fonte valem quando o post sair (rede_pub_p4_agendar, por cima da onda 12).
+            redeP4.agendar({ ...(pedido as PedidoDoCompositor), ...camposP4 } as PedidoDoP4, local, local ? pub.fuso : null, opcoes)
+          : redeCompositor.agendar(pedido as PedidoDoCompositor, local, local ? pub.fuso : null, opcoes)).catch((e) => {
+          if (!faltaNoBanco(e) || pub.usaCompositor || usaP4(camposP4)) throw e;
           const pedirQuando = local ? (instanteNoFuso(local, pub.fuso)?.toISOString() ?? null) : null;
           if (local && !pedirQuando) throw e;
           return redePub.agendarMais(pedido, pedirQuando, opcoes).catch((e2) => {
@@ -561,6 +604,7 @@ export function EscreverDaAlumia2({
             throw e2;
           });
         });
+        publicado();
         const quando = new Date(agendado.quando);
         if (desfeitoNoEnvio.current) {
           // Desfeito no meio do caminho: o agendamento é cancelado e o texto continua na caixa.
@@ -568,6 +612,7 @@ export function EscreverDaAlumia2({
           return;
         }
         pub.limpar();
+        setEscolhasP4(ESCOLHAS_VAZIAS);
         setEnvio(null);
         setAviso(preencher(pub.t?.agendar.agendado ?? "", { quando: quandoNoFuso(quando.toISOString(), local ? pub.fuso : null, lang) }));
         setAvisoDe(null);
@@ -578,6 +623,7 @@ export function EscreverDaAlumia2({
       if (fioLigado) {
         const { texto: primeiro, ...resto } = pedido as PedidoDoCompositor;
         const r = await redeCompositor.fio({ ...resto, ...(!resposta ? escolhasDaVida : {}), blocos: [{ texto: primeiro ?? "" }, ...blocosDoFio(fioBlocos ?? []).map((b) => ({ texto: b }))] });
+        publicado();
         if (desfeitoNoEnvio.current && r.ids.length) {
           const volta = await redeCompositor.desfazerFio(r.ids).then(
             (x) => x.desfeito,
@@ -622,11 +668,15 @@ export function EscreverDaAlumia2({
       // Arranjo, legenda, figurinha ou mais de 4 imagens: pela função da onda 12, que embrulha a da onda 9 (roda, não listado e prazo
       // continuam valendo). Sem essas escolhas, o caminho de sempre.
       // Roda, não listado ou prazo: pela função da onda 9, sem nunca cair num caminho que publique mais aberto do que o escolhido.
-      const post = pub.usaCompositor
+      // Prompt 4 (versão curta, capa, convite, fonte): pela função dele, que embrulha a da onda 12 (tudo dela continua valendo).
+      const post = usaP4(camposP4)
+        ? await redeP4.publicar({ ...(pedido as PedidoDoCompositor), ...(!resposta ? escolhasDaVida : {}), ...camposP4 })
+        : pub.usaCompositor
         ? await redeCompositor.publicar({ ...(pedido as PedidoDoCompositor), ...(!resposta ? escolhasDaVida : {}) })
         : comVida
         ? await redePub.publicarComVida({ ...pedido, publico, ...(!vaiPelaVida(publico) && naoListado ? { nao_listado: true } : {}), ...(someEm ? { some_em: someEm } : {}) })
         : await publicarComB1(pedido);
+      publicado();
       if (desfeitoNoEnvio.current && post.id) {
         // Desfeito no meio do caminho: o banco apaga o post (até 30 s, só o autor) e o texto continua na caixa.
         const volta = await redePub.desfazer(post.id).then(
@@ -648,6 +698,7 @@ export function EscreverDaAlumia2({
       }
       // A avaliação de fora (avaliar-comunidade) não recebe post da Alumia (onda 9): o retido espera a mediação.
       pub.limpar();
+      setEscolhasP4(ESCOLHAS_VAZIAS);
       if (rascunhoId) void redePub.apagarRascunho(rascunhoId).catch(() => undefined);
       // Onda 12 (12B): o vídeo curto entra no post que acabou de sair, antes de fechar o Escrever. Se não entrar, o post já saiu
       // e a tela diz (o Escrever fica aberto com a frase).
@@ -667,6 +718,18 @@ export function EscreverDaAlumia2({
       }
       aoFechar();
     } catch (e) {
+      // O mesmo envio já tinha chegado ao banco (o pedido de antes saiu, mas a resposta se perdeu): mostra o que já foi publicado,
+      // em vez de um erro e de um post repetido.
+      if (codigoDoErro(e) === "envio_repetido") {
+        publicado();
+        const ja = await redePub.acharEnvio(chave).catch(() => null);
+        pub.limpar();
+        if (rascunhoId) void redePub.apagarRascunho(rascunhoId).catch(() => undefined);
+        if (ja?.id) aoPublicar(ja);
+        setEnvio(null);
+        aoFechar();
+        return;
+      }
       setEnvio(null);
       // O ato tem erros próprios (a palavra do mosaico, o ponto, o link de apoio, a meta…): a frase certa vem dos textos dos atos.
       if (tipo === "ato" && encaixeDoAto) {
@@ -680,14 +743,20 @@ export function EscreverDaAlumia2({
         setErro(vt.ajustes.indisponivel);
         return;
       }
-      setErro((tco && textoDoErroDoCompositor(tco, codigoDoErro(e))) || (vt && textoDoErroDaVida(vt, codigoDoErro(e))) || (pub.t && textoDoErroPublicar(pub.t, codigoDoErro(e))) || textoDoErro(s, e));
+      setErro((tp4 && textoDoErroDoP4(tp4, codigoDoErro(e))) || (tco && textoDoErroDoCompositor(tco, codigoDoErro(e))) || (vt && textoDoErroDaVida(vt, codigoDoErro(e))) || (pub.t && textoDoErroPublicar(pub.t, codigoDoErro(e))) || textoDoErro(s, e));
     } finally {
       desfeitoNoEnvio.current = false;
       setOcupado(false);
     }
-  }, [previa, al2, montarPedido, resposta, pub, tipo, lang, rascunhoId, aoPublicar, s, situacao, aoFechar, encaixeDoAto, dadosDoAto, publicoBanco, onde, comVida, publico, naoListado, someEm, vt, fioLigado, fioBlocos, tco, grupoCifrado, tr]);
+  }, [previa, al2, montarPedido, resposta, pub, tipo, lang, rascunhoId, aoPublicar, s, situacao, aoFechar, encaixeDoAto, dadosDoAto, publicoBanco, onde, comVida, publico, naoListado, someEm, vt, fioLigado, fioBlocos, tco, grupoCifrado, tr, camposP4, tp4]);
 
-  // O relógio do "Enviando em N s": ao chegar a zero, envia.
+  // Mudou o que está escrito: é outro envio (outra chave). O reenvio do MESMO texto, depois de um erro, leva a mesma chave.
+  useEffect(() => {
+    chaveDoEnvio.current = null;
+  }, [assinaturaDoTexto]);
+
+  // O relógio do "Enviando em N s": ao chegar a zero, envia UMA vez. O relógio é refeito sempre que a tela redesenha (o
+  // enviarDeVerdade muda junto com o que está escrito); a marca `disparado` garante que o mesmo envio não sai de novo.
   useEffect(() => {
     if (!envio) return;
     const tique = () => {
@@ -695,12 +764,25 @@ export function EscreverDaAlumia2({
       setAgora(n);
       if (segundosQueFaltam(envio.desde, n) === 0) {
         window.clearInterval(id);
-        void enviarDeVerdade();
+        if (disparado.current === envio.chave) return;
+        disparado.current = envio.chave;
+        void enviarDeVerdade(envio.chave);
       }
     };
     const id = window.setInterval(tique, 250);
     return () => window.clearInterval(id);
   }, [envio, enviarDeVerdade]);
+
+  // A17 (interface otimista): enquanto corre o "Enviando em N s", o post aparece no alto da linha (lib/rede/otimista.ts), pela chave do
+  // envio; desfeito, recusado ou confirmado, sai dali. Resposta e post para mais tarde não entram na linha.
+  const resumoDoEnvio = tipo === "ato" ? nomeDoAto.trim() : longo ? titulo.trim() : texto.trim();
+  const imagensDoEnvio = pub.imagens.length;
+  const vaiParaALinha = !resposta && !previa && !pub.agendar && !pub.aposAto;
+  useEffect(() => {
+    if (!envio || !vaiParaALinha) return;
+    anunciarPostACaminho({ chave: envio.chave, texto: resumoDoEnvio, imagens: imagensDoEnvio, comunidade: onde });
+    return () => retirarPostACaminho(envio.chave);
+  }, [envio, vaiParaALinha, resumoDoEnvio, imagensDoEnvio, onde]);
 
   async function publicar() {
     setErro("");
@@ -731,6 +813,25 @@ export function EscreverDaAlumia2({
       return;
     }
     if (grupoCifrado && !tr) return;
+    // Prompt 4: a versão curta, a capa, o convite e a fonte são texto aberto: no post cifrado, não vão (a tela diz, em vez de tirar
+    // calada o que a autora escolheu). O fio sai bloco a bloco, sem eles. A fonte que não vale para aqui.
+    if (grupoCifrado && usaP4(camposP4)) {
+      setErro(tp4?.erros.semCifra ?? "");
+      return;
+    }
+    if (fioLigado && usaP4(camposP4)) {
+      setErro(tp4?.erros.semFio ?? "");
+      return;
+    }
+    if (p4Ligado && !resposta && tipo !== "ato" && escolhasP4.fonte.trim() && !fonteDoCampo(escolhasP4.fonte)) {
+      setErro(tp4?.erros.invalido_fonte ?? "");
+      return;
+    }
+    // Item 136: o post cifrado leva só o texto. Imagem e áudio iriam abertos para o depósito, então a tela diz e não publica.
+    if (grupoCifrado && (pub.imagens.length > 0 || pub.audio)) {
+      setErro(tr?.semAnexo ?? "");
+      return;
+    }
     // Post agendado sai pelo agendador, que não leva roda, não listado nem prazo: a tela diz, em vez de publicar mais aberto.
     if (comVida && (pub.agendar || pub.aposAto)) {
       setErro(vt?.escrever.semAgendar ?? "");
@@ -764,10 +865,14 @@ export function EscreverDaAlumia2({
       setAviso(r.aviso);
       if (r.bloqueia) return;
     }
+    // Um envio já correndo (duplo clique, Enter repetido): não começa outro.
+    if (envio || ocupado) return;
     const n = Date.now();
     desfeitoNoEnvio.current = false;
+    chaveDoEnvio.current ??= novaChaveDeEnvio();
+    disparado.current = null;
     setAgora(n);
-    setEnvio({ desde: n });
+    setEnvio({ desde: n, chave: chaveDoEnvio.current });
   }
 
   function desfazer() {
@@ -775,6 +880,8 @@ export function EscreverDaAlumia2({
     if (ocupado && tipo === "ato") return;
     // O pedido já saiu? O envio termina e desfaz no banco (rede_pub_desfazer); antes disso, ele nem sai.
     if (ocupado) desfeitoNoEnvio.current = true;
+    // Desfeito antes de sair, nada chegou ao banco e a chave pode ficar; se já saiu, o post volta e o próximo envio é outro.
+    if (ocupado) chaveDoEnvio.current = null;
     setEnvio(null);
     setAviso(al2?.t.escrever.desfeito ?? "");
     setAvisoDe(null);
@@ -785,11 +892,11 @@ export function EscreverDaAlumia2({
    * Fechar sem perder texto: o rascunho é guardado NA HORA (na conta, e no aparelho como hoje), sem esperar os 2,5 s. A resposta
    * não tem rascunho: com texto, pergunta antes de descartar.
    */
-  function fechar() {
+  async function fechar() {
     if (envio) return;
     if (!previa && rascunhoTemTexto(rascunhoAtual)) {
       if (resposta) {
-        if (!window.confirm(al2?.t.escrever.descartarResposta ?? "")) return;
+        if (!(await confirmar(al2?.t.escrever.descartarResposta ?? ""))) return;
       } else {
         escreverRascunho({ tipo: tipoBanco, texto, titulo, corpo });
         if (naConta && !semServidor.current && tipo !== "ato") void salvarCifrado(rascunhoAtual).catch(() => undefined);
@@ -817,7 +924,7 @@ export function EscreverDaAlumia2({
   // manda é o Desfazer.
   useEffect(() => {
     const sair = (e: KeyboardEvent) => {
-      if (e.key !== "Escape" || e.defaultPrevented || envio) return;
+      if (e.key !== "Escape" || e.defaultPrevented || envio || naBarrinha) return;
       if (aberta) {
         setAberta(null);
         return;
@@ -826,7 +933,7 @@ export function EscreverDaAlumia2({
     };
     window.addEventListener("keydown", sair);
     return () => window.removeEventListener("keydown", sair);
-  }, [envio, aberta]);
+  }, [envio, aberta, naBarrinha]);
 
   // Tab preso dentro do diálogo (aria-modal): do último volta ao primeiro e vice-versa; o que estiver fora não recebe foco.
   function prenderTab(e: React.KeyboardEvent<HTMLDivElement>) {
@@ -930,6 +1037,78 @@ export function EscreverDaAlumia2({
   // "Só mencionados" no post cifrado: os @ marcados vão em aberto (só os nomes), e a tela diz quais antes de publicar.
   const mencionadosQueVao = grupoCifrado && !resposta && pub.respondeQuem === "mencionados" ? mencionadosDoTexto(texto) : null;
   const rotuloDoPrazo = (x: SomeEm | null) => (vt ? (x === "24h" ? vt.escrever.h24 : x === "7d" ? vt.escrever.d7 : vt.escrever.nunca) : "");
+  const avisoFlutuante = envio ? (
+        <div className="al2 al2-aviso-flutuante" role="status" aria-live="polite" style={{ ["--al2-espera" as string]: `${SEGUNDOS_PARA_DESFAZER}s`, ...(centroDoAviso !== null ? { left: `${centroDoAviso}px` } : {}) }}>
+          <span className="al2-aviso-relogio" aria-hidden>
+            {faltam}
+          </span>
+          {ocupado && tipo === "ato" ? (
+            // O chamado já está indo ao banco da F2, que não tem desfazer: diz a verdade em vez de um Desfazer que não desfaz.
+            <span>{t.b1.desfazerAto}</span>
+          ) : (
+            <>
+              <span>{preencher(t.escrever.enviandoEm, { s: faltam })}</span>
+              <button ref={botaoDesfazer} type="button" onClick={desfazer} className="al2-desfazer al2-aperta">
+                <Icone nome="desfazer" className="h-4 w-4" />
+                {t.escrever.desfazer}
+              </button>
+            </>
+          )}
+          <span className="al2-aviso-barra" aria-hidden />
+        </div>
+      ) : null;
+
+  // A barrinha (A15 do P5): o campo e o Publicar na própria página, com o "Expandir" para o editor completo. O que confere antes de
+  // publicar (ofensa, links, as verificações das frentes, a chave do envio, o Desfazer de 10 s) é o mesmo do Escrever.
+  if (barrinha) {
+    return (
+      <>
+        <div className="p4c-barra" data-p4c="barrinha">
+          <label className="block">
+            <span className="sr-only">{placeholder}</span>
+            <textarea
+              className="p4c-barra-campo"
+              rows={texto.includes("\n") || texto.length > 70 ? 4 : 1}
+              placeholder={placeholder}
+              maxLength={LIMITE_POST}
+              value={texto}
+              disabled={Boolean(envio)}
+              aria-describedby="p4c-barra-dica"
+              onChange={(e) => setTexto(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+                  e.preventDefault();
+                  void publicar();
+                }
+              }}
+            />
+          </label>
+          <span id="p4c-barra-dica" className="sr-only">{tp4?.barra.dica ?? ""}</span>
+          {erro && (
+            <p role="alert" className="p4c-barra-erro">
+              {erro}
+            </p>
+          )}
+          {avisoVisivel && (
+            <p role="status" className="p4c-barra-nota">
+              {avisoVisivel}
+            </p>
+          )}
+          <div className="p4c-barra-acoes">
+            {barrinha.acoes}
+            <button type="button" className="p4c-botao ml-auto" onClick={() => barrinha.aoExpandir(texto)} title={tp4?.barra.expandirAjuda} disabled={Boolean(envio)}>
+              <Icone nome="escrever" className="h-4 w-4" />
+              {tp4?.barra.expandir ?? ""}
+            </button>
+            <button ref={botaoPrincipal} type="button" onClick={() => void publicar()} disabled={!pronto || ocupado || Boolean(envio)} className="al-botao al-botao-primario al-botao-m al2-aperta">
+              {ocupado ? t.escrever.publicando : t.escrever.publicar}
+            </button>
+          </div>
+        </div>
+        {avisoFlutuante}
+      </>
+    );
+  }
 
   return (
     <>
@@ -1137,7 +1316,11 @@ export function EscreverDaAlumia2({
                     fio={!resposta && tipo === "post" ? { ligado: fioLigado, alternar: () => setFioBlocos((b) => (b === null ? [""] : null)) } : undefined}
                     pedirAgenda={pedirAgenda}
                     ctx={{ lang, s, situacao }}
+                    semMidia={grupoCifrado ? (tr?.semAnexo ?? "") : undefined}
                   />
+                  {p4Ligado && tp4 && !resposta && (
+                    <CamposDoP4 t={tp4} escolhas={escolhasP4} aoMudar={setEscolhasP4} longo={longo} convitePode={tipo === "post" && !fioLigado} imagens={imagensAnexadas} />
+                  )}
                 </>
               )}
             </div>
@@ -1304,26 +1487,7 @@ export function EscreverDaAlumia2({
         </div>
       </div>
 
-      {envio && (
-        <div className="al2 al2-aviso-flutuante" role="status" aria-live="polite" style={{ ["--al2-espera" as string]: `${SEGUNDOS_PARA_DESFAZER}s`, ...(centroDoAviso !== null ? { left: `${centroDoAviso}px` } : {}) }}>
-          <span className="al2-aviso-relogio" aria-hidden>
-            {faltam}
-          </span>
-          {ocupado && tipo === "ato" ? (
-            // O chamado já está indo ao banco da F2, que não tem desfazer: diz a verdade em vez de um Desfazer que não desfaz.
-            <span>{t.b1.desfazerAto}</span>
-          ) : (
-            <>
-              <span>{preencher(t.escrever.enviandoEm, { s: faltam })}</span>
-              <button ref={botaoDesfazer} type="button" onClick={desfazer} className="al-botao al-botao-primario al-botao-p">
-                <Icone nome="desfazer" className="h-4 w-4" />
-                {t.escrever.desfazer}
-              </button>
-            </>
-          )}
-          <span className="al2-aviso-barra" aria-hidden />
-        </div>
-      )}
+      {avisoFlutuante}
     </>
   );
 }

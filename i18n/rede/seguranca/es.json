@@ -33,6 +33,15 @@
     "alertaTitulo": "Aviso de entrada nueva",
     "alertaTexto": "Cada vez que tu cuenta entra en un aparato, llega un aviso aquí en Alumia y a tu correo, con el navegador, el sistema, el día y la hora. Si no fuiste tú, desconecta los aparatos."
   },
+  "avisos": {
+    "titulo": "Avisos de seguridad",
+    "texto": "Inicio de sesión nuevo en tu cuenta, aplicación autenticadora nueva, entrada aprobada: los avisos de la cuenta están aquí, no en las notificaciones. Si alguno no fuiste tú, desconecta los dispositivos y cambia la contraseña.",
+    "vazio": "Ningún aviso de seguridad en los últimos 120 días.",
+    "novo": "Nuevo",
+    "vezes": "{n} veces ese día",
+    "carregando": "Cargando los avisos…",
+    "falha": "No se pudieron cargar los avisos de seguridad ahora."
+  },
   "codigos": {
     "titulo": "Códigos de recuperación",
     "texto": "Diez códigos de un solo uso para entrar si pierdes el celular de la aplicación. Usar un código quita la aplicación de la cuenta: registras otra en el momento, y los otros aparatos se desconectan.",

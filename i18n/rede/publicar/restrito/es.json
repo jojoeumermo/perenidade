@@ -10,10 +10,18 @@
     "Nunca sale al Fediverso."
   ],
   "semAgendar": "El post cifrado sale en el momento: no se puede programar, ponerle plazo para desaparecer ni ordenar las imágenes.",
+  "semAnexo": "El post cifrado lleva solo el texto: imágenes, audio y video aún no se cifran y llegarían abiertos al servidor.",
   "cifrando": "Cifrando en este aparato…",
   "semChave": "Este aparato todavía está entrando al grupo. Intenta de nuevo en unos segundos.",
   "suspeito": "No se puede escribir en este grupo ahora: la clave de alguien cambió",
   "falha": "No se pudo cifrar ahora. No se publicó nada.",
+  "semIdentidade": "Para escribir y leer en los grupos cifrados, activa primero el chat en este aparato (su identidad es la que firma este aparato).",
+  "avisoForte": {
+    "titulo": "Aparato nuevo en el grupo",
+    "texto": "Una cuenta que este aparato ya conocía entró al grupo con un aparato nuevo. Llegó firmado por la identidad de la persona, verificada en el registro público. Si no lo esperabas, pregúntale y compara el código de seguridad en el chat.",
+    "trocada": "La identidad de esa cuenta también cambió (la persona activó el chat de nuevo, o alguien tomó la cuenta). Confírmalo con ella antes de escribir algo delicado.",
+    "entendi": "Entendido"
+  },
   "abrindo": "Abriendo en este aparato…",
   "naoAbre": "No se puede abrir en este aparato",
   "naoAbreAjuda": "Quien entró al grupo después del post, o lo abre en un aparato nuevo, lee lo que viene de ahí en adelante.",

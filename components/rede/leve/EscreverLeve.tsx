@@ -19,6 +19,7 @@ import {
   situacaoDoItem, tirarDaFila, type PublicoDoLeve,
 } from "./regras";
 import type { TextosDoLeve } from "./textos";
+import { confirmar } from "@/components/perguntar";
 
 type Recado = { texto: string; link?: string } | null;
 
@@ -184,8 +185,8 @@ export function FilaDoAparelho({ lang, s, situacao, t }: { lang: string; s: Text
                       variante="fantasma"
                       tamanho="p"
                       disabled={ocupado === item.id}
-                      onClick={() => {
-                        if (!window.confirm(f.apagarConfirma)) return;
+                      onClick={async () => {
+                        if (!(await confirmar(f.apagarConfirma))) return;
                         tirarDaFila(armazemDoAparelho(), item.id);
                         avisarMudanca();
                       }}

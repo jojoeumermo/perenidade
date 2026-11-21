@@ -8,7 +8,7 @@
     "comunidades": "Comunidades",
     "chamados": "Convocatorias",
     "nucleos": "Núcleos",
-    "avisos": "Avisos",
+    "avisos": "Notificaciones",
     "salvos": "Guardados",
     "conversas": "Conversaciones",
     "perfil": "Perfil",
@@ -182,7 +182,9 @@
     "lista_bloqueio": "La mediación de este lugar no permite publicaciones tuyas aquí.",
     "leia_as_regras": "Esta comunidad pide que aceptes las reglas antes de publicar. Mira la pestaña Llegada.",
     "so_leitura": "Esta es una comunidad de avisos: solo la moderación abre publicaciones aquí.",
-    "so_leitura_respostas": "En esta comunidad de avisos, la regla no te deja responder."
+    "so_leitura_respostas": "En esta comunidad de avisos, la regla no te deja responder.",
+    "alumia_so_leitura": "Alumia está en modo solo lectura por decisión de la coordinación: se puede leer, bloquear y denunciar, pero no publicar ni cambiar nada ahora.",
+    "nome_reservado": "Este nombre o @ se parece al de una figura pública y está reservado. Elige otro; si eres tú, pide el sello de verificado en tu perfil."
   },
   "alumia": {
     "voltarAoSite": "Volver al sitio del Instituto Lúcia",
@@ -235,6 +237,8 @@
   },
   "avisoFixado": {
     "rotulo": "Aviso de la coordinación",
-    "abrir": "Abrir"
+    "abrir": "Abrir",
+    "soLeituraRotulo": "Solo lectura",
+    "soLeitura": "Alumia está en modo solo lectura por decisión de la coordinación. Se puede leer, bloquear, denunciar y conversar; publicar, comentar y reaccionar vuelven cuando se apague el modo."
   }
 }

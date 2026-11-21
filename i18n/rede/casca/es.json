@@ -1,0 +1,76 @@
+{
+  "_rascunho": true,
+  "titulo": "Conversaciones",
+  "carregando": "Abriendo…",
+  "trava": {
+    "titulo": "App bloqueada",
+    "texto": "Escribe la contraseña de la app para ver las conversaciones.",
+    "rotulo": "Contraseña de la app",
+    "abrir": "Abrir",
+    "errada": "Contraseña incorrecta.",
+    "restam": "Contraseña incorrecta. Quedan {n} intentos antes de borrar todo de este aparato.",
+    "conferindo": "Comprobando…"
+  },
+  "criar": {
+    "titulo": "Crea la contraseña de la app",
+    "texto": "Bloquea las conversaciones cuando la app queda quieta o pasa al fondo. No es la contraseña de la cuenta y no sale de este aparato. Usa al menos 6 caracteres.",
+    "rotulo": "Contraseña de la app",
+    "repetir": "Repite la contraseña",
+    "diferentes": "Las dos contraseñas no coinciden.",
+    "curta": "Usa al menos 6 caracteres.",
+    "salvar": "Guardar y seguir"
+  },
+  "entrar": {
+    "titulo": "Entrar",
+    "texto": "Entra con tu cuenta de Alumia. El chat funciona dentro de esta app: ningún código de clave viene del sitio.",
+    "email": "Correo",
+    "senha": "Contraseña de la cuenta",
+    "botao": "Entrar",
+    "entrando": "Entrando…",
+    "credenciais": "Correo o contraseña incorrectos.",
+    "nao_confirmado": "Confirma el correo antes de entrar.",
+    "bloqueado": "Demasiados intentos. Espera {n} minutos.",
+    "falha": "No se pudo entrar ahora. Revisa la conexión e inténtalo de nuevo.",
+    "codigo": "Código de la app autenticadora",
+    "codigoErrado": "Código incorrecto.",
+    "confirmar": "Confirmar",
+    "semFator": "Esta cuenta aún no tiene app autenticadora. Regístrala en el sitio y vuelve."
+  },
+  "menu": {
+    "ajustes": "Ajustes de la app",
+    "rede": "Abrir la red social",
+    "travar": "Bloquear ahora",
+    "voltar": "Volver a las conversaciones"
+  },
+  "ajustes": {
+    "titulo": "Ajustes de la app",
+    "disfarce": "Nombre e icono en la pantalla de inicio",
+    "disfarceTexto": "Cambia a un nombre común. La app sigue igual; el cambio puede tardar unos segundos en aparecer.",
+    "disfarces": {
+      "padrao": "Instituto Lúcia",
+      "calculadora": "Calculadora",
+      "notas": "Notas"
+    },
+    "trava": "Bloquear sola después de",
+    "minutos": "{n} min",
+    "apagar": "Borrar todo tras contraseñas incorrectas",
+    "apagarDesligado": "Apagado",
+    "apagarDepois": "Tras {n} contraseñas incorrectas",
+    "apagarAviso": "Atención: activado, quien escriba mal la contraseña de la app esa cantidad de veces borra TODO de este aparato (conversaciones, claves y la cuenta en esta app), sin vuelta atrás. Un niño o alguien tocando tu teléfono puede borrarlo sin querer. Guarda antes la copia de seguridad del chat.",
+    "apagarConfirmar": "Entiendo el aviso y quiero activarlo",
+    "cofre": "Dónde quedan las claves",
+    "cofres": {
+      "strongbox": "En el chip de seguridad del aparato (StrongBox).",
+      "tee": "En el área protegida del procesador (TEE).",
+      "software": "Solo en software: este aparato no tiene bóveda de hardware."
+    },
+    "senhaNova": "Cambiar la contraseña de la app",
+    "salvo": "Guardado."
+  },
+  "link": {
+    "pergunta": "¿Abrir esta dirección fuera de la app?",
+    "aviso": "Ningún enlace se abre solo: revisa la dirección antes."
+  },
+  "apagado": "Todo fue borrado de este aparato.",
+  "sem_webview": "Para abrir las conversaciones, este aparato necesita el Android System WebView actualizado (versión 137 o más nueva). Actualízalo en la tienda de apps del aparato y abre la app de nuevo."
+}

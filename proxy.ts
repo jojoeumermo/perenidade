@@ -2,6 +2,7 @@
 import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
 import { defaultLocale, locales } from "@/i18n/config";
 import { type EstadoDaInterdicao, fechado, lerEstado, semIdioma, semInterdicao } from "@/lib/interdicao";
+import { enderecoAntigoDaEscola } from "@/lib/escola/aulas-abertas";
 import { caminhoDoSiteParaEscola, ESCOLA_URL, escolaComEndereco, hostDaEscola, rotaNaEscola, siteVistoDaEscola } from "@/lib/escola/endereco";
 import { caminhoDoSiteParaAlumia, hostDaAlumia, rotaNaAlumia } from "@/lib/rede/alumia";
 import { arquivoNoChat, CHAT_ONION, caminhoDoSiteParaOChat, hashesDosScripts, hostDoChat, novoNonce, politicaDoChat, rotaNoChat } from "@/lib/rede/chat/origem";
@@ -22,6 +23,10 @@ const baitFile = /\.(php\d?|phtml|asp|aspx|ashx|asmx|axd|jsp|jspx|jsf|action|do|
 // diretório). O navegador já transforma "\" em "/" e resolve os ".." à vista; o que sobra codificado não é de gente.
 // O site não serve nada assim: vai para o mesmo 404 das iscas.
 const estranho = /%2e|%00|%5c|\.\.;/i;
+
+// O que o endereço das conversas pode pedir ao aparelho (a lista fechada; a do site, mais aberta, vem de next.config.ts).
+const PERMISSOES_DO_CHAT =
+  "camera=(self), microphone=(self), display-capture=(), fullscreen=(self), autoplay=(self), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), midi=(), browsing-topics=()";
 
 const backend = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\/$/, "");
 const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
@@ -189,6 +194,10 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
       resposta = NextResponse.rewrite(url, { request: { headers: cabecalhos } });
     } else resposta = NextResponse.next({ request: { headers: cabecalhos } });
     resposta.headers.set("Content-Security-Policy", politica);
+    // Nenhum link das conversas manda o endereço de onde se veio (nem o .onion) para o site de fora.
+    resposta.headers.set("Referrer-Policy", "no-referrer");
+    // Do aparelho, as conversas só pedem câmera (ler o QR do código de segurança) e microfone, e só do próprio endereço.
+    resposta.headers.set("Permissions-Policy", PERMISSOES_DO_CHAT);
     resposta.headers.set("Cache-Control", "private, no-store");
     resposta.headers.set("X-Robots-Tag", "noindex");
     // Fora do Tor, o Navegador Tor oferece abrir o mesmo endereço pelo serviço onion.
@@ -201,13 +210,13 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   let alvo = pathname;
   let reescrever = false;
   if (hostDaAlumia(request.headers.get("host"))) {
-    const decisao = rotaNaAlumia(pathname, request.headers.get("accept") ?? "");
+    const decisao = rotaNaAlumia(pathname, request.headers.get("accept") ?? "", request.nextUrl.search);
     if (decisao.tipo === "site") return NextResponse.redirect(new URL(decisao.destino + request.nextUrl.search, siteVistoDaAlumia(request)), 307);
     if (decisao.tipo === "redirecionar") {
       const url = request.nextUrl.clone();
       url.pathname = decisao.destino;
       url.search = decisao.busca ?? "";
-      return NextResponse.redirect(url, 307);
+      return NextResponse.redirect(url, decisao.permanente ? 308 : 307);
     }
     // O endereço antigo (/pt/comunidade/…) no host da Alumia: 308 para o caminho curto (/, /p/<id>), com a busca. Um endereço
     // antigo do Fórum (?t=, ?sala=, ?post=) vai direto ao destino final, como no domínio do instituto: um salto só.
@@ -246,6 +255,14 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
       const url = request.nextUrl.clone();
       url.pathname = novo;
       return NextResponse.redirect(url, 308);
+    }
+    // Teoria revolucionária e Lutas do povo passaram a morar na Escola (P5, B2; lib/escola/aulas-abertas.ts): a página da
+    // disciplina, a da trilha e a da aula vão para lá com 301, para sempre, com a busca. Continuam abertas, sem conta.
+    const naEscola = enderecoAntigoDaEscola(pathname);
+    if (naEscola) {
+      const url = request.nextUrl.clone();
+      url.pathname = naEscola;
+      return NextResponse.redirect(url, 301);
     }
   }
   const area = fechado(alvo, estado);

@@ -13,6 +13,7 @@ import { clienteDoApoio } from "./cliente";
 import { casasDaMeta, LIMITES_DO_APOIO as L, type CaixaComVaquinha, type CaixasComVaquinha } from "./regras";
 import { fraseDoApoio, preencherApoio, type TextosDoApoio } from "./textos";
 import "./apoio.css";
+import { confirmar } from "@/components/perguntar";
 
 type Fazer = (f: () => Promise<CaixasComVaquinha | null>) => Promise<void>;
 
@@ -84,7 +85,7 @@ export function VaquinhaDoCaixa({ c, t, lang, handle, cuido, selo, ocupado, faze
                   {k.link ? <a className="ap-nota-link" href={k.link} target="_blank" rel="noopener noreferrer nofollow">{tv.verMais}</a> : null}
                 </p>
                 {k.possoRetirar && cuido ? (
-                  <Botao tamanho="p" variante="fantasma" disabled={ocupado} onClick={() => window.confirm(tv.retirarConfirma) && void fazer(() => cli.retirarConta(handle, k.id))}>{tv.retirar}</Botao>
+                  <Botao tamanho="p" variante="fantasma" disabled={ocupado} onClick={async () => (await confirmar(tv.retirarConfirma)) && void fazer(() => cli.retirarConta(handle, k.id))}>{tv.retirar}</Botao>
                 ) : null}
               </li>
             ))}

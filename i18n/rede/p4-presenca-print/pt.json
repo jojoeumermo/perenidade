@@ -1,0 +1,25 @@
+{
+  "ajustes": {
+    "titulo": "Presença e proteção contra print",
+    "carregando": "Carregando…",
+    "erro": "Não deu para salvar agora. Tente de novo.",
+    "presenca": "Mostrar “ativo recentemente” para a minha roda de confiança",
+    "presencaAjuda": "Desligado por padrão. Ligado, só quem está na sua roda de confiança vê, e só “ativo recentemente” (você usou a Alumia nas últimas uma ou duas horas), nunca a hora exata. O servidor guarda um campo só, arredondado para a hora cheia e sobrescrito: não existe histórico. Desligar apaga o campo. Quem vê o aviso pode perceber que está na sua roda.",
+    "foto": "Proteger minha foto de perfil",
+    "fotoAjuda": "Na página do seu perfil, a foto some quando a janela de quem vê sai da frente, não pode ser copiada nem arrastada e leva uma marca d’água discreta com o codinome de quem vê.",
+    "story": "Para proteger um story, abra o story e escolha “Proteger este story” no menu.",
+    "sairRapido": "Três toques seguidos na marca da Alumia também fazem o Sair rápido."
+  },
+  "aviso": "Isto impede o print por descuido. Não impede uma foto da tela com outro celular. Só mande o que você aceitaria ver vazado.",
+  "avisoNavegador": "No navegador a proteção é mais fraca: ela esconde o conteúdo quando a janela sai da frente e desliga copiar e arrastar, mas não bloqueia o print do sistema.",
+  "avisoApp": "No app Android, o sistema deixa pretos o print e a gravação das telas da Alumia. Ainda assim, isso não impede uma foto da tela com outro celular.",
+  "naoAvisa": "Ninguém é avisado de print, nem a autora: isso criaria um registro de quem lê.",
+  "escondido": "Conteúdo protegido. Volte para esta janela para ver.",
+  "protegido": "Protegido contra print por descuido",
+  "storyProteger": "Proteger este story",
+  "storyDesproteger": "Tirar a proteção deste story",
+  "storyProtegido": "Story protegido contra print por descuido. No navegador a proteção é mais fraca.",
+  "storyDesprotegido": "A proteção deste story foi tirada.",
+  "recente": "ativo recentemente",
+  "recenteAjuda": "Esta pessoa escolheu mostrar à roda de confiança dela que esteve na Alumia nas últimas horas."
+}

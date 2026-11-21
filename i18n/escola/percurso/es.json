@@ -97,12 +97,32 @@
       "quem": "Quién lo verá: {publico}.",
       "ligar": "Entendido, mostrar",
       "cancelar": "Ahora no"
+    },
+    "tag": {
+      "titulo": "La etiqueta de revolucionaria(o)",
+      "texto": "Quien está en el Frente Revolucionario (por la inscripción aprobada o por haber concluido la Escuela) tiene la etiqueta. Solo aparece en tu perfil de Alumia si la activas aquí, para el mismo público elegido arriba, junto con tu frente de actuación.",
+      "ligar": "Mostrar la etiqueta y mi frente en el perfil",
+      "semPublico": "Para mostrar la etiqueta, elige antes quién ve tus logros (arriba).",
+      "semFrente": "Todavía no estás en el Frente: la etiqueta aparece cuando se apruebe la inscripción o cuando concluyas la Escuela.",
+      "salvo": "Listo.",
+      "privacidade": "La etiqueta nunca se vuelve lista: nadie, ni la coordinación, puede sacar quién tiene la etiqueta, y no aparece en búsquedas ni en conteos."
     }
   },
   "selos": {
     "carteirinha": "Militante de la Escuela",
     "degrau": "Escalón {n} de la Escuela",
     "caderno": "Cuaderno {n} de la Escuela",
-    "aulas": "Clases de la Escuela: {n}"
+    "aulas": "Clases de la Escuela: {n}",
+    "revolucionario": "Revolucionaria(o)",
+    "frente": "Frente: {nome}",
+    "frentes": {
+      "estudantil": "Movimiento estudiantil",
+      "bairros": "Barrios y vivienda",
+      "trabalho": "Trabajo y sindicatos",
+      "agitprop": "Agitación y propaganda",
+      "atos": "Actos y movilización",
+      "cultura": "Cultura y periferia",
+      "solidariedade": "Solidaridad"
+    }
   }
 }

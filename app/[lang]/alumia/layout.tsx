@@ -20,6 +20,8 @@ import { ligado } from "@/lib/recursos";
 import { site } from "@/lib/site";
 // Os tokens da Alumia nova (Onda 5): só valem dentro de [data-al="2"], que só aparece com "rede-v2" + "alumia-2" ligadas.
 import "@/styles/alumia-tokens.css";
+import { SubirAoTopo } from "@/components/rede/alumia/SubirAoTopo";
+import { OuvirErros } from "@/components/rede/beta/OuvirErros";
 
 // As letras das pranchas, carregadas SÓ aqui (a Alumia), sem pré-carga: Archivo variável com o eixo de largura (62–125) para os
 // títulos condensados, e EB Garamond itálica só para o "Instituto Lúcia" da marca. Com a flag desligada as classes não entram e
@@ -46,7 +48,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]/alumia">
  * Alumia nova (styles/alumia-tokens.css). Desligadas, o HTML é exatamente o de antes.
  */
 export default async function LayoutDaAlumia({ children, params }: LayoutProps<"/[lang]/alumia">) {
-  const { lang } = await loadLang(params);
+  const { lang, t } = await loadLang(params);
   // Recurso "alumia-aberta" (só pelo nome): enquanto as ondas de construção não terminam, a Alumia inteira, em qualquer endereço,
   // mostra só o aviso. Nenhuma tela, nenhum dado e nenhuma chamada ao banco da rede saem daqui.
   if (!ligado("alumia-aberta")) return <EmConstrucao lang={lang} className={archivo.variable} site={alumiaComEndereco ? `${site.url}/${lang}` : `/${lang}`} />;
@@ -65,15 +67,18 @@ export default async function LayoutDaAlumia({ children, params }: LayoutProps<"
   const ta = (await carregarTextosDoAcabamento(lang)).app;
   const moldura = (
     <>
-      <div className="al-fora-do-app" role="region" aria-labelledby="al-fora-do-app-titulo">
-        <h1 id="al-fora-do-app-titulo">{ta.titulo}</h1>
-        <p>{ta.texto}</p>
-        <Link href={`/${lang}`}>{ta.voltar}</Link>
-      </div>
+      {/* A tela vem primeiro no documento e o aviso depois (P5): o primeiro h1 da página é o da tela, não o do aviso escondido. */}
       <div className="al-dentro-do-navegador">
         <MolduraDaAlumia lang={lang} s={textosDaRede(lang)}>
           {conteudo}
         </MolduraDaAlumia>
+        {/* O registro de erros da tela (P5, A21): só a mensagem limpa, a página, a versão e o navegador. */}
+        <OuvirErros />
+      </div>
+      <div className="al-fora-do-app" role="region" aria-labelledby="al-fora-do-app-titulo">
+        <h1 id="al-fora-do-app-titulo">{ta.titulo}</h1>
+        <p>{ta.texto}</p>
+        <Link href={`/${lang}`}>{ta.voltar}</Link>
       </div>
     </>
   );
@@ -89,6 +94,8 @@ export default async function LayoutDaAlumia({ children, params }: LayoutProps<"
           caixa, e ganham a pele da Alumia pela classe .al-pele (styles/alumia-tokens.css). O React leva este <style> para o <head>. */}
       <style href="al-letras" precedence="medium">{`:root:has([data-al="2"]){--al-fonte-archivo:${archivo.style.fontFamily};--al-fonte-garamond:${garamond.style.fontFamily}}`}</style>
       <ComAlumia2>{moldura}</ComAlumia2>
+      {/* P5 (A5): o "voltar ao topo" da Alumia, no lugar do do site (que some aqui: styles/alumia-tokens.css). */}
+      <SubirAoTopo rotulo={t.lists.top} />
     </div>
   );
 }

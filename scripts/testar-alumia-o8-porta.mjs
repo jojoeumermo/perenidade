@@ -160,7 +160,7 @@ for (const nome of ["membro", "mediador"]) {
 await espera("a migração instala sobre o install.sql", () => exec(sql));
 await espera("de novo (idempotente)", () => exec(sql));
 await espera("a configuração nasce com a porta desligada e os tetos padrão", async () => (await dono("select valor from interno.configuracoes where chave = 'alumia_cadastro'")).rows[0].valor,
-  (v) => v.ligada === false && v.teto_hora === 60 && v.convites_mes === 3 && v.rede_contas_hora === 3 && v.rede_pedidos_hora === 6);
+  (v) => v.ligada === false && v.teto_hora === 60 && v.convites_mes === 10 && v.rede_contas_hora === 3 && v.rede_pedidos_hora === 6);
 
 // Quem chama o quê
 for (const f of [["alumia_cadastro_pressao", { p_chave: null, p_momento: "conta" }], ["alumia_cadastro_passar", { p_momento: "conta", p_chave: null, p_selo: hex(9999), p_vence: vence() }], ["alumia_convite_conferir", { p_codigo: "0".repeat(32) }]]) {
@@ -241,6 +241,9 @@ await espera("a triagem decide sem passe nenhum (a regra é só para o pedido de
 
 // ── Convites ──
 await recusa("quem não está dentro não gera convite", () => rpc(como(P.novo), "alumia_convite_criar"), "sem_permissao");
+// O padrão é 10 por mês (Prompt 5, A18; 20261126-p5-avisos.sql); daqui em diante, o teto de 3 desta migração (a coordenação pode
+// escolher o número no painel).
+await dono("update interno.configuracoes set valor = valor || '{\"convites_mes\": 3}' where chave = 'alumia_cadastro'");
 const c1 = await espera("quem está dentro gera um convite: o código sai uma vez, com o prazo de 7 dias", () => rpc(como(P.membro), "alumia_convite_criar"),
   (r) => /^[0-9a-f]{32}$/.test(r.codigo) && r.restam === 2 && Math.abs(new Date(r.vence_em).getTime() - Date.now() - 7 * 86_400_000) < 120_000);
 await espera("o banco guarda só o resumo do código", async () => (await dono("select selo from interno.alumia_convites where id = $1", [c1?.id])).rows[0].selo, (s) => /^[0-9a-f]{64}$/.test(s) && !s.includes(c1?.codigo ?? "-"));
@@ -256,6 +259,8 @@ await espera("os meus convites: o teto, o que resta e a situação de cada um, n
 await espera("cancelar um convite meu", () => rpc(como(P.membro), "alumia_convite_cancelar", { p_id: c3.id }), (r) => r.ok);
 await recusa("não cancelo o convite de outra pessoa", () => rpc(como(P.mediador), "alumia_convite_cancelar", { p_id: c2.id }), "nao_encontrado");
 await espera("cancelado não vale mais", () => rpc(servico, "alumia_convite_conferir", { p_codigo: c3.codigo }), (r) => r.valido === false);
+// Aqui valem os corpos desta migração (o teste a roda de novo por cima do install.sql). Desde o Prompt 5 (A18) o cancelado sai do
+// banco e devolve a vaga: isso está provado em scripts/testar-p5-avisos.mjs.
 await espera("cancelado continua contando no teto do mês", () => rpc(como(P.membro), "alumia_convites_meus"), (r) => r.restam === 0 && r.convites.some((c) => c.situacao === "cancelado"));
 
 await espera("quem gerou não usa o próprio convite", () => passar({ p_momento: "pedido", p_usuario: P.membro, p_convite: c1.codigo }), (r) => r.ok === true && r.convite === "invalido");

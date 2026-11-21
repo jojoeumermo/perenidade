@@ -105,6 +105,27 @@
     "texto": "The guide for when the internet goes down. Open it once now: afterwards it opens on this device even without internet.",
     "abrir": "Open the guide"
   },
+  "semInternet": {
+    "rotulo": "Nearby, offline",
+    "titulo": "Nearby phones",
+    "texto": "When the internet goes down at a protest, the app can pass short messages, the Beacon and \"I'm safe\" from phone to phone over Bluetooth. Each phone stores and forwards encrypted packets it cannot open: it does not know who they are from or who they are for. All packets are the same size and disappear after 24 hours.",
+    "aviso": "When this is on, nearby phones can tell that a device is taking part. They cannot tell who you are or what you send.",
+    "entendi": "I understand: nearby phones can tell that a device is taking part.",
+    "ligar": "Turn on",
+    "desligar": "Turn off and erase what was stored",
+    "ligada": "On for this phone. It turns itself off when the app closes.",
+    "soNoApp": "Only in the Alumia app for Android. On the website, the phone does not talk to the ones nearby.",
+    "semSessao": "\"I'm safe\" without internet only reaches safety contacts you already have a chat conversation with.",
+    "farolPronto": "The Beacon of your next confirmed protest reaches this phone even without internet.",
+    "farolSem": "For the Beacon to arrive offline, confirm you are going and turn this on beforehand, while you still have internet.",
+    "farolChegou": "Beacon, offline: {estado}",
+    "estados": {
+      "tranquilo": "Calm",
+      "atencao": "Heads up",
+      "dispersar": "Disperse",
+      "ponto2": "Meeting point 2"
+    }
+  },
   "barra": {
     "titulo": "Protest mode on",
     "desde": "since {hora}",

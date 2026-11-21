@@ -4,7 +4,7 @@
   "abas": { "rotulo": "Notifications and preferences", "avisos": "Notifications", "preferencias": "Preferences" },
   "lista": {
     "rotulo": "Your notifications",
-    "vazio": "Nothing yet. When someone replies to, mentions or supports what you wrote, it shows up here.",
+    "vazio": "Nothing yet. When someone replies to, mentions, quotes or lights up what you wrote, it shows up here.",
     "marcarTodos": "Mark all as read",
     "mais": "Show older notifications",
     "carregando": "Loading notifications…",
@@ -14,21 +14,28 @@
     "naoLidos": "{n} unread",
     "tudoLido": "All read.",
     "emTitulo": "in “{titulo}”",
-    "abrir": "Open"
+    "abrir": "Open",
+    "seguranca": "Account security alerts (new sign-in, new authenticator app) are in Security.",
+    "abrirSeguranca": "Open Security"
+  },
+  "juntar": {
+    "dois": "{a} and {b}",
+    "maisAlguem": "{a} and someone else",
+    "maisGente": "{a} and a few others"
   },
   "frases": {
-    "resposta": { "um": "{a} replied to your post.", "vezes": "{a} replied {n} times to your post.", "varios": "{a} and {n} more replied to your post.", "anonimo": "Someone replied to your post.", "anonimoVarios": "{n} people replied to your post." },
-    "mencao": { "um": "{a} mentioned you.", "vezes": "{a} mentioned you {n} times.", "varios": "{a} and {n} more mentioned you.", "anonimo": "Someone mentioned you.", "anonimoVarios": "{n} people mentioned you." },
-    "citacao": { "um": "{a} quoted your post.", "vezes": "{a} quoted your post {n} times.", "varios": "{a} and {n} more quoted your post.", "anonimo": "Someone quoted your post.", "anonimoVarios": "{n} people quoted your post." },
-    "seguidor": { "um": "{a} started following you.", "vezes": "{a} started following you.", "varios": "{a} and {n} more started following you.", "anonimo": "Someone started following you.", "anonimoVarios": "{n} people started following you." },
-    "apoio": { "um": "1 person supported your post.", "vezes": "1 person supported your post.", "varios": "{n} people supported your post.", "anonimo": "1 person supported your post.", "anonimoVarios": "{n} people supported your post." },
-    "conversa_seguida": {"um": "{a} replied in a conversation you follow.", "vezes": "{a} replied {n} times in a conversation you follow.", "varios": "{a} and {n} others replied in a conversation you follow.", "anonimo": "There is a new reply in a conversation you follow.", "anonimoVarios": "{n} people replied in a conversation you follow."},
-    "ajudou": {"um": "Your reply helped the person who started the conversation.", "vezes": "Your reply helped the person who started the conversation.", "varios": "Your replies helped in {n} conversations.", "anonimo": "Your reply helped the person who started the conversation.", "anonimoVarios": "Your replies helped in {n} conversations."},
-    "reacao_story": {"um": "Someone reacted to your story.", "vezes": "Your story got {n} reactions.", "varios": "Your story got reactions.", "anonimo": "Someone reacted to your story.", "anonimoVarios": "Your story got reactions."},
-    "lembrete": {"um": "You asked to be reminded of this post now.", "vezes": "You asked to be reminded of this post now.", "varios": "You asked to be reminded of these posts now.", "anonimo": "You asked to be reminded of this post now.", "anonimoVarios": "You asked to be reminded of these posts now."},
-    "marcacao": {"um":"{a} tagged you in a post, or asked to. A request only shows if you accept it.","vezes":"{a} tagged you in a post, or asked to. A request only shows if you accept it.","varios":"{a} and {n} more tagged you, or asked to.","anonimo":"Someone tagged you in a post, or asked to. A request only shows if you accept it.","anonimoVarios":"{n} people tagged you, or asked to."},
-    "estou_bem": {"um":"Message from {a}, a safety contact: they are safe. It disappears in 24 hours.","vezes":"Message from {a}, a safety contact: they are safe. It disappears in 24 hours.","varios":"Messages from your safety contacts: they are safe.","anonimo":"Message from a safety contact: they are safe. It disappears in 24 hours.","anonimoVarios":"Messages from your safety contacts: they are safe."},
-    "detido": {"um":"Urgent message from {a}, a safety contact: they were detained. Open Protest mode to see what to do.","vezes":"Urgent message from {a}, a safety contact: they were detained. Open Protest mode to see what to do.","varios":"Urgent messages from safety contacts: they were detained. Open Protest mode to see what to do.","anonimo":"Urgent message from a safety contact: they were detained. Open Protest mode to see what to do.","anonimoVarios":"Urgent messages from safety contacts: they were detained. Open Protest mode to see what to do."}
+    "resposta": { "um": "{a} replied to your post.", "vezes": "{a} replied {n} times to your post.", "varios": "{a} and {n} more replied to your post.", "anonimo": "Someone replied to your post.", "anonimoVarios": "{n} people replied to your post.", "plural": "{quem} replied to your post." },
+    "mencao": { "um": "{a} mentioned you.", "vezes": "{a} mentioned you {n} times.", "varios": "{a} and {n} more mentioned you.", "anonimo": "Someone mentioned you.", "anonimoVarios": "{n} people mentioned you.", "plural": "{quem} mentioned you." },
+    "citacao": { "um": "{a} quoted your post.", "vezes": "{a} quoted your post {n} times.", "varios": "{a} and {n} more quoted your post.", "anonimo": "Someone quoted your post.", "anonimoVarios": "{n} people quoted your post.", "plural": "{quem} quoted your post." },
+    "seguidor": { "um": "{a} started following you.", "vezes": "{a} started following you.", "varios": "{a} and {n} more started following you.", "anonimo": "Someone started following you.", "anonimoVarios": "{n} people started following you.", "plural": "{quem} started following you." },
+    "apoio": { "um": "Someone lit up your post.", "vezes": "Someone lit up your post.", "varios": "{n} people lit up your post.", "anonimo": "Someone lit up your post.", "anonimoVarios": "{n} people lit up your post." },
+    "conversa_seguida": { "um": "{a} replied in a conversation you follow.", "vezes": "{a} replied {n} times in a conversation you follow.", "varios": "{a} and {n} others replied in a conversation you follow.", "anonimo": "There is a new reply in a conversation you follow.", "anonimoVarios": "{n} people replied in a conversation you follow.", "plural": "{quem} replied in a conversation you follow." },
+    "ajudou": { "um": "Your reply helped the person who started the conversation.", "vezes": "Your reply helped the person who started the conversation.", "varios": "Your replies helped in {n} conversations.", "anonimo": "Your reply helped the person who started the conversation.", "anonimoVarios": "Your replies helped in {n} conversations." },
+    "reacao_story": { "um": "Someone reacted to your story.", "vezes": "Your story got {n} reactions.", "varios": "Your story got reactions.", "anonimo": "Someone reacted to your story.", "anonimoVarios": "Your story got reactions." },
+    "lembrete": { "um": "You asked to be reminded of this post now.", "vezes": "You asked to be reminded of this post now.", "varios": "You asked to be reminded of these posts now.", "anonimo": "You asked to be reminded of this post now.", "anonimoVarios": "You asked to be reminded of these posts now." },
+    "marcacao": { "um": "{a} tagged you in a post, or asked to. A request only shows if you accept it.", "vezes": "{a} tagged you in a post, or asked to. A request only shows if you accept it.", "varios": "{a} and {n} more tagged you, or asked to.", "anonimo": "Someone tagged you in a post, or asked to. A request only shows if you accept it.", "anonimoVarios": "{n} people tagged you, or asked to.", "plural": "{quem} tagged you, or asked to tag you." },
+    "estou_bem": { "um": "Message from {a}, a safety contact: they are safe. It disappears in 24 hours.", "vezes": "Message from {a}, a safety contact: they are safe. It disappears in 24 hours.", "varios": "Messages from your safety contacts: they are safe.", "anonimo": "Message from a safety contact: they are safe. It disappears in 24 hours.", "anonimoVarios": "Messages from your safety contacts: they are safe." },
+    "detido": { "um": "Urgent message from {a}, a safety contact: they were detained. Open Protest mode to see what to do.", "vezes": "Urgent message from {a}, a safety contact: they were detained. Open Protest mode to see what to do.", "varios": "Urgent messages from safety contacts: they were detained. Open Protest mode to see what to do.", "anonimo": "Urgent message from a safety contact: they were detained. Open Protest mode to see what to do.", "anonimoVarios": "Urgent messages from safety contacts: they were detained. Open Protest mode to see what to do." }
   },
   "prefs": {
     "titulo": "How you want to be notified",
@@ -36,7 +43,7 @@
     "falha": "Could not save. Try again.",
     "site": {
       "titulo": "Notifications here on Alumia",
-      "descricao": "Choose what shows on this screen. Moderation notices always show: you have the right to know what happened to what you wrote.",
+      "descricao": "Choose what shows up on this screen. Moderation notifications always show up: you have the right to know what happened to what you wrote. Account security alerts are in Security.",
       "tipos": {
         "resposta": "Replies to what you wrote",
         "mencao": "Mentions of your @name",
@@ -45,7 +52,7 @@
         "chamado": "Calls to action",
         "nucleo": "Local groups",
         "moderacao": "Moderation (always on)",
-        "apoio": "Support (only the number, never who)",
+        "apoio": "When people light up your post (the number only from 3 on, never who)",
         "conversa_seguida": "Replies in conversations you follow",
         "ajudou": "When your reply helped (never who marked it)",
         "ato": "Actions you follow (beacon, chain, consultation)",

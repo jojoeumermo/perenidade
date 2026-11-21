@@ -181,6 +181,7 @@ const zerar = () => dono("delete from interno.limites");
 await espera("a migração instala sobre o install.sql", () => exec(sql));
 await espera("de novo (idempotente)", () => exec(sql));
 await espera("e uma terceira vez sem estrago", () => exec(sql));
+await banco.filiacaoDeTeste();
 await espera("a regra da porta não deixa nenhuma função aberta", async () => (await dono("select interno.alumia_trancar() as r")).rows[0].r, (r) => r.abertas.length === 0);
 const PESSOA = ["alumia_pontes_resumo_ver", "alumia_pontes_resumo_salvar", "alumia_pontes_resumo_previa", "alumia_pontes_traduzir_texto", "alumia_pontes_eu", "alumia_pontes_org",
   "alumia_pontes_robo_pedir", "alumia_pontes_robo_chave", "alumia_pontes_robo_desligar", "alumia_pontes_robos_fila", "alumia_pontes_robo_decidir", "alumia_pontes_telegram_salvar",
@@ -230,7 +231,8 @@ await dono("insert into interno.rede_orgs (perfil, tipo, cidade, palavra) values
 await dono("insert into interno.rede_org_gestores (org, gestor, papel) values ($1, $2, 'dono'), ($3, $2, 'dono')", [P.org, P.dona, P.semselo]);
 {
   const NUC = (await um("insert into interno.rede_nucleos (nome, org) values ('Núcleo Leste', $1) returning id", [P.org])).id;
-  await dono("insert into interno.rede_nucleo_membros (nucleo, usuario, papel) values ($1, $2, 'membro')", [NUC, P.com]);
+  // Filiação de teste (scripts/banco-local.mjs, filiacaoDeTeste): o assunto aqui não é quem é do núcleo.
+  await dono("insert into interno.teste_nucleo_membros (nucleo, usuario, papel) values ($1, $2, 'membro')", [NUC, P.com]);
   const fim = new Date(Date.now() + 200 * 86400e3).toISOString().slice(0, 10);
   const f = await rpc(como(P.dona), "rede_org_funcao_salvar", { p_handle: "metro", p: { tipo: "comunicacao", nome: "Comunicação", permissoes: ["avisos"], vagas: 2 } });
   const COM = f.funcoes.find((x) => x.nome === "Comunicação").id;

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). Ícone do disfarce "Notas". -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="48dp" android:height="48dp" android:viewportWidth="48" android:viewportHeight="48">
+    <path android:fillColor="#FFFFD54F" android:pathData="M8,4h32a3,3 0,0 1,3 3v34a3,3 0,0 1,-3 3h-32a3,3 0,0 1,-3 -3v-34a3,3 0,0 1,3 -3z" />
+    <path android:fillColor="#FF8D6E63" android:pathData="M12,14h24v2h-24zM12,21h24v2h-24zM12,28h24v2h-24zM12,35h16v2h-16z" />
+</vector>

@@ -1,0 +1,32 @@
+{
+  "_rascunho": true,
+  "entrando": "正在进入房间…",
+  "entrar": "进入房间",
+  "desafio": "请确认你不是机器人后进入。",
+  "na_sala": "房间里有 {n} 人",
+  "ninguem": "目前房间里只有你。",
+  "voce": "你",
+  "sem_nome": "某人",
+  "acoes": {
+    "micLigar": "打开麦克风",
+    "micDesligar": "关闭麦克风",
+    "camLigar": "打开摄像头",
+    "camDesligar": "关闭摄像头",
+    "telaLigar": "共享屏幕",
+    "telaDesligar": "停止共享屏幕",
+    "sair": "离开房间",
+    "abrirNoJitsi": "在 Jitsi 中打开"
+  },
+  "erros": {
+    "livekit_sem_config": "此服务器尚未配置新的视频房间。",
+    "nao_encontrado": "此房间不存在，或你无法进入。",
+    "sem_sessao": "请登录账户后打开此房间。",
+    "limite": "连续进入次数过多。请稍候再试。",
+    "desafio": "机器人验证未通过。请再试一次。",
+    "sem_servico": "在设置机器人验证之前，此服务器上的小组学习暂不开放。",
+    "conexao": "视频服务没有响应。请再试一次或在 Jitsi 中打开。",
+    "NotAllowedError": "浏览器没有允许使用麦克风或摄像头。请在网站权限中允许。",
+    "outro": "无法打开房间。"
+  },
+  "privacidade": "由外部服务 LiveKit Cloud 提供的视频房间：你在房间里时，它会收到你的网络地址、你在此使用的名字、你的音频和视频，并对其有技术访问权限。研究所不录制任何内容；面板只保留谁在何时进入。"
+}

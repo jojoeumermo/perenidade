@@ -4,6 +4,7 @@
 import { BackendError, getClient, signedStorageUrl } from "@/lib/backend";
 import { redePub } from "@/lib/rede/cliente-publicar";
 import type { PreviaDoPost } from "@/lib/rede/tipos-publicar";
+import { caminhoDaVersao, caminhosComVersoes, versoesPara } from "@/lib/rede/publicar/versoes";
 
 /** O token da sessão (as rotas do servidor repassam ao banco: tudo é conferido como a própria pessoa). */
 async function token(): Promise<string> {
@@ -55,7 +56,29 @@ export async function gerarPrevia(url: string): Promise<PreviaDoPost | null> {
 export async function apagarDoDeposito(caminhos: string[]): Promise<void> {
   if (!caminhos.length) return;
   const supabase = await getClient();
-  await supabase.storage.from("rede-midia").remove(caminhos.slice(0, 4));
+  // A20: as versões menores de cada imagem saem junto (a que não existe é ignorada pelo depósito).
+  await supabase.storage.from("rede-midia").remove(caminhos.slice(0, 4).flatMap(caminhosComVersoes));
+}
+
+/**
+ * A20: os endereços assinados de uma imagem do post e das versões menores dela, num pedido só ao depósito (largura → endereço). A
+ * versão que não existe (post antigo, envio que falhou) simplesmente não vem; sem nenhuma, só a principal.
+ */
+export async function enderecosDaImagem(id: string, largura: number | null): Promise<{ principal: string; versoes: { largura: number; url: string }[] }> {
+  const { bucket, caminho } = await redePub.caminhoDaMidia(id);
+  const larguras = versoesPara(largura);
+  if (!larguras.length || !largura) return { principal: await signedStorageUrl(bucket, caminho, 3600), versoes: [] };
+  try {
+    const supabase = await getClient();
+    const caminhos = [caminho, ...larguras.map((l) => caminhoDaVersao(caminho, l))];
+    const { data, error } = await supabase.storage.from(bucket).createSignedUrls(caminhos, 3600);
+    const achado = (c: string) => data?.find((d) => d.path === c && !d.error && d.signedUrl)?.signedUrl ?? "";
+    const principal = achado(caminho);
+    if (error || !principal) throw new BackendError("nao_encontrado");
+    return { principal, versoes: [...larguras.map((l) => ({ largura: l as number, url: achado(caminhoDaVersao(caminho, l)) })), { largura, url: principal }].filter((v) => v.url) };
+  } catch {
+    return { principal: await signedStorageUrl(bucket, caminho, 3600), versoes: [] };
+  }
 }
 
 /** O endereço assinado de uma imagem ou de um áudio do post (vale uma hora; só sai se a matriz deixa ver o post). */

@@ -1,0 +1,3 @@
+# A pasta de saída continua ao lado do app (desktop/.gitignore), e não na raiz do repositório.
+[build]
+target-dir = "target"

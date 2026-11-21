@@ -1,0 +1,156 @@
+{
+  "_rascunho": true,
+  "porque": {
+    "rotulo": "Why is there no number?",
+    "fechar": "Got it",
+    "piso": "A number of people only shows from 3 up. With 1 or 2 it would be easy to guess who it was, and in a network of activists that can turn into persecution. So we write “fewer than 3”, also when it is zero.",
+    "marco": "The number moves every 15 minutes, not right away. If it changed the moment someone acted, anyone looking before and after would know who just acted.",
+    "ambos": "A number of people only shows from 3 up, and it moves every 15 minutes. With 1 or 2 it would be easy to guess who it was; changing right away, anyone looking before and after would know who just acted. That is why “fewer than 3” also covers zero.",
+    "soma": "Sometimes a number disappears even when it is above 3: when the total minus the other parts would reveal a number below 3, we hide one more, so the arithmetic exposes no one."
+  },
+  "falar": {
+    "titulo": "Talk to the moderators",
+    "chamada": "A direct conversation with the people who moderate this community, to ask a question, ask for a decision to be reviewed or tell them something that is not a report.",
+    "quemLe": "Who reads it",
+    "quemLeItens": [
+      "The people who moderate this community and the Alumia care team.",
+      "It is not end-to-end encrypted: the text is stored on the Alumia server, and whoever administers the database can read it.",
+      "Replies are signed “Moderation”, never with the name of the moderator.",
+      "A closed conversation deletes itself after 90 days."
+    ],
+    "naoUse": "For something that truly needs secrecy, use the encrypted chat. To report a post or a person, use “Report” on the post itself.",
+    "codinome": "Show my code name to the moderators",
+    "codinomeAjuda": "Unchecked, the moderators only see “Conversation no.”, without knowing who wrote.",
+    "rotuloTexto": "What you want to say",
+    "contador": "{n} of 2000",
+    "enviar": "Send to the moderators",
+    "enviando": "Sending…",
+    "enviado": "Sent. The reply shows up here, in the community About tab.",
+    "minhas": "Your conversations here",
+    "nenhuma": "You have not written to this community's moderators yet.",
+    "conversaN": "Conversation no. {n}",
+    "aberta": "open",
+    "encerrada": "closed",
+    "nova": "new reply",
+    "abrir": "Open",
+    "voltar": "Back",
+    "voce": "You",
+    "mediacao": "Moderation",
+    "pessoa": "Person",
+    "responder": "Reply",
+    "encerrar": "Close conversation",
+    "encerrarAviso": "Once closed, nobody can write in it any more, and it disappears after 90 days.",
+    "encerradaNota": "Conversation closed. It disappears after 90 days.",
+    "desligado": "For now, a message to the moderators goes through the report form, with a protocol number, and reaches the moderators' queue without exposing your name.",
+    "entrar": "Sign in to Alumia to talk to the moderators.",
+    "erros": {
+      "muitas_abertas": "You already have 3 open conversations with these moderators. Close one to open another.",
+      "encerrada": "This conversation was closed.",
+      "muitos_pedidos": "Too many messages in a short time. Wait a little and try again.",
+      "desligado": "This channel is not switched on yet.",
+      "nao_encontrado": "Conversation not found.",
+      "invalido": "Write between 1 and 2000 characters.",
+      "falha": "Could not send right now. Try again."
+    }
+  },
+  "caixa": {
+    "titulo": "Messages to the moderators",
+    "explica": "Each conversation shows by its number. The code name only shows when the person chose to show it. You reply as “Moderation”: your name does not go out.",
+    "vazia": "No conversations here.",
+    "abertas": "Open",
+    "anteriores": "Closed",
+    "semNome": "no code name",
+    "recarregar": "Refresh"
+  },
+  "entrada": {
+    "situacaoTitulo": "Where your request is",
+    "passos": {
+      "na_fila": "In the queue",
+      "em_analise": "Under review",
+      "aprovada": "Approved",
+      "recusada": "Declined"
+    },
+    "explica": {
+      "na_fila": "Your request arrived and is waiting its turn. Nobody on the review team has opened the list with it yet.",
+      "em_analise": "The review team has seen your request and is deciding. This usually takes a few days.",
+      "aprovada": "Approved. Only the second factor is missing to get in.",
+      "recusada": "The request was declined. The reason, when there is one, shows below."
+    },
+    "quem": "Reviews are done by Alumia's coordination or moderation. We do not show who reviewed it, and Alumia does not keep who saw your request or when: only whether it has been seen.",
+    "atual": "now"
+  },
+  "fator": {
+    "perdiTitulo": "Lost the phone with the app?",
+    "perdiTexto": "Use one of the ten recovery codes you saved when you set up the app. The old app is removed from the account, your other devices are signed out and you set up the new one right away.",
+    "perdiBotao": "Sign in with a recovery code",
+    "semCodigos": "No codes? Only the coordination can remove the app from your account, after checking it is you. Ask through the help page.",
+    "ajuda": "Open help",
+    "codigosTitulo": "Save your recovery codes",
+    "codigosTexto": "If you lose the phone with the app, these codes are the only way in without asking the coordination. They show only once.",
+    "gerar": "Show my codes",
+    "gerando": "Generating…",
+    "baixar": "Download as text",
+    "copiar": "Copy",
+    "copiados": "Codes copied.",
+    "guardei": "I saved them, enter Alumia",
+    "depois": "Do this later",
+    "depoisAviso": "Without the codes, losing the phone with the app locks you out of the account. You can generate them later in Account security.",
+    "falhou": "Could not generate the codes right now. You can do it later in Account security.",
+    "exemplo": "Example codes with no value (preview)."
+  },
+  "chat": {
+    "titulo": "The chat lives only on this device",
+    "itens": [
+      "Encrypted conversations are stored only on this device. The server has no copy it can read.",
+      "If you lose the device, switch devices, clear the browser data or use “Quick exit”, the chat history is gone for good.",
+      "There is no chat backup yet. If a conversation matters, agree with the other person on where to keep what must stay."
+    ]
+  },
+  "kit": {
+    "rotulo": "No internet",
+    "titulo": "Pocket kit for the protest",
+    "texto": "The organizations' legal support contacts, the “No signal?” guide and the basics for protest day, saved on this device to open without internet.",
+    "privacidade": "The kit is put together here, from the same list the protest mode already reads. Alumia does not record who saved the kit, and it does not go to the server. “Quick exit” erases the kit from this device.",
+    "escolher": "Legal support included in the kit",
+    "nenhumaOrg": "No verified organization has published legal support yet. The kit carries the guide and the basics.",
+    "minhasNotas": "Your notes (only on this device)",
+    "minhasNotasAjuda": "A phone number of someone to pick you up, a meeting point. Up to 400 characters. Do not write anything that cannot be read if the phone is taken.",
+    "guardar": "Save on this device",
+    "atualizar": "Save again",
+    "apagar": "Delete the kit",
+    "guardado": "Kit saved on this device on {quando}.",
+    "naoGuardado": "No kit saved on this device yet.",
+    "semEspaco": "The device did not allow saving (private mode or out of space).",
+    "apagado": "Kit deleted from this device.",
+    "abrirGuia": "Open the “No signal?” guide",
+    "noGuia": "Your pocket kit",
+    "noGuiaVazio": "Save the kit from the protest mode for it to show up here, even without internet.",
+    "assessorias": "Legal support",
+    "basico": "The basics",
+    "basicoItens": [
+      "Agree beforehand on a meeting point and a time to check in.",
+      "Write down on paper, in pen, the phone of whoever picks you up and of the legal support.",
+      "Bring ID, water and the charger. Leave at home what cannot be lost.",
+      "If you are stopped: stay calm, say you want to speak to a lawyer and do not sign anything without reading it."
+    ]
+  },
+  "busca": {
+    "titulo": "Search the encrypted posts",
+    "rotulo": "On this device",
+    "explica": "The posts in this group are encrypted: the server cannot search them. The search happens here, opening the posts on this device.",
+    "limites": "To go easy on your phone and your data plan, the search downloads at most the {posts} most recent posts from the last {dias} days and keeps up to {mb} MB of opened text, only in this tab's memory. Closing the tab erases it. Nothing you search for goes to the server.",
+    "campo": "Search for",
+    "buscar": "Download and search",
+    "buscando": "Opening {n} posts on this device…",
+    "resultado": "{achados} of {abertos} opened posts contain “{termo}”.",
+    "nada": "None of the {abertos} opened posts contain “{termo}”.",
+    "paradoPosts": "Stopped at the limit of {posts} posts. Older posts were left out.",
+    "paradoDias": "Stopped at posts from {dias} days ago. Older posts were left out.",
+    "paradoMemoria": "Stopped at the limit of {mb} MB of text. Older posts were left out.",
+    "fechados": "{n} posts did not open on this device (key from before you joined the group).",
+    "limpar": "Erase from memory",
+    "abrir": "Open the post",
+    "curto": "Type at least 2 letters.",
+    "falha": "Could not download the posts right now. Try again."
+  }
+}

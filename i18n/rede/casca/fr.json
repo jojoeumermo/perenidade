@@ -1,0 +1,76 @@
+{
+  "_rascunho": true,
+  "titulo": "Conversations",
+  "carregando": "Ouverture…",
+  "trava": {
+    "titulo": "Appli verrouillée",
+    "texto": "Tapez le mot de passe de l'appli pour voir les conversations.",
+    "rotulo": "Mot de passe de l'appli",
+    "abrir": "Ouvrir",
+    "errada": "Mot de passe incorrect.",
+    "restam": "Mot de passe incorrect. Il reste {n} essais avant que tout soit effacé de cet appareil.",
+    "conferindo": "Vérification…"
+  },
+  "criar": {
+    "titulo": "Créez le mot de passe de l'appli",
+    "texto": "Il verrouille les conversations quand l'appli reste inactive ou passe en arrière-plan. Ce n'est pas le mot de passe du compte et il ne quitte pas cet appareil. Au moins 6 caractères.",
+    "rotulo": "Mot de passe de l'appli",
+    "repetir": "Répétez le mot de passe",
+    "diferentes": "Les deux mots de passe ne sont pas identiques.",
+    "curta": "Au moins 6 caractères.",
+    "salvar": "Enregistrer et continuer"
+  },
+  "entrar": {
+    "titulo": "Se connecter",
+    "texto": "Connectez-vous avec votre compte Alumia. Le chat tourne dans cette appli : aucun code de clé ne vient du site.",
+    "email": "E-mail",
+    "senha": "Mot de passe du compte",
+    "botao": "Se connecter",
+    "entrando": "Connexion…",
+    "credenciais": "E-mail ou mot de passe incorrect.",
+    "nao_confirmado": "Confirmez l'e-mail avant de vous connecter.",
+    "bloqueado": "Trop d'essais. Attendez {n} minutes.",
+    "falha": "Connexion impossible pour l'instant. Vérifiez la connexion et réessayez.",
+    "codigo": "Code de l'appli d'authentification",
+    "codigoErrado": "Code incorrect.",
+    "confirmar": "Confirmer",
+    "semFator": "Ce compte n'a pas encore d'appli d'authentification. Configurez-la sur le site puis revenez."
+  },
+  "menu": {
+    "ajustes": "Réglages de l'appli",
+    "rede": "Ouvrir le réseau social",
+    "travar": "Verrouiller maintenant",
+    "voltar": "Retour aux conversations"
+  },
+  "ajustes": {
+    "titulo": "Réglages de l'appli",
+    "disfarce": "Nom et icône sur l'écran d'accueil",
+    "disfarceTexto": "Choisissez un nom banal. L'appli reste la même ; le changement peut prendre quelques secondes.",
+    "disfarces": {
+      "padrao": "Instituto Lúcia",
+      "calculadora": "Calculatrice",
+      "notas": "Notes"
+    },
+    "trava": "Verrouiller seule après",
+    "minutos": "{n} min",
+    "apagar": "Tout effacer après des mots de passe incorrects",
+    "apagarDesligado": "Désactivé",
+    "apagarDepois": "Après {n} mots de passe incorrects",
+    "apagarAviso": "Attention : activé, quiconque se trompe de mot de passe ce nombre de fois efface TOUT sur cet appareil (conversations, clés et compte dans cette appli), sans retour. Un enfant ou quelqu'un qui manipule votre téléphone peut l'effacer sans le vouloir. Gardez d'abord la sauvegarde du chat.",
+    "apagarConfirmar": "J'ai compris l'avertissement et je veux l'activer",
+    "cofre": "Où sont gardées les clés",
+    "cofres": {
+      "strongbox": "Dans la puce de sécurité de l'appareil (StrongBox).",
+      "tee": "Dans la zone protégée du processeur (TEE).",
+      "software": "Logiciel seulement : cet appareil n'a pas de coffre matériel."
+    },
+    "senhaNova": "Changer le mot de passe de l'appli",
+    "salvo": "Enregistré."
+  },
+  "link": {
+    "pergunta": "Ouvrir cette adresse hors de l'appli ?",
+    "aviso": "Aucun lien ne s'ouvre seul : vérifiez l'adresse avant."
+  },
+  "apagado": "Tout a été effacé de cet appareil.",
+  "sem_webview": "Pour ouvrir les conversations, cet appareil a besoin d’Android System WebView à jour (version 137 ou plus récente). Mettez-le à jour depuis la boutique d’applis de l’appareil et rouvrez l’appli."
+}

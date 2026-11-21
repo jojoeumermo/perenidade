@@ -2,7 +2,7 @@
 //
 // O endereço próprio da Escola (lib/escola/endereco.ts): o que abre no host dela, o que volta ao site e o que o site
 // manda para lá. Roda no Node: `npm run testar:escola-endereco`.
-import { caminhoDoSiteParaEscola, hostDaEscola, rotaNaEscola, siteVistoDaEscola } from "../lib/escola/endereco.ts";
+import { caminhoDoSiteParaEscola, hostDaEscola, inicioDoSite, rotaNaEscola, siteVistoDaEscola } from "../lib/escola/endereco.ts";
 
 let certos = 0;
 const falhas = [];
@@ -31,6 +31,12 @@ igual("o manifesto vai para a Escola", caminhoDoSiteParaEscola("/pt/escola/manif
 igual("outra página fica no site", caminhoDoSiteParaEscola("/pt/escolas", "", BASE), null);
 
 igual("o site visto da Escola", siteVistoDaEscola("https:", "escola.institutolucia.org", new URL("https://x.org")).href, "https://institutolucia.org/");
+
+// P5, B1: "Voltar ao site" não pode cair no host da Escola, que manda /pt de volta para /pt/escola.
+igual("voltar ao site, sem o endereço próprio, fica relativo", inicioDoSite("en", "https://institutolucia.org", ""), "/en");
+igual("voltar ao site, com o endereço próprio, leva ao site", inicioDoSite("pt", "https://institutolucia.org/", BASE), "https://institutolucia.org/pt");
+igual("voltar ao site, idioma estranho cai no pt", inicioDoSite("xx", "https://institutolucia.org", BASE), "https://institutolucia.org/pt");
+igual("o idioma sozinho no host da Escola continua indo para a Escola", rotaNaEscola(new URL(inicioDoSite("pt", "https://institutolucia.org", BASE)).pathname).tipo, "redirecionar");
 
 console.log(`escola-endereco: ${certos} certos, ${falhas.length} falhas`);
 for (const f of falhas) console.log(`  ✗ ${f}`);

@@ -4,14 +4,34 @@
 import { createHmac } from "node:crypto";
 import fs from "node:fs";
 import {
-  abrirCopia, abrirPedido, abrirTexto, aparelhoCertificado, assinarTexto, certificarAparelho, cifrar, contextoDaConversa, contextoDaIdentidade, contextoDoEmbrulho, contextoDoMural,
-  decifrar, deBase64, desembrulhar, desembrulharBytes, embrulhar, embrulharBytes, exportarIdentidade, importarIdentidade, novaChave, novaChaveDeRecuperacao, novaIdentidade,
-  novoAparelho, novoCodigo, paraBase64, selarCopia, selarPedido,
+  abrirCopia, abrirPedido, abrirTexto, assinar, assinarTexto, certificarAparelho, contextoDaConversa, contextoDaIdentidade, contextoDoMural,
+  deBase64, desembrulharBytes, embrulharBytes, exportarIdentidade, importarIdentidade, novaChaveDeRecuperacao, novaIdentidade,
+  novoAparelho, novoCodigo, paraBase64, selarCopia, selarPedido, verificar,
 } from "../lib/sigilo.ts";
+import { criarMlsDaEquipe } from "../lib/equipe/mls.ts";
 import { criarBanco } from "./banco-local.mjs";
+import { votoDeTeste } from "./voto-de-teste.mjs";
+import { motorNoNode } from "./cifra-no-node.mjs";
 
 const banco = await criarBanco();
+// As migrações da R2 que mudam o que este teste confere (o chat da equipe em MLS, os grupos da rede no OpenMLS) rodam por cima do
+// install.sql, e de novo a cada "instalar de novo", como ficam quando a junção as cola no fim dele (são idempotentes).
+const R2 = ["supabase/migracoes/20261124-r2-grupos.sql", "supabase/migracoes/20261124-r2-equipe.sql"].map((c) => fs.readFileSync(new URL(`../${c}`, import.meta.url), "utf8"));
+const aplicarR2 = async () => { for (const m of R2) await banco.exclusivo(() => banco.pg.exec(m)); };
+// O install.sql apaga, ao rodar de novo, o mural da equipe que não esteja no formato cifrado de antes ("c1."/"c2."); com o MLS, o
+// formato é "m1.". A junção troca essa linha no install.sql (registrado na entrega da frente); até lá, o teste roda o install.sql
+// com a linha trocada, como ele fica depois da junção.
+const LINHA_DO_MURAL = "delete from interno.equipe_mensagens where corpo !~ '^c[12][.]';";
+const installJunto = fs.readFileSync(new URL("../supabase/install.sql", import.meta.url), "utf8").replace(LINHA_DO_MURAL, "delete from interno.equipe_mensagens where corpo !~ '^(c[12]|m1)[.]';");
+banco.instalarDeNovo = async () => { await banco.exclusivo(() => banco.pg.exec(installJunto)); await aplicarR2(); };
+await aplicarR2();
+const MOTOR = await motorNoNode();
 const { rpc, dono, criarUsuario } = banco;
+// Onda R3 (20261125-r3-resto-r2.sql): o chat cifrado da equipe sem autor, hora e leitura no banco mudou a API (chat_conversas com os
+// "lidos" que o aparelho manda, chat_enviar com a ficha de dono, sem presenca/chat_recebidas/chat_digitando). Com ela, as conversas
+// e as mensagens da equipe são provadas em scripts/testar-r3-resto-equipe.mjs; aqui ficam os grupos, os aparelhos e as permissões.
+const chatR3 = (await dono("select to_regprocedure('public.chat_conversas()') is null as r3")).rows[0].r3;
+const semLidos = chatR3 ? { p_lidos: {} } : {};
 let certos = 0;
 const falhas = [];
 
@@ -946,6 +966,7 @@ async function aparelhoDe(quem, rotuloDoAparelho = `teste de ${quem}`) {
     await rpc(como(ids[quem]), "chat_identidade_definir", { p_aparelho: r.id, p_assina: identidade.publica, p_certificado: await certificarAparelho(identidade, ids[quem], par.publica) });
     aparelho.identidade = identidade;
     aparelho.estado = "aprovado";
+    await publicarFolha(aparelho);
   }
   return aparelho;
 }
@@ -971,6 +992,7 @@ async function conferirAprovacao(aparelho) {
   if (!secreta) return false;
   aparelho.identidade = await importarIdentidade(secreta, r.identidade.assina);
   aparelho.estado = "aprovado";
+  await publicarFolha(aparelho);
   return true;
 }
 /** A identidade que a equipe de teste aceita para alguém: a que viu primeiro (e avisa se mudar). */
@@ -980,62 +1002,71 @@ function aceitar(usuario, assina) {
   else if (conhecidas[usuario].assina !== assina) conhecidas[usuario] = { assina, mudou: true, anterior: conhecidas[usuario].assina };
   return conhecidas[usuario].assina;
 }
-/** Dos aparelhos que o banco lista, os que têm certificado válido pela identidade conhecida da pessoa. */
-async function confiaveis(lista) {
-  const saida = [];
-  for (const a of lista) {
-    const identidade = conhecidas[a.usuario]?.assina;
-    if (identidade && (await aparelhoCertificado(identidade, a.usuario, a.publica, a.certificado))) saida.push(a);
-  }
-  return saida;
+/** O MLS do aparelho de teste (lib/equipe/mls.ts com o motor de verdade), aberto quando ele tem a identidade. */
+function mlsDe(aparelho) {
+  if (aparelho.mls) return aparelho.mls;
+  if (!aparelho.identidade) throw new Error("aparelho_pendente");
+  const cc = MOTOR.CoreCrypto.new(MOTOR.Database.inMemory());
+  const memoria = new Map();
+  aparelho.mls = criarMlsDaEquipe({
+    chamar: (f, a) => rpc(como(ids[aparelho.quem]), f, a), aparelho: aparelho.id, usuario: ids[aparelho.quem],
+    assinar: (t) => assinar(aparelho.identidade.privada, t), verificar, identidadeDe: (u) => conhecidas[u]?.assina ?? null,
+    guarda: { ler: async (k) => memoria.get(k) ?? null, guardar: async (k, v) => void memoria.set(k, v), apagar: async (k) => void memoria.delete(k) },
+    abrirMotor: async () => ({ M: MOTOR, cc }),
+  });
+  return aparelho.mls;
 }
+/**
+ * O aparelho aprovado publica a folha dele no MLS (o que lib/chaveiro.ts faz ao abrir o painel): só assim os colegas o põem nos grupos.
+ * O que ainda está na espera de 24 horas não publica (o banco responde "aparelho_desconhecido"): publica quando passar a valer.
+ */
+const publicarFolha = (aparelho) => mlsDe(aparelho).preparar().catch((e) => {
+  if (!String(e?.message).includes("aparelho_desconhecido")) throw e;
+});
+/** Lê o estado da conversa e aceita as identidades (a primeira vista de cada pessoa). */
 async function abrirChaves(aparelho, conversa) {
-  const r = await rpc(como(ids[aparelho.quem]), "chat_chaves", { p_conversa: conversa, p_aparelho: aparelho.id });
-  for (const pessoa of r.identidades) aceitar(pessoa.usuario, pessoa.assina);
-  for (const item of r.minhas) {
-    const chave = await desembrulhar(item.embrulho, aparelho.privada, item.de_publica, contextoDoEmbrulho(conversa, item.versao, aparelho.id));
-    if (chave) aparelho.chaves.set(`${conversa}:${item.versao}`, chave);
-  }
-  return r;
+  const e = await mlsDe(aparelho).estado(conversa, true);
+  for (const pessoa of e.identidades) aceitar(pessoa.usuario, pessoa.assina);
+  (aparelho.conversas ??= new Set()).add(conversa);
+  return e;
 }
-/** Cifra (assinando) com a versão atual; sem ela (ou depois que alguém saiu), cria a seguinte, embrulhada só para aparelhos certificados. */
+/**
+ * Cifra (assinando) na época atual do grupo da conversa, que o MLS acerta antes (quem entrou, quem saiu, a época velha). Se este
+ * aparelho ainda não está no grupo ("sem_chave"), os aparelhos dos colegas que estão com o painel aberto acertam (repassar, como o
+ * painel faz a cada 30 segundos) e ele tenta de novo.
+ */
 async function selar(aparelho, conversa, texto, contexto) {
-  const r = await abrirChaves(aparelho, conversa);
-  const atual = r.atual !== null && r.atual >= r.minima ? aparelho.chaves.get(`${conversa}:${r.atual}`) : undefined;
-  if (atual) return cifrar(atual, r.atual, await assinarTexto(aparelho.identidade, texto, contexto, r.atual), contexto);
-  const versao = Math.max((r.atual ?? 0) + 1, r.minima);
-  const chave = await novaChave();
-  const embrulhos = await Promise.all((await confiaveis(r.aparelhos)).map(async (a) => ({ para: a.id, embrulho: await embrulhar(chave, aparelho.privada, a.publica, contextoDoEmbrulho(conversa, versao, a.id)) })));
-  await rpc(como(ids[aparelho.quem]), "chat_chave_nova", { p_conversa: conversa, p_aparelho: aparelho.id, p_versao: versao, p_embrulhos: embrulhos });
-  aparelho.chaves.set(`${conversa}:${versao}`, chave);
-  return cifrar(chave, versao, await assinarTexto(aparelho.identidade, texto, contexto, versao), contexto);
+  await abrirChaves(aparelho, conversa);
+  const cifrarAgora = () => mlsDe(aparelho).cifrar(conversa, contexto, (epoca) => assinarTexto(aparelho.identidade, texto, contexto, epoca));
+  try {
+    return await cifrarAgora();
+  } catch (erro) {
+    if (!String(erro?.message).includes("sem_chave")) throw erro;
+    await publicarFolha(aparelho);
+    for (const outro of Object.values(aparelhos)) if (outro !== aparelho && outro.identidade && outro.estado === "aprovado") await repassar(outro).catch(() => 0);
+    return cifrarAgora();
+  }
 }
 /** Abre e confere a assinatura do autor; devolve só o texto (ou null). "lerCom" devolve também a autoria. */
 async function lerCom(aparelho, conversa, corpo, contexto, autor) {
-  const versao = Number(corpo.split(".")[1]);
-  const chave = `${conversa}:${versao}`;
-  if (!aparelho.chaves.has(chave)) await abrirChaves(aparelho, conversa);
-  if (!aparelho.chaves.has(chave)) return null;
-  const aberto = await decifrar(aparelho.chaves.get(chave), corpo, contexto);
-  return aberto === null ? null : abrirTexto(aberto, autor ? (conhecidas[autor]?.assina ?? null) : null, contexto, versao);
+  if (!aparelho.identidade) return null;
+  await abrirChaves(aparelho, conversa).catch(() => undefined);
+  const r = await mlsDe(aparelho).abrir(conversa, corpo, contexto).catch(() => null);
+  return r === null ? null : abrirTexto(r.texto, autor ? (conhecidas[autor]?.assina ?? null) : null, contexto, r.epoca);
 }
 const ler = async (aparelho, conversa, corpo, contexto) => (await lerCom(aparelho, conversa, corpo, contexto, null))?.texto ?? null;
-/** O que um aparelho faz com o painel aberto: repassa as chaves que tem para aparelhos certificados de colegas que ainda não as têm. */
+/** O que um aparelho faz com o painel aberto: publica a folha e acerta o grupo das conversas que abriu (põe os aparelhos novos). */
 async function repassar(aparelho) {
-  const faltam = await rpc(como(ids[aparelho.quem]), "chat_chaves_pendentes", { p_aparelho: aparelho.id });
-  const embrulhos = [];
-  for (const item of faltam) {
-    if (!aparelho.chaves.has(`${item.conversa}:${item.versao}`)) await abrirChaves(aparelho, item.conversa);
-    const chave = aparelho.chaves.get(`${item.conversa}:${item.versao}`);
-    const identidade = conhecidas[item.usuario]?.assina;
-    if (!chave || !identidade || !(await aparelhoCertificado(identidade, item.usuario, item.publica, item.certificado))) continue;
-    embrulhos.push({ conversa: item.conversa, versao: item.versao, para: item.para, embrulho: await embrulhar(chave, aparelho.privada, item.publica, contextoDoEmbrulho(item.conversa, item.versao, item.para)) });
-  }
-  return embrulhos.length ? (await rpc(como(ids[aparelho.quem]), "chat_chaves_dar", { p_aparelho: aparelho.id, p_embrulhos: embrulhos })).dadas : 0;
+  if (!aparelho.identidade) return 0;
+  await publicarFolha(aparelho);
+  let n = 0;
+  const conversas = new Set([...(await mlsDe(aparelho).pendentes().catch(() => [])), ...(aparelho.conversas ?? [])]);
+  for (const conversa of conversas) if (await mlsDe(aparelho).sincronizar(conversa).catch(() => null)) n++;
+  return n;
 }
 /** Só as mensagens de texto (os avisos do sistema, reações e edições ficam de fora). */
 const textos = (r) => r.mensagens.filter((m) => m.tipo === "texto");
-const departamento = async (quem, slug) => (await rpc(como(ids[quem]), "chat_conversas")).find((c) => c.tipo === "departamento" && c.departamento === slug);
+const departamento = async (quem, slug) => (await rpc(como(ids[quem]), "chat_conversas", semLidos)).find((c) => c.tipo === "departamento" && c.departamento === slug);
 const minimaDe = async (conversa) => (await dono("select versao_minima from interno.conversas where id = $1", [conversa])).rows[0].versao_minima;
 const pedidoDe = async (quem, par, codigo) => ({ p_publica: par.publica, p_rotulo: "", p_pedido: await selarPedido(codigo, ids[quem], par.publica) });
 
@@ -1047,17 +1078,17 @@ for (const quem of ["coord", "vice", "prof", "designer", "mentora", "revisor", "
 await espera("o primeiro aparelho de cada conta cria a identidade e já entra aprovado", () => rpc(como(ids.prof), "chat_aparelhos_meus"), (r) => r.length === 1 && r[0].estado === "aprovado" && r[0].pedido === null);
 await espera("registrar de novo o mesmo aparelho devolve o mesmo número e o estado", () => rpc(como(ids.prof), "chat_aparelho_registrar", { p_publica: aparelhos.prof.publica, p_rotulo: "" }), (r) => r.id === aparelhos.prof.id && r.estado === "aprovado" && r.identidade.assina === aparelhos.prof.identidade.publica);
 await recusa("ninguém registra como sua a chave pública de outra pessoa", () => rpc(como(ids.designer), "chat_aparelho_registrar", { p_publica: aparelhos.prof.publica, p_rotulo: "" }), "invalido:publica");
-await recusa("ninguém pede chaves com o aparelho de outra pessoa", async () => rpc(como(ids.designer), "chat_chaves", { p_conversa: (await departamento("designer", "geral")).id, p_aparelho: aparelhos.prof.id }), "aparelho_desconhecido");
+await recusa("ninguém lê o grupo MLS de uma conversa com o aparelho de outra pessoa", async () => rpc(como(ids.designer), "equipe_mls_estado", { p_aparelho: aparelhos.prof.id, p_conversa: (await departamento("designer", "geral")).id, p_desde: 0 }), "aparelho_desconhecido");
 await recusa("conta com identidade não recebe outra pela porta do primeiro aparelho", async () => { const par = await novoAparelho(); const id2 = await novaIdentidade(); return rpc(como(ids.prof), "chat_aparelho_registrar", { p_publica: par.publica, p_rotulo: "", p_assina: id2.publica, p_certificado: await certificarAparelho(id2, ids.prof, par.publica) }); }, "identidade_existe");
 await recusa("nem por chat_identidade_definir", async () => rpc(como(ids.prof), "chat_identidade_definir", { p_aparelho: aparelhos.prof.id, p_assina: (await novaIdentidade()).publica, p_certificado: "A".repeat(86) }), "identidade_existe");
 
 // ── Grupos de departamento ──
-await espera("quem tem função já está no grupo do departamento e no da equipe toda", () => rpc(como(ids.designer), "chat_conversas"), (r) => {
+await espera("quem tem função já está no grupo do departamento e no da equipe toda", () => rpc(como(ids.designer), "chat_conversas", semLidos), (r) => {
   const deps = r.filter((c) => c.tipo === "departamento").map((c) => c.departamento).sort();
   // B10: quem era do design agora é da Comunicação (marketing): o grupo "design" ficou como "Arte e design (Comunicação)".
   return JSON.stringify(deps) === JSON.stringify(["design", "geral", "jornalismo", "marketing"]);
 });
-await espera("a coordenação e a vice-coordenação estão em todos os dezoito grupos (com o da supervisão e os cinco de 20261106-pessoas-painel.sql)", async () => [(await rpc(como(ids.coord), "chat_conversas")).filter((c) => c.tipo === "departamento").length, (await rpc(como(ids.vice), "chat_conversas")).filter((c) => c.tipo === "departamento").length], (r) => r[0] === 18 && r[1] === 18);
+await espera("a coordenação e a vice-coordenação estão em todos os dezoito grupos (com o da supervisão e os cinco de 20261106-pessoas-painel.sql)", async () => [(await rpc(como(ids.coord), "chat_conversas", semLidos)).filter((c) => c.tipo === "departamento").length, (await rpc(como(ids.vice), "chat_conversas", semLidos)).filter((c) => c.tipo === "departamento").length], (r) => r[0] === 18 && r[1] === 18);
 await espera("o grupo do jornalismo é o Departamento de Comunicação (jornal, rádio e podcast)", () => departamento("jornal", "jornalismo"), (r) => r?.nome === "Departamento de Comunicação");
 await recusa("ninguém sai do grupo do próprio departamento", async () => rpc(como(ids.designer), "chat_sair", { p_id: (await departamento("designer", "design")).id }), "departamento_fixo");
 await recusa("nem a coordenação põe ou tira gente do grupo de departamento", async () => rpc(como(ids.coord), "chat_grupo_mudar", { p_id: (await departamento("coord", "design")).id, p_tirar: [ids.designer] }), "departamento_fixo");
@@ -1065,7 +1096,9 @@ await recusa("ninguém apaga um grupo de departamento", async () => rpc(como(ids
 await espera("função nova põe a pessoa no grupo do departamento na hora", async () => { await rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.revisor, p_papel: "design", p_disciplina: null }); return departamento("revisor", "design"); }, (r) => Boolean(r));
 await espera("função retirada tira a pessoa do grupo e obriga a trocar a chave", async () => {
   const design = (await departamento("coord", "design")).id;
-  await selar(aparelhos.designer, design, "Capa nova pronta.", contextoDaConversa(design, ids.designer)).then((corpo) => rpc(como(ids.designer), "chat_enviar", { p_id: design, p_corpo: corpo }));
+  // R3: sem a API de antes para mandar; uma versão de chave já usada na conversa basta para a troca valer.
+  if (chatR3) await dono("insert into interno.chat_versoes (conversa, versao) values ($1, greatest((select versao_minima from interno.conversas where id = $1), 1)) on conflict do nothing", [design]);
+  if (!chatR3) await selar(aparelhos.designer, design, "Capa nova pronta.", contextoDaConversa(design, ids.designer)).then((corpo) => rpc(como(ids.designer), "chat_enviar", { p_id: design, p_corpo: corpo }));
   const antes = await minimaDe(design);
   const papel = (await rpc(como(ids.revisor), "eu")).papeis.find((p) => p.papel === "marketing");
   await rpc(como(ids.coord), "papel_remover", { p_id: papel.id });
@@ -1090,13 +1123,14 @@ await recusa("designer não lê o canal dos educadores", () => rpc(como(ids.desi
 await recusa("designer não escreve no canal da coordenação", () => rpc(como(ids.designer), "equipe_escrever", { p_canal: "coordenacao", p_corpo: "Olá" }), "sem_permissao");
 await recusa("o banco recusa mensagem em texto aberto", () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: "Bom dia, pessoal." }), "invalido:corpo");
 await recusa("o banco recusa o formato antigo, da frase", () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: "c1.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB" }), "invalido:corpo");
-await recusa("versão de chave inventada é recusada", () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: "c2.7.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB" }), "chave_desatualizada");
+await recusa("versão de chave inventada é recusada", () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: `m1.7.${"A".repeat(395)}` }), "chave_desatualizada");
+await recusa("o formato de antes (c2, a cifra feita à mão) não entra mais", () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: "c2.7.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB" }), "invalido:corpo");
 const geral = (await rpc(como(ids.prof), "equipe_canais")).conversas.geral;
 await recusa("pedido de ajuda precisa dizer para quem", async () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "pedidos", p_corpo: await selar(aparelhos.prof, geral, "Preciso de uma capa.", contextoDoMural("pedidos", ids.prof)) }), "invalido:para");
 let recado;
 await espera("educador pede ajuda ao design", async () => (recado = await rpc(como(ids.prof), "equipe_escrever", { p_canal: "pedidos", p_corpo: await selar(aparelhos.prof, geral, "Preciso de uma capa para a aula de frações.", contextoDoMural("pedidos", ids.prof)), p_resposta_a: null, p_para: "design" })), (r) => Boolean(r.id));
 await espera("designer abre o pedido no próprio aparelho", async () => { const [r] = await rpc(como(ids.designer), "equipe_listar", { p_canal: "pedidos" }); return ler(aparelhos.designer, geral, r.corpo, contextoDoMural("pedidos", r.autor_id)); }, (r) => r === "Preciso de uma capa para a aula de frações.");
-await espera("o banco guarda só o texto cifrado", () => dono("select corpo from interno.equipe_mensagens where id = $1", [recado.id]), (r) => r.rows[0].corpo.startsWith("c2.") && !r.rows[0].corpo.includes("capa"));
+await espera("o banco guarda só o texto cifrado", () => dono("select corpo from interno.equipe_mensagens where id = $1", [recado.id]), (r) => r.rows[0].corpo.startsWith("m1.") && !r.rows[0].corpo.includes("capa"));
 await espera("designer responde e o pedido aparece com a resposta", async () => { await rpc(como(ids.designer), "equipe_escrever", { p_canal: "pedidos", p_corpo: await selar(aparelhos.designer, geral, "Faço hoje.", contextoDoMural("pedidos", ids.designer)), p_resposta_a: recado.id }); return rpc(como(ids.designer), "equipe_listar", { p_canal: "pedidos" }); },
   (r) => r.length === 1 && r[0].para === "marketing" && r[0].respostas.length === 1 && r[0].autor === "Paulo Professor" && r[0].respostas[0].autor_id === ids.designer);
 await recusa("outra pessoa não apaga recado alheio", () => rpc(como(ids.designer), "equipe_apagar", { p_id: recado.id }), "nao_encontrado");
@@ -1145,8 +1179,13 @@ async function comColaboracao(a, b, fazer) {
   try { return await fazer(); } finally { await dono("delete from interno.contribuicoes where id = $1", [c]); }
 }
 const direta = (a, b) => comColaboracao(a, b, () => rpc(como(ids[a]), "chat_direta", { p_usuario: ids[b] }));
+if (chatR3) {
+  // A conversa privada continua abrindo pelo banco (a lista da coordenação mais abaixo precisa de uma); o resto: testar-r3-resto-equipe.
+  await espera("R3: educador abre conversa privada com o designer, e abrir de novo cai na mesma", async () => { const a = (await direta("prof", "designer")).id; return [a, (await direta("designer", "prof")).id]; }, ([a, b]) => Boolean(a) && a === b);
+  await recusa("R3: a API do chat da equipe de antes saiu do banco (chat_enviar sem a ficha de dono)", () => rpc(como(ids.prof), "chat_enviar", { p_id: "00000000-0000-4000-8000-000000000000", p_corpo: "x" }), "function");
+} else {
 // ── Conversas privadas e em grupo ──
-await recusa("quem não é da equipe não tem conversas", () => rpc(como(ids.leitora), "chat_conversas"), "sem_permissao");
+await recusa("quem não é da equipe não tem conversas", () => rpc(como(ids.leitora), "chat_conversas", semLidos), "sem_permissao");
 await recusa("não se abre conversa com quem não é da equipe", () => rpc(como(ids.prof), "chat_direta", { p_usuario: ids.leitora }), "invalido:usuario");
 await recusa("nem consigo mesmo", () => direta("prof", "prof"), "invalido:usuario");
 await recusa("privado fechado entre colegas sem trabalho em conjunto", () => rpc(como(ids.prof), "chat_direta", { p_usuario: ids.designer }), "privado_fechado");
@@ -1156,7 +1195,7 @@ let privada;
 await espera("educador abre conversa privada com o designer, e abrir de novo cai na mesma", async () => { privada = (await direta("prof", "designer")).id; return (await direta("designer", "prof")).id; }, (r) => r === privada);
 await recusa("o banco recusa mensagem privada em texto aberto", () => rpc(como(ids.prof), "chat_enviar", { p_id: privada, p_corpo: "Oi, Davi." }), "invalido:corpo");
 await espera("mensagem privada cifrada entra", async () => rpc(como(ids.prof), "chat_enviar", { p_id: privada, p_corpo: await selar(aparelhos.prof, privada, "Oi, Davi. Tudo certo para amanhã?", contextoDaConversa(privada, ids.prof)) }), (r) => Boolean(r.id));
-await espera("o outro vê a conversa com uma mensagem não lida e o nome de quem escreveu", () => rpc(como(ids.designer), "chat_conversas"), (r) => {
+await espera("o outro vê a conversa com uma mensagem não lida e o nome de quem escreveu", () => rpc(como(ids.designer), "chat_conversas", semLidos), (r) => {
   const diretas = r.filter((c) => c.tipo === "direta");
   return diretas.length === 1 && diretas[0].nao_lidas === 1 && diretas[0].nome === "Paulo" && typeof diretas[0].online === "boolean" && diretas[0].ultima.autor_id === ids.prof;
 });
@@ -1164,7 +1203,7 @@ await espera("o painel avisa que há conversa nova", () => rpc(como(ids.designer
 let aberta;
 await espera("abrir marca como lida", async () => { aberta = await rpc(como(ids.designer), "chat_ver", { p_id: privada }); return [aberta.mensagens.length, aberta.membros.length, (await rpc(como(ids.designer), "presenca")).conversas]; }, (r) => r[0] === 1 && r[1] === 2 && r[2] === 0);
 await espera("o outro abre a mensagem no próprio aparelho", () => ler(aparelhos.designer, privada, aberta.mensagens[0].corpo, contextoDaConversa(privada, aberta.mensagens[0].autor)), (r) => r === "Oi, Davi. Tudo certo para amanhã?");
-await espera("no banco, só o cifrado", () => dono("select corpo from interno.conversa_mensagens where conversa = $1", [privada]), (r) => r.rows.every((x) => x.corpo.startsWith("c2.") && !x.corpo.includes("Davi")));
+await espera("no banco, só o cifrado", () => dono("select corpo from interno.conversa_mensagens where conversa = $1", [privada]), (r) => r.rows.every((x) => x.corpo.startsWith("m1.") && !x.corpo.includes("Davi")));
 await espera("mensagem atribuída a outra pessoa no banco não abre", async () => {
   const id = aberta.mensagens[0].id;
   await dono("update interno.conversa_mensagens set autor = $1 where id = $2", [ids.coord, id]);
@@ -1183,12 +1222,12 @@ await espera("mensagem da coordenação não lida há mais de 15 minutos vira um
   const r = await dono("select e.assunto, e.texto from interno.emails e join auth.users u on lower(u.email) = e.para where u.id = $1 and e.tipo = 'chat_mensagem'", [ids.designer]);
   await dono("update interno.conversa_mensagens set autor = $1 where id = $2", [ids.prof, id]);
   return r.rows;
-}, (r) => r.length === 1 && r[0].assunto.includes("1 mensagem nova") && r[0].texto.includes("Conversa com") && !r[0].texto.includes("Tudo certo para amanhã") && !r[0].texto.includes("c2."));
+}, (r) => r.length === 1 && r[0].assunto.includes("1 mensagem nova") && r[0].texto.includes("Conversa com") && !r[0].texto.includes("Tudo certo para amanhã") && !r[0].texto.includes("m1."));
 await recusa("a coordenação não lê conversa privada dos outros", () => rpc(como(ids.coord), "chat_ver", { p_id: privada }), "nao_encontrado");
-await recusa("nem pega as chaves dela", () => rpc(como(ids.coord), "chat_chaves", { p_conversa: privada, p_aparelho: aparelhos.coord.id }), "nao_encontrado");
-await espera("nenhuma chave da conversa privada foi embrulhada para aparelho de fora", () => dono("select count(*)::int as n from interno.chat_chaves k join interno.chat_aparelhos a on a.id = k.para where k.conversa = $1 and a.usuario not in ($2, $3)", [privada, ids.prof, ids.designer]), (r) => r.rows[0].n === 0);
+await recusa("nem lê o grupo MLS dela", () => rpc(como(ids.coord), "equipe_mls_estado", { p_aparelho: aparelhos.coord.id, p_conversa: privada, p_desde: 0 }), "nao_encontrado");
+await espera("nenhuma boas-vindas do grupo da conversa privada foi para aparelho de fora", () => dono("select count(*)::int as n from interno.equipe_mls_boasvindas k join interno.chat_aparelhos a on a.id = k.para where k.conversa = $1 and a.usuario not in ($2, $3)", [privada, ids.prof, ids.designer]), (r) => r.rows[0].n === 0);
 await recusa("quem está de fora não escreve nela", async () => rpc(como(ids.revisor), "chat_enviar", { p_id: privada, p_corpo: "c2.1.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB" }), "nao_encontrado");
-await espera("a conversa dos outros não aparece na lista de ninguém", () => rpc(como(ids.coord), "chat_conversas"), (r) => r.every((c) => c.id !== privada));
+await espera("a conversa dos outros não aparece na lista de ninguém", () => rpc(como(ids.coord), "chat_conversas", semLidos), (r) => r.every((c) => c.id !== privada));
 await recusa("grupo precisa de gente da equipe", () => rpc(como(ids.prof), "chat_grupo_criar", { p_nome: "Educadores", p_membros: [ids.leitora] }), "invalido:membros");
 let grupo;
 await espera("educador cria um grupo e os convidados são avisados", async () => { grupo = (await rpc(como(ids.prof), "chat_grupo_criar", { p_nome: "Educadores de exatas", p_membros: [ids.mentora, ids.designer] })).id; return rpc(como(ids.mentora), "avisos_meus"); }, (r) => r.some((x) => x.texto.includes("Educadores de exatas")));
@@ -1200,23 +1239,22 @@ await espera("todos do grupo leem o que um escreve", async () => {
 await recusa("quem não criou o grupo não põe gente", () => rpc(como(ids.designer), "chat_grupo_mudar", { p_id: grupo, p_incluir: [ids.revisor] }), "sem_permissao");
 await espera("quem criou põe e tira gente e troca o nome", async () => { await rpc(como(ids.prof), "chat_grupo_mudar", { p_id: grupo, p_nome: "Exatas", p_incluir: [ids.revisor], p_tirar: [ids.designer] }); return rpc(como(ids.prof), "chat_ver", { p_id: grupo }); }, (r) => r.nome === "Exatas" && r.membros.length === 3 && r.membros.some((m) => m.nome === "Rui"));
 await recusa("quem foi tirado não lê mais", () => rpc(como(ids.designer), "chat_ver", { p_id: grupo }), "nao_encontrado");
-await espera("os embrulhos de quem saiu somem", () => dono("select count(*)::int as n from interno.chat_chaves where conversa = $1 and para = $2", [grupo, aparelhos.designer.id]), (r) => r.rows[0].n === 0);
-await recusa("depois que alguém sai, a chave antiga não serve mais para enviar", async () => rpc(como(ids.mentora), "chat_enviar", { p_id: grupo, p_corpo: await cifrar(aparelhos.mentora.chaves.get(`${grupo}:1`), 1, "Ainda vale?", contextoDaConversa(grupo, ids.mentora)) }), "chave_desatualizada");
-await espera("a próxima mensagem sai com chave nova, que quem saiu nunca recebeu", async () => {
-  await rpc(como(ids.mentora), "chat_enviar", { p_id: grupo, p_corpo: await selar(aparelhos.mentora, grupo, "Agora com chave nova.", contextoDaConversa(grupo, ids.mentora)) });
-  return [(await dono("select max(versao)::int as v from interno.chat_versoes where conversa = $1", [grupo])).rows[0].v, (await dono("select count(*)::int as n from interno.chat_chaves where conversa = $1 and para = $2", [grupo, aparelhos.designer.id])).rows[0].n];
-}, (r) => r[0] === 2 && r[1] === 0);
-await espera("quem entrou depois recebe as chaves pelos colegas e lê a conversa", async () => {
+await espera("as boas-vindas de quem saiu somem", () => dono("select count(*)::int as n from interno.equipe_mls_boasvindas where conversa = $1 and para = $2", [grupo, aparelhos.designer.id]), (r) => r.rows[0].n === 0);
+const epocaAntesDaSaida = (await dono("select max(versao)::int as v from interno.chat_versoes where conversa = $1", [grupo])).rows[0].v;
+await recusa("depois que alguém sai, a época antiga não serve mais para enviar", async () => rpc(como(ids.mentora), "chat_enviar", { p_id: grupo, p_corpo: `m1.${epocaAntesDaSaida}.${"A".repeat(395)}` }), "chave_desatualizada");
+let comChaveNova;
+await espera("a próxima mensagem sai numa época nova, sem quem saiu (que não recebe boas-vindas)", async () => {
+  comChaveNova = await selar(aparelhos.mentora, grupo, "Agora com chave nova.", contextoDaConversa(grupo, ids.mentora));
+  await rpc(como(ids.mentora), "chat_enviar", { p_id: grupo, p_corpo: comChaveNova });
+  return [(await dono("select max(versao)::int as v from interno.chat_versoes where conversa = $1", [grupo])).rows[0].v, (await dono("select count(*)::int as n from interno.equipe_mls_boasvindas where conversa = $1 and para = $2", [grupo, aparelhos.designer.id])).rows[0].n];
+}, (r) => r[0] > epocaAntesDaSaida && r[1] === 0);
+await espera("quem saiu não lê a mensagem da época nova", () => ler(aparelhos.designer, grupo, comChaveNova, contextoDaConversa(grupo, ids.mentora)), (r) => r === null);
+await espera("quem entrou depois lê daí em diante, e não o que veio antes de entrar (MLS)", async () => {
   await repassar(aparelhos.prof);
   const r = await rpc(como(ids.revisor), "chat_ver", { p_id: grupo });
   return Promise.all(textos(r).map((m) => ler(aparelhos.revisor, grupo, m.corpo, contextoDaConversa(grupo, m.autor))));
-}, (r) => JSON.stringify(r) === JSON.stringify(["Lista de exercícios revisada.", "Agora com chave nova."]));
-await espera("ninguém repassa chave de conversa em que não está", async () => rpc(como(ids.designer), "chat_chaves_dar", { p_aparelho: aparelhos.designer.id, p_embrulhos: [{ conversa: grupo, versao: 1, para: aparelhos.revisor.id, embrulho: `w1.${"A".repeat(16)}.${"B".repeat(64)}` }] }), (r) => r.dadas === 0);
-await espera("embrulho que não abre volta para ser repassado de novo", async () => {
-  await rpc(como(ids.revisor), "chat_chaves_recusar", { p_aparelho: aparelhos.revisor.id, p_conversa: grupo, p_versao: 1 });
-  const sumiu = (await dono("select count(*)::int as n from interno.chat_chaves where conversa = $1 and versao = 1 and para = $2", [grupo, aparelhos.revisor.id])).rows[0].n === 0;
-  return [sumiu, await repassar(aparelhos.prof)];
-}, (r) => r[0] === true && r[1] >= 1);
+}, (r) => JSON.stringify(r) === JSON.stringify([null, "Agora com chave nova."]));
+await recusa("ninguém grava commit no grupo de conversa em que não está", async () => rpc(como(ids.designer), "equipe_mls_commit", { p_aparelho: aparelhos.designer.id, p_conversa: grupo, p_epoca: 99, p_commit: "AAAA", p_boasvindas: [] }), "nao_encontrado");
 await recusa("autodestruição só com os prazos da lista", () => rpc(como(ids.prof), "chat_autodestruir", { p_id: grupo, p_segundos: 1234 }), "invalido:prazo");
 await recusa("quem está de fora não mexe na autodestruição", () => rpc(como(ids.designer), "chat_autodestruir", { p_id: grupo, p_segundos: 3600 }), "nao_encontrado");
 await espera("com a autodestruição de uma hora, a mensagem nova sai com prazo", async () => {
@@ -1237,49 +1275,39 @@ await espera("autodestruição desligada", () => rpc(como(ids.mentora), "chat_au
 await recusa("ninguém apaga mensagem de outra pessoa", async () => { const m = textos(await rpc(como(ids.prof), "chat_ver", { p_id: grupo }))[0]; return rpc(como(ids.prof), "chat_apagar", { p_id: m.id }); }, "nao_encontrado");
 await recusa("aviso do sistema ninguém apaga", async () => { const m = (await rpc(como(ids.prof), "chat_ver", { p_id: grupo })).mensagens.find((x) => x.tipo === "sistema"); return rpc(como(ids.prof), "chat_apagar", { p_id: m.id }); }, "nao_encontrado");
 await espera("cada um apaga a própria mensagem", async () => { for (const m of textos(await rpc(como(ids.mentora), "chat_ver", { p_id: grupo }))) await rpc(como(ids.mentora), "chat_apagar", { p_id: m.id }); return rpc(como(ids.prof), "chat_ver", { p_id: grupo }); }, (r) => textos(r).length === 0);
-await espera("quem quiser sai do grupo", async () => { await rpc(como(ids.revisor), "chat_sair", { p_id: grupo }); return rpc(como(ids.revisor), "chat_conversas"); }, (r) => r.every((c) => c.id !== grupo));
+await espera("quem quiser sai do grupo", async () => { await rpc(como(ids.revisor), "chat_sair", { p_id: grupo }); return rpc(como(ids.revisor), "chat_conversas", semLidos); }, (r) => r.every((c) => c.id !== grupo));
 await recusa("membro comum não apaga o grupo", () => rpc(como(ids.mentora), "chat_grupo_apagar", { p_id: grupo }), "sem_permissao");
 await espera("a pessoa é avisada quando as conversas dela abrem num aparelho novo", async () => { aparelhos.prof2 = { ...(await aparelhoDe("prof")), quem: "prof" }; return rpc(como(ids.prof), "avisos_meus"); }, (r) => r.some((x) => x.texto.includes("aparelho novo")));
 await espera("a pessoa vê os próprios aparelhos", () => rpc(como(ids.prof), "chat_aparelhos_meus"), (r) => r.length === 2 && r.some((a) => a.id === aparelhos.prof2.id));
 await recusa("ninguém remove aparelho de outra pessoa", () => rpc(como(ids.designer), "chat_aparelho_remover", { p_id: aparelhos.prof2.id }), "nao_encontrado");
 await espera("remover um aparelho troca a chave de todas as conversas da pessoa", async () => { const antes = await minimaDe(privada); await rpc(como(ids.prof), "chat_aparelho_remover", { p_id: aparelhos.prof2.id }); return [antes, await minimaDe(privada), (await rpc(como(ids.prof), "chat_aparelhos_meus")).length]; }, (r) => r[1] > r[0] && r[2] === 1);
-await espera("mensagem privada com mais de trinta dias some sozinha", async () => { await dono("update interno.conversa_mensagens set criado_em = now() - interval '31 days'"); await rpc(como(ids.prof), "chat_conversas"); return dono("select count(*)::int as n from interno.conversa_mensagens"); }, (r) => r.rows[0].n === 0);
+await espera("mensagem privada com mais de trinta dias some sozinha", async () => { await dono("update interno.conversa_mensagens set criado_em = now() - interval '31 days'"); await rpc(como(ids.prof), "chat_conversas", semLidos); return dono("select count(*)::int as n from interno.conversa_mensagens"); }, (r) => r.rows[0].n === 0);
 await espera("o botão de apagar tudo leva as conversas privadas junto", async () => { await rpc(como(ids.prof), "chat_enviar", { p_id: privada, p_corpo: await selar(aparelhos.prof, privada, "Mais uma.", contextoDaConversa(privada, ids.prof)) }); await rpc(como(ids.coord), "equipe_apagar_tudo"); return dono("select count(*)::int as n from interno.conversa_mensagens"); }, (r) => r.rows[0].n === 0);
-await espera("quem criou apaga o grupo", async () => { await rpc(como(ids.prof), "chat_grupo_apagar", { p_id: grupo }); return rpc(como(ids.mentora), "chat_conversas"); }, (r) => r.every((c) => c.id !== grupo));
+await espera("quem criou apaga o grupo", async () => { await rpc(como(ids.prof), "chat_grupo_apagar", { p_id: grupo }); return rpc(como(ids.mentora), "chat_conversas", semLidos); }, (r) => r.every((c) => c.id !== grupo));
 await espera("a equipe vê quem está online e quando cada um passou por aqui", () => rpc(como(ids.prof), "equipe_membros"), (r) => r.every((m) => typeof m.online === "boolean" && typeof m.visto_em === "string"));
 
 // ── Confiança entre aparelhos: aprovação, aparelho falso, assinatura, identidade que muda, recuperação ──
 let prof3;
 await espera("aparelho novo numa conta que já tem identidade entra pendente, com código", async () => { prof3 = await aparelhoDe("prof", "celular novo"); return rpc(como(ids.prof), "chat_aparelhos_meus"); },
-  (r) => prof3.estado === "pendente" && /^[0-9]{8}$/.test(prof3.codigo) && r.some((a) => a.id === prof3.id && a.estado === "pendente" && a.pedido?.cifrado));
+  (r) => prof3.estado === "pendente" && /^[0-9]{12}$/.test(prof3.codigo) && r.some((a) => a.id === prof3.id && a.estado === "pendente" && a.pedido?.cifrado));
 await espera("a pessoa é avisada de que o aparelho novo espera aprovação", () => rpc(como(ids.prof), "avisos_meus"), (r) => r.some((x) => x.texto.includes("aparelho novo") && x.texto.includes("aprovar")));
-await espera("aparelho pendente não aparece para os colegas nem na lista de quem falta receber chave", async () => [await rpc(como(ids.designer), "chat_chaves", { p_conversa: privada, p_aparelho: aparelhos.designer.id }), await rpc(como(ids.designer), "chat_chaves_pendentes", { p_aparelho: aparelhos.designer.id })],
-  ([chaves, faltam]) => !chaves.aparelhos.some((a) => a.id === prof3.id) && chaves.aparelhos.every((a) => a.certificado) && !faltam.some((x) => x.para === prof3.id));
-await espera("o banco não guarda embrulho para aparelho pendente, mesmo que alguém mande", async () => {
-  const chave = await novaChave();
-  const r = await abrirChaves(aparelhos.designer, privada);
-  const versao = Math.max((r.atual ?? 0) + 1, r.minima);
-  const embrulhos = [{ para: aparelhos.designer.id, embrulho: await embrulhar(chave, aparelhos.designer.privada, aparelhos.designer.publica, contextoDoEmbrulho(privada, versao, aparelhos.designer.id)) },
-    { para: prof3.id, embrulho: await embrulhar(chave, aparelhos.designer.privada, prof3.publica, contextoDoEmbrulho(privada, versao, prof3.id)) }];
-  await rpc(como(ids.designer), "chat_chave_nova", { p_conversa: privada, p_aparelho: aparelhos.designer.id, p_versao: versao, p_embrulhos: embrulhos });
-  aparelhos.designer.chaves.set(`${privada}:${versao}`, chave);
-  const dadas = await rpc(como(ids.designer), "chat_chaves_dar", { p_aparelho: aparelhos.designer.id, p_embrulhos: [{ conversa: privada, versao, para: prof3.id, embrulho: embrulhos[1].embrulho }] });
-  return [(await dono("select count(*)::int as n from interno.chat_chaves where para = $1", [prof3.id])).rows[0].n, dadas.dadas];
-}, (r) => r[0] === 0 && r[1] === 0);
-await recusa("aparelho pendente não cria versão de chave", async () => rpc(como(ids.prof), "chat_chave_nova", { p_conversa: privada, p_aparelho: prof3.id, p_versao: 99, p_embrulhos: [{ para: prof3.id, embrulho: `w1.${"A".repeat(16)}.${"B".repeat(64)}` }] }), "aparelho_desconhecido");
-await recusa("aparelho pendente não repassa chaves", () => rpc(como(ids.prof), "chat_chaves_dar", { p_aparelho: prof3.id, p_embrulhos: [] }), "aparelho_desconhecido");
+await espera("aparelho pendente não aparece nas folhas do grupo para os colegas", async () => rpc(como(ids.designer), "equipe_mls_estado", { p_aparelho: aparelhos.designer.id, p_conversa: privada, p_desde: 0 }),
+  (e) => !e.folhas.some((f) => f.aparelho === prof3.id) && e.folhas.every((f) => f.certificado));
+await recusa("aparelho pendente não publica folha (nem recebe boas-vindas)", () => rpc(como(ids.prof), "equipe_mls_publicar", { p_aparelho: prof3.id, p_nome: `${ids.prof}:1@alumia.invalid`, p_certificado: "A".repeat(86), p_pacotes: [] }), "aparelho_desconhecido");
+await recusa("aparelho pendente não grava commit", async () => rpc(como(ids.prof), "equipe_mls_commit", { p_aparelho: prof3.id, p_conversa: privada, p_epoca: 99, p_commit: "AAAA", p_boasvindas: [] }), "aparelho_desconhecido");
+await recusa("aparelho pendente não pega pacote de chave de ninguém", () => rpc(como(ids.prof), "equipe_mls_pacotes_pegar", { p_aparelho: prof3.id, p_conversa: privada, p_nomes: [] }), "aparelho_desconhecido");
 await recusa("outra pessoa não aprova aparelho alheio", () => rpc(como(ids.designer), "chat_aparelho_aprovar", { p_id: prof3.id, p_por: aparelhos.designer.id, p_certificado: "A".repeat(86), p_identidade_embrulho: `w1.${"A".repeat(16)}.${"B".repeat(64)}` }), "nao_encontrado");
 await recusa("aparelho pendente não aprova ninguém", () => rpc(como(ids.prof), "chat_aparelho_aprovar", { p_id: prof3.id, p_por: prof3.id, p_certificado: "A".repeat(86), p_identidade_embrulho: `w1.${"A".repeat(16)}.${"B".repeat(64)}` }), "aparelho_desconhecido");
 await espera("o código errado não aprova", () => aprovar(aparelhos.prof, prof3, prof3.codigo === "00000000" ? "00000001" : "00000000"), (r) => r === false);
 await espera("ainda pendente, o aparelho novo não tem a identidade", () => conferirAprovacao(prof3), (r) => r === false);
 await espera("com o código certo, o aparelho aprovado certifica o novo e lhe repassa a identidade", async () => [await aprovar(aparelhos.prof, prof3), await conferirAprovacao(prof3)], (r) => r[0] === true && r[1] === true && prof3.identidade.publica === aparelhos.prof.identidade.publica);
-await espera("aprovado, o aparelho novo aparece para os colegas, com certificado válido, e fica no registro", async () => {
-  const chaves = await rpc(como(ids.designer), "chat_chaves", { p_conversa: privada, p_aparelho: aparelhos.designer.id });
-  const novo = chaves.aparelhos.find((a) => a.id === prof3.id);
-  return [Boolean(novo), novo && (await aparelhoCertificado(aparelhos.prof.identidade.publica, ids.prof, novo.publica, novo.certificado)), (await rpc(como(ids.coord), "auditoria_listar", { p_pagina: 0, p_acao: "chat_aparelho_aprovado" })).length];
+await espera("aprovado, o aparelho novo publica a folha, aparece para os colegas com o certificado, e fica no registro", async () => {
+  const e = await rpc(como(ids.designer), "equipe_mls_estado", { p_aparelho: aparelhos.designer.id, p_conversa: privada, p_desde: 0 });
+  const novo = e.folhas.find((f) => f.aparelho === prof3.id);
+  return [Boolean(novo), novo?.usuario === ids.prof && /^[A-Za-z0-9_-]{86}$/.test(novo?.certificado ?? ""), (await rpc(como(ids.coord), "auditoria_listar", { p_pagina: 0, p_acao: "chat_aparelho_aprovado" })).length];
 }, (r) => r[0] === true && r[1] === true && r[2] === 1);
 await recusa("aprovar duas vezes não dá", () => aprovar(aparelhos.prof, prof3).then(() => { throw new Error("nao_encontrado"); }), "nao_encontrado");
-await espera("os colegas repassam as chaves ao aparelho aprovado, e ele lê a conversa com a autoria conferida", async () => {
+await espera("o colega põe o aparelho aprovado no grupo ao escrever, e ele lê a conversa com a autoria conferida", async () => {
   await rpc(como(ids.designer), "chat_enviar", { p_id: privada, p_corpo: await selar(aparelhos.designer, privada, "Mensagem para o celular novo.", contextoDaConversa(privada, ids.designer)) });
   const repassadas = await repassar(aparelhos.designer);
   const aberta = await rpc(como(ids.prof), "chat_ver", { p_id: privada });
@@ -1287,26 +1315,34 @@ await espera("os colegas repassam as chaves ao aparelho aprovado, e ele lê a co
   return [repassadas >= 1, await lerCom(prof3, privada, ultima.corpo, contextoDaConversa(privada, ultima.autor), ultima.autor)];
 }, (r) => r[0] === true && r[1]?.texto === "Mensagem para o celular novo." && r[1].autoria === "ok");
 let falso;
-await espera("aparelho falso cadastrado direto no banco (como faria quem tem a chave de serviço) não recebe chave de ninguém", async () => {
+/** Um aparelho "da Paula" cadastrado direto no banco (como faria quem tem a chave de serviço), com folha e pacote de chave publicados. */
+async function aparelhoForjado(certificadoDoCadastro, identidadeDoInvasor) {
   const par = await novoAparelho();
+  const id = (await dono("insert into interno.chat_aparelhos (usuario, publica, rotulo, certificado, aprovado_em) values ($1, $2, 'invasor', $3, now()) returning id", [ids.prof, par.publica, certificadoDoCadastro(par.publica)])).rows[0].id;
+  const ap = { quem: "prof", id, identidade: identidadeDoInvasor };
+  await publicarFolha(ap);
+  return ap;
+}
+await espera("aparelho falso cadastrado direto no banco, com folha certificada por outra identidade, não entra no grupo de ninguém", async () => {
   const idFalsa = await novaIdentidade();
   // O invasor assina com uma identidade que inventou: a dele, não a de Paulo.
-  falso = (await dono("insert into interno.chat_aparelhos (usuario, publica, rotulo, certificado, aprovado_em) values ($1, $2, 'invasor', $3, now()) returning id", [ids.prof, par.publica, await certificarAparelho(idFalsa, ids.prof, par.publica)])).rows[0].id;
-  const chaves = await rpc(como(ids.designer), "chat_chaves", { p_conversa: privada, p_aparelho: aparelhos.designer.id });
-  // O banco lista o aparelho (não sabe conferir); o aparelho do colega confere e não embrulha para ele.
-  await rpc(como(ids.designer), "chat_enviar", { p_id: privada, p_corpo: await selar(aparelhos.designer, privada, "Só para aparelhos de verdade.", contextoDaConversa(privada, ids.designer)) });
+  const ap = await aparelhoForjado(() => "A".repeat(86), idFalsa);
+  falso = ap.id;
+  const e = await rpc(como(ids.designer), "equipe_mls_estado", { p_aparelho: aparelhos.designer.id, p_conversa: privada, p_desde: 0 });
+  // O banco lista a folha (não sabe conferir); o aparelho do colega confere o certificado e não põe.
+  const corpo = await selar(aparelhos.designer, privada, "Só para aparelhos de verdade.", contextoDaConversa(privada, ids.designer));
+  await rpc(como(ids.designer), "chat_enviar", { p_id: privada, p_corpo: corpo });
   const designerRepassou = await repassar(aparelhos.designer);
-  const profRepassou = await repassar(aparelhos.prof);
-  return [chaves.aparelhos.some((a) => a.id === falso), (await dono("select count(*)::int as n from interno.chat_chaves where para = $1", [falso])).rows[0].n, designerRepassou, profRepassou];
-}, (r) => r[0] === true && r[1] === 0 && r[2] === 0 && r[3] === 0);
-await espera("nem com o certificado copiado de um aparelho de verdade", async () => {
-  const par = await novoAparelho();
+  await repassar(aparelhos.prof);
+  return [e.folhas.some((f) => f.aparelho === falso), (await dono("select count(*)::int as n from interno.equipe_mls_boasvindas where para = $1", [falso])).rows[0].n, designerRepassou >= 0, await lerCom(ap, privada, corpo, contextoDaConversa(privada, ids.designer), ids.designer)];
+}, (r) => r[0] === true && r[1] === 0 && r[2] === true && r[3] === null);
+await espera("nem com o certificado de cadastro copiado de um aparelho de verdade (a folha precisa do certificado da identidade de Paulo)", async () => {
   const copiado = (await dono("select certificado from interno.chat_aparelhos where id = $1", [prof3.id])).rows[0].certificado;
-  const id = (await dono("insert into interno.chat_aparelhos (usuario, publica, rotulo, certificado, aprovado_em) values ($1, $2, 'invasor 2', $3, now()) returning id", [ids.prof, par.publica, copiado])).rows[0].id;
+  const ap = await aparelhoForjado(() => copiado, await novaIdentidade());
   await repassar(aparelhos.designer);
   await repassar(aparelhos.prof);
-  const n = (await dono("select count(*)::int as n from interno.chat_chaves where para = $1", [id])).rows[0].n;
-  await dono("delete from interno.chat_aparelhos where id in ($1, $2)", [id, falso]);
+  const n = (await dono("select count(*)::int as n from interno.equipe_mls_boasvindas where para = $1", [ap.id])).rows[0].n;
+  await dono("delete from interno.chat_aparelhos where id in ($1, $2)", [ap.id, falso]);
   return n;
 }, (r) => r === 0);
 await espera("o banco não consegue trocar o autor de uma mensagem assinada: a assinatura denuncia", async () => {
@@ -1316,18 +1352,18 @@ await espera("o banco não consegue trocar o autor de uma mensagem assinada: a a
   const corpoHonesto = await selar(aparelhos.mentora, grupoDeTeste, "Fui eu que escrevi.", contextoDaConversa(grupoDeTeste, ids.mentora));
   const { id } = await rpc(como(ids.mentora), "chat_enviar", { p_id: grupoDeTeste, p_corpo: corpoHonesto });
   const honesta = await lerCom(aparelhos.designer, grupoDeTeste, corpoHonesto, contextoDaConversa(grupoDeTeste, ids.mentora), ids.mentora);
-  // Quem tem a chave do grupo (um membro) forja uma mensagem "do professor", assinando com a própria identidade.
+  // Quem tem a chave da época (um membro) forja uma mensagem "do professor", assinando com a própria identidade.
   const versao = Number(corpoHonesto.split(".")[1]);
-  const forjado = await cifrar(aparelhos.mentora.chaves.get(`${grupoDeTeste}:${versao}`), versao, await assinarTexto(aparelhos.mentora.identidade, "O professor nunca escreveu isto.", contextoDaConversa(grupoDeTeste, ids.prof), versao), contextoDaConversa(grupoDeTeste, ids.prof));
+  const forjado = await mlsDe(aparelhos.mentora).cifrar(grupoDeTeste, contextoDaConversa(grupoDeTeste, ids.prof), (epoca) => assinarTexto(aparelhos.mentora.identidade, "O professor nunca escreveu isto.", contextoDaConversa(grupoDeTeste, ids.prof), epoca));
   await dono("insert into interno.conversa_mensagens (conversa, autor, corpo, versao) values ($1, $2, $3, $4)", [grupoDeTeste, ids.prof, forjado, versao]);
   const forjada = await lerCom(aparelhos.designer, grupoDeTeste, forjado, contextoDaConversa(grupoDeTeste, ids.prof), ids.prof);
-  // E uma mensagem sem assinatura nenhuma (cliente antigo) abre, mas fica marcada.
-  const semAssinatura = await cifrar(aparelhos.mentora.chaves.get(`${grupoDeTeste}:${versao}`), versao, "Sem assinatura.", contextoDaConversa(grupoDeTeste, ids.mentora));
+  // E uma mensagem sem assinatura nenhuma (cliente que não assina) abre, mas fica marcada.
+  const semAssinatura = await mlsDe(aparelhos.mentora).cifrar(grupoDeTeste, contextoDaConversa(grupoDeTeste, ids.mentora), async () => "Sem assinatura.");
   const antiga = await lerCom(aparelhos.designer, grupoDeTeste, semAssinatura, contextoDaConversa(grupoDeTeste, ids.mentora), ids.mentora);
   await rpc(como(ids.mentora), "chat_grupo_apagar", { p_id: grupoDeTeste });
   return [Boolean(id), honesta, forjada, antiga];
 }, ([ok, honesta, forjada, antiga]) => ok && honesta.autoria === "ok" && forjada.texto === "O professor nunca escreveu isto." && forjada.autoria === "invalida" && antiga.autoria === "sem_assinatura");
-await espera("a chave da conversa traz quando foi criada e quantas mensagens levou, para a rotação periódica", () => rpc(como(ids.designer), "chat_chaves", { p_conversa: privada, p_aparelho: aparelhos.designer.id }), (r) => typeof r.atual_em === "string" && typeof r.atual_mensagens === "number" && r.atual_mensagens >= 1);
+await espera("a época do grupo traz o dia em que começou e quantas mensagens levou, para a troca periódica", () => rpc(como(ids.designer), "equipe_mls_estado", { p_aparelho: aparelhos.designer.id, p_conversa: privada, p_desde: 0 }), (r) => typeof r.epoca_dia === "string" && typeof r.mensagens === "number" && r.mensagens >= 1);
 await espera("identidade de colega que muda no banco é notada pelos aparelhos dos outros", async () => {
   const antes = conhecidas[ids.mentora].assina;
   const outra = await novaIdentidade();
@@ -1360,17 +1396,17 @@ await espera("num aparelho novo, a chave de recuperação restaura a identidade 
   prof4.identidade = identidade;
   prof4.estado = r.estado;
   prof4.vale_desde = r.vale_desde;
-  const chaves = await rpc(como(ids.designer), "chat_chaves", { p_conversa: privada, p_aparelho: aparelhos.designer.id });
-  return [r.estado, chaves.aparelhos.some((a) => a.id === prof4.id), conhecidas[ids.prof].assina === identidade.publica];
-}, (r) => r[0] === "pendente" && r[1] === true && r[2] === true);
+  const e = await rpc(como(ids.designer), "equipe_mls_estado", { p_aparelho: aparelhos.designer.id, p_conversa: privada, p_desde: 0 });
+  return [r.estado, e.folhas.some((f) => f.aparelho === prof4.id), conhecidas[ids.prof].assina === identidade.publica];
+}, (r) => r[0] === "pendente" && r[1] === false && r[2] === true);
 // ── O aparelho que se certifica sozinho espera 24 horas (20261121-equipe-chat-espera.sql, revisão de 17/11) ──
 // O banco não confere a assinatura: a chave pública da identidade não é segredo, e com ela e um certificado inventado, quem tinha
-// só a sessão registrava um aparelho "aprovado". Agora ele fica na espera, e nenhuma equipe_chat_* o aceita até lá.
+// só a sessão registrava um aparelho "aprovado". Agora ele fica na espera, e nenhuma equipe_mls_* o aceita até lá.
 await espera("o aparelho recuperado pela cópia fica certificado, mas na espera de 24 horas", async () => {
   const linha = (await dono("select certificado is not null as cert, vale_desde > now() + interval '23 hours' as espera from interno.chat_aparelhos where id = $1", [prof4.id])).rows[0];
   return [linha.cert, linha.espera, Boolean(prof4.vale_desde)];
 }, (r) => r.every((x) => x === true));
-await recusa("na espera, o aparelho recuperado não entra no chat da equipe", () => rpc(como(ids.prof), "equipe_chat_pedidos", { p_aparelho: prof4.id }), "aparelho_desconhecido");
+await recusa("na espera, o aparelho recuperado não entra no chat da equipe", () => rpc(como(ids.prof), "equipe_mls_meus_pacotes", { p_aparelho: prof4.id }), "aparelho_desconhecido");
 await recusa("na espera, o aparelho recuperado não aprova outro", async () => {
   const outro = await aparelhoDe("prof", "aprovado por quem espera");
   return rpc(como(ids.prof), "chat_aparelho_aprovar", { p_id: outro.id, p_por: prof4.id, p_certificado: "A".repeat(86), p_identidade_embrulho: null });
@@ -1380,13 +1416,13 @@ await espera("só com a sessão: a chave pública da identidade e um certificado
   const r = await rpc(como(ids.prof), "chat_aparelho_registrar", { p_publica: par.publica, p_rotulo: "intruso", p_assina: aparelhos.prof.identidade.publica, p_certificado: "x".repeat(86) });
   let pedidos = "passou";
   try {
-    await rpc(como(ids.prof), "equipe_chat_pedidos", { p_aparelho: r.id });
+    await rpc(como(ids.prof), "equipe_mls_meus_pacotes", { p_aparelho: r.id });
   } catch (erro) {
     pedidos = String(erro.message);
   }
   let receber = "passou";
   try {
-    await rpc(como(ids.prof), "equipe_chat_olm_receber", { p_aparelho: r.id });
+    await rpc(como(ids.prof), "equipe_mls_estado", { p_aparelho: r.id, p_conversa: privada, p_desde: 0 });
   } catch (erro) {
     receber = String(erro.message);
   }
@@ -1407,13 +1443,13 @@ await espera("um aparelho da pessoa que já vale aprova o que espera, e ele vale
     p_identidade_embrulho: await embrulharBytes(secreta, aparelhos.prof.privada, prof4.publica, contextoDaIdentidade(ids.prof, prof4.id)),
   });
   const r = await rpc(como(ids.prof), "chat_aparelho_estado", { p_id: prof4.id });
-  return [r.estado, r.vale_desde, Array.isArray(await rpc(como(ids.prof), "equipe_chat_pedidos", { p_aparelho: prof4.id }))];
+  return [r.estado, r.vale_desde, typeof (await rpc(como(ids.prof), "equipe_mls_meus_pacotes", { p_aparelho: prof4.id })).pacotes === "number"];
 }, (r) => r[0] === "aprovado" && r[1] === null && r[2] === true);
 await espera("passadas as 24 horas, o aparelho na espera vale sozinho", async () => {
   const outro = await aparelhoDe("prof", "espera que passou");
   await dono("update interno.chat_aparelhos set certificado = $2, vale_desde = now() - interval '1 minute' where id = $1", [outro.id, "B".repeat(86)]);
   const r = await rpc(como(ids.prof), "chat_aparelho_estado", { p_id: outro.id });
-  const lista = Array.isArray(await rpc(como(ids.prof), "equipe_chat_pedidos", { p_aparelho: outro.id }));
+  const lista = typeof (await rpc(como(ids.prof), "equipe_mls_meus_pacotes", { p_aparelho: outro.id })).pacotes === "number";
   await dono("delete from interno.chat_aparelhos where id = $1", [outro.id]);
   return [r.estado, lista];
 }, (r) => r[0] === "aprovado" && r[1] === true);
@@ -1440,6 +1476,7 @@ await espera("quem perdeu tudo recomeça: aparelhos antigos saem, a identidade m
   // Depois de recomeçar, o aparelho que se certifica sozinho espera 24 horas (a conta já teve identidade).
   const espera = (await dono("select vale_desde > now() + interval '23 hours' as e from interno.chat_aparelhos where id = $1", [aparelhos.mentora.id])).rows[0].e;
   await dono("update interno.chat_aparelhos set vale_desde = null where id = $1", [aparelhos.mentora.id]);
+  await publicarFolha(aparelhos.mentora);
   return [restaram, linha.assina, linha.versao, aparelhos.mentora.estado, conhecidas[ids.mentora].mudou && conhecidas[ids.mentora].anterior === antes && conhecidas[ids.mentora].assina === aparelhos.mentora.identidade.publica, espera];
 }, (r) => r[0] === 0 && r[1] === null && r[2] === 2 && r[3] === "aprovado" && r[4] === true && r[5] === true);
 await dono("delete from interno.chat_aparelhos where id in ($1, $2)", [prof3.id, prof4.id]);
@@ -1479,7 +1516,7 @@ await espera("reagir cria uma mensagem do tipo reação, apontando para o alvo, 
   await rpc(como(ids.jornal), "chat_ver", { p_id: jm });
   reacao = (await enviaMed("", { p_tipo: "reacao", p_alvo: pauta })).id;
   const r = await rpc(como(ids.jornal), "chat_ver", { p_id: jm });
-  const lista = (await rpc(como(ids.jornal), "chat_conversas")).find((c) => c.id === jm);
+  const lista = (await rpc(como(ids.jornal), "chat_conversas", semLidos)).find((c) => c.id === jm);
   return [r.mensagens.find((m) => m.id === reacao), lista.nao_lidas, lista.ultima.corpo === r.mensagens.find((m) => m.id === pauta).corpo];
 }, ([m, naoLidas, ultimaEhTexto]) => m?.tipo === "reacao" && m.alvo === pauta && m.nome === "Mauro" && naoLidas === 0 && ultimaEhTexto);
 await espera("reagir de novo troca a reação: fica só uma por pessoa", async () => { await enviaMed("", { p_tipo: "reacao", p_alvo: pauta }); return dono("select count(*)::int as n from interno.conversa_mensagens where tipo = 'reacao' and alvo = $1 and autor = $2", [pauta, ids.med]); }, (r) => r.rows[0].n === 1);
@@ -1503,14 +1540,14 @@ await recusa("quem está de fora não favorita", () => rpc(como(ids.revisor), "c
 await espera("favoritar é de cada pessoa: aparece na conversa e na lista de favoritas, com o nome da conversa; o outro não vê", async () => {
   await rpc(como(ids.med), "chat_favoritar", { p_mensagem: pauta });
   return [(await rpc(como(ids.med), "chat_ver", { p_id: jm })).favoritas, (await rpc(como(ids.jornal), "chat_ver", { p_id: jm })).favoritas, await rpc(como(ids.med), "chat_favoritas"), await rpc(como(ids.jornal), "chat_favoritas")];
-}, ([minhas, dele, lista, listaDele]) => minhas.length === 1 && minhas[0] === pauta && dele.length === 0 && lista.length === 1 && lista[0].conversa_nome === "Joana" && lista[0].nome === "Joana" && lista[0].corpo.startsWith("c2.") && listaDele.length === 0);
+}, ([minhas, dele, lista, listaDele]) => minhas.length === 1 && minhas[0] === pauta && dele.length === 0 && lista.length === 1 && lista[0].conversa_nome === "Joana" && lista[0].nome === "Joana" && lista[0].corpo.startsWith("m1.") && listaDele.length === 0);
 await espera("tirar das favoritas", async () => { await rpc(como(ids.med), "chat_favoritar", { p_mensagem: pauta, p_favoritar: false }); return rpc(como(ids.med), "chat_favoritas"); }, (r) => r.length === 0);
 await espera("apagar o texto leva as reações, edições e fixadas junto", async () => { const fixada = (await rpc(como(ids.med), "chat_ver", { p_id: jm })).fixadas[0]; await rpc(como(ids.jornal), "chat_apagar", { p_id: pauta }); await rpc(como(ids.med), "chat_apagar", { p_id: fixada }); return [(await dono("select count(*)::int as n from interno.conversa_mensagens where alvo = $1 or id = $1", [pauta])).rows[0].n, (await rpc(como(ids.med), "chat_ver", { p_id: jm })).fixadas.length]; }, (r) => r[0] === 0 && r[1] === 3);
 await espera("por padrão, cada um vê o 'visto por último' e a leitura do outro", async () => [await membroVisto("jornal", "med"), await membroVisto("med", "jornal")], ([a, b]) => typeof a.online === "boolean" && typeof a.visto_em === "string" && typeof a.lido_em === "string" && typeof b.online === "boolean");
 await espera("quem esconde o 'visto por último' some para os outros e deixa de ver o dos outros (na conversa, na lista e na equipe)", async () => {
   await rpc(como(ids.med), "perfil_preferencias", { p_chat_visto: false, p_chat_leitura: null });
   const eu = await rpc(como(ids.med), "eu");
-  const lista = (await rpc(como(ids.jornal), "chat_conversas")).find((c) => c.id === jm);
+  const lista = (await rpc(como(ids.jornal), "chat_conversas", semLidos)).find((c) => c.id === jm);
   const equipe = (await rpc(como(ids.jornal), "equipe_membros")).find((m) => m.id === ids.med);
   return [eu.chat_visto, await membroVisto("jornal", "med"), await membroVisto("med", "jornal"), lista.online, lista.visto_em, equipe.online, equipe.visto_em];
 }, ([visto, a, b, online, vistoEm, eqOnline, eqVisto]) => visto === false && a.online === null && a.visto_em === null && typeof a.lido_em === "string" && b.online === null && b.visto_em === null && online === null && vistoEm === null && eqOnline === null && eqVisto === null);
@@ -1569,7 +1606,7 @@ await recusa("arquivo acima do limite é recusado pelo banco", () => rpc(como(id
 await espera("o botão de apagar tudo leva os arquivos junto", async () => { await rpc(como(ids.coord), "equipe_apagar_tudo"); return dono("select count(*)::int as n from interno.conversa_anexos where mensagem is not null"); }, (r) => r.rows[0].n === 0);
 
 // ── Organização e grupos: fixar, arquivar, silenciar, não lida, trancar; administradores e permissões; avisos do sistema; enquete e evento; relato ──
-const listaDe = async (quem) => rpc(como(ids[quem]), "chat_conversas");
+const listaDe = async (quem) => rpc(como(ids[quem]), "chat_conversas", semLidos);
 const achar = async (quem, id) => (await listaDe(quem)).find((c) => c.id === id);
 await recusa("quem está de fora não marca a conversa", () => rpc(como(ids.designer), "chat_conversa_marcar", { p_id: jm, p_fixar: true }), "nao_encontrado");
 await recusa("silenciar só com os prazos da lista", () => rpc(como(ids.med), "chat_conversa_marcar", { p_id: jm, p_silenciar_horas: 3 }), "invalido:horas");
@@ -1640,7 +1677,7 @@ await espera("foto do grupo: uma mensagem da conversa, cifrada como qualquer out
   const m = (await rpc(como(ids.jornal), "chat_enviar", { p_id: jmGrupo, p_corpo: await selar(aparelhos.jornal, jmGrupo, "foto do grupo", contextoDaConversa(jmGrupo, ids.jornal)) })).id;
   await rpc(como(ids.jornal), "chat_grupo_mudar", { p_id: jmGrupo, p_foto: m });
   const lista = await achar("med", jmGrupo);
-  return [lista.foto?.id === m && lista.foto.corpo.startsWith("c2."), (await rpc(como(ids.med), "chat_ver", { p_id: jmGrupo })).foto === m];
+  return [lista.foto?.id === m && lista.foto.corpo.startsWith("m1."), (await rpc(como(ids.med), "chat_ver", { p_id: jmGrupo })).foto === m];
 }, (r) => r[0] && r[1]);
 await recusa("foto do grupo precisa ser mensagem desta conversa", () => rpc(como(ids.jornal), "chat_grupo_mudar", { p_id: jmGrupo, p_foto: pauta ?? crypto.randomUUID() }), "nao_encontrado");
 await espera("enquete e evento: o voto e a resposta são uma linha por pessoa, trocada a cada nova, e o banco só vê o tipo", async () => {
@@ -1663,8 +1700,9 @@ await espera("quem está na conversa relata à coordenação com as mensagens qu
 }, ([lista, avisado]) => lista.length >= 1 && lista[0].id === relato && lista[0].autor === "Mauro Mediador" && lista[0].contra === "Joana Jornalista" && lista[0].conversa_nome === "Conversa privada" && lista[0].mensagens[0].texto.startsWith("Texto aberto") && !("lixo" in lista[0].mensagens[0]) && lista[0].status === "aberto" && avisado);
 await recusa("quem não gere a equipe não lê os relatos", () => rpc(como(ids.prof), "chat_relatos"), "sem_permissao");
 await espera("a supervisão lê e resolve", async () => { await rpc(como(ids.vice), "chat_relato_resolver", { p_id: relato, p_nota: "Conversado com as duas pessoas." }); return (await rpc(como(ids.vice), "chat_relatos")).find((x) => x.id === relato); }, (r) => r.status === "resolvido" && r.nota.startsWith("Conversado"));
-await espera("o banco nunca lê a conversa por conta própria: fora o relato, nada de texto aberto nas tabelas das conversas", () => dono("select count(*)::int as n from interno.conversa_mensagens where tipo <> 'sistema' and corpo !~ '^c[12][.]'"), (r) => r.rows[0].n === 0);
+await espera("o banco nunca lê a conversa por conta própria: fora o relato, nada de texto aberto nas tabelas das conversas", () => dono("select count(*)::int as n from interno.conversa_mensagens where tipo <> 'sistema' and corpo !~ '^m1[.]'"), (r) => r.rows[0].n === 0);
 
+}
 // ── Consenso dos educadores, nomes só para a coordenação, representante de departamento ──
 const ed1 = await criarUsuario("ed1@teste.local", "Edna Primeira Silva");
 const ed2 = await criarUsuario("ed2@teste.local", "Edu Segundo Souza");
@@ -1692,12 +1730,12 @@ await espera("com o parecer do educador, a revisão põe no ar", async () => { a
 await espera("a coordenação aprova o que vem de fora a qualquer momento", async () => { const id = (await rpc(anon, "contribuir", { p: { ...aula({ titulo: "Outra de fora", disciplina: "edicao-de-video" }), nome: "Visitante" } })).id; await rpc(como(ids.med), "triagem_decidir", { p_id: id, p_liberar: true, p_nota: "" }); await rpc(como(ids.coord), "contribuicao_decidir", { p_id: id, p_aprovar: true, p_nota: "" }); return dono("select status from interno.contribuicoes where id = $1", [id]); }, (r) => r.rows[0].status === "aprovada");
 await recusa("mediação não escreve aula pelo painel", () => rpc(como(ids.med), "contribuir", { p: aula({ titulo: "Aula do mediador" }) }), "sem_permissao");
 await recusa("porta-voz precisa de nível: a supervisão nomeia", () => rpc(como(ids.prof), "papel_conceder", { p_usuario: ed3, p_papel: "porta_voz", p_disciplina: null }), "sem_permissao");
-await espera("a supervisão nomeia um porta-voz, que fica só no grupo da equipe toda", async () => { await rpc({ papel: "authenticated", sub: sup1 }, "papel_conceder", { p_usuario: ed3, p_papel: "porta_voz", p_disciplina: null }); return [(await rpc({ papel: "authenticated", sub: ed3 }, "eu")).papeis.some((p) => p.papel === "porta_voz"), (await rpc({ papel: "authenticated", sub: ed3 }, "chat_conversas")).filter((c) => c.tipo === "departamento").map((c) => c.departamento)]; }, ([tem, deps]) => tem && deps.includes("geral") && !deps.includes("porta_voz"));
+await espera("a supervisão nomeia um porta-voz, que fica só no grupo da equipe toda", async () => { await rpc({ papel: "authenticated", sub: sup1 }, "papel_conceder", { p_usuario: ed3, p_papel: "porta_voz", p_disciplina: null }); return [(await rpc({ papel: "authenticated", sub: ed3 }, "eu")).papeis.some((p) => p.papel === "porta_voz"), (await rpc({ papel: "authenticated", sub: ed3 }, "chat_conversas", semLidos)).filter((c) => c.tipo === "departamento").map((c) => c.departamento)]; }, ([tem, deps]) => tem && deps.includes("geral") && !deps.includes("porta_voz"));
 await espera("só a coordenação vê nome completo e e-mail; a vice vê o primeiro nome e nenhum e-mail", async () => [(await rpc(como(ids.coord), "voluntarios_listar")).find((p) => p.id === ed1), (await rpc(como(ids.vice), "voluntarios_listar")).find((p) => p.id === ed1), (await rpc(como(ids.prof), "equipe_membros")).find((p) => p.id === ed1)], ([coord, vice, colega]) => coord.nome === "Edna Primeira Silva" && coord.email.includes("@") && vice.nome === "Edna" && vice.email === "" && colega.nome === "Edna");
 await recusa("representante precisa de um departamento", () => rpc(como(ids.vice), "papel_conceder", { p_usuario: ed2, p_papel: "representante", p_disciplina: null }), "invalido:departamento");
 await espera("a vice nomeia representante do departamento de educação; ele administra o grupo do departamento", async () => {
   await rpc(como(ids.vice), "papel_conceder", { p_usuario: ed2, p_papel: "representante", p_disciplina: "educacao" });
-  const dep = (await rpc({ papel: "authenticated", sub: ed2 }, "chat_conversas")).find((c) => c.tipo === "departamento" && c.departamento === "educacao");
+  const dep = (await rpc({ papel: "authenticated", sub: ed2 }, "chat_conversas", semLidos)).find((c) => c.tipo === "departamento" && c.departamento === "educacao");
   return rpc({ papel: "authenticated", sub: ed2 }, "chat_ver", { p_id: dep.id });
 }, (r) => r.admin === true);
 await recusa("representante não confia funções", () => rpc({ papel: "authenticated", sub: ed2 }, "papel_conceder", { p_usuario: ed1, p_papel: "revisao", p_disciplina: null }), "sem_permissao");
@@ -2107,7 +2145,7 @@ await recusa("revisor não pausa os envios", () => rpc(como(ids.alvo), "site_pau
 await espera("supervisão liga e desliga o modo de segurança da Comunidade", async () => { const ligado = await rpc(sup, "comunidade_modo_seguranca", { p_ligar: true }); const desligado = await rpc(sup, "comunidade_modo_seguranca", { p_ligar: false }); return [ligado.aprovacao_manual, desligado.aprovacao_manual, ligado.habilitada]; }, (r) => r[0] === true && r[1] === false && r[2] === undefined);
 await espera("supervisão lê o registro de atividades e o livro do acervo", async () => [await rpc(sup, "auditoria_listar", { p_pagina: 0 }), await rpc(sup, "audit_logs_listar", { p_pagina: 0 })], (r) => r[0].length > 0 && Array.isArray(r[1]));
 await espera("supervisão vê os canais das funções, menos o da coordenação", () => rpc(sup, "equipe_canais"), (r) => r.canais.includes("supervisao") && r.canais.includes("marketing") && r.canais.includes("mediacao") && !r.canais.includes("coordenacao"));
-await espera("supervisão entra nos grupos cifrados das funções, menos no da coordenação", () => rpc(sup, "chat_conversas"), (r) => { const deps = r.filter((c) => c.tipo === "departamento").map((c) => c.departamento); return deps.includes("supervisao") && deps.includes("mediacao") && deps.includes("marketing") && !deps.includes("coordenacao"); });
+await espera("supervisão entra nos grupos cifrados das funções, menos no da coordenação", () => rpc(sup, "chat_conversas", semLidos), (r) => { const deps = r.filter((c) => c.tipo === "departamento").map((c) => c.departamento); return deps.includes("supervisao") && deps.includes("mediacao") && deps.includes("marketing") && !deps.includes("coordenacao"); });
 await espera("supervisão apaga publicação de outra pessoa no mural da equipe, e fica registrado", async () => {
   const m = await rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: await selar(aparelhos.prof, geral, "Recado para apagar.", contextoDoMural("geral", ids.prof)) });
   await rpc(sup, "equipe_apagar", { p_id: m.id });
@@ -2151,7 +2189,7 @@ await recusa("o perfil só aceita endereço do Instagram", () => rpc(C1, "divulg
 await espera("coordenação indica o perfil e o marketing vê", async () => { await rpc(C1, "divulgacao_instagram_salvar", { p_url: "https://www.instagram.com/institutolucia" }); return rpc(mkt, "divulgacao_listar"); }, (r) => r.instagram === "https://www.instagram.com/institutolucia");
 await espera("marketing prepara materiais, como o design", () => rpc(mkt, "material_salvar", { p: { credito_autor: "Equipe do instituto", credito_origem: "Feito pelo instituto", licenca: "cc-by-sa", tipo: "cartaz", titulo: "Cartaz da aula aberta", descricao: "Cartaz A3.", campanha: "", url: "https://exemplo.org/cartaz" } }), (r) => Boolean(r.id));
 await espera("marketing vê o canal dele, o do design e o do Departamento de Comunicação no mural da equipe", () => rpc(mkt, "equipe_canais"), (r) => JSON.stringify(r.canais) === JSON.stringify(["geral", "pedidos", "aprendizado", "jornalismo", "design", "marketing"]));
-await espera("marketing entra sozinho no grupo do Departamento de Comunicação", () => rpc(mkt, "chat_conversas"), (r) => r.some((c) => c.tipo === "departamento" && c.departamento === "jornalismo" && c.nome === "Departamento de Comunicação"));
+await espera("marketing entra sozinho no grupo do Departamento de Comunicação", () => rpc(mkt, "chat_conversas", semLidos), (r) => r.some((c) => c.tipo === "departamento" && c.departamento === "jornalismo" && c.nome === "Departamento de Comunicação"));
 await recusa("estar na Comunicação não dá ao marketing os poderes da rádio", () => rpc(mkt, "radio_canal_salvar", { p_id: null, p_nome: "Canal novo", p_descricao: "", p_ordem: 1 }), "sem_permissao");
 await espera("marketing apaga um item do calendário", () => rpc(mkt, "divulgacao_apagar", { p_id: post.id }), (r) => r.ok);
 
@@ -2542,7 +2580,7 @@ for (const chave of ["super", "poli"]) {
   await rpc(como(ids[chave]), "eu");
   await rpc(como(ids[chave]), "perfil_salvar", { p_nome: nomes[chave], p_bio: "" });
 }
-const departamentosDe = async (quem) => (await rpc(como(ids[quem]), "chat_conversas")).filter((c) => c.tipo === "departamento").map((c) => c.departamento).sort();
+const departamentosDe = async (quem) => (await rpc(como(ids[quem]), "chat_conversas", semLidos)).filter((c) => c.tipo === "departamento").map((c) => c.departamento).sort();
 await espera("pessoa sem papel nenhum: nível zero e nada do painel da equipe", async () => [await rpc(como(ids.poli), "eu"), await rpc(como(ids.poli), "fila").catch((e) => e.message)], ([eu, fila]) => eu.papeis.length === 0 && eu.nivel === 0 && fila.includes("sem_permissao"));
 await espera("vice-coordenação também nomeia a supervisão", async () => { await rpc(como(ids.vice), "papel_conceder", { p_usuario: ids.super, p_papel: "supervisao", p_disciplina: null }); return rpc(como(ids.super), "eu"); }, (r) => r.papeis.some((p) => p.papel === "supervisao"));
 await espera("coordenação nomeia a supervisão, que fica no nível 2", async () => { await rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.super, p_papel: "supervisao", p_disciplina: null }); return rpc(como(ids.super), "eu"); }, (r) => r.papeis.length === 1 && r.papeis[0].papel === "supervisao" && r.nivel === 2);
@@ -2781,9 +2819,18 @@ await espera("o termômetro da semana: responde uma vez, o nível fica na urna s
   ([situacao, linhas, colunas]) => situacao.respondeu === true && linhas.rows[0].n === 1 && linhas.rows[0].nivel === 2 && !colunas.rows.some((c) => /usuario|autor|quem|criado|marca/.test(c.column_name)));
 await espera("com menos de cinco respostas, a coordenação vê só o total", () => rpc(coord2, "bem_estar_resumo"), (r) => r[0].respostas === 1 && r[0].media === null);
 await recusa("o educador não vê o termômetro da equipe", () => rpc(como(ids.prof), "bem_estar_resumo"), "sem_permissao");
-await espera("crítica anônima chega à coordenação sem nome e sem hora", async () => { await rpc(como(ids.prof), "critica_enviar", { p_texto: "As reuniões de domingo cansam a equipe.", p_para: "coordenacao" }); return [await rpc(coord2, "criticas_listar"), await dono("select column_name from information_schema.columns where table_schema = 'interno' and table_name = 'criticas'")]; },
+// Desde o reforço do banco (20261123-r1-banco.sql) a crítica chega pelo servidor do site: ele confere a pessoa e conta a cota
+// (na memória dele); o banco recebe só o texto. Sem essa migração, o caminho antigo (direto, com a cota no banco).
+const criticaPeloServidor = (await dono("select to_regprocedure('public.alumia_cuidado_critica(text, text)') is not null as s")).rows[0].s;
+const mandarCritica = async (texto, para = "geral") => {
+  if (!criticaPeloServidor) return rpc(como(ids.prof), "critica_enviar", { p_texto: texto, p_para: para });
+  if ((await rpc(servico, "alumia_cuidado_pode_criticar", { p_usuario: ids.prof })) !== true) throw new Error("sem_permissao");
+  return rpc(servico, "alumia_cuidado_critica", { p_texto: texto, p_para: para });
+};
+if (criticaPeloServidor) await recusa("a crítica direta pelo banco não vale (vai pelo servidor)", () => rpc(como(ids.prof), "critica_enviar", { p_texto: "Uma crítica direta.", p_para: "geral" }), "pelo_servidor");
+await espera("crítica anônima chega à coordenação sem nome e sem hora", async () => { await mandarCritica("As reuniões de domingo cansam a equipe.", "coordenacao"); return [await rpc(coord2, "criticas_listar"), await dono("select column_name from information_schema.columns where table_schema = 'interno' and table_name = 'criticas'")]; },
   ([lista, colunas]) => lista.some((c) => c.texto.includes("domingo") && !("autor" in c)) && !colunas.rows.some((c) => /usuario|autor|quem|criado_em/.test(c.column_name)));
-await recusa("no máximo três críticas por dia", async () => { for (let i = 0; i < 3; i++) await rpc(como(ids.prof), "critica_enviar", { p_texto: `Mais uma crítica número ${i}.` }); }, "muitos_pedidos");
+if (!criticaPeloServidor) await recusa("no máximo três críticas por dia", async () => { for (let i = 0; i < 3; i++) await rpc(como(ids.prof), "critica_enviar", { p_texto: `Mais uma crítica número ${i}.` }); }, "muitos_pedidos");
 await recusa("o educador não lê a caixa de críticas", () => rpc(como(ids.prof), "criticas_listar"), "sem_permissao");
 await espera("o botão de pânico avisa a coordenação e fica no registro", async () => { await rpc(como(ids.mentora), "panico", { p_motivo: "perdi o celular" }); return [await rpc(coord2, "avisos_meus"), await dono("select count(*)::int as n from interno.auditoria where acao = 'panico'")]; },
   ([avisos, registro]) => avisos.some((a) => a.texto.includes("botão de pânico") && a.texto.includes("perdi o celular")) && registro.rows[0].n >= 1);
@@ -2814,17 +2861,23 @@ await recusa("o educador não abre votação para a equipe toda", () => rpc(como
 await recusa("votação precisa de pelo menos duas opções", () => rpc(coord2, "votacao_criar", { p: { titulo: "Só uma opção", opcoes: ["Sim"], encerra_em: daquiAUmDia } }), "invalido:opcoes");
 await espera("a coordenação abre uma votação secreta e a equipe é avisada", async () => { votacao = await rpc(coord2, "votacao_criar", { p: { titulo: "Mudar a reunião geral para sábado?", descricao: "Hoje é domingo às 19h.", opcoes: ["Sim, sábado", "Não, fica domingo", "Tanto faz"], encerra_em: daquiAUmDia, secreta: true } }); return rpc(como(ids.prof), "avisos_meus"); },
   (r) => votacao.id && r.some((a) => a.texto.includes("Votação aberta") && a.texto.includes("sábado")));
-const votarSecreto = (quem, opcao) => rpc(servico, "alumia_voto_equipe", { p_usuario: quem, p_votacao: votacao.id, p_opcao: opcao, p_marca: marcaDeTeste("equipe", votacao.id, quem) });
+// O voto secreto da equipe na R2 (20261124-r2-voto.sql): cédula cifrada para as guardiãs; aqui, a chave e a apuração de teste
+// (scripts/voto-de-teste.mjs), como nos outros testes de antes.
+const voto = await votoDeTeste(banco);
+const votarSecreto = (quem, opcao) => voto.equipe((f, a) => rpc(servico, f, a), { p_usuario: quem, p_votacao: votacao.id, p_opcao: opcao, p_marca: marcaDeTeste("equipe", votacao.id, quem) });
 await recusa("no voto secreto, a sessão não vota direto (só pelo servidor)", () => rpc(como(ids.prof), "votar", { p_id: votacao.id, p_opcao: 1 }), "voto_pelo_servidor");
 await espera("o educador vota e não vê o resultado antes do fim", async () => { await votarSecreto(ids.prof, 1); return [await rpc(como(ids.prof), "votacoes_listar"), await rpc(servico, "alumia_voto_equipe_votei", { p_usuario: ids.prof, p_marcas: { [votacao.id]: marcaDeTeste("equipe", votacao.id, ids.prof) } })]; },
-  ([r, votei]) => r.some((v) => v.id === votacao.id && v.votantes === 1 && v.resultado === null) && votei.includes(votacao.id));
+  // R3 (urna anônima): o "já votei" da equipe passou a ser a marca da emissão do passe, que esta lista ainda não lê (limite registrado
+  // pela frente resto-r2); o número de quem pegou a cédula, sim.
+  ([r, votei]) => r.some((v) => v.id === votacao.id && v.votantes === 1 && v.resultado === null) && (voto.pelaR3?.equipe || votei.includes(votacao.id)));
 await recusa("ninguém vota duas vezes", () => votarSecreto(ids.prof, 0), "ja_votou");
 await recusa("quem não é da equipe não vota", () => votarSecreto(ids.aluna, 0), "sem_permissao");
 await espera("no voto secreto, o voto não guarda quem votou", () => dono("select count(*)::int as n from interno.votacao_votos where votacao = $1 and usuario is not null", [votacao.id]), (r) => r.rows[0].n === 0);
 // Três votos: no voto secreto, com 1 ou 2 o resultado não aparece (20261114-alumia-o8-voto.sql).
-await espera("encerrada, o resultado aparece sem nomes", async () => { await votarSecreto(ids.mentora, 1); await votarSecreto(ids.jornal, 0); await rpc(coord2, "votacao_encerrar", { p_id: votacao.id }); return rpc(como(ids.prof), "votacoes_listar"); },
+await espera("encerrada, o resultado aparece sem nomes", async () => { await votarSecreto(ids.mentora, 1); await votarSecreto(ids.jornal, 0); await rpc(coord2, "votacao_encerrar", { p_id: votacao.id }); await voto.apurar("equipe", votacao.id); return rpc(como(ids.prof), "votacoes_listar"); },
   (r) => { const v = r.find((x) => x.id === votacao.id); return v.encerrada && v.resultado[1].votos === 2 && v.resultado[1].quem === null; });
-await recusa("depois do fim, ninguém vota", () => votarSecreto(ids.jornal, 0), "encerrada");
+// R3: a emissão do passe da urna não diz o porquê ("sem_permissao" para fechada, de fora ou sem acesso).
+await recusa("depois do fim, ninguém vota", () => votarSecreto(ids.jornal, 0), voto.pelaR3?.equipe ? "sem_permissao" : "encerrada");
 
 // Banco de pautas e calendário único.
 let pautaNova;
@@ -3740,69 +3793,27 @@ await espera("toda função pública com poder de dono fixa o search_path", asyn
 
 await espera("nenhuma tabela, visão ou sequência no esquema público", async () => (await dono("select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'public' and c.relkind in ('r', 'v', 'm', 'p', 'f', 'S')")).rows.map((r) => r.relname), (r) => r.length === 0);
 
-// ── Conversas da equipe na biblioteca do Matrix (supabase/migracoes/20261116-equipe-chat-olm.sql, lib/equipe-olm.ts) ──
-// Megolm nas mensagens ("e1"), Olm por aparelho (vários por pessoa), certificado da identidade conferido em cada aparelho, pedido
-// de chave para quem chegou depois, e a identidade repassada em HPKE ("h1").
-{
+// ── Conversas da equipe em MLS (supabase/migracoes/20261124-r2-equipe.sql, lib/equipe/mls.ts) ──
+// Um grupo MLS por conversa (OpenMLS do @wireapp/core-crypto, suíte híbrida), cada aparelho aprovado uma folha certificada pela
+// identidade da pessoa, a mensagem "m1" assinada por dentro, e a identidade repassada em HPKE ("h1"). A prova completa, com os
+// ataques, está em scripts/testar-r2-equipe.mjs; aqui, o que o painel faz de ponta a ponta. Com a R3 (o formato "s2", autor e hora por
+// dentro, ficha de dono), a mesma prova de ponta a ponta está em scripts/testar-r3-resto-equipe.mjs.
+if (!chatR3) {
   const sig = await import("../lib/sigilo.ts");
-  const olm = await import("../lib/rede/chat/olm.ts");
-  const eq = await import("../lib/equipe-olm.ts");
-  const textoDoCertificado = (usuario, aparelho, d, ed, cu) => `lucia:equipe-olm:${usuario}:${aparelho}:${d}:${ed}:${cu}`;
-  const letras = (id) => [...id.replace(/-/g, "").slice(0, 10)].map((c) => String.fromCharCode(65 + (parseInt(c, 16) % 26))).join("");
-  const maquinas = {};
-  async function maquinaDe(chave, ap) {
-    const usuario = ids[ap.quem];
-    const transporte = {
-      publicar: async (p) => {
-        let cert = null;
-        if (p.device_keys) {
-          const d = p.device_keys.device_id;
-          cert = await sig.assinar(ap.identidade.privada, textoDoCertificado(usuario, ap.id, d, p.device_keys.keys[`ed25519:${d}`], p.device_keys.keys[`curve25519:${d}`]));
-        }
-        return rpc(como(usuario), "equipe_chat_olm_publicar", { p_aparelho: ap.id, p, p_certificado: cert });
-      },
-      consultar: (u) => rpc(como(usuario), "equipe_chat_olm_consultar", { p_aparelho: ap.id, p_usuarios: u }),
-      reivindicar: (p) => rpc(como(usuario), "equipe_chat_olm_reivindicar", { p_aparelho: ap.id, p }),
-      enviar: (t, m) => rpc(como(usuario), "equipe_chat_olm_enviar", { p_aparelho: ap.id, p_tipo: t, p_mensagens: m }),
-      receber: () => rpc(como(usuario), "equipe_chat_olm_receber", { p_aparelho: ap.id }),
-      confirmar: (ate) => rpc(como(usuario), "equipe_chat_olm_confirmar", { p_aparelho: ap.id, p_ate: ate }),
-    };
-    // Aceita o aparelho de alguém só com o certificado da identidade que a "equipe de teste" conhece da pessoa.
-    const aceita = async (u, d, chaves) => {
-      const quem = Object.keys(ids).find((k) => ids[k] === u);
-      const identidade = Object.values(aparelhos).find((a) => a.quem === quem && a.identidade)?.identidade?.publica;
-      const cert = chaves?.unsigned?.lucia_certificado;
-      const aparelho = chaves?.unsigned?.lucia_aparelho;
-      if (!identidade || !cert || !aparelho) return false;
-      return sig.verificar(identidade, cert, textoDoCertificado(u, aparelho, d, chaves.keys[`ed25519:${d}`], chaves.keys[`curve25519:${d}`]));
-    };
-    maquinas[chave] = await olm.abrirAparelho({ usuario, dispositivo: letras(ap.id), transporte, confiavel: async () => null, aceita });
-    return maquinas[chave];
-  }
-  for (const quem of ["coord", "vice"]) await maquinaDe(quem, aparelhos[quem]);
   const geral = (await departamento("coord", "geral")).id;
-  const membros = (await rpc(como(ids.coord), "chat_chaves", { p_conversa: geral, p_aparelho: aparelhos.coord.id })).identidades.map((i) => i.usuario);
-  const atual = async () => (await rpc(como(ids.coord), "chat_chaves", { p_conversa: geral, p_aparelho: aparelhos.coord.id })).atual ?? 0;
-  const v = (await rpc(como(ids.coord), "equipe_chat_versao_nova", { p_conversa: geral, p_aparelho: aparelhos.coord.id, p_versao: Math.max((await atual()) + 1, 1) })).versao;
-  const assinado = await sig.assinarTexto(aparelhos.coord.identidade, "Reunião da equipe às 19h.", sig.contextoDaConversa(geral, ids.coord), v);
-  const corpo = await eq.cifrarNaConversa(maquinas.coord, geral, v, membros, assinado);
-  await espera("equipe: a mensagem sai em Megolm ('e1') e o banco aceita", async () => [corpo.startsWith(`e1.${v}.`), Boolean((await rpc(como(ids.coord), "chat_enviar", { p_id: geral, p_corpo: corpo })).id)], (r) => r.every(Boolean));
+  const corpo = await selar(aparelhos.coord, geral, "Reunião da equipe às 19h.", sig.contextoDaConversa(geral, ids.coord));
+  await espera("equipe: a mensagem sai em MLS ('m1') e o banco aceita", async () => [corpo.startsWith("m1."), Boolean((await rpc(como(ids.coord), "chat_enviar", { p_id: geral, p_corpo: corpo })).id)], (r) => r.every(Boolean));
   await espera("equipe: no banco, nada do texto", async () => (await dono("select corpo from interno.conversa_mensagens where corpo = $1", [corpo])).rows.length === 1 && !corpo.includes("Reuni"));
-  await olm.sincronizar(maquinas.vice);
-  await espera("equipe: a vice abre e a assinatura da coordenação confere", async () => {
-    const r = await eq.abrirNaConversa(maquinas.vice, corpo, geral, ids.coord);
-    return r && "texto" in r ? sig.abrirTexto(r.texto, aparelhos.coord.identidade.publica, sig.contextoDaConversa(geral, ids.coord), v) : r;
-  }, (a) => a?.texto === "Reunião da equipe às 19h." && a.autoria === "ok");
-  await espera("equipe: com o autor trocado, a assinatura não confere", async () => {
-    const r = await eq.abrirNaConversa(maquinas.vice, corpo, geral, ids.coord);
-    return sig.abrirTexto(r.texto, aparelhos.vice.identidade.publica, sig.contextoDaConversa(geral, ids.vice), v);
-  }, (a) => a?.autoria !== "ok");
+  await espera("equipe: a vice abre e a assinatura da coordenação confere", () => lerCom(aparelhos.vice, geral, corpo, sig.contextoDaConversa(geral, ids.coord), ids.coord), (a) => a?.texto === "Reunião da equipe às 19h." && a.autoria === "ok");
+  await espera("equipe: com o autor trocado, não abre (o contexto é amarrado à cifra)", () => lerCom(aparelhos.vice, geral, corpo, sig.contextoDaConversa(geral, ids.vice), ids.vice), (a) => a === null);
   await recusa("equipe: texto aberto não entra", () => rpc(como(ids.coord), "chat_enviar", { p_id: geral, p_corpo: "oi" }), "invalido:corpo");
-  await recusa("equipe: e1 de versão velha não entra", () => rpc(como(ids.coord), "chat_enviar", { p_id: geral, p_corpo: corpo.replace(`e1.${v}.`, `e1.${v + 5}.`) }), "chave_desatualizada");
-  await recusa("equipe: quem não é da equipe não publica chave Olm", () => rpc(como(ids.leitora), "equipe_chat_olm_publicar", { p_aparelho: aparelhos.coord.id, p: {} }), "aparelho_desconhecido");
-  await espera("equipe: as tabelas da biblioteca não são lidas por ninguém", async () => (await dono("select bool_or(has_table_privilege(r, t, 'select')) as algum from unnest(array['anon','authenticated']) r, unnest(array['interno.equipe_chat_olm','interno.equipe_chat_caixa','interno.equipe_chat_pedidos','interno.equipe_chat_unicas']) t")).rows[0].algum, (x) => x === false);
+  const e = Number(corpo.split(".")[1]);
+  await recusa("equipe: m1 de outra época não entra", () => rpc(como(ids.coord), "chat_enviar", { p_id: geral, p_corpo: corpo.replace(`m1.${e}.`, `m1.${e + 5}.`) }), "chave_desatualizada");
+  await recusa("equipe: quem não é da equipe não publica folha", () => rpc(como(ids.leitora), "equipe_mls_publicar", { p_aparelho: aparelhos.coord.id, p_nome: `${ids.leitora}:1@alumia.invalid`, p_certificado: "A".repeat(86), p_pacotes: [] }), "aparelho_desconhecido");
+  await espera("equipe: as tabelas do MLS não são lidas por ninguém", async () => (await dono("select bool_or(has_table_privilege(r, t, 'select')) as algum from unnest(array['anon','authenticated']) r, unnest(array['interno.equipe_mls_folhas','interno.equipe_mls_pacotes','interno.equipe_mls_commits','interno.equipe_mls_boasvindas']) t")).rows[0].algum, (x) => x === false);
+  await espera("equipe: as tabelas do Megolm não existem mais", async () => (await dono("select count(*)::int as n from unnest(array['equipe_chat_olm','equipe_chat_caixa','equipe_chat_pedidos','equipe_chat_unicas','equipe_chat_reserva','chat_chaves']) t where to_regclass('interno.' || t) is not null")).rows[0].n, (n) => n === 0);
 
-  // Aparelho novo da vice (aprovado agora, com a identidade em HPKE "h1"): não tem a sessão antiga, pede, a coordenação repassa.
+  // Aparelho novo da vice (aprovado agora, com a identidade em HPKE "h1"): entra no grupo pela próxima escrita e lê daí em diante.
   const vice2 = await aparelhoDe("vice", "vice, segundo aparelho");
   const lista = await rpc(como(ids.vice), "chat_aparelhos_meus");
   const alvo = lista.find((a) => a.id === vice2.id);
@@ -3818,32 +3829,21 @@ await espera("nenhuma tabela, visão ou sequência no esquema público", async (
     return [r.identidade_embrulho.startsWith("h1."), !!aberta, deOutro];
   }, (r) => r[0] === true && r[1] === true && r[2] === null);
   aparelhos.vice2 = vice2;
-  await maquinaDe("vice2", vice2);
-  const semChave = await eq.abrirNaConversa(maquinas.vice2, corpo, geral, ids.coord);
-  await espera("equipe: o aparelho novo não tem a sessão antiga e sabe qual pedir", async () => semChave, (r) => r && "falta" in r && r.falta === eq.sessaoDoE1(corpo));
-  await rpc(como(ids.vice), "equipe_chat_pedir_chave", { p_aparelho: vice2.id, p_conversa: geral, p_sessao: semChave?.falta ?? eq.sessaoDoE1(corpo) });
-  const pedidos = await rpc(como(ids.coord), "equipe_chat_pedidos", { p_aparelho: aparelhos.coord.id });
-  const pedido = pedidos.find((x) => x.aparelho === vice2.id);
-  await espera("equipe: a coordenação vê o pedido do aparelho novo (está na mesma conversa)", async () => pedido, (x) => x?.sessao === eq.sessaoDoE1(corpo));
-  const exportadas = await eq.exportarSessao(maquinas.coord, geral, pedido.sessao);
-  const mandou = await eq.mandarSessao(maquinas.coord, pedido.usuario, pedido.dispositivo, geral, exportadas);
-  await rpc(como(ids.coord), "equipe_chat_pedido_atendido", { p_aparelho: aparelhos.coord.id, p_id: pedido.id });
-  const recados = await olm.sincronizar(maquinas.vice2);
-  const importadas = await eq.importarSessoes(maquinas.vice2, recados, async (conversa, quem) => conversa === geral && membros.includes(quem));
-  await espera("equipe: a sessão repassada por Olm entra e o aparelho novo abre a mensagem antiga", async () => [mandou, importadas, (await eq.abrirNaConversa(maquinas.vice2, corpo, geral, ids.coord))?.texto === assinado], (r) => r[0] === true && r[1] >= 1 && r[2] === true);
-  await espera("equipe: sessão de OUTRA conversa no meio do repasse é recusada", async () => eq.importarSessoes(maquinas.vice2, [{ de: ids.coord, curve25519: "", tipo: "lucia.chaves", conteudo: { conversa: geral, chaves: JSON.stringify([{ room_id: "!outra.v0000001:alumia.invalid" }]) } }], async () => true), (n) => n === 0);
+  await publicarFolha(vice2);
+  await espera("equipe: o aparelho novo não lê o que veio antes de ele entrar (MLS)", () => lerCom(vice2, geral, corpo, sig.contextoDaConversa(geral, ids.coord), ids.coord), (r) => r === null);
+  const corpo2 = await selar(aparelhos.coord, geral, "Segredo da época nova.", sig.contextoDaConversa(geral, ids.coord));
+  await rpc(como(ids.coord), "chat_enviar", { p_id: geral, p_corpo: corpo2 });
+  await espera("equipe: e lê o que vem depois, com a autoria conferida", () => lerCom(vice2, geral, corpo2, sig.contextoDaConversa(geral, ids.coord), ids.coord), (a) => a?.texto === "Segredo da época nova." && a.autoria === "ok");
 
-  // O servidor põe um aparelho falso para a vice (chaves Olm de verdade, certificado inventado): ninguém entrega chave a ele.
+  // O servidor põe um aparelho falso para a vice (folha de verdade no MLS, certificado de outra identidade): ninguém o põe no grupo.
   const falso = await aparelhoDe("vice", "falso");
-  await dono("update interno.chat_aparelhos set certificado = $2 where id = $1", [falso.id, "A".repeat(86)]);
-  await maquinaDe("falso", { ...falso, identidade: aparelhos.coord.identidade });
-  await rpc(como(ids.coord), "equipe_chat_versao_nova", { p_conversa: geral, p_aparelho: aparelhos.coord.id, p_versao: v + 1 });
-  const corpo2 = await eq.cifrarNaConversa(maquinas.coord, geral, v + 1, membros, await sig.assinarTexto(aparelhos.coord.identidade, "Segredo da versão nova.", sig.contextoDaConversa(geral, ids.coord), v + 1));
-  await olm.sincronizar(maquinas.falso);
-  await espera("equipe: o aparelho com certificado falso não recebe a chave nem abre", async () => eq.abrirNaConversa(maquinas.falso, corpo2, geral, ids.coord), (r) => r === null || "falta" in r);
-  await olm.sincronizar(maquinas.vice2);
-  await espera("equipe: os aparelhos certificados da vice abrem a versão nova", async () => (await eq.abrirNaConversa(maquinas.vice2, corpo2, geral, ids.coord))?.texto?.length > 0, (x) => x === true);
-  for (const m of Object.values(maquinas)) olm.fecharAparelho(m);
+  await dono("update interno.chat_aparelhos set certificado = $2, vale_desde = null where id = $1", [falso.id, "A".repeat(86)]);
+  falso.identidade = await novaIdentidade();
+  await publicarFolha(falso);
+  const corpo3 = await selar(aparelhos.coord, geral, "Só para aparelhos de verdade.", sig.contextoDaConversa(geral, ids.coord));
+  await rpc(como(ids.coord), "chat_enviar", { p_id: geral, p_corpo: corpo3 });
+  await espera("equipe: o aparelho com certificado falso não recebe boas-vindas nem abre", async () => [(await dono("select count(*)::int as n from interno.equipe_mls_boasvindas where para = $1", [falso.id])).rows[0].n, await lerCom(falso, geral, corpo3, sig.contextoDaConversa(geral, ids.coord), ids.coord)], ([n, r]) => n === 0 && r === null);
+  await espera("equipe: os aparelhos certificados da vice abrem a época nova", async () => (await lerCom(vice2, geral, corpo3, sig.contextoDaConversa(geral, ids.coord), ids.coord))?.texto, (x) => x === "Só para aparelhos de verdade.");
 }
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);

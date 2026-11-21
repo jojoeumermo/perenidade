@@ -1,0 +1,82 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Conta e convivência (/alumia/conta),
+ * Prompt 4. Só usa os tokens de styles/alumia-tokens.css (vale no escuro, no claro, no contraste e no e-ink). Uma coluna no celular,
+ * sem rolar para o lado; alvos de toque de 44 px; sem animação com movimento reduzido.
+ */
+
+.ct-pagina { container-type: inline-size; display: grid; gap: 1.25rem; padding: 1.25rem 16px 3rem; color: var(--al-texto); min-width: 0; }
+@media (min-width: 1024px) { .ct-pagina { padding: 1.75rem 1.5rem 3.5rem; } }
+
+.ct-cabeca { display: grid; gap: 0.6rem; justify-items: start; }
+.ct-faixa { width: 7.5rem; border-radius: 2px; }
+.ct-titulo { margin: 0; font-size: clamp(2.2rem, 6cqi, 3.6rem); line-height: 0.95; }
+.ct-chamada { margin: 0; max-width: 68ch; color: var(--al-texto-2); font-size: 1.04rem; line-height: 1.5; }
+
+.ct-abas { display: flex; flex-wrap: wrap; gap: 0.4rem; border-bottom: 1px solid var(--al-linha); padding-bottom: 0.5rem; }
+.ct-aba {
+  min-height: 44px; min-width: 44px; padding: 0.5rem 0.9rem; border: 1px solid var(--al-linha); border-radius: 999px; background: transparent;
+  color: var(--al-texto-2); font: inherit; font-weight: 700; cursor: pointer;
+}
+.ct-aba[aria-selected="true"] { border-color: var(--al-dourado); background: var(--al-superficie); color: var(--al-texto); }
+.ct-aba:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+
+.ct-bloco { display: grid; gap: 0.85rem; min-width: 0; }
+.ct-subtitulo { margin: 0; font-size: 1.4rem; letter-spacing: 0.02em; line-height: 1.1; }
+.ct-miudo { margin: 0; color: var(--al-texto-3); font-size: 0.92rem; line-height: 1.5; overflow-wrap: anywhere; }
+.ct-erro { margin: 0; padding: 0.55rem 0.8rem; border-radius: 8px; border-left: 4px solid var(--al-vermelho); background: var(--al-superficie); color: var(--al-texto); font-size: 0.94rem; }
+.ct-ok { margin: 0; color: var(--al-texto-2); font-size: 0.94rem; }
+.ct-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+
+.ct-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; min-width: 0; }
+.ct-cartao { display: grid; gap: 0.45rem; padding: 0.9rem 1rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); min-width: 0; }
+.ct-cartao h3 { margin: 0; font-size: 1.12rem; line-height: 1.25; overflow-wrap: anywhere; }
+.ct-cartao p { margin: 0; line-height: 1.5; overflow-wrap: anywhere; }
+.ct-etiqueta { display: inline-flex; align-items: center; gap: 0.35rem; margin: 0; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--al-texto-3); }
+
+/* A linha do tempo da campanha: um fio à esquerda e um ponto por item. */
+.ct-linha { list-style: none; margin: 0; padding: 0 0 0 1.1rem; border-left: 2px solid var(--al-linha); display: grid; gap: 0.9rem; min-width: 0; }
+.ct-linha > li { position: relative; display: grid; gap: 0.3rem; min-width: 0; }
+.ct-linha > li::before { content: ""; position: absolute; left: calc(-1.1rem - 7px); top: 0.35rem; width: 12px; height: 12px; border-radius: 50%; background: var(--al-dourado); }
+.ct-linha > li[data-tipo="vitoria"]::before { background: var(--al-vermelho); }
+
+.ct-form { display: grid; gap: 0.7rem; padding: 0.9rem 1rem; border: 1px dashed var(--al-linha); border-radius: var(--al-raio); min-width: 0; }
+.ct-form label, .ct-form fieldset { display: grid; gap: 0.3rem; font-weight: 700; font-size: 0.95rem; color: var(--al-texto-2); min-width: 0; }
+.ct-form fieldset { margin: 0; padding: 0; border: 0; }
+.ct-form legend { padding: 0; margin-bottom: 0.3rem; }
+.ct-form input[type="text"], .ct-form input[type="url"], .ct-form input[type="date"], .ct-form textarea, .ct-form select {
+  min-height: 44px; width: 100%; max-width: 100%; box-sizing: border-box; padding: 0.5rem 0.7rem; border: 1px solid var(--al-linha); border-radius: 8px;
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-weight: 400;
+}
+.ct-form textarea { min-height: 6rem; resize: vertical; }
+.ct-opcao { display: flex !important; gap: 0.6rem; align-items: center; min-height: 44px; font-weight: 400 !important; color: var(--al-texto) !important; cursor: pointer; }
+.ct-opcao input { width: 22px; height: 22px; flex: none; }
+.ct-pagina .al-botao, .ct-quadro .al-botao, .ct-pagina a.ct-link { min-height: 44px; min-width: 44px; }
+.ct-pagina a.ct-link { display: inline-flex; align-items: center; color: var(--al-texto); text-decoration: underline; text-underline-offset: 3px; }
+
+.ct-sub { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.ct-sub .ct-aba { font-weight: 600; font-size: 0.95rem; }
+.ct-escolha { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: end; }
+.ct-escolha label { display: grid; gap: 0.3rem; font-weight: 700; font-size: 0.95rem; color: var(--al-texto-2); min-width: 0; max-width: 100%; }
+.ct-escolha select { min-height: 44px; max-width: 100%; padding: 0.5rem 0.7rem; border: 1px solid var(--al-linha); border-radius: 8px; background: var(--al-fundo); color: var(--al-texto); font: inherit; }
+.ct-colunas { display: grid; gap: 0.75rem; grid-template-columns: 1fr; min-width: 0; }
+@container (min-width: 760px) { .ct-colunas { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.ct-coluna { display: grid; align-content: start; gap: 0.6rem; min-width: 0; }
+.ct-coluna > h3 { margin: 0; font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--al-texto-3); }
+.ct-barra { height: 10px; border-radius: 999px; background: var(--al-linha); overflow: hidden; }
+.ct-barra > span { display: block; height: 100%; background: var(--al-dourado); }
+.ct-numero { font-variant-numeric: tabular-nums; font-weight: 700; }
+.ct-mapa { width: 100%; max-width: 520px; height: auto; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-fundo); }
+.ct-mapa polyline { fill: none; stroke: var(--al-vermelho); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+.ct-mapa circle { fill: var(--al-dourado); }
+.ct-mapa text { fill: var(--al-texto); font-size: 11px; }
+.ct-form input[type="number"], .ct-form input[type="time"], .ct-form input[type="datetime-local"], .ct-form input[type="file"] {
+  min-height: 44px; width: 100%; max-width: 100%; box-sizing: border-box; padding: 0.5rem 0.7rem; border: 1px solid var(--al-linha); border-radius: 8px;
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-weight: 400;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ct-pagina * { transition: none !important; animation: none !important; }
+}
+.ct-cartao-titulo { margin: 0; font-size: 1.05rem; line-height: 1.25; overflow-wrap: anywhere; }
+.ct-form .ct-opcao, .ct-opcao { min-width: 44px; }

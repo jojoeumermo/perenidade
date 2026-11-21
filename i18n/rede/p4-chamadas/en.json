@@ -1,0 +1,60 @@
+{
+  "_rascunho": true,
+  "botoes": {
+    "voz": "Voice call",
+    "video": "Video call"
+  },
+  "tocando": {
+    "voz": "{nome} is calling",
+    "video": "{nome} is calling with video",
+    "atender": "Answer",
+    "atenderSoVoz": "Answer with voice only",
+    "atenderComCamera": "Answer with camera",
+    "recusar": "Decline"
+  },
+  "fases": {
+    "ligando": "Calling {nome}…",
+    "conectando": "Connecting with {nome}…",
+    "emChamada": "In a call with {nome}"
+  },
+  "acoes": {
+    "mudo": "Turn microphone off",
+    "falar": "Turn microphone on",
+    "cameraDesligar": "Turn camera off",
+    "cameraLigar": "Turn camera on",
+    "desligar": "Hang up",
+    "desistir": "Cancel",
+    "fechar": "Close"
+  },
+  "voce": "You",
+  "semCamera": "{nome} has no camera on.",
+  "fim": {
+    "cancelou": "{nome} stopped calling.",
+    "recusou": "{nome} declined the call.",
+    "desligou": "{nome} hung up.",
+    "atendida": "The call ended.",
+    "nao_atendeu": "{nome} did not answer.",
+    "nao_conectou": "The connection did not open. Try again.",
+    "saiu": "The call ended.",
+    "eu": "Call ended.",
+    "erro": "Could not make the call."
+  },
+  "erros": {
+    "NotAllowedError": "The browser did not allow the microphone or camera. Allow them in the site permissions.",
+    "NotFoundError": "No microphone or camera found on this device.",
+    "NotReadableError": "Another program is using the microphone or camera.",
+    "voz_desligada": "Calls are turned off on this server.",
+    "voz_sem_retransmissao": "The relay server did not answer. Without it the call does not open: it is what hides your address.",
+    "voz_sem_canal": "The call channel did not open. Try again.",
+    "sem_chat": "Open the chat on this device before calling.",
+    "chamada_nao_saiu": "The ring did not go out: no device of the other person is ready.",
+    "dm_aguardando": "The conversation has not been accepted yet.",
+    "dm_fechada": "This conversation is closed.",
+    "dm_identidade_mudou": "The other person's identity changed. Check the code before calling.",
+    "dm_exige_comparar": "The other person's identity changed. Compare the code before calling.",
+    "dm_fora_do_registro": "The public log does not confirm the other person's identity. Calling is not possible.",
+    "outro": "Could not make the call. Try again."
+  },
+  "privacidade": "End-to-end encrypted. The ring travels inside the encrypted conversation; voice and video go through the relay, which cannot hear or see them. No call log is kept.",
+  "limite": "The ring only arrives if Alumia is open on the other person's device, and it can take up to a minute and a half."
+}

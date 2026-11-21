@@ -13,6 +13,7 @@
 import { randomUUID } from "node:crypto";
 import { conferirAssinatura, keyIdDoPedido } from "./assinatura";
 import { atorRemoto, banco, fed, gruposLigados, lerAtorRemoto, modoTotal } from "./servidor";
+import { hostCanonico } from "./enderecos";
 import { htmlParaTexto, textoCurto } from "./texto";
 import { autorDe, comunidadeLocal, dominio, handleLocal, idDe, lerNota, listaDeIds, TIPOS_DE_ATOR, TIPOS_DE_NOTA } from "./entrada/nota";
 import { desfazerInteracao, desfazerPeloId, receberInteracao } from "./entrada/interacao";
@@ -54,7 +55,8 @@ export async function receber(metodo: string, caminho: string, ler: (nome: strin
     return { status: 400, motivo: "json" };
   }
   const autor = idDe(atividade.actor);
-  if (!autor || !/^https:\/\//.test(autor)) return { status: 400, motivo: "sem_ator" };
+  // O ator com o nome do servidor escrito na forma normal: o bloqueio de instância do banco compara o texto (hostCanonico).
+  if (!autor || !/^https:\/\//.test(autor) || !hostCanonico(autor)) return { status: 400, motivo: "sem_ator" };
   // Se o banco não responde, não dá para saber se a instância está bloqueada: recusa e quem mandou tenta de novo depois.
   const barrado = await banco<boolean>("bloqueado", { url: autor }).catch(() => null);
   if (barrado === null) return { status: 503, motivo: "sem_servico" };
@@ -65,6 +67,7 @@ export async function receber(metodo: string, caminho: string, ler: (nome: strin
   // O keyId da cavage (Signature) ou da RFC 9421 (keyid em Signature-Input).
   const chaveId = keyIdDoPedido(ler);
   if (!chaveId) return { status: 401, motivo: "sem_assinatura" };
+  if (!hostCanonico(chaveId)) return { status: 401, motivo: "chave_desconhecida" };
   if (dominio(chaveId) !== dominio(autor)) {
     // Repasse (inbox forwarding): sem o modo total, recusa como sempre. Com ele, confere quem repassou e refaz a atividade só com
     // o que a origem confirma (entrada/repasse.ts): nada do corpo repassado é gravado sem a origem confirmar.

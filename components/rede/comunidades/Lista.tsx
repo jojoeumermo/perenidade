@@ -20,6 +20,7 @@ import { useTextosEstrutura } from "./estrutura/base";
 import { cidadeDoEndereco, PorCidade } from "./estrutura/PorCidade";
 // O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
 import "../conversa/alumia3.css";
+import { PorQueSemNumero } from "../uso/PorQueSemNumero";
 
 const ORDEM: ItemDaLista["categoria"][] = ["lutas", "disciplinas", "instituto"];
 
@@ -145,7 +146,7 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
             </label>
           ))}
           {temContagem && (
-            <label className="ml-auto inline-flex min-h-9 cursor-pointer items-center gap-2">
+            <label className="ml-auto inline-flex min-h-11 cursor-pointer items-center gap-2">
               <input type="checkbox" checked={soAtivas} onChange={(e) => setSoAtivas(e.target.checked)} className="h-4 w-4 accent-[#c21f16]" />
               {l.soAtivas}
             </label>
@@ -213,12 +214,14 @@ function Cartao({
           ? preencher(l.semana, { posts: i.posts_7d, pessoas: i.pessoas_7d })
           : preencher(l.semanaPoucas, { posts: i.posts_7d });
   return (
-    <article style={cor ? ({ "--cor-da-comunidade": cor } as React.CSSProperties) : undefined} className={`al2-cartao-com al3-cor-${corDaComunidadeNova(i.slug, i.cor)} flex h-full flex-col p-4`}>
+    <article style={cor ? ({ "--cor-da-comunidade": cor } as React.CSSProperties) : undefined} className={`al2-cartao-com al3-cor-${corDaComunidadeNova(i.slug, i.cor)} ${i.amostra ? "" : "al2-cartao-abre "}flex h-full flex-col p-4`}>
       <div className="flex items-start gap-3">
         {/* O anel da cor da comunidade (prancha: "Comunidades ativas"), no lugar da tira grossa em cima. */}
         <span aria-hidden className="al3-anel mt-0.5" />
         <h3 className="min-w-0 flex-1 text-lg font-extrabold leading-snug">
-          {i.amostra ? i.nome : <Link href={enderecos.comunidade(lang, i.slug)} className="al2-nome-link">{i.nome}</Link>}
+          {/* O cartão inteiro abre a comunidade: a área do link cobre o cartão (al2-cartao-alvo); os botões e o "por que sem número"
+              ficam por cima dela (al2-cartao-por-cima), e o leitor de tela continua ouvindo um link só, com o nome. */}
+          {i.amostra ? i.nome : <Link href={enderecos.comunidade(lang, i.slug)} className="al2-nome-link al2-cartao-alvo">{i.nome}</Link>}
         </h3>
         <span title={sc.tipo[i.tipo]} className="shrink-0 rounded-full border border-current px-2 text-[0.7rem] font-bold uppercase leading-5 tracking-wider text-ink-soft">
           {i.amostra ? l.amostraSelo : l.tipoCurto[i.tipo]}
@@ -227,13 +230,14 @@ function Cartao({
       </div>
       {i.descricao && <p className="mt-1 line-clamp-3 text-sm text-ink-soft">{i.descricao}</p>}
       {semana && (
-        <p className="mt-2 flex items-center gap-1.5 text-xs font-bold">
+        <p className="al2-cartao-por-cima mt-2 flex items-center gap-1.5 text-xs font-bold">
           <span aria-hidden className={`h-2 w-2 rounded-full ${i.posts_7d ? "bg-[#c21f16]" : "border border-current"}`} />
           {semana}
+          {i.posts_7d && !i.pessoas_7d ? <PorQueSemNumero motivo="piso" /> : null}
         </p>
       )}
       {i.amostra && i.regras && i.regras.length > 0 && (
-        <details className="mt-2 text-sm">
+        <details className="al2-cartao-por-cima mt-2 text-sm">
           <summary className="min-h-9 cursor-pointer font-bold underline">{l.verRegras}</summary>
           <ol className="mt-1 list-decimal space-y-1 pl-5">
             {i.regras.map((r) => (
@@ -247,7 +251,7 @@ function Cartao({
       )}
       {/* Um chamado só: quem tem conta, o botão; visitante não recebe a mesma frase em cada cartão (o convite está no alto). */}
       {pode && (
-        <div className="mt-auto">
+        <div className="al2-cartao-por-cima mt-auto">
           <AcoesDaComunidade slug={i.slug} tipo={i.tipo} situacao={atual} podeEntrar={pode} s={s} sc={sc} aoMudar={aoMudar} />
         </div>
       )}

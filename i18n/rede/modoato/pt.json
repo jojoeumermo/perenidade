@@ -105,6 +105,27 @@
     "texto": "O guia para quando a internet cai. Abra uma vez agora: depois ele abre neste aparelho mesmo sem internet.",
     "abrir": "Abrir o guia"
   },
+  "semInternet": {
+    "rotulo": "Perto, sem internet",
+    "titulo": "Celulares próximos",
+    "texto": "Quando a internet cai no ato, o app pode passar mensagens curtas, o Farol e o \"Estou bem\" de celular em celular, por Bluetooth. Cada celular guarda e repassa pacotes cifrados que ele não abre: não sabe de quem são nem para quem vão. Os pacotes têm todos o mesmo tamanho e somem em 24 horas.",
+    "aviso": "Ao ligar, celulares próximos percebem que há um aparelho participando. Não percebem quem você é nem o que você manda.",
+    "entendi": "Entendi: celulares próximos percebem que há um aparelho participando.",
+    "ligar": "Ligar",
+    "desligar": "Desligar e apagar o que estava guardado",
+    "ligada": "Ligado neste celular. Desliga sozinho quando o app fecha.",
+    "soNoApp": "Só no app da Alumia para Android. No site, o celular não fala com os outros por perto.",
+    "semSessao": "O \"Estou bem\" sem internet só chega a contatos de segurança com quem você já tem conversa no chat.",
+    "farolPronto": "O Farol do seu próximo ato confirmado chega neste celular mesmo sem internet.",
+    "farolSem": "Para o Farol chegar sem internet, confirme presença no ato e ligue aqui antes, ainda com internet.",
+    "farolChegou": "Farol, sem internet: {estado}",
+    "estados": {
+      "tranquilo": "Tranquilo",
+      "atencao": "Atenção",
+      "dispersar": "Dispersar",
+      "ponto2": "Ponto de encontro 2"
+    }
+  },
   "barra": {
     "titulo": "Modo ato ligado",
     "desde": "desde {hora}",

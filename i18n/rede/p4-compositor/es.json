@@ -1,0 +1,71 @@
+{
+  "_rascunho": true,
+  "campos": {
+    "titulo": "Más de la publicación",
+    "resumo": "Versión corta (opcional)",
+    "resumoDica": "Hasta 280 caracteres, escritos por ti, para quien tiene solo un minuto. Aparece encima del texto.",
+    "capa": "Portada del artículo",
+    "semCapa": "Sin portada",
+    "capaN": "Imagen {n}",
+    "capitulos": "Cada línea que empieza con \"## \" abre un capítulo. Con dos o más, quien lee ve el índice y puede leer por páginas.",
+    "convite": "Manda la tuya: esta publicación es una invitación",
+    "conviteDica": "Quien quiera responde con una frase o una imagen. El total solo aparece a partir de 3 personas, y nadie ve una lista de quién respondió.",
+    "fonte": "Fuente (opcional)",
+    "fonteDica": "Un enlace sin parámetros de rastreo o la dirección de una verificación de Vale o Escrito. La publicación recibe la marca \"con fuente\".",
+    "fonteRuim": "Esa fuente no vale: usa un enlace http(s) sin parámetros de rastreo o la dirección de un caso de Vale o Escrito.",
+    "resumoContador": "{n} de 280",
+    "capaAjuda": "La portada aparece encima del índice, para quien lee por páginas."
+  },
+  "album": {
+    "maximo": "Hasta 20 imágenes por publicación."
+  },
+  "cartao": {
+    "versaoCurta": "Versión corta",
+    "capitulos": "{n} capítulos",
+    "lerEmPaginas": "Leer por páginas",
+    "convite": "Manda la tuya",
+    "conviteTotal": "{n} personas ya mandaron la suya.",
+    "conviteSemTotal": "Responde con una frase o una imagen.",
+    "responder": "Mandar la mía",
+    "comFonte": "Con fuente",
+    "fonteVale": "Verificación de Vale o Escrito",
+    "mandar": "Abrir para mandar la tuya",
+    "ajudaDoSelo": "La autora indicó de dónde sacó la información."
+  },
+  "leitura": {
+    "titulo": "Lectura por páginas",
+    "indice": "Índice",
+    "abertura": "Apertura",
+    "pagina": "Página {n} de {total}",
+    "anterior": "Anterior",
+    "proxima": "Siguiente",
+    "fechar": "Cerrar",
+    "capa": "Portada",
+    "carregando": "Abriendo el texto…",
+    "erro": "No se pudo abrir el texto ahora. Inténtalo de nuevo.",
+    "irPara": "Ir al capítulo"
+  },
+  "filtro": {
+    "titulo": "Imágenes sin descripción",
+    "rotulo": "Ocultar del muro las publicaciones con imagen sin descripción",
+    "explica": "Vale solo en este dispositivo: el servidor no sabe que lo activaste. La descripción es el texto que el lector de pantalla lee en lugar de la imagen.",
+    "ligado": "Activado en este dispositivo.",
+    "desligado": "Desactivado."
+  },
+  "erros": {
+    "invalido_resumo": "La versión corta va solo en el texto largo, con hasta 280 caracteres.",
+    "resumo_revisar": "La versión corta tiene algo que la mediación tendría que leer antes. Cambia las palabras o quita la versión corta.",
+    "invalido_capa": "La portada tiene que ser una de las imágenes de este texto largo.",
+    "invalido_convite": "La invitación \"Manda la tuya\" va solo en una publicación de apertura (no en una respuesta, encuesta o texto largo).",
+    "invalido_fonte": "Esa fuente no vale: usa un enlace http(s) sin parámetros de rastreo o la dirección de un caso de Vale o Escrito.",
+    "invalido_vale": "Ese caso de Vale o Escrito no está publicado para ser citado.",
+    "desligado": "Estas opciones aún no están activadas. Quítalas para publicar.",
+    "semCifra": "La publicación cifrada lleva solo el texto: la versión corta, la fuente y la invitación irían sin cifrar. Quítalas o publica fuera del grupo cifrado.",
+    "semFio": "El hilo no lleva versión corta, fuente ni invitación. Publica un solo bloque o quita estas opciones."
+  },
+  "barra": {
+    "expandir": "Ampliar",
+    "expandirAjuda": "Abrir el editor completo con lo que ya escribiste (imágenes, encuesta, quién lo ve, más tarde).",
+    "dica": "Ctrl+Enter publica. Antes de salir, el post espera 10 segundos y se puede deshacer."
+  }
+}

@@ -93,12 +93,50 @@ jobs:
       - run: npm run testar:interdicao
       # A porta de saída para os serviços abertos: só https, só a lista, redirecionamento só dentro da lista.
       - run: npm run testar:externo
+      # O reforço da web (R1): cabeçalhos, porta sem teto, busca segura, imagem e mídia.
+      - run: npm run testar:r1-web
       # Os executores de código (IDE, aulas, ferramentas) não alcançam a sessão, o chaveiro das conversas nem outro Worker.
       - run: npm run testar:isolamento
       # A sala das aulas ao vivo: só quem conduz, com a chave registrada e o vídeo assinado, transmite para os alunos.
       - run: npm run testar:aovivo
       # Os depósitos de arquivos: o install.sql cria todas as regras e as que contam envios (podcast, Gaveta) funcionam.
       - run: npm run testar:depositos
+      # As caixas anônimas do chat (R2): o banco não liga caixa, passe nem pedido a conta; as rotas recusam a sessão.
+      - run: npm run testar:r2-caixas
+      - run: npm run testar:r2-caixas-cliente
+      # Onda R3 (sem contêiner, sem aparelho): a junção, os rótulos, o resto da R2 (equipe, folhas, urna, enquete, segredos, vetores
+      # oficiais), a camada pós-quântica, a mixnet em simulação, o ritmo do tráfego, a casca do Android (manifesto e casca), o modo sem
+      # internet e as provas formais guardadas, o app do computador e a transparência dos binários, o chat só nos apps, o servidor do
+      # chat (o banco próprio e a interface), o chat entre instâncias e os passes por RSA cego.
+      - run: npm run testar:r3-juncao
+      - run: npm run testar:r3-rotulos
+      - run: npm run testar:r3-resto-equipe
+      - run: npm run testar:r3-resto-folhas
+      - run: npm run testar:r3-resto-urna
+      - run: npm run testar:r3-resto-enquete
+      - run: npm run testar:r3-resto-segredos
+      - run: npm run testar:r3-resto-saida
+      - run: npm run testar:r3-resto-licencas
+      - run: npm run testar:r3-resto-preparar
+      - run: npm run testar:r3-resto-vetores
+      - run: npm run testar:r3-pq
+      - run: npm run testar:r3-pq-grupos
+      - run: npm run testar:r3-mixnet
+      - run: npm run testar:r3-ritmo
+      - run: npm run testar:r3-android
+      - run: npm run testar:r3-malha
+      - run: npm run testar:r3-malha-ativacao
+      - run: npm run testar:r3-malha-atos
+      - run: npm run testar:r3-malha-banco
+      - run: npm run testar:r3-provas
+      - run: npm run testar:r3-desktop
+      - run: npm run testar:r3-transparencia
+      - run: npm run testar:r3-so-app
+      - run: npm run testar:r3-servidor
+      - run: npm run testar:r3-servidor-interface
+      - run: npm run testar:r3-instancias
+      - run: npm run testar:r3-auditoria
+      - run: npm run testar:r3-passes
       # O build gera mais de vinte mil páginas e enchia o disco da máquina do GitHub ("No space left on device"): antes
       # dele saem as ferramentas pré-instaladas que o projeto não usa (Android, .NET, Haskell, CodeQL), uns 25 GB.
       - name: Espaço em disco para o build

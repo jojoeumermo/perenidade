@@ -7,7 +7,8 @@
 # 1. Baixa ghcr.io/jojoeumermo/perenidade:producao (a rotina "Publicar no servidor" do GitHub monta e envia a imagem).
 # 2. Se a imagem mudou, sobe um contêiner novo na porta livre (3001 ou 3002), espera ele responder /robots.txt e só
 #    então desliga o antigo. O Caddy manda os pedidos para o que estiver de pé. Se o novo não responder em 3 minutos,
-#    ele é desligado e o antigo continua.
+#    ele é desligado e o antigo continua. O contêiner roda como o usuário comum da imagem (node), sem nenhuma capacidade do
+#    sistema, sem poder ganhar privilégio e com teto de processos.
 # 3. Guarda as 3 últimas imagens (dá para voltar) e apaga o resto.
 set -euo pipefail
 IMAGEM=ghcr.io/jojoeumermo/perenidade
@@ -45,6 +46,7 @@ docker run -d --name "site-$novo" --restart unless-stopped \
   --env-file "$ENV" -p "127.0.0.1:$porta:3000" \
   -v "$MIDIA:/dados/fed-midia" -e ALUMIA_FEDIVERSO_MIDIA_DIR=/dados/fed-midia \
   --memory 3g --log-opt max-size=20m --log-opt max-file=3 \
+  --cap-drop ALL --security-opt no-new-privileges:true --pids-limit 1024 \
   "$IMAGEM:$ALVO" > /dev/null
 
 for _ in $(seq 1 90); do

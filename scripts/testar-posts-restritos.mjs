@@ -1,12 +1,14 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Prova os posts restritos cifrados NAS TELAS (P21) e as sobras do chat nas telas (P13, P14, P15, P16, P17, P22, caronas), sem
-// banco: a cifra e a abertura usam o MLS de verdade (ts-mls, lib/rede/grupo-mls.ts) com o chaveiro em memória, e um servidor de
-// mentira na memória com as mesmas regras das funções rede_mls_* (supabase/migracoes/20261113-rede-grupos-mls.sql). As regras do
-// banco de verdade estão em testar:cifra-grupo. O resto confere o código das telas (o que importa, quem carrega o quê, os textos).
+// banco: a cifra e a abertura usam o MLS de verdade (OpenMLS do @wireapp/core-crypto, lib/rede/grupos/chaveiro.ts) com o chaveiro
+// em memória, e um servidor de mentira na memória com as mesmas regras das funções rede_mls_* (supabase/migracoes/20261124-r2-grupos.sql).
+// As regras do banco de verdade estão em testar:r2-grupos-banco. O resto confere o código das telas (o que importa, quem carrega o quê, os textos).
 // Uso: node --import ./scripts/carregar-ts.mjs scripts/testar-posts-restritos.mjs
 import fs from "node:fs";
-import { criarChaveiroDeGrupo, epocaDoPost } from "../lib/rede/grupo-mls.ts";
+import { criarChaveiroDeGrupo, epocaDoPost } from "../lib/rede/grupos/chaveiro.ts";
+import { registroDeTeste } from "./identidade-de-teste.mjs";
+import { motorNoNode } from "./cifra-no-node.mjs";
 import { abrirDoGrupo, cifrarParaOGrupo, FORMA_DO_GRUPO, grupoDoPost, LIMITE_DO_POST_CIFRADO, pedidoCifrado, postCifrado } from "../components/rede/publicar/restrito/grupo.ts";
 import { codigoDaCasa } from "../lib/rede/publicar/servidor.ts";
 import { basesParaApagar, BASES_CONHECIDAS } from "../lib/modo-seguro.ts";
@@ -27,47 +29,54 @@ async function espera(nome, fazer, conferir = (v) => v === true) {
 }
 const ler = (caminho) => fs.readFileSync(new URL(`../${caminho}`, import.meta.url), "utf8");
 
-// ── O servidor de mentira (as regras das funções rede_mls_*, na memória) ──
+// ── O servidor de mentira (as regras das funções rede_mls_* de 20261124-r2-grupos.sql, na memória) ──
 function servidorNaMemoria(membrosDoGrupo) {
-  const pacotes = new Map(); // usuario → [b64]
+  const folhas = new Map(); // nome → usuario
+  const certificados = new Map(); // nome → base64 (onda R3: o certificado da folha)
+  const pacotes = new Map(); // nome → [b64]
   const commits = new Map(); // grupo → [{ epoca, commit }]
-  const info = new Map(); // grupo → { epoca, info }
-  const boasvindas = []; // { grupo, epoca, para, welcome }
+  const boasvindas = []; // { grupo, epoca, para (nome), welcome }
   const erro = (c) => Object.assign(new Error(c), { code: c });
   const membro = (g, u) => (membrosDoGrupo.get(g) ?? []).includes(u);
+  const dono = (nome) => folhas.get(nome);
   return (eu) => async (funcao, a = {}) => {
     const r = await (async () => {
       switch (funcao) {
         case "rede_mls_meus_pacotes":
-          return { pacotes: (pacotes.get(eu) ?? []).length };
-        case "rede_mls_pacotes_publicar": {
-          const lista = pacotes.get(eu) ?? [];
+          return { pacotes: dono(a.p_nome) === eu ? (pacotes.get(a.p_nome) ?? []).length : 0, certificado: dono(a.p_nome) === eu ? (certificados.get(a.p_nome) ?? null) : null };
+        case "rede_mls_publicar": {
+          if (!String(a.p_nome).startsWith(`${eu}:`)) throw erro("invalido:nome");
+          if (typeof a.p_certificado !== "string" || Buffer.from(a.p_certificado, "base64").length !== 96) throw erro("invalido:certificado");
+          folhas.set(a.p_nome, eu);
+          certificados.set(a.p_nome, a.p_certificado);
+          const lista = pacotes.get(a.p_nome) ?? [];
           for (const x of a.p_pacotes ?? []) {
             if (!/^[A-Za-z0-9+/]+={0,2}$/.test(x)) throw erro("invalido:pacote");
             if (lista.length < 20) lista.push(x);
           }
-          pacotes.set(eu, lista);
+          pacotes.set(a.p_nome, lista);
           return { pacotes: lista.length };
         }
         case "rede_mls_estado": {
           if (!membro(a.p_grupo, eu)) throw erro("nao_encontrado");
           const lista = commits.get(a.p_grupo) ?? [];
-          const bv = boasvindas.filter((b) => b.grupo === a.p_grupo && b.para === eu).sort((x, y) => y.epoca - x.epoca)[0];
+          const bv = boasvindas.filter((b) => b.grupo === a.p_grupo && b.para === a.p_nome && dono(b.para) === eu).sort((x, y) => y.epoca - x.epoca)[0];
           return {
             epoca: lista.length ? Math.max(...lista.map((c) => c.epoca)) : null,
             membros: [...(membrosDoGrupo.get(a.p_grupo) ?? [])].sort(),
+            folhas: [...folhas.entries()].filter(([, u]) => membro(a.p_grupo, u)).map(([n]) => n).sort(),
+            certificados: Object.fromEntries([...folhas.entries()].filter(([, u]) => membro(a.p_grupo, u)).map(([n]) => [n, certificados.get(n)])),
             commits: lista.filter((c) => c.epoca > (a.p_desde ?? 0)).slice(0, 200),
-            info: info.get(a.p_grupo) ?? null,
             boasvindas: bv ? { epoca: bv.epoca, welcome: bv.welcome } : null,
           };
         }
         case "rede_mls_pacotes_pegar": {
           if (!membro(a.p_grupo, eu)) throw erro("nao_encontrado");
           const saida = {};
-          for (const u of a.p_usuarios ?? []) {
-            if (u === eu || !membro(a.p_grupo, u)) continue;
-            const lista = pacotes.get(u) ?? [];
-            if (lista.length) saida[u] = lista.shift();
+          for (const n of a.p_nomes ?? []) {
+            if (dono(n) === eu || !membro(a.p_grupo, dono(n))) continue;
+            const lista = pacotes.get(n) ?? [];
+            if (lista.length) saida[n] = lista.shift();
           }
           return saida;
         }
@@ -78,8 +87,7 @@ function servidorNaMemoria(membrosDoGrupo) {
           if (a.p_epoca !== atual + 1) throw erro("versao_ocupada");
           lista.push({ epoca: a.p_epoca, commit: a.p_commit });
           commits.set(a.p_grupo, lista);
-          info.set(a.p_grupo, { epoca: a.p_epoca, info: a.p_info });
-          for (const b of a.p_boasvindas ?? []) if (membro(a.p_grupo, b.para)) boasvindas.push({ grupo: a.p_grupo, epoca: a.p_epoca, para: b.para, welcome: b.welcome });
+          for (const b of a.p_boasvindas ?? []) if (membro(a.p_grupo, dono(b.para))) boasvindas.push({ grupo: a.p_grupo, epoca: a.p_epoca, para: b.para, welcome: b.welcome });
           return { epoca: a.p_epoca };
         }
         default:
@@ -127,7 +135,13 @@ const P = { ana: "a0000000-0000-4000-8000-000000000001", bia: "a0000000-0000-400
 const GRUPO = `nucleo:${NUCLEO}`;
 const membros = new Map([[GRUPO, [P.ana, P.bia, P.caio]]]);
 const servidor = servidorNaMemoria(membros);
-const chaveiros = Object.fromEntries(Object.entries(P).map(([nome, id]) => [nome, criarChaveiroDeGrupo({ chamar: servidor(id), guarda: guardaEmMemoria() })]));
+const MOTOR = await motorNoNode();
+const registro = registroDeTeste();
+const novoChaveiro = (id) => {
+  const cc = MOTOR.CoreCrypto.new(MOTOR.Database.inMemory());
+  return criarChaveiroDeGrupo({ chamar: servidor(id), guarda: guardaEmMemoria(), abrirMotor: async () => ({ M: MOTOR, cc }), identidade: async () => registro.fonte(id) });
+};
+const chaveiros = Object.fromEntries(Object.entries(P).map(([nome, id]) => [nome, novoChaveiro(id)]));
 // Bia e Caio abriram a página do núcleo (o aparelho fica pronto: pacotes de chave publicados).
 await chaveiros.bia.preparar(P.bia);
 await chaveiros.caio.preparar(P.caio);
@@ -144,8 +158,8 @@ await espera("quem é de fora: nulo (Não dá para abrir neste aparelho)", () =>
 await espera("com o autor trocado: nulo", () => abrirDoGrupo(chaveiros.bia, { ...post, autor: { id: P.caio } }, P.bia), (t) => t === null);
 await espera("post mexido: nulo", () => abrirDoGrupo(chaveiros.bia, { ...post, corpo_grupo: post.corpo_grupo.slice(0, -4) + "AAAA" }, P.bia), (t) => t === null);
 await espera("sem sessão (eu nulo) ou autor sem id: nulo, sem lançar", async () => [await abrirDoGrupo(chaveiros.bia, post, null), await abrirDoGrupo(chaveiros.bia, { ...post, autor: { id: null } }, P.bia)], (l) => l.every((x) => x === null));
-await espera("aparelho novo da mesma pessoa não abre o que veio antes", () => abrirDoGrupo(criarChaveiroDeGrupo({ chamar: servidor(P.bia), guarda: guardaEmMemoria() }), post, P.bia), (t) => t === null);
-await espera("a chave de alguém mudou (outro aparelho com outra chave 'da Bia'): grupo_suspeito, e nada sai", () => cifrarParaOGrupo(criarChaveiroDeGrupo({ chamar: servidor(P.bia), guarda: guardaEmMemoria() }), GRUPO, P.bia, "não pode sair"), (r) => r.ok === false && r.codigo === "grupo_suspeito");
+await espera("aparelho novo da mesma pessoa não abre o que veio antes", () => abrirDoGrupo(novoChaveiro(P.bia), post, P.bia), (t) => t === null);
+await espera("aparelho novo da mesma pessoa ainda não está no grupo: sem_chave, e nada sai (a troca de chave na mesma folha, grupo_suspeito, está em testar:r2-grupos-motor)", () => cifrarParaOGrupo(novoChaveiro(P.bia), GRUPO, P.bia, "não pode sair"), (r) => r.ok === false && r.codigo === "sem_chave");
 await espera("quem é de fora não consegue cifrar para o grupo (falha, nada sai)", () => cifrarParaOGrupo(chaveiros.fora, GRUPO, P.fora, "x"), (r) => r.ok === false);
 {
   // sem_chave leva a preparar o aparelho e tentar de novo uma vez.
@@ -170,7 +184,7 @@ await espera("recusa da cifra não publica (o compositor volta antes do rede_pub
 await espera("o Escrever cifra o post curto na comunidade fechada e recusa agendar, prazo e arranjos com cifra", () => escrever.includes("grupoDoPost({ publico, comunidade: onde, tipoDaComunidade: lugar?.tipo })") && escrever.includes("pedidoCifrado(montado, cifra)") && /grupoCifrado && \(pub\.agendar \|\| pub\.aposAto \|\| comVida \|\| pub\.usaCompositor\)/.test(escrever));
 await espera("o cartão abre com TextoDoGrupo (e o texto vazio não aparece no lugar)", () => cartao.includes("<TextoDoGrupo") && cartao.includes("postCifrado(post)"));
 await espera("a biblioteca do MLS só é baixada quando precisa (import dinâmico do aparelho)", () => naTela.includes('import("./aparelho")') && !/^import .*aparelho/m.test(naTela) && !/^import .*restrito\/aparelho/m.test(compositor + escrever + cartao));
-await espera("o aparelho usa a guarda do navegador (o IndexedDB que o Sair rápido apaga) e esquece as chaves junto com o chat", () => aparelho.includes("guardaNoNavegador()") && aparelho.includes("aoApagarTudoDoChat") && aparelho.includes("esquecer()"));
+await espera("o aparelho usa a guarda do navegador (o IndexedDB que o Sair rápido apaga) e esquece as chaves junto com o chat", () => aparelho.includes("chaveiroDosGrupos()") && aparelho.includes("aoApagarTudoDoChat") && aparelho.includes("esquecerChaveiroDosGrupos()") && ler("lib/rede/grupos/navegador.ts").includes("guarda: guardaNoNavegador(\"rede:\")"));
 
 // ── Os textos (seis idiomas, a frase do grupo_suspeito, os custos) ──
 const idiomas = ["pt", "en", "es", "fr", "ru", "zh"];
@@ -182,11 +196,10 @@ await espera("o cartão diz 'Não dá para abrir neste aparelho'", () => textos.
 await espera("os quatro custos de docs/rede/POSTS-RESTRITOS.md estão na tela", () => textos.pt.custos.length === 4 && /busca/i.test(textos.pt.custos[0]) && /prévia/.test(textos.pt.custos[1]) && /denuncia/.test(textos.pt.custos[2]) && /Fediverso/.test(textos.pt.custos[3]));
 
 // ── P22: a sala de voz na página do núcleo e da comunidade fechada ──
-const nucleos = ler("components/rede/comunidades/Nucleos.tsx");
 const comunidade = ler("components/rede/comunidades/PaginaDaComunidadeAlumia.tsx");
 const salaDoGrupo = ler("components/rede/voz/SalaDoGrupo.tsx");
 const salaDeVoz = ler("components/rede/voz/SalaDeVoz.tsx");
-await espera("a sala entra no núcleo e na comunidade fechada só por import dinâmico sem SSR", () => [nucleos, comunidade].every((f) => f.includes('dynamic(() => import("../voz/SalaDoGrupo").then((m) => m.SalaDoGrupo), { ssr: false })') && !/^import .*voz\/SalaD/m.test(f)));
+await espera("a sala entra na comunidade fechada só por import dinâmico sem SSR (o núcleo, desde a R2, só tem o perfil público e a entrada)", () => [comunidade].every((f) => f.includes('dynamic(() => import("../voz/SalaDoGrupo").then((m) => m.SalaDoGrupo), { ssr: false })') && !/^import .*voz\/SalaD/m.test(f)));
 await espera("na comunidade, só para membro de comunidade FECHADA", () => /comunidade\.tipo === "fechada" && situacaoAqui === "membro"/.test(comunidade) && comunidade.includes("{grupoFechado && ("));
 await espera("o código da sala só baixa ao abrir a parte de voz", () => /const SalaDeVoz = dynamic\(\(\) => import\("\.\/SalaDeVoz"\)[^;]*ssr: false/.test(salaDoGrupo) && /aberta && \(/.test(salaDoGrupo));
 await espera("pelo .onion a sala fica fechada: nem o Entrar nem a explicação da voz aparecem", () => /peloTor && !aberta \? \(\s*<p role="note"[^>]*>\{t\.pelOnion\}<\/p>\s*\) : !aberta/.test(salaDeVoz));
@@ -208,13 +221,15 @@ await espera("P17: o Sair rápido encerra a sessão antes de apagar o token, e o
 // ── P15, P16 ──
 await espera("P15: o NOTICE registra jsqr e qrcode no chat (Qr.tsx)", () => /components\/rede\/chat\/Qr\.tsx[^\n]*mesmas duas bibliotecas/.test(ler("docs/NOTICE.md")));
 await espera("P16: os três Esc apagam também o histórico do chat e os pares dos grupos (mesmo sem a lista das bases)", () => ["lucia-alumia-chat", "lucia-alumia-historico", "lucia-alumia-grupos"].every((b) => BASES_CONHECIDAS.includes(b) && basesParaApagar([b]).includes(b)));
-await espera("P16: a casca da Alumia registra as limpezas do Sair rápido na saída do site, e o encaixe do chat apaga chat e grupos", () => ler("components/rede/publicar/alumia2/CascaDaAlumia2.tsx").includes("registrarLimpezaDaSaida(() => rodarLimpezas(ENCAIXES.aoSairRapido))") && /aoSairRapido: \[\(\) => apagarTudoDoChat\(\), \(\) => apagarParesDeGrupo\(\)\]/.test(ler("components/rede/chat/encaixe.tsx")));
+await espera("P16: a casca da Alumia registra as limpezas do Sair rápido na saída do site, e o encaixe do chat apaga chat e grupos", () => ler("components/rede/publicar/alumia2/CascaDaAlumia2.tsx").includes("registrarLimpezaDaSaida(() => rodarLimpezas(ENCAIXES.aoSairRapido))") && /aoSairRapido: \[\(\) => apagarTudoDoChat\(\), \(\) => apagarLojasDosGrupos\(\)\]/.test(ler("components/rede/chat/encaixe.tsx")));
 
 // ── Caronas: "Combinar pelo chat" de ponta a ponta no mesmo ramo ──
 await espera("caronas: o encaixe do chat registra o abridor ao carregar, e a casca carrega o encaixe", () => ler("components/rede/chat/encaixe.tsx").includes("registrarConversaDaCarona(abrirConversaDaCarona);") && /import \{ encaixe as chat \} from "\.\/chat\/encaixe";/.test(ler("components/rede/encaixes.tsx")));
 await espera("caronas: o quadro aparece sem flag quando o chat registrou (chatPronto || emConstrucao)", () => /const mostrar = chatPronto \|\| emConstrucao;/.test(ler("components/rede/atos/Caronas.tsx")));
-await espera("caronas: o abridor chama rede_dm_abrir_carona só com o id da carona e leva à conversa", () => /abrirCarona: \(carona: string\) => c<[^>]*>\("rede_dm_abrir_carona", \{ p_carona: carona \}\)/.test(ler("lib/rede/cliente-chat.ts")) && ler("lib/rede/chat/carona.ts").includes("chat.abrirCarona(carona.id)") && ler("components/rede/chat/Tela.tsx").includes('busca.get("conversa")'));
-await espera("caronas: a migração do chat das caronas está no install.sql", () => ler("supabase/install.sql").includes("create or replace function public.rede_dm_abrir_carona("));
+// Onda R2: o servidor não abre mais conversa pela carona; dá só o codinome de quem publicou (rede_carona_contato), e o pedido sai do
+// aparelho pela caixa de pedidos (supabase/migracoes/20261124-r2-dupla.sql; teste: scripts/testar-r2-dupla-banco.mjs).
+await espera("caronas: o abridor pede só o codinome (rede_carona_contato) e o pedido sai do aparelho", () => /chamar<[^>]*>\("rede_carona_contato", \{ p_carona: carona \}\)/.test(ler("lib/rede/cliente-chat.ts")) && ler("lib/rede/chat/carona.ts").includes("chat.abrirCarona(carona.id)") && ler("components/rede/chat/Tela.tsx").includes('busca.get("conversa")'));
+await espera("caronas: a função do contato da carona está na migração da conversa a dois", () => ler("supabase/migracoes/20261124-r2-dupla.sql").includes("create or replace function public.rede_carona_contato("));
 {
   const abertos = [];
   const tirar = registrarConversaDaCarona((k) => void abertos.push(k));

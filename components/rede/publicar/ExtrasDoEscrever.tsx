@@ -5,7 +5,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { redePub } from "@/lib/rede/cliente-publicar";
 import { preencher } from "@/lib/rede/preencher";
 import { checarTexto } from "@/lib/rede/publicar/checagem";
-import { agendaCabe, type Arranjo, arranjoQueVale, LIMITE_DA_LEGENDA, LIMITE_DE_IMAGENS, paredeDeAgora, quandoNoFuso } from "@/lib/rede/publicar/compositor";
+import { agendaCabe, type Arranjo, arranjoQueVale, LIMITE_DA_LEGENDA, paredeDeAgora, quandoNoFuso } from "@/lib/rede/publicar/compositor";
+import { limiteDeImagens } from "@/lib/rede/publicar/p4-compositor";
+import { ligado } from "@/lib/recursos";
 import { redeCompositor } from "@/lib/rede/publicar/cliente-compositor";
 import type { NomeDaFigurinha } from "@/lib/rede/publicar/figurinhas";
 import type { TextosPublicar } from "@/lib/rede/textos-publicar";
@@ -188,11 +190,13 @@ export function useEscreverPub({
 
   const adicionarImagem = useCallback(
     async (arquivos: FileList | File[]): Promise<string> => {
-      const lista = Array.from(arquivos).slice(0, LIMITE_DE_IMAGENS);
+      // O teto que vale: 20 com o álbum do prompt 4 ligado, 10 sem ele (o banco confere igual).
+      const teto = limiteDeImagens(ligado("alumia-p4-compositor"));
+      const lista = Array.from(arquivos).slice(0, teto);
       let erro = "";
       const novas: ImagemEscolhida[] = [];
       for (const f of lista) {
-        if (imagens.length + novas.length >= LIMITE_DE_IMAGENS) {
+        if (imagens.length + novas.length >= teto) {
           erro = "maximo";
           break;
         }
@@ -203,7 +207,7 @@ export function useEscreverPub({
           erro = e instanceof ErroDeImagem ? e.codigo : "invalida";
         }
       }
-      if (novas.length) setImagens((atual) => [...atual, ...novas].slice(0, LIMITE_DE_IMAGENS));
+      if (novas.length) setImagens((atual) => [...atual, ...novas].slice(0, teto));
       return erro;
     },
     [imagens.length],
@@ -246,6 +250,7 @@ export function useEscreverPub({
           const r = await enviarMidia(i.final);
           s = { caminho: r.caminho, largura: r.largura, altura: r.altura };
           subidas.current.set(i.id, s);
+          // A20: as versões menores (640 e 1080 px) o servidor faz da principal, no mesmo envio (app/api/rede/midia).
         }
         midia.push({ caminho: s.caminho, alt: i.alt.trim(), largura: s.largura, altura: s.altura, ...(i.legenda.trim() ? { legenda: i.legenda.trim() } : {}) });
       }
@@ -522,7 +527,7 @@ export function ExtrasDoEscrever({ pub, resposta, lang, semQuemResponde = false 
               aria-label={t.imagens.adicionar}
               onChange={(e) => {
                 const arquivos = e.target.files;
-                if (arquivos?.length) void pub.adicionarImagem(arquivos).then((erro) => setErroImagem(erro ? ((t.imagens as Record<string, string>)[erro] ?? t.imagens.invalida) : ""));
+                if (arquivos?.length) void pub.adicionarImagem(arquivos).then((erro) => setErroImagem(erro ? preencher((t.imagens as Record<string, string>)[erro] ?? t.imagens.invalida, { n: limiteDeImagens(ligado("alumia-p4-compositor")) }) : ""));
                 e.target.value = "";
               }}
             />

@@ -10,6 +10,8 @@ import { Botao, Campo, Cartao, Esqueleto, Faixa } from "./ui";
 interface Estado {
   no_ar: boolean;
   ao_vivo?: string;
+  /** A equipe da rádio recebe os canais mesmo fora do ar (a pré-escuta). */
+  canais?: { faixas: unknown[] }[];
 }
 
 /**
@@ -30,6 +32,9 @@ export function RadioNoAr() {
   const valido = !valor || Boolean(yt) || /^https:\/\/\S+$/.test(valor);
   const noAr = Boolean(estado.dados?.no_ar);
   const mudou = valor !== guardado;
+  // A rádio também vai ao ar só com os canais de áudio: o endereço da transmissão é da coordenação e pode demorar a vir.
+  const temCanais = (estado.dados?.canais ?? []).some((c) => c.faixas.length > 0);
+  const podeIrAoAr = Boolean(guardado) || temCanais;
   const passos: [string, boolean][] = [
     ["Endereço da transmissão guardado", Boolean(guardado) && !mudou],
     ["É do YouTube (vídeo, live ou canal)", Boolean(yt)],
@@ -99,7 +104,7 @@ export function RadioNoAr() {
             className="mt-2"
             acao={
               <>
-                <Botao variante="principal" pequeno simbolo={Radio} carregando={acao.ocupado} disabled={acao.ocupado || !guardado} onClick={async () => { await acao.agir("radio_configurar", { p_no_ar: true, p_ao_vivo: guardado }, "A Rádio Lúcia está no ar."); setConfirmar(false); }}>
+                <Botao variante="principal" pequeno simbolo={Radio} carregando={acao.ocupado} disabled={acao.ocupado || !podeIrAoAr} onClick={async () => { await acao.agir("radio_configurar", { p_no_ar: true, p_ao_vivo: guardado }, "A Rádio Lúcia está no ar."); setConfirmar(false); }}>
                   Sim, pôr no ar
                 </Botao>
                 <Botao variante="discreto" pequeno onClick={() => setConfirmar(false)}>
@@ -108,13 +113,20 @@ export function RadioNoAr() {
               </>
             }
           >
-            O player aparece na página pública da rádio. Pôr no ar agora?
+            {guardado ? "O player aparece na página pública da rádio." : "Os canais de áudio aparecem na página pública da rádio."} Pôr no ar agora?
           </Faixa>
         ) : (
           <p className="mt-2">
-            <Botao simbolo={Radio} disabled={!guardado} onClick={() => setConfirmar(true)}>
+            <Botao simbolo={Radio} disabled={!podeIrAoAr} onClick={() => setConfirmar(true)}>
               Pôr no ar para o público…
             </Botao>
+            {!guardado && (
+              <span className="mt-1 block text-sm text-ink-soft">
+                {temCanais
+                  ? "Sem endereço de transmissão, a rádio vai ao ar só com os canais de áudio (mais abaixo). O endereço pode entrar depois."
+                  : "Para pôr no ar: guarde o endereço da transmissão ou monte um canal de áudio com pelo menos uma faixa (mais abaixo)."}
+              </span>
+            )}
           </p>
         )}
       </div>

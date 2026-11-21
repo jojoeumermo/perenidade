@@ -1,0 +1,46 @@
+{
+  "obra": "do-socialismo-utopico-ao-socialismo-cientifico",
+  "titulo": "Do Socialismo Utópico ao Socialismo Científico",
+  "revisao": "em-revisao",
+  "apresentacao": "Leia uma parte por vez, na edição indicada na ficha do Acervo, e responda com as suas palavras. Não há resposta certa para decorar: as perguntas ajudam a entender o texto e a discutir em grupo.",
+  "secoes": [
+    {
+      "id": "os-utopicos",
+      "titulo": "I. Os socialistas utópicos",
+      "referencia": "A primeira parte: o Iluminismo, a sociedade que saiu da Revolução Francesa e as propostas de Saint-Simon, Fourier e Owen.",
+      "perguntas": [
+        "O que os socialistas utópicos tinham em comum, segundo Engels?",
+        "Engels critica os utópicos, mas também reconhece o valor deles. Em quê?",
+        "Por que eles são chamados de utópicos?"
+      ]
+    },
+    {
+      "id": "dialetica",
+      "titulo": "II. A dialética e o materialismo",
+      "referencia": "A segunda parte: o modo de pensar dialético, a filosofia de Hegel e a passagem para uma visão materialista da história.",
+      "perguntas": [
+        "Com as suas palavras: o que é pensar de modo dialético, segundo esta parte?",
+        "O que Engels aproveita de Hegel e o que ele deixa de lado?"
+      ]
+    },
+    {
+      "id": "materialismo-historico",
+      "titulo": "III. O materialismo histórico e o capitalismo",
+      "referencia": "A terceira parte: a produção como base da sociedade, a contradição entre a produção feita em conjunto e a apropriação privada, as crises e a saída que Engels propõe.",
+      "perguntas": [
+        "O que Engels quer dizer quando fala que a produção se tornou social, mas a apropriação continua privada?",
+        "Como o texto explica as crises do capitalismo?",
+        "O que acontece com o Estado, segundo o fim desta parte?"
+      ]
+    },
+    {
+      "id": "para-conversar",
+      "titulo": "Para conversar",
+      "referencia": "O texto inteiro, depois da leitura.",
+      "perguntas": [
+        "Hoje, quem você acha que pensa como os utópicos? E o que mudaria se pensasse como Engels propõe?",
+        "Que pergunta você levaria para discutir em grupo?"
+      ]
+    }
+  ]
+}

@@ -103,7 +103,15 @@ conferir("curso sensível guardado no grupo certo (o vínculo revela opinião po
 // ───────────── Leitura guiada ─────────────
 const pastaLeituras = path.join(raiz, "content", "escola", "leituras");
 const arquivos = fs.readdirSync(pastaLeituras).filter((n) => n.endsWith(".json"));
-conferir("só a leitura do Manifesto", arquivos.join() === "manifesto-do-partido-comunista.json", arquivos.join());
+// P5, B4: mais leituras guiadas além do Manifesto, só de obra do Acervo com fonte confiável (a ficha diz a fonte e o endereço) e
+// fora de "Direitos reservados"; a leitura não reproduz o texto do autor (só diz onde ler, abaixo).
+conferir("o Manifesto continua entre as leituras guiadas", arquivos.includes("manifesto-do-partido-comunista.json"), arquivos.join());
+conferir("há mais de uma leitura guiada (P5, B4)", arquivos.length >= 6, arquivos.join());
+for (const nome of arquivos) {
+  const ficha = fs.readFileSync(path.join(raiz, "content", "acervo", nome.replace(/\.json$/, ".md")), "utf8");
+  conferir(`leitura ${nome}: a obra tem fonte e endereço na ficha do Acervo`, /\nfonte: "?[^"\n]{3,}/.test(ficha) && /\nurl: "?https:\/\//.test(ficha));
+  conferir(`leitura ${nome}: a obra não é de direitos reservados`, !/\nlicenca: "?Direitos reservados/.test(ficha));
+}
 for (const nome of arquivos) {
   const l = JSON.parse(fs.readFileSync(path.join(pastaLeituras, nome), "utf8"));
   const erros = validarLeitura(l, existeObra);

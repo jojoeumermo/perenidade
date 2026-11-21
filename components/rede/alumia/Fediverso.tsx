@@ -23,6 +23,7 @@ import { useAlumia2 } from "../publicar/alumia2/contexto";
 import type { PropsDaTelaDoPacote } from "../registro";
 // O visual novo (a folha só vale dentro de [data-al="2"]; fora dele a tela fica como sempre foi).
 import "../conversa/alumia3.css";
+import { confirmar } from "@/components/perguntar";
 
 // Gente de fora no visual novo: só chegam ao navegador quando o endereço pede (?conta= ou ?nota=).
 const PerfilRemoto = dynamic(() => import("../fediverso/PerfilRemoto"), { ssr: false });
@@ -170,7 +171,7 @@ export default function Fediverso({ lang, s, situacao, params }: PropsDaTelaDoPa
 
   async function ligar(sim: boolean) {
     if (!t || !fed) return;
-    if (!sim && !window.confirm(t.fed.consentimento.desligarConfirma)) return;
+    if (!sim && !(await confirmar(t.fed.consentimento.desligarConfirma))) return;
     setOcupado(true);
     setErro("");
     setRecado("");

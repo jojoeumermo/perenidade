@@ -7,6 +7,8 @@
 // só o texto visível mudou.
 // Sem os atalhos "@/" de propósito: `npm run testar:escola` confere que cada uma tem a sua página.
 
+import { caminhoDasAulasAbertas } from "./aulas-abertas";
+
 /** Os grupos do mapa da entrada, na ordem em que aparecem (textos em i18n/escola/base, "mapa.grupos"). */
 export const GRUPOS_DA_ESCOLA = ["frente", "estudar", "vidaEscolar", "ajuda", "mundo", "organizacao", "escola"] as const;
 export type GrupoDaEscola = (typeof GRUPOS_DA_ESCOLA)[number];
@@ -62,8 +64,11 @@ export const ROTAS_DA_ESCOLA: readonly RotaDaEscola[] = [
  */
 export const PUBLICAS_DA_ESCOLA: readonly string[] = ["/escola/militantes", "/escola/manifesto", "/escola/entrar"];
 
-/** O caminho (sem o idioma) abre sem conta? Vale também para a barra no fim. */
-export const publicaDaEscola = (caminhoSemIdioma: string) => PUBLICAS_DA_ESCOLA.includes(caminhoSemIdioma.replace(/\/+$/, "") || "/");
+/**
+ * O caminho (sem o idioma) abre sem conta? Vale também para a barra no fim. Desde o P5 (B2), também as aulas abertas de Teoria
+ * revolucionária e de Lutas do povo, /escola/aulas e tudo abaixo (lib/escola/aulas-abertas.ts).
+ */
+export const publicaDaEscola = (caminhoSemIdioma: string) => PUBLICAS_DA_ESCOLA.includes(caminhoSemIdioma.replace(/\/+$/, "") || "/") || caminhoDasAulasAbertas(caminhoSemIdioma);
 
 // ───────────────────────────── Escola de Formação (redesign de 07/11, PLANO-ESCOLA.md) ─────────────────────────────
 // A Escola fechada (só militantes) e as suas telas: a coluna lateral no computador e a barra de baixo no celular

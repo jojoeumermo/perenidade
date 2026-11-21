@@ -91,38 +91,77 @@ vacuum (full) interno.votacao_votos;
 
 ## 7. A cédula cifrada e o voto pelo servidor
 
-Banco: `supabase/migracoes/20261115-alumia-o9-resto8.sql`. Servidor: `lib/rede/voto/servidor.ts` e `app/api/alumia/voto/{chave,abrir,marca}`.
-Aparelho: `lib/rede/voto/cedula.ts` e `lib/rede/voto/cliente.ts`. Teste: `scripts/testar-alumia-o9-resto8.mjs` (tenta casar pessoa e voto
-em cada caso abaixo e não consegue).
+Banco: `supabase/migracoes/20261115-alumia-o9-resto8.sql` e `supabase/migracoes/20261124-r2-voto.sql`. Servidor: `lib/rede/voto/servidor.ts`
+e `app/api/alumia/voto/marca`. Aparelho: `lib/rede/voto/limiar.ts`, `urna.ts`, `guarda.ts`, `cliente.ts` e a tela
+`components/rede/voto/UrnaSecreta.tsx`. Testes: `scripts/testar-r2-voto.mjs` (o banco inteiro), `scripts/testar-r2-voto-cifra.mjs` (a
+cifra) e `scripts/testar-alumia-o9-resto8.mjs` (as marcas).
 
-Tudo sai de UM segredo do servidor, `ALUMIA_VOTO_SEGREDO` (32 letras ou mais, só no servidor do site), que nunca vai ao banco nem
-ao navegador. Cada uso tem uma chave própria, derivada dele com um rótulo (HMAC-SHA-256 da biblioteca do Node).
+O segredo do servidor, `ALUMIA_VOTO_SEGREDO` (32 letras ou mais, só no servidor do site), nunca vai ao banco nem ao navegador e
+serve **só** às marcas de "já votou" e ao termômetro. Ele **não abre cédula nenhuma**.
 
-### A consulta à base: a cédula cifrada no aparelho
+### O voto secreto em limiar (consulta à base, eleições, votação da comunidade, votação secreta da equipe)
 
-- O aparelho pede a chave pública da consulta (`/api/alumia/voto/chave`) e cifra o ranking com a **Web Crypto** do navegador:
-  ECDH P-256 com um par de chaves só desta cédula, HKDF-SHA-256 e AES-256-GCM (o desenho do ECIES; nada feito à mão). A consulta
-  entra como dado autenticado: a cédula de uma consulta não abre em outra, e cédula adulterada não abre.
-- A chave privada da consulta não existe em lugar nenhum guardado: o servidor a deriva do segredo quando precisa (HMAC do id da
-  consulta como escalar da curva, pelo `crypto.createECDH` do Node).
-- O banco recebe só o texto cifrado (`rede_consulta_cifradas`, sem id, sem hora), pela mesma urna de sempre (regravado com os
-  outros, em ordem sorteada). Quem votou continua em `rede_consulta_votantes` (para ninguém votar duas vezes).
-- Com a consulta **fechada**, a tela pede ao servidor para abrir (`/api/alumia/voto/abrir`). O banco só entrega as cédulas fechada;
-  o servidor abre todas, embaralha e devolve só os rankings, num lote; o banco descarta o ranking que não vale (nula), põe o resto
-  na urna (num INSERT só, misturado às cédulas que já estavam) e apaga as cifradas. Enquanto houver cédula fechada, o resultado não
-  sai.
-- Sem o segredo no servidor, a chave não sai ("sem_servico") e só então o aparelho vota pelo caminho da 8F (a urna do banco, sem
-  cifra). Freio, falta de rede ou cifra que falhou viram erro na tela: o voto nunca cai em silêncio para o caminho sem cifra.
-- As duas rotas pedem a sessão e freiam por conta (chave: 30 a cada 10 minutos, e a tela guarda a chave na memória da aba;
-  abrir: 6 a cada 10 minutos, com um teto alto por consulta). Um robô sem conta não esgota o balde nem segura a apuração.
+Antes (onda 9), a chave de cada consulta saía do segredo do servidor: quem tivesse o segredo e o banco abria as cédulas. Agora:
 
-O que isso NÃO resolve: quem tiver o segredo do servidor E as cópias do banco abre as cédulas guardadas nelas; quem pode
-ESCREVER no banco pode montar uma consulta só com a cédula de alguém e pedir a apuração (o resultado só sai com 3 cédulas, mas ele
-pode copiar a mesma 3 vezes). O segredo não pode ficar onde fica a cópia do banco.
+- **Guardiãs.** Cada pessoa da coordenação (da gestão da organização, da mediação da comunidade, da coordenação da equipe) pode
+  criar no aparelho a sua **chave de voto** (X-Wing da libsodium: X25519 + ML-KEM-768, pós-quântica). A privada fica só no
+  aparelho; o diretório recebe a pública, assinada pela identidade da conta.
+- **A chave da votação.** Quem abre a votação escolhe N guardiãs (3 a 7) e quantas abrem juntas (K, de 2 a N). No aparelho dela:
+  uma semente de 32 bytes sorteada, o par X-Wing tirado da semente, a semente dividida em N partes por Shamir K de N
+  (`shamir-secret-sharing`, auditada), cada parte cifrada para a chave de voto de uma guardiã. O registro (chave pública, N, K,
+  guardiãs, partes cifradas) vai assinado pela identidade de quem criou. A semente e as partes somem da memória. Sem chave das
+  guardiãs, não se vota (não há caminho às claras).
+- **Votar.** O aparelho confere o registro (assinaturas; as identidades de quem criou e de cada guardiã contra o registro público
+  das chaves, pelo chat novo ligado neste aparelho; impressão da chave para comparar de viva voz). Sem o chat novo ligado, ou com uma
+  identidade que o registro público não confirma, a cédula não sai: só a coerência interna do registro não segura um servidor ativo,
+  que montaria um registro inteiro com chaves dele. Depois disso, o aparelho
+  cifra o ranking completado a tamanho fixo para a chave pública da votação (X-Wing + XChaCha20-Poly1305 da libsodium, com a
+  votação como dado autenticado) e manda a cédula `v2.` pela urna de sempre (sem id, sem hora, regravada em ordem sorteada; "quem
+  votou" à parte). Cédula repetida é recusada (resumo único por votação).
+- **Abrir.** Depois do prazo, cada guardiã decifra a parte dela e a cifra para a **abridora** que está no registro assinado (não a
+  que o servidor disser na hora). Com K partes, a abridora refaz a semente, confere que ela dá a chave pública publicada (se não
+  der, nada abre), decifra as cédulas, embaralha e manda só os rankings, num lote; o banco põe na urna e apaga cédulas e partes.
+  Cédula que não abre é nula. A eleição de uma função espera a urna aberta para apurar.
+
+**Aceite (provado em teste):** o servidor sozinho, com o banco inteiro e todos os segredos dele, não tem a semente, nenhuma parte
+em claro nem chave privada: não abre cédula. K−1 partes não abrem; parte de outra votação não serve; chave pública trocada pelo
+servidor é recusada pelo aparelho (assinatura); urna inchada e ranking a mais são recusados.
+
+**Limites, sem rodeio:** a semente existe por um instante no aparelho de quem cria e no da abridora (não é geração distribuída de
+chave; não há biblioteca auditada em JS para isso). K guardiãs juntas abrem as cédulas, mas as cédulas continuam sem ligação com
+quem votou. Quem perde a chave de voto (dados do site apagados, "Sair rápido", senha de pânico) não ajuda a abrir: por isso N > K.
+O X-Wing da libsodium entrou depois da auditoria de 2017 da biblioteca.
+
+**A urna anônima (onda R3).** A cédula não entra mais com a sessão de quem vota. São dois momentos separados:
+
+1. **Com a sessão, cedo** (ao abrir a votação): o aparelho pega UM passe cego da urna daquela votação (Privacy Pass, RFC 9578, RSA
+   cego, com o contexto da votação: um passe de uma votação não vale em outra, nem como passe geral). A emissão é uma por conta por
+   votação e marca a conta como "já pegou a cédula" (na consulta e na votação da comunidade, a linha de "já votou" de sempre; na
+   equipe, só um contador da votação, sem a pessoa).
+2. **Sem a sessão, depois**: a cédula cifrada vai por `POST /api/alumia/urna/depositar` com o passe no cabeçalho. A rota recusa
+   pedido com cookie de sessão ou com outro `Authorization`, confere o passe só com a chave pública da urna e chama o banco com o
+   serviço (`public.rede_urna_depositar_anonimo`). O passe é gasto ali (repetido: recusado) e a cédula entra no mesmo `INSERT` que
+   regrava até 2000 cédulas de antes, em ordem sorteada. Quando o passe acabou de ser pego, o aparelho espera um tempo sorteado antes de
+   depositar.
+
+O que muda para quem tem o banco (ou vê a ordem das transações): a transação da cédula não tem nada de conta (o `xmin` da cédula
+não aparece em linha nenhuma com uma pessoa), e a transação da emissão não tem cédula. As funções com sessão que recebiam a cédula
+respondem `voto_anonimo`. Limites: o servidor do site emite os passes (tem a chave privada da urna) e pode criar passes para encher
+a urna; a abridora confere que não há mais cédulas que contas que pegaram a cédula, mas esse número também vem do servidor. Quem vê
+o tráfego de rede (o endereço de quem pega e de quem deposita) sem Tor ou mixnet ainda pode cruzar os horários; a espera sorteada
+diminui, não elimina.
+
+**Quem vota na consulta à base, hoje:** a consulta à base exigia ser de um núcleo da organização, e a filiação aos núcleos saiu do
+banco na onda R2 (ela mora só nos aparelhos dos membros). Até a organização decidir a regra nova (membro declarado da
+organização, ou credencial anônima entregue pelos núcleos), a consulta à base não recebe voto, e a tela diz isso. O caminho para
+decidir agora é a **enquete dentro do grupo cifrado do núcleo** (`lib/rede/voto/enquete-do-grupo.ts`): a pergunta e cada voto vão
+como mensagens do grupo MLS, cifradas na caixa anônima da época; o servidor não vê nada, mas ela **não é secreta entre os membros**
+(cada voto vai com quem votou, e os membros veem). Os números só aparecem com 3 votos ou mais e nenhuma opção com 1 ou 2. Ela aparece
+quando a tela do grupo do núcleo for ligada. A votação da comunidade e a votação secreta da equipe não dependem disso.
 
 ### A votação secreta da equipe: quem votou vira marca
 
-- O voto secreto vai pelo servidor (`/api/alumia/voto/marca`, tipo `equipe`). O servidor confere a sessão e manda ao banco a pessoa
+- Até a onda R3, o voto secreto (a cédula cifrada para as guardiãs, acima) ia pelo servidor (`/api/alumia/voto/marca`, tipo `equipe`); agora vai pela urna anônima (acima). Como era: o servidor conferia a sessão e mandava ao banco a pessoa
   (só para conferir se ela vota naquela votação) e a marca dela: HMAC-SHA-256(segredo, votação + pessoa). O banco grava a marca em
   `votacao_marcas` e a cédula na urna; a pessoa não é gravada em linha nenhuma. `votar` direto no banco recusa voto secreto.
 - "Você já votou": a tela pergunta ao servidor, que recalcula as marcas. Quem votou ANTES desta migração continua em

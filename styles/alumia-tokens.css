@@ -54,8 +54,8 @@
   --al-amostra-escuro-cartao: #1b1917;
   --al-amostra-escuro-linha: #f3efe6;
   --al-amostra-escuro-vermelho: #e8321f;
-  --al-amostra-claro-fundo: #f3efe6;
-  --al-amostra-claro-cartao: #fbf8f2;
+  --al-amostra-claro-fundo: #ffffff;
+  --al-amostra-claro-cartao: #f6f6f7;
   --al-amostra-claro-linha: #0f0e0d;
   --al-amostra-claro-vermelho: #bc2217;
   /* Cores por comunidade (a pílula e a faixa do cartão). */
@@ -104,21 +104,21 @@
 }
 
 /*
- * Variante clara (escolha da pessoa; o padrão das pranchas é o escuro). O fundo é o creme da prancha traga-sua-organizacao; a
- * tinta é a noite. Contraste conferido (WCAG 1.4.3, AA): texto #0f0e0d sobre o creme 16,6:1; texto-2 #2f2a25 12,3:1; texto-3
- * #5c554d 6,4:1 (5,5:1 sobre a superfície-2); vermelho #bc2217 5,4:1 sobre o creme e 6,2:1 com branco em cima; dourado de texto
- * #7a5800 5,6:1 sobre o creme; tinta sobre o dourado de fundo #ffc21a 12:1. As cores de comunidade escurecem para passar de 4,5:1
- * como texto da pílula. O mosaico do ato continua um painel escuro (é um placar de arquibancada): ele não muda de tema.
+ * Variante clara (escolha da pessoa; o padrão das pranchas é o escuro). P5 (A17): o fundo é um branco neutro (o creme de antes
+ * parecia um branco amarelado), as superfícies são cinzas neutros e a tinta é a noite. Contraste conferido (WCAG 1.4.3, AA): texto
+ * #0f0e0d sobre o branco 19,3:1; texto-2 #2c2c30 13,9:1; texto-3 #5b5b63 6,7:1 (5,5:1 sobre a superfície-2); vermelho #bc2217
+ * 6,2:1 sobre o branco e com branco em cima; dourado de texto #7a5800 6,5:1; tinta sobre o dourado de fundo #ffc21a 12:1. As cores
+ * de comunidade escurecem para passar de 4,5:1 como texto da pílula. O mosaico do ato continua um painel escuro (é um placar de arquibancada): ele não muda de tema.
  */
 [data-al="2"][data-al-tema="claro"],
 :root:has([data-al="2"][data-al-tema="claro"]) .al-pele {
-  --al-fundo: #f3efe6;
-  --al-superficie: #fbf8f2;
-  --al-superficie-2: #e6dfd2;
-  --al-linha: #d5cdbf;
+  --al-fundo: #ffffff;
+  --al-superficie: #f6f6f7;
+  --al-superficie-2: #e7e7ea;
+  --al-linha: #dedee2;
   --al-texto: #0f0e0d;
-  --al-texto-2: #2f2a25;
-  --al-texto-3: #5c554d;
+  --al-texto-2: #2c2c30;
+  --al-texto-3: #5b5b63;
   --al-vermelho: #bc2217;
   --al-vermelho-escuro: #f1cfc9;
   --al-vermelho-texto: #bc2217;
@@ -129,7 +129,7 @@
   --al-dourado-fundo: #ffc21a;
   --al-sobre-dourado: #0f0e0d;
   --al-saliente: #0f0e0d;
-  --al-sobre-saliente: #f3efe6;
+  --al-sobre-saliente: #ffffff;
   --al-sombra: rgba(15, 14, 13, 0.22);
   --al-com-1: #0b6f67;
   --al-com-2: #b3204f;
@@ -147,17 +147,17 @@
 :root:not([data-contrast]):not([data-eink]):has([data-al="2"][data-al-tema="claro"]) .al-pele {
   /* Os tokens do site que as telas antigas ainda usam (ink, parchment, rule…): os valores do claro DAQUI, sem depender do tema
      que a pessoa escolheu no site (com o site no escuro e a Alumia no claro, a tinta continuaria clara sobre o creme). */
-  --parchment: #f3efe6;
-  --parchment-deep: #e6dfd2;
-  --paper: #fbf8f2;
+  --parchment: #ffffff;
+  --parchment-deep: #e7e7ea;
+  --paper: #f6f6f7;
   --ink: #0f0e0d;
-  --ink-soft: #5c554d;
+  --ink-soft: #5b5b63;
   --gold: #7a5800;
   --oxblood: #b3231a;
-  --rule: #d5cdbf;
-  --folha: #fbf8f2;
-  --borda-forte: #5c554d;
-  --texto-meio: #2f2a25;
+  --rule: #dedee2;
+  --folha: #f6f6f7;
+  --borda-forte: #5b5b63;
+  --texto-meio: #2c2c30;
 }
 
 /* Alto contraste do site: preto e branco puros, cores mais fortes, bordas visíveis nos cartões. */
@@ -287,7 +287,10 @@
   [data-al="2"] *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    /* Sem a espera também: uma lista que se refaz (avisos, #temas do Explorar) recomeçava a cascata a cada vez e ficava "rodando". */
+    animation-delay: 0s !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
     scroll-behavior: auto !important;
   }
 }
@@ -482,3 +485,15 @@
 :root:not([data-contrast]):not([data-eink]) [data-al="2"][data-al-tema="claro"] .al-flap { background: #0f0e0d; color: #f3efe6; box-shadow: none; }
 :root:not([data-contrast]):not([data-eink]) [data-al="2"][data-al-tema="claro"] .al-flap-vivo { --al-flap-fundo: #0f0e0d; }
 :root:not([data-contrast]):not([data-eink]) [data-al="2"][data-al-tema="claro"] .al-faixa-ato-flaps .al-flaps-grupo { background: #0f0e0d; }
+
+/* ── P5 (A5): nada do instituto flutuando dentro da Alumia. O "voltar ao topo" e o "?" (perguntas frequentes do site) somem nas
+   telas da Alumia; ela tem o próprio "subir" (components/rede/alumia/SubirAoTopo.tsx) e a própria ajuda (/alumia/ajuda). ── */
+:root:has([data-al="2"]) :is(.voltar-ao-topo, .assistente-flutua) { display: none; }
+[data-al="2"] .al-subir {
+  position: fixed; z-index: 30; right: 12px; bottom: calc(5.25rem + env(safe-area-inset-bottom, 0px));
+  display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 999px;
+  border: 1.5px solid var(--al-linha); background: var(--al-superficie); color: var(--al-texto);
+  box-shadow: 0 8px 24px -10px var(--al-sombra); cursor: pointer;
+}
+[data-al="2"] .al-subir:hover { border-color: var(--al-vermelho); color: var(--al-vermelho-texto); }
+@media (min-width: 1024px) { [data-al="2"] .al-subir { right: 24px; bottom: 24px; } }

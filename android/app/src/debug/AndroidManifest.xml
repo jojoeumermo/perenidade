@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+     SÓ no build de depuração (teste no emulador): o servidor de teste do computador por http (10.0.2.2 e localhost). O pacote de
+     lançamento não leva isto. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <application android:networkSecurityConfig="@xml/rede_de_teste" android:usesCleartextTraffic="true" tools:replace="android:usesCleartextTraffic" />
+</manifest>

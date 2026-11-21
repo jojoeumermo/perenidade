@@ -486,7 +486,10 @@ caso("T31: orçamento de desempenho (pausa fora da tela/aba oculta, modo leve em
   const css = ler("styles", "vale-o-escrito.css");
   assert.ok(css.includes("[data-parado]") && css.includes('[data-qualidade="baixa"]'));
   const mapa = ler("components", "vale-o-escrito", "Mapa.tsx");
-  assert.ok(mapa.includes("data-parado") && mapa.includes("visibilityState") && mapa.includes("reduzirMovimento"));
+  // Prompt 5 (C2): o brilho dos pontos deixou de pulsar. Ou o mapa não anima nada quadro a quadro, ou a animação para fora da tela,
+  // com a aba escondida e com menos movimento (como era antes).
+  const animaQuadroAQuadro = /requestAnimationFrame/.test(mapa);
+  assert.ok(mapa.includes("reduzirMovimento") && (!animaQuadroAQuadro || (mapa.includes("data-parado") && mapa.includes("visibilityState"))));
 });
 caso("T31: textos novos nos 6 idiomas (mapa e visual)", () => {
   for (const l of idiomas) {

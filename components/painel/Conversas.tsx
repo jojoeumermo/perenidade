@@ -4,7 +4,7 @@
 import { type CSSProperties, type ReactNode, useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import {
-  Archive, ArrowLeft, AtSign, BarChart3, Ban, Bold, Italic, Paperclip, CalendarDays, Camera, Check, CheckCheck, ChevronDown, Circle, CircleDot, Clock, Code, Ellipsis, ExternalLink, EyeOff, Forward, Hash, List, Lock, LogOut, Maximize2, MessageSquare, Mic, Pencil, Phone, PhoneOff, Pin, Plus, Quote, Reply, Search, Send, SendHorizontal, Settings, ShieldCheck, Smile, Star, StarOff, SunMoon, Trash2, UserMinus, UserPlus, Users, Volume2, X,
+  Archive, ArrowLeft, AtSign, BarChart3, Ban, Bold, Italic, Paperclip, CalendarDays, Camera, Check, ChevronDown, Circle, CircleDot, Clock, Code, Ellipsis, ExternalLink, EyeOff, Forward, Hash, List, Lock, LogOut, Maximize2, MessageSquare, Mic, Pencil, Phone, PhoneOff, Pin, Plus, Quote, Reply, Search, Send, SendHorizontal, Settings, ShieldCheck, Smile, Star, StarOff, SunMoon, Trash2, UserMinus, UserPlus, Users, Volume2, X,
   type LucideIcon,
 } from "lucide-react";
 import { can, leads, manages, rpc, type Me } from "@/lib/backend";
@@ -13,10 +13,11 @@ import { buscar, desindexar, indexar, type Indexada } from "@/lib/busca-local";
 import type { Chaveiro } from "@/lib/chaveiro";
 import { type Citacao, type Conteudo, desempacotar, empacotar, type Enquete, type Evento, extrairMencoes, linksDe, previaDoLink, reacoes, type Rsvp, semFormatacao, trechoDe } from "@/lib/mensagem";
 import { conversaDestravada, destravar, estaDestravado, travaDisponivel, travaLigada } from "@/lib/trava";
-import { contextoDaConversa } from "@/lib/sigilo";
+import { edicaoValida, novoIdDeMensagem, type TipoDaMensagem } from "@/lib/equipe/autoria";
+import { instantaneoDasLidas, marcarLida, ouvirLidas } from "@/lib/equipe/lidas";
 import { getItem, setItem } from "@/lib/storage";
 import { useI18n } from "../I18n";
-import { JitsiSala } from "../JitsiSala";
+import { SalaDeVideo } from "../SalaDeVideo";
 import { agirOtimista, Aviso, campo, dataHora, localDoPainel, papeis, rotulo, textoDoErro, useLista } from "./comum";
 import { Avatar } from "./Avatar";
 import type { Membro } from "./Equipe";
@@ -24,7 +25,7 @@ import { Formatado } from "./Formatado";
 import { Amigos, Bolinha, CartaoDePerfil, COMANDOS, ConviteDoGrupo, CORES_DE_PRESENCA, EntrarPorConvite, MeuStatus, type Presenca, rodarComando } from "./ConversasStoat";
 import { EmojiDaReacao } from "./EmojiDoInstituto";
 import { AnexoVisto, type EstadoDoAnexo, Galeria, Gravador, type ItemDaGaleria, Preparados, type Preparado, preparar, soltar, subir } from "./Anexos";
-import { Alertas, AparelhoPendente, Aparelhos, ComoFunciona, enviarCifrado, Seguranca, TextoAberto, useAbertos, useChaveiro } from "./Sigilo";
+import { Alertas, AparelhoPendente, Aparelhos, argumentosDoEnvio, ComoFunciona, enviarMensagem, Seguranca, TextoAberto, useChaveiro, useMensagensAbertas } from "./Sigilo";
 import { AbrirAgora, baixarIcs, Historico, NovaReuniao, type Proposta as PropostaDeReuniao, Propostas, type Reuniao, tipos as tiposDeReuniao } from "./Reunioes";
 import { Abas, Botao, CabecalhoDeSecao, type ComandoDoComposer, Composer, Contador, Esqueleto, Faixa, Lista, MenuSuspenso, PaineisAjustaveis, Selo, Vazio, confirmarFrase, perguntarTexto, useComandosDaSecao } from "./ui";
 
@@ -44,7 +45,10 @@ interface Conversa {
   visto_em: string | null;
   membros: number;
   apagar_apos: number | null;
-  ultima: { corpo: string; minha: boolean; autor: string; autor_id: string | null; criado_em: string } | null;
+  /** A última mensagem, cifrada (quem escreveu e a hora estão dentro: onda R3). */
+  ultima: { id: string; corpo: string; numero: number; dia: string } | null;
+  /** O número da última mensagem da conversa (o "lido até" deste aparelho é comparado com ele). */
+  ultimo_numero: number;
   nao_lidas: number;
   /** O que eu fiz com a conversa (vale em todos os meus aparelhos; os outros não veem). */
   fixada: boolean;
@@ -54,18 +58,38 @@ interface Conversa {
   trancada: boolean;
   descricao: string;
   /** A mensagem com a foto do grupo, cifrada como as outras. */
-  foto: { id: string; corpo: string; autor: string | null; criado_em: string } | null;
+  foto: { id: string; corpo: string; numero: number; dia: string } | null;
   /** Fechada pela coordenação por enquanto (ninguém escreve; ler pode). */
   fechada?: boolean;
 }
 
+/**
+ * Uma mensagem como o banco a dá (onda R3): sem autor e sem hora (estão dentro do cifrado, assinados); o dia e o número dentro da
+ * conversa. Só nos avisos do sistema (não cifrados) o banco diz quem fez.
+ */
+interface MensagemDoBanco {
+  id: string;
+  numero: number;
+  dia: string;
+  corpo: string;
+  expira_em: string | null;
+  tipo: Mensagem["tipo"];
+  alvo: string | null;
+  anexos: EstadoDoAnexo[];
+  detalhe: Mensagem["detalhe"];
+  autor: string | null;
+}
+
+/** Uma mensagem para a tela: o autor, o nome e a hora vêm de dentro do cifrado, abertos neste aparelho. */
 interface Mensagem {
   id: string;
+  numero: number;
   autor: string | null;
   nome: string;
   minha: boolean;
   corpo: string;
-  criado_em: string;
+  /** A hora assinada por quem escreveu (ou o começo do dia, enquanto não abriu). */
+  quando: string;
   /** Com a autodestruição ligada, quando a mensagem some. */
   expira_em: string | null;
   /** Texto, ou uma reação ou edição de outra mensagem ("alvo"). */
@@ -85,10 +109,6 @@ interface MembroDaConversa {
   /** Nulo quando a pessoa (ou eu) esconde o "visto por último". */
   online: boolean | null;
   visto_em: string | null;
-  /** Nulo quando a pessoa (ou eu) desligou a confirmação de leitura. */
-  lido_em: string | null;
-  recebido_em: string;
-  digitando: "" | "texto" | "audio";
   admin: boolean;
 }
 
@@ -115,7 +135,7 @@ interface Aberta {
   membros: MembroDaConversa[];
   fixadas: string[];
   favoritas: string[];
-  mensagens: Mensagem[];
+  mensagens: MensagemDoBanco[];
 }
 
 const MAXIMO = 2000;
@@ -305,7 +325,6 @@ const MENU_DA_SALA = "pn-menu-suspenso absolute z-30";
 const ITEM_DA_SALA = "pn-menu-suspenso-item w-full cursor-pointer text-left hover:bg-[var(--pn-ativo)] focus-visible:bg-[var(--pn-ativo)]";
 
 /** A hora de agora, para os avisos de "digitando" (só chamada nos eventos: tecla, envio, saída do campo). */
-const relogioDeParede = () => Date.now();
 
 /** Uma linha nova antes do que o comando põe, se o texto já tem algo na linha de agora. */
 const linhaNova = (texto: string) => (texto && !texto.endsWith("\n") ? `${texto}\n` : texto);
@@ -333,7 +352,10 @@ type Tela = "conversa" | "grupo" | "favoritas" | "relatos" | "privadas" | "agend
 export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
   const { lang } = useI18n();
   const { chaveiro, erro } = useChaveiro(me.id);
-  const lista = useLista<Conversa[]>("chat_conversas");
+  // O "lido até" mora neste aparelho (lib/equipe/lidas.ts); o banco só conta com ele, sem gravar.
+  const lidasAgora = useSyncExternalStore(ouvirLidas, () => instantaneoDasLidas(me.id), () => "{}");
+  const argsDaLista = useMemo(() => ({ p_lidos: JSON.parse(lidasAgora) as Record<string, number> }), [lidasAgora]);
+  const lista = useLista<Conversa[]>("chat_conversas", argsDaLista);
   const membros = useLista<Membro[]>("equipe_membros");
   const reunioes = useLista<Reuniao[]>("reunioes_listar");
   const propostasDeReuniao = useLista<PropostaDeReuniao[]>("reunioes_propostas");
@@ -391,11 +413,9 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
     const marca = window.setTimeout(() => { if (termoDeBusca.length < 2) { setAchadas([]); return; } void buscar(termoDeBusca).then((itens) => { if (!cancelado) setAchadas(itens); }); }, 200);
     return () => { cancelado = true; window.clearTimeout(marca); };
   }, [busca]);
-  const previas = useAbertos(
+  const previas = useMensagensAbertas(
     chaveiro,
-    (lista.dados ?? []).flatMap((conversa) =>
-      conversa.ultima ? [{ id: `${conversa.id}:${conversa.ultima.criado_em}`, conversa: conversa.id, corpo: conversa.ultima.corpo, contexto: contextoDaConversa(conversa.id, conversa.ultima.autor_id ?? ""), autor: conversa.ultima.autor_id }] : [],
-    ),
+    (lista.dados ?? []).flatMap((conversa) => (conversa.ultima ? [{ id: conversa.ultima.id, conversa: conversa.id, corpo: conversa.ultima.corpo, tipo: "texto" as const, alvo: null }] : [])),
   );
 
   // ───── Optimistic UI: fixar, arquivar, silenciar e marcar como lida mudam a lista na hora ─────
@@ -408,19 +428,21 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
   });
   const marcarOtimista = (conversa: Conversa, campos: Record<string, unknown>) =>
     agirOtimista<Conversa[]>({
-      lista: { funcao: "chat_conversas" },
+      lista: { funcao: "chat_conversas", argumentos: argsDaLista },
       remendo: (dados) => dados.map((c) => (c.id === conversa.id ? { ...c, ...efeitoDe(campos) } : c)),
       funcao: "chat_conversa_marcar",
       argumentos: { p_id: conversa.id, ...campos },
     });
-  /** Marcar como lida é abrir a conversa no banco (chat_ver), como sempre; a contagem some na hora. */
-  const lerOtimista = (conversa: Conversa) =>
-    agirOtimista<Conversa[]>({
-      lista: { funcao: "chat_conversas" },
+  /** Marcar como lida: o "lido até" deste aparelho anda até a última mensagem; a marca "não lida" sai no banco (chat_ver). */
+  const lerOtimista = (conversa: Conversa) => {
+    marcarLida(me.id, conversa.id, conversa.ultimo_numero);
+    return agirOtimista<Conversa[]>({
+      lista: { funcao: "chat_conversas", argumentos: argsDaLista },
       remendo: (dados) => dados.map((c) => (c.id === conversa.id ? { ...c, nao_lidas: 0, marcada_nao_lida: false } : c)),
       funcao: "chat_ver",
       argumentos: { p_id: conversa.id },
     });
+  };
 
   // A paleta (Ctrl K) ganha os comandos da conversa aberta: marcar como lida, silenciar, fixar e arquivar, sem mouse.
   const conversaAberta = tela === "conversa" && aberta ? (lista.dados ?? []).find((c) => c.id === aberta) : undefined;
@@ -467,7 +489,9 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
     if (filtro === "fixadas") return conversa.fixada;
     return true;
   };
-  const ordenar = (a: Conversa, b: Conversa) => Number(b.fixada) - Number(a.fixada) || (b.ultima?.criado_em ?? "").localeCompare(a.ultima?.criado_em ?? "");
+  // A hora da última mensagem vem de dentro do cifrado (aberta aqui); enquanto não abre, vale o dia que o banco sabe.
+  const horaDa = (c: Conversa) => (c.ultima ? (previas[c.ultima.id]?.hora ?? Date.parse(c.ultima.dia)) : 0);
+  const ordenar = (a: Conversa, b: Conversa) => Number(b.fixada) - Number(a.fixada) || horaDa(b) - horaDa(a);
   const departamentos = todas.filter((c) => c.tipo === "departamento" && passaNoFiltro(c)).sort((a, b) => (a.departamento === "geral" ? -1 : b.departamento === "geral" ? 1 : a.nome.localeCompare(b.nome, "pt")));
   const grupos = todas.filter((c) => c.tipo === "grupo" && passaNoFiltro(c)).sort(ordenar);
   const diretas = todas.filter((c) => c.tipo === "direta" && passaNoFiltro(c)).sort(ordenar);
@@ -540,13 +564,16 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
   /** A última mensagem, aberta: o texto sem formatação e, se me mencionou, a marca. */
   function previa(conversa: Conversa): { texto: string; mencao: boolean } {
     if (!conversa.ultima) return { texto: conversa.tipo === "direta" ? "Nenhuma mensagem ainda" : `${conversa.membros} pessoas`, mencao: false };
-    const quem = conversa.ultima.minha ? "Você: " : conversa.tipo !== "direta" ? `${conversa.ultima.autor.split(" ")[0]}: ` : "";
-    const ab = previas[`${conversa.id}:${conversa.ultima.criado_em}`];
-    if (!ab) return { texto: `${quem}${conversa.ultima.corpo.startsWith("c1.") ? "mensagem antiga" : "…"}`, mencao: false };
+    const ab = previas[conversa.ultima.id];
+    if (!ab) return { texto: conversa.ultima.corpo.startsWith("c1.") ? "mensagem antiga" : "…", mencao: false };
+    // Quem escreveu vem de dentro do cifrado (o banco não sabe).
+    const minha = ab.autor === me.id && ab.autoria === "ok";
+    const autorNome = ab.autor ? ((membros.dados ?? []).find((m) => m.id === ab.autor)?.nome ?? "") : "";
+    const quem = minha ? "Você: " : conversa.tipo !== "direta" && autorNome ? `${autorNome.split(" ")[0]}: ` : "";
     const conteudo = desempacotar(ab.texto);
     const arquivo = conteudo.anexos?.length ? `${{ imagem: "Foto", video: "Vídeo", audio: "Áudio", pdf: "PDF", docx: "Documento" }[conteudo.anexos[0].tipo]}${conteudo.anexos.length > 1 ? ` +${conteudo.anexos.length - 1}` : ""}${conteudo.texto ? " · " : ""}` : "";
     const especial = conteudo.enquete ? `Enquete: ${conteudo.enquete.pergunta}` : conteudo.evento ? `Evento: ${conteudo.evento.titulo}` : conteudo.grupo_foto ? "Foto do grupo" : "";
-    return { texto: `${quem}${conteudo.encaminhada ? "↪ " : ""}${arquivo}${especial || semFormatacao(conteudo.texto)}`, mencao: Boolean(conteudo.mencoes?.includes(me.id)) && !conversa.ultima.minha };
+    return { texto: `${quem}${conteudo.encaminhada ? "↪ " : ""}${arquivo}${especial || semFormatacao(conteudo.texto)}`, mencao: Boolean(conteudo.mencoes?.includes(me.id)) && !minha };
   }
 
   // ───── Reuniões como canais de voz ─────
@@ -843,7 +870,7 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
           </TelaDaSala>
         ) : tela === "favoritas" ? (
           <TelaDaSala titulo="Mensagens favoritas" voltar={() => setTela("conversa")}>
-            <Favoritas chaveiro={chaveiro} fechar={() => setTela("conversa")} abrir={(id) => { setTela("conversa"); setAberta(id); }} />
+            <Favoritas chaveiro={chaveiro} equipe={membros.dados ?? []} fechar={() => setTela("conversa")} abrir={(id) => { setTela("conversa"); setAberta(id); }} />
           </TelaDaSala>
         ) : tela === "relatos" ? (
           <TelaDaSala titulo="Relatos à coordenação" voltar={() => setTela("conversa")}><Relatos fechar={() => setTela("conversa")} /></TelaDaSala>
@@ -1224,7 +1251,7 @@ function CamadaDaChamada({ tema, chamada, lugar, me, lang, abrir, sair }: { tema
         </div>
       )}
       <div className="min-h-0 flex-1 bg-[var(--pn-menu-fundo)]">
-        <JitsiSala sala={chamada.sala ?? ""} nome={me.nome} conduzo={chamada.conduzo} lang={lang} assunto={chamada.titulo} aoSair={sair} video={(chamada as Partial<ChamadaDoCanal>).video} />
+        <SalaDeVideo sala={chamada.sala ?? ""} nome={me.nome} conduzo={chamada.conduzo} lang={lang} assunto={chamada.titulo} aoSair={sair} video={(chamada as Partial<ChamadaDoCanal>).video} />
       </div>
     </div>,
     document.body,
@@ -1325,7 +1352,6 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
   const [editando, setEditando] = useState<Mensagem | null>(null);
   const [reagindo, setReagindo] = useState<string | null>(null);
   const [quemReagiu, setQuemReagiu] = useState<string | null>(null);
-  const [lidaPor, setLidaPor] = useState<string | null>(null);
   const [selecionadas, setSelecionadas] = useState<Set<string> | null>(null);
   const [encaminhando, setEncaminhando] = useState<string[] | null>(null);
   const [destacada, setDestacada] = useState<string | null>(null);
@@ -1345,8 +1371,6 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
   const caixa = { get current() { return moldura.current?.querySelector("textarea") ?? null; } };
   const escolha = useRef<HTMLInputElement>(null);
   const fim = useRef<HTMLDivElement>(null);
-  const ultimoAvisoDeDigitando = useRef(0);
-  const ultimoRecebido = useRef("");
   useRelogio(recarregar, 3000);
   useEffect(() => () => soltar(preparados), [preparados]);
   const dados = conversa.dados;
@@ -1356,8 +1380,29 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
     const relogio = window.setInterval(() => setAgora(Date.now()), 5000);
     return () => window.clearInterval(relogio);
   }, []);
-  const todas = useMemo(() => (dados?.mensagens ?? []).filter((mensagem) => !mensagem.expira_em || new Date(mensagem.expira_em).getTime() > agora), [dados, agora]);
-  const abertos = useAbertos(chaveiro, todas.map((mensagem) => ({ id: mensagem.id, conversa: id, corpo: mensagem.corpo, contexto: contextoDaConversa(id, mensagem.autor ?? ""), autor: mensagem.autor })));
+  // Onda R3: o banco não dá o autor nem a hora; cada mensagem é aberta aqui e o autor e a hora vêm de dentro, com a assinatura conferida.
+  const brutas = useMemo(() => dados?.mensagens ?? [], [dados]);
+  const abertos = useMensagensAbertas(chaveiro, brutas.filter((m) => m.tipo !== "sistema").map((m) => ({ id: m.id, conversa: id, corpo: m.corpo, tipo: m.tipo as TipoDaMensagem, alvo: m.alvo })));
+  const todas = useMemo<Mensagem[]>(() => {
+    const nomeDe = (usuario: string | null) => (usuario ? (dados?.membros.find((m) => m.id === usuario)?.nome ?? equipe.find((m) => m.id === usuario)?.nome ?? "Alguém que saiu da equipe") : "");
+    return brutas
+      .map((m): Mensagem => {
+        if (m.tipo === "sistema") return { ...m, nome: nomeDe(m.autor), minha: m.autor === me.id, quando: `${m.dia}T00:00:00Z`, expira_em: null };
+        const ab = abertos[m.id];
+        const autor = ab?.autor ?? null;
+        const hora = ab?.hora ?? null;
+        // A autodestruição: no aparelho, pela hora assinada e o prazo da conversa; o banco apaga no dia seguinte.
+        const expira = m.expira_em ? (hora && dados?.apagar_apos ? new Date(hora + dados.apagar_apos * 1000).toISOString() : `${m.expira_em}T00:00:00Z`) : null;
+        return { id: m.id, numero: m.numero, autor, nome: nomeDe(autor), minha: autor === me.id && ab?.autoria === "ok", corpo: m.corpo, quando: hora ? new Date(hora).toISOString() : `${m.dia}T00:00:00Z`, expira_em: expira, tipo: m.tipo, alvo: m.alvo, anexos: m.anexos, detalhe: m.detalhe };
+      })
+      .filter((m) => !m.expira_em || new Date(m.expira_em).getTime() > agora);
+  }, [brutas, abertos, dados, equipe, me.id, agora]);
+  const porId = useMemo(() => new Map(todas.map((m) => [m.id, m])), [todas]);
+  // Abrir a conversa marca como lida neste aparelho, até a última mensagem que chegou (o banco não guarda a leitura).
+  useEffect(() => {
+    const ultimoNumero = brutas.reduce((n, m) => Math.max(n, m.numero), 0);
+    if (ultimoNumero > 0) marcarLida(me.id, id, ultimoNumero);
+  }, [brutas, id, me.id]);
   const alertas = chaveiro.alertasDe(id);
   const pessoas = chaveiro.pessoasDe(id);
   const membrosDaConversa = useMemo(() => (dados?.membros ?? []).map((membro) => ({ id: membro.id, nome: membro.nome })), [dados]);
@@ -1368,8 +1413,10 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
     const reacoesPor = new Map<string, Mensagem[]>();
     for (const mensagem of todas) {
       if (mensagem.tipo === "edicao" && mensagem.alvo) {
+        // Só vale a edição de quem escreveu a original, até 15 minutos depois (pelas horas assinadas das duas).
+        if (!edicaoValida(abertos[mensagem.alvo], abertos[mensagem.id])) continue;
         const atual = edicoes.get(mensagem.alvo);
-        if (!atual || atual.criado_em < mensagem.criado_em) edicoes.set(mensagem.alvo, mensagem);
+        if (!atual || atual.quando < mensagem.quando) edicoes.set(mensagem.alvo, mensagem);
       } else if ((mensagem.tipo === "reacao" || mensagem.tipo === "voto" || mensagem.tipo === "rsvp") && mensagem.alvo) {
         reacoesPor.set(mensagem.alvo, [...(reacoesPor.get(mensagem.alvo) ?? []), mensagem]);
       }
@@ -1410,7 +1457,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
 
   // Busca: o que este aparelho abriu entra no índice local (só texto; nada sai do aparelho).
   useEffect(() => {
-    const itens = vistas.filter((vista) => vista.mensagem.tipo === "texto" && vista.conteudo?.texto).map((vista) => ({ id: vista.mensagem.id, conversa: id, conversa_nome: nomeDaConversa, autor: vista.mensagem.minha ? "Você" : vista.mensagem.nome, texto: semFormatacao(vista.conteudo!.texto), criado_em: vista.mensagem.criado_em }));
+    const itens = vistas.filter((vista) => vista.mensagem.tipo === "texto" && vista.conteudo?.texto).map((vista) => ({ id: vista.mensagem.id, conversa: id, conversa_nome: nomeDaConversa, autor: vista.mensagem.minha ? "Você" : vista.mensagem.nome, texto: semFormatacao(vista.conteudo!.texto), criado_em: vista.mensagem.quando }));
     if (itens.length) void indexar(itens);
   }, [vistas, id, nomeDaConversa]);
 
@@ -1419,29 +1466,12 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
     fim.current?.scrollIntoView({ block: "end" });
   }, [ultima]);
 
-  // Avisa que este aparelho recebeu as mensagens (o segundo tique de quem enviou), uma vez por mensagem nova de outra pessoa.
-  useEffect(() => {
-    const novas = vistas.filter((vista) => !vista.mensagem.minha && vista.conteudo);
-    const marca = novas.at(-1)?.mensagem.id ?? "";
-    if (!marca || marca === ultimoRecebido.current) return;
-    ultimoRecebido.current = marca;
-    void rpc("chat_recebidas", { p_id: id }).catch(() => undefined);
-  }, [vistas, id]);
-
   // O rascunho fica guardado neste aparelho enquanto a pessoa não envia.
   useEffect(() => {
     if (editando) return;
     const relogio = window.setTimeout(() => setItem(chaveDoRascunho(id), texto.trim() ? texto : null), 400);
     return () => window.clearTimeout(relogio);
   }, [texto, id, editando]);
-
-  /** "Fulano está digitando…": avisa no máximo a cada quatro segundos enquanto a pessoa escreve. */
-  function avisarDigitando(tipo: "texto" | "audio" | "") {
-    const agora = relogioDeParede();
-    if (tipo && agora - ultimoAvisoDeDigitando.current < 4000) return;
-    ultimoAvisoDeDigitando.current = tipo ? agora : 0;
-    void rpc("chat_digitando", { p_id: id, p_tipo: tipo }).catch(() => undefined);
-  }
 
   // Na paleta (Ctrl K): fixar a última mensagem do canal, ou desafixar a que está fixada (a mesma ação da barrinha).
   const ultimaDeTexto = [...vistas].reverse().find((vista) => vista.mensagem.tipo === "texto" && vista.conteudo);
@@ -1475,31 +1505,14 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
   const nome = dados.tipo === "direta" ? (outro?.nome ?? resumo?.nome ?? "Conversa") : dados.nome;
   const outros = dados.membros.filter((membro) => !membro.eu);
   const verificado = (usuario: string) => pessoas.find((pessoa) => pessoa.usuario === usuario)?.verificado ?? false;
-  const digitando = outros.filter((membro) => membro.digitando);
   const fixadas = dados.fixadas.map((fixada) => vistas.find((vista) => vista.mensagem.id === fixada)).filter((vista): vista is Vista => Boolean(vista));
   const favoritas = new Set(dados.favoritas);
   const emGrupo = dados.tipo !== "direta";
 
-  /** Os tiques de uma mensagem minha: enviada, entregue a todos, lida por todos (ou por quantos, no grupo). */
+  /** A marca de uma mensagem minha: enviada. O chat da equipe não tem mais entrega nem leitura no banco (onda R3). */
   function tiques(mensagem: Mensagem) {
-    if (!mensagem.minha || outros.length === 0) return null;
-    const entregue = outros.every((membro) => membro.recebido_em >= mensagem.criado_em);
-    const leram = outros.filter((membro) => membro.lido_em && membro.lido_em >= mensagem.criado_em);
-    const confirmacao = outros.some((membro) => membro.lido_em !== null);
-    const lida = confirmacao && leram.length === outros.length;
-    const titulo = lida ? "Lida" : entregue ? "Entregue" : "Enviada";
-    return (
-      <button
-        type="button"
-        title={titulo}
-        aria-label={`${titulo}${emGrupo && leram.length ? `, por ${leram.length}` : ""}`}
-        className={`ml-1 inline-flex cursor-pointer items-center font-mono ${lida ? "text-s-ouro" : ""}`}
-        onClick={() => emGrupo && setLidaPor(lidaPor === mensagem.id ? null : mensagem.id)}
-      >
-        {entregue || lida ? <CheckCheck aria-hidden className="h-3.5 w-3.5" /> : <Check aria-hidden className="h-3.5 w-3.5" />}
-        {emGrupo && leram.length > 0 && <span className="ml-0.5">{leram.length}</span>}
-      </button>
-    );
+    if (!mensagem.minha) return null;
+    return <span title="Enviada" aria-label="Enviada" className="ml-1 inline-flex items-center font-mono"><Check aria-hidden className="h-3.5 w-3.5" /></span>;
   }
 
   function irPara(mensagem: string) {
@@ -1528,25 +1541,30 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
         }
       }
       if (editando) {
-        await enviarCifrado(chaveiro, id, empacotar({ texto: limpo }), contextoDaConversa(id, me.id), (corpo) => rpc("chat_enviar", { p_id: id, p_corpo: corpo, p_tipo: "edicao", p_alvo: editando.id }));
+        // Editar prova que a mensagem é minha com a ficha dela (o banco não sabe quem escreveu).
+        const prova = await chaveiro.fichaDe("mensagem", id, editando.id);
+        const onde = { tipo: "edicao" as const, alvo: editando.id };
+        await enviarMensagem(chaveiro, id, onde, empacotar({ texto: limpo }), (e) => rpc("chat_enviar", argumentosDoEnvio(id, e, onde, { prova })));
         setEditando(null);
       } else {
         const link = linksDe(limpo)[0];
         const conteudo: Conteudo = { texto: limpo, citando: citando ?? undefined, mencoes: extrairMencoes(limpo, membrosDaConversa), previa: link ? (previaDoLink(link) ?? undefined) : undefined };
+        const onde = { tipo: "texto" as const, alvo: null, id: novoIdDeMensagem() };
         if (arquivos.length) {
-          // Cada arquivo é cifrado com uma chave só dele e sobe antes; a mensagem leva as chaves e prende os arquivos.
-          conteudo.anexos = await subir(arquivos, id, (feitos) => setAndamento(`Cifrando e enviando ${feitos} de ${arquivos.length}…`));
+          // Cada arquivo é cifrado com uma chave só dele e sobe antes, com a ficha desta mensagem; a mensagem leva as chaves e prende os arquivos.
+          const { dono } = await chaveiro.fichaDoEnvio({ conversa: id, ...onde });
+          conteudo.anexos = await subir(arquivos, id, dono, (feitos) => setAndamento(`Cifrando e enviando ${feitos} de ${arquivos.length}…`));
           setAndamento("");
         }
         const ids = conteudo.anexos?.map((anexo) => anexo.id);
-        await enviarCifrado(chaveiro, id, empacotar(conteudo), contextoDaConversa(id, me.id), (corpo) => rpc("chat_enviar", { p_id: id, p_corpo: corpo, p_anexos: ids ?? null }));
+        const enviada = await enviarMensagem(chaveiro, id, onde, empacotar(conteudo), (e) => rpc<{ id: string; numero: number }>("chat_enviar", argumentosDoEnvio(id, e, onde, { anexos: ids ?? null })));
+        marcarLida(me.id, id, enviada.numero);
         setCitando(null);
         if (arquivos.length) { soltar(arquivos); setPreparados([]); }
       }
       // Só limpa a caixa se ela ainda tem o que foi enviado: o que a pessoa digitou durante o envio fica.
       setTexto((atual) => (atual.trim() === limpo || atual.trim().startsWith("/") ? "" : atual));
       setItem(chaveDoRascunho(id), null);
-      avisarDigitando("");
       recarregar();
       mudou();
     } catch (erro) {
@@ -1581,10 +1599,18 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
     }
   }
 
-  const apagar = (mensagem: string) => agir(async () => { await rpc("chat_apagar", { p_id: mensagem }); await desindexar([mensagem]); });
+  /** A ficha que prova que a mensagem (ou a minha reação, voto ou resposta) é minha: o banco só guarda o resumo dela. */
+  async function provaDe(alvo: string): Promise<string> {
+    const m = porId.get(alvo);
+    if (m && (m.tipo === "reacao" || m.tipo === "voto" || m.tipo === "rsvp") && m.alvo) return chaveiro.fichaDe(m.tipo, id, m.alvo);
+    return chaveiro.fichaDe("mensagem", id, alvo);
+  }
+  const apagar = (mensagem: string) => agir(async () => { await rpc("chat_apagar", { p_id: mensagem, p_prova: await provaDe(mensagem) }); await desindexar([mensagem]); });
   /** Enquete, evento, voto e resposta a evento: um conteúdo cifrado como qualquer outro. */
-  const enviarConteudo = (conteudo: Conteudo, tipo: "texto" | "voto" | "rsvp" = "texto", alvo?: string) =>
-    agir(() => enviarCifrado(chaveiro, id, empacotar(conteudo), contextoDaConversa(id, me.id), (corpo) => rpc("chat_enviar", { p_id: id, p_corpo: corpo, p_tipo: tipo, p_alvo: alvo ?? null })));
+  const enviarConteudo = (conteudo: Conteudo, tipo: "texto" | "voto" | "rsvp" = "texto", alvo?: string) => {
+    const onde = { tipo, alvo: alvo ?? null };
+    return agir(() => enviarMensagem(chaveiro, id, onde, empacotar(conteudo), (e) => rpc("chat_enviar", argumentosDoEnvio(id, e, onde))));
+  };
 
   const autodestruir = (segundos: number) => agir(() => rpc("chat_autodestruir", { p_id: id, p_segundos: segundos }));
   const fixar = (mensagem: string, fixar: boolean) => agir(() => rpc("chat_fixar", { p_mensagem: mensagem, p_fixar: fixar }));
@@ -1595,7 +1621,8 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
     setReagindo(null);
     const minha = vista.reacoes.flatMap((grupo) => grupo.quem.filter((quem) => quem.minha).map((quem) => ({ ...quem, emoji: grupo.emoji })))[0];
     if (minha?.emoji === emoji) return apagar(minha.id);
-    return agir(() => enviarCifrado(chaveiro, id, empacotar({ texto: "", emoji }), contextoDaConversa(id, me.id), (corpo) => rpc("chat_enviar", { p_id: id, p_corpo: corpo, p_tipo: "reacao", p_alvo: vista.mensagem.id })));
+    const onde = { tipo: "reacao" as const, alvo: vista.mensagem.id };
+    return agir(() => enviarMensagem(chaveiro, id, onde, empacotar({ texto: "", emoji }), (e) => rpc("chat_enviar", argumentosDoEnvio(id, e, onde))));
   }
 
   function citar(vista: Vista) {
@@ -1613,7 +1640,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
     caixa.current?.focus();
   }
 
-  const editavel = (mensagem: Mensagem) => mensagem.minha && agora - new Date(mensagem.criado_em).getTime() < EDITAVEL_POR;
+  const editavel = (mensagem: Mensagem) => mensagem.minha && agora - new Date(mensagem.quando).getTime() < EDITAVEL_POR;
 
   /** Encaminha as mensagens escolhidas para outras conversas, cifrando de novo para cada uma. */
   async function encaminhar(destinos: string[]) {
@@ -1629,12 +1656,14 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
           if (!vista?.conteudo) continue;
           const conteudo: Conteudo = { texto: vista.conteudo.texto, encaminhada: true, previa: vista.conteudo.previa };
           const anexos = (vista.conteudo.anexos ?? []).filter((anexo) => !anexo.uma_vez);
+          const onde = { tipo: "texto" as const, alvo: null, id: novoIdDeMensagem() };
           if (anexos.length) {
             // Baixa, abre e cifra de novo com chave nova para a conversa de destino: a chave de uma conversa nunca vale em outra.
             const { reenviar } = await import("./Anexos");
-            conteudo.anexos = await reenviar(anexos, id, destino);
+            const { dono } = await chaveiro.fichaDoEnvio({ conversa: destino, ...onde });
+            conteudo.anexos = await reenviar(anexos, id, destino, dono);
           }
-          await enviarCifrado(chaveiro, destino, empacotar(conteudo), contextoDaConversa(destino, me.id), (corpo) => rpc("chat_enviar", { p_id: destino, p_corpo: corpo, p_anexos: conteudo.anexos?.map((anexo) => anexo.id) ?? null }));
+          await enviarMensagem(chaveiro, destino, onde, empacotar(conteudo), (e) => rpc("chat_enviar", argumentosDoEnvio(destino, e, onde, { anexos: conteudo.anexos?.map((anexo) => anexo.id) ?? null })));
         }
       }
       setAviso(destinos.length > 1 ? (ids.length > 1 ? `Encaminhadas para ${destinos.length} conversas.` : `Encaminhada para ${destinos.length} conversas.`) : ids.length > 1 ? "Encaminhadas para 1 conversa." : "Encaminhada para 1 conversa.");
@@ -1651,14 +1680,13 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
     if (minhas.length === 0 || !(await confirmarFrase(`Apagar ${minhas.length > 1 ? `${minhas.length} mensagens suas` : "1 mensagem sua"} para todo mundo?`))) return;
     setSelecionadas(null);
     await agir(async () => {
-      for (const alvo of minhas) await rpc("chat_apagar", { p_id: alvo });
+      for (const alvo of minhas) await rpc("chat_apagar", { p_id: alvo, p_prova: await provaDe(alvo) });
     });
   }
 
-  /** O texto mudou no Composer ("/" e "@" são do próprio Composer): guarda e avisa que a pessoa está digitando. */
+  /** O texto mudou no Composer ("/" e "@" são do próprio Composer): guarda. Sem "digitando" no banco (onda R3). */
   function aoDigitar(valor: string) {
     setTexto(valor);
-    if (valor.trim()) avisarDigitando("texto");
   }
   /** Negrito e itálico (pela barra e por Ctrl B / Ctrl I): põe o sinal das conversas em volta do que está selecionado. */
   function marcarTexto(sinal: string) {
@@ -1710,9 +1738,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
           </h2>
           <span className="hidden h-6 w-px bg-s-linha sm:block" aria-hidden="true" />
           <p className="hidden min-w-0 flex-1 truncate text-sm text-s-suave sm:block" aria-live="polite">
-            {digitando.length > 0
-              ? `${digitando.map((membro) => membro.nome.split(" ")[0]).join(", ")} ${digitando.some((membro) => membro.digitando === "audio") ? "está gravando áudio…" : digitando.length > 1 ? "estão digitando…" : "está digitando…"}`
-              : outro
+            {outro
                 ? presenca(outro.online, outro.visto_em)
                 : dados.descricao || `${dados.tipo === "departamento" ? "Canal do departamento · " : ""}${dados.membros.length} pessoas${outros.some((membro) => membro.online !== null) ? ` · ${dados.membros.filter((membro) => membro.online).length} online` : ""}`}
           </p>
@@ -1793,9 +1819,11 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
             <Grupo dados={dados} me={me} equipe={equipe} chaveiro={chaveiro} conversa={id} depois={() => { recarregar(); mudou(); }} saiu={voltar} enviarFoto={async (arquivo) => {
               // A foto do grupo é uma mensagem com a imagem, cifrada como qualquer outra; o grupo passa a apontar para ela.
               const [foto] = await preparar([arquivo], 0);
-              const anexos = await subir([foto], id);
+              const onde = { tipo: "texto" as const, alvo: null, id: novoIdDeMensagem() };
+              const { dono } = await chaveiro.fichaDoEnvio({ conversa: id, ...onde });
+              const anexos = await subir([foto], id, dono);
               soltar([foto]);
-              const { id: mensagem } = await enviarCifrado(chaveiro, id, empacotar({ texto: "", anexos, grupo_foto: true }), contextoDaConversa(id, me.id), (corpo) => rpc<{ id: string }>("chat_enviar", { p_id: id, p_corpo: corpo, p_anexos: anexos.map((anexo) => anexo.id) }));
+              const { id: mensagem } = await enviarMensagem(chaveiro, id, onde, empacotar({ texto: "", anexos, grupo_foto: true }), (e) => rpc<{ id: string }>("chat_enviar", argumentosDoEnvio(id, e, onde, { anexos: anexos.map((anexo) => anexo.id) })));
               await rpc("chat_grupo_mudar", { p_id: id, p_foto: mensagem });
               recarregar();
               mudou();
@@ -1826,7 +1854,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
             {compondo === "relato" && selecionadas && (
               <Relatar
                 membros={outros}
-                escolhidas={vistas.filter((vista) => selecionadas.has(vista.mensagem.id) && vista.conteudo).map((vista) => ({ id: vista.mensagem.id, autor: vista.mensagem.minha ? "Você" : vista.mensagem.nome, quando: vista.mensagem.criado_em, texto: semFormatacao(vista.conteudo!.texto) || (vista.conteudo!.anexos?.length ? "[arquivo]" : "") }))}
+                escolhidas={vistas.filter((vista) => selecionadas.has(vista.mensagem.id) && vista.conteudo).map((vista) => ({ id: vista.mensagem.id, autor: vista.mensagem.minha ? "Você" : vista.mensagem.nome, quando: vista.mensagem.quando, texto: semFormatacao(vista.conteudo!.texto) || (vista.conteudo!.anexos?.length ? "[arquivo]" : "") }))}
                 fechar={() => setCompondo(null)}
                 enviar={(contra, motivo, mensagens) => { setCompondo(null); setSelecionadas(null); void agir(async () => { await rpc("chat_relatar", { p_conversa: id, p_contra: contra, p_motivo: motivo, p_mensagens: mensagens }); setAviso("Relato enviado à coordenação."); }); }}
               />
@@ -1852,11 +1880,11 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
               {vistas.map((vista, indice) => {
                 const { mensagem, conteudo } = vista;
                 const anterior = vistas[indice - 1]?.mensagem;
-                const outroDia = !anterior || new Date(anterior.criado_em).toDateString() !== new Date(mensagem.criado_em).toDateString();
+                const outroDia = !anterior || new Date(anterior.quando).toDateString() !== new Date(mensagem.quando).toDateString();
                 const separador = outroDia ? (
                   <div className="salas-rot mx-5 my-4 flex items-center gap-3 text-[0.62rem] text-s-mudo" role="separator">
                     <span className="h-px flex-1 bg-s-linha" />
-                    {diaDe(mensagem.criado_em)}
+                    {diaDe(mensagem.quando)}
                     <span className="h-px flex-1 bg-s-linha" />
                   </div>
                 ) : null;
@@ -1868,17 +1896,15 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
                       <p className="flex items-center gap-4 px-5 py-1.5 text-sm text-s-suave">
                         <span className={`flex w-10 justify-center ${deChamada ? "text-s-ok" : "text-s-mudo"}`}><IconeDaSala nome={deChamada ? (mensagem.detalhe?.texto === "video" ? "camera" : "telefone") : "enviar"} className="h-4 w-4" /></span>
                         <span>{textoDoAviso(mensagem, me)}</span>
-                        <span className="font-mono text-[0.7rem] text-s-mudo">{hora(mensagem.criado_em)}</span>
                         {mensagem.detalhe?.evento === "chamada" && chamada && !estouNaChamada && <button type="button" className="cursor-pointer font-semibold text-s-ok underline" onClick={entrarNaChamada}>Entrar</button>}
                       </p>
                     </div>
                   );
                 }
                 // Mensagens seguidas da mesma pessoa, a menos de 7 minutos uma da outra, ficam juntas (sem repetir nome e foto).
-                const continua = Boolean(anterior && !outroDia && anterior.tipo !== "sistema" && anterior.autor === mensagem.autor && new Date(mensagem.criado_em).getTime() - new Date(anterior.criado_em).getTime() < 7 * 60_000 && !conteudo?.citando);
+                const continua = Boolean(anterior && !outroDia && anterior.tipo !== "sistema" && anterior.autor === mensagem.autor && new Date(mensagem.quando).getTime() - new Date(anterior.quando).getTime() < 7 * 60_000 && !conteudo?.citando);
                 const meMenciona = Boolean(conteudo?.mencoes?.includes(me.id)) && !mensagem.minha;
                 const marcada = selecionadas?.has(mensagem.id) ?? false;
-                const leram = outros.filter((membro) => membro.lido_em && membro.lido_em >= mensagem.criado_em);
                 return (
                   <div key={mensagem.id} id={`m-${mensagem.id}`} className={destacada === mensagem.id ? "painel-surge" : ""}>
                     {separador}
@@ -1894,7 +1920,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
                       )}
                       <div className="w-10 shrink-0">
                         {continua ? (
-                          <span className="invisible block pt-1 text-right font-mono text-[0.66rem] text-s-mudo group-hover:visible">{hora(mensagem.criado_em)}</span>
+                          <span className="invisible block pt-1 text-right font-mono text-[0.66rem] text-s-mudo group-hover:visible">{hora(mensagem.quando)}</span>
                         ) : (
                           <button type="button" className="mt-0.5 shrink-0 cursor-pointer rounded-full" aria-label={`Perfil de ${mensagem.minha ? me.nome : mensagem.nome}`} onClick={() => mensagem.autor && setPerfil(mensagem.autor)}>
                             <Avatar nome={mensagem.minha ? me.nome : mensagem.nome} avatar={avatarDe(mensagem.autor)} className="h-10 w-10 rounded-full" />
@@ -1914,7 +1940,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
                             <button type="button" className="cursor-pointer text-[0.95rem] font-bold hover:underline" style={{ color: corDoNome(mensagem.autor) }} onClick={() => mensagem.autor && setPerfil(mensagem.autor)}>{mensagem.minha ? me.nome : mensagem.nome}</button>
                             {cargoDe(mensagem.autor) && <span className="salas-rot border px-1.5 py-px text-[0.55rem] tracking-[0.12em]" style={{ color: corDoNome(mensagem.autor), borderColor: corDoNome(mensagem.autor) }}>{cargoDe(mensagem.autor)}</span>}
                             {mensagem.autor && verificado(mensagem.autor) && <span title="Identidade verificada pessoalmente" className="text-xs text-s-ok">verificado</span>}
-                            <span className="font-mono text-[0.7rem] text-s-mudo">{hora(mensagem.criado_em)}</span>
+                            <span className="font-mono text-[0.7rem] text-s-mudo">{hora(mensagem.quando)}</span>
                           </p>
                         )}
                         {conteudo?.encaminhada && <p className="inline-flex items-center gap-1 text-[0.72rem] italic text-s-mudo"><Forward aria-hidden className="h-3 w-3" /> Encaminhada</p>}
@@ -1978,12 +2004,6 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
                             )))}
                           </ul>
                         )}
-                        {lidaPor === mensagem.id && (
-                          <p className="text-[0.72rem] text-s-mudo">
-                            {leram.length === 0 ? "Ninguém leu ainda." : `Lida por ${leram.map((membro) => membro.nome.split(" ")[0]).join(", ")}`}
-                            {outros.some((membro) => membro.lido_em === null) && " (quem desligou a confirmação de leitura não aparece)"}
-                          </p>
-                        )}
                       </div>
                       {!selecionadas && (
                         <Acoes vista={vista} eu={mensagem.minha} me={me} favorita={favoritas.has(mensagem.id)} fixada={dados.fixadas.includes(mensagem.id)} editavel={editavel(mensagem)} citar={() => citar(vista)} reagir={() => setReagindo(reagindo === mensagem.id ? null : mensagem.id)} encaminhar={() => setEncaminhando([mensagem.id])} fixar={(sim) => void fixar(mensagem.id, sim)} favoritar={(sim) => void favoritar(mensagem.id, sim)} editar={mensagem.minha ? () => editar(vista) : undefined} apagar={mensagem.minha ? () => void apagar(mensagem.id) : undefined} />
@@ -2007,10 +2027,10 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
                 conversa={id}
                 fechar={() => setGaleria(false)}
                 irPara={irPara}
-                itens={vistas.flatMap((vista): ItemDaGaleria[] => (vista.conteudo?.anexos ?? []).map((anexo) => ({ mensagem: vista.mensagem.id, anexo, estado: vista.mensagem.anexos.find((estado) => estado.id === anexo.id), autor: vista.mensagem.nome, minha: vista.mensagem.minha, quando: `${new Date(vista.mensagem.criado_em).toLocaleDateString(localDoPainel())} ${hora(vista.mensagem.criado_em)}` })))}
+                itens={vistas.flatMap((vista): ItemDaGaleria[] => (vista.conteudo?.anexos ?? []).map((anexo) => ({ mensagem: vista.mensagem.id, anexo, estado: vista.mensagem.anexos.find((estado) => estado.id === anexo.id), autor: vista.mensagem.nome, minha: vista.mensagem.minha, quando: `${new Date(vista.mensagem.quando).toLocaleDateString(localDoPainel())} ${hora(vista.mensagem.quando)}` })))}
               />
             )}
-            {gravando && <Gravador aoGravar={(audio) => void enviar([audio])} aoAvisar={avisarDigitando} fechar={() => setGravando(false)} />}
+            {gravando && <Gravador aoGravar={(audio) => void enviar([audio])} aoAvisar={() => undefined} fechar={() => setGravando(false)} />}
             {compondo === "enquete" && <NovaEnquete fechar={() => setCompondo(null)} criar={(enquete) => { setCompondo(null); void enviarConteudo({ texto: "", enquete }); }} />}
             {compondo === "evento" && <NovoEvento fechar={() => setCompondo(null)} criar={(evento) => { setCompondo(null); void enviarConteudo({ texto: "", evento }); }} />}
             {!dados.posso_enviar && (
@@ -2056,7 +2076,6 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
                 ref={moldura}
                 className="flex items-end gap-3 px-3.5 pt-3 pb-2"
                 onPaste={(e) => { const arquivos = [...e.clipboardData.files]; if (arquivos.length) { e.preventDefault(); void anexar(arquivos); } }}
-                onBlur={() => avisarDigitando("")}
                 // Ctrl B e Ctrl I com os sinais das conversas (*negrito* e _itálico_): o texto guardado não muda de formato.
                 onKeyDownCapture={(e) => {
                   if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && (e.key === "b" || e.key === "i") && e.target instanceof HTMLTextAreaElement) {
@@ -2244,16 +2263,18 @@ interface Favorita {
   id: string;
   conversa: string;
   conversa_nome: string;
-  autor: string | null;
-  nome: string;
   corpo: string;
-  criado_em: string;
+  numero: number;
+  dia: string;
 }
 
 /** As mensagens que a pessoa marcou com estrela, de todas as conversas. */
-function Favoritas({ chaveiro, fechar, abrir }: { chaveiro: Chaveiro; fechar: () => void; abrir: (conversa: string) => void }) {
+function Favoritas({ chaveiro, equipe, fechar, abrir }: { chaveiro: Chaveiro; equipe: Membro[]; fechar: () => void; abrir: (conversa: string) => void }) {
   const lista = useLista<Favorita[]>("chat_favoritas");
-  const abertos = useAbertos(chaveiro, (lista.dados ?? []).map((item) => ({ id: item.id, conversa: item.conversa, corpo: item.corpo, contexto: contextoDaConversa(item.conversa, item.autor ?? ""), autor: item.autor })));
+  const abertos = useMensagensAbertas(chaveiro, (lista.dados ?? []).map((item) => ({ id: item.id, conversa: item.conversa, corpo: item.corpo, tipo: "texto" as const, alvo: null })));
+  // Quem escreveu e a hora vêm de dentro do cifrado (o banco não sabe).
+  const nomeDe = (usuario: string | null | undefined) => (usuario ? (equipe.find((m) => m.id === usuario)?.nome ?? "Alguém") : "Alguém");
+  const quandoDe = (item: Favorita) => abertos[item.id]?.hora ?? Date.parse(item.dia);
   const acao = useCallback(async (mensagem: string) => { await rpc("chat_favoritar", { p_mensagem: mensagem, p_favoritar: false }); lista.recarregar(); }, [lista]);
   return (
     <div className="min-h-0 flex-1 overflow-y-auto p-4">
@@ -2265,7 +2286,7 @@ function Favoritas({ chaveiro, fechar, abrir }: { chaveiro: Chaveiro; fechar: ()
         {lista.dados?.map((item) => (
           <li key={item.id} className="py-2">
             <p className="text-xs text-ink-soft">
-              <button type="button" className="pn-elo" onClick={() => abrir(item.conversa)}>{item.conversa_nome || "Conversa"}</button> · {item.nome || "Alguém"} · {hora(item.criado_em)}, {new Date(item.criado_em).toLocaleDateString(localDoPainel())}
+              <button type="button" className="pn-elo" onClick={() => abrir(item.conversa)}>{item.conversa_nome || "Conversa"}</button> · {nomeDe(abertos[item.id]?.autor)} · {hora(new Date(quandoDe(item)).toISOString())}, {new Date(quandoDe(item)).toLocaleDateString(localDoPainel())}
             </p>
             <p className="whitespace-pre-line break-words" data-original>{abertos[item.id] ? semFormatacao(desempacotar(abertos[item.id]!.texto).texto) : "…"}</p>
             <Botao variante="discreto" pequeno simbolo={StarOff} onClick={() => void acao(item.id)}>Tirar das favoritas</Botao>
@@ -2450,7 +2471,7 @@ function textoDoAviso(mensagem: Mensagem, me: Me): string {
 
 /** A foto de um grupo na lista: a mensagem com a imagem, aberta neste aparelho. */
 function FotoDoGrupo({ chaveiro, conversa, foto, nome }: { chaveiro: Chaveiro; conversa: string; foto: NonNullable<Conversa["foto"]>; nome: string }) {
-  const abertos = useAbertos(chaveiro, [{ id: foto.id, conversa, corpo: foto.corpo, contexto: contextoDaConversa(conversa, foto.autor ?? ""), autor: foto.autor }]);
+  const abertos = useMensagensAbertas(chaveiro, [{ id: foto.id, conversa, corpo: foto.corpo, tipo: "texto" as const, alvo: null }]);
   const conteudo = abertos[foto.id] ? desempacotar(abertos[foto.id]!.texto) : null;
   const anexo = conteudo?.anexos?.[0];
   if (!anexo || anexo.tipo !== "imagem") return <Rosto nome={nome} tipo="grupo" />;

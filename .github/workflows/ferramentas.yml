@@ -1,0 +1,100 @@
+name: Ferramentas de segurança
+
+# Onda R3, parte 4 (frente publico-ferramentas): o que roda a cada mudança de código, além do ci.yml e do codeql.yml.
+#   - Semgrep com as regras da Alumia (.semgrep/): primeiro o teste das próprias regras, depois a varredura (falha com achado ERROR).
+#     Na imagem oficial, fixada pelo resumo, sem rede.
+#   - Testes de propriedade (fast-check) e os testes da frente: repetição, piso de 3, caixa sem conta, decifrar(cifrar(x)); a lista
+#     do que o servidor guarda contra o banco montado; as rotas que o fuzzing achou; as páginas públicas e o canário.
+#   - Fuzzing curto (1 minuto por alvo) só para pegar o que quebra logo; o longo é o fuzz.yml (toda semana).
+#   - Rust (quando houver crate): cargo test, clippy -D warnings com unsafe documentado, cargo audit (RustSec).
+on:
+  pull_request:
+    paths-ignore:
+      - "content/**"
+      - "docs/**"
+      - "historico/**"
+      - "*.md"
+  push:
+    branches: [master]
+    paths-ignore:
+      - "content/**"
+      - "docs/**"
+      - "historico/**"
+      - "*.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ferramentas-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      # A imagem roda pelo docker do próprio runner (a do Semgrep é Alpine: as actions em JavaScript não rodam dentro dela).
+      - run: |
+          docker run --rm --network none -v "$PWD:/src:ro" -w /src semgrep/semgrep:1.183.0@sha256:2e45517a85e13a9cca14a2a00df6bb48affd66b8ebfae1b0991cd57578362fb0 sh scripts/ferramentas/semgrep.sh
+
+  propriedades:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # Mais casos que o padrão local (200): o CI tem tempo.
+      - run: FC_CASOS=1000 npm run testar:r3-propriedades
+      - run: npm run testar:r3-publico-rotas
+      - run: npm run testar:r3-publico-guardamos
+      - run: npm run testar:r3-publico-paginas
+      - name: Fuzzing curto (1 minuto por alvo)
+        run: |
+          for alvo in banco-anonimo banco-conta banco-servico rotas-anonimas rotas-com-sessao; do
+            npm run fuzz -- "$alvo" --minutos 1 --saida "fuzz-saida/$alvo"
+          done
+      - if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: fuzz-falhas-curto
+          path: fuzz-saida/
+          retention-days: 30
+
+  rust:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: Rust 1.99.0 com clippy, e cargo-audit 0.22.2
+        run: |
+          rustup toolchain install 1.99.0 --profile minimal --component clippy --component rustfmt
+          rustup default 1.99.0
+          cargo install cargo-audit --version 0.22.2 --locked
+      # Cada crate tem o próprio Cargo.toml + Cargo.lock (sem workspace). O que não existe ainda é pulado. O spqr-wasm (precisa do
+      # protoc e do contêiner de referência) e o app do computador (precisa da casca montada e das bibliotecas do sistema) rodam no
+      # nativos.yml, com o que cada um precisa.
+      - name: cargo test, clippy e cargo audit em cada crate
+        run: |
+          achou=0
+          for d in nativo/nucleo nativo/servidor-chat; do
+            [ -f "$d/Cargo.toml" ] || continue
+            achou=1
+            echo "== $d"
+            (cd "$d" && cargo test --locked \
+              && cargo clippy --locked --all-targets -- -D warnings -W clippy::undocumented_unsafe_blocks \
+              && cargo audit --deny warnings)
+          done
+          [ "$achou" = 1 ] || echo "nenhum crate ainda"

@@ -1,0 +1,49 @@
+{
+  "_rascunho": "Traducción en borrador del texto en portugués (pt.json es el definitivo).",
+  "titulo": "La app de Alumia",
+  "lead": "Para conversar en Alumia con el chat cifrado, usa la app del celular o de la computadora. El código del chat va dentro de la app: lo que corre en tu aparato no llega del servidor cada vez que la abres. Y cada versión queda registrada en un libro público que cualquiera puede comprobar.",
+  "soApp": {
+    "titulo": "Para conversar, usa la app",
+    "texto": "En el sitio está la red social. El chat cifrado corre en la app del celular o de la computadora, con el código dentro y cada versión registrada en un libro público.",
+    "baixar": "Descargar y comprobar la app",
+    "voltar": "Volver a Alumia"
+  },
+  "baixar": {
+    "titulo": "Descargar",
+    "android": "Android",
+    "windows": "Windows",
+    "macos": "macOS",
+    "linux": "Linux",
+    "iphone": "Todavía no hay app para iPhone. Quien usa iPhone sigue conversando por el sitio mientras el chat del sitio esté abierto.",
+    "semVersao": "Todavía no se publicó ninguna versión. Cuando haya, aparecerá aquí, con el resumen de cada archivo y el registro en el libro público.",
+    "versao": "Versión {versao}",
+    "arquivo": "Archivo",
+    "para": "Para",
+    "tamanho": "Tamaño",
+    "resumo": "Resumen SHA-256",
+    "livro": "En el libro público",
+    "entrada": "entrada {indice}",
+    "pacote": "paquete de comprobación"
+  },
+  "conferir": {
+    "titulo": "Comprobar antes de instalar",
+    "texto": "Cada archivo de las apps lo firma el flujo de lanzamiento del repositorio público del Instituto, en una etiqueta de versión, y queda registrado en Rekor, el libro público de firmas de Sigstore. Nadie guarda una clave que pueda firmar por fuera: la firma sale de la identidad del flujo y el libro hace pública cada una para siempre.",
+    "passos": [
+      "Descarga el archivo y su paquete de comprobación (el archivo con el mismo nombre terminado en .sigstore.json).",
+      "Compruébalo con uno de los comandos de abajo. Los dos dicen si el archivo es exactamente lo que el flujo firmó y si la firma está en el libro.",
+      "Instala solo si la comprobación pasa. Si falla, no instales y avisa a la coordinación."
+    ],
+    "comandoNode": "Con el código del repositorio (Node 22 o más nuevo):",
+    "comandoCosign": "Con la herramienta oficial de Sigstore:",
+    "roteiro": "Guía para armar la app desde cero y llegar al mismo archivo",
+    "trocar": "Cambia {versao} por la versión y {arquivo} por el nombre del archivo."
+  },
+  "sistema": {
+    "titulo": "El aviso de Windows y de macOS",
+    "texto": "La app no tiene la firma paga de Microsoft ni la de Apple. Por eso el sistema avisa que el programa viene de origen desconocido. La confianza viene de otro lugar: del libro público y del build reproducible. Comprueba el resumen antes de abrirla."
+  },
+  "atualizacao": {
+    "titulo": "Actualizaciones",
+    "texto": "La app solo instala una actualización que esté en el libro público, firmada por el flujo de lanzamiento del repositorio. Fuera del libro, la rechaza y dice por qué. Una versión instalada por otro camino que no esté en el libro abre, pero el chat no."
+  }
+}

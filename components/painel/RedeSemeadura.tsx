@@ -14,7 +14,8 @@ interface Linha {
   tipo: "aberta" | "restrita" | "fechada";
   posts: number;
   posts_7d: number;
-  moderacao: number;
+  /** Quantas pessoas moderam. Abaixo de 3, o banco manda nulo (número de pessoas só a partir de 3). */
+  moderacao: number | null;
 }
 
 type Filtro = "faltam" | "todas";
@@ -31,7 +32,9 @@ export function RedeSemeadura() {
   const lista = useLista<{ itens: Linha[] }>("rede_painel_semeadura");
   const [filtro, setFiltro] = useState<Filtro>("faltam");
   const itens = useMemo(() => lista.dados?.itens ?? [], [lista.dados]);
-  const faltam = (l: Linha) => l.moderacao < MODERACAO_MINIMA || l.posts === 0;
+  // Nulo é "menos de 3": a meta de 2 não dá para conferir sem o número, então conta como falta (veja com a moderação).
+  const semModeracao = (l: Linha) => l.moderacao === null || l.moderacao < MODERACAO_MINIMA;
+  const faltam = (l: Linha) => semModeracao(l) || l.posts === 0;
   const vistos = filtro === "faltam" ? itens.filter(faltam) : itens;
   const lutas = itens.filter((l) => l.categoria === "lutas");
   const comConversa = (ls: Linha[]) => ls.filter((l) => l.posts > 0).length;
@@ -45,7 +48,10 @@ export function RedeSemeadura() {
     {
       accessorKey: "moderacao",
       header: "Moderação",
-      cell: ({ row }) => <Selo tom={row.original.moderacao >= MODERACAO_MINIMA ? "ok" : "bordo"}>{row.original.moderacao >= MODERACAO_MINIMA ? `${row.original.moderacao} pessoas` : `${row.original.moderacao} de ${MODERACAO_MINIMA}`}</Selo>,
+      cell: ({ row }) => {
+        const n = row.original.moderacao;
+        return <Selo tom={n !== null && n >= MODERACAO_MINIMA ? "ok" : "bordo"}>{n === null ? "menos de 3" : n >= MODERACAO_MINIMA ? `${n} pessoas` : `${n} de ${MODERACAO_MINIMA}`}</Selo>;
+      },
     },
   ];
 
@@ -62,7 +68,7 @@ export function RedeSemeadura() {
       )}
       {lista.dados && (
         <Faixa tom="info">
-          Lutas com conversa: {comConversa(lutas)} de {lutas.length}. Disciplinas com conversa: {disciplinasComConversa} (meta: 10). Comunidades sem as 2 pessoas moderando: {itens.filter((l) => l.moderacao < MODERACAO_MINIMA).length}.
+          Lutas com conversa: {comConversa(lutas)} de {lutas.length}. Disciplinas com conversa: {disciplinasComConversa} (meta: 10). Comunidades sem as 2 pessoas moderando (ou com menos de 3, sem o número exato): {itens.filter(semModeracao).length}.
         </Faixa>
       )}
       <MoldeTabela<Linha>

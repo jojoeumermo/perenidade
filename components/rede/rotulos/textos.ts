@@ -3,6 +3,7 @@
 // Os textos dos rótulos, do relatório de transparência e do bloco do painel: i18n/rede/rotulos/{pt,en,es,fr,ru,zh}.json (pt é o
 // texto final; os outros têm "_rascunho": true até a revisão). Um idioma por vez, por import dinâmico; o hook fica em usarTextos.ts.
 import type pt from "../../../i18n/rede/rotulos/pt.json";
+import { prontoOu } from "../../../lib/rede/textos-prontos";
 
 export type TextosDosRotulos = typeof pt;
 
@@ -11,7 +12,7 @@ const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"] as const;
 export async function carregarTextosDosRotulos(lang: string): Promise<TextosDosRotulos> {
   const l = (IDIOMAS as readonly string[]).includes(lang) ? lang : "pt";
   try {
-    return ((await import(`../../../i18n/rede/rotulos/${l}.json`)) as { default: TextosDosRotulos }).default;
+    return prontoOu(((await import(`../../../i18n/rede/rotulos/${l}.json`)) as { default: TextosDosRotulos }).default, async () => ((await import("../../../i18n/rede/rotulos/pt.json")) as { default: TextosDosRotulos }).default);
   } catch {
     return ((await import("../../../i18n/rede/rotulos/pt.json")) as { default: TextosDosRotulos }).default;
   }

@@ -4,6 +4,7 @@
 // "Pergunte a…", lembrar mais tarde, posts que se repetem, citação com âncora e "leu antes?"): i18n/rede/b1/{pt,en,es,fr,ru,zh}.json.
 // O português é o final; os outros cinco são rascunho marcado. Carrega só o idioma pedido, sob demanda. Sem "@/" de propósito.
 import type pt from "../../i18n/rede/b1/pt.json";
+import { carregarPronto } from "./textos-prontos";
 
 export type TextosDaB1 = typeof pt;
 
@@ -18,6 +19,5 @@ const CARREGAR: Record<string, () => Promise<{ default: unknown }>> = {
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export async function carregarTextosDaB1(lang: string): Promise<TextosDaB1> {
-  const carregar = CARREGAR[lang] ?? CARREGAR.pt;
-  return (await carregar()).default as TextosDaB1;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDaB1;
 }

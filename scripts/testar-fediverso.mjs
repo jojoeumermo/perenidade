@@ -61,8 +61,9 @@ await espera("o host alumia.* é da Alumia; o do instituto não", async () => [a
 await espera("no host da Alumia, / é a linha em português e /en a linha em inglês (reescrita, a URL não muda)", async () => [rota("/"), rota("/en")], (r) => r[0].tipo === "reescrever" && r[0].destino === "/pt/alumia" && r[1].destino === "/en/alumia");
 await espera("/p/<id> e /@nome viram as telas da Alumia; com Accept de ActivityPub, o documento da federação", async () => [rota(`/p/${UUID}`), rota(`/p/${UUID}`, AP), rota("/@ana_1"), rota("/@ana_1", AP), rota("/pt/u/ana_1", AP)], (r) =>
   r[0].destino === `/pt/alumia/p/${UUID}` && r[1].destino === `/api/fediverso/p/${UUID}` && r[2].destino === "/pt/alumia/u/ana_1" && r[3].destino === "/api/fediverso/u/ana_1" && r[4].destino === "/api/fediverso/u/ana_1");
-await espera("o endereço completo (/pt/alumia/…) e as páginas livres (entrar, regras) seguem no host da Alumia", async () => [rota("/pt/alumia/buscar"), rota("/pt/entrar"), rota("/entrar"), rota("/salvos"), rota("/fediverso")], (r) =>
-  r[0].tipo === "seguir" && r[1].tipo === "seguir" && r[2].destino === "/pt/entrar" && r[3].destino === "/pt/alumia/salvos" && r[4].destino === "/pt/alumia/fediverso");
+// P5 (A3): a página de entrar do site, no host da Alumia, vai de vez (308) para o portão da própria Alumia.
+await espera("o endereço completo (/pt/alumia/…) e as páginas livres (conduta) seguem no host da Alumia; entrar vai ao portão dela", async () => [rota("/pt/alumia/buscar"), rota("/pt/entrar"), rota("/entrar"), rota("/salvos"), rota("/fediverso"), rota("/pt/conduta")], (r) =>
+  r[0].tipo === "seguir" && r[1].tipo === "redirecionar" && r[1].permanente && r[1].destino === "/pt/alumia" && r[1].busca === "?entrar" && r[2].destino === "/pt/alumia" && r[3].destino === "/pt/alumia/salvos" && r[4].destino === "/pt/alumia/fediverso" && r[5].tipo === "seguir");
 await espera("o resto do site vai para o endereço do instituto; o painel depois de entrar volta para a linha", async () => [rota("/trilhas"), rota("/en/acervo"), rota("/pt/painel")], (r) => r[0].tipo === "site" && r[0].destino === "/pt/trilhas" && r[1].destino === "/en/acervo" && r[2].tipo === "redirecionar" && r[2].destino === "/pt");
 await espera("sem NEXT_PUBLIC_ALUMIA_URL, os links ficam no caminho do site (/[lang]/alumia)", async () => [alumia.enderecoDaAlumia("pt", "", ""), alumia.enderecoDaAlumia("en", "/p/1", ""), alumia.caminhoDoSiteParaAlumia("/pt/comunidade", "", "")], (r) => r[0] === "/pt/alumia" && r[1] === "/en/alumia/p/1" && r[2] === null);
 await espera("com o endereço próprio, os links vão para lá (português sem prefixo) e /pt/alumia/** (e o antigo /pt/comunidade/**) do site é levado para lá", async () => [alumia.enderecoDaAlumia("pt", "", BASE), alumia.enderecoDaAlumia("en", "/p/1", BASE), alumia.caminhoDoSiteParaAlumia("/pt/comunidade/p/1", "?x=1", BASE), alumia.caminhoDoSiteParaAlumia("/pt/trilhas", "", BASE)], (r) =>
@@ -392,6 +393,22 @@ await espera("toda rota da federação passa pelo teto de pedidos (e responde 40
 });
 await espera("a chave privada nunca vai para o navegador nem para o documento do ator", async () => !/chave_privada|privada/.test(lerTexto("app/api/fediverso/u/[handle]/route.ts").replace(/atorComChaves/g, "")) && !/from "@\/lib\/rede\/fediverso\/(servidor|cifra|assinatura)"/.test(lerTexto("components/rede/alumia/Fediverso.tsx")));
 await espera("os documentos dizem o que funciona e o que não (FEDIVERSO.md, ALUMIA-DOMINIO.md, V2.md)", async () => /O que funciona/.test(lerTexto("docs/rede/FEDIVERSO.md")) && /O que não funciona/.test(lerTexto("docs/rede/FEDIVERSO.md")) && /lucia-b323/.test(lerTexto("docs/rede/ALUMIA-DOMINIO.md")) && /Rede social completa/.test(lerTexto("docs/rede/V2.md")));
+
+// r1 (visto contra a Alumia de teste): "@nome@institutolucia.org", o endereço que a tela mostra no modo total, é alguém DAQUI. A
+// busca e o perfil remoto tratavam só o host da Alumia como local e iam buscar a própria pessoa "lá fora", pelo WebFinger da casa.
+await espera("r1: conta no domínio curto (modo total) ou no host da Alumia é daqui; em outro domínio, não", async () => {
+  const e = enderecosDaFederacao("https://alumia.institutolucia.org");
+  const { contaDaqui } = await import("../lib/rede/fediverso/enderecos.ts");
+  return [
+    contaDaqui({ usuario: "ana", dominio: "institutolucia.org" }, e, true),
+    contaDaqui({ usuario: "ana", dominio: "alumia.institutolucia.org" }, e, true),
+    contaDaqui({ usuario: "ana", dominio: "alumia.institutolucia.org" }, e, false),
+    contaDaqui({ usuario: "ana", dominio: "institutolucia.org" }, e, false),
+    contaDaqui({ usuario: "ana", dominio: "mastodon.social" }, e, true),
+  ];
+}, (r) => r.join() === "true,true,true,false,false");
+await espera("r1: a busca e o perfil remoto perguntam contaDaqui antes de ir lá fora", async () =>
+  ["app/api/fediverso/buscar/route.ts", "app/api/fediverso/remoto/route.ts"].every((c) => /if \(contaDaqui\(conta, fed, modoTotal\(\)\)\) return resposta\(\{ local: true/.test(lerTexto(c)) && !/conta\.dominio === fed\.dominio/.test(lerTexto(c))));
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const f of falhas) console.log(`  ✗ ${f}`);

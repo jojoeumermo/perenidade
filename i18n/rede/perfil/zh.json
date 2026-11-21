@@ -12,6 +12,7 @@
     "fixado": "置顶帖子",
     "escolherHandle": "选择你的 @用户名，以便在 Alumia 中拥有一个主页。",
     "selos": {
+      "coordenacao": "学院协调组",
       "equipe": "学院团队",
       "educador": "教育",
       "moderacao": "审核",
@@ -25,6 +26,17 @@
       "degrau": "学校第 {n} 阶",
       "caderno": "学校学习册 {n}",
       "aulas": "学校课程：{n} 节",
+      "revolucionario": "革命者",
+      "frente": "阵线：{nome}",
+      "frentes": {
+        "estudantil": "学生运动",
+        "bairros": "社区与住房",
+        "trabalho": "劳动与工会",
+        "agitprop": "鼓动与宣传",
+        "atos": "集会与动员",
+        "cultura": "文化与城郊",
+        "solidariedade": "团结互助"
+      },
       "ajuda": "学校的课和学习册由本人声明；证件和阶段由协调组核实。"
     }
   },

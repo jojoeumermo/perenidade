@@ -1,0 +1,280 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   REDESIGN "CADERNO ABERTO" — o site do instituto (Prompt 5, E1 a E5). Carregado pelo layout de todo o site, depois de
+   app/globals.css, app/celular.css e app/app-casca.css.
+
+   Como os dois designs convivem
+   - As peças do site (app/globals.css: .cartao, .botao, .chip, .sombra*, .caderno… e as sombras duras de app/celular.css)
+     leem variáveis "--d-*" com o valor de hoje como reserva: var(--d-sombra, 6px 6px 0 var(--sombra)). Sem a variável
+     definida, o valor é exatamente o de antes.
+   - As variáveis só ganham valor no escopo do redesign, abaixo: recurso "design-novo" ligado (<html data-design="novo">,
+     app/[lang]/layout.tsx) e a pessoa SEM "Contornos fortes" (data-fortes), sem alto contraste, sem papel eletrônico e fora
+     do leitor de tinta. Nesses quatro casos, e com o recurso desligado, nada daqui casa: o site é o de sempre, por completo.
+   - Só na tela (@media screen): a impressão continua com o desenho de antes, que já tem a sua folha própria.
+
+   Cada área com as suas variáveis (regra geral 3)
+   - Site do instituto: este arquivo.
+   - Painel interno: styles/painel-tema.css (tokens "--pn-*" e o bloco do redesign no fim).
+   - Alumia ([data-al]) e Escola ([data-escola]) já têm visual próprio (styles/alumia-*.css, styles/escola-*.css) e ficam de
+     fora: a barreira abaixo zera as "--d-*" dentro delas, e toda regra daqui pula o que está dentro delas.
+   - O lambe-lambe da inicial (.lambe-cartaz) é intocável (E3): a mesma barreira.
+
+   Leveza (E7): nada de vidro fosco, sombras pequenas e curtas, animação só de transform e opacity. */
+
+/* ───────── 1. As variáveis do redesign ───────── */
+@media screen {
+  :root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor]) {
+    /* Fios finos no lugar do contorno de tinta de 2 e 3 px. */
+    --d-fio: 1px;
+    --d-fio-fino: 1px;
+    --d-fio-grosso: 1px;
+    /* O fio dos cartões é calmo; o dos controles (campos, botões de papel) segura 3:1 contra o fundo (WCAG 1.4.11). */
+    --d-cor-fio: color-mix(in srgb, var(--ink) 16%, transparent);
+    --d-cor-controle: color-mix(in srgb, var(--ink) 58%, transparent);
+    /* Os cantos: cartões, botões e campos, e a pílula dos chips e filtros. */
+    --d-raio-cartao: 0.9rem;
+    --d-raio-botao: 0.7rem;
+    --d-raio-campo: 0.6rem;
+    --d-raio-pilula: 999px;
+    /* A sombra dura deslocada vira uma sombra curta e macia; ao passar o mouse, um pouco maior; ao clicar, quase nenhuma. */
+    --d-sombra: 0 1px 2px rgb(31 26 20 / 0.07), 0 6px 16px -10px rgb(31 26 20 / 0.32);
+    --d-sombra-alta: 0 2px 4px rgb(31 26 20 / 0.08), 0 12px 24px -14px rgb(31 26 20 / 0.42);
+    --d-sombra-baixa: 0 1px 1px rgb(31 26 20 / 0.1);
+    /* O carimbo que sobe e afunda fica discreto. */
+    --d-sobe: translateY(-2px);
+    --d-afunda: translateY(1px);
+    /* A letra dos títulos de seção do canvas: a Inter (já carregada) pesada e fechada. */
+    --d-titulo: var(--font-ui), system-ui, "Segoe UI", "Noto Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+}
+@media screen and (prefers-color-scheme: dark) {
+  :root[data-design="novo"]:not([data-theme="light"], [data-fortes], [data-contrast], [data-eink], [data-leitor]) {
+    --d-cor-fio: color-mix(in srgb, var(--ink) 18%, transparent);
+    --d-cor-controle: color-mix(in srgb, var(--ink) 55%, transparent);
+    --d-sombra: 0 1px 2px rgb(0 0 0 / 0.45), 0 6px 16px -10px rgb(0 0 0 / 0.7);
+    --d-sombra-alta: 0 2px 4px rgb(0 0 0 / 0.5), 0 12px 24px -14px rgb(0 0 0 / 0.8);
+    --d-sombra-baixa: 0 1px 1px rgb(0 0 0 / 0.5);
+  }
+}
+@media screen {
+  :root[data-design="novo"][data-theme="dark"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor]) {
+    --d-cor-fio: color-mix(in srgb, var(--ink) 18%, transparent);
+    --d-cor-controle: color-mix(in srgb, var(--ink) 55%, transparent);
+    --d-sombra: 0 1px 2px rgb(0 0 0 / 0.45), 0 6px 16px -10px rgb(0 0 0 / 0.7);
+    --d-sombra-alta: 0 2px 4px rgb(0 0 0 / 0.5), 0 12px 24px -14px rgb(0 0 0 / 0.8);
+    --d-sombra-baixa: 0 1px 1px rgb(0 0 0 / 0.5);
+  }
+
+  /* A barreira: dentro da Alumia, da Escola, do painel e do lambe-lambe, as variáveis do site não valem (cada peça volta ao
+     valor de reserva, o de sempre). O painel define as suas no styles/painel-tema.css, com seletor mais forte. */
+  :is([data-al], [data-escola], .painel, .lambe-cartaz) {
+    --d-fio: initial;
+    --d-fio-fino: initial;
+    --d-fio-grosso: initial;
+    --d-cor-fio: initial;
+    --d-cor-controle: initial;
+    --d-raio-cartao: initial;
+    --d-raio-botao: initial;
+    --d-raio-campo: initial;
+    --d-raio-pilula: initial;
+    --d-sombra: initial;
+    --d-sombra-alta: initial;
+    --d-sombra-baixa: initial;
+    --d-sobe: initial;
+    --d-afunda: initial;
+    --d-titulo: initial;
+  }
+}
+
+/* ───────── 2. As peças do site e as classes do Tailwind espalhadas pelas telas ─────────
+   Na camada das utilidades, depois das do Tailwind. Toda regra começa por ":where(<escopo>)" (sem peso) e termina por
+   ":where(:not(<áreas> *))" (sem peso): vale o peso da classe só, como a utilidade que ela ajusta; um "hover:…" continua
+   mandando. "Contornos fortes", contraste, papel eletrônico e leitor ficam de fora pelo escopo. */
+@layer utilities {
+  @media screen {
+    /* Fios: o contorno grosso de tinta vira fio fino e calmo. As faixas coloridas (border-4, border-l-*, a faixa do topo)
+       ficam: são a identidade (E3). */
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) :is(.border-2, .border-\[3px\], .border-\[2px\]):where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      border-width: var(--d-fio);
+    }
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) :is(.border-b-2, .border-b-\[3px\]).border-ink:where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      border-bottom-width: var(--d-fio);
+    }
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) :is(.border-t-2, .border-t-\[3px\]).border-ink:where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      border-top-width: var(--d-fio);
+    }
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) :is(.border-y-2, .border-y-\[3px\]).border-ink:where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      border-top-width: var(--d-fio);
+      border-bottom-width: var(--d-fio);
+    }
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) :is(.border-ink, .cartao, .cartao-v, .botao:where(:not(.botao-tinta, .botao-instagram, .botao-instagram-cor))):where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      border-color: var(--d-cor-fio);
+    }
+    /* Campos e botões de papel: o fio que mostra onde clicar continua bem visível. */
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"]), select, textarea, .botao-papel, .chip, .aba-pasta):where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      border-color: var(--d-cor-controle);
+    }
+
+    /* Cantos: cartões e caixas com contorno. O que já pede um canto próprio (rounded-*) fica com o seu. */
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) :is(.cartao, .cartao-v, .cartao-preto, .cartao-vermelho, .sombra, .sombra-v, .sombra-p, .sombra-pv, .border-2, .border-\[3px\], .border-\[2px\], [class*="shadow-[2px_2px_0"], [class*="shadow-[3px_3px_0"], [class*="shadow-[4px_4px_0"], [class*="shadow-[5px_5px_0"], [class*="shadow-[6px_6px_0"], [class*="shadow-[7px_7px_0"], [class*="shadow-[8px_8px_0"], [class*="shadow-[10px_10px_0"]):where(:not([class*="rounded"], table, thead, tbody, tr, td, th, hr, img, :is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      border-radius: var(--d-raio-cartao);
+    }
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) :is(.botao, .selo, .botao-instagram-compacto, input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"]), select, textarea):where(:not([class*="rounded"], :is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      border-radius: var(--d-raio-botao);
+    }
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"]), select, textarea):where(:not([class*="rounded"], :is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      border-radius: var(--d-raio-campo);
+    }
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) :is(.chip, .aba-pasta, .tarja-nome, .carimbo-reto):where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      border-radius: var(--d-raio-pilula);
+    }
+    /* Caixas de fio fino translúcido (border border-ink/40…): os mesmos cantos, menos as que só têm um lado. */
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) [class*="border-ink/"]:where(:not([class*="rounded"], [class*="border-b"], [class*="border-t"], [class*="border-l"], [class*="border-r"], [class*="border-y"], [class*="border-x"], table, tr, td, th, hr, img, :is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      border-radius: var(--d-raio-cartao);
+    }
+    /* A busca da inicial: campo e botão continuam colados, um só bloco de cantos redondos. */
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .capa-do-inicio form[role="search"] > input {
+      border-radius: var(--d-raio-botao) 0 0 var(--d-raio-botao);
+    }
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .capa-do-inicio form[role="search"] > button {
+      border-radius: 0 var(--d-raio-botao) var(--d-raio-botao) 0;
+    }
+    /* O interruptor do botão de acessibilidade: trilho e bolinha redondos. */
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .a11y-chave,
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .a11y-chave::after {
+      border-radius: var(--d-raio-pilula);
+    }
+
+    /* Sombras duras escritas direto nas telas (shadow-[6px_6px_0_…] e as irmãs): a sombra macia. Com !important porque
+       algumas telas a escrevem no style do próprio elemento. */
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) :is([class*="shadow-[2px_2px_0"], [class*="shadow-[3px_3px_0"], [class*="shadow-[4px_4px_0"], [class*="shadow-[5px_5px_0"], [class*="shadow-[6px_6px_0"], [class*="shadow-[7px_7px_0"], [class*="shadow-[8px_8px_0"], [class*="shadow-[10px_10px_0"], .caderno):where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      box-shadow: var(--d-sombra) !important;
+    }
+
+    /* A tarja das seções: a etiqueta vira pílula e o fio até o fim da linha fica fino. */
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .tarja-nome:where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      padding-inline: 0.9rem;
+    }
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .aba-pasta:where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      border-bottom: var(--d-fio) solid var(--d-cor-controle);
+      margin-bottom: 0.4rem;
+    }
+
+    /* Os cadernos das estantes (imagem 73): capa de canto redondo do lado de abrir, a lombada mais escura perto da borda,
+       a espiral branca, a etiqueta pautada com cantos e sem contorno preto. */
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .caderno:where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      border: 0;
+      border-radius: 0.45rem 1rem 1rem 0.45rem;
+      overflow: hidden;
+    }
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .caderno:where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *))::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0.85rem;
+      bottom: 0;
+      width: 0.45rem;
+      background: rgb(0 0 0 / 0.22);
+      pointer-events: none;
+    }
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .caderno:where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *))::before {
+      background-image: radial-gradient(circle, rgb(255 255 255 / 0.92) 2.6px, transparent 3.1px);
+    }
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .caderno .etiqueta:where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      border: 0;
+      border-radius: 0.55rem;
+      box-shadow: 0 1px 2px rgb(0 0 0 / 0.18);
+    }
+    :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .caderno .etiqueta > span:first-child:where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *)) {
+      font-family: var(--d-titulo);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+  }
+}
+
+/* ───────── 3. Títulos de seção, foco e a faixa principal ───────── */
+@media screen {
+  /* Os títulos das seções na letra do canvas. Ficam de fora os rótulos (mono, maiúsculas, a letra de cartaz), a parte inicial da inicial (imagem 75: só perde a quadratização
+     e os contornos), o lambe-lambe, o texto das aulas e das obras (article) e as áreas com visual próprio. */
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) main :is(h1, h2):where(:not(.lambe, .tarja, .rotulo, [class*="font-mono"], [class*="uppercase"], [class*="font-cartaz"], .capa-do-inicio *, article *, .lambe-cartaz *, [data-al] *, [data-escola] *, .painel *)) {
+    font-family: var(--d-titulo);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+  }
+
+  /* O foco do teclado: a borda grossa também mostrava onde o foco estava; agora é um anel largo e afastado (E6). */
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) :focus-visible:where(:not(:is([data-al], [data-escola], .painel) *)) {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  /* O cabeçalho: sem o fio de 3 px embaixo; a faixa de cores do topo continua (Strip). */
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .cabecalho-site {
+    border-bottom: 1px solid var(--d-cor-fio);
+  }
+  /* E4 (imagem 72): Formação, Vale o Escrito e Alumia em destaque, como pílulas. O sublinhado da página atual continua. */
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .menu-do-site .item-do-menu[data-destaque] {
+    /* O sublinhado dos outros itens tem 4 px embaixo: a pílula guarda o mesmo espaço, para os textos ficarem na mesma linha. */
+    margin-block: 0 4px;
+    border-bottom-width: 0;
+    border-radius: var(--d-raio-pilula);
+    background-color: color-mix(in srgb, var(--prelo-texto) 11%, transparent);
+    padding-inline: 0.85rem;
+    padding-block: 0.5rem;
+    color: var(--ink);
+    transition: background-color 0.15s;
+  }
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .menu-do-site .item-do-menu[data-destaque]:hover {
+    background-color: color-mix(in srgb, var(--prelo-texto) 20%, transparent);
+  }
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .menu-do-site .item-do-menu[data-destaque][aria-current="page"] {
+    background-color: var(--prelo);
+    color: #fff;
+  }
+
+  /* E5 (imagem 76): no "Tudo o que tem aqui", Memória e luta e Território não ficam mais no pé das colunas. A Escola e a
+     Secretaria (as listas longas) ocupam as pontas; no meio, os prédios curtos andam em pares, linha por linha:
+     Biblioteca e Praça, Memória e luta e Território, Oficinas e Rádio. Abaixo de 1024 px, duas colunas na mesma ordem. */
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .indice-do-campus {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    columns: auto;
+  }
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .indice-do-campus > .indice-predio {
+    margin-bottom: 1.25rem;
+    border-radius: var(--d-raio-cartao);
+    border: 1px solid var(--d-cor-fio);
+    border-top-width: 5px;
+    background-color: var(--folha);
+    padding: 0.75rem 1rem 0.5rem;
+  }
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .indice-do-campus > [data-predio="escola"] { order: 1; }
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .indice-do-campus > [data-predio="biblioteca"] { order: 2; }
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .indice-do-campus > [data-predio="praca"] { order: 3; }
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .indice-do-campus > [data-predio="memorial"] { order: 4; }
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .indice-do-campus > [data-predio="territorio"] { order: 5; }
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .indice-do-campus > [data-predio="oficinas"] { order: 6; }
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .indice-do-campus > [data-predio="radio"] { order: 7; }
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .indice-do-campus > [data-predio="secretaria"] { order: 8; }
+}
+@media screen and (min-width: 1024px) {
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .indice-do-campus {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 1.25rem;
+  }
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .indice-do-campus > [data-predio="escola"] {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+  }
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) .indice-do-campus > [data-predio="secretaria"] {
+    grid-column: 4;
+    grid-row: 1 / span 3;
+  }
+}
+@media screen and (prefers-reduced-motion: reduce) {
+  :where(:root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor])) :is(.sobe, .botao, .caderno, .chip):where(:not(:is([data-al], [data-escola], .painel, .lambe-cartaz) *)):hover {
+    transform: none;
+  }
+}

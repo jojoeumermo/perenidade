@@ -32,7 +32,7 @@ interface Meus {
 const dias = (n: number) => new Date(Date.now() + n * 86_400_000).toISOString();
 /** Na prévia sem banco: um mês com um convite aberto, um usado (só no número) e um vencido. */
 const PREVIA: Meus = {
-  teto: 3, no_mes: 2, restam: 1, usados: 1, pode: true,
+  teto: 10, no_mes: 2, restam: 8, usados: 1, pode: true,
   convites: [
     { id: "p1", criado_em: dias(-1), vence_em: dias(6), situacao: "aberto" },
     { id: "p3", criado_em: dias(-12), vence_em: dias(-5), situacao: "vencido" },
@@ -54,7 +54,7 @@ function Convites({ lang, t, embutido }: { lang: string; t: TextosDosConvites; e
   const [meus, setMeus] = useState<Meus | null>(() => (!hasBackend && previaDaAlumiaLigada() ? PREVIA : null));
   const [erro, setErro] = useState("");
   const [ocupado, setOcupado] = useState(false);
-  const [novo, setNovo] = useState<{ link: string; venceEm: string } | null>(null);
+  const [novo, setNovo] = useState<{ id: string; link: string; venceEm: string } | null>(null);
   const [copiado, setCopiado] = useState(false);
   const idLink = useId();
 
@@ -83,12 +83,12 @@ function Convites({ lang, t, embutido }: { lang: string; t: TextosDosConvites; e
     setCopiado(false);
     try {
       if (!hasBackend && previaDaAlumiaLigada()) {
-        setNovo({ link: linkDoConvite(lang, "0123456789abcdef0123456789abcdef"), venceEm: dias(7) });
-        setMeus((x) => (x ? { ...x, restam: 0, no_mes: x.teto, convites: [{ id: "p0", criado_em: dias(0), vence_em: dias(7), situacao: "aberto" }, ...x.convites] } : x));
+        setNovo({ id: "p0", link: linkDoConvite(lang, "0123456789abcdef0123456789abcdef"), venceEm: dias(7) });
+        setMeus((x) => (x ? { ...x, restam: Math.max(0, x.restam - 1), no_mes: x.no_mes + 1, convites: [{ id: "p0", criado_em: dias(0), vence_em: dias(7), situacao: "aberto" }, ...x.convites] } : x));
         return;
       }
-      const r = await rpc<{ codigo: string; vence_em: string }>("alumia_convite_criar");
-      setNovo({ link: linkDoConvite(lang, r.codigo), venceEm: r.vence_em });
+      const r = await rpc<{ id: string; codigo: string; vence_em: string }>("alumia_convite_criar");
+      setNovo({ id: r.id, link: linkDoConvite(lang, r.codigo), venceEm: r.vence_em });
       ler();
     } catch (e) {
       const codigo = e instanceof BackendError ? e.code : "";
@@ -108,10 +108,15 @@ function Convites({ lang, t, embutido }: { lang: string; t: TextosDosConvites; e
     }
   }
 
+  // Cancelar (A18 do Prompt 5): o convite sai do banco e a vaga do mês volta. Se é o que acabou de ser gerado, o link some da tela
+  // (antes ele ficava em "Convite pronto" depois de cancelado, e o número não mudava).
   async function cancelar(id: string) {
     try {
-      if (hasBackend) await rpc("alumia_convite_cancelar", { p_id: id });
-      setMeus((x) => (x ? { ...x, convites: x.convites.map((c) => (c.id === id ? { ...c, situacao: "cancelado" } : c)) } : x));
+      const r = hasBackend ? await rpc<{ ok: boolean; restam?: number }>("alumia_convite_cancelar", { p_id: id }) : null;
+      setNovo((n) => (n?.id === id ? null : n));
+      setCopiado(false);
+      setMeus((x) => (x ? { ...x, restam: typeof r?.restam === "number" ? r.restam : Math.min(x.teto, x.restam + 1), no_mes: Math.max(0, x.no_mes - 1), convites: x.convites.filter((c) => c.id !== id) } : x));
+      if (hasBackend) ler();
     } catch {
       setErro(m.erro);
     }

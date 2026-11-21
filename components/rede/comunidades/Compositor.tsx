@@ -24,7 +24,7 @@ import { botao, botaoClaro, campo, erroCom } from "./util";
  * aceito"; o banco confere de novo no gatilho, e o erro "leia_as_regras" traz as regras de volta.
  *
  * Posts restritos (P21, docs/rede/POSTS-RESTRITOS.md): no mural do núcleo (e numa comunidade FECHADA, com `tipoDaComunidade`), o
- * post é curto e vai cifrado em MLS deste aparelho (lib/rede/grupo-mls.ts): o banco recebe o texto vazio, o grupo e o corpo "p2.…".
+ * post é curto e vai cifrado em MLS deste aparelho (lib/rede/grupos/chaveiro.ts): o banco recebe o texto vazio, o grupo e o corpo "p2.…".
  * `grupo_suspeito` (a chave de alguém mudou) não publica.
  */
 export function Compositor({

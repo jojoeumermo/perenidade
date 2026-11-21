@@ -1,0 +1,4 @@
+{
+  "sobre": "Relatórios de auditoria externa de segurança, publicados na íntegra. Cada item: data, quem auditou, o escopo, o arquivo (na pasta public/transparencia/relatorios) com o resumo SHA-256 dele, quantos achados por gravidade e a resposta do Instituto. Vazio até a primeira auditoria.",
+  "relatorios": []
+}

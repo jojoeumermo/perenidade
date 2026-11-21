@@ -6,7 +6,6 @@
 // projeto (nada vai a serviço de fora). Quem cuida dos pacotes (coordenação, curadoria, educação, mediação) vê também o cuidado.
 import { useEffect, useState, useSyncExternalStore } from "react";
 import Link from "@/components/Link";
-import { localePath } from "@/i18n/config";
 import { pacote as lerPacote, seguirPacote } from "@/lib/rede/cliente-secoes-perfil";
 import { preencher } from "@/lib/rede/preencher";
 import { numeroQueAparece, slugDoPacoteOk } from "@/lib/rede/secoes-perfil";
@@ -18,6 +17,7 @@ import type { PropsDaTelaDoPacote } from "../../registro";
 import { CuidarDosPacotes } from "./Cuidar";
 import { useTextosDasSecoes } from "./textos";
 import "./secoes.css";
+import { entradaDaAlumia } from "@/lib/rede/alumia";
 
 /** O QR de um endereço, gerado no aparelho (biblioteca qrcode, carregada só aqui). Nulo enquanto faz; "" se não deu. */
 export function useQr(endereco: string | null): string | null {
@@ -117,7 +117,7 @@ export default function TelaDoPacote({ lang, s, situacao, params }: PropsDaTelaD
           {!situacao.logado ? (
             <div className="pfs-acoes">
               <p className="pfs-ed-ajuda">{t.pacote.entrar}</p>
-              <Link href={`${localePath(lang, "/entrar")}?volta=/alumia/pacote/${slug}`} className="al-botao al-botao-primario al-botao-m">
+              <Link href={entradaDaAlumia(lang, `/alumia/pacote/${slug}`)} className="al-botao al-botao-primario al-botao-m">
                 {s.entrada.entrar}
               </Link>
             </div>

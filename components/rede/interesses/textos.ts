@@ -5,6 +5,7 @@
 // final; os outros cinco são rascunho. UM idioma por vez, por import dinâmico.
 import { useEffect, useState } from "react";
 import type pt from "../../../i18n/rede/interesses/pt.json";
+import { carregarPronto } from "../../../lib/rede/textos-prontos";
 
 export type TextosDosInteresses = typeof pt;
 
@@ -18,7 +19,7 @@ const CARREGAR: Record<string, () => Promise<{ default: unknown }>> = {
 };
 
 export async function carregarTextosDosInteresses(lang: string): Promise<TextosDosInteresses> {
-  return (await (CARREGAR[lang] ?? CARREGAR.pt)()).default as TextosDosInteresses;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDosInteresses;
 }
 
 /** Os textos no idioma da página; `null` enquanto chegam. */

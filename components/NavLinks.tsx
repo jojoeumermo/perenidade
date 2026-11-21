@@ -22,6 +22,9 @@ export const abrirMais = (mouse = false) => window.dispatchEvent(new CustomEvent
 /** O que já está no menu do topo do computador: a janela do "Mais" não repete. */
 export const MAIS_NO_MENU = ["/trilhas", "/acervo", "/jornal", "/podcasts", "/alumia", "/jogos", "/saude", "/dedicatoria", "/apoie", ...(ligado("escola") ? ["/escola"] : []), ...(ligado("vale-o-escrito") ? [ROTA_DO_OBSERVATORIO] : [])];
 
+/** E4 (Prompt 5): Formação, Vale o Escrito e Alumia ficam em destaque na faixa principal (só com o redesign, styles/design/instituto.css). */
+const DESTAQUES = new Set(["/escola", ROTA_DO_OBSERVATORIO, "/alumia"]);
+
 export function NavLinks() {
   const pathname = usePathname();
   const { lang, t } = useI18n();
@@ -53,7 +56,7 @@ export function NavLinks() {
         const href = path === "/alumia" ? enderecoDaAlumia(lang) : localePath(lang, path);
         const active = pathname === href || pathname.startsWith(`${href}/`) || (path === "/trilhas" && pathname.includes("/estantes/"));
         return (
-          <Link key={path} href={href} aria-current={active ? "page" : undefined} className={`${item} ${active ? "border-[#c21f16] font-bold" : "border-transparent hover:border-[#c21f16]"}`}>
+          <Link key={path} href={href} aria-current={active ? "page" : undefined} data-destaque={DESTAQUES.has(path) ? "" : undefined} className={`${item} ${active ? "border-[#c21f16] font-bold" : "border-transparent hover:border-[#c21f16]"}`}>
             {label}
             {path === "/podcasts" && novo && (
               <>

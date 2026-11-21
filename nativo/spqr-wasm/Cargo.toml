@@ -1,0 +1,35 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# O SPQR do Signal (Sparse Post-Quantum Ratchet, o "triple ratchet") compilado para WebAssembly, sem wasm-bindgen: a camada
+# pós-quântica da conversa a dois (onda R3, item 1.1). Nada de cifra aqui: este crate só expõe a API de bytes do `spqr` v1.7.0
+# (initial_state, send, recv) em funções C. Documento: docs/rede/CHAT-PRIVADO.md ("A camada pós-quântica").
+#
+# Build de referência (o binário que vai para o site e para os apps): veja nativo/spqr-wasm/MONTAR.md.
+[package]
+name = "alumia-spqr-wasm"
+version = "1.7.0"
+edition = "2021"
+publish = false
+license = "AGPL-3.0-or-later"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+# Só no build de teste: exporta o ML-KEM-768 do libcrux (o mesmo que o SPQR usa) com sorteio dado, para os vetores do FIPS 203.
+teste = []
+
+[dependencies]
+# AGPL-3.0-only; não está no crates.io (o libsignal também o puxa pelo git). Tag e commit fixos no Cargo.lock.
+spqr = { git = "https://github.com/signalapp/SparsePostQuantumRatchet", tag = "v1.7.0" }
+rand_chacha = "0.9"
+rand_core = "0.9"
+getrandom = { version = "0.3", features = [] }
+# O mesmo ML-KEM-768 formalmente verificado que o spqr usa (mesma versão do Cargo.lock): só a função de teste o chama direto.
+libcrux-ml-kem = { version = "=0.0.10", default-features = false, features = ["incremental", "mlkem768"] }
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"

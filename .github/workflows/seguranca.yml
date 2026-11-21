@@ -58,9 +58,16 @@ jobs:
           curl -sSfL -o osv-scanner https://github.com/google/osv-scanner/releases/download/v2.7.0/osv-scanner_linux_amd64
           echo "160c6253e2922e9e0a6a9771c5c4c40a4b3c6090b34a3cdd5e80c96cc2e4218b  osv-scanner" | sha256sum -c -
           chmod +x osv-scanner
-          ./osv-scanner scan source --lockfile package-lock.json --format table || true
+          args="--lockfile package-lock.json"
+          for f in $(git ls-files '*Cargo.lock' '*gradle.lockfile'); do
+            args="$args --lockfile $f"
+          done
+          echo "osv-scanner lendo: $args"
+          ./osv-scanner scan source $args --format table || true
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version: 22
-      # O npm audit só lê o package-lock (não instala nada) e falha com gravidade alta ou crítica.
-      - run: npm audit --audit-level=high --package-lock-only
+      # O npm audit só lê o package-lock (não instala nada). A barreira é o que vai para produção: falha com gravidade alta ou
+      # crítica nas dependências de produção. As ferramentas de desenvolvimento saem num relatório que não barra.
+      - run: npm audit --audit-level=high --package-lock-only --omit=dev
+      - run: npm audit --package-lock-only || true

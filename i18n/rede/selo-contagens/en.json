@@ -1,0 +1,53 @@
+{
+  "_rascunho": true,
+  "selo": {
+    "rotulos": {
+      "pessoa_publica": "Verified public figure",
+      "educadora": "Verified educator",
+      "organizacao": "Verified organization"
+    },
+    "explica": "Verified by the Alumia coordination: the account belongs to who it says. It does not mean Alumia supports this person.",
+    "desde": "since {data}",
+    "abrir": "What does this badge mean?",
+    "fechar": "Close",
+    "pedir": {
+      "titulo": "Verified badge",
+      "sobre": "For those who may be impersonated: public figures and educators. It is always free; there is no paid badge. The coordination checks through an official channel and keeps no document or proof, only the decision.",
+      "tipo": "You are",
+      "tipos": {
+        "pessoa_publica": "A public figure",
+        "educadora": "An educator"
+      },
+      "canal": "How the coordination can check",
+      "canais": {
+        "email_institucional": "Institutional email",
+        "perfil_oficial": "Official profile already verified on another network",
+        "gabinete": "Office or staff"
+      },
+      "enviar": "Request the badge",
+      "enviado": "Request sent. The coordination will reach you through the chosen channel.",
+      "esperando": "Your request has been waiting for the coordination since {data} ({canal}).",
+      "desistir": "Withdraw the request",
+      "desistido": "Request withdrawn.",
+      "tem": "Your profile has had the “{tipo}” badge since {data}. Only the coordination removes it.",
+      "org": "Organization accounts use the organization badge, on the organization profile."
+    },
+    "erros": {
+      "ja_pedido": "You already have a request waiting.",
+      "ja_verificada": "Your profile already has the badge.",
+      "usar_selo_org": "Organization accounts use the organization badge.",
+      "desligado": "The badge and counts are not turned on yet."
+    }
+  },
+  "contagens": {
+    "titulo": "Public numbers",
+    "sobre": "By default, nobody sees how many people follow you or how many supports your posts have. You can choose to show them. Below 3 only “fewer than 3” appears, and the list of who follows or supported never appears.",
+    "seguidores": "Show how many people follow me",
+    "apoios": "Show the number of supports on my posts",
+    "salvo": "Choice saved.",
+    "seguem": "{n} people follow",
+    "seguemMenos": "Fewer than 3 people follow",
+    "apoiosN": "{n} supports",
+    "apoiosMenos": "fewer than 3 supports"
+  }
+}

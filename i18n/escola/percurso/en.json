@@ -97,12 +97,32 @@
       "quem": "Who will see it: {publico}.",
       "ligar": "I understand, show it",
       "cancelar": "Not now"
+    },
+    "tag": {
+      "titulo": "The revolutionary tag",
+      "texto": "Those who are in the Revolutionary Front (through an approved sign-up or by completing the School) have the tag. It only shows on your Alumia profile if you turn it on here, for the same audience chosen above, together with your front of action.",
+      "ligar": "Show the tag and my front on my profile",
+      "semPublico": "To show the tag, first choose who sees your achievements (above).",
+      "semFrente": "You are not in the Front yet: the tag appears when your sign-up is approved or when you complete the School.",
+      "salvo": "Done.",
+      "privacidade": "The tag never becomes a list: no one, not even the coordination, can pull who has the tag, and it does not show up in search or in counts."
     }
   },
   "selos": {
     "carteirinha": "School activist",
     "degrau": "School step {n}",
     "caderno": "School workbook {n}",
-    "aulas": "School lessons: {n}"
+    "aulas": "School lessons: {n}",
+    "revolucionario": "Revolutionary",
+    "frente": "Front: {nome}",
+    "frentes": {
+      "estudantil": "Student movement",
+      "bairros": "Neighbourhoods and housing",
+      "trabalho": "Work and unions",
+      "agitprop": "Agitation and propaganda",
+      "atos": "Rallies and mobilization",
+      "cultura": "Culture and the outskirts",
+      "solidariedade": "Solidarity"
+    }
   }
 }

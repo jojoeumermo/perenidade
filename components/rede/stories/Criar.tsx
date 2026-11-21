@@ -11,10 +11,12 @@ import { aplicarBorrado } from "../publicar/imagem";
 import { BorrarRostos } from "../publicar/BorrarRostos";
 import { carregarTextosPublicar } from "../publicar/textos";
 import type { TextosPublicar } from "@/lib/rede/textos-publicar";
-import { refazerImagem } from "@/lib/rede/stories/imagem";
+import { refazerImagemEmAlta } from "@/lib/rede/stories/imagem";
+import { LIMITE_DE_QUADROS, porQuadroDepois, quadroTemConteudo, quadroVazio, tirarQuadro, type Quadro } from "@/lib/rede/stories/quadros";
+import { apagarRascunho, guardarRascunho, novoIdDeRascunho, type Rascunho } from "@/lib/rede/stories/rascunhos";
 import {
-  comporFoto, filtroEmCss, fotoDoVideo, lerVideo, miniaturasDoVideo, regravarVideo, SEM_TRANSFORMACAO, TIPOS_DE_VIDEO_ACEITOS, transformacaoEmCss,
-  transformacaoNeutra, transformacaoValida, VIDEO_ORIGINAL_MAXIMO, type FiltroDoStory, type TracoDoStory, type Transformacao,
+  comporFotoEmVersoes, filtroCompleto, fotoDoVideo, lerVideo, miniaturasDoVideo, regravarVideo, SEM_TRANSFORMACAO, TIPOS_DE_VIDEO_ACEITOS, transformacaoEmCss,
+  SEM_AJUSTE, transformacaoNeutra, transformacaoValida, VIDEO_ORIGINAL_MAXIMO, type AjustesDaMidia, type FiltroDoStory, type TracoDoStory, type Transformacao,
 } from "@/lib/rede/stories/midia";
 import { alternarFigurinha, corDaLetraEmHex, estiloDoTexto, linkSeguro, PALETA_DO_STORY, posicaoInicial, tamanhoDoTexto } from "@/lib/rede/stories/visual";
 import { RODA_SEM_BANCO, type ClienteDeStories } from "@/lib/rede/cliente-stories";
@@ -25,10 +27,12 @@ import {
   type MusicaDoStory, type NomeDecorativo, type PedidoDeStory, type PosicaoDaFigurinha, type PublicoDoStory, type TipoDeFigurinha, type TipoDoBotao,
 } from "@/lib/rede/tipos-stories";
 import { handleOk } from "@/lib/rede/tipos";
+import { novaChaveDeEnvio } from "@/lib/backend-envio";
 import { Camera } from "../editor/Camera";
 import { Cortar } from "../editor/Cortar";
 import { EstiloDoTexto } from "../editor/EstiloDoTexto";
 import { Filtros } from "../editor/Filtros";
+import { Ajustes } from "./Ajustes";
 import { useGestosDaMidia } from "../editor/gestos";
 import { ComunidadeEditar } from "../figurinhas/Comunidade";
 import { ContagemEditar } from "../figurinhas/Contagem";
@@ -40,6 +44,9 @@ import { CampanhaEditar, PessoaEditar, RespostaVer, tagDaCampanha, VouEditar } f
 import { EditarLegendas } from "../editor/Legendas";
 import { EscolherMusica } from "../editor/Musica";
 import { Recortar } from "../editor/Recortar";
+import { TesteEditar } from "../figurinhas/Teste";
+import { Colagem } from "./Colagem";
+import { Rascunhos } from "./Rascunhos";
 import { CartaoDoPostNoStory } from "./CartaoDoPost";
 import { RodaDeConfianca } from "./Roda";
 import { FigurinhaSolta } from "./FigurinhaSolta";
@@ -48,16 +55,17 @@ import { IconeFechar } from "./icones";
 import { codigoDoErro, focarNoGrupo, indiceDaSeta, larguraDaTela, preencherStory, useAgora, useModalDosStories } from "./usar";
 
 type Modo = "texto" | "desenhar" | "figurinha";
-type Midia =
-  | { tipo: "imagem"; blob: Blob; url: string }
-  | { tipo: "video"; blob: Blob; url: string; duracao: number };
+type Midia = NonNullable<Quadro["midia"]>;
 type Fase = "preparando" | "foto" | "enviando" | "publicando";
+/** P5: as abas do painel (o que pôr no story); "Quem vê" e o publicar ficam sempre à vista, embaixo. */
+type Aba = "figurinhas" | "enfeites" | "midia";
 
 /** O desenho de cada tipo no botão (prancha: "2D" dourado, "?" papel, "A|B" verde-água, "↗" rosa; a menção, "@" dourado-claro). */
 const ICONE_DO_TIPO: Record<TipoDoBotao, { texto: string; cor: string }> = {
   contagem: { texto: "2D", cor: "var(--al-dourado, #ffc21a)" },
   pergunta: { texto: "?", cor: "var(--al-texto, #f3efe6)" },
   enquete: { texto: "A|B", cor: "var(--al-com-1, #1fc2b5)" },
+  teste: { texto: "A✓", cor: "#7be0a6" },
   link: { texto: "↗", cor: "var(--al-com-2, #ff5c8a)" },
   comunidade: { texto: "@", cor: "#f6c84a" },
   vou: { texto: "✓", cor: "#7be0a6" },
@@ -66,11 +74,7 @@ const ICONE_DO_TIPO: Record<TipoDoBotao, { texto: string; cor: string }> = {
 };
 
 /** Um enfeite no story (podem ser até 3, inclusive repetidos): a chave só diz qual é qual na tela. */
-interface Enfeite {
-  chave: number;
-  nome: NomeDecorativo;
-  pos: PosicaoDaFigurinha;
-}
+type Enfeite = Quadro["enfeites"][number];
 const LUGARES_DOS_ENFEITES: PosicaoDaFigurinha[] = [
   { x: 0.78, y: 0.2, giro: 8, escala: 1 },
   { x: 0.22, y: 0.3, giro: -10, escala: 0.9 },
@@ -89,6 +93,8 @@ function conteudoNovo(tipo: TipoDoBotao, t: TextosDosStories): Figurinha {
       return { tipo, texto: "" };
     case "enquete":
       return { tipo, pergunta: "", opcoes: [t.figurinha.enquete.padraoA, t.figurinha.enquete.padraoB] };
+    case "teste":
+      return { tipo, pergunta: "", opcoes: ["", ""], certa: 0 };
     case "link":
       return { tipo, url: "", rotulo: "" };
     case "comunidade":
@@ -103,8 +109,17 @@ function conteudoNovo(tipo: TipoDoBotao, t: TextosDosStories): Figurinha {
 }
 
 /** O que falta numa figurinha para publicar (a chave do erro), ou nulo. */
-function faltaNaFigurinha(f: Figurinha): "ato" | "pergunta" | "enquete" | "link" | "comunidade" | "vou" | "pessoa" | "campanha" | null {
+function faltaNaFigurinha(f: Figurinha): "ato" | "contagemLivre" | "pergunta" | "enquete" | "teste" | "link" | "comunidade" | "vou" | "pessoa" | "campanha" | null {
+  if (f.tipo === "contagem" && f.livre) {
+    const t = Date.parse(f.inicio);
+    return f.titulo.trim() && Number.isFinite(t) && t > Date.now() + 60_000 && t < Date.now() + 366 * 86_400_000 ? null : "contagemLivre";
+  }
   if (f.tipo === "contagem") return f.ato ? null : "ato";
+  if (f.tipo === "teste") {
+    const ops = f.opcoes.map((o) => o.trim().toLowerCase());
+    const certa = f.certa ?? -1;
+    return f.pergunta.trim() && ops.length >= 2 && ops.every(Boolean) && new Set(ops).size === ops.length && certa >= 0 && certa < ops.length ? null : "teste";
+  }
   if (f.tipo === "pergunta") return f.texto.trim() ? null : "pergunta";
   if (f.tipo === "enquete") return f.pergunta.trim() && f.opcoes.every((o) => o.trim()) ? null : "enquete";
   if (f.tipo === "comunidade") return f.slug ? null : "comunidade";
@@ -113,6 +128,16 @@ function faltaNaFigurinha(f: Figurinha): "ato" | "pergunta" | "enquete" | "link"
   if (f.tipo === "campanha") return tagDaCampanha(f.tag) ? null : "campanha";
   if (f.tipo === "link") return linkSeguro(f.url) ? null : "link";
   return null;
+}
+
+/** Prende a rolagem da página de trás enquanto o "criar" está aberto; devolve como soltar. */
+function prenderRolagem(): () => void {
+  const corpo = document.body;
+  const antes = corpo.style.overflow;
+  corpo.style.overflow = "hidden";
+  return () => {
+    corpo.style.overflow = antes;
+  };
 }
 
 /** Movimento reduzido (o do sistema ou o "parado" do site). */
@@ -172,6 +197,8 @@ export function Criar({
   const [midia, setMidia] = useState<Midia | null>(null);
   const [lendo, setLendo] = useState(false);
   const [filtro, setFiltro] = useState<FiltroDoStory>("nenhum");
+  // Brilho, contraste e saturação (P5, A16), "queimados" na mídia como o filtro.
+  const [ajustes, setAjustes] = useState<AjustesDaMidia>(SEM_AJUSTE);
   const [transf, setTransf] = useState<Transformacao>(SEM_TRANSFORMACAO);
   const [corte, setCorte] = useState({ inicio: 0, fim: 0 });
   const [agulha, setAgulha] = useState(0);
@@ -184,7 +211,7 @@ export function Criar({
   const [erro, setErro] = useState<string | null>(null);
   const [linkInvalido, setLinkInvalido] = useState(false);
   const [estado, setEstado] = useState<"editando" | "publicando" | "publicado">("editando");
-  const [progresso, setProgresso] = useState<{ fase: Fase; pct: number } | null>(null);
+  const [progresso, setProgresso] = useState<{ fase: Fase; pct: number; k?: number; n?: number } | null>(null);
   const [confirmarSaida, setConfirmarSaida] = useState(false);
   const [larguraDaPrevia, setLarguraDaPrevia] = useState(390);
   /** A figurinha tocada por último fica por cima (e vai por último no story, para o visor empilhar igual). */
@@ -205,6 +232,20 @@ export function Criar({
   const [recortando, setRecortando] = useState(false);
   const [desfeitos, setDesfeitos] = useState<TracoDoStory[]>([]);
   const [borracha, setBorracha] = useState(false);
+  // P5 (A16): os vários quadros (cada um vira um story, na ordem). O quadro em edição vive nos estados de cima; os outros, aqui
+  // (a posição do atual fica guardada com o conteúdo de quando se saiu dele, e é refeita ao voltar).
+  const [sequencia, setSequencia] = useState<Quadro[]>(() => [quadroVazio()]);
+  const [atual, setAtual] = useState(0);
+  const [aba, setAba] = useState<Aba>("figurinhas");
+  const [colagem, setColagem] = useState(false);
+  const [rascunhosAbertos, setRascunhosAbertos] = useState(false);
+  const [rascunhoId, setRascunhoId] = useState<string | null>(null);
+  const [aviso, setAviso] = useState<string | null>(null);
+  const [abrirRascunho, setAbrirRascunho] = useState<Rascunho | null>(null);
+  /** Os endereços locais (blob:) criados aqui: soltos todos ao fechar (um quadro guardado ainda usa o seu). */
+  const urlsLocais = useRef(new Set<string>());
+  /** O post do "Pôr no story" já foi junto com o primeiro quadro publicado (num "tente de novo", não vai de novo). */
+  const postJaFoi = useRef(false);
   const desenhando = useRef<TracoDoStory | null>(null);
   const galeria = useRef<HTMLInputElement>(null);
   const painelFigurinhas = useRef<HTMLHeadingElement>(null);
@@ -217,11 +258,112 @@ export function Criar({
   const guias = useRef<HTMLDivElement>(null);
   const videoDaPrevia = useRef<HTMLVideoElement>(null);
   const cancelar = useRef<AbortController | null>(null);
+  // A chave do envio em curso: a mesma enquanto o story não sai (o "tente de novo" depois de uma queda não publica duas vezes).
+  const chaveDoEnvio = useRef<string | null>(null);
   const ultimoPct = useRef(-1);
   const agora = useAgora(30_000);
   const id = useId();
 
-  const mexeu = texto.trim() !== "" || legenda.trim() !== "" || figurinhas.length > 0 || enfeites.length > 0 || tracos.length > 0 || midia !== null || !!postRef;
+  const mexeu = texto.trim() !== "" || legenda.trim() !== "" || figurinhas.length > 0 || enfeites.length > 0 || tracos.length > 0 || midia !== null || !!postRef || sequencia.length > 1;
+
+  /** Um endereço local para a mídia (solto ao fechar a tela). */
+  const urlLocal = (b: Blob) => {
+    const u = URL.createObjectURL(b);
+    urlsLocais.current.add(u);
+    return u;
+  };
+
+  /** O quadro em edição, como está agora. */
+  function capturar(): Quadro {
+    return {
+      cor, alvoDaCor, texto, estilo, legenda, figurinhas, frente, enfeites, tracos, midia, filtro, ajustes, transf, corte, som, alt,
+      legendas, legendasGeradas, legendasAprovadas, musica, fotoOriginal, borroesDoVideo,
+    };
+  }
+  /** Põe um quadro na tela (o de antes já foi guardado por quem chamou). */
+  function restaurar(q: Quadro) {
+    setCor(q.cor);
+    setAlvoDaCor(q.alvoDaCor);
+    setTexto(q.texto);
+    setEstilo(q.estilo);
+    setLegenda(q.legenda);
+    setFigurinhas(q.figurinhas);
+    setFrente(q.frente);
+    setEnfeites(q.enfeites);
+    setTracos(q.tracos);
+    setDesfeitos([]);
+    setMidia(q.midia);
+    setFiltro(q.filtro);
+    setAjustes(q.ajustes);
+    setTransf(q.transf);
+    setCorte(q.corte);
+    setSom(q.som);
+    setAlt(q.alt);
+    setLegendas(q.legendas);
+    setLegendasGeradas(q.legendasGeradas);
+    setLegendasAprovadas(q.legendasAprovadas);
+    setMusica(q.musica);
+    setFotoOriginal(q.fotoOriginal);
+    setBorroesDoVideo(q.borroesDoVideo);
+    setMiniaturas([]);
+    setErro(null);
+    if (q.midia?.tipo === "video") void miniaturasDoVideo(q.midia.url, q.midia.duracao).then((l) => {
+      l.forEach((u) => urlsLocais.current.add(u));
+      setMiniaturas(l);
+    });
+  }
+  /** A sequência com o quadro em edição no lugar dele. */
+  const sequenciaAgora = (): Quadro[] => sequencia.map((q, i) => (i === atual ? capturar() : q));
+  function irParaQuadro(k: number) {
+    if (k === atual || k < 0 || k >= sequencia.length) return;
+    const lista = sequenciaAgora();
+    setSequencia(lista);
+    setAtual(k);
+    restaurar(lista[k]);
+  }
+  function novoQuadro() {
+    const r = porQuadroDepois(sequenciaAgora(), atual);
+    if (!r) return setAviso(preencherStory(t.p5.quadros.limite, { max: LIMITE_DE_QUADROS }));
+    setSequencia(r.lista);
+    setAtual(r.atual);
+    restaurar(r.lista[r.atual]);
+    campoDoTexto.current?.focus({ preventScroll: true });
+  }
+  function tirarEsteQuadro() {
+    const r = tirarQuadro(sequenciaAgora(), atual);
+    setSequencia(r.lista);
+    setAtual(r.atual);
+    restaurar(r.lista[r.atual]);
+  }
+  /** Abre um rascunho deste aparelho no lugar do que está na tela. */
+  function carregarRascunho(r: Rascunho) {
+    const lista: Quadro[] = r.quadros.map((q) => ({
+      ...q,
+      midia: q.midia ? (q.midia.tipo === "video" ? { tipo: "video", blob: q.midia.blob, duracao: q.midia.duracao, url: urlLocal(q.midia.blob) } : { tipo: "imagem", blob: q.midia.blob, url: urlLocal(q.midia.blob) }) : null,
+    }));
+    if (lista.length === 0) return;
+    setSequencia(lista);
+    setAtual(0);
+    restaurar(lista[0]);
+    setPublico(r.publico);
+    setComunidadeDoPublico(r.comunidade);
+    setRascunhoId(r.id);
+    setAbrirRascunho(null);
+    setRascunhosAbertos(false);
+  }
+  async function guardarComoRascunho() {
+    setErro(null);
+    setAviso(null);
+    const id = rascunhoId ?? novoIdDeRascunho();
+    try {
+      await guardarRascunho({ id, publico, comunidade: publico === "comunidade" ? comunidadeDoPublico : null, quadros: sequenciaAgora().filter(quadroTemConteudo) });
+      setRascunhoId(id);
+      setAviso(t.p5.rascunhos.guardado);
+    } catch (e) {
+      const m = e instanceof Error ? e.message : "";
+      setErro(m === "modo_seguro" ? t.p5.rascunhos.modoSeguro : m === "grande" ? t.p5.rascunhos.grande : m === "sem_armazenamento" ? t.p5.rascunhos.semArmazenamento : t.p5.rascunhos.falha);
+    }
+  }
 
   // Os atos para a contagem e as comunidades para a menção: só quando a pessoa liga a figurinha.
   const querAtos = figurinhas.some((f) => f.tipo === "contagem" || f.tipo === "vou");
@@ -287,10 +429,9 @@ export function Criar({
   useEffect(() => {
     const antes = document.activeElement as HTMLElement | null;
     (campoDoTexto.current ?? raiz.current)?.focus({ preventScroll: true });
-    const rolagem = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const soltarRolagem = prenderRolagem();
     return () => {
-      document.body.style.overflow = rolagem;
+      soltarRolagem();
       cancelar.current?.abort();
       antes?.focus?.();
     };
@@ -305,9 +446,20 @@ export function Criar({
     return () => o.disconnect();
   }, []);
 
-  // Solta os endereços locais quando a mídia sai.
-  useEffect(() => () => (midia ? URL.revokeObjectURL(midia.url) : undefined), [midia]);
-  useEffect(() => () => miniaturas.forEach((m) => URL.revokeObjectURL(m)), [miniaturas]);
+  // Solta os endereços locais ao fechar (P5: não antes, porque um quadro guardado na sequência ainda usa o seu).
+  useEffect(() => {
+    const urls = urlsLocais.current;
+    return () => {
+      urls.forEach((u) => URL.revokeObjectURL(u));
+      urls.clear();
+    };
+  }, []);
+  // O aviso ("rascunho guardado", "chegou ao limite") some sozinho.
+  useEffect(() => {
+    if (!aviso) return;
+    const id = setTimeout(() => setAviso(null), 4000);
+    return () => clearTimeout(id);
+  }, [aviso]);
 
   // A prévia do vídeo toca só o trecho cortado, em volta.
   useEffect(() => {
@@ -336,7 +488,7 @@ export function Criar({
 
   useEffect(() => {
     const aoTeclar = (e: KeyboardEvent) => {
-      if (e.key !== "Escape" || camera) return;
+      if (e.key !== "Escape" || camera || colagem || rascunhosAbertos) return;
       e.preventDefault();
       if (estado === "publicando") cancelar.current?.abort();
       else if (confirmarSaida) setConfirmarSaida(false);
@@ -345,11 +497,12 @@ export function Criar({
     };
     window.addEventListener("keydown", aoTeclar);
     return () => window.removeEventListener("keydown", aoTeclar);
-  }, [aoFechar, camera, confirmarSaida, estado, mexeu]);
+  }, [aoFechar, camera, colagem, rascunhosAbertos, confirmarSaida, estado, mexeu]);
 
   function escolherModo(m: Modo) {
     setModo(m);
     if (m === "figurinha") {
+      setAba("figurinhas");
       painelFigurinhas.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       painelFigurinhas.current?.focus();
     }
@@ -419,6 +572,7 @@ export function Criar({
   function limparMidia() {
     setMidia(null);
     setFiltro("nenhum");
+    setAjustes(SEM_AJUSTE);
     setTransf(SEM_TRANSFORMACAO);
     setMiniaturas([]);
     setAlt("");
@@ -441,16 +595,19 @@ export function Criar({
       if (deOnde === "galeria" && !(TIPOS_DE_VIDEO_ACEITOS as readonly string[]).includes(arquivo.type)) return setErro(t.criar.erroMidia.video);
       if (arquivo.size > VIDEO_ORIGINAL_MAXIMO) return setErro(t.criar.erroMidia.videoGrande);
       setLendo(true);
-      const url = URL.createObjectURL(arquivo);
+      const url = urlLocal(arquivo);
       try {
         const info = await lerVideo(url);
         limparMidia();
         setMidia({ tipo: "video", blob: arquivo, url, duracao: info.duracao });
         setCorte({ inicio: 0, fim: Math.min(info.duracao, LIMITES_DO_STORY.videoMs) });
         setSom(true);
-        void miniaturasDoVideo(url, info.duracao).then(setMiniaturas);
+        setAba("midia");
+        void miniaturasDoVideo(url, info.duracao).then((l) => {
+          l.forEach((u) => urlsLocais.current.add(u));
+          setMiniaturas(l);
+        });
       } catch {
-        URL.revokeObjectURL(url);
         setErro(t.criar.erroMidia.video);
       } finally {
         setLendo(false);
@@ -458,99 +615,187 @@ export function Criar({
       return;
     }
     try {
-      // A foto da galeria é refeita já aqui (sem metadado, no máximo 1080 × 1920); a da câmera já nasceu num canvas.
-      const blob = deOnde === "galeria" ? await refazerImagem(arquivo) : arquivo;
+      // A foto da galeria é refeita já aqui (sem metadado; P5: em alta, até 1440 × 2560); a da câmera já nasceu num canvas.
+      const blob = deOnde === "galeria" ? await refazerImagemEmAlta(arquivo) : arquivo;
       limparMidia();
-      setMidia({ tipo: "imagem", blob, url: URL.createObjectURL(blob) });
+      setMidia({ tipo: "imagem", blob, url: urlLocal(blob) });
+      setAba("midia");
     } catch (e) {
       setErro(e instanceof Error && e.message === "grande" ? t.criar.erro.grande : t.criar.erro.invalida);
     }
   }
 
-  const andar = (fase: Fase) => (f: number) => {
-    const pct = Math.round(f * 100);
-    if (pct === ultimoPct.current) return;
-    ultimoPct.current = pct;
-    setProgresso({ fase, pct });
-  };
+  /** O que falta num quadro para publicar (a mensagem), ou nulo. */
+  function faltaNoQuadro(q: Quadro, primeiro: boolean): { erro: string; link?: boolean } | null {
+    const comPost = primeiro && !!postRef && !postJaFoi.current;
+    if (!quadroTemConteudo(q) && !comPost) return { erro: t.criar.vazio };
+    for (const f of q.figurinhas) {
+      const falta = faltaNaFigurinha(f);
+      if (!falta) continue;
+      if (falta === "link") return { erro: t.criar.erro.link, link: true };
+      if (falta === "vou") return { erro: t.b1.vou.escolher };
+      if (falta === "pessoa") return { erro: t.b1.pessoa.ajuda };
+      if (falta === "campanha") return { erro: t.b1.campanha.ajuda };
+      return { erro: falta === "comunidade" ? t.criar.erroMidia.comunidade : t.criar.erro[falta] };
+    }
+    if (q.midia?.tipo === "video" && q.legendasGeradas && q.legendas.length > 0 && !q.legendasAprovadas) return { erro: t.b1.legendas.falta };
+    // Dado pessoal no texto, na tarja, no alt ou nas figurinhas: bloqueia aqui; o banco confere de novo (LGPD art. 6º, III).
+    const tudo = [
+      q.texto,
+      q.legenda,
+      q.alt,
+      ...q.legendas.map((l) => l.texto),
+      ...q.figurinhas.map((f) =>
+        f.tipo === "pergunta"
+          ? f.texto
+          : f.tipo === "enquete" || f.tipo === "teste"
+            ? `${f.pergunta} ${f.opcoes.join(" ")}`
+            : f.tipo === "link"
+              ? f.rotulo
+              : f.tipo === "contagem" && f.livre
+                ? f.titulo
+                : "",
+      ),
+    ].join("\n");
+    if (checarTexto(tudo).bloqueia.length > 0) return { erro: t.criar.erro.dadoPessoal };
+    return null;
+  }
+
+  /** Publica UM quadro (compõe a foto em alta e a menor, ou regrava o vídeo; envia; publica com a chave do envio). */
+  async function publicarQuadro(q: Quadro, ctrl: AbortController, k: number, n: number, comPost: boolean) {
+    let caminho: string | null = null;
+    let menor: string | null = null;
+    let video: PedidoDeStory["video"] = null;
+    const fundo = PALETA_DO_STORY[q.cor].fundo;
+    const andar = (fase: Fase) => (f: number) => {
+      const pct = Math.round(f * 100);
+      if (pct === ultimoPct.current) return;
+      ultimoPct.current = pct;
+      setProgresso({ fase, pct, k, n });
+    };
+    ultimoPct.current = -1;
+    if (q.midia?.tipo === "video") {
+      setProgresso({ fase: "preparando", pct: 0, k, n });
+      const pronto = await regravarVideo({
+        url: q.midia.url,
+        inicio: q.corte.inicio,
+        fim: q.corte.fim,
+        som: q.som,
+        fundo,
+        filtro: q.filtro,
+        ajustes: q.ajustes,
+        transformacao: q.transf,
+        tracos: q.tracos,
+        musica: q.musica,
+        borroes: q.borroesDoVideo,
+        aoProgresso: andar("preparando"),
+        sinal: ctrl.signal,
+      });
+      ultimoPct.current = -1;
+      setProgresso({ fase: "enviando", pct: 0, k, n });
+      caminho = await cliente.enviarImagem(pronto.blob, andar("enviando"));
+      video = { duracao_ms: pronto.duracao, som: pronto.som && q.som, musica: q.musica, legendas: limparLegendas(q.legendas, pronto.duracao) };
+    } else if (q.midia || q.tracos.length > 0) {
+      setProgresso({ fase: "foto", pct: 0, k, n });
+      // P5: a foto em alta e a versão menor, as duas redesenhadas aqui (sem metadado).
+      const versoes = await comporFotoEmVersoes({ fundo, imagem: q.midia?.blob, filtro: q.filtro, ajustes: q.ajustes, transformacao: q.transf, tracos: q.tracos });
+      if (ctrl.signal.aborted) throw new Error("cancelado");
+      ultimoPct.current = -1;
+      setProgresso({ fase: "enviando", pct: 0, k, n });
+      const enviando = andar("enviando");
+      caminho = await cliente.enviarImagem(versoes.alta, (f) => enviando(f * 0.9));
+      menor = await cliente.enviarImagem(versoes.menor);
+    }
+    if (ctrl.signal.aborted) throw new Error("cancelado");
+    setProgresso({ fase: "publicando", pct: 100, k, n });
+    const pedido: PedidoDeStory = {
+      publico,
+      fundo: { tipo: caminho ? (video ? "video" : "imagem") : "listras", cor: q.cor },
+      texto: q.texto.trim().slice(0, LIMITES_DO_STORY.texto),
+      legenda: q.legenda.trim() ? q.legenda.trim().slice(0, LIMITES_DO_STORY.legenda) : null,
+      imagem: caminho,
+      menor,
+      video,
+      estilo: Object.keys(q.estilo).length > 0 ? q.estilo : undefined,
+      alt: caminho ? q.alt.trim() || null : null,
+      figurinhas: [
+        ...[...q.figurinhas.filter((f) => f.tipo !== q.frente), ...q.figurinhas.filter((f) => f.tipo === q.frente)].map((f) =>
+          f.tipo === "link"
+            ? { ...f, url: linkSeguro(f.url) ?? "" }
+            : f.tipo === "campanha"
+              ? { ...f, tag: tagDaCampanha(f.tag) ?? "" }
+              : f.tipo === "teste"
+                ? { ...f, pergunta: f.pergunta.trim(), opcoes: f.opcoes.map((o) => o.trim()) }
+                : f,
+        ),
+        ...q.enfeites.map((e): Figurinha => ({ tipo: "decorativa", nome: e.nome, pos: e.pos })),
+      ],
+      post_ref: comPost ? postRef : null,
+      comunidade: publico === "comunidade" ? comunidadeDoPublico : null,
+    };
+    // A chave deste envio (lib/backend-envio.ts): o mesmo story, mandado de novo depois de uma resposta perdida, não sai duas vezes.
+    chaveDoEnvio.current ??= novaChaveDeEnvio();
+    try {
+      await cliente.publicar({ ...pedido, chave_envio: chaveDoEnvio.current });
+    } catch (e) {
+      // Já tinha saído (a resposta se perdeu): conta como publicado.
+      if (codigoDoErro(e) !== "envioRepetido") throw e;
+    }
+    chaveDoEnvio.current = null;
+  }
 
   async function publicar() {
     setErro(null);
+    setAviso(null);
     setLinkInvalido(false);
-    if (!mexeu || (!texto.trim() && tracos.length === 0 && !midia && figurinhas.length === 0 && enfeites.length === 0 && !postRef)) return setErro(t.criar.vazio);
-    for (const f of figurinhas) {
-      const falta = faltaNaFigurinha(f);
-      if (falta) {
-        if (falta === "link") setLinkInvalido(true);
-        if (falta === "vou") return setErro(t.b1.vou.escolher);
-        if (falta === "pessoa") return setErro(t.b1.pessoa.ajuda);
-        if (falta === "campanha") return setErro(t.b1.campanha.ajuda);
-        return setErro(falta === "comunidade" ? t.criar.erroMidia.comunidade : t.criar.erro[falta]);
-      }
+    // P5: a sequência inteira (o quadro em edição no lugar dele), sem os quadros vazios.
+    const todos = sequenciaAgora();
+    const comConteudo = todos.map((q, i) => ({ q, i })).filter(({ q, i }) => quadroTemConteudo(q) || (i === 0 && !!postRef && !postJaFoi.current));
+    if (comConteudo.length === 0) return setErro(t.criar.vazio);
+    const n = comConteudo.length;
+    for (const [k, { q, i }] of comConteudo.entries()) {
+      const falta = faltaNoQuadro(q, i === 0);
+      if (!falta) continue;
+      if (i !== atual) irParaQuadro(i);
+      if (falta.link) setLinkInvalido(true);
+      return setErro(n > 1 ? preencherStory(t.p5.quadros.erroNoQuadro, { n: k + 1, erro: falta.erro }) : falta.erro);
     }
     if (publico === "comunidade" && !comunidadeDoPublico) return setErro(t.b1.comunidade.escolher);
-    if (midia?.tipo === "video" && legendasGeradas && legendas.length > 0 && !legendasAprovadas) return setErro(t.b1.legendas.falta);
-    // Dado pessoal no texto, na tarja, no alt ou nas figurinhas: bloqueia aqui; o banco confere de novo (LGPD art. 6º, III).
-    const tudo = [texto, legenda, alt, ...legendas.map((l) => l.texto), ...figurinhas.map((f) => (f.tipo === "pergunta" ? f.texto : f.tipo === "enquete" ? `${f.pergunta} ${f.opcoes.join(" ")}` : f.tipo === "link" ? f.rotulo : ""))].join("\n");
-    if (checarTexto(tudo).bloqueia.length > 0) return setErro(t.criar.erro.dadoPessoal);
 
     const ctrl = new AbortController();
     cancelar.current = ctrl;
-    ultimoPct.current = -1;
     setEstado("publicando");
+    let restantes = comConteudo.map((x) => x.q);
     try {
-      let caminho: string | null = null;
-      let video: PedidoDeStory["video"] = null;
-      const fundo = PALETA_DO_STORY[cor].fundo;
-      if (midia?.tipo === "video") {
-        setProgresso({ fase: "preparando", pct: 0 });
-        const pronto = await regravarVideo({ url: midia.url, inicio: corte.inicio, fim: corte.fim, som, fundo, filtro, transformacao: transf, tracos, musica, borroes: borroesDoVideo, aoProgresso: andar("preparando"), sinal: ctrl.signal });
-        ultimoPct.current = -1;
-        setProgresso({ fase: "enviando", pct: 0 });
-        caminho = await cliente.enviarImagem(pronto.blob, andar("enviando"));
-        video = { duracao_ms: pronto.duracao, som: pronto.som && som, musica, legendas: limparLegendas(legendas, pronto.duracao) };
-      } else if (midia || tracos.length > 0) {
-        setProgresso({ fase: "foto", pct: 0 });
-        const blob = await comporFoto({ fundo, imagem: midia?.blob, filtro, transformacao: transf, tracos });
-        if (ctrl.signal.aborted) throw new Error("cancelado");
-        ultimoPct.current = -1;
-        setProgresso({ fase: "enviando", pct: 0 });
-        caminho = await cliente.enviarImagem(blob, andar("enviando"));
+      for (let k = 0; k < n; k++) {
+        const comPost = !!postRef && !postJaFoi.current && comConteudo[k].i === 0;
+        await publicarQuadro(comConteudo[k].q, ctrl, k + 1, n, comPost);
+        if (comPost) postJaFoi.current = true;
+        // Publicado: sai da sequência (um "tente de novo" depois de uma queda não publica de novo).
+        restantes = restantes.slice(1);
       }
-      if (ctrl.signal.aborted) throw new Error("cancelado");
-      setProgresso({ fase: "publicando", pct: 100 });
-      const pedido: PedidoDeStory = {
-        publico,
-        fundo: { tipo: caminho ? (video ? "video" : "imagem") : "listras", cor },
-        texto: texto.trim().slice(0, LIMITES_DO_STORY.texto),
-        legenda: legenda.trim() ? legenda.trim().slice(0, LIMITES_DO_STORY.legenda) : null,
-        imagem: caminho,
-        video,
-        estilo: Object.keys(estilo).length > 0 ? estilo : undefined,
-        alt: caminho ? alt.trim() || null : null,
-        figurinhas: [
-          ...[...figurinhas.filter((f) => f.tipo !== frente), ...figurinhas.filter((f) => f.tipo === frente)].map((f) =>
-            f.tipo === "link" ? { ...f, url: linkSeguro(f.url) ?? "" } : f.tipo === "campanha" ? { ...f, tag: tagDaCampanha(f.tag) ?? "" } : f,
-          ),
-          ...enfeites.map((e): Figurinha => ({ tipo: "decorativa", nome: e.nome, pos: e.pos })),
-        ],
-        post_ref: postRef,
-        comunidade: publico === "comunidade" ? comunidadeDoPublico : null,
-      };
-      await cliente.publicar(pedido);
       setProgresso(null);
       setEstado("publicado");
+      // Publicado a partir de um rascunho: o rascunho sai do aparelho.
+      if (rascunhoId) void apagarRascunho(rascunhoId).catch(() => undefined);
       aoPublicar();
     } catch (e) {
       setEstado("editando");
       setProgresso(null);
+      // O que já saiu fica fora; a tela volta no primeiro quadro que falta.
+      if (restantes.length < n) {
+        setSequencia(restantes);
+        setAtual(0);
+        restaurar(restantes[0]);
+      }
       const m = e instanceof Error ? e.message : "";
+      const midiaDoQuadro = restantes[0]?.midia;
       if (m === "cancelado") return setErro(t.criar.erroMidia.cancelado);
       // O banco ainda não tem a roda de confiança: nada foi publicado (o "proximos" de antes iria a todos os que se seguem).
       if (m === RODA_SEM_BANCO) return setErro(t.b1.roda.semBanco);
       if (m === "sem_gravador") return setErro(t.criar.erroMidia.semGravador);
-      if (m === "grande") return setErro(midia?.tipo === "video" ? t.criar.erroMidia.videoGrande : t.criar.erro.grande);
-      if (m === "invalida") return setErro(midia?.tipo === "video" ? t.criar.erroMidia.video : t.criar.erro.invalida);
+      if (m === "grande") return setErro(midiaDoQuadro?.tipo === "video" ? t.criar.erroMidia.videoGrande : t.criar.erro.grande);
+      if (m === "invalida") return setErro(midiaDoQuadro?.tipo === "video" ? t.criar.erroMidia.video : t.criar.erro.invalida);
       const c = codigoDoErro(e);
       setErro(t.criar.erro[c as keyof typeof t.criar.erro] ?? t.criar.erro.falha);
     } finally {
@@ -588,6 +833,7 @@ export function Criar({
     else setCor(c as CorDoStory);
   };
   const amostra = midia?.tipo === "imagem" ? midia.url : miniaturas[0] ?? null;
+  const abaVisivel: Aba = aba === "midia" && !midia ? "figurinhas" : aba;
   const ajustar = (f: (t: Transformacao) => Partial<Transformacao>) => setTransf((x) => transformacaoValida({ ...x, ...f(x) }));
   const R = 2 * Math.PI * 52;
 
@@ -602,7 +848,7 @@ export function Criar({
         <div ref={tela} className="al-st-tela" style={estiloDaTela(cor, { "--st-tamanho": `${tamanho}px` } as CSSProperties)}>
           {midia ? (
             <div className="al-st-fundo al-ed-palco-midia" aria-hidden={!alt} style={{ background: PALETA_DO_STORY[cor].fundo }}>
-              <div ref={caixaDaMidia} className="al-ed-midia" style={{ transform: transformacaoEmCss(transf), filter: filtroEmCss(filtro) }}>
+              <div ref={caixaDaMidia} className="al-ed-midia" style={{ transform: transformacaoEmCss(transf), filter: filtroCompleto(filtro, ajustes) }}>
                 {midia.tipo === "video" ? (
                   <video ref={videoDaPrevia} src={midia.url} muted={!som} playsInline autoPlay preload="auto" aria-label={alt || t.criar.midia.video} />
                 ) : (
@@ -827,13 +1073,22 @@ export function Criar({
                     aoMudar={(p) => moverFigurinha(f.tipo, p)}
                     aoTocar={() => setFrente(f.tipo)}
                   >
-                    <div className={f.tipo === "enquete" ? "al-fg-enquete-caixa" : undefined}>
+                    <div className={f.tipo === "enquete" || f.tipo === "teste" ? "al-fg-enquete-caixa" : undefined}>
                       {f.tipo === "contagem" ? (
-                        <ContagemEditar t={t.figurinha.contagem} atos={atos} ato={f.ato} agora={agora} aoEscolher={(a) => mudarFigurinha("contagem", { ato: a.id, titulo: a.titulo, inicio: a.inicio })} />
+                        <ContagemEditar
+                          t={t.figurinha.contagem}
+                          atos={atos}
+                          f={f}
+                          agora={agora}
+                          aoEscolher={(a) => mudarFigurinha("contagem", { ato: a.id, titulo: a.titulo, inicio: a.inicio, livre: false })}
+                          aoLivre={(l) => mudarFigurinha("contagem", l ? { ato: null, livre: true, titulo: l.titulo, inicio: l.inicio } : { ato: null, livre: false, titulo: "", inicio: "" })}
+                        />
                       ) : f.tipo === "pergunta" ? (
                         <PerguntaEditar texto={f.texto} t={t.figurinha.pergunta} aoMudar={(x) => mudarFigurinha("pergunta", { texto: x })} />
                       ) : f.tipo === "enquete" ? (
                         <EnqueteEditar pergunta={f.pergunta} opcoes={f.opcoes} t={t.figurinha.enquete} aoMudar={(p, o) => mudarFigurinha("enquete", { pergunta: p, opcoes: o })} />
+                      ) : f.tipo === "teste" ? (
+                        <TesteEditar pergunta={f.pergunta} opcoes={f.opcoes} certa={f.certa ?? 0} t={t.figurinha.teste} aoMudar={(p, o, c) => mudarFigurinha("teste", { pergunta: p, opcoes: o, certa: c })} />
                       ) : f.tipo === "comunidade" ? (
                         <ComunidadeEditar t={t.figurinha.comunidade} lista={comunidades} slug={f.slug} aoEscolher={(c) => mudarFigurinha("comunidade", { slug: c.slug, nome: c.nome })} />
                       ) : f.tipo === "vou" ? (
@@ -907,14 +1162,93 @@ export function Criar({
           ) : null}
         </div>
 
-        {/* ── O painel: mídia, figurinhas, quem vê, a regra, câmera/galeria e publicar ── */}
+        {/* ── O painel (P5, reorganizado): os quadros; as abas do que pôr no story (figurinhas, enfeites, foto e vídeo); embaixo,
+            sempre à vista, quem vê, a regra e as ações (câmera, galeria, colagem, rascunhos e publicar) ── */}
         <div className="al-st-painel">
-          {midia ? (
-            <section className="al-ed-painel-midia" aria-labelledby={`${id}-midia`}>
+          <section className="al-st-quadros" aria-labelledby={`${id}-quadros`}>
+            <div className="al-st-titulo-linha">
+              <h2 id={`${id}-quadros`} className="al-cond al-st-titulo-secao">
+                {t.p5.quadros.titulo}
+              </h2>
+              <span className="al-st-conta" aria-hidden>
+                {preencherStory(t.criar.contaDeFigurinhas, { n: sequencia.length, max: LIMITE_DE_QUADROS })}
+              </span>
+            </div>
+            <ol className="al-st-quadros-lista">
+              {sequencia.map((q, k) => {
+                const visto = k === atual ? capturar() : q;
+                const foto = visto.midia?.tipo === "imagem" ? visto.midia.url : visto.midia?.tipo === "video" ? (k === atual ? miniaturas[0] : null) : null;
+                return (
+                  <li key={k}>
+                    <button
+                      type="button"
+                      className="al-st-quadro-mini"
+                      aria-current={k === atual ? "true" : undefined}
+                      aria-label={k === atual ? preencherStory(t.p5.quadros.atual, { n: k + 1 }) : quadroTemConteudo(visto) ? preencherStory(t.p5.quadros.ir, { n: k + 1 }) : preencherStory(t.p5.quadros.vazio, { n: k + 1 })}
+                      disabled={estado !== "editando"}
+                      style={{ background: PALETA_DO_STORY[visto.cor].fundo }}
+                      onClick={() => irParaQuadro(k)}
+                    >
+                      {/* Endereço local do próprio aparelho (blob:), nada de rede. */}
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      {foto ? <img src={foto} alt="" draggable={false} /> : <span aria-hidden>{visto.texto.trim().slice(0, 2) || k + 1}</span>}
+                    </button>
+                  </li>
+                );
+              })}
+              <li>
+                <button type="button" className="al-st-quadro-mini al-st-quadro-novo" aria-label={t.p5.quadros.novo} title={t.p5.quadros.novo} disabled={estado !== "editando" || sequencia.length >= LIMITE_DE_QUADROS} onClick={novoQuadro}>
+                  <span aria-hidden>+</span>
+                </button>
+              </li>
+            </ol>
+            <p className="al-st-dica">
+              {t.p5.quadros.ajuda}
+              {sequencia.length > 1 ? (
+                <>
+                  {" "}
+                  <button type="button" className="al-st-link-botao" disabled={estado !== "editando"} onClick={tirarEsteQuadro}>
+                    {t.p5.quadros.tirar}
+                  </button>
+                </>
+              ) : null}
+            </p>
+          </section>
+
+          <div className="al-st-abas" role="tablist" aria-label={t.p5.abasRotulo}>
+            {(midia ? (["figurinhas", "enfeites", "midia"] as const) : (["figurinhas", "enfeites"] as const)).map((a, k, lista) => (
+              <button
+                key={a}
+                type="button"
+                role="tab"
+                id={`${id}-aba-${a}`}
+                aria-selected={abaVisivel === a}
+                aria-controls={`${id}-painel-${a}`}
+                tabIndex={abaVisivel === a ? 0 : -1}
+                className="al-st-aba"
+                onClick={() => setAba(a)}
+                onKeyDown={(e) => {
+                  const n = indiceDaSeta(e.key, k, lista.length);
+                  if (n === null) return;
+                  e.preventDefault();
+                  setAba(lista[n]);
+                  focarNoGrupo(e.currentTarget, "[role=tab]", n);
+                }}
+              >
+                {t.p5.abas[a]}
+                {a === "figurinhas" && figurinhas.length > 0 ? <span className="al-st-aba-n"> {figurinhas.length}</span> : null}
+                {a === "enfeites" && enfeites.length > 0 ? <span className="al-st-aba-n"> {enfeites.length}</span> : null}
+              </button>
+            ))}
+          </div>
+
+          {midia && abaVisivel === "midia" ? (
+            <section className="al-ed-painel-midia" role="tabpanel" id={`${id}-painel-midia`} aria-labelledby={`${id}-aba-midia`}>
               <h2 id={`${id}-midia`} className="al-cond al-st-titulo-secao">
                 {t.criar.midia.titulo}
               </h2>
               <Filtros t={t.criar.midia} filtro={filtro} amostra={amostra} aoEscolher={setFiltro} />
+              <Ajustes t={t.criar.midia.ajustes} ajustes={ajustes} aoMudar={setAjustes} />
               {midia.tipo === "video" ? (
                 <>
                   <Cortar t={t.criar.midia} total={midia.duracao} inicio={corte.inicio} fim={corte.fim} agulha={agulha} miniaturas={miniaturas} aoMudar={(i, f) => setCorte({ inicio: i, fim: f })} />
@@ -1006,54 +1340,62 @@ export function Criar({
             </section>
           ) : null}
 
-          <div className="al-st-titulo-linha">
-            <h2 ref={painelFigurinhas} tabIndex={-1} className="al-cond al-st-titulo-secao">
-              {t.criar.figurinhas}
-            </h2>
-            <span className="al-st-conta" data-cheio={cheio ? "sim" : "nao"} aria-hidden>
-              {preencherStory(t.criar.contaDeFigurinhas, { n: figurinhas.length, max: LIMITES_DO_STORY.figurinhas })}
-            </span>
-          </div>
-          <p id={`${id}-fig-cheio`} className="al-st-dica al-st-dica-figurinhas" aria-live="polite">
-            {cheio ? t.criar.limiteDeFigurinhas : figurinhas.length > 0 ? t.criar.figurinhaDica : ""}
-          </p>
-          <p id={`${id}-fig-dica`} className="sr-only">
-            {t.criar.figurinhaDica}
-          </p>
-          <ul className="al-st-tipos">
-            {TIPOS_DE_FIGURINHA.map((tipo) => {
-              const ligada = figurinhas.some((f) => f.tipo === tipo);
-              const desligado = cheio && !ligada;
-              return (
-                <li key={tipo}>
-                  <button
-                    type="button"
-                    className="al-st-tipo"
-                    aria-pressed={ligada}
-                    aria-disabled={desligado || undefined}
-                    aria-describedby={desligado ? `${id}-fig-cheio` : undefined}
-                    onClick={() => alternar(tipo)}
-                  >
-                    <span className="al-st-tipo-icone al-cond" aria-hidden style={{ color: ICONE_DO_TIPO[tipo].cor }}>
-                      {ICONE_DO_TIPO[tipo].texto}
-                    </span>
-                    <span className="al-st-tipo-nome">{t.criar.tipo[tipo]}</span>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+          {abaVisivel === "figurinhas" ? (
+            <div role="tabpanel" id={`${id}-painel-figurinhas`} aria-labelledby={`${id}-aba-figurinhas`} className="al-st-painel-aba">
+            <div className="al-st-titulo-linha">
+              <h2 ref={painelFigurinhas} tabIndex={-1} className="al-cond al-st-titulo-secao">
+                {t.criar.figurinhas}
+              </h2>
+              <span className="al-st-conta" data-cheio={cheio ? "sim" : "nao"} aria-hidden>
+                {preencherStory(t.criar.contaDeFigurinhas, { n: figurinhas.length, max: LIMITES_DO_STORY.figurinhas })}
+              </span>
+            </div>
+            <p id={`${id}-fig-cheio`} className="al-st-dica al-st-dica-figurinhas" aria-live="polite">
+              {cheio ? t.criar.limiteDeFigurinhas : figurinhas.length > 0 ? t.criar.figurinhaDica : ""}
+            </p>
+            <p id={`${id}-fig-dica`} className="sr-only">
+              {t.criar.figurinhaDica}
+            </p>
+            <ul className="al-st-tipos">
+              {TIPOS_DE_FIGURINHA.map((tipo) => {
+                const ligada = figurinhas.some((f) => f.tipo === tipo);
+                const desligado = cheio && !ligada;
+                return (
+                  <li key={tipo}>
+                    <button
+                      type="button"
+                      className="al-st-tipo"
+                      aria-pressed={ligada}
+                      aria-disabled={desligado || undefined}
+                      aria-describedby={desligado ? `${id}-fig-cheio` : undefined}
+                      onClick={() => alternar(tipo)}
+                    >
+                      <span className="al-st-tipo-icone al-cond" aria-hidden style={{ color: ICONE_DO_TIPO[tipo].cor }}>
+                        {ICONE_DO_TIPO[tipo].texto}
+                      </span>
+                      <span className="al-st-tipo-nome">{t.criar.tipo[tipo]}</span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+            </div>
+          ) : null}
 
-          <div className="al-st-titulo-linha">
-            <h2 className="al-cond al-st-titulo-secao">{t.b1.decorativas.titulo}</h2>
-            <span className="al-st-conta" data-cheio={enfeites.length >= LIMITES_DO_STORY.decorativas ? "sim" : "nao"} aria-hidden>
-              {preencherStory(t.criar.contaDeFigurinhas, { n: enfeites.length, max: LIMITES_DO_STORY.decorativas })}
-            </span>
-          </div>
-          <p className="al-st-dica" aria-live="polite">
-            {enfeites.length >= LIMITES_DO_STORY.decorativas ? t.b1.decorativas.limite : t.b1.decorativas.ajuda}
-          </p>
-          <SeletorDeDecorativas t={t.b1.decorativas} usadas={enfeites.length} limite={LIMITES_DO_STORY.decorativas} aoEscolher={porEnfeite} />
+          {abaVisivel === "enfeites" ? (
+            <div role="tabpanel" id={`${id}-painel-enfeites`} aria-labelledby={`${id}-aba-enfeites`} className="al-st-painel-aba">
+            <div className="al-st-titulo-linha">
+              <h2 className="al-cond al-st-titulo-secao">{t.b1.decorativas.titulo}</h2>
+              <span className="al-st-conta" data-cheio={enfeites.length >= LIMITES_DO_STORY.decorativas ? "sim" : "nao"} aria-hidden>
+                {preencherStory(t.criar.contaDeFigurinhas, { n: enfeites.length, max: LIMITES_DO_STORY.decorativas })}
+              </span>
+            </div>
+            <p className="al-st-dica" aria-live="polite">
+              {enfeites.length >= LIMITES_DO_STORY.decorativas ? t.b1.decorativas.limite : t.b1.decorativas.ajuda}
+            </p>
+            <SeletorDeDecorativas t={t.b1.decorativas} usadas={enfeites.length} limite={LIMITES_DO_STORY.decorativas} aoEscolher={porEnfeite} />
+            </div>
+          ) : null}
 
           <fieldset className="al-st-quem" role="radiogroup" aria-describedby={`${id}-regra`}>
             <legend className="al-cond al-st-titulo-secao">{t.criar.quemVe}</legend>
@@ -1110,6 +1452,18 @@ export function Criar({
           </p>
           {postRef ? <p className="al-st-dica">{cartao?.tipo === "ato" ? `${t.b1.post.vaiJunto} ${t.b1.post.soCidade}` : t.b1.post.vaiJunto}</p> : null}
 
+          <div className="al-st-acoes-mais">
+            <button type="button" className="al-botao al-botao-fantasma al-botao-p" disabled={estado !== "editando"} onClick={() => setColagem(true)}>
+              {t.p5.colagem.botao}
+            </button>
+            <button type="button" className="al-botao al-botao-fantasma al-botao-p" disabled={estado !== "editando" || !mexeu} onClick={() => void guardarComoRascunho()}>
+              {t.p5.rascunhos.guardar}
+            </button>
+            <button type="button" className="al-botao al-botao-fantasma al-botao-p" disabled={estado !== "editando"} onClick={() => setRascunhosAbertos(true)}>
+              {t.p5.rascunhos.botao}
+            </button>
+          </div>
+
           <div className="al-st-acoes al-ed-acoes">
             {/* O erro e o "publicado" ficam na barra das ações (fixa no celular), à vista de quem tocou em Publicar. */}
             {erro ? (
@@ -1120,6 +1474,11 @@ export function Criar({
             {estado === "publicado" ? (
               <p className="al-st-feito" role="status">
                 {t.criar.publicado}
+              </p>
+            ) : null}
+            {aviso && !erro ? (
+              <p className="al-st-feito" role="status">
+                {aviso}
               </p>
             ) : null}
             <input
@@ -1154,6 +1513,7 @@ export function Criar({
             <circle cx="60" cy="60" r="52" className="al-ed-progresso-cheio" style={{ strokeDasharray: R, strokeDashoffset: R * (1 - progresso.pct / 100) }} />
           </svg>
           <p id={`${id}-prog`} className="al-ed-progresso-texto">
+            {progresso.n && progresso.n > 1 ? <span className="al-st-quadro-de">{preencherStory(t.p5.quadros.progresso, { k: progresso.k ?? 1, n: progresso.n })} · </span> : null}
             {progresso.fase === "preparando"
               ? preencherStory(t.criar.progresso.preparando, { pct: progresso.pct })
               : progresso.fase === "foto"
@@ -1201,7 +1561,7 @@ export function Criar({
               // A original fica guardada só aqui (para refazer o borrado); o que sai do aparelho é a borrada.
               const nova = await aplicarBorrado(b.base, areas);
               setFotoOriginal({ blob: b.base, areas });
-              setMidia({ tipo: "imagem", blob: nova, url: URL.createObjectURL(nova) });
+              setMidia({ tipo: "imagem", blob: nova, url: urlLocal(nova) });
             } catch {
               setErro(t.b1.borrar.erro);
             }
@@ -1219,12 +1579,48 @@ export function Criar({
             // Recortou: o borrado anterior já está queimado na foto recortada (a original não volta).
             setFotoOriginal(null);
             setTransf(SEM_TRANSFORMACAO);
-            setMidia({ tipo: "imagem", blob: b, url: URL.createObjectURL(b) });
+            setMidia({ tipo: "imagem", blob: b, url: urlLocal(b) });
           }}
         />
       ) : null}
 
       {rodaAberta ? <RodaDeConfianca t={t.b1.roda} lang={lang} cliente={cliente} aoFechar={() => setRodaAberta(false)} /> : null}
+
+      {colagem ? (
+        <Colagem
+          t={t.p5.colagem}
+          aoCancelar={() => setColagem(false)}
+          aoUsar={(b) => {
+            setColagem(false);
+            limparMidia();
+            setMidia({ tipo: "imagem", blob: b, url: urlLocal(b) });
+            setAba("midia");
+          }}
+        />
+      ) : null}
+
+      {rascunhosAbertos ? (
+        <Rascunhos
+          t={t.p5.rascunhos}
+          lang={lang}
+          aoFechar={() => setRascunhosAbertos(false)}
+          aoAbrir={(r) => (mexeu ? setAbrirRascunho(r) : carregarRascunho(r))}
+        />
+      ) : null}
+
+      {abrirRascunho ? (
+        <div className="al-st-caixa" role="alertdialog" aria-labelledby={`${id}-abrir-rascunho`} style={{ position: "fixed", zIndex: 95 }}>
+          <h2 id={`${id}-abrir-rascunho`}>{t.p5.rascunhos.substituir}</h2>
+          <div className="al-st-caixa-acoes">
+            <button type="button" className="al-botao al-botao-fantasma al-botao-m" onClick={() => setAbrirRascunho(null)}>
+              {t.criar.descartarNao}
+            </button>
+            <button type="button" className="al-botao al-botao-primario al-botao-m" onClick={() => carregarRascunho(abrirRascunho)}>
+              {t.p5.rascunhos.substituirSim}
+            </button>
+          </div>
+        </div>
+      ) : null}
 
       {confirmarSaida ? (
         <div className="al-st-caixa" role="alertdialog" aria-labelledby={`${id}-sair`} style={{ position: "fixed", zIndex: 90 }}>

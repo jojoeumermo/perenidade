@@ -61,6 +61,10 @@ export interface PropsDoMapa {
   destaque?: TipoDeNo | null;
   /** Qualidade baixa (aparelho lento): o mapa desliga o calor e a animação das ramificações. */
   qualidadeBaixa?: boolean;
+  /** Filtro por país da página (código de 2 letras; null = o mundo): o mapa vai ao país escolhido. */
+  pais?: string | null;
+  /** Idioma da página, para o nome dos países (Intl.DisplayNames do próprio navegador). */
+  idioma?: string;
   /** Textos próprios do mapa (chave "mapa" do i18n do Vale). Sem eles, o mapa fala português. */
   textosMapa?: Partial<Record<string, string>>;
   /** Textos já no idioma (os mesmos de i18n/vale-o-escrito/<idioma>.json). */
@@ -192,6 +196,8 @@ export function lugarDoNo(e: Entrada): { id: string; rotulo: string } | null {
   const l = e.lugar;
   if (l.municipioIbge) return { id: `${l.pais}-${l.municipioIbge}`, rotulo: l.nome ?? `${l.regiao ?? ""} ${l.municipioIbge}`.trim() };
   if (l.regiao) return { id: `${l.pais}-${l.regiao}`, rotulo: l.nome ?? l.regiao };
+  // Prompt 5, C1: fora do Brasil, o caso sem região liga-se ao próprio país (a teia do poder no mundo).
+  if (l.pais && l.pais !== "BR") return { id: l.pais, rotulo: l.nome ?? l.pais };
   return null;
 }
 

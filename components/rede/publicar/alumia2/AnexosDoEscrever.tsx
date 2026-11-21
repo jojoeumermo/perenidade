@@ -7,7 +7,9 @@ import { preencher } from "@/lib/rede/preencher";
 import { redePub } from "@/lib/rede/cliente-publicar";
 import { chaveDoAviso, LIMITE_DO_AVISO, SUGESTOES_DE_AVISO, VEZES_DA_REPETICAO } from "@/lib/rede/publicar/b1";
 import { LIMITES_PUBLICAR, type MeuAto } from "@/lib/rede/tipos-publicar";
-import { ARRANJOS, LIMITE_DA_LEGENDA, LIMITE_DE_IMAGENS } from "@/lib/rede/publicar/compositor";
+import { ARRANJOS, LIMITE_DA_LEGENDA } from "@/lib/rede/publicar/compositor";
+import { limiteDeImagens } from "@/lib/rede/publicar/p4-compositor";
+import { ligado } from "@/lib/recursos";
 import { FigurinhaDaCasa, SeletorDeFigurinhas } from "../../figurinhas/PacoteDaCasa";
 import { BorrarRostos } from "../BorrarRostos";
 import { Agendados, Gravador, type PubDoEscrever } from "../ExtrasDoEscrever";
@@ -42,6 +44,7 @@ export function AnexosDoEscrever({
   fio,
   pedirAgenda,
   ctx,
+  semMidia,
 }: {
   pub: PubDoEscrever;
   t: TextosAlumia2;
@@ -60,7 +63,10 @@ export function AnexosDoEscrever({
   pedirAgenda?: number;
   /** Onda 12 (12B): o contexto dos encaixes, para as peças do vídeo curto (só com "alumia-video-post"). */
   ctx?: ContextoDoEncaixe;
+  /** Item 136: no post cifrado, sem imagem, áudio nem vídeo (iriam abertos); a frase que diz isso no lugar dos botões. */
+  semMidia?: string;
 }) {
+  const comMidia = semMidia === undefined;
   const tp = pub.t;
   const tc = useTextosDoCompositor(lang);
   const [pacote, setPacote] = useState(false);
@@ -125,7 +131,8 @@ export function AnexosDoEscrever({
   }, [comAudio, agenda, pub.enquete]);
   if (!tp) return null;
   const noBorrado = pub.imagens.find((i) => i.id === borrando);
-  const cabeImagem = pub.imagens.length < LIMITE_DE_IMAGENS && !pub.audio && !gravador;
+  const tetoDeImagens = limiteDeImagens(ligado("alumia-p4-compositor"));
+  const cabeImagem = pub.imagens.length < tetoDeImagens && !pub.audio && !gravador;
   const cabeAudio = !pub.imagens.length;
   const { minimo, maximo: maxAgenda } = pub.limitesDaAgenda;
   const textoDoAchado = (tipo: string) => (tp.checagem as Record<string, string>)[tipo];
@@ -533,6 +540,12 @@ export function AnexosDoEscrever({
       {/* Onda 12 (12B): o vídeo curto que está sendo posto, como os outros cartões de anexo (só no post de primeiro nível). */}
       {compositorDaMidia && ctx && !resposta && <compositorDaMidia.Cartao {...ctx} />}
 
+      {!comMidia && semMidia && (
+        <p className="px-1 py-1 text-[13px] leading-snug text-[var(--al-texto-2)]" data-sem-midia>
+          {semMidia}
+        </p>
+      )}
+
       {/* A fileira de ícones + o contador em anel: numa linha só, que rola na horizontal quando não cabe (FaixaDeFerramentas). */}
       <FaixaDeFerramentas
         rotulo={t.escrever.anexos}
@@ -549,18 +562,22 @@ export function AnexosDoEscrever({
           aria-hidden
           onChange={(e) => {
             const arquivos = e.target.files;
-            if (arquivos?.length) void pub.adicionarImagem(arquivos).then((erro) => setErroImagem(erro ? ((tp.imagens as Record<string, string>)[erro] ?? tp.imagens.invalida) : ""));
+            if (arquivos?.length) void pub.adicionarImagem(arquivos).then((erro) => setErroImagem(erro ? preencher((tp.imagens as Record<string, string>)[erro] ?? tp.imagens.invalida, { n: tetoDeImagens }) : ""));
             e.target.value = "";
           }}
         />
-        <button type="button" className="al2-ferramenta" onClick={() => entrada.current?.click()} disabled={!cabeImagem} aria-label={tp.imagens.adicionar} title={`${tp.imagens.adicionar} · ${tp.imagens.limpa}`}>
-          <Icone nome="imagem" className="h-[22px] w-[22px]" />
-          {pub.imagens.length > 0 && <span className="al2-ferramenta-n">{pub.imagens.length}</span>}
-        </button>
-        <button ref={iconeAudio} type="button" className="al2-ferramenta" onClick={() => setGravador(true)} disabled={!cabeAudio || gravador || Boolean(pub.audio)} aria-pressed={gravador || Boolean(pub.audio)} aria-label={t.escrever.gravarAudio} title={t.escrever.gravarAudio}>
-          <Icone nome="microfone" className="h-[22px] w-[22px]" />
-        </button>
-        {compositorDaMidia && ctx && (
+        {comMidia && (
+          <button type="button" className="al2-ferramenta" onClick={() => entrada.current?.click()} disabled={!cabeImagem} aria-label={tp.imagens.adicionar} title={`${tp.imagens.adicionar} · ${tp.imagens.limpa}`}>
+            <Icone nome="imagem" className="h-[22px] w-[22px]" />
+            {pub.imagens.length > 0 && <span className="al2-ferramenta-n">{pub.imagens.length}</span>}
+          </button>
+        )}
+        {comMidia && (
+          <button ref={iconeAudio} type="button" className="al2-ferramenta" onClick={() => setGravador(true)} disabled={!cabeAudio || gravador || Boolean(pub.audio)} aria-pressed={gravador || Boolean(pub.audio)} aria-label={t.escrever.gravarAudio} title={t.escrever.gravarAudio}>
+            <Icone nome="microfone" className="h-[22px] w-[22px]" />
+          </button>
+        )}
+        {comMidia && compositorDaMidia && ctx && (
           <compositorDaMidia.Ferramenta {...ctx} compositor={{ resposta, imagens: pub.imagens.length, audio: Boolean(pub.audio) || gravador }} />
         )}
         {aoEnquete && (

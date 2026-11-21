@@ -92,6 +92,10 @@
   "explorar": {
     "titulo": "探索",
     "lead": "发现社区、主题线和当下的对话。一切都有成文的规则，没有隐藏的算法。",
+    "noticiaDoDia": "今日新闻",
+    "noticiaAjuda": "研究所新闻汇总中最新的标题。全文仍在撰写它的媒体那里。",
+    "lerNaFonte": "在 {veiculo} 阅读",
+    "vazios": "这里暂时还是空的",
     "mudarEscolhas": "更改我的 3 项斗争和 3 条路径",
     "comunidades": "社区",
     "categorias": { "lutas": "斗争", "disciplinas": "学科", "instituto": "研究所" },

@@ -17,6 +17,7 @@ import { Barra } from "./Barra";
 import { ComecoEmTresPassos } from "./ComecoEmTresPassos";
 import { useGuardado } from "./guardado";
 import { useIndice } from "./indice";
+import { confirmar } from "@/components/perguntar";
 
 type S = TextosDoEstudo["meuEstudo"];
 
@@ -79,8 +80,8 @@ export function MeuEstudo({ s, caderno, praticar, extras }: { s: S; caderno: Not
     porArea.set(area, grupo);
   }
 
-  function apagar() {
-    if (!window.confirm(s.apagarConfirma)) return;
+  async function apagar() {
+    if (!(await confirmar(s.apagarConfirma))) return;
     const n = apagarProgresso();
     notifyStored();
     setAviso(fill(s.apagado, { n }));

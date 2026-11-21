@@ -19,6 +19,7 @@ import { Botao } from "../../ui/Botao";
 import { Lampiao } from "../../ui/Lampiao";
 import { useAgora, useLerDeNovo } from "./usar";
 import "./b1.css";
+import { confirmar } from "@/components/perguntar";
 
 /** As atas da organização (aba Plenárias): a aberta, ao vivo, e as fechadas; a mesa abre uma nova. */
 export function AtasDaOrganizacao({ handle, lang, plenarias = [] }: { handle: string; lang: string; plenarias?: { id: string; titulo: string }[] }) {
@@ -224,7 +225,7 @@ function AtaAoVivo({ inicial, t, lang, aoVoltar }: { inicial: AtaViva; t: Textos
   const mesa = (p: AcaoDaMesa) => fazer(() => cli.mesa(a.id, p));
 
   async function fechar() {
-    if (!window.confirm(ta.fecharConfirma)) return;
+    if (!(await confirmar(ta.fecharConfirma))) return;
     setOcupado(true);
     setErro("");
     try {

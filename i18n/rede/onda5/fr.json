@@ -23,6 +23,19 @@
     "questoes": { "titulo": "Questions", "descricao": "Des questions par matière et par thème, avec la bonne réponse et l’explication seulement après votre réponse. Vos résultats restent sur votre appareil." },
     "redacao": { "titulo": "Rédaction entre pairs", "descricao": "Le cercle de correction de la semaine : vous corrigez une rédaction sans savoir qui l’a écrite et recevez deux lectures, selon les cinq compétences de l’ENEM." },
     "pontes": { "titulo": "Passerelles", "descricao": "Les robots de l’organisation, étiquetés et avec une clé, et le canal Telegram." },
-    "trabalhadores": { "titulo": "Mur du travail", "descricao": "Appels à la lutte, à la grève et à la solidarité des organisations vérifiées, par type et par ville." }
+    "trabalhadores": { "titulo": "Mur du travail", "descricao": "Appels à la lutte, à la grève et à la solidarité des organisations vérifiées, par type et par ville." },
+    "avisos-de-local": { "titulo": "Alertes de lieu", "descricao": "Alertes de rue à la manière de Waze, sans auteur, dans un carré d’environ 200 m, qui disparaissent en 2 heures." },
+    "seguranca-pessoal": { "titulo": "Sécurité personnelle", "descricao": "Signalement d'abus, permanence juridique et interrupteur de disparition, chiffrés sur votre appareil." },
+    "criacao-coletiva": { "titulo": "Création collective", "descricao": "Brouillon collectif de note ou de manifeste, annotations en marge des archives, affiche et fanzine faits sur votre appareil." },
+    "cultura": { "titulo": "Culture", "descricao": "Œuvre en feuilleton avec alerte de nouveau chapitre, mur d’art sous pseudonyme, ciné-club, club de lecture et playlist collective de la communauté." },
+    "memoria-da-luta": { "titulo": "Mémoire de la lutte", "descricao": "Les victoires, les campagnes, l’archive vivante et les podcasts de vos communautés." },
+    "desafio": { "titulo": "Défi du jour", "descricao": "Cinq questions du glossaire, les mêmes pour tout le monde aujourd’hui. Le score reste sur votre appareil." },
+    "organizar": { "titulo": "S’organiser", "descricao": "Le tableau, les réunions et les décisions de l’organisation ; le mur, la banque de temps et les points d’appui de la communauté." },
+    "acao-coletiva": { "titulo": "Action collective", "descricao": "Pression, suivi des projets de loi, documents, lettres, questionnaires, manifestations, hébergement, adhésion, roulements et organisations." },
+    "perto": { "titulo": "Près", "descricao": "Position partagée seulement chiffrée avec votre cercle de confiance, demande d’aide et retour à la maison." },
+    "descobrir": { "titulo": "Découvrir", "descricao": "Sujets en mouvement, fils que d’autres personnes suivent, #sujets du Fédivers venant de serveurs approuvés et adresses RSS et Atom." },
+    "estudar": { "titulo": "Étudier", "descricao": "Rythme et paquets de révision seulement sur votre appareil, examen blanc de la classe, mentorat, sources, sécurité numérique, inscriptions, appels et glossaire." },
+    "conta": { "titulo": "Compte et vivre-ensemble", "descricao": "Niveaux de protection, mentions, horaires de disponibilité, soin de vos communautés, journal et mode voyage." },
+    "fio-texto": { "titulo": "Fil comme texte", "descricao": "Le fil d’une autrice comme texte suivi, seulement avec ce que vous pouvez déjà voir." }
   }
 }

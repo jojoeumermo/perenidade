@@ -68,7 +68,7 @@ function CartaoDaObra({ id }: { id: string }) {
     <a href={localePath(lang, `/acervo/${obra.id}`)} className="group my-6 flex gap-4 border-2 border-ink bg-parchment-deep p-3 font-sans no-underline hover:border-oxblood">
       {!semCapa && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={`/capas/${obra.id}.webp`} alt="" onError={() => setSemCapa(true)} className="h-28 w-20 shrink-0 border border-ink/40 object-cover" />
+        <img src={`/capas/${obra.id}.webp`} alt="" loading="lazy" decoding="async" onError={() => setSemCapa(true)} className="h-28 w-20 shrink-0 border border-ink/40 object-cover" />
       )}
       <span className="min-w-0">
         <span className="block font-mono text-[0.65rem] uppercase tracking-widest text-oxblood">Do acervo · {obra.area}</span>

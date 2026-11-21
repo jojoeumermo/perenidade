@@ -132,6 +132,14 @@ await recusa("visitante não lê a aba Tudo", () => rpc(visitante(), "rede_desc_
 await recusa("linha que não existe", () => rpc(como(pessoas.membro), "rede_desc_linha", { p_aba: "tudo", p_filtros: { linha: "nao-existe" } }), "nao_encontrado");
 await recusa("categoria inventada", () => rpc(como(pessoas.membro), "rede_desc_linha", { p_aba: "tudo", p_filtros: { categoria: "outra" } }), "invalido:categoria");
 await recusa("tipo inventado", () => rpc(como(pessoas.membro), "rede_desc_linha", { p_aba: "tudo", p_filtros: { tipo: "xx" } }), "invalido:tipo");
+// Prompt 5, A11: a página da comunidade ordena os posts com a aba "c:<slug>" (Novos, Mais úteis, Sem resposta, Em debate). Cada
+// ordem respeita quem pode ver: a comunidade fechada só para quem é dela, e o visitante só o que é da internet.
+for (const ordem of ["novos", "uteis", "sem_resposta", "em_debate"]) {
+  await espera(`comunidade por ordem (${ordem}): quem é da fechada vê o post dela`, async () => ids(await rpc(como(pessoas.comunidade), "rede_desc_linha", { p_aba: "c:greve-fechada", p_ordem: ordem })), (r) => r.length === 1 && r[0] === pFechado);
+  await espera(`comunidade por ordem (${ordem}): quem não é da fechada não vê nada dela`, async () => ids(await rpc(como(pessoas.membro), "rede_desc_linha", { p_aba: "c:greve-fechada", p_ordem: ordem })), (r) => r.length === 0);
+  await espera(`comunidade por ordem (${ordem}): o visitante não vê o post fechado nem o de membros`, async () => [...ids(await rpc(visitante(), "rede_desc_linha", { p_aba: "c:greve-fechada", p_ordem: ordem })), ...ids(await rpc(visitante(), "rede_desc_linha", { p_aba: "c:moradia", p_ordem: ordem }))], (r) => r.length === 0);
+  await espera(`comunidade por ordem (${ordem}): a aberta mostra o post dela a quem tem conta`, async () => ids(await rpc(como(pessoas.membro), "rede_desc_linha", { p_aba: "c:moradia", p_ordem: ordem })), (r) => r.length === 1 && r[0] === pGreve);
+}
 await recusa("ordem inventada", () => rpc(como(pessoas.membro), "rede_desc_linha", { p_aba: "tudo", p_ordem: "popular" }), "invalido:ordem");
 await recusa("'relevancia' só existe na busca", () => rpc(como(pessoas.membro), "rede_desc_linha", { p_aba: "tudo", p_ordem: "relevancia" }), "invalido:ordem");
 await recusa("cursor estragado", () => rpc(como(pessoas.membro), "rede_desc_linha", { p_aba: "tudo", p_cursor: "lixo" }), "invalido:cursor");

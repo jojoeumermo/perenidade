@@ -2,21 +2,25 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import Link from "@/components/Link";
 import { localePath } from "@/i18n/config";
 import { rede } from "@/lib/rede/cliente";
 import { comunidades } from "@/lib/rede/cliente-comunidades";
+import { redeDescoberta } from "@/lib/rede/cliente-descoberta";
 import { paginaDeExemplo, postsDeExemplo } from "@/lib/rede/conversa/exemplos";
 import { preencher } from "@/lib/rede/preencher";
 import { comReserva } from "@/lib/rede/reserva";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDaAlumia3 } from "@/lib/rede/textos-conversa";
 import type { TextosDeComunidades } from "@/lib/rede/textos-comunidades";
-import { enderecos, type Comunidade, type Post, type Situacao } from "@/lib/rede/tipos";
+import { enderecos, type Comunidade, type Situacao } from "@/lib/rede/tipos";
+import { ORDENS, type Ordem, type PaginaOrdenada } from "@/lib/rede/tipos-descoberta";
 import { corDaComunidadeNova, enderecosCom, postsDaSemana, type PaginaDaComunidade, type SituacaoNaComunidade } from "@/lib/rede/tipos-comunidades";
 import { totalVisivel } from "@/lib/rede/tipos-conversa";
 import { CaixaDePerguntas } from "../b1/CaixaDePerguntas";
+import { ListaOrdenada } from "../descoberta/ListaOrdenada";
+import { useTextosDescoberta } from "../descoberta/textos";
 import { useTextosB1 } from "../b1/base";
 import { ENCAIXES } from "../encaixes";
 import { codigoDoErro, textoDoErro } from "../erros";
@@ -25,10 +29,14 @@ import { useTextosMod } from "../moderacao/base";
 import { FormularioDeDenuncia } from "../moderacao/FormularioDeDenuncia";
 import { StoriesDaComunidade } from "../stories/encaixe";
 import { WikiDaComunidade } from "./WikiDaComunidade";
+import { publicarSobreAoLado } from "./SobreAoLado";
 import { FORMA_DO_GRUPO } from "../publicar/restrito/grupo";
 import { AparelhoProntoParaOGrupo } from "../publicar/restrito/NaTela";
-import { CartaoDeAula, Confirmar, FaixaDaPrevia, IconeAlfinete, IconeMais, IconeVoltar, PostCompacto, previa, Torradas, useTextosAlumia3, useTorrada } from "../conversa/base3";
+import { CartaoDeAula, Confirmar, FaixaDaPrevia, IconeAlfinete, IconeMais, IconeVoltar, previa, Torradas, useTextosAlumia3, useTorrada } from "../conversa/base3";
 import { MOLA_PULO, pular, semMovimento, useRegua } from "../conversa/movimento";
+import { useModmailLigado } from "../uso/ligado";
+import { PorQueSemNumero } from "../uso/PorQueSemNumero";
+import { useTextosDoUso } from "../uso/textos";
 
 // As ferramentas da moderação só chegam ao navegador de quem modera (e só quando abre a aba Sobre).
 const Moderar = dynamic(() => import("./Moderar"), { ssr: false });
@@ -38,9 +46,23 @@ const SalaDoGrupo = dynamic(() => import("../voz/SalaDoGrupo").then((m) => m.Sal
 // restrita que pergunta (só chegam quando a comunidade pede).
 const RegrasDoLugar = dynamic(() => import("../moderacao/RegrasDoLugar"), { ssr: false });
 const PerguntasParaEntrar = dynamic(() => import("../moderacao/PerguntasParaEntrar").then((m) => m.PerguntasParaEntrar), { ssr: false });
+// R1: "Falar com a moderação" de verdade (o canal direto com a mediação) e a caixa da mediação, atrás do interruptor
+// "alumia-falar-moderacao" do painel único. Só chegam ao navegador quando a pessoa abre o canal ou quando quem modera abre o Sobre.
+const FalarComAModeracao = dynamic(() => import("../uso/FalarComAModeracao").then((m) => m.FalarComAModeracao), { ssr: false });
+const CaixaDaMediacao = dynamic(() => import("../uso/FalarComAModeracao").then((m) => m.CaixaDaMediacao), { ssr: false });
+// R1: a busca nos posts cifrados da comunidade fechada, feita no aparelho (só baixa quando a pessoa abre).
+const BuscaNoAparelho = dynamic(() => import("../uso/BuscaNoAparelho").then((m) => m.BuscaNoAparelho), { ssr: false });
 
 // As abas da onda 10 (Fórum, Decisões, Acervo, Chegada, Estrutura) chegam só pelo encaixe abasDaComunidade, na ordem dele.
 type AbaDaComunidade = "posts" | "atos" | "aulas" | "wiki" | "perguntas" | "sobre" | "forum" | "decisoes" | "acervo" | "chegada" | "estrutura";
+
+/** A ordem das abas: conversar (Posts, Fórum, Perguntas), decidir e agir (Decisões, Atos, Estrutura), estudar (Aulas, Wiki,
+ * Acervo) e, no fim, Chegada e Sobre. */
+const ORDEM_DAS_ABAS: AbaDaComunidade[] = ["posts", "forum", "perguntas", "decisoes", "atos", "estrutura", "aulas", "wiki", "acervo", "chegada", "sobre"];
+function posicaoDaAba(a: AbaDaComunidade): number {
+  const i = ORDEM_DAS_ABAS.indexOf(a);
+  return i < 0 ? ORDEM_DAS_ABAS.indexOf("chegada") - 0.5 : i;
+}
 
 /**
  * A página da comunidade na Alumia nova (prancha celular-comunidade; PLANO-ALUMIA §3 e §8 F3): capa na cor da comunidade com
@@ -157,6 +179,21 @@ export function PaginaDaComunidadeAlumia({
   useEffect(() => {
     if (comunidade) aoCarregar(comunidade);
   }, [comunidade, aoCarregar]);
+  // "Sobre a comunidade" com as regras na coluna da direita (A11), com o que a página já carregou; some ao sair da página.
+  useEffect(() => {
+    if (!comunidade || !t) return;
+    publicarSobreAoLado({
+      comunidade,
+      comoEntra: comunidade.tipo === "aberta" ? sc.tipo.aberta : comunidade.tipo === "restrita" ? sc.tipo.restrita : sc.tipo.fechada,
+      rotulos: { regras: t.comunidade.regrasTitulo, comoEntra: t.comunidade.tipo, verTudo: t.comunidade.verRegras },
+      verTudo: () => {
+        setAba("sobre");
+        setMenu(false);
+        requestAnimationFrame(() => regrasRef.current?.focus());
+      },
+    });
+    return () => publicarSobreAoLado(null);
+  }, [comunidade, t, sc, setAba]);
 
   const aoErro = useCallback((e: unknown) => avisar({ texto: textoDoErro(s, e), erro: true }), [s, avisar]);
 
@@ -253,6 +290,8 @@ export function PaginaDaComunidadeAlumia({
     : t.comunidade.fechadaSo;
   // Todos os rótulos que este botão pode ter, para reservar a largura do maior.
   const rotulos = [...new Set([comunidade.tipo === "aberta" ? t.comunidade.entrar : comunidade.tipo === "restrita" ? t.comunidade.pedir : t.comunidade.fechadaSo, t.comunidade.participa, ...(comunidade.tipo === "aberta" ? [] : [t.comunidade.pendente]), rotuloEntrar])];
+  // Prompt 5, A11: todas as abas continuam; só a ordem junta o que é parecido (conversar, decidir e agir, estudar, chegar e
+  // saber da comunidade). Aba encaixada que não está na lista entra antes de Chegada e Sobre.
   const abas: [AbaDaComunidade, string][] = [
     ["posts", t.comunidade.posts],
     ...(abasEncaixadas.map((a) => [a.chave, a.rotulo({ lang, s, situacao })]) as [AbaDaComunidade, string][]),
@@ -260,7 +299,7 @@ export function PaginaDaComunidadeAlumia({
     ["aulas", t.comunidade.aulas],
     ...(tb ? ([["wiki", tb.wiki.aba], ["perguntas", tb.perguntas.aba]] as [AbaDaComunidade, string][]) : []),
     ["sobre", t.comunidade.sobre],
-  ];
+  ].sort(([a], [b]) => posicaoDaAba(a as AbaDaComunidade) - posicaoDaAba(b as AbaDaComunidade)) as [AbaDaComunidade, string][];
 
   return (
     <div className="al3 al3-comunidade">
@@ -428,6 +467,7 @@ export function PaginaDaComunidadeAlumia({
                 <>
                   <AparelhoProntoParaOGrupo previa={previa()} />
                   <SalaDoGrupo lang={lang} grupo={grupoFechado} previa={previa()} />
+                  <BuscaDoGrupo lang={lang} slug={comunidade.slug} />
                 </>
               )}
               {dado.fixados.map((p) => (
@@ -442,7 +482,7 @@ export function PaginaDaComunidadeAlumia({
                   {p.titulo && <p className="al3-fixado-texto">{p.texto}</p>}
                 </section>
               ))}
-              <PostsDaComunidade key={`${slug}:${versao}`} slug={slug} lang={lang} t={t} logado={situacao.logado} aoErro={aoErro} s={s} />
+              <PostsDaComunidade key={`${slug}:${versao}`} slug={slug} lang={lang} t={t} logado={situacao.logado} s={s} />
             </>
           )}
         </div>
@@ -529,6 +569,7 @@ export function PaginaDaComunidadeAlumia({
                 <h2 className="al3-cond">{t.comunidade.moderacao}</h2>
                 <MuralDaModeracao comunidade={comunidade} lang={lang} s={s} t={t} logado={situacao.logado && situacao.membro} />
               </section>
+              {dado.modero && <CaixaSeLigada lang={lang} slug={comunidade.slug} />}
               {dado.modero && !previa() && (
                 <section className="al3-secao al3-tela" aria-label={t.comunidade.cuidar}>
                   <h2 className="al3-cond">{t.comunidade.cuidar}</h2>
@@ -543,62 +584,29 @@ export function PaginaDaComunidadeAlumia({
   );
 }
 
-/** Os posts da comunidade (a linha "c:<slug>", em ordem de chegada), compactos como na prancha, com "Carregar mais". */
-function PostsDaComunidade({ slug, lang, t, s, logado, aoErro }: { slug: string; lang: string; t: TextosDaAlumia3; s: TextosDaRede; logado: boolean; aoErro: (e: unknown) => void }) {
-  const [posts, setPosts] = useState<Post[] | null>(null);
-  const [cursor, setCursor] = useState<string | null>(null);
-  const [erro, setErro] = useState("");
-  const [buscando, setBuscando] = useState(false);
-
-  const buscar = useCallback(
-    async (depois: string | null) => {
-      setBuscando(true);
-      setErro("");
-      try {
-        if (previa()) {
-          setPosts(postsDeExemplo(slug));
-          setCursor(null);
-        } else {
-          const r = await rede.linha(`c:${slug}`, depois);
-          setPosts((atual) => [...(depois ? atual ?? [] : []), ...r.itens]);
-          setCursor(r.proximo);
-        }
-      } catch (e) {
-        setErro(textoDoErro(s, e));
-      } finally {
-        setBuscando(false);
+/**
+ * Os posts da comunidade, com a ordem escolhida como no Reddit (Prompt 5, A11), mas com a regra escrita (ListaOrdenada: "Por que
+ * esta ordem?"): "Novos" é a linha "c:<slug>" de sempre, em ordem de chegada e sem teto; "Mais úteis", "Sem resposta" e "Em
+ * debate" vêm de rede_desc_linha com a aba "c:<slug>" (as mesmas fórmulas do Explorar, só os últimos 30 dias, no máximo 100). A
+ * ordem nunca mostra número: só ordena. Na prévia, os posts de exemplo em qualquer ordem.
+ */
+function PostsDaComunidade({ slug, lang, t, s, logado }: { slug: string; lang: string; t: TextosDaAlumia3; s: TextosDaRede; logado: boolean }) {
+  const d = useTextosDescoberta(lang);
+  const carregar = useCallback(
+    async (ordem: string, cursor: string | null): Promise<PaginaOrdenada> => {
+      if (previa()) return { itens: postsDeExemplo(slug), proximo: null, ordem, fim_por_teto: false };
+      if (ordem === "novos") {
+        const r = await rede.linha(`c:${slug}`, cursor);
+        return { itens: r.itens, proximo: r.proximo, ordem, fim_por_teto: false };
       }
+      return redeDescoberta.linha(`c:${slug}`, ordem as Ordem, cursor);
     },
-    [slug, s],
+    [slug],
   );
-
-  useEffect(() => {
-    const id = setTimeout(() => void buscar(null), 0);
-    return () => clearTimeout(id);
-  }, [buscar]);
-
-  if (posts === null && !erro) return <EsqueletoDaLinha rotulo={t.comum.carregando} quantos={2} />;
+  if (!d) return <EsqueletoDaLinha rotulo={t.comum.carregando} quantos={2} />;
   return (
-    <section aria-label={t.comunidade.posts} aria-busy={buscando}>
-      {erro && (
-        <p className="al3-aviso" role="alert">
-          {erro}{" "}
-          <button type="button" className="al3-acao" onClick={() => void buscar(null)}>{t.comum.tentar}</button>
-        </p>
-      )}
-      {posts && posts.length === 0 && <p className="al3-vazio">{t.comunidade.vazio}</p>}
-      {posts?.map((p, i) => (
-        <div key={p.id} className="al3-post-entra" style={{ "--i": i } as CSSProperties}>
-          <PostCompacto post={p} lang={lang} s={s} t={t} logado={logado} aoErro={aoErro} />
-        </div>
-      ))}
-      {cursor && (
-        <div className="al3-mais">
-          <button type="button" className="al-botao al-botao-contorno al-botao-m" disabled={buscando} onClick={() => void buscar(cursor)}>
-            {t.comum.carregarMais}
-          </button>
-        </div>
-      )}
+    <section aria-label={t.comunidade.posts}>
+      <ListaOrdenada lang={lang} s={s} d={d} logado={logado} chave={`c:${slug}`} ordens={ORDENS} ordemInicial="novos" carregar={carregar} vazio={t.comunidade.vazio} comComunidade={false} />
     </section>
   );
 }
@@ -611,25 +619,63 @@ function PostsDaComunidade({ slug, lang, t, s, logado, aoErro }: { slug: string;
  */
 function MuralDaModeracao({ comunidade, lang, s, t, logado }: { comunidade: Comunidade; lang: string; s: TextosDaRede; t: TextosDaAlumia3; logado: boolean }) {
   const [aberto, setAberto] = useState(false);
-  const sm = useTextosMod(lang, aberto);
+  // R1: com o interruptor ligado, o botão abre o canal direto com a mediação; desligado (o padrão), segue a denúncia com protocolo.
+  const canal = useModmailLigado(previa(), aberto && logado);
+  const sm = useTextosMod(lang, aberto && canal === false);
   const n = totalVisivel(comunidade.moderacao.length);
   return (
     <>
-      <p className="al3-cinza-2">{n === null ? t.comunidade.moderadaPoucas : preencher(t.comunidade.moderadaPor, { n })}</p>
+      <p className="al3-cinza-2">
+        {n === null ? t.comunidade.moderadaPoucas : preencher(t.comunidade.moderadaPor, { n })}
+        {n === null ? <PorQueSemNumero lang={lang} motivo="piso" /> : null}
+      </p>
       {logado ? (
         <button type="button" className="al3-capa-acao al3-capa-acao-contorno al3-falar" aria-expanded={aberto} onClick={() => setAberto((a) => !a)}>
           {t.comunidade.falarModeracao}
         </button>
       ) : (
-        <Link href={localePath(lang, "/denunciar")} className="al3-capa-acao al3-capa-acao-contorno al3-falar">{t.comunidade.falarModeracao}</Link>
+        <Link href={`${localePath(lang, "/alumia/denunciar")}?item=${encodeURIComponent(`/alumia/c/${comunidade.slug}`)}`} className="al3-capa-acao al3-capa-acao-contorno al3-falar">{t.comunidade.falarModeracao}</Link>
       )}
-      {aberto && !sm && <p className="al3-cinza" role="status">{t.comum.carregando}</p>}
-      {aberto && sm && (
+      {aberto && canal === true && <FalarComAModeracao lang={lang} comunidade={comunidade.slug} previa={previa()} />}
+      {aberto && (canal === null || (canal === false && !sm)) && <p className="al3-cinza" role="status">{t.comum.carregando}</p>}
+      {aberto && canal === false && sm && (
         <div className="al3-tela al3-falar-form">
           <FormularioDeDenuncia lang={lang} s={s} sm={sm} alvoTipo="comunidade" alvo={comunidade.slug} aoFechar={() => setAberto(false)} />
         </div>
       )}
     </>
+  );
+}
+
+/** "Buscar nos posts cifrados" (R1): fechado até a pessoa tocar, para o código da busca e da cifra só chegar quando ela pede. */
+function BuscaDoGrupo({ lang, slug }: { lang: string; slug: string }) {
+  const [aberta, setAberta] = useState(false);
+  const pagina = useCallback((cursor: string | null) => (previa() ? Promise.resolve({ itens: postsDeExemplo(slug), proximo: null }) : rede.linha(`c:${slug}`, cursor, 50)), [slug]);
+  if (!aberta)
+    return (
+      <div className="al-voz-grupo">
+        <button type="button" className="al-voz-grupo-abrir" aria-expanded={false} onClick={() => setAberta(true)}>
+          <BuscaRotulo lang={lang} />
+        </button>
+      </div>
+    );
+  return <BuscaNoAparelho lang={lang} pagina={pagina} previa={previa()} />;
+}
+
+/** O texto do botão da busca (o pacote de textos do R1 chega junto com a página). */
+function BuscaRotulo({ lang }: { lang: string }) {
+  const t = useTextosDoUso(lang);
+  return <>{t?.busca.titulo ?? "…"}</>;
+}
+
+/** A caixa da mediação (R1), só com o interruptor ligado. Desligado, nada aparece. */
+function CaixaSeLigada({ lang, slug }: { lang: string; slug: string }) {
+  const ligado = useModmailLigado(previa());
+  if (!ligado) return null;
+  return (
+    <section className="al3-secao">
+      <CaixaDaMediacao lang={lang} comunidade={slug} previa={previa()} />
+    </section>
   );
 }
 

@@ -5,7 +5,7 @@
 //
 //   blocos   ## Título e ### Subtítulo · parágrafo · lista com "- " ou "1. " · citação com "> " · separador "---"
 //            bloco de código entre ``` (com o nome da linguagem, opcional) · fórmula entre $$ em linhas sozinhas
-//            imagem do próprio post numa linha sozinha: ![descrição](imagem:1) (até 4, as que a pessoa anexou)
+//            imagem do próprio post numa linha sozinha: ![descrição](imagem:1) (até 20, as que a pessoa anexou)
 //   trechos  **negrito** · _itálico_ (ou *itálico*) · ~~riscado~~ · `código` · $$fórmula$$ · [texto](https://…)
 //            uma quebra de linha simples continua sendo quebra (como no post de sempre); "\" na frente de um sinal o deixa literal.
 //
@@ -190,7 +190,7 @@ const FORMULA_ABRE = /^ {0,3}\$\$\s*$/;
 const FORMULA_LINHA = /^ {0,3}\$\$(.+)\$\$\s*$/;
 const TITULO = /^ {0,3}(#{1,3})\s+(.+?)\s*#*\s*$/;
 const SEPARADOR = /^ {0,3}(?:-{3,}|\*{3,}|_{3,})\s*$/;
-const IMAGEM = /^ {0,3}!\[([^\]\n]{0,255})\]\(imagem:([1-4])\)\s*$/;
+const IMAGEM = /^ {0,3}!\[([^\]\n]{0,255})\]\(imagem:([1-9]|1[0-9]|20)\)\s*$/;
 const CITACAO = /^ {0,3}>\s?(.*)$/;
 const ITEM = /^ {0,3}([-*•])\s+(.*)$/;
 const ITEM_NUMERO = /^ {0,3}(\d{1,3})[.)]\s+(.*)$/;
@@ -325,10 +325,59 @@ export function textoSemMarcas(fonte: string): string {
 
 /** O texto usa alguma marca de formatação? (O cartão só troca para o leitor formatado quando precisa.) */
 export function temFormatacao(fonte: string): boolean {
-  return /```|\$\$|`[^`\n]+`|\*\*|~~|(^|\n) {0,3}(#{1,3}\s|>\s?|[-*•]\s|\d{1,3}[.)]\s|-{3,}\s*($|\n))|!\[[^\]]*\]\(imagem:[1-4]\)|\[[^\]\n]+\]\([^)\s]+\)|(^|[^\p{L}\p{N}])[_*][^\s_*]/u.test(fonte);
+  return /```|\$\$|`[^`\n]+`|\*\*|~~|(^|\n) {0,3}(#{1,3}\s|>\s?|[-*•]\s|\d{1,3}[.)]\s|-{3,}\s*($|\n))|!\[[^\]]*\]\(imagem:(?:[1-9]|1[0-9]|20)\)|\[[^\]\n]+\]\([^)\s]+\)|(^|[^\p{L}\p{N}])[_*][^\s_*]/u.test(fonte);
 }
 
 /** Os números das imagens do post que o texto põe no meio (as outras aparecem embaixo, como sempre). */
 export function imagensNoMeio(fonte: string): number[] {
   return [...new Set(lerTextoFormatado(fonte).flatMap((b) => (b.t === "imagem" ? [b.n] : [])))];
+}
+
+// ── Capítulos (prompt 4, item 26: artigo ou boletim longo) ──
+
+/** Um capítulo do texto longo: o título ("# " ou "## ") e os blocos até o próximo. O que vem antes do primeiro título é a abertura. */
+export interface Capitulo {
+  /** O título sem as marcas; nulo na abertura (o que vem antes do primeiro título). */
+  titulo: string | null;
+  blocos: Bloco[];
+}
+
+/**
+ * Corta o texto longo em capítulos: cada título de nível 2 ("# " ou "## ") abre um; o "### " é subtítulo e fica dentro. A abertura
+ * (antes do primeiro título) só entra se tiver alguma coisa. Sem título nenhum, um capítulo só, sem título. É a mesma regra que o
+ * banco usa para contar (interno.rede_p4c_capitulos), mas aqui o título dentro de bloco de código não conta.
+ */
+export function capitulosDoTexto(fonte: string): Capitulo[] {
+  const saida: Capitulo[] = [];
+  let atual: Capitulo = { titulo: null, blocos: [] };
+  for (const b of lerTextoFormatado(fonte)) {
+    if (b.t === "titulo" && b.nivel === 2) {
+      if (atual.titulo !== null || atual.blocos.length) saida.push(atual);
+      atual = { titulo: textoDosTrechos(b.trechos).trim(), blocos: [] };
+    } else atual.blocos.push(b);
+  }
+  if (atual.titulo !== null || atual.blocos.length) saida.push(atual);
+  return saida;
+}
+
+/** O índice do texto longo: os títulos dos capítulos, na ordem (a abertura sem título fica de fora). */
+export function indiceDoTexto(fonte: string): string[] {
+  return capitulosDoTexto(fonte).flatMap((c) => (c.titulo !== null ? [c.titulo] : []));
+}
+
+/** Os blocos de um capítulo de volta em texto formatado (para a leitura em páginas desenhar com o leitor de sempre). */
+export function fonteDoCapitulo(fonte: string, n: number): string {
+  // Corta a FONTE (não os blocos) nos mesmos títulos, para o leitor de sempre desenhar o capítulo inteiro, imagens no meio inclusive.
+  const linhas = limparFonte(fonte).slice(0, MAXIMO_DO_TEXTO).split("\n");
+  const pedacos: string[][] = [[]];
+  let dentroDeCodigo = false;
+  for (const l of linhas) {
+    if (CERCA.test(l) || (dentroDeCodigo && CERCA_FIM.test(l))) dentroDeCodigo = !dentroDeCodigo;
+    const t = !dentroDeCodigo ? TITULO.exec(l) : null;
+    if (t && t[1].length <= 2) pedacos.push([]);
+    else pedacos[pedacos.length - 1].push(l);
+  }
+  const comAbertura = pedacos[0].some((l) => l.trim());
+  const lista = comAbertura ? pedacos : pedacos.slice(1);
+  return (lista[n] ?? []).join("\n").trim();
 }

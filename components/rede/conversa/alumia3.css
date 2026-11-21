@@ -132,6 +132,15 @@
 [data-al="2"] .al3-comunidade .al3-abas { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); }
 [data-al="2"] .al3-comunidade .al3-abas::after { content: ""; flex: 0 0 24px; }
 @media (min-width: 481px) { [data-al="2"] .al3-comunidade .al3-aba { padding: 0 12px; } }
+/* Prompt 5, A11: no computador e no tablet a faixa escondia as últimas abas (Perguntas e Sobre ficavam fora, atrás do degradê).
+   Dali para cima as onze abas quebram a linha e ficam todas à vista; a linha colorida segue a aba escolhida na linha dela. No
+   celular a faixa continua rolando de lado, com o degradê do "tem mais". */
+@media (min-width: 481px) {
+  [data-al="2"] .al3-comunidade .al3-abas { flex-wrap: wrap; overflow: visible; -webkit-mask-image: none; mask-image: none; }
+  [data-al="2"] .al3-comunidade .al3-abas::after { content: none; }
+  [data-al="2"] .al3-comunidade .al3-aba { flex: 0 0 auto; min-height: 46px; }
+  [data-al="2"] .al3-comunidade .al3-abas[data-regua="sim"] .al3-abas-linha { bottom: auto; top: calc(var(--al3-y, 0px) + var(--al3-a, 46px) - 3px); }
+}
 [data-al="2"] .al3-aba {
   flex: 1 0 auto; padding: 0 16px; white-space: nowrap; min-height: 52px; background: none; border: 0; border-bottom: 3px solid transparent; color: var(--al-texto-3);
   font: inherit; font-weight: 700; font-size: 1.05rem; cursor: pointer;
@@ -162,10 +171,11 @@
 [data-al="2"] .al3-post-corpo { position: relative; min-width: 0; }
 [data-al="2"] .al3-post-mais,
 [data-al="2"] .al3-resposta-mais {
-  display: inline-grid; place-items: center; width: 40px; height: 40px; flex: none; border: 0; border-radius: 999px; background: none;
+  /* R1 (A3.3): alvo de toque de 44 px (o ícone continua com 20 px). */
+  display: inline-grid; place-items: center; width: 44px; height: 44px; flex: none; border: 0; border-radius: 999px; background: none;
   color: var(--al-texto-3); cursor: pointer;
 }
-[data-al="2"] .al3-post-mais { position: absolute; top: -0.55rem; right: -0.5rem; }
+[data-al="2"] .al3-post-mais { position: absolute; top: -0.675rem; right: -0.625rem; }
 [data-al="2"] :is(.al3-post-mais, .al3-resposta-mais) .al3-icone { width: 20px; height: 20px; }
 [data-al="2"] :is(.al3-post-mais, .al3-resposta-mais):hover,
 [data-al="2"] :is(.al3-post-mais, .al3-resposta-mais)[aria-expanded="true"] { color: var(--al-texto); background: var(--al-superficie); }
@@ -443,6 +453,23 @@
 [data-al="2"] .al3-ativas li a:hover .al3-nome { text-decoration: underline; }
 [data-al="2"] .al3-anel { width: 30px; height: 30px; border-radius: 999px; border: 3px solid var(--al3-cor, var(--al-com-1)); grid-row: span 2; }
 [data-al="2"] .al3-ativas .al3-cinza { font-size: 0.85rem; }
+/* "Sobre a comunidade" na coluna da direita (Prompt 5, A11): o nome, a descrição, como se entra e as regras, cada uma abrindo o
+   texto; o botão leva à aba Sobre. */
+[data-al="2"] .al3-sobre-lado { padding: 1rem 1.1rem 1.1rem; border: 1px solid var(--al-linha); border-radius: 18px; background: var(--al-superficie); }
+[data-al="2"] .al3-sobre-lado h2 { margin: 0; font-size: 1.55rem; line-height: 1.05; overflow-wrap: anywhere; }
+[data-al="2"] .al3-sobre-lado h3 { margin: 0.9rem 0 0.3rem; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--al-texto-3); }
+[data-al="2"] .al3-sobre-lado-texto { margin: 0.45rem 0 0; font-size: 0.9rem; color: var(--al-texto-2); }
+[data-al="2"] .al3-sobre-lado-regras { margin: 0; padding: 0; list-style: none; counter-reset: regra; }
+[data-al="2"] .al3-sobre-lado-regras li { counter-increment: regra; border-top: 1px solid var(--al-linha); padding: 0.55rem 0; font-size: 0.9rem; font-weight: 700; }
+[data-al="2"] .al3-sobre-lado-regras li > span::before, [data-al="2"] .al3-sobre-lado-regras li > details > summary::before { content: counter(regra) ". "; color: var(--al-texto-3); }
+[data-al="2"] .al3-sobre-lado-regras li > details > summary::after { content: " +"; color: var(--al-texto-3); font-weight: 400; }
+[data-al="2"] .al3-sobre-lado-regras li > details[open] > summary::after { content: " –"; }
+[data-al="2"] .al3-sobre-lado-regras summary { cursor: pointer; list-style: none; min-height: 28px; }
+[data-al="2"] .al3-sobre-lado-regras summary::-webkit-details-marker { display: none; }
+[data-al="2"] .al3-sobre-lado-regras details p { margin: 0.35rem 0 0; font-weight: 400; color: var(--al-texto-2); }
+[data-al="2"] .al3-sobre-lado-ver { margin-top: 0.8rem; min-height: 44px; width: 100%; border: 1.5px solid var(--al-texto); border-radius: 999px; background: none; color: var(--al-texto); font: inherit; font-weight: 800; cursor: pointer; }
+[data-al="2"] .al3-sobre-lado-ver:hover { background: var(--al-superficie-2); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-sobre-lado { border: 2px solid var(--al-texto); }
 [data-al="2"] .al3-cor-1 { --al3-cor: var(--al-com-1); }
 [data-al="2"] .al3-cor-2 { --al3-cor: var(--al-com-2); }
 [data-al="2"] .al3-cor-3 { --al3-cor: var(--al-com-3); }
@@ -1009,3 +1036,22 @@
     content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 44px); height: max(100%, 44px); transform: translate(-50%, -50%);
   }
 }
+
+/* Prompt 5, A19: a notícia do dia no alto do Explorar (só título, veículo e link) e o bloco do que ainda está vazio, no fim. */
+[data-al="2"] .al3-noticia-do-dia {
+  display: grid; gap: 0.35rem; padding: 1rem 1.1rem; border-radius: var(--al-raio, 14px);
+  background: var(--al-superficie); border: 1px solid var(--al-superficie-2); border-left: 4px solid var(--al-vermelho);
+}
+[data-al="2"] .al3-noticia-rotulo { margin: 0; font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--al-vermelho-texto, var(--al-vermelho)); }
+[data-al="2"] .al3-noticia-titulo { margin: 0; font-size: 1.3rem; font-weight: 800; line-height: 1.25; color: var(--al-texto); overflow-wrap: anywhere; }
+[data-al="2"] .al3-noticia-pe { margin: 0; font-size: 0.875rem; color: var(--al-texto-2); }
+[data-al="2"] .al3-noticia-ir {
+  justify-self: start; display: inline-flex; align-items: center; gap: 0.35rem; min-height: 44px; padding: 0 1rem; border-radius: 999px;
+  border: 1.5px solid var(--al-texto); color: var(--al-texto); font-weight: 800; text-decoration: none;
+}
+[data-al="2"] .al3-noticia-ir:hover { background: var(--al-superficie-2); }
+[data-al="2"] .al3-noticia-ir:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+[data-al="2"] .al3-noticia-ajuda { margin: 0; font-size: 0.8125rem; color: var(--al-texto-3, var(--al-texto-2)); }
+[data-al="2"] .al3-explorar-vazios { padding-top: 1rem; border-top: 1px dashed var(--al-superficie-2); }
+[data-al="2"] .al3-explorar-vazios .al3-titulo-secao { font-size: 1.15rem; color: var(--al-texto-2); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-noticia-do-dia { border-color: var(--al-texto); background: var(--al-fundo); }

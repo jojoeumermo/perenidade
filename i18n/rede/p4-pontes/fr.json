@@ -1,0 +1,81 @@
+{
+  "_rascunho": "Brouillon de traduction du texte portugais (pt.json est le texte final).",
+  "carregando": "Chargement…",
+  "erros": {
+    "desligado": "Ce n'est pas encore activé.",
+    "sem_permissao": "Vous ne pouvez pas faire cela.",
+    "nao_encontrado": "Introuvable, ou vous ne pouvez pas le voir.",
+    "invalido:dominio": "Écrivez seulement le nom du serveur, comme mastodon.social.",
+    "invalido:propria": "Vous ne pouvez pas marquer votre propre réponse.",
+    "so_comunidade_aberta": "Seule une communauté ouverte peut choisir le pont.",
+    "generico": "Ça n'a pas marché. Réessayez dans un instant."
+  },
+  "midia": {
+    "video": "Vidéo sur {servidor}",
+    "audio": "Audio sur {servidor}",
+    "abrir": "Regarder sur le site d'origine",
+    "ouvir": "Écouter sur le site d'origine",
+    "aviso": "S'ouvre hors d'Alumia : ce serveur verra votre visite. La miniature ici passe par Alumia."
+  },
+  "aprovados": {
+    "titulo": "Fédérer seulement avec des serveurs approuvés",
+    "texto": "Activé, Alumia ne parle qu'aux serveurs de cette liste (et à leurs sous-domaines). Les autres comptent comme bloqués : rien n'entre et rien ne sort. Activer n'efface rien ; désactiver revient à l'état d'avant. Le blocage fixe (Threads et Bridgy Fed) reste valable.",
+    "modo": "Serveurs approuvés seulement",
+    "campo": "Serveur (ex. : mastodon.social)",
+    "aprovar": "Approuver",
+    "tirar": "Retirer",
+    "vazia": "Aucun serveur approuvé pour l'instant. Mode activé et liste vide : Alumia ne parle à personne de l'extérieur.",
+    "desde": "depuis le {data}"
+  },
+  "bluesky": {
+    "titulo": "Pont avec Bluesky",
+    "texto": "Les publications publiques de cette communauté apparaîtraient sur Bluesky via le pont Bridgy Fed. Le pont est désactivé par décision de l'Institut : le choix est gardé, mais rien ne sort tant que la décision ne change pas.",
+    "escolher": "Je veux le pont quand il sera autorisé",
+    "barrada": "Le pont est désactivé par décision de l'Institut. Rien ne part vers Bluesky.",
+    "fechada": "Seule une communauté ouverte peut choisir."
+  },
+  "avisos": {
+    "soSeguidos": "Mentions et réponses seulement des personnes que je suis",
+    "soSeguidosAjuda": "Les autres restent dans la liste des avis ; elles n'arrivent simplement pas en notification sur l'appareil."
+  },
+  "poucoUtil": {
+    "marcar": "Peu utile",
+    "marcado": "Vous avez marqué ceci comme peu utile",
+    "ajuda": "Personne ne voit qui a marqué ni combien de marques il y a. La réponse ne descend dans la conversation qu'à partir de 3 marques de personnes différentes. Elle n'est ni supprimée ni cachée."
+  },
+  "fio": {
+    "abrir": "Lire comme texte",
+    "titulo": "Le fil comme texte",
+    "de": "Fil de {autor}",
+    "partes": "{n} parties",
+    "voltar": "Retour à la conversation",
+    "foco": "Mode concentration",
+    "sairFoco": "Quitter le mode concentration",
+    "ouvir": "Écouter",
+    "parar": "Arrêter",
+    "nota": "Seul ce que vous pouvez déjà voir apparaît. Les réponses des autres restent dans la conversation."
+  },
+  "salvos": {
+    "buscar": "Chercher dans les enregistrés",
+    "ajuda": "La recherche se fait seulement sur cet appareil : le serveur ne sait pas ce que vous avez cherché.",
+    "nenhum": "Rien d'enregistré avec « {termo} ».",
+    "achados": "{n} dans les enregistrés"
+  },
+  "libras": {
+    "fixar": "Épingler dans la fenêtre de langue des signes",
+    "tirar": "Retirer de la fenêtre de langue des signes",
+    "titulo": "Fenêtre de langue des signes",
+    "maior": "Agrandir",
+    "menor": "Réduire",
+    "lado": "Changer de côté",
+    "ajuda": "Choisissez qui interprète en Libras : l'image reste épinglée et toujours visible sur cet appareil. Le choix ne sort pas d'ici."
+  },
+  "legendas": {
+    "ligar": "Sous-titres",
+    "desligar": "Retirer les sous-titres",
+    "titulo": "Sous-titres en direct",
+    "ajuda": "Faits sur cet appareil, par la reconnaissance vocale du navigateur lui-même. Rien n'est enregistré ni envoyé. Ils peuvent se tromper.",
+    "semSuporte": "Ce navigateur ne fait pas de sous-titres sans envoyer l'audio à l'extérieur ; ils n'apparaissent donc pas ici.",
+    "alguem": "Quelqu'un"
+  }
+}

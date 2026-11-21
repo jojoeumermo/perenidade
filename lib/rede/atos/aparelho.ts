@@ -38,7 +38,7 @@ export function sementeDoAparelho(): string {
   if (!sementeDaAba) {
     const bytes = new Uint8Array(12);
     globalThis.crypto?.getRandomValues?.(bytes);
-    sementeDaAba = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("") || String(Math.random());
+    sementeDaAba = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
     gravar(CHAVE_DA_SEMENTE, sementeDaAba);
   }
   return sementeDaAba;

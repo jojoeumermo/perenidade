@@ -1,0 +1,46 @@
+(* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   Caixas anônimas (onda R2, item 1.2; onda R3, item 2.5): NÃO LIGAÇÃO DAS CAIXAS.
+   Equivalência observacional: o servidor não distingue "duas caixas da MESMA pessoa (o mesmo aparelho B)" de "uma caixa de B e
+   outra de C". Cada caixa tem id sorteado (o servidor vê só id_h = SHA-256(rótulo ‖ id)); o envelope é para a chave da semana do
+   aparelho, e o HPKE com X-Wing não revela para qual chave pública foi feito (no modelo simbólico, nada abre sem a privada).
+   O servidor conhece as chaves públicas de B e de C (o diretório é público) e escolhe as mensagens.
+   Fora do modelo: a hora e o IP de quem BUSCA nas duas caixas (o aparelho busca pela agenda, com cobertura,
+   lib/rede/caixas/agenda.ts; via Tor ou mixnet) e o passe de leitura (um por caixa, sorteado). *)
+
+free c: channel.
+
+type skey.
+type pkey.
+type key.
+
+fun pk(skey): pkey.
+fun hpke(pkey, bitstring, bitstring, bitstring): bitstring.
+reduc forall k: skey, a: bitstring, m: bitstring, r: bitstring; abrir(hpke(pk(k), a, m, r), k, a) = m.
+fun senc(bitstring, key): bitstring.
+reduc forall m: bitstring, k: key; sdec(senc(m, k), k) = m.
+fun h(bitstring): bitstring.
+fun hc(bitstring, bitstring): bitstring.
+
+free aparelhoA: bitstring.
+
+let Remetente(eu: bitstring, kab: key, pkb: pkey, idcaixa: bitstring, m: bitstring) =
+  new r: bitstring;
+  new kf: bitstring;
+  let idh = h(idcaixa) in
+  let cc = hc(kf, (idh, m)) in
+  out(c, (idh, cc, hpke(pkb, (idh, cc), (eu, senc((m, kf), kab)), r))).
+
+process
+  new skB: skey;
+  new skC: skey;
+  new kAB1: key;
+  new kAB2: key;
+  new kAC: key;
+  new caixa1: bitstring;
+  new caixa2: bitstring;
+  out(c, (pk(skB), pk(skC)));
+  (
+    (!in(c, m: bitstring); Remetente(aparelhoA, kAB1, pk(skB), caixa1, m))
+  | (!in(c, m: bitstring); Remetente(aparelhoA, choice[kAB2, kAC], choice[pk(skB), pk(skC)], caixa2, m))
+  )

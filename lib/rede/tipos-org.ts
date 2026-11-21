@@ -27,12 +27,12 @@ export interface NucleoDaOrg {
   quando: string;
   /** Bairro ou cidade escritos pela organização (nunca GPS). */
   onde: string | null;
-  /** Eu sou do núcleo? Só sobre mim; nunca a lista de membros. */
-  sou: boolean;
-  /** Pedi para entrar e espero resposta. */
-  pedi: boolean;
-  /** A chama (B1): apagado (só quem fundou), brasa (1 ou 2 a mais), plena (3 ou mais). Nunca o número. */
-  chama?: "apagado" | "brasa" | "plena";
+  /**
+   * A chama (B1). Desde a R2 (membros escondidos) o servidor não sabe quantas pessoas há num núcleo e manda nulo; quem é do núcleo
+   * vê a contagem (só a partir de 3) no próprio aparelho, pela árvore do grupo. Também não há mais "sou" nem "pedi": o servidor não
+   * sabe quem é de qual núcleo nem quem pediu para entrar.
+   */
+  chama?: "apagado" | "brasa" | "plena" | null;
   /** Só para quem gerencia: o núcleo está no mapa das cidades? (nulo para os outros) */
   mapa?: boolean | null;
   /** Só para quem é de dentro: a pauta da 1ª reunião e a primeira tarefa do lampião. */
@@ -157,14 +157,6 @@ export interface PedidoDeNucleo {
   quando: string;
   onde: string;
   cor: 1 | 2 | 3 | 4 | 5;
-}
-
-/** Um pedido para entrar num núcleo (só gestores e a mediação do núcleo veem): codinome e @, nada mais. */
-export interface PedidoParaONucleo {
-  nucleo: string;
-  nucleoNome: string;
-  handle: string | null;
-  codinome: string | null;
 }
 
 /** O que um gestor manda para abrir uma consulta (não muda depois de aberta). */

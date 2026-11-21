@@ -1,0 +1,84 @@
+name: Fuzzing
+
+# Onda R3, parte 4: o fuzzing longo, toda semana (o curto, de 1 minuto por alvo, roda no ferramentas.yml a cada mudança).
+#   - Os cinco alvos em Node (scripts/ferramentas/fuzz/alvos): as rotas anônimas, as rotas com sessão e as funções do banco que
+#     anon, authenticated e service_role chamam, com o banco montado em memória (PGlite). 30 minutos por alvo; cada falha sai como
+#     artefato, com a semente e o caso para refazer (node --import ./scripts/carregar-ts.mjs scripts/ferramentas/fuzz/rodar.mjs <alvo>
+#     --semente <semente>).
+#   - cargo-fuzz (libFuzzer) nos crates Rust que tiverem a pasta fuzz/ (nativo/spqr-wasm, nativo/servidor-chat, nativo/nucleo,
+#     conforme as frentes entregarem), com o nightly fixado; o corpus fica guardado como artefato de uma semana para a outra.
+# Todo travamento é bug: vira teste que falha (scripts/testar-r3-publico-rotas.mjs é o exemplo), correção e teste passando.
+on:
+  schedule:
+    - cron: "40 3 * * 0"
+  workflow_dispatch:
+    inputs:
+      minutos:
+        description: "Minutos por alvo"
+        default: "30"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fuzz
+  cancel-in-progress: false
+
+jobs:
+  node:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        alvo: [banco-anonimo, banco-conta, banco-servico, rotas-anonimas, rotas-com-sessao]
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run fuzz -- "${{ matrix.alvo }}" --minutos "${{ inputs.minutos || '30' }}" --saida "fuzz-saida/${{ matrix.alvo }}"
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: fuzz-${{ matrix.alvo }}
+          path: fuzz-saida/
+          retention-days: 30
+
+  rust:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: nightly fixado e cargo-fuzz 0.13.2
+        run: |
+          rustup toolchain install nightly-2026-10-01 --profile minimal
+          cargo +nightly-2026-10-01 install cargo-fuzz --version 0.13.2 --locked
+      - name: cada alvo de cada crate com fuzz/
+        run: |
+          minutos="${{ inputs.minutos || '30' }}"
+          achou=0
+          for d in nativo/spqr-wasm nativo/nucleo nativo/servidor-chat; do
+            [ -d "$d/fuzz" ] || continue
+            achou=1
+            for alvo in $(cd "$d" && cargo +nightly-2026-10-01 fuzz list); do
+              echo "== $d $alvo"
+              (cd "$d" && cargo +nightly-2026-10-01 fuzz run "$alvo" -- -max_total_time=$((minutos * 60)))
+            done
+          done
+          [ "$achou" = 1 ] || echo "nenhum crate com fuzz/ ainda"
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: fuzz-rust
+          path: |
+            nativo/*/fuzz/artifacts/
+            nativo/*/fuzz/corpus/
+          retention-days: 30
+          if-no-files-found: ignore

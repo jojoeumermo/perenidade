@@ -1,0 +1,6 @@
+modelo: passes-cegos.pv
+sha256: b6c534d2bddfc294a70e151005afb2ed2df515cf04d88379a3edbff796e6858d
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+RESULT Observational equivalence is true.

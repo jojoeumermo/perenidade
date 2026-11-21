@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { alumia } from "@/lib/rede/cliente-alumia";
 import { rede } from "@/lib/rede/cliente";
 import { preencher } from "@/lib/rede/preencher";
@@ -19,6 +19,10 @@ import { EstadoDaAlumia } from "../ui/Estado";
 import { Confirmar, FaixaDaPrevia, PostCompacto, previa, Torradas, useTextosAlumia3, useTorrada } from "../conversa/base3";
 import { salvosDaPrevia } from "../descoberta/previa";
 import { EscolherPasta, fonteDasPastas, NovaPasta, quantosPosts, usePastas } from "./Pastas";
+import { PastaPublica } from "../p4/cartao/PastaPublica";
+import { CARTAO_P4 } from "../p4/cartao/usar";
+import { useBuscaNosSalvos } from "../p4/pontes/BuscaNosSalvos";
+import { pontesP4Ligado } from "@/lib/rede/p4/pontes/ligado";
 // O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
 import "../conversa/alumia3.css";
 
@@ -52,6 +56,16 @@ export default function Salvos({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const botaoDeApagar = useRef<HTMLButtonElement | null>(null);
   const membro = situacao.logado && situacao.membro;
   const { estado: pastas, recarregar: recarregarPastas } = usePastas(membro, s, tb);
+  // Prompt 4, item 130: a busca nos salvos e nas pastas, só no aparelho (o termo não sai daqui). A próxima página vem pelo caminho
+  // de sempre: o servidor não sabe de busca nenhuma.
+  const buscarPagina = useCallback((cursor: string) => (aberta ? fonteDasPastas.posts(aberta, cursor) : alumia.salvos(cursor, 50)), [aberta]);
+  const busca = useBuscaNosSalvos({
+    ativo: pontesP4Ligado() && situacao.logado,
+    lang,
+    de: aberta,
+    base: lista && lista.de === aberta ? lista : null,
+    buscar: buscarPagina,
+  });
 
   useEffect(() => {
     let vivo = true;
@@ -128,7 +142,7 @@ export default function Salvos({ lang, s, situacao }: PropsDaTelaDoPacote) {
   if (!t || !t3 || !tb || !ta) return <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={3} />;
   const daVez = lista && lista.de === aberta ? lista : null;
   const erroDaVez = erro && erro.de === aberta ? erro.texto : null;
-  const itens = daVez?.itens ?? [];
+  const itens = busca.achados ?? daVez?.itens ?? [];
   const dasPastas = pastas.fase === "ok" ? pastas.dados : null;
   const pastaAberta: PastaDeSalvos | null = aberta ? (dasPastas?.itens.find((p) => p.id === aberta) ?? null) : null;
   const erroB1 = (e: unknown) => torradas.mostrar({ texto: erroDaB1(s, tb, e), erro: true });
@@ -198,6 +212,8 @@ export default function Salvos({ lang, s, situacao }: PropsDaTelaDoPacote) {
         )}
       </header>
 
+      {busca.campo}
+
       {/* A pasta aberta: o nome, de quem é, e renomear ou apagar (os posts continuam nos salvos). */}
       {pastaAberta && (
         <div className="ac-barra">
@@ -232,6 +248,11 @@ export default function Salvos({ lang, s, situacao }: PropsDaTelaDoPacote) {
             </>
           )}
         </div>
+      )}
+
+      {/* Prompt 4, item 35: a pasta PRIVADA aberta pode virar coleção pública do perfil (a do núcleo, nunca). */}
+      {CARTAO_P4 && situacao.logado && pastaAberta && !pastaAberta.nucleo && renomeando === null && (
+        <PastaPublica lang={lang} pasta={pastaAberta.id} nucleo={pastaAberta.nucleo} handle={situacao.handle} />
       )}
 
       {!situacao.logado ? (
@@ -273,7 +294,7 @@ export default function Salvos({ lang, s, situacao }: PropsDaTelaDoPacote) {
             ))}
           </ol>
           {itens.every((p) => tirados.has(p.id)) && <p className="px-[18px] py-6 text-[var(--al-texto-2)]">{aberta ? tb.pastas.vazia : t.salvos.vazio}</p>}
-          {daVez.proximo ? (
+          {busca.achados ? null : daVez.proximo ? (
             <div className="px-[18px] py-4 text-center">
               <Botao variante="contorno" disabled={mais} onClick={() => void carregarMais()}>{mais ? s.estados.carregando : s.estados.maisPosts}</Botao>
             </div>

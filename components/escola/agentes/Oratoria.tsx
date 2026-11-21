@@ -12,6 +12,7 @@ import { analisarFala, apagarEnsaios, type Ensaio, formatarDuracao, gravarEnsaio
 import { Conversa, useModoSeguro } from "../acompanhante/Conversa";
 import { conferirComTextos } from "./conferir";
 import { MicrofoneDeFala } from "./MicrofoneDeFala";
+import { confirmar } from "@/components/perguntar";
 
 const SEM_ENSAIOS: Ensaio[] = [];
 
@@ -169,8 +170,8 @@ export function Oratoria({ s, comum, a }: { s: TextosDosAgentes["oratoria"]; com
                 type="button"
                 className="acompanhante-botao-claro"
                 data-apagar-ensaios
-                onClick={() => {
-                  if (!window.confirm(s.confirmar)) return;
+                onClick={async () => {
+                  if (!(await confirmar(s.confirmar))) return;
                   apagarEnsaios();
                   setAviso(s.apagados);
                 }}

@@ -1,0 +1,71 @@
+{
+  "_rascunho": true,
+  "campos": {
+    "titulo": "Plus pour cette publication",
+    "resumo": "Version courte (facultative)",
+    "resumoDica": "Jusqu’à 280 caractères, écrits par vous, pour qui n’a qu’une minute. Elle apparaît au-dessus du texte.",
+    "capa": "Couverture de l’article",
+    "semCapa": "Sans couverture",
+    "capaN": "Image {n}",
+    "capitulos": "Chaque ligne qui commence par \"## \" ouvre un chapitre. À partir de deux, on voit la table des matières et on peut lire page par page.",
+    "convite": "Envoyez la vôtre : cette publication est une invitation",
+    "conviteDica": "Qui le souhaite répond par une phrase ou une image. Le total n’apparaît qu’à partir de 3 personnes, et personne ne voit la liste de qui a répondu.",
+    "fonte": "Source (facultative)",
+    "fonteDica": "Un lien sans paramètres de suivi ou l’adresse d’une vérification de Vale o Escrito. La publication reçoit la marque \"avec source\".",
+    "fonteRuim": "Cette source n’est pas valable : utilisez un lien http(s) sans paramètres de suivi ou l’adresse d’un cas de Vale o Escrito.",
+    "resumoContador": "{n} sur 280",
+    "capaAjuda": "La couverture apparaît au-dessus de la table des matières, pour la lecture page par page."
+  },
+  "album": {
+    "maximo": "Jusqu’à 20 images par publication."
+  },
+  "cartao": {
+    "versaoCurta": "Version courte",
+    "capitulos": "{n} chapitres",
+    "lerEmPaginas": "Lire page par page",
+    "convite": "Envoyez la vôtre",
+    "conviteTotal": "{n} personnes ont déjà envoyé la leur.",
+    "conviteSemTotal": "Répondez par une phrase ou une image.",
+    "responder": "Envoyer la mienne",
+    "comFonte": "Avec source",
+    "fonteVale": "Vérification de Vale o Escrito",
+    "mandar": "Ouvrir pour envoyer la vôtre",
+    "ajudaDoSelo": "L’autrice a indiqué d’où vient l’information."
+  },
+  "leitura": {
+    "titulo": "Lecture page par page",
+    "indice": "Table des matières",
+    "abertura": "Ouverture",
+    "pagina": "Page {n} sur {total}",
+    "anterior": "Précédente",
+    "proxima": "Suivante",
+    "fechar": "Fermer",
+    "capa": "Couverture",
+    "carregando": "Ouverture du texte…",
+    "erro": "Impossible d’ouvrir le texte pour l’instant. Réessayez.",
+    "irPara": "Aller au chapitre"
+  },
+  "filtro": {
+    "titulo": "Images sans description",
+    "rotulo": "Masquer du fil les publications avec une image sans description",
+    "explica": "Valable seulement sur cet appareil : le serveur ne sait pas que vous l’avez activé. La description est le texte que le lecteur d’écran lit à la place de l’image.",
+    "ligado": "Activé sur cet appareil.",
+    "desligado": "Désactivé."
+  },
+  "erros": {
+    "invalido_resumo": "La version courte va seulement avec un texte long, jusqu’à 280 caractères.",
+    "resumo_revisar": "La version courte contient quelque chose que la médiation devrait lire avant. Changez les mots ou retirez la version courte.",
+    "invalido_capa": "La couverture doit être l’une des images de ce texte long.",
+    "invalido_convite": "L’invitation \"Envoyez la vôtre\" va seulement sur une publication d’ouverture (pas sur une réponse, un sondage ou un texte long).",
+    "invalido_fonte": "Cette source n’est pas valable : utilisez un lien http(s) sans paramètres de suivi ou l’adresse d’un cas de Vale o Escrito.",
+    "invalido_vale": "Ce cas de Vale o Escrito n’est pas en ligne pour être cité.",
+    "desligado": "Ces options ne sont pas encore activées. Retirez-les pour publier.",
+    "semCifra": "La publication chiffrée ne porte que le texte : la version courte, la source et l’invitation partiraient en clair. Retirez-les ou publiez hors du groupe chiffré.",
+    "semFio": "Un fil ne porte ni version courte, ni source, ni invitation. Publiez un seul bloc ou retirez ces options."
+  },
+  "barra": {
+    "expandir": "Agrandir",
+    "expandirAjuda": "Ouvrir l’éditeur complet avec ce qui est déjà écrit (images, sondage, qui voit, plus tard).",
+    "dica": "Ctrl+Entrée publie. Avant de partir, le post attend 10 secondes et peut être annulé."
+  }
+}

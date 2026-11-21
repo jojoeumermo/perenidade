@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import type pt from "@/i18n/rede/publicar/restrito/pt.json";
+import { prontoDe } from "../../../../lib/rede/textos-prontos";
 
 /** Os textos dos posts restritos cifrados e da sala de voz do grupo: i18n/rede/publicar/restrito/{pt,en,es,fr,ru,zh}.json. */
 export type TextosDoRestrito = typeof pt;
@@ -24,8 +25,8 @@ export function carregarTextosDoRestrito(lang: string): Promise<TextosDoRestrito
   const l = lang in CARREGADORES ? lang : "pt";
   let p = guardados.get(l);
   if (!p) {
-    p = CARREGADORES[l]().then((m) => {
-      const t = m.default as TextosDoRestrito;
+    p = prontoDe(CARREGADORES[l], CARREGADORES.pt).then((d) => {
+      const t = d as TextosDoRestrito;
       prontos.set(l, t);
       return t;
     });
@@ -53,6 +54,6 @@ export function useTextosDoRestrito(lang: string, ligado = true): TextosDoRestri
 }
 
 /** A frase da recusa da cifra (o código vem de cifrarParaOGrupo). */
-export function textoDaCifra(t: TextosDoRestrito, codigo: "sem_chave" | "grupo_suspeito" | "falha"): string {
-  return codigo === "grupo_suspeito" ? t.suspeito : codigo === "sem_chave" ? t.semChave : t.falha;
+export function textoDaCifra(t: TextosDoRestrito, codigo: "sem_chave" | "grupo_suspeito" | "sem_identidade" | "falha"): string {
+  return codigo === "grupo_suspeito" ? t.suspeito : codigo === "sem_chave" ? t.semChave : codigo === "sem_identidade" ? t.semIdentidade : t.falha;
 }

@@ -136,7 +136,8 @@ const equipe = contas.filter((conta) => conta !== "leitora");
 const secoes = [
   ["painel_resumo", contas],
   ["equipe_canais", equipe],
-  ["chat_conversas", equipe],
+  // Onda R3: a lista das conversas da equipe recebe o "lido até" que o aparelho guarda (nada de leitura no banco).
+  ["chat_conversas", equipe, { p_lidos: {} }],
   ["equipe_membros", equipe],
   ["fila", equipe],
   ["triagem_fila", ["coord", "vice", "curadora", "mediador"]],
@@ -160,14 +161,14 @@ const secoes = [
   ["emails_situacao", ["coord", "vice"]],
   ["comunidade_controles", ["coord", "vice"]],
 ];
-for (const [funcao, podem] of secoes) {
+for (const [funcao, podem, argumentos = {}] of secoes) {
   await confere(`painel: ${funcao} abre só para ${podem.length === contas.length ? "todas as contas" : podem.join(", ")}`, async () => {
     const erradas = [];
     for (const conta of contas) {
-      const r = await chamar(sessao[conta], funcao);
+      const r = await chamar(sessao[conta], funcao, argumentos);
       if (podem.includes(conta) ? !r.ok : !negado(r)) erradas.push(`${conta} ${r.ok ? "abriu" : `foi barrado (${r.codigo})`}`);
     }
-    const anonimo = await chamar(CHAVE_ANON, funcao);
+    const anonimo = await chamar(CHAVE_ANON, funcao, argumentos);
     if (!negado(anonimo)) erradas.push(`visitante sem conta: ${anonimo.ok ? "abriu" : anonimo.codigo}`);
     return erradas.join("; ");
   });

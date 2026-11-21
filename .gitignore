@@ -47,6 +47,7 @@ next-env.d.ts
 /public/ruby/
 /public/jscpp/
 /public/blockly/
+/public/cifra/
 
 # anotacao temporaria da publicacao automatica
 .publicados.json
@@ -87,13 +88,22 @@ docs/plano-2026-11/
 # Cache local de análise do código
 graphify-out/
 
-# app da loja (Capacitor): gerados na máquina de quem publica, ver docs/APP-LOJA.md
-/android/
+# App da loja (docs/APP-LOJA.md): a chave de assinatura NUNCA vai para o git; não há app de iPhone.
 /ios/
 *.jks
 *.keystore
+# App de Android (onda R3): a pasta android/ vai para o git (sem chave nenhuma); o que o `cap sync` gera dentro dela fica de fora
+# (android/.gitignore), assim como a casca do chat montada e o arquivo local do SDK.
+/android/local.properties
+/casca/saida/
+/casca/.next/
+/casca/public/cifra/
+/casca/next-env.d.ts
+/casca/arvore.sha256
 public/versao.txt
 
 # Relatórios de auditoria e incidentes ficam fora deste repositório público.
 docs/auditoria/
 docs/AUDITORIA-*.md
+# O relatório que scripts/auditar-registro-das-chaves.mjs grava ao rodar fora do CI.
+/auditoria-das-chaves.md

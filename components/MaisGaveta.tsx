@@ -131,7 +131,7 @@ function IndiceDoCampus({ predios, aoAbrir }: { predios: PredioDoMapa[]; aoAbrir
       {predios.map((predio) => {
         const atalho = ATALHOS[predio.desenho];
         return (
-          <nav key={predio.id} aria-label={predio.nome} className="indice-predio mb-6 break-inside-avoid border-t-[5px] pt-2.5" style={{ borderTopColor: atalho.fundo }}>
+          <nav key={predio.id} aria-label={predio.nome} data-predio={predio.id} className="indice-predio mb-6 break-inside-avoid border-t-[5px] pt-2.5" style={{ borderTopColor: atalho.fundo }}>
             <p className="flex items-center gap-2.5">
               <span aria-hidden className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[0.6rem] border-[1.5px] border-[#1f1a14]" style={{ background: atalho.fundo, color: atalho.tinta }}>
                 <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

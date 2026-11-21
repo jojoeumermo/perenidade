@@ -16,11 +16,12 @@ import { site } from "../../site";
 import type { TextosDoAlcance } from "./textos";
 import { idiomaOk, type CanalQueSai, type ItemQueSai } from "./regras";
 import { exemploDeCanal, exemploDeItem } from "./exemplos";
+import { prontoOuPortugues } from "../textos-prontos";
 
 const TEXTOS: Record<string, TextosDoAlcance> = { pt, en: en as TextosDoAlcance, es: es as TextosDoAlcance, fr: fr as TextosDoAlcance, ru: ru as TextosDoAlcance, zh: zh as TextosDoAlcance };
 
 /** Os textos do idioma pedido (português quando não conhece). */
-export const textosDoServidor = (lang: string | null): TextosDoAlcance => TEXTOS[idiomaOk(lang)] ?? pt;
+export const textosDoServidor = (lang: string | null): TextosDoAlcance => prontoOuPortugues(TEXTOS[idiomaOk(lang)] ?? pt, pt);
 
 /** As bases dos endereços absolutos: a da Alumia (se ligada) e a do site. */
 export const basesDoServidor = () => ({ alumia: ALUMIA_URL, site: site.url });

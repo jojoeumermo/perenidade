@@ -54,8 +54,6 @@ function cuidarPeloBanco(handle: string): AcoesDeGestor {
   return {
     registrarVotacao: (v) => redeOrg.registrarVotacao(handle, v),
     criarNucleo: (p) => redeOrg.criarNucleo(handle, p),
-    pedidos: () => redeOrg.pedidosDosNucleos(handle),
-    decidirNucleo: (nucleo, quem, aceitar) => redeOrg.decidirNucleo(nucleo, quem, aceitar),
     abrirConsulta: (p) => redeOrg.abrirConsulta(handle, p),
     abrirPlenaria: (p) => redeOrg.abrirPlenaria(handle, p),
     mudarPlenaria: (id, situacao, sala) => redeOrg.mudarPlenaria(id, situacao, sala ?? null),
@@ -72,7 +70,6 @@ function acoesDoBanco(handle: string): AcoesDaOrg {
   return {
     seguir: (sim) => redeOrg.seguir(handle, sim),
     sino: (sim) => redeOrg.sino(handle, sim),
-    entrarNoNucleo: (id) => redeOrg.entrarNoNucleo(id),
     votar: (consulta, ranking) => redeOrg.votar(consulta, ranking),
     perguntar: (plenaria, texto, mostrar) => redeOrg.perguntar(plenaria, texto, mostrar),
   };

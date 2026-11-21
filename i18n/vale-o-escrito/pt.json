@@ -1,6 +1,6 @@
 {
   "meta": {
-    "titulo": "Vale o Escrito: a teia do poder no Brasil",
+    "titulo": "Vale o Escrito: a teia do poder no mundo",
     "descricao": "Observatório de crimes de interesse público que já constam de fonte pública: processo, investigação oficial, relatório de organização ou reportagem. Cada ficha traz fonte, data, trecho e a situação jurídica escrita."
   },
   "emPreparacao": {
@@ -11,7 +11,7 @@
   "entrada": {
     "olho": "Observatório",
     "titulo": "Vale o Escrito",
-    "subtitulo": "A teia do poder no Brasil",
+    "subtitulo": "A teia do poder no mundo",
     "linhaHonesta": "Não é investigação própria, nem plantão policial, nem tribunal. Reunimos o que já está em fonte pública, com o link, a data e o trecho, e escrevemos a situação jurídica de cada caso."
   },
   "avisos": {
@@ -70,17 +70,18 @@
     "orbita": "Órbita",
     "grupos": "Grupos",
     "fluxo": "Fluxo",
-    "mapa": "Mapa do Brasil",
+    "mapa": "Mapa do mundo",
     "linha": "Linha do tempo"
   },
   "zoom": {
+    "mundo": "Mundo",
     "pais": "País",
     "estado": "Estado",
     "municipio": "Município"
   },
   "mapa": {
     "semWebgl": "Este navegador não consegue desenhar o mapa (falta WebGL). A lista de casos abaixo continua valendo.",
-    "semMalha": "As malhas do IBGE ainda não foram geradas neste servidor.",
+    "semMalha": "As malhas do mapa (Natural Earth e IBGE) ainda não foram geradas neste servidor.",
     "voltar": "Voltar um nível",
     "brasil": "Brasil",
     "casos": "{n} casos",
@@ -89,15 +90,17 @@
     "casosAqui": "Casos neste ponto",
     "abrirFicha": "Abrir a ficha",
     "listaDeCasos": "Casos no mapa (lista para teclado e leitor de tela)",
-    "aria": "Mapa do Brasil com os casos publicados, por estado e município",
-    "credito": "Malhas territoriais: IBGE. Sem mapa de terceiros e sem rastreio.",
+    "aria": "Mapa do mundo com os casos publicados; no Brasil, também por estado e município",
+    "credito": "Malhas: Natural Earth (mundo, domínio público) e IBGE (Brasil). Sem mapa de terceiros e sem rastreio.",
     "nivel": "Nível do mapa",
     "aproximado": "local aproximado (centro do estado)",
     "ramos": "Ligações do caso",
     "reduzirMovimento": "Reduzir movimento",
     "ativarMovimento": "Ativar movimento",
     "fecharRamos": "Fechar ramificações",
-    "abrirFonte": "Abrir a fonte"
+    "abrirFonte": "Abrir a fonte",
+    "mundo": "Mundo",
+    "aproximadoPais": "local aproximado (centro do país)"
   },
   "enviar": {
     "titulo": "Enviar uma fonte",
@@ -225,8 +228,8 @@
       "titulo": "Órbita em torno de {nome}"
     },
     "mapa": {
-      "emPreparacao": "Mapa do Brasil em preparação",
-      "texto": "O mapa neon do Brasil (país, estado, município) abre aqui. Enquanto isso, os casos por lugar:",
+      "emPreparacao": "Mapa do mundo em preparação",
+      "texto": "O mapa neon do mundo (país; no Brasil, estado e município) abre aqui. Enquanto isso, os casos por lugar:",
       "semLugar": "Sem lugar informado"
     },
     "ficha": {
@@ -303,7 +306,9 @@
         "movimentacao_suposta": "movimentação suposta"
       },
       "dataDaFonte": "sem data própria; fonte de {data}"
-    }
+    },
+    "filtroPais": "País",
+    "todosPaises": "Todos os países"
   },
   "navegacao": {
     "inicio": "Observatório",
@@ -395,7 +400,8 @@
       "pessoas": "pessoas públicas",
       "organizacoes": "organizações",
       "fontes": "fontes citadas",
-      "lugares": "estados"
+      "lugares": "estados",
+      "paises": "países"
     },
     "barra": "Situação jurídica dos casos publicados",
     "rodape": "Fonte, data e trecho em cada ficha. Teia viva: cada ponto é um registro, cada linha uma ligação com fonte."

@@ -137,6 +137,7 @@ const novosAtos = [{ id: "a", situacao: "confirmado" }, { id: "b", situacao: "ad
 igual("novos: cancelado não conta", contarNovos(novosAtos, new Set()), 2);
 igual("novos: visto não conta", contarNovos(novosAtos, new Set(["a"])), 1);
 igual("novos: tudo visto dá 0", contarNovos(novosAtos, new Set(["a", "b"])), 0);
+igual("novos: o ato que eu mesma chamei não conta", contarNovos([...novosAtos, { id: "d", situacao: "confirmado", meu: true }], new Set()), 2);
 ok("vistos na chave que o Sair rápido apaga", CHAVE_DOS_VISTOS.startsWith("lucia:rede"));
 ok("vistos nunca vão ao servidor", !/chamar|rpc\(|fetch\(/.test(ler("lib/rede/atos/novos.ts").replace(/import\("\.\.\/cliente-atos"\)[\s\S]*?atos\.atos\("seguindo"\)/, "")));
 

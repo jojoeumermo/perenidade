@@ -172,7 +172,7 @@ function MenuDeSilencio({ post, lang, s, sm, aoFechar }: { post: Post; lang: str
 
 /**
  * As ações de cuidado do cartão de post: Denunciar (com protocolo), Silenciar e, para quem modera o lugar, Moderar. Visitante vai para a
- * página Denunciar do site. Os textos do pacote só são baixados quando alguém abre uma das ações. Post cifrado: o formulário oferece
+ * página Denunciar da Alumia (P5, A5), com o post já no campo. Os textos do pacote só são baixados quando alguém abre uma das ações. Post cifrado: o formulário oferece
  * mandar o trecho aberto neste aparelho. Na prévia (`previa`), só Denunciar, e nada vai ao banco.
  */
 export function AcoesDeCuidado({ post, lang, s, logado, classe, previa = false }: { post: Post; lang: string; s: TextosDaRede; logado: boolean; classe: string; previa?: boolean }) {
@@ -180,7 +180,7 @@ export function AcoesDeCuidado({ post, lang, s, logado, classe, previa = false }
   const sm = useTextosMod(lang, aberto !== null);
   if (!logado) {
     return post.meu ? null : (
-      <Link href={localePath(lang, "/denunciar")} className={classe}>
+      <Link href={`${localePath(lang, "/alumia/denunciar")}?item=${encodeURIComponent(`/alumia/p/${post.id}`)}`} className={classe}>
         {s.acoes.denunciar}
       </Link>
     );

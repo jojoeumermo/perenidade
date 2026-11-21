@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import type pt from "@/i18n/rede/publicar/alumia2/pt.json";
+import { prontoDe } from "../../../../lib/rede/textos-prontos";
 
 /** Os textos da cara nova da Alumia (F1): i18n/rede/publicar/alumia2/{pt,en,es,fr,ru,zh}.json. */
 export type TextosAlumia2 = typeof pt;
@@ -25,8 +26,8 @@ export function carregarTextosAlumia2(lang: string): Promise<TextosAlumia2> {
   const l = lang in CARREGADORES ? lang : "pt";
   let p = guardados.get(l);
   if (!p) {
-    p = CARREGADORES[l]().then((m) => {
-      const t = m.default as TextosAlumia2;
+    p = prontoDe(CARREGADORES[l], CARREGADORES.pt).then((d) => {
+      const t = d as TextosAlumia2;
       prontos.set(l, t);
       return t;
     });

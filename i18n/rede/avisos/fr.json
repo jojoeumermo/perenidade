@@ -4,7 +4,7 @@
   "abas": { "rotulo": "Notifications et préférences", "avisos": "Notifications", "preferencias": "Préférences" },
   "lista": {
     "rotulo": "Vos notifications",
-    "vazio": "Rien pour le moment. Quand quelqu'un répond, mentionne ou soutient ce que vous avez écrit, cela apparaît ici.",
+    "vazio": "Rien pour le moment. Quand quelqu’un répond, mentionne, cite ou allume ce que vous avez écrit, cela apparaît ici.",
     "marcarTodos": "Tout marquer comme lu",
     "mais": "Voir les notifications plus anciennes",
     "carregando": "Chargement des notifications…",
@@ -14,21 +14,28 @@
     "naoLidos": "{n} non lues",
     "tudoLido": "Tout est lu.",
     "emTitulo": "dans « {titulo} »",
-    "abrir": "Ouvrir"
+    "abrir": "Ouvrir",
+    "seguranca": "Les alertes de sécurité du compte (nouvelle connexion, application d’authentification) sont dans Sécurité.",
+    "abrirSeguranca": "Ouvrir Sécurité"
+  },
+  "juntar": {
+    "dois": "{a} et {b}",
+    "maisAlguem": "{a} et quelqu’un d’autre",
+    "maisGente": "{a} et quelques autres personnes"
   },
   "frases": {
-    "resposta": { "um": "{a} a répondu à votre message.", "vezes": "{a} a répondu {n} fois à votre message.", "varios": "{a} et {n} autres ont répondu à votre message.", "anonimo": "Quelqu'un a répondu à votre message.", "anonimoVarios": "{n} personnes ont répondu à votre message." },
-    "mencao": { "um": "{a} vous a mentionné.", "vezes": "{a} vous a mentionné {n} fois.", "varios": "{a} et {n} autres vous ont mentionné.", "anonimo": "Quelqu'un vous a mentionné.", "anonimoVarios": "{n} personnes vous ont mentionné." },
-    "citacao": { "um": "{a} a cité votre message.", "vezes": "{a} a cité votre message {n} fois.", "varios": "{a} et {n} autres ont cité votre message.", "anonimo": "Quelqu'un a cité votre message.", "anonimoVarios": "{n} personnes ont cité votre message." },
-    "seguidor": { "um": "{a} a commencé à vous suivre.", "vezes": "{a} a commencé à vous suivre.", "varios": "{a} et {n} autres ont commencé à vous suivre.", "anonimo": "Quelqu'un a commencé à vous suivre.", "anonimoVarios": "{n} personnes ont commencé à vous suivre." },
-    "apoio": { "um": "1 personne a soutenu votre message.", "vezes": "1 personne a soutenu votre message.", "varios": "{n} personnes ont soutenu votre message.", "anonimo": "1 personne a soutenu votre message.", "anonimoVarios": "{n} personnes ont soutenu votre message." },
-    "conversa_seguida": {"um": "{a} a répondu dans une conversation que vous suivez.", "vezes": "{a} a répondu {n} fois dans une conversation que vous suivez.", "varios": "{a} et {n} autres ont répondu dans une conversation que vous suivez.", "anonimo": "Il y a une nouvelle réponse dans une conversation que vous suivez.", "anonimoVarios": "{n} personnes ont répondu dans une conversation que vous suivez."},
-    "ajudou": {"um": "Votre réponse a aidé la personne qui a ouvert la conversation.", "vezes": "Votre réponse a aidé la personne qui a ouvert la conversation.", "varios": "Vos réponses ont aidé dans {n} conversations.", "anonimo": "Votre réponse a aidé la personne qui a ouvert la conversation.", "anonimoVarios": "Vos réponses ont aidé dans {n} conversations."},
-    "reacao_story": {"um": "Quelqu’un a réagi à votre story.", "vezes": "Votre story a reçu {n} réactions.", "varios": "Votre story a reçu des réactions.", "anonimo": "Quelqu’un a réagi à votre story.", "anonimoVarios": "Votre story a reçu des réactions."},
-    "lembrete": {"um": "Vous avez demandé un rappel de ce post maintenant.", "vezes": "Vous avez demandé un rappel de ce post maintenant.", "varios": "Vous avez demandé un rappel de ces posts maintenant.", "anonimo": "Vous avez demandé un rappel de ce post maintenant.", "anonimoVarios": "Vous avez demandé un rappel de ces posts maintenant."},
-    "marcacao": {"um":"{a} vous a identifié dans un message, ou l'a demandé. Une demande n'apparaît que si vous l'acceptez.","vezes":"{a} vous a identifié dans un message, ou l'a demandé. Une demande n'apparaît que si vous l'acceptez.","varios":"{a} et {n} autres vous ont identifié, ou l'ont demandé.","anonimo":"Quelqu'un vous a identifié dans un message, ou l'a demandé. Une demande n'apparaît que si vous l'acceptez.","anonimoVarios":"{n} personnes vous ont identifié, ou l'ont demandé."},
-    "estou_bem": {"um":"Message de {a}, contact de sécurité : va bien. Le message disparaît dans 24 heures.","vezes":"Message de {a}, contact de sécurité : va bien. Le message disparaît dans 24 heures.","varios":"Messages de vos contacts de sécurité : vont bien.","anonimo":"Message d'un contact de sécurité : va bien. Le message disparaît dans 24 heures.","anonimoVarios":"Messages de vos contacts de sécurité : vont bien."},
-    "detido": {"um":"Message urgent de {a}, contact de sécurité : a été arrêté. Ouvrez le Mode manif pour savoir quoi faire.","vezes":"Message urgent de {a}, contact de sécurité : a été arrêté. Ouvrez le Mode manif pour savoir quoi faire.","varios":"Messages urgents de contacts de sécurité : ont été arrêtés. Ouvrez le Mode manif pour savoir quoi faire.","anonimo":"Message urgent d'un contact de sécurité : a été arrêté. Ouvrez le Mode manif pour savoir quoi faire.","anonimoVarios":"Messages urgents de contacts de sécurité : ont été arrêtés. Ouvrez le Mode manif pour savoir quoi faire."}
+    "resposta": { "um": "{a} a répondu à votre message.", "vezes": "{a} a répondu {n} fois à votre message.", "varios": "{a} et {n} autres ont répondu à votre message.", "anonimo": "Quelqu'un a répondu à votre message.", "anonimoVarios": "{n} personnes ont répondu à votre message.", "plural": "{quem} ont répondu à votre message." },
+    "mencao": { "um": "{a} vous a mentionné.", "vezes": "{a} vous a mentionné {n} fois.", "varios": "{a} et {n} autres vous ont mentionné.", "anonimo": "Quelqu'un vous a mentionné.", "anonimoVarios": "{n} personnes vous ont mentionné.", "plural": "{quem} vous ont mentionné." },
+    "citacao": { "um": "{a} a cité votre message.", "vezes": "{a} a cité votre message {n} fois.", "varios": "{a} et {n} autres ont cité votre message.", "anonimo": "Quelqu'un a cité votre message.", "anonimoVarios": "{n} personnes ont cité votre message.", "plural": "{quem} ont cité votre message." },
+    "seguidor": { "um": "{a} a commencé à vous suivre.", "vezes": "{a} a commencé à vous suivre.", "varios": "{a} et {n} autres ont commencé à vous suivre.", "anonimo": "Quelqu'un a commencé à vous suivre.", "anonimoVarios": "{n} personnes ont commencé à vous suivre.", "plural": "{quem} ont commencé à vous suivre." },
+    "apoio": { "um": "Quelqu’un a allumé votre message.", "vezes": "Quelqu’un a allumé votre message.", "varios": "{n} personnes ont allumé votre message.", "anonimo": "Quelqu’un a allumé votre message.", "anonimoVarios": "{n} personnes ont allumé votre message." },
+    "conversa_seguida": { "um": "{a} a répondu dans une conversation que vous suivez.", "vezes": "{a} a répondu {n} fois dans une conversation que vous suivez.", "varios": "{a} et {n} autres ont répondu dans une conversation que vous suivez.", "anonimo": "Il y a une nouvelle réponse dans une conversation que vous suivez.", "anonimoVarios": "{n} personnes ont répondu dans une conversation que vous suivez.", "plural": "{quem} ont répondu dans une conversation que vous suivez." },
+    "ajudou": { "um": "Votre réponse a aidé la personne qui a ouvert la conversation.", "vezes": "Votre réponse a aidé la personne qui a ouvert la conversation.", "varios": "Vos réponses ont aidé dans {n} conversations.", "anonimo": "Votre réponse a aidé la personne qui a ouvert la conversation.", "anonimoVarios": "Vos réponses ont aidé dans {n} conversations." },
+    "reacao_story": { "um": "Quelqu’un a réagi à votre story.", "vezes": "Votre story a reçu {n} réactions.", "varios": "Votre story a reçu des réactions.", "anonimo": "Quelqu’un a réagi à votre story.", "anonimoVarios": "Votre story a reçu des réactions." },
+    "lembrete": { "um": "Vous avez demandé un rappel de ce post maintenant.", "vezes": "Vous avez demandé un rappel de ce post maintenant.", "varios": "Vous avez demandé un rappel de ces posts maintenant.", "anonimo": "Vous avez demandé un rappel de ce post maintenant.", "anonimoVarios": "Vous avez demandé un rappel de ces posts maintenant." },
+    "marcacao": { "um": "{a} vous a identifié dans un message, ou l'a demandé. Une demande n'apparaît que si vous l'acceptez.", "vezes": "{a} vous a identifié dans un message, ou l'a demandé. Une demande n'apparaît que si vous l'acceptez.", "varios": "{a} et {n} autres vous ont identifié, ou l'ont demandé.", "anonimo": "Quelqu'un vous a identifié dans un message, ou l'a demandé. Une demande n'apparaît que si vous l'acceptez.", "anonimoVarios": "{n} personnes vous ont identifié, ou l'ont demandé.", "plural": "{quem} vous ont identifié, ou ont demandé à le faire." },
+    "estou_bem": { "um": "Message de {a}, contact de sécurité : va bien. Le message disparaît dans 24 heures.", "vezes": "Message de {a}, contact de sécurité : va bien. Le message disparaît dans 24 heures.", "varios": "Messages de vos contacts de sécurité : vont bien.", "anonimo": "Message d'un contact de sécurité : va bien. Le message disparaît dans 24 heures.", "anonimoVarios": "Messages de vos contacts de sécurité : vont bien." },
+    "detido": { "um": "Message urgent de {a}, contact de sécurité : a été arrêté. Ouvrez le Mode manif pour savoir quoi faire.", "vezes": "Message urgent de {a}, contact de sécurité : a été arrêté. Ouvrez le Mode manif pour savoir quoi faire.", "varios": "Messages urgents de contacts de sécurité : ont été arrêtés. Ouvrez le Mode manif pour savoir quoi faire.", "anonimo": "Message urgent d'un contact de sécurité : a été arrêté. Ouvrez le Mode manif pour savoir quoi faire.", "anonimoVarios": "Messages urgents de contacts de sécurité : ont été arrêtés. Ouvrez le Mode manif pour savoir quoi faire." }
   },
   "prefs": {
     "titulo": "Comment vous voulez être prévenu",
@@ -36,7 +43,7 @@
     "falha": "Impossible d'enregistrer. Réessayez.",
     "site": {
       "titulo": "Notifications ici sur Alumia",
-      "descricao": "Choisissez ce qui s'affiche sur cet écran. Les avis de modération s'affichent toujours : vous avez le droit de savoir ce qu'il est advenu de ce que vous avez écrit.",
+      "descricao": "Choisissez ce qui apparaît sur cet écran. Les notifications de modération apparaissent toujours : vous avez le droit de savoir ce qui est arrivé à ce que vous avez écrit. Les alertes de sécurité du compte sont dans Sécurité.",
       "tipos": {
         "resposta": "Réponses à ce que vous avez écrit",
         "mencao": "Mentions de votre @nom",
@@ -45,7 +52,7 @@
         "chamado": "Appels",
         "nucleo": "Noyaux locaux",
         "moderacao": "Modération (toujours activée)",
-        "apoio": "Soutiens (seulement le nombre, jamais qui)",
+        "apoio": "Quand on allume votre message (le nombre seulement à partir de 3, jamais qui)",
         "conversa_seguida": "Réponses dans les conversations que vous suivez",
         "ajudou": "Quand votre réponse a aidé (jamais qui l’a marquée)",
         "ato": "Actions que vous suivez (phare, chaîne, consultation)",

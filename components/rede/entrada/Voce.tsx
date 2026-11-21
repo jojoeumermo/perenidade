@@ -2,12 +2,13 @@
 "use client";
 
 // O painel de quem chega (o último da parede da entrada) e o rosto pequeno do formulário. Enquanto a pessoa escreve o codinome,
-// o painel forma o rosto em mosaico dela, ladrilho por ladrilho; quem escolhe mostrar a própria foto vê a foto se formar.
+// o painel forma o desenho dela (P5, A2: o mesmo do rosto na rede, lib/rede/desenhos.ts), ladrilho por ladrilho; quem escolhe mostrar a própria foto vê a foto se formar.
 //
 // Privacidade: tudo aqui acontece no aparelho. O codinome que alimenta o desenho é o que está no campo (ou o da conta que
 // acabou de entrar); a foto é lida do arquivo escolhido, direto na memória da página, e NÃO é enviada a lugar nenhum nem
 // guardada (nem em localStorage): some ao fechar ou recarregar a página. Ninguém mais vê este painel.
 import { createContext, type CSSProperties, type ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { LADO_DO_DESENHO } from "@/lib/rede/desenhos";
 import type { TextosDaEntrada } from "@/lib/rede/entrada/textos";
 import { atrasosDoPainel, COLUNAS_DO_PAINEL, coresDoRosto, LINHAS_DO_PAINEL, painelDaFoto, painelDoCodinome, painelVazio, sementeDoCodinome } from "@/lib/rede/entrada/voce";
 
@@ -91,7 +92,7 @@ const DURACAO = 1100;
 const QUEDA = 0.3;
 
 /**
- * O último painel da parede. Vazio: noite, umas brasas, a moldura tracejada e "VOCÊ". Com codinome: o rosto em mosaico, com os
+ * O último painel da parede. Vazio: noite, umas brasas, a moldura tracejada e "VOCÊ". Com codinome: o desenho dele, com os
  * ladrilhos assentando de cima para baixo. Com foto: os ladrilhos assentam nas cores dela e a foto aparece por baixo do rejunte.
  * Decorativo para o leitor de tela (a parede tem um nome só, e a legenda embaixo anuncia a mudança).
  */
@@ -185,7 +186,7 @@ export function PainelDeVoce({ t, indice }: { t: TextosDaEntrada; indice: number
       <span className="ale-painel ale-voce" data-revelada={foto && revelada === foto.url ? "" : undefined} style={{ ...lugar, ["--i" as string]: indice }}>
         {/* A foto de quem escolheu aparecer: blob: local, por baixo dos ladrilhos, sem pedido à rede. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        {foto ? <img src={foto.url} alt="" /> : null}
+        {foto ? <img src={foto.url} alt="" draggable={false} /> : null}
         <canvas ref={tela} width={COLUNAS_DO_PAINEL * CASA} height={LINHAS_DO_PAINEL * CASA} />
       </span>
       {/* A moldura e o selo ficam por cima do rejunte da parede (que cobre os painéis): assim o "VOCÊ" se lê inteiro. */}
@@ -197,18 +198,18 @@ export function PainelDeVoce({ t, indice }: { t: TextosDaEntrada; indice: number
   );
 }
 
-/** O rosto pequeno do formulário: o mesmo mosaico de 16 cartões do painel (ou a foto escolhida), ao lado do codinome. */
+/** O rosto pequeno do formulário: o mesmo desenho do painel e da rede (ou a foto escolhida), ao lado do codinome. */
 export function RostoDoCodinome({ codinome, foto }: { codinome: string; foto: FotoDeVoce | null }) {
   const cores = coresDoRosto(codinome);
   return (
     <span className="ale-rosto-figura" aria-hidden>
       {foto ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={foto.url} alt="" />
+        <img src={foto.url} alt="" draggable={false} />
       ) : (
-        <svg viewBox="0 0 4 4" preserveAspectRatio="none">
+        <svg viewBox={`0 0 ${LADO_DO_DESENHO} ${LADO_DO_DESENHO}`} preserveAspectRatio="none" shapeRendering="crispEdges">
           {cores.map((cor, i) => (
-            <rect key={i} x={i % 4} y={Math.floor(i / 4)} width={1.02} height={1.02} fill={cor} />
+            <rect key={i} x={i % LADO_DO_DESENHO} y={Math.floor(i / LADO_DO_DESENHO)} width={1.02} height={1.02} fill={cor} />
           ))}
         </svg>
       )}

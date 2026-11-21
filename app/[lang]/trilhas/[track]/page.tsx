@@ -1,4 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import { areaNaEscola, caminhoDaAula, caminhoDaEstante, caminhoDaTrilha } from "@/lib/escola/aulas-abertas";
 import { corDaCapa } from "@/lib/capas";
 import type { Metadata } from "next";
 import Link from "@/components/Link";
@@ -30,13 +31,13 @@ import { OuvirParagrafoSobDemanda as OuvirParagrafo } from "@/components/aula/Au
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return withLangs(getTracks(defaultLocale).map((track) => ({ track: track.slug })));
+  return withLangs(getTracks(defaultLocale).filter((track) => !areaNaEscola(track.area)).map((track) => ({ track: track.slug })));
 }
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/trilhas/[track]">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
   const track = getTrack((await params).track, lang);
-  return track ? paginaMeta(lang, `/trilhas/${track.slug}`, track.title, track.summary, { kicker: `${t.areas[track.area][0]} · ${t.stages[track.stage]}` }, { idiomas: idiomasDe(track.file) }) : {};
+  return track ? paginaMeta(lang, caminhoDaTrilha(track), track.title, track.summary, { kicker: `${t.areas[track.area][0]} · ${t.stages[track.stage]}` }, { idiomas: idiomasDe(track.file) }) : {};
 }
 
 export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[track]">) {
@@ -47,7 +48,7 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
   const to = (path: string) => localePath(lang, path);
   const items = track.plan.map((item) => ({
     id: lessonId(track.slug, item.slug),
-    path: `/trilhas/${track.slug}/${item.slug}`,
+    path: caminhoDaAula(track, item.slug),
     title: item.title,
     ready: item.ready,
   }));
@@ -63,7 +64,7 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
 
   return (
     <>
-      <DadosEstruturados dados={[curso(lang, track), migalhas(lang, [[t.nav.disciplines, "/trilhas"], [t.areas[track.area][0], `/estantes/${track.area}`], [track.title, `/trilhas/${track.slug}`]])]} />
+      <DadosEstruturados dados={[curso(lang, track), migalhas(lang, [[t.nav.disciplines, "/trilhas"], [t.areas[track.area][0], caminhoDaEstante(track.area)], [track.title, caminhoDaTrilha(track)]])]} />
       {/* ── O alto: a capa do caderno, colada torta, e a ficha da trilha no papel pontilhado ── */}
       {/* No aplicativo este alto vira o topo bordô da trilha (veja "Caderno de Bolso" em globals.css). */}
       {/* No celular esta faixa vira a capa do caderno, na cor da disciplina (app/celular.css). */}
@@ -72,7 +73,7 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
           <nav aria-label={t.nav.disciplines} className="font-mono text-xs uppercase tracking-[0.1em] text-ink-soft">
             <Link href={to("/trilhas")} className="hover:text-prelo-texto">{t.nav.disciplines}</Link>
             {" / "}
-            <Link href={to(`/estantes/${track.area}`)} className="hover:text-prelo-texto">{t.areas[track.area][0]}</Link>
+            <Link href={to(caminhoDaEstante(track.area))} className="hover:text-prelo-texto">{t.areas[track.area][0]}</Link>
           </nav>
           <div className="mt-8 grid items-center gap-12 md:grid-cols-[18rem_minmax(0,1fr)] lg:gap-14">
             <div aria-hidden className="caderno mx-auto aspect-[3/4] w-full max-w-[18rem] -rotate-[1.5deg] max-md:hidden" style={{ background: cor }}>
@@ -159,8 +160,8 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
             </p>
           )}
           {/* A estimativa: a página pronta pesa uns 45 KB além do texto da aula (marcação, estilos embutidos). */}
-          {ready.length > 0 && <SaveOffline lang={lang} paths={[to(`/trilhas/${track.slug}`), ...ready.map((item) => to(item.path))]} s={t.tracks} estimativa={(ready.length + 1) * 45 * 1024 + track.lessons.reduce((soma, l) => soma + l.body.length * 2, 0)} />}
-          <Compartilhar url={`${site.url}${to(`/trilhas/${track.slug}`)}`} texto={`${t.compartilhar.trilha} ${track.title}`} s={t.compartilhar} />
+          {ready.length > 0 && <SaveOffline lang={lang} paths={[to(caminhoDaTrilha(track)), ...ready.map((item) => to(item.path))]} s={t.tracks} estimativa={(ready.length + 1) * 45 * 1024 + track.lessons.reduce((soma, l) => soma + l.body.length * 2, 0)} />}
+          <Compartilhar url={`${site.url}${to(caminhoDaTrilha(track))}`} texto={`${t.compartilhar.trilha} ${track.title}`} s={t.compartilhar} />
           {ready.length > 0 && (
             <p className="mt-4 flex flex-wrap gap-x-5 gap-y-1 font-sans text-sm">
               <Link href={`${to("/caderno")}?abrir=${encodeURIComponent(ready.map((item) => item.path).join(","))}&titulo=${encodeURIComponent(track.title)}`} className="underline hover:text-prelo-texto">

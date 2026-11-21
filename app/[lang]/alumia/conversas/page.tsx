@@ -3,9 +3,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { RedeSobDemanda } from "@/components/rede/RedeSobDemanda";
+import { ChatSoNoApp } from "@/components/rede/transparencia-apps/ChatSoNoApp";
+import { carregarTextosDoApp } from "@/components/rede/transparencia-apps/textos";
 import { loadLang } from "@/i18n";
 import { textosDaRede, tituloDaTela } from "@/lib/rede/textos";
 import { ligado } from "@/lib/recursos";
+import { chatSoApp } from "@/lib/rede/transparencia-apps/recurso";
 
 // Gerada a cada pedido: no endereço próprio do chat (lib/rede/chat/origem.ts), cada resposta leva um "nonce" novo na política de
 // scripts, e o Next só o aplica aos scripts dele em página feita na hora.
@@ -18,10 +21,15 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return { title: tituloDaTela(lang, "conversas"), robots: { index: false, follow: false } };
 }
 
-/** Conversas da Alumia (/alumia/conversas): o chat privado, cifrado de ponta a ponta (docs/rede/CHAT-PRIVADO.md). Com o recurso "rede-v2" desligado, 404. */
+/**
+ * Conversas da Alumia (/alumia/conversas): o chat privado, cifrado de ponta a ponta (docs/rede/CHAT-PRIVADO.md). Com o recurso "rede-v2"
+ * desligado, 404. Com "alumia-chat-so-app" ligado (lib/rede/transparencia-apps/recurso.ts), só o aviso "Para conversar, use o app": a
+ * Rede (e com ela o chat) nem é carregada nesta página.
+ */
 export default async function Pagina({ params }: { params: Promise<{ lang: string }> }) {
   if (!ligado("rede-v2")) notFound();
   const { lang } = await loadLang(params);
+  if (chatSoApp()) return <ChatSoNoApp lang={lang} t={await carregarTextosDoApp(lang)} />;
   return (
     <div className="pb-8">
       <Suspense>

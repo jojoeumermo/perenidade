@@ -1,0 +1,71 @@
+{
+  "_rascunho": true,
+  "campos": {
+    "titulo": "More for this post",
+    "resumo": "Short version (optional)",
+    "resumoDica": "Up to 280 characters, written by you, for readers who have only a minute. It appears above the text.",
+    "capa": "Article cover",
+    "semCapa": "No cover",
+    "capaN": "Image {n}",
+    "capitulos": "Each line that starts with \"## \" opens a chapter. With two or more, readers see the table of contents and can read page by page.",
+    "convite": "Send yours: this post is an invitation",
+    "conviteDica": "Anyone who wants to can reply with a sentence or an image. The total only appears from 3 people on, and nobody sees a list of who replied.",
+    "fonte": "Source (optional)",
+    "fonteDica": "A link without tracking parameters or the address of a Vale o Escrito fact-check. The post gets the \"with source\" mark.",
+    "fonteRuim": "That source is not valid: use an http(s) link without tracking parameters or the address of a Vale o Escrito case.",
+    "resumoContador": "{n} of 280",
+    "capaAjuda": "The cover appears above the table of contents for page-by-page readers."
+  },
+  "album": {
+    "maximo": "Up to 20 images per post."
+  },
+  "cartao": {
+    "versaoCurta": "Short version",
+    "capitulos": "{n} chapters",
+    "lerEmPaginas": "Read page by page",
+    "convite": "Send yours",
+    "conviteTotal": "{n} people have already sent theirs.",
+    "conviteSemTotal": "Reply with a sentence or an image.",
+    "responder": "Send mine",
+    "comFonte": "With source",
+    "fonteVale": "Vale o Escrito fact-check",
+    "mandar": "Open to send yours",
+    "ajudaDoSelo": "The author said where the information came from."
+  },
+  "leitura": {
+    "titulo": "Page by page",
+    "indice": "Contents",
+    "abertura": "Opening",
+    "pagina": "Page {n} of {total}",
+    "anterior": "Previous",
+    "proxima": "Next",
+    "fechar": "Close",
+    "capa": "Cover",
+    "carregando": "Opening the text…",
+    "erro": "Could not open the text right now. Try again.",
+    "irPara": "Go to chapter"
+  },
+  "filtro": {
+    "titulo": "Images without description",
+    "rotulo": "Hide posts with an undescribed image from the feed",
+    "explica": "Only on this device: the server does not know you turned it on. The description is the text a screen reader reads in place of the image.",
+    "ligado": "On for this device.",
+    "desligado": "Off."
+  },
+  "erros": {
+    "invalido_resumo": "The short version only goes with a long text, up to 280 characters.",
+    "resumo_revisar": "The short version has something moderation would need to read first. Change the words or remove the short version.",
+    "invalido_capa": "The cover must be one of the images of this long text.",
+    "invalido_convite": "The \"Send yours\" invitation only goes on an opening post (not on a reply, poll or long text).",
+    "invalido_fonte": "That source is not valid: use an http(s) link without tracking parameters or the address of a Vale o Escrito case.",
+    "invalido_vale": "That Vale o Escrito case is not online to be cited.",
+    "desligado": "These options are not turned on yet. Remove them to publish.",
+    "semCifra": "An encrypted post carries only the text: the short version, the source and the invitation would go unencrypted. Remove them or publish outside the encrypted group.",
+    "semFio": "A thread does not carry a short version, source or invitation. Publish a single block or remove these options."
+  },
+  "barra": {
+    "expandir": "Expand",
+    "expandirAjuda": "Open the full editor with what you already wrote (images, poll, who sees it, later).",
+    "dica": "Ctrl+Enter posts. Before it goes out, the post waits 10 seconds and can be undone."
+  }
+}

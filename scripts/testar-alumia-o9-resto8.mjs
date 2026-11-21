@@ -8,7 +8,7 @@
 //   avaliação  nenhum post da Alumia vai para a avaliação de fora, ligada ou não (nem pela triagem, nem pela entrega do texto,
 //              nem pela lista de pendentes, nem pela função de borda, nem pela tela);
 //   sair       "sair só da Alumia" tira a pessoa da rede e deixa a conta do Instituto; conta_apagar deixa "[post apagado]";
-//   voto       a cédula cifrada abre só no servidor e só fechada; a votação secreta da equipe, a enquete de post, a de story e o
+//   voto       (a cédula cifrada da consulta, que abria no servidor, saiu com a R2: scripts/testar-r2-voto.mjs) a votação secreta da equipe, a enquete de post, a de story e o
 //              termômetro guardam a marca do servidor, nunca a pessoa. O teste faz o papel de quem lê o banco inteiro e TENTA casar
 //              pessoa e voto: pelo id, pela marca recalculada com o sal do banco, pelo xmin, pelo freio. E não consegue.
 // Uso: node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-o9-resto8.mjs
@@ -240,8 +240,7 @@ try {
 
 // ═══════════════════ 6. Voto: a enquete de post ═══════════════════
 const SEGREDO = "segredo-do-voto-para-o-teste-0123456789";
-const { marcaDoVoto, marcaDoBemEstar, semanaDeSaoPaulo, chavePublicaDaConsulta, abrirCedula } = await import("../lib/rede/voto/servidor.ts");
-const { cifrarCedula } = await import("../lib/rede/voto/cedula.ts");
+const { marcaDoVoto, marcaDoBemEstar, semanaDeSaoPaulo } = await import("../lib/rede/voto/servidor.ts");
 const sal = (await um("select valor #>> '{}' as s from interno.configuracoes where chave = 'cuidado_sal'"))?.s ?? "";
 /** Tudo o que o banco guarda, em texto: se o id de alguém aparece numa linha, ela liga a pessoa. */
 const temId = (linhasDoBanco, id) => JSON.stringify(linhasDoBanco).includes(id);
@@ -330,48 +329,11 @@ function md5Sal(s, alvo, pessoa) {
 }
 
 // ═══════════════════ 10. Voto: a consulta com a cédula cifrada ═══════════════════
-{
-  await dono("insert into interno.rede_orgs (perfil, tipo) values ($1, 'coletivo')", [P.org]);
-  const NUCLEO = (await um("insert into interno.rede_nucleos (nome, org) values ('Núcleo do teste', $1) returning id", [P.org])).id;
-  const VOTANTES = ["v1", "v2", "v3", "v4", "v5"];
-  for (const n of VOTANTES) await dono("insert into interno.rede_nucleo_membros (nucleo, usuario) values ($1, $2)", [NUCLEO, P[n]]);
-  const C = (await um("insert into interno.rede_consultas (org, pergunta, metodo, prazo, compromisso) values ($1, 'Qual pauta levamos?', 'ranqueada', now() + interval '2 days', 'A vencedora abre a próxima plenária.') returning id", [P.org])).id;
-  const ops = [];
-  for (const [i, t] of ["Tarifa zero", "Moradia", "Creche"].entries()) ops.push((await um("insert into interno.rede_consulta_opcoes (consulta, ordem, texto) values ($1, $2, $3) returning id", [C, i + 1, t])).id);
-  const chave = chavePublicaDaConsulta(SEGREDO, C);
-  const cedulas = {};
-  const rankings = [[0, 1, 2], [1, 0, 2], [2, 1, 0], [0, 2, 1]];
-  for (const [i, n] of VOTANTES.slice(0, 4).entries()) {
-    cedulas[n] = await cifrarCedula(C, chave, rankings[i].map((k) => ops[k]));
-    await espera(`${n} vota com a cédula cifrada`, () => chamar(como(P[n]), "rede_org_consulta_votar_cifrada", { p_consulta: C, p_cedula: cedulas[n] }), (x) => x.votei === true);
-  }
-  await recusa("cédula que não é cédula", () => chamar(como(P.v5), "rede_org_consulta_votar_cifrada", { p_consulta: C, p_cedula: "c1.oi" }), "invalido:cedula");
-  await recusa("quem já votou não vota de novo", () => chamar(como(P.v1), "rede_org_consulta_votar_cifrada", { p_consulta: C, p_cedula: cedulas.v1 }), "ja_votou");
-  const noBanco = await linhas("select xmin::text x, cedula from interno.rede_consulta_cifradas where consulta = $1", [C]);
-  ok("o banco guarda só o texto cifrado (nenhum id de opção à vista)", noBanco.length === 4 && noBanco.every((c) => ops.every((o) => !c.cedula.includes(o))));
-  ok("as cédulas cifradas foram regravadas juntas (um xmin só)", new Set(noBanco.map((c) => c.x)).size === 1);
-  ok("sem o segredo do servidor, nenhuma abre (nem com outro segredo)", noBanco.every((c) => abrirCedula("outro-segredo-qualquer-0123456789abcdef", C, c.cedula) === null));
-  ok("a cédula de uma consulta não abre em outra", abrirCedula(SEGREDO, "11111111-2222-4333-8444-555555555555", noBanco[0].cedula) === null);
-  const adulterada = noBanco[0].cedula.slice(0, -3) + (noBanco[0].cedula.endsWith("A") ? "B" : "A") + noBanco[0].cedula.slice(-2);
-  ok("cédula adulterada não abre (AES-GCM confere a etiqueta)", abrirCedula(SEGREDO, C, adulterada) === null);
-  await espera("aberta, o banco não entrega as cédulas ao servidor", () => servico("alumia_voto_cifradas", { p_consulta: C }), (x) => x.fechada === false && !("cedulas" in x));
-  await recusa("aberta, não se apura", () => servico("alumia_voto_apurar", { p_consulta: C, p_rankings: [], p_quantas: 4 }), "consulta_aberta");
-  await dono("update interno.rede_consultas set prazo = now() - interval '1 minute' where id = $1", [C]);
-  await espera("fechada com cédula fechada: o resultado não sai e a tela é avisada", async () => (await rpc(como(P.v1), "rede_org_perfil", { p_handle: "org_o9" })).consultas.find((c) => c.id === C),
-    (c) => c.apurar === true && c.opcoes.every((o) => o.proporcao === null));
-  const lote = await servico("alumia_voto_cifradas", { p_consulta: C });
-  const abertas = lote.cedulas.map((c) => abrirCedula(SEGREDO, C, c));
-  ok("o servidor abre todas", abertas.every((r) => Array.isArray(r) && r.length === 3));
-  await recusa("a apuração confere quantas cédulas o servidor abriu", () => servico("alumia_voto_apurar", { p_consulta: C, p_rankings: abertas, p_quantas: 3 }), "invalido:apuracao");
-  const comNula = [...abertas.slice(0, 3), [ops[0], ops[0]]];
-  await espera("apura: os rankings válidos entram, o inválido é nulo", () => servico("alumia_voto_apurar", { p_consulta: C, p_rankings: comNula, p_quantas: 4 }), (x) => x.apuradas === 3 && x.nulas === 1);
-  await espera("as cifradas saíram; as abertas estão na urna, sem pessoa", () => um("select (select count(*)::int from interno.rede_consulta_cifradas where consulta = $1) c, (select count(*)::int from interno.rede_consulta_cedulas where consulta = $1) a", [C]), (x) => x.c === 0 && x.a === 3);
-  await espera("apurar de novo não muda nada", () => servico("alumia_voto_apurar", { p_consulta: C, p_rankings: [], p_quantas: 0 }), (x) => x.apuradas === 0);
-  await espera("o resultado sai (3 cédulas, sem quórum pedido)", async () => (await rpc(como(P.v1), "rede_org_perfil", { p_handle: "org_o9" })).consultas.find((c) => c.id === C),
-    (c) => c.apurar === false && c.opcoes.some((o) => typeof o.proporcao === "number"));
-  const ced = await linhas("select xmin::text x, ranking::text r from interno.rede_consulta_cedulas where consulta = $1", [C]);
-  ok("na urna, as cédulas abertas dividem um xmin só e não dizem a ordem dos votos", new Set(ced.map((c) => c.x)).size === 1);
-}
+// A cédula cifrada para a chave do SERVIDOR (c1), que este teste abria com o segredo dele, saiu com a R2 (item 1.7): a chave de cada
+// votação secreta fica dividida entre as guardiãs da coordenação e o servidor não abre nada. A prova nova (o banco inteiro e todos
+// os segredos do servidor não abrem cédula) está em scripts/testar-r2-voto.mjs.
+ok("o código com que o servidor abria as cédulas saiu (R2)", !existe("lib/rede/voto/cedula.ts") && !existe("app/api/alumia/voto/abrir/route.ts") && !existe("app/api/alumia/voto/chave/route.ts")
+  && !/abrirCedula|chavePublicaDaConsulta/.test(fonte("lib/rede/voto/servidor.ts")));
 
 // ═══════════════════ 11. Sair só da Alumia ═══════════════════
 {
@@ -515,7 +477,9 @@ function md5Sal(s, alvo, pessoa) {
   ok("desafio: a Cloudflare fora do ar não abre a porta", (await r.json()).motivo === "captcha");
   delete process.env.TURNSTILE_SECRET_KEY;
 
-  // Reenviar e esqueci a senha
+  // Reenviar e esqueci a senha. A volta só vale numa origem do próprio Instituto (lib/rede/convites/porta-sem-teto.ts): a do dublê
+  // entra na lista como o endereço próprio da Alumia, só durante estes pedidos.
+  process.env.NEXT_PUBLIC_ALUMIA_URL = "https://alumia.duble";
   const aviso = await import("../app/api/alumia/porta/aviso/route.ts");
   respostas = { "/rpc/alumia_porta_passar": [200, { ok: true }], "/auth/v1/recover": [200, {}], "/auth/v1/resend": [200, {}] };
   chamadas.length = 0;
@@ -538,6 +502,7 @@ function md5Sal(s, alvo, pessoa) {
   respostas = { "/rpc/alumia_cadastro_passar": [200, { ok: true }], "/auth/v1/admin/users": [200, { id: "novo" }], "/auth/v1/resend": [200, {}] };
   chamadas.length = 0;
   r = await conta.POST(pedir({ ...(await provar("conta")), email: "nova@o9.local", senha: "Senha-Bem-Forte-2026", codinome: "Faísca", volta: "https://alumia.duble/", convite: "abcdef123456" }));
+  delete process.env.NEXT_PUBLIC_ALUMIA_URL;
   d = await r.json();
   const adm = chamadas.find((c) => c.u.includes("/auth/v1/admin/users"));
   ok("conta: criada pela API de administração, sem confirmar o e-mail, com o codinome e o convite", d.ok === true && adm && adm.corpo.email_confirm === false && adm.corpo.user_metadata.apelido === "Faísca" && adm.corpo.user_metadata.convite === "abcdef123456");
@@ -577,52 +542,48 @@ function md5Sal(s, alvo, pessoa) {
   await marca.POST(pedir({ tipo: "bem_estar", nivel: 4 }, { Authorization: `Bearer ${"t".repeat(30)}` }));
   const be = chamadas.find((c) => c.u.includes("/rpc/alumia_cuidado_bem_estar"));
   ok("termômetro: a marca de 32 letras, com a semana de São Paulo", be && be.corpo.p_marca === marcaDoBemEstar(SEGREDO, semanaDeSaoPaulo(), PESSOA) && /^[0-9a-f]{32}$/.test(be.corpo.p_marca));
+  // A crítica anônima: a requisição confere a pessoa e não grava nada; a fila grava depois, sem a pessoa
+  respostas["/rpc/alumia_cuidado_pode_criticar"] = [200, true];
+  respostas["/rpc/alumia_cuidado_critica"] = [200, { ok: true }];
+  chamadas.length = 0;
+  r = await marca.POST(pedir({ tipo: "critica", texto: "Uma crítica de teste sobre a reunião.", para: "geral" }, { Authorization: `Bearer ${"t".repeat(30)}` }));
+  ok("crítica: aceita, e a gravação não acontece dentro da requisição", r.status === 200 && (await r.json()).ok === true
+    && chamadas.some((c) => c.u.includes("/rpc/alumia_cuidado_pode_criticar")) && !chamadas.some((c) => c.u.includes("/rpc/alumia_cuidado_critica")));
+  let quarta = 0;
+  for (let i = 0; i < 3; i++) quarta = (await marca.POST(pedir({ tipo: "critica", texto: `Mais uma crítica de teste ${i}.`, para: "geral" }, { Authorization: `Bearer ${"t".repeat(30)}` }))).status;
+  ok("crítica: a quarta do dia para na cota", quarta === 429);
+  const { criarCotaDaCritica, criarFilaDaCritica } = await import("../lib/rede/voto/critica.ts");
+  const cota = criarCotaDaCritica(3);
+  for (let i = 0; i < 4; i++) cota(SEGREDO, PESSOA, "2026-11-20");
+  const retrato = JSON.stringify(cota.retrato());
+  ok("crítica: a cota não guarda o id da pessoa nem a hora (só uma chave opaca e quantas)", !retrato.includes(PESSOA) && !/\d{10,}/.test(retrato.replace(/[0-9a-f]{64}/g, ""))
+    && cota.retrato().chaves.length === 1 && cota.retrato().chaves[0][1] === 3 && /^[0-9a-f]{64}$/.test(cota.retrato().chaves[0][0]));
+  ok("crítica: a cota vira com o dia", cota(SEGREDO, PESSOA, "2026-11-21") === true && cota.retrato().chaves[0][1] === 1);
+  const gravadas = [];
+  let agendado = null;
+  const fila = criarFilaDaCritica({ gravar: async (c) => (gravadas.push(c.texto), true), agendar: (f) => (agendado = f) });
+  for (let i = 0; i < 6; i++) fila.por({ texto: `c${i}`, para: "geral" });
+  ok("crítica: a fila guarda só texto e destino (nem a hora de chegada)", fila.retrato().every((x) => Object.keys(x).sort().join() === "para,tentativas,texto"));
+  await agendado();
+  ok("crítica: na primeira volta nada sai (toda crítica espera pelo menos um intervalo inteiro)", gravadas.length === 0 && fila.tamanho() === 6);
+  fila.por({ texto: "tarde", para: "geral" });
+  await agendado();
+  ok("crítica: na volta seguinte sai o lote, sem a que chegou perto da saída", gravadas.length === 6 && !gravadas.includes("tarde") && fila.tamanho() === 1);
+  let embaralhou = false;
+  for (let k = 0; k < 20 && !embaralhou; k++) {
+    gravadas.length = 0;
+    for (let i = 0; i < 6; i++) fila.por({ texto: `c${i}`, para: "geral" });
+    await agendado();
+    await agendado();
+    embaralhou = gravadas.filter((t) => t !== "tarde").join() !== "c0,c1,c2,c3,c4,c5";
+  }
+  ok("crítica: o lote sai em ordem sorteada (não na de chegada)", embaralhou);
+
   delete process.env.ALUMIA_VOTO_SEGREDO;
   r = await marca.POST(pedir({ tipo: "enquete", post: POST_ID, opcoes: [OPC] }, { Authorization: `Bearer ${"t".repeat(30)}` }));
   ok("voto: sem o segredo do servidor, a rota não vota (nem finge)", r.status === 503);
   process.env.ALUMIA_VOTO_SEGREDO = SEGREDO;
 
-  // A apuração da consulta
-  const abrir = await import("../app/api/alumia/voto/abrir/route.ts");
-  const CONS = "3e8e5e4b-1111-4222-8333-444455556666";
-  const O1 = "4f9f6f5c-1111-4222-8333-444455556666";
-  const O2 = "5a0a7a6d-1111-4222-8333-444455556666";
-  const pub = chavePublicaDaConsulta(SEGREDO, CONS);
-  const lote = [await cifrarCedula(CONS, pub, [O1, O2]), await cifrarCedula(CONS, pub, [O2, O1]), "c1." + "A".repeat(87) + "." + "B".repeat(16) + "." + "C".repeat(40)];
-  respostas = { "/rpc/alumia_voto_cifradas": [200, { fechada: true, cedulas: lote }], "/rpc/alumia_voto_apurar": (c) => [200, { apuradas: c.p_rankings.length, nulas: c.p_quantas - c.p_rankings.length }] };
-  r = await abrir.POST(pedir({ consulta: CONS }));
-  ok("apurar: sem sessão, nada (um visitante não segura a apuração de ninguém)", r.status === 401);
-  respostas["/auth/v1/user"] = [200, { id: PESSOA, email_confirmed_at: "2026-01-01" }];
-  const comSessao = { Authorization: `Bearer ${"t".repeat(30)}` };
-  chamadas.length = 0;
-  r = await abrir.POST(pedir({ consulta: CONS }, comSessao));
-  d = await r.json();
-  const ap = chamadas.find((c) => c.u.includes("/rpc/alumia_voto_apurar"));
-  ok("apurar: o servidor abre, descarta a que não abre e manda só os rankings", d.ok && d.apuradas === 2 && d.nulas === 1 && ap.corpo.p_quantas === 3 && ap.corpo.p_rankings.every((x) => Array.isArray(x) && x.length === 2));
-  respostas["/rpc/alumia_voto_cifradas"] = [200, { fechada: false }];
-  r = await abrir.POST(pedir({ consulta: CONS }, comSessao));
-  ok("apurar: consulta aberta não se abre", r.status === 409);
-  respostas["/rpc/alumia_voto_cifradas"] = [400, { message: "nao_encontrado" }];
-  r = await abrir.POST(pedir({ consulta: CONS }, comSessao));
-  ok("apurar: consulta que não existe é um 404 (antes virava 502 e a borda mostrava a página de erro dela)", r.status === 404 && (await r.json()).motivo === "nao_encontrado");
-
-  // A chave pública da consulta: com sessão e freio por conta
-  const chaveRota = await import("../app/api/alumia/voto/chave/route.ts");
-  respostas["/auth/v1/user"] = [401, {}];
-  r = await chaveRota.POST(pedir({ consulta: CONS }));
-  ok("chave: sem sessão, nada", r.status === 401);
-  respostas["/auth/v1/user"] = [200, { id: PESSOA, email_confirmed_at: "2026-01-01" }];
-  r = await chaveRota.POST(pedir({ consulta: CONS }, comSessao));
-  d = await r.json();
-  ok("chave: com sessão, a chave pública da consulta", d.ok === true && d.chave === pub);
-  let ultimo = 200;
-  for (let i = 0; i < 35; i++) ultimo = (await chaveRota.POST(pedir({ consulta: CONS }, comSessao))).status;
-  respostas["/auth/v1/user"] = [200, { id: "6b1b8b7e-1111-4222-8333-444455556666", email_confirmed_at: "2026-01-01" }];
-  const outra = (await chaveRota.POST(pedir({ consulta: CONS }, comSessao))).status;
-  ok("chave: o freio é por conta (a enxurrada de uma conta não barra a outra)", ultimo === 429 && outra === 200);
-  const cli = fs.readFileSync(path.join(raiz, "lib/rede/voto/cliente.ts"), "utf8");
-  ok("o aparelho só cai para o caminho sem cifra quando o servidor diz sem_servico (429 ou falta de rede viram erro)",
-    cli.includes('if (r.dado?.motivo === "sem_servico") return null;') && !/catch \{\s*chave = null;/.test(cli) && cli.includes('throw new BackendError("falha");'));
 }
 } catch (erro) {
   falhas.push(`o teste quebrou: ${String(erro?.stack ?? erro).split("\n").slice(0, 3).join(" | ")}`);

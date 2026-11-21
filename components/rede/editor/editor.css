@@ -117,6 +117,16 @@
 [data-al="2"] .al-ed-alca-fim { left: calc(var(--fim) - 11px); border-radius: 0 10px 10px 0; }
 [data-al="2"] .al-ed-alca:focus-visible { outline: 3px solid var(--al-texto); outline-offset: 2px; }
 
+/* Os ajustes da foto e do vídeo (P5, A16): três controles deslizantes com o valor ao lado, e o "voltar ao normal". */
+[data-al="2"] .al-ed-ajustes { display: grid; gap: 6px; margin: 0; padding: 0; border: 0; min-width: 0; }
+[data-al="2"] .al-ed-ajustes legend { padding: 0; margin-bottom: 4px; font-weight: 700; color: var(--al-texto); }
+[data-al="2"] .al-ed-ajuste { display: grid; gap: 2px; min-height: 44px; }
+[data-al="2"] .al-ed-ajuste-nome { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; color: var(--al-texto-2); }
+[data-al="2"] .al-ed-ajuste-valor { font-variant-numeric: tabular-nums; color: var(--al-texto); font-weight: 700; }
+[data-al="2"] .al-ed-ajuste input[type="range"] { width: 100%; min-height: 28px; accent-color: var(--al-dourado, #ffc21a); }
+[data-al="2"] .al-ed-ajuste-zerar { justify-self: start; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--al-superficie-2, #3a3430); background: none; color: var(--al-texto); font: inherit; font-weight: 700; cursor: pointer; }
+[data-al="2"] .al-ed-ajuste-zerar:disabled { opacity: 0.45; cursor: default; }
+
 [data-al="2"] .al-ed-som { display: grid; gap: 2px; }
 [data-al="2"] .al-ed-interruptor { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0; border: 0; background: none; color: var(--al-texto); font: inherit; font-weight: 700; cursor: pointer; justify-self: start; }
 [data-al="2"] .al-ed-interruptor-trilho { position: relative; width: 46px; height: 28px; border-radius: 999px; background: var(--al-superficie-2); transition: background 0.2s; }

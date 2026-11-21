@@ -37,3 +37,10 @@
 :root[data-eink] [data-al="2"] .al-aviso-fixado {
   border: 2px solid #000;
 }
+/* Prompt 5, D1: a faixa do modo só leitura (a coordenação ligou numa emergência). Contorno forte em vez do dourado, para não se
+   confundir com um aviso comum. */
+[data-al="2"] .al-aviso-fixado[data-tom="so-leitura"] {
+  background: var(--al-fundo);
+  color: var(--al-texto);
+  box-shadow: inset 0 0 0 2px var(--al-vermelho, currentColor);
+}

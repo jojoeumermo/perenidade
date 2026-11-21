@@ -1,0 +1,63 @@
+(* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   Acesso aos grupos pelo segredo da época (onda R2, item 1.3; onda R3, item 2.5): SIGILO e AUTENTICAÇÃO DE MEMBRO.
+   A Alumia não usa credenciais anônimas do zkgroup (não rodam no navegador: R2, item 2.3). No lugar, cada época do grupo (OpenMLS, em
+   lib/rede/grupos/) tem um segredo que só os membros daquela época têm, e dele saem, por HKDF com rótulos diferentes:
+     a caixa do grupo nesta época, o passe de depósito e a chave das mensagens.
+   O servidor guarda só o resumo da caixa e o do passe (como nas caixas a dois). Quem saiu do grupo (tirado num commit) fica com o
+   segredo da época velha, nunca o da nova.
+   Atacante: o servidor inteiro e quem foi membro até a época 1 (o segredo da época 1 é dele).
+   Propriedades: quem não é membro da época 2 não deriva a caixa nem a chave da época 2 (sigilo), não lê a mensagem de um membro
+   na época 2, e não deposita nada que um membro aceite como vindo de um membro (autenticação de membro). O passe de depósito, o
+   servidor vê quando alguém deposita (como nas caixas a dois): com ele, o servidor deposita, mas nenhum membro aceita.
+   O MLS em si (o commit que leva o segredo novo só aos membros que ficam) é o OpenMLS, com a análise do próprio RFC 9420; aqui ele
+   entra como um canal privado que entrega o segredo novo a cada membro. *)
+
+free c: channel.
+
+type key.
+
+fun hkdf(bitstring, bitstring): bitstring.
+fun hash(bitstring): bitstring.
+fun chave(bitstring): key.
+fun senc(bitstring, key, bitstring): bitstring.
+reduc forall m: bitstring, k: key, r: bitstring; sdec(senc(m, k, r), k) = m.
+
+const rotuloCaixa, rotuloPasse, rotuloChave: bitstring.
+free membroM1, membroM2: bitstring.
+free epoca2: bitstring [private].
+free segredoDoGrupo: bitstring [private].
+
+event Depositou(bitstring, bitstring).   (* membro, mensagem *)
+event Aceitou(bitstring, bitstring).
+
+query attacker(epoca2).
+query attacker(hkdf(epoca2, rotuloCaixa)).
+query attacker(chave(hkdf(epoca2, rotuloChave))).
+query attacker(segredoDoGrupo).
+query q: bitstring, m: bitstring; event(Aceitou(q, m)) ==> event(Depositou(q, m)).
+
+(* Depositar na caixa da época: o resumo da caixa, o passe (o servidor confere o resumo dele) e a mensagem cifrada com a chave
+   da época, com quem mandou por dentro. *)
+let Membro(eu: bitstring, s: bitstring, m: bitstring) =
+  new r: bitstring;
+  event Depositou(eu, m);
+  out(c, (hash(hkdf(s, rotuloCaixa)), hkdf(s, rotuloPasse), senc((eu, m), chave(hkdf(s, rotuloChave)), r))).
+
+(* O servidor (honesto aqui só no papel de entregar) não decide nada: quem lê é o aparelho do membro. *)
+let Leitor(s: bitstring) =
+  in(c, (cx: bitstring, passe: bitstring, x: bitstring));
+  if cx = hash(hkdf(s, rotuloCaixa)) then
+  let (quem: bitstring, m: bitstring) = sdec(x, chave(hkdf(s, rotuloChave))) in
+  event Aceitou(quem, m).
+
+process
+  new epoca1: bitstring;
+  (* A época 1 vaza: quem foi tirado do grupo ficou com ela. *)
+  out(c, epoca1);
+  (
+    (!in(c, m: bitstring); Membro(membroM1, epoca1, m))
+  | (!in(c, m: bitstring); Membro(membroM1, epoca2, m))
+  | (!Membro(membroM2, epoca2, segredoDoGrupo))
+  | (!Leitor(epoca2))
+  )

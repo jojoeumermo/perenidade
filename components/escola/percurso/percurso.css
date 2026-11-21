@@ -363,3 +363,22 @@
     padding: 16px;
   }
 }
+
+/* P5, B3 e B5: a tag de revolucionária(o) e a frente no perfil da Alumia (TagNaAlumia.tsx). */
+.ep-tag {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 2px solid var(--ef-borda);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ep-tag h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ef-giz);
+}
+.ep-tag > p {
+  margin: 0;
+}

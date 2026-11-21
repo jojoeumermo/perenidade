@@ -1,37 +1,22 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "@/components/Link";
 import { comunidades } from "@/lib/rede/cliente-comunidades";
-import { enderecos, idOk, type Post } from "@/lib/rede/tipos";
-import { alumia2Ligada } from "@/lib/rede/rotas-novas";
-import { enderecosCom, LOCAIS_DE_ENCONTRO, type LocalDoEncontro } from "@/lib/rede/tipos-comunidades";
+import { enderecos, idOk } from "@/lib/rede/tipos";
+import { enderecosCom } from "@/lib/rede/tipos-comunidades";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDeComunidades } from "@/lib/rede/textos-comunidades";
-import { CartaoDePost } from "../CartaoDePost";
 import { useNomesDasTrilhas } from "../estudo/conquistas/usarNomesDasTrilhas";
+import { estudoLigado } from "../estudo/turma/ligado";
 import { codigoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
-import { useAlumia2 } from "../publicar/alumia2/contexto";
-import { FORMA_DO_GRUPO } from "../publicar/restrito/grupo";
-import { Compositor } from "./Compositor";
-import { botao, botaoClaro, campo, erroCom, mesDeHoje, textosDe, useCarregar } from "./util";
+import { botao, erroCom, mesDeHoje, textosDe, useCarregar } from "./util";
 
-// Onda 10 (10D): os documentos e os arquivos do núcleo, só com a Alumia nova (a casca de hoje fica como está).
-const AcervoDoNucleo = dynamic(() => import("./acervo/AcervoDoNucleo"), { ssr: false });
-// P22: a sala de voz cifrada do núcleo, fechada até a pessoa abrir (o código da sala só é baixado então).
-const SalaDoGrupo = dynamic(() => import("../voz/SalaDoGrupo").then((m) => m.SalaDoGrupo), { ssr: false });
-
-const quando = (iso: string, lang: string) => {
-  try {
-    return new Intl.DateTimeFormat(lang, { dateStyle: "full", timeStyle: "short" }).format(new Date(iso));
-  } catch {
-    return iso.slice(0, 16).replace("T", " ");
-  }
-};
+// R2 (membros escondidos): o acervo, a sala de voz e a busca do núcleo saíram desta página, porque dependiam de o servidor saber
+// quem é do núcleo. Eles voltam pelo grupo, nos aparelhos (lib/rede/membros), quando o chat novo for ligado.
 
 /** A turma do mês: a pessoa inscrita (turmas) entra na comunidade fechada dela; quem não se inscreveu só vê o aviso. */
 function TurmaDoMes({ lang, s, sc }: { lang: string; s: TextosDaRede; sc: TextosDeComunidades }) {
@@ -73,55 +58,20 @@ function TurmaDoMes({ lang, s, sc }: { lang: string; s: TextosDaRede; sc: Textos
   );
 }
 
-/** A página de um núcleo: dados, mediação por codinome, próximos encontros em local público, mural e sair. */
-function PaginaDoNucleo({ id, lang, s, sc, situacao, aoEscrever }: { id: string; lang: string; s: TextosDaRede; sc: TextosDeComunidades; situacao: PropsDaTelaDoPacote["situacao"]; aoEscrever: PropsDaTelaDoPacote["aoEscrever"] }) {
+/**
+ * A página de um núcleo. Desde a R2 (membros escondidos), o servidor não sabe quem é do núcleo: ele dá só o perfil público e a entrada
+ * (caixa e chave X-Wing, assinadas pela chave de gestão do núcleo). Mural, encontros, mediação e saída moram no grupo, nos aparelhos
+ * de quem é do núcleo (lib/rede/membros); o pedido para entrar vai cifrado do aparelho para a mediação.
+ */
+function PaginaDoNucleo({ id, lang, s, sc }: { id: string; lang: string; s: TextosDaRede; sc: TextosDeComunidades }) {
   const n = sc.nucleos;
   // O título da trilha ("Introdução ao marxismo"), não o fim do endereço.
   const trilhas = useNomesDasTrilhas(lang);
   const pagina = useCarregar(() => comunidades.nucleo(id), `nucleo:${id}`);
-  const [itens, setItens] = useState<Post[]>([]);
-  const [proximo, setProximo] = useState<string | null>(null);
-  const [estado, setEstado] = useState<"carregando" | "ok" | "erro">("carregando");
-  const [versao, setVersao] = useState(0);
-  const [confirmarSair, setConfirmarSair] = useState(false);
-  const [saiu, setSaiu] = useState(false);
-  const [falha, setFalha] = useState("");
-  const [data, setData] = useState("");
-  const [tipo, setTipo] = useState<LocalDoEncontro>("praca");
-  const [lugar, setLugar] = useState("");
-  const previa = Boolean(useAlumia2()?.previa);
-
-  useEffect(() => {
-    let vivo = true;
-    comunidades
-      .linhaDoNucleo(id, null, 20)
-      .then((r) => {
-        if (!vivo) return;
-        setItens(r.itens);
-        setProximo(r.proximo);
-        setEstado("ok");
-      })
-      .catch(() => vivo && setEstado("erro"));
-    return () => {
-      vivo = false;
-    };
-  }, [id, versao]);
-
-  async function tentar(tarefa: () => Promise<void>) {
-    setFalha("");
-    try {
-      await tarefa();
-    } catch (e) {
-      setFalha(erroCom(s, sc, e));
-    }
-  }
 
   if (!pagina.pronto) return <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={3} />;
   const dado = pagina.dado;
   if (!dado) return <p role="alert" className="px-[18px] py-8 font-sans text-ink-soft">{pagina.erro ? erroCom(s, sc, pagina.erro) : s.estados.naoEncontrado}</p>;
-  if (saiu) return <p role="status" className="px-[18px] py-8 font-sans"><Link href={enderecosCom.nucleos(lang)} className="font-bold underline">{n.voltar}</Link></p>;
-  const mediacao = dado.papel === "mediacao";
-  const locais = n.local as Record<string, string>;
 
   return (
     <div className="font-sans">
@@ -131,111 +81,14 @@ function PaginaDoNucleo({ id, lang, s, sc, situacao, aoEscrever }: { id: string;
           {dado.cidade && `${n.cidade}: ${dado.cidade}`}
           {dado.trilha && ` · ${n.trilha}: ${trilhas.nome(dado.trilha)}`}
         </p>
-        {dado.mediacao.length > 0 && <p className="mt-1 text-sm">{n.mediacao}: {dado.mediacao.join(", ")}</p>}
         <p className="mt-3 flex flex-wrap gap-4 text-sm font-bold">
           <Link href={enderecosCom.nucleos(lang)} className="underline">{n.voltar}</Link>
         </p>
       </header>
-
-      <section aria-labelledby="encontros" className="border-b border-rule px-[18px] py-4">
-        <h2 id="encontros" className="font-serif text-xl font-semibold">{n.encontros}</h2>
-        {dado.encontros.length === 0 ? (
-          <p className="mt-1 text-sm text-ink-soft">{n.semEncontros}</p>
-        ) : (
-          <ul className="mt-2 divide-y divide-rule">
-            {dado.encontros.map((e) => (
-              <li key={e.id} className="flex flex-wrap items-center justify-between gap-2 py-2">
-                <span>
-                  <span className="font-bold">{quando(e.quando, lang)}</span>
-                  <span className="block text-sm text-ink-soft">{locais[e.local_tipo]}{e.local_texto ? `: ${e.local_texto}` : ""}</span>
-                </span>
-                {mediacao && (
-                  <button type="button" onClick={() => tentar(async () => { await comunidades.removerEncontro(e.id); pagina.recarregar(); })} className="min-h-11 text-sm underline">{n.encontroTirar}</button>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-        {mediacao && (
-          <form
-            className="mt-3 space-y-2"
-            onSubmit={(ev) => {
-              ev.preventDefault();
-              void tentar(async () => {
-                await comunidades.salvarEncontro({ nucleo: dado.id, quando: new Date(data).toISOString(), local_tipo: tipo, local_texto: lugar.trim() });
-                setData("");
-                setLugar("");
-                pagina.recarregar();
-              });
-            }}
-          >
-            <h3 className="font-bold">{n.encontroNovo}</h3>
-            <label className="block text-sm text-ink-soft">
-              {n.encontroQuando}
-              <input type="datetime-local" value={data} onChange={(e) => setData(e.target.value)} required className={campo} />
-            </label>
-            <label className="block text-sm text-ink-soft">
-              {n.encontroLocal}
-              <select value={tipo} onChange={(e) => setTipo(e.target.value as LocalDoEncontro)} className={campo}>
-                {LOCAIS_DE_ENCONTRO.map((l) => <option key={l} value={l}>{locais[l]}</option>)}
-              </select>
-            </label>
-            <label className="block text-sm text-ink-soft">
-              {n.encontroTexto}
-              <input value={lugar} onChange={(e) => setLugar(e.target.value)} maxLength={140} required={tipo === "outro"} className={campo} />
-            </label>
-            <button type="submit" className={botao}>{n.encontroSalvar}</button>
-          </form>
-        )}
-      </section>
-
-      {alumia2Ligada() && <AcervoDoNucleo nucleo={dado.id} lang={lang} />}
-
-      {/* A sala de voz do núcleo (P22): só membro chega a esta página; a rota das credenciais confere de novo no banco. */}
-      {FORMA_DO_GRUPO.test(`nucleo:${dado.id}`) && <SalaDoGrupo lang={lang} grupo={`nucleo:${dado.id}`} previa={previa} />}
-
-      <section aria-labelledby="mural">
-        <h2 id="mural" className="px-[18px] pt-4 font-serif text-xl font-semibold">{n.mural}</h2>
-        <Compositor s={s} sc={sc} destino={{ nucleo: dado.id, publico: "nucleo" }} aoPublicar={() => setVersao((v) => v + 1)} />
-        {estado === "carregando" ? (
-          <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={2} />
-        ) : estado === "erro" ? (
-          <p role="alert" className="px-[18px] py-4 text-ink-soft">{s.estados.erro}</p>
-        ) : (
-          <div>
-            {itens.map((p) => (
-              <CartaoDePost key={p.id} post={p} lang={lang} s={s} logado={situacao.logado} aoResponder={(post) => aoEscrever(post)} />
-            ))}
-            {proximo && (
-              <button
-                type="button"
-                className="m-4 min-h-11 cursor-pointer rounded-full border border-ink px-4 font-bold hover:bg-parchment-deep"
-                onClick={() => tentar(async () => {
-                  const r = await comunidades.linhaDoNucleo(id, proximo, 20);
-                  setItens((l) => [...l, ...r.itens.filter((x) => !l.some((y) => y.id === x.id))]);
-                  setProximo(r.proximo);
-                })}
-              >
-                {s.estados.maisPosts}
-              </button>
-            )}
-          </div>
-        )}
-      </section>
-
-      <section className="border-t border-rule px-[18px] py-4">
-        {confirmarSair ? (
-          <div role="alertdialog" aria-label={n.sair} className="space-y-2" onKeyDown={(e) => { if (e.key === "Escape") setConfirmarSair(false); }}>
-            <p>{n.sairConfirmar}</p>
-            <div className="flex gap-2">
-              <button type="button" onClick={() => tentar(async () => { await comunidades.sairDoNucleo(id); setSaiu(true); })} className={botao}>{n.sairSim}</button>
-              <button type="button" onClick={() => setConfirmarSair(false)} className={botaoClaro}>{sc.aula.cancelar}</button>
-            </div>
-          </div>
-        ) : (
-          <button type="button" onClick={() => setConfirmarSair(true)} className={botaoClaro}>{n.sair}</button>
-        )}
-        {falha && <p role="alert" className="mt-2 text-sm text-oxblood">{falha}</p>}
+      <section aria-labelledby="no-aparelho" className="px-[18px] py-4">
+        <h2 id="no-aparelho" className="font-serif text-xl font-semibold">{n.noAparelhoTitulo}</h2>
+        <p className="mt-2 max-w-prose text-sm">{n.noAparelho}</p>
+        <p role="status" className="mt-3 text-sm text-ink-soft">{dado.entrada ? n.entradaPronta : n.semEntrada}</p>
       </section>
     </div>
   );
@@ -243,9 +96,9 @@ function PaginaDoNucleo({ id, lang, s, sc, situacao, aoEscrever }: { id: string;
 
 /**
  * Núcleos e turma (R4, item 40): a lista dos núcleos de que a pessoa faz parte, com a turma do mês no alto; com `id` nos parâmetros,
- * a página de um núcleo. A entrada em núcleo é por convite da mediação (convites com hash, pacote consertos): aqui só se vê o que é seu.
+ * a página de um núcleo (só o perfil público e a entrada: quem é do núcleo mora nos aparelhos, R2).
  */
-export default function Nucleos({ lang, s, situacao, params, aoEscrever }: PropsDaTelaDoPacote) {
+export default function Nucleos({ lang, s, situacao, params }: PropsDaTelaDoPacote) {
   const sc = textosDe(s);
   const id = params.id ?? "";
   const lista = useCarregar(() => (situacao.logado && situacao.membro && !id ? comunidades.nucleos() : Promise.resolve({ itens: [] })), `nucleos:${situacao.membro}:${id}`);
@@ -254,7 +107,7 @@ export default function Nucleos({ lang, s, situacao, params, aoEscrever }: Props
   if (!situacao.logado || !situacao.membro) return <p className="px-[18px] py-8 font-sans text-ink-soft">{sc.acao.entrePrimeiro}</p>;
   if (id) {
     if (!idOk(id)) return <p role="alert" className="px-[18px] py-8 font-sans text-ink-soft">{s.estados.naoEncontrado}</p>;
-    return <PaginaDoNucleo id={id} lang={lang} s={s} sc={sc} situacao={situacao} aoEscrever={aoEscrever} />;
+    return <PaginaDoNucleo id={id} lang={lang} s={s} sc={sc} />;
   }
   const n = sc.nucleos;
   return (
@@ -262,6 +115,12 @@ export default function Nucleos({ lang, s, situacao, params, aoEscrever }: Props
       <header className="border-b border-rule px-[18px] py-4">
         <h1 className="font-serif text-2xl font-extrabold">{n.titulo}</h1>
         <p className="mt-1 text-sm text-ink-soft">{n.intro}</p>
+        {/* P5 (A12): as turmas de estudo têm tela própria; daqui a pessoa acha o caminho (antes era só um link escondido). */}
+        {estudoLigado() && (
+          <Link href={`${enderecos.linha(lang)}/turmas`} className="mt-2 inline-flex min-h-11 items-center font-bold underline">
+            {n.turmasDeEstudo}
+          </Link>
+        )}
       </header>
       <TurmaDoMes lang={lang} s={s} sc={sc} />
       <section aria-labelledby="meus-nucleos" className="px-[18px] py-4">
@@ -290,3 +149,4 @@ export default function Nucleos({ lang, s, situacao, params, aoEscrever }: Props
     </div>
   );
 }
+

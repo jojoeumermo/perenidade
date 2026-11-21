@@ -115,6 +115,9 @@ const zerar = () => dono("delete from interno.limites");
 await espera("a migração instala sobre o install.sql", () => exec(sql));
 await espera("de novo (idempotente)", () => exec(sql));
 await espera("e uma terceira vez sem estrago", () => exec(sql));
+// O install.sql inteiro de novo por cima: as definições finais (a R2 redefiniu funções desta migração) voltam a valer.
+await espera("e o install.sql inteiro de novo por cima (as definições finais voltam)", () => banco.instalarDeNovo());
+await banco.filiacaoDeTeste();
 await espera("a regra da porta não deixa nenhuma função aberta", async () => (await dono("select interno.alumia_trancar() as r")).rows[0].r, (r) => r.abertas.length === 0);
 const PUBLICAS = ["rede_org_caixa", "rede_org_caixa_criar", "rede_org_vaquinha_ajustar", "rede_org_vaquinha_conta", "rede_org_vaquinha_conta_retirar", "rede_org_vaquinha_denunciar",
   "rede_peticao", "rede_peticao_criar", "rede_peticao_assinar", "rede_peticao_encerrar", "rede_peticao_meta", "rede_peticao_entrega"];
@@ -163,7 +166,8 @@ await dono("insert into interno.rede_org_gestores (org, gestor, papel) values ($
 await dono("insert into interno.rede_bloqueios (quem, bloqueado) values ($1, $2)", [P.org, P.bloq]);
 const NUC = (await um("insert into interno.rede_nucleos (nome, org) values ('Núcleo Leste', $1) returning id", [P.org])).id;
 const NUC2 = (await um("insert into interno.rede_nucleos (nome, org) values ('Núcleo Recife', $1) returning id", [P.org2])).id;
-await dono("insert into interno.rede_nucleo_membros (nucleo, usuario, papel) values ($1, $2, 'membro'), ($1, $3, 'membro'), ($1, $4, 'membro'), ($5, $2, 'membro')", [NUC, P.t1, P.t2, P.m1, NUC2]);
+// Filiação de teste (scripts/banco-local.mjs, filiacaoDeTeste): o assunto aqui não é quem é do núcleo.
+await dono("insert into interno.teste_nucleo_membros (nucleo, usuario, papel) values ($1, $2, 'membro'), ($1, $3, 'membro'), ($1, $4, 'membro'), ($5, $2, 'membro')", [NUC, P.t1, P.t2, P.m1, NUC2]);
 const A = (n) => como(P[n]);
 // Nenhuma resposta traz o id de pessoa nenhuma (só o das organizações, que são públicas), nem codinome de pessoa.
 const semPessoas = (r) => { const s = JSON.stringify(r); return !Object.entries(P).filter(([k]) => k !== "org" && k !== "org2").some(([, id]) => s.includes(id)) && !/Codinome/.test(s); };

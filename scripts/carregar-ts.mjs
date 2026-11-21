@@ -24,5 +24,10 @@ export async function resolve(especificador, contexto, proximo) {
     if ((/^\\.{1,2}\\//.test(especificador) || especificador.startsWith("file:")) && !/\\.[a-z]+$/i.test(especificador)) return proximo(especificador + ".ts", contexto);
     throw erro;
   }
+}
+// As peças importam o próprio CSS ("./uso.css"); no Node ele não serve para nada e vira um módulo vazio.
+export async function load(url, contexto, proximo) {
+  if (/\\.css$/i.test(url)) return { format: "module", source: "", shortCircuit: true };
+  return proximo(url, contexto);
 }`),
 );

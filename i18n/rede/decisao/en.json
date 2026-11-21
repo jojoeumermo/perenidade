@@ -48,7 +48,7 @@
     "cancelarNao": "Back",
     "cancelada": "Vote cancelled by the moderators. The votes were deleted.",
     "comoTitulo": "How the secret ballot works",
-    "comoTexto": "Who voted and what they voted are stored separately, with nothing linking one to the other, and the ballots are mixed at every vote. Not even the moderators see anyone's vote. Ballots are only counted when the deadline ends, and the result shows totals: no number below 3.",
+    "comoTexto": "Who voted and what they voted are stored separately, with nothing linking one to the other, and the ballots are mixed at every vote. Not even the moderators see anyone's vote. Ballots are only counted when the deadline ends, and the result shows totals: no number below 3. The ballot leaves your device encrypted and only opens when mediation guardians come together, after the deadline; neither Alumia nor the server can open it.",
     "regraVoto": "Only people who were already in the community when the vote opened can vote. A vote cannot change once cast."
   },
   "nova": {

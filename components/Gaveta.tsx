@@ -10,6 +10,7 @@ import { BackendError, hasBackend, rpc, useMe } from "@/lib/backend";
 import { apagarPdf, baixarPdf, enderecoDaLicenca, enviarPdf, ErroDaGaveta, licencasDaGaveta, nomeDoArquivo, pdfValido, TERMO_VERSAO, tiposDeTrabalho, type Trabalho } from "@/lib/gaveta";
 import { safeLink } from "@/lib/text";
 import { L, useI18n } from "./I18n";
+import { confirmar } from "@/components/perguntar";
 
 type S = Dict["drawer"];
 
@@ -292,7 +293,7 @@ function Minhas({ s, versao }: { s: S; versao: number }) {
   if (!dentro || lista.length === 0) return null;
 
   async function retirar(trabalho: Trabalho) {
-    if (!window.confirm(s.withdrawConfirm)) return;
+    if (!(await confirmar(s.withdrawConfirm))) return;
     try {
       const r = await rpc<{ arquivo: string }>("gaveta_retirar", { p_id: trabalho.id });
       if (r.arquivo) await apagarPdf(r.arquivo);

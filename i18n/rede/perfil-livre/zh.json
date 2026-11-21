@@ -158,6 +158,7 @@
     "codinome": "代号",
     "codinomeAjuda": "在 Alumia 显示的名字：3 到 30 个字符。绝不用真实姓名。",
     "erros": {
+      "nome_com_selo": "名字里不能有类似认证标记的符号（✓、✔、☑、✅、🔵），也不能有“已认证”“官方”等字样。请换一个。",
       "codinome_usado": "这个代号已被他人使用。",
       "codinome_civil": "看起来像你的真实姓名。为了安全，请换一个。",
       "codinome_reservado": "这个名字是保留的。",
@@ -254,6 +255,8 @@
     "tirar": "移除"
   },
   "perfil": {
+    "verificadoEquipe": "已认证：学院团队。此标记来自团队职务，职务结束时即消失。",
+    "verificadoCoordenacao": "已认证：学院协调组。",
     "tocando": "正在播放",
     "ouvirEm": "在 {dominio} 收听",
     "ate": "至 {data}",

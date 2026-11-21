@@ -11,7 +11,7 @@
     "explorar": "Explorer",
     "atos": "Actions",
     "comunidades": "Communautés",
-    "nucleos": "Cellules",
+    "nucleos": "Noyaux et groupes",
     "avisos": "Notifications",
     "avisosNovos": "Notifications, {n} nouvelles",
     "emblema": "{n} avec du nouveau",
@@ -30,7 +30,10 @@
     "fechar": "Fermer",
     "organizacoes": "Organisations",
     "calendario": "Calendrier",
-    "aqui": "vous êtes ici"
+    "aqui": "vous êtes ici",
+    "moderacao": "Modération",
+    "maisMostrar": "Afficher plus d’options",
+    "maisEsconder": "Masquer les options en plus"
   },
   "conta": {
     "rotulo": "Votre compte",
@@ -53,7 +56,23 @@
     "verPerfil": "Voir votre profil",
     "aparencia": "Apparence et lecture",
     "series": "Publications récurrentes",
-    "temas": "Sujets suivis"
+    "temas": "Sujets suivis",
+    "linhaDoTempo": "Fil"
+  },
+  "seguranca": {
+    "titulo": "Sécurité",
+    "abrir": "Ouvrir le panneau Sécurité",
+    "intro": "Tout ce qui vous protège sur Alumia, au même endroit.",
+    "conta": "Mot de passe, authentificateur et panique",
+    "aparelhos": "Appareils connectés",
+    "silenciados": "Masqués",
+    "denuncias": "Mes signalements",
+    "regras": "Règles et soin",
+    "termos": "Conditions d’utilisation",
+    "fediverso": "Confidentialité dans le Fédivers",
+    "guardamos": "Ce qu’Alumia conserve",
+    "minhaConta": "Mon compte et mes données",
+    "fechar": "Fermer"
   },
   "linha": {
     "titulo": "Accueil",
@@ -67,6 +86,10 @@
     "novosUm": "nouveau post",
     "novosOutros": "nouveaux posts",
     "mostrarNovos": "Afficher {n} nouveaux posts",
+    "aCaminho": "Envoi…",
+    "aCaminhoNota": "Les autres le voient quand l’envoi est terminé.",
+    "aCaminhoImagem": "+ {n} image",
+    "aCaminhoImagens": "+ {n} images",
     "erroTitulo": "Le fil n'a pas chargé",
     "fimTitulo": "Vous avez tout vu",
     "fimTexto": "Plus rien des personnes que vous suivez pour l'instant. Pas de défilement sans fin : et si vous alliez dans une communauté ou à une action ?",
@@ -104,7 +127,12 @@
     "materia": "Article de l’Instituto Lúcia",
     "indisponivel": "Cela arrive avec la prochaine mise à jour d’Alumia.",
     "naoRepostavel": "On ne peut repartager qu'une publication d'une autre personne écrite pour tout le monde (pas une réponse, ni une publication pour un groupe plus restreint).",
-    "veioDeRepost": "Repartagé par une personne que vous suivez"
+    "veioDeRepost": "Repartagé par une personne que vous suivez",
+    "apagar": "Supprimer le post",
+    "apagarPergunta": "Supprimer ce post ? Si quelqu’un a déjà répondu ou l’a cité, « [post supprimé] » reste à sa place.",
+    "apagarSim": "Supprimer",
+    "apagarNao": "Garder",
+    "apagado": "Post supprimé."
   },
   "enquete": {
     "rotulo": "Sondage",
@@ -345,6 +373,13 @@
     "texto": "Cette adresse n'existe pas sur Alumia, ou la publication a été retirée. Votre fil est toujours au même endroit.",
     "voltar": "Retour à l'accueil d'Alumia",
     "buscar": "Rechercher"
+  },
+  "naoAbriu": {
+    "titulo": "Cet écran ne s’est pas ouvert",
+    "texto": "Un problème est survenu à l’ouverture de cette partie d’Alumia. Votre compte et vos brouillons sont toujours là.",
+    "atualizando": "Alumia a une nouvelle version. Mise à jour de la page…",
+    "tentar": "Réessayer",
+    "recarregar": "Recharger la page"
   },
   "visibilidade": {
     "eu": "Moi seul·e",

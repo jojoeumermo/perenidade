@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "@/components/Link";
 import { rede } from "@/lib/rede/cliente";
 import { redePerfil } from "@/lib/rede/cliente-perfil";
+import { trocarRostoDaConta } from "@/lib/rede/rosto-da-conta";
 import {
   arrumarHandle, AVATARES, BIO_MAXIMA, CAPAS, caminhoDaCapa, caminhoDoAvatar, escolherSelosDeTrilha, estudandoDaUltimaAula, handleBemFormado, handleReservado,
   nomeDaTrilha, trilhasComProgresso,
@@ -23,6 +24,8 @@ import { useTextosDoPerfil } from "./useTextos";
 import { orgLigada } from "@/lib/rede/org/flag";
 import { previa } from "./livre/dados";
 import EditorDoPerfil from "./livre/Editor";
+import { seloContagensLigado } from "@/lib/rede/selo-contagens/cliente";
+import { BlocoSeloEContagens } from "../selo-contagens/PecasDoSelo";
 
 /** O erro de uma chamada em texto: primeiro os do pacote (@nome, imagem…), depois os gerais da Rede. */
 function textoDoErroDoPerfil(sp: TextosDoPerfil, s: TextosDaRede, e: unknown): string {
@@ -44,7 +47,8 @@ function lerDoAparelho<T>(chave: string, padrao: T): T {
 }
 
 const caixa = "mt-6 border-t border-rule pt-5";
-const botaoCheio = "min-h-11 cursor-pointer rounded-full bg-[#c21f16] px-5 font-bold text-white hover:bg-[#1f1a14] disabled:cursor-not-allowed disabled:opacity-50";
+// Desligado (nada a salvar ainda): contorno, e não o vermelho a meia-luz, que no tema escuro parecia quebrado (imagem 11 do Prompt 5).
+const botaoCheio = "min-h-11 cursor-pointer rounded-full border-[1.5px] border-transparent bg-[#c21f16] px-5 font-bold text-white hover:bg-[#1f1a14] disabled:cursor-not-allowed disabled:border-current disabled:bg-transparent disabled:text-current disabled:opacity-60";
 const botaoVazado = "min-h-11 cursor-pointer rounded-full border-[1.5px] border-ink px-4 font-bold hover:bg-parchment-deep disabled:cursor-not-allowed disabled:opacity-50";
 
 /**
@@ -76,6 +80,11 @@ export function ContaDoPerfil({ lang, s, situacao, embutido = false }: PropsDaTe
   useEffect(() => {
     if (situacao.membro) carregar();
   }, [situacao.membro, carregar]);
+  // O rosto do menu segue o que a pessoa escolhe aqui (A10 do Prompt 5), sem esperar recarregar a página.
+  const rostoAtual = meu ? JSON.stringify(meu.avatar ?? null) : null;
+  useEffect(() => {
+    if (rostoAtual !== null) trocarRostoDaConta(JSON.parse(rostoAtual));
+  }, [rostoAtual]);
 
   if (!sp) return <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={3} />;
   if (!situacao.logado || !situacao.membro) {
@@ -129,6 +138,9 @@ export function ContaDoPerfil({ lang, s, situacao, embutido = false }: PropsDaTe
 
       <BlocoBio sp={sp} meu={meu} ocupado={ocupado === "bio"} aviso={mensagem("bio")} aoSalvar={(bio) => editar("bio", { bio })} />
 
+      {/* Prompt 4, itens 3 e 5: pedir o selo de verificado e as duas chaves das contagens, só com a flag. */}
+      {seloContagensLigado() ? <BlocoSeloEContagens lang={lang} s={s} /> : null}
+
       <BlocoImagem
         tipo="avatar"
         sp={sp}
@@ -175,12 +187,19 @@ export function ContaDoPerfil({ lang, s, situacao, embutido = false }: PropsDaTe
 
       <BlocoEstudando sp={sp} meu={meu} ocupado={ocupado === "estudando"} aviso={mensagem("estudando")} aoMudar={(pedido) => editar("estudando", pedido)} />
 
-      <BlocoSelos sp={sp} meu={meu} ocupado={ocupado === "selos"} aviso={mensagem("selos")} aoSalvar={(pedido) => editar("selos", pedido)} />
-      {meu.selos.includes("escola:carteirinha") && (
-        <p className="-mt-2 px-1 text-sm">
-          {sp.editar.escolaAtalho} <Link href={`/${lang}/escola/percurso`} className="font-bold underline">{sp.editar.escolaAtalhoLink}</Link>
-        </p>
-      )}
+      {/* As conquistas da Escola ficam DENTRO do bloco, antes do Salvar (antes ficavam fora, puxadas para cima, e o Salvar cobria o texto). */}
+      <BlocoSelos
+        sp={sp}
+        meu={meu}
+        ocupado={ocupado === "selos"}
+        aviso={mensagem("selos")}
+        aoSalvar={(pedido) => editar("selos", pedido)}
+        escola={meu.selos.includes("escola:carteirinha") ? (
+          <p className="mt-3 text-sm">
+            {sp.editar.escolaAtalho} <Link href={`/${lang}/escola/percurso`} className="font-bold underline">{sp.editar.escolaAtalhoLink}</Link>
+          </p>
+        ) : null}
+      />
 
       {!embutido && <BlocoFixado sp={sp} s={s} meu={meu} aoFixar={(id) => rodar("fixar", () => redePerfil.fixar(id), () => carregar())} ocupado={ocupado === "fixar"} aviso={mensagem("fixar")} />}
 
@@ -389,7 +408,7 @@ function BlocoEstudando({ sp, meu, ocupado, aviso, aoMudar }: { sp: TextosDoPerf
   );
 }
 
-function BlocoSelos({ sp, meu, ocupado, aviso, aoSalvar }: { sp: TextosDoPerfil; meu: PerfilMeu; ocupado: boolean; aviso: React.ReactNode; aoSalvar: (p: PedidoDeEdicao) => void }) {
+function BlocoSelos({ sp, meu, ocupado, aviso, aoSalvar, escola }: { sp: TextosDoPerfil; meu: PerfilMeu; ocupado: boolean; aviso: React.ReactNode; aoSalvar: (p: PedidoDeEdicao) => void; escola?: React.ReactNode }) {
   const [escolhidas, setEscolhidas] = useState<string[]>(meu.selos_trilhas);
   const [mostrar, setMostrar] = useState(meu.selos_mostrar);
   // O progresso fica no aparelho; só os nomes das trilhas que a pessoa marcar vão para o perfil.
@@ -431,7 +450,8 @@ function BlocoSelos({ sp, meu, ocupado, aviso, aoSalvar }: { sp: TextosDoPerfil;
           </ul>
         )}
       </fieldset>
-      <button type="submit" disabled={ocupado || !alterou} className={`${botaoCheio} mt-2`}>
+      {escola}
+      <button type="submit" disabled={ocupado || !alterou} className={`${botaoCheio} mt-3`}>
         {ocupado ? sp.editar.salvando : sp.editar.salvar}
       </button>
       {aviso}

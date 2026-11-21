@@ -4,6 +4,7 @@
 // os outros cinco são rascunho marcado ("_rascunho"). Cada idioma é um pedaço separado (import dinâmico): o navegador só baixa o
 // que usa, e só quando o fórum ou uma conversa abre. Sem "@/" de propósito.
 import type pt from "../../i18n/rede/forum/pt.json";
+import { carregarPronto } from "./textos-prontos";
 
 export type TextosDoForum = typeof pt;
 
@@ -18,8 +19,7 @@ const CARREGAR: Record<string, () => Promise<{ default: unknown }>> = {
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export async function carregarTextosDoForum(lang: string): Promise<TextosDoForum> {
-  const carregar = CARREGAR[lang] ?? CARREGAR.pt;
-  return (await carregar()).default as TextosDoForum;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDoForum;
 }
 
 /** O código de erro do fórum vira o texto do fórum; o que ele não conhece, o chamador resolve com o texto da Rede. */

@@ -345,24 +345,24 @@
     box-shadow: var(--cel-sombra);
   }
   :root:not([data-leitor]):not([data-contrast], [data-eink]) main :is(.cartao-v, .cartao-preto) {
-    box-shadow: 3px 3px 0 var(--prelo);
+    box-shadow: var(--d-sombra, 3px 3px 0 var(--prelo));
   }
   :root:not([data-leitor]):not([data-contrast], [data-eink]) main .cartao-vermelho {
-    box-shadow: 3px 3px 0 #1f1a14;
+    box-shadow: var(--d-sombra, 3px 3px 0 #1f1a14);
   }
   :root:not([data-leitor]) :is(main, .mais-janela) .botao {
     min-height: 3rem;
     border-width: 1.5px;
     border-radius: 0.95rem;
-    box-shadow: 3px 3px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 3px 3px 0 var(--sombra));
   }
   :root:not([data-leitor]) :is(main, .mais-janela) .botao-tinta {
-    box-shadow: 3px 3px 0 var(--prelo);
+    box-shadow: var(--d-sombra, 3px 3px 0 var(--prelo));
   }
   :root:not([data-leitor]) :is(main, .mais-janela) .botao-menor {
     min-height: 2.6rem;
     border-radius: 0.8rem;
-    box-shadow: 2px 2px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 2px 2px 0 var(--sombra));
   }
   :root:not([data-leitor]) :is(.botao, .sobe, .caderno, .chip):hover {
     transform: none;
@@ -463,10 +463,10 @@
   :root:not([data-leitor]):not([data-contrast], [data-eink]) .caderno {
     border-width: 1.5px;
     border-radius: 0.35rem 1rem 1rem 0.35rem;
-    box-shadow: 3px 3px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 3px 3px 0 var(--sombra));
   }
   :root:not([data-leitor]):not([data-contrast], [data-eink]) .caderno-v {
-    box-shadow: 3px 3px 0 var(--prelo);
+    box-shadow: var(--d-sombra, 3px 3px 0 var(--prelo));
   }
   :root:not([data-leitor]) .etiqueta {
     border-radius: 0.45rem;
@@ -487,10 +487,10 @@
   :root:not([data-leitor]) main#conteudo :is(a, button)[class~="bg-oxblood"][class~="text-parchment"]:not(.botao) {
     border-width: 1.5px;
     border-radius: 0.95rem;
-    box-shadow: 3px 3px 0 var(--prelo);
+    box-shadow: var(--d-sombra, 3px 3px 0 var(--prelo));
   }
   :root:not([data-leitor]) main#conteudo :is(a, button)[class~="bg-oxblood"][class~="text-parchment"]:not(.botao) {
-    box-shadow: 3px 3px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 3px 3px 0 var(--sombra));
   }
   /* Um canto só no celular: tudo o que é botão (link ou botão com recheio e fundo ou contorno) e toda caixa de contorno
      grosso das páginas ganha canto redondo, para não misturar reto com redondo. Quem já tem canto próprio fica como está. */
@@ -507,7 +507,7 @@
   :root:not([data-leitor]) .rodape-do-site .botao {
     border-width: 1.5px;
     border-radius: 0.8rem;
-    box-shadow: 2px 2px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 2px 2px 0 var(--sombra));
   }
   /* A página "Mais" sem JavaScript (/explorar): cada grupo numa lista de aplicativo, sem caixas empilhadas. */
   :root:not([data-leitor]) main#conteudo .lista-explorar {
@@ -547,7 +547,7 @@
     bottom: calc(var(--altura-abas) + var(--recuo-baixo) + 4.25rem);
     border-width: 1.5px;
     border-radius: 999px;
-    box-shadow: 2px 2px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 2px 2px 0 var(--sombra));
   }
 
   /* ───── O alto das páginas: o título grande de aplicativo ───── */
@@ -958,7 +958,7 @@
     padding: 0 0.9rem;
     background: #c21f16;
     color: #fff;
-    box-shadow: 3px 3px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 3px 3px 0 var(--sombra));
   }
   :root:not([data-leitor]) .acoes-da-aula .acao-principal[data-feita] {
     background: var(--ok);
@@ -1097,7 +1097,7 @@
     justify-content: center;
     border: 1.5px solid #1f1a14;
     border-radius: 1.15rem;
-    box-shadow: 2px 2px 0 #1f1a14;
+    box-shadow: var(--d-sombra, 2px 2px 0 #1f1a14);
   }
   :root:not([data-leitor]) .ladrilho-de-app:active > span:first-child {
     transform: scale(0.94);

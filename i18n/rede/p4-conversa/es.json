@@ -1,0 +1,60 @@
+{
+  "_rascunho": true,
+  "foto": {
+    "botao": "Foto que se abre una vez",
+    "explica": "La foto se rehace en este dispositivo (sin lugar, cámara ni fecha), se cifra y se abre una sola vez para quien la recibe.",
+    "rotulo": "Foto de ver una vez",
+    "abrir": "Abrir la foto una vez",
+    "escondido": "La foto desaparece cuando esta ventana deja de estar al frente.",
+    "aviso": "Protegida contra copia solo en este navegador: no impide capturas de pantalla ni otra cámara. Nunca se avisa a quien la envió.",
+    "invalida": "No se pudo leer esta imagen. Usa JPG, PNG o WebP de hasta 3 MB."
+  },
+  "encaminhar": {
+    "acao": "Reenviar",
+    "titulo": "Reenviar a",
+    "explica": "Va como mensaje nuevo tuyo, cifrado, con la marca de reenviado. El servidor no se entera.",
+    "limite": "Este ya fue reenviado muchas veces: solo a una conversación por vez.",
+    "ate": "Hasta {n} conversaciones a la vez.",
+    "enviar": "Reenviar",
+    "cancelar": "Cancelar",
+    "nenhuma": "No hay otra conversación abierta en este dispositivo.",
+    "erro": "No se pudo reenviar. Inténtalo de nuevo.",
+    "marca": "Reenviado",
+    "muitas": "Reenviado muchas veces"
+  },
+  "notas": {
+    "titulo": "Notas para mí",
+    "linha": "Solo tú las lees. Cifradas, en tus dispositivos.",
+    "explica": "Solo tú las lees. Cada nota queda cifrada en este dispositivo y va, cifrada, solo a tus otros dispositivos vinculados al chat. El servidor no sabe que existen. La Salida rápida borra las notas de este dispositivo.",
+    "escreva": "Escribe una nota",
+    "guardar": "Guardar nota",
+    "vazio": "Todavía no hay notas.",
+    "apagar": "Borrar",
+    "apagarConfirma": "¿Borrar esta nota de este y de tus otros dispositivos?",
+    "erro": "No se pudieron guardar o leer las notas. Inténtalo de nuevo."
+  },
+  "silencio": {
+    "descricao": "En el horario elegido, el aviso de Alumia llega sin sonido ni vibración. La franja queda solo en este dispositivo: el servidor no sabe si silencias ni cuándo. Cada dispositivo tiene la suya.",
+    "levado": "El horario que estaba guardado en el servidor pasó a este dispositivo y fue borrado de allí."
+  },
+  "agendar": {
+    "botao": "Programar envío",
+    "titulo": "Programar este texto",
+    "aviso": "Queda solo en este dispositivo y sale a la hora si está encendido con el chat de Alumia abierto. Si está apagado, sale cuando vuelvas a abrir el chat. El servidor solo se entera cuando el mensaje sale.",
+    "quando": "Sale a las",
+    "confirmar": "Programar",
+    "cancelar": "Cancelar",
+    "hora": "Elige una hora entre 1 minuto y 30 días a partir de ahora.",
+    "erro": "No se pudo programar. Inténtalo de nuevo.",
+    "marca": "programado para {quando}, solo en este dispositivo",
+    "desistir": "Desistir del envío"
+  },
+  "transcrever": {
+    "botao": "Transcribir en este dispositivo",
+    "ouvindo": "Transcribiendo en este dispositivo…",
+    "rotulo": "Transcripción",
+    "aviso": "Hecha por este dispositivo, sin enviar el audio fuera. Puede tener errores. No se guarda.",
+    "vazia": "No se pudo entender ninguna palabra.",
+    "falhou": "Este navegador detuvo la transcripción. Escucha la nota."
+  }
+}

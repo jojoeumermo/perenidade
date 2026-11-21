@@ -101,11 +101,23 @@ async function comVozEVideo(token: string, dados: Record<string, unknown>): Prom
   };
 }
 
+/**
+ * Junta o resto do que a pessoa fez nas ondas 9 a 14 (perfil, termos, redações, funções, organizações, participação e
+ * preferências: public.rede_meusdados_mais, 20261123-r1-borda.sql). Sem a migração no banco, ou se a parte falhar, a cópia sai
+ * como antes. O que a cópia principal já trouxe não é trocado.
+ */
+async function comOResto(token: string, dados: Record<string, unknown>): Promise<Record<string, unknown>> {
+  const mais = await chamarComoPessoa<Record<string, unknown>>(token, "rede_meusdados_mais");
+  if (!mais.ok || !mais.dado) return dados;
+  const novas = Object.entries(mais.dado).filter(([chave]) => !(chave in dados));
+  return { ...dados, ...Object.fromEntries(novas) };
+}
+
 /** Monta a cópia inteira. */
 export async function montarCopia(token: string, lang: string, linhas: unknown[]): Promise<ResultadoDaCopia> {
   const resposta = await chamarComoPessoa<Record<string, unknown>>(token, "rede_meusdados_exportar");
   if (!resposta.ok) return resposta;
-  const dados = await comVozEVideo(token, resposta.dado);
+  const dados = await comOResto(token, await comVozEVideo(token, resposta.dado));
   const midias = (Array.isArray(dados.midias) ? (dados.midias as Midia[]) : []).filter((m) => DEPOSITOS.has(m?.deposito) && CAMINHO.test(m?.caminho ?? ""));
 
   const arquivos: ArquivoDoZip[] = [];
