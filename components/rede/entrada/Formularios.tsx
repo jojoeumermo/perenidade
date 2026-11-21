@@ -337,7 +337,7 @@ export function FormEntrar({ t, lang, aoEntrar }: { t: T; lang: Locale; aoEntrar
         <input ref={emailRef} id="ale-entrar-email" className="ale-entrada" type="email" inputMode="email" autoComplete="username" required value={email} onChange={(e) => setEmail(e.target.value)} aria-invalid={campoErrado === "email" || campoErrado === "ambos" || undefined} aria-describedby={erro && (campoErrado === "email" || campoErrado === "ambos") ? idErro : undefined} />
       </div>
       <CampoSenha t={t} rotulo={t.senha} valor={senha} mudar={setSenha} autoComplete="current-password" invalido={campoErrado === "senha" || campoErrado === "ambos"} descrito={erro && (campoErrado === "senha" || campoErrado === "ambos") ? idErro : undefined} />
-      <Captcha action="entrar" lang={lang} round={desafio.round} onToken={desafio.receive} />
+      <Captcha action="entrar" lang={lang} round={desafio.round} onToken={desafio.receive} onFalha={desafio.fail} />
       <ProvaDoAparelho lang={lang} estado={prova} momento="entrar" />
       {erro && <Mensagem tipo="erro" id={idErro}>{erro}</Mensagem>}
       {aviso && <Mensagem tipo="ok">{aviso}</Mensagem>}
@@ -388,7 +388,7 @@ function FormEsqueci({ t, lang, emailInicial, voltar }: { t: T; lang: Locale; em
         <label className="ale-rotulo" htmlFor="ale-esqueci-email">{t.email}</label>
         <input id="ale-esqueci-email" className="ale-entrada" type="email" inputMode="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} aria-invalid={estado === "email" || undefined} autoFocus />
       </div>
-      <Captcha action="aviso" lang={lang} round={desafio.round} onToken={desafio.receive} />
+      <Captcha action="aviso" lang={lang} round={desafio.round} onToken={desafio.receive} onFalha={desafio.fail} />
       <ProvaDoAparelho lang={lang} estado={prova} momento="aviso" />
       {estado === "enviado" && <Mensagem tipo="ok">{t.linkEnviado}</Mensagem>}
       {estado === "falhou" && <Mensagem tipo="erro">{t.erros.falha}</Mensagem>}
@@ -701,7 +701,7 @@ export function FormCriar({ t, lang, aberto }: { t: T; lang: Locale; aberto: boo
                 {ti.cadastro.refazer}
               </button>
             )}
-            <Captcha action="conta" lang={lang} round={desafio.round} onToken={desafio.receive} />
+            <Captcha action="conta" lang={lang} round={desafio.round} onToken={desafio.receive} onFalha={desafio.fail} />
             <ProvaDoAparelho lang={lang} estado={porta.estado} />
             {erro && <Mensagem tipo="erro">{t.erros[erro]}</Mensagem>}
             <Botao ocupado={ocupado} rotulo={t.criarBotao} rotuloOcupado={t.criando} />
@@ -736,7 +736,7 @@ export function FormCriar({ t, lang, aberto }: { t: T; lang: Locale; aberto: boo
       <h2 ref={tituloRef} tabIndex={-1} data-ale-foco="" className="ale-cond ale-cartao-titulo">{t.p.pecaTitulo}</h2>
       <form className="ale-form" noValidate onSubmit={(e) => { e.preventDefault(); void criar(); }}>
         <CamposDoPedido t={t} lang={lang} {...{ codinome, setCodinome, motivo, setMotivo, maior, setMaior, aceite, setAceite }} erroCampo={campoDoErro[erro as ChaveDeErro] ?? ""} />
-        <Captcha action="conta" lang={lang} round={desafio.round} onToken={desafio.receive} />
+        <Captcha action="conta" lang={lang} round={desafio.round} onToken={desafio.receive} onFalha={desafio.fail} />
         <ProvaDoAparelho lang={lang} estado={porta.estado} />
         {erro && <Mensagem tipo="erro">{t.erros[erro]}</Mensagem>}
         <Botao ocupado={ocupado} rotulo={t.criarBotao} rotuloOcupado={t.criando} />

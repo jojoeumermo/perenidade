@@ -6,7 +6,7 @@
 // SignIn.tsx) usa o mesmo caminho. Com o desafio da Cloudflare ligado (components/Captcha.tsx), a resposta dele vai junto
 // (`turnstile`) e o servidor a confere. E o convite que a pessoa abriu neste aparelho, guardado aqui por até 7 dias, até o pedido
 // sair (depois some).
-import { captchaKey, getClient, hasBackend, hasSession } from "@/lib/backend";
+import { getClient, hasBackend, hasSession } from "@/lib/backend";
 import type { MomentoDaPorta } from "./prova";
 import { resolverDesafio } from "./prova-aparelho";
 
@@ -17,8 +17,9 @@ export type MotivoDaPorta =
 
 const MOTIVOS: readonly MotivoDaPorta[] = ["muitos_pedidos", "porta_cheia", "rede_barrada", "desafio_vencido", "email_nao_confirmado", "cadastro_fechado", "senha_fraca", "sem_servico", "captcha", "falha"];
 
-/** Com o desafio da Cloudflare ligado, sem a resposta dele nada sai (o servidor recusaria). */
-const faltaODesafio = (turnstile: string | undefined): boolean => Boolean(captchaKey) && !turnstile;
+// 21/11/2026: sem trava de desafio no navegador. Quem confere a resposta da Cloudflare é o servidor (com a chave ele
+// recusa com "captcha"; sem ela, passa): quando a rede da Cloudflare está degradada o desafio não carrega, e uma trava
+// aqui impedia TODO MUNDO de entrar. Pedido sem a resposta segue e o servidor decide.
 const motivoDe = (m: unknown): MotivoDaPorta => ((MOTIVOS as readonly unknown[]).includes(m) ? (m as MotivoDaPorta) : "falha");
 
 /** Avanço da prova, para a tela: quantas tentativas já foram e quantas se espera em média. */
@@ -63,7 +64,6 @@ export type ResultadoDaConta = { ok: true; sessao: { access_token: string; refre
  * administração do serviço de contas). `convite`: o código do convite da coordenação do site, quando a pessoa veio por um.
  */
 export async function criarContaPelaPorta(dados: { email: string; senha: string; codinome: string; volta: string; convite?: string; turnstile?: string }, aoAvancar?: AoAvancar): Promise<ResultadoDaConta> {
-  if (faltaODesafio(dados.turnstile)) return { ok: false, motivo: "captcha" };
   const p = await provar("conta", aoAvancar);
   if ("motivo" in p) return { ok: false, motivo: p.motivo };
   try {
@@ -88,7 +88,6 @@ export type ResultadoDaEntrada =
  * sessão no lugar (supabase.auth.setSession) e segue: o código do aplicativo autenticador continua sendo pedido no navegador.
  */
 export async function entrarPelaPorta(dados: { email: string; senha: string; turnstile?: string }, aoAvancar?: AoAvancar): Promise<ResultadoDaEntrada> {
-  if (faltaODesafio(dados.turnstile)) return { ok: false, motivo: "captcha" };
   const p = await provar("entrar", aoAvancar);
   if ("motivo" in p) return { ok: false, motivo: p.motivo };
   try {
@@ -109,7 +108,6 @@ export async function entrarPelaPorta(dados: { email: string; senha: string; tur
  * haja conta ou não. `volta`: para onde o link do e-mail leva (na mesma origem).
  */
 export async function avisoPelaPorta(dados: { tipo: "confirmacao" | "senha"; email: string; volta: string; turnstile?: string }, aoAvancar?: AoAvancar): Promise<{ ok: true } | { ok: false; motivo: MotivoDaPorta }> {
-  if (faltaODesafio(dados.turnstile)) return { ok: false, motivo: "captcha" };
   const p = await provar("aviso", aoAvancar);
   if ("motivo" in p) return { ok: false, motivo: p.motivo };
   try {
