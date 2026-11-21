@@ -602,6 +602,9 @@ function md5Sal(s, alvo, pessoa) {
   respostas["/rpc/alumia_voto_cifradas"] = [200, { fechada: false }];
   r = await abrir.POST(pedir({ consulta: CONS }, comSessao));
   ok("apurar: consulta aberta não se abre", r.status === 409);
+  respostas["/rpc/alumia_voto_cifradas"] = [400, { message: "nao_encontrado" }];
+  r = await abrir.POST(pedir({ consulta: CONS }, comSessao));
+  ok("apurar: consulta que não existe é um 404 (antes virava 502 e a borda mostrava a página de erro dela)", r.status === 404 && (await r.json()).motivo === "nao_encontrado");
 
   // A chave pública da consulta: com sessão e freio por conta
   const chaveRota = await import("../app/api/alumia/voto/chave/route.ts");
