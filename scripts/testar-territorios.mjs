@@ -209,7 +209,9 @@ ok("cada coletivo com identidade própria tem a sua (nenhum repete o desenho de 
 ok("logo de cada coletivo: WebP leve, alt e crédito \"Logo cedida pelo coletivo\"", () => {
   for (const t of comVisual) {
     assert.ok(t.logo, `${t.slug}: sem logo`);
-    assert.equal(t.logo.src, `/territorios/${t.slug}/logo.webp`);
+    // 20/11/2026: a logo regenerada ganha o tamanho no nome (logo-1080.webp) para furar os caches (service worker,
+    // navegador e Cloudflare) que segurariam a versão antiga no endereço de sempre (logo.webp).
+    assert.match(t.logo.src, new RegExp(`^/territorios/${t.slug}/logo(-1080)?\\.webp$`), t.logo.src);
     assert.ok(fs.existsSync(path.join(raiz, "public", t.logo.src)), t.logo.src);
     assert.ok(fs.statSync(path.join(raiz, "public", t.logo.src)).size < 100_000, `${t.logo.src} grande demais`);
     assert.ok(t.logo.alt.length > 20, `${t.slug}: alt da logo`);
