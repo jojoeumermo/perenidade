@@ -29,7 +29,12 @@ export async function POST(pedido: Request) {
   if (!freioDaConta(conta.id) || !freioPorDecisao(decisao)) return resposta({ ok: false, motivo: "muitos_pedidos" }, 429);
 
   const lote = await rpcDeServico<{ fechada: boolean; cedulas?: unknown[] }>("alumia_decisao_cifradas", { p_id: decisao });
-  if (!lote.ok) return resposta({ ok: false, motivo: lote.codigo === "nao_encontrado" ? "nao_encontrado" : "sem_servico" }, lote.status === 0 ? 503 : 502);
+  if (!lote.ok) {
+    // Uma consulta que não existe é um "não encontrado" comum, não uma falha do servidor: sem o 404, a borda mostrava a
+    // página de erro genérica dela para um endereço que só estava errado.
+    if (lote.codigo === "nao_encontrado") return resposta({ ok: false, motivo: "nao_encontrado" }, 404);
+    return resposta({ ok: false, motivo: "sem_servico" }, lote.status === 0 ? 503 : 502);
+  }
   if (!lote.dado.fechada) return resposta({ ok: false, motivo: "aberta" }, 409);
   const cedulas = Array.isArray(lote.dado.cedulas) ? lote.dado.cedulas : [];
   if (cedulas.length === 0) return resposta({ ok: true, apuradas: 0, nulas: 0 });

@@ -61,6 +61,7 @@ const rotaChave = fonte("app/api/alumia/decisao/chave/route.ts");
 const rotaAbrir = fonte("app/api/alumia/decisao/abrir/route.ts");
 ok("a chave da votação sai do mesmo código do voto da onda 9", /chavePublicaDaConsulta/.test(rotaChave) && /segredoDoVoto/.test(rotaChave) && /contaDoToken/.test(rotaChave));
 ok("a apuração abre com o mesmo código e embaralha antes de mandar ao banco", /abrirCedula/.test(rotaAbrir) && /embaralhar\(/.test(rotaAbrir) && /alumia_decisao_apurar/.test(rotaAbrir) && /alumia_decisao_cifradas/.test(rotaAbrir));
+ok("a apuração responde 404 (não 502) quando a votação não existe", /nao_encontrado" \}, 404\)/.test(rotaAbrir));
 ok("o aparelho cifra com a mesma cédula da onda 9", /cifrarCedula/.test(fonte("lib/rede/decisao/cliente.ts")) && /from "\.\.\/voto\/cedula"/.test(fonte("lib/rede/decisao/cliente.ts")));
 ok("nenhuma cifra feita à mão na frente", ["lib/rede/decisao/cliente.ts", "app/api/alumia/decisao/chave/route.ts", "app/api/alumia/decisao/abrir/route.ts"].every((c) => !/createCipheriv|createDecipheriv|subtle\.(encrypt|decrypt|deriveBits|deriveKey)|createECDH|hkdfSync/.test(fonte(c))));
 ok("nenhum arquivo do navegador lê a chave de serviço ou o segredo", ["lib/rede/decisao/cliente.ts", ...fs.readdirSync(path.join(raiz, "components/rede/comunidades/decisao")).map((f) => `components/rede/comunidades/decisao/${f}`)]
