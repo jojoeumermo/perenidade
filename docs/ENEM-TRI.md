@@ -8,11 +8,42 @@ método do Inep, com os parâmetros **reais** dos itens. Não há item inventado
 
 - Modelo logístico de 3 parâmetros (Birnbaum, 1968): a (discriminação), b (dificuldade), c (acerto ao acaso).
 - Proficiência pelo **EAP** (esperança a posteriori), priori normal, **40 pontos de quadratura**.
-- Calculada na escala (0, 1) e levada à escala do Enem: `nota = 500 + 100·θ`. A referência é a dos concluintes
-  regulares de 2009 (média 500, desvio-padrão 100). Os parâmetros dos microdados estão na escala (0, 1).
+- Calculada na escala (0, 1) e levada à escala EFETIVA da área: `nota = slope·θ + intercept`, com constantes por
+  área (ESCALA_POR_AREA em `lib/enem-tri.ts`). A régua nominal divulgada pelo Inep é `500 + 100·θ` (referência dos
+  concluintes regulares de 2009), mas a régua publicada das notas oficiais tem inclinação própria por área (108 a 130).
+  Os parâmetros dos microdados estão na escala (0, 1).
 - Itens abandonados pelo Inep (`IN_ITEM_ABAN = 1`) ficam fora da conta; o laboratório faz o mesmo.
 - Fontes: Inep, "Enem: procedimentos de análise"; nota técnica "Procedimento de cálculo das notas do Enem" (2011);
   "Entenda a sua nota no Enem" (2013); microdados do Enem (arquivo `ITENS_PROVA_AAAA.csv`).
+
+## A escala por área (medida em nov/2026)
+
+A documentação pública do Inep dá a escala como (500, 100) para toda área, mas as notas oficiais publicadas seguem
+uma régua efetiva ligeiramente diferente em cada área. As constantes (slope, intercept) vêm do catálogo do
+analise-enem, estimadas por eles em dezenas de milhares de notas por área: LC (108,086; 499,978), CH (112,310;
+501,489), CN (113,102; 501,143), MT (129,646; 500,019). Conferência própria, em população COMPLETA: os 12.330.462
+participantes presentes do Enem 2024 (microdados, RESULTADOS_2024.csv; LC 3.164.703, CH 3.161.605, CN 3.001.536, MT
+3.002.618), cada padrão de respostas corrigido pelo gabarito do próprio caderno (em LC, o gabarito traz 50 itens —
+5 inglês + 5 espanhol + 40 comuns — e usa-se o idioma marcado pelo participante), passados pelo `estimarEap` de
+`lib/enem-tri.ts`. Resultado, combinando a escala com a exceção da nota de gabarito (seção seguinte): erro absoluto
+médio de 0,025 ponto e 99,9994% dos casos dentro de ±0,05 em todas as áreas (com a escala SOZINHA, LC ainda teria os
+18 desvios de 8 pontos dos gabaritantes de inglês; CH, CN e MT já ficam inteiras em ±0,05 só com a escala). Com a régua nominal (500 + 100·θ) o erro médio era de 4,46 (LC), 8,43 (CH), 7,53 (CN) e 21,40 (MT) pontos,
+sempre encolhendo as notas em direção a 500 (notas altas subestimadas; em MT, o pior caso chegou a 105,6 pontos).
+
+## A nota de gabarito (quem acerta tudo)
+
+Observação dos microdados, não regra geral comprovada do Inep: em LC 2024, os 18 participantes que gabaritaram em
+inglês (TP_LINGUA 0) receberam 795,8, enquanto os parâmetros dos itens de inglês produzem 787,8; os 2 que
+gabaritaram em espanhol receberam os mesmos 795,8, que o modelo da prova de espanhol já reproduz. O analise-enem
+observa o mesmo desvio em algumas provas de 2009 a 2025 e o descreve como o Inep atribuindo ao padrão perfeito a
+nota de gabarito de outro caderno da edição; não encontramos documento do Inep que confirme a regra geral. O
+laboratório reproduz apenas o VALOR OBSERVADO, edição por edição: o campo `notaGabarito` de uma prova (em
+`public/tri/enem-AAAA.json`) guarda a nota que os microdados DAQUELA edição registram para o padrão perfeito, e o
+`estimarEap` a devolve quando todas as respostas válidas são acertos. Nenhum valor é extrapolado para outra prova
+ou ano. Valor atual: 2024 LC inglês 795,8, conferido por nós na população completa de 2024 (3,16 milhões de notas
+de LC). O analise-enem cataloga também 2025 (LC inglês 794,5, CN 858,7, MT 980,3), deixado de fora até conferirmos
+os microdados de 2025 por conta própria. Nas provas sem `notaGabarito`, a nota do modelo coincide com a oficial —
+é o caso de CH e MT 2024, onde os 617 gabaritantes receberam exatamente a nota que os parâmetros produzem.
 
 ## A constante D (dúvida resolvida em nov/2026)
 
