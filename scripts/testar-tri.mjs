@@ -5,7 +5,7 @@
 // ITENS_PROVA_2022.csv e contra o gabarito das questões do site. Uso: npm run testar:tri
 import fs from "node:fs";
 import path from "node:path";
-import { corrigirLetras, D_PADRAO, estimarEap, estimarMl, faixaPorAcertos, itensDaArea, notaDeTheta, probabilidadeD, quadratura, thetaDeNota } from "../lib/enem-tri.ts";
+import { corrigirLetras, D_PADRAO, ePadraoPerfeito, ESCALA_POR_AREA, estimarEap, estimarMl, faixaPorAcertos, itensDaArea, notaDeGabaritoDaProva, notaDeTheta, notaDeThetaDaArea, probabilidadeD, quadratura, thetaDeNota, thetaDeNotaDaArea } from "../lib/enem-tri.ts";
 
 let ok = 0;
 const falhas = [];
@@ -24,10 +24,19 @@ const json = (...p) => JSON.parse(fs.readFileSync(path.join(raiz, ...p), "utf8")
   conferir("longe da dificuldade: embaixo sobra o chute, em cima chega a 1", perto(probabilidadeD({ a: 2, b: 0, c: 0.15 }, -20), 0.15, 1e-9) && perto(probabilidadeD({ a: 2, b: 0, c: 0.15 }, 20), 1, 1e-9));
 }
 
-// ── 2. A escala (500, 100) ──
+// ── 2. A escala nominal (500, 100) e a escala efetiva por área ──
 {
-  conferir("nota = 500 + 100·θ", notaDeTheta(0) === 500 && notaDeTheta(1.5) === 650 && notaDeTheta(-2) === 300);
-  conferir("θ = (nota − 500)/100 é a inversa", thetaDeNota(notaDeTheta(0.37)) === 0.37 && perto(thetaDeNota(720), 2.2, 1e-12));
+  conferir("escala nominal: nota = 500 + 100·θ", notaDeTheta(0) === 500 && notaDeTheta(1.5) === 650 && notaDeTheta(-2) === 300);
+  conferir("escala nominal: θ = (nota − 500)/100 é a inversa", thetaDeNota(notaDeTheta(0.37)) === 0.37 && perto(thetaDeNota(720), 2.2, 1e-12));
+  // A escala efetiva de cada área (ESCALA_POR_AREA): conferida na população completa do Enem 2024 — 12.330.462 notas
+  // oficiais dos microdados reproduzidas com erro absoluto médio de 0,025 ponto (docs/ENEM-TRI.md).
+  conferir("as quatro áreas têm régua própria, toda perto da nominal", ["linguagens", "humanas", "natureza", "matematica"].every((a) => { const e = ESCALA_POR_AREA[a]; return e.slope > 100 && e.slope < 135 && Math.abs(e.intercept - 500) < 2; }));
+  conferir("matemática: nota = 129,646·θ + 500,019", perto(notaDeThetaDaArea(1, "matematica"), 629.6656, 1e-3) && perto(notaDeThetaDaArea(0, "matematica"), 500.0194, 1e-3));
+  conferir("escala da área: θ e nota são inversas", ["linguagens", "humanas", "natureza", "matematica"].every((a) => perto(thetaDeNotaDaArea(notaDeThetaDaArea(0.37, a), a), 0.37, 1e-12)));
+  const um = estimarEap([{ a: 1, b: 0.5, c: 0.1 }], [true], { area: "matematica" });
+  conferir("o EAP usa a régua da área quando ela é informada", perto(um.nota, notaDeThetaDaArea(um.theta, "matematica"), 1e-9) && perto(um.notaDp, um.dp * ESCALA_POR_AREA.matematica.slope, 1e-9) && perto(um.ic95[0], notaDeThetaDaArea(um.theta - 1.96 * um.dp, "matematica"), 1e-9));
+  const sem = estimarEap([{ a: 1, b: 0.5, c: 0.1 }], [true]);
+  conferir("sem área, o EAP fica na régua nominal", perto(sem.nota, notaDeTheta(sem.theta), 1e-9));
 }
 
 // ── 3. A quadratura de 40 pontos ──
@@ -164,6 +173,38 @@ const json = (...p) => JSON.parse(fs.readFileSync(path.join(raiz, ...p), "utf8")
   conferir("2022 matemática: com a metade de acertos, a nota varia mais de 50 pontos conforme o padrão", meio.max - meio.min > 50, String(meio.max - meio.min));
   const d17 = estimarEap(m22, m22.map((_, i) => i % 2 === 0), { D: 1.7 }).nota;
   conferir("trocar D de 1 para 1,7 muda a nota (por isso o laboratório deixa trocar)", Math.abs(d17 - media.nota) > 1);
+}
+
+// ── 6.5. A nota de gabarito (quem acerta tudo) ──
+{
+  conferir("padrão perfeito: tudo certo conta, qualquer erro ou tudo nulo não", ePadraoPerfeito([true, true]) && !ePadraoPerfeito([true, false]) && !ePadraoPerfeito([null, null]) && ePadraoPerfeito([true, null]));
+  conferir("nota de gabarito: número direto, por idioma, ou ausente", notaDeGabaritoDaProva({ notaGabarito: 858.7 }) === 858.7 && notaDeGabaritoDaProva({ notaGabarito: { espanhol: 795.8 } }, "espanhol") === 795.8 && notaDeGabaritoDaProva({ notaGabarito: { espanhol: 795.8 } }, "ingles") === undefined && notaDeGabaritoDaProva({}) === undefined);
+  const dois = [{ a: 2, b: 0, c: 0.2 }, { a: 1.5, b: 1, c: 0.15 }];
+  const gab = estimarEap(dois, [true, true], { notaGabarito: 795.8 });
+  conferir("com nota de gabarito, acertar tudo devolve exatamente ela, sem margem", gab.nota === 795.8 && gab.ic95[0] === 795.8 && gab.ic95[1] === 795.8 && gab.notaDp === 0);
+  const quase = estimarEap(dois, [true, false], { notaGabarito: 795.8 });
+  conferir("errando uma, a nota de gabarito não se aplica", quase.nota !== 795.8 && quase.notaDp > 0);
+  // Dado real OBSERVADO (não regra geral comprovada do Inep): nos microdados de 2024, os 18 participantes que
+  // gabaritaram LC em inglês (TP_LINGUA 0) receberam 795,8; os parâmetros da prova dariam 787,8. Conferido por nós
+  // na população completa de 2024; o analise-enem observa o mesmo e descreve como a nota de gabarito de outro
+  // caderno da edição. O valor vale só para esta prova, idioma e edição.
+  const lc24 = json("public", "tri", "enem-2024.json").areas.linguagens;
+  conferir("2024 linguagens: nota de gabarito só para o inglês", notaDeGabaritoDaProva(lc24, "ingles") === 795.8 && notaDeGabaritoDaProva(lc24, "espanhol") === undefined);
+  const itIng = itensDaArea(lc24, "ingles");
+  const gabIng = estimarEap(itIng, itIng.map((i) => (i.fora ? null : true)), { area: "linguagens", notaGabarito: notaDeGabaritoDaProva(lc24, "ingles") });
+  conferir("2024 LC inglês: gabaritar devolve a nota oficial 795,8", gabIng.nota === 795.8);
+  const itEsp = itensDaArea(lc24, "espanhol");
+  const gabEsp = estimarEap(itEsp, itEsp.map((i) => (i.fora ? null : true)), { area: "linguagens", notaGabarito: notaDeGabaritoDaProva(lc24, "espanhol") });
+  conferir("2024 LC espanhol: sem exceção, o modelo já cai em 795,8 (±0,1)", perto(gabEsp.nota, 795.8, 0.1), gabEsp.nota.toFixed(2));
+  // 2025 tem exceções catalogadas no analise-enem (LC inglês 794,5; CN 858,7; MT 980,3), mas ainda não verificadas
+  // por nós nos microdados de 2025: ficam de fora até a conferência própria.
+  const p25 = json("public", "tri", "enem-2025.json").areas;
+  conferir("2025: nenhuma nota de gabarito enquanto não verificamos os microdados de 2025", notaDeGabaritoDaProva(p25.linguagens, "ingles") === undefined && notaDeGabaritoDaProva(p25.natureza) === undefined && notaDeGabaritoDaProva(p25.matematica) === undefined);
+  // A faixa "acertei X" usa a mesma régua da área: no topo, todos os padrões coincidem com o EAP da área.
+  const mt24 = itensDaArea(json("public", "tri", "enem-2024.json").areas.matematica).filter((i) => !i.fora);
+  const fArea = faixaPorAcertos(mt24, { area: "matematica" });
+  const tudo = estimarEap(mt24, mt24.map(() => true), { area: "matematica" });
+  conferir("faixa por acertos usa a régua da área (topo coincide com o EAP da área)", perto(fArea[mt24.length].min, tudo.nota, 1e-9) && perto(fArea[mt24.length].max, tudo.nota, 1e-9));
 }
 
 // ── 7. Texto e script ──

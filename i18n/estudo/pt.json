@@ -617,9 +617,9 @@
             "Pega os parâmetros a (discriminação), b (dificuldade) e c (chute) que o Inep publica para cada item nos microdados do Enem.",
             "Calcula a chance de acerto de cada item para 40 proficiências entre −4 e 4 (modelo logístico de 3 parâmetros).",
             "Multiplica pela distribuição normal a priori e faz a média a posteriori (EAP), como descreve o Inep: é a proficiência estimada.",
-            "Passa para a escala do Enem: nota = 500 + 100 × proficiência (500 é a média dos concluintes de 2009 e 100 o desvio-padrão)."
+            "Passa para a escala do Enem: cada área tem a sua régua efetiva, nota = inclinação × proficiência + nível, com as constantes medidas nas notas oficiais (a régua nominal divulgada pelo Inep é 500 e 100)."
           ],
-          "formula": "P(acerto) = c + (1 − c) ÷ (1 + e^(−D·a·(θ − b)))      nota = 500 + 100·θ",
+          "formula": "P(acerto) = c + (1 − c) ÷ (1 + e^(−D·a·(θ − b)))      nota = k·θ + m (régua efetiva da área)",
           "limites": "O que este laboratório não faz",
           "limitesLista": [
             "Não é a nota oficial: o Inep calibra os itens com amostras de participantes, equaliza entre edições e calcula a nota de cada pessoa com o seu caderno.",

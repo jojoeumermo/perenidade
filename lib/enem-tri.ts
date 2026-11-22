@@ -5,10 +5,12 @@
 //     parâmetro c. Não são itens de nenhuma prova.
 // (2) Estimativa da nota com os parâmetros REAIS dos itens (seção "TRI com parâmetros reais"): o Inep publica
 //     NU_PARAM_A, NU_PARAM_B e NU_PARAM_C de cada item nos microdados (arquivo ITENS_PROVA). A nota é estimada pelo EAP
-//     (esperança a posteriori, priori normal, 40 pontos de quadratura) e levada à escala (500, 100) da referência de
-//     2009: nota = 500 + 100·θ. É uma ESTIMATIVA: o Inep recalibra os itens a cada edição e calcula a nota oficial com o
-//     banco inteiro de participantes (edital, item 14.3). Fontes: Inep, "Enem: procedimentos de análise" e nota técnica
-//     "Procedimento de cálculo das notas do Enem" (2011); ver docs/ENEM-TRI.md.
+//     (esperança a posteriori, priori normal, 40 pontos de quadratura) e levada à escala EFETIVA de cada área
+//     (ESCALA_POR_AREA: a régua nominal é 500 + 100·θ, mas a publicada pelo Inep tem inclinação própria por área;
+//     ver o comentário da constante). Quem acerta tudo pode receber a "nota de gabarito" fixa da prova
+//     (AreaDoArquivo.notaGabarito), repassada via opção. É uma ESTIMATIVA: o Inep recalibra os itens a cada edição e
+//     calcula a nota oficial com o banco inteiro de participantes (edital, item 14.3). Fontes: Inep, "Enem:
+//     procedimentos de análise" e nota técnica "Procedimento de cálculo das notas do Enem" (2011); ver docs/ENEM-TRI.md.
 // Sem os atalhos "@/" de propósito: `npm run testar:enem` e `npm run testar:tri` rodam este arquivo direto no Node.
 
 export interface Item {
@@ -55,7 +57,8 @@ export function estimarTheta(itens: Item[], respostas: boolean[]): number {
 export const ITENS_ILUSTRATIVOS: Item[] = [-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5].map((b) => ({ a: 1.5, b, c: 0.2 }));
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────────
-// TRI com parâmetros reais (itens publicados pelo Inep). Escala (0, 1) nos itens; a nota é 500 + 100·θ.
+// TRI com parâmetros reais (itens publicados pelo Inep). Escala (0, 1) nos itens; a nota usa a escala efetiva da
+// área (ESCALA_POR_AREA) quando ela é informada, e a nominal (500 + 100·θ) quando não.
 // ─────────────────────────────────────────────────────────────────────────────────────────────────
 
 /**
@@ -74,10 +77,45 @@ export function probabilidadeD(item: Item, theta: number, D: number = D_PADRAO):
   return item.c + (1 - item.c) / (1 + Math.exp(-D * item.a * (theta - item.b)));
 }
 
-/** Nota na escala do Enem a partir de θ (0, 1): 500 + 100·θ (Inep, "Procedimentos de análise", seção Escala). */
+/** Nota na escala nominal do Enem a partir de θ (0, 1): 500 + 100·θ (a referência divulgada pelo Inep). */
 export const notaDeTheta = (theta: number): number => 500 + 100 * theta;
-/** θ (0, 1) a partir da nota. */
+/** θ (0, 1) a partir da nota na escala nominal. */
 export const thetaDeNota = (nota: number): number => (nota - 500) / 100;
+
+/**
+ * A escala EFETIVA de cada área: nota = slope·θ + intercept. O Inep divulga a escala como "(500, 100)", mas a
+ * régua publicada das notas oficiais não é exatamente essa: cada área tem inclinação própria (108 a 130, não 100).
+ * As constantes vêm do catálogo do projeto analise-enem (HenriqueLindemann, AGPL-3.0), que reproduziu 262 milhões
+ * de notas oficiais de 2009 a 2025 com erro médio de 0,03 ponto. Conferência própria (nov/2026): nos microdados do
+ * Enem 2024, população completa de 12.330.462 notas (LC 3.164.703, CH 3.161.605, CN 3.001.536, MT 3.002.618), o EAP
+ * deste arquivo com estas constantes reproduz a nota oficial com erro absoluto médio de 0,025 ponto e 99,9994% dos
+ * casos dentro de ±0,05. Os únicos desvios maiores são os 18 gabaritantes de LC em inglês, que recebem do Inep a
+ * "nota de gabarito" fixa da edição (795,8 em vez de 787,8); o laboratório reproduz essa regra via
+ * AreaDoArquivo.notaGabarito + a opção notaGabarito do estimarEap. Com a escala nominal (500, 100) o erro médio
+ * seria de 4,5 a 21,4 pontos, encolhendo as notas em direção a 500. Detalhes em docs/ENEM-TRI.md.
+ */
+export interface EscalaDaArea {
+  /** Inclinação (o "100" da fórmula nominal): quantos pontos vale 1 θ na área. */
+  slope: number;
+  /** Nível (o "500" da fórmula nominal): a nota de θ = 0 na área. */
+  intercept: number;
+}
+export const ESCALA_POR_AREA: Record<AreaDoEnem, EscalaDaArea> = {
+  linguagens: { slope: 108.08598586473641, intercept: 499.9779752472922 },
+  humanas: { slope: 112.31003020959106, intercept: 501.4890202562871 },
+  natureza: { slope: 113.10230229714048, intercept: 501.1434183693156 },
+  matematica: { slope: 129.64617239487688, intercept: 500.01939362754257 },
+};
+/** Nota na escala efetiva da área: slope·θ + intercept. */
+export const notaDeThetaDaArea = (theta: number, area: AreaDoEnem): number => {
+  const e = ESCALA_POR_AREA[area];
+  return e.slope * theta + e.intercept;
+};
+/** θ (0, 1) a partir da nota na escala efetiva da área. */
+export const thetaDeNotaDaArea = (nota: number, area: AreaDoEnem): number => {
+  const e = ESCALA_POR_AREA[area];
+  return (nota - e.intercept) / e.slope;
+};
 
 export interface Estimativa {
   /** θ estimado (EAP), escala (0, 1). */
@@ -115,7 +153,11 @@ function logVerossimilhancaD(itens: Item[], respostas: (boolean | null)[], theta
  * EAP, o método do Inep: θ̂ = ∫ θ·L(x|θ)·f(θ) dθ ÷ ∫ L(x|θ)·f(θ) dθ, com priori normal padrão e 40 pontos de quadratura.
  * `respostas[i]` é true (acertou), false (errou ou em branco) ou null (item fora da conta: não entra na verossimilhança).
  */
-export function estimarEap(itens: Item[], respostas: (boolean | null)[], opcoes: { D?: number; pontos?: number } = {}): Estimativa {
+export function estimarEap(
+  itens: Item[],
+  respostas: (boolean | null)[],
+  opcoes: { D?: number; pontos?: number; area?: AreaDoEnem; notaGabarito?: number } = {},
+): Estimativa {
   const D = opcoes.D ?? D_PADRAO;
   const { x, w } = quadratura(opcoes.pontos ?? 40);
   const logs = x.map((theta) => logVerossimilhancaD(itens, respostas, theta, D));
@@ -124,7 +166,27 @@ export function estimarEap(itens: Item[], respostas: (boolean | null)[], opcoes:
   const total = pesos.reduce((s, v) => s + v, 0);
   const theta = pesos.reduce((s, v, k) => s + v * x[k], 0) / total;
   const dp = Math.sqrt(pesos.reduce((s, v, k) => s + v * (x[k] - theta) ** 2, 0) / total);
-  return { theta, dp, nota: notaDeTheta(theta), notaDp: dp * 100, ic95: [notaDeTheta(theta - 1.96 * dp), notaDeTheta(theta + 1.96 * dp)] };
+  const escala = opcoes.area ? ESCALA_POR_AREA[opcoes.area] : { slope: 100, intercept: 500 };
+  const nota = (t: number) => escala.slope * t + escala.intercept;
+  if (opcoes.notaGabarito !== undefined && ePadraoPerfeito(respostas)) {
+    // Nota de gabarito: o Inep atribui uma nota fixa a quem acerta tudo nesta prova (ver AreaDoArquivo.notaGabarito).
+    const ng = opcoes.notaGabarito;
+    return { theta, dp, nota: ng, notaDp: 0, ic95: [ng, ng] };
+  }
+  return { theta, dp, nota: nota(theta), notaDp: dp * escala.slope, ic95: [nota(theta - 1.96 * dp), nota(theta + 1.96 * dp)] };
+}
+
+/** Extrai a nota de gabarito da prova para o idioma escolhido (ver AreaDoArquivo.notaGabarito). */
+export function notaDeGabaritoDaProva(area: AreaDoArquivo, idioma: "ingles" | "espanhol" = "ingles"): number | undefined {
+  const ng = area.notaGabarito;
+  if (ng === undefined) return undefined;
+  return typeof ng === "number" ? ng : ng[idioma];
+}
+
+/** Padrão perfeito: todas as respostas válidas (não nulas) são acertos, com ao menos uma resposta válida. */
+export function ePadraoPerfeito(respostas: (boolean | null)[]): boolean {
+  const validas = respostas.filter((r) => r !== null && r !== undefined);
+  return validas.length > 0 && validas.every(Boolean);
 }
 
 /** Máxima verossimilhança (grade, passo 0,01 em [−4, 4]); nulo quando acertou ou errou tudo (não há máximo). */
@@ -154,7 +216,7 @@ export function corrigirLetras(itens: { g?: string }[], letras: string): boolean
  * Para k acertos, a menor e a maior nota possíveis (acertando só os k mais fáceis ou só os k mais difíceis): mostra que
  * o número de acertos não fixa a nota. Os itens fora da conta (sem parâmetro) devem vir já filtrados.
  */
-export function faixaPorAcertos(itens: Item[], opcoes: { D?: number } = {}): { acertos: number; min: number; max: number }[] {
+export function faixaPorAcertos(itens: Item[], opcoes: { D?: number; pontos?: number; area?: AreaDoEnem } = {}): { acertos: number; min: number; max: number }[] {
   const ordem = [...itens].sort((p, q) => p.b - q.b);
   const faixa: { acertos: number; min: number; max: number }[] = [];
   for (let k = 0; k <= ordem.length; k++) {
@@ -192,6 +254,14 @@ export interface AreaDoArquivo {
   ligadas: number;
   itens: ItemDoArquivo[];
   idiomas?: { ingles: ItemDoArquivo[]; espanhol: ItemDoArquivo[] };
+  /**
+   * Nota OBSERVADA nos microdados desta edição para quem acerta TUDO nesta prova ("nota de gabarito"), quando
+   * diferente da nota que os parâmetros da própria prova produzem. Não é regra geral comprovada do Inep: o
+   * analise-enem descreve o desvio como a nota de gabarito de outro caderno da edição, mas cada valor aqui é só o
+   * número que os microdados daquela edição registram, por prova e idioma, sem extrapolação. Linguagens usa o
+   * objeto por idioma; as demais áreas usam o número direto. Ausente = a nota do modelo já coincide com a oficial.
+   */
+  notaGabarito?: number | { ingles?: number; espanhol?: number };
 }
 export type AreaDoEnem = "linguagens" | "humanas" | "natureza" | "matematica";
 export interface ProvaDoArquivo {

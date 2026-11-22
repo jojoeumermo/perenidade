@@ -3,7 +3,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { fill } from "@/i18n/config";
-import { type AreaDoEnem, corrigirLetras, estimarEap, estimarMl, faixaPorAcertos, itensDaArea, notaDeTheta, type ProvaDoArquivo } from "@/lib/enem-tri";
+import { type AreaDoEnem, corrigirLetras, estimarEap, estimarMl, faixaPorAcertos, itensDaArea, notaDeGabaritoDaProva, notaDeThetaDaArea, type ProvaDoArquivo } from "@/lib/enem-tri";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
 
 type S = TextosDoEstudo["enem"]["tri"];
@@ -17,7 +17,7 @@ const AREAS: AreaDoEnem[] = ["linguagens", "humanas", "natureza", "matematica"];
 /**
  * O laboratório da TRI com itens reais: a pessoa escolhe uma prova do Enem (2009 a 2025) e uma área, marca o que
  * acertou (ou cola as letras das respostas, corrigidas pelo gabarito oficial) e vê a nota estimada pelo método do Inep
- * (modelo de 3 parâmetros, EAP, escala 500 e 100), com os parâmetros que o Inep publica nos microdados. Tudo roda no
+ * (modelo de 3 parâmetros, EAP, escala efetiva da área), com os parâmetros que o Inep publica nos microdados. Tudo roda no
  * aparelho; o único pedido de rede é o arquivo estático da prova (public/tri/enem-AAAA.json). Aviso fixo: é uma estimativa.
  */
 export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) {
@@ -63,11 +63,11 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
 
   const resposta = itens.map((i) => (i.fora ? null : marcados.has(i.co)));
   const itensModelo = itens.map((i) => ({ a: i.a ?? 1, b: i.b ?? 0, c: i.c ?? 0 }));
-  const est = useMemo(() => (itens.length ? estimarEap(itensModelo, resposta, { D }) : null), [itens, marcados, D]); // eslint-disable-line react-hooks/exhaustive-deps
+  const est = useMemo(() => (itens.length ? estimarEap(itensModelo, resposta, { D, area, notaGabarito: bloco ? notaDeGabaritoDaProva(bloco, idioma) : undefined }) : null), [itens, marcados, D, area, bloco, idioma]); // eslint-disable-line react-hooks/exhaustive-deps
   const ml = itens.length ? estimarMl(itensModelo, resposta, D) : null;
   const total = contados.length;
   const acertos = contados.filter((i) => marcados.has(i.co)).length;
-  const faixa = useMemo(() => (total ? faixaPorAcertos(contados.map((i) => ({ a: i.a as number, b: i.b as number, c: i.c as number })), { D }) : []), [contados, total, D]);
+  const faixa = useMemo(() => (total ? faixaPorAcertos(contados.map((i) => ({ a: i.a as number, b: i.b as number, c: i.c as number })), { D, area }) : []), [contados, total, D, area]);
   const f = faixa[acertos];
   const fora = itens.length - total;
   const porDificuldade = [...contados].sort((x, y) => (x.b as number) - (y.b as number));
@@ -163,7 +163,7 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
                           <td className="py-1 pr-2" colSpan={3}>{s.fora}</td>
                         ) : (
                           <>
-                            <td className="py-1 pr-2 font-mono">{pontos(notaDeTheta(it.b as number))}</td>
+                            <td className="py-1 pr-2 font-mono">{pontos(notaDeThetaDaArea(it.b as number, area))}</td>
                             <td className="py-1 pr-2 font-mono">{dec(it.a as number)}</td>
                             <td className="py-1 pr-2 font-mono">{dec(it.c as number)}</td>
                           </>
@@ -192,7 +192,7 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
               <p className="mt-1 font-semibold">{fill(s.intervalo, { min: pontos(est.ic95[0]), max: pontos(est.ic95[1]) })}</p>
               <p className="mt-1">{fill(s.contagem, { n: acertos, total })}</p>
               {f && f.max - f.min >= 1 && <p className="mt-1">{fill(s.faixa, { n: acertos, min: pontos(f.min), max: pontos(f.max) })}</p>}
-              <p className="mt-1">{ml === null ? s.mlNao : fill(s.ml, { nota: pontos(notaDeTheta(ml)) })}</p>
+              <p className="mt-1">{ml === null ? s.mlNao : fill(s.ml, { nota: pontos(notaDeThetaDaArea(ml, area)) })}</p>
             </div>
             <details className="mt-4">
               <summary className="cursor-pointer font-semibold">{s.avancado}</summary>
