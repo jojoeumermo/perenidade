@@ -76,6 +76,15 @@ jobs:
               - node_modules
               - "**/*.min.js"
       # O Kotlin só entra na base do CodeQL compilando. Sem assinar (assembleDebug) e sem o build do site (o android/ usa a casca).
+      # O gradle lê android/capacitor-cordova-android-plugins/cordova.variables.gradle, que NÃO vai no repositório: o
+      # `npx cap sync android` gera. Sem este passo o assembleDebug falha antes de compilar.
+      - if: steps.tem.outputs.sim == '1' && matrix.linguagem == 'java-kotlin'
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 24
+          cache: npm
+      - if: steps.tem.outputs.sim == '1' && matrix.linguagem == 'java-kotlin'
+        run: npm ci && npm run app:casca
       - if: steps.tem.outputs.sim == '1' && matrix.linguagem == 'java-kotlin'
         run: cd android && ./gradlew --no-daemon assembleDebug
       - if: steps.tem.outputs.sim == '1'
