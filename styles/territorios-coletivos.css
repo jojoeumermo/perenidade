@@ -24,7 +24,7 @@
   outline-offset: 3px;
 }
 .col-trilha {
-  border-bottom: var(--d-fio, 2px) solid var(--col-destaque);
+  border-bottom: 2px solid var(--col-destaque);
   font-family: var(--font-mono, ui-monospace), monospace;
   font-size: 0.7rem;
   letter-spacing: 0.2em;
@@ -119,8 +119,7 @@
   min-height: 2.75rem;
   align-items: center;
   gap: 0.5rem;
-  border: var(--d-fio, 2px) solid var(--col-destaque);
-  border-radius: var(--d-raio-botao, 0);
+  border: 2px solid var(--col-destaque);
   padding: 0.7rem 1.2rem;
   font-weight: 800;
   text-decoration: none;
@@ -138,8 +137,7 @@
 }
 
 .col-tema {
-  border: var(--d-fio, 2px) solid currentColor;
-  border-radius: var(--d-raio-pilula, 0);
+  border: 2px solid currentColor;
   padding: 0.35rem 0.75rem;
   font-size: 0.88rem;
   font-weight: 700;
@@ -152,7 +150,7 @@
   display: grid;
   grid-template-columns: minmax(4.5rem, auto) minmax(0, 1fr);
   gap: 1rem;
-  border-top: var(--d-fio, 2px) solid;
+  border-top: 2px solid;
   padding-top: 0.9rem;
 }
 .col-hora {
@@ -161,8 +159,7 @@
   line-height: 1;
 }
 .col-item {
-  border: var(--d-fio, 2px) solid currentColor;
-  border-radius: var(--d-raio-cartao, 0);
+  border: 2px solid currentColor;
   background: var(--col-fundo);
   padding: 1rem;
 }
@@ -230,15 +227,13 @@
 }
 
 .col-parceria {
-  border-top: var(--d-fio, 3px) solid var(--col-destaque);
+  border-top: 3px solid var(--col-destaque);
 }
 .col-trilha-cartao {
   display: flex;
   height: 100%;
   flex-direction: column;
-  border: var(--d-fio, 2px) solid currentColor;
-  border-radius: var(--d-raio-cartao, 0);
-  box-shadow: var(--d-sombra, none);
+  border: 2px solid currentColor;
   background: var(--col-papel);
   color: var(--col-tinta);
   padding: 1.25rem;
@@ -371,8 +366,6 @@
   box-shadow: 8px 8px 0 #2a0806;
 }
 [data-identidade="noizocupa"] .col-trilha-cartao {
-  border-width: 2px;
-  border-radius: 0;
   box-shadow: 6px 6px 0 #2a0806;
 }
 [data-identidade="noizocupa"] .col-letreiro .letreiro-trilho {
@@ -493,7 +486,6 @@
 [data-identidade="kamikaze"] .col-citacao,
 [data-identidade="kamikaze"] .col-trilha-cartao {
   border-width: 2px;
-  border-radius: 0;
 }
 [data-identidade="kamikaze"] .col-letreiro .letreiro-trilho {
   font-family: var(--col-letra);
@@ -599,8 +591,6 @@
   border-color: #ffd21f;
 }
 [data-identidade="desordem"] .col-trilha-cartao {
-  border-width: 2px;
-  border-radius: 0;
   box-shadow: 6px 6px 0 #d7261e;
 }
 [data-identidade="desordem"] .col-letreiro .letreiro-trilho {
@@ -903,10 +893,6 @@
     background-position-y: 2.2rem;
   }
 }
-/* Redesign (design-novo): a moldura generica (.col-trilha, .col-botao, .col-tema, .col-item, .col-trilha-cartao, .col-programa,
-   .col-parceria) le as variaveis --d-* de styles/design/instituto.css, que so existem com o recurso ligado e sem "Contornos fortes";
-   sem elas, vale o valor de antes. O material de cada mundo (identidades, .ori-*, .fenix-*, .deso-*, .kami-*, citacao, agenda, tela,
-   cartaz) nao le nenhuma: fica como era. Os tres mundos de sombra dura mantem o cartao de trilha quadrado. */
 /* O eco é uma segunda sombra, maior, numa camada por cima que só acende e apaga (opacity): animar a própria sombra repinta a
    faixa a cada quadro, e o modo leve do P5 não deixa animação de sombra no instituto (scripts/testar-p5-leve.mjs). */
 .ori-faixa {
