@@ -70789,7 +70789,7 @@ end $$;
 
 -- ── 7. A limpeza diária ───────────────────────────────────────────────────────────────────────────────────────────────────
 
-/** Tira o que passou do prazo: pacotes de mais de 30 dias, caixas vencidas, contagens, passes gastos de mais de 2 dias, marcas de ontem. */
+/** Tira o que passou do prazo: pacotes de mais de 30 dias, caixas vencidas, contagens, passes gastos de mais de 14 dias (o passe vale pela semana atual e a anterior: o resumo fica enquanto o passe vale), marcas de ontem. */
 create or replace function interno.rede_caixas_limpeza() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v_hoje date := interno.caixa_hoje(); a integer; b integer; c integer; d integer; e integer; v_passes passes_gastos[];
 begin
@@ -70799,7 +70799,7 @@ begin
     and not exists (select 1 from diretorio_contas dc where interno.caixa_resumo('alumia/r2/caixa', dc.pedidos_caixa) = k.id_h);
   get diagnostics b = row_count;
   delete from caixa_contagem where dia < v_hoje - 1; get diagnostics c = row_count;
-  delete from passes_gastos where dia < v_hoje - 2; get diagnostics d = row_count;
+  delete from passes_gastos where dia < v_hoje - 14; get diagnostics d = row_count;
   delete from passes_emitidos where dia < v_hoje; get diagnostics e = row_count;
   -- Revisão final da R2 (metadados): com pouco tráfego, o xmin da caixa criada (e do passe gasto para criá-la) ficava colado ao da
   -- gravação com sessão da mesma conta, e uma cópia do banco ligava os dois. Uma vez por dia, as caixas e os passes gastos são
@@ -75041,8 +75041,8 @@ end $$;
 --      contexto da votação; lib/rede/passes/**). Nessa mesma transação, a conta fica marcada como "já pegou a cédula"
 --      (interno.voto_cedula_tomada, chamada pela emissão do passe da urna);
 --   2. SEM sessão, depois: a cédula vai pela rota anônima (app/api/alumia/urna/depositar) com o passe; o servidor confere o passe só com
---      a chave pública e chama public.rede_urna_depositar_anonimo (só o serviço). O passe é gasto (interno.passes_gastos: repetido,
---      recusado) e a cédula entra na urna no mesmo INSERT em que até 2000 cédulas de antes são regravadas, em ordem sorteada (o xmin e
+--      a chave pública e chama public.rede_urna_depositar_anonimo (só o serviço). O passe é gasto (interno.urna_passes_gastos, até a
+--      votação fechar: repetido, recusado) e a cédula entra na urna no mesmo INSERT em que até 2000 cédulas de antes são regravadas, em ordem sorteada (o xmin e
 --      a posição no disco não dizem qual chegou agora).
 -- As funções com sessão que recebiam a cédula deixam de receber ("voto_anonimo"). Quem tem o banco vê quem pegou cédula (como via
 -- quem votou) e as cédulas cifradas, sem ligação entre os dois. O voto secreto da equipe: o "já pegou" é a marca da emissão do passe
@@ -75059,6 +75059,41 @@ do $$
 begin
   if exists (select 1 from pg_roles where rolname = 'anon') then revoke all on interno.votacao_cedulas_emitidas from anon, authenticated; end if;
 end $$;
+
+/**
+ * Os passes da urna já gastos, fora da limpeza das caixas (20261124-r2-caixas.sql): o passe da urna vale pela semana atual e a
+ * anterior e a votação fica aberta até 60 dias, então o resumo gasto fica guardado até a votação fechar. Sem esta tabela o mesmo
+ * passe voltava a valer a cada expurgo: a cédula entrava de novo (voto dobrado sem dono) e os passes gerais das caixas, dos prekeys e
+ * dos anexos também se repetiam. Só interno.urna_passe_gastar escreve (chamada por public.rede_urna_depositar_anonimo, com a cédula,
+ * na mesma transação); ninguém lê de fora; a limpeza dos passes tira o resumo quando a votação fecha (rede_passes_limpeza).
+ */
+create table if not exists interno.urna_passes_gastos (
+  resumo bytea primary key check (octet_length(resumo) = 32),
+  alvo uuid not null,
+  dia date not null
+);
+alter table interno.urna_passes_gastos enable row level security;
+revoke all on interno.urna_passes_gastos from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then revoke all on interno.urna_passes_gastos from anon, authenticated; end if;
+end $$;
+
+/** Gasta o passe da urna (o resumo de 32 bytes) na votação `p_alvo`: false = já gasto. Fica guardado até a votação fechar. */
+create or replace function interno.urna_passe_gastar(p_resumo bytea, p_alvo uuid) returns boolean language plpgsql security definer set search_path = interno, pg_temp as $$
+declare n integer;
+begin
+  if p_resumo is null or octet_length(p_resumo) is distinct from 32 or p_alvo is null then return false; end if;
+  insert into urna_passes_gastos (resumo, alvo, dia) values (p_resumo, p_alvo, interno.caixa_hoje()) on conflict (resumo) do nothing;
+  get diagnostics n = row_count;
+  return n = 1;
+end $$;
+revoke all on function interno.urna_passe_gastar(bytea, uuid) from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then revoke all on function interno.urna_passe_gastar(bytea, uuid) from anon, authenticated; end if;
+end $$;
+
 
 /**
  * A conta `p_quem` pegou o passe da urna desta votação (chamada pela emissão do passe com contexto, na mesma transação). Consulta e
@@ -75102,7 +75137,7 @@ begin
   if coalesce(interno.voto_situacao(p_tipo, p_alvo), '') <> 'aberta' then perform interno.erro('encerrada'); end if;
   if not exists (select 1 from rede_consulta_chaves k where k.consulta = p_alvo and k.tipo = p_tipo) then perform interno.erro('sem_chave'); end if;
   perform pg_advisory_xact_lock(hashtextextended('alumia_urna_anonima:' || p_alvo::text, 0));
-  if not interno.caixa_gastar(p_passe_resumo) then perform interno.erro('passe_usado'); end if;
+  if not interno.urna_passe_gastar(p_passe_resumo, p_alvo) then perform interno.erro('passe_usado'); end if;
   if p_tipo = 'consulta' then
     perform interno.alumia_urna_cifrada(p_alvo, p_cedula);
   elsif p_tipo = 'decisao' then
@@ -75825,7 +75860,10 @@ end $$;
 /**
  * A marca "esta conta já pegou o passe deste contexto" (20261125-r3-servidor-chat.sql), agora também "já pegou a cédula" da urna
  * anônima (20261125-r3-resto-r2.sql, interno.voto_cedula_tomada), na mesma transação: quem pega o passe da urna não pega outro e
- * conta como quem votou; a cédula vai depois, sem sessão, pela rota da urna. Definição completa (a última).
+ * conta como quem votou; a cédula vai depois, sem sessão, pela rota da urna. A consulta e a decisão contam aqui (a linha é da própria
+ * conta que chama); a votação secreta da equipe NÃO conta aqui — a marca é um HMAC que o banco não confere, então qualquer conta
+ * inflaria o contador com uma marca nova: a equipe conta só pelo servidor do site (public.rede_urna_cedula_contar). Definição
+ * completa (a última).
  */
 create or replace function public.rede_passes_contexto_marcar(p_tipo text, p_alvo uuid, p_marca bytea) returns boolean language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.diretorio_eu(); n integer;
@@ -75834,8 +75872,10 @@ begin
   if not interno.passes_contexto_permitido(p_tipo, p_alvo, v) then perform interno.erro('sem_permissao'); end if;
   insert into passes_emitidos_contexto (marca, dia) values (p_marca, interno.caixa_hoje()) on conflict (marca) do nothing;
   get diagnostics n = row_count;
-  -- A urna anônima (20261125-r3-resto-r2.sql): quem pega o passe da urna fica como "já pegou a cédula", nesta mesma transação.
-  if n = 1 then perform interno.voto_cedula_tomada(p_tipo, p_alvo, v); end if;
+  -- A urna anônima (20261125-r3-resto-r2.sql): quem pega o passe da urna fica como "já pegou a cédula", nesta mesma transação. A
+  -- votação da equipe conta só pelo servidor do site (public.rede_urna_cedula_contar): a marca que vem da conta não pode mover o
+  -- contador (o banco não confere o HMAC).
+  if n = 1 and p_tipo <> 'equipe' then perform interno.voto_cedula_tomada(p_tipo, p_alvo, v); end if;
   return n = 1;
 end $$;
 revoke all on function public.rede_passes_contexto_marcar(text, uuid, bytea) from public;
@@ -75846,6 +75886,32 @@ begin
     grant execute on function public.rede_passes_contexto_marcar(text, uuid, bytea) to authenticated;
   end if;
 end $$;
+
+-- ── A cédula da urna da equipe conta só pelo servidor do site ─────────────────────────────────────────────────────────────
+
+/**
+ * O contador "já pegou a cédula" da votação secreta da equipe (interno.votacao_cedulas_emitidas, 20261125-r3-resto-r2.sql) NÃO anda
+ * pela marca que a conta manda em rede_passes_contexto_marcar: a marca é um HMAC que o banco não confere, e qualquer conta chamaria a
+ * função com uma marca nova e inflaria o número (a apuração da urna para ao ver mais cédulas do que cédulas entregues: um membro
+ * anularia a votação inteira). O contador anda só aqui: a rota da emissão (app/api/alumia/passes/emitir) chama DEPOIS de conferir a
+ * sessão e gravar a marca de verdade. Sem marca e sem pessoa: só a votação aberta. Só o serviço chama (sem a porta, na lista de
+ * exceções).
+ */
+create or replace function public.rede_urna_cedula_contar(p_tipo text, p_alvo uuid) returns boolean language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  if p_tipo is distinct from 'equipe' or p_alvo is null then perform interno.erro('invalido:tipo'); end if;
+  if coalesce(interno.voto_situacao('equipe', p_alvo), '') <> 'aberta' then perform interno.erro('encerrada'); end if;
+  insert into votacao_cedulas_emitidas (votacao, n) values (p_alvo, 1) on conflict (votacao) do update set n = votacao_cedulas_emitidas.n + 1;
+  return true;
+end $$;
+revoke all on function public.rede_urna_cedula_contar(text, uuid) from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then revoke all on function public.rede_urna_cedula_contar(text, uuid) from anon, authenticated; end if;
+  if exists (select 1 from pg_roles where rolname = 'service_role') then grant execute on function public.rede_urna_cedula_contar(text, uuid) to service_role; end if;
+end $$;
+
 
 -- ── 3b. A votação da equipe conta quem pegou a cédula da urna anônima ──────────────────────────────────────────────────────
 -- Com a urna anônima (20261125-r3-resto-r2.sql), a cédula da votação secreta da equipe não passa mais pela marca de "já votou"
@@ -75909,7 +75975,7 @@ create or replace function interno.alumia_porta_aberta(p_nome text, p_argumentos
                     'rede_nucleo_entrada_trocar',
                     -- R3 (20261125-r3-resto-r2.sql): a urna anônima recebe a cédula SEM sessão de conta, com o passe da urna (só o servidor
                     -- do site chama; execute só para service_role).
-                    'rede_urna_depositar_anonimo',
+                    'rede_urna_depositar_anonimo', 'rede_urna_cedula_contar',
                     -- R3 (20261125-r3-servidor-chat.sql): a chave RSA da semana dos passes, lida e guardada pelo servidor do site sem
                     -- sessão de conta (execute só para service_role).
                     'rede_passes_chave_ler', 'rede_passes_chave_guardar')
@@ -75991,6 +76057,32 @@ begin
     revoke all on function public.rede_diretorio_publicar(jsonb) from anon;
     grant execute on function public.rede_diretorio_publicar(jsonb) to authenticated;
   end if;
+end $$;
+
+-- ── 4c. A limpeza dos passes guarda os gastos da urna até a votação fechar ────────────────────────────────────────────
+
+/**
+ * interno.rede_passes_limpeza (20261125-r3-servidor-chat.sql), completa (a última): com a urna anônima, os passes gastos dela
+ * (interno.urna_passes_gastos, 20261125-r3-resto-r2.sql) ficam guardados enquanto a votação está aberta e saem quando ela fecha.
+ */
+create or replace function interno.rede_passes_limpeza() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_semana integer := interno.passes_semana_hoje(); a integer; b integer; c integer; d integer;
+begin
+  update passes_chaves set privada_selada = null where octet_length(contexto) = 0 and semana < v_semana and privada_selada is not null;
+  get diagnostics a = row_count;
+  delete from passes_chaves where octet_length(contexto) = 0 and semana < v_semana - 3; get diagnostics b = row_count;
+  delete from passes_emitidos_contexto where dia < interno.caixa_hoje() - 180; get diagnostics c = row_count;
+  -- Os passes da urna de votações fechadas não guardam mais nada (o depósito só aceita com a votação aberta). Aberta, o resumo fica:
+  -- o passe vale pela semana atual e a anterior e a votação dura até 60 dias; sem o resumo, o mesmo passe depositava de novo.
+  delete from urna_passes_gastos g where
+    (not exists (select 1 from rede_consultas x where x.id = g.alvo)
+     and not exists (select 1 from alumia_decisoes x where x.id = g.alvo)
+     and not exists (select 1 from votacoes x where x.id = g.alvo))
+    or (exists (select 1 from rede_consultas x where x.id = g.alvo) and interno.voto_situacao('consulta', g.alvo) is distinct from 'aberta')
+    or (exists (select 1 from alumia_decisoes x where x.id = g.alvo) and interno.voto_situacao('decisao', g.alvo) is distinct from 'aberta')
+    or (exists (select 1 from votacoes x where x.id = g.alvo) and interno.voto_situacao('equipe', g.alvo) is distinct from 'aberta');
+  get diagnostics d = row_count;
+  return jsonb_build_object('privadas', a, 'chaves', b, 'marcas', c, 'urnas', d);
 end $$;
 
 -- ── 5. A porta ────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -79652,7 +79744,7 @@ create or replace function interno.alumia_porta_aberta(p_nome text, p_argumentos
                     'rede_nucleo_entrada_trocar',
                     -- R3 (20261125-r3-resto-r2.sql): a urna anônima recebe a cédula SEM sessão de conta, com o passe da urna (só o servidor
                     -- do site chama; execute só para service_role).
-                    'rede_urna_depositar_anonimo',
+                    'rede_urna_depositar_anonimo', 'rede_urna_cedula_contar',
                     -- R3 (20261125-r3-servidor-chat.sql): a chave RSA da semana dos passes, lida e guardada pelo servidor do site sem
                     -- sessão de conta (execute só para service_role).
                     'rede_passes_chave_ler', 'rede_passes_chave_guardar',
@@ -91913,7 +92005,7 @@ create or replace function interno.alumia_porta_aberta(p_nome text, p_argumentos
                     'rede_nucleo_entrada_trocar',
                     -- R3 (20261125-r3-resto-r2.sql): a urna anônima recebe a cédula SEM sessão de conta, com o passe da urna (só o servidor
                     -- do site chama; execute só para service_role).
-                    'rede_urna_depositar_anonimo',
+                    'rede_urna_depositar_anonimo', 'rede_urna_cedula_contar',
                     -- R3 (20261125-r3-servidor-chat.sql): a chave RSA da semana dos passes, lida e guardada pelo servidor do site sem
                     -- sessão de conta (execute só para service_role).
                     'rede_passes_chave_ler', 'rede_passes_chave_guardar',

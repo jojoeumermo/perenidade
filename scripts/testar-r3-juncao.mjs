@@ -121,7 +121,7 @@ const ler = (c) => fs.readFileSync(c, "utf8");
   ok("r3-fim: versão 16", /select 16\n\$\$;/.test(fim));
   ok("r3-fim: o recurso alumia-chat-so-app no catálogo, só pelo nome", /\('alumia-chat-so-app', true\)/.test(fim));
   ok("r3-fim: o passe da urna marca quem pegou a cédula", /voto_cedula_tomada\(p_tipo, p_alvo, v\)/.test(fim));
-  ok("r3-fim: a porta deixa de fora as três funções novas só do servidor do site", ["rede_urna_depositar_anonimo", "rede_passes_chave_ler", "rede_passes_chave_guardar"].every((n) => fim.includes(`'${n}'`)));
+  ok("r3-fim: a porta deixa de fora as três funções novas só do servidor do site", ["rede_urna_depositar_anonimo", "rede_urna_cedula_contar", "rede_passes_chave_ler", "rede_passes_chave_guardar"].every((n) => fim.includes(`'${n}'`)));
   ok("r3-fim: a votação da equipe na tela conta quem pegou a cédula da urna anônima", /votacao_cedulas_emitidas e where e.votacao = v.id/.test(fim));
   ok("r3-fim: termina trancando", /select interno\.alumia_trancar\(\);\s*$/.test(fim));
   // Desde o Prompt 5 (20261126-p5-fim.sql) o banco está na versão 17; o fim da R3 continua valendo por baixo dele.

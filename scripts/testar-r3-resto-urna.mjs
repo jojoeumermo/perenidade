@@ -32,9 +32,42 @@ begin
   if not interno.passes_contexto_permitido(p_tipo, p_alvo, v) then perform interno.erro('sem_permissao'); end if;
   insert into passes_emitidos_contexto (marca, dia) values (p_marca, interno.caixa_hoje()) on conflict (marca) do nothing;
   get diagnostics n = row_count;
-  -- A urna anônima (20261125-r3-resto-r2.sql): quem pega o passe da urna fica como "já pegou a cédula", nesta mesma transação.
-  if n = 1 then perform interno.voto_cedula_tomada(p_tipo, p_alvo, v); end if;
+  -- A urna anônima (20261125-r3-resto-r2.sql): quem pega o passe da urna fica como "já pegou a cédula", nesta mesma transação. A
+  -- votação da equipe conta só pelo servidor do site (public.rede_urna_cedula_contar): a marca que vem da conta não pode mover o
+  -- contador (o banco não confere o HMAC).
+  if n = 1 and p_tipo <> 'equipe' then perform interno.voto_cedula_tomada(p_tipo, p_alvo, v); end if;
   return n = 1;
+end $$;
+create or replace function public.rede_urna_cedula_contar(p_tipo text, p_alvo uuid) returns boolean language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  if p_tipo is distinct from 'equipe' or p_alvo is null then perform interno.erro('invalido:tipo'); end if;
+  if coalesce(interno.voto_situacao('equipe', p_alvo), '') <> 'aberta' then perform interno.erro('encerrada'); end if;
+  insert into votacao_cedulas_emitidas (votacao, n) values (p_alvo, 1) on conflict (votacao) do update set n = votacao_cedulas_emitidas.n + 1;
+  return true;
+end $$;
+revoke all on function public.rede_urna_cedula_contar(text, uuid) from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then revoke all on function public.rede_urna_cedula_contar(text, uuid) from anon, authenticated; end if;
+  if exists (select 1 from pg_roles where rolname = 'service_role') then grant execute on function public.rede_urna_cedula_contar(text, uuid) to service_role; end if;
+end $$;
+create or replace function interno.rede_passes_limpeza() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_semana integer := interno.passes_semana_hoje(); a integer; b integer; c integer; d integer;
+begin
+  update passes_chaves set privada_selada = null where octet_length(contexto) = 0 and semana < v_semana and privada_selada is not null;
+  get diagnostics a = row_count;
+  delete from passes_chaves where octet_length(contexto) = 0 and semana < v_semana - 3; get diagnostics b = row_count;
+  delete from passes_emitidos_contexto where dia < interno.caixa_hoje() - 180; get diagnostics c = row_count;
+  delete from urna_passes_gastos g where
+    (not exists (select 1 from rede_consultas x where x.id = g.alvo)
+     and not exists (select 1 from alumia_decisoes x where x.id = g.alvo)
+     and not exists (select 1 from votacoes x where x.id = g.alvo))
+    or (exists (select 1 from rede_consultas x where x.id = g.alvo) and interno.voto_situacao('consulta', g.alvo) is distinct from 'aberta')
+    or (exists (select 1 from alumia_decisoes x where x.id = g.alvo) and interno.voto_situacao('decisao', g.alvo) is distinct from 'aberta')
+    or (exists (select 1 from votacoes x where x.id = g.alvo) and interno.voto_situacao('equipe', g.alvo) is distinct from 'aberta');
+  get diagnostics d = row_count;
+  return jsonb_build_object('privadas', a, 'chaves', b, 'marcas', c, 'urnas', d);
 end $$;
 select interno.alumia_trancar();
 `;
@@ -152,6 +185,8 @@ await espera("a migração dos passes (frente do servidor do chat) por cima", ()
 await espera("e o trecho da junção (a emissão do passe da urna marca quem pegou a cédula)", () => exec(TRECHO_DA_JUNCAO));
 const fim = fs.existsSync(path.join(raiz, "supabase/migracoes/20261125-r3-fim.sql")) ? ler("supabase/migracoes/20261125-r3-fim.sql") : null;
 ok("se a junção já escreveu o 20261125-r3-fim.sql, ele chama interno.voto_cedula_tomada na emissão", fim === null || /voto_cedula_tomada\(p_tipo, p_alvo, v\)/.test(fim));
+ok("e a emissão NÃO move o contador da equipe (só o servidor do site, por rede_urna_cedula_contar)", fim === null || (/p_tipo <> 'equipe' then perform interno\.voto_cedula_tomada/.test(fim) && fim.includes("rede_urna_cedula_contar")));
+ok("esta migração gasta o passe da urna na tabela durável, não na das caixas", sql.includes("interno.urna_passe_gastar(p_passe_resumo, p_alvo)") && sql.includes("create table if not exists interno.urna_passes_gastos"));
 
 const privs = (await dono(`select has_function_privilege('anon', p.oid, 'execute') as anon, has_function_privilege('authenticated', p.oid, 'execute') as aut,
   has_function_privilege('service_role', p.oid, 'execute') as serv from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and p.proname = 'rede_urna_depositar_anonimo'`)).rows[0];
@@ -263,8 +298,18 @@ ok("três cédulas na urna, sem coluna de conta", (await dono("select count(*)::
   const achados = [];
   for (const x of new Set(xmins)) achados.push(...(await ligadasPeloXmin(x)));
   ok("DEPOIS: pelo xmin da cédula, nenhuma linha de nenhuma tabela traz o id de alguém", achados.length === 0, achados.join(" | "));
-  const gastos = (await dono("select xmin::text as x from interno.passes_gastos")).rows.map((r) => r.x);
-  ok("o passe gasto fica no mesmo lote da cédula, e a tabela dos gastos não tem conta", gastos.some((x) => xmins.includes(x)) && !(await dono("select column_name from information_schema.columns where table_schema = 'interno' and table_name = 'passes_gastos'")).rows.some((c) => /usuario|conta|quem/.test(c.column_name)));
+  const gastos = (await dono("select xmin::text as x from interno.urna_passes_gastos")).rows.map((r) => r.x);
+  ok("o passe gasto fica na tabela durável da urna, no mesmo lote da cédula, sem conta", gastos.some((x) => xmins.includes(x)) && !(await dono("select column_name from information_schema.columns where table_schema = 'interno' and table_name = 'urna_passes_gastos'")).rows.some((c) => /usuario|conta|quem/.test(c.column_name)));
+  ok("e NÃO na tabela das caixas (que o expurgo de 14 dias alcançaria)", (await dono("select count(*)::int as n from interno.passes_gastos where resumo in (select resumo from interno.urna_passes_gastos)")).rows[0].n === 0);
+}
+// O passe gasto da urna fica guardado enquanto a votação está aberta (o passe vale 2 semanas e a votação, até 60 dias) e sai quando ela fecha.
+{
+  ok("os passes gastos da urna estão guardados (3 depósitos)", (await dono("select count(*)::int as n from interno.urna_passes_gastos where alvo = $1", [D])).rows[0].n === 3);
+  await dono("select interno.rede_passes_limpeza()");
+  ok("a limpeza NÃO tira o passe gasto com a votação aberta (sem o resumo, o mesmo passe depositava de novo)", (await dono("select count(*)::int as n from interno.urna_passes_gastos where alvo = $1", [D])).rows[0].n === 3);
+  await dono("update interno.alumia_decisoes set criada_em = now() - interval '2 days', prazo = now() - interval '1 minute' where id = $1", [D]);
+  await dono("select interno.rede_passes_limpeza()");
+  ok("fechada a votação, a limpeza tira os passes gastos dela", (await dono("select count(*)::int as n from interno.urna_passes_gastos where alvo = $1", [D])).rows[0].n === 0);
 }
 await dono("update interno.alumia_decisoes set criada_em = now() - interval '2 days', prazo = now() - interval '1 minute' where id = $1", [Doutra]);
 {
@@ -276,8 +321,12 @@ await dono("update interno.alumia_decisoes set criada_em = now() - interval '2 d
 {
   const V = (await dono("insert into interno.votacoes (titulo, opcoes, secreta, encerra_em) values ('Votação da equipe R3', array['A','B'], true, now() + interval '1 day') returning id").catch(() => ({ rows: [] }))).rows[0]?.id;
   if (V) {
-    await dono("select interno.voto_cedula_tomada('equipe', $1, $2)", [V, P.v1]);
-    await dono("select interno.voto_cedula_tomada('equipe', $1, $2)", [V, P.v2]);
+    // ATAQUE contido: a marca que a conta manda NÃO move mais o contador (o banco não confere o HMAC); só o servidor do site conta.
+    await rpc(S.v1, "rede_passes_contexto_marcar", { p_tipo: "equipe", p_alvo: V, p_marca: sorteio(32) }).catch(() => null);
+    ok("a marca que a conta manda NÃO move o contador da urna da equipe", (await dono("select count(*)::int as n from interno.votacao_cedulas_emitidas where votacao = $1", [V])).rows[0].n === 0);
+    await recusa("uma conta não conta a cédula da urna", () => rpc(S.v1, "rede_urna_cedula_contar", { p_tipo: "equipe", p_alvo: V }), "permission denied");
+    await espera("o servidor do site conta a cédula entregue", () => rpc(servidor, "rede_urna_cedula_contar", { p_tipo: "equipe", p_alvo: V }), (r) => r === true);
+    await espera("e a segunda", () => rpc(servidor, "rede_urna_cedula_contar", { p_tipo: "equipe", p_alvo: V }), (r) => r === true);
     const linha = (await dono("select row_to_json(x)::text as j from interno.votacao_cedulas_emitidas x where votacao = $1", [V])).rows[0]?.j ?? "";
     ok("equipe: o contador de cédulas entregues sobe, sem a pessoa", /"n":2/.test(linha) && !linha.includes(P.v1) && !linha.includes(P.v2), linha);
   } else {

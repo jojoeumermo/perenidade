@@ -737,7 +737,7 @@ end $$;
 
 -- ── 7. A limpeza diária ───────────────────────────────────────────────────────────────────────────────────────────────────
 
-/** Tira o que passou do prazo: pacotes de mais de 30 dias, caixas vencidas, contagens, passes gastos de mais de 2 dias, marcas de ontem. */
+/** Tira o que passou do prazo: pacotes de mais de 30 dias, caixas vencidas, contagens, passes gastos de mais de 14 dias (o passe vale pela semana atual e a anterior: o resumo fica enquanto o passe vale), marcas de ontem. */
 create or replace function interno.rede_caixas_limpeza() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v_hoje date := interno.caixa_hoje(); a integer; b integer; c integer; d integer; e integer; v_passes passes_gastos[];
 begin
@@ -747,7 +747,7 @@ begin
     and not exists (select 1 from diretorio_contas dc where interno.caixa_resumo('alumia/r2/caixa', dc.pedidos_caixa) = k.id_h);
   get diagnostics b = row_count;
   delete from caixa_contagem where dia < v_hoje - 1; get diagnostics c = row_count;
-  delete from passes_gastos where dia < v_hoje - 2; get diagnostics d = row_count;
+  delete from passes_gastos where dia < v_hoje - 14; get diagnostics d = row_count;
   delete from passes_emitidos where dia < v_hoje; get diagnostics e = row_count;
   -- Revisão final da R2 (metadados): com pouco tráfego, o xmin da caixa criada (e do passe gasto para criá-la) ficava colado ao da
   -- gravação com sessão da mesma conta, e uma cópia do banco ligava os dois. Uma vez por dia, as caixas e os passes gastos são

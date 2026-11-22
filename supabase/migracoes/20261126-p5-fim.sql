@@ -76,7 +76,7 @@ create or replace function interno.alumia_porta_aberta(p_nome text, p_argumentos
                     'rede_nucleo_entrada_trocar',
                     -- R3 (20261125-r3-resto-r2.sql): a urna anônima recebe a cédula SEM sessão de conta, com o passe da urna (só o servidor
                     -- do site chama; execute só para service_role).
-                    'rede_urna_depositar_anonimo',
+                    'rede_urna_depositar_anonimo', 'rede_urna_cedula_contar',
                     -- R3 (20261125-r3-servidor-chat.sql): a chave RSA da semana dos passes, lida e guardada pelo servidor do site sem
                     -- sessão de conta (execute só para service_role).
                     'rede_passes_chave_ler', 'rede_passes_chave_guardar',

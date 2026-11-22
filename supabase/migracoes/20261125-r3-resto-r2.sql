@@ -543,8 +543,8 @@ end $$;
 --      contexto da votação; lib/rede/passes/**). Nessa mesma transação, a conta fica marcada como "já pegou a cédula"
 --      (interno.voto_cedula_tomada, chamada pela emissão do passe da urna);
 --   2. SEM sessão, depois: a cédula vai pela rota anônima (app/api/alumia/urna/depositar) com o passe; o servidor confere o passe só com
---      a chave pública e chama public.rede_urna_depositar_anonimo (só o serviço). O passe é gasto (interno.passes_gastos: repetido,
---      recusado) e a cédula entra na urna no mesmo INSERT em que até 2000 cédulas de antes são regravadas, em ordem sorteada (o xmin e
+--      a chave pública e chama public.rede_urna_depositar_anonimo (só o serviço). O passe é gasto (interno.urna_passes_gastos, até a
+--      votação fechar: repetido, recusado) e a cédula entra na urna no mesmo INSERT em que até 2000 cédulas de antes são regravadas, em ordem sorteada (o xmin e
 --      a posição no disco não dizem qual chegou agora).
 -- As funções com sessão que recebiam a cédula deixam de receber ("voto_anonimo"). Quem tem o banco vê quem pegou cédula (como via
 -- quem votou) e as cédulas cifradas, sem ligação entre os dois. O voto secreto da equipe: o "já pegou" é a marca da emissão do passe
@@ -561,6 +561,41 @@ do $$
 begin
   if exists (select 1 from pg_roles where rolname = 'anon') then revoke all on interno.votacao_cedulas_emitidas from anon, authenticated; end if;
 end $$;
+
+/**
+ * Os passes da urna já gastos, fora da limpeza das caixas (20261124-r2-caixas.sql): o passe da urna vale pela semana atual e a
+ * anterior e a votação fica aberta até 60 dias, então o resumo gasto fica guardado até a votação fechar. Sem esta tabela o mesmo
+ * passe voltava a valer a cada expurgo: a cédula entrava de novo (voto dobrado sem dono) e os passes gerais das caixas, dos prekeys e
+ * dos anexos também se repetiam. Só interno.urna_passe_gastar escreve (chamada por public.rede_urna_depositar_anonimo, com a cédula,
+ * na mesma transação); ninguém lê de fora; a limpeza dos passes tira o resumo quando a votação fecha (rede_passes_limpeza).
+ */
+create table if not exists interno.urna_passes_gastos (
+  resumo bytea primary key check (octet_length(resumo) = 32),
+  alvo uuid not null,
+  dia date not null
+);
+alter table interno.urna_passes_gastos enable row level security;
+revoke all on interno.urna_passes_gastos from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then revoke all on interno.urna_passes_gastos from anon, authenticated; end if;
+end $$;
+
+/** Gasta o passe da urna (o resumo de 32 bytes) na votação `p_alvo`: false = já gasto. Fica guardado até a votação fechar. */
+create or replace function interno.urna_passe_gastar(p_resumo bytea, p_alvo uuid) returns boolean language plpgsql security definer set search_path = interno, pg_temp as $$
+declare n integer;
+begin
+  if p_resumo is null or octet_length(p_resumo) is distinct from 32 or p_alvo is null then return false; end if;
+  insert into urna_passes_gastos (resumo, alvo, dia) values (p_resumo, p_alvo, interno.caixa_hoje()) on conflict (resumo) do nothing;
+  get diagnostics n = row_count;
+  return n = 1;
+end $$;
+revoke all on function interno.urna_passe_gastar(bytea, uuid) from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then revoke all on function interno.urna_passe_gastar(bytea, uuid) from anon, authenticated; end if;
+end $$;
+
 
 /**
  * A conta `p_quem` pegou o passe da urna desta votação (chamada pela emissão do passe com contexto, na mesma transação). Consulta e
@@ -604,7 +639,7 @@ begin
   if coalesce(interno.voto_situacao(p_tipo, p_alvo), '') <> 'aberta' then perform interno.erro('encerrada'); end if;
   if not exists (select 1 from rede_consulta_chaves k where k.consulta = p_alvo and k.tipo = p_tipo) then perform interno.erro('sem_chave'); end if;
   perform pg_advisory_xact_lock(hashtextextended('alumia_urna_anonima:' || p_alvo::text, 0));
-  if not interno.caixa_gastar(p_passe_resumo) then perform interno.erro('passe_usado'); end if;
+  if not interno.urna_passe_gastar(p_passe_resumo, p_alvo) then perform interno.erro('passe_usado'); end if;
   if p_tipo = 'consulta' then
     perform interno.alumia_urna_cifrada(p_alvo, p_cedula);
   elsif p_tipo = 'decisao' then

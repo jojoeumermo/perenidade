@@ -333,8 +333,8 @@ if ((await dono("select to_regproc('public.rede_urna_depositar_anonimo') is not 
   const u = (await dono(`select interno.alumia_porta_aberta(p.proname, pg_get_function_identity_arguments(p.oid)) as excecao,
       has_function_privilege('service_role', p.oid, 'execute') as serv, has_function_privilege('anon', p.oid, 'execute') as anon,
       has_function_privilege('authenticated', p.oid, 'execute') as aut, p.prosrc ~ 'interno\\.alumia_(porta|passa)\\(\\)' as porta
-    from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and p.proname = 'rede_urna_depositar_anonimo'`)).rows;
-  ok("portas (R3): a urna anônima, sem a porta e só para o servidor do site, está na lista de exceções escrita", u.length === 1 && u[0].excecao && u[0].serv && !u[0].anon && !u[0].aut && !u[0].porta, JSON.stringify(u));
+    from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and p.proname in ('rede_urna_depositar_anonimo', 'rede_urna_cedula_contar')`)).rows;
+  ok("portas (R3): a urna anônima e o contador dela, sem a porta e só para o servidor do site, estão na lista de exceções escrita", u.length === 2 && u.every((x) => x.excecao && x.serv && !x.anon && !x.aut && !x.porta), JSON.stringify(u));
 }
 // P5 (20261126-p5-entrada.sql e 20261126-p5-fim.sql): o servidor do site conta ao banco que um navegador entrou, na hora de entrar,
 // sem sessão da Alumia; só o servidor do site chama, e está na lista escrita (a porta nunca é posta nela).

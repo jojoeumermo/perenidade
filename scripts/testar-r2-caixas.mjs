@@ -349,7 +349,9 @@ ok("como denúncia de perfil, com o trecho na prova", JSON.stringify((await dono
 await recusa("não denuncia a si mesma", () => rpc(servidor, "rede_franquia_denunciar", { p_usuario: P.ana, p: { categoria: "spam", autor: "r2_ana", prova: [{ texto: "x", dia: hoje, origem: "conversa" }] } }), "sem_permissao");
 
 await dono("update interno.pacotes set dia = interno.caixa_hoje() - 31 where caixa_h = $1", [hexDe(daBia.idH)]);
-await dono("insert into interno.passes_gastos (resumo, dia) values ($1, interno.caixa_hoje() - 3)", [hexDe(sorteio(32))]);
+await dono("insert into interno.passes_gastos (resumo, dia) values ($1, interno.caixa_hoje() - 15)", [hexDe(sorteio(32))]);
+const resumoRecente = hexDe(sorteio(32));
+await dono("insert into interno.passes_gastos (resumo, dia) values ($1, interno.caixa_hoje() - 13)", [resumoRecente]);
 await dono("update interno.caixas set vence = interno.caixa_hoje() - 1 where id_h = $1", [hexDe(grupo.idH)]);
 await dono("update interno.caixas set vence = interno.caixa_hoje() - 1 where id_h = $1", [hexDe(contaBia.caixa.idH)]);
 await espera("o pacote de mais de 30 dias não é entregue nem antes da limpeza", () => buscar(daBia), (r) => r.pacotes.length === 0);
@@ -358,6 +360,7 @@ ok("tira os pacotes velhos e a caixa vencida, e deixa a caixa de pedidos de quem
   && (await dono("select count(*)::int as n from interno.caixas where id_h = $1", [hexDe(contaBia.caixa.idH)])).rows[0].n === 1);
 await espera("apagar a caixa com o passe de leitura", async () => { await rpc(servidor, "rede_caixa_apagar", { p_id_h: daAna.idH, p_pl: daAna.pl }); return contar(daAna); }, (n) => n === 0);
 ok("e a caixa sai", (await dono("select count(*)::int as n from interno.caixas where id_h = $1", [hexDe(daAna.idH)])).rows[0].n === 0);
+ok("o passe gasto de 13 dias FICA (o passe vale pela semana atual e a anterior: o resumo fica enquanto o passe vale)", (await dono("select count(*)::int as n from interno.passes_gastos where resumo = $1", [resumoRecente])).rows[0].n === 1);
 await rpc(bia, "rede_diretorio_apagar");
 ok("apagar o diretório leva a caixa de pedidos junto", (await dono("select count(*)::int as n from interno.caixas where id_h = $1", [hexDe(contaBia.caixa.idH)])).rows[0].n === 0
   && (await dono("select count(*)::int as n from interno.diretorio_contas where usuario = $1", [P.bia])).rows[0].n === 0);

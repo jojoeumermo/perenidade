@@ -104,7 +104,12 @@ export async function votoDeTeste(banco) {
         if (!pode) throw erro("sem_permissao");
         const m = (await dono("insert into interno.passes_emitidos_contexto (marca, dia) values ($1, interno.caixa_hoje()) on conflict do nothing returning 1 as ok", [marca("equipe", p_votacao, p_usuario)])).rows;
         if (!m.length) throw erro("ja_votou");
-        await dono("select interno.voto_cedula_tomada('equipe', $1, $2)", [p_votacao, p_usuario]);
+        // O contador anda pela função do servidor do site (a marca da conta não o move mais); num banco de antes da junção, direto.
+        if ((await dono("select to_regprocedure('public.rede_urna_cedula_contar(text, uuid)') is not null as tem")).rows[0].tem) {
+          await banco.rpc({ papel: "service_role" }, "rede_urna_cedula_contar", { p_tipo: "equipe", p_alvo: p_votacao });
+        } else {
+          await dono("select interno.voto_cedula_tomada('equipe', $1, $2)", [p_votacao, p_usuario]);
+        }
         await depositar("equipe", p_votacao, [p_opcao]);
         return { votei: true };
       }

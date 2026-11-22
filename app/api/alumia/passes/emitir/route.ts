@@ -11,6 +11,7 @@ import { rpcNoBanco } from "@/lib/instagram";
 import { deB64u, paraB64u, paraBytea } from "@/lib/rede/caixas/base";
 import { lerCorpo, responder } from "@/lib/rede/caixas/rota";
 import { contaDoToken, deOutraOrigem } from "@/lib/rede/convites/servidor";
+import { rpcDeServico } from "@/lib/rede/convites/servidor";
 import { contextoDaUrna, semanaDe, type TipoDaUrna } from "@/lib/rede/passes/comum";
 import {
   bancoDoSite, chaveDoEmissor, emitirLote, emitirUm, loteConferido, marcaDoContexto, marcaDoDia, pedidoConferido, segredoDosPasses,
@@ -65,6 +66,12 @@ export async function POST(pedido: Request) {
       const marcou = await rpcNoBanco<boolean>("rede_passes_contexto_marcar", { p_tipo: tipo, p_alvo: alvo, p_marca: paraBytea(marcaDoContexto(conta.id, contexto, segredo)) }, token);
       if (!marcou.ok) return recusaDoBanco(marcou.erro);
       if (marcou.dados !== true) return responder({ ok: false, erro: "ja_pegou" }, 409);
+      // A votação secreta da equipe: o "já pegou a cédula" conta só aqui, pelo serviço (public.rede_urna_cedula_contar) — o banco não
+      // pode mover esse contador pela marca, que é um HMAC que ele não confere (qualquer conta o inflaria com uma marca nova).
+      if (tipo === "equipe") {
+        const contou = await rpcDeServico<boolean>("rede_urna_cedula_contar", { p_tipo: tipo, p_alvo: alvo });
+        if (!contou.ok || contou.dado !== true) return responder({ ok: false, erro: "rede" }, 502);
+      }
       return responder({ resposta: paraB64u(await emitirUm(bruto, chave)) });
     }
 
