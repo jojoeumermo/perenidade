@@ -75444,16 +75444,16 @@ drop function if exists public.rede_ato_farol_chave_publicar(uuid, text, text);
 
 /**
  * Quem coordena publica a chave do farol dela para este ato (p_chave: a pública Ed25519, 32 bytes, em base64). Uma por pessoa:
- * publicar de novo troca a dela. A lista nunca passa de 8 (a nova toma o lugar de uma linha falsa). p_iscas: até 7 chaves Ed25519
- * válidas, sem dono (o aparelho joga fora a semente: lib/rede/malha/farol.ts, iscasDoFarol), que tomam o lugar de TODAS as linhas
- * falsas, para elas não se distinguirem das verdadeiras por não serem ponto da curva. Nenhuma assinatura da identidade da conta: ela
- * diria a quem recebe QUEM coordena.
+ * publicar de novo troca a dela. A lista nunca passa de 8 (a nova toma o lugar de uma linha falsa, sorteada pelo banco). p_iscas: tem de
+ * vir vazio. As iscas com semente jogada fora não podem vir do cliente (quem coordena guardaria a semente e assinaria o farol sozinha
+ * com duas chaves); quando o cliente do farol existir, o servidor do site as gera (docs/rede/SEM-INTERNET.md). Nenhuma assinatura da
+ * identidade da conta: ela diria a quem recebe QUEM coordena.
  */
 create or replace function public.rede_ato_farol_chave_publicar(p_ato uuid, p_chave text, p_iscas text[]) returns jsonb
 language plpgsql security definer set search_path = interno, pg_temp as $$
 declare
   v uuid := interno.eu(); p rede_posts; c rede_chamados;
-  v_chave bytea := interno.voto_bytes(p_chave); v_falsa bytea; v_iscas bytea[] := '{}'; v_b bytea; v_t text; v_reais int;
+  v_chave bytea := interno.voto_bytes(p_chave); v_falsa bytea;
 begin
   perform interno.aberta('comunidade');
   if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
@@ -75462,17 +75462,13 @@ begin
   select * into c from rede_chamados where post = p_ato;
   if c.situacao = 'cancelado' then perform interno.erro('ato_cancelado'); end if;
   if octet_length(v_chave) is distinct from 32 then perform interno.erro('invalido:chave'); end if;
-  if coalesce(cardinality(p_iscas), 0) > 7 then perform interno.erro('invalido:iscas'); end if;
-  foreach v_t in array coalesce(p_iscas, '{}'::text[]) loop
-    v_b := interno.voto_bytes(v_t);
-    if octet_length(v_b) is distinct from 32 or v_b = v_chave or v_b = any (v_iscas) then perform interno.erro('invalido:iscas'); end if;
-    v_iscas := v_iscas || v_b;
-  end loop;
+  -- Iscas vindas do cliente: recusadas. Quem coordena ficaria com a semente de cada "isca" e assinaria o farol sozinha com duas chaves
+  -- da lista (Strix, achado do PR #45). O parâmetro fica só para não mudar a assinatura da função; tem de vir vazio ou nulo.
+  if coalesce(cardinality(p_iscas), 0) > 0 then perform interno.erro('invalido:iscas'); end if;
   perform interno.limite('rede_ato_farol_chave_publicar', 10, 60);
   perform interno.rede_ato_farol_material_garantir(p_ato);
   perform pg_advisory_xact_lock(hashtextextended('alumia_farol_chaves:' || p_ato::text, 0));
   if exists (select 1 from rede_ato_farol_chaves where ato = p_ato and chave = v_chave and de is distinct from v) then perform interno.erro('invalido:chave'); end if;
-  if exists (select 1 from rede_ato_farol_chaves where ato = p_ato and not falsa and de is distinct from v and chave = any (v_iscas)) then perform interno.erro('invalido:iscas'); end if;
   if exists (select 1 from rede_ato_farol_chaves where ato = p_ato and de = v) then
     update rede_ato_farol_chaves set chave = v_chave, dia = current_date where ato = p_ato and de = v;
   else
@@ -75480,17 +75476,6 @@ begin
     if v_falsa is null then perform interno.erro('limite'); end if;
     delete from rede_ato_farol_chaves where ato = p_ato and chave = v_falsa;
     insert into rede_ato_farol_chaves (ato, chave, de, falsa) values (p_ato, v_chave, v, false);
-  end if;
-  -- As iscas tomam o lugar de todas as linhas falsas (nenhuma sorteada pelo banco fica ao lado delas); se faltar isca, o banco completa
-  -- com sorteio até 8.
-  if cardinality(v_iscas) > 0 then
-    select count(*) into v_reais from rede_ato_farol_chaves where ato = p_ato and not falsa;
-    delete from rede_ato_farol_chaves where ato = p_ato and falsa;
-    insert into rede_ato_farol_chaves (ato, chave, falsa)
-    select p_ato, x, true from unnest(v_iscas[1:greatest(8 - v_reais, 0)]) x on conflict do nothing;
-    insert into rede_ato_farol_chaves (ato, chave, falsa)
-    select p_ato, extensions.gen_random_bytes(32), true
-      from generate_series(1, 8 - (select count(*) from rede_ato_farol_chaves where ato = p_ato)::int);
   end if;
   return interno.rede_ato_farol_material_json(p_ato);
 end $$;

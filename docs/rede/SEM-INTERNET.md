@@ -80,9 +80,14 @@ banco, então:
   **não** leva assinatura da identidade da conta: quem recebe a lista conferiria essa assinatura contra o diretório do chat e saberia
   **quem** coordena. Quem garante que a chave é de quem coordena é o servidor (só aceita da sessão de quem coordena o ato).
 - Quem confirmou presença ou coordena recebe, com internet, a chave do ato e a lista de chaves do farol. A lista tem **sempre 8**
-  chaves. As que ninguém publicou são **iscas**: chaves Ed25519 válidas que o aparelho de quem publica cria e joga fora (32 bytes
-  sorteados não seriam um ponto da curva metade das vezes, e daria para contar as verdadeiras). Quem recebe não sabe quantas pessoas
-  publicaram nem quem são.
+  chaves. As que ninguém publicou são preenchimento **sorteado pelo banco**. Quem recebe não sabe quantas pessoas publicaram nem quem são.
+- **Decisão (22/11/2026, achado Strix do PR #45):** o banco **recusa iscas vindas do cliente** (`p_iscas` tem de vir vazio). Antes, quem
+  coordenava mandava chaves Ed25519 "sem dono" e jogava a semente fora, mas nada impedia de **guardar** a semente: com a chave real e uma
+  "isca" ela assinava o farol sozinha e passava como duas pessoas, quebrando a regra acima. **Contrapartida de privacidade:** o
+  preenchimento do banco são 32 bytes sorteados, e só metade deles é ponto da curva Ed25519; quem recebe a lista consegue contar quantas
+  chaves reais há (quantas pessoas coordenam), sem saber quem. Isso é menos grave do que assinar sozinha. **Enquanto o cliente do farol não
+  existir** (hoje nenhum app chama a publicação da chave), fica assim. Quando existir, as iscas válidas devem ser geradas pelo **servidor
+  do site** (semente descartada na hora) e entrar por uma função só do serviço, para as duas garantias valerem juntas.
 - Sem internet, o farol só vale com **duas assinaturas de chaves diferentes da lista**. Com uma só, é um **pedido**: viaja do mesmo
   jeito, e só a coordenação faz algo com ele.
 - Um farol mais velho que o último aceito do mesmo ato é ignorado (um celular que guarda um farol velho e o solta depois não volta o

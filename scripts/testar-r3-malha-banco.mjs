@@ -9,7 +9,8 @@
 //     a chave de outra pessoa não é tomada; formato torto recusado;
 //   - ataque da auditoria interna (R3, achado do farol): quem confirmou presença (um infiltrado) não descobre QUEM coordena: o
 //     material não traz assinatura da identidade da conta (antes trazia, e ela conferia contra rede_diretorio_ler); e não conta as
-//     chaves verdadeiras pelo teste "é ponto da curva?" (as falsas são iscas válidas, mandadas por quem publica);
+//     chaves verdadeiras pelo teste "é ponto da curva?" (limite aceito, ver o doc: as iscas válidas não podem vir de quem publica, que
+//     guardaria a semente e assinaria sozinha; o banco recusa qualquer isca do cliente);
 //   - e o aparelho de verdade: com o material do banco, o farol de duas pessoas da coordenação vale, o de uma é pedido, e o de
 //     uma pessoa que publicou duas vezes conta como uma (lib/rede/malha/farol.ts sobre a lista do banco).
 // Uso: npm run testar:r3-malha-banco
@@ -101,15 +102,7 @@ for (const m of ["m1", "m2"]) await rpc(como(P[m]), "rede_ato_vou", { p_id: ID, 
 
 const material = (quem) => rpc(quem ? como(P[quem]) : { papel: "anon", ip: "203.0.113.9" }, "rede_ato_farol_material", { p_ato: ID });
 const b64 = (b) => Buffer.from(b).toString("base64");
-const publicar = (quem, chave, iscas = iscasDoFarol()) => rpc(como(P[quem]), "rede_ato_farol_chave_publicar", { p_ato: ID, p_chave: typeof chave === "string" ? chave : b64(chave), p_iscas: iscas.map((i) => (typeof i === "string" ? i : b64(i))) });
-const ehPonto = (b64c) => {
-  try {
-    ed25519.Point.fromBytes(new Uint8Array(Buffer.from(b64c, "base64")));
-    return true;
-  } catch {
-    return false;
-  }
-};
+const publicar = (quem, chave, iscas = []) => rpc(como(P[quem]), "rede_ato_farol_chave_publicar", { p_ato: ID, p_chave: typeof chave === "string" ? chave : b64(chave), p_iscas: iscas.map((i) => (typeof i === "string" ? i : b64(i))) });
 const semIds = (r) => ![...Object.values(P)].some((id) => JSON.stringify(r).includes(id));
 
 // ═══════════════════ 1. Quem recebe k_ato ═══════════════════
@@ -127,8 +120,11 @@ const s2 = sortear(32);
 const s1b = sortear(32);
 await recusa("quem confirmou mas não coordena não publica chave", () => publicar("m1", chaveDoFarol(sortear(32))), "so_coordenacao");
 await recusa("chave com tamanho errado é recusada", () => publicar("g1", sortear(31)), "invalido:chave");
+// ATAQUE do Strix (PR #45): quem coordena mandava "iscas" Ed25519 válidas e ficava com as sementes; assinava o farol sozinha com duas chaves
+// da lista. Agora o banco recusa QUALQUER isca vinda do cliente, válida ou não.
+await recusa("ATAQUE isca válida vinda do cliente é recusada (a coordenadora guardaria a semente)", () => publicar("g1", chaveDoFarol(s1), [chaveDoFarol(sortear(32))]), "invalido:iscas");
+await recusa("ATAQUE sete iscas válidas é recusado", () => publicar("g1", chaveDoFarol(s1), iscasDoFarol(7)), "invalido:iscas");
 await recusa("isca com tamanho errado é recusada", () => publicar("g1", chaveDoFarol(s1), [sortear(31)]), "invalido:iscas");
-await recusa("mais de 7 iscas é recusado", () => publicar("g1", chaveDoFarol(s1), iscasDoFarol(7).concat([chaveDoFarol(sortear(32))])), "invalido:iscas");
 await recusa("isca igual à própria chave é recusada", () => publicar("g1", chaveDoFarol(s1), [chaveDoFarol(s1)]), "invalido:iscas");
 await recusa("base64 torto é recusado", () => publicar("g1", "não é base64!"), "invalido:chave");
 ok("a versão de antes (com p_assinatura) não existe mais", (await dono("select count(*)::int as n from pg_proc where proname = 'rede_ato_farol_chave_publicar' and pronargs = 3 and proargtypes[2] = 'text'::regtype")).rows[0].n === 0);
@@ -136,7 +132,7 @@ ok("a tabela não guarda assinatura de identidade", (await dono("select count(*)
 const depois1 = await espera("g1 publica a chave dela", () => publicar("g1", chaveDoFarol(s1)), (r) => r.chaves.length === 8 && r.chaves.some((c) => c.chave === b64(chaveDoFarol(s1))));
 await espera("g2 publica a dela", () => publicar("g2", chaveDoFarol(s2)), (r) => r.chaves.length === 8);
 await recusa("g2 não toma a chave da g1", () => publicar("g2", chaveDoFarol(s1)), "invalido:chave");
-await recusa("g2 não põe a chave da g1 como isca (para tirá-la da lista)", () => publicar("g2", chaveDoFarol(s2), [chaveDoFarol(s1)]), "invalido:iscas");
+await recusa("g2 não põe a chave da g1 como isca", () => publicar("g2", chaveDoFarol(s2), [chaveDoFarol(s1)]), "invalido:iscas");
 await espera("quem coordena sem identidade no diretório também publica (a chave não aponta a conta)", () => publicar("g3", chaveDoFarol(sortear(32))), (r) => r.chaves.length === 8);
 {
   // O ataque do infiltrado: confirmou presença, recebe o material e tenta achar QUEM coordena e QUANTOS publicaram.
@@ -151,7 +147,9 @@ await espera("quem coordena sem identidade no diretório também publica (a chav
     }
   }));
   ok("ataque: nenhuma linha confere com a identidade de quem coordena", !conferiu);
-  ok("ataque: as 8 chaves são pontos válidos da curva (não dá para contar as verdadeiras)", mat.chaves.filter((c) => ehPonto(c.chave)).length === 8, `${mat.chaves.filter((c) => ehPonto(c.chave)).length} de 8`);
+  // Contrapartida aceita (docs/rede/SEM-INTERNET.md): sem cliente do farol, as linhas falsas são sorteio do banco, e quem recebe a lista
+  // pode contar as chaves reais pelo teste "é ponto da curva?". Em compensação, ninguém assina sozinha com duas chaves.
+  ok("ATAQUE cada pessoa tem UMA linha real na lista (ninguém assina sozinha com duas)", (await dono("select de, count(*)::int as n from interno.rede_ato_farol_chaves where ato = $1 and not falsa group by de", [ID])).rows.every((r) => r.n === 1));
 }
 await espera("g1 publica de novo: troca a dela (continua uma por pessoa)", () => publicar("g1", chaveDoFarol(s1b)), (r) => r.chaves.length === 8 && r.chaves.some((c) => c.chave === b64(chaveDoFarol(s1b))) && !r.chaves.some((c) => c.chave === b64(chaveDoFarol(s1))));
 ok("no banco: uma linha por pessoa, 8 no total", (await dono("select count(*)::int as n, count(de)::int as d, count(distinct de)::int as p from interno.rede_ato_farol_chaves where ato = $1", [ID])).rows[0].n === 8

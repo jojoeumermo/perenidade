@@ -135,10 +135,10 @@ export function conferirFarol(f: FarolAssinado, ato: Uint8Array, autorizadas: re
 export const chaveDoFarol = (semente: Uint8Array): Bytes => copia(ed25519.getPublicKey(semente));
 
 /**
- * As iscas que vão junto quando quem coordena publica a chave do farol (public.rede_ato_farol_chave_publicar, p_iscas): chaves
- * Ed25519 válidas cuja semente é jogada fora aqui mesmo. Elas tomam o lugar das linhas falsas da lista do ato, para quem recebe não
- * contar as verdadeiras pelo teste "é ponto da curva?". A chave do farol NÃO leva assinatura da identidade da conta: conferida contra
- * o diretório, ela diria a quem confirmou presença QUEM coordena.
+ * Iscas Ed25519 válidas cuja semente é jogada fora. NÃO usar do lado de quem coordena: o banco recusa iscas vindas do cliente
+ * (public.rede_ato_farol_chave_publicar, p_iscas vazio), porque quem as cria pode guardar a semente e assinar o farol sozinha com duas
+ * chaves da lista (achado Strix do PR #45; docs/rede/SEM-INTERNET.md). Fica para o servidor do site gerar as iscas quando o cliente do
+ * farol existir, e para os testes.
  */
 export function iscasDoFarol(n = 7): Bytes[] {
   if (!Number.isInteger(n) || n < 0 || n > 7) throw new Error("iscas_invalidas");
