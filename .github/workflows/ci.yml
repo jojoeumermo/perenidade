@@ -29,9 +29,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      # Node 24: o motor de cifra do chat (@wireapp/core-crypto) exige WebAssembly JSPI, que só existe no 24 (as flags são
+      # ligadas pelo scripts/carregar-ts.mjs). No 22 os testes que carregam o motor nem começam.
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
       - run: npm ci
       - run: npm run lint
