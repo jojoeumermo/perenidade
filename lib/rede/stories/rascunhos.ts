@@ -125,5 +125,9 @@ export function apagarTodosOsRascunhos(): Promise<undefined> {
 export function novoIdDeRascunho(): string {
   const c = globalThis.crypto;
   if (c?.randomUUID) return c.randomUUID();
-  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+  // Navegador sem randomUUID: o id continua aleatório de verdade. Math.random não serve (sorteio previsível — regra da rede).
+  if (!c?.getRandomValues) throw new Error("sem_criptografia");
+  const bytes = new Uint8Array(16);
+  c.getRandomValues(bytes);
+  return `${Date.now().toString(36)}-${Array.from(bytes, (b) => b.toString(36).padStart(2, "0")).join("")}`;
 }
