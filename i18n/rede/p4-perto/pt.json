@@ -103,6 +103,7 @@
     "enviado": "Pedido enviado. Você só recebe se a pessoa aceitar.",
     "chegou": "{nome} pediu para ver onde você está",
     "aceitar": "Mostrar por 1 hora (só o bairro)",
+    "aceitarExata": "A partilha em curso é de posição exata, não só do bairro. Mostrar a posição exata a essa pessoa até o fim da partilha?",
     "recusar": "Recusar",
     "recusarNota": "Recusar não avisa ninguém.",
     "aceito": "Você está mostrando sua localização a essa pessoa."

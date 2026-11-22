@@ -187,9 +187,13 @@ export const compartilhar = {
   /**
    * Aceitar o pedido de localização de alguém (item 2): se já compartilho, a conversa entra na lista com o mesmo prazo e a mesma
    * precisão; senão, começa só com ela, por 1 h, só o bairro (a pessoa pode parar ou mudar depois).
+   * A partilha em curso pode ser de posição EXATA: aí entrar nela entrega as coordenadas exatas, enquanto o botão do pedido
+   * promete "só o bairro". Precisão exata só com a confirmação explícita de quem compartilha (posicaoExataConfirmada: true),
+   * lida na tela antes de chamar.
    */
-  async incluir(conversa: string): Promise<void> {
+  async incluir(conversa: string, o: { posicaoExataConfirmada?: boolean } = {}): Promise<void> {
     if (estado.ligado) {
+      if (estado.precisao === "exata" && o.posicaoExataConfirmada !== true) throw erro("precisa_confirmar_exata");
       if (!estado.conversas.includes(conversa)) mudar({ ...estado, conversas: [...estado.conversas, conversa] });
       const corpo = ultimaVista ? corpoDePosicao({ ...ultimaVista, precisao: estado.precisao, duracaoMs: duracaoDaVez(estado.prazo, estado.comecou, Date.now()) ?? 60_000 }) : null;
       if (corpo) await mandarA([conversa], corpo);

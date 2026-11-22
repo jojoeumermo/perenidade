@@ -726,6 +726,8 @@ const M = await motorNoNode();
   confere("compartilhar: quem saiu do círculo (conversa fechada, bloqueada ou apagada) para de receber na próxima atualização", /aindaAbertas\(estado\.conversas\)/.test(cli) && /c\.situacao === "aberta" && !c\.bloqueada && !c\.apagada/.test(cli));
   const ped = ler("components/rede/perto/Pedidos.tsx");
   confere("pedido: aceitar só com o toque, e recusar não manda nada", /compartilhar\.incluir\(/.test(ped) && !/mandar|pedirLocalizacao/.test(ped.slice(ped.indexOf("t.pedido.aceitar}"))));
+  confere("pedido: numa partilha de posição EXATA, aceitar pede a confirmação antes (o botão promete só o bairro)", /confirmar\(t\.pedido\.aceitarExata/.test(ped) && /posicaoExataConfirmada: exata/.test(ped));
+  confere("compartilhar: incluir numa partilha exata sem a confirmação é recusado no cliente", /precisao === "exata" && o\.posicaoExataConfirmada !== true/.test(cli));
   confere("encaixe: desligada a rota, nada aparece", /export const encaixe: Encaixe = !rotaNovaLigada\("perto"\) \? \{\} :/.test(ler("components/rede/perto/encaixe.tsx")));
   // Os textos: as mesmas chaves nos seis idiomas, e os cinco novos com a marca de rascunho.
   const chavesDe = (o, p = "") => Object.entries(o).flatMap(([k, v]) => (v && typeof v === "object" ? chavesDe(v, `${p}${k}.`) : [`${p}${k}`])).filter((k) => k !== "_rascunho").sort().join();

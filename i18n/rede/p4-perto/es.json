@@ -104,6 +104,7 @@
     "enviado": "Pedido enviado. Solo la recibes si la persona acepta.",
     "chegou": "{nome} pidió ver dónde estás",
     "aceitar": "Mostrar por 1 hora (solo el barrio)",
+    "aceitarExata": "El recurso compartido en curso es tu posición exacta, no solo el barrio. ¿Mostrar tu posición exacta a esta persona hasta que termine?",
     "recusar": "Rechazar",
     "recusarNota": "Rechazar no avisa a nadie.",
     "aceito": "Estás mostrando tu ubicación a esa persona."

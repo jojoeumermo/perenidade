@@ -4,6 +4,7 @@
 // Os pedidos de localização que chegaram (Prompt 4, item 2: "ninguém é localizado em silêncio"). Aceitar começa a compartilhar com
 // quem pediu (1 h, só o bairro) ou a inclui no compartilhamento em curso; recusar só tira o pedido da tela e não avisa ninguém. Os
 // pedidos ficam só na memória da aba (lib/rede/perto/guarda.ts) e somem em 15 min.
+import { confirmar } from "@/components/perguntar";
 import { compartilhar } from "@/lib/rede/perto/cliente";
 import { guardaDePosicoes } from "@/lib/rede/perto/guarda";
 import { useAcao } from "./acao";
@@ -28,7 +29,12 @@ export function PedidosDeLocalizacao({ t, aoAceitar }: { t: T; aoAceitar?: () =>
               disabled={ocupado}
               onClick={() =>
                 void fazer(async () => {
-                  await compartilhar.incluir(p.origem.slice(2));
+                  // A partilha em curso pode ser de posição exata: o botão promete "só o bairro", então exata só com a
+                  // pessoa lendo e confirmando aqui. Sem a confirmação, o incluir recusa (precisa_confirmar_exata).
+                  const emCurso = compartilhar.estado();
+                  const exata = emCurso.ligado && emCurso.precisao === "exata";
+                  if (exata && !(await confirmar(t.pedido.aceitarExata, { sim: t.compartilhar.sim }))) return;
+                  await compartilhar.incluir(p.origem.slice(2), { posicaoExataConfirmada: exata });
                   guardaDePosicoes.tirarPedido(p.origem, p.autor);
                   aoAceitar?.();
                   return t.pedido.aceito;

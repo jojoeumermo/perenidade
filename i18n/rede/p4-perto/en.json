@@ -104,6 +104,7 @@
     "enviado": "Request sent. You only receive it if they accept.",
     "chegou": "{nome} asked to see where you are",
     "aceitar": "Share for 1 hour (neighbourhood only)",
+    "aceitarExata": "The share in progress is of your exact location, not just the neighbourhood. Show your exact location to this person until the share ends?",
     "recusar": "Decline",
     "recusarNota": "Declining notifies no one.",
     "aceito": "You are sharing your location with this person."

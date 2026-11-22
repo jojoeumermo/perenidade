@@ -104,6 +104,7 @@
     "enviado": "Demande envoyée. Vous ne la recevez que si la personne accepte.",
     "chegou": "{nome} demande à voir où vous êtes",
     "aceitar": "Partager 1 heure (quartier seulement)",
+    "aceitarExata": "Le partage en cours concerne votre position exacte, pas seulement le quartier. Montrer votre position exacte à cette personne jusqu'à la fin du partage ?",
     "recusar": "Refuser",
     "recusarNota": "Refuser ne prévient personne.",
     "aceito": "Vous partagez votre position avec cette personne."
