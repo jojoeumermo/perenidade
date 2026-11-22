@@ -2,8 +2,8 @@
  "sobre": "Tudo o que o banco do site guarda, tabela por tabela, tirado do banco montado com supabase/install.sql. Gerado por scripts/ferramentas/inventario-do-banco.mjs; não edite à mão.",
  "versao_do_banco": 18,
  "total": {
-  "tabelas": 623,
-  "colunas": 4097,
+  "tabelas": 624,
+  "colunas": 4100,
   "com_conta": 372
  },
  "servico_de_contas": [
@@ -9071,7 +9071,7 @@
    ],
    "aponta_para_conta": [],
    "apaga_sozinho": [
-    "2 days"
+    "14 days"
    ]
   },
   {
@@ -22412,6 +22412,27 @@
     [
      "sala",
      "text"
+    ]
+   ],
+   "aponta_para_conta": [],
+   "apaga_sozinho": []
+  },
+  {
+   "tabela": "interno.urna_passes_gastos",
+   "area": "alumia",
+   "o_que_e": "Os passes da urna já gastos, fora da limpeza das caixas (20261124-r2-caixas.sql): o passe da urna vale pela semana atual e a anterior e a votação fica aberta até 60 dias, então o resumo gasto fica guardado até a votação fechar. Sem esta tabela o mesmo passe voltava a valer a cada expurgo: a cédula entrava de novo (voto dobrado sem dono) e os passes gerais das caixas, dos prekeys e dos anexos…",
+   "colunas": [
+    [
+     "resumo",
+     "bytea"
+    ],
+    [
+     "alvo",
+     "uuid"
+    ],
+    [
+     "dia",
+     "date"
     ]
    ],
    "aponta_para_conta": [],
