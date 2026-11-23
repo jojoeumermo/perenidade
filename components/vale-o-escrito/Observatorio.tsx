@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import Link from "@/components/Link";
 import { fill, localePath } from "@/i18n/config";
+import type { PosicoesProntas } from "@/lib/vale-o-escrito/posicoes";
 import type { TextosDoObservatorio } from "@/lib/vale-o-escrito/textos";
 import { SITUACOES, VISOES, type NivelDeZoom, type TipoDeNo, type Visao } from "@/lib/vale-o-escrito/tipos";
 import {
@@ -91,7 +92,18 @@ function useTeclasDeAbas<T extends HTMLElement>(total: number, atual: number, es
   return { refs, aoTeclar };
 }
 
-export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObservatorio; s: S; lang: string }) {
+export function Observatorio({
+  dados: inicial,
+  posicoes = null,
+  s,
+  lang,
+}: {
+  dados: DadosDoObservatorio;
+  /** A teia de abertura já calculada no servidor (lib/vale-o-escrito/posicoes.ts): o celular não refaz a simulação. */
+  posicoes?: PosicoesProntas | null;
+  s: S;
+  lang: string;
+}) {
   const [dados, setDados] = useState(inicial);
   const [dossie, setDossie] = useState<string | null>(null);
   const [visao, setVisao] = useState<Visao>("teia");
@@ -519,7 +531,7 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
                 </div>
               ) : (
                 <>
-                  {visao === "teia" && <Teia grafo={grafo} selecionado={selecionado} aoSelecionar={setSelecionado} destaque={destaque} s={s} />}
+                  {visao === "teia" && <Teia grafo={grafo} selecionado={selecionado} aoSelecionar={setSelecionado} destaque={destaque} posicoes={posicoes} s={s} />}
                   {visao === "orbita" && <Orbita grafo={grafo} selecionado={selecionado} aoSelecionar={setSelecionado} destaque={destaque} s={s} />}
                   {visao === "grupos" && (
                     <Grupos grafo={grafo} dossies={dados.dossies} selecionado={selecionado} aoSelecionar={setSelecionado} destaque={destaque} s={s} />

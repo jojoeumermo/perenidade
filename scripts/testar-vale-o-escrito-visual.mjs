@@ -38,6 +38,7 @@ import {
   veiculosDaEntrada,
   vizinhos,
 } from "../lib/vale-o-escrito/visual.ts";
+import { assinaturaDoGrafo, calcularPosicoes, posicoesDoGrafo, posicoesParaEnviar } from "../lib/vale-o-escrito/posicoes.ts";
 import { SITUACOES } from "../lib/vale-o-escrito/tipos.ts";
 
 let total = 0;
@@ -185,6 +186,22 @@ caso("contagem por situação soma o total", () => {
 // ───────────────────────────── Teia ─────────────────────────────
 console.log("Teia");
 const g = montarGrafo(dados);
+caso("teia de abertura pronta do servidor: o mesmo desenho que o navegador calcularia, e só vale para o mesmo grafo", () => {
+  const prontas = posicoesParaEnviar(g);
+  const calculadas = calcularPosicoes(g);
+  assert.equal(prontas.xy.length, g.nos.length * 2);
+  g.nos.forEach((n, i) => {
+    const p = calculadas.get(n.chave);
+    assert.ok(Math.abs(p.x - prontas.xy[i * 2]) <= 0.005 && Math.abs(p.y - prontas.xy[i * 2 + 1]) <= 0.005, n.chave);
+  });
+  // Outro grafo (um dossiê só) tem outra assinatura: as prontas não servem e ele é calculado.
+  const outro = montarGrafo(dados, dados.dossies[0].slug);
+  assert.notEqual(assinaturaDoGrafo(outro), prontas.assinatura);
+  const doOutro = posicoesDoGrafo(outro, prontas);
+  for (const n of outro.nos) assert.deepEqual(doOutro.get(n.chave), calcularPosicoes(outro).get(n.chave), n.chave);
+  // O mesmo grafo montado de novo (outro objeto) reaproveita o desenho, sem refazer a simulação.
+  assert.equal(posicoesDoGrafo(montarGrafo(dados)), posicoesDoGrafo(montarGrafo(dados)));
+});
 caso("a teia tem nó de caso, pessoa, organização e lugar", () => {
   const tipos = new Set(g.nos.map((n) => n.tipo));
   for (const t of ["entrada", "pessoa", "organizacao", "lugar"]) assert.ok(tipos.has(t), t);
@@ -354,9 +371,14 @@ caso("CSS próprio, todo com escopo .ve (nada de :root, html ou body solto)", ()
   const soltos = seletores.filter((sel) => sel.split(",").some((p) => !p.trim().startsWith(".ve") && !/^\d+%$/.test(p.trim()) && p.trim() !== "from" && p.trim() !== "to"));
   assert.deepEqual(soltos, [], "regras fora do escopo .ve");
 });
-caso("só a página do observatório carrega o peso: d3-force só em Teia.tsx, sem import estático nos outros", () => {
-  const donos = [...arquivosDe("components", [".tsx", ".ts"]), ...arquivosDe("lib", [".ts"]), ...arquivosDe("app", [".tsx", ".ts"])].filter((f) => /from\s+["']d3/.test(fs.readFileSync(f, "utf8")));
-  assert.deepEqual(donos.map((f) => path.basename(f)), ["Teia.tsx"]);
+caso("só a página do observatório carrega o peso: d3-force só em posicoes.ts, que só a Teia (dinâmica) e a página do servidor importam", () => {
+  const todos = [...arquivosDe("components", [".tsx", ".ts"]), ...arquivosDe("lib", [".ts"]), ...arquivosDe("app", [".tsx", ".ts"])];
+  const donos = todos.filter((f) => /from\s+["']d3/.test(fs.readFileSync(f, "utf8")));
+  assert.deepEqual(donos.map((f) => path.basename(f)), ["posicoes.ts"]);
+  // Import de tipo some na compilação; o de valor leva o d3 junto.
+  const quemUsa = todos.filter((f) => /^import (?!type ).*from ["'][^"']*vale-o-escrito\/posicoes["']/m.test(fs.readFileSync(f, "utf8")));
+  assert.deepEqual(quemUsa.map((f) => path.basename(f)).sort(), ["Teia.tsx", "page.tsx"]);
+  assert.ok(quemUsa.some((f) => f.replace(/\\/g, "/").endsWith("app/[lang]/vale-o-escrito/page.tsx")), "a página da entrada calcula a teia de abertura");
   const obs = ler("components", "vale-o-escrito", "Observatorio.tsx");
   assert.ok(/dynamic\(\(\) => import\("\.\/Teia"\)/.test(obs), "Teia dinâmica");
   assert.ok(/dynamic<PropsDoMapa>\(\(\) => import\("\.\/Mapa"\)/.test(obs), "Mapa dinâmico (encaixe do pacote mapa)");

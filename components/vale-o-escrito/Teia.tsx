@@ -2,45 +2,17 @@
 "use client";
 
 import "@/styles/vale-o-escrito.css";
-// D3 SÓ AQUI (d3-force) e só chega ao navegador quando alguém abre a visão "Teia" (next/dynamic em Observatorio.tsx).
-import { forceCenter, forceCollide, forceLink, forceManyBody, forceSimulation, forceX, forceY, type SimulationLinkDatum, type SimulationNodeDatum } from "d3-force";
 import { memo, useEffect, useMemo, useRef, type RefObject } from "react";
 import type { TipoDeNo } from "@/lib/vale-o-escrito/tipos";
-import { fioDaTeia, limitarEscala, nivelDaTeia, posicaoInicial, rotuloVisivel, sementeDoPar, type ArestaDaTeia, type Grafo, type NivelDaTeia, type NoDaTeia, type Ponto } from "@/lib/vale-o-escrito/visual";
+import { ALTURA_DA_TEIA, LARGURA_DA_TEIA, posicoesDoGrafo, type PosicoesProntas } from "@/lib/vale-o-escrito/posicoes";
+import { fioDaTeia, limitarEscala, nivelDaTeia, rotuloVisivel, sementeDoPar, type ArestaDaTeia, type Grafo, type NivelDaTeia, type NoDaTeia, type Ponto } from "@/lib/vale-o-escrito/visual";
 import { NoSvg, raioDoNo, type S } from "./Primitivas";
 import { HudDoVisor, useVisor, type Transformacao } from "./Visor";
 
-const L = 1000;
-const A = 640;
-
-interface NoSim extends SimulationNodeDatum {
-  chave: string;
-  raio: number;
-}
-
-/**
- * A simulação de força roda inteira, de uma vez, ao montar o grafo, e para: depois disso nada se mexe (os nós não se
- * arrastam nem se pinçam). Determinística: ponto de partida fixo (posicaoInicial) e o sorteio do d3-force com semente
- * própria, então o mesmo grafo dá sempre o mesmo desenho, no servidor de testes e em qualquer navegador.
- *
- * 09/11/2026: os pontos estavam embolados. Agora a repulsão é maior e chega mais longe, os fios são mais compridos e a
- * colisão respeita o tamanho de cada nó (com folga para o halo), então os casos grandes não engolem os vizinhos.
- */
-function calcularPosicoes(g: Grafo): Map<string, Ponto> {
-  const nos: NoSim[] = g.nos.map((n, i) => ({ chave: n.chave, raio: raioDoNo(n), ...posicaoInicial(i, g.nos.length, L, A) }));
-  const ligas: SimulationLinkDatum<NoSim>[] = g.arestas.map((a) => ({ source: a.de, target: a.para }));
-  const sim = forceSimulation<NoSim>(nos)
-    .force("liga", forceLink<NoSim, SimulationLinkDatum<NoSim>>(ligas).id((d) => d.chave).distance(96).strength(0.45))
-    .force("carga", forceManyBody<NoSim>().strength(-340).distanceMax(700))
-    .force("centro", forceCenter(L / 2, A / 2))
-    .force("x", forceX<NoSim>(L / 2).strength(0.025))
-    .force("y", forceY<NoSim>(A / 2).strength(0.04))
-    .force("colisao", forceCollide<NoSim>((d) => d.raio + 15).strength(0.9).iterations(2))
-    .stop();
-  const passos = Math.min(420, 200 + g.nos.length * 2);
-  for (let i = 0; i < passos; i++) sim.tick();
-  return new Map(nos.map((n) => [n.chave, { x: n.x ?? L / 2, y: n.y ?? A / 2 }]));
-}
+// D3 (d3-force) só no cálculo das posições (lib/vale-o-escrito/posicoes.ts), que este pedaço carrega; ele só chega ao
+// navegador quando alguém abre a visão "Teia" (next/dynamic em Observatorio.tsx). A teia de abertura já vem calculada.
+const L = LARGURA_DA_TEIA;
+const A = ALTURA_DA_TEIA;
 
 /** Escala e deslocamento que deixam o desenho inteiro na tela, com folga (a visão de abertura e o botão de recentrar). */
 function caber(posicoes: Map<string, Ponto>): Transformacao {
@@ -345,6 +317,7 @@ export default function Teia({
   selecionado,
   aoSelecionar,
   destaque = null,
+  posicoes = null,
   s,
 }: {
   grafo: Grafo;
@@ -352,9 +325,11 @@ export default function Teia({
   aoSelecionar: (chave: string) => void;
   /** Tipo de nó em destaque (legenda): os outros tipos apagam. */
   destaque?: TipoDeNo | null;
+  /** As posições da teia de abertura, calculadas no servidor (usadas só se o grafo for o mesmo). */
+  posicoes?: PosicoesProntas | null;
   s: S;
 }) {
-  const base = useMemo(() => calcularPosicoes(grafo), [grafo]);
+  const base = useMemo(() => posicoesDoGrafo(grafo, posicoes), [grafo, posicoes]);
   const ajuste = useMemo(() => caber(base), [base]);
   // Toque continua da página (rolar e aproximar com dois dedos como em qualquer página): gestos: false. A roda do mouse,
   // com ou sem Ctrl, aproxima e afasta o desenho (roda: true), e o mouse arrasta o fundo. Aproximada além da abertura,
