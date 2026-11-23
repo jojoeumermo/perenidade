@@ -46,7 +46,7 @@ export const RECURSOS = {
   "alumia-stories": "Alumia: stories de 24 h, sem registro de quem viu, que nunca federam. Precisa de rede-v2 e alumia-2",
   "alumia-modo-ato": "Alumia: modo ato, Fui detido, Estou bem e as identidades. Precisa de rede-v2 e alumia-2 (a segurança da conta e os aparelhos conectados abrem com alumia-2)",
   "alumia-org": "Alumia: organizações com selo (não é apoio do Instituto), consultas à base, plenárias e prestação de contas. Precisa de rede-v2 e alumia-2",
-  "alumia-chat-grupo": "Alumia: conversa cifrada de ponta a ponta do núcleo (grupo). Precisa de rede-v2 e alumia-2",
+  "alumia-chat-grupo": "Alumia: conversa em grupo cifrada de ponta a ponta (MLS na suíte híbrida, caixas anônimas): criar, convidar pelo @ quem já tem conversa a dois, quem está, código de segurança, tirar e sair, na página Conversas e na janela flutuante. O servidor não sabe quem está em qual grupo nem o nome dele. Sem SQL novo. Precisa de rede-v2 e alumia-2",
   "alumia-chat-so-app": "Alumia: o chat só nos apps (o site mostra o aviso e a página de baixar e conferir). Só pelo nome; desligado no beta",
   "alumia-linha-aberta": "Alumia: a linha com regra aberta (Em roda), igual para todo mundo e escrita na tela, com troca para a ordem de chegada; linhas montadas por filtro, assuntos em alta, enquanto você esteve fora, ordem das respostas e ocultar resposta. Precisa de rede-v2, alumia-2 e do SQL 20261113-alumia-o7-linha.sql",
   "alumia-convites": "Alumia: convites para a Alumia que levam à triagem (não aprovam ninguém; a triagem vê só \"veio por convite\", nunca de quem). Mostra o item Convidar e abre /alumia/convite. Precisa de rede-v2, alumia-2 e do SQL 20261114-alumia-o8-porta.sql",
@@ -110,6 +110,9 @@ export const RECURSOS = {
   "alumia-p4-pontes": "Alumia: pontes e acessibilidade: o ato como evento no Fediverso (só o ponto público), a federação só com servidores aprovados (modo da mediação), os cartões de vídeo e áudio de fora pela rota-proxy, a ponte com o Bluesky (desligada: depende de decisão do Instituto), os avisos de ato no canal do Telegram da organização, a janela de Libras na aula ao vivo, as legendas ao vivo na sala de voz (só no aparelho), a busca nos salvos (só no aparelho), os avisos só de quem a pessoa segue, o \"pouco útil\" secreto nas respostas (só desce a partir de 3) e o leitor de fios. Precisa de rede-v2, alumia-2 e do SQL 20261127-p4-pontes.sql",
   "alumia-p4-chamadas": "Alumia: chamada de voz e de vídeo na conversa a dois (itens 139 e 140 do Prompt 4): o toque vai dentro da conversa cifrada, a voz e o vídeo vão direto entre os dois aparelhos, sempre pela retransmissão e cifrados de ponta a ponta, sem nenhum registro de chamada. A chamada de grupo fica de fora até a combinação ir assinada (docs/rede/VOZ.md). Precisa de rede-v2, alumia-2, do chat novo e do SQL 20261127-p4-chamadas.sql",
   "sala-livekit": "Salas de vídeo do painel (reuniões da equipe, chamada de canal, estudo em grupo e os links das turmas) pelo LiveKit Cloud em vez do Jitsi (item 141 do Prompt 4). Precisa das variáveis LIVEKIT_* no servidor e do texto de privacidade publicado ANTES de ligar: o serviço de fora recebe o endereço de rede, o nome na sala, o áudio e o vídeo. O estudo em grupo (sem conta) só abre com a chave do Turnstile no servidor (TURNSTILE_SECRET_KEY). Desligada, tudo segue pelo Jitsi",
+  // Chat flutuante (23/11/2026, pedido da coordenação): ligado por padrão (PADRAO); o painel desliga com uma linha ligado=false em
+  // interno.recursos_vivos (o catálogo o tem pelo SQL 20261129-chat-flutuante.sql). Só a casca da tela: nada de protocolo novo.
+  "alumia-chat-flutuante": "Alumia: a janela de conversas no canto de baixo à direita em todas as telas da Alumia (lista, busca pelo @, conversas abertas lado a lado no computador e em tela cheia no celular), com as mesmas peças e a mesma cifra da página Conversas. O estado da janela fica só na memória da aba. Precisa de rede-v2; com alumia-chat-so-app ligado, não aparece",
 } as const;
 
 export type Recurso = keyof typeof RECURSOS;
@@ -147,6 +150,8 @@ export const PADRAO: readonly Recurso[] = [
   // Beta fechado (17/11/2026, "Fediverso em tudo"): as comunidades abertas também saem como Group do Fediverso. No banco, o
   // catálogo o tem só pelo nome (20261122-alumia-beta-fim.sql), e o painel o desliga como os outros.
   "fediverso-grupos",
+  // Chat flutuante (23/11/2026): a coordenação pediu a janela de conversas no ar. Desliga com "-alumia-chat-flutuante" ou pelo painel.
+  "alumia-chat-flutuante",
 ];
 
 /** Recursos que "todos" não liga: só ligam com o nome na lista. */

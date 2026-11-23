@@ -167,6 +167,11 @@ async function dependencias(conta: string, guardado: { motor: string; vista: Vis
     aoChamada: (c) => {
       if (ligado("alumia-p4-chamadas")) void import("../../chamada/guarda").then((g) => g.toqueChegou(c.conversa, c.autor, c.nome, c.corpo, c.quando), () => undefined);
     },
+    // Conversa em grupo: o convite, o pedido de entrada ou a recusa vai para os grupos deste aparelho (lib/rede/chat/grupo/navegador.ts),
+    // sem esperar (os grupos têm a fila deles). Com "alumia-chat-grupo" desligado, o corpo é descartado.
+    aoGrupo: (x) => {
+      if (ligado("alumia-chat-grupo")) void import("../grupo/navegador").then((g) => g.conviteChegou(conta, x)).catch(() => undefined);
+    },
     conferirRegistro: async (usuario, identidade) => {
       try {
         vista = await atualizarVista(vista, {
