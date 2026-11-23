@@ -24,7 +24,12 @@ import { carregarTextosDaConversaP4, type TextosDaConversaP4 } from "@/lib/rede/
 import { Notas } from "./Notas";
 import { CONFERIR_AGENDADAS_MS } from "@/lib/rede/chat/agendar";
 import { botaoForte, botaoLeve, erroDoChat } from "./comum";
+import { listaSemChatAqui } from "@/lib/rede/chat/lista-inicial";
 import { useEscondidasDaViagem } from "../conta/NoChat";
+import type { GrupoNaLista } from "@/lib/rede/chat/grupo/cliente";
+import { carregarTextosDoChatGrupo, type TextosDoChatGrupo } from "@/lib/rede/textos-chat-grupo";
+import { ListaDeGrupos } from "./grupo/ListaDeGrupos";
+import { ConversaDoGrupo } from "./grupo/ConversaDoGrupo";
 
 type Aparelho = { estado: "carregando" } | { estado: "pronto"; eu: Eu } | { estado: "sem_chave" } | { estado: "outro_aparelho"; tinhaChaveAqui: boolean } | { estado: "apagado" } | { estado: "erro"; texto: string; calmo: boolean };
 
@@ -55,6 +60,19 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const comConversaP4 = ligado("alumia-p4-conversa");
   const [tc, setTc] = useState<TextosDaConversaP4 | null>(null);
   const [notasAbertas, setNotasAbertas] = useState(false);
+  // A conversa em grupo (recurso "alumia-chat-grupo"): os textos e o grupo aberto (o id; o resto vem da lista mais nova).
+  const comGrupos = ligado("alumia-chat-grupo");
+  const [tg, setTg] = useState<TextosDoChatGrupo | null>(null);
+  const [grupoAberto, setGrupoAberto] = useState<string | null>(null);
+  const [grupos, setGrupos] = useState<GrupoNaLista[]>([]);
+  useEffect(() => {
+    if (!comGrupos) return;
+    let vivo = true;
+    carregarTextosDoChatGrupo(lang).then((x) => vivo && setTg(x)).catch(() => undefined);
+    return () => {
+      vivo = false;
+    };
+  }, [comGrupos, lang]);
   useEffect(() => {
     if (!comConversaP4) return;
     let vivo = true;
@@ -72,8 +90,10 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
     };
   }, [lang]);
 
+  // Sem o chat novo neste aparelho, a lista é vazia (não é erro): quem decide o que aparece é o estado do aparelho (o convite para
+  // ativar). Antes, o "dm_sem_chave" daqui virava a tela inteira de erro ("Falta a chave") só por abrir Conversas.
   const recarregar = useCallback(async () => {
-    const [nova, conversas] = await Promise.all([chat.situacao(), chat.conversas()]);
+    const [nova, conversas] = await Promise.all([chat.situacao(), chat.conversas().catch(listaSemChatAqui<ConversaDoChat>)]);
     setSit(nova);
     setLista(conversas);
     return { nova, conversas };
@@ -143,6 +163,8 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
       aoApagarTudoDoChat(() => {
         setAberta(null);
         setNotasAbertas(false);
+        setGrupoAberto(null);
+        setGrupos([]);
         setLista([]);
         setResumo(new Map());
         setPasta("");
@@ -272,6 +294,16 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
       <section aria-labelledby="alumia-chat-titulo" className="font-sans">
         <h1 id="alumia-chat-titulo" className="sr-only">{t.titulo}</h1>
         <Notas lang={lang} t={t} tc={tc.notas} eu={aparelho.eu} aoVoltar={() => setNotasAbertas(false)} />
+      </section>
+    );
+  }
+
+  const grupoNaTela = grupoAberto ? grupos.find((g) => g.id === grupoAberto) ?? null : null;
+  if (aparelho.estado === "pronto" && comGrupos && tg && grupoNaTela) {
+    return (
+      <section aria-labelledby="alumia-chat-titulo" className="font-sans">
+        <h1 id="alumia-chat-titulo" className="sr-only">{t.titulo}</h1>
+        <ConversaDoGrupo lang={lang} tg={tg} conta={aparelho.eu.usuario} grupo={grupoNaTela} aoVoltar={() => setGrupoAberto(null)} />
       </section>
     );
   }
@@ -442,6 +474,10 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
                 </button>
               ))}
             </div>
+          )}
+          {comGrupos && tg && (
+            // A conversa em grupo: os convites, criar um grupo e os grupos deste aparelho, junto das conversas a dois.
+            <ListaDeGrupos tg={tg} conta={aparelho.eu.usuario} aoAbrir={(g) => setGrupoAberto(g.id)} aoListar={setGrupos} />
           )}
           <h2 className="sr-only">{t.lista.rotulo}</h2>
           {lista === null ? (

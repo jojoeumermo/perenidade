@@ -112,6 +112,23 @@ type Aplicacao =
 
 export type Suspeita = "commit_mudou_outra_coisa" | "papeis_recusados" | "apresentacao_falsa";
 
+/** O estado de um grupo neste aparelho, para guardar cifrado e voltar depois (`Grupo.retrato` e `Grupo.restaurar`). */
+export interface RetratoDoGrupo {
+  v: 1;
+  id: string;
+  tipo: TipoDeGrupo;
+  /** A época do retrato: se o motor estiver em outra, o cursor e a caixa anterior não servem mais. */
+  epoca: string;
+  folha: { publica: string; privada: string };
+  entrada: EntradaDoNucleo | null;
+  cadeia: ListaDePapeis[];
+  membros: Apresentacao[];
+  cursor: number;
+  anterior: { epoca: string; caixa: { id: string; pd: string; pl: string }; embrulho: string; post: string; voz: string; cursor: number } | null;
+  suspeitas: Suspeita[];
+  pedidosDeSaida: string[];
+}
+
 export class Grupo {
   /** Avisos que a tela mostra como "grupo suspeito" (a regra de hoje, `grupo_suspeito`). */
   readonly suspeitas: Suspeita[] = [];
@@ -168,6 +185,63 @@ export class Grupo {
   contagemParaTela(): number | null {
     const n = new Set([...this.membros.values()].map((a) => a.identidade)).size;
     return n >= 3 ? n : null;
+  }
+  /** As apresentações conferidas das folhas que estão no grupo (quem é quem, só dentro do cifrado: o servidor não tem esta lista). */
+  apresentados(): Apresentacao[] {
+    return [...this.membros.values()].map((a) => ({ ...a }));
+  }
+
+  // ── Guardar no aparelho (a conversa em grupo do chat: lib/rede/chat/grupo/servico.ts) ──────────────────────────────────────
+  // Só o estado da tela do grupo, para a aba recarregada continuar de onde parou: nada aqui muda o protocolo, a cifra ou o que vai
+  // ao servidor. Quem guarda tem de guardar CIFRADO (no navegador, a guarda selada dos grupos: lib/rede/grupos/loja-do-navegador.ts).
+  // Os segredos da época atual não vão no retrato: saem de novo do exportador do MLS ao restaurar. Os da época anterior (para ler
+  // o que ficou na caixa velha) vão, porque o MLS não exporta mais a época que passou.
+
+  /** O estado deste grupo neste aparelho, para guardar (as mensagens já lidas ficam com quem chamou). */
+  retrato(): RetratoDoGrupo {
+    const s = this.anterior?.segredos;
+    return {
+      v: 1,
+      id: paraB64(this.id),
+      tipo: this.tipo,
+      epoca: this.segredos.epoca.toString(),
+      folha: { publica: paraB64(this.folha.publica), privada: paraB64(this.folha.privada) },
+      entrada: this.entrada,
+      cadeia: this.cadeia,
+      membros: [...this.membros.values()],
+      cursor: this.cursor,
+      anterior: s && this.anterior ? { epoca: s.epoca.toString(), caixa: { id: paraB64(s.caixa.id), pd: paraB64(s.caixa.pd), pl: paraB64(s.caixa.pl) }, embrulho: paraB64(s.embrulho), post: paraB64(s.post), voz: paraB64(s.voz), cursor: this.anterior.cursor } : null,
+      suspeitas: [...this.suspeitas],
+      pedidosDeSaida: [...this.pedidosDeSaida],
+    };
+  }
+
+  /**
+   * Volta o grupo de um retrato, com o estado do MLS que ficou na loja do motor deste aparelho. null se o motor não tem mais o grupo
+   * (a loja foi apagada, ou o aparelho foi tirado). Se a época do motor andou depois do retrato, o cursor recomeça na caixa nova.
+   */
+  static async restaurar(ap: Aparelho, r: RetratoDoGrupo): Promise<Grupo | null> {
+    if (r?.v !== 1) return null;
+    const id = deB64(r.id);
+    const conversa = new ap.M.ConversationId(id);
+    if (!(await ap.cc.transaction((c) => c.conversationExists(conversa)))) return null;
+    const g = new Grupo(ap, id, r.tipo, { publica: deB64(r.folha.publica), privada: deB64(r.folha.privada) }, r.entrada);
+    g.cadeia = r.cadeia;
+    for (const a of r.membros) g.membros.set(a.cliente, a);
+    for (const s of r.suspeitas) g.suspeitas.push(s);
+    for (const p of r.pedidosDeSaida) g.pedidosDeSaida.add(p);
+    await g.novaEpoca();
+    if (g.segredos.epoca.toString() === r.epoca) {
+      g.cursor = r.cursor;
+      const a = r.anterior;
+      g.anterior = a
+        ? {
+            segredos: { epoca: BigInt(a.epoca), caixa: { id: deB64(a.caixa.id), pd: deB64(a.caixa.pd), pl: deB64(a.caixa.pl), multi: true }, embrulho: deB64(a.embrulho), post: deB64(a.post), voz: deB64(a.voz) },
+            cursor: a.cursor,
+          }
+        : null;
+    }
+    return g;
   }
 
   // ── Criar e entrar ──────────────────────────────────────────────────────────────────────────────────────────────────────

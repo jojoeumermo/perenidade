@@ -256,6 +256,38 @@ pedido, não o que entregou a outra pessoa.
 antes: o ato vale para quem pede, não passou, a pessoa não está bloqueada nem invisível, 30 por dia). O pedido de conversa sai do
 aparelho como qualquer outro.
 
+### Conversa em grupo
+
+Atrás de `alumia-chat-grupo` (só pelo nome; desligado por padrão). Usa o **motor que já existia**, sem mudar protocolo nem cifra: o
+grupo com membros escondidos (`lib/rede/membros/grupo.ts`: MLS do `@wireapp/core-crypto` na suíte híbrida ML-KEM-768 + X25519,
+embrulho da época, caixas anônimas da época tiradas do exportador do MLS, papéis assinados pela identidade da conta). As peças:
+`lib/rede/chat/grupo/` (formato, serviço do aparelho, montagem no navegador, cliente da tela) e `components/rede/chat/grupo/`.
+
+- **Criar:** quem cria é a mediação ("administra"). O nome vai **dentro** do grupo, numa linha cifrada; o servidor não vê.
+- **Convidar pelo @:** só quem já tem conversa a dois aberta com quem convida. O convite, o pedido de entrada (identidade da conta,
+  pacote de chave do MLS, caixa de resposta sorteada) e a recusa vão pela conversa a dois, num controle `grupo` dentro do bloco
+  cifrado (como o toque da chamada). O aparelho de quem administra confere que a identidade do pedido é a que ele conhece daquela
+  conversa (e que o registro público confirma) e só então põe a pessoa pelo MLS; as boas-vindas vão para a caixa de resposta.
+  Pedido de quem não foi convidado, ou com outra identidade: nada entra.
+- **Conversar:** cada mensagem é uma linha do grupo (`alumia/chat-grupo/v1`), com o prazo (1, 7 ou 30 dias) e o "ver uma vez"
+  dentro do cifrado; apagar para todos vale só para a própria mensagem. O anexo é o mesmo anexo cifrado da conversa a dois
+  (com `alumia-p4-anexo-cifrado`), preso ao grupo.
+- **Quem está:** as apresentações assinadas de cada folha, e o @ de cada pessoa (a linha "eu" dela e a linha "quem" que a mediação
+  manda a quem acabou de entrar), conferido no registro público das chaves. Abaixo de 3 pessoas, nenhum número. O **código de
+  segurança** com cada pessoa é o da conversa a dois (é da identidade da conta).
+- **Tirar e sair:** só a mediação tira; quem sai pede à mediação, que tira a folha no próximo commit. Quem saiu não lê o que vier
+  depois; quem entra não lê o que veio antes. A mediação que sai passa o papel antes, para o grupo não ficar sem quem administre.
+- **O que o servidor vê:** caixas anônimas da época (sem conta), envelopes de tamanho fixo (2098, 8242, 32818 ou 131122 bytes, no
+  ritmo do chat) e as buscas de cada caixa (no horário sorteado da agenda). **Não** vê quem está em qual grupo, o nome, o convite
+  nem quem fala com quem. Nenhuma migração nova: são as funções das caixas que já existiam.
+- **No aparelho:** a loja do motor no OPFS (`core-crypto/grupos-chat-<conta>`) e o estado dos grupos na guarda selada dos grupos;
+  o "Sair rápido" apaga as duas.
+- **Limites, ditos sem rodeio:** o grupo é **deste aparelho** (outro aparelho da mesma pessoa precisa ser convidado à parte); quem
+  administra precisa abrir a Alumia para a entrada de quem aceitou terminar; os grupos do motor não abrem em duas abas ao mesmo
+  tempo; quem busca a mesma caixa ao mesmo tempo fica ligado pelo horário, como em qualquer grupo (a via Tor ou a mixnet tiram o
+  endereço); um membro que faça um commit forjado trava a época (limite do desenho dos membros escondidos: refazer o grupo).
+  Testes: `npm run testar:chat-grupo` (no PGlite) e `npm run testar:chat-grupo-tela` (Playwright, na prévia).
+
 ## O que o servidor vê e não vê
 
 | Vê | Não vê |

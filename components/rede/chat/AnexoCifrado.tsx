@@ -148,11 +148,13 @@ function duracaoDoVideo(arquivo: Blob): Promise<number> {
 }
 
 /** Os botões do compositor: gravar áudio e escolher um vídeo curto. */
-export function AnexoNoCompositor({ t, sessao, opcoes, desligado, aoEnviado, aoErro, foto = null }: {
+export function AnexoNoCompositor({ t, sessao = null, enviar = null, opcoes, desligado, aoEnviado, aoErro, foto = null }: {
   t: TextosDoAnexo;
   /** A foto de ver uma vez (item 13): só com "alumia-p4-conversa" ligado. */
   foto?: TextosDaFoto | null;
-  sessao: Sessao;
+  /** A conversa a dois (manda por enviarAnexo), ou, na conversa em grupo, `enviar` (o mesmo anexo cifrado, pelo grupo). */
+  sessao?: Sessao | null;
+  enviar?: ((arquivo: Uint8Array<ArrayBuffer>, mime: string, duracaoMs: number, opcoes: OpcoesDaMensagem) => Promise<void>) | null;
   opcoes: () => OpcoesDaMensagem;
   desligado: boolean;
   aoEnviado: () => void;
@@ -182,7 +184,9 @@ export function AnexoNoCompositor({ t, sessao, opcoes, desligado, aoEnviado, aoE
   async function mandar(bytes: Uint8Array<ArrayBuffer>, mime: string, duracaoMs: number, umaVez = false) {
     setEnviando(true);
     try {
-      await enviarAnexo(sessao, bytes, mime, duracaoMs, umaVez ? { ...opcoes(), umaVez: true } : opcoes());
+      const o = umaVez ? { ...opcoes(), umaVez: true } : opcoes();
+      if (enviar) await enviar(bytes, mime, duracaoMs, o);
+      else if (sessao) await enviarAnexo(sessao, bytes, mime, duracaoMs, o);
       aoEnviado();
     } catch (e) {
       aoErro(erroDoAnexo(t, e));
@@ -296,7 +300,7 @@ export function AnexoNoCompositor({ t, sessao, opcoes, desligado, aoEnviado, aoE
 }
 
 /** O anexo dentro da bolha da mensagem: só baixa e abre quando a pessoa toca. */
-export function AnexoNaMensagem({ t, sessao, corpo, minha, aoAbrirUmaVez, aoFecharUmaVez, foto = null, marca = "", transcrever = null, lang = "pt" }: {
+export function AnexoNaMensagem({ t, sessao = null, abrirCorpo = null, corpo, minha, aoAbrirUmaVez, aoFecharUmaVez, foto = null, marca = "", transcrever = null, lang = "pt" }: {
   t: TextosDoAnexo;
   /** Os textos da transcrição no aparelho (item 21). Sem eles (flag desligada), nada de transcrição. */
   transcrever?: TextosDaTranscricao | null;
@@ -306,7 +310,9 @@ export function AnexoNaMensagem({ t, sessao, corpo, minha, aoAbrirUmaVez, aoFech
   foto?: TextosDaFoto | null;
   /** O codinome de quem lê: a marca d'água da proteção contra print (item 1). */
   marca?: string;
-  sessao: Sessao;
+  /** A conversa a dois (abre por abrirAnexoDaMensagem), ou, na conversa em grupo, `abrirCorpo` (o mesmo anexo, preso ao grupo). */
+  sessao?: Sessao | null;
+  abrirCorpo?: ((corpo: CorpoDeAnexo) => Promise<Blob | null>) | null;
   corpo: CorpoDeAnexo;
   minha: boolean;
   /** "Ver uma vez" (só a de outra pessoa): a mensagem sai do histórico deste aparelho quando abre. */
@@ -326,7 +332,7 @@ export function AnexoNaMensagem({ t, sessao, corpo, minha, aoAbrirUmaVez, aoFech
 
   async function abrir() {
     setEstado("abrindo");
-    const blob = await abrirAnexoDaMensagem(sessao, corpo).catch(() => null);
+    const blob = await (abrirCorpo ? abrirCorpo(corpo) : sessao ? abrirAnexoDaMensagem(sessao, corpo) : Promise.resolve(null)).catch(() => null);
     if (umaVez) {
       // Abriu (ou tentou): sai daqui e do depósito, dê certo ou não. Fica só nesta tela até fechar.
       aoAbrirUmaVez();
