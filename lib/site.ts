@@ -12,7 +12,7 @@ export const site = {
   instagram: "https://www.instagram.com/institutoluciaorg/",
   instagramUser: "institutoluciaorg",
   /** Endereço de contato do instituto: é para lá que vão os pedidos sobre o boletim do jornal. */
-  newsletter: "institutolucia@tutamail.com",
+  newsletter: "ramos.institutolucia@gmail.com",
   /**
    * O histórico público de mudanças. Vazio: a página não existe e nada aparece na página inicial.
    * Com uma data (AAAA-MM-DD), a página volta ao ar e mostra só o que mudou daquele dia em diante.

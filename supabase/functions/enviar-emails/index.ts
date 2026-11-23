@@ -22,7 +22,7 @@ const base = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "");
 const servico = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
 const chave = Deno.env.get("RESEND_API_KEY") ?? "";
 const remetente = Deno.env.get("EMAIL_REMETENTE") || "Instituto Lúcia <noreply@institutolucia.org>";
-const resposta = Deno.env.get("EMAIL_RESPOSTA") || "institutolucia@tutamail.com";
+const resposta = Deno.env.get("EMAIL_RESPOSTA") || "ramos.institutolucia@gmail.com";
 
 const segredo = Deno.env.get("EMAILS_SEGREDO") ?? "";
 

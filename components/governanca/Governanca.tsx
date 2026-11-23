@@ -147,7 +147,7 @@ export function GuiaDeDireitos() {
           </div>
         </section>
       ))}
-      <p className="mt-8 font-sans text-sm text-ink-soft">Links conferidos em {dataBr(direitos.conferido_em)}. Achou um link quebrado ou uma informação desatualizada? <a href="mailto:institutolucia@tutamail.com?subject=Guia%20de%20direitos" className="underline">Avise</a>.</p>
+      <p className="mt-8 font-sans text-sm text-ink-soft">Links conferidos em {dataBr(direitos.conferido_em)}. Achou um link quebrado ou uma informação desatualizada? <a href="mailto:ramos.institutolucia@gmail.com?subject=Guia%20de%20direitos" className="underline">Avise</a>.</p>
     </div>
   );
 }

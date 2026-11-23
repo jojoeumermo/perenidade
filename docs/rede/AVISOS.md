@@ -61,7 +61,7 @@ No Vercel (Settings → Environment Variables, Production e Preview): `NEXT_PUBL
 
 ### 4.3. A função `enviar-push` no Supabase
 
-1. Segredos da função (Edge Functions → Secrets, ou `supabase secrets set`): `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_ASSUNTO` (`mailto:institutolucia@tutamail.com`) e `PUSH_SEGREDO` (um texto longo sorteado, opcional, recomendado). `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` o Supabase já entrega.
+1. Segredos da função (Edge Functions → Secrets, ou `supabase secrets set`): `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_ASSUNTO` (`mailto:ramos.institutolucia@gmail.com`) e `PUSH_SEGREDO` (um texto longo sorteado, opcional, recomendado). `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` o Supabase já entrega.
 2. Publicar: `supabase functions deploy enviar-push`.
 3. Dizer ao banco onde ela está (SQL Editor, uma vez; o mesmo desenho de `enviar-emails`):
    ```sql

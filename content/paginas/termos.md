@@ -20,7 +20,7 @@ O acervo é um índice. Cada ficha diz a licença da obra e leva à fonte onde e
 
 ## Direitos autorais e pedido de retirada
 
-O instituto respeita os direitos autorais. Se você é titular de direitos sobre algo que aparece aqui (um texto, uma imagem, um trecho de livro, um vídeo) e entende que foi publicado sem autorização, escreva para **institutolucia@tutamail.com** ou use a página [Denunciar](/denunciar), dizendo qual é a obra, onde ela aparece no site e por que você é o titular. O conteúdo sai do ar enquanto o caso é conferido, mesmo sem ordem judicial. Quem publicou é avisado e pode apresentar a sua versão.
+O instituto respeita os direitos autorais. Se você é titular de direitos sobre algo que aparece aqui (um texto, uma imagem, um trecho de livro, um vídeo) e entende que foi publicado sem autorização, escreva para **ramos.institutolucia@gmail.com** ou use a página [Denunciar](/denunciar), dizendo qual é a obra, onde ela aparece no site e por que você é o titular. O conteúdo sai do ar enquanto o caso é conferido, mesmo sem ordem judicial. Quem publicou é avisado e pode apresentar a sua versão.
 
 Como o site também mostra o que voluntários e visitantes enviam, vale o Marco Civil da Internet (Lei nº 12.965/2014): o instituto revê cada envio antes de publicar e retira o que violar a lei assim que fica sabendo.
 
@@ -95,6 +95,6 @@ Quem trabalha na equipe é voluntário (Lei nº 9.608/1998) e aceita, ao entrar 
 
 ## Mudanças e lei aplicável
 
-Estes termos podem mudar; a data no alto indica a última alteração. Aplica-se só a lei brasileira, também a quem acessa ou colabora de outro país. Contato: institutolucia@tutamail.com.
+Estes termos podem mudar; a data no alto indica a última alteração. Aplica-se só a lei brasileira, também a quem acessa ou colabora de outro país. Contato: ramos.institutolucia@gmail.com.
 
 Veja também a [Política de privacidade](/privacidade).

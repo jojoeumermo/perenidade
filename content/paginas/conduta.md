@@ -30,7 +30,7 @@ Muita coisa desta lista, além de proibida aqui, é crime no Brasil. Indicamos a
 
 ## Como denunciar
 
-Use o botão de denúncia ao lado de cada publicação, a página [Denunciar](/denunciar), ou escreva para **institutolucia@tutamail.com** com o endereço da página e o que aconteceu. Quem denuncia não é identificado para quem foi denunciado.
+Use o botão de denúncia ao lado de cada publicação, a página [Denunciar](/denunciar), ou escreva para **ramos.institutolucia@gmail.com** com o endereço da página e o que aconteceu. Quem denuncia não é identificado para quem foi denunciado.
 
 Fora do instituto, também dá para denunciar:
 
