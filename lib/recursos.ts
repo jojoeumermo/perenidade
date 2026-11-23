@@ -110,6 +110,9 @@ export const RECURSOS = {
   "alumia-p4-pontes": "Alumia: pontes e acessibilidade: o ato como evento no Fediverso (só o ponto público), a federação só com servidores aprovados (modo da mediação), os cartões de vídeo e áudio de fora pela rota-proxy, a ponte com o Bluesky (desligada: depende de decisão do Instituto), os avisos de ato no canal do Telegram da organização, a janela de Libras na aula ao vivo, as legendas ao vivo na sala de voz (só no aparelho), a busca nos salvos (só no aparelho), os avisos só de quem a pessoa segue, o \"pouco útil\" secreto nas respostas (só desce a partir de 3) e o leitor de fios. Precisa de rede-v2, alumia-2 e do SQL 20261127-p4-pontes.sql",
   "alumia-p4-chamadas": "Alumia: chamada de voz e de vídeo na conversa a dois (itens 139 e 140 do Prompt 4): o toque vai dentro da conversa cifrada, a voz e o vídeo vão direto entre os dois aparelhos, sempre pela retransmissão e cifrados de ponta a ponta, sem nenhum registro de chamada. A chamada de grupo fica de fora até a combinação ir assinada (docs/rede/VOZ.md). Precisa de rede-v2, alumia-2, do chat novo e do SQL 20261127-p4-chamadas.sql",
   "sala-livekit": "Salas de vídeo do painel (reuniões da equipe, chamada de canal, estudo em grupo e os links das turmas) pelo LiveKit Cloud em vez do Jitsi (item 141 do Prompt 4). Precisa das variáveis LIVEKIT_* no servidor e do texto de privacidade publicado ANTES de ligar: o serviço de fora recebe o endereço de rede, o nome na sala, o áudio e o vídeo. O estudo em grupo (sem conta) só abre com a chave do Turnstile no servidor (TURNSTILE_SECRET_KEY). Desligada, tudo segue pelo Jitsi",
+  // Chat flutuante (23/11/2026, pedido da coordenação): ligado por padrão (PADRAO); o painel desliga com uma linha ligado=false em
+  // interno.recursos_vivos (o catálogo o tem pelo SQL 20261129-chat-flutuante.sql). Só a casca da tela: nada de protocolo novo.
+  "alumia-chat-flutuante": "Alumia: a janela de conversas no canto de baixo à direita em todas as telas da Alumia (lista, busca pelo @, conversas abertas lado a lado no computador e em tela cheia no celular), com as mesmas peças e a mesma cifra da página Conversas. O estado da janela fica só na memória da aba. Precisa de rede-v2; com alumia-chat-so-app ligado, não aparece",
 } as const;
 
 export type Recurso = keyof typeof RECURSOS;
@@ -147,6 +150,8 @@ export const PADRAO: readonly Recurso[] = [
   // Beta fechado (17/11/2026, "Fediverso em tudo"): as comunidades abertas também saem como Group do Fediverso. No banco, o
   // catálogo o tem só pelo nome (20261122-alumia-beta-fim.sql), e o painel o desliga como os outros.
   "fediverso-grupos",
+  // Chat flutuante (23/11/2026): a coordenação pediu a janela de conversas no ar. Desliga com "-alumia-chat-flutuante" ou pelo painel.
+  "alumia-chat-flutuante",
 ];
 
 /** Recursos que "todos" não liga: só ligam com o nome na lista. */

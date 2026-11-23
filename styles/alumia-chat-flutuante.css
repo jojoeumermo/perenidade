@@ -1,0 +1,86 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+
+/* A janela de conversas no canto da Alumia (components/rede/chat/janela/). As cores são as variáveis de papel e tinta do site, que
+   a Alumia troca no claro e no escuro (styles/alumia-tokens.css): a janela acompanha o tema sozinha. Nada se mexe aqui (nenhuma
+   transição, nenhuma animação): vale igual com menos movimento, no modo parado e no modo leve.
+
+   Onde fica: no celular e no tablet (até 1023 px) a barra de baixo da Alumia ocupa o rodapé, então o botão e a janela ficam
+   ACIMA dela (o mesmo respiro do "voltar ao topo", que sobe um degrau quando o botão do chat está na tela). Do computador
+   em diante (1024 px), a barra de baixo não existe e a janela encosta no pé da tela, como nas redes grandes. */
+
+.al-cf-lancador {
+  position: fixed; z-index: 30; right: 12px; bottom: calc(5.25rem + env(safe-area-inset-bottom, 0px));
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  min-width: 48px; min-height: 48px; padding: 0 12px; border-radius: 999px;
+  border: 1.5px solid var(--rule); background: var(--ink); color: var(--parchment);
+  font-family: var(--al-fonte, inherit); font-weight: 700; font-size: 0.95rem; line-height: 1;
+  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.55); cursor: pointer;
+}
+.al-cf-lancador:focus-visible, .al-cf :focus-visible { outline: 3px solid var(--al-foco, #c21f16); outline-offset: 2px; }
+.al-cf-lancador-texto { display: none; }
+.al-cf-lancador-conta {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 5px;
+  border-radius: 999px; background: #c21f16; color: #fff; font-size: 0.75rem;
+}
+@media (min-width: 768px) {
+  .al-cf-lancador { padding: 0 18px; }
+  .al-cf-lancador-texto { display: inline; }
+}
+@media (min-width: 1024px) {
+  .al-cf-lancador { right: 24px; bottom: 24px; }
+}
+
+/* O "voltar ao topo" da Alumia sobe um degrau para não ficar embaixo do botão do chat. */
+:root:has(.al-cf-lancador) [data-al="2"] .al-subir { bottom: calc(5.25rem + 60px + env(safe-area-inset-bottom, 0px)); }
+@media (min-width: 1024px) {
+  :root:has(.al-cf-lancador) [data-al="2"] .al-subir { bottom: 84px; }
+}
+
+/* ── A janela no computador: a lista no canto e as conversas à esquerda dela, todas com o pé alinhado ── */
+.al-cf {
+  position: fixed; z-index: 40; right: 12px; bottom: calc(5.25rem + env(safe-area-inset-bottom, 0px));
+  display: flex; flex-direction: row-reverse; align-items: flex-end; gap: 12px;
+  max-width: calc(100vw - 24px); pointer-events: none;
+  font-family: var(--al-fonte, inherit);
+}
+.al-cf[hidden] { display: none; }
+.al-cf > * { pointer-events: auto; }
+.al-cf-painel {
+  display: flex; flex-direction: column; width: 340px; max-width: calc(100vw - 24px);
+  height: min(540px, calc(100dvh - 5.25rem - 6rem)); overflow: hidden;
+  border: 1.5px solid var(--rule); border-radius: 14px;
+  box-shadow: 0 10px 32px -12px rgba(0, 0, 0, 0.55);
+}
+/* A conversa é mais larga e mais alta que a lista: o cabeçalho dela (nome, verificação, opções) e o campo de escrever cabem sem
+   apertar, e sobra lugar para as mensagens. */
+.al-cf-painel-conversa { width: 380px; height: min(680px, calc(100dvh - 5.25rem - 4rem)); }
+.al-cf-painel[data-minimizada] { height: auto; width: 260px; }
+@media (min-width: 1024px) {
+  .al-cf { right: 24px; bottom: 0; max-width: calc(100vw - 48px); }
+  .al-cf-painel { height: min(560px, calc(100dvh - 5rem)); border-bottom: 0; border-radius: 14px 14px 0 0; }
+  .al-cf-painel-conversa { height: min(720px, calc(100dvh - 3rem)); }
+  .al-cf-painel[data-minimizada] { height: auto; }
+}
+.al-cf-barra { display: flex; align-items: center; gap: 2px; min-height: 52px; padding: 4px 4px 4px 10px; flex-shrink: 0; }
+.al-cf-corpo { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.al-cf-corpo[hidden] { display: none; }
+/* A conversa da página pede 70% da altura da tela; dentro da janela, ela ocupa o que a janela tem (o cabeçalho e o campo de
+   escrever continuam grudados no alto e no pé da janela, que é onde a conversa rola). */
+.al-cf-conversa > div:first-child { min-height: 100%; }
+.al-cf-icone {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; border-radius: 999px;
+  color: inherit; background: transparent;
+}
+.al-cf-icone:hover { background: var(--parchment-deep); }
+
+/* ── No celular (até 767 px): a tela inteira, por cima também da barra de baixo, com o respiro do entalhe do aparelho ── */
+.al-cf.al-cf-cheia {
+  inset: 0; right: 0; bottom: 0; max-width: none; z-index: 45; display: flex; flex-direction: column; align-items: stretch; gap: 0;
+  pointer-events: auto; padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.al-cf.al-cf-cheia[hidden] { display: none; }
+.al-cf-cheia > .al-cf-corpo { flex: 1 1 auto; }
+
+@media print {
+  .al-cf, .al-cf-lancador { display: none !important; }
+}

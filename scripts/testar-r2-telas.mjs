@@ -50,8 +50,9 @@ ok("a decisão: fechado nesta aba, some até a próxima aba", avisoDaTroca({ avi
 ok("a decisão: sem data marcada, nada antes (o site não inventa data)", avisoDaTroca({ avisar: false, data: null, limpou: false, fechado: false }) === null);
 ok("a decisão: a limpeza apagou agora o chat do beta, diz uma vez (com a data, ou sem ela)", avisoDaTroca({ avisar: false, data: "01/12/2026", limpou: true, fechado: true })?.tipo === "depois"
   && avisoDaTroca({ avisar: false, data: null, limpou: true, fechado: false })?.data === null);
-ok("a data na tela vem do contrato da conversa a dois (DD/MM/AAAA) e o aviso some depois do dia", dataDaTrocaNaTela("2026-12-01") === "01/12/2026" && dataDaTrocaNaTela(null) === null
-  && avisarTroca(Date.parse("2026-12-01T23:00:00Z"), "2026-12-01") && !avisarTroca(Date.parse("2026-12-02T00:00:01Z"), "2026-12-01") && !avisarTroca(Date.now(), null));
+ok("a data na tela vem do contrato da conversa a dois (DD/MM/AAAA) e o aviso de antes some quando o dia da troca começa", dataDaTrocaNaTela("2026-12-01") === "01/12/2026" && dataDaTrocaNaTela(null) === null
+  && avisarTroca(Date.parse("2026-11-30T23:59:59Z"), "2026-12-01") && !avisarTroca(Date.parse("2026-12-01T00:00:00Z"), "2026-12-01") && !avisarTroca(Date.parse("2026-12-01T23:00:00Z"), "2026-12-01")
+  && !avisarTroca(Date.parse("2026-12-02T00:00:01Z"), "2026-12-01") && !avisarTroca(Date.now(), null));
 {
   const aviso = ler("components/rede/avisos/AvisoDaTroca.tsx");
   const fonte = aviso + ler("lib/rede/avisos/troca.ts");

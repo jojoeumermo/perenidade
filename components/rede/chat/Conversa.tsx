@@ -119,7 +119,8 @@ function CompararDeNovo({ t, nome, codigo, minhaMetade, metadeDaNova, aoConferir
 }
 
 /** Uma conversa aberta: mensagens decifradas no aparelho, escrever, opções (prazo, código de segurança e QR, bloquear, denunciar, apagar). */
-export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lang: string; t: TextosDoChat; s: TextosDaRede; eu: Eu; conversa: ConversaDoChat; aoVoltar: () => void; aoApagar: () => void }) {
+/** `idDoCampo`: o id do campo de escrever (a janela flutuante, com mais de uma conversa aberta lado a lado, dá um por conversa). */
+export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar, idDoCampo = "alumia-chat-texto" }: { lang: string; t: TextosDoChat; s: TextosDaRede; eu: Eu; conversa: ConversaDoChat; aoVoltar: () => void; aoApagar: () => void; idDoCampo?: string }) {
   const [sessao, setSessao] = useState<Sessao | null>(null);
   const [mensagens, setMensagens] = useState<MensagemAberta[]>([]);
   const [temMais, setTemMais] = useState(false);
@@ -813,7 +814,7 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
             {temMais && (
               <button type="button" onClick={() => void carregarMais()} className={`${botaoLeve} mx-auto block`}>{t.conversa.carregarMais}</button>
             )}
-            {sessao.semChaveDoOutro && <p className="text-sm text-ink-soft">{t.conversa.semChaveDoOutro}</p>}
+            {sessao.semChaveDoOutro && <p role="status" className="text-sm text-ink-soft">{preencher(t.conversa.semChaveDoOutro, { nome: conversa.com.codinome })}</p>}
             {!sessao.semChaveDoOutro && sessao.aguardandoOutro && !sessao.foraDoRegistro && (
               <p role="status" className="rounded-xl border border-rule bg-parchment-deep p-3 text-sm">
                 {preencher(sessao.naFila ? t.conversa.filaAviso : t.conversa.pedidoSemResposta, { nome: conversa.com.codinome })}
@@ -952,7 +953,7 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
         <form onSubmit={(e) => void enviar(e)} className="al2-chat-escrever sticky bottom-0 border-t border-rule bg-parchment px-[18px] py-3">
           {/* Prompt 4, itens 112, 111 e 79 (lote "conta", atrás de alumia-p4-conta): fora do horário da outra pessoa, respostas rápidas e o releia. */}
           <AvisoDeAtendimento lang={lang} handle={conversa.com.handle} className="mb-2" />
-          <label className="sr-only" htmlFor="alumia-chat-texto">{editando ? t.conversa.editando : t.conversa.escreva}</label>
+          <label className="sr-only" htmlFor={idDoCampo}>{editando ? t.conversa.editando : t.conversa.escreva}</label>
           {editando && (
             <div className="mb-2 flex items-center justify-between gap-2 text-xs">
               <p className="font-semibold">{t.conversa.editando}</p>
@@ -962,7 +963,7 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
           <div className="flex items-end gap-2">
             <textarea
               ref={campo}
-              id="alumia-chat-texto"
+              id={idDoCampo}
               value={texto}
               onChange={(e) => setTexto(e.target.value)}
               onKeyDown={(e) => {

@@ -133,7 +133,7 @@ if (install.includes(SQL)) ok("a migração está no fim do install.sql (depois 
     && P5.every((t) => install.indexOf(t) === install.lastIndexOf(t)));
   const P4 = ["cifrado-sem-anexo", "anexo-cifrado", "selo-contagens", "presenca-print", "avisos-de-local", "seguranca-pessoal", "meusdados", "fim"].map((n) => normal(ler("supabase/migracoes/20261127-p4-" + n + ".sql")));
   // Depois do fim do Prompt 4 vêm só as migrações avulsas da versão 18 (não mexem na versão nem na porta), em ordem.
-  const DEPOIS_DO_P4 = ["20261128-coordenacao-geral.sql"].map((n) => normal(ler("supabase/migracoes/" + n)));
+  const DEPOIS_DO_P4 = ["20261128-coordenacao-geral.sql", "20261129-chat-flutuante.sql"].map((n) => normal(ler("supabase/migracoes/" + n)));
   ok("o install.sql termina com o fim do Prompt 4 e, depois dele, só as avulsas da versão 18, em ordem", (() => {
     let pos = install.lastIndexOf(P4[P4.length - 1]);
     if (pos < 0) return false;

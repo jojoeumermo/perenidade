@@ -22,6 +22,9 @@ import { site } from "@/lib/site";
 import "@/styles/alumia-tokens.css";
 import { SubirAoTopo } from "@/components/rede/alumia/SubirAoTopo";
 import { OuvirErros } from "@/components/rede/beta/OuvirErros";
+import { ChatFlutuante } from "@/components/rede/chat/janela/ChatFlutuante";
+import { carregarTextosDoChat } from "@/lib/rede/textos-chat";
+import { chatSoApp } from "@/lib/rede/transparencia-apps/recurso";
 
 // As letras das pranchas, carregadas SÓ aqui (a Alumia), sem pré-carga: Archivo variável com o eixo de largura (62–125) para os
 // títulos condensados, e EB Garamond itálica só para o "Instituto Lúcia" da marca. Com a flag desligada as classes não entram e
@@ -52,14 +55,27 @@ export default async function LayoutDaAlumia({ children, params }: LayoutProps<"
   // Recurso "alumia-aberta" (só pelo nome): enquanto as ondas de construção não terminam, a Alumia inteira, em qualquer endereço,
   // mostra só o aviso. Nenhuma tela, nenhum dado e nenhuma chamada ao banco da rede saem daqui.
   if (!ligado("alumia-aberta")) return <EmConstrucao lang={lang} className={archivo.variable} site={alumiaComEndereco ? `${site.url}/${lang}` : `/${lang}`} />;
+  // A janela de conversas no canto (recurso "alumia-chat-flutuante", ligado por padrão): aqui no layout ela não se refaz entre uma
+  // página e outra, e navegar não fecha a conversa. Fica dentro do portão (só aparece para quem passou por ele) e some com o chat
+  // só nos apps ("alumia-chat-so-app": nenhum código do chat desce ao navegador). Só o botão vem com a página; o resto, no toque.
+  const comJanela = ligado("rede-v2") && ligado("alumia-chat-flutuante") && !chatSoApp();
+  const tj = comJanela ? (await carregarTextosDoChat(lang)).janela : null;
+  const telas = tj ? (
+    <>
+      {children}
+      <ChatFlutuante lang={lang} rotulos={{ botao: tj.botao, abrir: tj.abrir }} />
+    </>
+  ) : (
+    children
+  );
   // Recurso "alumia-entrada" (só pelo nome): sem conta aprovada e sem o segundo fator, a Alumia mostra só a entrada (o portão
   // decide no navegador, onde mora a sessão; o banco confere de novo). Desligado, nada muda.
   const conteudo = ligado("alumia-entrada") ? (
     <PortaoDaAlumia lang={lang} t={textosDaEntrada(lang)} figuras={figurasDaEntrada()} comDiretorio={rotaNovaLigada("organizacoes")} site={alumiaComEndereco ? `${site.url}/${lang}` : `/${lang}`}>
-      {children}
+      {telas}
     </PortaoDaAlumia>
   ) : (
-    children
+    telas
   );
   // Dentro do aplicativo do Instituto a Alumia não abre (decisão de 12/11/2026): o prefsScript marca o <html> com data-sem-alumia
   // (lib/rede/app-do-instituto.ts) e o CSS (app/globals.css) troca a tela pelo aviso. No navegador o aviso nunca aparece e a
