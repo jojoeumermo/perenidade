@@ -18,6 +18,7 @@ import { ed25519 } from "@noble/curves/ed25519.js";
 import { sha512 } from "@noble/hashes/sha2.js";
 import { canonico, copia, iguais, juntar, sortear, texto, u32, type Bytes } from "./bytes";
 import { ROTULOS, ROTULOS_DE_FORA } from "./rotulos";
+import { ROTULOS as ROTULOS_DOS_MEMBROS } from "../../membros/rotulos";
 
 export interface ParEd25519 {
   publica: Bytes;
@@ -128,6 +129,19 @@ export function assinarTextoDoVoto(identidade: ParEd25519, t: Uint8Array): Uint8
   const daFolha = canonico(ROTULO_DA_FOLHA);
   const comeca = (p: Uint8Array) => t.length > p.length && iguais(t.subarray(0, p.length), p);
   if (!comeca(prefixo) && !comeca(daFolha)) throw new Error("rotulo_errado");
+  return assinar(identidade.privada, t);
+}
+
+/**
+ * A conversa em grupo do chat (recurso "alumia-chat-grupo") usa o grupo com membros escondidos (lib/rede/membros/grupo.ts), que pede
+ * à identidade da conta quatro assinaturas do próprio desenho dele (lib/rede/membros/papeis.ts): a apresentação da folha, a lista de
+ * papéis, a autorização de cada commit e as boas-vindas. Só textos que começam com um desses rótulos (no formato canônico: o rótulo e
+ * um byte zero) passam; qualquer outro uso (certificado de aparelho, declaração, pedido, voto) é recusado aqui.
+ */
+export const ROTULOS_DO_GRUPO: readonly string[] = [ROTULOS_DOS_MEMBROS.folha, ROTULOS_DOS_MEMBROS.papeis, ROTULOS_DOS_MEMBROS.commit, ROTULOS_DOS_MEMBROS.boasVindas];
+export function assinarTextoDoGrupo(identidade: ParEd25519, t: Uint8Array): Uint8Array {
+  const comeca = (p: Uint8Array) => t.length > p.length && iguais(t.subarray(0, p.length), p);
+  if (!ROTULOS_DO_GRUPO.some((r) => comeca(canonico(r)))) throw new Error("rotulo_errado");
   return assinar(identidade.privada, t);
 }
 
