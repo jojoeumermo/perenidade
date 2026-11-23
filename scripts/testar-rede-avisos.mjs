@@ -475,7 +475,7 @@ await espera("a assinatura VAPID (ES256) confere com a chave pública, com a aud
   vapid.generateKeys();
   const publica = paraBase64Url(vapid.getPublicKey());
   const privada = paraBase64Url(vapid.getPrivateKey());
-  const jwt = await assinarVapid({ endpoint, chavePublica: publica, chavePrivada: privada, assunto: "mailto:institutolucia@tutamail.com", agora: 1_800_000_000_000 });
+  const jwt = await assinarVapid({ endpoint, chavePublica: publica, chavePrivada: privada, assunto: "mailto:ramos.institutolucia@gmail.com", agora: 1_800_000_000_000 });
   const [cabeca, corpo, assinatura] = jwt.split(".");
   const chave = crypto.createPublicKey({ key: { kty: "EC", crv: "P-256", x: paraBase64Url(vapid.getPublicKey().subarray(1, 33)), y: paraBase64Url(vapid.getPublicKey().subarray(33)) }, format: "jwk" });
   const confere = crypto.verify("sha256", Buffer.from(`${cabeca}.${corpo}`), { key: chave, dsaEncoding: "ieee-p1363" }, deBase64Url(assinatura));
@@ -484,7 +484,7 @@ await espera("a assinatura VAPID (ES256) confere com a chave pública, com a aud
 await espera("a rodada de envio usa o banco e devolve o resultado de cada um (ok, 410, falha)", async () => {
   const vapid = crypto.createECDH("prime256v1");
   vapid.generateKeys();
-  const config = { chavePublica: paraBase64Url(vapid.getPublicKey()), chavePrivada: paraBase64Url(vapid.getPrivateKey()), assunto: "mailto:institutolucia@tutamail.com" };
+  const config = { chavePublica: paraBase64Url(vapid.getPublicKey()), chavePrivada: paraBase64Url(vapid.getPrivateKey()), assunto: "mailto:ramos.institutolucia@gmail.com" };
   const fila = [1, 2, 3].map((i) => ({ id: `id-${i}`, endpoint: `https://fcm.googleapis.com/fcm/send/aparelho-${i}`, p256dh: chaveAparelho, auth: segredoAuth, lang: "pt", n: i }));
   const resultados = [];
   const chamar = async (funcao, args) => {

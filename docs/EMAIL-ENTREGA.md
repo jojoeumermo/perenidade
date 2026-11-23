@@ -30,7 +30,7 @@ Na Cloudflare, crie um registro:
 
 | Tipo | Nome | Valor |
 | --- | --- | --- |
-| TXT | `_dmarc` | `v=DMARC1; p=none; rua=mailto:institutolucia@tutamail.com` |
+| TXT | `_dmarc` | `v=DMARC1; p=none; rua=mailto:ramos.institutolucia@gmail.com` |
 
 Hoje o registro existe, mas sem o `rua`: edite o valor para o da tabela. Com `p=none` nada é bloqueado: os provedores
 só mandam relatórios para o endereço do `rua`. Depois de duas a quatro semanas sem falhas nos relatórios, troque para
@@ -47,7 +47,7 @@ para confiar no domínio.
 
 - `EMAIL_REMETENTE` (segredo da função e da rotina de envio) sempre com um endereço do domínio verificado,
   por exemplo `Instituto Lúcia <noreply@institutolucia.org>`.
-- `EMAIL_RESPOSTA` numa caixa que alguém lê (hoje `institutolucia@tutamail.com`).
+- `EMAIL_RESPOSTA` numa caixa que alguém lê (hoje `ramos.institutolucia@gmail.com`).
 - Se o Resend mostrar reclamações de spam ou muitos endereços inválidos, limpe a lista em **Boletim → Lista → Com problema**.
 
 ## 5. Google Postmaster Tools

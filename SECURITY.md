@@ -7,7 +7,7 @@ Obrigado por avisar. Esta página diz como avisar sem expor a falha, em quanto t
 
 **Não abra issue pública** nem comente a falha em lugar aberto.
 
-1. **Cifrado de ponta a ponta, hoje:** escreva para **institutolucia@tutamail.com** a partir de uma conta do Tuta (é gratuita).
+1. **Cifrado de ponta a ponta, hoje:** escreva para **ramos.institutolucia@gmail.com** a partir de uma conta do Tuta (é gratuita).
    Entre duas contas do Tuta o e-mail vai cifrado de ponta a ponta, sem nada a configurar.
 2. **De outro e-mail:** mande para o mesmo endereço só uma linha, sem detalhes da falha: "Quero avisar uma falha de
    segurança". Respondemos com um e-mail cifrado do Tuta, protegido por uma senha que combinamos por outro meio; a sua resposta

@@ -15,6 +15,6 @@ Racismo, machismo, LGBTfobia, capacitismo, xenofobia, intolerância religiosa, a
 
 ## O que acontece
 
-Quem quebrar estas regras pode ter a mensagem apagada, ser advertido ou sair do projeto, por decisão da coordenação. Para relatar um caso, escreva para **institutolucia@tutamail.com** (o relato é tratado com sigilo).
+Quem quebrar estas regras pode ter a mensagem apagada, ser advertido ou sair do projeto, por decisão da coordenação. Para relatar um caso, escreva para **ramos.institutolucia@gmail.com** (o relato é tratado com sigilo).
 
 Baseado no espírito do Contributor Covenant, adaptado às regras de convivência do site ([Termos de uso](https://institutolucia.org/pt/termos)).

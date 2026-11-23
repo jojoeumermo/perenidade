@@ -3,7 +3,7 @@
 # Não publique a falha antes de ela ser corrigida. Não faça testes que derrubem o site, apaguem dados ou leiam dados de outras
 # pessoas. Quando a chave pública de reporte existir, ela entra aqui no campo Encryption.
 # Vale também para a Alumia, a rede social do instituto: o mesmo arquivo responde no endereço dela.
-Contact: mailto:institutolucia@tutamail.com
+Contact: mailto:ramos.institutolucia@gmail.com
 Expires: 2027-10-21T00:00:00.000Z
 Preferred-Languages: pt, en, es
 Canonical: https://institutolucia.org/.well-known/security.txt
