@@ -27,6 +27,14 @@ COPY scripts/preparar.mjs ./scripts/preparar.mjs
 RUN npm ci --no-audit --no-fund
 COPY . .
 RUN npm run build
+# O que a imagem leva da montagem, sem repetir nada (a imagem passava de 11 GB, e o servidor levava mais de 15 minutos só
+# para desempacotar a versão nova):
+# - as pastas que o estágio de baixo copia inteiras (public/, content/, historico/, docs/) saem do standalone, onde o
+#   rastreio do Next punha só uma parte delas: sem isso, cada arquivo dessas partes ia duas vezes, uma em cada camada;
+# - os arquivos idênticos das páginas prontas (a página.rsc e a cópia inteira dela em .segments/_full.segment.rsc, os
+#   pedaços iguais entre idiomas) viram um arquivo só com vários nomes (scripts/imagem-juntar-iguais.mjs). O site lê os
+#   mesmos bytes nos mesmos caminhos.
+RUN rm -rf .next/standalone/public .next/standalone/content .next/standalone/historico .next/standalone/docs  && node scripts/imagem-juntar-iguais.mjs .next/standalone/.next/server/app
 
 # ---- 2. O site no ar -------------------------------------------------------------------------------------------------
 FROM node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54 AS site
