@@ -6,7 +6,7 @@
 //
 // A data é decisão do Jonathan (pelo menos 7 dias depois do aviso geral pelo painel). Enquanto for null, o aviso não aparece.
 // Formato: "AAAA-MM-DD" (o dia, em UTC).
-export const DATA_DA_TROCA: string | null = null;
+export const DATA_DA_TROCA: string | null = "2026-11-23";
 
 /** "DD/MM/AAAA" da data da troca, para os textos. */
 export function dataDaTrocaNaTela(data: string | null = DATA_DA_TROCA): string | null {
