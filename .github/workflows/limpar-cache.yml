@@ -1,23 +1,13 @@
 name: Limpar o cache do Cloudflare
 
-# O Cloudflare guarda as páginas do site por 4 horas (regra "HTML do site na borda 4h"), para os robôs não gastarem a
-# cota da Vercel. Esta rotina limpa essa cópia assim que a Vercel termina uma publicação de produção, para a versão nova
-# aparecer na hora. Também dá para rodar à mão (Actions → Limpar o cache do Cloudflare → Run workflow): à mão, limpa tudo.
-# A limpeza é seletiva: quando a publicação só mudou conteúdo (aulas em content/trilhas, obras em content/acervo,
-# arquivos em public/arquivos e o resumo em historico/), só saem do cache os endereços dessas páginas e das listas fixas
-# (início, trilhas, acervo, índices). Limpar tudo a cada publicação obrigava a Vercel a refazer o site inteiro para os
-# robôs. Limpa TUDO quando mudou código, estilo, layout ou qualquer outro arquivo (o código novo troca os arquivos de
-# /_next, e página velha guardada apontaria para arquivos que não existem mais), quando não dá para saber a publicação
-# anterior, quando a lista passa de 300 endereços e quando a própria limpeza seletiva falha.
+# O Cloudflare guarda as páginas do site por 4 horas (regra "HTML do site na borda 4h"). Desde 06/11/2026 o site está no
+# servidor próprio (Contabo): a rotina "Publicar no servidor" (producao.yml) já limpa esse cache no fim de cada publicação.
+# Esta rotina fica só para limpar à mão (Actions → Limpar o cache do Cloudflare → Run workflow): à mão, limpa tudo.
+# Antes ela também rodava sozinha a cada publicação da Vercel (eventos deployment_status e status); a Vercel não é mais
+# usada, e esses eventos só criavam execuções puladas na lista de Actions.
 # Precisa do segredo CF_TOKEN_CACHE (token do Cloudflare só com a permissão "Cache Purge") e da variável CF_ZONE_ID
 # (o ID da zona institutolucia.org). Sem o segredo, a rotina só avisa e termina sem erro.
-# Atenção: o evento deployment_status vem da Vercel. Quando o site migrar para o servidor próprio (producao.yml), a
-# limpeza deve ser chamada no fim daquela rotina.
-# 05/11/2026: desde a mudança do projeto para a equipe nova da Vercel (02/11), ela só marca o estado do commit
-# (evento "status", contexto "Vercel") e não cria mais "deployments" no GitHub; por isso a rotina escuta os dois.
 on:
-  deployment_status:
-  status:
   workflow_dispatch:
 
 # Ler o repositório (para comparar as duas publicações) e a lista de publicações da Vercel registradas no GitHub.
@@ -32,7 +22,6 @@ concurrency:
 
 jobs:
   limpar:
-    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Production') || (github.event_name == 'status' && github.event.context == 'Vercel' && github.event.state == 'success' && contains(github.event.branches.*.name, 'master')) }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
