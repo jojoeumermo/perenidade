@@ -408,7 +408,7 @@
     "libsodium-wrappers-sumo": "0.8.4",
     "livekit-client": "2.23.0",
     "lucide-react": "0.577.0",
-    "mammoth": "^1.11.0",
+    "mammoth": "^1.13.0",
     "maplibre-gl": "^6.16.0",
     "mathjs": "^15.2.0",
     "matter-js": "^0.20.0",
