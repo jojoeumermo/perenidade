@@ -12,7 +12,7 @@ O acervo do Instituto Lúcia é um índice de obras: cada ficha diz quem escreve
 
 ## Se uma obra sua está aqui sem autorização
 
-Escreva para **institutolucia@tutamail.com** com o assunto "Pedido de retirada". O pedido precisa ter:
+Escreva para **ramos.institutolucia@gmail.com** com o assunto "Pedido de retirada". O pedido precisa ter:
 
 1. **Qual obra:** o título e o endereço da página no site (por exemplo, institutolucia.org/pt/acervo/nome-da-obra).
 2. **Quem você é:** o seu nome e, se falar em nome de outra pessoa ou de uma editora, em nome de quem.

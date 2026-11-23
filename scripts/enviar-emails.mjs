@@ -9,7 +9,7 @@
 //   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY   as mesmas da publicação automática
 //   RESEND_API_KEY                            a chave do serviço de envio (resend.com)
 //   EMAIL_REMETENTE                           Instituto Lúcia <noreply@institutolucia.org> (domínio verificado no Resend)
-//   EMAIL_RESPOSTA                            para onde vão as respostas: institutolucia@tutamail.com
+//   EMAIL_RESPOSTA                            para onde vão as respostas: ramos.institutolucia@gmail.com
 //
 // Nada daqui registra endereço, texto nem chave: o registro diz só quantos saíram e o tipo de falha.
 import { pathToFileURL } from "node:url";

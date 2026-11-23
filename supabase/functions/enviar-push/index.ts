@@ -7,7 +7,7 @@
 //
 // Publicar: supabase functions deploy enviar-push
 // Segredos (Edge Functions → Secrets): VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY (o par gerado uma vez, veja docs/rede/AVISOS.md),
-// VAPID_ASSUNTO (mailto:institutolucia@tutamail.com) e PUSH_SEGREDO (opcional, recomendado: o banco manda o mesmo valor no
+// VAPID_ASSUNTO (mailto:ramos.institutolucia@gmail.com) e PUSH_SEGREDO (opcional, recomendado: o banco manda o mesmo valor no
 // cabeçalho x-lucia-segredo, guardado em interno.configuracoes, chave 'push'). SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY o
 // Supabase já entrega a toda função. Nada daqui registra endereço de aparelho, chave nem conteúdo.
 import { rodada } from "../_shared/push.mjs";
@@ -16,7 +16,7 @@ const base = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "");
 const servico = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
 const chavePublica = Deno.env.get("VAPID_PUBLIC_KEY") ?? "";
 const chavePrivada = Deno.env.get("VAPID_PRIVATE_KEY") ?? "";
-const assunto = Deno.env.get("VAPID_ASSUNTO") || "mailto:institutolucia@tutamail.com";
+const assunto = Deno.env.get("VAPID_ASSUNTO") || "mailto:ramos.institutolucia@gmail.com";
 const segredo = Deno.env.get("PUSH_SEGREDO") ?? "";
 
 /** Compara sem parar no primeiro caractere diferente (o tempo da resposta não entrega o segredo aos poucos). */
