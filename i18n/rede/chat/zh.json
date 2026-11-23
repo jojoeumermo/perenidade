@@ -27,7 +27,7 @@
   },
   "lista": {
     "rotulo": "你的对话",
-    "vazio": "还没有对话。用对方的 @ 或从其个人主页打开。",
+    "vazio": "还没有对话。用对方的 @（在上面的输入框）或从对方的主页开始一段对话。",
     "pedidos": "对话请求",
     "pedidoDe": "{nome} 想和你对话。",
     "pedidoEnviado": "请求已发送。对方接受后，你们就可以写了。",
@@ -44,7 +44,7 @@
     "restam": "{n} 个字符",
     "grande": "消息太长了。",
     "semChave": "无法在这台设备上打开（写于更换设备之前）。",
-    "semChaveDoOutro": "对方还没有启用私信。启用后你们就可以写了。",
+    "semChaveDoOutro": "{nome} 还没有开启新聊天。对方开启后，对话就会打开。",
     "aguarde": "正在准备对话密钥……",
     "vazio": "没有消息。提醒：永远不要发送地址、证件或密码，这里也不要。",
     "expira": "{quando} 消失",
@@ -162,7 +162,7 @@
   },
   "erros": {
     "dm_fechada": "现在无法与此人对话。",
-    "dm_sem_chave": "缺少密钥：对话暂时无法接收消息。",
+    "dm_sem_chave": "此人还没有开启新聊天。对方开启后，对话就会打开。",
     "versao_desatualizada": "对话密钥已更换。请再试一次。",
     "muitos_pedidos": "慢一点：连续消息太多。请稍后再试。",
     "consentimento": "私信仅限已加入 Alumia 的人（18 岁及以上）。",

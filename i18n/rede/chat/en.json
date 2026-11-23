@@ -27,7 +27,7 @@
   },
   "lista": {
     "rotulo": "Your conversations",
-    "vazio": "No conversations yet. Open one with the person's @ or from their profile.",
+    "vazio": "No conversations yet. Start one with the person's @ (in the field above) or from their profile.",
     "pedidos": "Message requests",
     "pedidoDe": "{nome} wants to talk with you.",
     "pedidoEnviado": "Request sent. Once the person accepts, you can both write.",
@@ -44,7 +44,7 @@
     "restam": "{n} characters",
     "grande": "The message is too long.",
     "semChave": "Cannot be opened on this device (written before a device change).",
-    "semChaveDoOutro": "The other person has not turned on messages yet. Once they do, you can write.",
+    "semChaveDoOutro": "{nome} has not turned on the new messages yet. The conversation opens once they do.",
     "aguarde": "Preparing the conversation key…",
     "vazio": "No messages. Reminder: never send an address, ID or password, not even here.",
     "expira": "disappears {quando}",
@@ -162,7 +162,7 @@
   },
   "erros": {
     "dm_fechada": "You cannot message this person right now.",
-    "dm_sem_chave": "Missing key: the conversation cannot receive messages yet.",
+    "dm_sem_chave": "This person has not turned on the new messages yet. The conversation opens once they do.",
     "versao_desatualizada": "The conversation key changed. Try again.",
     "muitos_pedidos": "Easy: too many messages in a row. Try again in a moment.",
     "consentimento": "Private messages are only for people who have joined Alumia (18 or older).",

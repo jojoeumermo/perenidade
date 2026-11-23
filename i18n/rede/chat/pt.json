@@ -26,7 +26,7 @@
   },
   "lista": {
     "rotulo": "Suas conversas",
-    "vazio": "Nenhuma conversa ainda. Abra uma pelo @ da pessoa ou pelo perfil dela.",
+    "vazio": "Nenhuma conversa ainda. Comece uma conversa pelo @ da pessoa (no campo acima) ou pelo perfil dela.",
     "pedidos": "Pedidos de conversa",
     "pedidoDe": "{nome} quer conversar com você.",
     "pedidoEnviado": "Pedido enviado. Quando a pessoa aceitar, vocês podem escrever.",
@@ -43,7 +43,7 @@
     "restam": "{n} caracteres",
     "grande": "A mensagem é longa demais.",
     "semChave": "Não dá para abrir neste aparelho (escrita antes de uma troca de aparelho).",
-    "semChaveDoOutro": "A outra pessoa ainda não ativou o chat. Quando ativar, vocês podem escrever.",
+    "semChaveDoOutro": "{nome} ainda não ativou o chat novo. A conversa abre quando essa pessoa ativar.",
     "aguarde": "Preparando a chave da conversa…",
     "vazio": "Nenhuma mensagem. Lembrete: nunca mande endereço, documento ou senha, nem aqui.",
     "expira": "some {quando}",
@@ -161,7 +161,7 @@
   },
   "erros": {
     "dm_fechada": "Não dá para conversar com esta pessoa agora.",
-    "dm_sem_chave": "Falta a chave: a conversa ainda não pode receber mensagens.",
+    "dm_sem_chave": "Esta pessoa ainda não ativou o chat novo. A conversa abre quando ela ativar.",
     "versao_desatualizada": "A chave da conversa mudou. Tente de novo.",
     "muitos_pedidos": "Calma: muitas mensagens seguidas. Tente de novo daqui a pouco.",
     "consentimento": "O chat privado é só para quem já entrou na Alumia (18 anos ou mais).",
