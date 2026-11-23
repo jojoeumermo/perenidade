@@ -5,7 +5,8 @@
 --
 -- O recurso sai ligado pelo código (PADRAO). Esta migração só põe o nome no catálogo, para o painel único poder desligá-lo (e
 -- ligar de novo na hora: não é "só pelo nome", não há texto, SQL nem revisão esperando). Nenhuma tabela, nenhuma função: a
--- janela não guarda nada no servidor (o estado dela mora na memória da aba). Pode rodar mais de uma vez.
+-- janela não guarda nada no servidor (o estado dela mora na memória da aba). Pode rodar mais de uma vez. Termina passando a
+-- porta, como as outras avulsas da versão 18.
 do $$
 begin
   if to_regclass('interno.recursos_catalogo') is not null then
@@ -13,3 +14,5 @@ begin
       on conflict (nome) do update set so_pelo_nome = false;
   end if;
 end $$;
+
+select interno.alumia_trancar();
