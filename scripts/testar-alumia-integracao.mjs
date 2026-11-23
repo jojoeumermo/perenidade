@@ -132,7 +132,21 @@ if (install.includes(SQL)) ok("a migração está no fim do install.sql (depois 
     install.lastIndexOf(R3[4]) < posP5[0] && posP5.every((k, i) => k > 0 && (i === 0 || posP5[i - 1] < k))
     && P5.every((t) => install.indexOf(t) === install.lastIndexOf(t)));
   const P4 = ["cifrado-sem-anexo", "anexo-cifrado", "selo-contagens", "presenca-print", "avisos-de-local", "seguranca-pessoal", "meusdados", "fim"].map((n) => normal(ler("supabase/migracoes/20261127-p4-" + n + ".sql")));
-  ok("o install.sql termina com o fim do Prompt 4", install.endsWith(P4[P4.length - 1]));
+  // Depois do fim do Prompt 4 vêm só as migrações avulsas da versão 18 (não mexem na versão nem na porta), em ordem.
+  const DEPOIS_DO_P4 = ["20261128-coordenacao-geral.sql"].map((n) => normal(ler("supabase/migracoes/" + n)));
+  ok("o install.sql termina com o fim do Prompt 4 e, depois dele, só as avulsas da versão 18, em ordem", (() => {
+    let pos = install.lastIndexOf(P4[P4.length - 1]);
+    if (pos < 0) return false;
+    pos += P4[P4.length - 1].length;
+    for (const t of DEPOIS_DO_P4) {
+      const achou = install.indexOf(t, pos);
+      if (achou < 0 || install.slice(pos, achou).trim() !== "") return false;
+      pos = achou + t.length;
+    }
+    return install.slice(pos).trim() === "";
+  })());
+  ok("as avulsas da versão 18 não mexem na versão nem na lista da porta e terminam passando a porta",
+    DEPOIS_DO_P4.every((t) => !/function public\.rede_alumia_versao|function interno\.alumia_porta_aberta/.test(t) && /select interno\.alumia_trancar\(\);$/.test(t)));
   ok("o fim do Prompt 4 sobe a versão para 18", /create or replace function public\.rede_alumia_versao\(\)[\s\S]*?select 18\s*\$\$/.test(P4[P4.length - 1]));
   ok("o fim do Prompt 4 termina passando a porta", /select interno\.alumia_trancar\(\);$/.test(P4[P4.length - 1]));
   ok("cada migração do Prompt 4 termina passando a porta", P4.every((t) => /select interno\.alumia_trancar\(\);$/.test(t)));
