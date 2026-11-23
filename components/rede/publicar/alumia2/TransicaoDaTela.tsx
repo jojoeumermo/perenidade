@@ -27,15 +27,20 @@ export function trocaAnimada(): boolean {
   return !semMovimento() && !raiz.hasAttribute("data-eink") && !raiz.hasAttribute("data-leitor");
 }
 
-/** Espera o endereço mudar (o roteador trocou de tela), no máximo `limite` ms. */
+/**
+ * Espera o endereço mudar (o roteador trocou de tela), no máximo `limite` ms. Olha por relógio, e não por requestAnimationFrame:
+ * enquanto a transição espera esta promessa, o navegador não pinta quadro nenhum, e o requestAnimationFrame não volta a ser chamado.
+ * Com ele, a promessa só acabava quando o navegador desistia da transição (4 s no Chrome), e cada clique deixava a tela parada esse
+ * tempo todo.
+ */
 function esperarOEndereco(de: string, limite = 700): Promise<void> {
   return new Promise((pronto) => {
     const fim = performance.now() + limite;
     const olhar = () => {
       if (window.location.pathname + window.location.search !== de || performance.now() > fim) return pronto();
-      requestAnimationFrame(olhar);
+      window.setTimeout(olhar, 10);
     };
-    requestAnimationFrame(olhar);
+    olhar();
   });
 }
 
