@@ -4,7 +4,7 @@
 import "@/styles/vale-o-escrito.css";
 import type { CSSProperties, KeyboardEvent, ReactNode } from "react";
 import type { TextosDoObservatorio } from "@/lib/vale-o-escrito/textos";
-import { fioDaTeia, sementeDoPar, type ArestaDaTeia, type NoDaTeia, type Ponto } from "@/lib/vale-o-escrito/visual";
+import { fioDaTeia, raioDoNo, sementeDoPar, type ArestaDaTeia, type NoDaTeia, type Ponto } from "@/lib/vale-o-escrito/visual";
 
 export type S = TextosDoObservatorio;
 
@@ -16,7 +16,7 @@ export interface PropsDeVisao {
   s: S;
 }
 
-export const raioDoNo = (n: NoDaTeia): number => (n.tipo === "entrada" ? 7 + Math.min(n.grau, 8) * 0.7 : n.tipo === "lugar" ? 5 : 6);
+export { raioDoNo };
 
 export const truncar = (texto: string, max: number): string => {
   const t = Array.from(texto);

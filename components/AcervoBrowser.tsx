@@ -5,7 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { fill, localePath, plural } from "@/i18n/config";
 import { areaSlugs, essential, groups, licenses } from "@/lib/areas";
-import type { Book, CatalogEntry } from "@/lib/content";
+import type { CatalogEntry, ObraNaEstante as Book } from "@/lib/content";
 import { normalize } from "@/lib/text";
 import { licenseName } from "./Cards";
 import { CapaDoLivro, tomDe } from "./acervo/CapaDoLivro";

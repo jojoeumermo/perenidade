@@ -3,7 +3,7 @@ import Link from "@/components/Link";
 import type { ReactNode } from "react";
 import { fill } from "@/i18n/config";
 import type { CoreDict } from "@/i18n/core";
-import type { Book } from "@/lib/content";
+import type { ObraNaEstante as Book } from "@/lib/content";
 import { licenseName } from "../Cards";
 import { originalLang } from "../Untranslated";
 import { CapaDoLivro } from "./CapaDoLivro";

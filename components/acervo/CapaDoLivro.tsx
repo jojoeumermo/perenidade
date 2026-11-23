@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-import type { Book } from "@/lib/content";
+import type { ObraNaEstante as Book } from "@/lib/content";
 
 const TONS = ["#17130e", "#6e1f1a", "#c21f16", "#4a4032", "#8a5a16", "#1f3a2d", "#2b3a55"];
 /** A cor da coleção de cada área: a mesma em todo o site (capa desenhada, etiqueta das estantes). */

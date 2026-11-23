@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import type { Book } from "@/lib/content";
+import type { ObraNaEstante as Book } from "@/lib/content";
 import { CapaDoLivro } from "./CapaDoLivro";
 import { L } from "../I18n";
 
