@@ -8,6 +8,7 @@ import { hasBackend, rpc } from "@/lib/backend";
 import { hostDaAlumia } from "@/lib/rede/alumia";
 import { getItem, KEYS, parse, setItem, useHydrated, useStored } from "@/lib/storage";
 import { safeLink } from "@/lib/text";
+import { isLocale, localePath } from "@/i18n/config";
 import { useI18n } from "./I18n";
 
 export interface Notice {
@@ -49,6 +50,16 @@ const CONVITE: Notice = {
   ate: "",
 };
 const TRINTA_DIAS = 30 * 24 * 3600 * 1000;
+
+/**
+ * O link interno do quadro sempre com o idioma na frente ("/apoie" vira "/pt/apoie"). Sem ele, o endereço responde com um
+ * redirecionamento (308) e o pré-carregamento do <Link> o repetia sem parar enquanto o quadro estava aberto: eram cerca de
+ * cinquenta pedidos por segundo ao servidor, por aba, todos fora do cache da Cloudflare.
+ */
+function comIdioma(lang: string, link: string): string {
+  if (!link.startsWith("/") || link.startsWith("//")) return link;
+  return isLocale(link.split(/[/?#]/)[1] ?? "") ? link : localePath(lang, link);
+}
 
 const SEIS_HORAS = 6 * 3600 * 1000;
 
@@ -143,7 +154,7 @@ export function OpeningNotice({ initial, close }: { initial: Notice | null; clos
             {safeLink(notice.link) &&
               notice.link_texto &&
               (internal ? (
-                <Link href={notice.link} onClick={() => dialog.current?.close()} className="bg-oxblood px-5 py-2.5 font-medium text-parchment hover:bg-ink">
+                <Link href={comIdioma(lang, notice.link)} onClick={() => dialog.current?.close()} className="bg-oxblood px-5 py-2.5 font-medium text-parchment hover:bg-ink">
                   {notice.link_texto}
                 </Link>
               ) : (
