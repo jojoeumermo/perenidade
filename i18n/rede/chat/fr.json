@@ -27,7 +27,7 @@
   },
   "lista": {
     "rotulo": "Vos conversations",
-    "vazio": "Aucune conversation pour l'instant. Ouvrez-en une avec le @ de la personne ou depuis son profil.",
+    "vazio": "Aucune conversation pour l'instant. Commencez-en une avec le @ de la personne (dans le champ ci-dessus) ou depuis son profil.",
     "pedidos": "Demandes de conversation",
     "pedidoDe": "{nome} veut discuter avec vous.",
     "pedidoEnviado": "Demande envoyée. Quand la personne acceptera, vous pourrez écrire.",
@@ -44,7 +44,7 @@
     "restam": "{n} caractères",
     "grande": "Le message est trop long.",
     "semChave": "Impossible à ouvrir sur cet appareil (écrit avant un changement d'appareil).",
-    "semChaveDoOutro": "L'autre personne n'a pas encore activé le chat. Quand elle le fera, vous pourrez écrire.",
+    "semChaveDoOutro": "{nome} n'a pas encore activé le nouveau chat. La conversation s'ouvre dès que cette personne l'active.",
     "aguarde": "Préparation de la clé de la conversation…",
     "vazio": "Aucun message. Rappel : n'envoyez jamais d'adresse, de document ni de mot de passe, même ici.",
     "expira": "disparaît {quando}",
@@ -162,7 +162,7 @@
   },
   "erros": {
     "dm_fechada": "Impossible de discuter avec cette personne pour le moment.",
-    "dm_sem_chave": "Clé manquante : la conversation ne peut pas encore recevoir de messages.",
+    "dm_sem_chave": "Cette personne n'a pas encore activé le nouveau chat. La conversation s'ouvre dès qu'elle l'active.",
     "versao_desatualizada": "La clé de la conversation a changé. Réessayez.",
     "muitos_pedidos": "Doucement : trop de messages d'affilée. Réessayez dans un instant.",
     "consentimento": "Le chat privé est réservé aux personnes déjà entrées dans Alumia (18 ans ou plus).",
@@ -311,5 +311,27 @@
   "confirmar": {
     "sim": "Confirmer",
     "nao": "Annuler"
+  },
+  "janela": {
+    "botao": "Conversations",
+    "abrir": "Ouvrir les conversations",
+    "rotulo": "Conversations",
+    "minimizar": "Réduire les conversations",
+    "expandir": "Ouvrir la page Conversations",
+    "fechar": "Fermer les conversations",
+    "voltar": "Retour à la liste des conversations",
+    "buscar": "Chercher ou commencer une conversation",
+    "placeholder": "@ ou pseudonyme",
+    "buscarDica": "Vos conversations apparaissent pendant la saisie. Pour en commencer une nouvelle, utilisez le @ de la personne.",
+    "comecar": "Commencer une conversation avec @{nome}",
+    "vazio": "Aucune conversation pour l'instant. Commencez-en une avec le @ de la personne.",
+    "nadaNaBusca": "Aucune de vos conversations ne porte ce nom.",
+    "conversaCom": "Conversation avec {nome}",
+    "minimizarConversa": "Réduire la conversation avec {nome}",
+    "restaurarConversa": "Ouvrir la conversation avec {nome}",
+    "fecharConversa": "Fermer la conversation avec {nome}",
+    "ativarAqui": "Pour discuter d'ici, activez le chat sur cet appareil. Les clés restent uniquement sur lui.",
+    "outroAparelho": "Votre chat est actif sur un autre appareil. Pour relier celui-ci, ouvrez la page Conversations.",
+    "irParaConversas": "Ouvrir la page Conversations"
   }
 }

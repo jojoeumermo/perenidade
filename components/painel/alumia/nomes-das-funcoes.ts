@@ -15,6 +15,7 @@ export const NOMES_DAS_FUNCOES: Record<string, NomeDaFuncao> = {
   "alumia-org": { nome: "Organizações com selo", sobre: "Páginas das organizações, consultas à base, plenárias e prestação de contas." },
   "alumia-modo-ato": { nome: "Modo ato", sobre: "“Fui detido”, “Estou bem” e identidades, para o dia do ato. A segurança da conta e os aparelhos abrem com a cara nova." },
   "alumia-chat-grupo": { nome: "Conversa do núcleo", sobre: "A conversa cifrada de ponta a ponta entre as pessoas de um núcleo." },
+  "alumia-chat-flutuante": { nome: "Janela de conversas", sobre: "O botão Conversas no canto de baixo de todas as telas da Alumia, que abre as conversas por cima da tela, sem sair dela." },
   "alumia-proximas": { nome: "Telas em construção", sobre: "Transparência, listas e versão leve. Ligue só quando estiverem prontas." },
   "alumia-linha-aberta": { nome: "Linha com regra aberta (Em roda)", sobre: "A ordem da linha igual para todo mundo e escrita na tela, as linhas que cada pessoa monta e os assuntos em alta." },
   "alumia-aberta": { nome: "Alumia aberta", sobre: "Tira o aviso de “em construção” e abre a Alumia. Ligue só no fim das ondas, depois do SQL final." },

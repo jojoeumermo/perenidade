@@ -27,7 +27,7 @@
   },
   "lista": {
     "rotulo": "Tus conversaciones",
-    "vazio": "Aún no hay conversaciones. Abre una con el @ de la persona o desde su perfil.",
+    "vazio": "Aún no hay conversaciones. Empieza una con el @ de la persona (en el campo de arriba) o desde su perfil.",
     "pedidos": "Solicitudes de conversación",
     "pedidoDe": "{nome} quiere conversar contigo.",
     "pedidoEnviado": "Solicitud enviada. Cuando la persona acepte, podrán escribir.",
@@ -44,7 +44,7 @@
     "restam": "{n} caracteres",
     "grande": "El mensaje es demasiado largo.",
     "semChave": "No se puede abrir en este dispositivo (escrito antes de un cambio de dispositivo).",
-    "semChaveDoOutro": "La otra persona aún no activó el chat. Cuando lo active, podrán escribir.",
+    "semChaveDoOutro": "{nome} aún no activó el chat nuevo. La conversación se abre cuando esa persona lo active.",
     "aguarde": "Preparando la clave de la conversación…",
     "vazio": "Sin mensajes. Recuerda: nunca envíes dirección, documento ni contraseña, ni siquiera aquí.",
     "expira": "desaparece {quando}",
@@ -162,7 +162,7 @@
   },
   "erros": {
     "dm_fechada": "No se puede conversar con esta persona ahora.",
-    "dm_sem_chave": "Falta la clave: la conversación aún no puede recibir mensajes.",
+    "dm_sem_chave": "Esta persona aún no activó el chat nuevo. La conversación se abre cuando lo active.",
     "versao_desatualizada": "La clave de la conversación cambió. Inténtalo de nuevo.",
     "muitos_pedidos": "Calma: muchos mensajes seguidos. Inténtalo de nuevo en un rato.",
     "consentimento": "El chat privado es solo para quien ya entró en Alumia (18 años o más).",
@@ -311,5 +311,27 @@
   "confirmar": {
     "sim": "Confirmar",
     "nao": "Cancelar"
+  },
+  "janela": {
+    "botao": "Conversaciones",
+    "abrir": "Abrir las conversaciones",
+    "rotulo": "Conversaciones",
+    "minimizar": "Minimizar las conversaciones",
+    "expandir": "Abrir la página Conversaciones",
+    "fechar": "Cerrar las conversaciones",
+    "voltar": "Volver a la lista de conversaciones",
+    "buscar": "Buscar o empezar una conversación",
+    "placeholder": "@ o nombre",
+    "buscarDica": "Tus conversaciones aparecen mientras escribes. Para empezar una nueva, usa el @ de la persona.",
+    "comecar": "Empezar conversación con @{nome}",
+    "vazio": "Aún no hay conversaciones. Empieza una con el @ de la persona.",
+    "nadaNaBusca": "Ninguna de tus conversaciones tiene ese nombre.",
+    "conversaCom": "Conversación con {nome}",
+    "minimizarConversa": "Minimizar la conversación con {nome}",
+    "restaurarConversa": "Abrir la conversación con {nome}",
+    "fecharConversa": "Cerrar la conversación con {nome}",
+    "ativarAqui": "Para conversar desde aquí, activa el chat en este dispositivo. Las claves se quedan solo en él.",
+    "outroAparelho": "Tu chat está activo en otro dispositivo. Para vincular este, abre la página Conversaciones.",
+    "irParaConversas": "Abrir la página Conversaciones"
   }
 }

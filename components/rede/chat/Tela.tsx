@@ -24,6 +24,7 @@ import { carregarTextosDaConversaP4, type TextosDaConversaP4 } from "@/lib/rede/
 import { Notas } from "./Notas";
 import { CONFERIR_AGENDADAS_MS } from "@/lib/rede/chat/agendar";
 import { botaoForte, botaoLeve, erroDoChat } from "./comum";
+import { listaSemChatAqui } from "@/lib/rede/chat/lista-inicial";
 import { useEscondidasDaViagem } from "../conta/NoChat";
 
 type Aparelho = { estado: "carregando" } | { estado: "pronto"; eu: Eu } | { estado: "sem_chave" } | { estado: "outro_aparelho"; tinhaChaveAqui: boolean } | { estado: "apagado" } | { estado: "erro"; texto: string; calmo: boolean };
@@ -72,8 +73,10 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
     };
   }, [lang]);
 
+  // Sem o chat novo neste aparelho, a lista é vazia (não é erro): quem decide o que aparece é o estado do aparelho (o convite para
+  // ativar). Antes, o "dm_sem_chave" daqui virava a tela inteira de erro ("Falta a chave") só por abrir Conversas.
   const recarregar = useCallback(async () => {
-    const [nova, conversas] = await Promise.all([chat.situacao(), chat.conversas()]);
+    const [nova, conversas] = await Promise.all([chat.situacao(), chat.conversas().catch(listaSemChatAqui<ConversaDoChat>)]);
     setSit(nova);
     setLista(conversas);
     return { nova, conversas };

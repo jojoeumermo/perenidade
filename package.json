@@ -361,6 +361,8 @@
     "testar:p4-organizacao": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-p4-organizacao.mjs",
     "testar:p4-coletiva": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-p4-coletiva.mjs",
     "testar:p4-conversa": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-p4-conversa.mjs",
+    "testar:chat-flutuante": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-chat-flutuante.mjs",
+    "testar:chat-flutuante-tela": "playwright test e2e/chat-flutuante --project=computador",
     "testar:p4-perto": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-p4-perto.mjs",
     "testar:p4-descoberta-estudo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-p4-descoberta-estudo.mjs",
     "testar:p4-conta": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-p4-conta.mjs",

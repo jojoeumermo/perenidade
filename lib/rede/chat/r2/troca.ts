@@ -15,9 +15,13 @@ export function dataDaTrocaNaTela(data: string | null = DATA_DA_TROCA): string |
   return `${d}/${m}/${a}`;
 }
 
-/** O aviso de antes vale até a data (e some depois dela). */
+/**
+ * O aviso de ANTES ("serão apagados neste dia") vale só até o dia da troca começar (00:00 em UTC). No próprio dia e depois dele a
+ * frase no futuro já não é verdade: some, e quem tinha o chat do beta neste aparelho vê uma vez o aviso de depois ("foram apagadas
+ * em DD/MM", quando a limpeza deste aparelho roda: lib/rede/chat/r2/limpeza.ts).
+ */
 export function avisarTroca(agora = Date.now(), data: string | null = DATA_DA_TROCA): boolean {
   if (!data) return false;
   const dia = Date.parse(`${data}T00:00:00Z`);
-  return Number.isFinite(dia) && agora < dia + 86_400_000;
+  return Number.isFinite(dia) && agora < dia;
 }
