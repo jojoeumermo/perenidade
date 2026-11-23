@@ -23,6 +23,19 @@
     "questoes": { "titulo": "题库", "descricao": "按科目和主题分类的题目，作答后才显示正确答案和解析。答对情况只保存在你的设备上。" },
     "redacao": { "titulo": "作文互评", "descricao": "本周的互评小组：你在不知道作者是谁的情况下批改一篇作文，并按 ENEM 的五项能力收到两份评阅。" },
     "pontes": { "titulo": "桥梁", "descricao": "组织的机器人（带标签和密钥）以及 Telegram 频道。" },
-    "trabalhadores": { "titulo": "工人公告栏", "descricao": "经认证组织发布的斗争、罢工与团结号召，可按类型和城市查看。" }
+    "trabalhadores": { "titulo": "工人公告栏", "descricao": "经认证组织发布的斗争、罢工与团结号召，可按类型和城市查看。" },
+    "avisos-de-local": { "titulo": "地点提醒", "descricao": "类似 Waze 的街头提醒，不带作者，落在约 200 米的方格里，2 小时后消失。" },
+    "seguranca-pessoal": { "titulo": "个人安全", "descricao": "侵害记录、法律值班和失联开关，在你的设备上加密。" },
+    "criacao-coletiva": { "titulo": "共同创作", "descricao": "共同起草声明或宣言,在资料库页边批注,在你的设备上制作海报和小志。" },
+    "cultura": { "titulo": "文化", "descricao": "连载作品与新章节提醒、署代号的艺术墙、电影社、读书会和社群共享歌单。" },
+    "memoria-da-luta": { "titulo": "斗争的记忆", "descricao": "你所在社区的胜利、运动、活档案和播客。" },
+    "desafio": { "titulo": "每日挑战", "descricao": "五道词汇表题目，今天所有人都一样。分数只保存在你的设备上。" },
+    "organizar": { "titulo": "组织起来", "descricao": "组织的看板、会议和决定；社区的互助墙、时间银行和支援点。" },
+    "acao-coletiva": { "titulo": "集体行动", "descricao": "施压、法案追踪、文书、信件、问卷、行动、住宿、入会、轮值与组织。" },
+    "perto": { "titulo": "附近", "descricao": "只以加密方式与信任圈分享位置、求助和回家计时。" },
+    "descobrir": { "titulo": "发现", "descricao": "正在流动的话题、别人关注的时间线、来自已批准服务器的联邦宇宙 #话题，以及 RSS 和 Atom 地址。" },
+    "estudar": { "titulo": "学习", "descricao": "只在设备上的节奏和复习卡组、班级模拟考、互助辅导、资料来源、数字安全、报名日历、招募公告和词汇表。" },
+    "conta": { "titulo": "账户与社区", "descricao": "保护级别、提及、回复时间、照看你的社区、日记和旅行模式。" },
+    "fio-texto": { "titulo": "以文本阅读串", "descricao": "把作者的串连成一篇文字，只包含你已经能看到的内容。" }
   }
 }

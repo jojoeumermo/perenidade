@@ -82,7 +82,7 @@ mostrar nenhum na tela. Nenhum é do Instituto, e nenhum deve ser copiado de out
 | `REDE_PREVIA_SEGREDO` | assina o endereço da imagem da prévia de link | sem efeito duradouro |
 | `OG_SEGREDO` | assina os cartões de compartilhamento | sem efeito duradouro |
 | `ALUMIA_FAXINA_SEGREDO` | autentica a chamada da faxina dos arquivos das contas apagadas (o banco chama a rota de hora em hora) | o banco precisa do mesmo valor (passo 5.3) |
-| `ALUMIA_VOTO_SEGREDO` | o voto secreto (docs/rede/VOTO-SECRETO.md): a marca de quem já votou nas enquetes de post e de story, na votação secreta da equipe e no termômetro, e a chave que cifra a cédula das consultas. Sem ele, nada disso funciona: o banco recusa o voto direto e o servidor responde "sem serviço" | **nunca troque com consulta aberta ou enquete em andamento**: as cédulas cifradas deixam de abrir e quem já votou pode votar de novo |
+| `ALUMIA_VOTO_SEGREDO` | o voto secreto (docs/rede/VOTO-SECRETO.md): a marca de quem já votou nas enquetes de post e de story, na votação secreta da equipe, no termômetro, no "pouco útil" das respostas e no "mandei" da pressão em parlamentar, e a chave que cifra a cédula das consultas. Sem ele, nada disso funciona: o banco recusa o voto direto e o servidor responde "sem serviço" | **nunca troque com consulta aberta ou enquete em andamento**: as cédulas cifradas deixam de abrir e quem já votou pode votar de novo |
 
 O arquivo só o root lê (permissão 600). Guarde uma cópia dos segredos no gerenciador de senhas da organização, fora da máquina.
 Numa máquina preparada antes da onda 9, rodar o `preparar.sh` de novo acrescenta o `ALUMIA_VOTO_SEGREDO` (só se faltar). Ponha o

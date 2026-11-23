@@ -72,6 +72,8 @@ const um = async (s, v = []) => (await dono(s, v)).rows[0];
 ok("o install.sql do ramo sobe do zero", true);
 await espera("a migração roda por cima do install.sql", () => exec(SQL));
 await espera("e de novo (idempotente)", () => exec(SQL));
+// O install.sql inteiro de novo por cima: as definições finais (a R2 redefiniu funções desta migração) voltam a valer.
+await espera("e o install.sql inteiro de novo por cima (as definições finais voltam)", () => banco.instalarDeNovo());
 if (install.includes(SQL)) ok("a migração está no fim do install.sql (depois dela, só migrações datadas)", noFimDoInstall(SQL, install));
 {
   const r = (await um("select interno.alumia_trancar() as r")).r;
@@ -140,9 +142,13 @@ try {
   await dono("insert into interno.rede_seguindo (quem, segue, pendente) values ($1, $2, false)", [P.bia, P.ana]);
   await dono("insert into interno.rede_roda (dono, membro) values ($1, $2)", [P.ana, P.dani]);
   const { id: NUCLEO } = await um("insert into interno.rede_nucleos (nome) values ('Núcleo do teste') returning id");
-  for (const n of ["ana", "bia", "caio"]) await dono("insert into interno.rede_nucleo_membros (nucleo, usuario) values ($1, $2)", [NUCLEO, P[n]]);
+  // (R2, membros escondidos: o servidor não guarda mais quem é de qual núcleo; a filiação mora no grupo, nos aparelhos.)
   await dono("insert into interno.rede_comunidades (slug, nome, categoria, tipo) values ('roda-fechada', 'Roda fechada', 'lutas', 'fechada'), ('praca-aberta', 'Praça aberta', 'lutas', 'aberta'), ('aula-aberta', 'Aula aberta', 'disciplinas', 'aberta')");
   for (const n of ["ana", "bia"]) await dono("insert into interno.rede_comunidade_membros (comunidade, usuario, situacao) values ('roda-fechada', $1, 'ativo')", [P[n]]);
+  // O grupo cifrado de três pessoas (Ana, Bia e Caio) para o "só mencionados": depois da R2 (membros escondidos) o núcleo não aceita
+  // post no servidor, e o grupo daqui é uma comunidade fechada.
+  await dono("insert into interno.rede_comunidades (slug, nome, categoria, tipo) values ('roda-tres', 'Roda de três', 'lutas', 'fechada') on conflict do nothing");
+  for (const n of ["ana", "bia", "caio"]) await dono("insert into interno.rede_comunidade_membros (comunidade, usuario, situacao) values ('roda-tres', $1, 'ativo')", [P[n]]);
   for (const n of ["ana", "edu"]) await dono("insert into interno.rede_comunidade_membros (comunidade, usuario, situacao) values ('praca-aberta', $1, 'ativo'), ('aula-aberta', $1, 'ativo')", [P[n]]);
 
   // O modo total do Fediverso ligado e a federação da ana ligada desde ontem (consentimento da versão 2).
@@ -178,7 +184,7 @@ try {
   V.comunidade = await espera("só a comunidade: publica", () => publicar("ana", { comunidade: "praca-aberta", publico: "comunidade", texto: "Só a praça." }), (r) => r?.id);
   V.membrosAula = await espera("todos na Alumia numa comunidade das disciplinas: publica", () => publicar("ana", { comunidade: "aula-aberta", publico: "membros", texto: "Da aula, só na Alumia." }), (r) => r?.id);
   V.internetAula = await espera("aberto na internet numa comunidade das disciplinas: publica", () => publicar("ana", { comunidade: "aula-aberta", publico: "internet", texto: "Da aula, aberto." }), (r) => r?.id);
-  V.nucleo = await espera("núcleo cifrado: publica", () => publicar("ana", { publico: "nucleo", nucleo: NUCLEO, grupo: `nucleo:${NUCLEO}`, corpo_grupo: CIFRA }), (r) => r?.id);
+  await recusa("núcleo cifrado: o servidor não aceita mais (R2: o mural do núcleo é do grupo, nos aparelhos)", () => publicar("ana", { publico: "nucleo", nucleo: NUCLEO, grupo: `nucleo:${NUCLEO}`, corpo_grupo: CIFRA }), "sem_permissao");
   V.fechada = await espera("comunidade fechada cifrada: publica", () => publicar("ana", { comunidade: "roda-fechada", publico: "comunidade", grupo: "comunidade:roda-fechada", corpo_grupo: CIFRA }), (r) => r?.id);
   const id = (k) => V[k]?.id;
 
@@ -187,7 +193,7 @@ try {
   // A = ana (autora), B = bia (segue), C = caio (só conta), D = dani (na roda), E = edu (da comunidade), V = visitante.
   const esperado = {
     eu: "A-----", roda: "A--D--", seguidores: "AB----", membros: "ABCDE-", internet: "ABCDE-", comunidade: "A---E-",
-    membrosAula: "ABCDE-", internetAula: "ABCDEV", nucleo: "ABC---", fechada: "AB----",
+    membrosAula: "ABCDE-", internetAula: "ABCDEV", fechada: "AB----",
   };
   for (const [k, quem] of Object.entries(esperado)) await espera(`quem vê "${k}" é ${quem}`, () => quemVe(id(k)), (r) => r === quem);
   await espera("só eu: a regra antiga (interno.rede_ve de um argumento) também não entrega a ninguém além da autora", async () => {
@@ -237,7 +243,7 @@ try {
   }
 
   // ═══════════════════ 4. Só "Alumia e Fediverso" federa; nada do "só nela" sai por RSS, incorporação, Telegram ou resumo ═══════════════════
-  for (const k of ["eu", "roda", "seguidores", "membros", "comunidade", "membrosAula", "nucleo", "fechada"]) {
+  for (const k of ["eu", "roda", "seguidores", "membros", "comunidade", "membrosAula", "fechada"]) {
     await espera(`"${k}" não federa nem sai por RSS, incorporação, Telegram ou resumo`, () => sai(id(k)), (r) => r.fed === false && r.alc === false);
   }
   await espera("Alumia e Fediverso federa (e, como na Alumia vale para quem tem conta, não sai pelo RSS aberto)", () => sai(id("internet")), (r) => r.fed === true && r.alc === false);
@@ -268,8 +274,8 @@ try {
   await dono("update interno.configuracoes set valor = '{\"total\": \"true\"}'::jsonb where chave = 'fediverso'");
 
   // ═══════════════════ 5. "Só mencionados" no post cifrado ═══════════════════
-  const cifrado = (extra) => ({ publico: "nucleo", nucleo: NUCLEO, grupo: `nucleo:${NUCLEO}`, corpo_grupo: CIFRA, responde_quem: "mencionados", ...extra });
-  const resposta = (quem, post) => publicar(quem, { resposta_a: post, grupo: `nucleo:${NUCLEO}`, corpo_grupo: CIFRA });
+  const cifrado = (extra) => ({ comunidade: "roda-tres", publico: "comunidade", grupo: "comunidade:roda-tres", corpo_grupo: CIFRA, responde_quem: "mencionados", ...extra });
+  const resposta = (quem, post) => publicar(quem, { resposta_a: post, grupo: "comunidade:roda-tres", corpo_grupo: CIFRA });
   const comLista = await espera("o post cifrado com só mencionados leva a lista dos @ (só os nomes)", () => publicar("ana", cifrado({ mencionados: ["@Pessoa_Bia", "pessoa_bia"] })), (r) => r?.id && r.texto === "");
   await espera("no banco o texto continua vazio, e a lista fica em minúsculas, sem repetir", async () => [await linha(comLista?.id), await um("select mencionados from interno.rede_pub_extras where post = $1", [comLista?.id])],
     ([p, e]) => p.texto === "" && p.corpo_grupo === CIFRA && JSON.stringify(e.mencionados) === JSON.stringify(["pessoa_bia"]));
@@ -286,7 +292,7 @@ try {
   await recusa("lista com mais de 20: recusa", () => publicar("ana", cifrado({ mencionados: Array.from({ length: 21 }, (_, i) => `pessoa_${i}xx`) })), "invalido:mencionados");
   await recusa("lista com nome fora do formato: recusa", () => publicar("ana", cifrado({ mencionados: ["pessoa bia"] })), "invalido:mencionados");
   await recusa("lista que não é lista: recusa", () => publicar("ana", cifrado({ mencionados: "pessoa_bia" })), "invalido:mencionados");
-  await recusa("lista numa resposta: recusa (quem decide é o post que abre a conversa)", () => publicar("bia", { resposta_a: comLista?.id, grupo: `nucleo:${NUCLEO}`, corpo_grupo: CIFRA, mencionados: ["pessoa_caio"] }), "invalido:mencionados");
+  await recusa("lista numa resposta: recusa (quem decide é o post que abre a conversa)", () => publicar("bia", { resposta_a: comLista?.id, grupo: "comunidade:roda-tres", corpo_grupo: CIFRA, mencionados: ["pessoa_caio"] }), "invalido:mencionados");
   const aberto = await espera("controle: no post aberto, só mencionados continua lendo os @ do texto", () => publicar("ana", { texto: "Chamo @pessoa_bia para a conversa.", responde_quem: "mencionados" }), (r) => r?.id);
   await espera("a mencionada no texto aberto responde", () => publicar("bia", { resposta_a: aberto?.id, texto: "Cheguei." }), (r) => r?.id);
   await recusa("e quem não foi mencionado no texto aberto não", () => publicar("caio", { resposta_a: aberto?.id, texto: "E eu?" }), "sem_permissao");

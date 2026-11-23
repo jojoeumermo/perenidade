@@ -26,6 +26,24 @@
   },
   "prioridade": { "1": "Priorité 1", "2": "Priorité 2", "3": "Priorité 3" },
   "denunciar": {
+    "prova": {
+      "titulo": "Signaler avec preuve",
+      "explica": "Cochez les messages qui montrent le problème. Alumia vérifie qu'ils viennent de cette conversation sans que personne ne lise le reste.",
+      "saem": "Attention : les messages cochés sortent du chiffrement et vont à la modération, qui les lira. Le reste de la conversation reste chiffré.",
+      "passa": "Pour la vérification, chaque message coché passe en entier par le serveur du site ; seul l'extrait que vous gardez est conservé avec le signalement.",
+      "marcadas": "Messages cochés : {n}",
+      "nenhuma": "Cochez au moins un message.",
+      "marcar": "Envoyer ce message",
+      "rotulo": "L'extrait (coupez ce qui n'est pas utile, jusqu'à 1 000 caractères)",
+      "foraDaMensagem": "L'extrait doit figurer dans le message, avec les mêmes lettres. Coupez, mais ne réécrivez pas.",
+      "semProva": "Ce message est arrivé sans preuve (avant le changement du chat ou depuis un ancien appareil) : il ne peut pas servir de preuve.",
+      "quem": "Qui l'a écrit, d'après cet appareil : {nome}",
+      "deduzir": "Dans une conversation à deux ou un petit groupe, l'auteur peut deviner qui a signalé.",
+      "enviar": "Envoyer le signalement avec preuve",
+      "feito": "Signalement avec preuve reçu. Protocole {protocolo}.",
+      "limite": "La preuve montre que le texte exact est passé par cette conversation ce jour-là, envoyé avec le passe que l'autre personne a signé comme le sien. Les messages de groupe ne portent pas cette signature et partent sans preuve.",
+      "postCifrado": "Ce post porte la preuve : l'extrait envoyé sera vérifié avec le post, qui reste chiffré."
+    },
     "titulo": "Signaler",
     "tituloPerfil": "Signaler ce profil",
     "tituloComunidade": "Signaler cette communauté",
@@ -95,9 +113,22 @@
     "modoLentoAjuda": "Intervalle minimal entre deux messages de la même personne.",
     "lento": { "0": "Désactivé", "30": "30 secondes", "60": "1 minute", "300": "5 minutes", "900": "15 minutes", "3600": "1 heure" },
     "lentoAviso": "Mode lent activé ici : un message toutes les {tempo}.",
-    "confirmeDestrutivo": "Confirmer ? La personne le verra et cela reste dans le registre."
+    "confirmeDestrutivo": "Confirmer ? La personne le verra et cela reste dans le registre.",
+    "feitoProprio": "C’était votre post : il a été supprimé, sans avis de modération.",
+    "feitoRepetido": "C’était déjà fait. Rien n’a changé et personne n’a été averti à nouveau."
   },
   "fila": {
+    "prova": {
+      "titulo": "Extraits avec preuve ({n})",
+      "selo": "texte vérifié",
+      "explica": "Vérifié par le serveur : le texte est exact, est passé par la conversation de la personne qui signale ce jour-là et a été déposé avec le passe que le compte signalé a signé comme le sien (la signature correspond à sa clé dans le registre public). Limite : si les deux personnes s'entendent, la preuve vaut contre la personne qui a écrit, jamais contre une tierce personne. Comparez avec le reste du dossier.",
+      "dia": "message du {dia}",
+      "origem": {
+        "conversa": "conversation à deux",
+        "grupo": "groupe",
+        "post": "post chiffré"
+      }
+    },
     "titulo": "File de modération",
     "abas": { "denuncias": "Signalements", "retidos": "En attente de lecture", "recursos": "Recours", "lugares": "Lieux", "niveis": "Niveaux" },
     "abertas": "Ouverts",
@@ -248,6 +279,7 @@
     "verDenuncias": "Mes signalements et recours"
   },
   "erros": {
+    "prova_nao_confere": "La preuve ne concorde pas : l'extrait doit figurer dans le message tel qu'il est arrivé. Coupez, mais ne réécrivez pas.",
     "modo_lento": "Ce lieu est en mode lent : attendez un peu avant de réécrire.",
     "nivel_links": "Votre niveau ne permet pas encore autant de liens dans un message. Voyez les limites dans Comment Alumia veille.",
     "nivel_imagens": "Votre niveau ne permet pas encore autant d'images dans un message. Voyez les limites dans Comment Alumia veille.",

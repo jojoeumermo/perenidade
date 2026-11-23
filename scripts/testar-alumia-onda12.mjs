@@ -160,6 +160,9 @@ const LINHA_COM_PADRAO = `
   await espera("nenhuma função recebe linha de tabela com valor padrão", async () => (await dono(LINHA_COM_PADRAO)).rows.map((r) => r.f), (l) => l.length === 0);
   await espera("os interruptores alumia-coautoria e alumia-video-post estão no catálogo, só pelo nome", async () => (await dono("select nome from interno.recursos_catalogo where nome in ('alumia-coautoria', 'alumia-video-post') and so_pelo_nome order by 1")).rows.map((r) => r.nome), (n) => n.join() === "alumia-coautoria,alumia-video-post");
   await espera("o vídeo nasce desligado no banco", async () => (await dono("select coalesce((select ligado from interno.recursos_vivos where nome = 'alumia-video-post'), false) as l")).rows[0].l, (l) => l === false);
+  // Rodar a onda 12 de novo por cima prova o código dela como foi escrito: o que ela pressupõe dos núcleos (a filiação, que a R2 tirou
+  // do banco) volta só neste banco de teste (scripts/banco-local.mjs, legadoDosNucleos).
+  await espera("o legado dos núcleos que a onda 12 pressupõe (só neste banco de teste)", () => banco.legadoDosNucleos());
   await espera("a onda roda de novo por cima do install.sql", () => exec(onda));
   await espera("e mais uma vez, sem estrago (idempotente)", () => exec(onda));
   await espera("a versão é a da onda 12 (9), já que o fim dela rodou por último, e sem porta aberta", async () => [await rpc({ papel: "anon", ip: "203.0.113.6" }, "rede_alumia_versao"), (await dono("select interno.alumia_trancar() as r")).rows[0].r], ([v, r]) => v === 9 && r.abertas.length === 0);

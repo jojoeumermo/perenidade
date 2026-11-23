@@ -14,6 +14,7 @@ import { apagarAcertos, letra, lerAcertos, resumoDosAcertos, type AcertosNoApare
 import { erroDasQuestoes, useTextosDasQuestoes, type TextosDasQuestoes } from "./textos";
 import type { Materias, Questao, QuestaoCompleta, QuestaoDenunciada } from "./tipos";
 import "./questoes.css";
+import { confirmar } from "@/components/perguntar";
 
 type Parte = "praticar" | "acertos" | "minhas" | "escrever" | "denunciadas";
 const PARTES: Parte[] = ["praticar", "acertos", "minhas", "escrever", "denunciadas"];
@@ -321,8 +322,8 @@ function MeusAcertos({ t, acertos, aoApagar }: { t: TextosDasQuestoes; acertos: 
           <button
             type="button"
             className="qst-botao qst-botao-contorno"
-            onClick={() => {
-              if (!window.confirm(t.acertos.confirmar)) return;
+            onClick={async () => {
+              if (!(await confirmar(t.acertos.confirmar))) return;
               apagarAcertos(guardaDoAparelho());
               aoApagar();
               setFeito(true);
@@ -352,7 +353,7 @@ function MinhasQuestoes({ lang, s, t, aoEditar, aoMudar }: { lang: string; s: Te
   }, [t, s]);
 
   async function apagar(id: string) {
-    if (!window.confirm(t.minhas.confirmarApagar)) return;
+    if (!(await confirmar(t.minhas.confirmarApagar))) return;
     try {
       await questoes.apagar(id);
       setItens((x) => (x ?? []).filter((q) => q.id !== id));

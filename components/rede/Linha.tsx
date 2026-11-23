@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "@/components/Link";
 import { rede } from "@/lib/rede/cliente";
 import { linhaAberta, type AbaDaRegra, type PostDaLinha } from "@/lib/rede/cliente-linha";
@@ -11,9 +11,12 @@ import { redePub } from "@/lib/rede/cliente-publicar";
 import { misturarRepostes } from "@/lib/rede/publicar/alumia2";
 import { preencher } from "@/lib/rede/preencher";
 import { comReserva } from "@/lib/rede/reserva";
+import { assinarPostsACaminho, cabeNaLinha, juntarConfirmados, postsACaminho, type PostACaminho } from "@/lib/rede/otimista";
 import type { TextosDaLinha } from "@/lib/rede/textos-linha";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { lerSilenciosLocais, silenciadoNoAparelho, type SilencioLocal } from "@/lib/rede/silenciar-local";
+import { ligado } from "@/lib/recursos";
+import { lerEsconderSemDescricao, semImagensSemDescricao } from "@/lib/rede/publicar/p4-compositor";
 import type { Aba, Post } from "@/lib/rede/tipos";
 import { chaveDoItem, deForaVale, estadoInicialDeFora, limiteDaPagina, maisDeFora, misturarDeFora, misturarDeForaNaRoda, type EstadoDeFora } from "@/lib/rede/fediverso/tela/linha";
 import type { CartaoDeFora } from "@/lib/rede/fediverso/tela/tipos";
@@ -22,6 +25,7 @@ import { textoDoErro } from "./erros";
 import { EsqueletoDaLinha, EsqueletoDoPost } from "./Esqueletos";
 import { useAlumia2 } from "./publicar/alumia2/contexto";
 import { Icone } from "./publicar/alumia2/icones";
+import { useEmDia, VoceEstaEmDia } from "./descoberta-estudo/EmDia";
 
 /** De quanto em quanto tempo se pergunta "N novos" (só com a página à vista; nada de tempo real por enquanto). */
 const ESPERA_DOS_NOVOS_MS = 60_000;
@@ -112,7 +116,11 @@ export function Linha({
     const m = memoria.get(chave);
     return m && m.geracao === geracao && Date.now() - m.quando < VALIDADE_DA_MEMORIA_MS ? m : null;
   });
-  const [itens, setItens] = useState<Post[]>(() => lembrada?.itens ?? []);
+  // A17 (interface otimista): o post que a pessoa acabou de publicar entra no alto na hora, sem recarregar a linha
+  // (lib/rede/otimista.ts). `pedidaEm` é o instante em que esta lista saiu do banco: o confirmado antes disso já veio nela (antes da
+  // primeira resposta, nenhum: a própria resposta junta o que chegou enquanto isso).
+  const pedidaEm = useRef(lembrada?.quando ?? Number.POSITIVE_INFINITY);
+  const [itens, setItens] = useState<Post[]>(() => (lembrada ? juntarConfirmados(aba, lembrada.itens, lembrada.quando) : []));
   const [proximo, setProximo] = useState<string | null>(() => lembrada?.proximo ?? null);
   const [estado, setEstado] = useState<"carregando" | "ok" | "erro">(lembrada ? "ok" : "carregando");
   const [mensagem, setMensagem] = useState("");
@@ -166,6 +174,14 @@ export function Linha({
       return [];
     }
   });
+  // Prompt 4, item 28: "esconder imagens sem descrição" (nos Ajustes), também só neste aparelho e só na tela.
+  const [semDescricao] = useState(() => {
+    try {
+      return ligado("alumia-p4-compositor") && lerEsconderSemDescricao(window.localStorage);
+    } catch {
+      return false;
+    }
+  });
 
   // Guarda na memória o que está na tela, para a próxima vez abrir na hora.
   useEffect(() => {
@@ -199,11 +215,12 @@ export function Linha({
       .then((r) => {
         if (!vivo) return;
         desde.current = antes;
+        pedidaEm.current = Date.parse(antes);
         repostesAte.current = "desde" in r ? (r.desde ?? null) : null;
         estadoDeFora.current = r.deFora?.estado ?? estadoInicialDeFora();
         setFora(r.deFora?.itens ?? []);
         setForaTemMais(r.deFora?.temMais ?? false);
-        setItens(r.itens);
+        setItens(previa ? r.itens : juntarConfirmados(aba, r.itens, Date.parse(antes)));
         setProximo(r.proximo);
         setCorte(null);
         setNovos(previa && versao === 0 && !montada ? 3 : 0);
@@ -229,6 +246,20 @@ export function Linha({
       vivo = false;
     };
   }, [aba, s, versao, previa, comReposts, comFora, logado, lembrada, pedirTela, modoDaRegra, filtroDaRegra, montada]);
+
+  // O post confirmado pelo banco (A17) entra no alto desta linha, se for dela, sem animar de novo (o cartão "Enviando…" já estava ali).
+  useEffect(() => {
+    if (previa) return;
+    return assinarPostsACaminho(() =>
+      setItens((v) => {
+        const juntos = juntarConfirmados(aba, v, pedidaEm.current);
+        if (juntos !== v) juntos.slice(0, juntos.length - v.length).forEach((p) => jaMostrados.add(p.id));
+        return juntos;
+      }),
+    );
+  }, [aba, previa, jaMostrados]);
+  const aCaminho = useSyncExternalStore(assinarPostsACaminho, postsACaminho, semPostsACaminho);
+  const aCaminhoAqui = previa ? semPostsACaminho() : aCaminho.filter((p) => cabeNaLinha(aba, p.comunidade));
 
   /** Do zero, com esqueleto (depois de um erro). */
   const carregar = () => {
@@ -300,14 +331,19 @@ export function Linha({
     }
   }, [proximo, foraTemMais, maisCarregando, comReposts, comFora, logado, itens, s, pedirTela, modoDaRegra]);
 
+  // Prompt 4, item 46 ("Você está em dia", escolha da pessoa neste aparelho, atrás de "alumia-p4-descoberta-estudo"): a linha para
+  // no primeiro post já visto e só segue com "Ver mais antigos". Sem a escolha, nada muda (a rolagem contínua do A20 continua).
+  const emDia = useEmDia(aba, Boolean(regra), itens);
+  const emDiaParado = emDia.onde(itens) !== null;
+
   // A próxima página vem sozinha quando a pessoa chega a ~1 tela do fim (o botão continua lá para teclado e leitor de tela).
   useEffect(() => {
     const alvo = sentinela.current;
-    if (!alvo || !temMais || erroDoMais || typeof IntersectionObserver === "undefined") return;
+    if (!alvo || !temMais || erroDoMais || emDiaParado || typeof IntersectionObserver === "undefined") return;
     const obs = new IntersectionObserver((e) => e.some((x) => x.isIntersecting) && void maisPosts(), { rootMargin: "0px 0px 900px 0px" });
     obs.observe(alvo);
     return () => obs.disconnect();
-  }, [temMais, maisPosts, erroDoMais]);
+  }, [temMais, maisPosts, erroDoMais, emDiaParado]);
 
 
   if (estado === "carregando") return <EsqueletoDaLinha rotulo={s.estados.carregando} />;
@@ -340,7 +376,10 @@ export function Linha({
   // Os cartões de fora entram na hora de desenhar, por data (a nota que veio como original e como impulso aparece uma vez só).
   // O cartão de fora tem as chaves de Post que a linha lê (id, criado_em, autor); o CartaoDePost o manda para o cartão de fora.
   const juntos = fora.length ? ((regra ? misturarDeForaNaRoda(itens, fora, corte) : misturarDeFora(itens, fora)) as unknown as Post[]) : itens;
-  const visiveis = silencios.length ? juntos.filter((p) => !silenciadoNoAparelho(p, silencios)) : juntos;
+  const semSilencio = silencios.length ? juntos.filter((p) => !silenciadoNoAparelho(p, silencios)) : juntos;
+  const todosVisiveis = semDescricao ? semImagensSemDescricao(semSilencio, true) : semSilencio;
+  const pararEmDia = emDia.onde(todosVisiveis);
+  const visiveis = pararEmDia === null ? todosVisiveis : todosVisiveis.slice(0, pararEmDia);
   return (
     <div ref={lista} className="al2-linha">
       {al2 && (
@@ -365,7 +404,16 @@ export function Linha({
           {novos === 1 ? s.novos.um : preencher(s.novos.outros, { n: novos })}
         </button>
       )}
-      {visiveis.length === 0 ? (
+      {al2 && aCaminhoAqui.length > 0 && (
+        <ul className="alumia-lista" aria-live="polite">
+          {aCaminhoAqui.map((p) => (
+            <li key={p.chave} className="al2-entra">
+              <CartaoACaminho post={p} t={al2.t.linha} />
+            </li>
+          ))}
+        </ul>
+      )}
+      {visiveis.length === 0 && pararEmDia === null ? (
         aoEscreverCom && !vazio ? (
           // Nunca um post inventado (SEMEAR.md): só um convite. Nada é publicado sem a pessoa editar e apertar Publicar.
           <section className="al2-semear mx-3 my-4 rounded-[20px] border-[1.5px] border-dashed border-ink px-[18px] py-5 font-sans" aria-labelledby="rede-semear">
@@ -398,7 +446,7 @@ export function Linha({
           <p className="px-[18px] py-8 font-sans text-ink-soft">{vazio ?? s.estados.vazioLinha}</p>
         )
       ) : (
-        <ol aria-label={s.abas.rotulo} className="alumia-lista">
+        <ol aria-label={s.abas.rotulo} className="alumia-lista alumia-lista-leve">
           {visiveis.map((p, k) => {
             const novo = Boolean(al2) && !jaMostrados.has(p.id);
             // Escada dentro de cada página de 20 (no máximo 10 passos de atraso).
@@ -426,7 +474,9 @@ export function Linha({
           })}
         </ol>
       )}
-      {temMais ? (
+      {pararEmDia !== null ? (
+        <VoceEstaEmDia lang={lang} aoVerAntigos={emDia.verAntigos} />
+      ) : temMais ? (
         <div ref={sentinela} className="px-[18px] py-4 text-center">
           {maisCarregando && al2 ? (
             <div aria-hidden>
@@ -531,4 +581,26 @@ function arrumarPrevia(posts: Post[], modo: ModoDaLinha | null, filtro: FiltroDa
   for (const p of lista) p.o7_porque = p.chamado ? "ato" : p.aceita ? "ajudou" : "roda";
   const peso = (p: PostDaLinha) => (p.o7_porque === "ato" ? 0 : p.o7_porque === "ajudou" ? 1 : 2);
   return lista.map((p, i) => ({ p, i })).sort((a, b) => peso(a.p) - peso(b.p) || a.i - b.i).map((x) => x.p);
+}
+
+const NENHUM_A_CAMINHO: readonly PostACaminho[] = [];
+const semPostsACaminho = () => NENHUM_A_CAMINHO;
+
+/**
+ * O post que está saindo (A17): o texto que a pessoa escreveu, meio apagado, com "Enviando…". Some sozinho quando o banco confirma
+ * (o cartão de verdade entra no lugar), quando a pessoa desfaz ou quando dá erro (o Escrever volta com a mensagem). Só existe neste
+ * aparelho: nada sai para os outros antes do envio terminar.
+ */
+function CartaoACaminho({ post, t }: { post: PostACaminho; t: { aCaminho: string; aCaminhoNota: string; aCaminhoImagem: string; aCaminhoImagens: string } }) {
+  return (
+    <article className="al2-a-caminho" aria-busy="true" aria-label={t.aCaminho}>
+      <p className="al2-a-caminho-estado">
+        <span className="al2-a-caminho-ponto" aria-hidden />
+        {t.aCaminho}
+      </p>
+      {post.texto ? <p className="al2-a-caminho-texto">{post.texto}</p> : null}
+      {post.imagens > 0 ? <p className="al2-a-caminho-nota">{preencher(post.imagens === 1 ? t.aCaminhoImagem : t.aCaminhoImagens, { n: post.imagens })}</p> : null}
+      <p className="al2-a-caminho-nota">{t.aCaminhoNota}</p>
+    </article>
+  );
 }

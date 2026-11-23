@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-rede-abrir"
+description = "Enables the rede_abrir command without any pre-configured scope."
+commands.allow = ["rede_abrir"]
+
+[[permission]]
+identifier = "deny-rede-abrir"
+description = "Denies the rede_abrir command without any pre-configured scope."
+commands.deny = ["rede_abrir"]

@@ -1,0 +1,77 @@
+(* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   Voto em limiar sem confiar no servidor (onda R2, item 1.7; onda R3, item 2.5): K−1 PARTES NÃO ABREM.
+   O código: lib/rede/voto/limiar.ts e urna.ts; supabase/migracoes/20261124-r2-voto.sql; docs/rede/VOTO-SECRETO.md.
+   Quem abre a votação sorteia a semente da chave X-Wing da votação, divide a semente em N partes (Shamir K de N, a biblioteca
+   shamir-secret-sharing) e cifra cada parte para a chave de voto de uma guardiã. Aqui, K = 2 e N = 3, com a equação "duas partes
+   diferentes refazem a semente" (o Shamir em si não é modelado: é a biblioteca auditada).
+   Atacante: o servidor inteiro (as partes cifradas, as cédulas, o registro) e UMA guardiã corrompida (a parte dela é dele).
+   Propriedades: a semente da votação e a escolha de quem vota ficam secretas (o atacante não tem K partes); a guardiã honesta
+   só repassa a parte dela à abridora do REGISTRO ASSINADO (a chave da abridora vem assinada por quem criou, não do servidor). *)
+
+free c: channel.
+
+type skey.
+type pkey.
+
+fun pk(skey): pkey.
+fun hpke(pkey, bitstring, bitstring, bitstring): bitstring.
+reduc forall k: skey, a: bitstring, m: bitstring, r: bitstring; abrir(hpke(pk(k), a, m, r), k, a) = m.
+fun semente(bitstring): skey.
+(* Shamir 2 de 3: a parte i da semente s; duas partes diferentes refazem s. *)
+fun parte(bitstring, bitstring): bitstring.
+const p1, p2, p3: bitstring.
+reduc forall x: bitstring; juntar(parte(x, p1), parte(x, p2)) = x;
+      forall x: bitstring; juntar(parte(x, p2), parte(x, p1)) = x;
+      forall x: bitstring; juntar(parte(x, p1), parte(x, p3)) = x;
+      forall x: bitstring; juntar(parte(x, p3), parte(x, p1)) = x;
+      forall x: bitstring; juntar(parte(x, p2), parte(x, p3)) = x;
+      forall x: bitstring; juntar(parte(x, p3), parte(x, p2)) = x.
+(* A assinatura da identidade de quem cria (Ed25519) sobre o registro. *)
+fun assinar(bitstring, skey): bitstring.
+reduc forall m: bitstring, k: skey; conferir(assinar(m, k), pk(k)) = m.
+
+const votacao: bitstring.
+free escolha: bitstring [private].
+(* A semente da votação (sorteada no aparelho de quem cria). *)
+free s: bitstring [private].
+
+query attacker(escolha).
+query attacker(s).
+query attacker(parte(s, p2)).
+query attacker(parte(s, p3)).
+
+(* A guardiã honesta: abre a parte dela e a repassa, cifrada, à abridora que está no registro assinado por quem criou. *)
+let Guardia(skG: skey, pkCriador: pkey, i: bitstring) =
+  in(c, (registro: bitstring, assinatura: bitstring, minhaParte: bitstring));
+  let (=votacao, pkAbridora: pkey, pkV: pkey) = conferir(assinatura, pkCriador) in
+  if registro = (votacao, pkAbridora, pkV) then
+  let x = abrir(minhaParte, skG, (votacao, i)) in
+  new r: bitstring;
+  out(c, hpke(pkAbridora, (votacao, i), x, r)).
+
+let Eleitora(pkCriador: pkey) =
+  in(c, (registro: bitstring, assinatura: bitstring));
+  let (=votacao, pkAbridora: pkey, pkV: pkey) = conferir(assinatura, pkCriador) in
+  if registro = (votacao, pkAbridora, pkV) then
+  new r: bitstring;
+  out(c, hpke(pkV, votacao, escolha, r)).
+
+process
+  new skCriador: skey;
+  new skAbridora: skey;
+  new skG1: skey;
+  new skG2: skey;
+  new skG3: skey;
+  out(c, (pk(skCriador), pk(skAbridora), pk(skG1), pk(skG2), pk(skG3)));
+  (* A guardiã 1 é do atacante. *)
+  out(c, skG1);
+  let registro = (votacao, pk(skAbridora), pk(semente(s))) in
+  let assinatura = assinar(registro, skCriador) in
+  new r1: bitstring; new r2: bitstring; new r3: bitstring;
+  out(c, (registro, assinatura, hpke(pk(skG1), (votacao, p1), parte(s, p1), r1), hpke(pk(skG2), (votacao, p2), parte(s, p2), r2), hpke(pk(skG3), (votacao, p3), parte(s, p3), r3)));
+  (
+    (!Eleitora(pk(skCriador)))
+  | (!Guardia(skG2, pk(skCriador), p2))
+  | (!Guardia(skG3, pk(skCriador), p3))
+  )

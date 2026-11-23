@@ -3,14 +3,14 @@
 
 // "Cuidar da conta": o que só quem gerencia a organização faz, no próprio perfil dela (aparece só quando o banco diz `gerencio`,
 // que é sobre quem olha e nunca diz quem mais cuida). Registrar um voto em "Como votamos" (com a fonte pública), criar núcleo,
-// aceitar ou recusar pedidos para entrar, abrir consulta à base (a regra fica escrita antes e não muda), marcar e conduzir
+// (os pedidos para entrar num núcleo não passam mais por aqui: a mediação decide no aparelho, R2), abrir consulta à base (a regra fica escrita antes e não muda), marcar e conduzir
 // plenária (pôr no ar, encerrar, marcar respondida, tirar da fila só por regra escrita) e pôr ou tirar quem cuida da conta.
 // Cada ação chama a função do banco (lib/rede/cliente-org.ts), que confere de novo se a pessoa gerencia (PLANO-ALUMIA §5 F4, §7.4).
 // Não há prancha desta parte: segue a linguagem dos formulários da F4 (Pedir o selo).
 import { useId, useState, type FormEvent, type ReactNode } from "react";
 import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaOrg } from "@/lib/rede/textos-org";
-import type { OrgPublica, PedidoDeConsulta, PedidoDeNucleo, PedidoDePlenaria, PedidoDeVotacao, PedidoParaONucleo, VotacaoDaOrg } from "@/lib/rede/tipos-org";
+import type { OrgPublica, PedidoDeConsulta, PedidoDeNucleo, PedidoDePlenaria, PedidoDeVotacao, VotacaoDaOrg } from "@/lib/rede/tipos-org";
 import { Botao } from "../ui/Botao";
 
 type MotivoDeTirar = "ofensa" | "dado_pessoal" | "fora_do_tema" | "repetida";
@@ -21,8 +21,6 @@ const VOTOS: VotacaoDaOrg["voto"][] = ["sim", "nao", "abstencao", "obstrucao", "
 export interface AcoesDeGestor {
   registrarVotacao: (v: PedidoDeVotacao) => Promise<unknown>;
   criarNucleo: (p: PedidoDeNucleo) => Promise<unknown>;
-  pedidos: () => Promise<PedidoParaONucleo[]>;
-  decidirNucleo: (nucleo: string, handle: string, aceitar: boolean) => Promise<unknown>;
   abrirConsulta: (p: PedidoDeConsulta) => Promise<unknown>;
   abrirPlenaria: (p: PedidoDePlenaria) => Promise<unknown>;
   /** `sala`: o link https da sala ao pôr no ar (vazio mantém o que já estava). */
@@ -45,7 +43,6 @@ export function CuidarDaOrg({ org, t, acoes, aoMudar }: { org: OrgPublica; t: Te
   const id = useId();
   const [ocupado, setOcupado] = useState(false);
   const [aviso, setAviso] = useState<{ ok: boolean; texto: string } | null>(null);
-  const [pedidos, setPedidos] = useState<PedidoParaONucleo[] | null>(null);
   const [motivos, setMotivos] = useState<Record<string, MotivoDeTirar>>({});
 
   // Formulários (texto cru; o banco confere tudo de novo).
@@ -75,17 +72,6 @@ export function CuidarDaOrg({ org, t, acoes, aoMudar }: { org: OrgPublica; t: Te
     e.preventDefault();
     void fazer(f, depois);
   };
-  async function verPedidos() {
-    setOcupado(true);
-    setAviso(null);
-    try {
-      setPedidos(await acoes.pedidos());
-    } catch {
-      setAviso({ ok: false, texto: t.erros.falha });
-    } finally {
-      setOcupado(false);
-    }
-  }
 
   const campo = (rotulo: string, entrada: ReactNode, ajuda?: string) => (
     <label className="al-campo">
@@ -151,35 +137,6 @@ export function CuidarDaOrg({ org, t, acoes, aoMudar }: { org: OrgPublica; t: Te
             {tc.nucleo.mandar}
           </Botao>
         </form>
-      </details>
-
-      <details className="al-cuidar-parte">
-        <summary>{tc.pedidos.titulo}</summary>
-        <p className="al-perfil-nota">{tc.pedidos.ajuda}</p>
-        <Botao variante="contorno" tamanho="p" disabled={ocupado} onClick={() => void verPedidos()}>
-          {tc.pedidos.ver}
-        </Botao>
-        {pedidos ? (
-          pedidos.length === 0 ? (
-            <p className="al-painel-vazio">{tc.pedidos.vazio}</p>
-          ) : (
-            <ul className="al-lista-simples">
-              {pedidos.map((p) => (
-                <li key={`${p.nucleo}-${p.handle}`} className="al-cuidar-linha">
-                  <span>{preencher(tc.pedidos.de, { codinome: p.codinome ?? "", handle: p.handle ?? "", nucleo: p.nucleoNome })}</span>
-                  <span className="al-cuidar-botoes">
-                    <Botao variante="primario" tamanho="p" disabled={ocupado || !p.handle} onClick={() => void fazer(() => acoes.decidirNucleo(p.nucleo, p.handle ?? "", true), () => setPedidos((l) => l?.filter((x) => x !== p) ?? null))}>
-                      {tc.pedidos.aceitar}
-                    </Botao>
-                    <Botao variante="contorno" tamanho="p" disabled={ocupado || !p.handle} onClick={() => void fazer(() => acoes.decidirNucleo(p.nucleo, p.handle ?? "", false), () => setPedidos((l) => l?.filter((x) => x !== p) ?? null))}>
-                      {tc.pedidos.recusar}
-                    </Botao>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )
-        ) : null}
       </details>
 
       <details className="al-cuidar-parte">

@@ -77,6 +77,7 @@ ok("CSS: a barra do celular fica com 4 abas", css.includes(":root[data-sem-alumi
 ok("CSS: fora do aplicativo o aviso não aparece e a tela não muda", css.includes(".al-fora-do-app { display: none; }") && css.includes(".al-dentro-do-navegador { display: contents; }"));
 const layout = ler("app/[lang]/alumia/layout.tsx");
 ok("layout da Alumia: o aviso e a caixa do navegador", layout.includes('className="al-fora-do-app"') && layout.includes('className="al-dentro-do-navegador"'));
+ok("layout da Alumia (P5): a tela vem antes do aviso escondido (o primeiro h1 é o da tela)", layout.indexOf('className="al-dentro-do-navegador"') < layout.indexOf('className="al-fora-do-app"'));
 ok("layout da Alumia: o aviso volta para o início do site, não para a Alumia", layout.includes("<Link href={`/${lang}`}>{ta.voltar}</Link>"));
 
 // ═══════════════════ 2. Aparência e leitura (só no aparelho) ═══════════════════
@@ -168,7 +169,7 @@ for (const lang of ["pt", "en", "es", "fr", "ru", "zh"]) ok(`textos do acabament
 
 // ═══════════════════ 5. Pedidos P16 e P17 (as duas saídas rápidas) ═══════════════════
 const seguro = ler("lib/modo-seguro.ts");
-ok("P16: a saída do site roda as limpezas registradas, dentro do teto de tempo", seguro.includes("export function registrarLimpezaDaSaida") && seguro.includes("Promise.all([bases, apagarCaches(), rodarLimpezasExtras()])") && seguro.includes(".then(apagarBases)"));
+ok("P16: a saída do site roda as limpezas registradas, dentro do teto de tempo", seguro.includes("export function registrarLimpezaDaSaida") && seguro.includes("Promise.all([bases, apagarCaches(), apagarLojasDoMotor(), rodarLimpezasExtras()])") && seguro.includes(".then(apagarBases)"));
 ok("P16: a casca da Alumia registra as limpezas do Sair rápido dela", ler("components/rede/publicar/alumia2/CascaDaAlumia2.tsx").includes("useEffect(() => registrarLimpezaDaSaida(() => rodarLimpezas(ENCAIXES.aoSairRapido)), []);"));
 const saida = ler("lib/rede/saida.ts");
 ok("P17: o Sair rápido da Alumia encerra a sessão (no servidor, antes de apagar o token, e no aparelho)", /revogarSessao\(local\);\s*apagarChavesDaRede\(armazens\);\s*apagarChavesDaSessao\(armazens\);/.test(saida) && saida.includes('CHAVE_DA_SESSAO = "lucia:sessao"'));

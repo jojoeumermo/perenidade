@@ -12,9 +12,10 @@
     "frente": "Frente Revolucionária Lúcia",
     "titulo": "Escola Revolucionária Lúcia Maria",
     "lema": "Instruí-vos, agitai-vos, organizai-vos.",
-    "texto": "A escola de formação de quem milita na Frente. Aqui dentro é só para militantes: estudo em degraus, núcleo, tarefa no mundo e quem acompanha você.",
+    "texto": "A escola de formação de quem milita na Frente. As aulas de Teoria revolucionária e de Lutas do povo são abertas: qualquer pessoa lê, sem conta e sem cadastro. O percurso guiado, o núcleo, a tarefa no mundo e quem acompanha você são de quem estuda pela Escola.",
     "quero": "Quero militar",
     "manifesto": "Ler o manifesto",
+    "aulasAbertas": "Ler as aulas abertas",
     "resto": "O resto do site continua aberto a todo mundo:",
     "aulas": "aulas",
     "acervo": "acervo",
@@ -158,7 +159,13 @@
       "titulo": "Aula ao vivo hoje",
       "as": "às {hora}",
       "agora": "ao vivo agora",
-      "entrar": "Entrar na sala"
+      "entrar": "Entrar na sala",
+      "lugar": "Aula ao vivo",
+      "texto": "Os educadores de Teoria revolucionária e de Lutas do povo dão aulas ao vivo aqui dentro: o vídeo pelo YouTube sem cookies, o bate-papo da turma e a presença.",
+      "nenhuma": "Nenhuma aula ao vivo hoje.",
+      "proximas": "Nos próximos dias",
+      "gravadas": "Gravadas",
+      "assistir": "Assistir"
     },
     "carregando": "Carregando…",
     "falha": "Não deu para carregar agora."

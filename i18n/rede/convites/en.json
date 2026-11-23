@@ -61,7 +61,7 @@
       "vencido": "expired",
       "cancelado": "cancelled"
     },
-    "nota": "A used invitation leaves the list and the database right away: Alumia keeps neither which one it was nor who asked to join with it.",
+    "nota": "A used invitation leaves the list and the database right away: Alumia keeps neither which one it was nor who asked to join with it. A cancelled one leaves too, and you get that month’s slot back.",
     "cancelar": "Cancel",
     "cancelarRotulo": "Cancel the invitation created on {data}",
     "acabaram": "This month's invitations are used up. There will be more next month.",

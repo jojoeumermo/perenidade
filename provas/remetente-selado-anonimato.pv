@@ -1,0 +1,39 @@
+(* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   Remetente selado com caixas anônimas (onda R2, item 1.2; onda R3, item 2.5): ANONIMATO DO REMETENTE frente ao servidor.
+   Equivalência observacional: o servidor (que vê todo depósito, conhece as chaves públicas e escolhe até a mensagem) não distingue
+   "foi A1 quem mandou" de "foi A2 quem mandou" para a mesma caixa de B. As mesmas abstrações de remetente-selado.pv.
+   Fora do modelo (ditos em docs/rede/CHAT-PRIVADO.md): o IP e a hora de quem deposita (a via: direta, Tor ou mixnet), o tamanho
+   (fixo por faixa no código) e o passe de depósito (cada conversa escreve com o seu, ligado à conversa e não à pessoa). *)
+
+free c: channel.
+
+type skey.
+type pkey.
+type key.
+
+fun pk(skey): pkey.
+fun hpke(pkey, bitstring, bitstring, bitstring): bitstring.
+reduc forall k: skey, a: bitstring, m: bitstring, r: bitstring; abrir(hpke(pk(k), a, m, r), k, a) = m.
+fun senc(bitstring, key): bitstring.
+reduc forall m: bitstring, k: key; sdec(senc(m, k), k) = m.
+fun h(bitstring): bitstring.
+fun hc(bitstring, bitstring): bitstring.
+
+free aparelhoA1, aparelhoA2: bitstring.
+
+let Remetente(eu: bitstring, kab: key, pkb: pkey, idcaixa: bitstring, m: bitstring) =
+  new r: bitstring;
+  new kf: bitstring;
+  let idh = h(idcaixa) in
+  let cc = hc(kf, (idh, m)) in
+  out(c, (idh, cc, hpke(pkb, (idh, cc), (eu, senc((m, kf), kab)), r))).
+
+process
+  new skB: skey;
+  new kA1B: key;
+  new kA2B: key;
+  new idcaixa: bitstring;
+  out(c, (pk(skB), h(idcaixa)));
+  (* O servidor escolhe a mensagem; de um lado quem manda é A1, do outro A2 (o mesmo destino, a mesma caixa). *)
+  !(in(c, m: bitstring); Remetente(choice[aparelhoA1, aparelhoA2], choice[kA1B, kA2B], pk(skB), idcaixa, m))

@@ -1,0 +1,6 @@
+modelo: caixas-nao-ligacao.pv
+sha256: f8ce6c9f110cbdd91c903c9d87695a9f2ecda327723ba9156c86a72b06e43962
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+RESULT Observational equivalence is true.

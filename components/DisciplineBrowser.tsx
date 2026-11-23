@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { caminhoDaEstante } from "@/lib/escola/aulas-abertas";
 import Link from "@/components/Link";
 import { useState } from "react";
 import { fill, localePath, plural } from "@/i18n/config";
@@ -124,7 +125,7 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
                 return (
                   <Link
                     key={card.slug}
-                    href={`${localePath(lang, `/estantes/${card.slug}`)}${anchor}`}
+                    href={`${localePath(lang, caminhoDaEstante(card.slug))}${anchor}`}
                     className={`caderno min-h-56 sm:min-h-64 ${i % 2 ? "caderno-v" : ""}`}
                     style={{ background: cor, ...(cor === "#c21f16" ? { boxShadow: "6px 6px 0 var(--sombra)" } : {}) }}
                   >

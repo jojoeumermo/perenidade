@@ -11,7 +11,7 @@
     "explorar": "探索",
     "atos": "行动",
     "comunidades": "社区",
-    "nucleos": "小组",
+    "nucleos": "小组与学习班",
     "avisos": "通知",
     "avisosNovos": "通知，{n} 条新的",
     "emblema": "{n} 项有新动态",
@@ -30,7 +30,10 @@
     "fechar": "关闭",
     "organizacoes": "组织",
     "calendario": "日历",
-    "aqui": "当前位置"
+    "aqui": "当前位置",
+    "moderacao": "审核",
+    "maisMostrar": "显示更多",
+    "maisEsconder": "收起更多"
   },
   "conta": {
     "rotulo": "你的账号",
@@ -53,7 +56,23 @@
     "verPerfil": "查看你的个人资料",
     "aparencia": "外观与阅读",
     "series": "重复发布的帖子",
-    "temas": "我关注的话题"
+    "temas": "我关注的话题",
+    "linhaDoTempo": "时间线"
+  },
+  "seguranca": {
+    "titulo": "安全",
+    "abrir": "打开安全面板",
+    "intro": "在 Alumia 上保护你的一切，都在这里。",
+    "conta": "密码、验证器与紧急退出",
+    "aparelhos": "已连接的设备",
+    "silenciados": "已静音",
+    "denuncias": "我的举报",
+    "regras": "规则与关怀",
+    "termos": "使用条款",
+    "fediverso": "联邦宇宙隐私",
+    "guardamos": "Alumia 保存什么",
+    "minhaConta": "我的账户与数据",
+    "fechar": "关闭"
   },
   "linha": {
     "titulo": "首页",
@@ -67,6 +86,10 @@
     "novosUm": "条新帖子",
     "novosOutros": "条新帖子",
     "mostrarNovos": "显示 {n} 条新帖子",
+    "aCaminho": "正在发送…",
+    "aCaminhoNota": "发送完成后其他人才能看到。",
+    "aCaminhoImagem": "+ {n} 张图片",
+    "aCaminhoImagens": "+ {n} 张图片",
     "erroTitulo": "时间线没有加载出来",
     "fimTitulo": "你都看完了",
     "fimTexto": "你关注的人暂时没有更多内容了。没有无尽滚动：去社区或行动看看吧？",
@@ -104,7 +127,12 @@
     "materia": "Instituto Lúcia 文章",
     "indisponivel": "这项功能将在 Alumia 下次更新时推出。",
     "naoRepostavel": "只能转发他人写给所有人的帖子（不能转发回复，也不能转发写给小范围群体的帖子）。",
-    "veioDeRepost": "由你关注的人转发"
+    "veioDeRepost": "由你关注的人转发",
+    "apagar": "删除帖子",
+    "apagarPergunta": "删除这条帖子？如果已有人回复或引用，原处会显示“[帖子已删除]”。",
+    "apagarSim": "删除",
+    "apagarNao": "保留",
+    "apagado": "帖子已删除。"
   },
   "enquete": {
     "rotulo": "投票",
@@ -345,6 +373,13 @@
     "texto": "Alumia 上没有这个地址，或者这条帖子已经撤下。你的时间线还在原处。",
     "voltar": "回到 Alumia 首页",
     "buscar": "搜索"
+  },
+  "naoAbriu": {
+    "titulo": "这个页面没有打开",
+    "texto": "打开 Alumia 的这一部分时出了问题。你的账号和草稿都还在。",
+    "atualizando": "Alumia 有了新版本，正在刷新页面…",
+    "tentar": "再试一次",
+    "recarregar": "重新加载页面"
   },
   "visibilidade": {
     "eu": "仅自己",

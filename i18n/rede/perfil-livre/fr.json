@@ -158,6 +158,7 @@
     "codinome": "Nom de code",
     "codinomeAjuda": "Le nom affiché sur Alumia : 3 à 30 lettres. Jamais ton nom civil.",
     "erros": {
+      "nome_com_selo": "Les signes qui ressemblent au badge vérifié (✓, ✔, ☑, ✅, 🔵) et les mots « vérifié » et « officiel » ne peuvent pas figurer dans un nom. Choisissez-en un autre.",
       "codinome_usado": "Ce nom de code appartient déjà à quelqu’un.",
       "codinome_civil": "Cela ressemble à ton nom civil. Choisis-en un autre, pour ta sécurité.",
       "codinome_reservado": "Ce nom est réservé.",
@@ -254,6 +255,8 @@
     "tirar": "Retirer"
   },
   "perfil": {
+    "verificadoEquipe": "Vérifié : équipe de l’institut. Le badge vient du rôle dans l’équipe et disparaît quand il prend fin.",
+    "verificadoCoordenacao": "Vérifié : coordination de l’institut.",
     "tocando": "En écoute",
     "ouvirEm": "écouter sur {dominio}",
     "ate": "jusqu’au {data}",

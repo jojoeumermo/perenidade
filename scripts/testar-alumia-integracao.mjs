@@ -88,7 +88,64 @@ if (install.includes(SQL)) ok("a migração está no fim do install.sql (depois 
   // Depois do fim da integração vêm só as migrações do beta fechado (22/11), inteiras, e o fim do beta por último.
   ok("o fim da integração está no install.sql, e depois dele só migrações datadas inteiras", noFimDoInstall(FIM, install));
   const BETA_FIM = normal(ler("supabase/migracoes/20261122-alumia-beta-fim.sql"));
-  ok("o install.sql termina com o fim do beta", install.endsWith(BETA_FIM));
+  // Depois do fim do beta vêm só as migrações da onda R1 (23/11), inteiras, e o fim da R1 por último.
+  ok("o fim do beta está no install.sql, e depois dele só migrações datadas inteiras", noFimDoInstall(BETA_FIM, install));
+  const R1 = ["banco", "uso", "fediverso", "borda", "fim"].map((n) => normal(ler(`supabase/migracoes/20261123-r1-${n}.sql`)));
+  // Depois do fim da R1 vêm só as migrações da onda R2 (24/11), inteiras, e o fim da R2 por último.
+  ok("o fim da R1 está no install.sql, e depois dele só migrações datadas inteiras", noFimDoInstall(R1[4], install));
+  ok("o fim da R1 sobe a versão para 14", /create or replace function public\.rede_alumia_versao\(\)[\s\S]*?select 14\s*\$\$/.test(R1[4]));
+  ok("o fim da R1 termina passando a porta", /select interno\.alumia_trancar\(\);$/.test(R1[4]));
+  const posR1 = R1.map((t) => install.lastIndexOf(t));
+  ok("ordem da R1 no fim do install.sql: fim do beta, banco, uso, fediverso, borda, fim da R1 (cada uma uma vez só)",
+    install.lastIndexOf(BETA_FIM) < posR1[0] && posR1.every((k, i) => k > 0 && (i === 0 || posR1[i - 1] < k))
+    && R1.every((t) => install.indexOf(t) === install.lastIndexOf(t)));
+  const R2 = ["caixas", "dupla", "equipe", "franquia", "grupos", "membros", "voto", "fim"].map((n) => normal(ler(`supabase/migracoes/20261124-r2-${n}.sql`)));
+  // Depois do fim da R2 vêm só as migrações da onda R3 (25/11), inteiras, e o fim da R3 por último.
+  ok("o fim da R2 está no install.sql, e depois dele só migrações datadas inteiras", noFimDoInstall(R2[7], install));
+  ok("o fim da R2 sobe a versão para 15", /create or replace function public\.rede_alumia_versao\(\)[\s\S]*?select 15\s*\$\$/.test(R2[7]));
+  ok("o fim da R2 termina passando a porta", /select interno\.alumia_trancar\(\);$/.test(R2[7]));
+  ok("cada migração da R2 termina passando a porta", R2.every((t) => /select interno\.alumia_trancar\(\);$/.test(t)));
+  const posR2 = R2.map((t) => install.lastIndexOf(t));
+  ok("ordem da R2 no fim do install.sql: fim da R1, caixas, dupla, equipe, franquia, grupos, membros, voto, fim da R2 (cada uma uma vez só)",
+    install.lastIndexOf(R1[4]) < posR2[0] && posR2.every((k, i) => k > 0 && (i === 0 || posR2[i - 1] < k))
+    && R2.every((t) => install.indexOf(t) === install.lastIndexOf(t)));
+  const R3 = ["resto-r2", "sem-internet-formal", "servidor-chat", "publico-ferramentas", "fim"].map((n) => normal(ler(`supabase/migracoes/20261125-r3-${n}.sql`)));
+  // Depois do fim da R3 vêm só as migrações do Prompt 5 (26/11), inteiras, e o fim do Prompt 5 por último.
+  ok("o fim da R3 está no install.sql, e depois dele só migrações datadas inteiras", noFimDoInstall(R3[4], install));
+  ok("o fim da R3 sobe a versão para 16", /create or replace function public\.rede_alumia_versao\(\)[\s\S]*?select 16\s*\$\$/.test(R3[4]));
+  ok("cada migração da R3 termina passando a porta", R3.every((t) => /select interno\.alumia_trancar\(\);$/.test(t)));
+  const posR3 = R3.map((t) => install.lastIndexOf(t));
+  ok("ordem da R3 no fim do install.sql: fim da R2, resto da R2, sem internet, servidor do chat, público e ferramentas, fim da R3 (cada uma uma vez só)",
+    install.lastIndexOf(R2[7]) < posR3[0] && posR3.every((k, i) => k > 0 && (i === 0 || posR3[i - 1] < k))
+    && R3.every((t) => install.indexOf(t) === install.lastIndexOf(t)));
+  const P5 = ["publicar", "entrada", "somente-leitura", "equipe", "escola", "avisos", "beta", "federacao", "stories", "emergencia", "design", "imagens", "stories-mais", "auditoria", "fim"].map((n) => normal(ler(`supabase/migracoes/20261126-p5-${n}.sql`)));
+  // Depois do fim do Prompt 5 vêm só as migrações do Prompt 4 (27/11), inteiras, e o fim do Prompt 4 por último.
+  ok("o fim do Prompt 5 está no install.sql, e depois dele só migrações datadas inteiras", noFimDoInstall(P5[P5.length - 1], install));
+  ok("o fim do Prompt 5 sobe a versão para 17", /create or replace function public\.rede_alumia_versao\(\)[\s\S]*?select 17\s*\$\$/.test(P5[P5.length - 1]));
+  ok("o fim do Prompt 5 termina passando a porta", /select interno\.alumia_trancar\(\);$/.test(P5[P5.length - 1]));
+  ok("antes do fim, nenhuma migração do Prompt 5 mexe na versão ou na lista da porta",
+    P5.slice(0, -1).every((t) => !/function public\.rede_alumia_versao|function interno\.alumia_porta_aberta/.test(t)));
+  ok("cada migração do Prompt 5 diz que roda depois do fim da R3 (versão 16)",
+    P5.every((t) => /Roda depois de 20261125-r3-fim\.sql \(banco na versão 16\)/.test(t.replace(/\n-- /g, " "))));
+  const posP5 = P5.map((t) => install.lastIndexOf(t));
+  ok("ordem do Prompt 5 no fim do install.sql: fim da R3, publicar, entrada, somente leitura, equipe, escola, avisos, beta, federação, stories, emergência, design, imagens, stories (mais), fim do Prompt 5 (cada uma uma vez só)",
+    install.lastIndexOf(R3[4]) < posP5[0] && posP5.every((k, i) => k > 0 && (i === 0 || posP5[i - 1] < k))
+    && P5.every((t) => install.indexOf(t) === install.lastIndexOf(t)));
+  const P4 = ["cifrado-sem-anexo", "anexo-cifrado", "selo-contagens", "presenca-print", "avisos-de-local", "seguranca-pessoal", "meusdados", "fim"].map((n) => normal(ler("supabase/migracoes/20261127-p4-" + n + ".sql")));
+  ok("o install.sql termina com o fim do Prompt 4", install.endsWith(P4[P4.length - 1]));
+  ok("o fim do Prompt 4 sobe a versão para 18", /create or replace function public\.rede_alumia_versao\(\)[\s\S]*?select 18\s*\$\$/.test(P4[P4.length - 1]));
+  ok("o fim do Prompt 4 termina passando a porta", /select interno\.alumia_trancar\(\);$/.test(P4[P4.length - 1]));
+  ok("cada migração do Prompt 4 termina passando a porta", P4.every((t) => /select interno\.alumia_trancar\(\);$/.test(t)));
+  ok("antes do fim, nenhuma migração do Prompt 4 mexe na versão ou na lista da porta",
+    P4.slice(0, -1).every((t) => !/function public\.rede_alumia_versao|function interno\.alumia_porta_aberta/.test(t)));
+  ok("cada migração do Prompt 4 diz que roda depois do fim do Prompt 5 (versão 17)",
+    P4.every((t) => /Roda depois de 20261126-p5-fim\.sql \(banco na versão 17\)/.test(t.replace(/\n-- /g, " "))));
+  const porta = (t) => t.slice(t.indexOf("create or replace function interno.alumia_porta_aberta"), t.indexOf("$$;", t.indexOf("create or replace function interno.alumia_porta_aberta"))).replace(/^\s*--.*$/gm, "").replace(/\s+/g, " ");
+  ok("o Prompt 4 não abre exceção nova na porta (a lista do fim do Prompt 4 é a do Prompt 5)", porta(P4[P4.length - 1]) === porta(P5[P5.length - 1]));
+  const posP4 = P4.map((t) => install.lastIndexOf(t));
+  ok("ordem do Prompt 4 no fim do install.sql: fim do Prompt 5, cifrado sem anexo, anexo cifrado, selo e contagens, presença e print, avisos de local, segurança pessoal, meus dados, fim do Prompt 4 (cada uma uma vez só)",
+    install.lastIndexOf(P5[P5.length - 1]) < posP4[0] && posP4.every((k, i) => k > 0 && (i === 0 || posP4[i - 1] < k))
+    && P4.every((t) => install.indexOf(t) === install.lastIndexOf(t)));
   ok("o fim do beta sobe a versão para 13", /create or replace function public\.rede_alumia_versao\(\)[\s\S]*?select 13\s*\$\$/.test(BETA_FIM));
   const BETA = ["chat", "visibilidade", "codigo", "admin", "beta-fim"].map((n) => normal(ler(`supabase/migracoes/20261122-alumia-${n}.sql`)));
   const posBeta = BETA.map((t) => install.lastIndexOf(t));
@@ -102,13 +159,16 @@ if (install.includes(SQL)) ok("a migração está no fim do install.sql (depois 
   const ESPERA = normal(ler("supabase/migracoes/20261121-equipe-chat-espera.sql"));
   const e = install.lastIndexOf(ESPERA);
   ok("a espera do chat da equipe fica entre a integração e o fim, uma vez só", e > c && e < d && install.indexOf(ESPERA) === e);
-  for (const [f, pedaco] of [["interno.equipe_chat_meu(uuid)", "interno.chat_aparelho_vale(a.vale_desde)"], ["interno.equipe_de(uuid)", "interno.chat_aparelho_vale(a.vale_desde)"],
+  // Depois da R2 (20261124-r2-equipe.sql) o Megolm sai, e a conferência do aparelho do chat da equipe passa a ser interno.equipe_mls_meu.
+  const meu = (await um("select to_regprocedure('interno.equipe_chat_meu(uuid)') is not null as tem")).tem ? "interno.equipe_chat_meu(uuid)" : "interno.equipe_mls_meu(uuid)";
+  for (const [f, pedaco] of [[meu, "interno.chat_aparelho_vale(a.vale_desde)"], ["interno.equipe_de(uuid)", "interno.chat_aparelho_vale(a.vale_desde)"],
     ["public.chat_aparelho_aprovar(uuid, uuid, text, text)", "interno.chat_aparelho_vale(vale_desde)"], ["public.chat_aparelho_recuperar(uuid, text, text)", "vale_desde = now() + interval '24 hours'"]]) {
     const linha = await um("select prosrc from pg_proc where oid = to_regprocedure($1)", [f]);
     ok(`o corpo final de ${f} tem a espera`, Boolean(linha?.prosrc.includes(pedaco)));
   }
-  ok("o código espera a versão 13 do banco", Number((ler("lib/rede/painel/tipos.ts").match(/VERSAO_ESPERADA_DO_BANCO = (\d+);/) ?? [])[1]) === 13);
-  await espera("o install.sql do zero responde a versão 13, para visitante também", () => rpc({ papel: "anon", ip: "203.0.113.5" }, "rede_alumia_versao"), (v) => v === 13);
+  ok("o código espera a versão 18 do banco", Number((ler("lib/rede/painel/tipos.ts").match(/VERSAO_ESPERADA_DO_BANCO = (\d+);/) ?? [])[1]) === 18);
+  await espera("o install.sql do zero responde a versão 18, para visitante também", () => rpc({ papel: "anon", ip: "203.0.113.5" }, "rede_alumia_versao"), (v) => v === 18);
+  await espera("o interruptor alumia-chat-so-app está no catálogo, só pelo nome, e ninguém o ligou", async () => (await dono("select c.so_pelo_nome, v.ligado from interno.recursos_catalogo c left join interno.recursos_vivos v using (nome) where c.nome = 'alumia-chat-so-app'")).rows[0], (x) => x?.so_pelo_nome === true && x.ligado == null);
   // O lançamento: "alumia-aberta" no catálogo (só pelo nome), para o painel poder desligar o que o PADRAO do código liga.
   await espera("o interruptor alumia-aberta está no catálogo, só pelo nome", async () => (await dono("select so_pelo_nome from interno.recursos_catalogo where nome = 'alumia-aberta'")).rows[0]?.so_pelo_nome, (x) => x === true);
   await espera("o interruptor fediverso-grupos está no catálogo, só pelo nome", async () => (await dono("select so_pelo_nome from interno.recursos_catalogo where nome = 'fediverso-grupos'")).rows[0]?.so_pelo_nome, (x) => x === true);
@@ -124,9 +184,10 @@ if (install.includes(SQL)) ok("a migração está no fim do install.sql (depois 
 /** O corpo final das funções que as duas faixas redefinem: cada uma tem de ter todos estes pedaços (e nenhum dos proibidos). */
 const CORPOS = [
   ["interno.alumia_porta_aberta(text, text)", ["'rede_fed_servidor'", "'rede_fed_midia_servidor'", "'rede_fed_mudanca_servidor'", "'rede_org_diretorio'",
-    "'rede_org_mapa'", "'alumia_transparencia'", "'rede_sel_depositar'", "'rede_kt_ponta'", "'rede_kt_trecho'"], []],
+    "'rede_org_mapa'", "'alumia_transparencia'", "'rede_kt_ponta'", "'rede_kt_trecho'", "'rede_caixa_lote'", "'rede_nucleo_entrada_trocar'"], ["'rede_sel_depositar'"]],
   ["interno.alumia_passa()", ["interno.alumia_sessao_viva()", "interno.alumia_exigida()", "interno.alumia_sessao_ok()"], ["exception"]],
-  ["interno.alumia_sessao_viva()", ["return interno.alumia_token_no_prazo();", "exception when insufficient_privilege"], ["then return true; end;"]],
+  // A da onda 14 (sem leitura, vale o token) ou a do reforço do banco, 20261123-r1-banco.sql (sem leitura, nega): as duas olham o corte e o prazo.
+  ["interno.alumia_sessao_viva()", ["interno.alumia_sessao_cortada(", "interno.alumia_token_no_prazo()", "exception when"], ["then return true; end;"]],
   ["interno.rede_ve(interno.rede_posts)", ["interno.rede_bloqueado(", "interno.rede_espaco_entra(", "interno.rede_vida_ve(", "interno.rede_o9_recolhida("], []],
   ["interno.rede2_pode_ver(interno.rede_posts, uuid)", ["interno.rede_vida_ve(p, p_quem)", "interno.rede_o9_recolhida(p, p_quem)", "'fechada'"], []],
   ["interno.rede_fed_federavel(interno.rede_posts, integer)", ["interno.rede_vida_federa(p)", "p.corpo_grupo is not null", "<> 'internet' then",
@@ -149,9 +210,10 @@ for (const [f, tem, nunca] of CORPOS) {
     where (s.nspname, p.proname) in (('interno', 'rede_post_v2'), ('public', 'rede_publicar'), ('interno', 'rede_fed_federavel'), ('interno', 'alumia_alc_sai'), ('interno', 'alumia_porta_aberta'), ('interno', 'alumia_passa'))
     group by p.proname`);
   ok(`uma definição só de cada função redefinida (${n.map((x) => `${x.proname}=${x.n}`).join(", ")})`, n.length === 6 && n.every((x) => x.n === 1));
-  const [abre] = await linhas(`select interno.alumia_porta_aberta('rede_sel_depositar', 'p_para uuid, p_senha text, p_envelope text') a, interno.alumia_porta_aberta('rede_kt_trecho', 'p_desde bigint') b,
+  const [abre] = await linhas(`select interno.alumia_porta_aberta('rede_caixa_lote', 'p_itens jsonb') a, interno.alumia_porta_aberta('rede_kt_trecho', 'p_desde bigint') b,
     interno.alumia_porta_aberta('rede_kt_ponta', '') c, interno.alumia_porta_aberta('rede_fed_servidor', '') d, interno.alumia_porta_aberta('rede_publicar', 'p jsonb') e`);
-  ok("a lista aberta tem a federação e as três da Faixa 2, e publicar não está nela", abre.a && abre.b && abre.c && abre.d && !abre.e);
+  ok("a lista aberta tem a federação, o registro das chaves e as caixas anônimas (R2), e publicar não está nela", abre.a && abre.b && abre.c && abre.d && !abre.e);
+  ok("o envelope selado do beta saiu da lista aberta (a função não existe mais)", !(await um("select interno.alumia_porta_aberta('rede_sel_depositar', 'p_para uuid, p_senha text, p_envelope text') as a")).a);
 }
 await espera("nenhuma função com valor padrão que dependa do tipo linha de uma tabela (tipo do parâmetro com padrão ou expressão do padrão)", () => linhas(`
   select n.nspname || '.' || p.proname || '(' || pg_get_function_identity_arguments(p.oid) || ')' as f
@@ -173,13 +235,14 @@ await espera("nenhuma função security definer de interno executável por todo 
   select p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace
   where n.nspname = 'interno' and p.prosecdef
     and exists (select 1 from aclexplode(coalesce(p.proacl, acldefault('f', p.proowner))) a where a.grantee = 0 and a.privilege_type = 'EXECUTE')`), (r) => r.length === 0);
-await espera("o chat da equipe (public.chat_*, public.equipe_chat_*) fica fora da porta e confere quem chama do jeito dele", async () => {
+await espera("o chat da equipe (public.chat_*, public.equipe_chat_* ou, depois da R2, public.equipe_mls_*) fica fora da porta e confere quem chama do jeito dele", async () => {
   const fs_ = await linhas(`select p.proname, p.prosrc from pg_proc p join pg_namespace n on n.oid = p.pronamespace
-    where n.nspname = 'public' and (p.proname like 'chat\\_%' or p.proname like 'equipe\\_chat\\_%')`);
+    where n.nspname = 'public' and (p.proname like 'chat\\_%' or p.proname like 'equipe\\_chat\\_%' or p.proname like 'equipe\\_mls\\_%')`);
+  const daEquipe = (f) => f.proname.startsWith("equipe_chat_") || f.proname.startsWith("equipe_mls_");
   const comPorta = fs_.filter((f) => /interno\.alumia_(porta|passa)\(\)/.test(f.prosrc)).map((f) => f.proname);
-  const semConferencia = fs_.filter((f) => !/interno\.(eu|equipe_chat_meu|voluntario|lider|gere_cargos|na_conversa)\(/.test(f.prosrc)).map((f) => f.proname);
-  const equipeSemAparelho = fs_.filter((f) => f.proname.startsWith("equipe_chat_") && !/interno\.(equipe_chat_meu|na_conversa)\(/.test(f.prosrc)).map((f) => f.proname);
-  return { n: fs_.length, equipe: fs_.filter((f) => f.proname.startsWith("equipe_chat_")).length, comPorta, semConferencia, equipeSemAparelho };
+  const semConferencia = fs_.filter((f) => !/interno\.(eu|equipe_chat_meu|equipe_mls_meu|voluntario|lider|gere_cargos|na_conversa)\(/.test(f.prosrc)).map((f) => f.proname);
+  const equipeSemAparelho = fs_.filter((f) => daEquipe(f) && !/interno\.(equipe_chat_meu|equipe_mls_meu|na_conversa)\(/.test(f.prosrc)).map((f) => f.proname);
+  return { n: fs_.length, equipe: fs_.filter(daEquipe).length, comPorta, semConferencia, equipeSemAparelho };
 }, (r) => r.n >= 30 && r.equipe >= 5 && !r.comPorta.length && !r.semConferencia.length && !r.equipeSemAparelho.length);
 
 // O resto roda num bloco só: um tropeço vira falha contada, não um erro solto.
@@ -203,9 +266,10 @@ try {
   const zerar = () => dono("delete from interno.limites");
 
   const { id: NUCLEO } = await um("insert into interno.rede_nucleos (nome) values ('Núcleo do teste') returning id");
-  for (const n of ["ana", "bia"]) await dono("insert into interno.rede_nucleo_membros (nucleo, usuario) values ($1, $2)", [NUCLEO, P[n]]);
-  await dono("insert into interno.rede_comunidades (slug, nome, categoria, tipo) values ('roda-fechada', 'Roda fechada', 'lutas', 'fechada'), ('praca-aberta', 'Praça aberta', 'lutas', 'aberta'), ('aula-aberta', 'Aula aberta', 'disciplinas', 'aberta')");
-  for (const n of ["ana", "bia"]) await dono("insert into interno.rede_comunidade_membros (comunidade, usuario, situacao) values ('roda-fechada', $1, 'ativo')", [P[n]]);
+  // Depois da R2 (membros escondidos, 20261124-r2-membros.sql) o servidor não sabe quem é de qual núcleo: o post cifrado de grupo
+  // que era "do núcleo" vai para uma segunda comunidade fechada (a filiação à comunidade fechada continua no banco).
+  await dono("insert into interno.rede_comunidades (slug, nome, categoria, tipo) values ('roda-fechada', 'Roda fechada', 'lutas', 'fechada'), ('roda-dois', 'Roda dois', 'lutas', 'fechada'), ('praca-aberta', 'Praça aberta', 'lutas', 'aberta'), ('aula-aberta', 'Aula aberta', 'disciplinas', 'aberta')");
+  for (const n of ["ana", "bia"]) await dono("insert into interno.rede_comunidade_membros (comunidade, usuario, situacao) values ('roda-fechada', $1, 'ativo'), ('roda-dois', $1, 'ativo')", [P[n]]);
   for (const n of ["ana", "bia", "caio"]) await dono("insert into interno.rede_comunidade_membros (comunidade, usuario, situacao) values ('praca-aberta', $1, 'ativo'), ('aula-aberta', $1, 'ativo')", [P[n]]);
 
   const publicar = async (quem, pedido) => {
@@ -237,22 +301,24 @@ try {
   let doNucleo;
   let daRoda;
   {
-    doNucleo = await espera("a pessoa do núcleo publica o post cifrado no núcleo", () =>
-      publicar("ana", { publico: "nucleo", nucleo: NUCLEO, grupo: `nucleo:${NUCLEO}`, corpo_grupo: CIFRA }),
-    (r) => r?.texto === "" && r.grupo === `nucleo:${NUCLEO}` && r.corpo_grupo === CIFRA && r.publico === "nucleo");
+    await recusa("no núcleo, o servidor não aceita post nenhum (não sabe quem é do núcleo: o mural é do grupo, nos aparelhos)", () =>
+      publicar("ana", { publico: "nucleo", nucleo: NUCLEO, grupo: `nucleo:${NUCLEO}`, corpo_grupo: CIFRA }), "sem_permissao");
+    doNucleo = await espera("quem é da comunidade fechada publica o post cifrado nela", () =>
+      publicar("ana", { comunidade: "roda-dois", publico: "comunidade", grupo: "comunidade:roda-dois", corpo_grupo: CIFRA }),
+    (r) => r?.texto === "" && r.grupo === "comunidade:roda-dois" && r.corpo_grupo === CIFRA && r.publico === "comunidade");
     daRoda = await espera("e na comunidade fechada", () =>
       publicar("bia", { comunidade: "roda-fechada", publico: "comunidade", grupo: "comunidade:roda-fechada", corpo_grupo: CIFRA }),
     (r) => r?.texto === "" && r.grupo === "comunidade:roda-fechada" && r.corpo_grupo === CIFRA);
     await espera("no banco o texto fica vazio, sem título nem corpo longo", async () =>
       um("select texto, titulo, corpo, grupo, corpo_grupo from interno.rede_posts where id = $1", [doNucleo?.id]),
     (r) => r.texto === "" && r.titulo === null && r.corpo === null && r.corpo_grupo === CIFRA);
-    await espera("quem é do grupo recebe o grupo e o corpo cifrado", async () => cartao(doNucleo?.id, "bia"), (j) => j.corpo_grupo === CIFRA && j.grupo === `nucleo:${NUCLEO}`);
-    await espera("quem não é do núcleo não recebe o post (nem pela API)", () => rpc(como(P.caio), "rede_post", { p_id: doNucleo?.id }).then((r) => JSON.stringify(r ?? null), (e) => e.message),
+    await espera("quem é do grupo recebe o grupo e o corpo cifrado", async () => cartao(doNucleo?.id, "bia"), (j) => j.corpo_grupo === CIFRA && j.grupo === "comunidade:roda-dois");
+    await espera("quem não é da comunidade fechada não recebe o post (nem pela API)", () => rpc(como(P.caio), "rede_post", { p_id: doNucleo?.id }).then((r) => JSON.stringify(r ?? null), (e) => e.message),
       (r) => !r.includes(CIFRA));
     await espera("quem não é da comunidade fechada também não", async () => (await um("select interno.rede2_pode_ver(p, $2) as v from interno.rede_posts p where p.id = $1", [daRoda?.id, P.caio])).v,
       (v) => v === false);
 
-    const base = { publico: "nucleo", nucleo: NUCLEO, grupo: `nucleo:${NUCLEO}`, corpo_grupo: CIFRA };
+    const base = { comunidade: "roda-dois", publico: "comunidade", grupo: "comunidade:roda-dois", corpo_grupo: CIFRA };
     await recusa("com texto aberto junto: recusa", () => publicar("ana", { ...base, texto: "isto ficaria aberto" }), "invalido:grupo");
     await recusa("só o grupo, sem o corpo: recusa", () => publicar("ana", { ...base, corpo_grupo: undefined, texto: "x" }), "invalido:grupo");
     await recusa("só o corpo, sem o grupo: recusa", () => publicar("ana", { ...base, grupo: undefined }), "invalido:grupo");
@@ -262,13 +328,13 @@ try {
     await recusa("enquete (opções abertas): recusa", () => publicar("ana", { ...base, tipo: "enquete", enquete: { opcoes: ["a", "b"] } }), "invalido:grupo");
     await recusa("prévia de link (título aberto): recusa", () => publicar("ana", { ...base, previa: { url: "https://exemplo.org", titulo: "aberto" } }), "invalido:grupo");
     await recusa("descrição de imagem aberta: recusa", () => publicar("ana", { ...base, midia: [{ caminho: `${P.ana}/${"0".repeat(8)}-0000-0000-0000-000000000000.jpg`, alt: "aberta" }] }), "invalido:grupo");
-    await recusa("grupo de outro núcleo: recusa", () => publicar("ana", { ...base, grupo: `nucleo:${"1".repeat(8)}-1111-1111-1111-111111111111` }), "invalido:grupo");
-    await recusa("público de membros: recusa", () => publicar("ana", { publico: "membros", grupo: `nucleo:${NUCLEO}`, corpo_grupo: CIFRA }), "invalido:grupo");
+    await recusa("grupo de outra comunidade: recusa", () => publicar("ana", { ...base, grupo: "comunidade:roda-fechada" }), "invalido:grupo");
+    await recusa("público de membros: recusa", () => publicar("ana", { publico: "membros", grupo: "comunidade:roda-dois", corpo_grupo: CIFRA }), "invalido:grupo");
     await recusa("comunidade aberta: recusa", () => publicar("ana", { comunidade: "praca-aberta", publico: "comunidade", grupo: "comunidade:praca-aberta", corpo_grupo: CIFRA }), "invalido:grupo");
     await recusa("internet: recusa", () => publicar("ana", { comunidade: "aula-aberta", publico: "internet", grupo: "comunidade:aula-aberta", corpo_grupo: CIFRA }), "invalido:grupo");
-    await recusa("quem não é do núcleo não publica no núcleo", () => publicar("caio", base), "sem_permissao");
+    await recusa("quem não é da comunidade fechada não publica nela (a segunda)", () => publicar("caio", base), "sem_permissao");
     await recusa("quem não é da comunidade fechada não publica nela", () => publicar("caio", { comunidade: "roda-fechada", publico: "comunidade", grupo: "comunidade:roda-fechada", corpo_grupo: CIFRA }), "sem_permissao");
-    await espera("sem grupo, publicar segue como antes (texto aberto no núcleo)", () => publicar("ana", { publico: "nucleo", nucleo: NUCLEO, texto: "Reunião na quinta." }),
+    await espera("sem grupo, publicar segue como antes (texto aberto na comunidade fechada)", () => publicar("ana", { comunidade: "roda-dois", publico: "comunidade", texto: "Reunião na quinta." }),
       (r) => r?.texto === "Reunião na quinta." && r.grupo === null && r.corpo_grupo === null);
     await recusa("o banco recusa texto aberto num post cifrado (editar não abre o post)", () => dono("update interno.rede_posts set texto = 'aberto' where id = $1", [doNucleo?.id]), "rede_posts_grupo_sem_texto");
     await recusa("e editar pela tela não grava texto aberto nele", async () => {
@@ -278,8 +344,8 @@ try {
 
     // A resposta cifrada: avisa sem trecho.
     await dono("delete from interno.avisos");
-    await espera("a resposta cifrada ao post do núcleo é aceita (herda o público)", () =>
-      publicar("bia", { resposta_a: doNucleo?.id, grupo: `nucleo:${NUCLEO}`, corpo_grupo: CIFRA }), (r) => r?.texto === "" && r.corpo_grupo === CIFRA);
+    await espera("a resposta cifrada ao post da comunidade fechada é aceita (herda o público)", () =>
+      publicar("bia", { resposta_a: doNucleo?.id, grupo: "comunidade:roda-dois", corpo_grupo: CIFRA }), (r) => r?.texto === "" && r.corpo_grupo === CIFRA);
     await espera("o aviso da resposta cifrada sai sem trecho do post", async () => linhas("select texto from interno.avisos where para = $1", [P.ana]),
       (r) => r.length >= 1 && r.every((a) => !a.texto.includes("“") && !a.texto.includes(CIFRA)));
   }
@@ -297,7 +363,7 @@ try {
     await dono("update interno.rede_posts set texto = '', grupo = 'comunidade:aula-aberta', corpo_grupo = $2 where id = $1", [aberto?.id, CIFRA]);
     await espera("com o corpo cifrado, nem a federação nem o RSS, a incorporação, o Telegram ou o resumo das comunidades levam o post", () => sai(aberto?.id),
       (r) => r.fed === false && r.alc === false);
-    await espera("o post cifrado do núcleo não federa nem sai", () => sai(doNucleo?.id), (r) => r.fed === false && r.alc === false);
+    await espera("o post cifrado da segunda comunidade fechada não federa nem sai", () => sai(doNucleo?.id), (r) => r.fed === false && r.alc === false);
     await espera("o da comunidade fechada também não", () => sai(daRoda?.id), (r) => r.fed === false && r.alc === false);
     await espera("RSS, incorporação, Telegram e resumo das comunidades passam por interno.alumia_alc_sai", async () => linhas(`select p.proname, position('alumia_alc_sai' in p.prosrc) > 0 as usa
         from pg_proc p where p.oid in (to_regprocedure('public.rede_alc_rss(text, text)'), to_regprocedure('public.rede_alc_post(uuid)'),

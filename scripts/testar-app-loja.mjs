@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-// Confere o pacote "app-loja" (docs/APP-LOJA.md): a configuração do Capacitor, que a pasta android/ não está no
-// repositório, que o Capacitor não entrou nas dependências, o documento da loja e o roteiro de teste em aparelho.
+// Confere o pacote "app-loja" (docs/APP-LOJA.md): a configuração do Capacitor (a casca do chat no pacote, onda R3), a pasta
+// android/ sem chave, que o site não importa o Capacitor, o documento da loja e o roteiro de teste em aparelho.
 // Sem rede, sem navegador. Uso: npm run testar:app-loja
 import assert from "node:assert/strict";
 import fs from "node:fs";
@@ -20,45 +20,53 @@ const roteiro = ler("docs/TESTE-EM-APARELHO-REAL.md");
 const pkg = JSON.parse(ler("package.json"));
 const ignorar = ler(".gitignore");
 
-ok("capacitor.config.ts aponta para o site em produção por server.url", () => {
-  assert.match(cfg, /https:\/\/institutolucia\.org/);
-  assert.match(cfg, /server:\s*\{[\s\S]*url:\s*endereco/);
+ok("capacitor.config.ts leva a casca do chat no pacote (onda R3), sem página remota", () => {
+  const codigo = cfg.replace(/\/\/.*$/gm, "");
   assert.match(cfg, /appId:\s*"org\.institutolucia\.app"/);
+  assert.match(cfg, /webDir:\s*"casca\/saida"/);
+  assert.doesNotMatch(codigo, /\burl:\s/);
+  assert.doesNotMatch(codigo, /allowNavigation:/);
+  assert.match(cfg, /includePlugins:\s*\[\]/);
 });
-ok("só o domínio do Instituto abre dentro do aplicativo", () => {
-  assert.match(cfg, /allowNavigation:\s*\["institutolucia\.org", "\*\.institutolucia\.org"\]/);
-});
-ok("texto puro e depuração só no teste local (http://)", () => {
-  assert.match(cfg, /cleartext:\s*endereco\.startsWith\("http:\/\/"\)/);
-  assert.match(cfg, /webContentsDebuggingEnabled:\s*endereco\.startsWith\("http:\/\/"\)/);
+ok("depuração só por pedido explícito e sem conteúdo misto", () => {
+  assert.match(cfg, /webContentsDebuggingEnabled:\s*process\.env\.ALUMIA_APP_DEPURAR === "1"/);
   assert.match(cfg, /allowMixedContent:\s*false/);
 });
-ok("o agente de usuário bate com o que o site e o teste do S24 esperam", () => {
-  assert.match(cfg, /appendUserAgent:\s*"InstitutoLuciaApp\/2"/);
-  assert.match(ler("e2e/s24.spec.ts"), /InstitutoLuciaApp\/2/);
-  assert.match(ler("lib/prefs.ts"), /; wv\)/);
-});
-ok("sem import do Capacitor (pacote não instalado) e sem leitura de disco", () => {
+ok("sem import do Capacitor no arquivo de configuração e sem leitura de disco", () => {
   assert.doesNotMatch(cfg, /from\s+["']@capacitor/);
   assert.doesNotMatch(cfg, /node:fs|readFileSync|require\(/);
 });
-ok("a pasta android/ não está no repositório e fica fora do git", () => {
-  assert.equal(existe("android"), false, "android/ não deve ser gerada no repositório");
-  assert.match(ignorar, /^\/android\/$/m);
+ok("a pasta android/ está no repositório, sem chave, e o que o cap sync gera fica de fora", () => {
+  assert.equal(existe("android/app/src/main/AndroidManifest.xml"), true);
+  assert.match(ignorar, /^\/android\/local\.properties$/m);
+  assert.doesNotMatch(ignorar, /^\/android\/$/m);
   assert.match(ignorar, /^\*\.jks$/m);
   assert.match(ignorar, /^\*\.keystore$/m);
+  assert.match(ler("android/.gitignore"), /app\/src\/main\/assets\/public/);
 });
-ok("o Capacitor não entrou nas dependências (nada novo no rastreio do deploy)", () => {
+ok("o Capacitor entra com versão exata e o site não o importa (nada novo no rastreio do deploy)", () => {
+  // Onda R3, item 1.2: o Capacitor é da casca do chat no app. Versão exata, sem "^"; nenhum arquivo do site (app/, components/,
+  // lib/) o importa, então ele não entra no rastreio das funções do deploy.
   const todas = { ...pkg.dependencies, ...pkg.devDependencies };
-  assert.deepEqual(Object.keys(todas).filter((k) => k.startsWith("@capacitor")), []);
+  for (const [nome, versao] of Object.entries(todas).filter(([k]) => k.startsWith("@capacitor"))) {
+    assert.match(versao, /^\d+\.\d+\.\d+$/, `${nome} sem versão exata`);
+  }
+  const importa = [];
+  const varrer = (pasta) => {
+    for (const e of fs.readdirSync(new URL(`../${pasta}`, import.meta.url), { withFileTypes: true })) {
+      const caminho = `${pasta}/${e.name}`;
+      if (e.isDirectory()) varrer(caminho);
+      else if (/\.(ts|tsx|mjs|js)$/.test(e.name) && /from\s+["']@capacitor\//.test(ler(caminho))) importa.push(caminho);
+    }
+  };
+  for (const pasta of ["app", "components", "lib"]) varrer(pasta);
+  assert.deepEqual(importa, []);
 });
-ok("a página mínima do aplicativo não tem script nem rede", () => {
-  const h = ler("app-loja/www/index.html");
-  assert.doesNotMatch(h, /<script|fetch\(|https?:\/\/(?!institutolucia\.org)/);
-  assert.match(cfg, /webDir:\s*"app-loja\/www"/);
+ok("a página mínima de antes (app-loja/www) saiu: o app abre a casca do chat", () => {
+  assert.equal(existe("app-loja/www/index.html"), false);
 });
 ok("APP-LOJA.md: passo a passo, assinatura, ficha, privacidade e a alternativa TWA", () => {
-  for (const trecho of ["npx cap add android", "Android Studio", "Play App Signing", "Bubblewrap", "assetlinks.json", "Segurança dos dados", "/pt/privacidade", "Classificação etária"]) {
+  for (const trecho of ["node casca/android.mjs", "WebView 137", "Android Studio", "Play App Signing", "Bubblewrap", "assetlinks.json", "Segurança dos dados", "/pt/privacidade", "Classificação etária", "Build reproduzível", "assembleRelease", "FLAG_SECURE", "allowBackup"]) {
     assert.ok(doc.includes(trecho), `falta "${trecho}" em docs/APP-LOJA.md`);
   }
 });

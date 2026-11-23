@@ -1,0 +1,126 @@
+(* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   CONTROLE (tem de dar ataque): sem-internet.pv com o farol aceito com UMA assinatura da lista. Com a coordenadora 1 corrompida,
+   o atacante faz um farol que ninguém honesto assinou. Por isso o farol exige duas chaves diferentes.
+   Original: SIGILO, AUTENTICAÇÃO, VALIDADE e o FAROL com duas assinaturas.
+   O código: lib/rede/malha/pacote.ts, entrega.ts, farol.ts; documento: docs/rede/SEM-INTERNET.md.
+     pacote    = validade ‖ nonce ‖ etiqueta ‖ corpo
+     etiqueta  = HMAC(k, rótulo ‖ nonce ‖ validade ‖ SHA-256(corpo))      k = HKDF(id da caixa) ou HKDF(k_ato)
+     mensagem: corpo = c ‖ envelope (o MESMO depósito da caixa: remetente-selado.pv)
+     farol:    corpo = HPKE(par do ato, aad = marca ‖ versão ‖ validade ‖ nonce, (farol, chave1, ass1, chave2, ass2))
+   Atacante: todo aparelho por perto (vê, guarda, muda, repete e solta pacotes quando quiser), inclusive uma pessoa que CONFIRMOU
+   presença no ato (tem k_ato) e UMA pessoa da coordenação corrompida (a chave do farol dela é dele).
+   Propriedades:
+     1. a mensagem de A para B fica secreta;
+     2. se B aceita uma mensagem de A com a validade v, A mandou essa mensagem com essa validade (quem repassa não estende a
+        validade: a etiqueta prende validade e corpo; B confere a validade contra o relógio, no código);
+     3. um farol só é aceito se uma pessoa HONESTA da coordenação o assinou (com uma das duas assinaturas do atacante, falta a
+        outra);
+     4. quem não tem k_ato não lê o farol.
+   A repetição (o mesmo pacote de novo) é recusada no código pelo resumo do corpo (no.ts) e pela ordem da conversa a dois
+   (ordem.ts), e o farol velho pelo "quando" (entrega.ts); isso está em scripts/testar-r3-malha.mjs, não no modelo (o ProVerif
+   não guarda o estado "já vi" sem abstrair demais). *)
+
+free c: channel.
+
+type skey.
+type pkey.
+type key.
+
+fun pk(skey): pkey.
+fun hpke(pkey, bitstring, bitstring, bitstring): bitstring.
+reduc forall k: skey, a: bitstring, m: bitstring, r: bitstring; abrir(hpke(pk(k), a, m, r), k, a) = m.
+fun senc(bitstring, key): bitstring.
+reduc forall m: bitstring, k: key; sdec(senc(m, k), k) = m.
+fun h(bitstring): bitstring.
+fun hc(bitstring, bitstring): bitstring.
+fun hmac(bitstring, bitstring): bitstring.
+fun hkdf(bitstring, bitstring): bitstring.
+fun parDoAto(bitstring): skey.
+fun assinar(bitstring, skey): bitstring.
+reduc forall m: bitstring, k: skey; conferir(assinar(m, k), pk(k)) = m.
+
+const rotuloChave, rotuloEtiquetaAto, rotuloXwingAto: bitstring.
+free aparelhoA: bitstring.
+free segredo: bitstring [private].
+free farolSecreto: bitstring [private].
+
+event Enviou(bitstring, bitstring, bitstring).    (* aparelho, mensagem, validade *)
+event Entregue(bitstring, bitstring, bitstring).
+event Assinou(pkey, bitstring).                   (* chave do farol, conteúdo *)
+event FarolAceito(bitstring).
+
+query attacker(segredo).
+query attacker(farolSecreto).
+query m: bitstring, v: bitstring; event(Entregue(aparelhoA, m, v)) ==> event(Enviou(aparelhoA, m, v)).
+query f: bitstring, k2: pkey, k3: pkey; event(FarolAceito(f)) ==> event(Assinou(k2, f)) || event(Assinou(k3, f)).
+
+(* A manda a B pela malha: o mesmo depósito da caixa, com a etiqueta que só quem tem o id da caixa reconhece. *)
+let Remetente(kab: key, pkb: pkey, idcaixa: bitstring, m: bitstring) =
+  in(c, v: bitstring);   (* a validade: a hora; o atacante escolhe (o relógio não é segredo) *)
+  new nonce: bitstring;
+  new r: bitstring;
+  new kf: bitstring;
+  let idh = h(idcaixa) in
+  let cc = hc(kf, (idh, m)) in
+  let corpo = (cc, hpke(pkb, (idh, cc), (aparelhoA, senc((m, kf), kab)), r)) in
+  event Enviou(aparelhoA, m, v);
+  out(c, (v, nonce, hmac(hkdf(idcaixa, rotuloChave), (nonce, v, h(corpo))), corpo)).
+
+let Destinatario(skb: skey, idcaixa: bitstring, kab: key) =
+  in(c, (v: bitstring, nonce: bitstring, etq: bitstring, corpo: bitstring));
+  if etq = hmac(hkdf(idcaixa, rotuloChave), (nonce, v, h(corpo))) then
+  let (cc: bitstring, env: bitstring) = corpo in
+  let idh = h(idcaixa) in
+  let (=aparelhoA, x: bitstring) = abrir(env, skb, (idh, cc)) in
+  let (m: bitstring, kf: bitstring) = sdec(x, kab) in
+  if cc = hc(kf, (idh, m)) then
+  event Entregue(aparelhoA, m, v).
+
+(* Quem coordena assina o farol que decidiu (o atacante escolhe o conteúdo; a pessoa honesta assina o que lhe pedem). *)
+let Coordenacao(sk: skey) =
+  in(c, f: bitstring);
+  event Assinou(pk(sk), f);
+  out(c, assinar(f, sk)).
+
+(* Quem confirmou presença: reconhece pela etiqueta do ato, abre e confere DUAS assinaturas de chaves diferentes da lista. *)
+let Presente(kato: bitstring, k1: pkey, k2: pkey, k3: pkey) =
+  in(c, (v: bitstring, nonce: bitstring, etq: bitstring, corpo: bitstring));
+  if etq = hmac(hkdf(kato, rotuloEtiquetaAto), (nonce, v, h(corpo))) then
+  let (f: bitstring, ka: pkey, sa: bitstring, kb: pkey, sb: bitstring) = abrir(corpo, parDoAto(hkdf(kato, rotuloXwingAto)), (v, nonce)) in
+  if ka = k1 || ka = k2 || ka = k3 then
+  if conferir(sa, ka) = f then
+  event FarolAceito(f).
+
+(* Um farol de verdade de OUTRO ato, com o texto secreto, assinado pelas duas honestas: quem não tem a k_ato dele não lê. *)
+let FarolHonesto(kato: bitstring, sk2: skey, sk3: skey) =
+  in(c, v: bitstring);
+  new nonce: bitstring;
+  new r: bitstring;
+  let f = farolSecreto in
+  event Assinou(pk(sk2), f);
+  event Assinou(pk(sk3), f);
+  let corpo = hpke(pk(parDoAto(hkdf(kato, rotuloXwingAto))), (v, nonce), (f, pk(sk2), assinar(f, sk2), pk(sk3), assinar(f, sk3)), r) in
+  out(c, (v, nonce, hmac(hkdf(kato, rotuloEtiquetaAto), (nonce, v, h(corpo))), corpo)).
+
+process
+  new skB: skey;
+  new kAB: key;
+  new idcaixa: bitstring;
+  new sk1: skey;
+  new sk2: skey;
+  new sk3: skey;
+  new katoPublico: bitstring;
+  new katoSecreto: bitstring;
+  out(c, (pk(skB), pk(sk1), pk(sk2), pk(sk3)));
+  (* A coordenadora 1 é do atacante; e o atacante confirmou presença: tem a k_ato deste ato. *)
+  out(c, (sk1, katoPublico));
+  (
+    (!Remetente(kAB, pk(skB), idcaixa, segredo))
+  | (!in(c, m: bitstring); Remetente(kAB, pk(skB), idcaixa, m))
+  | (!Destinatario(skB, idcaixa, kAB))
+  | (!Coordenacao(sk2))
+  | (!Coordenacao(sk3))
+  | (!Presente(katoPublico, pk(sk1), pk(sk2), pk(sk3)))
+  | (!FarolHonesto(katoSecreto, sk2, sk3))
+  )

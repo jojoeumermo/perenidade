@@ -1,0 +1,76 @@
+{
+  "_rascunho": true,
+  "titulo": "Messages",
+  "carregando": "Opening…",
+  "trava": {
+    "titulo": "App locked",
+    "texto": "Type the app password to see your messages.",
+    "rotulo": "App password",
+    "abrir": "Open",
+    "errada": "Wrong password.",
+    "restam": "Wrong password. {n} tries left before everything is erased from this device.",
+    "conferindo": "Checking…"
+  },
+  "criar": {
+    "titulo": "Create the app password",
+    "texto": "It locks your messages when the app sits idle or goes to the background. It is not your account password and never leaves this device. Use at least 6 characters.",
+    "rotulo": "App password",
+    "repetir": "Repeat the password",
+    "diferentes": "The two passwords do not match.",
+    "curta": "Use at least 6 characters.",
+    "salvar": "Save and continue"
+  },
+  "entrar": {
+    "titulo": "Sign in",
+    "texto": "Sign in with your Alumia account. The chat runs inside this app: no key code comes from the website.",
+    "email": "Email",
+    "senha": "Account password",
+    "botao": "Sign in",
+    "entrando": "Signing in…",
+    "credenciais": "Wrong email or password.",
+    "nao_confirmado": "Confirm your email before signing in.",
+    "bloqueado": "Too many tries. Wait {n} minutes.",
+    "falha": "Could not sign in now. Check the connection and try again.",
+    "codigo": "Authenticator app code",
+    "codigoErrado": "Wrong code.",
+    "confirmar": "Confirm",
+    "semFator": "This account has no authenticator app yet. Set it up on the website and come back."
+  },
+  "menu": {
+    "ajustes": "App settings",
+    "rede": "Open the social network",
+    "travar": "Lock now",
+    "voltar": "Back to messages"
+  },
+  "ajustes": {
+    "titulo": "App settings",
+    "disfarce": "Name and icon on the home screen",
+    "disfarceTexto": "Switch to a common name. The app stays the same; the change may take a few seconds to show.",
+    "disfarces": {
+      "padrao": "Instituto Lúcia",
+      "calculadora": "Calculator",
+      "notas": "Notes"
+    },
+    "trava": "Lock by itself after",
+    "minutos": "{n} min",
+    "apagar": "Erase everything after wrong passwords",
+    "apagarDesligado": "Off",
+    "apagarDepois": "After {n} wrong passwords",
+    "apagarAviso": "Warning: when on, anyone who types the wrong app password this many times erases EVERYTHING on this device (messages, keys and the account in this app), with no way back. A child or someone fiddling with your phone may erase it by accident. Keep the chat backup first.",
+    "apagarConfirmar": "I understand the warning and want to turn it on",
+    "cofre": "Where the keys are kept",
+    "cofres": {
+      "strongbox": "In the device's security chip (StrongBox).",
+      "tee": "In the processor's protected area (TEE).",
+      "software": "Software only: this device has no hardware vault."
+    },
+    "senhaNova": "Change the app password",
+    "salvo": "Saved."
+  },
+  "link": {
+    "pergunta": "Open this address outside the app?",
+    "aviso": "No link opens by itself: check the address first."
+  },
+  "apagado": "Everything was erased from this device.",
+  "sem_webview": "To open the conversations, this device needs an updated Android System WebView (version 137 or newer). Update it from the device app store and open the app again."
+}

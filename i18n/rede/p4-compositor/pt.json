@@ -1,0 +1,70 @@
+{
+  "campos": {
+    "titulo": "Mais do post",
+    "resumo": "Versão curta (opcional)",
+    "resumoDica": "Até 280 letras, escritas por você, para quem tem só um minuto. Aparece em cima do texto.",
+    "capa": "Capa do artigo",
+    "semCapa": "Sem capa",
+    "capaN": "Imagem {n}",
+    "capitulos": "Cada linha que começa com \"## \" abre um capítulo. Com dois ou mais, quem lê vê o índice e pode ler em páginas.",
+    "convite": "Mande a sua: este post é um convite",
+    "conviteDica": "Quem quiser responde com uma frase ou uma imagem. O total só aparece a partir de 3 pessoas, e ninguém vê uma lista de quem respondeu.",
+    "fonte": "Fonte (opcional)",
+    "fonteDica": "Um link sem parâmetros de rastreio ou o endereço de uma checagem do Vale o Escrito. O post ganha a marca \"com fonte\".",
+    "fonteRuim": "Essa fonte não vale: use um link http(s) sem parâmetros de rastreio ou o endereço de um caso do Vale o Escrito.",
+    "resumoContador": "{n} de 280",
+    "capaAjuda": "A capa aparece em cima do índice, para quem lê em páginas."
+  },
+  "album": {
+    "maximo": "Até 20 imagens por post."
+  },
+  "cartao": {
+    "versaoCurta": "Versão curta",
+    "capitulos": "{n} capítulos",
+    "lerEmPaginas": "Ler em páginas",
+    "convite": "Mande a sua",
+    "conviteTotal": "{n} pessoas já mandaram a sua.",
+    "conviteSemTotal": "Responda com uma frase ou uma imagem.",
+    "responder": "Mandar a minha",
+    "comFonte": "Com fonte",
+    "fonteVale": "Checagem do Vale o Escrito",
+    "mandar": "Abrir para mandar a sua",
+    "ajudaDoSelo": "A autora indicou de onde tirou a informação."
+  },
+  "leitura": {
+    "titulo": "Leitura em páginas",
+    "indice": "Índice",
+    "abertura": "Abertura",
+    "pagina": "Página {n} de {total}",
+    "anterior": "Anterior",
+    "proxima": "Próxima",
+    "fechar": "Fechar",
+    "capa": "Capa",
+    "carregando": "Abrindo o texto…",
+    "erro": "Não deu para abrir o texto agora. Tente de novo.",
+    "irPara": "Ir para o capítulo"
+  },
+  "filtro": {
+    "titulo": "Imagens sem descrição",
+    "rotulo": "Esconder da linha os posts com imagem sem descrição",
+    "explica": "Vale só neste aparelho: o servidor não sabe que você ligou. A descrição é o texto que o leitor de tela lê no lugar da imagem.",
+    "ligado": "Ligado neste aparelho.",
+    "desligado": "Desligado."
+  },
+  "erros": {
+    "invalido_resumo": "A versão curta vai só no texto longo, com até 280 letras.",
+    "resumo_revisar": "A versão curta tem algo que a mediação precisaria ler antes. Troque as palavras ou tire a versão curta.",
+    "invalido_capa": "A capa precisa ser uma das imagens deste texto longo.",
+    "invalido_convite": "O convite \"Mande a sua\" vai só num post de abertura (não numa resposta, enquete ou texto longo).",
+    "invalido_fonte": "Essa fonte não vale: use um link http(s) sem parâmetros de rastreio ou o endereço de um caso do Vale o Escrito.",
+    "invalido_vale": "Esse caso do Vale o Escrito não está no ar para ser citado.",
+    "desligado": "Essas escolhas ainda não estão ligadas. Tire-as para publicar.",
+    "semCifra": "O post cifrado leva só o texto: a versão curta, a fonte e o convite iriam abertos. Tire-os ou publique fora do grupo cifrado.",
+    "semFio": "O fio não leva versão curta, fonte nem convite. Publique um bloco só ou tire essas escolhas."
+  },
+  "barra": {
+    "expandir": "Expandir",
+    "expandirAjuda": "Abrir o editor completo, com o que já está escrito (imagens, enquete, quem vê, mais tarde).",
+    "dica": "Ctrl+Enter publica. Antes de sair, o post espera 10 segundos e dá para desfazer."
+  }
+}

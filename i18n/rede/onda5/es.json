@@ -23,6 +23,19 @@
     "questoes": { "titulo": "Preguntas", "descricao": "Preguntas por materia y tema, con la respuesta correcta y la explicación solo después de responder. Tus aciertos quedan en tu dispositivo." },
     "redacao": { "titulo": "Redacción entre pares", "descricao": "La ronda de corrección de la semana: corriges una redacción sin saber de quién es y recibes dos lecturas, por las cinco competencias del ENEM." },
     "pontes": { "titulo": "Puentes", "descricao": "Los robots de la organización, con etiqueta y clave, y el canal de Telegram." },
-    "trabalhadores": { "titulo": "Mural del Trabajo", "descricao": "Llamados de lucha, huelga y solidaridad de las organizaciones con sello, por tipo y por ciudad." }
+    "trabalhadores": { "titulo": "Mural del Trabajo", "descricao": "Llamados de lucha, huelga y solidaridad de las organizaciones con sello, por tipo y por ciudad." },
+    "avisos-de-local": { "titulo": "Avisos de lugar", "descricao": "Avisos de la calle al estilo de Waze, sin autor, en un cuadrado de unos 200 m, que desaparecen en 2 horas." },
+    "seguranca-pessoal": { "titulo": "Seguridad personal", "descricao": "Registro de abuso, guardia jurídica e interruptor de desaparición, cifrados en tu aparato." },
+    "criacao-coletiva": { "titulo": "Creación colectiva", "descricao": "Borrador colectivo de nota o manifiesto, anotaciones al margen del acervo, cartel y fanzine hechos en tu dispositivo." },
+    "cultura": { "titulo": "Cultura", "descricao": "Obra por capítulos con aviso de capítulo nuevo, mural de arte con seudónimo, cineclub, club de lectura y lista colectiva de la comunidad." },
+    "memoria-da-luta": { "titulo": "Memoria de la lucha", "descricao": "Las victorias, las campañas, el archivo vivo y los pódcasts de tus comunidades." },
+    "desafio": { "titulo": "Desafío del día", "descricao": "Cinco preguntas del glosario, las mismas para todo el mundo hoy. La puntuación queda en tu dispositivo." },
+    "organizar": { "titulo": "Organizar", "descricao": "El tablero, las reuniones y las decisiones de la organización; el mural, el banco de tiempo y los puntos de apoyo de la comunidad." },
+    "acao-coletiva": { "titulo": "Acción colectiva", "descricao": "Presión, radar de proyectos, documentos, cartas, cuestionarios, actos, hospedaje, afiliación, turnos y organizaciones." },
+    "perto": { "titulo": "Cerca", "descricao": "Ubicación solo cifrada con tu círculo de confianza, pedido de ayuda y vuelta a casa." },
+    "descobrir": { "titulo": "Descubrir", "descricao": "Temas en movimiento, líneas que otras personas siguen, #temas del Fediverso de servidores aprobados y las direcciones RSS y Atom." },
+    "estudar": { "titulo": "Estudiar", "descricao": "Ritmo y mazos solo en tu aparato, simulacro de la clase, mentoría, fuentes, seguridad digital, inscripciones, convocatorias y el glosario." },
+    "conta": { "titulo": "Cuenta y convivencia", "descricao": "Niveles de protección, menciones, horario de atención, el cuidado de tus comunidades, diario y modo viaje." },
+    "fio-texto": { "titulo": "Hilo como texto", "descricao": "El hilo de una autora como texto corrido, solo con lo que ya puedes ver." }
   }
 }

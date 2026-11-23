@@ -1,0 +1,18 @@
+# Instituto Lúcia — exceções do cargo audit do núcleo (cada uma com a justificativa ao lado; tirar da lista assim que a
+# correção subir). Este crate roda com `--deny warnings` na CI, então os "unmaintained" também precisam de registro aqui.
+[advisories]
+ignore = [
+    # rsa 0.9.10 (RUSTSEC-2023-0071, "Marvin Attack"): oráculo de tempo na DECRIPTAÇÃO RSA PKCS#1v1.5. Aqui o rsa entra
+    # por sigstore 0.14 (só "verify") -> openidconnect: o uso é verificação de assinatura (cadeia do Fulcio/SCT), nunca
+    # decriptação. Sem chave privada RSA no processo, o oráculo não existe. Sai quando o sigstore subir com rsa >= 0.10.
+    "RUSTSEC-2023-0071",
+    # chrono 0.4 (RUSTSEC-2026-0543, unmaintained): sem falha de segurança conhecida; entra por dependências do sigstore.
+    # Sai quando a cadeia migrar para uma biblioteca de datas mantida.
+    "RUSTSEC-2026-0543",
+    # zbus_names 4 / zvariant 5 / zvariant_derive 5 (RUSTSEC-2026-0371/0370/0372, unmaintained): declaradas sem
+    # mantenedor em out/2026, sem falha de segurança associada. Entram pela pilha zbus (Linux) das dependências de
+    # verificação; no Windows/macOS nem compilam. Sai quando a cadeia atualizar para as versões mantidas.
+    "RUSTSEC-2026-0371",
+    "RUSTSEC-2026-0370",
+    "RUSTSEC-2026-0372",
+]

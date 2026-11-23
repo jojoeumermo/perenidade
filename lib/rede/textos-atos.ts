@@ -3,6 +3,7 @@
 // Os textos dos atos (frente F2): i18n/rede/atos/{pt,en,es,fr,ru,zh}.json. Carrega só o idioma pedido, sob demanda, e guarda
 // o que já veio (as várias peças da mesma tela pedem juntas). Sem "@/" de propósito (roda no Node nos testes).
 import type pt from "../../i18n/rede/atos/pt.json";
+import { prontoDe } from "./textos-prontos";
 
 export type TextosDosAtos = typeof pt;
 
@@ -20,7 +21,7 @@ const JA: Record<string, Promise<TextosDosAtos>> = {};
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export function carregarTextosDosAtos(lang: string): Promise<TextosDosAtos> {
   const chave = CARREGAR[lang] ? lang : "pt";
-  JA[chave] ??= CARREGAR[chave]().then((m) => m.default as TextosDosAtos);
+  JA[chave] ??= prontoDe(CARREGAR[chave], CARREGAR.pt).then((d) => d as TextosDosAtos);
   return JA[chave];
 }
 

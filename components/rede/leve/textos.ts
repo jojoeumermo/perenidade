@@ -4,6 +4,7 @@
 // cinco são rascunho marcado ("_rascunho"). Cada idioma é um pedaço separado (import dinâmico). Sem "@/" de propósito.
 import { useEffect, useState } from "react";
 import type pt from "../../../i18n/rede/leve/pt.json";
+import { carregarPronto } from "../../../lib/rede/textos-prontos";
 
 export type TextosDoLeve = typeof pt;
 
@@ -18,8 +19,7 @@ const CARREGAR: Record<string, () => Promise<{ default: unknown }>> = {
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export async function carregarTextosDoLeve(lang: string): Promise<TextosDoLeve> {
-  const carregar = CARREGAR[lang] ?? CARREGAR.pt;
-  return (await carregar()).default as TextosDoLeve;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDoLeve;
 }
 
 /** Os textos na tela (nulo até chegarem). */

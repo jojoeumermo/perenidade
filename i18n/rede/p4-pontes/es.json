@@ -1,0 +1,81 @@
+{
+  "_rascunho": "Borrador de traducción del texto en portugués (pt.json es el texto final).",
+  "carregando": "Cargando…",
+  "erros": {
+    "desligado": "Esto todavía no está activado.",
+    "sem_permissao": "No puedes hacer esto.",
+    "nao_encontrado": "No lo encontramos, o no puedes verlo.",
+    "invalido:dominio": "Escribe solo el nombre del servidor, como mastodon.social.",
+    "invalido:propria": "No puedes marcar tu propia respuesta.",
+    "so_comunidade_aberta": "Solo una comunidad abierta puede elegir el puente.",
+    "generico": "No funcionó. Inténtalo de nuevo en un momento."
+  },
+  "midia": {
+    "video": "Vídeo en {servidor}",
+    "audio": "Audio en {servidor}",
+    "abrir": "Ver en el sitio de origen",
+    "ouvir": "Escuchar en el sitio de origen",
+    "aviso": "Se abre fuera de Alumia: ese servidor verá tu acceso. La miniatura de aquí llega a través de Alumia."
+  },
+  "aprovados": {
+    "titulo": "Federar solo con servidores aprobados",
+    "texto": "Activado, Alumia solo habla con los servidores de esta lista (y sus subdominios). Los demás cuentan como bloqueados: no entra ni sale nada. Activarlo no borra nada; desactivarlo vuelve a como estaba. El bloqueo fijo (Threads y Bridgy Fed) sigue valiendo.",
+    "modo": "Solo servidores aprobados",
+    "campo": "Servidor (ej.: mastodon.social)",
+    "aprovar": "Aprobar",
+    "tirar": "Quitar",
+    "vazia": "Todavía no hay servidores aprobados. Con el modo activado y la lista vacía, Alumia no habla con nadie de fuera.",
+    "desde": "desde {data}"
+  },
+  "bluesky": {
+    "titulo": "Puente con Bluesky",
+    "texto": "Las publicaciones públicas de esta comunidad aparecerían en Bluesky a través del puente Bridgy Fed. El puente está desactivado por decisión del Instituto: la elección queda guardada, pero no sale nada mientras la decisión no cambie.",
+    "escolher": "Quiero el puente cuando se libere",
+    "barrada": "El puente está desactivado por decisión del Instituto. No sale nada hacia Bluesky.",
+    "fechada": "Solo una comunidad abierta puede elegir."
+  },
+  "avisos": {
+    "soSeguidos": "Menciones y respuestas solo de quien sigo",
+    "soSeguidosAjuda": "Las demás siguen en la lista de avisos; solo no llegan como notificación al dispositivo."
+  },
+  "poucoUtil": {
+    "marcar": "Poco útil",
+    "marcado": "Marcaste esto como poco útil",
+    "ajuda": "Nadie ve quién marcó ni cuántas marcas hay. La respuesta solo baja en la conversación a partir de 3 marcas de personas distintas. No desaparece ni se oculta."
+  },
+  "fio": {
+    "abrir": "Leer como texto",
+    "titulo": "El hilo como texto",
+    "de": "Hilo de {autor}",
+    "partes": "{n} partes",
+    "voltar": "Volver a la conversación",
+    "foco": "Modo foco",
+    "sairFoco": "Salir del modo foco",
+    "ouvir": "Escuchar",
+    "parar": "Parar",
+    "nota": "Solo aparece lo que ya puedes ver. Las respuestas de otras personas siguen en la conversación."
+  },
+  "salvos": {
+    "buscar": "Buscar en guardados",
+    "ajuda": "La búsqueda se hace solo en este dispositivo: el servidor no sabe qué buscaste.",
+    "nenhum": "Nada guardado con “{termo}”.",
+    "achados": "{n} en guardados"
+  },
+  "libras": {
+    "fixar": "Fijar en la ventana de lengua de señas",
+    "tirar": "Quitar de la ventana de lengua de señas",
+    "titulo": "Ventana de lengua de señas",
+    "maior": "Agrandar",
+    "menor": "Achicar",
+    "lado": "Cambiar de lado",
+    "ajuda": "Elige quién está interpretando en Libras: la imagen queda fija y siempre a la vista en este dispositivo. La elección no sale de aquí."
+  },
+  "legendas": {
+    "ligar": "Subtítulos",
+    "desligar": "Quitar los subtítulos",
+    "titulo": "Subtítulos en vivo",
+    "ajuda": "Hechos en este dispositivo, con el reconocimiento de voz del propio navegador. No se graba ni se envía nada. Pueden fallar.",
+    "semSuporte": "Este navegador no hace subtítulos sin enviar el audio fuera; por eso aquí no aparecen.",
+    "alguem": "Alguien"
+  }
+}

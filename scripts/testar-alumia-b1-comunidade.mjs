@@ -59,6 +59,8 @@ const um = async (texto, valores = []) => (await dono(texto, valores)).rows[0];
 const sql = fs.readFileSync(new URL("../supabase/migracoes/20261110-alumia-b1-comunidade.sql", import.meta.url), "utf8");
 await espera("a migração instala sobre o install.sql", () => banco.exclusivo(() => banco.pg.exec(sql)));
 await espera("instalar de novo não quebra (idempotente)", () => banco.exclusivo(() => banco.pg.exec(sql)));
+// O install.sql inteiro de novo por cima: as definições finais (a R2 redefiniu funções desta migração) voltam a valer.
+await espera("e o install.sql inteiro de novo por cima (as definições finais voltam)", () => banco.instalarDeNovo());
 
 let ip = 10;
 const como = (sub) => ({ papel: "authenticated", sub, ip: `198.51.100.${ip++ % 250}` });
@@ -108,16 +110,18 @@ await reagir(P.outra, "✊");
 await reagir(P.terceira, "✊");
 await reagir(P.bloqueado, "✊");
 await espera("reações: para quem não tem bloqueio, 3 contam", () => rpc(como(P.quarta), "rede_alumia_reacoes", { p_posts: [doPost] }), (r) => totalDe(r.itens[0]) === 3);
-await espera("reações: para a autora, quem ela bloqueou não conta (3 vira 'poucas')", () => rpc(como(P.autora), "rede_alumia_reacoes", { p_posts: [doPost] }), (r) => totalDe(r.itens[0]) === null);
+// Desde a auditoria do Prompt 4 (B4), "poucas" (1 ou 2) não aparece nem como entrada do emoji, e a reação da própria pessoa não
+// completa o 3 para ela (20261127-p4-cartao-do-post.sql).
+await espera("reações: para a autora, quem ela bloqueou não conta (3 vira 'poucas', que nem aparece)", () => rpc(como(P.autora), "rede_alumia_reacoes", { p_posts: [doPost] }), (r) => totalDe(r.itens[0]) === "sem");
 await espera("reações: reagir e tirar não deixa ver o bloqueado mexendo no número", async () => {
   const antes = totalDe(await rpc(como(P.autora), "rede_alumia_reagir", { p_post: doPost, p_emoji: "✊", p_sim: true }));
   const depois = totalDe(await rpc(como(P.autora), "rede_alumia_reagir", { p_post: doPost, p_emoji: "✊", p_sim: false }));
   return { antes, depois };
-}, (r) => r.antes === 3 && r.depois === null);
+}, (r) => r.antes === null && r.depois === "sem");
 await dono("update interno.perfis set suspenso = true where id = $1", [P.terceira]);
-await espera("reações: conta suspensa sai do total", () => rpc(como(P.quarta), "rede_alumia_reacoes", { p_posts: [doPost] }), (r) => totalDe(r.itens[0]) === null);
+await espera("reações: conta suspensa sai do total", () => rpc(como(P.quarta), "rede_alumia_reacoes", { p_posts: [doPost] }), (r) => totalDe(r.itens[0]) === "sem");
 await dono("update interno.perfis set suspenso = false where id = $1", [P.terceira]);
-await espera("reações: a conversa usa a mesma conta", () => rpc(como(P.autora), "rede_alumia_conversa", { p_id: doPost }), (r) => r.post.reacoes.find((x) => x.emoji === "✊")?.total === null);
+await espera("reações: a conversa usa a mesma conta", () => rpc(como(P.autora), "rede_alumia_conversa", { p_id: doPost }), (r) => !r.post.reacoes.some((x) => x.emoji === "✊"));
 await espera("reações: a própria reação sempre conta para a pessoa (minha)", () => rpc(como(P.outra), "rede_alumia_reacoes", { p_posts: [doPost] }), (r) => r.itens[0].reacoes[0].minha === true);
 
 // ── 2. A página da comunidade, na ordem certa ──
@@ -333,14 +337,10 @@ await espera("pastas: tirar dos salvos tira da pasta privada", async () => {
   await dono("delete from interno.rede_salvos where usuario = $1 and post = $2", [P.membro, doPost]);
   return rpc(como(P.membro), "rede_alumia_pasta_posts", { p_pasta: pasta2 });
 }, (r) => r.itens.length === 0);
+// Depois da R2 (membros escondidos, 20261124-r2-membros.sql), o servidor não sabe quem é de qual núcleo: a pasta do núcleo fecha no
+// servidor (o acervo do núcleo vira mensagem do grupo, nos aparelhos).
 const nuc = (await um("insert into interno.rede_nucleos (nome, cidade) values ('Núcleo B1', 'São Paulo') returning id")).id;
-await dono("insert into interno.rede_nucleo_membros (nucleo, usuario, papel) values ($1, $2, 'mediacao'), ($1, $3, 'membro')", [nuc, P.membro, P.outra]);
-const pastaN = (await rpc(como(P.outra), "rede_alumia_pasta_criar", { p_nome: "Clipping", p_nucleo: nuc })).id;
-await rpc(como(P.outra), "rede_alumia_pasta_por", { p_pasta: pastaN, p_post: doPost });
-await espera("pasta do núcleo: quem é do núcleo vê, sem saber quem pôs", () => rpc(como(P.membro), "rede_alumia_pasta_posts", { p_pasta: pastaN }), (r) => r.itens.length === 1 && r.pasta.nucleo === true && semNomes(r.pasta));
-await recusa("pasta do núcleo: quem não é do núcleo não vê", () => rpc(como(P.terceira), "rede_alumia_pasta_posts", { p_pasta: pastaN }), "nao_encontrado");
-await recusa("pasta do núcleo: só a mediação apaga", () => rpc(como(P.outra), "rede_alumia_pasta_mudar", { p_id: pastaN, p_nome: null }), "sem_permissao");
-await espera("pasta do núcleo: a mediação apaga", () => rpc(como(P.membro), "rede_alumia_pasta_mudar", { p_id: pastaN, p_nome: null }), (r) => r.apagada);
+await recusa("pasta do núcleo: o servidor não cria (não sabe quem é do núcleo)", () => rpc(como(P.outra), "rede_alumia_pasta_criar", { p_nome: "Clipping", p_nucleo: nuc }), "nao_encontrado");
 await espera("pastas: a tabela de itens não guarda quem pôs", () => um("select count(*)::int as n from information_schema.columns where table_schema = 'interno' and table_name = 'rede_alumia_pasta_itens' and column_name in ('usuario', 'quem')"), (r) => r.n === 0);
 
 // ── 10. "Pergunte a…" ──

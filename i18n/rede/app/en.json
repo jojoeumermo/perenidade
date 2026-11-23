@@ -1,0 +1,49 @@
+{
+  "_rascunho": "Draft translation of the Portuguese text (pt.json is the final one).",
+  "titulo": "The Alumia app",
+  "lead": "To talk on Alumia with the encrypted chat, use the phone or computer app. The chat code ships inside the app: what runs on your device does not come from the server every time you open it. And every version is recorded in a public log that anyone can check.",
+  "soApp": {
+    "titulo": "To chat, use the app",
+    "texto": "The website has the social network. The encrypted chat runs in the phone or computer app, with the code inside it and every version recorded in a public log.",
+    "baixar": "Download and check the app",
+    "voltar": "Back to Alumia"
+  },
+  "baixar": {
+    "titulo": "Download",
+    "android": "Android",
+    "windows": "Windows",
+    "macos": "macOS",
+    "linux": "Linux",
+    "iphone": "There is no iPhone app yet. iPhone users keep chatting on the website while the website chat is open.",
+    "semVersao": "No version has been published yet. When there is one, it shows up here, with the digest of each file and its entry in the public log.",
+    "versao": "Version {versao}",
+    "arquivo": "File",
+    "para": "For",
+    "tamanho": "Size",
+    "resumo": "SHA-256 digest",
+    "livro": "In the public log",
+    "entrada": "entry {indice}",
+    "pacote": "verification bundle"
+  },
+  "conferir": {
+    "titulo": "Check before installing",
+    "texto": "Every app file is signed by the release workflow of the Institute's public repository, on a version tag, and recorded in Rekor, Sigstore's public signature log. Nobody holds a key that could sign on the side: the signature comes from the workflow's identity, and the log makes each one public forever.",
+    "passos": [
+      "Download the file and its verification bundle (the file with the same name ending in .sigstore.json).",
+      "Check it with one of the commands below. Both tell you whether the file is exactly what the workflow signed and whether the signature is in the log.",
+      "Only install if the check passes. If it fails, do not install and tell the coordination."
+    ],
+    "comandoNode": "With the repository code (Node 22 or newer):",
+    "comandoCosign": "With the official Sigstore tool:",
+    "roteiro": "Guide to build the app from scratch and get the same file",
+    "trocar": "Replace {versao} with the version and {arquivo} with the file name."
+  },
+  "sistema": {
+    "titulo": "The Windows and macOS warning",
+    "texto": "The app does not have Microsoft's or Apple's paid signature. That is why the system warns that the program comes from an unknown source. Trust comes from somewhere else: the public log and the reproducible build. Check the digest before opening it."
+  },
+  "atualizacao": {
+    "titulo": "Updates",
+    "texto": "The app only installs an update that is in the public log, signed by the repository's release workflow. Outside the log, it refuses and says why. A version installed some other way that is not in the log opens, but the chat does not."
+  }
+}

@@ -3,6 +3,7 @@
 // Os textos da frente 13B (aovivo): i18n/rede/aovivo/{pt,en,es,fr,ru,zh}.json. O português é o texto final; os outros cinco são rascunho
 // marcado ("_rascunho"). Cada idioma é um pedaço separado (import dinâmico): o navegador só baixa o que usa. Sem "@/" de propósito.
 import type pt from "../../../i18n/rede/aovivo/pt.json";
+import { carregarPronto } from "../../../lib/rede/textos-prontos";
 
 export type TextosDoAoVivo = typeof pt;
 
@@ -17,6 +18,5 @@ const CARREGAR: Record<string, () => Promise<{ default: unknown }>> = {
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export async function carregarTextosDoAoVivo(lang: string): Promise<TextosDoAoVivo> {
-  const carregar = CARREGAR[lang] ?? CARREGAR.pt;
-  return (await carregar()).default as TextosDoAoVivo;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDoAoVivo;
 }

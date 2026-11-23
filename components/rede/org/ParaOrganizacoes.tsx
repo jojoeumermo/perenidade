@@ -5,7 +5,6 @@
 // (/alumia/organizacoes/selo); "Ver um perfil de exemplo" e cada ferramenta abrem o perfil de exemplo NA aba daquela ferramenta.
 import type { CSSProperties } from "react";
 import Link from "@/components/Link";
-import { localePath } from "@/i18n/config";
 import type { TextosDaOrg } from "@/lib/rede/textos-org";
 import { Mosaico } from "../mosaico/Mosaico";
 import { LinkBotao } from "../ui/Botao";
@@ -16,13 +15,14 @@ import { DiretorioDasOrganizacoes, MapaDosLampioes } from "./b1/Diretorio";
 import { BotoesDoSiteDaOrg } from "./BotoesDoSite";
 import { BarrasDaConsulta, CartaoAoVivo, ListaDeNucleos } from "./partes";
 import "./org.css";
+import { entradaDaAlumia } from "@/lib/rede/alumia";
 
 /** Os endereços da F4 num lugar só. */
 export const enderecosDaOrg = {
   pagina: (lang: string) => `/${lang}/alumia/organizacoes`,
   selo: (lang: string) => `/${lang}/alumia/organizacoes/selo`,
   exemplo: (lang: string, aba?: string) => `/${lang}/alumia/organizacoes/exemplo${aba ? `?aba=${aba}` : ""}`,
-  entrar: (lang: string, criar = false) => `${localePath(lang, "/entrar")}?${criar ? "criar&" : ""}volta=/alumia/organizacoes`,
+  entrar: (lang: string, criar = false) => entradaDaAlumia(lang, "/alumia/organizacoes", criar),
 };
 
 /** A cor do traço de cada passo de "Como entrar" (prancha: vermelho, dourado, papel). */
@@ -55,7 +55,7 @@ export function ConteudoParaOrganizacoes({ t, lang, naCasca = false }: { t: Text
             <LinkBotao href={enderecosDaOrg.entrar(lang, true)} variante="primario" tamanho="p">
               {p.criarConta}
             </LinkBotao>
-            <BotoesDoSiteDaOrg t={t} />
+            <BotoesDoSiteDaOrg t={t} lang={lang} />
           </nav>
         </header>
         )}

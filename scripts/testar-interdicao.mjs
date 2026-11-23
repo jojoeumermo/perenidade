@@ -30,7 +30,10 @@ const versaoNoBanco = sql.match(/function interno\.gaveta_termo_versao\(\)[^$]*\
 igual("versão do termo da Gaveta: site = banco", versaoNoSite, versaoNoBanco);
 
 // Toda rota pública de app/[lang] pertence a uma área, ou é uma página geral (fecha só com o site inteiro).
-const gerais = ["sobre", "guia", "privacidade", "termos", "status", "seguranca-digital", "certificado", "meus-dados", "historico", "explorar", "painel", "entrar", "fora-do-ar", "quem-somos", "creditos", "original", "por-onde-andei", "modo-seguro"];
+const gerais = ["sobre", "guia", "privacidade", "termos", "status", "seguranca-digital", "certificado", "meus-dados", "historico", "explorar", "painel", "entrar", "fora-do-ar", "quem-somos", "creditos", "original", "por-onde-andei", "modo-seguro",
+  // Onda R3: a transparência (relatórios, pedidos de órgãos públicos, canário) fica sempre aberta, como a privacidade: uma área
+  // que a coordenação pudesse fechar faria o canário sumir sem aviso.
+  "transparencia"];
 // "por-onde-andei" é o histórico pessoal (fica no aparelho) e "modo-seguro" é a saída segura: nenhum dos dois pode
 // fechar quando a busca ou uma área for interditada (Etapa 4, E4-05).
 for (const pasta of fs.readdirSync(path.join(raiz, "app/[lang]"), { withFileTypes: true })) {

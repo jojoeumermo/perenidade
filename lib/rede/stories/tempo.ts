@@ -31,3 +31,18 @@ export function faltaParaOAto(inicio: string, agora: number): { dias: number; ho
 
 /** Dois dígitos ("04"). */
 export const doisDigitos = (n: number): string => String(Math.max(0, Math.floor(n))).padStart(2, "0");
+
+/** P5: um instante (ISO) no formato do campo "datetime-local" (a hora do aparelho, "2026-11-20T18:30"); inválido = "". */
+export function isoParaHoraLocal(iso: string): string {
+  const t = Date.parse(iso);
+  if (!Number.isFinite(t)) return "";
+  const d = new Date(t);
+  return `${d.getFullYear()}-${doisDigitos(d.getMonth() + 1)}-${doisDigitos(d.getDate())}T${doisDigitos(d.getHours())}:${doisDigitos(d.getMinutes())}`;
+}
+
+/** P5: o valor do campo "datetime-local" (hora do aparelho) como instante ISO; vazio ou inválido = nulo. */
+export function horaLocalParaIso(valor: string): string | null {
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(valor)) return null;
+  const t = new Date(valor).getTime();
+  return Number.isFinite(t) ? new Date(t).toISOString() : null;
+}

@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-rede-pedir"
+description = "Enables the rede_pedir command without any pre-configured scope."
+commands.allow = ["rede_pedir"]
+
+[[permission]]
+identifier = "deny-rede-pedir"
+description = "Denies the rede_pedir command without any pre-configured scope."
+commands.deny = ["rede_pedir"]

@@ -89,12 +89,12 @@ export function EditorDeTexto({
               <span aria-hidden="true">{b.sinal}</span>
             </button>
           ))}
-          {imagens.slice(0, 4).map((_, i) => (
+          {imagens.slice(0, 20).map((_, i) => (
             <button
               key={`imagem${i + 1}`}
               type="button"
               className="txf-botao txf-botao-imagem"
-              onClick={() => marcar(`imagem${(i + 1) as 1 | 2 | 3 | 4}`, imagens[i]?.alt || t.exemplo.imagem)}
+              onClick={() => marcar(`imagem${i + 1}`, imagens[i]?.alt || t.exemplo.imagem)}
             >
               {preencher(t.barra.imagem, { n: i + 1 })}
             </button>

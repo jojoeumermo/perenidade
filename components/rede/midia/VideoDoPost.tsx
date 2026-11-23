@@ -9,6 +9,7 @@ import { preencher } from "@/lib/rede/preencher";
 import type { Post } from "@/lib/rede/tipos";
 import type { ContextoDoEncaixe } from "../encaixes";
 import { mensagemDaMidia, useTextosDaMidia } from "./base";
+import { confirmar } from "@/components/perguntar";
 
 /** O vídeo do post, se tem (o lote junta os cartões da tela numa chamada). */
 function useVideo(postId: string): [Video | null, () => void] {
@@ -57,7 +58,7 @@ export function VideoDoPost({ lang, s, post }: ContextoDoEncaixe & { post: Post 
   }
 
   async function tirar() {
-    if (!tm || !window.confirm(tm.video.confirmarTirar)) return;
+    if (!tm || !(await confirmar(tm.video.confirmarTirar))) return;
     setTirando(true);
     try {
       await midia().tirarVideo(post.id);

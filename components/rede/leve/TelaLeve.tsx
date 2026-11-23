@@ -9,7 +9,7 @@
 //   · Silêncio dos avisos: a peça de avisos que já existe (components/rede/avisos/HorarioDeSilencio.tsx), aqui à mão.
 import { useEffect, useId, useState } from "react";
 import Link from "@/components/Link";
-import { pedeEconomia, setPrefs, usePrefs } from "@/lib/prefs";
+import { leveSozinho, setPrefs, usePrefs } from "@/lib/prefs";
 import { preencher } from "@/lib/rede/preencher";
 import { carregarTextosDeAvisos, type TextosDeAvisos } from "@/lib/rede/textos-avisos";
 import { useHydrated } from "@/lib/storage";
@@ -30,7 +30,8 @@ function Economia({ t }: { t: TextosDoLeve["economia"] }) {
   const prefs = usePrefs();
   const [automatico, setAutomatico] = useState(false);
   useEffect(() => {
-    const id = window.setTimeout(() => setAutomatico(pedeEconomia()), 0);
+    // Na Alumia o leve não liga sozinho (Prompt 5, E7): a nota só aparece se, de fato, ligou sem a pessoa escolher.
+    const id = window.setTimeout(() => setAutomatico(leveSozinho()), 0);
     return () => window.clearTimeout(id);
   }, []);
   return (

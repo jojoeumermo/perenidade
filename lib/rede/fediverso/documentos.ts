@@ -13,6 +13,7 @@ import { NOME_REDE } from "../alumia";
 import { opcoesDaSaida, type EnderecosDaFederacao, type OpcoesDaSaida } from "./enderecos";
 import { destinosDeMencao, linksDeMencao, tagsDeMencao, type MencaoFederada } from "./mencoes";
 import { escaparHtml, hashtagsDe, textoParaHtml } from "./texto";
+import { atoValido, comoEvento, TERMOS_DO_EVENTO, type AtoFederado } from "../p4/pontes/evento";
 
 export const PUBLICO = "https://www.w3.org/ns/activitystreams#Public";
 export const CONTEXTO = [
@@ -114,6 +115,8 @@ export interface PostFederado {
   comunidade?: string | null;
   /** Nome antigo do mesmo campo (aceito só por compatibilidade; o banco devolve `comunidade`). */
   comunidade_slug?: string | null;
+  /** Prompt 4, item 81: o ponto público do ato (só com "alumia-p4-pontes" ligado, pelo banco). Com ele, o post sai como Event. */
+  ato?: AtoFederado | null;
 }
 
 /**
@@ -269,6 +272,8 @@ export function documentoDoPost(e: EnderecosDaFederacao, p: PostFederado, comCon
   }
   const tags = hashtagsDe(`${p.titulo ?? ""}\n${p.texto}\n${p.corpo ?? ""}`);
   const hashtags = tags.map((t) => ({ type: "Hashtag", href: e.paginaDaTag(t), name: `#${t}` }));
+  // O ato (Prompt 4, item 81): a mesma Note, como Event, só com o ponto público.
+  const comoAto = <T extends Record<string, unknown>>(d: T): T => (atoValido(p.ato) ? (comoEvento(d, p.ato, link) as T) : d);
   const base = {
     ...(comContexto ? { "@context": contextoDe(opcoes) } : {}),
     id: e.post(p.id),
@@ -284,7 +289,7 @@ export function documentoDoPost(e: EnderecosDaFederacao, p: PostFederado, comCon
     inReplyTo: p.resposta_a ? e.post(p.resposta_a) : null,
     tag: hashtags as { type: string; href: string; name: string }[],
   };
-  if (!opcoes.total) return base;
+  if (!opcoes.total) return comoAto(base);
 
   const destinos = destinosDeMencao(mencoes);
   const slug = p.comunidade ?? p.comunidade_slug ?? null;
@@ -295,7 +300,7 @@ export function documentoDoPost(e: EnderecosDaFederacao, p: PostFederado, comCon
   const respostaRemota = !p.resposta_a && https(p.resposta_a_remota) ? p.resposta_a_remota : null;
   const contexto = p.raiz ? e.post(p.raiz) : !p.resposta_a && !respostaRemota ? e.post(p.id) : null;
   const anexos = anexosDe(e, p);
-  return {
+  return comoAto({
     ...base,
     to,
     cc,
@@ -305,17 +310,22 @@ export function documentoDoPost(e: EnderecosDaFederacao, p: PostFederado, comCon
     ...(anexos.length ? { attachment: anexos } : {}),
     ...(grupo ? { audience: grupo, ...(p.titulo ? { name: p.titulo.slice(0, 200) } : {}) } : {}),
     tag: [...hashtags, ...tagsDeMencao(mencoes)],
-  };
+  });
 }
+
+/** O contexto de uma atividade que leva o post: com o ato (Event), também os termos do iCalendar e do Mobilizon. */
+const contextoDoPost = (o: OpcoesDaSaida, p: PostFederado) => (atoValido(p.ato) ? [...contextoDe(o), TERMOS_DO_EVENTO] : contextoDe(o));
 
 export function atividadeCreate(e: EnderecosDaFederacao, p: PostFederado, opcoes: OpcoesDaSaida = opcoesDaSaida()) {
   const nota = documentoDoPost(e, p, false, opcoes);
-  return { "@context": contextoDe(opcoes), id: `${e.post(p.id)}#create`, type: "Create", actor: e.ator(p.handle), published: nota.published, to: nota.to, cc: nota.cc, object: nota };
+  return { "@context": contextoDoPost(opcoes, p), id: `${e.post(p.id)}#create`, type: "Create", actor: e.ator(p.handle), published: nota.published, to: nota.to, cc: nota.cc, object: nota };
 }
 
 export function atividadeUpdate(e: EnderecosDaFederacao, p: PostFederado, quando = new Date(), opcoes: OpcoesDaSaida = opcoesDaSaida()) {
-  const nota = documentoDoPost(e, p, false, opcoes);
-  return { "@context": contextoDe(opcoes), id: `${e.post(p.id)}#update-${quando.getTime()}`, type: "Update", actor: e.ator(p.handle), published: quando.toISOString(), to: nota.to, cc: nota.cc, object: nota };
+  // A edição dos primeiros 15 minutos não marca "editado" (editado_em nulo), mas o texto novo tem de chegar: o Mastodon só aplica
+  // um Update cuja Note traz "updated" mais novo que a versão que ele tem. Sem a marca, vale a hora do Update.
+  const nota = { ...documentoDoPost(e, p, false, opcoes), ...(p.editado_em ? {} : { updated: quando.toISOString() }) };
+  return { "@context": contextoDoPost(opcoes, p), id: `${e.post(p.id)}#update-${quando.getTime()}`, type: "Update", actor: e.ator(p.handle), published: quando.toISOString(), to: nota.to, cc: nota.cc, object: nota };
 }
 
 /**
@@ -328,6 +338,14 @@ export function atividadeUpdateDoAtor(e: EnderecosDaFederacao, handle: string, a
 
 export function atividadeDelete(e: EnderecosDaFederacao, handle: string, postId: string) {
   return { "@context": CONTEXTO, id: `${e.post(postId)}#delete`, type: "Delete", actor: e.ator(handle), to: [PUBLICO], object: { id: e.post(postId), type: "Tombstone" } };
+}
+
+/**
+ * A pessoa desligou a federação: o próprio ator é retirado (Delete com o ator como objeto, como o Mastodon manda quando uma conta
+ * é apagada). Quem recebe apaga o perfil guardado; o endereço do ator já responde 410.
+ */
+export function atividadeDeleteDoAtor(e: EnderecosDaFederacao, handle: string) {
+  return { "@context": CONTEXTO, id: `${e.ator(handle)}#delete`, type: "Delete", actor: e.ator(handle), to: [PUBLICO], object: e.ator(handle) };
 }
 
 /** Resposta a um pedido de seguir (Accept ou Reject), com o pedido original dentro. */

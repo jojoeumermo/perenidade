@@ -5,6 +5,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import type { TextosDaFormacao } from "@/i18n/escola/formacao";
 import { apagarDiario, gravarEntrada, lerEntrada, LIMITES_DO_DIARIO, MUDOU_O_DIARIO, podeGravar } from "@/lib/escola/diario";
 import { useHydrated } from "@/lib/storage";
+import { confirmar } from "@/components/perguntar";
 
 /**
  * O diário de formação (prancha Aula): "Só você lê. Fica neste aparelho." Uma entrada por aula, gravada SÓ no aparelho
@@ -52,8 +53,8 @@ export function DiarioDeFormacao({ aula, t }: { aula: string; t: TextosDaFormaca
     setGuardado(false);
   };
 
-  const apagarTudo = () => {
-    if (!window.confirm(t.confirmarTudo)) return;
+  const apagarTudo = async () => {
+    if (!(await confirmar(t.confirmarTudo))) return;
     if (espera.current) clearTimeout(espera.current);
     apagarDiario();
     setTexto("");

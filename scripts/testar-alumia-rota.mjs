@@ -263,7 +263,33 @@ ok("o sitemap anuncia /alumia e não /comunidade", /"\/alumia"/.test(ler("app/si
 // ═══════════════════ 7. Flags: só pelo nome, desligadas, e o visual novo só com as duas ═══════════════════
 const FLAGS = ["alumia-2", "alumia-stories", "alumia-modo-ato", "alumia-org", "alumia-chat-grupo", "alumia-proximas", "alumia-estudo", "alumia-coautoria", "alumia-video-post",
   // Onda 13: todos só pelo nome e desligados.
-  "alumia-mapa", "alumia-ao-vivo", "alumia-alcance", "alumia-leve", "alumia-traducao", "alumia-telegram"];
+  "alumia-mapa", "alumia-ao-vivo", "alumia-alcance", "alumia-leve", "alumia-traducao", "alumia-telegram",
+  // R1 (23/11): as várias identidades ganharam interruptor próprio, só pelo nome e desligado.
+  "alumia-identidades",
+  // Prompt 4 (item 4): os avisos de local, só pelo nome e desligados.
+  "alumia-p4-avisos-de-local",
+  // Prompt 4 (segurança pessoal): só pelo nome e desligado.
+  "alumia-p4-seguranca-pessoal",
+  // Prompt 4 (criação coletiva): só pelo nome e desligado.
+  "alumia-p4-criacao-coletiva",
+  // Prompt 4 (cultura): só pelo nome e desligado.
+  "alumia-p4-cultura",
+  // Prompt 4 (memória e luta): só pelo nome e desligado.
+  "alumia-p4-memoria-e-luta",
+  // Prompt 4 (organização e ação coletiva): só pelo nome e desligado.
+  "alumia-p4-organizacao",
+  // Prompt 4 (ação coletiva): só pelo nome e desligado.
+  "alumia-p4-coletiva",
+  // Prompt 4 (conversa): só pelo nome e desligado.
+  "alumia-p4-conversa",
+  // Prompt 4 (perto: localização, pedido de ajuda e volta para casa): só pelo nome e desligado.
+  "alumia-p4-perto",
+  // Prompt 4 (descoberta e estudo): só pelo nome e desligado.
+  "alumia-p4-descoberta-estudo",
+  // Prompt 4 (conta e convivência, Parte H): só pelo nome e desligado.
+  "alumia-p4-conta",
+  // Prompt 4 (pontes, acessibilidade e lacunas): só pelo nome e desligado.
+  "alumia-p4-pontes"];
 // 10/11/2026: o SQL da onda rodou em produção (rede_alumia_versao = 2) e a coordenação pediu a cara nova no ar: alumia-2,
 // alumia-stories e alumia-org passam a ligar por padrão (PADRAO); as outras continuam só pelo nome, desligadas.
 const NO_AR = ["alumia-2", "alumia-stories", "alumia-org"];
@@ -294,7 +320,7 @@ ok("as telas ainda em construção ficam desligadas por padrão", ROTAS_NOVAS.fi
 }
 
 // ═══════════════════ 8. As rotas novas (as 12 da Onda 5, /rotulos da onda 9, /questoes e /redacao da onda 11, /pontes e /trabalhadores da 13) ═══
-igual("são 17 rotas novas", ROTAS_NOVAS.length, 17);
+// Prompt 4: mais /mapa/avisos, /seguranca-pessoal, /criacao, /cultura, /memoria-da-luta, /desafio, /organizar, /acao-coletiva, /perto e /conta./nigual("são 27 rotas novas", ROTAS_NOVAS.length, 27);
 {
   const registro = ler("components/rede/registro.tsx");
   const idiomas = ["pt", "en", "es", "fr", "ru", "zh"];
@@ -516,7 +542,8 @@ igual("são 17 rotas novas", ROTAS_NOVAS.length, 17);
       await banco.pg.exec("reset role");
     }
   }), "permission denied");
-  await espera("as flags da Onda 5 entram no catálogo, só pelo nome", async () => (await dono("select nome from interno.recursos_catalogo where so_pelo_nome and nome like 'alumia-%' order by 1")).rows.map((r) => r.nome), (n) => n.join() === "alumia-2,alumia-aberta,alumia-alcance,alumia-ao-vivo,alumia-chat-grupo,alumia-coautoria,alumia-convites,alumia-entrada,alumia-estudo,alumia-fui-detido,alumia-leve,alumia-linha-aberta,alumia-mapa,alumia-modo-ato,alumia-org,alumia-proximas,alumia-stories,alumia-telegram,alumia-traducao,alumia-video-post");
+  // As flags do Prompt 4 (alumia-p4-<grupo>) têm o teste de cada grupo (scripts/testar-p4-*.mjs): ficam de fora desta lista fixa.
+  await espera("as flags da Onda 5 entram no catálogo, só pelo nome", async () => (await dono("select nome from interno.recursos_catalogo where so_pelo_nome and nome like 'alumia-%' and nome not like 'alumia-p4-%' order by 1")).rows.map((r) => r.nome), (n) => n.join() === "alumia-2,alumia-aberta,alumia-alcance,alumia-ao-vivo,alumia-chat-grupo,alumia-chat-so-app,alumia-coautoria,alumia-convites,alumia-entrada,alumia-estudo,alumia-falar-moderacao,alumia-fui-detido,alumia-identidades,alumia-leve,alumia-linha-aberta,alumia-mapa,alumia-modo-ato,alumia-org,alumia-proximas,alumia-stories,alumia-telegram,alumia-traducao,alumia-video-post");
   await espera("o resumo semanal leva a /pt/alumia/avisos", async () => (await um("select pg_get_functiondef('interno.rede3_aviso_resumo(uuid)'::regprocedure) as f, pg_get_functiondef('interno.rede3_aviso_resumo_semanal()'::regprocedure) as g")), (r) => r.f.includes("/pt/alumia/avisos") && r.g.includes("/pt/alumia/avisos") && !r.f.includes("/comunidade/avisos"));
   await espera("a ponte da página /denunciar reconhece /alumia/p/ e /comunidade/p/", async () => (await um("select pg_get_functiondef('interno.rede3_mod_ponte_denuncia()'::regprocedure) as f")).f, (f) => f.includes("'/(comunidade|alumia)/p/'"));
   await banco.pg.close?.();

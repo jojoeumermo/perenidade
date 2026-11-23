@@ -128,7 +128,7 @@ igual("cabe em 1080 × 1920 sem aumentar", [medidaQueCabe(4000, 3000), medidaQue
   const contrato = ler("lib/rede/tipos-stories.ts").replace(/\/\/.*$|\/\*[\s\S]*?\*\//gm, "");
   ok("o contrato não tem campo de quem viu nem de quantos viram", !/\b(viu|visto|vistos|views?|visualiza\w*|assistiu|espectador\w*)\s*[?]?:/i.test(contrato));
   igual("reações: conjunto fechado de 3", [...REACOES_DO_STORY], ["punho", "chama", "coracao"]);
-  const CONTRATO = ["faixa", "abrir", "meus", "publicar", "apagar", "responder", "reagir", "votar", "avisar", "atos", "denunciar", "enviarImagem",
+  const CONTRATO = ["faixa", "abrir", "meus", "publicar", "apagar", "responder", "reagir", "votar", "testar", "avisar", "atos", "denunciar", "enviarImagem",
     "comunidades", "destaques", "destaque", "salvarDestaque", "tirarDoDestaque", "apagarDestaque",
     // B1 (20261110-alumia-b1-stories.sql): arrumar destaques, borrar de novo, o cartão do post, respostas, "vou", roda e comunidade.
     "ordenarDestaques", "ordenarNoDestaque", "capaDoDestaque", "trocarMidia", "post", "responderPergunta", "respostas", "caixa", "vou", "roda", "mudarRoda", "daComunidade"];

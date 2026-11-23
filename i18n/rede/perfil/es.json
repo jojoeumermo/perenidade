@@ -12,6 +12,7 @@
     "fixado": "Publicación fijada",
     "escolherHandle": "Elige tu @nombre para tener una página en Alumia.",
     "selos": {
+      "coordenacao": "Coordinación del instituto",
       "equipe": "Equipo del instituto",
       "educador": "Educación",
       "moderacao": "Moderación",
@@ -25,6 +26,17 @@
       "degrau": "Escalón {n} de la Escuela",
       "caderno": "Cuaderno {n} de la Escuela",
       "aulas": "Clases de la Escuela: {n}",
+      "revolucionario": "Revolucionaria(o)",
+      "frente": "Frente: {nome}",
+      "frentes": {
+        "estudantil": "Movimiento estudiantil",
+        "bairros": "Barrios y vivienda",
+        "trabalho": "Trabajo y sindicatos",
+        "agitprop": "Agitación y propaganda",
+        "atos": "Actos y movilización",
+        "cultura": "Cultura y periferia",
+        "solidariedade": "Solidaridad"
+      },
       "ajuda": "Las clases y los cuadernos de la Escuela los declara la persona; el carné y el escalón los comprueba la coordinación."
     }
   },

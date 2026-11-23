@@ -16,6 +16,7 @@ import { useImersao } from "../Imersao";
 import { PartidaBingo, PartidaDebate, PartidaFio, PartidaForca, PartidaPerguntas, type PropsDaPartida } from "./Partidas";
 import { ladoDoBingo, montarPacote, type BancoDoGrupo } from "./preparar";
 import { useSala } from "./useSala";
+import { mostrarParaCopiar } from "@/components/perguntar";
 
 type S = TextosDosJogos["grupo"];
 
@@ -226,7 +227,7 @@ function Barra({ vista, eu, anfitriao, s, modo, agir, aoSair }: { vista: VistaDa
       setCopiado(true);
       window.setTimeout(() => setCopiado(false), 2500);
     } catch {
-      window.prompt(s.sala.link, link);
+      await mostrarParaCopiar(s.sala.link, link);
     }
   };
   return (

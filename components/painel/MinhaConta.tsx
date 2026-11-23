@@ -3,7 +3,7 @@
 
 import dynamic from "next/dynamic";
 import { type ReactNode, useEffect, useRef, useState } from "react";
-import { getClient, leads, type Me, rpc, signOut } from "@/lib/backend";
+import { can, getClient, leads, type Me, rpc, signOut } from "@/lib/backend";
 import { marcaDesteAparelho } from "@/lib/device";
 import { senhaVazada } from "@/lib/senha";
 import { getItem, KEYS, setItem } from "@/lib/storage";
@@ -14,6 +14,7 @@ import { Aviso, dataHora, oQueFaz, papeis, textoDoErro, useAcao, useLista } from
 import { IdiomaDoPainel } from "./Idioma";
 import { minutosOcioso, OPCOES_OCIOSO } from "./ocioso";
 import { FilaDeCartoes, VisaoPublica } from "./CartaoPublico";
+import { PendenciasPorEmail } from "./PendenciasPorEmail";
 import { FaixaDeEmail } from "./FaixaDeEmail";
 import { CuidadoNaConta } from "./Cuidado";
 import { Oficios } from "./Biblioteca";
@@ -24,7 +25,7 @@ import { Abas, Area, Botao, Campo, Cartao, confirmarFrase, Esqueleto, Faixa, Ite
 // O manual (Ajuda) só carrega quando a aba abre.
 const Ajuda = dynamic(() => import("./Ajuda").then((m) => m.Ajuda), { ssr: false });
 
-type Aba = "perfil" | "assinatura" | "seguranca" | "privacidade" | "aparelhos" | "atividade" | "cuidado" | "ajuda";
+type Aba = "perfil" | "assinatura" | "cartao" | "seguranca" | "privacidade" | "aparelhos" | "atividade" | "cuidado" | "ajuda";
 
 interface Protecao {
   segundo_fator: boolean;
@@ -51,6 +52,8 @@ function baixar(nome: string, conteudo: string, tipo = "text/plain") {
  */
 export function MinhaConta({ me, recarregar, sair, curriculo, avisosETrava }: { me: Me; recarregar: () => void; sair: () => void; curriculo?: ReactNode; avisosETrava?: ReactNode }) {
   const [aba, setAba] = useState<Aba>("perfil");
+  const educador = me.papeis.some((p) => p.papel === "educacao" || p.papel === "educacao_secundaria");
+  const coordenaCartoes = can(me, "coordenacao") || can(me, "vice");
   const protecao = useLista<Protecao>("conta_protecao");
   const [chaves, setChaves] = useState<number | null>(null);
   useEffect(() => {
@@ -96,6 +99,8 @@ export function MinhaConta({ me, recarregar, sair, curriculo, avisosETrava }: { 
           { id: "perfil", nome: "Perfil" },
           // A faixa de e-mail é de quem está na equipe (qualquer função).
           ...(me.papeis.length > 0 ? [{ id: "assinatura" as Aba, nome: "Faixa de e-mail" }] : []),
+          // O cartão que aparece nas aulas: cada educador edita o seu; a coordenação aprova os pedidos aqui também.
+          ...(educador || coordenaCartoes ? [{ id: "cartao" as Aba, nome: educador ? "Cartão de educador" : "Cartões de educador" }] : []),
           { id: "seguranca", nome: "Segurança" },
           { id: "privacidade", nome: "Privacidade e avisos" },
           { id: "aparelhos", nome: "Aparelhos" },
@@ -109,15 +114,16 @@ export function MinhaConta({ me, recarregar, sair, curriculo, avisosETrava }: { 
           <div className="grid gap-6">
             {aba === "perfil" && <Perfil me={me} recarregar={recarregar} curriculo={curriculo} />}
             {aba === "perfil" && me.papeis.length > 0 && <Oficios />}
-            {aba === "assinatura" && (
+            {aba === "assinatura" && <FaixaDeEmail me={me} />}
+            {aba === "cartao" && (
               <>
-                <FaixaDeEmail me={me} />
                 <VisaoPublica me={me} />
                 <FilaDeCartoes me={me} />
               </>
             )}
             {aba === "seguranca" && <SegurancaDaConta me={me} protecao={p ?? null} recarregar={recarregarTudo} />}
             {aba === "privacidade" && <Privacidade me={me} recarregar={recarregar} sair={sair} avisosETrava={avisosETrava} />}
+            {aba === "privacidade" && me.papeis.length > 0 && <PendenciasPorEmail />}
             {aba === "aparelhos" && <AparelhosDaConta dias={p?.sessao_dias ?? 60} />}
             {aba === "atividade" && <Atividade />}
             {aba === "cuidado" && <CuidadoNaConta me={me} sair={sair} />}

@@ -8,6 +8,7 @@ import { CATEGORIAS_DO_RELATORIO, numeroDoRelatorio, ORGAOS, PEDIDOS, PRAZO_DO_A
 import { dataNoIdioma, por, type TextosDosRotulos } from "../rotulos/textos";
 import { useTextosDosRotulos } from "../rotulos/usarTextos";
 import type { PropsDaTelaDoPacote } from "../registro";
+import { PorQueSemNumero } from "../uso/PorQueSemNumero";
 
 type T = TextosDosRotulos["transparencia"];
 
@@ -202,6 +203,9 @@ export default function TelaDaTransparencia({ lang, s }: PropsDaTelaDoPacote) {
   return (
     <article className="rt-pagina">
       <Cabeca lang={lang} carimbo={t.carimbo} titulo={t.titulo} chamada={t.chamada} />
+      <p className="rt-bloco-chamada">
+        <PorQueSemNumero lang={lang} motivo="piso" soma comRotulo />
+      </p>
 
       {erro && (
         <div className="rt-erro" role="alert">

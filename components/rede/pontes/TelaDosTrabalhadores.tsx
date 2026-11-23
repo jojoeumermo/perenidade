@@ -12,6 +12,7 @@ import type { PropsDaTelaDoPacote } from "../registro";
 import { pontes, type Chamado, type ChamadoNovo, type Mural } from "./cliente";
 import { diaNoIdioma, por, textoDoErro, type TextosDasPontes } from "./textos";
 import { useTextosDasPontes } from "./usarTextos";
+import { confirmar } from "@/components/perguntar";
 
 const hojeAqui = () => {
   const d = new Date();
@@ -35,7 +36,7 @@ function Ladrilho({ t, lang, c, aoEncerrar }: { t: TextosDasPontes; lang: string
       </div>
       {aoEncerrar && !c.encerrado && (
         <div className="po-acoes">
-          <button type="button" className="al-botao al-botao-p al-botao-contorno" onClick={() => { if (window.confirm(t.mural.encerrarConfirma)) aoEncerrar(); }}>{t.mural.encerrar}</button>
+          <button type="button" className="al-botao al-botao-p al-botao-contorno" onClick={async () => { if ((await confirmar(t.mural.encerrarConfirma))) aoEncerrar(); }}>{t.mural.encerrar}</button>
         </div>
       )}
     </li>

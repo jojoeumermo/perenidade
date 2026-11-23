@@ -2,7 +2,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { htmlLang } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { hasBackend, rpc } from "@/lib/backend";
@@ -32,7 +32,23 @@ export function CertificateCheck({ s }: { s: Dict["certificate"] }) {
   const params = useSearchParams();
   const [code, setCode] = useState(params.get("codigo") ?? "");
   const [result, setResult] = useState<Result | null>(null);
-  const [state, setState] = useState<"idle" | "busy" | "error">("idle");
+  // Quem chega com o código no endereço (?codigo=…, o link que a pessoa compartilha) já vê a conferência, sem apertar o botão.
+  const [state, setState] = useState<"idle" | "busy" | "error">(() => (hasBackend && (params.get("codigo") ?? "").replace(/[^A-Za-z0-9]/g, "").length >= 12 ? "busy" : "idle"));
+  const [doEndereco] = useState(() => params.get("codigo") ?? "");
+  useEffect(() => {
+    if (!hasBackend || doEndereco.replace(/[^A-Za-z0-9]/g, "").length < 12) return;
+    let vivo = true;
+    rpc<Result>("certificado_conferir", { p_codigo: doEndereco })
+      .then((r) => {
+        if (!vivo) return;
+        setResult(r);
+        setState("idle");
+      })
+      .catch(() => vivo && setState("error"));
+    return () => {
+      vivo = false;
+    };
+  }, [doEndereco]);
 
   if (!hasBackend) return <p className="mt-10 text-lg text-ink-soft">{s.offline}</p>;
   const locale = htmlLang[lang];

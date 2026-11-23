@@ -1,0 +1,47 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/* O compositor do prompt 4 (alumia-p4-compositor): "Mais do post" no Escrever, o que o cartão pendura (versão curta, capítulos,
+   "Mande a sua", "com fonte"), a leitura em páginas e a barrinha de escrever. Só as cores da Alumia (as variáveis --al-*). */
+
+.p4c-mais > summary { min-height: 44px; display: flex; align-items: center; }
+
+/* ── No cartão ── */
+.p4c-anexo { display: grid; gap: 0.5rem; margin-top: 0.5rem; font-size: 0.875rem; }
+.p4c-curta { border-left: 3px solid var(--al-dourado); padding: 0.35rem 0.7rem; background: var(--al-superficie); border-radius: 0 10px 10px 0; color: var(--al-texto-2); }
+.p4c-curta strong { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--al-texto-3); }
+.p4c-linha { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.p4c-selo { display: inline-flex; align-items: center; gap: 0.3rem; min-height: 28px; padding: 0.1rem 0.6rem; border-radius: 999px; border: 1px solid var(--al-superficie-2); color: var(--al-texto-2); font-size: 0.75rem; font-weight: 700; }
+.p4c-selo-fonte { border-color: var(--al-dourado); color: var(--al-dourado); }
+.p4c-botao { display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem; min-height: 44px; min-width: 44px; padding: 0.35rem 0.9rem; border-radius: 999px; border: 1px solid var(--al-superficie-2); background: transparent; color: var(--al-texto); font-weight: 700; cursor: pointer; text-decoration: none; }
+.p4c-botao:hover { border-color: var(--al-texto-3); }
+.p4c-botao:focus-visible, .p4c-pagina button:focus-visible, .p4c-indice button:focus-visible { outline: 3px solid var(--al-dourado); outline-offset: 2px; }
+.p4c-convite { display: grid; gap: 0.35rem; padding: 0.6rem 0.75rem; border-radius: 12px; border: 1px dashed var(--al-dourado); }
+.p4c-convite-nome { font-weight: 900; text-transform: uppercase; letter-spacing: 0.03em; color: var(--al-dourado); }
+.p4c-fonte-link { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; color: var(--al-texto-2); text-decoration: underline; overflow-wrap: anywhere; }
+
+/* ── Leitura em páginas ── */
+.p4c-leitura { position: fixed; inset: 0; z-index: 60; display: flex; flex-direction: column; background: var(--al-fundo); color: var(--al-texto); }
+.p4c-leitura-topo { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.5rem 1rem; border-bottom: 1px solid var(--al-superficie-2); }
+.p4c-leitura-corpo { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 1rem 1rem 2rem; }
+.p4c-leitura-miolo { max-width: 680px; margin: 0 auto; }
+.p4c-capa { width: 100%; max-height: 50vh; object-fit: cover; border-radius: 14px; margin-bottom: 1rem; background: var(--al-superficie); }
+.p4c-indice { display: grid; gap: 0.35rem; margin: 0 0 1.25rem; padding: 0; list-style: none; counter-reset: cap; }
+.p4c-indice button { width: 100%; min-height: 44px; text-align: left; padding: 0.4rem 0.75rem; border-radius: 10px; border: 1px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); cursor: pointer; }
+.p4c-indice button[aria-current="page"] { border-color: var(--al-dourado); }
+.p4c-pagina { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.5rem 1rem calc(0.5rem + env(safe-area-inset-bottom)); border-top: 1px solid var(--al-superficie-2); }
+.p4c-pagina button { min-height: 44px; min-width: 44px; padding: 0.35rem 0.9rem; border-radius: 999px; border: 1px solid var(--al-superficie-2); background: transparent; color: var(--al-texto); font-weight: 700; cursor: pointer; }
+.p4c-pagina button:disabled { opacity: 0.4; cursor: default; }
+.p4c-leitura-entra { animation: p4c-entra 200ms ease-out; }
+@keyframes p4c-entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* ── A barrinha de escrever (A15 do P5) ── */
+.p4c-barra { display: grid; gap: 0.5rem; }
+.p4c-barra-campo { width: 100%; min-height: 44px; resize: none; overflow: hidden; border-radius: 12px; border: 1px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); padding: 0.6rem 0.8rem; font: inherit; line-height: 1.45; }
+.p4c-barra-campo:focus { outline: 3px solid var(--al-dourado); outline-offset: 1px; }
+.p4c-barra-acoes { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 0.5rem; }
+.p4c-barra-nota { font-size: 0.8125rem; color: var(--al-texto-3); }
+.p4c-barra-erro { font-size: 0.8125rem; color: var(--al-vermelho); }
+
+@media (prefers-reduced-motion: reduce) {
+  .p4c-leitura-entra { animation: none; }
+}
+:root:is([data-contrast], [data-eink]) .p4c-selo, :root:is([data-contrast], [data-eink]) .p4c-botao, :root:is([data-contrast], [data-eink]) .p4c-barra-campo { border-color: var(--al-texto); }

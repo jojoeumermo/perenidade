@@ -132,8 +132,8 @@
 [data-al="2"] .pfe-fio[data-escura] { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--al-texto) 30%, transparent); }
 /* O fio escolhido sobe e ganha um anel por fora (nunca um contorno por dentro, que parecia um defeito na borda). */
 [data-al="2"] .pfe-fio[aria-checked="true"] { z-index: 1; transform: scaleY(1.22); border-radius: 4px; box-shadow: 0 0 0 2px var(--al-fundo), 0 0 0 4px var(--al-texto); }
-/* Os fios finos (proporção da faixa) ganham uma área de toque maior que o desenho. */
-[data-al="2"] .pfe-fio::after { content: ""; position: absolute; inset: -6px -5px; }
+/* Os fios finos (proporção da faixa) ganham uma área de toque maior que o desenho: pelo menos 44 px de largo, centrada no fio. */
+[data-al="2"] .pfe-fio::after { content: ""; position: absolute; top: -6px; bottom: -6px; left: 50%; width: max(calc(100% + 10px), 44px); transform: translateX(-50%); }
 [data-al="2"] .pfe-fio:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 4px; }
 [data-al="2"] .pfe-modelos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
 [data-al="2"] .pfe-modelo { display: grid; gap: 6px; min-width: 0; padding: 8px 10px; border-radius: 10px; border: 1.5px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); font: inherit; font-size: 0.82rem; font-weight: 700; cursor: pointer; }

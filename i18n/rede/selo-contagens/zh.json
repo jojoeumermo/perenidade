@@ -1,0 +1,53 @@
+{
+  "_rascunho": true,
+  "selo": {
+    "rotulos": {
+      "pessoa_publica": "已认证公众人物",
+      "educadora": "已认证教育工作者",
+      "organizacao": "已认证组织"
+    },
+    "explica": "由 Alumia 协调组认证：账号确实属于其所声称的人。这不代表 Alumia 支持此人。",
+    "desde": "自 {data} 起",
+    "abrir": "这个标志是什么意思？",
+    "fechar": "关闭",
+    "pedir": {
+      "titulo": "认证标志",
+      "sobre": "适用于可能被冒充的人：公众人物和教育工作者。永远免费；不存在付费标志。协调组通过官方渠道核实，不保存任何证件或证明，只保存决定。",
+      "tipo": "你是",
+      "tipos": {
+        "pessoa_publica": "公众人物",
+        "educadora": "教育工作者"
+      },
+      "canal": "协调组可以通过什么渠道核实",
+      "canais": {
+        "email_institucional": "机构电子邮箱",
+        "perfil_oficial": "已在其他网络认证的官方账号",
+        "gabinete": "办公室或助理团队"
+      },
+      "enviar": "申请标志",
+      "enviado": "申请已发送。协调组会通过你选择的渠道联系你。",
+      "esperando": "你的申请自 {data} 起等待协调组处理（{canal}）。",
+      "desistir": "撤回申请",
+      "desistido": "申请已撤回。",
+      "tem": "你的个人资料自 {data} 起拥有“{tipo}”标志。只有协调组可以取消。",
+      "org": "组织账号使用组织标志，在组织的个人资料中。"
+    },
+    "erros": {
+      "ja_pedido": "你已有一个等待中的申请。",
+      "ja_verificada": "你的个人资料已有标志。",
+      "usar_selo_org": "组织账号使用组织标志。",
+      "desligado": "标志和数字尚未开启。"
+    }
+  },
+  "contagens": {
+    "titulo": "公开数字",
+    "sobre": "默认情况下，没有人能看到有多少人关注你，也看不到你的帖子有多少支持。你可以选择显示。少于 3 时只显示“少于 3”，关注者或支持者的名单永远不会显示。",
+    "seguidores": "显示有多少人关注我",
+    "apoios": "显示我的帖子的支持数",
+    "salvo": "选择已保存。",
+    "seguem": "{n} 人关注",
+    "seguemMenos": "关注者少于 3 人",
+    "apoiosN": "{n} 个支持",
+    "apoiosMenos": "少于 3 个支持"
+  }
+}

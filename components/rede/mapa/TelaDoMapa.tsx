@@ -22,6 +22,7 @@ import { criarUsoDeTextos, diaCurto, horaCurta } from "./comum";
 import { MapaDoBrasil } from "./MapaDoBrasil";
 import { carregarTextosDoMapa, type TextosDoMapa } from "./textos";
 import "./mapa.css";
+import { PorQueSemNumero } from "../uso/PorQueSemNumero";
 
 const useTextosDoMapa = criarUsoDeTextos(carregarTextosDoMapa);
 const AO_VIVO = aoVivoLigado();
@@ -128,10 +129,16 @@ function CartaoDaCidade({ t, lang, ponto, filtro, aoFechar }: { t: T; lang: stri
       </div>
       <ul className="mp-carimbos">
         {ponto.chamados_ha && filtro.chamados && (
-          <li className="mp-carimbo" data-tipo="chamados">{ponto.chamados !== null ? preencher(t.cidade.chamados, { n: ponto.chamados }) : t.cidade.chamadosPoucos}</li>
+          <li className="mp-carimbo" data-tipo="chamados">
+            {ponto.chamados !== null ? preencher(t.cidade.chamados, { n: ponto.chamados }) : t.cidade.chamadosPoucos}
+            {ponto.chamados === null ? <PorQueSemNumero lang={lang} motivo="piso" /> : null}
+          </li>
         )}
         {ponto.eventos_ha && filtro.eventos && (
-          <li className="mp-carimbo" data-tipo="eventos">{ponto.eventos !== null ? preencher(t.cidade.eventos, { n: ponto.eventos }) : t.cidade.eventosPoucos}</li>
+          <li className="mp-carimbo" data-tipo="eventos">
+            {ponto.eventos !== null ? preencher(t.cidade.eventos, { n: ponto.eventos }) : t.cidade.eventosPoucos}
+            {ponto.eventos === null ? <PorQueSemNumero lang={lang} motivo="piso" /> : null}
+          </li>
         )}
         {ponto.nucleos_ha && filtro.nucleos && <li className="mp-carimbo" data-tipo="nucleos">{t.cidade.nucleos}</li>}
       </ul>

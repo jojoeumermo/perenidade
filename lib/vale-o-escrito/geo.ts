@@ -97,6 +97,8 @@ export interface CasoNoMapa {
   titulo: string;
   dossie: string;
   cor: "amarelo" | "azul" | "vermelho";
+  /** Código ISO 3166-1 alfa-2 do país ("BR", "US"...). Sem ele, vale o Brasil (os casos de antes do mapa do mundo). */
+  pais?: string;
   /** Sigla da UF. */
   uf?: string;
   /** Código IBGE do município (7 dígitos). */
@@ -111,33 +113,43 @@ export const COR_NEON = { amarelo: "#ffe600", azul: "#00b3ff", vermelho: "#ff2b4
 /** UF do caso: o campo uf (ou regiao) ou, se faltar, os dois primeiros dígitos do código do município. */
 export const ufDoCaso = (c: Pick<CasoNoMapa, "uf" | "municipioIbge">): string | undefined => c.uf || ufDoMunicipio(c.municipioIbge);
 
-/** Soma de casos por UF e por município. */
-export function contarCasos(casos: readonly CasoNoMapa[]): { porUf: Record<string, number>; porMunicipio: Record<string, number> } {
+/** País do caso (código de 2 letras, maiúsculo); sem país escrito, o Brasil. */
+export const paisDoCaso = (c: Pick<CasoNoMapa, "pais">): string => (c.pais && /^[A-Za-z]{2}$/.test(c.pais) ? c.pais.toUpperCase() : "BR");
+
+/** Soma de casos por país, por UF e por município (UF e município só no Brasil). */
+export function contarCasos(casos: readonly CasoNoMapa[]): { porPais: Record<string, number>; porUf: Record<string, number>; porMunicipio: Record<string, number> } {
+  const porPais: Record<string, number> = {};
   const porUf: Record<string, number> = {};
   const porMunicipio: Record<string, number> = {};
   for (const c of casos) {
+    const pais = paisDoCaso(c);
+    porPais[pais] = (porPais[pais] ?? 0) + 1;
+    if (pais !== "BR") continue;
     const uf = ufDoCaso(c);
     if (uf) porUf[uf] = (porUf[uf] ?? 0) + 1;
     if (c.municipioIbge) porMunicipio[c.municipioIbge] = (porMunicipio[c.municipioIbge] ?? 0) + 1;
   }
-  return { porUf, porMunicipio };
+  return { porPais, porUf, porMunicipio };
 }
 
 /**
- * Coordenada de cada caso: o centro do município, quando a malha dele já foi lida; senão o centro da UF; senão o caso
- * fica de fora do mapa (continua na lista). Devolve GeoJSON de pontos com a cor do dossiê.
+ * Coordenada de cada caso. No Brasil: o centro do município, quando a malha dele já foi lida; senão o centro da UF; senão o
+ * centro do país. Fora do Brasil: o centro do país (a malha do mundo não desce a estado). Sem nada disso, o caso fica de fora
+ * do mapa (continua na lista). Devolve GeoJSON de pontos com a cor do dossiê.
  */
-export function pontosDosCasos(casos: readonly CasoNoMapa[], centroUf: Record<string, Par>, centroMunicipio: Record<string, Par>) {
+export function pontosDosCasos(casos: readonly CasoNoMapa[], centroUf: Record<string, Par>, centroMunicipio: Record<string, Par>, centroPais: Record<string, Par> = {}) {
   const features = [];
   for (const c of casos) {
-    const uf = ufDoCaso(c);
-    const p = (c.municipioIbge && centroMunicipio[c.municipioIbge]) || (uf && centroUf[uf]) || undefined;
+    const pais = paisDoCaso(c);
+    const uf = pais === "BR" ? ufDoCaso(c) : undefined;
+    const doMunicipio = pais === "BR" && c.municipioIbge ? centroMunicipio[c.municipioIbge] : undefined;
+    const p = doMunicipio || (uf && centroUf[uf]) || centroPais[pais] || undefined;
     if (!p) continue;
     features.push({
       type: "Feature" as const,
       geometry: { type: "Point" as const, coordinates: p },
-      // aproximado = 1 quando o ponto está no centro da UF (o caso não tem município, ou a malha dele ainda não veio).
-      properties: { id: c.id, titulo: c.titulo, cor: COR_NEON[c.cor], dossie: c.dossie, situacao: c.situacao, aproximado: c.municipioIbge && centroMunicipio[c.municipioIbge] ? 0 : 1 },
+      // aproximado = 1 quando o ponto está no centro da UF ou do país (o caso não tem município, ou a malha dele ainda não veio).
+      properties: { id: c.id, titulo: c.titulo, cor: COR_NEON[c.cor], dossie: c.dossie, situacao: c.situacao, pais, aproximado: doMunicipio ? 0 : 1 },
     });
   }
   return { type: "FeatureCollection" as const, features };

@@ -4,7 +4,7 @@
 // constantes: quem pode o quê é decidido no banco, em cada função; nada aqui dá permissão a ninguém.
 
 /** A versão do banco da Alumia que este código espera (public.rede_alumia_versao). Quem junta uma onda nova sobe o número aqui. */
-export const VERSAO_ESPERADA_DO_BANCO = 13;
+export const VERSAO_ESPERADA_DO_BANCO = 18;
 /** A versão das funções do painel que esta tela espera (o campo "painel" de alumia_painel_geral). */
 export const VERSAO_ESPERADA_DO_PAINEL = 1;
 

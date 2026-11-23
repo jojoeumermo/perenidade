@@ -27,8 +27,8 @@
 // Nada de só-seguidores nem de mensagem direta é lido aqui (a linha mista só traz só-seguidores a quem segue o autor, regra do banco).
 // A rota NÃO assina URL que a tela manda: só endereço lido de um documento de fora agora mesmo ou guardado pelo banco. Assim ninguém
 // usa a rota-proxy de mídia como proxy aberto (o "?midia=" de antes deixava qualquer conta assinar qualquer URL).
-import { lerConta } from "@/lib/rede/fediverso/enderecos";
-import { autorDe as quemEscreveu, dominio, idDe, lerNota, postLocal, type NotaRecebida } from "@/lib/rede/fediverso/entrada/nota";
+import { contaDaqui, lerConta } from "@/lib/rede/fediverso/enderecos";
+import { autorDe as quemEscreveu, dominio, lerNota, postLocal, type NotaRecebida } from "@/lib/rede/fediverso/entrada/nota";
 import { buscarNaOrigem } from "@/lib/rede/fediverso/entrada/repasse";
 import { conferirTeto } from "@/lib/rede/fediverso/rotas";
 import { assinarCartao, atorPorConta, atorRemoto, banco, buscarDocumento, codigoParaATela, fed, lembrar, lerAtorRemoto, modoTotal, semFederacao, urlDaMidia, type AtorRemoto } from "@/lib/rede/fediverso/servidor";
@@ -299,7 +299,7 @@ export async function GET(pedido: Request) {
   }
   const conta = lerConta(p.get("conta") ?? "");
   if (conta) {
-    if (conta.dominio === fed.dominio) return resposta({ local: true, handle: conta.usuario.toLowerCase() });
+    if (contaDaqui(conta, fed, modoTotal())) return resposta({ local: true, handle: conta.usuario.toLowerCase() });
     if (await bloqueado(`https://${conta.dominio}/`)) return resposta({ erro: "instancia_bloqueada" }, 403);
     // O WebFinger também fica uns minutos na memória (o mesmo @ aberto de novo não pergunta de novo lá fora).
     const achado = await lembrar(`conta:${conta.usuario.toLowerCase()}@${conta.dominio}`, MEMORIA_MS, () => atorPorConta(conta.usuario, conta.dominio).then((a) => a?.ator ?? null));

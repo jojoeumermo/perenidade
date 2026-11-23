@@ -99,9 +99,9 @@ export interface Fonte {
  * leva o código IBGE de 7 dígitos (a mesma chave das malhas do IBGE que o mapa usa).
  */
 export interface Lugar {
-  /** Código ISO 3166-1 alfa-2. No começo, só "BR". */
+  /** Código ISO 3166-1 alfa-2 ("BR", "US", "IL"...). Prompt 5, C1: o Vale o Escrito passou a ser do mundo. */
   pais: string;
-  /** Sigla da UF (no Brasil) ou código da região (fora). */
+  /** Sigla da UF (no Brasil) ou código da região (fora: ISO 3166-2, opcional; o mapa do mundo não desce a ela). */
   regiao?: string;
   /** Código IBGE do município (7 dígitos). Só no Brasil. */
   municipioIbge?: string;
@@ -401,5 +401,6 @@ export const VISOES = ["teia", "orbita", "grupos", "fluxo", "mapa", "linha"] as 
 export type Visao = (typeof VISOES)[number];
 
 /** Níveis de zoom do mapa, do mais aberto ao mais fechado. */
-export const NIVEIS_DE_ZOOM = ["pais", "estado", "municipio"] as const;
+// Prompt 5, C1: o mapa começa no mundo; "pais" é o país aberto (no Brasil, as UFs).
+export const NIVEIS_DE_ZOOM = ["mundo", "pais", "estado", "municipio"] as const;
 export type NivelDeZoom = (typeof NIVEIS_DE_ZOOM)[number];

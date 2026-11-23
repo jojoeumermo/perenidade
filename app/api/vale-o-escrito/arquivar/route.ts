@@ -32,12 +32,14 @@ export async function POST(pedido: Request) {
   const corpo = (await pedido.json().catch(() => null)) as { url?: unknown } | null;
   const destino = typeof corpo?.url === "string" ? enderecoParaArquivar(corpo.url) : null;
   if (!destino) return responder({ erro: "Este link não pode ser arquivado (só endereços públicos http ou https)." }, 400);
-  if (!dentroDoFreio()) return responder({ erro: "Muitos pedidos de arquivo seguidos. Espere um minuto." }, 429);
   const pode = await rpcNoBanco<unknown>("vale_arquivo_pedir", {}, token);
   if (!pode.ok) {
     const limite = pode.erro === "muitos_pedidos";
     return responder({ erro: limite ? "Muitos pedidos de arquivo na última hora. Espere um pouco." : "O arquivo da fonte é com a curadoria." }, limite ? 429 : 403);
   }
+  // O freio da instância conta só pedidos da curadoria: antes do banco, qualquer pessoa sem papel gastava os 30 do minuto e a
+  // curadoria ficava sem arquivar.
+  if (!dentroDoFreio()) return responder({ erro: "Muitos pedidos de arquivo seguidos. Espere um minuto." }, 429);
   try {
     const resposta = await fetch(destino, {
       redirect: "follow",

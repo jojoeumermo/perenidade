@@ -20,6 +20,8 @@ const eslintConfig = defineConfig([
     "public/lua/**",
     "public/ruby/**",
     "public/jscpp/**",
+    // Vozes e o motor de fala baixados no prebuild (scripts/vozes-baixar.mjs), fora do git.
+    "public/vozes/**",
     // Cópias locais de LOOPY e Parable of the Polygons (CC0, Nicky Case), sem modificação do código (docs/LABS-EXTERNOS.md).
     "public/labs/loopy/**",
     "public/labs/polygons/**",
@@ -34,6 +36,14 @@ const eslintConfig = defineConfig([
     ".*/**",
     // O painel de monitoramento tem o próprio projeto, com a própria configuração.
     "sentinela/**",
+    // A casca do chat montada (casca/montar.mjs) e a cópia dela dentro do projeto Android (npx cap sync): saída do build.
+    "casca/saida/**",
+    "casca/.next/**",
+    "casca/public/cifra/**",
+    "android/**",
+    // As saídas do Cargo (o app do computador e os crates nativos): o Tauri gera lá cópias comprimidas da casca com nome .js.
+    "desktop/src-tauri/target/**",
+    "nativo/**/target/**",
   ]),
 ]);
 

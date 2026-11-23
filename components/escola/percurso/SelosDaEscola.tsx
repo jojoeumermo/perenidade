@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 
 import type { SeloDaEscola } from "@/lib/escola/conquistas";
+import type { FrenteDeAtuacao } from "@/lib/escola/contratos";
 import { preencher } from "@/lib/escola/textos";
 
 export interface TextosDosSelos {
@@ -8,10 +9,17 @@ export interface TextosDosSelos {
   degrau: string;
   caderno: string;
   aulas: string;
+  /** P5, B3: a tag de revolucionária(o). */
+  revolucionario: string;
+  /** P5, B5: "Frente: {nome}" e os nomes das 7 frentes de atuação. */
+  frente: string;
+  frentes: Record<FrenteDeAtuacao, string>;
 }
 
 export function textoDoSelo(selo: SeloDaEscola, t: TextosDosSelos): string {
   if (selo.tipo === "carteirinha") return t.carteirinha;
+  if (selo.tipo === "revolucionario") return t.revolucionario;
+  if (selo.tipo === "frente") return preencher(t.frente, { nome: t.frentes[selo.frente] });
   if (selo.tipo === "degrau") return preencher(t.degrau, { n: selo.n });
   if (selo.tipo === "caderno") return preencher(t.caderno, { n: String(selo.n).padStart(2, "0") });
   return preencher(t.aulas, { n: selo.n });
@@ -28,11 +36,11 @@ export function SelosDaEscola({ selos, t, rotulo, className = "" }: { selos: rea
     <ul aria-label={rotulo} className={className} style={{ display: "flex", flexWrap: "wrap", gap: 6, margin: 0, padding: 0, listStyle: "none" }}>
       {selos.map((selo) => (
         <li
-          key={`${selo.tipo}-${"n" in selo ? selo.n : ""}`}
+          key={`${selo.tipo}-${"n" in selo ? selo.n : "frente" in selo ? selo.frente : ""}`}
           data-selo-da-escola={selo.tipo}
           style={{ display: "inline-flex", alignItems: "center", gap: 5, borderRadius: 6, padding: "2px 8px", background: "#C21F16", color: "#FFFFFF", fontSize: 12.5, fontWeight: 700, lineHeight: 1.5 }}
         >
-          {selo.tipo === "carteirinha" && (
+          {(selo.tipo === "carteirinha" || selo.tipo === "revolucionario") && (
             <svg aria-hidden="true" width="12" height="12" viewBox="0 0 56 56">
               <path d="M28 6l6.2 14.6 15.8 1.3-12 10.4 3.7 15.5L28 39.6l-13.7 8.2 3.7-15.5-12-10.4 15.8-1.3z" fill="#F2C94C" />
             </svg>

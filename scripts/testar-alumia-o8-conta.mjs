@@ -201,7 +201,7 @@ const origem = await espera("o limite de quem não tem conta usa o resumo com o 
   const sal = (await banco.pg.query("select count(*)::int as n, bool_and(hora = date_trunc('hour', now())) as desta from interno.origem_sal")).rows[0];
   const refeito = (await banco.pg.query("select 'teste_origem:' || encode(sha256(convert_to((select sal from interno.origem_sal) || ':203.0.113.78', 'UTF8')), 'hex') as c")).rows[0].c;
   return { chave, sal, refeito };
-}), ({ chave, sal, refeito }) => /^teste_origem:[0-9a-f]{64}$/.test(chave) && !chave.includes("203") && sal.n === 1 && sal.desta && chave === refeito);
+}), ({ chave, sal, refeito }) => /^teste_origem:[0-9a-f]{64}$/.test(chave) && !chave.includes("203.0.113") && sal.n === 1 && sal.desta && chave === refeito);
 await espera("acabada a hora, o sal sai e o resumo não volta mais ao endereço (nem com o banco inteiro na mão)", async () => {
   await dono("update interno.origem_sal set hora = hora - interval '1 hour'");
   const saiu = (await dono("select interno.origem_sal_faxina() as n")).rows[0].n;

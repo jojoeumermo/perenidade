@@ -16,6 +16,7 @@ import { acervo } from "./acervo/cliente";
 import { erroDoAcervo, useTextosDoAcervo } from "./acervo/textos";
 import type { QuemEditaAWiki, RegrasDaWiki } from "./acervo/tipos";
 import "./acervo/acervo.css";
+import { confirmar } from "@/components/perguntar";
 
 /** A wiki da prévia: uma página de exemplo (a cartilha), só nesta tela. */
 function wikiDaPrevia(slug: string): Wiki {
@@ -226,7 +227,7 @@ export function WikiDaComunidade({ slug, lang, s, situacao, aoAvisar }: { slug: 
 
   async function moderar(acao: "restaurar" | "travar" | "destravar" | "apagar", n?: number) {
     if (!t || !atual) return;
-    if (acao === "apagar" && !window.confirm(w.confirmarApagar)) return;
+    if (acao === "apagar" && !(await confirmar(w.confirmarApagar))) return;
     setOcupado(true);
     try {
       if (acao === "restaurar" && n) {

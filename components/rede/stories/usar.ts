@@ -56,6 +56,10 @@ export function codigoDoErro(e: unknown): string {
   if (/function .*rede_story|PGRST202|does not exist|Could not find the function/i.test(m)) return "banco";
   if (/sem_sessao|not_logged|nao_logado|JWT|auth/i.test(m)) return "semConta";
   if (/dado_pessoal/i.test(m)) return "dadoPessoal";
+  // Sem @nome não há story (ele é aberto pelo @): a tela diz onde escolher, em vez do "tente de novo" que não resolvia nada.
+  if (/sem_handle/i.test(m)) return "semHandle";
+  // O mesmo envio já tinha chegado (lib/backend-envio.ts): o story está publicado.
+  if (/envio_repetido/i.test(m)) return "envioRepetido";
   if (/limite|rate/i.test(m)) return "limite";
   return "falha";
 }

@@ -2,7 +2,7 @@
 "use client";
 
 import { ArrowLeft, ArrowRight, CircleHelp, Lightbulb } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { GUIAS } from "./guias";
 import { Botao, Dialogo } from "./ui";
 
@@ -46,6 +46,26 @@ export function GuiaDaSecao({ id, nome }: { id: string; nome: string }) {
   const [passo, setPasso] = useState(0);
   const [convite, setConvite] = useState(false);
   const botao = useRef<HTMLButtonElement>(null);
+  const balao = useRef<HTMLParagraphElement>(null);
+
+  // O balão abre preso à direita do botão; no celular estreito ele saía pela esquerda da tela (P5). Mede e, se passar de uma
+  // borda, desliza para dentro, com 8 px de folga dos dois lados.
+  const visivel = convite && !aberto;
+  useLayoutEffect(() => {
+    const el = balao.current;
+    if (!visivel || !el) return;
+    const ajustar = () => {
+      el.style.translate = "";
+      const r = el.getBoundingClientRect();
+      const folga = 8;
+      const largura = document.documentElement.clientWidth;
+      const desvio = r.left < folga ? folga - r.left : r.right > largura - folga ? largura - folga - r.right : 0;
+      if (desvio) el.style.translate = `${Math.round(desvio)}px 0`;
+    };
+    ajustar();
+    window.addEventListener("resize", ajustar);
+    return () => window.removeEventListener("resize", ajustar);
+  }, [visivel]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- o que já foi visto só existe no navegador
@@ -84,7 +104,7 @@ export function GuiaDaSecao({ id, nome }: { id: string; nome: string }) {
       </Botao>
 
       {convite && !aberto && (
-        <p role="status" className="pn-cartao pn-cartao-destaque no-print flex flex-wrap items-center gap-x-3 gap-y-2">
+        <p ref={balao} role="status" className="pn-cartao pn-cartao-destaque no-print flex flex-wrap items-center gap-x-3 gap-y-2">
           <span className="pn-rotulo-mono w-full">Primeira vez aqui?</span>
           <span className="min-w-[min(100%,14rem)] flex-1 text-sm">{guia.paraQue} Veja como funciona em {guia.passos.length} passos.</span>
           <span className="flex w-full flex-wrap gap-1.5">

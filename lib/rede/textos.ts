@@ -10,13 +10,14 @@ import fr from "../../i18n/rede/fr.json";
 import pt from "../../i18n/rede/pt.json";
 import ru from "../../i18n/rede/ru.json";
 import zh from "../../i18n/rede/zh.json";
+import { prontoOuPortugues } from "./textos-prontos";
 
 export type TextosDaRede = typeof pt;
 
 const TEXTOS: Record<string, TextosDaRede> = { pt, en, es, fr, ru, zh } as unknown as Record<string, TextosDaRede>;
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
-export const textosDaRede = (lang: string): TextosDaRede => TEXTOS[lang] ?? pt;
+export const textosDaRede = (lang: string): TextosDaRede => prontoOuPortugues(TEXTOS[lang] ?? TEXTOS.pt, TEXTOS.pt);
 
 export { preencher } from "./preencher";
 

@@ -3,6 +3,7 @@
 // Os textos das telas novas da Alumia (Salvos e Fediverso): i18n/rede/alumia/{pt,en,es,fr,ru,zh}.json (pt é o final; os outros
 // cinco são rascunho marcado). Carrega só o idioma pedido, sob demanda. Sem "@/" de propósito (roda no Node nos testes).
 import type pt from "../../i18n/rede/alumia/pt.json";
+import { carregarPronto } from "./textos-prontos";
 
 export type TextosDaAlumia = typeof pt;
 
@@ -17,6 +18,5 @@ const CARREGAR: Record<string, () => Promise<{ default: unknown }>> = {
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export async function carregarTextosDaAlumia(lang: string): Promise<TextosDaAlumia> {
-  const carregar = CARREGAR[lang] ?? CARREGAR.pt;
-  return (await carregar()).default as TextosDaAlumia;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDaAlumia;
 }

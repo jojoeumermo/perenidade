@@ -1,19 +1,20 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Prova a frente 10E (decisão e números da comunidade): supabase/migracoes/20261116-alumia-o10-decisao.sql num Postgres de verdade
-// (scripts/banco-local.mjs), rodada DUAS vezes sobre o install.sql, com a cédula cifrada de verdade (lib/rede/voto/cedula.ts) e
-// aberta pelo código do servidor (lib/rede/voto/servidor.ts):
+// (scripts/banco-local.mjs), rodada DUAS vezes sobre o install.sql. O voto secreto vai pelo caminho do banco que houver
+// (scripts/voto-de-teste.mjs): depois da R2 (supabase/migracoes/20261124-r2-voto.sql), a cédula cifrada de verdade para a chave das
+// guardiãs (lib/rede/voto/limiar.ts), que o servidor não abre; a cerimônia das guardiãs é provada em scripts/testar-r2-voto.mjs:
 //   votação   quem abre, quem vota (só quem já era da comunidade), o quórum, o prazo, o resultado só no fechamento e só a partir
 //             de 3, o modo aberto (nome junto do voto, só no fim), o caminho sem cifra e o cancelar;
 //   segredo   o teste faz o papel de quem lê o banco inteiro e TENTA casar a pessoa com o voto secreto: pelo id, pela coluna, pelo
-//             xmin, pela posição no disco, pela ordem de chegada, pelo freio, pela cédula cifrada sem o segredo. E não consegue;
+//             xmin, pela posição no disco, pela ordem de chegada, pelo freio. E não consegue;
 //   números   os agregados por semana para a moderação, cada um só a partir de 3, sem pessoa nenhuma.
 // Uso: node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-o10-decisao.mjs
 import fs from "node:fs";
 import path from "node:path";
-import { randomInt } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { criarBanco } from "./banco-local.mjs";
+import { votoDeTeste } from "./voto-de-teste.mjs";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ler = (c) => fs.readFileSync(path.join(raiz, c), "utf8");
@@ -57,16 +58,13 @@ ok("a cédula não tem id, hora nem valor padrão", (() => {
   const m = /create table if not exists interno\.alumia_decisao_cedulas \(([\s\S]*?)\n\);/.exec(sql);
   return m && !/^\s*id\b/m.test(m[1]) && !/default|timestamptz|serial|identity|sequence/i.test(m[1]);
 })());
-const rotaChave = fonte("app/api/alumia/decisao/chave/route.ts");
-const rotaAbrir = fonte("app/api/alumia/decisao/abrir/route.ts");
-ok("a chave da votação sai do mesmo código do voto da onda 9", /chavePublicaDaConsulta/.test(rotaChave) && /segredoDoVoto/.test(rotaChave) && /contaDoToken/.test(rotaChave));
-ok("a apuração abre com o mesmo código e embaralha antes de mandar ao banco", /abrirCedula/.test(rotaAbrir) && /embaralhar\(/.test(rotaAbrir) && /alumia_decisao_apurar/.test(rotaAbrir) && /alumia_decisao_cifradas/.test(rotaAbrir));
-ok("a apuração responde 404 (não 502) quando a votação não existe", /nao_encontrado" \}, 404\)/.test(rotaAbrir));
-ok("o aparelho cifra com a mesma cédula da onda 9", /cifrarCedula/.test(fonte("lib/rede/decisao/cliente.ts")) && /from "\.\.\/voto\/cedula"/.test(fonte("lib/rede/decisao/cliente.ts")));
-ok("nenhuma cifra feita à mão na frente", ["lib/rede/decisao/cliente.ts", "app/api/alumia/decisao/chave/route.ts", "app/api/alumia/decisao/abrir/route.ts"].every((c) => !/createCipheriv|createDecipheriv|subtle\.(encrypt|decrypt|deriveBits|deriveKey)|createECDH|hkdfSync/.test(fonte(c))));
+// R2 (item 1.7): o servidor não dá mais a chave nem abre as cédulas; o aparelho cifra para a chave das guardiãs da mediação.
+ok("as rotas com que o servidor dava a chave e abria as cédulas da votação sumiram", !existe("app/api/alumia/decisao/chave/route.ts") && !existe("app/api/alumia/decisao/abrir/route.ts"));
+ok("o aparelho cifra pela urna das guardiãs (lib/rede/voto/urna.ts)", /urna\.votar\("decisao"/.test(fonte("lib/rede/decisao/cliente.ts")) && !/voto\/cedula|decisao\/chave|decisao\/abrir/.test(fonte("lib/rede/decisao/cliente.ts")));
+ok("nenhuma cifra feita à mão na frente", ["lib/rede/decisao/cliente.ts"].every((c) => !/createCipheriv|createDecipheriv|subtle\.(encrypt|decrypt|deriveBits|deriveKey)|createECDH|hkdfSync/.test(fonte(c))));
 ok("nenhum arquivo do navegador lê a chave de serviço ou o segredo", ["lib/rede/decisao/cliente.ts", ...fs.readdirSync(path.join(raiz, "components/rede/comunidades/decisao")).map((f) => `components/rede/comunidades/decisao/${f}`)]
   .every((c) => !/SERVICE_ROLE|ALUMIA_VOTO_SEGREDO/.test(fonte(c))));
-ok("o voto nunca cai em silêncio para o caminho sem cifra (só com sem_servico)", /motivo === "sem_servico"/.test(fonte("lib/rede/decisao/cliente.ts")));
+ok("o voto secreto não tem caminho sem cifra no aparelho", !/sem_servico/.test(fonte("lib/rede/decisao/cliente.ts")));
 
 // ═══════════════════ 1. Banco e pessoas ═══════════════════
 const banco = await criarBanco();
@@ -100,7 +98,7 @@ for (const n of ["outra", ...VOTANTES]) await dono("insert into interno.rede_com
 await espera("a migração instala sobre o install.sql", () => exec(sql));
 await espera("e de novo, sem estrago (idempotente)", () => exec(sql));
 await espera("as portas: nenhuma função public.rede_*/alumia_* ficou aberta", async () => (await um("select interno.alumia_trancar() as r")).r, (r) => Array.isArray(r?.abertas) && r.abertas.length === 0);
-await espera("as funções do servidor só aceitam a chave de serviço", () => linhas(`select p.proname from pg_proc p where p.pronamespace = 'public'::regnamespace
+await espera("as funções do servidor (se ainda existirem: antes da R2) só aceitam a chave de serviço", () => linhas(`select p.proname from pg_proc p where p.pronamespace = 'public'::regnamespace
     and p.proname in ('alumia_decisao_cifradas', 'alumia_decisao_apurar')
     and (has_function_privilege('authenticated', p.oid, 'execute') or has_function_privilege('anon', p.oid, 'execute') or not has_function_privilege('service_role', p.oid, 'execute'))`), (l) => l.length === 0);
 await espera("as funções de membro passam pela porta", () => linhas(`select p.proname, pg_get_functiondef(p.oid) s from pg_proc p where p.pronamespace = 'public'::regnamespace
@@ -110,9 +108,8 @@ await espera("visitante sem conta não chama nada da votação", () => linhas(`s
 await espera("as tabelas têm RLS e nenhuma política", () => linhas(`select c.relname, c.relrowsecurity, (select count(*) from pg_policy p where p.polrelid = c.oid)::int pol from pg_class c
     where c.relnamespace = 'interno'::regnamespace and c.relname like 'alumia\\_decis%' and c.relkind = 'r'`), (l) => l.length === 6 && l.every((x) => x.relrowsecurity && x.pol === 0));
 
-const SEGREDO = "segredo-do-voto-para-o-teste-0123456789";
-const { chavePublicaDaConsulta, abrirCedula, embaralhar } = await import("../lib/rede/voto/servidor.ts");
-const { cifrarCedula } = await import("../lib/rede/voto/cedula.ts");
+const voto = await votoDeTeste(banco);
+const CIFRADAS = voto.porTipo.decisao ? "alumia_decisao_cifradas" : "alumia_decisao_cedulas";
 const temId = (coisa, id) => JSON.stringify(coisa).includes(id);
 const emDias = (d) => new Date(Date.now() + d * 86_400_000).toISOString();
 /** Fecha a votação: o prazo passa (a criação vai junto para trás, para o check prazo > criada_em). */
@@ -137,9 +134,7 @@ const OPS = SEC.opcoes.map((o) => o.id);
 await dono("insert into interno.rede_comunidade_membros (comunidade, usuario, entrou_em) values ($1, $2, now() + interval '1 second')", [SLUG, P.tarde]);
 await dono("update interno.rede_comunidade_membros set entrou_em = now() + interval '5 minutes' where usuario = $1", [P.tarde]);
 
-// ═══════════════════ 4. Votar em segredo, com a cédula cifrada ═══════════════════
-const chave = chavePublicaDaConsulta(SEGREDO, SEC.id);
-ok("a chave pública da votação é a mesma derivação da consulta (65 bytes em base64url)", /^[A-Za-z0-9_-]{87}$/.test(chave));
+// ═══════════════════ 4. Votar em segredo (cifrado para as guardiãs, depois da R2) ═══════════════════
 // 8 votos em Sábado, depois 6 em Domingo, depois 1 em Feriado: a ordem de chegada é conhecida (o atacante também sabe).
 const escolhaDe = Object.fromEntries(VOTANTES.slice(0, 15).map((n, i) => [n, i < 8 ? OPS[0] : i < 14 ? OPS[1] : OPS[2]]));
 await espera("quem é da comunidade e chegou antes vê que pode votar", () => daLista(P.v1, SEC.id), (d) => d.possoVotar === true && d.votei === false && d.impedimento === null);
@@ -148,47 +143,46 @@ const limitesAntes = (await um("select count(*)::int n from interno.limites")).n
 const xminDeQuem = {};
 let antesDoUltimo = null;
 for (const n of VOTANTES.slice(0, 15)) {
-  if (n === "v15") antesDoUltimo = await linhas("select cedula from interno.alumia_decisao_cifradas where decisao = $1", [SEC.id]);
-  const cedula = await cifrarCedula(SEC.id, chave, [escolhaDe[n]]);
-  await espera(`${n} vota com a cédula cifrada`, () => chamar(P[n], "alumia_decisao_votar_cifrada", { p_id: SEC.id, p_cedula: cedula }), (r) => r.votei === true);
+  if (n === "v15") antesDoUltimo = await linhas(`select ${voto.porTipo.decisao ? "cedula" : "opcao::text"} as cedula from interno.${CIFRADAS} where decisao = $1`, [SEC.id]);
+  await espera(`${n} vota em segredo`, () => voto.decisao(chamar, P[n], SEC.id, escolhaDe[n]), (r) => r.votei === true);
   xminDeQuem[n] = (await um("select xmin::text x from interno.alumia_decisao_votantes where decisao = $1 and usuario = $2", [SEC.id, P[n]])).x;
 }
-await recusa("ninguém vota duas vezes", async () => chamar(P.v1, "alumia_decisao_votar_cifrada", { p_id: SEC.id, p_cedula: await cifrarCedula(SEC.id, chave, [OPS[2]]) }), "ja_votou");
+await recusa("ninguém vota duas vezes", () => voto.decisao(chamar, P.v1, SEC.id, OPS[2]), "ja_votou");
 await recusa("nem pelo caminho sem cifra", () => chamar(P.v1, "alumia_decisao_votar", { p_id: SEC.id, p_opcao: OPS[2] }), "ja_votou");
-await recusa("quem chegou depois não vota", async () => chamar(P.tarde, "alumia_decisao_votar_cifrada", { p_id: SEC.id, p_cedula: await cifrarCedula(SEC.id, chave, [OPS[0]]) }), "sem_permissao");
-await recusa("quem não é da comunidade nem acha a votação", async () => chamar(P.fora, "alumia_decisao_votar_cifrada", { p_id: SEC.id, p_cedula: await cifrarCedula(SEC.id, chave, [OPS[0]]) }), "nao_encontrado");
-await recusa("cédula fora do formato", () => chamar(P.v16, "alumia_decisao_votar_cifrada", { p_id: SEC.id, p_cedula: "c1.nada" }), "invalido:cedula");
+await recusa("quem chegou depois não vota", () => voto.decisao(chamar, P.tarde, SEC.id, OPS[0]), "sem_permissao");
+await recusa("quem não é da comunidade nem acha a votação", () => voto.decisao(chamar, P.fora, SEC.id, OPS[0]), "nao_encontrado");
+if (voto.porTipo.decisao) {
+  await recusa("cédula fora do formato", () => chamar(P.v16, "alumia_decisao_votar_cifrada", { p_id: SEC.id, p_cedula: "c1.nada" }), "invalido:cedula");
+  await recusa("o voto secreto às claras não existe mais", () => chamar(P.v16, "alumia_decisao_votar", { p_id: SEC.id, p_opcao: OPS[0] }), "voto_cifrado");
+}
 await espera("aberta: nenhum número, nem de quem votou", () => daLista(P.mod, SEC.id), (d) => d.votantes === null && d.resultado === false && d.opcoes.every((o) => o.votos === null));
 await espera("o voto não grava freio com o id da pessoa", () => um("select count(*)::int n from interno.limites"), (x) => x.n === limitesAntes);
 
 // ── O ataque, com a votação aberta: quem lê o banco inteiro ──
 {
-  const cifradas = await linhas("select xmin::text x, cmin::text c, ctid::text p, * from interno.alumia_decisao_cifradas where decisao = $1", [SEC.id]);
+  const cifradas = await linhas(`select xmin::text x, cmin::text c, ctid::text p, * from interno.${CIFRADAS} where decisao = $1`, [SEC.id]);
   const votantes = await linhas("select xmin::text x, ctid::text p, * from interno.alumia_decisao_votantes where decisao = $1", [SEC.id]);
   ok("15 cédulas cifradas, 15 'votou'", cifradas.length === 15 && votantes.length === 15);
-  ok("a cédula cifrada não tem coluna que aponte para alguém (só a votação e o texto)", Object.keys(cifradas[0]).filter((k) => !["x", "c", "p"].includes(k)).sort().join() === "cedula,decisao");
+  ok("a cédula não tem coluna que aponte para alguém", Object.keys(cifradas[0]).filter((k) => !["x", "c", "p"].includes(k)).sort().join() === (voto.porTipo.decisao ? "cedula,decisao,resumo" : "decisao,opcao"));
   ok("nenhuma pessoa aparece em linha nenhuma das cédulas", VOTANTES.every((n) => !temId(cifradas, P[n])));
   ok("pelo xmin: as 15 cédulas dividem um xmin só (o do último voto), que não diz de quem é cada uma", new Set(cifradas.map((c) => c.x)).size === 1 && new Set(cifradas.map((c) => c.c)).size === 1);
   ok("pelo xmin: quem votou antes do último não divide xmin com cédula nenhuma", VOTANTES.slice(0, 14).every((n) => !cifradas.some((c) => c.x === xminDeQuem[n])));
-  const abreSem = cifradas.map((c) => abrirCedula("outro-segredo-qualquer-para-tentar-0123456789", SEC.id, c.cedula));
-  ok("sem o segredo do servidor, nenhuma cédula abre", abreSem.every((r) => r === null));
-  ok("a cédula de uma votação não abre como se fosse de outra", cifradas.every((c) => abrirCedula(SEGREDO, OPS[0], c.cedula) === null));
-  // Duas leituras em volta de um voto mostram a cédula nova; mas ela é texto cifrado, que só abre no fechamento, em lote.
-  const nova = cifradas.map((c) => c.cedula).filter((c) => !antesDoUltimo.some((a) => a.cedula === c));
-  ok("duas leituras em volta de um voto: todas as cédulas são regravadas, e a nova só é texto cifrado", nova.length >= 1 && nova.every((c) => /^c1\./.test(c)) && nova.every((c) => abrirCedula("x".repeat(40), SEC.id, c) === null));
+  if (voto.porTipo.decisao) {
+    // Duas leituras em volta de um voto mostram a cédula nova; mas ela é texto cifrado para as guardiãs, que só abre depois do prazo.
+    const nova = cifradas.map((c) => c.cedula).filter((c) => !antesDoUltimo.some((a) => a.cedula === c));
+    ok("duas leituras em volta de um voto: a nova é só texto cifrado (v2, tamanho fixo)", nova.length === 1 && nova.every((c) => /^v2\./.test(c) && c.length === 2233));
+    ok("nenhum id de opção aparece nas cédulas", cifradas.every((c) => OPS.every((o) => !c.cedula.includes(o))));
+  }
 }
 
 // ═══════════════════ 5. O fechamento e a apuração ═══════════════════
 await fechar(SEC.id);
-await espera("fechada com cédula cifrada: ainda sem resultado, e a tela é avisada para pedir a apuração", () => daLista(P.v1, SEC.id), (d) => d.situacao === "fechada" && d.apurar === true && d.resultado === false && d.opcoes.every((o) => o.votos === null));
-await recusa("quem tem sessão não pede as cédulas ao banco", () => chamar(P.mod, "alumia_decisao_cifradas", { p_id: SEC.id }), "permission denied");
-const lote = await espera("o servidor recebe as cédulas da votação fechada", () => servico("alumia_decisao_cifradas", { p_id: SEC.id }), (r) => r.fechada === true && r.cedulas.length === 15);
-const abertas = embaralhar((lote?.cedulas ?? []).map((c) => abrirCedula(SEGREDO, SEC.id, c)).filter((r) => r !== null), (n) => randomInt(n));
-ok("o servidor abre todas", abertas.length === 15);
-await recusa("o número de cédulas abertas tem de bater", () => servico("alumia_decisao_apurar", { p_id: SEC.id, p_escolhas: abertas, p_quantas: 14 }), "invalido:apuracao");
-await recusa("quem tem sessão não apura", () => chamar(P.mod, "alumia_decisao_apurar", { p_id: SEC.id, p_escolhas: abertas, p_quantas: 15 }), "permission denied");
-await espera("a apuração põe as escolhas na urna", () => servico("alumia_decisao_apurar", { p_id: SEC.id, p_escolhas: abertas, p_quantas: 15 }), (r) => r.apuradas === 15 && r.nulas === 0);
-await espera("apurar de novo não muda nada", () => servico("alumia_decisao_apurar", { p_id: SEC.id, p_escolhas: [], p_quantas: 0 }), (r) => r.apuradas === 0);
+if (voto.porTipo.decisao) {
+  await espera("fechada com cédula cifrada: ainda sem resultado, e a tela sabe que as guardiãs precisam abrir", () => daLista(P.v1, SEC.id), (d) => d.situacao === "fechada" && d.apurar === true && d.resultado === false && d.opcoes.every((o) => o.votos === null));
+  await espera("o servidor não tem mais função para pedir ou apurar as cédulas", () => linhas("select proname from pg_proc where proname in ('alumia_decisao_cifradas', 'alumia_decisao_apurar')"), (l) => l.length === 0);
+  // A abertura de verdade é das guardiãs (scripts/testar-r2-voto.mjs); aqui, a apuração de teste põe as escolhas na urna.
+  await espera("a apuração (das guardiãs) põe as 15 escolhas na urna", () => voto.apurar("decisao", SEC.id), (r) => r.apuradas === 15);
+}
 // 8, 6 e 1 voto: com o total e os outros dois à vista, o 1 sairia por subtração (15 - 8 - 6). Então nenhum número sai.
 const fim = await espera("o resultado sai com a vencedora; com uma opção abaixo de 3, nenhum número (nem o total) aparece", () => daLista(P.v1, SEC.id),
   (d) => d.resultado === true && d.numeros === false && d.quorumAtingido === true && d.votantes === null && d.opcoes.every((o) => o.votos === null)
@@ -201,8 +195,8 @@ void fim;
   const votantes = await linhas("select xmin::text x, * from interno.alumia_decisao_votantes where decisao = $1 order by ctid", [SEC.id]);
   ok("a cédula aberta tem só a votação e a opção", Object.keys(cedulas[0]).filter((k) => !["x", "c", "p"].includes(k)).sort().join() === "decisao,opcao");
   ok("nenhuma pessoa nas cédulas abertas", VOTANTES.every((n) => !temId(cedulas, P[n])));
-  ok("as cédulas abertas dividem um xmin só, que não é o de nenhum voto", new Set(cedulas.map((c) => c.x)).size === 1 && !votantes.some((v) => v.x === cedulas[0].x));
-  ok("as cifradas saíram do banco", (await um("select count(*)::int n from interno.alumia_decisao_cifradas where decisao = $1", [SEC.id])).n === 0);
+  ok("as cédulas abertas dividem um xmin só (depois da apuração, que não é o de nenhum voto)", new Set(cedulas.map((c) => c.x)).size === 1 && (!voto.porTipo.decisao || !votantes.some((v) => v.x === cedulas[0].x)));
+  ok("as cifradas saíram do banco", !voto.porTipo.decisao || (await um("select count(*)::int n from interno.alumia_decisao_cifradas where decisao = $1", [SEC.id])).n === 0);
   // Pela posição: a ordem no disco não é a de chegada (8 Sábados e depois 6 Domingos, na ordem exata, seria 1 chance em 45045).
   const naOrdem = VOTANTES.slice(0, 15).map((n) => escolhaDe[n]);
   ok("pela posição no disco: a ordem das cédulas não é a ordem dos votos", cedulas.map((c) => c.opcao).join() !== naOrdem.join());
@@ -215,22 +209,24 @@ void fim;
 {
   const Q = await chamar(P.mod, "alumia_decisao_criar", { p_slug: SLUG, p: { ...pedido, pergunta: "Trocamos o horário da assembleia?", opcoes: ["Sim", "Não"], quorum: 10 } });
   const DOIS = await chamar(P.mod, "alumia_decisao_criar", { p_slug: SLUG, p: { ...pedido, pergunta: "Mudamos o nome do grupo?", opcoes: ["Sim", "Não"], quorum: 3 } });
-  for (const n of ["v1", "v2", "v3", "v4"]) await chamar(P[n], "alumia_decisao_votar", { p_id: Q.id, p_opcao: Q.opcoes[0].id });
-  for (const n of ["v1", "v2"]) await chamar(P[n], "alumia_decisao_votar", { p_id: DOIS.id, p_opcao: DOIS.opcoes[0].id });
+  for (const n of ["v1", "v2", "v3", "v4"]) await voto.decisao(chamar, P[n], Q.id, Q.opcoes[0].id);
+  for (const n of ["v1", "v2"]) await voto.decisao(chamar, P[n], DOIS.id, DOIS.opcoes[0].id);
   await fechar(Q.id);
   await fechar(DOIS.id);
+  await voto.apurar("decisao", Q.id);
+  await voto.apurar("decisao", DOIS.id);
   await espera("sem quórum: quantas pessoas votaram e 'não atingiu', sem resultado", () => daLista(P.v1, Q.id), (d) => d.resultado === false && d.quorumAtingido === false && d.votantes === 4 && d.opcoes.every((o) => o.votos === null));
   await espera("com 2 votos: nem o número de quem votou", () => daLista(P.v1, DOIS.id), (d) => d.resultado === false && d.votantes === null && d.opcoes.every((o) => o.votos === null));
-  // O caminho sem cifra do voto secreto (servidor sem o segredo): a urna do banco, regravada junto.
+  // A urna aberta (depois da apuração; antes da R2, a urna às claras): sem pessoa, regravada junto.
   const urna = await linhas("select xmin::text x, * from interno.alumia_decisao_cedulas where decisao = $1", [Q.id]);
-  ok("sem cifra, a cédula vai para a urna sem pessoa e regravada junto (um xmin só)", urna.length === 4 && new Set(urna.map((u) => u.x)).size === 1 && ["v1", "v2", "v3", "v4"].every((n) => !temId(urna, P[n])));
-  await recusa("votação fechada não recebe voto", () => chamar(P.v5, "alumia_decisao_votar", { p_id: Q.id, p_opcao: Q.opcoes[0].id }), "fechada");
+  ok("na urna, a cédula fica sem pessoa e regravada junto (um xmin só)", urna.length === 4 && new Set(urna.map((u) => u.x)).size === 1 && ["v1", "v2", "v3", "v4"].every((n) => !temId(urna, P[n])));
+  await recusa("votação fechada não recebe voto", () => voto.decisao(chamar, P.v5, Q.id, Q.opcoes[0].id), "fechada");
 }
 
 // ═══════════════════ 7. O modo aberto: o nome vai junto, e só aparece no fim ═══════════════════
 {
   const AB = await espera("a moderação abre uma votação aberta", () => chamar(P.mod, "alumia_decisao_criar", { p_slug: SLUG, p: { ...pedido, pergunta: "Quem leva a pauta à plenária?", opcoes: ["Comissão", "Rodízio"], modo: "aberta", quorum: 3 } }), (d) => d.modo === "aberta");
-  await recusa("no modo aberto não há cédula cifrada", async () => chamar(P.v1, "alumia_decisao_votar_cifrada", { p_id: AB.id, p_cedula: await cifrarCedula(AB.id, chavePublicaDaConsulta(SEGREDO, AB.id), [AB.opcoes[0].id]) }), "invalido:modo");
+  if (voto.porTipo.decisao) await recusa("no modo aberto não há cédula cifrada", async () => chamar(P.v1, "alumia_decisao_votar_cifrada", { p_id: AB.id, p_cedula: await voto.cedula("decisao", AB.id, [AB.opcoes[0].id]) }), "invalido:modo");
   for (const [i, n] of ["v1", "v2", "v3", "v4"].entries()) await chamar(P[n], "alumia_decisao_votar", { p_id: AB.id, p_opcao: AB.opcoes[i < 3 ? 0 : 1].id });
   await recusa("opção de outra votação não vale", () => chamar(P.v5, "alumia_decisao_votar", { p_id: AB.id, p_opcao: OPS[0] }), "invalido:opcao");
   await espera("aberta: nem nomes nem números antes do prazo", () => daLista(P.v5, AB.id), (d) => d.opcoes.every((o) => o.quem === null && o.votos === null));
@@ -243,13 +239,13 @@ void fim;
 // ═══════════════════ 8. Cancelar ═══════════════════
 {
   const C = await chamar(P.mod, "alumia_decisao_criar", { p_slug: SLUG, p: { ...pedido, pergunta: "Votação aberta por engano" } });
-  await chamar(P.v1, "alumia_decisao_votar", { p_id: C.id, p_opcao: C.opcoes[0].id });
+  await voto.decisao(chamar, P.v1, C.id, C.opcoes[0].id);
   await recusa("quem não modera não cancela", () => chamar(P.v1, "alumia_decisao_cancelar", { p_id: C.id }), "nao_encontrado");
   await espera("a moderação cancela: as cédulas e quem votou somem", async () => [await chamar(P.mod, "alumia_decisao_cancelar", { p_id: C.id }),
-    (await um("select (select count(*) from interno.alumia_decisao_cedulas where decisao = $1) + (select count(*) from interno.alumia_decisao_votantes where decisao = $1) n", [C.id])).n],
+    (await um("select (select count(*) from interno.alumia_decisao_cedulas where decisao = $1) + (select count(*) from interno.alumia_decisao_cifradas where decisao = $1) + (select count(*) from interno.alumia_decisao_votantes where decisao = $1) n", [C.id])).n],
     ([d, n]) => d.situacao === "cancelada" && Number(n) === 0);
-  await recusa("cancelada não recebe voto", () => chamar(P.v2, "alumia_decisao_votar", { p_id: C.id, p_opcao: C.opcoes[0].id }), "fechada");
-  await recusa("o servidor não apura cancelada", () => servico("alumia_decisao_apurar", { p_id: C.id, p_escolhas: [], p_quantas: 0 }), "aberta");
+  await recusa("cancelada não recebe voto", () => voto.decisao(chamar, P.v2, C.id, C.opcoes[0].id), "fechada");
+  if (!voto.porTipo.decisao) await recusa("o servidor não apura cancelada", () => servico("alumia_decisao_apurar", { p_id: C.id, p_escolhas: [], p_quantas: 0 }), "aberta");
 }
 
 // ═══════════════════ 9. Quem vê a lista ═══════════════════

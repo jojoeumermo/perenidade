@@ -10,6 +10,7 @@ import pt from "../../i18n/rede/comunidades/pt.json";
 import ru from "../../i18n/rede/comunidades/ru.json";
 import zh from "../../i18n/rede/comunidades/zh.json";
 import { type TextosDaRede, textosDaRede } from "./textos";
+import { prontoOuPortugues } from "./textos-prontos";
 
 export type TextosDeComunidades = typeof pt;
 /** Os textos da Rede com os do pacote em `comunidades`. */
@@ -18,7 +19,7 @@ export type TextosComComunidades = TextosDaRede & { comunidades: TextosDeComunid
 const TEXTOS: Record<string, TextosDeComunidades> = { pt, en, es, fr, ru, zh } as unknown as Record<string, TextosDeComunidades>;
 
 /** Os textos do pacote no idioma pedido; idioma desconhecido cai no português. */
-export const textosDeComunidades = (lang: string): TextosDeComunidades => TEXTOS[lang] ?? pt;
+export const textosDeComunidades = (lang: string): TextosDeComunidades => prontoOuPortugues(TEXTOS[lang] ?? TEXTOS.pt, TEXTOS.pt);
 
 /** Os textos da Rede (um idioma) mais os do pacote: é o que as rotas do pacote passam à Rede. */
 export const comTextos = (lang: string): TextosComComunidades => ({ ...textosDaRede(lang), comunidades: textosDeComunidades(lang) });

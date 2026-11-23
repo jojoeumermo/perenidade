@@ -1,0 +1,14 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# Regras do Semgrep da Alumia para as telas (TSX). O teste está em alumia-tsx.tsx.
+rules:
+  - id: alumia-chat-sem-html-cru
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      Nada de dangerouslySetInnerHTML nas telas do chat: o texto de quem escreve vira código na tela de quem lê.
+    paths:
+      include: ["/components/rede/chat/**", "/components/rede/conversa/**", "/components/painel/Conversas*.tsx", "/components/rede/voto/**", "/.semgrep/*.tsx"]
+    pattern-either:
+      - pattern: <$EL dangerouslySetInnerHTML={...} />
+      - pattern: <$EL dangerouslySetInnerHTML={...}>...</$EL>

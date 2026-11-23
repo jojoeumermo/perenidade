@@ -13,6 +13,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { criarBanco } from "./banco-local.mjs";
+import { votoDeTeste } from "./voto-de-teste.mjs";
 import { noFimDoInstall } from "./install-posteriores.mjs";
 import { centavosDe, conferirLancamento, conviteDoFragmento, linkDoConvite, mosaicoDosSinais, ordinalDaFila, tremeOLampiao } from "../lib/rede/org/b1.ts";
 
@@ -72,8 +73,13 @@ const banco = await criarBanco();
 const { dono, criarUsuario, rpc } = banco;
 const um = async (texto, valores = []) => (await dono(texto, valores)).rows[0];
 const exec = (s) => banco.exclusivo(() => banco.pg.exec(s));
-await espera("a migração instala de novo sobre o install.sql (idempotente)", () => exec(sql));
-await espera("e uma terceira vez sem estrago", () => exec(sql));
+// Depois da R2 a filiação aos núcleos saiu do banco, e esta migração sozinha (que cria funções que leem a tabela que saiu) não roda
+// mais por cima: o que roda de novo é o install.sql inteiro, que a recria e, no fim, a tira de novo.
+// O install.sql inteiro de novo por cima: as definições finais (a R2 redefiniu funções desta migração) voltam a valer.
+await espera("e o install.sql inteiro de novo por cima (as definições finais voltam)", () => banco.instalarDeNovo());
+await banco.filiacaoDeTeste();
+// O voto secreto da R2 (cédula cifrada para as guardiãs): a chave e a apuração de teste (scripts/voto-de-teste.mjs).
+const voto = await votoDeTeste(banco);
 
 // ── pessoas ──
 let ip = 10;
@@ -103,43 +109,22 @@ let NUC;
   await recusa("membro não acende núcleo", () => rpc(A("m1"), "rede_org_nucleo_criar", { p_handle: "lume", p: { nome: "Núcleo Leste", quando: "terças", onde: "Itaquera" } }), "sem_permissao");
   await recusa("pauta com telefone é dado pessoal", () => rpc(A("dona"), "rede_org_nucleo_criar", { p_handle: "lume", p: { nome: "Núcleo X", quando: "terças", onde: "Sé", pauta: "Liga (11) 98888-7777" } }), "dado_pessoal");
   await recusa("estado que não existe", () => rpc(A("dona"), "rede_org_nucleo_criar", { p_handle: "lume", p: { nome: "Núcleo X", quando: "terças", onde: "Sé", uf: "ZZ" } }), "invalido:nucleo");
-  const r = await espera("a dona acende o lampião com pauta, tarefa, cidade, estado e convite", () => rpc(A("dona"), "rede_org_nucleo_criar", { p_handle: "lume", p: {
-    nome: "Núcleo Leste", quando: "terças, 19h", onde: "Biblioteca de Itaquera", cor: 2, pauta: "1. Quem somos\n2. O que queremos", tarefa: "Colar 20 cartazes", cidade: "São Paulo", uf: "sp", mapa: false, convite: { dias: 7, usos: 5 },
-  } }), (x) => x.id && /^[0-9a-f]{32}$/.test(x.convite?.codigo ?? "") && x.convite.usos === 5);
+  // Depois da R2 (membros escondidos, 20261124-r2-membros.sql): o núcleo nasce sem convite pelo servidor (a entrada é pela caixa de
+  // entrada do grupo, nos aparelhos), o servidor não sabe quantas pessoas há nele e não acende chama; fora do mapa.
+  const r = await espera("a dona acende o lampião com pauta, tarefa, cidade e estado", () => rpc(A("dona"), "rede_org_nucleo_criar", { p_handle: "lume", p: {
+    nome: "Núcleo Leste", quando: "terças, 19h", onde: "Biblioteca de Itaquera", cor: 2, pauta: "1. Quem somos\n2. O que queremos", tarefa: "Colar 20 cartazes", cidade: "São Paulo", uf: "sp", mapa: false,
+  } }), (x) => typeof x?.id === "string");
   NUC = r?.id;
-  await espera("o convite guarda só o hash (o código não fica no banco)", () => um("select count(*)::int n from interno.rede_convites where nucleo = $1 and token_hash <> $2 and usos_max = 5", [NUC, r?.convite?.codigo]), (x) => x.n === 1);
+  await espera("nenhum convite de núcleo fica no banco", () => um("select count(*)::int n from interno.rede_convites where nucleo = $1", [NUC]), (x) => x.n === 0);
   await espera("a pauta e a tarefa ficam guardadas", () => um("select org_pauta, org_tarefa, org_uf, org_no_mapa from interno.rede_nucleos where id = $1", [NUC]), (x) => x.org_pauta.startsWith("1. Quem") && x.org_tarefa === "Colar 20 cartazes" && x.org_uf === "SP" && x.org_no_mapa === false);
-  // Faz o tempo andar: quem entrou (e quem saiu) recua 20 minutos, para cair antes do último marco.
-  const passarMarco = async () => {
-    await dono("update interno.rede_nucleo_membros set entrou_em = entrou_em - interval '20 minutes'");
-    await dono("update interno.rede_contagem_saidas set entrou_em = entrou_em - interval '20 minutes', saiu_em = saiu_em - interval '20 minutes'");
-  };
-  const chamaDe = async (quem) => (await rpc(quem, "rede_org_perfil", { p_handle: "lume" })).nucleos[0].chama;
-  await espera("só quem fundou: brasa (abaixo de 3 é sempre o mesmo valor)", () => rpc(A("m1"), "rede_org_perfil", { p_handle: "lume" }), (o) => o.nucleos[0].chama === "brasa" && o.nucleos[0].pauta === null && o.nucleos[0].mapa === null);
-  await espera("m1 entra pelo convite", () => rpc(A("m1"), "rede_fix_convite_usar", { p_codigo: r?.convite?.codigo }), (x) => x.ok !== false);
-  await passarMarco();
-  // O ataque: quem recarrega o perfil (até visitante) não pode perceber a 1ª nem a 2ª pessoa entrando no núcleo.
-  await espera("com a 1ª pessoa, a chama NÃO muda (nem depois do marco)", () => rpc(A("m1"), "rede_org_perfil", { p_handle: "lume" }), (o) => o.nucleos[0].chama === "brasa" && o.nucleos[0].pauta?.startsWith("1. Quem") && o.nucleos[0].tarefa === "Colar 20 cartazes");
-  await rpc(A("m2"), "rede_fix_convite_usar", { p_codigo: r?.convite?.codigo });
-  await passarMarco();
-  await espera("com a 2ª pessoa, também não (visitante vê o mesmo de antes)", () => chamaDe(visitante()), (c) => c === "brasa");
-  await rpc(A("m3"), "rede_fix_convite_usar", { p_codigo: r?.convite?.codigo });
-  await espera("a 3ª pessoa entra: no mesmo marco a chama ainda não muda", () => chamaDe(visitante()), (c) => c === "brasa");
-  await passarMarco();
-  await espera("com a 3ª pessoa, chama plena (sem o número)", () => rpc(visitante(), "rede_org_perfil", { p_handle: "lume" }), (o) => o.nucleos[0].chama === "plena" && o.nucleos[0].pauta === null && !JSON.stringify(o).includes("\"membros\""));
-  await dono("delete from interno.rede_nucleo_membros where nucleo = $1 and usuario = $2", [NUC, P.m3]);
-  await espera("alguém sai: a chama não cai na hora (a saída só conta no próximo marco)", () => chamaDe(visitante()), (c) => c === "plena");
-  await espera("…e a saída não guarda a pessoa, só o intervalo", () => um("select count(*)::int n from interno.rede_contagem_saidas where alvo = $1", [NUC]), (x) => x.n === 1);
-  await passarMarco();
-  await espera("no marco seguinte, com 2 além de quem fundou, volta a brasa", () => chamaDe(visitante()), (c) => c === "brasa");
-  await dono("insert into interno.rede_nucleo_membros (nucleo, usuario, papel) values ($1, $2, 'membro')", [NUC, P.m3]);
-  await passarMarco();
+  await espera("não há chama (nem número): o servidor não sabe quantos há no núcleo (o servidor não sabe quantos há no núcleo)", () => rpc(visitante(), "rede_org_perfil", { p_handle: "lume" }), (o) => (o.nucleos[0].chama ?? null) === null && !/"(pessoas|membros|total)"/.test(JSON.stringify(o)));
   await espera("fora do mapa por padrão: o mapa está vazio", () => rpc(visitante(), "rede_org_mapa"), (m) => Array.isArray(m) && m.length === 0);
   await recusa("membro comum não põe no mapa", () => rpc(A("m1"), "rede_org_nucleo_mapa", { p_nucleo: NUC, p_sim: true }), "sem_permissao");
-  await espera("a dona põe no mapa", () => rpc(A("dona"), "rede_org_nucleo_mapa", { p_nucleo: NUC, p_sim: true }), (x) => x.mapa === true && x.chama === "plena");
-  await espera("o mapa mostra o estado e a cidade, sem número", () => rpc(visitante(), "rede_org_mapa"), (m) => m.length === 1 && m[0].uf === "SP" && m[0].cidades[0] === "São Paulo" && Object.keys(m[0]).sort().join() === "cidades,uf");
+  await espera("a dona põe no mapa (sem chama)", () => rpc(A("dona"), "rede_org_nucleo_mapa", { p_nucleo: NUC, p_sim: true }), (x) => x.mapa === true && x.chama === null);
+  await espera("sem chama plena, o mapa público continua vazio", () => rpc(visitante(), "rede_org_mapa"), (m) => Array.isArray(m) && m.length === 0);
   await espera("quem gerencia vê se está no mapa", () => rpc(A("dona"), "rede_org_perfil", { p_handle: "lume" }), (o) => o.nucleos[0].mapa === true && o.dentro === true && o.mesa === true);
-  await dono("insert into interno.rede_nucleo_membros (nucleo, usuario, papel) values ($1, $2, 'membro'), ($1, $3, 'membro'), ($1, $4, 'membro') on conflict do nothing", [NUC, P.t1, P.t2, P.m4]);
+  // Filiação de teste (scripts/banco-local.mjs, filiacaoDeTeste): o assunto aqui não é quem é do núcleo.
+  await dono("insert into interno.teste_nucleo_membros (nucleo, usuario, papel) values ($1, $2, 'membro'), ($1, $3, 'membro'), ($1, $4, 'membro'), ($1, $5, 'membro'), ($1, $6, 'membro'), ($1, $7, 'membro') on conflict do nothing", [NUC, P.t1, P.t2, P.m4, P.m1, P.m2, P.m3]);
 }
 
 // ═══════════════════ 2. Funções e mandatos ═══════════════════
@@ -212,11 +197,12 @@ let TES, MESA, COM;
   const C = lista?.[0]?.consulta;
   const op = (i) => C?.opcoes[i]?.id;
   for (const [n, rk] of [["m1", [op(0), op(1)]], ["m2", [op(1), op(0)]], ["m3", [op(0)]], ["m4", [op(0), op(2)]]]) {
-    await espera(`${n} vota em segredo`, () => rpc(A(n), "rede_org_consulta_votar", { p_consulta: C?.id, p_ranking: rk }), (x) => JSON.stringify(x) === '{"votei":true}');
+    await espera(`${n} vota em segredo`, () => voto.consulta(rpc, A(n), C?.id, rk), (x) => JSON.stringify(x) === '{"votei":true}');
   }
   await espera("o voto não guarda ligação com a pessoa (cédula e votante separados)", () => um("select count(*)::int n from information_schema.columns where table_schema = 'interno' and table_name = 'rede_consulta_cedulas' and column_name in ('usuario', 'pessoa', 'votante')"), (x) => x.n === 0);
   await espera("fecha o prazo: m1 é eleita com mandato até a data marcada", async () => {
     await dono("update interno.rede_org_eleicoes set prazo = now() - interval '1 minute' where id = $1", [E]); await dono("update interno.rede_consultas set prazo = now() - interval '1 minute' where id = $1", [C?.id]);
+    await voto.apurar("consulta", C?.id);
     return rpc(A("m2"), "rede_org_eleicoes", { p_handle: "lume" });
   }, (x) => x[0].situacao === "apurada" && x[0].eleita?.handle === "m1_b1o" && x[0].consulta.votantes === 4);
   await espera("o mandato nasce da eleição, sem o dono dar o cargo", () => rpc(A("m1"), "rede_org_funcoes", { p_handle: "lume" }), (x) => x.minhas.some((m) => m.funcao === COM && m.fim === fim));
@@ -228,8 +214,9 @@ let TES, MESA, COM;
   await dono("update interno.rede_org_eleicoes set inscricoes_ate = now() - interval '1 minute' where id = $1", [E2]);
   await espera("a rotina abre a votação no relógio", () => dono("select interno.alumia_org_rotina() as r"), (x) => x.rows[0].r.eleicoes >= 1);
   const c2 = (await rpc(A("m1"), "rede_org_eleicoes", { p_handle: "lume" }))?.find((x) => x.id === E2)?.consulta;
-  for (const n of ["m1", "m2", "m3"]) await rpc(A(n), "rede_org_consulta_votar", { p_consulta: c2?.id, p_ranking: [c2?.opcoes[0]?.id] });
+  for (const n of ["m1", "m2", "m3"]) await voto.consulta(rpc, A(n), c2?.id, [c2?.opcoes[0]?.id]);
   await dono("update interno.rede_org_eleicoes set prazo = now() - interval '1 minute' where id = $1", [E2]); await dono("update interno.rede_consultas set prazo = now() - interval '1 minute' where id = $1", [c2?.id]);
+  await voto.apurar("consulta", c2?.id);
   await espera("sem quórum (3 de 10), ninguém é eleito", () => rpc(A("m1"), "rede_org_eleicoes", { p_handle: "lume" }), (x) => x.find((y) => y.id === E2)?.situacao === "sem_quorum" && x.find((y) => y.id === E2)?.eleita === null);
   // A Mesa vai para m4 por nomeação (para os testes da ata).
   const mesa = await rpc(A("dona"), "rede_org_mandato_dar", { p_handle: "lume", p: { funcao: MESA, handle: "m4_b1o", fim } });

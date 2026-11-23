@@ -8,6 +8,10 @@
 //   · o CARTÃO para colar em outro site: só quando a rota do cartão responde (o banco deixou o post sair), com o código do quadro
 //     com sandbox e a prévia de como fica.
 // A arte só aparece para post aberto à internet ou da própria pessoa (lib/rede/alcance/regras.ts). Nada vai a serviço de fora.
+// Prompt 4, item 120 (com "alumia-p4-cartao-do-post"): a arte vira a imagem para Instagram e WhatsApp. Só post aberto à internet
+// (nem o restrito da própria pessoa: a imagem circula fora sem a trava de quem vê), o formato vem do destino (feed, stories,
+// conversa, status), a pessoa pode esconder quem escreveu e o pé leva o endereço da Alumia e o @institutoluciaorg. Compartilhar
+// usa só o compartilhar do próprio aparelho (navigator.share); sem ele, baixa o PNG.
 // A folha abre no corpo da página (portal), com a pele da Alumia; Esc fecha e o foco volta ao "mais".
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -18,6 +22,9 @@ import type { TextosDoAlcance } from "@/lib/rede/alcance/textos";
 import { preencher } from "@/lib/rede/preencher";
 import type { Post } from "@/lib/rede/tipos";
 import type { ContextoDoEncaixe } from "../encaixes";
+import { cartaoP4Ligado } from "@/lib/rede/p4/cartao/ligado";
+import { autoriaDaImagem, DESTINOS_DA_IMAGEM, postPodeVirarImagem, rodapeDaImagem, type DestinoDaImagem } from "@/lib/rede/p4/cartao/regras";
+import { useTextosDoCartaoP4, type TextosDoCartaoP4 } from "../p4/cartao/usar";
 import { baixarArquivo, copiarTexto, enderecoDaTela, origemAqui, useQr, useTextosDoAlcance } from "./usar";
 import "./alcance.css";
 
@@ -31,9 +38,17 @@ function Icone() {
   );
 }
 
+/** O grupo "cartão do post" do Prompt 4 está ligado nesta montagem (a arte segue a regra do item 120)? */
+const P4 = cartaoP4Ligado();
+
+/** A arte pode sair deste post? Com o item 120 ligado, só post aberto à internet; sem ele, a regra da frente 13C. */
+function arteDoPost(post: Post): boolean {
+  return P4 ? postPodeVirarImagem(post) : postPodeVirarArte(post);
+}
+
 /** O post tem alguma coisa que pode ir para fora? (Na prévia, os posts de exemplo também, para conferir a tela.) */
 export function temOQueLevar(post: Post): boolean {
-  return PREVIA_DO_ALCANCE || postPodeVirarArte(post) || postPodeSair(post) || postEhAto(post);
+  return PREVIA_DO_ALCANCE || arteDoPost(post) || postPodeSair(post) || postEhAto(post);
 }
 
 export function LevarParaFora({ lang, post }: ContextoDoEncaixe & { post: Post }) {
@@ -81,7 +96,7 @@ function Folha({ lang, post, t, pele, aoFechar }: { lang: string; post: Post; t:
   const id = useId();
   const caixa = useRef<HTMLDivElement | null>(null);
   const ato = postEhAto(post);
-  const arteLiberada = PREVIA_DO_ALCANCE || postPodeVirarArte(post);
+  const arteLiberada = PREVIA_DO_ALCANCE || arteDoPost(post);
   const link = enderecoDaTela(lang, ato ? `/ato/${post.id}` : `/p/${post.id}`);
   const qr = useQr(link);
   const [copiou, setCopiou] = useState<"" | "link" | "codigo" | "falhou">("");
@@ -163,12 +178,18 @@ function Folha({ lang, post, t, pele, aoFechar }: { lang: string; post: Post; t:
 
 function ParteDaArte({ lang, post, t, link, ato }: { lang: string; post: Post; t: TextosDoAlcance; link: string; ato: boolean }) {
   const id = useId();
+  const t4 = useTextosDoCartaoP4(lang, P4);
   const [fundo, setFundo] = useState<"noite" | "creme">("noite");
-  const [formato, setFormato] = useState<Formato>("retrato");
+  const [formatoEscolhido, setFormato] = useState<Formato>("retrato");
+  const [destino, setDestino] = useState<DestinoDaImagem>(DESTINOS_DA_IMAGEM[0].destino);
+  const [semAutora, setSemAutora] = useState(false);
   const [comQr, setComQr] = useState(ato);
   const [arte, setArte] = useState<{ chave: string; url: string } | null>(null);
   const lugar = useRef<HTMLDivElement | null>(null);
-  const chave = `${fundo}|${formato}|${comQr}`;
+  // Com o item 120, o formato vem do destino; sem ele, da escolha de sempre.
+  const formato: Formato = t4 ? (DESTINOS_DA_IMAGEM.find((d) => d.destino === destino)?.formato ?? "retrato") : formatoEscolhido;
+  const esconder = Boolean(t4) && semAutora;
+  const chave = `${fundo}|${formato}|${comQr}|${esconder}|${t4 ? "p4" : ""}`;
 
   const desenhar = useCallback(async () => {
     const canvas = document.createElement("canvas");
@@ -189,21 +210,23 @@ function ParteDaArte({ lang, post, t, link, ato }: { lang: string; post: Post; t
       const m = q.create(link, { errorCorrectionLevel: "M" }).modules;
       matriz = { tamanho: m.size, escuro: (l, k) => Boolean(m.get(l, k)) };
     }
+    const autoria = autoriaDaImagem(post, esconder);
     desenharArte(ctx, formato, fundo === "noite" ? PALETA_NOITE : PALETA_CREME, {
       titulo: post.titulo,
       texto: post.texto,
       aviso: post.aviso,
-      codinome: post.autor.codinome,
-      handle: post.autor.perfil && post.autor.handle && !post.autor.handle.includes("@") ? post.autor.handle : null,
+      codinome: autoria.codinome,
+      handle: autoria.handle,
       comunidade: post.comunidade ? post.comunidade.replace(/-/g, " ") : null,
       carimbo: ato && post.chamado?.quando ? dataDoCarimbo(post.chamado.quando, lang) : null,
       qr: comQr ? link : null,
       marca: t.arte.marca,
       chamada: t.arte.chamada,
       rotuloAviso: t.cartao.aviso.replace(/:?\s*\{aviso\}$/, ""),
+      rodape: t4 ? rodapeDaImagem(enderecoDaTela(lang, "/")) : null,
     }, familia, matriz);
     return canvas.toDataURL("image/png");
-  }, [fundo, formato, comQr, link, lang, post, t, ato]);
+  }, [fundo, formato, comQr, link, lang, post, t, ato, esconder, t4]);
 
   useEffect(() => {
     let vivo = true;
@@ -228,7 +251,7 @@ function ParteDaArte({ lang, post, t, link, ato }: { lang: string; post: Post; t
         <div className="alc-arte-previa" data-formato={formato}>
           {pronta ? (
             // eslint-disable-next-line @next/next/no-img-element -- arte feita no aparelho, em data URL.
-            <img src={pronta} alt={preencher(t.arte.alt, { codinome: post.autor.codinome })} width={largura} height={altura} />
+            <img src={pronta} alt={preencher(t.arte.alt, { codinome: esconder ? "" : post.autor.codinome })} width={largura} height={altura} />
           ) : (
             <span className="alc-nota" role="status">{pronta === "" ? t.arte.falhou : t.arte.fazendo}</span>
           )}
@@ -244,26 +267,74 @@ function ParteDaArte({ lang, post, t, link, ato }: { lang: string; post: Post; t
               </label>
             ))}
           </fieldset>
-          <fieldset className="alc-escolhas">
-            <legend>{t.arte.formato}</legend>
-            {(["retrato", "quadrado"] as const).map((f) => (
-              <label key={f} className="alc-escolha">
-                <input type="radio" name={`${id}-formato`} checked={formato === f} onChange={() => setFormato(f)} />
-                {f === "retrato" ? t.arte.retrato : t.arte.quadrado}
-              </label>
-            ))}
-          </fieldset>
+          {t4 ? (
+            <DestinosDaImagem id={id} t4={t4} destino={destino} aoEscolher={setDestino} semAutora={semAutora} aoEsconder={setSemAutora} />
+          ) : (
+            <fieldset className="alc-escolhas">
+              <legend>{t.arte.formato}</legend>
+              {(["retrato", "quadrado"] as const).map((f) => (
+                <label key={f} className="alc-escolha">
+                  <input type="radio" name={`${id}-formato`} checked={formato === f} onChange={() => setFormato(f)} />
+                  {f === "retrato" ? t.arte.retrato : t.arte.quadrado}
+                </label>
+              ))}
+            </fieldset>
+          )}
           <label className="alc-escolha alc-marcar">
             <input type="checkbox" checked={comQr} onChange={(e) => setComQr(e.target.checked)} />
             {t.arte.comQr}
           </label>
-          <button type="button" className="al-botao al-botao-primario al-botao-m" disabled={!pronta} onClick={() => pronta && baixarArquivo(pronta, `alumia-${post.id.slice(0, 8)}.png`)}>
+          {t4 && pronta ? (
+            <button type="button" className="al-botao al-botao-primario al-botao-m" onClick={() => void compartilharImagem(pronta, `alumia-${post.id.slice(0, 8)}.png`)}>
+              {t4.imagem.compartilhar}
+            </button>
+          ) : null}
+          <button type="button" className={`al-botao ${t4 ? "al-botao-contorno" : "al-botao-primario"} al-botao-m`} disabled={!pronta} onClick={() => pronta && baixarArquivo(pronta, `alumia-${post.id.slice(0, 8)}.png`)}>
             {t.arte.baixar}
           </button>
+          {t4 ? <p className="alc-nota">{t4.imagem.ajuda}</p> : null}
         </div>
       </div>
     </section>
   );
+}
+
+/** Prompt 4, item 120: para onde vai a imagem (o formato de cada destino) e esconder quem escreveu. */
+function DestinosDaImagem({ id, t4, destino, aoEscolher, semAutora, aoEsconder }: { id: string; t4: TextosDoCartaoP4; destino: DestinoDaImagem; aoEscolher: (d: DestinoDaImagem) => void; semAutora: boolean; aoEsconder: (sim: boolean) => void }) {
+  return (
+    <>
+      <fieldset className="alc-escolhas">
+        <legend>{t4.imagem.destino}</legend>
+        {DESTINOS_DA_IMAGEM.map((d) => (
+          <label key={d.destino} className="alc-escolha">
+            <input type="radio" name={`${id}-destino`} checked={destino === d.destino} onChange={() => aoEscolher(d.destino)} />
+            {t4.imagem.destinos[d.destino]}
+          </label>
+        ))}
+      </fieldset>
+      <label className="alc-escolha alc-marcar">
+        <input type="checkbox" checked={semAutora} onChange={(e) => aoEsconder(e.target.checked)} />
+        {t4.imagem.semAutora}
+      </label>
+    </>
+  );
+}
+
+/** Compartilha a imagem pelo compartilhar do próprio aparelho (a pessoa escolhe o app); sem ele, baixa o PNG. */
+async function compartilharImagem(dataUrl: string, nome: string): Promise<void> {
+  try {
+    // O data URL é a imagem feita aqui: o fetch só o lê da memória, nada vai à rede.
+    const blob = await (await fetch(dataUrl)).blob();
+    const arquivo = new File([blob], nome, { type: "image/png" });
+    if (typeof navigator !== "undefined" && navigator.canShare?.({ files: [arquivo] }) && navigator.share) {
+      await navigator.share({ files: [arquivo] });
+      return;
+    }
+  } catch (e) {
+    // A pessoa fechou a folha de compartilhar: nada a fazer.
+    if ((e as Error)?.name === "AbortError") return;
+  }
+  baixarArquivo(dataUrl, nome);
 }
 
 function ParteDoCartao({ lang, post, t, copiou, aoCopiar }: { lang: string; post: Post; t: TextosDoAlcance; copiou: boolean; aoCopiar: (codigo: string) => void }) {

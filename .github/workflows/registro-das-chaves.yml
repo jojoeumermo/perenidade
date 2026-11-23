@@ -1,0 +1,84 @@
+name: Registro das chaves
+
+# O auditor de fora do registro público das chaves do chat (scripts/auditar-registro-das-chaves.mjs). Todo dia, sem conta e
+# sem segredo, baixa o registro pelas duas funções públicas, refaz a corrente SHA-256 desde a primeira linha e compara com a
+# cópia que ele mesmo publicou nos dias anteriores no ramo "transparencia" deste repositório (chaves/corrente.txt).
+#
+# Por que no próprio repositório, num ramo só dele: é público, qualquer pessoa clona e guarda; cada commit carrega o resumo do
+# anterior (apagar ou trocar uma linha antiga exige reescrever o ramo, e toda cópia já clonada continua com a versão de antes);
+# não precisa de token pessoal nem de serviço de fora; e o master não recebe commit de máquina (nada dispara as outras rotinas).
+# O ramo deve ter a regra "bloquear push forçado e exclusão" (Settings › Rules).
+#
+# Se o passado do registro mudou, a rotina falha (aparece em vermelho, publicamente), não mexe na cópia e avisa o gancho da
+# coordenação. Configuração (Settings › Secrets and variables › Actions):
+#   variável NEXT_PUBLIC_SUPABASE_URL       o endereço do projeto (já existe, é o da montagem)
+#   variável NEXT_PUBLIC_SUPABASE_ANON_KEY  a chave pública do projeto (já existe; é pública por natureza)
+#   variável OPERACAO_DESTINO / segredo OPERACAO_GANCHO   para onde vai o aviso (os mesmos do monitor)
+on:
+  schedule:
+    - cron: "41 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A mesma fila da rotina do manifesto do chat: as duas escrevem no ramo "transparencia".
+concurrency:
+  group: transparencia
+  cancel-in-progress: false
+
+jobs:
+  auditar:
+    if: ${{ vars.NEXT_PUBLIC_SUPABASE_URL != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: master
+          persist-credentials: false
+          sparse-checkout: scripts
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+      - name: Trazer a cópia de fora (ramo transparencia)
+        env:
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --heads "https://github.com/$REPO.git" transparencia > /dev/null; then
+            git clone --quiet --depth 1 --branch transparencia --single-branch "https://github.com/$REPO.git" "$RUNNER_TEMP/publicado"
+          else
+            echo "O ramo transparencia ainda não existe: esta é a primeira cópia."
+            git init --quiet -b transparencia "$RUNNER_TEMP/publicado"
+          fi
+      - name: Auditar o registro
+        id: auditar
+        env:
+          SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        run: node scripts/auditar-registro-das-chaves.mjs --corrente "$RUNNER_TEMP/publicado/chaves/corrente.txt"
+      - name: Publicar a cópia nova
+        if: steps.auditar.outputs.problema == 'nao'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/publicado"
+          git add chaves/corrente.txt
+          if git diff --cached --quiet; then echo "Nada novo no registro hoje."; exit 0; fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit --quiet -m "Registro das chaves: cópia de $(date -u +%F)"
+          # Sem --force: se alguém reescreveu o ramo, o envio falha em vez de apagar o que estava publicado.
+          git push --quiet "https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git" HEAD:transparencia
+      - name: Avisar
+        if: failure() && steps.auditar.outputs.problema == 'sim'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          OPERACAO_DESTINO: ${{ vars.OPERACAO_DESTINO }}
+          OPERACAO_GANCHO: ${{ secrets.OPERACAO_GANCHO }}
+        run: node scripts/operacao/avisar.mjs falha --etiqueta registro-das-chaves --titulo "Registro das chaves: o passado mudou" --arquivo auditoria-das-chaves.md

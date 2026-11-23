@@ -48,7 +48,7 @@
     "cancelarNao": "Volver",
     "cancelada": "Votación cancelada por la moderación. Los votos fueron borrados.",
     "comoTitulo": "Cómo funciona el voto secreto",
-    "comoTexto": "Quién votó y qué votó se guardan por separado, sin nada que una una cosa con la otra, y las papeletas se mezclan con cada voto. Ni la moderación ve el voto de nadie. Las papeletas solo se cuentan cuando termina el plazo, y el resultado muestra totales: ningún número menor que 3.",
+    "comoTexto": "Quién votó y qué votó se guardan por separado, sin nada que una una cosa con la otra, y las papeletas se mezclan con cada voto. Ni la moderación ve el voto de nadie. Las papeletas solo se cuentan cuando termina el plazo, y el resultado muestra totales: ningún número menor que 3. La papeleta sale cifrada de tu dispositivo y solo se abre cuando guardianas de la mediación se juntan, después del plazo; ni Alumia ni el servidor la abren.",
     "regraVoto": "Solo vota quien ya era de la comunidad cuando se abrió la votación. El voto no cambia una vez emitido."
   },
   "nova": {

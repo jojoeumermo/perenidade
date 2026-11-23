@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import { leads, rpc, type Me, type Role } from "@/lib/backend";
 import { useI18n } from "../I18n";
 import { Aviso, dataHora, papelAposentado, papeis, textoDoErro, useAcao, useLista } from "./comum";
-import { EscolhaDeFuncoes, type FuncaoEscolhida, nomeDaFuncao } from "./EscolhaDeFuncoes";
+import { EscolhaDeFuncoes, type FuncaoEscolhida, nomeDaFuncao, Passo } from "./EscolhaDeFuncoes";
 import { NOMES_DOS_DEPARTAMENTOS_DO_INSTITUTO } from "./departamentos-do-instituto";
 import { Abas, Botao, Busca, CabecalhoDeSecao, Campo, Cartao, Esqueleto, ItemDeLista, Lista, Selo, type TomDoSelo, Vazio } from "./ui";
 
@@ -71,8 +71,8 @@ export function Convites({ me }: { me: Me }) {
   const [busca, setBusca] = useState("");
   const [agora] = useState(() => Date.now());
   // A coordenação não se convida (muda de mãos em Segurança e sucessão); vice e curadoria, só o coordenador convida.
-  // O representante se nomeia depois, em Confiar função (o convite não traz departamento a representar).
-  const funcoes = (Object.keys(papeis) as Role["papel"][]).filter((p) => p !== "coordenacao" && p !== "representante" && !papelAposentado(p) && (lider || (p !== "vice" && p !== "supervisao" && p !== "curadoria")));
+  // O representante e o parceiro do instituto se nomeiam depois, em Confiar função (o convite não traz departamento nem território).
+  const funcoes = (Object.keys(papeis) as Role["papel"][]).filter((p) => p !== "coordenacao" && p !== "representante" && p !== "parceiro" && !papelAposentado(p) && (lider || (p !== "vice" && p !== "supervisao" && p !== "curadoria")));
   const nomeDaArea = (slug: string) => t.areas[slug as keyof typeof t.areas]?.[0] ?? slug;
   const nomeDoConvite = (c: Convite) => {
     const todas: FuncaoEscolhida[] = [...(c.papel ? [{ papel: c.papel, disciplina: c.disciplina }] : []), ...(c.extras ?? [])];
@@ -143,8 +143,10 @@ export function Convites({ me }: { me: Me }) {
           </fieldset>
           {tipo === "pessoal" ? (
             <>
-              <Campo rotulo="E-mail da pessoa" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-              <EscolhaDeFuncoes concediveis={funcoes} escolhidas={escolhidas} aoMudar={setEscolhidas} departamentos={deps} aoMudarDepartamentos={setDeps} podeSensivel />
+              <Passo n={1} titulo="Pessoa">
+                <Campo rotulo="E-mail da pessoa" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+              </Passo>
+              <EscolhaDeFuncoes concediveis={funcoes} escolhidas={escolhidas} aoMudar={setEscolhidas} departamentos={deps} aoMudarDepartamentos={setDeps} podeSensivel primeiroPasso={2} />
               <p className="pn-ajuda">Sem nenhuma função, a pessoa só participa da comunidade. O e-mail do convite diz as funções, nunca os departamentos.</p>
             </>
           ) : (

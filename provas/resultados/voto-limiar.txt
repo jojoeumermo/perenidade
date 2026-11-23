@@ -1,0 +1,9 @@
+modelo: voto-limiar.pv
+sha256: aff75419549796da0dd1b4625899067e1283d2456acd295de62bcf535903e4c0
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+RESULT not attacker(escolha[]) is true.
+RESULT not attacker(s[]) is true.
+RESULT not attacker(parte(s[],p2)) is true.
+RESULT not attacker(parte(s[],p3)) is true.

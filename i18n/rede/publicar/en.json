@@ -40,7 +40,7 @@
     "preparando": "Preparing the image…",
     "invalida": "Use a JPG, PNG or WebP image.",
     "grande": "The image is too large.",
-    "maximo": "At most 4 images.",
+    "maximo": "At most {n} images.",
     "ver": "Image {n} of {total}",
     "semAcesso": "Sign in to see the image."
   },

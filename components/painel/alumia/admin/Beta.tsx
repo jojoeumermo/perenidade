@@ -11,6 +11,7 @@ import { pedidoDaTrava } from "../Funcoes";
 import { Etiqueta, motivoDe, Nota, quando, Quadro, textoDoErroDaAlumia, Titulo, useJanela } from "../pecas";
 import { Limites } from "./Limites";
 import { nomeDoRecurso, notaDaVariavel, valendo } from "./recursos-comuns";
+import { ZerarOBeta } from "./ZerarOBeta";
 
 /** Número de pessoas no quadro do estado: só a partir de 3. */
 const quantas = (c: ContaDePessoas) => (c.n !== null ? String(c.n) : c.algum ? "menos de 3" : "nenhuma");
@@ -233,6 +234,7 @@ export function Beta({ estado, recarregar, irPara }: { estado: EstadoDoAdmin; re
         </Quadro>
         <Limites />
       </div>
+      <ZerarOBeta recarregar={recarregar} />
       {janela}
     </div>
   );

@@ -1,0 +1,77 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/* Prompt 4, grupo "cartão do post": a lista de reações da comunidade (item 30), a pasta pública (item 35), a nota de onde a
+   tradução rodou (item 31) e as opções da imagem (item 120). Todo alvo de toque tem 44 px; nada anima com "menos movimento". */
+
+[data-al="2"] .p4c-bloco {
+  display: grid;
+  gap: 10px;
+  margin-block: 12px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--al-superficie-2);
+  border-radius: 12px;
+  background: var(--al-superficie);
+  color: var(--al-texto);
+}
+[data-al="2"] .p4c-bloco > summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+[data-al="2"] .p4c-bloco > summary::-webkit-details-marker { display: none; }
+[data-al="2"] .p4c-bloco > summary::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+}
+[data-al="2"] .p4c-bloco[open] > summary::before { transform: rotate(45deg); }
+[data-al="2"] .p4c-nota { margin: 0; font-size: 0.875rem; color: var(--al-texto-2); }
+[data-al="2"] .p4c-erro { margin: 0; font-size: 0.875rem; color: var(--al-vermelho); font-weight: 600; }
+[data-al="2"] .p4c-campo { display: grid; gap: 6px; font-size: 0.9rem; font-weight: 600; }
+[data-al="2"] .p4c-campo input {
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--al-superficie-2);
+  background: var(--al-fundo);
+  color: var(--al-texto);
+  font: inherit;
+  font-size: 1.25rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+[data-al="2"] .p4c-campo input[aria-invalid="true"] { border-color: var(--al-vermelho); }
+[data-al="2"] .p4c-amostra { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+[data-al="2"] .p4c-amostra li {
+  min-width: 44px;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1.5px solid var(--al-superficie-2);
+  font-size: 1.25rem;
+}
+[data-al="2"] .p4c-acoes { display: flex; flex-wrap: wrap; gap: 8px; }
+[data-al="2"] .p4c-acoes .al-botao,
+[data-al="2"] .p4c-bloco .al-botao { min-height: 44px; }
+[data-al="2"] .p4c-marcar {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+[data-al="2"] .p4c-marcar input { width: 20px; height: 20px; flex: none; }
+[data-al="2"] .p4c-traducao-onde { display: block; margin-top: 4px; font-size: 0.8rem; color: var(--al-texto-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-al="2"] .p4c-bloco > summary::before { transition: none; }
+}

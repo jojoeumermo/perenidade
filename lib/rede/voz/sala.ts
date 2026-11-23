@@ -9,7 +9,7 @@
 //   - O áudio passa SEMPRE por um servidor de retransmissão (TURN, `iceTransportPolicy: "relay"`): os participantes não veem o
 //     endereço de rede uns dos outros, e o servidor de retransmissão só vê pacotes cifrados.
 //   - A combinação da chamada (as ofertas com a "impressão digital" DTLS de cada aparelho) vai cifrada com uma chave tirada do MLS
-//     do grupo (lib/rede/grupo-mls.ts, chaveDeVoz). Quem não é do grupo não consegue se meter no meio da ligação (trocar a
+//     do grupo (lib/rede/grupos/chaveiro.ts, chaveDeVoz). Quem não é do grupo não consegue se meter no meio da ligação (trocar a
 //     impressão digital), nem ver quem está na sala; o canal de combinação (Realtime) só vê blocos cifrados.
 //
 // O transporte da combinação e a fábrica de conexões são injetados: no navegador, o Realtime do serviço e RTCPeerConnection; nos
@@ -20,8 +20,10 @@ interface Recado {
   de: string;
   /** null: para todos. */
   para: string | null;
-  tipo: "ola" | "oferta" | "resposta" | "ice" | "tchau";
+  tipo: "ola" | "oferta" | "resposta" | "ice" | "tchau" | "sala";
   sdp?: string;
+  /** "sala": um recado dos modos da sala (Prompt 4, itens 23 a 25: lib/rede/voz/modos.ts), conferido por quem recebe. */
+  modo?: unknown;
   candidato?: RTCIceCandidateInit;
   quando: number;
 }
@@ -45,6 +47,13 @@ const deB64 = (s: string) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
 /** Recado mais velho que isto é descartado (alguém regravando uma combinação antiga). */
 const VALIDADE_MS = 60_000;
 export const MAXIMO_NA_SALA = 8;
+/**
+ * Prompt 4, item 140: a câmera só vai enquanto a sala tiver até 4 pessoas (cada aparelho manda o vídeo para cada outro; acima disso o
+ * celular não aguenta). Com mais gente, a sala segue só com voz: a câmera de cada um é desligada no próprio aparelho.
+ */
+export const MAXIMO_COM_VIDEO = 4;
+/** Cabe vídeo numa sala com `pessoas` pessoas (contando quem pergunta)? */
+export const cabeVideo = (pessoas: number) => pessoas <= MAXIMO_COM_VIDEO;
 
 /** Cifra um recado da sala (AES-256-GCM com a chave da sala, amarrado à sala). */
 export async function selarRecado(chave: CryptoKey, epoca: number, sala: string, recado: Recado) {
@@ -58,7 +67,7 @@ export async function abrirRecado(chave: CryptoKey, sala: string, bloco: { epoca
   try {
     const aberto = await crypto.subtle.decrypt({ name: "AES-GCM", iv: deB64(bloco.iv), additionalData: encoder.encode(`alumia-voz:${sala}:e${bloco.epoca}`) }, chave, deB64(bloco.ct));
     const r = JSON.parse(decoder.decode(aberto)) as Recado;
-    if (typeof r?.de !== "string" || !["ola", "oferta", "resposta", "ice", "tchau"].includes(r.tipo) || typeof r.quando !== "number") return null;
+    if (typeof r?.de !== "string" || !["ola", "oferta", "resposta", "ice", "tchau", "sala"].includes(r.tipo) || typeof r.quando !== "number") return null;
     if (Math.abs(agora - r.quando) > VALIDADE_MS) return null;
     return r;
   } catch {
@@ -69,6 +78,7 @@ export async function abrirRecado(chave: CryptoKey, sala: string, bloco: { epoca
 export interface Participante {
   usuario: string;
   conexao: RTCPeerConnection;
+  /** O que chega dessa pessoa: o áudio e, numa chamada de vídeo (Prompt 4, item 140), também a faixa da câmera. */
   audio: MediaStream | null;
 }
 
@@ -85,15 +95,42 @@ export function criarSalaDeVoz(opcoes: {
   iceServers: RTCIceServer[];
   novaConexao?: (config: RTCConfiguration) => RTCPeerConnection;
   aoMudar?: (participantes: Participante[]) => void;
+  /**
+   * Prompt 4, itens 139 e 140 (a chamada da conversa a dois): o teto de pessoas desta sala (padrão 8; a chamada a dois usa 2) e se
+   * ela leva vídeo (cada conexão já nasce pronta para receber a câmera, mesmo de quem entrou sem a sua).
+   */
+  maximo?: number;
+  comVideo?: boolean;
+  /**
+   * Os modos da sala (Prompt 4, itens 23 a 25; lib/rede/voz/modos.ts). `aoOla`: alguém mandou "olá" (a anfitriã manda o estado a
+   * quem chega e anota quem bate na espera). `podeLigar`: a sala de espera decide se este aparelho liga para essa pessoa (não: ninguém
+   * liga para quem espera). `aoModo`: um recado "sala" que chegou.
+   */
+  modos?: {
+    podeLigar(usuario: string): boolean;
+    aoOla?(usuario: string): void;
+    aoModo(de: string, modo: unknown): void;
+  };
 }) {
   const { eu, sala, chave, canal } = opcoes;
   if (!opcoes.iceServers.length) throw new Error("voz_sem_retransmissao");
   const fabrica = opcoes.novaConexao ?? ((c: RTCConfiguration) => new RTCPeerConnection(c));
   const config: RTCConfiguration = { iceServers: opcoes.iceServers, iceTransportPolicy: "relay", bundlePolicy: "max-bundle" };
   const pares = new Map<string, Participante>();
+  const maximo = Math.max(2, Math.min(MAXIMO_NA_SALA, opcoes.maximo ?? MAXIMO_NA_SALA));
   let microfone: MediaStream | null = null;
+  let camera: MediaStream | null = null;
+  let cameraLigada = true;
   let aberta = false;
-  const mudou = () => opcoes.aoMudar?.([...pares.values()]);
+  /** Item 140: acima de 4 pessoas, a câmera deste aparelho é desligada (só voz); volta sozinha quando a sala cabe de novo. */
+  const ajustarCamera = () => {
+    const pode = cameraLigada && cabeVideo(pares.size + 1);
+    for (const faixa of camera?.getVideoTracks() ?? []) faixa.enabled = pode;
+  };
+  const mudou = () => {
+    ajustarCamera();
+    opcoes.aoMudar?.([...pares.values()]);
+  };
 
   async function mandar(recado: Omit<Recado, "de" | "quando">) {
     const k = await chave.atual();
@@ -104,15 +141,23 @@ export function criarSalaDeVoz(opcoes: {
   function par(usuario: string): Participante {
     const ja = pares.get(usuario);
     if (ja) return ja;
-    if (pares.size >= MAXIMO_NA_SALA - 1) throw new Error("voz_cheia");
+    if (pares.size >= maximo - 1) throw new Error("voz_cheia");
     const conexao = fabrica(config);
     const p: Participante = { usuario, conexao, audio: null };
     if (microfone) for (const faixa of microfone.getAudioTracks()) conexao.addTrack(faixa, microfone);
+    // Estudo em silêncio (Prompt 4, item 24): sem microfone, a conexão ainda ouve quem fala.
+    if (!microfone?.getAudioTracks().length) conexao.addTransceiver?.("audio", { direction: "recvonly" });
+    // Item 140: a câmera vai só se a sala, com esta pessoa, cabe vídeo; numa sala com vídeo, a conexão sempre fica pronta para receber.
+    const mandaVideo = !!camera?.getVideoTracks().length && cabeVideo(pares.size + 2);
+    if (mandaVideo && camera) for (const faixa of camera.getVideoTracks()) conexao.addTrack(faixa, camera);
+    else if (opcoes.comVideo) conexao.addTransceiver?.("video", { direction: "recvonly" });
     conexao.onicecandidate = (e) => {
       if (e.candidate) void mandar({ para: usuario, tipo: "ice", candidato: e.candidate.toJSON() }).catch(() => undefined);
     };
     conexao.ontrack = (e) => {
-      p.audio = e.streams[0] ?? new MediaStream([e.track]);
+      // Um fluxo só por pessoa, com o áudio e (item 140) a câmera: um fluxo novo a cada faixa, para a tela perceber a troca.
+      const faixas = [...(p.audio?.getTracks() ?? []).filter((f) => f.id !== e.track.id), e.track];
+      p.audio = new MediaStream(faixas);
       mudou();
     };
     conexao.onconnectionstatechange = () => {
@@ -144,6 +189,10 @@ export function criarSalaDeVoz(opcoes: {
     if (!r || r.de === eu || (r.para !== null && r.para !== eu)) return;
     try {
       if (r.tipo === "tchau") return desligar(r.de);
+      if (r.tipo === "sala") return opcoes.modos?.aoModo(r.de, r.modo);
+      // Sala de espera (Prompt 4, item 25): quem não foi aprovada não liga nem é ligada; a anfitriã fica sabendo que bateu.
+      if (r.tipo === "ola") opcoes.modos?.aoOla?.(r.de);
+      if ((r.tipo === "ola" || r.tipo === "oferta") && opcoes.modos && !opcoes.modos.podeLigar(r.de)) return;
       if (r.tipo === "ola") {
         // Quem tem o id menor liga (assim os dois não ligam ao mesmo tempo); o outro responde com "ola" para ser chamado.
         if (eu < r.de) {
@@ -182,8 +231,14 @@ export function criarSalaDeVoz(opcoes: {
   canal.aoReceber((bloco) => void aoChegar(bloco));
 
   return {
-    async entrar(audio: MediaStream) {
+    /**
+     * Entra na sala. `audio` null: sem microfone (estudo em silêncio, item 24), só ouvindo. `video` (item 140): a câmera, só numa sala
+     * com vídeo.
+     */
+    async entrar(audio: MediaStream | null, video: MediaStream | null = null) {
       microfone = audio;
+      camera = video;
+      ajustarCamera();
       aberta = true;
       await mandar({ para: null, tipo: "ola" });
     },
@@ -191,15 +246,34 @@ export function criarSalaDeVoz(opcoes: {
     mudo(sim: boolean) {
       for (const faixa of microfone?.getAudioTracks() ?? []) faixa.enabled = !sim;
     },
+    /** Item 140: liga e desliga a própria câmera sem sair (acima de 4 pessoas ela fica desligada de qualquer jeito). */
+    camera(sim: boolean) {
+      cameraLigada = sim;
+      ajustarCamera();
+    },
+    /** Item 140: a sala passou de 4 pessoas e segue só com voz? */
+    soVoz: () => !cabeVideo(pares.size + 1),
     async sair() {
       if (aberta) await mandar({ para: null, tipo: "tchau" }).catch(() => undefined);
       aberta = false;
       for (const u of [...pares.keys()]) desligar(u);
       for (const faixa of microfone?.getTracks() ?? []) faixa.stop();
+      for (const faixa of camera?.getTracks() ?? []) faixa.stop();
       microfone = null;
+      camera = null;
       await canal.sair();
     },
     participantes: () => [...pares.values()],
+    /** Manda um recado dos modos (lib/rede/voz/modos.ts) a todos (`para` null) ou a uma pessoa, cifrado como os outros. */
+    async mandarModo(modo: unknown, para: string | null = null) {
+      if (aberta) await mandar({ para, tipo: "sala", modo });
+    },
+    /** Manda "olá" de novo (quem esperava e foi aprovada; ou quando a espera desliga): quem já está liga de volta. */
+    async religar() {
+      if (aberta) await mandar({ para: null, tipo: "ola" });
+    },
+    /** Desliga de alguém que a sala de espera tirou (a anfitriã recusou). */
+    desligarDe: (usuario: string) => desligar(usuario),
   };
 }
 

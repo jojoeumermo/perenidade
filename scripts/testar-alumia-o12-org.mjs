@@ -132,9 +132,9 @@ const como = (sub) => ({ papel: "authenticated", sub, aal: "aal2", ip: `198.51.1
 const servico = { papel: "service_role", ip: "127.0.0.1" };
 const zerar = () => dono("delete from interno.limites");
 
-await espera("a migração instala sobre o install.sql", () => exec(sql));
-await espera("de novo (idempotente)", () => exec(sql));
-await espera("e uma terceira vez sem estrago", () => exec(sql));
+// Depois da R2 a filiação aos núcleos saiu do banco, e esta migração sozinha (que cria funções que leem a tabela que saiu) não roda
+// mais por cima: o que roda de novo é o install.sql inteiro, que a recria e, no fim, a tira de novo.
+await espera("o install.sql inteiro de novo por cima (com esta migração dentro)", () => banco.instalarDeNovo());
 await espera("a regra da porta não deixa nenhuma função aberta", async () => (await dono("select interno.alumia_trancar() as r")).rows[0].r, (r) => r.abertas.length === 0);
 const PUBLICAS = ["rede_org_comunicacao", "rede_org_fila_escrever", "rede_org_fila_decidir", "rede_org_fila_retirar", "rede_org_modelo_salvar", "rede_org_modelo_apagar",
   "rede_org_nucleo_chamar", "rede_org_boletim_propor", "rede_org_boletim", "rede_org_boletim_assinar", "rede_org_dominio_pedir", "rede_org_dominio_tirar",
@@ -182,7 +182,9 @@ await dono("insert into interno.rede_org_gestores (org, gestor, papel) values ($
 await dono("insert into interno.rede_bloqueios (quem, bloqueado) values ($1, $2)", [P.org, P.bloq]);
 const NUC = (await um("insert into interno.rede_nucleos (nome, org) values ('Núcleo Leste', $1) returning id", [P.org])).id;
 const NUC2 = (await um("insert into interno.rede_nucleos (nome, org) values ('Núcleo Sul', $1) returning id", [P.org])).id;
-await dono(`insert into interno.rede_nucleo_membros (nucleo, usuario, papel) values ($1, $2, 'mediacao'), ($1, $3, 'membro'), ($1, $4, 'membro'), ($1, $5, 'membro'),
+// Filiação de teste (scripts/banco-local.mjs, filiacaoDeTeste): o assunto aqui não é quem é do núcleo.
+await banco.filiacaoDeTeste();
+await dono(`insert into interno.teste_nucleo_membros (nucleo, usuario, papel) values ($1, $2, 'mediacao'), ($1, $3, 'membro'), ($1, $4, 'membro'), ($1, $5, 'membro'),
             ($1, $6, 'membro'), ($1, $7, 'membro'), ($1, $8, 'membro'), ($1, $9, 'membro'), ($10, $3, 'membro')`,
   [NUC, P.med, P.m1, P.m2, P.m3, P.m4, P.com1, P.com2, P.bloq, NUC2]);
 const A = (n) => como(P[n]);
@@ -279,24 +281,11 @@ await zerar();
 await recusa("membro do núcleo sem cargo não chama", () => rpc(A("m1"), "rede_org_nucleo_chamar", { p_nucleo: NUC, p_texto: "Reunião hoje." }), "sem_permissao");
 await recusa("quem está fora não chama", () => rpc(A("fora"), "rede_org_nucleo_chamar", { p_nucleo: NUC, p_texto: "Reunião hoje." }), "sem_permissao");
 await recusa("a mediação de um núcleo não chama outro núcleo", () => rpc(A("med"), "rede_org_nucleo_chamar", { p_nucleo: NUC2, p_texto: "Oi." }), "sem_permissao");
-const ch1 = await espera("a comunicação chama o núcleo: avisa quem é do núcleo (só o número, a partir de 3)", () => rpc(A("com1"), "rede_org_nucleo_chamar", { p_nucleo: NUC, p_texto: "Reunião extraordinária hoje, 19h." }),
-  (r) => r.post && r.retido === false && r.avisadas === 6 && r.restam === 1 && r.volta === null && semPessoas(r));
-await espera("o recado é da organização, só para o núcleo", () => um("select autor, como, publico, nucleo from interno.rede_posts where id = $1", [ch1?.post]),
-  (r) => r.autor === P.org && r.como === P.org && r.publico === "nucleo" && r.nucleo === NUC);
-await espera("o aviso chega a quem é do núcleo, sem quem chamou (e não a quem a organização bloqueou, nem a quem chamou)", async () =>
-  (await dono("select para, ator, tipo, texto from interno.avisos where post = $1", [ch1?.post])).rows,
-(rs) => rs.length === 6 && rs.every((a) => a.ator === null && a.tipo === "nucleo" && !a.texto.includes("Codinome")) && !rs.some((a) => a.para === P.com1 || a.para === P.bloq));
-await espera("quem não é do núcleo não vê o recado", () => rpc(A("fora"), "rede_post", { p_id: ch1?.post }).catch(() => null), (r) => r === null || !JSON.stringify(r).includes("extraordinária"));
-await espera("a mediação chama o mesmo núcleo: o teto é do núcleo (acabou)", () => rpc(A("med"), "rede_org_nucleo_chamar", { p_nucleo: NUC, p_texto: "Lembrete da reunião." }),
-  (r) => r.restam === 0 && r.volta !== null);
-await recusa("a terceira chamada na semana, por qualquer pessoa com cargo", () => rpc(A("dona"), "rede_org_nucleo_chamar", { p_nucleo: NUC, p_texto: "Mais uma." }), "teto_do_nucleo");
-await espera("o outro núcleo tem o teto dele", () => rpc(A("com2"), "rede_org_nucleo_chamar", { p_nucleo: NUC2, p_texto: "Oi, núcleo Sul." }),
-  (r) => r.restam === 1 && r.avisadas === null);
-await espera("a tabela das chamadas não guarda quem chamou", () => um("select count(*)::int n from interno.rede_org_nucleo_chamadas where nucleo = $1", [NUC]), (r) => r.n === 2);
-await espera("passados 7 dias, o núcleo pode ser chamado de novo", async () => {
-  await dono("update interno.rede_org_nucleo_chamadas set quando = quando - interval '8 days' where nucleo = $1", [NUC]);
-  return rpc(A("com1"), "rede_org_comunicacao", { p_handle: "lume" });
-}, (r) => r.nucleos.find((n) => n.id === NUC).restam === 2);
+// Depois da R2 (membros escondidos): o chamado virava post do núcleo e aviso a quem é do núcleo, e o servidor não sabe mais quem é.
+// Quem tem cargo passa pelas mesmas conferências e recebe a recusa clara (o chamado vai como mensagem do grupo, nos aparelhos);
+// antes da junção, o erro cru da restrição rede_posts_sem_nucleo.
+await recusa("a comunicação chama o núcleo: recusa clara (o chamado é mensagem do grupo)", () => rpc(A("com1"), "rede_org_nucleo_chamar", { p_nucleo: NUC, p_texto: "Reunião extraordinária hoje, 19h." }), "nucleo_no_grupo");
+await espera("nenhum post de núcleo nem aviso de chamado ficam no banco", async () => [(await um("select count(*)::int n from interno.rede_posts where nucleo is not null")).n, (await um("select count(*)::int n from interno.avisos where tipo = 'nucleo'")).n], ([p, a]) => p === 0 && a === 0);
 
 // ═══════════════════ 6. Boletim ═══════════════════
 await zerar();
@@ -309,7 +298,7 @@ await rpc(A("fora"), "rede_org_boletim_assinar", { p_handle: "lume", p_sim: true
 const painel = await espera("com 4, vê o número (e o de e-mail, abaixo de 3, segue escondido)", () => rpc(A("com1"), "rede_org_comunicacao", { p_handle: "lume" }),
   (r) => r.boletim.assinantes === 4 && r.boletim.porEmail === null && r.boletim.posts.length >= 1 && semPessoas(r));
 const SEGUIDORES = painel?.boletim.posts.filter((x) => x.publico === "seguidores").map((x) => x.id) ?? [];
-ok("a lista da aba não traz o recado do núcleo", !(painel?.boletim.posts ?? []).some((x) => x.id === ch1?.post || x.publico === "nucleo"));
+ok("a lista da aba não traz recado de núcleo", !(painel?.boletim.posts ?? []).some((x) => x.publico === "nucleo"));
 // Um post público da organização, para o e-mail levar o começo dele.
 const pub = await (async () => { await zerar(); const it = await rpc(A("com1"), "rede_org_fila_escrever", { p_handle: "lume", p: { texto: "Votamos não no aumento da tarifa. O porquê está na prestação de contas.", publico: "internet" } }); return rpc(A("com2"), "rede_org_fila_decidir", { p_id: it.id, p_aprovar: true, p_motivo: "" }); })();
 ok(`o post público saiu (${JSON.stringify(pub)?.slice(0, 300)})`, pub?.situacao === "aprovado" && pub?.retido === false);
@@ -317,9 +306,7 @@ ok(`o post público saiu (${JSON.stringify(pub)?.slice(0, 300)})`, pub?.situacao
 const doMembros = await (async () => { await zerar(); const it = await rpc(A("com1"), "rede_org_fila_escrever", { p_handle: "lume", p: { texto: "A consulta da pauta de outubro fica aberta até domingo.", publico: "membros" } }); return rpc(A("com2"), "rede_org_fila_decidir", { p_id: it.id, p_aprovar: true, p_motivo: "" }); })();
 const POSTS = [doMembros?.post].filter(Boolean);
 ok("a aba oferece o post de membros e o público para o boletim", ((await rpc(A("com1"), "rede_org_comunicacao", { p_handle: "lume" })).boletim.posts ?? []).filter((x) => [doMembros?.post, pub?.post].includes(x.id)).length === 2);
-await recusa("boletim com post que não é da organização", () => rpc(A("com1"), "rede_org_boletim_propor", { p_handle: "lume", p: { texto: "Boletim.", posts: [ch1?.post, "00000000-0000-0000-0000-000000000000"] } }), "invalido:posts");
-await recusa("o recado do núcleo não entra num boletim aberto", () => rpc(A("com1"), "rede_org_boletim_propor", { p_handle: "lume", p: { texto: "Boletim.", posts: [ch1?.post, pub?.post], publico: "internet" } }), "invalido:posts");
-await recusa("o recado do núcleo não entra nem no boletim de membros", () => rpc(A("com1"), "rede_org_boletim_propor", { p_handle: "lume", p: { texto: "Boletim.", posts: [ch1?.post], publico: "membros" } }), "invalido:posts");
+await recusa("boletim com post que não é da organização", () => rpc(A("com1"), "rede_org_boletim_propor", { p_handle: "lume", p: { texto: "Boletim.", posts: ["00000000-0000-0000-0000-000000000000"] } }), "invalido:posts");
 await recusa("post só de membros não entra no boletim da internet", () => rpc(A("com1"), "rede_org_boletim_propor", { p_handle: "lume", p: { texto: "Boletim.", posts: [POSTS.find((x) => x !== pub?.post)], publico: "internet" } }), "invalido:posts");
 if (SEGUIDORES.length) await recusa("post só de seguidores não entra no boletim de membros", () => rpc(A("com1"), "rede_org_boletim_propor", { p_handle: "lume", p: { texto: "Boletim.", posts: [SEGUIDORES[0]], publico: "membros" } }), "invalido:posts");
 await recusa("post só de membros não entra no boletim de seguidores", () => rpc(A("com1"), "rede_org_boletim_propor", { p_handle: "lume", p: { texto: "Boletim.", posts: [POSTS.find((x) => x !== pub?.post)], publico: "seguidores" } }), "invalido:posts");

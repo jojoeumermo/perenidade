@@ -1,0 +1,9 @@
+modelo: voto-sigilo-servidor-ativo.pv
+sha256: 3205c91df07abdc965a4e75dc980fcba48360585d8d68500c004ffdeb4f23b46
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+A trace has been found.
+RESULT Observational equivalence cannot be proved.
+A trace has been found.
+RESULT Observational equivalence cannot be proved.

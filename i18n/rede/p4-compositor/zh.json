@@ -1,0 +1,71 @@
+{
+  "_rascunho": true,
+  "campos": {
+    "titulo": "帖子的更多内容",
+    "resumo": "简短版本（可选）",
+    "resumoDica": "最多 280 个字符，由你本人撰写，给只有一分钟的读者。显示在正文上方。",
+    "capa": "文章封面",
+    "semCapa": "无封面",
+    "capaN": "图片 {n}",
+    "capitulos": "每一行以 \"## \" 开头即开始一章。有两章或以上时，读者会看到目录，并可以分页阅读。",
+    "convite": "发来你的：这条帖子是一次邀请",
+    "conviteDica": "愿意的人可以用一句话或一张图片回复。总数从 3 人起才会显示，任何人都看不到回复者名单。",
+    "fonte": "来源（可选）",
+    "fonteDica": "不带跟踪参数的链接，或 Vale o Escrito 核查的地址。帖子会获得“有来源”标记。",
+    "fonteRuim": "这个来源无效：请使用不带跟踪参数的 http(s) 链接，或 Vale o Escrito 案例的地址。",
+    "resumoContador": "{n} / 280",
+    "capaAjuda": "分页阅读时，封面显示在目录上方。"
+  },
+  "album": {
+    "maximo": "每条帖子最多 20 张图片。"
+  },
+  "cartao": {
+    "versaoCurta": "简短版本",
+    "capitulos": "{n} 章",
+    "lerEmPaginas": "分页阅读",
+    "convite": "发来你的",
+    "conviteTotal": "已有 {n} 人发来了自己的。",
+    "conviteSemTotal": "用一句话或一张图片回复。",
+    "responder": "发我的",
+    "comFonte": "有来源",
+    "fonteVale": "Vale o Escrito 核查",
+    "mandar": "打开以发送你的",
+    "ajudaDoSelo": "作者注明了信息来源。"
+  },
+  "leitura": {
+    "titulo": "分页阅读",
+    "indice": "目录",
+    "abertura": "开篇",
+    "pagina": "第 {n} 页，共 {total} 页",
+    "anterior": "上一页",
+    "proxima": "下一页",
+    "fechar": "关闭",
+    "capa": "封面",
+    "carregando": "正在打开文本…",
+    "erro": "暂时无法打开文本，请重试。",
+    "irPara": "前往章节"
+  },
+  "filtro": {
+    "titulo": "没有描述的图片",
+    "rotulo": "在动态中隐藏含有未描述图片的帖子",
+    "explica": "只在这台设备上生效：服务器不知道你开启了它。描述是屏幕阅读器代替图片朗读的文字。",
+    "ligado": "已在此设备上开启。",
+    "desligado": "已关闭。"
+  },
+  "erros": {
+    "invalido_resumo": "简短版本只用于长文，最多 280 个字符。",
+    "resumo_revisar": "简短版本中有需要调解员先阅读的内容。请修改措辞或删除简短版本。",
+    "invalido_capa": "封面必须是这篇长文中的一张图片。",
+    "invalido_convite": "“发来你的”邀请只能用于开头的帖子（不能用于回复、投票或长文）。",
+    "invalido_fonte": "这个来源无效：请使用不带跟踪参数的 http(s) 链接，或 Vale o Escrito 案例的地址。",
+    "invalido_vale": "这个 Vale o Escrito 案例未上线，无法引用。",
+    "desligado": "这些选项尚未开启。请删除它们后再发布。",
+    "semCifra": "加密帖子只携带正文：简短版本、来源和邀请会以未加密形式发出。请删除它们，或在加密群组之外发布。",
+    "semFio": "串帖不带简短版本、来源或邀请。请只发布一个区块，或删除这些选项。"
+  },
+  "barra": {
+    "expandir": "展开",
+    "expandirAjuda": "用已写的内容打开完整编辑器（图片、投票、谁可见、稍后发布）。",
+    "dica": "Ctrl+Enter 发布。发出前帖子会等待 10 秒，可以撤销。"
+  }
+}

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Estado, Etiqueta, Nota, Quadro } from "@/components/painel/alumia/pecas";
 import { Botao } from "@/components/rede/ui/Botao";
 import { getClient, hasBackend } from "@/lib/backend";
+import type { SaudeDaFederacao } from "@/lib/rede/fediverso/saude";
 import type { SituacaoDaVariavel } from "@/lib/rede/seguranca/variaveis";
 
 export interface SaudeDoServico {
@@ -16,6 +17,8 @@ export interface SaudeDoServico {
     enderecos: Record<string, { gatilho: boolean; com_endereco: number | null }>;
   };
   variaveis: { nome: string; semEla: string; situacao: SituacaoDaVariavel }[];
+  /** As peças da federação (P5, A7). Ausente num servidor de antes. */
+  federacao?: SaudeDaFederacao;
 }
 
 const TABELAS: Record<string, string> = {
@@ -39,7 +42,7 @@ function Linha({ nome, valor, bom, nota }: { nome: string; valor: string; bom: b
 /** O que o quadro mostra (separado para a prévia e o teste). */
 export function VistaDaSaude({ dado }: { dado: SaudeDoServico }) {
   const b = dado.banco;
-  const faltam = dado.variaveis.filter((v) => v.situacao !== "presente");
+  const faltam = dado.variaveis.filter((v) => v.situacao !== "presente" && v.situacao !== "dispensada");
   return (
     <>
       <ul className="ap-lista">
@@ -76,10 +79,42 @@ export function VistaDaSaude({ dado }: { dado: SaudeDoServico }) {
       </ul>
       <ul className="ap-lista">
         {dado.variaveis.map((v) => (
-          <Linha key={v.nome} nome={v.nome} valor={v.situacao === "presente" ? "posta" : v.situacao === "curta" ? "curta demais" : "falta"} bom={v.situacao === "presente"} nota={v.situacao === "presente" ? undefined : v.semEla} />
+          <Linha key={v.nome} nome={v.nome} valor={v.situacao === "presente" ? "posta" : v.situacao === "curta" ? "curta demais" : v.situacao === "dispensada" ? "vazia (só na troca)" : "falta"} bom={v.situacao === "presente" || v.situacao === "dispensada"} nota={v.situacao === "presente" || v.situacao === "dispensada" ? undefined : v.semEla} />
         ))}
       </ul>
+      {dado.federacao ? <VistaDaFederacao f={dado.federacao} /> : null}
       {faltam.length === 0 ? <Nota>Todas as variáveis secretas do servidor estão postas. O valor delas nunca sai do servidor.</Nota> : null}
+    </>
+  );
+}
+
+/** A federação: o que o painel liga (o recurso) e o que o servidor precisa para ela andar de verdade. */
+function VistaDaFederacao({ f }: { f: SaudeDaFederacao }) {
+  const pronta = f.faltam.length === 0;
+  return (
+    <>
+      <ul className="ap-lista" aria-label="Federação no servidor">
+        <Linha
+          nome="Federação no servidor"
+          valor={pronta ? "pronta" : "falta peça"}
+          bom={pronta}
+          nota={pronta ? "O recurso, o endereço, o segredo no servidor e o banco conferem." : "O painel pode dizer \"Fediverso: ligada\" e a tela da Alumia dizer que a federação não está ligada no servidor: a decisão do painel é só uma das peças."}
+        />
+        {f.banco ? <Linha nome="Fediverso ligado no painel" valor={f.banco.total ? "ligado" : "desligado"} bom={f.banco.total ? true : null} /> : null}
+        <Linha nome="Endereço próprio da Alumia em https" valor={f.endereco ? "sim" : "não"} bom={f.endereco} />
+        <Linha nome="ALUMIA_FEDIVERSO_SEGREDO no servidor" valor={f.segredo === "presente" ? "posto" : f.segredo === "curta" ? "curto demais" : "falta"} bom={f.segredo === "presente"} />
+        {f.banco ? <Linha nome="Segredo e endereço de entrega no banco" valor={f.banco.segredo_guardado && f.banco.url_entrega ? "guardados" : "falta"} bom={f.banco.segredo_guardado && f.banco.url_entrega} /> : null}
+        {f.banco_reconhece !== null ? <Linha nome="O banco reconhece o segredo do servidor" valor={f.banco_reconhece ? "sim" : "não"} bom={f.banco_reconhece} /> : null}
+      </ul>
+      {pronta ? null : (
+        <Nota>
+          {f.faltam.map((x, i) => (
+            <span key={x} className="block">
+              {i + 1}. {x}
+            </span>
+          ))}
+        </Nota>
+      )}
     </>
   );
 }

@@ -61,7 +61,8 @@
       "pessoa": "@ Pessoa",
       "campanha": "#Campanha",
       "resposta": "Resposta",
-      "decorativa": "Enfeite"
+      "decorativa": "Enfeite",
+      "teste": "Teste"
     },
     "quemVe": "Quem vê",
     "publico": {
@@ -88,7 +89,7 @@
     "vazio": "Escreva um texto, desenhe, tire uma foto ou escolha da galeria.",
     "deUmPost": "Story a partir de um post: o link para o post vai junto.",
     "erro": {
-      "grande": "Imagem grande demais (até 3 MB depois de pronta).",
+      "grande": "Imagem grande demais (até 6 MB depois de pronta).",
       "invalida": "Não deu para ler essa imagem. Use JPG, PNG ou WEBP.",
       "link": "O link precisa começar com https:// e ter um endereço válido.",
       "ato": "Escolha um ato para a contagem.",
@@ -98,7 +99,10 @@
       "semConta": "Entre na sua conta para publicar.",
       "limite": "Você publicou muitos stories agora. Espere um pouco.",
       "banco": "O banco ainda não tem os stories (falta a atualização do servidor).",
-      "falha": "Não deu para publicar. Tente de novo."
+      "semHandle": "Para publicar um story, escolha antes o seu @nome em Editar perfil.",
+      "falha": "Não deu para publicar. Tente de novo.",
+      "teste": "Escreva a pergunta e pelo menos duas opções diferentes do teste, e marque a certa.",
+      "contagemLivre": "Dê um nome à contagem e escolha uma hora no futuro (até um ano)."
     },
     "camera": "Câmera",
     "galeriaAjuda": "Foto ou vídeo (até 60 s)",
@@ -160,7 +164,14 @@
       "foto": "Foto do story",
       "semMetadadoVideo": "O vídeo é refeito no seu aparelho em 720p: sai sem localização e sem dados da câmera.",
       "altVideo": "Descreva o vídeo para quem não vê (opcional)",
-      "lendo": "Abrindo o vídeo…"
+      "lendo": "Abrindo o vídeo…",
+      "ajustes": {
+        "titulo": "Ajustes",
+        "brilho": "Brilho",
+        "contraste": "Contraste",
+        "saturacao": "Saturação",
+        "zerar": "Voltar ao normal"
+      }
     },
     "progresso": {
       "preparando": "Preparando o vídeo no seu aparelho… {pct}%",
@@ -195,7 +206,15 @@
       "desavisar": "Não avisar mais",
       "comecou": "Já começou",
       "verAto": "Ver o ato",
-      "falta": "Faltam {dias} dias, {horas} horas e {min} minutos para {titulo}"
+      "falta": "Faltam {dias} dias, {horas} horas e {min} minutos para {titulo}",
+      "rotuloLivre": "Contagem",
+      "seg": "Seg",
+      "tipo": "Contagem para",
+      "doAto": "Um ato",
+      "livre": "Outro momento",
+      "nomeDoMomento": "O que vai acontecer",
+      "nomeVazio": "Plenária, greve, festa…",
+      "quando": "Quando"
     },
     "pergunta": {
       "rotulo": "Pergunta",
@@ -230,6 +249,26 @@
       "nenhuma": "Você ainda não está em nenhuma comunidade.",
       "carregando": "Carregando as suas comunidades…",
       "abrir": "Abrir a comunidade {nome}"
+    },
+    "teste": {
+      "rotulo": "Teste",
+      "pergunta": "Pergunta do teste",
+      "perguntaVazia": "Pergunte algo",
+      "opcao": "Opção {n}",
+      "qualCerta": "Qual é a resposta certa",
+      "marcarCerta": "Marcar a opção {n} como a certa",
+      "tirarOpcao": "Tirar a opção {n}",
+      "maisOpcao": "+ Opção",
+      "notaCriar": "Toque na letra da resposta certa. Só você vê quantas pessoas escolheram cada opção, e só a partir de 3. Ninguém vê quem respondeu.",
+      "certa": "a certa",
+      "errada": "a sua, errada",
+      "total": "{n} respostas",
+      "notaAutora": "Só você vê a soma. Ninguém vê quem respondeu.",
+      "poucas": "Poucas pessoas responderam ainda: a soma aparece a partir de 3.",
+      "nota": "A soma fica só com {nome}. Seu nome não aparece.",
+      "acertou": "Você acertou!",
+      "errou": "Não foi dessa vez. A certa está marcada.",
+      "jaRespondeu": "Você já respondeu este teste."
     }
   },
   "visor": {
@@ -642,5 +681,65 @@
       "porNoStory": "Pôr no story",
       "ajuda": "Cria um story com o cartão deste ato (data e cidade; some em 24 h)"
     }
+  },
+  "p5": {
+    "abasRotulo": "O que pôr no story",
+    "abas": {
+      "figurinhas": "Figurinhas",
+      "enfeites": "Enfeites",
+      "midia": "Foto e vídeo"
+    },
+    "quadros": {
+      "titulo": "Quadros",
+      "ajuda": "Cada quadro vira um story, na ordem, um atrás do outro.",
+      "novo": "Novo quadro",
+      "ir": "Ir para o quadro {n}",
+      "atual": "Quadro {n} (editando)",
+      "tirar": "Tirar este quadro",
+      "limite": "Chegou a {max} quadros.",
+      "vazio": "Quadro {n} vazio",
+      "progresso": "Quadro {k} de {n}",
+      "erroNoQuadro": "Quadro {n}: {erro}"
+    },
+    "colagem": {
+      "botao": "Colagem",
+      "titulo": "Colagem de fotos",
+      "modelo": "Modelo",
+      "modelos": {
+        "dupla": "Duas, uma em cima da outra",
+        "lado": "Duas lado a lado",
+        "tres": "Três",
+        "quatro": "Quatro"
+      },
+      "escolher": "Escolher a foto {n}",
+      "trocar": "Trocar a foto {n}",
+      "usar": "Usar a colagem",
+      "cancelar": "Cancelar",
+      "falta": "Escolha todas as fotos.",
+      "ajuda": "As fotos são refeitas aqui, sem localização e sem dados da câmera.",
+      "fundo": "Cor entre as fotos",
+      "lendo": "Montando a colagem…"
+    },
+    "rascunhos": {
+      "botao": "Rascunhos",
+      "titulo": "Rascunhos de story",
+      "guardar": "Guardar rascunho",
+      "guardado": "Rascunho guardado só neste aparelho.",
+      "abrir": "Abrir",
+      "apagar": "Apagar",
+      "apagarTodos": "Apagar todos",
+      "vazio": "Nenhum rascunho neste aparelho.",
+      "aviso": "Os rascunhos ficam só neste aparelho (nada vai ao servidor) e somem em 30 dias. Quem pegar o aparelho destravado pode vê-los; \"Sair de tudo\" apaga.",
+      "quadros": "{n} quadros",
+      "umQuadro": "1 quadro",
+      "fechar": "Fechar",
+      "modoSeguro": "No modo seguro nada é guardado no aparelho.",
+      "grande": "Vídeo grande demais para guardar como rascunho.",
+      "falha": "Não deu para guardar neste aparelho.",
+      "substituir": "Abrir o rascunho no lugar do que está na tela?",
+      "substituirSim": "Abrir",
+      "semArmazenamento": "Este navegador não deixa guardar rascunhos."
+    },
+    "alta": "A foto vai em alta e numa versão menor, que abre na hora para quem vê."
   }
 }

@@ -211,15 +211,16 @@ const posts = {
   restrita: await postar(pessoas.beto, "Post numa comunidade restrita.", { comunidade: "teste-restrita" }),
   seguidores: await postar(pessoas.beto, "Post só para seguidores.", { publico: "seguidores", alcance: "seguidores" }),
   equipe: await postar(pessoas.beto, "Post da equipe.", { publico: "equipe", alcance: "equipe" }),
-  nucleo: await postar(pessoas.beto, "Post do núcleo.", { publico: "nucleo", nucleo }),
   deDuda: await postar(pessoas.duda, "Post público de quem desmarcou o item."),
   membrosPerfil: await postar(pessoas.beto, "Post só para os membros da Alumia, no perfil.", { publico: "membros" }),
   membrosDisciplina: await postar(pessoas.beto, "Post só para os membros da Alumia, na disciplina.", { comunidade: disciplina, publico: "membros" }),
   semPublico: await postar(pessoas.beto, "Post antigo, sem público escolhido (vale o alcance).", { publico: null }),
 };
+// Desde a R2 (membros escondidos) o banco não aceita post de núcleo: o que não existe não sai.
+await recusa("post de núcleo nem entra no banco (desde a R2), e então não sai", () => postar(pessoas.beto, "Post do núcleo.", { publico: "nucleo", nucleo }), "rede_posts_sem_nucleo");
 await espera("o 'internet' do perfil é rebaixado para 'membros' pela matriz (é esse que D3 abre)", async () => (await um("select interno.rede2_publico(p) as v from interno.rede_posts p where p.id = $1", [posts.perfil])).v, (v) => v === "membros");
 await espera("sai: o 'internet' do perfil (rebaixado), da disciplina aberta e o post antigo sem público", async () => Promise.all([posts.perfil, posts.disciplina, posts.internet, posts.semPublico].map(federavel)), (r) => r.every((f) => f === true));
-await espera("não sai: núcleo, comunidade fechada, restrita, seguidores, equipe e quem não consentiu", async () => Promise.all([posts.nucleo, posts.fechada, posts.restrita, posts.seguidores, posts.equipe, posts.deDuda].map(federavel)), (r) => r.every((f) => f === false));
+await espera("não sai: comunidade fechada, restrita, seguidores, equipe e quem não consentiu", async () => Promise.all([posts.fechada, posts.restrita, posts.seguidores, posts.equipe, posts.deDuda].map(federavel)), (r) => r.every((f) => f === false));
 await espera("não sai: o 'membros' escolhido de propósito ('Membros da Alumia'), no perfil e na disciplina", async () => Promise.all([posts.membrosPerfil, posts.membrosDisciplina].map(federavel)), (r) => r.every((f) => f === false));
 await espera("e o 'membros' de propósito não entra na fila nem tem documento", async () => [
   (await um("select count(*)::int as n from interno.rede_fed_enviados where post = any($1::uuid[])", [[posts.membrosPerfil, posts.membrosDisciplina]])).n,
@@ -644,7 +645,18 @@ await espera("as funções seguem o padrão (security definer, search_path) e as
 // verdade. O mesmo bloco, idêntico, está no install.sql, depois do bloco do bloqueio padrão.
 const privacidade = lerTexto("supabase/migracoes/20261110-fediverso-privacidade.sql");
 await espera("o install.sql traz a migração da privacidade idêntica ao arquivo, depois da do bloqueio padrão", async () => install.includes(privacidade) && install.indexOf(privacidade) > install.indexOf(padrao) + padrao.length - 1);
-await espera("no install.sql, nada depois do bloqueio padrão redefine a função de bloquear nem a que diz se está bloqueada", async () => /create or replace function (public\.rede_fed_bloquear|interno\.rede_fed_bloqueado)\s*\(/.test(install.slice(install.indexOf(padrao) + padrao.length)), (tem) => tem === false);
+// A única exceção é a 20261123-r1-fediverso.sql (R1): ela redefine public.rede_fed_bloquear INTEIRA, a partir do corpo do banco
+// montado (limpa o nome e confere o formato), e mantém a trava do bloqueio fixo (conferida logo abaixo, na função final).
+const r1Fediverso = lerTexto("supabase/migracoes/20261123-r1-fediverso.sql");
+// A outra é a 20261127-p4-pontes.sql (Prompt 4, item 82): ela redefine só interno.rede_fed_bloqueado, com a conferência da lista de
+// bloqueados da R1 idêntica e um "or" depois (o modo "só servidores aprovados"), que só bloqueia mais; não toca na função de bloquear.
+const p4Pontes = lerTexto("supabase/migracoes/20261127-p4-pontes.sql");
+const corpoBloqueado = (sql) => (sql.match(/create or replace function interno\.rede_fed_bloqueado\(p_url text\)[^$]*\$\$\n([\s\S]*?)\n\$\$;/) ?? [])[1];
+await espera("a das pontes só acrescenta um 'or' ao corpo da R1 (só bloqueia mais) e não redefine a função de bloquear", async () => {
+  const r1 = corpoBloqueado(r1Fediverso), p4 = corpoBloqueado(p4Pontes);
+  return [Boolean(r1) && Boolean(p4) && p4.startsWith(r1 + "\n      or (") && !p4.slice(r1.length).includes("\n  select"), /create or replace function public\.rede_fed_bloquear\s*\(/.test(p4Pontes)];
+}, ([so_acrescenta, bloquear]) => so_acrescenta && !bloquear);
+await espera("no install.sql, nada depois do bloqueio padrão redefine a função de bloquear nem a que diz se está bloqueada (fora a R1, inteira, e as pontes)", async () => /create or replace function (public\.rede_fed_bloquear|interno\.rede_fed_bloqueado)\s*\(/.test(install.slice(install.indexOf(padrao) + padrao.length).split(r1Fediverso).join("").split(p4Pontes).join("")), (tem) => tem === false);
 await espera("a migração da privacidade roda depois da do bloqueio padrão sem erro", () => banco.exclusivo(() => banco.pg.exec(privacidade)));
 await espera("e roda de novo (idempotente)", () => banco.exclusivo(() => banco.pg.exec(privacidade)));
 await espera("quem já estava com a federação ligada antes da migração ganha a linha do 'liga' (e rodar de novo não duplica)", async () => {
@@ -1154,9 +1166,11 @@ await espera("a regra do Fediverso chama interno.rede_vida_federa (é o que solt
 // (supabase/migracoes/20261122-alumia-chat.sql). Vem depois de todas as do Fediverso no banco de verdade (o teste rodou algumas
 // de novo lá em cima): roda aqui, duas vezes. Quem junta cola no fim do install.sql.
 const beta = lerTexto("supabase/migracoes/20261122-alumia-chat.sql");
+// Desde a R2, a migração do beta sozinha não roda por cima do banco montado (ela mexe no chat a dois do beta, cujas tabelas a R2
+// tirou): no lugar dela vai o install.sql inteiro de novo, que a roda na ordem, com as da R2 depois.
 await espera("a migração do beta roda depois de todas as do Fediverso, e roda de novo", async () => {
-  await banco.exclusivo(() => banco.pg.exec(beta));
-  await banco.exclusivo(() => banco.pg.exec(beta));
+  await banco.instalarDeNovo();
+  await banco.instalarDeNovo();
   return /select interno\.alumia_trancar\(\);\s*$/.test(beta) && !beta.includes("Rede Lúcia");
 }, (v) => v === true);
 await espera("depois dela, a porta da Alumia não deixa função aberta", async () => (await um("select interno.alumia_trancar() as t")).t, (t) => Array.isArray(t.abertas) && t.abertas.length === 0);
@@ -1236,9 +1250,9 @@ await espera("interação antiga, com o endereço, troca pelo apelido quando a m
   const post3 = await postar(pessoas.eva, "Mais um post da Eva, com interação antiga.");
   await dono("alter table interno.fediverso_interacoes drop constraint fediverso_interacoes_ator_formato");
   await dono("insert into interno.fediverso_interacoes (direcao, tipo, ator, post_local) values ('entrada', 'like', $1, $2)", [gente(24), post3]);
-  await banco.exclusivo(() => banco.pg.exec(beta));
+  await banco.instalarDeNovo();
   const a = (await um("select ator from interno.fediverso_interacoes where post_local = $1", [post3])).ator;
-  await banco.exclusivo(() => banco.pg.exec(beta));
+  await banco.instalarDeNovo();
   const b = (await um("select ator from interno.fediverso_interacoes where post_local = $1", [post3])).ator;
   const esperado = (await um("select interno.rede_fed_apelido_ator($1) as a", [gente(24)])).a;
   const recusa = await dono("insert into interno.fediverso_interacoes (direcao, tipo, ator, objeto_remoto) values ('entrada', 'like', $1, $2)", [esperado, `${LONGE}/n/1`]).then(() => "aceitou", (e) => (String(e.message).includes("fediverso_interacoes_ator_formato") ? "recusou" : e.message));
@@ -1248,9 +1262,9 @@ await espera("interação antiga, com o endereço, troca pelo apelido quando a m
 await espera("aviso de curtida antigo, com o endereço, troca pelo apelido quando a migração roda (e rodar de novo não mexe)", async () => {
   const post2 = await postar(pessoas.eva, "Outro post da Eva, com aviso antigo.");
   await dono("insert into interno.avisos (para, texto, categoria, tipo, post, ator_remoto) values ($1, 'x', 'rede', 'fed_curtida', $2, $3)", [pessoas.eva, post2, gente(24)]);
-  await banco.exclusivo(() => banco.pg.exec(beta));
+  await banco.instalarDeNovo();
   const a = await um("select ator_remoto, interno.rede_fed_apelido(para, $2) as esperado from interno.avisos where post = $1 and tipo = 'fed_curtida'", [post2, gente(24)]);
-  await banco.exclusivo(() => banco.pg.exec(beta));
+  await banco.instalarDeNovo();
   const b = await um("select ator_remoto from interno.avisos where post = $1 and tipo = 'fed_curtida'", [post2]);
   await dono("delete from interno.avisos where post = $1", [post2]);
   return [a.ator_remoto === a.esperado, b.ator_remoto === a.esperado, /^anon:/.test(a.ator_remoto)];
@@ -1317,6 +1331,73 @@ await espera("e a rota do fio pergunta pela nota de quem bloqueou ANTES de ofere
   (t) => t.indexOf("if (await notaDeQuemBloqueou(token, postId)) return resposta({ erro: \"nao_encontrado\" }, 404);") > 0
     && t.indexOf("if (await notaDeQuemBloqueou(token, postId))") < t.indexOf("if (!buscarLa) return resposta({ erro: \"so_na_origem\"")
     && /async function notaDeQuemBloqueou[\s\S]{0,300}if \(r\.ok\) return r\.dado !== false;[\s\S]{0,120}return true;/.test(t));
+
+// ═══════════════════ r1: o que a prova com servidores de verdade mostrou (20261123-r1-fediverso.sql) ═══════════════════
+// Roda por último, como no banco de verdade (as seções acima rodam de novo migrações antigas, que trazem as versões velhas).
+const r1 = lerTexto("supabase/migracoes/20261123-r1-fediverso.sql");
+if (!install.includes(r1)) await espera("r1: a migração instala por cima do banco montado", () => banco.exclusivo(() => banco.pg.exec(r1)));
+await espera("r1: rodar de novo não quebra (idempotente)", () => banco.exclusivo(() => banco.pg.exec(r1)));
+await espera("r1: o bloqueio digitado com https://, maiúsculas, caminho e ponto no fim vale para o servidor de verdade", async () => {
+  await rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: " https://Ruim.Exemplo.ORG./perfil ", p_sim: true, p_motivo: "r1" });
+  const gravado = (await um("select dominio from interno.rede_fed_bloqueados where dominio like '%exemplo.org%'"))?.dominio;
+  return [gravado, await bloqueado("https://ruim.exemplo.org/users/x"), await bloqueado("https://sub.ruim.exemplo.org/u"), await bloqueado("https://ruim.exemplo.org./users/x"), await bloqueado("https://bom.exemplo.org/u")];
+}, ([g, a, b, c, d]) => g === "ruim.exemplo.org" && a && b && c && !d);
+await espera("r1: desbloquear com o mesmo jeito de escrever tira o bloqueio", async () => {
+  await rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "RUIM.exemplo.org.", p_sim: false, p_motivo: "" });
+  return bloqueado("https://ruim.exemplo.org/users/x");
+}, (b) => b === false);
+await espera("r1: servidor num IPv4 público bloqueia e desbloqueia", async () => {
+  await rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "https://203.0.113.5/users/x", p_sim: true, p_motivo: "r1" });
+  const antes = [await bloqueado("https://203.0.113.5/users/x"), await bloqueado("https://203.0.113.50/users/x")];
+  await rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "203.0.113.5", p_sim: false, p_motivo: "" });
+  return [...antes, await bloqueado("https://203.0.113.5/users/x")];
+}, ([a, b, c]) => a && !b && !c);
+await espera("r1: servidor num IPv6 (entre colchetes) bloqueia, escrito como a caixa de entrada escreve, e desbloqueia", async () => {
+  await rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "[2001:DB8:0:0::1]", p_sim: true, p_motivo: "r1" });
+  const gravado = (await um("select dominio from interno.rede_fed_bloqueados where dominio like '[%'"))?.dominio;
+  const dominio = (await um("select interno.rede_fed_dominio('https://[2001:db8::1]/users/x') as d")).d;
+  const antes = [await bloqueado("https://[2001:db8::1]/users/x"), await bloqueado("https://[2001:db8::2]/users/x")];
+  await rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "[2001:db8::1]", p_sim: false, p_motivo: "" });
+  return [gravado, dominio, ...antes, await bloqueado("https://[2001:db8::1]/users/x")];
+}, ([g, d, a, b, c]) => g === "[2001:db8::1]" && d === "[2001:db8::1]" && a && !b && !c);
+await espera("r1: um bloqueio antigo, gravado num formato que hoje é recusado, ainda pode ser desfeito", async () => {
+  await dono("insert into interno.rede_fed_bloqueados (dominio, motivo) values ('velho..formato.teste', 'v13') on conflict (dominio) do nothing");
+  await rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "velho..formato.teste", p_sim: false, p_motivo: "" });
+  return (await um("select count(*)::int as n from interno.rede_fed_bloqueados where dominio = 'velho..formato.teste'")).n;
+}, (n) => n === 0);
+for (const ruim of ["256.1.1.1", "01.2.3.4", "1.2.3", "[2001:db8::/32]", "[não-é-ip]"]) {
+  await recusa(`r1: endereço de rede que não é de um servidor (${ruim}) é recusado`, () => rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: ruim, p_sim: true, p_motivo: "" }), "invalido:dominio");
+}
+for (const ruim of ["a..exemplo.org", ".exemplo.org", "-a.exemplo.org", "exemplo", "ex emplo.org", "exemplo.123"]) {
+  await recusa(`r1: domínio que não é nome de servidor (${ruim}) é recusado`, () => rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: ruim, p_sim: true, p_motivo: "" }), "invalido:dominio");
+}
+await espera("r1: quem desliga a federação manda o Delete do próprio ator, uma vez por servidor que a conhecia", async () => {
+  await ligarTotal(true);
+  const fabi = await criarUsuario("fabi@fedbanco.local", "fabi");
+  await rpc(como(fabi), "eu");
+  await dono("update interno.perfis set rede_codinome = 'Pessoa fabi', rede_codinome_ok = true, rede_handle = 'fabi', rede_modo = 'aberto', rede_avatar = 'a07' where id = $1", [fabi]);
+  await rpc(como(fabi), "rede_aderir", { p_maior: true, p_versao: vigente, p_fediverso: true });
+  await dono(`insert into interno.rede_fed_seguidores (perfil, ator, inbox, inbox_compartilhada, pedido) values
+    ($1, 'https://um.teste/u/a', 'https://um.teste/u/a/inbox', 'https://um.teste/inbox', 'p1'),
+    ($1, 'https://um.teste/u/b', 'https://um.teste/u/b/inbox', 'https://um.teste/inbox', 'p2'),
+    ($1, 'https://dois.teste/u/c', 'https://dois.teste/u/c/inbox', null, 'p3')`, [fabi]);
+  await dono("insert into interno.rede_fed_remotos (ator, inbox, inbox_compartilhada) values ('https://tres.teste/u/d', 'https://tres.teste/u/d/inbox', 'https://tres.teste/inbox') on conflict (ator) do update set inbox = excluded.inbox, inbox_compartilhada = excluded.inbox_compartilhada");
+  await dono("insert into interno.rede_fed_seguindo (perfil, ator, pedido, aceito) values ($1, 'https://tres.teste/u/d', 'https://alumia.teste/f/r1', true)", [fabi]);
+  await dono("update interno.rede_fed_atores set chave_publica = '-----BEGIN PUBLIC KEY-----r1', chave_privada = 'v1:r1' where perfil = $1", [fabi]);
+  await rpc(como(fabi), "rede_fed_ligar", { p_sim: false, p_versao: null });
+  const r = (await dono("select destino from interno.rede_fed_fila where perfil = $1 and tipo = 'delete' and objeto = 'ator:fabi' order by destino", [fabi])).rows.map((x) => x.destino);
+  const situacao = await srv("ator", { handle: "fabi" });
+  return [r.join(), situacao.estado];
+}, ([d, e]) => d === "https://dois.teste/u/c/inbox,https://tres.teste/inbox,https://um.teste/inbox" && e === "saindo");
+await espera("r1: as três funções seguem o padrão (security definer, search_path fixo, sem execução para anon/authenticated nas internas)", async () => {
+  const r = await dono(`select p.oid::regprocedure::text as f, p.prosecdef, array_to_string(p.proconfig, ',') as cfg,
+      has_function_privilege('anon', p.oid, 'execute') as anon, has_function_privilege('authenticated', p.oid, 'execute') as aut
+    from pg_proc p where p.oid in ('interno.rede_fed_desligar(uuid)'::regprocedure, 'public.rede_fed_bloquear(text,boolean,text)'::regprocedure, 'interno.rede_fed_dominio(text)'::regprocedure)`);
+  const por = Object.fromEntries(r.rows.map((x) => [x.f, x]));
+  const d = por["interno.rede_fed_desligar(uuid)"], b = por["rede_fed_bloquear(text,boolean,text)"], m = por["interno.rede_fed_dominio(text)"];
+  return [d.prosecdef && /search_path=interno, pg_temp/.test(d.cfg) && !d.anon && !d.aut, b.prosecdef && !b.anon && b.aut, !m.anon && !m.aut];
+}, (r) => r.every(Boolean));
+await espera("r1: a porta passa em tudo depois da migração", async () => (await um("select interno.alumia_trancar() as t")).t, (t) => Array.isArray(t.abertas) && t.abertas.length === 0);
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const f of falhas) console.log(`  ✗ ${f}`);

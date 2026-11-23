@@ -4,6 +4,7 @@
 // "_rascunho": true até a revisão). Carrega UM idioma por vez (import dinâmico), no servidor ou no navegador, para a Rede não
 // baixar os seis. Sem "@/" de propósito.
 import type pt from "../../i18n/rede/perfil/pt.json";
+import { prontoOu } from "./textos-prontos";
 
 export type TextosDoPerfil = typeof pt;
 
@@ -13,7 +14,7 @@ const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"] as const;
 export async function carregarTextosDoPerfil(lang: string): Promise<TextosDoPerfil> {
   const l = (IDIOMAS as readonly string[]).includes(lang) ? lang : "pt";
   try {
-    return ((await import(`../../i18n/rede/perfil/${l}.json`)) as { default: TextosDoPerfil }).default;
+    return prontoOu(((await import(`../../i18n/rede/perfil/${l}.json`)) as { default: TextosDoPerfil }).default, async () => ((await import("../../i18n/rede/perfil/pt.json")) as { default: TextosDoPerfil }).default);
   } catch {
     return ((await import("../../i18n/rede/perfil/pt.json")) as { default: TextosDoPerfil }).default;
   }

@@ -1,0 +1,49 @@
+{
+  "_rascunho": "葡萄牙语文本的翻译草稿（以 pt.json 为准）。",
+  "titulo": "Alumia 应用",
+  "lead": "要在 Alumia 使用加密聊天，请使用手机或电脑应用。聊天代码就在应用里：在你设备上运行的代码不会在每次打开时从服务器下载。每个版本都记录在任何人都能核对的公开日志中。",
+  "soApp": {
+    "titulo": "聊天请使用应用",
+    "texto": "网站上是社交网络。加密聊天在手机或电脑应用中运行，代码在应用内，每个版本都记录在公开日志中。",
+    "baixar": "下载并核对应用",
+    "voltar": "返回 Alumia"
+  },
+  "baixar": {
+    "titulo": "下载",
+    "android": "Android",
+    "windows": "Windows",
+    "macos": "macOS",
+    "linux": "Linux",
+    "iphone": "暂时还没有 iPhone 应用。iPhone 用户在网站聊天开放期间继续通过网站聊天。",
+    "semVersao": "还没有发布任何版本。发布后会显示在这里，附每个文件的摘要和公开日志中的记录。",
+    "versao": "版本 {versao}",
+    "arquivo": "文件",
+    "para": "适用于",
+    "tamanho": "大小",
+    "resumo": "SHA-256 摘要",
+    "livro": "公开日志",
+    "entrada": "条目 {indice}",
+    "pacote": "核对包"
+  },
+  "conferir": {
+    "titulo": "安装前先核对",
+    "texto": "应用的每个文件都由研究所公开仓库的发布流程在版本标签上签名，并记录在 Sigstore 的公开签名日志 Rekor 中。没有人持有可以在流程之外签名的密钥：签名来自流程的身份，日志让每个签名永久公开。",
+    "passos": [
+      "下载文件及其核对包（同名、以 .sigstore.json 结尾的文件）。",
+      "用下面任一命令核对。两者都会告诉你文件是否正是流程签名的那个，以及签名是否在日志中。",
+      "只有核对通过才安装。如果失败，不要安装，并告知协调组。"
+    ],
+    "comandoNode": "使用仓库代码（Node 22 或更新）：",
+    "comandoCosign": "使用 Sigstore 官方工具：",
+    "roteiro": "从零构建应用并得到同一文件的指南",
+    "trocar": "把 {versao} 换成版本号，把 {arquivo} 换成文件名。"
+  },
+  "sistema": {
+    "titulo": "Windows 和 macOS 的警告",
+    "texto": "应用没有 Microsoft 或 Apple 的付费签名，因此系统会提示程序来源未知。信任来自别处：公开日志和可复现构建。打开前请核对摘要。"
+  },
+  "atualizacao": {
+    "titulo": "更新",
+    "texto": "应用只安装在公开日志中、由仓库发布流程签名的更新。不在日志中的更新会被拒绝并说明原因。通过其他途径安装且不在日志中的版本可以打开，但聊天不会打开。"
+  }
+}

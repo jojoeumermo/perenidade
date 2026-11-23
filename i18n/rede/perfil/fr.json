@@ -12,6 +12,7 @@
     "fixado": "Publication épinglée",
     "escolherHandle": "Choisissez votre @nom pour avoir une page dans Alumia.",
     "selos": {
+      "coordenacao": "Coordination de l’institut",
       "equipe": "Équipe de l'institut",
       "educador": "Éducation",
       "moderacao": "Modération",
@@ -25,6 +26,17 @@
       "degrau": "Palier {n} de l’École",
       "caderno": "Cahier {n} de l’École",
       "aulas": "Leçons de l’École : {n}",
+      "revolucionario": "Révolutionnaire",
+      "frente": "Front : {nome}",
+      "frentes": {
+        "estudantil": "Mouvement étudiant",
+        "bairros": "Quartiers et logement",
+        "trabalho": "Travail et syndicats",
+        "agitprop": "Agitation et propagande",
+        "atos": "Manifestations et mobilisation",
+        "cultura": "Culture et périphérie",
+        "solidariedade": "Solidarité"
+      },
       "ajuda": "Les leçons et les cahiers de l’École sont déclarés par la personne ; la carte et le palier sont vérifiés par la coordination."
     }
   },

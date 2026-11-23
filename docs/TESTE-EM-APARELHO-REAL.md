@@ -70,6 +70,33 @@ Sistema › Navegação do sistema). Marque ok, demorou ou falhou, como acima.
 17. **Dentro do aplicativo da loja** (só depois de gerar o pacote, `docs/APP-LOJA.md`): ícone e nome certos, sem barra de
     endereço, links de fora do Instituto abrem no navegador, e só a permissão de internet foi pedida.
 
+## O app de Android com o chat dentro (onda R3)
+
+O app leva o chat **dentro do pacote** (`docs/APP-LOJA.md`). O emulador prova quase tudo (`scripts/testar-r3-android-aparelho.mjs`),
+mas três coisas **só um aparelho de verdade mostra**: a chave no hardware, o chat rodando no WebView atualizado e o Bluetooth.
+Use o pacote de teste num celular **sem dados pessoais** (ou um de testes), Android 12 ou mais novo.
+
+18. **WebView.** Configurações › Apps › Android System WebView: versão **137 ou mais nova** (atualize pela loja). Com uma versão
+    velha, a tela do chat diz "atualize o Android System WebView" em vez de abrir; anote a versão.
+19. **Chave no hardware.** Com o celular ligado ao computador pelo adb, rode a prova do aparelho: a linha "nível do cofre neste
+    aparelho" deve dizer `tee` ou `strongbox` (no emulador sai `software`, e a prova marca como não conferido).
+20. **O chat.** Na mesma prova, "o chat funciona" nos dois sentidos (Ana no celular, Bia no computador).
+21. **Tela bloqueada.** Peça uma notificação (chegada de mensagem): na tela bloqueada **não** aparece nada do app; destravado, só
+    "Nova mensagem", sem nome nem trecho.
+22. **Troca de apps e captura.** Na troca de apps, a miniatura do app fica em branco; a captura de tela é recusada ou sai preta.
+23. **Teclado.** Com o Gboard: escreva uma palavra inventada num campo do app e depois no bloco de notas: o teclado **não** a
+    sugere (ele recebeu o pedido de não aprender; teclados de terceiros podem ignorar: anote qual teclado usou).
+24. **Disfarce.** Ajustes do app › nome "Calculadora": o ícone e o nome mudam na tela inicial (o app fecha; abra pelo nome novo);
+    reinicie o celular: continua "Calculadora".
+25. **Apagar depois de X senhas.** Ligue com 3 (aparece o aviso), erre 2, desligue o celular pelo botão, ligue, erre a 3ª: o app
+    volta como recém-instalado (sem conta, sem conversas).
+26. **Sem internet (Bluetooth).** Dois celulares com o modo sem internet ligado (o app pede a licença de "aparelhos por perto",
+    **sem** pedir localização), lado a lado, em modo avião com o Bluetooth ligado: uma mensagem curta de um chega ao outro. Anote
+    quanto demorou.
+27. **Depuração fechada no pacote de lançamento.** Com o app **de lançamento** aberto e o celular em modo desenvolvedor:
+    `adb shell cat /proc/net/unix | grep webview_devtools` não acha nada. (No emulador a porta aparece porque a imagem é de
+    depuração, `ro.debuggable=1`: lá o sistema abre a depuração de todo WebView; num celular comum quem decide é o app.)
+
 ## O que dá para imitar no computador (e o que ainda não foi medido)
 
 Imitar não é o mesmo que usar, mas pega boa parte dos defeitos de largura, de barra e de lentidão antes do aparelho.

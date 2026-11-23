@@ -19,9 +19,10 @@
 import { createHash, randomUUID } from "node:crypto";
 import { assinarPedido } from "./assinatura";
 import * as documentos from "./documentos";
-import { atividadeCreate, atividadeDelete, atividadeFollow, atividadeResposta, atividadeUndoFollow, atividadeUpdate, atividadeUpdateDoAtor, CONTEXTO, documentoDoAtor, imagemDoBanco, PUBLICO, type PostFederado } from "./documentos";
+import { atividadeCreate, atividadeDelete, atividadeDeleteDoAtor, atividadeFollow, atividadeResposta, atividadeUndoFollow, atividadeUpdate, atividadeUpdateDoAtor, CONTEXTO, documentoDoAtor, imagemDoBanco, PUBLICO, type PostFederado } from "./documentos";
 import type { EnderecosDaFederacao } from "./enderecos";
 import { pedirAoFediverso } from "./http";
+import { atividadeMove } from "../conta/mudanca";
 import { abrirChave, atorComChaves, banco, chaveDaInstancia, comunidadeComChaves, fed, modoTotal } from "./servidor";
 
 type TipoDaFila =
@@ -40,7 +41,8 @@ type TipoDaFila =
   | "block"
   | "undo-block"
   | "group-announce"
-  | "group-accept";
+  | "group-accept"
+  | "move";
 
 interface ItemDaFila {
   id: number;
@@ -153,6 +155,8 @@ async function montar(item: ItemDaFila): Promise<Atividade | null> {
   const handle = item.handle ?? "";
   switch (item.tipo) {
     case "delete":
+      // "ator:<handle>": quem desligou a federação retira o próprio ator (20261123-r1-fediverso.sql), só o dela.
+      if (item.objeto.startsWith("ator:")) return handle && item.objeto === `ator:${handle}` ? (atividadeDeleteDoAtor(fed, handle) as unknown as Atividade) : null;
       return handle ? atividadeDelete(fed, handle, item.objeto) : null;
     case "accept":
       return handle ? atividadeResposta(fed, "Accept", handle, item.objeto, item.extra.pedido ?? "", randomUUID()) : null;
@@ -162,6 +166,9 @@ async function montar(item: ItemDaFila): Promise<Atividade | null> {
       return handle && item.extra.pedido ? atividadeFollow(fed, handle, item.objeto, item.extra.pedido) : null;
     case "undo-follow":
       return handle && item.extra.pedido ? atividadeUndoFollow(fed, handle, item.objeto, item.extra.pedido, randomUUID()) : null;
+    case "move":
+      // A pessoa se mudou para a conta nova (Prompt 4, item 74; o servidor já conferiu o alsoKnownAs de lá antes de pôr na fila).
+      return handle && /^https:\/\/[^\s]{1,490}$/.test(item.objeto) ? (atividadeMove(CONTEXTO, fed.atividade("move", randomUUID()), fed.ator(handle), item.objeto) as Atividade) : null;
     default:
       return modoTotal() ? montarTotal(item, handle, c) : null;
   }

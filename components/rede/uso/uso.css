@@ -1,0 +1,134 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * As peças da frente "uso e funções" do R1: o "por que não aparece o número?", falar com a moderação, a situação do cadastro, o
+ * aviso do chat, o kit de bolso do ato e a busca nos posts cifrados. Só tokens: os da Alumia (styles/alumia-tokens.css) e, fora
+ * da casca nova, os do site (app/globals.css). Claro, escuro, alto contraste e e-ink saem dos mesmos seletores; nada de cor
+ * literal. Todo alvo de toque com no mínimo 44 px; nada se move para quem pediu menos movimento.
+ */
+
+/* ── "Por que não aparece o número?" ─────────────────────────────────────────────────────────────────────────────────────── */
+.al-porque { display: inline; position: relative; }
+.al-porque-botao {
+  display: inline-flex; align-items: center; justify-content: center; vertical-align: middle;
+  min-width: 44px; min-height: 44px; margin: -12px -8px -12px -4px; padding: 0;
+  border: 0; background: transparent; cursor: pointer; color: var(--al-texto-2, var(--ink-soft));
+}
+.al-porque-circulo {
+  display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 999px;
+  border: 1.5px solid currentColor; font: 800 0.75rem/1 var(--al-fonte, inherit);
+}
+.al-porque-botao:hover .al-porque-circulo { background: var(--al-superficie-2, var(--parchment-deep, transparent)); }
+.al-porque-botao:focus-visible { outline: none; }
+.al-porque-botao:focus-visible .al-porque-circulo { outline: 2px solid var(--al-foco, var(--ink)); outline-offset: 2px; }
+.al-porque-rotulo { margin-left: 0.375rem; font-size: 0.875rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.al-porque-botao:has(.al-porque-rotulo) { margin: 0; padding-right: 0.25rem; }
+.al-porque-balao {
+  display: block; margin: 0.5rem 0 0.25rem; max-width: 34rem; padding: 0.625rem 0.75rem;
+  border: 1px solid var(--al-superficie-2, var(--rule)); border-left: 3px solid var(--al-dourado, var(--ink));
+  border-radius: var(--al-raio, 10px); background: var(--al-superficie, var(--parchment, transparent));
+  color: var(--al-texto, var(--ink)); font-size: 0.875rem; font-weight: 400; line-height: 1.5; text-align: left;
+  white-space: normal; letter-spacing: normal; text-transform: none;
+}
+.al-porque-balao p + p { margin-top: 0.375rem; color: var(--al-texto-2, var(--ink-soft)); }
+.al-porque-fechar {
+  margin-top: 0.25rem; min-height: 44px; padding: 0 0.25rem; border: 0; background: transparent; cursor: pointer;
+  color: var(--al-texto, var(--ink)); font-weight: 700; text-decoration: underline; text-underline-offset: 3px;
+}
+.al-porque-fechar:focus-visible { outline: 2px solid var(--al-foco, var(--ink)); outline-offset: 2px; border-radius: 4px; }
+
+/* ── Blocos comuns ──────────────────────────────────────────────────────────────────────────────────────────────────────── */
+.al-uso-bloco {
+  margin-top: 0.75rem; padding: 0.875rem 1rem; border: 1px solid var(--al-superficie-2, var(--rule));
+  border-radius: var(--al-raio, 10px); background: var(--al-superficie, transparent); color: var(--al-texto, var(--ink));
+}
+.al-uso-titulo { font: 800 1.05rem/1.25 var(--al-fonte-archivo, var(--al-fonte, inherit)); }
+.al-uso-texto { margin-top: 0.375rem; font-size: 0.9375rem; line-height: 1.5; color: var(--al-texto-2, var(--ink-soft)); }
+.al-uso-miudo { margin-top: 0.375rem; font-size: 0.8125rem; line-height: 1.45; color: var(--al-texto-3, var(--ink-soft)); }
+.al-uso-lista { margin-top: 0.5rem; padding-left: 1.1rem; list-style: disc; font-size: 0.9375rem; line-height: 1.5; color: var(--al-texto-2, var(--ink-soft)); }
+.al-uso-lista li + li { margin-top: 0.25rem; }
+.al-uso-rotulo { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--al-dourado, var(--ink-soft)); }
+.al-uso-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; align-items: center; }
+.al-uso-nota { margin-top: 0.5rem; font-size: 0.875rem; font-weight: 700; color: var(--al-texto, var(--ink)); }
+.al-uso-erro { margin-top: 0.5rem; font-size: 0.875rem; font-weight: 700; color: var(--al-vermelho-texto, var(--oxblood)); }
+.al-uso-campo { display: block; margin-top: 0.75rem; }
+.al-uso-campo > span { display: block; font-size: 0.875rem; font-weight: 700; }
+.al-uso-campo textarea,
+.al-uso-campo input[type="search"],
+.al-uso-campo input[type="text"] {
+  display: block; width: 100%; margin-top: 0.375rem; min-height: 44px; padding: 0.5rem 0.75rem;
+  border: 1px solid var(--al-texto-3, var(--rule)); border-radius: var(--al-raio, 10px);
+  background: var(--al-fundo, var(--parchment, transparent)); color: var(--al-texto, var(--ink)); font: inherit; font-size: 1rem;
+}
+.al-uso-campo textarea { min-height: 7rem; resize: vertical; }
+.al-uso-campo textarea:focus-visible,
+.al-uso-campo input:focus-visible { outline: 2px solid var(--al-foco, var(--ink)); outline-offset: 1px; }
+.al-uso-marcar { display: flex; align-items: flex-start; gap: 0.625rem; min-height: 44px; margin-top: 0.75rem; cursor: pointer; }
+.al-uso-marcar input { width: 22px; height: 22px; margin-top: 0.1rem; flex: none; accent-color: var(--al-vermelho, var(--oxblood)); }
+.al-uso-marcar span { font-size: 0.9375rem; line-height: 1.45; }
+.al-uso-marcar small { display: block; font-size: 0.8125rem; color: var(--al-texto-3, var(--ink-soft)); }
+.al-uso-link {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer;
+  color: var(--al-texto, var(--ink)); font-weight: 700; text-decoration: underline; text-underline-offset: 3px;
+}
+.al-uso-link:focus-visible { outline: 2px solid var(--al-foco, var(--ink)); outline-offset: 2px; border-radius: 4px; }
+
+/* ── Falar com a moderação ──────────────────────────────────────────────────────────────────────────────────────────────── */
+.al-falar-conversas { margin-top: 0.75rem; display: grid; gap: 0.5rem; }
+.al-falar-item {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; width: 100%; min-height: 52px;
+  padding: 0.5rem 0.75rem; border: 1px solid var(--al-superficie-2, var(--rule)); border-radius: var(--al-raio, 10px);
+  background: transparent; color: var(--al-texto, var(--ink)); text-align: left; cursor: pointer; font: inherit;
+}
+.al-falar-item:hover { background: var(--al-superficie-2, var(--parchment-deep, transparent)); }
+.al-falar-item:focus-visible { outline: 2px solid var(--al-foco, var(--ink)); outline-offset: 2px; }
+.al-falar-item b { font-weight: 800; }
+.al-falar-etiqueta {
+  display: inline-flex; align-items: center; min-height: 24px; padding: 0 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 800;
+  border: 1px solid var(--al-texto-3, var(--rule)); color: var(--al-texto-2, var(--ink-soft)); white-space: nowrap;
+}
+.al-falar-etiqueta[data-tom="nova"] { border-color: var(--al-vermelho, var(--oxblood)); color: var(--al-vermelho-texto, var(--oxblood)); }
+.al-falar-mensagens { margin-top: 0.75rem; display: grid; gap: 0.5rem; list-style: none; padding: 0; }
+.al-falar-mensagem {
+  max-width: min(36rem, 92%); padding: 0.5rem 0.75rem; border-radius: var(--al-raio, 10px);
+  border: 1px solid var(--al-superficie-2, var(--rule)); background: var(--al-fundo, transparent);
+}
+.al-falar-mensagem[data-minha] { justify-self: end; background: var(--al-superficie-2, var(--parchment-deep, transparent)); }
+.al-falar-mensagem-de { display: block; font-size: 0.75rem; font-weight: 800; color: var(--al-texto-3, var(--ink-soft)); }
+.al-falar-mensagem-texto { display: block; margin-top: 0.125rem; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.45; }
+
+/* ── A situação do cadastro ─────────────────────────────────────────────────────────────────────────────────────────────── */
+.al-situacao { margin: 0.25rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.25rem; }
+.al-situacao li {
+  display: flex; align-items: center; gap: 0.5rem; min-height: 32px; font-size: 0.9375rem; color: var(--al-texto-3, var(--ink-soft));
+}
+.al-situacao li::before {
+  content: ""; flex: none; width: 12px; height: 12px; border-radius: 999px; border: 2px solid currentColor;
+}
+.al-situacao li[data-e="feito"] { color: var(--al-texto-2, var(--ink-soft)); }
+.al-situacao li[data-e="feito"]::before { background: currentColor; }
+.al-situacao li[data-e="agora"] { color: var(--al-texto, var(--ink)); font-weight: 800; }
+.al-situacao li[data-e="agora"]::before { background: var(--al-dourado, var(--ink)); border-color: var(--al-dourado, var(--ink)); }
+.al-situacao-agora { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--al-dourado, var(--ink-soft)); }
+
+/* ── Códigos de recuperação na entrada ──────────────────────────────────────────────────────────────────────────────────── */
+.al-codigos-lista { margin-top: 0.75rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.375rem 1rem; padding: 0; list-style: none; }
+.al-codigos-lista code { font: 700 1rem/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.04em; }
+
+/* ── Kit de bolso ───────────────────────────────────────────────────────────────────────────────────────────────────────── */
+.al-kit-orgs { margin-top: 0.5rem; display: grid; gap: 0.25rem; }
+.al-kit-assessoria { margin-top: 0.5rem; padding: 0.5rem 0.75rem; border-left: 3px solid var(--al-dourado, var(--ink)); }
+.al-kit-assessoria b { display: block; }
+.al-kit-assessoria p { margin-top: 0.125rem; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.45; }
+
+/* ── Busca nos posts cifrados ───────────────────────────────────────────────────────────────────────────────────────────── */
+.al-busca-local-linha { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: flex-end; }
+.al-busca-local-linha .al-uso-campo { flex: 1 1 14rem; }
+.al-busca-local-resultados { margin-top: 0.75rem; display: grid; gap: 0.5rem; padding: 0; list-style: none; }
+.al-busca-local-resultados li { padding: 0.5rem 0.75rem; border: 1px solid var(--al-superficie-2, var(--rule)); border-radius: var(--al-raio, 10px); }
+.al-busca-local-resultados p { line-height: 1.45; overflow-wrap: anywhere; }
+.al-busca-local-resultados mark { background: var(--al-dourado-fundo, var(--parchment-deep)); color: inherit; padding: 0 0.1em; border-radius: 3px; }
+.al-busca-local-resultados a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; color: var(--al-texto, var(--ink)); text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 420px) {
+  .al-codigos-lista { grid-template-columns: minmax(0, 1fr); }
+}

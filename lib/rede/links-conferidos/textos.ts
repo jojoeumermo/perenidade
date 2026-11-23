@@ -3,6 +3,7 @@
 // Os textos da conferência de links (onda 11, 11F): i18n/rede/links/{pt,en,es,fr,ru,zh}.json. O português é o final; os outros
 // são rascunho. Um idioma por vez. Sem "@/": os testes leem direto.
 import type pt from "../../../i18n/rede/links/pt.json";
+import { carregarPronto } from "../textos-prontos";
 
 export type TextosDosLinks = typeof pt;
 
@@ -16,7 +17,7 @@ const CARREGAR: Record<string, () => Promise<{ default: unknown }>> = {
 };
 
 export async function carregarTextosDosLinks(lang: string): Promise<TextosDosLinks> {
-  return (await (CARREGAR[lang] ?? CARREGAR.pt)()).default as TextosDosLinks;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDosLinks;
 }
 
 /** O nome do lugar de um link, para a frase ("exemplo.com"); o próprio link se não der para ler. */

@@ -5,6 +5,7 @@
 // (import dinâmico: o bundler separa cada idioma em um pedaço próprio). Sem "@/" de propósito.
 import type ptAlumia from "../../i18n/rede/conversa/alumia/pt.json";
 import type pt from "../../i18n/rede/conversa/pt.json";
+import { carregarPronto } from "./textos-prontos";
 
 export type TextosDaConversa = typeof pt;
 
@@ -19,8 +20,7 @@ const CARREGAR: Record<string, () => Promise<{ default: unknown }>> = {
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export async function carregarTextosDaConversa(lang: string): Promise<TextosDaConversa> {
-  const carregar = CARREGAR[lang] ?? CARREGAR.pt;
-  return (await carregar()).default as TextosDaConversa;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDaConversa;
 }
 
 // ── Onda 5 (PLANO-ALUMIA F3): os textos das telas novas (comunidade, conversa, comunidades ativas, busca da coluna). ──────────

@@ -6,6 +6,7 @@ import { fill, localePath } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { hasBackend, rpc } from "@/lib/backend";
 import type { Caderno, Fonte } from "@/lib/caderno";
+import { perguntar } from "@/components/perguntar";
 
 type S = Dict["notebook"];
 export interface ReferenciaDoSite {
@@ -112,7 +113,7 @@ export function PublicarCadernoPronto({ caderno }: { caderno: Caderno }) {
     }
   }
   async function decidir(id: string, publicar: boolean) {
-    const nota = publicar ? "" : (window.prompt("Recado para quem montou (por que não publicar):") ?? "");
+    const nota = publicar ? "" : ((await perguntar("Recado para quem montou (por que não publicar):")) ?? "");
     try {
       await rpc("caderno_pronto_decidir", { p_id: id, p_publicar: publicar, p_nota: nota });
       setVolta((v) => v + 1);

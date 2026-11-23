@@ -55,6 +55,14 @@ export async function criarBanco({ semRede = false, antesDe = "" } = {}) {
     sql = semCr(sql).slice(0, corte);
   }
   await pg.exec(sql);
+  // ALUMIA_BANCO_EXTRAS: migrações (caminhos separados por vírgula, a partir da raiz) aplicadas DEPOIS do install.sql completo. Serve
+  // para rodar os testes de sempre sobre o banco como ele vai ficar depois da junção de uma onda, antes de a junção colar as
+  // migrações no install.sql. Só sem `semRede`/`antesDe` (esses montam o banco de antes).
+  if (!semRede && !antesDe && process.env.ALUMIA_BANCO_EXTRAS) {
+    for (const c of process.env.ALUMIA_BANCO_EXTRAS.split(",").map((x) => x.trim()).filter(Boolean)) {
+      await pg.exec(fs.readFileSync(path.isAbsolute(c) ? c : path.join(raiz, c), "utf8"));
+    }
+  }
 
   let fila = Promise.resolve();
   /** Uma chamada por vez: cada uma troca o papel e as credenciais da sessão. */
@@ -74,14 +82,16 @@ export async function criarBanco({ semRede = false, antesDe = "" } = {}) {
       const nomes = Object.keys(argumentos);
       for (const nome of nomes) if (!/^[a-z_][a-z0-9_]*$/.test(nome)) throw new Error("argumento inválido");
       const claims = JSON.stringify({ role: quem.papel, ...(quem.sub ? { sub: quem.sub } : {}), ...(quem.aal ? { aal: quem.aal } : {}) });
-      const headers = JSON.stringify({ "x-forwarded-for": quem.ip ?? "127.0.0.1" });
+      // quem.cabecalhos: cabeçalhos a mais do pedido (ex.: "x-alumia-envio", a chave do envio), como a API os passa ao banco.
+      const headers = JSON.stringify({ ...(quem.cabecalhos ?? {}), "x-forwarded-for": quem.ip ?? "127.0.0.1" });
       await pg.query("select set_config('request.jwt.claims', $1, false), set_config('request.headers', $2, false)", [claims, headers]);
       await pg.exec(`set role ${quem.papel === "service_role" ? "service_role" : quem.papel === "authenticated" ? "authenticated" : "anon"}`);
       try {
         const lista = nomes.map((nome, i) => `${nome} => $${i + 1}`).join(", ");
         const valores = nomes.map((nome) => {
           const valor = argumentos[nome];
-          return valor !== null && typeof valor === "object" && !Array.isArray(valor) ? JSON.stringify(valor) : valor;
+          // bytea vai como bytes (Uint8Array/Buffer); objeto vai como JSON.
+          return valor !== null && typeof valor === "object" && !Array.isArray(valor) && !(valor instanceof Uint8Array) ? JSON.stringify(valor) : valor;
         });
         const resposta = await pg.query(`select public.${funcao}(${lista}) as r`, valores);
         return resposta.rows[0]?.r ?? null;
@@ -101,5 +111,42 @@ export async function criarBanco({ semRede = false, antesDe = "" } = {}) {
   const criarUsuario = async (email, nome, convite) =>
     (await dono("insert into auth.users (email, raw_user_meta_data) values ($1, $2) returning id", [email, JSON.stringify({ full_name: nome, ...(convite ? { convite } : {}) })])).rows[0].id;
 
-  return { pg, rpc, dono, criarUsuario, exclusivo, instalarDeNovo: () => exclusivo(() => pg.exec(sql)) };
+  /**
+   * SÓ PARA OS TESTES de antes da R2 cujo assunto não é a filiação (fundos, mandatos, mapa, perfil da organização...): desde a R2
+   * (membros escondidos, 20261124-r2-membros.sql) o banco não sabe quem é de qual núcleo, e as funções que dependiam disso leem
+   * interno.rede_nucleo_sem_membros(), que em produção não devolve ninguém. Aqui ela passa a ler uma tabela de teste
+   * (interno.teste_nucleo_membros), no lugar onde uma credencial anônima de verdade entraria. Chame de novo depois de instalar de novo
+   * (o install.sql redefine a função). Nenhum teste da R2 usa isto para provar sigilo.
+   */
+  const filiacaoDeTeste = () =>
+    exclusivo(() =>
+      pg.exec(`
+        create table if not exists interno.teste_nucleo_membros (nucleo uuid not null, usuario uuid not null, papel text not null default 'membro',
+          entrou_em timestamptz not null default now(), primary key (nucleo, usuario));
+        create or replace function interno.rede_nucleo_sem_membros() returns table (nucleo uuid, usuario uuid, papel text, entrou_em timestamptz)
+        language sql stable security definer set search_path = interno, pg_temp as $$ select nucleo, usuario, papel, entrou_em from interno.teste_nucleo_membros $$;
+      `),
+    );
+  /**
+   * SÓ PARA OS TESTES que provam o código de uma migração de antes da R2 rodando-a de novo por cima do banco montado (a F4, o acervo
+   * da onda 10, o núcleo da Escola): a tabela de filiação aos núcleos e o núcleo nos posts e na Escola, que a R2 (membros escondidos)
+   * tirou, voltam só neste banco de teste, para o código daquela migração rodar como rodava. O que vale hoje está provado em
+   * scripts/testar-r2-membros-banco.mjs.
+   */
+  const legadoDosNucleos = () =>
+    exclusivo(() =>
+      pg.exec(`
+        create table if not exists interno.rede_nucleo_membros (
+          nucleo uuid not null references interno.rede_nucleos (id) on delete cascade, usuario uuid not null references interno.perfis (id) on delete cascade,
+          papel text not null default 'membro' check (papel in ('mediacao', 'membro')), entrou_em timestamptz not null default now(), primary key (nucleo, usuario));
+        create index if not exists rede_nucleo_membros_usuario on interno.rede_nucleo_membros (usuario);
+        alter table interno.rede_posts drop constraint if exists rede_posts_sem_nucleo;
+        alter table interno.escola_militancia drop constraint if exists escola_militancia_sem_nucleo;
+        alter table interno.escola_bancas drop constraint if exists escola_bancas_sem_nucleo;
+        -- E as funções da R2 que leem a filiação (interno.rede_nucleo_sem_membros(), vazia em produção) leem esta mesma tabela.
+        create or replace function interno.rede_nucleo_sem_membros() returns table (nucleo uuid, usuario uuid, papel text, entrou_em timestamptz)
+        language sql stable security definer set search_path = interno, pg_temp as $$ select nucleo, usuario, papel, entrou_em from interno.rede_nucleo_membros $$;
+      `),
+    );
+  return { pg, rpc, dono, criarUsuario, exclusivo, filiacaoDeTeste, legadoDosNucleos, instalarDeNovo: () => exclusivo(() => pg.exec(sql)) };
 }

@@ -1,0 +1,39 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# O núcleo nativo dos apps da Alumia no computador (onda R3, itens 1.2 e 2.4): o cofre pelo chaveiro do sistema e a conferência
+# das atualizações no livro público do Sigstore (Rekor). O protocolo do chat NÃO mora aqui: ele é o mesmo TypeScript +
+# WebAssembly do site e do Android (docs/BUILD-REPRODUZIVEL.md). Versões exatas, todas com pelo menos duas semanas.
+[package]
+name = "alumia-nucleo"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.99"
+license = "AGPL-3.0-or-later"
+publish = false
+
+[lib]
+name = "alumia_nucleo"
+path = "src/lib.rs"
+
+[dependencies]
+# O cliente oficial do Sigstore para Rust, só a conferência (sem assinar, sem OCI, sem TUF online). O 0.15.0 tem menos de duas
+# semanas (05/11/2026): fica o 0.14.0 (22/05/2026).
+sigstore = { version = "=0.14.0", default-features = false, features = ["verify"] }
+# Cifra do cofre: AES-256-GCM da RustCrypto (auditada pela NCC Group em 2020).
+aes-gcm = { version = "=0.10.3", default-features = false, features = ["aes", "alloc", "getrandom"] }
+sha2 = "=0.10.9"
+base64 = "=0.22.1"
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.154"
+zeroize = "=1.9.1"
+thiserror = "=2.0.21"
+# O chaveiro do sistema: Credential Manager (Windows), Keychain (macOS), Secret Service (Linux).
+keyring = { version = "=4.2.0", default-features = false, features = ["v1"] }
+
+[dev-dependencies]
+proptest = "=1.12.0"
+
+[profile.release]
+panic = "abort"
+lto = true
+codegen-units = 1

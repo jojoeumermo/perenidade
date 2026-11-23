@@ -135,6 +135,10 @@ const como = (sub) => ({ papel: "authenticated", sub, aal: "aal2", ip: `198.51.1
 const visitante = { papel: "anon", ip: "203.0.113.10" };
 const zerar = () => dono("delete from interno.limites");
 
+// Este teste prova o código da onda 10 como ela o escreveu (rodando a migração dela de novo por cima do banco montado). Desde a R2
+// (membros escondidos) o banco não guarda quem é de qual núcleo nem aceita post de núcleo, e o acervo do núcleo fechou no servidor
+// (o que vale hoje está em scripts/testar-r2-membros-banco.mjs); o que a onda 10 pressupõe volta só neste banco de teste.
+await espera("o legado dos núcleos que a onda 10 pressupõe (só neste banco de teste)", () => banco.legadoDosNucleos());
 await espera("a migração instala sobre o install.sql", () => exec(sql));
 await espera("de novo (idempotente)", () => exec(sql));
 await espera("e uma terceira vez sem estrago", () => exec(sql));

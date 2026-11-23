@@ -1,0 +1,46 @@
+(* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   Mensagens sem internet (onda R3, itens 2.2 e 2.5): quem repassa NÃO DISTINGUE O REMETENTE.
+   Equivalência observacional: o pacote para a caixa de B foi feito por A1 ou por A2. Quem mandou vai dentro do envelope (o mesmo
+   remetente selado das caixas). Fora do modelo: o pacote "nasce" num aparelho, e quem o recebe primeiro sabe que veio daquele
+   aparelho por perto; por isso cada aparelho faz um pacote de cobertura a cada encontro (no.ts) e repassa tudo em ordem sorteada
+   (sem-internet-cobertura.pv mostra que a cobertura e a mensagem são iguais para quem repassa). *)
+
+free c: channel.
+
+type skey.
+type pkey.
+type key.
+
+fun pk(skey): pkey.
+fun hpke(pkey, bitstring, bitstring, bitstring): bitstring.
+reduc forall k: skey, a: bitstring, m: bitstring, r: bitstring; abrir(hpke(pk(k), a, m, r), k, a) = m.
+fun senc(bitstring, key): bitstring.
+reduc forall m: bitstring, k: key; sdec(senc(m, k), k) = m.
+fun h(bitstring): bitstring.
+fun hc(bitstring, bitstring): bitstring.
+fun hmac(bitstring, bitstring): bitstring.
+fun hkdf(bitstring, bitstring): bitstring.
+
+const rotuloChave: bitstring.
+free aparelhoA1, aparelhoA2: bitstring.
+
+let Pacote(eu: bitstring, kab: key, pkb: pkey, idcaixa: bitstring) =
+  in(c, (v: bitstring, m: bitstring));
+  new nonce: bitstring;
+  new r: bitstring;
+  new kf: bitstring;
+  let idh = h(idcaixa) in
+  let cc = hc(kf, (idh, m)) in
+  let corpo = (cc, hpke(pkb, (idh, cc), (eu, senc((m, kf), kab)), r)) in
+  out(c, (v, nonce, hmac(hkdf(idcaixa, rotuloChave), (nonce, v, h(corpo))), corpo)).
+
+process
+  new skB: skey;
+  new kA1B: key;
+  new kA2B: key;
+  new caixaA1B: bitstring;
+  new caixaA2B: bitstring;
+  out(c, pk(skB));
+  (* Cada conversa tem a sua caixa de entrada: A1 escreve na caixa da conversa A1–B; A2, na da A2–B. *)
+  !Pacote(choice[aparelhoA1, aparelhoA2], choice[kA1B, kA2B], pk(skB), choice[caixaA1B, caixaA2B])

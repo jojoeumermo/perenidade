@@ -5,6 +5,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { KEYS, notifyStored, useStored } from "./storage";
 import { estadoDoPublico, perguntarAoPublico } from "./assistente/publico";
+import { CABECALHO_DO_ENVIO, semChaveDeEnvio } from "./backend-envio";
 
 // Contas, fila de contribuições, comunidade e rádio dependem de um serviço externo opcional.
 // Sem as duas variáveis abaixo o site funciona normalmente e essas partes ficam escondidas.
@@ -39,7 +40,15 @@ export function getClient(): Promise<SupabaseClient> {
   client ??= import("@supabase/supabase-js").then(({ createClient }) => {
     const supabase = createClient(url, key, { auth: { storageKey: KEYS.session, persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
     // Entrar e sair mudam o cabeçalho ("Entrar" vira "Painel") sem recarregar a página.
-    supabase.auth.onAuthStateChange(() => setTimeout(notifyStored, 0));
+    supabase.auth.onAuthStateChange((evento, sessao) => {
+      setTimeout(notifyStored, 0);
+      // P5 (A4): a sessão que aparece neste navegador é apresentada uma vez ao servidor, que reconhece o navegador pelo cookie
+      // HttpOnly (lib/sessao/cliente-aparelho.ts): navegador conhecido não gera o aviso de "entrada nova".
+      if ((evento === "SIGNED_IN" || evento === "INITIAL_SESSION") && sessao?.access_token) {
+        const token = sessao.access_token;
+        setTimeout(() => void import("./sessao/cliente-aparelho").then((m) => m.apresentarSessao(token)).catch(() => undefined), 0);
+      }
+    });
     return supabase;
   });
   return client;
@@ -88,11 +97,14 @@ const codeOf = (message: unknown, code?: unknown) => {
 };
 
 /** Chama uma função do serviço. Visitante sem conta usa um pedido simples, sem baixar o cliente completo. */
-export async function rpc<T>(fn: string, args: Record<string, unknown> = {}): Promise<T> {
+export async function rpc<T>(fn: string, argumentos: Record<string, unknown> = {}): Promise<T> {
   if (!hasBackend) throw new BackendError("sem_servico");
+  // A chave do envio (chave_envio no pedido) vai no cabeçalho, não nos argumentos (lib/backend-envio.ts).
+  const { argumentos: args, chave } = semChaveDeEnvio(argumentos);
   if (hasSession()) {
     const supabase = await getClient();
-    const { data, error } = await supabase.rpc(fn, args);
+    const pedido = supabase.rpc(fn, args);
+    const { data, error } = await (chave ? pedido.setHeader(CABECALHO_DO_ENVIO, chave) : pedido);
     if (error) throw new BackendError(codeOf(error.message, error.code));
     return data as T;
   }
@@ -100,7 +112,7 @@ export async function rpc<T>(fn: string, args: Record<string, unknown> = {}): Pr
   try {
     response = await fetch(`${url}/rest/v1/rpc/${fn}`, {
       method: "POST",
-      headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", ...(chave ? { [CABECALHO_DO_ENVIO]: chave } : {}) },
       body: JSON.stringify(args),
     });
   } catch {
@@ -116,7 +128,7 @@ export async function rpc<T>(fn: string, args: Record<string, unknown> = {}): Pr
 
 export interface Role {
   id: string;
-  papel: "coordenacao" | "vice" | "supervisao" | "curadoria" | "mediacao" | "educacao" | "educacao_secundaria" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "marketing" | "desenvolvimento" | "representante" | "porta_voz" | "saude";
+  papel: "coordenacao" | "vice" | "supervisao" | "curadoria" | "mediacao" | "educacao" | "educacao_secundaria" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "marketing" | "desenvolvimento" | "representante" | "porta_voz" | "saude" | "parceiro";
   disciplina: string | null;
 }
 
@@ -444,7 +456,10 @@ export async function verifyAssistant(): Promise<{ chave: boolean; ok: boolean; 
 export async function signOut() {
   try {
     const supabase = await getClient();
-    await supabase.auth.signOut();
+    // Só esta sessão (P5, A4): o padrão do serviço de contas ("global") derrubava a conta em TODOS os aparelhos e endereços. Sair
+    // do site (ou o painel parado) apagava a sessão da Alumia, que na volta pedia entrada e código de novo e gerava o aviso de
+    // "entrada nova". Sair de todos os aparelhos continua nos botões próprios (Segurança, pânico), que pedem "global".
+    await supabase.auth.signOut({ scope: "local" });
   } finally {
     try {
       localStorage.removeItem(KEYS.session);

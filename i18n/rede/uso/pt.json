@@ -1,0 +1,155 @@
+{
+  "porque": {
+    "rotulo": "Por que não aparece o número?",
+    "fechar": "Entendi",
+    "piso": "Número de pessoas só aparece a partir de 3. Com 1 ou 2, daria para adivinhar quem foi, e numa rede de militantes isso pode virar perseguição. Por isso escrevemos “menos de 3”, também quando é zero.",
+    "marco": "O número anda de 15 em 15 minutos, e não na hora. Se ele mudasse no instante em que alguém age, quem olha antes e depois saberia quem acabou de agir.",
+    "ambos": "Número de pessoas só aparece a partir de 3, e anda de 15 em 15 minutos. Com 1 ou 2 daria para adivinhar quem foi; mudando na hora, quem olha antes e depois saberia quem acabou de agir. Por isso “menos de 3” vale também para o zero.",
+    "soma": "Às vezes um número some mesmo sendo maior que 3: quando o total menos as outras partes entregaria um número abaixo de 3, escondemos mais um, para a conta não revelar ninguém."
+  },
+  "falar": {
+    "titulo": "Falar com a moderação",
+    "chamada": "Uma conversa direta com quem modera esta comunidade, para tirar dúvida, pedir revisão de uma decisão ou contar algo que não é denúncia.",
+    "quemLe": "Quem lê",
+    "quemLeItens": [
+      "As pessoas que moderam esta comunidade e a equipe de cuidado da Alumia.",
+      "Não é cifrado de ponta a ponta: o texto fica no servidor da Alumia, e quem administra o banco consegue ler.",
+      "A resposta vem assinada como “Mediação”, nunca com o nome de quem moderou.",
+      "Conversa encerrada some sozinha em 90 dias."
+    ],
+    "naoUse": "Para algo que precisa de sigilo de verdade, use a conversa cifrada. Para denunciar um post ou uma pessoa, use “Denunciar” no próprio post.",
+    "codinome": "Mostrar meu codinome para a mediação",
+    "codinomeAjuda": "Desmarcado, a mediação vê só “Conversa nº”, sem saber quem escreveu.",
+    "rotuloTexto": "O que você quer dizer",
+    "contador": "{n} de 2000",
+    "enviar": "Enviar para a mediação",
+    "enviando": "Enviando…",
+    "enviado": "Enviado. A resposta aparece aqui, na aba Sobre da comunidade.",
+    "minhas": "Suas conversas aqui",
+    "nenhuma": "Você ainda não escreveu para a mediação desta comunidade.",
+    "conversaN": "Conversa nº {n}",
+    "aberta": "aberta",
+    "encerrada": "encerrada",
+    "nova": "resposta nova",
+    "abrir": "Abrir",
+    "voltar": "Voltar",
+    "voce": "Você",
+    "mediacao": "Mediação",
+    "pessoa": "Pessoa",
+    "responder": "Responder",
+    "encerrar": "Encerrar conversa",
+    "encerrarAviso": "Encerrada, ninguém escreve mais nela, e ela some em 90 dias.",
+    "encerradaNota": "Conversa encerrada. Ela some em 90 dias.",
+    "desligado": "Por enquanto, a mensagem para a mediação vai pelo formulário de denúncia, com protocolo, e chega à fila de quem modera sem expor o seu nome.",
+    "entrar": "Entre na Alumia para falar com a moderação.",
+    "erros": {
+      "muitas_abertas": "Você já tem 3 conversas abertas com esta mediação. Encerre uma para abrir outra.",
+      "encerrada": "Esta conversa foi encerrada.",
+      "muitos_pedidos": "Muitas mensagens em pouco tempo. Espere um pouco e tente de novo.",
+      "desligado": "Este canal ainda não está ligado.",
+      "nao_encontrado": "Conversa não encontrada.",
+      "invalido": "Escreva de 1 a 2000 caracteres.",
+      "falha": "Não deu para enviar agora. Tente de novo."
+    }
+  },
+  "caixa": {
+    "titulo": "Mensagens para a mediação",
+    "explica": "Cada conversa aparece pelo número. O codinome só aparece quando a pessoa escolheu mostrar. Você responde como “Mediação”: o seu nome não sai.",
+    "vazia": "Nenhuma conversa por aqui.",
+    "abertas": "Abertas",
+    "anteriores": "Encerradas",
+    "semNome": "sem codinome",
+    "recarregar": "Atualizar"
+  },
+  "entrada": {
+    "situacaoTitulo": "Onde está o seu pedido",
+    "passos": {
+      "na_fila": "Na fila",
+      "em_analise": "Em análise",
+      "aprovada": "Aprovado",
+      "recusada": "Recusado"
+    },
+    "explica": {
+      "na_fila": "Seu pedido chegou e espera a vez. Ninguém da triagem abriu a lista com ele ainda.",
+      "em_analise": "A triagem já viu o seu pedido e está decidindo. Isso costuma levar poucos dias.",
+      "aprovada": "Aprovado. Falta só o segundo fator para entrar.",
+      "recusada": "O pedido foi recusado. O motivo, quando há, aparece abaixo."
+    },
+    "quem": "Quem analisa é a coordenação ou a mediação da Alumia. Não mostramos o nome de quem analisou, e a Alumia não guarda quem viu o seu pedido nem quando: só se ele já foi visto.",
+    "atual": "agora"
+  },
+  "fator": {
+    "perdiTitulo": "Perdeu o celular do aplicativo?",
+    "perdiTexto": "Use um dos dez códigos de recuperação que você guardou quando cadastrou o aplicativo. O aplicativo antigo sai da conta, os outros aparelhos são desconectados e você cadastra o novo na hora.",
+    "perdiBotao": "Entrar com um código de recuperação",
+    "semCodigos": "Sem os códigos? Só a coordenação pode tirar o aplicativo da sua conta, depois de conferir que é você. Peça pela página de ajuda.",
+    "ajuda": "Abrir a ajuda",
+    "codigosTitulo": "Guarde os códigos de recuperação",
+    "codigosTexto": "Se você perder o celular do aplicativo, estes códigos são o único jeito de entrar sem pedir à coordenação. Eles aparecem uma vez só.",
+    "gerar": "Mostrar os meus códigos",
+    "gerando": "Gerando…",
+    "baixar": "Baixar em texto",
+    "copiar": "Copiar",
+    "copiados": "Códigos copiados.",
+    "guardei": "Já guardei, entrar na Alumia",
+    "depois": "Fazer isso depois",
+    "depoisAviso": "Sem os códigos, perder o celular do aplicativo tranca você fora da conta. Você gera os códigos depois em Segurança da conta.",
+    "falhou": "Não deu para gerar os códigos agora. Você gera depois em Segurança da conta.",
+    "exemplo": "Códigos de exemplo, sem valor (prévia)."
+  },
+  "chat": {
+    "titulo": "O chat mora só neste aparelho",
+    "itens": [
+      "As conversas cifradas ficam guardadas só neste aparelho. O servidor não tem cópia que dê para ler.",
+      "Se você perder o aparelho, trocar de aparelho, limpar os dados do navegador ou usar o “Sair rápido”, o histórico do chat some e não volta.",
+      "Ainda não há cópia de segurança do chat. Se uma conversa importa, combine com a outra pessoa onde guardar o que precisa ficar."
+    ]
+  },
+  "kit": {
+    "rotulo": "Sem internet",
+    "titulo": "Kit de bolso do ato",
+    "texto": "Os contatos da assessoria jurídica das organizações, o guia “Sem sinal?” e o básico do dia do ato, guardados neste aparelho para abrir sem internet.",
+    "privacidade": "O kit é montado aqui, com a mesma lista que o modo ato já lê. A Alumia não anota quem guardou o kit, e ele não vai para o servidor. O “Sair rápido” apaga o kit deste aparelho.",
+    "escolher": "Assessorias que entram no kit",
+    "nenhumaOrg": "Nenhuma organização com selo publicou plantão jurídico ainda. O kit leva o guia e as orientações.",
+    "minhasNotas": "Suas anotações (só neste aparelho)",
+    "minhasNotasAjuda": "Um telefone de quem buscar você, um ponto de encontro. Até 400 caracteres. Não escreva o que não pode ser lido se o celular for tomado.",
+    "guardar": "Guardar no aparelho",
+    "atualizar": "Guardar de novo",
+    "apagar": "Apagar o kit",
+    "guardado": "Kit guardado neste aparelho em {quando}.",
+    "naoGuardado": "Ainda não há kit guardado neste aparelho.",
+    "semEspaco": "O aparelho não deixou guardar (modo privado ou sem espaço).",
+    "apagado": "Kit apagado deste aparelho.",
+    "abrirGuia": "Abrir o guia “Sem sinal?”",
+    "noGuia": "Seu kit de bolso",
+    "noGuiaVazio": "Guarde o kit pelo modo ato para ele aparecer aqui, mesmo sem internet.",
+    "assessorias": "Assessoria jurídica",
+    "basico": "O básico",
+    "basicoItens": [
+      "Combine antes um ponto de encontro e um horário para dar notícia.",
+      "Anote num papel, à caneta, o telefone de quem buscar você e da assessoria jurídica.",
+      "Leve documento, água e o carregador. Deixe em casa o que não pode ser perdido.",
+      "Se for abordado: fique calmo, diga que quer falar com um advogado e não assine nada sem ler."
+    ]
+  },
+  "busca": {
+    "titulo": "Buscar nos posts cifrados",
+    "rotulo": "Neste aparelho",
+    "explica": "Os posts deste grupo são cifrados: o servidor não consegue buscar neles. A busca acontece aqui, abrindo os posts neste aparelho.",
+    "limites": "Para não pesar no seu celular nem no seu plano de dados, a busca baixa no máximo os {posts} posts mais recentes dos últimos {dias} dias e guarda até {mb} MB de texto aberto, só na memória desta aba. Fechar a aba apaga. Nada do que você procura vai para o servidor.",
+    "campo": "Procurar por",
+    "buscar": "Baixar e buscar",
+    "buscando": "Abrindo {n} posts neste aparelho…",
+    "resultado": "{achados} de {abertos} posts abertos têm “{termo}”.",
+    "nada": "Nenhum dos {abertos} posts abertos tem “{termo}”.",
+    "paradoPosts": "Parou no limite de {posts} posts. Posts mais antigos ficaram de fora.",
+    "paradoDias": "Parou nos posts de {dias} dias atrás. Posts mais antigos ficaram de fora.",
+    "paradoMemoria": "Parou no limite de {mb} MB de texto. Posts mais antigos ficaram de fora.",
+    "fechados": "{n} posts não abriram neste aparelho (chave de antes de você entrar no grupo).",
+    "limpar": "Apagar da memória",
+    "abrir": "Abrir o post",
+    "curto": "Digite ao menos 2 letras.",
+    "falha": "Não deu para baixar os posts agora. Tente de novo."
+  }
+}

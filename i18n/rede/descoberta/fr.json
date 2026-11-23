@@ -92,6 +92,10 @@
   "explorar": {
     "titulo": "Explorer",
     "lead": "Découvrez des communautés, des lignes thématiques et les conversations du moment. Tout avec une règle écrite, sans algorithme caché.",
+    "noticiaDoDia": "L'info du jour",
+    "noticiaAjuda": "Le titre le plus récent de la revue de presse de l'institut. Le texte reste chez le média qui l'a écrit.",
+    "lerNaFonte": "Lire sur {veiculo}",
+    "vazios": "Encore vide ici",
     "mudarEscolhas": "Changer mes 3 luttes et 3 parcours",
     "comunidades": "Communautés",
     "categorias": { "lutas": "Luttes", "disciplinas": "Disciplines", "instituto": "Institut" },

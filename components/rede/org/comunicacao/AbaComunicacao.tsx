@@ -19,6 +19,7 @@ import { fraseDaComunicacao, useTextosDaComunicacao, type TextosDaComunicacao } 
 import { Botao } from "../../ui/Botao";
 import "../b1/b1.css";
 import "./comunicacao.css";
+import { confirmar } from "@/components/perguntar";
 
 type Fazer = <T>(acao: () => Promise<T>, depois?: (r: T) => void, feito?: string | ((r: T) => string)) => Promise<void>;
 
@@ -242,7 +243,7 @@ function Modelos({ c, t, handle, ocupado, fazer }: Parte & { handle: string }) {
             <li key={m.id} className="o12-modelo">
               <span><strong>{m.nome}</strong> <small>{t.publicos[m.publico]}</small></span>
               <p className="o12-item-texto">{m.texto}</p>
-              <Botao variante="fantasma" tamanho="p" className="b1-perigo" disabled={ocupado} onClick={() => window.confirm(preencher(t.modelos.apagarConfirma, { nome: m.nome })) && void fazer(() => cli.apagarModelo(handle, m.id))}>{t.modelos.apagar}</Botao>
+              <Botao variante="fantasma" tamanho="p" className="b1-perigo" disabled={ocupado} onClick={async () => (await confirmar(preencher(t.modelos.apagarConfirma, { nome: m.nome }))) && void fazer(() => cli.apagarModelo(handle, m.id))}>{t.modelos.apagar}</Botao>
             </li>
           ))}
         </ul>
@@ -287,9 +288,9 @@ function ChamarNucleo({ c, t, lang, ocupado, fazer }: Parte & { lang: string }) 
           </ul>
           <form
             className="b1-form"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              if (!escolhido || problemaDoTexto(texto) || !window.confirm(preencher(t.nucleo.confirma, { nome: escolhido.nome }))) return;
+              if (!escolhido || problemaDoTexto(texto) || !(await confirmar(preencher(t.nucleo.confirma, { nome: escolhido.nome })))) return;
               void fazer(() => cli.chamarNucleo(escolhido.id, texto.trim()), () => setTexto(""),
                 (r) => (r.retido ? t.nucleo.retido : r.avisadas === null ? t.nucleo.feitoPoucas : preencher(t.nucleo.feito, { n: r.avisadas })));
             }}
@@ -418,7 +419,7 @@ function Dominio({ c, t, lang, handle, ocupado, fazer }: Parte & { lang: string;
             </Botao>
           ) : null}
           {d && !trocar ? <Botao variante="fantasma" tamanho="p" onClick={() => setTrocar(true)}>{t.dominio.trocar}</Botao> : null}
-          {d ? <Botao variante="fantasma" tamanho="p" className="b1-perigo" disabled={ocupado} onClick={() => window.confirm(t.dominio.tirarConfirma) && void fazer(() => cli.tirarDominio(handle))}>{t.dominio.tirar}</Botao> : null}
+          {d ? <Botao variante="fantasma" tamanho="p" className="b1-perigo" disabled={ocupado} onClick={async () => (await confirmar(t.dominio.tirarConfirma)) && void fazer(() => cli.tirarDominio(handle))}>{t.dominio.tirar}</Botao> : null}
         </div>
       ) : null}
       {c.selo && (!d || trocar) ? (

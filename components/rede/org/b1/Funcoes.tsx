@@ -12,7 +12,9 @@ import { dataCurta } from "@/lib/rede/org/contagem";
 import { preencher } from "@/lib/rede/preencher";
 import { fraseDoErro, useTextosDaOrgB1, type TextosDaOrgB1 } from "@/lib/rede/textos-org-b1";
 import { Botao } from "../../ui/Botao";
+import { UrnaSecreta } from "../../voto/UrnaSecreta";
 import "./b1.css";
+import { confirmar } from "@/components/perguntar";
 
 const isoDoCampo = (v: string) => {
   const d = new Date(v);
@@ -95,14 +97,14 @@ export function FuncoesDaOrganizacao({ handle, lang }: { handle: string; lang: s
                     <li key={o.mandato} data-eu={o.eu ? "" : undefined}>
                       <span className="b1-etiqueta">{o.codinome || `@${o.handle}`}</span>
                       <small>{preencher(tf.ate, { data: dataCurta(o.fim, lang) })} · {o.pendente ? tf.aguardando : o.origem === "eleicao" ? tf.eleita : tf.nomeada}</small>
-                      {f.gerencio && !o.eu ? <Botao variante="fantasma" tamanho="p" className="b1-perigo" disabled={ocupado} onClick={() => window.confirm(`${tf.encerrar}: ${o.codinome || `@${o.handle}`}?`) && void fazer(() => cli.encerrarMandato(o.mandato), setF)}>{tf.encerrar}</Botao> : null}
+                      {f.gerencio && !o.eu ? <Botao variante="fantasma" tamanho="p" className="b1-perigo" disabled={ocupado} onClick={async () => (await confirmar(`${tf.encerrar}: ${o.codinome || `@${o.handle}`}?`)) && void fazer(() => cli.encerrarMandato(o.mandato), setF)}>{tf.encerrar}</Botao> : null}
                     </li>
                   ))}
                   {Array.from({ length: Math.max(0, fn.vagas - fn.ocupantes.length) }, (_, i) => <li key={`v${i}`} className="b1-vaga">{tf.vaga_livre}</li>)}
                 </ul>
               ) : null}
               {f.gerencio ? (
-                <Botao variante="fantasma" tamanho="p" className="b1-perigo" disabled={ocupado} onClick={() => window.confirm(preencher(tf.apagarConfirma, { nome: fn.nome })) && void fazer(() => cli.apagarFuncao(handle, fn.id), setF)}>{tf.apagar}</Botao>
+                <Botao variante="fantasma" tamanho="p" className="b1-perigo" disabled={ocupado} onClick={async () => (await confirmar(preencher(tf.apagarConfirma, { nome: fn.nome }))) && void fazer(() => cli.apagarFuncao(handle, fn.id), setF)}>{tf.apagar}</Botao>
               ) : null}
             </li>
           ))}
@@ -123,7 +125,7 @@ export function FuncoesDaOrganizacao({ handle, lang }: { handle: string; lang: s
                     <Botao variante="contorno" tamanho="p" disabled={ocupado} onClick={() => void fazer(() => cli.encerrarMandato(m.mandato), setF)}>{tf.recusar}</Botao>
                   </>
                 ) : (
-                <Botao variante="contorno" tamanho="p" disabled={ocupado} onClick={() => window.confirm(preencher(tf.sairConfirma, { nome: m.nome })) && void fazer(() => cli.encerrarMandato(m.mandato), setF)}>{tf.sair}</Botao>
+                <Botao variante="contorno" tamanho="p" disabled={ocupado} onClick={async () => (await confirmar(preencher(tf.sairConfirma, { nome: m.nome }))) && void fazer(() => cli.encerrarMandato(m.mandato), setF)}>{tf.sair}</Botao>
                 )}
               </li>
             ))}
@@ -286,6 +288,8 @@ function Eleicoes({ eleicoes, t, lang, aoMudar, ler }: { eleicoes: EleicaoDaOrg[
                 </form>
               ) : null
             ) : null}
+            {/* O voto da eleição é secreto em limiar (R2): a chave das guardiãs da gestão, e a urna que elas abrem depois do prazo. */}
+            {e.situacao === "votacao" && c ? <UrnaSecreta tipo="consulta" alvo={c.id} lang={lang} fechada={c.situacao === "fechada"} aoMudar={() => void ler()} /> : null}
             {e.situacao === "apurada" || e.situacao === "sem_quorum" ? (
               <p className="b1-resultado">
                 {e.eleita ? preencher(te.eleita, { quem: e.eleita.codinome || `@${e.eleita.handle}` }) : te.ninguem}

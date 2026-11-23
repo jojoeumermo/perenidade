@@ -256,6 +256,13 @@ await espera("Note: imagem com texto alternativo, blurhash e tamanho, num endere
   n.attachment[0].blurhash === "LEHV6nWB2yk8pyo0adR*.7kCMdnj" && n.attachment[0].width === 800 && n.attachment[0].height === 600 && !JSON.stringify(n).includes(PERFIL) && !JSON.stringify(n).includes(ARQUIVO));
 await espera("Note: inReplyTo para post de fora; context = a raiz que o banco manda; replies só quando o banco tiver a ação", async () => json(await rotaPost.GET(pedir(`/api/fediverso/p/${UUID}`), ctx({ id: UUID }))), ({ corpo: n }) =>
   n.inReplyTo === "https://mastodon.social/users/bia/statuses/123" && ("replies" in n) === doc.COLECOES_DO_BANCO.respostas && n.context === `${BASE}/api/fediverso/p/${UUID}`);
+// Mastodon (ProcessStatusUpdateService) só troca o texto de um Update se a Note traz "updated" mais novo; sem ele, ignora o Update
+// (visto contra o Mastodon 4.5 de teste). A edição nos primeiros 15 minutos não marca "editado" na Alumia (editado_em fica nulo), e
+// mesmo assim o texto novo tem de chegar lá fora: a pessoa pode ter tirado um dado pessoal do post.
+await espera("Update de post editado sem marca de edição: a Note leva 'updated' (a hora do Update), senão o Mastodon ignora", async () => {
+  const quando = new Date(Date.parse(agora) + 60_000);
+  return [doc.atividadeUpdate(fed, { ...postBase, editado_em: null }, quando, { total: true, grupos: false }), doc.atividadeUpdate(fed, { ...postBase, editado_em: agora }, quando, { total: false, grupos: false })];
+}, ([a, b]) => a.object.updated === new Date(Date.parse(agora) + 60_000).toISOString() && a.object.updated > a.object.published && b.object.updated === new Date(agora).toISOString());
 await espera("Note: sem raiz conhecida numa resposta, sem context", async () => doc.documentoDoPost(fed, { ...postBase, raiz: null }, true, { total: true, grupos: false }), (n) => !("context" in n));
 await espera("Note de comunidade (campo 'comunidade' da F3): com fediverso-grupos, audience e o Group em cc; sem, nada", async () => [doc.documentoDoPost(fed, { ...postBase, comunidade: "luta", titulo: "Ato" }, true, { total: true, grupos: true }), doc.documentoDoPost(fed, { ...postBase, comunidade: "luta" }, true, { total: true, grupos: false })], ([g, s]) =>
   g.audience === `${BASE}/api/fediverso/c/luta` && g.cc.includes(`${BASE}/api/fediverso/c/luta`) && g.name === "Ato" && !("audience" in s) && !s.cc.includes(`${BASE}/api/fediverso/c/luta`));

@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import type pt from "@/i18n/rede/publicar/vida/pt.json";
+import { prontoDe } from "../../../../lib/rede/textos-prontos";
 
 /** Os textos do público e da vida do post (onda 9, 9D): i18n/rede/publicar/vida/{pt,en,es,fr,ru,zh}.json. */
 export type TextosDaVida = typeof pt;
@@ -24,8 +25,8 @@ export function carregarTextosDaVida(lang: string): Promise<TextosDaVida> {
   const l = lang in CARREGADORES ? lang : "pt";
   let p = guardados.get(l);
   if (!p) {
-    p = CARREGADORES[l]().then((m) => {
-      const t = m.default as TextosDaVida;
+    p = prontoDe(CARREGADORES[l], CARREGADORES.pt).then((d) => {
+      const t = d as TextosDaVida;
       prontos.set(l, t);
       return t;
     });

@@ -6,8 +6,8 @@
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { ligado, lerRecursos, RECURSOS, type Recurso } from "../../recursos";
 import { gerarParDeChaves } from "./assinatura";
-import { cifrar, decifrar } from "./cifra";
-import { enderecosDaFederacao, type EnderecosDaFederacao } from "./enderecos";
+import { cifrar, decifrarNaTroca } from "./cifra";
+import { enderecosDaFederacao, hostCanonico, type EnderecosDaFederacao } from "./enderecos";
 import { lerJson, pedirAoFediverso } from "./http";
 import { textoCurto } from "./texto";
 import { assinarPedido } from "./assinatura";
@@ -16,6 +16,8 @@ import { ALUMIA_URL } from "../alumia";
 const urlDoBanco = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\/$/, "");
 const chavePublicaDoBanco = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
 const SEGREDO = process.env.ALUMIA_FEDIVERSO_SEGREDO ?? "";
+/** Onda R3 (2.6): na troca do segredo, o anterior abre as chaves que ainda estão cifradas com ele (lib/rede/fediverso/cifra.ts). */
+const SEGREDO_ANTERIOR = process.env.ALUMIA_FEDIVERSO_SEGREDO_ANTERIOR ?? "";
 
 /**
  * A federação está ligada? Precisa das quatro coisas: a Alumia v2 (recurso rede-v2), o endereço próprio em https
@@ -83,15 +85,15 @@ export interface AtorDoBanco {
 export async function atorComChaves(handle: string): Promise<(AtorDoBanco & { privada: string | null }) | null> {
   const a = await banco<AtorDoBanco>("ator", { handle });
   if (a.estado !== "ligado" && a.estado !== "saindo") return { ...a, privada: null };
-  if (a.chave_publica && a.chave_privada) return { ...a, privada: decifrar(a.chave_privada, SEGREDO) };
+  if (a.chave_publica && a.chave_privada) return { ...a, privada: decifrarNaTroca(a.chave_privada, SEGREDO, SEGREDO_ANTERIOR) };
   if (a.estado !== "ligado" || !a.perfil) return { ...a, privada: null };
   const par = gerarParDeChaves();
   const guardado = await banco<{ chave_publica: string; chave_privada: string }>("chaves", { perfil: a.perfil, publica: par.publica, privada: cifrar(par.privada, SEGREDO) });
-  return { ...a, chave_publica: guardado.chave_publica, chave_privada: guardado.chave_privada, privada: decifrar(guardado.chave_privada, SEGREDO) };
+  return { ...a, chave_publica: guardado.chave_publica, chave_privada: guardado.chave_privada, privada: decifrarNaTroca(guardado.chave_privada, SEGREDO, SEGREDO_ANTERIOR) };
 }
 
 /** Decifra a chave privada que veio do banco (na fila de entrega). */
-export const abrirChave = (cifrada: string | null | undefined) => decifrar(cifrada, SEGREDO);
+export const abrirChave = (cifrada: string | null | undefined) => decifrarNaTroca(cifrada, SEGREDO, SEGREDO_ANTERIOR);
 
 /**
  * A chave privada de uma comunidade (Group, com "fediverso-grupos"), gerada aqui na primeira vez, como a das pessoas: RSA não se
@@ -101,11 +103,11 @@ export const abrirChave = (cifrada: string | null | undefined) => decifrar(cifra
 export async function comunidadeComChaves(slug: string): Promise<string | null> {
   const c = await banco<{ estado?: string; chave_publica?: string | null; chave_privada?: string | null } | null>("comunidade", { slug });
   if (!c || c.estado !== "ligado") return null;
-  if (c.chave_publica && c.chave_privada) return decifrar(c.chave_privada, SEGREDO);
+  if (c.chave_publica && c.chave_privada) return decifrarNaTroca(c.chave_privada, SEGREDO, SEGREDO_ANTERIOR);
   if (SEGREDO.length < 32) return null;
   const par = gerarParDeChaves();
   const g = await banco<{ chave_publica?: string | null; chave_privada?: string | null }>("comunidade_chaves", { slug, publica: par.publica, privada: cifrar(par.privada, SEGREDO) });
-  return g?.chave_privada ? decifrar(g.chave_privada, SEGREDO) : null;
+  return g?.chave_privada ? decifrarNaTroca(g.chave_privada, SEGREDO, SEGREDO_ANTERIOR) : null;
 }
 
 let instancia: { publica: string; privada: string } | null = null;
@@ -118,7 +120,7 @@ export async function chaveDaInstancia(): Promise<{ publica: string; privada: st
     const par = gerarParDeChaves();
     r = await banco<{ publica?: string; privada?: string }>("instancia", { publica: par.publica, privada: cifrar(par.privada, SEGREDO) });
   }
-  const privada = decifrar(r.privada, SEGREDO);
+  const privada = decifrarNaTroca(r.privada, SEGREDO, SEGREDO_ANTERIOR);
   if (!r.publica || !privada) throw new ErroDoBanco("chave_da_instancia");
   instancia = { publica: r.publica, privada };
   return instancia;
@@ -160,7 +162,12 @@ export async function buscarDocumentoComStatus(url: string): Promise<{ status: n
   const r = await pedirAoFediverso(url, { cabecalhos: { Accept: ACEITA_AP, ...assinatura }, maxBytes: 512 * 1024 });
   if (!r) return { status: 0, doc: null, final: null };
   if (r.status < 200 || r.status >= 300 || !/json/.test(r.tipo)) return { status: r.status, doc: null, final: r.url.href };
-  return { status: r.status, doc: lerJson(r.texto), final: r.url.href };
+  const doc = lerJson(r.texto);
+  // Como o Mastodon: o documento só vale se o id dele mora no servidor que de fato respondeu. Sem isso, um redirecionamento aberto
+  // em qualquer instância deixaria outro servidor responder por um id dela (um ator com chave falsa no domínio dela).
+  const id = doc && typeof doc.id === "string" ? doc.id : null;
+  if (id && !mesmoDominio(id, r.url.href)) return { status: r.status, doc: null, final: r.url.href };
+  return { status: r.status, doc, final: r.url.href };
 }
 
 /** Busca um documento ActivityPub de fora (nulo se não veio). */
@@ -181,7 +188,7 @@ const mesmoDominio = (a: string, b: string) => {
 /** Lê um documento de ator remoto no formato que a Alumia guarda; nulo se não é um ator válido. */
 export function lerAtorRemoto(doc: Record<string, unknown>, esperado?: string): AtorRemoto | null {
   const id = urlHttps(doc.id);
-  if (!id || (esperado && id !== esperado)) return null;
+  if (!id || (esperado && id !== esperado) || !hostCanonico(id)) return null;
   if (!["Person", "Service", "Application", "Group", "Organization"].includes(String(doc.type))) return null;
   const chave = (doc.publicKey ?? null) as Record<string, unknown> | null;
   const chaveId = chave ? urlHttps(chave.id) : null;

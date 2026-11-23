@@ -12,9 +12,10 @@
     "frente": "Front Révolutionnaire Lúcia",
     "titulo": "École Révolutionnaire Lúcia Maria",
     "lema": "Instruisez-vous, agitez-vous, organisez-vous.",
-    "texto": "L'école de formation de celles et ceux qui militent dans le Front. Ici, c'est réservé aux militants : étude par paliers, noyau, tâche dans le monde et quelqu'un qui vous accompagne.",
+    "texto": "L'école de formation de celles et ceux qui militent dans le Front. Les cours de Théorie révolutionnaire et de Luttes du peuple sont ouverts : tout le monde peut les lire, sans compte et sans inscription. Le parcours guidé, le noyau, la tâche dans le monde et la personne qui vous accompagne sont pour celles et ceux qui étudient par l'École.",
     "quero": "Je veux militer",
     "manifesto": "Lire le manifeste",
+    "aulasAbertas": "Lire les cours ouverts",
     "resto": "Le reste du site reste ouvert à tout le monde :",
     "aulas": "leçons",
     "acervo": "fonds",
@@ -158,7 +159,13 @@
       "titulo": "Cours en direct aujourd'hui",
       "as": "à {hora}",
       "agora": "en direct",
-      "entrar": "Entrer dans la salle"
+      "entrar": "Entrer dans la salle",
+      "lugar": "Cours en direct",
+      "texto": "Les éducateurs de Théorie révolutionnaire et de Luttes du peuple donnent des cours en direct ici : la vidéo par YouTube sans cookies, le chat de la classe et la présence.",
+      "nenhuma": "Pas de cours en direct aujourd’hui.",
+      "proximas": "Dans les prochains jours",
+      "gravadas": "Enregistrés",
+      "assistir": "Regarder"
     },
     "carregando": "Chargement…",
     "falha": "Chargement impossible pour le moment."

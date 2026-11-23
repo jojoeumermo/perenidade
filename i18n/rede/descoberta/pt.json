@@ -91,6 +91,10 @@
   "explorar": {
     "titulo": "Explorar",
     "lead": "Descubra comunidades, linhas temáticas e conversas do momento. Tudo com regra escrita, sem algoritmo escondido.",
+    "noticiaDoDia": "Notícia do dia",
+    "noticiaAjuda": "A manchete mais recente do giro de notícias do instituto. O texto continua no veículo que escreveu.",
+    "lerNaFonte": "Ler em {veiculo}",
+    "vazios": "Ainda vazio por aqui",
     "mudarEscolhas": "Mudar minhas 3 lutas e 3 trilhas",
     "comunidades": "Comunidades",
     "categorias": { "lutas": "Lutas", "disciplinas": "Disciplinas", "instituto": "Instituto" },

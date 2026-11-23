@@ -4,6 +4,7 @@
 // rascunho). O navegador baixa SÓ o idioma da pessoa, e só quando a faixa, o visor ou o "criar" aparecem. Sem "@/" de propósito
 // (roda no Node nos testes).
 import type pt from "../../i18n/rede/stories/pt.json";
+import { prontoDe } from "./textos-prontos";
 
 export type TextosDosStories = typeof pt;
 
@@ -25,7 +26,7 @@ export function carregarTextosDosStories(lang: string): Promise<TextosDosStories
   const l = lang in CARREGAR ? lang : "pt";
   let p = guardados.get(l);
   if (!p) {
-    p = CARREGAR[l]().then((m) => m.default as TextosDosStories);
+    p = prontoDe(CARREGAR[l], CARREGAR.pt).then((d) => d as TextosDosStories);
     guardados.set(l, p);
   }
   return p;

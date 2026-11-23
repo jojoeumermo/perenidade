@@ -93,6 +93,19 @@
 .ma-sinal > span:nth-child(4) { height: 100%; }
 .ma-estou-bem > .ma-acoes, .ma-sem-sinal > .ma-acoes { margin-top: auto; }
 
+/* ───── Perto, sem internet (R3, item 2.2): os pontos ligados de celular em celular ───── */
+.ma-sem-internet { border-top: 4px solid var(--al-com-2); }
+.ma-sem-internet[data-ligado] { box-shadow: inset 0 0 0 2px var(--al-com-2); }
+.ma-malha { display: inline-flex; align-items: center; gap: 0.55rem; height: 1.6rem; }
+.ma-malha > span { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--al-superficie-2); box-shadow: inset 0 0 0 1px var(--al-texto-3); position: relative; }
+.ma-malha > span:first-child { background: var(--al-com-2); box-shadow: none; }
+.ma-malha > span + span::before { content: ""; position: absolute; right: 100%; top: 50%; width: 0.55rem; border-top: 2px dotted var(--al-texto-3); }
+.ma-sem-internet[data-ligado] .ma-malha > span { background: var(--al-com-2); }
+.ma-aviso-malha { margin: 0; padding: 0.7rem 0.85rem; border-left: 4px solid var(--al-com-2); background: var(--al-superficie-2); line-height: 1.5; }
+.ma-entendi { display: flex; gap: 0.6rem; align-items: flex-start; line-height: 1.45; cursor: pointer; }
+.ma-entendi > input { width: 1.15rem; height: 1.15rem; margin: 0.15rem 0 0; flex: none; accent-color: var(--al-com-2); }
+.ma-sem-internet > .ma-acoes { margin-top: auto; }
+
 /* O pânico (o bloco é o da Segurança: components/rede/seguranca/Panico.tsx). */
 .ma-panico { display: grid; }
 .ma-panico > .sg-bloco { margin: 0; }

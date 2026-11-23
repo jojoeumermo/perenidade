@@ -94,6 +94,8 @@ export const REGISTRO: Record<string, EntradaDoRegistro> = {
   privacidade: { componente: dynamic(() => import("./lei/TelaDaPrivacidade"), { ssr: false }), menu: "perfil" },
   regras: { componente: dynamic(() => import("./lei/TelaDasRegras"), { ssr: false }), menu: "perfil" },
   ajuda: { componente: dynamic(() => import("./lei/TelaDaAjuda"), { ssr: false }), menu: "perfil" },
+  // P5 (A5): a página de denúncia da própria Alumia (antes, "Denunciar" levava à do site do instituto).
+  denunciar: { componente: dynamic(() => import("./lei/TelaDeDenunciar"), { ssr: false }), menu: "perfil" },
   "meus-dados": { componente: dynamic(() => import("./meusdados/TelaMeusDados"), { ssr: false }), menu: "perfil" },
   // Os convites de quem já está dentro (/alumia/convite, atrás de "alumia-convites"); o convite aberto por link (/alumia/convite/<código>)
   // continua fora da casca, porque abre sem conta.
@@ -122,4 +124,33 @@ export const REGISTRO: Record<string, EntradaDoRegistro> = {
   "ao-vivo": { componente: dynamic<PropsDaTelaDoPacote>(() => import("./aovivo/TelaAoVivo"), { ssr: false }), menu: "nenhum" },
   pontes: { componente: dynamic(() => import("./pontes/TelaDasPontes"), { ssr: false }), menu: "perfil" },
   trabalhadores: { componente: dynamic(() => import("./pontes/TelaDosTrabalhadores"), { ssr: false }), menu: "nenhum" },
+  // ───── Prompt 4, item 4: os avisos de local (/alumia/mapa/avisos, atrás de "alumia-p4-avisos-de-local"). ─────
+  "avisos-de-local": { componente: dynamic(() => import("./mapa/TelaDosAvisosDeLocal"), { ssr: false }), menu: "nenhum" },
+  // ───── Prompt 4: a segurança pessoal (/alumia/seguranca-pessoal, atrás de "alumia-p4-seguranca-pessoal"; item próprio no painel
+  // Segurança, pelo encaixe). ─────
+  "seguranca-pessoal": { componente: dynamic(() => import("./seguranca-pessoal/TelaDaSegurancaPessoal"), { ssr: false }), menu: "nenhum" },
+  // ───── Prompt 4: a criação coletiva (/alumia/criacao, atrás de "alumia-p4-criacao-coletiva"; item próprio no menu Mais, pelo
+  // encaixe). ─────
+  "criacao-coletiva": { componente: dynamic(() => import("./criacao/TelaDaCriacaoColetiva"), { ssr: false }), menu: "nenhum" },
+  // ───── Prompt 4: a cultura (/alumia/cultura, atrás de "alumia-p4-cultura"; item próprio no grupo Mais do menu, pelo encaixe). ─────
+  cultura: { componente: dynamic(() => import("./cultura/TelaDaCultura"), { ssr: false }), menu: "nenhum" },
+  // ───── Prompt 4: memória e luta (/alumia/memoria-da-luta e /alumia/desafio, atrás de "alumia-p4-memoria-e-luta"; itens próprios
+  // no menu, pelo encaixe). ─────
+  "memoria-da-luta": { componente: dynamic(() => import("./memoria/TelaDaMemoria"), { ssr: false }), menu: "nenhum" },
+  desafio: { componente: dynamic(() => import("./memoria/TelaDoDesafio"), { ssr: false }), menu: "nenhum" },
+  // ───── Prompt 4: organização e ação coletiva (/alumia/organizar, atrás de "alumia-p4-organizacao"; item próprio no menu, pelo
+  // encaixe). ─────
+  organizar: { componente: dynamic(() => import("./organizacao/TelaDaOrganizacao"), { ssr: false }), menu: "nenhum" },
+  // ───── Prompt 4: a ação coletiva (/alumia/acao-coletiva, atrás de "alumia-p4-coletiva"; item próprio no menu, pelo encaixe). ─────
+  "acao-coletiva": { componente: dynamic(() => import("./coletiva/TelaDaColetiva"), { ssr: false }), menu: "nenhum" },
+  // ───── Prompt 4: perto (/alumia/perto, atrás de "alumia-p4-perto"; item próprio no painel Segurança, pelo encaixe). ─────
+  perto: { componente: dynamic(() => import("./perto/TelaDoPerto"), { ssr: false }), menu: "nenhum" },
+  // ───── Prompt 4: descoberta e estudo (/alumia/descobrir e /alumia/estudar, atrás de "alumia-p4-descoberta-estudo"; itens próprios no
+  // menu, pelo encaixe). ─────
+  descobrir: { componente: dynamic(() => import("./descoberta-estudo/TelaDeDescobrir"), { ssr: false }), menu: "nenhum" },
+  estudar: { componente: dynamic(() => import("./descoberta-estudo/TelaDeEstudar"), { ssr: false }), menu: "nenhum" },
+  // ───── Prompt 4: conta e convivência (/alumia/conta, atrás de "alumia-p4-conta"; item próprio no menu da conta, pelo encaixe). ─────
+  conta: { componente: dynamic(() => import("./conta/TelaDaConta"), { ssr: false }), menu: "nenhum" },
+  // ───── Prompt 4: o leitor de fios (/alumia/fio/[id], atrás de "alumia-p4-pontes"; aberto pelo "Ler como texto" da conversa). ─────
+  "fio-texto": { componente: dynamic(() => import("./p4/pontes/TelaDoFio"), { ssr: false }), menu: "nenhum" },
 };

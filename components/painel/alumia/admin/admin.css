@@ -212,3 +212,11 @@
     text-align: left;
   }
 }
+
+/* Zerar o beta (P5, A21): a escolha das contas, um rádio por linha, com o texto ocupando o resto. */
+.aa-zerar-contas { display: grid; gap: 0.5rem; margin: 0; padding: 0; border: 0; min-width: 0; }
+.aa-zerar-contas legend { padding: 0; margin-bottom: 0.25rem; }
+.aa-zerar-opcao { display: flex; gap: 0.6rem; align-items: flex-start; min-height: 44px; font-size: 0.92rem; line-height: 1.45; cursor: pointer; }
+.aa-zerar-opcao input { flex: none; width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; accent-color: var(--al-vermelho, #c21f16); }
+.aa-zerar-opcao span { flex: 1 1 auto; min-width: 0; }
+

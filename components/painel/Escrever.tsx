@@ -100,6 +100,9 @@ export interface Questao {
   explicacao: string;
 }
 
+/** O idioma pelo nome: só a sigla ("en", "es") confundia, e uma tradução para o espanhol chegou à revisão marcada como inglês. */
+export const NOMES_DOS_IDIOMAS: Record<string, string> = { en: "Inglês (en)", es: "Espanhol (es)", zh: "Chinês (zh)", ru: "Russo (ru)", fr: "Francês (fr)" };
+
 const questaoVazia = (): Questao => ({ pergunta: "", opcoes: ["", "", ""], resposta: 0, explicacao: "" });
 /** Questões prontas para enviar: só as que têm pergunta e pelo menos duas alternativas preenchidas. */
 export function limparQuestoes(lista: Questao[]): Questao[] {
@@ -489,7 +492,7 @@ export function Escrever({ me }: { me: Me }) {
         <select value={valor} onChange={(e) => mudar(c.nome, e.target.value)} className={campoFino}>
           <option value="">Escolha…</option>
           {opcoes.map((opcao) => (
-            <option key={opcao} value={opcao}>{opcao}</option>
+            <option key={opcao} value={opcao}>{c.nome === "idioma" ? (NOMES_DOS_IDIOMAS[opcao] ?? opcao) : opcao}</option>
           ))}
         </select>
       );

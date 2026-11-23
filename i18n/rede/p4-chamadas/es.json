@@ -1,0 +1,60 @@
+{
+  "_rascunho": true,
+  "botoes": {
+    "voz": "Llamada de voz",
+    "video": "Videollamada"
+  },
+  "tocando": {
+    "voz": "{nome} está llamando",
+    "video": "{nome} está llamando con video",
+    "atender": "Contestar",
+    "atenderSoVoz": "Contestar solo con voz",
+    "atenderComCamera": "Contestar con cámara",
+    "recusar": "Rechazar"
+  },
+  "fases": {
+    "ligando": "Llamando a {nome}…",
+    "conectando": "Conectando con {nome}…",
+    "emChamada": "En llamada con {nome}"
+  },
+  "acoes": {
+    "mudo": "Apagar el micrófono",
+    "falar": "Encender el micrófono",
+    "cameraDesligar": "Apagar la cámara",
+    "cameraLigar": "Encender la cámara",
+    "desligar": "Colgar",
+    "desistir": "Cancelar",
+    "fechar": "Cerrar"
+  },
+  "voce": "Tú",
+  "semCamera": "{nome} está sin cámara.",
+  "fim": {
+    "cancelou": "{nome} dejó de llamar.",
+    "recusou": "{nome} rechazó la llamada.",
+    "desligou": "{nome} colgó.",
+    "atendida": "La llamada terminó.",
+    "nao_atendeu": "{nome} no contestó.",
+    "nao_conectou": "La conexión no se abrió. Inténtalo de nuevo.",
+    "saiu": "La llamada terminó.",
+    "eu": "Llamada finalizada.",
+    "erro": "No se pudo hacer la llamada."
+  },
+  "erros": {
+    "NotAllowedError": "El navegador no permitió usar el micrófono o la cámara. Habilítalos en los permisos del sitio.",
+    "NotFoundError": "No se encontró micrófono ni cámara en este dispositivo.",
+    "NotReadableError": "Otro programa está usando el micrófono o la cámara.",
+    "voz_desligada": "Las llamadas están apagadas en este servidor.",
+    "voz_sem_retransmissao": "El servidor de retransmisión no respondió. Sin él la llamada no se abre: es el que oculta tu dirección.",
+    "voz_sem_canal": "El canal de la llamada no se abrió. Inténtalo de nuevo.",
+    "sem_chat": "Abre el chat en este dispositivo antes de llamar.",
+    "chamada_nao_saiu": "El timbre no salió: ningún dispositivo de la otra persona está listo.",
+    "dm_aguardando": "La conversación todavía no fue aceptada.",
+    "dm_fechada": "Esta conversación está cerrada.",
+    "dm_identidade_mudou": "La identidad de la otra persona cambió. Revisa el código antes de llamar.",
+    "dm_exige_comparar": "La identidad de la otra persona cambió. Compara el código antes de llamar.",
+    "dm_fora_do_registro": "El registro público no confirma la identidad de la otra persona. No se puede llamar.",
+    "outro": "No se pudo hacer la llamada. Inténtalo de nuevo."
+  },
+  "privacidade": "Cifrada de extremo a extremo. El timbre va dentro de la conversación cifrada; la voz y el video pasan por la retransmisión, que no puede oír ni ver. No se guarda ningún registro de llamadas.",
+  "limite": "El timbre solo llega si Alumia está abierta en el dispositivo de la otra persona, y puede tardar hasta un minuto y medio."
+}

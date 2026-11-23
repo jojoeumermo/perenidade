@@ -348,49 +348,49 @@ body {
       repeating-linear-gradient(var(--folha) 0 35px, var(--linha-pauta) 35px 36px);
   }
   .cartao {
-    border: 2px solid var(--ink);
+    border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
     background-color: var(--folha);
-    box-shadow: 6px 6px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 6px 6px 0 var(--sombra));
   }
   .cartao-v {
-    border: 2px solid var(--ink);
+    border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
     background-color: var(--folha);
-    box-shadow: 6px 6px 0 var(--prelo);
+    box-shadow: var(--d-sombra, 6px 6px 0 var(--prelo));
   }
   /* Cartão preto dos cartazes: as cores são as mesmas nos dois temas. */
   .cartao-preto {
-    border: 2px solid #1f1a14;
+    border: var(--d-fio, 2px) solid #1f1a14;
     background-color: #1f1a14;
     color: #f4ecd8;
-    box-shadow: 6px 6px 0 var(--prelo);
+    box-shadow: var(--d-sombra, 6px 6px 0 var(--prelo));
   }
   .cartao-vermelho {
-    border: 2px solid #1f1a14;
+    border: var(--d-fio, 2px) solid #1f1a14;
     background-color: var(--prelo);
     color: #fff;
-    box-shadow: 6px 6px 0 #1f1a14;
+    box-shadow: var(--d-sombra, 6px 6px 0 #1f1a14);
   }
   .sombra {
-    box-shadow: 6px 6px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 6px 6px 0 var(--sombra));
   }
   .sombra-v {
-    box-shadow: 6px 6px 0 var(--prelo);
+    box-shadow: var(--d-sombra, 6px 6px 0 var(--prelo));
   }
   .sombra-p {
-    box-shadow: 4px 4px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 4px 4px 0 var(--sombra));
   }
   .sombra-pv {
-    box-shadow: 4px 4px 0 var(--prelo);
+    box-shadow: var(--d-sombra, 4px 4px 0 var(--prelo));
   }
   /* Cartão que é link: sobe um pouco ao passar o mouse e afunda ao clicar. */
   .sobe {
     transition: transform 0.14s ease, box-shadow 0.14s ease;
   }
   .sobe:hover {
-    transform: translate(-3px, -3px);
+    transform: var(--d-sobe, translate(-3px, -3px));
   }
   .sobe:active {
-    transform: translate(2px, 2px);
+    transform: var(--d-afunda, translate(2px, 2px));
   }
 
   .botao {
@@ -398,7 +398,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    border: 2px solid var(--ink);
+    border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
     padding: 0.7rem 1.15rem;
     font-family: var(--font-ui), system-ui, sans-serif;
     font-size: 0.95rem;
@@ -406,15 +406,15 @@ body {
     line-height: 1.2;
     text-decoration: none;
     cursor: pointer;
-    box-shadow: 4px 4px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 4px 4px 0 var(--sombra));
     transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.15s;
   }
   .botao:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 var(--sombra);
+    transform: var(--d-sobe, translate(-2px, -2px));
+    box-shadow: var(--d-sombra-alta, 6px 6px 0 var(--sombra));
   }
   .botao:active {
-    transform: translate(3px, 3px);
+    transform: var(--d-afunda, translate(3px, 3px));
     box-shadow: 0 0 0 var(--sombra);
   }
   .botao:disabled {
@@ -432,11 +432,11 @@ body {
   .botao-tinta {
     background-color: var(--ink);
     color: var(--parchment);
-    box-shadow: 4px 4px 0 var(--prelo);
+    box-shadow: var(--d-sombra, 4px 4px 0 var(--prelo));
   }
   .botao-tinta:hover {
     color: var(--parchment);
-    box-shadow: 6px 6px 0 var(--prelo);
+    box-shadow: var(--d-sombra-alta, 6px 6px 0 var(--prelo));
   }
   .botao-tinta:active {
     box-shadow: 0 0 0 var(--prelo);
@@ -451,27 +451,27 @@ body {
   .botao-menor {
     padding: 0.45rem 0.8rem;
     font-size: 0.85rem;
-    box-shadow: 3px 3px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 3px 3px 0 var(--sombra));
   }
   .botao-menor.botao-tinta {
-    box-shadow: 3px 3px 0 var(--prelo);
+    box-shadow: var(--d-sombra, 3px 3px 0 var(--prelo));
   }
 
   /* O Instagram do topo: tinta preta com a sombra vermelha, o @ em letra de máquina. */
   .botao-instagram {
     background-color: var(--ink);
     color: var(--parchment);
-    box-shadow: 4px 4px 0 var(--prelo);
+    box-shadow: var(--d-sombra, 4px 4px 0 var(--prelo));
   }
   .botao-instagram:hover {
     color: var(--parchment);
-    box-shadow: 6px 6px 0 var(--prelo);
+    box-shadow: var(--d-sombra-alta, 6px 6px 0 var(--prelo));
   }
   .botao-instagram:active {
     box-shadow: 0 0 0 var(--prelo);
   }
   .botao-instagram.botao-menor {
-    box-shadow: 3px 3px 0 var(--prelo);
+    box-shadow: var(--d-sombra, 3px 3px 0 var(--prelo));
   }
   /* O Instagram ao lado do "Apoie": só a câmera, num quadrado com as cores do próprio Instagram, para chamar o olho. */
   .botao-instagram-cor {
@@ -480,18 +480,18 @@ body {
     height: 2.95rem;
     color: #fff;
     background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
-    box-shadow: 4px 4px 0 var(--ink);
+    box-shadow: var(--d-sombra, 4px 4px 0 var(--ink));
   }
   .botao-instagram-cor:hover {
     color: #fff;
-    box-shadow: 6px 6px 0 var(--ink);
+    box-shadow: var(--d-sombra-alta, 6px 6px 0 var(--ink));
   }
   .botao-instagram-cor:active {
     box-shadow: 0 0 0 var(--ink);
   }
   .botao-instagram-cor.botao-menor {
     height: 2.4rem;
-    box-shadow: 3px 3px 0 var(--ink);
+    box-shadow: var(--d-sombra, 3px 3px 0 var(--ink));
   }
   .botao-instagram-compacto {
     display: inline-flex;
@@ -499,8 +499,8 @@ body {
     width: 2.4rem;
     align-items: center;
     justify-content: center;
-    border: 2px solid var(--ink);
-    box-shadow: 3px 3px 0 var(--prelo);
+    border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
+    box-shadow: var(--d-sombra, 3px 3px 0 var(--prelo));
   }
 
   /* Rótulo de arquivo: letra de máquina, espaçada, no vermelho do prelo. */
@@ -521,7 +521,7 @@ body {
   .tarja::after {
     content: "";
     flex: 1;
-    border-top: 2px solid var(--ink);
+    border-top: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   }
   .tarja-nome {
     background-color: var(--ink);
@@ -586,10 +586,10 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    border: 2px solid #1f1a14;
+    border: var(--d-fio, 2px) solid #1f1a14;
     color: #f4ecd8;
     text-decoration: none;
-    box-shadow: 6px 6px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 6px 6px 0 var(--sombra));
     transition: transform 0.15s ease;
   }
   .caderno::before {
@@ -603,11 +603,11 @@ body {
     background-size: 8px 22px;
   }
   .caderno:hover {
-    transform: translate(-3px, -3px) rotate(-0.6deg);
+    transform: var(--d-sobe, translate(-3px, -3px) rotate(-0.6deg));
     color: #f4ecd8;
   }
   .caderno-v {
-    box-shadow: 6px 6px 0 var(--prelo);
+    box-shadow: var(--d-sombra, 6px 6px 0 var(--prelo));
   }
   .etiqueta {
     border: 1.5px solid #1f1a14;
@@ -617,7 +617,7 @@ body {
   }
   /* Abas de pasta de arquivo (filtros das estantes, editorias). */
   .aba-pasta {
-    border: 2px solid var(--ink);
+    border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
     border-bottom: 0;
     background-color: var(--parchment-deep);
     color: var(--ink);
@@ -636,7 +636,7 @@ body {
   .chip {
     display: inline-flex;
     align-items: center;
-    border: 1.5px solid var(--ink);
+    border: var(--d-fio-fino, 1.5px) solid var(--d-cor-fio, var(--ink));
     background-color: var(--folha);
     color: var(--ink);
     padding: 0.35rem 0.75rem;
@@ -647,12 +647,12 @@ body {
   }
   .chip:hover {
     color: var(--ink);
-    transform: translate(-1px, -1px);
-    box-shadow: 3px 3px 0 var(--prelo);
+    transform: var(--d-sobe, translate(-1px, -1px));
+    box-shadow: var(--d-sombra-alta, 3px 3px 0 var(--prelo));
   }
   /* Fio grosso entre as faixas de uma página. */
   .faixa-fio {
-    border-top: 3px solid var(--ink);
+    border-top: var(--d-fio-grosso, 3px) solid var(--d-cor-fio, var(--ink));
   }
   /* Selo desenhado (no lugar de emoji): um quadrado com contorno e o desenho em traço. */
   .selo {
@@ -662,7 +662,7 @@ body {
     justify-content: center;
     width: 2.75rem;
     height: 2.75rem;
-    border: 2px solid var(--ink);
+    border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
     background-color: var(--parchment);
     color: var(--ink);
   }
@@ -758,7 +758,7 @@ body {
   position: relative;
   display: block;
   overflow: hidden;
-  border: 3px solid var(--ink);
+  border: var(--d-fio-grosso, 3px) solid var(--d-cor-fio, var(--ink));
 }
 .jornal-cartaz-nome {
   position: relative;
@@ -945,7 +945,7 @@ body {
 }
 .jornal-materia .prose-lesson h2 {
   font-weight: 800;
-  border-top: 2px solid var(--ink);
+  border-top: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   padding-top: 0.5rem;
 }
 :root[data-contrast] .jornal-faixa,
@@ -1024,7 +1024,7 @@ body {
 .prose-lesson .bloco {
   position: relative;
   margin: 2rem 0;
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   padding: 1.35rem 1.5rem;
   font-style: normal;
 }
@@ -1063,7 +1063,7 @@ body {
   display: block;
   width: 100%;
   resize: vertical;
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background: var(--folha);
   padding: 0.6rem 0.75rem;
   font-family: var(--font-ui), system-ui, sans-serif;
@@ -1074,7 +1074,7 @@ body {
 .prose-lesson .bloco-provocacao {
   margin-top: 0;
   background: var(--folha);
-  box-shadow: 6px 6px 0 var(--prelo);
+  box-shadow: var(--d-sombra, 6px 6px 0 var(--prelo));
 }
 .prose-lesson .bloco-pergunta {
   margin-top: 0.5rem;
@@ -1086,7 +1086,7 @@ body {
 .prose-lesson .bloco-preto {
   background: #1f1a14;
   color: #f4ecd8;
-  box-shadow: 6px 6px 0 var(--prelo);
+  box-shadow: var(--d-sombra, 6px 6px 0 var(--prelo));
 }
 .prose-lesson .bloco-preto .bloco-rotulo {
   color: #e0837a;
@@ -1116,7 +1116,7 @@ body {
 }
 .prose-lesson .bloco-historia {
   background: var(--parchment-deep);
-  box-shadow: 6px 6px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 6px 6px 0 var(--sombra));
 }
 .prose-lesson .bloco-tarja {
   display: inline-block;
@@ -1132,7 +1132,7 @@ body {
   background: var(--ok);
   border-color: var(--ok);
   color: #fff;
-  box-shadow: 6px 6px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 6px 6px 0 var(--sombra));
 }
 :root[data-theme="dark"] .prose-lesson .bloco-leve {
   background: #2f5d34;
@@ -1149,23 +1149,23 @@ body {
 }
 .prose-lesson .bloco-roda {
   background: var(--folha);
-  box-shadow: 4px 4px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 4px 4px 0 var(--sombra));
 }
 /* As 3 partes novas: Na sua realidade (antes da explicação), O outro lado (com treino) e Agir (a tarefa). */
 .prose-lesson .bloco-suarealidade {
   background: var(--folha);
   border-style: dashed;
-  box-shadow: 6px 6px 0 var(--prelo);
+  box-shadow: var(--d-sombra, 6px 6px 0 var(--prelo));
 }
 .prose-lesson .bloco-outrolado {
   background: var(--parchment-deep);
-  box-shadow: 6px 6px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 6px 6px 0 var(--sombra));
 }
 /* "Outro jeito": a segunda explicação, fechada até a pessoa abrir. Aberta na impressão para não sumir do papel. */
 .prose-lesson .bloco-outrojeito {
   background: var(--folha);
   border-style: dotted;
-  box-shadow: 4px 4px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 4px 4px 0 var(--sombra));
 }
 .prose-lesson .bloco-outrojeito summary {
   min-height: 2.75rem;
@@ -1180,7 +1180,7 @@ body {
 .prose-lesson .bloco-agir {
   background: var(--folha);
   border-width: 3px;
-  box-shadow: 6px 6px 0 var(--prelo);
+  box-shadow: var(--d-sombra, 6px 6px 0 var(--prelo));
 }
 .prose-lesson .bloco-formula {
   margin: 2rem 0;
@@ -1190,9 +1190,9 @@ body {
   gap: 0.6rem;
 }
 .prose-lesson .bloco-formula-caixa {
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background: var(--folha);
-  box-shadow: 4px 4px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 4px 4px 0 var(--sombra));
   padding: 0.6rem 2.5rem;
   font-size: 2.6rem;
   font-style: italic;
@@ -2341,16 +2341,16 @@ body {
 }
 /* Bloco com a sombra chapada dos cartazes. */
 .caderno-bloco {
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background: var(--parchment);
-  box-shadow: 5px 5px 0 var(--ink);
+  box-shadow: var(--d-sombra, 5px 5px 0 var(--ink));
 }
 /* Fonte do caderno: um recorte colado na pasta. A desmarcada fica de lado, tracejada. */
 .caderno-recorte {
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background: var(--papel);
   color: var(--papel-tinta);
-  box-shadow: 3px 3px 0 var(--ink);
+  box-shadow: var(--d-sombra, 3px 3px 0 var(--ink));
 }
 .caderno-recorte[data-ativa="false"] {
   border-style: dashed;
@@ -2359,7 +2359,7 @@ body {
 }
 /* Cada caderno na estante é uma lombada, com a cor própria na borda. */
 .caderno-lombada {
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   border-left-width: 12px;
   background: var(--parchment);
 }
@@ -2369,16 +2369,16 @@ body {
 }
 /* Ficha dos cartões: o fio vermelho no alto, como nas fichas de estudo. */
 .caderno-ficha {
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   border-top: 8px solid var(--prelo);
   background-color: var(--papel);
   color: var(--papel-tinta);
-  box-shadow: 5px 5px 0 var(--ink);
+  box-shadow: var(--d-sombra, 5px 5px 0 var(--ink));
 }
 /* Folha do caderno: margem vermelha e linhas azuis; o texto corre em cima das linhas. */
 .caderno-pauta {
   --linha: 2rem;
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background-color: var(--papel);
   color: var(--papel-tinta);
   background-image:
@@ -2395,7 +2395,7 @@ body {
 }
 /* Folha lisa para ler as fontes. */
 .caderno-folha {
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background: var(--papel);
   color: var(--papel-tinta);
 }
@@ -2727,7 +2727,7 @@ body {
 .salas-folha {
   border: 2px solid var(--s-texto);
   background-color: var(--s-folha);
-  box-shadow: 4px 4px 0 var(--s-sombra);
+  box-shadow: var(--d-sombra, 4px 4px 0 var(--s-sombra));
 }
 .salas[data-tema="stoat"] .salas-folha {
   border: 1px solid var(--s-linha);
@@ -2746,15 +2746,28 @@ body {
   font-family: var(--font-ui), system-ui, sans-serif;
   letter-spacing: 0.04em;
 }
-/* A chamada acontecendo: a bolinha verde que pulsa devagar (parada para quem pediu menos movimento). */
+/* A chamada acontecendo: a bolinha verde que pulsa devagar (parada para quem pediu menos movimento). O halo é um anel atrás dela que
+   cresce e some (E7: só transform e opacity animam; a sombra animada repintava a cada quadro). */
 @keyframes salas-ao-vivo {
-  50% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--s-ok) 25%, transparent); }
+  0%, 100% { transform: scale(1); opacity: 0; }
+  50% { transform: scale(1.3); opacity: 1; }
 }
 .salas-ao-vivo {
+  position: relative;
+  isolation: isolate;
+}
+.salas-ao-vivo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--s-ok) 25%, transparent);
+  pointer-events: none;
   animation: salas-ao-vivo 1.8s ease-in-out infinite;
 }
 @media (prefers-reduced-motion: reduce) {
-  .salas-ao-vivo { animation: none; }
+  .salas-ao-vivo::after { animation: none; opacity: 0; }
 }
 /* O botão do trilho: círculo que vira quadrado arredondado, com a pílula de "ativo" ou "não lido" do lado. */
 .salas-trilho-botao {
@@ -2779,33 +2792,33 @@ body {
    Cartões de fio fino ganham o contorno de tinta e a sombra dura; botões escuros e bordô ganham a sombra do
    carimbo; títulos de seção, o fio de tinta. Só no site público: o painel tem o desenho dele. */
 main#conteudo:not(:has(.painel, .rede-lucia, [data-al="2"])) :is(a, div, section, article, li, details, form, aside, blockquote, figure)[class~="border"][class~="border-rule"][class~="bg-parchment-deep"] {
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background-color: var(--folha);
-  box-shadow: 5px 5px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 5px 5px 0 var(--sombra));
 }
 main#conteudo:not(:has(.painel, .rede-lucia, [data-al="2"])) :is(div, section, article, li, details, form, aside, a, figure)[class~="border-2"][class~="border-ink"][class~="bg-parchment-deep"] {
   background-color: var(--folha);
-  box-shadow: 5px 5px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 5px 5px 0 var(--sombra));
 }
 main#conteudo:not(:has(.painel, .rede-lucia, [data-al="2"])) a:is([class~="border"][class~="border-rule"], [class~="border-2"][class~="border-ink"])[class~="bg-parchment-deep"] {
   transition: transform 0.14s ease, box-shadow 0.14s ease;
 }
 main#conteudo:not(:has(.painel, .rede-lucia, [data-al="2"])) a:is([class~="border"][class~="border-rule"], [class~="border-2"][class~="border-ink"])[class~="bg-parchment-deep"]:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0 var(--prelo);
+  box-shadow: var(--d-sombra-alta, 7px 7px 0 var(--prelo));
 }
 main#conteudo:not(:has(.painel, .rede-lucia, [data-al="2"])) :is(a, button)[class~="bg-ink"][class~="text-parchment"]:not(.botao) {
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   font-weight: 700;
-  box-shadow: 4px 4px 0 var(--prelo);
+  box-shadow: var(--d-sombra, 4px 4px 0 var(--prelo));
   transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.15s;
 }
 main#conteudo:not(:has(.painel, .rede-lucia, [data-al="2"])) :is(a, button)[class~="bg-oxblood"][class~="text-parchment"]:not(.botao) {
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background-color: var(--prelo);
   color: #fff;
   font-weight: 700;
-  box-shadow: 4px 4px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 4px 4px 0 var(--sombra));
   transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 main#conteudo:not(:has(.painel, .rede-lucia, [data-al="2"])) :is(a, button)[class~="bg-ink"][class~="text-parchment"]:not(.botao, :disabled):hover,
@@ -2818,7 +2831,7 @@ main#conteudo:not(:has(.painel, .rede-lucia, [data-al="2"])) :is(a, button)[clas
   box-shadow: none;
 }
 main#conteudo:not(:has(.painel, .rede-lucia, [data-al="2"])) h2[class~="border-b"][class~="border-rule"] {
-  border-bottom: 2px solid var(--ink);
+  border-bottom: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
 }
 main#conteudo:not(:has(.painel, .rede-lucia, [data-al="2"])) :is(input, textarea, select)[class~="border-2"][class~="border-ink"] {
   background-color: var(--folha);
@@ -2838,10 +2851,10 @@ main#conteudo:not(:has(.painel, .rede-lucia, [data-al="2"])) :is(input, textarea
    aplicativo) a folha vira papel liso de borda a borda: margem e furos roubariam espaço de leitura. */
 .folha-da-aula {
   position: relative;
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background-color: var(--folha);
   background-image: linear-gradient(90deg, transparent 70px, var(--margem-pauta) 70px, var(--margem-pauta) 72px, transparent 72px);
-  box-shadow: 6px 6px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 6px 6px 0 var(--sombra));
   padding: 3rem 3rem 3.5rem 6.5rem;
   max-width: 52rem;
 }
@@ -2859,7 +2872,7 @@ main#conteudo:not(:has(.painel, .rede-lucia, [data-al="2"])) :is(input, textarea
   .folha-da-aula {
     padding: 1.75rem 1.1rem 2rem;
     background-image: none;
-    box-shadow: 4px 4px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 4px 4px 0 var(--sombra));
   }
   .folha-da-aula::before {
     display: none;
@@ -3021,7 +3034,7 @@ main#conteudo .ide-area :is(div, section)[class~="border-2"][class~="border-ink"
 @media (max-width: 767.98px) {
   .grade-da-aula .indice-da-trilha {
     order: 3;
-    border-top: 2px solid var(--ink);
+    border-top: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
     padding-top: 1.5rem;
   }
 }
@@ -3036,7 +3049,7 @@ main#conteudo .cabeca-da-pagina {
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   padding: 3rem calc(50vw - 50%) 3rem;
-  border-bottom: 3px solid var(--ink);
+  border-bottom: var(--d-fio-grosso, 3px) solid var(--d-cor-fio, var(--ink));
   margin-bottom: 2.75rem;
 }
 main#conteudo :is(.py-12, .pt-12) > .cabeca-da-pagina:first-child,
@@ -3279,7 +3292,7 @@ a.busca-campo:focus-visible {
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) .lambe-rasgo {
   clip-path: none;
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background: var(--parchment) !important;
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) .lambe-rasgo * {
@@ -3400,7 +3413,7 @@ a.busca-campo:focus-visible {
 /* Contraste, papel eletrônico e leitura: o cartaz vira quadro simples, preto no branco. */
 :root:is([data-contrast], [data-eink], [data-leitor]) .lambe-papel {
   min-height: 0;
-  border: 2px solid var(--ink) !important;
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink)) !important;
   background: var(--parchment) !important;
   outline: none;
 }
@@ -3456,7 +3469,7 @@ a.busca-campo:focus-visible {
   padding: 0.3rem 0.3rem 0.85rem;
   border: 1px solid rgba(31, 26, 20, 0.5);
   background: var(--folha);
-  box-shadow: 5px 6px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 5px 6px 0 var(--sombra));
   transition: transform 0.2s ease;
 }
 .varal-folha:hover {
@@ -3474,10 +3487,10 @@ a.busca-campo:focus-visible {
   box-shadow: 1px 1px 0 rgba(31, 26, 20, 0.45);
 }
 .etiqueta-museu {
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background: var(--folha);
   padding: 0.7rem 1rem 0.8rem;
-  box-shadow: 4px 4px 0 var(--ink);
+  box-shadow: var(--d-sombra, 4px 4px 0 var(--ink));
   color: var(--ink);
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3498,7 +3511,7 @@ a.busca-campo:focus-visible {
 
 /* As orelhas da primeira página das notícias (components/noticias/PrimeiraPagina.tsx): os quadros dos lados do nome. */
 .pagina-orelha {
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   padding: 0.55rem 0.75rem 0.6rem;
   font-family: var(--font-ui), system-ui, sans-serif;
   font-size: 0.7rem;
@@ -3517,18 +3530,18 @@ a.busca-campo:focus-visible {
 /* As respostas do guia das disciplinas (components/GuiaDasDisciplinas.tsx): botões de papel; a escolhida fica em tinta. */
 .guia-opcao {
   cursor: pointer;
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background: var(--parchment);
   padding: 0.55rem 0.9rem;
   font-family: var(--font-ui), system-ui, sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
-  box-shadow: 3px 3px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 3px 3px 0 var(--sombra));
   transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 .guia-opcao:hover {
   transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0 var(--sombra);
+  box-shadow: var(--d-sombra-alta, 4px 4px 0 var(--sombra));
 }
 .guia-opcao[aria-pressed="true"] {
   background: var(--ink);
@@ -3559,7 +3572,7 @@ a.busca-campo:focus-visible {
   flex-direction: column;
   align-items: center;
   gap: 0.15rem;
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   border-top-width: 6px;
   background: var(--parchment);
   padding: 0.65rem 0.5rem 0.75rem;
@@ -3568,7 +3581,7 @@ a.busca-campo:focus-visible {
   font-weight: 600;
   line-height: 1.2;
   text-align: center;
-  box-shadow: 3px 3px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 3px 3px 0 var(--sombra));
   transition: transform 0.12s ease;
 }
 .eixos-resposta-0 { border-top-color: #2e6b4f; }
@@ -3641,9 +3654,9 @@ a.busca-campo:focus-visible {
   aspect-ratio: 4 / 5;
   max-width: 100%;
   overflow: hidden;
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background-color: var(--parchment-deep);
-  box-shadow: 4px 4px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 4px 4px 0 var(--sombra));
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .muro-retrato img {
@@ -3683,7 +3696,7 @@ a.busca-campo:focus-visible {
 }
 .muro-cartao:hover .muro-retrato {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--sombra);
+  box-shadow: var(--d-sombra-alta, 6px 6px 0 var(--sombra));
 }
 .muro-cartao:hover .muro-nome {
   color: var(--oxblood);
@@ -3759,7 +3772,7 @@ a.busca-campo:focus-visible {
 }
 .linha-tema:hover,
 .chip-filtro:hover {
-  box-shadow: 2px 2px 0 var(--ink);
+  box-shadow: var(--d-sombra-alta, 2px 2px 0 var(--ink));
 }
 .linha-tema[aria-pressed="true"],
 .chip-filtro[aria-pressed="true"] {
@@ -3843,7 +3856,7 @@ a.busca-campo:focus-visible {
   font-size: 1.15rem;
   font-weight: 900;
   letter-spacing: -0.01em;
-  box-shadow: 3px 3px 0 var(--ink);
+  box-shadow: var(--d-sombra, 3px 3px 0 var(--ink));
 }
 .linha-br {
   grid-column: 1;
@@ -3863,7 +3876,7 @@ a.busca-campo:focus-visible {
   border-left-width: 6px;
   background-color: var(--folha);
   padding: 0.85rem 1.1rem 1rem;
-  box-shadow: 3px 3px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 3px 3px 0 var(--sombra));
 }
 /* O fio que liga o cartão ao trilho. */
 .linha-br .linha-cartao::after,
@@ -3936,7 +3949,7 @@ a.busca-campo:focus-visible {
   align-items: center;
   gap: 0.6rem;
   list-style: none;
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background-color: var(--folha);
   padding: 0.55rem 1rem;
   font-family: var(--font-ui), system-ui, sans-serif;
@@ -3953,7 +3966,7 @@ a.busca-campo:focus-visible {
   content: "↑";
 }
 .checagem-abrir:hover {
-  box-shadow: 3px 3px 0 var(--prelo);
+  box-shadow: var(--d-sombra-alta, 3px 3px 0 var(--prelo));
 }
 .checagem-abrir:focus-visible {
   outline: 3px solid var(--oxblood);
@@ -4002,9 +4015,9 @@ a.busca-campo:focus-visible {
   cursor: pointer;
   flex-direction: column;
   list-style: none;
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background-color: var(--folha);
-  box-shadow: 4px 4px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 4px 4px 0 var(--sombra));
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .carta-frente::-webkit-details-marker {
@@ -4012,7 +4025,7 @@ a.busca-campo:focus-visible {
 }
 .carta-frente:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--naipe);
+  box-shadow: var(--d-sombra-alta, 6px 6px 0 var(--naipe));
 }
 .carta-frente:focus-visible {
   outline: 3px solid var(--oxblood);
@@ -4053,11 +4066,11 @@ a.busca-campo:focus-visible {
   transform: none;
 }
 .carta-ficha {
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   border-top: 0;
   background-color: var(--parchment-deep);
   padding: 1.25rem 1.25rem 1.5rem;
-  box-shadow: 4px 4px 0 var(--naipe);
+  box-shadow: var(--d-sombra, 4px 4px 0 var(--naipe));
 }
 .carta-resposta {
   border-left: 4px solid var(--naipe);
@@ -4076,7 +4089,7 @@ a.busca-campo:focus-visible {
    estudar em etiquetas (aula, obra, ferramenta). */
 .pergunta-balao {
   position: relative;
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background-color: var(--folha);
   padding: 1rem 1.25rem;
   font-family: var(--font-serif-display), Georgia, serif;
@@ -4084,7 +4097,7 @@ a.busca-campo:focus-visible {
   font-weight: 600;
   line-height: 1.18;
   text-wrap: balance;
-  box-shadow: 4px 4px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 4px 4px 0 var(--sombra));
 }
 .pergunta-balao::before,
 .pergunta-balao::after {
@@ -4121,7 +4134,7 @@ a.busca-campo:focus-visible {
   text-decoration: none;
 }
 .pergunta-link:hover {
-  box-shadow: 3px 3px 0 var(--prelo);
+  box-shadow: var(--d-sombra-alta, 3px 3px 0 var(--prelo));
   color: var(--ink);
 }
 .pergunta-tipo {
@@ -4138,14 +4151,14 @@ a.busca-campo:focus-visible {
   height: 100%;
   align-items: flex-start;
   gap: 0.85rem;
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background-color: var(--folha);
   padding: 0.75rem;
   color: var(--ink);
   text-decoration: none;
 }
 .direito-tecla:hover {
-  box-shadow: 3px 3px 0 #c21f16;
+  box-shadow: var(--d-sombra-alta, 3px 3px 0 #c21f16);
   color: var(--ink);
 }
 .direito-numero {
@@ -4154,7 +4167,7 @@ a.busca-campo:focus-visible {
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background-color: var(--ink);
   padding: 0.35rem 0.5rem;
   font-family: var(--font-archive), ui-monospace, monospace;
@@ -4249,7 +4262,7 @@ a.busca-campo:focus-visible {
   :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .lab-escolhido {
     background-color: #2b2822;
     border-color: #f0b323;
-    box-shadow: 3px 3px 0 #f0b323;
+    box-shadow: var(--d-sombra, 3px 3px 0 #f0b323);
   }
   /* A mesa cinza em volta da prévia do cartaz (a prévia continua clara: é o que vai para a impressão). */
   :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .mesa-de-previa {
@@ -4275,7 +4288,7 @@ a.busca-campo:focus-visible {
     color: #fff;
   }
   :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .botao-tinta {
-    box-shadow: 4px 4px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 4px 4px 0 var(--sombra));
   }
   :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .botao-tinta:hover,
   :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) :is(a, button).bg-ink:not(.painel *, .area-infantil *, .radio-player *):hover {
@@ -4284,13 +4297,13 @@ a.busca-campo:focus-visible {
     color: #fff;
   }
   :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .botao-tinta:hover {
-    box-shadow: 6px 6px 0 var(--sombra);
+    box-shadow: var(--d-sombra-alta, 6px 6px 0 var(--sombra));
   }
   :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .botao-tinta:active {
     box-shadow: 0 0 0 var(--sombra);
   }
   :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .botao-menor.botao-tinta {
-    box-shadow: 3px 3px 0 var(--sombra);
+    box-shadow: var(--d-sombra, 3px 3px 0 var(--sombra));
   }
   :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) :is(.botao-tinta, :is(a, button).bg-ink) :is(.text-parchment, .text-ink-soft) {
     color: inherit;
@@ -4360,7 +4373,7 @@ a.busca-campo:focus-visible {
 :root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .lab-escolhido {
   background-color: #2b2822;
   border-color: #f0b323;
-  box-shadow: 3px 3px 0 #f0b323;
+  box-shadow: var(--d-sombra, 3px 3px 0 #f0b323);
 }
 /* A mesa cinza em volta da prévia do cartaz (a prévia continua clara: é o que vai para a impressão). */
 :root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .mesa-de-previa {
@@ -4386,7 +4399,7 @@ a.busca-campo:focus-visible {
   color: #fff;
 }
 :root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .botao-tinta {
-  box-shadow: 4px 4px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 4px 4px 0 var(--sombra));
 }
 :root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .botao-tinta:hover,
 :root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) :is(a, button).bg-ink:not(.painel *, .area-infantil *, .radio-player *):hover {
@@ -4395,13 +4408,13 @@ a.busca-campo:focus-visible {
   color: #fff;
 }
 :root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .botao-tinta:hover {
-  box-shadow: 6px 6px 0 var(--sombra);
+  box-shadow: var(--d-sombra-alta, 6px 6px 0 var(--sombra));
 }
 :root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .botao-tinta:active {
   box-shadow: 0 0 0 var(--sombra);
 }
 :root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .botao-menor.botao-tinta {
-  box-shadow: 3px 3px 0 var(--sombra);
+  box-shadow: var(--d-sombra, 3px 3px 0 var(--sombra));
 }
 :root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) :is(.botao-tinta, :is(a, button).bg-ink) :is(.text-parchment, .text-ink-soft) {
   color: inherit;
@@ -4496,7 +4509,6 @@ a.busca-campo:focus-visible {
 @keyframes palco-clarao {
   0% {
     opacity: 1;
-    box-shadow: inset 0 0 0 0 currentColor;
   }
   100% {
     opacity: 0;
@@ -4557,7 +4569,7 @@ a.busca-campo:focus-visible {
 /* O fim da aula em gavetas (app/[lang]/trilhas/[track]/[lesson]/page.tsx). */
 .fim-da-aula-gaveta {
   margin-top: 0.75rem;
-  border: 2px solid var(--ink);
+  border: var(--d-fio, 2px) solid var(--d-cor-fio, var(--ink));
   background: var(--folha);
 }
 .fim-da-aula-gaveta > summary {

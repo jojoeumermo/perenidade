@@ -171,8 +171,8 @@ export async function iniciar({ silencioso = false } = {}) {
         return res.end();
       }
 
-      // ── Funções do banco ──
-      const funcao = /^\/rest\/v1\/rpc\/([a-z_]+)$/.exec(url.pathname);
+      // ── Funções do banco (o nome pode ter números: rede_p4_meu, rede3_...) ──
+      const funcao = /^\/rest\/v1\/rpc\/([a-z0-9_]+)$/.exec(url.pathname);
       if (funcao && req.method === "POST") {
         const dados = portador(req);
         const quem = dados?.role === "service_role" ? { papel: "service_role" } : dados?.role === "authenticated" && dados.sub ? { papel: "authenticated", sub: dados.sub, aal: dados.aal } : { papel: "anon" };

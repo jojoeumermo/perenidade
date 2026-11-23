@@ -120,7 +120,7 @@
     "corpo": { "rotulo": "Texto traduzido", "min": 100, "editor": true },
     "campos": [
       { "nome": "alvo", "rotulo": "Endereço da página original (ex.: /trilhas/matematica-fundamental/fracoes)", "tipo": "caminho", "obrigatorio": true },
-      { "nome": "idioma", "rotulo": "Idioma da tradução", "tipo": "select", "opcoes": ["en", "es", "zh", "ru"], "obrigatorio": true },
+      { "nome": "idioma", "rotulo": "Idioma da tradução", "tipo": "select", "opcoes": ["en", "es", "zh", "ru", "fr"], "obrigatorio": true },
       { "nome": "resumo", "rotulo": "Resumo traduzido (uma linha)", "tipo": "texto", "max": 220 }
     ]
   },

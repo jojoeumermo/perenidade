@@ -124,7 +124,9 @@ const funcoes = (await dono(`
     has_function_privilege('service_role', p.oid, 'execute') as serv, p.prosecdef as definer, array_to_string(p.proconfig, ',') as config
   from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and p.proname like 'alumia\\_admin\\_%' order by 1`)).rows;
 const daRotina = ["alumia_admin_email_de", "alumia_admin_email_barrado", "alumia_admin_borda_vencidas", "alumia_admin_borda_apagada"];
-ok("o painel único tem as funções esperadas (16)", funcoes.length === 16);
+// 16 do painel único e 6 do P5 (20261126-p5-beta.sql: zerar o beta em dois passos, relatos e erros da tela; 20261126-p5-federacao.sql).
+const DO_P5 = ["alumia_admin_zerar_previa", "alumia_admin_zerar_confirmar", "alumia_admin_relatos", "alumia_admin_relato_mudar", "alumia_admin_erros_tela", "alumia_admin_federacao"];
+ok("o painel único tem as funções esperadas (16, mais as 6 do P5)", funcoes.length === 22 && DO_P5.every((n) => funcoes.some((f) => f.nome === n)));
 ok("todas security definer com search_path fixo", funcoes.every((f) => f.definer && /search_path=interno, pg_temp/.test(f.config ?? "")));
 ok("visitante não executa nenhuma", funcoes.every((f) => !f.anon));
 ok("as da rotina e do e-mail só a chave de serviço executa", funcoes.filter((f) => daRotina.includes(f.nome)).every((f) => !f.aut && f.serv) && funcoes.filter((f) => daRotina.includes(f.nome)).length === 4);
@@ -265,11 +267,13 @@ await espera("o registro tem o banimento e a cascata, com quem fez, sem endereç
 await espera("o e-mail da conta só sai para a chave de serviço", () => rpc(servico, "alumia_admin_email_de", { p_id: P.alvo }), (r) => r === "alvo@admin.local");
 
 // ═══════════════════ 7. Apagar qualquer post ═══════════════════
+// Desde a R2 (membros escondidos) o banco não aceita post de núcleo; o espaço fechado que sobra é a conversa fechada ('fechado-*').
 const nucleo = (await um("insert into interno.rede_nucleos (nome) values ('Núcleo do teste') returning id")).id;
-const postNucleo = (await um("insert into interno.rede_posts (autor, texto, nucleo) values ($1, 'post do núcleo', $2) returning id", [P.membro, nucleo])).id;
+await recusa("post de núcleo nem entra no banco (desde a R2)", () => um("insert into interno.rede_posts (autor, texto, nucleo) values ($1, 'post do núcleo', $2) returning id", [P.membro, nucleo]), "rede_posts_sem_nucleo");
+const postNucleo = (await um("insert into interno.rede_posts (autor, texto, comunidade) values ($1, 'post do espaço fechado', 'fechado-teste') returning id", [P.membro])).id;
 const postComum = (await um("insert into interno.rede_posts (autor, texto) values ($1, 'post comum') returning id", [P.membro])).id;
-await recusa("o painel antigo não apaga post de núcleo (só pela denúncia)", () => rpc(C, "alumia_painel_post_agir", { p_id: postNucleo, p_acao: "apagar", p_motivo: "Post com ameaça a uma pessoa." }), "so_pela_denuncia");
-const ap = await espera("o painel único apaga o post de núcleo, sem devolver o texto", () => rpc(C, "alumia_admin_post_apagar", { p_id: postNucleo, p_motivo: "Post com ameaça a uma pessoa." }), (r) => r.ok && r.restrito === true && !JSON.stringify(r).includes("núcleo"));
+await recusa("o painel antigo não apaga post de espaço fechado (só pela denúncia)", () => rpc(C, "alumia_painel_post_agir", { p_id: postNucleo, p_acao: "apagar", p_motivo: "Post com ameaça a uma pessoa." }), "so_pela_denuncia");
+const ap = await espera("o painel único apaga o post de espaço fechado, sem devolver o texto", () => rpc(C, "alumia_admin_post_apagar", { p_id: postNucleo, p_motivo: "Post com ameaça a uma pessoa." }), (r) => r.ok && r.restrito === true && !JSON.stringify(r).includes("fechado"));
 ok("a resposta não traz o texto do post", ap && !("texto" in ap));
 await espera("... foi para a lixeira (volta em 30 dias) e saiu do ar", () => um("select p.oculto, (select count(*)::int from interno.alumia_painel_lixeira l where l.post = p.id) l from interno.rede_posts p where p.id = $1", [postNucleo]), (x) => x.oculto && x.l === 1);
 await espera("... no registro, sem a comunidade de um espaço fechado", () => registro("post_apagar"), (r) => r.alvo === postNucleo && r.detalhes.restrito === true && r.detalhes.comunidade === null);

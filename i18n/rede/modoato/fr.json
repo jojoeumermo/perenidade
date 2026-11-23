@@ -105,6 +105,27 @@
     "texto": "Le guide pour quand internet tombe. Ouvrez-le une fois maintenant : ensuite il s’ouvre sur cet appareil même sans internet.",
     "abrir": "Ouvrir le guide"
   },
+  "semInternet": {
+    "rotulo": "À proximité, sans internet",
+    "titulo": "Téléphones à proximité",
+    "texto": "Quand internet tombe pendant la manifestation, l'app peut faire passer des messages courts, le Phare et le « Je vais bien » de téléphone en téléphone, par Bluetooth. Chaque téléphone garde et relaie des paquets chiffrés qu'il n'ouvre pas : il ne sait ni de qui ils viennent ni à qui ils vont. Tous les paquets ont la même taille et disparaissent au bout de 24 heures.",
+    "aviso": "Une fois activé, les téléphones à proximité remarquent qu'un appareil participe. Ils ne savent ni qui vous êtes ni ce que vous envoyez.",
+    "entendi": "J'ai compris : les téléphones à proximité remarquent qu'un appareil participe.",
+    "ligar": "Activer",
+    "desligar": "Désactiver et effacer ce qui était gardé",
+    "ligada": "Activé sur ce téléphone. Il se désactive tout seul quand l'app se ferme.",
+    "soNoApp": "Seulement dans l'app Alumia pour Android. Sur le site, le téléphone ne parle pas à ceux qui sont à proximité.",
+    "semSessao": "Le « Je vais bien » sans internet n'arrive qu'aux contacts de sécurité avec qui vous avez déjà une conversation dans le chat.",
+    "farolPronto": "Le Phare de votre prochaine action confirmée arrive sur ce téléphone même sans internet.",
+    "farolSem": "Pour que le Phare arrive sans internet, confirmez votre présence à l'action et activez ceci avant, avec internet.",
+    "farolChegou": "Phare, sans internet : {estado}",
+    "estados": {
+      "tranquilo": "Calme",
+      "atencao": "Attention",
+      "dispersar": "Disperser",
+      "ponto2": "Point de rendez-vous 2"
+    }
+  },
   "barra": {
     "titulo": "Mode manif activé",
     "desde": "depuis {hora}",

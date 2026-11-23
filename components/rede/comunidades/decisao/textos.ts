@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { preencher } from "@/lib/rede/preencher";
 import { codigoDoErro } from "../../erros";
 import type pt from "@/i18n/rede/decisao/pt.json";
+import { carregarPronto } from "../../../../lib/rede/textos-prontos";
 
 export type TextosDaDecisao = typeof pt;
 
@@ -22,7 +23,7 @@ const CARREGAR: Record<string, () => Promise<{ default: unknown }>> = {
 };
 
 export async function carregarTextosDaDecisao(lang: string): Promise<TextosDaDecisao> {
-  return (await (CARREGAR[lang] ?? CARREGAR.pt)()).default as TextosDaDecisao;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDaDecisao;
 }
 
 /** Os textos do idioma (nulo enquanto chegam). */

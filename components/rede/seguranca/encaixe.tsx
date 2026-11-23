@@ -15,6 +15,7 @@ export const encaixe: Encaixe = !rotaNovaLigada("seguranca") ? {} : {
   menu: [
     {
       chave: "seguranca",
+      lugar: "seguranca",
       rotulo: ({ lang }) => NOME[lang] ?? NOME.pt,
       icone: (
         <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">

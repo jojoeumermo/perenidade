@@ -121,7 +121,8 @@
     "entrarNaComunidade": "Rejoignez la communauté pour écrire sur le cours."
   },
   "nucleos": {
-    "titulo": "Noyaux et groupe",
+    "titulo": "Noyaux et groupes",
+    "turmasDeEstudo": "Vos groupes d’étude (avec agenda et rencontres)",
     "intro": "L'espace fermé des noyaux d'étude dont vous faites partie et la conversation du groupe du mois. Seuls les membres le voient.",
     "meus": "Vos noyaux",
     "vazio": "Vous ne faites encore partie d'aucun noyau. L'entrée se fait sur invitation de la médiation du noyau.",
@@ -155,7 +156,11 @@
     "turmaIntro": "Qui s'est inscrit au groupe du mois entre dans sa conversation.",
     "turmaNao": "Vous n'êtes pas inscrit à ce groupe.",
     "turmaEntrar": "Rejoindre la conversation du groupe",
-    "turmaAbrir": "Ouvrir la conversation du groupe"
+    "turmaAbrir": "Ouvrir la conversation du groupe",
+    "noAparelhoTitulo": "Le noyau vit sur les appareils",
+    "noAparelho": "Qui fait partie de ce noyau, la médiation, le mur et les rencontres restent seulement sur les appareils de ses membres, chiffrés. Le serveur d'Alumia ne sait pas qui en fait partie, qui a demandé à entrer ni qui a accepté : la demande part chiffrée de votre appareil vers la médiation.",
+    "entradaPronta": "L'entrée de ce noyau est publiée et signée par la clé du noyau. La demande chiffrée part de cet appareil quand le nouveau chat sera activé.",
+    "semEntrada": "La personne qui a créé ce noyau n'a pas encore publié son entrée."
   },
   "erros": {
     "invalido:slug": "Cette adresse ne convient pas ou est déjà utilisée.",

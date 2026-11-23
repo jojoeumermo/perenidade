@@ -46,6 +46,11 @@ const { dono: sql, criarUsuario, rpc } = banco;
 const um = async (t, v = []) => (await sql(t, v)).rows[0];
 const migracao = ler("supabase/migracoes/20261109-alumia-f4.sql");
 ok("a migração está colada no install.sql (o integrador colou)", ler("supabase/install.sql").includes("Alumia · Onda 5 · F4"));
+// Este teste prova o código da F4 como ela o escreveu (rodando a migração dela de novo por cima do banco montado). Desde a R2 (membros
+// escondidos, 20261124-r2-membros.sql) o banco não guarda quem é de qual núcleo e as funções de entrar e decidir saíram (o que vale
+// hoje está em scripts/testar-r2-membros-banco.mjs); o que a F4 pressupõe volta aqui, só neste banco de teste (scripts/banco-local.mjs,
+// legadoDosNucleos), para o código dela rodar como rodava.
+await espera("o legado dos núcleos que a F4 pressupõe (só neste banco de teste)", () => banco.legadoDosNucleos());
 await espera("a F0 instala", () => banco.exclusivo(() => banco.pg.exec(ler("supabase/migracoes/20261109-alumia-f0-contrato.sql"))));
 await espera("a F4 instala sobre a F0", () => banco.exclusivo(() => banco.pg.exec(migracao)));
 await espera("e instala de novo sem estrago (idempotente)", () => banco.exclusivo(() => banco.pg.exec(migracao)));

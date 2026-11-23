@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import type { TextosDaFormacaoBase } from "@/i18n/escola/formacao-base";
 import { abrirCofre, apagarCofre, criarCofre, type EstadoDoCofre, estadoDoCofre, fecharCofre, FRASE_MINIMA } from "@/lib/escola/cofre";
+import { confirmar } from "@/components/perguntar";
 
 type T = TextosDaFormacaoBase["casca"];
 
@@ -95,8 +96,8 @@ export function FaixaDoCofre({ t, estado }: { t: T; estado: EstadoDoCofre | null
         <button
           type="button"
           className="ef-cofre-esqueci"
-          onClick={() => {
-            if (window.confirm(t.cofreEsqueciConfirma)) apagarCofre();
+          onClick={async () => {
+            if ((await confirmar(t.cofreEsqueciConfirma))) apagarCofre();
           }}
         >
           {t.cofreEsqueci}

@@ -12,11 +12,11 @@ import { Markdown } from "../Markdown";
 import { agirOtimista, data, dataHora, papeis, situacoes, textoDoErro, useAcao, useLista } from "./comum";
 import { BuscaDePessoa } from "./BuscaDePessoa";
 import type { Membro } from "./Equipe";
-import { editorPt, fontesPt } from "./Escrever";
+import { editorPt, fontesPt, NOMES_DOS_IDIOMAS } from "./Escrever";
 import { MoldeFila } from "./moldes";
 import { SugestoesDaRevisao } from "./Sugestoes";
 import { Esteira, LadoALado } from "./Esteira";
-import { Abas, Area, Botao, CabecalhoDeSecao, Campo, Cartao, type ComandoDaSecao, Faixa, ItemDeLista, Lista, perguntarTexto, Selo, type TomDoSelo, useComandosDaSecao, Vazio } from "./ui";
+import { Abas, Area, Botao, CabecalhoDeSecao, Campo, Cartao, type ComandoDaSecao, Faixa, ItemDeLista, Lista, perguntarTexto, Selecao, Selo, type TomDoSelo, useComandosDaSecao, Vazio } from "./ui";
 
 interface Resumo {
   id: string;
@@ -154,7 +154,7 @@ function Detalhe({ id, me, semParecer, esteira, triagem = false, daTela, proximo
   const acao = useAcao(recarregar);
   const [nota, setNota] = useState("");
   const [parecer, setParecer] = useState("");
-  const [edicao, setEdicao] = useState<{ titulo: string; corpo: string; fontes: SourceDraft[]; versao: string } | null>(null);
+  const [edicao, setEdicao] = useState<EdicaoAberta | null>(null);
 
   // Quem trabalha junto vê o que o colega guardou sem precisar recarregar a página.
   useEffect(() => {
@@ -220,7 +220,9 @@ function Detalhe({ id, me, semParecer, esteira, triagem = false, daTela, proximo
 
   if (!c) return item.erro ? <Faixa tom="erro" acao={<Botao pequeno onClick={recarregar}>Tentar de novo</Botao>}>{item.erro}</Faixa> : <p role="status" className="pn-ajuda">Carregando…</p>;
 
-  const podeEditar = pendente && (decide || c.minha || c.colaboro || tria);
+  // Quem revisa também corrige tudo (idioma, disciplina, página, título…): o banco confere de novo quem pode decidir sobre o envio.
+  const corrige = pendente && !c.minha && (decide || tria || can(me, "revisao", "supervisao") || me.papeis.some((p) => (p.papel === "educacao" || p.papel === "educacao_secundaria") && p.disciplina === c.disciplina));
+  const podeEditar = pendente && (decide || c.minha || c.colaboro || tria || corrige);
   /** Alguém guardou outra versão enquanto esta pessoa está com o editor aberto. */
   const mudou = edicao !== null && edicao.versao !== c.versao;
   const exigeFonte = (tipos as Record<string, { fonte: boolean }>)[c.tipo]?.fonte ?? false;
@@ -257,7 +259,7 @@ function Detalhe({ id, me, semParecer, esteira, triagem = false, daTela, proximo
               <div key={chave}>
                 <dt className="pn-rotulo-mono">{chave}</dt>
                 <dd className="break-words whitespace-pre-line" data-original>
-                  {String(valor)}
+                  {chave === "idioma" ? (NOMES_DOS_IDIOMAS[String(valor)] ?? String(valor)) : String(valor)}
                 </dd>
               </div>
             ))}
@@ -274,9 +276,14 @@ function Detalhe({ id, me, semParecer, esteira, triagem = false, daTela, proximo
           mudou={mudou}
           exigeFonte={exigeFonte}
           podeImagem={can(me, "coordenacao", "curadoria", "educacao", "jornalismo", "design")}
+          corrige={corrige}
           ocupado={acao.ocupado}
           guardar={async () => {
-            const ok = await acao.agir("contribuicao_editar", { p_id: id, p: { titulo: edicao.titulo, corpo: edicao.corpo, dados: c.dados, fontes: cleanSources(edicao.fontes), versao: edicao.versao } }, "Alterações guardadas.");
+            const ok = await acao.agir(
+              "contribuicao_editar",
+              { p_id: id, p: { titulo: edicao.titulo, corpo: edicao.corpo, dados: edicao.dados, fontes: cleanSources(edicao.fontes), versao: edicao.versao, ...(corrige ? { disciplina: edicao.disciplina, alvo: edicao.alvo } : {}) } },
+              "Alterações guardadas. Quem enviou recebe um aviso com os campos que mudaram.",
+            );
             return Boolean(ok);
           }}
         />
@@ -312,7 +319,20 @@ function Detalhe({ id, me, semParecer, esteira, triagem = false, daTela, proximo
           )}
           {podeEditar && (
             <div>
-              <Botao simbolo={PenLine} onClick={() => setEdicao({ titulo: c.titulo, corpo: c.corpo, versao: c.versao, fontes: c.fontes.length > 0 ? c.fontes.map((f) => ({ titulo: f.titulo, autor: f.autor ?? "", url: f.url ?? "" })) : [{ titulo: "", autor: "", url: "" }] })}>
+              <Botao
+                simbolo={PenLine}
+                onClick={() =>
+                  setEdicao({
+                    titulo: c.titulo,
+                    corpo: c.corpo,
+                    versao: c.versao,
+                    fontes: c.fontes.length > 0 ? c.fontes.map((f) => ({ titulo: f.titulo, autor: f.autor ?? "", url: f.url ?? "" })) : [{ titulo: "", autor: "", url: "" }],
+                    dados: { ...c.dados },
+                    disciplina: c.disciplina ?? "",
+                    alvo: c.alvo ?? "",
+                  })
+                }
+              >
                 {c.minha || c.colaboro ? "Editar" : tria ? "Acertar a forma" : "Editar antes de decidir"}
               </Botao>
             </div>
@@ -322,6 +342,8 @@ function Detalhe({ id, me, semParecer, esteira, triagem = false, daTela, proximo
       )}
 
       {pendente && me.papeis.length > 0 && (c.minha || c.colaboro || decide) && <Conjunto c={c} me={me} decide={decide} depois={recarregar} sair={voltar} />}
+
+      <HistoricoDoEnvio key={c.versao} id={id} />
 
       <Cartao titulo="Pareceres" nivelDoTitulo={3} variante="plano">
         {c.lista_pareceres.length === 0 && <p className="pn-ajuda">Nenhum parecer ainda.</p>}
@@ -392,13 +414,59 @@ function Detalhe({ id, me, semParecer, esteira, triagem = false, daTela, proximo
   );
 }
 
-type EdicaoAberta = { titulo: string; corpo: string; fontes: SourceDraft[]; versao: string };
+type EdicaoAberta = { titulo: string; corpo: string; fontes: SourceDraft[]; versao: string; dados: Record<string, string>; disciplina: string; alvo: string };
+
+/** Os nomes dos campos do envio, para gente (o mesmo de interno.campo_do_envio). */
+const CAMPOS_DO_ENVIO: Record<string, string> = { titulo: "título", corpo: "texto", fontes: "fontes", disciplina: "disciplina", alvo: "página", idioma: "idioma", resumo: "resumo", trilha: "trilha" };
+
+interface Alteracao {
+  quando: string;
+  quem: string;
+  campos: string[];
+  antes: { titulo?: string; disciplina?: string | null; alvo?: string | null; dados?: Record<string, unknown>; corpo_tamanho?: number };
+}
+
+/** O histórico do envio: cada alteração guardada, quem fez e o valor de antes (o texto antigo, só o tamanho). */
+function HistoricoDoEnvio({ id }: { id: string }) {
+  const historico = useLista<Alteracao[]>("contribuicao_alteracoes", { p_id: id }, { quieta: true });
+  const lista = historico.dados ?? [];
+  if (lista.length === 0) return null;
+  const antes = (a: Alteracao, campo: string) => {
+    const v = campo === "titulo" ? a.antes.titulo : campo === "disciplina" ? a.antes.disciplina : campo === "alvo" ? a.antes.alvo : campo === "corpo" ? (a.antes.corpo_tamanho !== undefined ? `${a.antes.corpo_tamanho} letras` : undefined) : a.antes.dados?.[campo];
+    if (v === undefined || v === null || v === "") return "vazio";
+    return campo === "idioma" ? (NOMES_DOS_IDIOMAS[String(v)] ?? String(v)) : String(v);
+  };
+  return (
+    <Cartao titulo="Histórico de alterações" nivelDoTitulo={3} variante="plano">
+      <ul className="pn-lista">
+        {lista.map((a) => (
+          <li key={`${a.quando}-${a.campos.join()}`} className="pn-item" style={{ display: "block" }}>
+            <p className="text-sm">
+              <strong>{a.quem}</strong> · {dataHora(a.quando)}
+            </p>
+            <ul className="mt-1 text-sm text-ink-soft">
+              {a.campos.map((campo) => (
+                <li key={campo}>
+                  {CAMPOS_DO_ENVIO[campo] ?? campo}
+                  {campo !== "fontes" && <> (antes: {antes(a, campo)})</>}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </Cartao>
+  );
+}
 
 /**
  * O editor de uma contribuição pendente. O que está sendo escrito fica guardado como rascunho (neste navegador e na conta):
  * fechou a página no meio, volta de onde parou. Guardar de verdade continua sendo o botão.
  */
-function Edicao({ id, c, edicao, setEdicao, mudou, exigeFonte, podeImagem, ocupado, guardar }: { id: string; c: Completa; edicao: EdicaoAberta; setEdicao: (e: EdicaoAberta | null) => void; mudou: boolean; exigeFonte: boolean; podeImagem: boolean; ocupado: boolean; guardar: () => Promise<boolean> }) {
+function Edicao({ id, c, edicao, setEdicao, mudou, exigeFonte, podeImagem, corrige, ocupado, guardar }: { id: string; c: Completa; edicao: EdicaoAberta; setEdicao: (e: EdicaoAberta | null) => void; mudou: boolean; exigeFonte: boolean; podeImagem: boolean; corrige: boolean; ocupado: boolean; guardar: () => Promise<boolean> }) {
+  const { t } = useI18n();
+  const areas = Object.entries(t.areas as Record<string, string[]>).sort((a, b) => (a[1][0] ?? a[0]).localeCompare(b[1][0] ?? b[0], "pt-BR"));
+  const outrosCampos = Object.keys(edicao.dados).filter((k) => k !== "idioma" && typeof edicao.dados[k] === "string");
   const rascunho = useRascunho<{ titulo: string; corpo: string; fontes: SourceDraft[] }>(
     `edicao:${id}`,
     { titulo: edicao.titulo, corpo: edicao.corpo, fontes: edicao.fontes },
@@ -428,7 +496,7 @@ function Edicao({ id, c, edicao, setEdicao, mudou, exigeFonte, podeImagem, ocupa
               variante="discreto"
               onClick={() => {
                 rascunho.limpar();
-                setEdicao({ ...edicao, titulo: c.titulo, corpo: c.corpo, fontes: c.fontes.length > 0 ? c.fontes.map((f) => ({ titulo: f.titulo, autor: f.autor ?? "", url: f.url ?? "" })) : [{ titulo: "", autor: "", url: "" }] });
+                setEdicao({ ...edicao, titulo: c.titulo, corpo: c.corpo, fontes: c.fontes.length > 0 ? c.fontes.map((f) => ({ titulo: f.titulo, autor: f.autor ?? "", url: f.url ?? "" })) : [{ titulo: "", autor: "", url: "" }], dados: { ...c.dados }, disciplina: c.disciplina ?? "", alvo: c.alvo ?? "" });
               }}
             >
               Descartar e voltar à versão guardada
@@ -439,6 +507,35 @@ function Edicao({ id, c, edicao, setEdicao, mudou, exigeFonte, podeImagem, ocupa
         </Faixa>
       )}
       <Campo rotulo="Título" value={edicao.titulo} onChange={(e) => setEdicao({ ...edicao, titulo: e.target.value })} maxLength={160} />
+      {(c.tipo === "traducao" || "idioma" in edicao.dados || corrige || outrosCampos.length > 0) && (
+        <fieldset className="grid gap-3 sm:grid-cols-2">
+          <legend className="pn-rotulo">Campos do envio</legend>
+          {(c.tipo === "traducao" || "idioma" in edicao.dados) && (
+            <Selecao rotulo="Idioma" value={edicao.dados.idioma ?? ""} onChange={(e) => setEdicao({ ...edicao, dados: { ...edicao.dados, idioma: e.target.value } })}>
+              <option value="">Escolha…</option>
+              {Object.entries(NOMES_DOS_IDIOMAS).map(([sigla, nome]) => (
+                <option key={sigla} value={sigla}>
+                  {nome}
+                </option>
+              ))}
+            </Selecao>
+          )}
+          {corrige && (
+            <Selecao rotulo="Disciplina" value={edicao.disciplina} onChange={(e) => setEdicao({ ...edicao, disciplina: e.target.value })}>
+              <option value="">Nenhuma</option>
+              {areas.map(([slug, nomes]) => (
+                <option key={slug} value={slug}>
+                  {nomes[0] ?? slug}
+                </option>
+              ))}
+            </Selecao>
+          )}
+          {corrige && <Campo rotulo="Página (endereço, como /trilhas/…)" value={edicao.alvo} maxLength={300} onChange={(e) => setEdicao({ ...edicao, alvo: e.target.value.trim() })} className="font-mono" />}
+          {outrosCampos.map((chave) => (
+            <Campo key={chave} rotulo={CAMPOS_DO_ENVIO[chave] ? CAMPOS_DO_ENVIO[chave][0].toLocaleUpperCase("pt-BR") + CAMPOS_DO_ENVIO[chave].slice(1) : chave} value={edicao.dados[chave] ?? ""} onChange={(e) => setEdicao({ ...edicao, dados: { ...edicao.dados, [chave]: e.target.value } })} />
+          ))}
+        </fieldset>
+      )}
       <MarkdownEditor id="edicao-corpo" value={edicao.corpo} onChange={(corpo) => setEdicao({ ...edicao, corpo })} labels={editorPt} upload={podeImagem} blocos />
       {exigeFonte && <SourcesField value={edicao.fontes} onChange={(fontes) => setEdicao({ ...edicao, fontes })} labels={fontesPt} />}
       <details>

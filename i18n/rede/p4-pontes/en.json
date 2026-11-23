@@ -1,0 +1,81 @@
+{
+  "_rascunho": "Draft translation of the Portuguese text (pt.json is the final one).",
+  "carregando": "Loading…",
+  "erros": {
+    "desligado": "This is not turned on yet.",
+    "sem_permissao": "You can't do this.",
+    "nao_encontrado": "We couldn't find this, or you can't see it.",
+    "invalido:dominio": "Write only the server name, like mastodon.social.",
+    "invalido:propria": "You can't mark your own reply.",
+    "so_comunidade_aberta": "Only an open community can choose the bridge.",
+    "generico": "That didn't work. Try again in a moment."
+  },
+  "midia": {
+    "video": "Video on {servidor}",
+    "audio": "Audio on {servidor}",
+    "abrir": "Watch on the original site",
+    "ouvir": "Listen on the original site",
+    "aviso": "Opens outside Alumia: that server will see your visit. The thumbnail here comes through Alumia."
+  },
+  "aprovados": {
+    "titulo": "Federate only with approved servers",
+    "texto": "When on, Alumia only talks to the servers on this list (and their subdomains). The others count as blocked: nothing comes in and nothing goes out. Turning it on deletes nothing; turning it off goes back to how it was. The fixed block (Threads and Bridgy Fed) still applies.",
+    "modo": "Approved servers only",
+    "campo": "Server (e.g. mastodon.social)",
+    "aprovar": "Approve",
+    "tirar": "Remove",
+    "vazia": "No approved server yet. With the mode on and the list empty, Alumia talks to no one outside.",
+    "desde": "since {data}"
+  },
+  "bluesky": {
+    "titulo": "Bridge to Bluesky",
+    "texto": "Public posts from this community would show up on Bluesky through the Bridgy Fed bridge. The bridge is off by decision of the Institute: the choice is saved, but nothing goes out until that decision changes.",
+    "escolher": "I want the bridge when it is allowed",
+    "barrada": "The bridge is off by decision of the Institute. Nothing goes to Bluesky.",
+    "fechada": "Only an open community can choose."
+  },
+  "avisos": {
+    "soSeguidos": "Mentions and replies only from people I follow",
+    "soSeguidosAjuda": "The others stay in the notification list; they just don't arrive as a notification on your device."
+  },
+  "poucoUtil": {
+    "marcar": "Not helpful",
+    "marcado": "You marked this as not helpful",
+    "ajuda": "No one sees who marked it or how many marks there are. The reply only moves down in the conversation after 3 marks from different people. It is not removed or hidden."
+  },
+  "fio": {
+    "abrir": "Read as text",
+    "titulo": "The thread as text",
+    "de": "Thread by {autor}",
+    "partes": "{n} parts",
+    "voltar": "Back to the conversation",
+    "foco": "Focus mode",
+    "sairFoco": "Leave focus mode",
+    "ouvir": "Listen",
+    "parar": "Stop",
+    "nota": "Only what you can already see appears here. Other people's replies stay in the conversation."
+  },
+  "salvos": {
+    "buscar": "Search saved posts",
+    "ajuda": "The search runs only on this device: the server doesn't know what you searched for.",
+    "nenhum": "Nothing saved matches “{termo}”.",
+    "achados": "{n} in saved"
+  },
+  "libras": {
+    "fixar": "Pin in the sign language window",
+    "tirar": "Remove from the sign language window",
+    "titulo": "Sign language window",
+    "maior": "Bigger",
+    "menor": "Smaller",
+    "lado": "Switch side",
+    "ajuda": "Choose who is interpreting in Libras: their video stays pinned and always visible on this device. The choice doesn't leave here."
+  },
+  "legendas": {
+    "ligar": "Captions",
+    "desligar": "Turn captions off",
+    "titulo": "Live captions",
+    "ajuda": "Made on this device by the browser's own speech recognition. Nothing is recorded or sent. They can be wrong.",
+    "semSuporte": "This browser can't make captions without sending the audio out, so they don't appear here.",
+    "alguem": "Someone"
+  }
+}

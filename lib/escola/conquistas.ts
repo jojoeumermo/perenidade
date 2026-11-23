@@ -8,7 +8,7 @@
 // Privacidade: ser militante revela opinião política (LGPD, art. 5º, II). O percurso fica no aparelho; o servidor só
 // guarda o que a pessoa ESCOLHE mostrar na Alumia, e o perfil mostra das aulas só a contagem (nunca a lista).
 
-import type { ConquistaDaEscola, Degrau, PublicoDasConquistas } from "./contratos";
+import { FRENTES_DE_ATUACAO, type ConquistaDaEscola, type Degrau, type FrenteDeAtuacao, type PublicoDasConquistas } from "./contratos";
 
 // ───────────────────────────── Selos da Escola no perfil da Alumia ─────────────────────────────
 
@@ -17,15 +17,23 @@ export type SeloDaEscola =
   | { tipo: "carteirinha" }
   | { tipo: "degrau"; n: Degrau }
   | { tipo: "caderno"; n: number }
-  | { tipo: "aulas"; n: number };
+  | { tipo: "aulas"; n: number }
+  // P5, B3 e B5: a tag de revolucionária(o) e a frente de atuação, só quando a pessoa liga (escola_tag_definir).
+  | { tipo: "revolucionario" }
+  | { tipo: "frente"; frente: FrenteDeAtuacao };
 
-const SELO = /^escola:(carteirinha|degrau-([1-3])|caderno-(0[1-9]|1[01])|aulas-([1-9][0-9]{0,3}))$/;
+const SELO = /^escola:(carteirinha|revolucionario|degrau-([1-3])|caderno-(0[1-9]|1[01])|aulas-([1-9][0-9]{0,3})|frente-([a-z]{2,20}))$/;
 
-/** 'escola:carteirinha', 'escola:degrau-2', 'escola:caderno-03', 'escola:aulas-17' → o selo; qualquer outro texto → null. */
+/**
+ * 'escola:carteirinha', 'escola:degrau-2', 'escola:caderno-03', 'escola:aulas-17', 'escola:revolucionario', 'escola:frente-cultura'
+ * → o selo; qualquer outro texto (ou frente que não existe) → null.
+ */
 export function lerSeloDaEscola(selo: string): SeloDaEscola | null {
   const m = SELO.exec(selo);
   if (!m) return null;
   if (m[1] === "carteirinha") return { tipo: "carteirinha" };
+  if (m[1] === "revolucionario") return { tipo: "revolucionario" };
+  if (m[5]) return (FRENTES_DE_ATUACAO as readonly string[]).includes(m[5]) ? { tipo: "frente", frente: m[5] as FrenteDeAtuacao } : null;
   if (m[2]) return { tipo: "degrau", n: Number(m[2]) as Degrau };
   if (m[3]) return { tipo: "caderno", n: Number(m[3]) };
   return { tipo: "aulas", n: Number(m[4]) };

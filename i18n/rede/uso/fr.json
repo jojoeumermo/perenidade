@@ -1,0 +1,156 @@
+{
+  "_rascunho": true,
+  "porque": {
+    "rotulo": "Pourquoi le nombre n’apparaît-il pas ?",
+    "fechar": "Compris",
+    "piso": "Un nombre de personnes n’apparaît qu’à partir de 3. Avec 1 ou 2, on devinerait facilement qui c’était, et dans un réseau de militants cela peut tourner à la persécution. C’est pourquoi nous écrivons « moins de 3 », même quand c’est zéro.",
+    "marco": "Le nombre avance toutes les 15 minutes, pas immédiatement. S’il changeait au moment où quelqu’un agit, qui regarde avant et après saurait qui vient d’agir.",
+    "ambos": "Un nombre de personnes n’apparaît qu’à partir de 3 et avance toutes les 15 minutes. Avec 1 ou 2 on devinerait qui c’était ; en changeant tout de suite, qui regarde avant et après saurait qui vient d’agir. C’est pourquoi « moins de 3 » vaut aussi pour zéro.",
+    "soma": "Parfois un nombre disparaît même s’il dépasse 3 : quand le total moins les autres parties révélerait un nombre inférieur à 3, nous en cachons un de plus, pour que le calcul n’expose personne."
+  },
+  "falar": {
+    "titulo": "Écrire à la modération",
+    "chamada": "Une conversation directe avec les personnes qui modèrent cette communauté, pour poser une question, demander la révision d’une décision ou dire quelque chose qui n’est pas un signalement.",
+    "quemLe": "Qui lit",
+    "quemLeItens": [
+      "Les personnes qui modèrent cette communauté et l’équipe de soin d’Alumia.",
+      "Ce n’est pas chiffré de bout en bout : le texte reste sur le serveur d’Alumia, et qui administre la base de données peut le lire.",
+      "La réponse est signée « Médiation », jamais avec le nom de la personne qui a modéré.",
+      "Une conversation close s’efface d’elle-même au bout de 90 jours."
+    ],
+    "naoUse": "Pour ce qui exige un vrai secret, utilisez la conversation chiffrée. Pour signaler un post ou une personne, utilisez « Signaler » sur le post.",
+    "codinome": "Montrer mon pseudonyme à la médiation",
+    "codinomeAjuda": "Décoché, la médiation ne voit que « Conversation n° », sans savoir qui a écrit.",
+    "rotuloTexto": "Ce que vous voulez dire",
+    "contador": "{n} sur 2000",
+    "enviar": "Envoyer à la médiation",
+    "enviando": "Envoi…",
+    "enviado": "Envoyé. La réponse apparaît ici, dans l’onglet À propos de la communauté.",
+    "minhas": "Vos conversations ici",
+    "nenhuma": "Vous n’avez pas encore écrit à la médiation de cette communauté.",
+    "conversaN": "Conversation n° {n}",
+    "aberta": "ouverte",
+    "encerrada": "close",
+    "nova": "nouvelle réponse",
+    "abrir": "Ouvrir",
+    "voltar": "Retour",
+    "voce": "Vous",
+    "mediacao": "Médiation",
+    "pessoa": "Personne",
+    "responder": "Répondre",
+    "encerrar": "Clore la conversation",
+    "encerrarAviso": "Une fois close, plus personne n’y écrit, et elle disparaît au bout de 90 jours.",
+    "encerradaNota": "Conversation close. Elle disparaît au bout de 90 jours.",
+    "desligado": "Pour l’instant, le message à la médiation passe par le formulaire de signalement, avec un numéro de protocole, et arrive dans la file de la modération sans exposer votre nom.",
+    "entrar": "Connectez-vous à Alumia pour écrire à la modération.",
+    "erros": {
+      "muitas_abertas": "Vous avez déjà 3 conversations ouvertes avec cette médiation. Clôturez-en une pour en ouvrir une autre.",
+      "encerrada": "Cette conversation a été close.",
+      "muitos_pedidos": "Trop de messages en peu de temps. Patientez un peu et réessayez.",
+      "desligado": "Ce canal n’est pas encore activé.",
+      "nao_encontrado": "Conversation introuvable.",
+      "invalido": "Écrivez entre 1 et 2000 caractères.",
+      "falha": "Envoi impossible pour le moment. Réessayez."
+    }
+  },
+  "caixa": {
+    "titulo": "Messages à la médiation",
+    "explica": "Chaque conversation apparaît par son numéro. Le pseudonyme n’apparaît que si la personne a choisi de le montrer. Vous répondez en tant que « Médiation » : votre nom ne sort pas.",
+    "vazia": "Aucune conversation ici.",
+    "abertas": "Ouvertes",
+    "anteriores": "Closes",
+    "semNome": "sans pseudonyme",
+    "recarregar": "Actualiser"
+  },
+  "entrada": {
+    "situacaoTitulo": "Où en est votre demande",
+    "passos": {
+      "na_fila": "En file",
+      "em_analise": "En examen",
+      "aprovada": "Acceptée",
+      "recusada": "Refusée"
+    },
+    "explica": {
+      "na_fila": "Votre demande est arrivée et attend son tour. Personne de l’équipe d’examen n’a encore ouvert la liste qui la contient.",
+      "em_analise": "L’équipe d’examen a vu votre demande et décide. Cela prend en général quelques jours.",
+      "aprovada": "Acceptée. Il ne manque que le second facteur pour entrer.",
+      "recusada": "La demande a été refusée. Le motif, s’il y en a un, apparaît ci-dessous."
+    },
+    "quem": "L’examen est fait par la coordination ou la médiation d’Alumia. Nous ne montrons pas qui a examiné, et Alumia ne garde ni qui a vu votre demande ni quand : seulement si elle a déjà été vue.",
+    "atual": "maintenant"
+  },
+  "fator": {
+    "perdiTitulo": "Vous avez perdu le téléphone de l’application ?",
+    "perdiTexto": "Utilisez l’un des dix codes de récupération que vous avez gardés en enregistrant l’application. L’ancienne application sort du compte, vos autres appareils sont déconnectés et vous enregistrez la nouvelle tout de suite.",
+    "perdiBotao": "Entrer avec un code de récupération",
+    "semCodigos": "Pas de codes ? Seule la coordination peut retirer l’application de votre compte, après avoir vérifié que c’est bien vous. Demandez par la page d’aide.",
+    "ajuda": "Ouvrir l’aide",
+    "codigosTitulo": "Gardez vos codes de récupération",
+    "codigosTexto": "Si vous perdez le téléphone de l’application, ces codes sont le seul moyen d’entrer sans le demander à la coordination. Ils n’apparaissent qu’une fois.",
+    "gerar": "Afficher mes codes",
+    "gerando": "Génération…",
+    "baixar": "Télécharger en texte",
+    "copiar": "Copier",
+    "copiados": "Codes copiés.",
+    "guardei": "Je les ai gardés, entrer dans Alumia",
+    "depois": "Le faire plus tard",
+    "depoisAviso": "Sans les codes, perdre le téléphone de l’application vous bloque hors du compte. Vous pouvez les générer plus tard dans Sécurité du compte.",
+    "falhou": "Impossible de générer les codes pour le moment. Vous pourrez le faire plus tard dans Sécurité du compte.",
+    "exemplo": "Codes d’exemple, sans valeur (aperçu)."
+  },
+  "chat": {
+    "titulo": "Le chat ne vit que sur cet appareil",
+    "itens": [
+      "Les conversations chiffrées sont gardées uniquement sur cet appareil. Le serveur n’en a aucune copie lisible.",
+      "Si vous perdez l’appareil, en changez, effacez les données du navigateur ou utilisez « Sortie rapide », l’historique du chat disparaît pour de bon.",
+      "Il n’y a pas encore de sauvegarde du chat. Si une conversation compte, convenez avec l’autre personne de l’endroit où garder ce qui doit rester."
+    ]
+  },
+  "kit": {
+    "rotulo": "Sans internet",
+    "titulo": "Kit de poche pour la manifestation",
+    "texto": "Les contacts de l’assistance juridique des organisations, le guide « Pas de réseau ? » et l’essentiel pour le jour de la manifestation, gardés sur cet appareil pour s’ouvrir sans internet.",
+    "privacidade": "Le kit est assemblé ici, avec la même liste que le mode manifestation lit déjà. Alumia ne note pas qui a gardé le kit, et il ne part pas vers le serveur. « Sortie rapide » efface le kit de cet appareil.",
+    "escolher": "Assistances juridiques incluses dans le kit",
+    "nenhumaOrg": "Aucune organisation certifiée n’a encore publié d’assistance juridique. Le kit contient le guide et l’essentiel.",
+    "minhasNotas": "Vos notes (seulement sur cet appareil)",
+    "minhasNotasAjuda": "Le numéro de quelqu’un qui viendra vous chercher, un point de rendez-vous. Jusqu’à 400 caractères. N’écrivez rien qui ne puisse être lu si le téléphone est saisi.",
+    "guardar": "Garder sur l’appareil",
+    "atualizar": "Garder à nouveau",
+    "apagar": "Effacer le kit",
+    "guardado": "Kit gardé sur cet appareil le {quando}.",
+    "naoGuardado": "Aucun kit gardé sur cet appareil pour l’instant.",
+    "semEspaco": "L’appareil n’a pas permis de garder (mode privé ou plus d’espace).",
+    "apagado": "Kit effacé de cet appareil.",
+    "abrirGuia": "Ouvrir le guide « Pas de réseau ? »",
+    "noGuia": "Votre kit de poche",
+    "noGuiaVazio": "Gardez le kit depuis le mode manifestation pour qu’il apparaisse ici, même sans internet.",
+    "assessorias": "Assistance juridique",
+    "basico": "L’essentiel",
+    "basicoItens": [
+      "Convenez à l’avance d’un point de rendez-vous et d’une heure pour donner des nouvelles.",
+      "Notez sur papier, au stylo, le numéro de qui vient vous chercher et de l’assistance juridique.",
+      "Prenez une pièce d’identité, de l’eau et le chargeur. Laissez chez vous ce qui ne peut pas être perdu.",
+      "En cas d’interpellation : restez calme, dites que vous voulez parler à un avocat et ne signez rien sans le lire."
+    ]
+  },
+  "busca": {
+    "titulo": "Chercher dans les posts chiffrés",
+    "rotulo": "Sur cet appareil",
+    "explica": "Les posts de ce groupe sont chiffrés : le serveur ne peut pas y chercher. La recherche se fait ici, en ouvrant les posts sur cet appareil.",
+    "limites": "Pour ménager votre téléphone et votre forfait, la recherche télécharge au plus les {posts} posts les plus récents des {dias} derniers jours et garde jusqu’à {mb} Mo de texte ouvert, seulement dans la mémoire de cet onglet. Fermer l’onglet l’efface. Rien de ce que vous cherchez ne part vers le serveur.",
+    "campo": "Chercher",
+    "buscar": "Télécharger et chercher",
+    "buscando": "Ouverture de {n} posts sur cet appareil…",
+    "resultado": "{achados} des {abertos} posts ouverts contiennent « {termo} ».",
+    "nada": "Aucun des {abertos} posts ouverts ne contient « {termo} ».",
+    "paradoPosts": "Arrêt à la limite de {posts} posts. Les posts plus anciens sont restés dehors.",
+    "paradoDias": "Arrêt aux posts d’il y a {dias} jours. Les posts plus anciens sont restés dehors.",
+    "paradoMemoria": "Arrêt à la limite de {mb} Mo de texte. Les posts plus anciens sont restés dehors.",
+    "fechados": "{n} posts ne se sont pas ouverts sur cet appareil (clé d’avant votre arrivée dans le groupe).",
+    "limpar": "Effacer de la mémoire",
+    "abrir": "Ouvrir le post",
+    "curto": "Tapez au moins 2 lettres.",
+    "falha": "Impossible de télécharger les posts pour le moment. Réessayez."
+  }
+}

@@ -9,6 +9,7 @@ import { BackendError, evaluatePost, hasBackend, rpc, useMe } from "@/lib/backen
 import { useCadastro } from "@/lib/cadastro";
 import { temTempoReal, transmitir, useSinal } from "@/lib/tempo-real";
 import { L, useI18n } from "./I18n";
+import { confirmar } from "@/components/perguntar";
 
 type S = Dict["videoLessons"]["comments"];
 
@@ -92,7 +93,7 @@ export function Comentarios({ videoaula, s }: { videoaula: string; s: S }) {
   }
 
   async function apagar(c: Comentario) {
-    if (!window.confirm(s.removeConfirm)) return;
+    if (!(await confirmar(s.removeConfirm))) return;
     try {
       await rpc("comentario_apagar", { p_id: c.id });
       transmitir("comentario", videoaula);

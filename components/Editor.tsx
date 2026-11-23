@@ -10,6 +10,7 @@ import { EditorPorBlocos } from "./EditorPorBlocos";
 import { useI18n } from "./I18n";
 import { travarRolagem } from "./app/telas";
 import { Markdown } from "./Markdown";
+import { perguntar } from "@/components/perguntar";
 
 export interface EditorLabels {
   bold: string;
@@ -199,8 +200,8 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
     requestAnimationFrame(() => el?.focus());
   }
 
-  function video() {
-    const url = window.prompt(labels.videoPrompt, "https://");
+  async function video() {
+    const url = await perguntar(labels.videoPrompt, "https://");
     if (!url || !/^https:\/\/[^\s]+$/.test(url.trim())) return;
     insertBlock(["```video", url.trim(), "```"].join("\n"));
   }
@@ -211,8 +212,8 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
     try {
       const { blob, extension } = await cleanImage(file);
       const path = await sendFile(blob, extension);
-      const alt = (window.prompt(labels.imageAlt, "") ?? "").replace(/[\[\]\n]/g, " ").trim() || labels.image;
-      const credit = (window.prompt(labels.imageCredit, "") ?? "").replace(/["\n]/g, " ").trim();
+      const alt = ((await perguntar(labels.imageAlt, "")) ?? "").replace(/[\[\]\n]/g, " ").trim() || labels.image;
+      const credit = ((await perguntar(labels.imageCredit, "")) ?? "").replace(/["\n]/g, " ").trim();
       insertBlock(`![${alt}](envio:${path}${credit ? ` "${credit}"` : ""})`);
       setNotice("");
     } catch (error) {
@@ -231,7 +232,7 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
     setNotice(labels.sending);
     try {
       const path = await sendFile(file, "pdf");
-      const nome = (window.prompt("Nome do anexo (o que a pessoa vai baixar)", "Material da aula") ?? "").replace(/[[\]\n]/g, " ").trim() || "Anexo";
+      const nome = ((await perguntar("Nome do anexo (o que a pessoa vai baixar)", "Material da aula")) ?? "").replace(/[[\]\n]/g, " ").trim() || "Anexo";
       insertBlock(`[📎 ${nome}](envio:${path})`);
       setNotice("");
     } catch (error) {
@@ -372,8 +373,8 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
     requestAnimationFrame(() => el.focus());
   }
 
-  function link() {
-    const url = window.prompt(labels.linkPrompt, "https://");
+  async function link() {
+    const url = await perguntar(labels.linkPrompt, "https://");
     if (!url || !/^https?:\/\//.test(url)) return;
     wrap("[", `](${url})`, labels.link);
   }

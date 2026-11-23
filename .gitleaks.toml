@@ -7,3 +7,9 @@ description = "Valores públicos por natureza"
 # A impressão digital pública do certificado do aplicativo Android (também publicada em .well-known/assetlinks.json).
 regexTarget = "line"
 regexes = ['''android:apk-key-hash:[A-Za-z0-9_-]{43}''']
+# Onda R3 (2.4): a raiz de confiança PÚBLICA do Sigstore (chaves públicas do Rekor, do Fulcio e dos registros de certificados) e os
+# vetores de teste do Sigstore (um pacote público de outro projeto). Nada disso é segredo; os "keyId" parecem chave para a regra geral.
+paths = ['''^public/apps/raiz-sigstore\.json$''', '''^scripts/vetores/sigstore/''']
+# Prompt 4: nomes de funções e tabelas do banco (rede_p4_...) e nomes de pacotes do Rust (libcrux-...), que a regra geral
+# confunde com chave quando aparecem numa lista entre aspas. Um achado que contém um desses pedaços não é segredo.
+stopwords = ['''rede_p4_''', '''libcrux-''']

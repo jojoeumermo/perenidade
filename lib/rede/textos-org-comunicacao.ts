@@ -5,6 +5,7 @@
 // final; os outros têm "_rascunho": true até a revisão). UM idioma por vez, por import dinâmico.
 import { useEffect, useState } from "react";
 import type pt from "../../i18n/rede/org/comunicacao/pt.json";
+import { prontoOu } from "./textos-prontos";
 
 export type TextosDaComunicacao = typeof pt;
 
@@ -13,7 +14,7 @@ const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"] as const;
 export async function carregarTextosDaComunicacao(lang: string): Promise<TextosDaComunicacao> {
   const l = (IDIOMAS as readonly string[]).includes(lang) ? lang : "pt";
   try {
-    return ((await import(`../../i18n/rede/org/comunicacao/${l}.json`)) as { default: TextosDaComunicacao }).default;
+    return prontoOu(((await import(`../../i18n/rede/org/comunicacao/${l}.json`)) as { default: TextosDaComunicacao }).default, async () => ((await import("../../i18n/rede/org/comunicacao/pt.json")) as { default: TextosDaComunicacao }).default);
   } catch {
     return ((await import("../../i18n/rede/org/comunicacao/pt.json")) as { default: TextosDaComunicacao }).default;
   }

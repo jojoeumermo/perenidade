@@ -3,9 +3,9 @@
 // Achar alguém do Fediverso pelo endereço (@nome@instancia): o servidor pergunta à instância (WebFinger), lê o perfil público e os
 // últimos posts PÚBLICOS (só texto: sem HTML, sem imagem, sem script) e devolve à tela. O navegador de quem busca nunca toca a outra
 // instância (ela não fica sabendo quem olhou). Só para quem entrou na Alumia, com teto por pessoa no banco (rede_fed_eu).
-import { lerConta } from "@/lib/rede/fediverso/enderecos";
+import { contaDaqui, lerConta } from "@/lib/rede/fediverso/enderecos";
 import { conferirTeto } from "@/lib/rede/fediverso/rotas";
-import { atorPorConta, banco, buscarDocumento, codigoParaATela, fed } from "@/lib/rede/fediverso/servidor";
+import { atorPorConta, banco, buscarDocumento, codigoParaATela, fed, modoTotal } from "@/lib/rede/fediverso/servidor";
 import { htmlParaTexto, textoCurto } from "@/lib/rede/fediverso/texto";
 import { chamarComoPessoa, statusDoCodigo, tokenDe } from "@/lib/rede/publicar/servidor";
 
@@ -54,7 +54,7 @@ export async function GET(pedido: Request) {
   const conta = lerConta(new URL(pedido.url).searchParams.get("conta") ?? "");
   if (!conta) return resposta({ erro: "invalido:conta" }, 400);
   // Alguém daqui: a tela leva direto ao perfil na Alumia.
-  if (conta.dominio === fed.dominio) return resposta({ local: true, handle: conta.usuario.toLowerCase() });
+  if (contaDaqui(conta, fed, modoTotal())) return resposta({ local: true, handle: conta.usuario.toLowerCase() });
   // Sem conseguir conferir o bloqueio, a rota não busca (na dúvida, a instância conta como bloqueada).
   if (await banco<boolean>("bloqueado", { url: `https://${conta.dominio}/` }).catch(() => true)) return resposta({ erro: "instancia_bloqueada" }, 403);
   const ator = await atorPorConta(conta.usuario, conta.dominio).catch(() => null);

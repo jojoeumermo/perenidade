@@ -483,7 +483,8 @@ function TituloDaVista({ vista, fio, s, comunidade, nome, logado, seguida, segui
 /** O botão "Entrar" / "Sair" de uma comunidade; sem conta, só abre a comunidade para ler. */
 function BotaoDaComunidade({ s, logado, seguida, abrir, seguir }: { s: Textos; logado: boolean; seguida: boolean; abrir: () => void; seguir: (sim: boolean) => void }) {
   return (
-    <button type="button" onClick={() => (logado ? seguir(!seguida) : abrir())} className={`${pilula} shrink-0 px-3 py-[5px] text-xs ${seguida ? "border-[1.5px] border-ink text-ink" : "bg-ink text-parchment"}`}>
+    // A pílula é pequena no desenho; a área de toque é uma camada invisível de 44 px em volta dela (o alvo mínimo do celular).
+    <button type="button" onClick={() => (logado ? seguir(!seguida) : abrir())} className={`${pilula} relative shrink-0 px-3 py-[5px] text-xs after:absolute after:top-1/2 after:left-1/2 after:h-11 after:w-[max(100%,44px)] after:-translate-x-1/2 after:-translate-y-1/2 after:content-[''] ${seguida ? "border-[1.5px] border-ink text-ink" : "bg-ink text-parchment"}`}>
       {!logado ? s.verComunidade : seguida ? s.sairComunidade : s.entrarComunidade}
     </button>
   );
@@ -497,8 +498,9 @@ function ComunidadesDeLuta({ s, logado, seguidas, nome, abrir, seguir, verTodas 
       <h2 className="px-4 pt-3.5 pb-2 font-serif text-[21px] font-semibold">{s.lutas}</h2>
       <ul>
         {lista.map((slug) => (
-          <li key={slug} className="flex items-center gap-2.5 px-4 py-[9px] hover:bg-parchment-deep">
-            <button type="button" onClick={() => abrir(slug)} className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 text-left font-sans text-sm">
+          <li key={slug} className="flex items-center gap-2.5 px-4 hover:bg-parchment-deep">
+            {/* O botão ocupa a altura da linha inteira (44 px, o alvo mínimo do celular) no lugar do respiro da linha. */}
+            <button type="button" onClick={() => abrir(slug)} className="flex min-h-11 min-w-0 flex-1 cursor-pointer items-center gap-2.5 text-left font-sans text-sm">
               <Letra slug={slug} nome={nome(slug)} />
               <span className="min-w-0 truncate">{nome(slug)}</span>
             </button>
@@ -1247,7 +1249,8 @@ function Seguranca({ s, logado, silenciadas, silenciar }: { s: Textos; logado: b
           if (e.currentTarget.open && !registro) void rpc<typeof registro>("rede_moderacao_publica").then(setRegistro).catch(() => setRegistro([]));
         }}
       >
-        <summary className="cursor-pointer font-bold">{s.moderacao}</summary>
+        {/* 44 px de alvo (o mínimo do celular) sem empurrar o resto: o respiro de cima e de baixo volta pela margem negativa. */}
+        <summary className="-my-3 cursor-pointer py-3 font-bold">{s.moderacao}</summary>
         <p className="mt-1 text-xs text-ink-soft">{s.moderacaoTexto}</p>
         <ul className="mt-1 text-xs">
           {(registro ?? []).map((r) => (
@@ -1255,8 +1258,8 @@ function Seguranca({ s, logado, silenciadas, silenciar }: { s: Textos; logado: b
           ))}
         </ul>
       </details>
-      <details className="mt-2 text-[13px]">
-        <summary className="cursor-pointer font-bold">{s.silenciar}</summary>
+      <details className="mt-6 text-[13px]">
+        <summary className="-my-3 cursor-pointer py-3 font-bold">{s.silenciar}</summary>
         <p className="mt-1 text-xs text-ink-soft">{s.silenciarAjuda}</p>
         <input value={palavras} onChange={(e) => setPalavras(e.target.value)} onBlur={() => silenciar(palavras.split(",").map((p) => p.trim().toLowerCase()).filter(Boolean))} className="mt-1 w-full rounded-md border border-rule bg-parchment px-2 py-1 text-xs" aria-label={s.silenciar} />
       </details>

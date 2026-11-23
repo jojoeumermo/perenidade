@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { BackendError, rpc } from "@/lib/backend";
 import { type Aberto, type Alerta, type Chaveiro, chaveiroDe, aparelhosMigrados, recomecar } from "@/lib/chaveiro";
 import { desempacotar } from "@/lib/mensagem";
+import { type Lugar, type MensagemAberta, novoIdDeMensagem, type TipoDaMensagem } from "@/lib/equipe/autoria";
 import { chaveDeRecuperacaoValida, codigoDeSeguranca, codigoEmGrupos, lerQrDaSeguranca, lerQrDoPedido, novaChaveDeRecuperacao, qrDaSeguranca, qrDoPedido } from "@/lib/sigilo";
 import { Aviso, data, dataHora, rotulo, textoDoErro, useLista } from "./comum";
 import { Formatado } from "./Formatado";
@@ -89,6 +90,90 @@ export function useAbertos(chaveiro: Chaveiro | null, itens: Cifrado[]) {
 
   return abertos;
 }
+
+/** Uma mensagem do chat da equipe para abrir (onda R3: o autor e a hora vêm de dentro do cifrado, não do banco). */
+export interface MensagemCifrada {
+  id: string;
+  conversa: string;
+  corpo: string;
+  tipo: TipoDaMensagem;
+  alvo: string | null;
+}
+
+/**
+ * Abre neste aparelho as mensagens do chat da equipe: o texto, quem escreveu e a hora, com a assinatura conferida. null enquanto a
+ * chave não chegou (tenta de novo a cada quinze segundos); ausente enquanto ainda está abrindo.
+ */
+export function useMensagensAbertas(chaveiro: Chaveiro | null, itens: MensagemCifrada[]) {
+  const [abertos, setAbertos] = useState<Record<string, MensagemAberta | null>>({});
+  const [rodada, setRodada] = useState(0);
+  const faltam = itens.filter((item) => !abertos[item.id]);
+  const assinatura = faltam.map((item) => item.id).join(",");
+  const esperando = faltam.some((item) => abertos[item.id] === null);
+  const lista = useRef(faltam);
+  useEffect(() => {
+    lista.current = faltam;
+  });
+
+  useEffect(() => {
+    if (!chaveiro || !assinatura || chaveiro.estado !== "aprovado") return;
+    let cancelado = false;
+    void Promise.all(
+      lista.current.map(async (item) => [item.id, await chaveiro.abrirMensagem({ conversa: item.conversa, id: item.id, tipo: item.tipo, alvo: item.alvo }, item.corpo).catch(() => null)] as const),
+    ).then((pares) => {
+      if (!cancelado) setAbertos((antes) => ({ ...antes, ...Object.fromEntries(pares) }));
+    });
+    return () => {
+      cancelado = true;
+    };
+  }, [chaveiro, assinatura, rodada]);
+
+  useEffect(() => {
+    if (!esperando) return;
+    const relogio = window.setTimeout(() => setRodada((n) => n + 1), 15_000);
+    return () => window.clearTimeout(relogio);
+  }, [esperando, rodada]);
+
+  return abertos;
+}
+
+/** O que o envio manda ao banco: o id escolhido aqui, o corpo cifrado e o resumo da ficha de dono (sem autor nem hora). */
+export interface Envio {
+  id: string;
+  corpo: string;
+  dono: string;
+}
+
+/**
+ * Chat da equipe (onda R3): escolhe o id, assina por dentro com quem escreve e a hora, cifra e envia com o resumo da ficha de dono. Se a
+ * chave foi trocada nesse meio-tempo (alguém saiu), cifra de novo e tenta mais uma vez.
+ */
+export async function enviarMensagem<T = unknown>(chaveiro: Chaveiro, conversa: string, onde: { tipo: TipoDaMensagem; alvo: string | null; id?: string }, texto: string, enviar: (envio: Envio) => Promise<T>): Promise<T> {
+  // O id pode vir escolhido antes (os anexos sobem com a ficha desta mensagem, antes dela).
+  const l: Lugar = { conversa, id: onde.id ?? novoIdDeMensagem(), tipo: onde.tipo, alvo: onde.alvo };
+  const { dono } = await chaveiro.fichaDoEnvio(l);
+  for (let tentativa = 0; ; tentativa++) {
+    const corpo = await chaveiro.cifrarMensagem(l, texto);
+    if (corpo.length > LIMITE_CIFRADO) throw new BackendError("mensagem_longa");
+    try {
+      return await enviar({ id: l.id, corpo, dono });
+    } catch (erro) {
+      if (tentativa > 0 || !(erro instanceof BackendError) || erro.code !== "chave_desatualizada") throw erro;
+    }
+  }
+}
+
+/** Os argumentos de public.chat_enviar (todos, inclusive os nulos: a função não tem valor padrão). */
+export const argumentosDoEnvio = (conversa: string, e: Envio, onde: { tipo: TipoDaMensagem; alvo: string | null }, extra: { anexos?: string[] | null; prova?: string | null } = {}) => ({
+  p_id: conversa,
+  p_mensagem: e.id,
+  p_corpo: e.corpo,
+  p_tipo: onde.tipo,
+  p_alvo: onde.alvo,
+  p_anexos: extra.anexos && extra.anexos.length ? extra.anexos : null,
+  p_dono: e.dono,
+  p_prova: extra.prova ?? null,
+});
 
 /** Como uma mensagem aberta aparece, com a marca da autoria. */
 export function TextoAberto({ aberto, antiga = false }: { aberto: Aberto | null | undefined; antiga?: boolean }) {
@@ -280,10 +365,10 @@ export function AparelhoPendente({ chaveiro }: { chaveiro: Chaveiro }) {
           <Qr texto={qrDoPedido(codigo, chaveiro.publica)} rotulo="Código deste aparelho, para ler com a câmera de um aparelho aprovado" />
           <div>
             <p className={rotulo}>Código de aprovação</p>
-            <p className="mt-1 font-mono text-3xl tracking-[0.3em]" aria-label={`Código ${codigo.split("").join(" ")}`}>
-              {codigo.slice(0, 4)} {codigo.slice(4)}
+            <p className="mt-1 whitespace-nowrap font-mono text-2xl tracking-[0.18em] sm:text-3xl sm:tracking-[0.3em]" aria-label={`Código ${codigo.split("").join(" ")}`}>
+              {codigo.slice(0, 4)} {codigo.slice(4, 8)} {codigo.slice(8)}
             </p>
-            <p className="pn-ajuda mt-2 max-w-xs">O código vale por um dia e só serve para este aparelho. Ninguém do instituto vai pedir esse código a você.</p>
+            <p className="pn-ajuda mt-2 max-w-xs">O código vale por dez minutos e só serve para este aparelho; depois, um novo aparece aqui sozinho. Ler o QR é o jeito mais seguro. Ninguém do instituto vai pedir esse código a você.</p>
           </div>
         </Cartao>
       ) : (
@@ -425,7 +510,7 @@ function Aprovacao({ chaveiro, aparelho, fechar }: { chaveiro: Chaveiro; aparelh
       if (await chaveiro.aprovar(aparelho.id, codigoDigitado, publicaLida)) {
         setAviso("Aparelho aprovado. Ele passa a abrir as conversas em instantes.");
         window.setTimeout(fechar, 1500);
-      } else setAviso("O código não confere com o que esse aparelho mostra. Confira na tela dele e tente de novo.");
+      } else setAviso("O código não confere com o que esse aparelho mostra, ou já venceu (vale dez minutos). Confira o código que está na tela dele agora e tente de novo.");
     } catch (erro) {
       setAviso(textoDoErro(erro));
     } finally {
@@ -436,7 +521,7 @@ function Aprovacao({ chaveiro, aparelho, fechar }: { chaveiro: Chaveiro; aparelh
   return (
     <div role="dialog" aria-label={`Aprovar ${aparelho.rotulo || "aparelho"}`} className="pn-cartao pn-cartao-destaque mt-3 text-sm text-ink">
       <p className="pn-cartao-titulo">Aprovar “{aparelho.rotulo || "aparelho sem nome"}”</p>
-      <p className="pn-ajuda mt-1">Digite os oito números que aparecem na tela desse aparelho. Só aprove se for você mesmo quem está entrando nele.</p>
+      <p className="pn-ajuda mt-1">Leia o QR que aparece na tela desse aparelho (o mais seguro) ou digite os doze números. O código vale por dez minutos. Só aprove se for você mesmo quem está entrando nele.</p>
       {lendo ? (
         <div className="mt-3">
           <LeitorDeQr
@@ -454,9 +539,9 @@ function Aprovacao({ chaveiro, aparelho, fechar }: { chaveiro: Chaveiro; aparelh
         <form className="mt-3 flex flex-wrap items-end gap-2" onSubmit={(e) => { e.preventDefault(); void aprovar(codigo); }}>
           <label className="pn-rotulo block">
             Código
-            <input value={codigo} onChange={(e) => setCodigo(e.target.value.replace(/\D/g, "").slice(0, 8))} inputMode="numeric" autoComplete="one-time-code" placeholder="0000 0000" className="pn-campo mt-1 max-w-44 font-mono text-xl tracking-widest" />
+            <input value={codigo} onChange={(e) => setCodigo(e.target.value.replace(/\D/g, "").slice(0, 12))} inputMode="numeric" autoComplete="one-time-code" placeholder="0000 0000 0000" className="pn-campo mt-1 max-w-60 font-mono text-xl tracking-widest" />
           </label>
-          <Botao type="submit" variante="principal" simbolo={Check} carregando={ocupado} disabled={codigo.length !== 8}>Aprovar</Botao>
+          <Botao type="submit" variante="principal" simbolo={Check} carregando={ocupado} disabled={codigo.length !== 12}>Aprovar</Botao>
           {temLeitor() && <Botao simbolo={Camera} onClick={() => setLendo(true)}>Ler o QR</Botao>}
           <Botao variante="discreto" onClick={fechar}>Cancelar</Botao>
         </form>

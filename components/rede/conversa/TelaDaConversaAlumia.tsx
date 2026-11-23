@@ -7,6 +7,9 @@ import { rede } from "@/lib/rede/cliente";
 import { conversa } from "@/lib/rede/cliente-conversa";
 import { arvoreDeExemplo, postDeExemplo } from "@/lib/rede/conversa/exemplos";
 import { preencher } from "@/lib/rede/preencher";
+import { ligado } from "@/lib/recursos";
+import { useTextosDoP4 } from "../publicar/p4/textos";
+import "../publicar/p4/p4.css";
 import { ordemNoBanco, ordenarRamos, type OrdemDoFio } from "@/lib/rede/linha-aberta";
 import { comReserva, faltaFuncaoNoBanco } from "@/lib/rede/reserva";
 import { marcarLido } from "@/lib/rede/tipos-b1";
@@ -42,6 +45,7 @@ import { linhaAbertaLigada, useTextosDaLinha } from "../linha/base";
 import { OrdensAMais, RegraDaOrdem, RespostasOcultadas, separarOcultas, useOcultas } from "../linha/NaConversa";
 import { AcoesDeCuidado } from "../moderacao/NoCartao";
 import { CartaoDaAlumia2 } from "../publicar/alumia2/CartaoDaAlumia2";
+import { usePaletaDaComunidade } from "../p4/cartao/usar";
 import { useAlumia2 } from "../publicar/alumia2/contexto";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
@@ -71,6 +75,9 @@ import { redePub } from "@/lib/rede/cliente-publicar";
 import { midiaLigada } from "@/lib/rede/midia/ligado";
 import { AudioNaCaixa, enviarAudioDaResposta, type AudioGravado } from "../midia/AudioNaCaixa";
 import { NaResposta, OuvirResposta } from "../midia/NaResposta";
+import { pontesP4Ligado } from "@/lib/rede/p4/pontes/ligado";
+import { PoucoUtil } from "../p4/pontes/PoucoUtil";
+import { LerComoTexto } from "../p4/pontes/LerComoTexto";
 
 const MIDIA = midiaLigada();
 
@@ -121,7 +128,20 @@ type Citacao = { post: Post; trecho: string };
  * Os dados vêm de rede_alumia_conversa (supabase/migracoes/20261109-alumia-f3.sql) e o "seguir" de rede_alumia_seguir_conversa
  * (20261110-alumia-comunidade.sql): ninguém vê quem segue (LGPD art. 5º, II, e art. 11), e o aviso chega agrupado.
  */
-export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: string; lang: string; s: TextosDaRede; situacao: Situacao }) {
+export default function TelaDaConversaAlumia({
+  id,
+  lang,
+  s,
+  situacao,
+  aoExpandir,
+}: {
+  id: string;
+  lang: string;
+  s: TextosDaRede;
+  situacao: Situacao;
+  /** A15 (com "alumia-p4-compositor"): leva a resposta escrita na caixa para o Escrever completo (imagem, aviso, mencionados). */
+  aoExpandir?: (destino: Post, texto: string) => void;
+}) {
   const t = useTextosAlumia3(lang);
   // A linha com regra aberta (interruptor "alumia-linha-aberta") acrescenta as ordens "úteis" e "sem resposta" (arrumadas no
   // aparelho, com a regra escrita na tela) e as respostas que quem abriu a conversa tirou do fio sem apagar.
@@ -353,6 +373,11 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
         <PostAberto post={post} lang={lang} t={t} logado={situacao.logado} aoErro={aoErro} aoAvisar={(texto) => avisar({ texto })} />
       )}
 
+      {/* Prompt 4, item 133: o fio da autora como texto corrido (só com o lote ligado e quando ela respondeu a si mesma). */}
+      {pontesP4Ligado() && post.autor.handle && dado.respostas.some((r) => r.autor.handle === post.autor.handle) && (
+        <LerComoTexto id={post.id} lang={lang} />
+      )}
+
       {/* Notas de contexto (B1): a que aparece fica logo abaixo do post, com a fonte; a regra a um toque. */}
       <NotasDeContexto post={post.id} lang={lang} s={s} situacao={situacao} aoAvisar={(texto, erro) => avisar({ texto, erro })} />
 
@@ -410,6 +435,7 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
       <CitarTrecho raiz={tela} t={t} pode={podeResponder} posts={[post, ...dado.respostas]} aoCitar={citar} />
 
       <CaixaDeResposta
+        aoExpandir={ligado("alumia-p4-compositor") ? aoExpandir : undefined}
         lang={lang}
         s={s}
         t={t}
@@ -577,7 +603,7 @@ function PostAberto({ post, lang, t, logado, aoErro, aoAvisar }: { post: PostDaA
 
 /**
  * As reações com emoji (PLANO-ALUMIA §6.3): lista FECHADA, total por emoji (abaixo de 3, "poucas"), e a minha marcada. Ninguém vê
- * quem reagiu, nem quem escreveu. "Reagir" abre a paleta com os 8 da lista (Escape fecha e devolve o foco); a escolhida dá um pulo
+ * quem reagiu, nem quem escreveu. "Reagir" abre a paleta com os 8 da lista (ou a da mediação da comunidade, P4 item 30) (Escape fecha e devolve o foco); a escolhida dá um pulo
  * e o número sobe no lugar. O banco confere a lista de novo (rede_alumia_reagir).
  */
 function Reacoes({ post, t, logado, aoErro }: { post: Post; t: TextosDaAlumia3; logado: boolean; aoErro: (e: unknown) => void }) {
@@ -589,7 +615,14 @@ function Reacoes({ post, t, logado, aoErro }: { post: Post; t: TextosDaAlumia3; 
   const idDaPaleta = useId();
   const bloco = useRef<HTMLDivElement>(null);
   const abrir = useRef<HTMLButtonElement>(null);
-  const mostrar = reacoesParaMostrar(reacoes);
+  // Prompt 4, item 30: a lista que a mediação da comunidade escolheu (nula com o grupo desligado: a fechada de sempre).
+  const paletaDaCom = usePaletaDaComunidade(post.comunidade);
+  const emojisDaPaleta = paletaDaCom ?? REACOES.map((r) => r.emoji);
+  const mostrar = reacoesParaMostrar(reacoes, paletaDaCom);
+  const nomeDe = (emoji: string) => {
+    const r = REACOES.find((x) => x.emoji === emoji);
+    return r ? t.reacoes.nomes[r.nome] : emoji;
+  };
 
   useEffect(() => {
     if (!paleta) return;
@@ -606,7 +639,7 @@ function Reacoes({ post, t, logado, aoErro }: { post: Post; t: TextosDaAlumia3; 
   }
 
   async function reagir(emoji: string) {
-    if (!reacaoOk(emoji) || ocupado) return;
+    if (!(paletaDaCom ? paletaDaCom.includes(emoji) : reacaoOk(emoji)) || ocupado) return;
     const minha = reacoes.find((r) => r.emoji === emoji)?.minha ?? false;
     const daPaleta = paleta;
     setPaleta(false);
@@ -645,7 +678,7 @@ function Reacoes({ post, t, logado, aoErro }: { post: Post; t: TextosDaAlumia3; 
             data-emoji={r.emoji}
             aria-pressed={r.minha}
             disabled={!logado || ocupado}
-            aria-label={`${t.reacoes.nomes[r.nome]}: ${r.total ?? t.reacoes.poucas}${r.minha ? ` (${t.reacoes.minha})` : ""}`}
+            aria-label={`${nomeDe(r.emoji)}: ${r.total ?? t.reacoes.poucas}${r.minha ? ` (${t.reacoes.minha})` : ""}`}
             onClick={() => void reagir(r.emoji)}
           >
             <span aria-hidden className="al3-reacao-emoji">{r.emoji}</span>
@@ -702,15 +735,15 @@ function Reacoes({ post, t, logado, aoErro }: { post: Post; t: TextosDaAlumia3; 
         }}
       >
         {paleta &&
-          REACOES.map((r, i) => (
+          emojisDaPaleta.map((emoji, i) => (
             <button
-              key={r.emoji}
+              key={emoji}
               type="button"
               style={{ "--i": i } as CSSProperties}
-              aria-label={preencher(t.conversa.reagirComo, { nome: t.reacoes.nomes[r.nome] })}
-              onClick={() => void reagir(r.emoji)}
+              aria-label={preencher(t.conversa.reagirComo, { nome: nomeDe(emoji) })}
+              onClick={() => void reagir(emoji)}
             >
-              {r.emoji}
+              {emoji}
             </button>
           ))}
       </div>
@@ -888,6 +921,8 @@ function Resposta({ no, indice, c }: { no: NoDaArvore; indice: number; c: Contex
             {c.tf && virar && (
               <button type="button" className="al3-acao" onClick={virar}>{c.tf.virar.acao}</button>
             )}
+            {/* Prompt 4, item 132: "pouco útil", secreto, só com o lote ligado, para quem entrou e não é a autora. */}
+            {aberta && c.logado && !p.meu && !previa() && pontesP4Ligado() && <PoucoUtil post={p.id} lang={lang} />}
             {aberta && <AcoesDeCuidado post={p} lang={lang} s={c.s} logado={c.logado} classe="al3-acao" />}
           </div>
         </div>
@@ -974,6 +1009,7 @@ function CitarTrecho({
 
 /** "Responder para @liaquilombo" + enviar (vermelho). Passa pelas verificações das frentes antes (o servidor confere de novo). */
 function CaixaDeResposta({
+  aoExpandir,
   lang,
   s,
   t,
@@ -999,8 +1035,10 @@ function CaixaDeResposta({
   aoVoltarAoPost: () => void;
   aoEnviar: (p: PostDaArvore) => void;
   aoErro: (e: unknown) => void;
+  aoExpandir?: (destino: Post, texto: string) => void;
 }) {
   const [texto, setTexto] = useState("");
+  const tp4 = useTextosDoP4(lang, Boolean(aoExpandir));
   const [audio, setAudio] = useState<AudioGravado | null>(null);
   const [enviando, setEnviando] = useState(false);
   // O resultado da última conferência: um alerta deixa "Enviar assim mesmo"; um bloqueio não (o servidor recusa de novo).
@@ -1148,6 +1186,24 @@ function CaixaDeResposta({
         <IconeEnviar />
       </button>
       <span id="al3-contador" className="al3-sr">{preencher(t.conversa.contador, { n: texto.length, max: limite })}</span>
+      {aoExpandir && tp4 && (
+        // A15: a resposta (com a citação, se houver) vai para o Escrever completo, que publica com o Desfazer e a chave do envio.
+        <div className="al3-responder-linha">
+          <button
+            type="button"
+            className="p4c-botao !no-underline"
+            title={tp4.barra.expandirAjuda}
+            disabled={enviando}
+            onClick={() => {
+              aoExpandir(destino, `${cabecaDaCitacao}${texto}`.slice(0, LIMITE));
+              setTexto("");
+              if (campo.current) campo.current.style.height = "";
+            }}
+          >
+            {tp4.barra.expandir}
+          </button>
+        </div>
+      )}
       {texto.length > limite - 60 && (
         <span className="al3-contador-visivel" aria-hidden data-perto={texto.length >= limite ? "fim" : "perto"}>
           {limite - texto.length}

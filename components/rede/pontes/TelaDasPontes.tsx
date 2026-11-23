@@ -12,6 +12,7 @@ import type { PropsDaTelaDoPacote } from "../registro";
 import { pontes, PREVIA_DAS_PONTES, type EuNasPontes, type PontesDaOrg, type Robo } from "./cliente";
 import { diaNoIdioma, por, textoDoErro, type TextosDasPontes } from "./textos";
 import { useTextosDasPontes } from "./usarTextos";
+import { confirmar } from "@/components/perguntar";
 
 type Aba = "robos" | "telegram" | "api" | "fila";
 const TELEGRAM = PREVIA_DAS_PONTES || telegramLigado();
@@ -88,7 +89,7 @@ function CartaoDoRobo({ t, lang, robo, aoMudar }: { t: TextosDasPontes; lang: st
           )}
           {robo.handle && ativo && <a className="al-botao al-botao-m al-botao-fantasma" href={`/${lang}/alumia/u/${robo.handle}`}>{t.robos.perfil}</a>}
           <button type="button" className="al-botao al-botao-m al-botao-contorno" disabled={ocupado}
-            onClick={() => { if (window.confirm(por(t.robos.desligarConfirma, { nome: robo.nome }))) void fazer(async () => { aoMudar(await pontes.desligarRobo(robo.id)); setChave(null); }); }}>
+            onClick={async () => { if ((await confirmar(por(t.robos.desligarConfirma, { nome: robo.nome })))) void fazer(async () => { aoMudar(await pontes.desligarRobo(robo.id)); setChave(null); }); }}>
             {t.robos.desligar}
           </button>
         </div>

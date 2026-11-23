@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+     O app de Android (onda R3, itens 1.2 e 2.3). O que este manifesto garante (scripts/testar-r3-android-manifesto.mjs confere):
+       - nada vai para a cópia de segurança do sistema nem para a transferência entre aparelhos (allowBackup="false" e as regras);
+       - sem tráfego em texto puro; nenhum filtro de link (deep link): nenhum endereço de fora abre nada no app;
+       - a casca do chat (MainActivity) não é exportada: só os três nomes da tela inicial (activity-alias) a abrem, e só UM fica
+         ligado de cada vez (o disfarce: "Instituto Lúcia", "Calculadora" ou "Notas");
+       - a rede social (RedeActivity) em outro processo, sem exportar;
+       - o rótulo da aplicação e das telas é NEUTRO (rotulo_do_app): o sistema o mostra no cabeçalho das notificações, nas telas de
+         licença e em Configurações, e ele não acompanha o disfarce. "Instituto Lúcia" fica só no nome padrão da tela inicial. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="false"
+        android:fullBackupContent="@xml/regras_de_backup"
+        android:dataExtractionRules="@xml/regras_de_extracao"
+        android:hasFragileUserData="false"
+        android:usesCleartextTraffic="false"
+        android:icon="@drawable/icone_padrao"
+        android:label="@string/rotulo_do_app"
+        android:roundIcon="@drawable/icone_padrao"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:targetApi="31">
+
+        <activity
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation|density"
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBarLaunch"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            android:excludeFromRecents="false"
+            android:exported="false" />
+
+        <activity-alias
+            android:name=".Padrao"
+            android:targetActivity=".MainActivity"
+            android:label="@string/app_name"
+            android:icon="@drawable/icone_padrao"
+            android:roundIcon="@drawable/icone_padrao"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".Calculadora"
+            android:targetActivity=".MainActivity"
+            android:label="@string/nome_calculadora"
+            android:icon="@drawable/icone_calculadora"
+            android:roundIcon="@drawable/icone_calculadora"
+            android:enabled="false"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".Notas"
+            android:targetActivity=".MainActivity"
+            android:label="@string/nome_notas"
+            android:icon="@drawable/icone_notas"
+            android:roundIcon="@drawable/icone_notas"
+            android:enabled="false"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity
+            android:name=".RedeActivity"
+            android:process=":rede"
+            android:label="@string/rotulo_do_app"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation|density"
+            android:exported="false" />
+
+        <!-- Reaplica o disfarce escolhido ao ligar o aparelho (o sistema pode perder a troca de nome se o aparelho reinicia logo
+             depois). Não abre tela, não faz rede: só confere o nome. O sistema só manda este aviso para ele. -->
+        <receiver
+            android:name=".Reaplicar"
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- "Nova mensagem", sem conteúdo (Android 13+ pede licença). -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Só para reaplicar o disfarce ao ligar o aparelho (Reaplicar). -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- Modo sem internet (Bluetooth LE), só Android 12+ e só pedidas quando a pessoa ativa o modo. neverForLocation: a procura
+         não serve para localizar ninguém, e o app não pede localização. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation" tools:targetApi="31" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
+</manifest>

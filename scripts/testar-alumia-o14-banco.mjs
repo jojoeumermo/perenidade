@@ -44,6 +44,7 @@ const INVOCADORAS = new Map([["rede_alumia_versao", "devolve só o número da ve
  * "quem curtiu, viu, segue, votou, assina ou doou" para quem está de fora. Função nova que cair na regra para o teste até ser revista.
  */
 const LISTAS_REVISTAS = new Map([
+  ["rede_voto_guardias_possiveis", "as pessoas da coordenação que já têm chave de guardiã (a coordenação é pública na organização), só para quem cria a chave de uma votação"],
   ["alumia_ato_assessorias", "organizações (não pessoas) que assessoram atos"],
   ["alumia_com_pedidos", "pedidos de entrada, só para quem modera a comunidade (alumia_o10_pode)"],
   ["rede_com_pedidos", "pedidos de entrada, só para quem modera a comunidade (alumia_o10_pode)"],
@@ -56,6 +57,7 @@ const LISTAS_REVISTAS = new Map([
   ["rede_corrente_posso", "as organizações em nome das quais a própria pessoa age"],
   ["rede_desc_buscar", "busca por nome ou @ (não é relação de ninguém)"],
   ["rede_desc_explorar", "comunidades"],
+  ["rede_modmail_conversa", "as mensagens de UMA conversa com a mediação, só para quem a abriu ou modera a comunidade; \"de\" é o lado (pessoa ou mediação), nunca alguém"],
   ["rede_dm_chaves_da_conversa", "chaves das duas pontas da própria conversa"],
   ["rede_dm_mensagens", "mensagens da própria conversa"],
   ["rede_fed_servidor", "servidor da federação (Faixa 2): só o servidor do site, com o segredo"],
@@ -67,6 +69,18 @@ const LISTAS_REVISTAS = new Map([
   ["rede_ama", "perguntas de uma sessão: o nome de quem perguntou só quando a pessoa quis mostrar"],
   ["alumia_pontes_rotulos", "o rótulo do robô e a organização dona dele, que são públicos"],
   ["alumia_trabalhadores", "chamados de organizações; a lista de organizações é só aquelas em que a própria pessoa fala"],
+  // Prompt 4 (revistas na primeira junção).
+  ["rede_p4_fotos_protegidas", "dos até 60 @ que a tela já mostra, quais protegeram a própria foto (um atributo do perfil, não uma relação entre pessoas)"],
+  ["rede_p4_selo_fila", "pedidos de selo, só para a coordenação (interno.alumia_coordenacao)"],
+  ["rede_p4_seg_caixa", "os envios da caixa da própria assessora (b.conta = ela); só a organização de origem, nunca quem mandou"],
+  ["rede_p4_seg_situacao", "as organizações da própria pessoa e as que têm plantão; nenhuma pessoa"],
+  // Prompt 4 (revista na segunda junção).
+  ["rede_p4_cc_estudio_orgs", "só as organizações em que a própria pessoa fala (gerencia ou tem a função de avisos), com a identidade visual delas; nenhuma pessoa"],
+  // Prompt 4 (revistas na terceira junção).
+  ["rede_p4_or_minhas", "só as organizações de que a própria pessoa faz parte e as comunidades em que ela está, para a tela Organizar; nenhuma pessoa"],
+  ["rede_p4_ac_minhas", "só as comunidades em que a própria pessoa está e as organizações que ela mesma gere (g.gestor = ela), para a tela Ação coletiva; nenhuma pessoa"],
+  // Prompt 4 (revista na quarta junção).
+  ["rede_p4_ct_mencoes", "a fila da própria pessoa: os posts que a mencionam e esperam a revisão dela (até 50), só os que ela já vê, com o autor como nos avisos de menção; nada de relação entre outras pessoas"],
 ]);
 
 /** Contagens de pessoas que não passam pelo "a partir de 3", revistas: a própria pessoa, o servidor ou a coordenação. */
@@ -138,7 +152,7 @@ const CATALOGO = [
 
 /** O corpo final das funções que as duas faixas redefinem (item 8): cada uma tem de ter todos estes pedaços. */
 const CORPOS = [
-  ["interno.alumia_porta_aberta(text, text)", ["'rede_fed_servidor'", "'rede_fed_midia_servidor'", "'rede_fed_mudanca_servidor'", "'rede_org_diretorio'", "'rede_org_mapa'", "'alumia_transparencia'", "'alumia_lei_minha_conta'", "'alumia_triagem_convites'", "'rede_sel_depositar'", "'rede_kt_ponta'", "'rede_kt_trecho'", "'rede_linha', 'rede_novos'"]],
+  ["interno.alumia_porta_aberta(text, text)", ["'rede_fed_servidor'", "'rede_fed_midia_servidor'", "'rede_fed_mudanca_servidor'", "'rede_org_diretorio'", "'rede_org_mapa'", "'alumia_transparencia'", "'alumia_lei_minha_conta'", "'alumia_triagem_convites'", "'rede_caixa_lote'", "'rede_kt_ponta'", "'rede_kt_trecho'", "'rede_linha', 'rede_novos'"]],
   ["interno.alumia_passa()", ["interno.alumia_sessao_viva()", "interno.alumia_exigida()", "interno.alumia_sessao_ok()"]],
   ["interno.rede_ve(interno.rede_posts)", ["interno.rede_bloqueado(", "interno.rede_espaco_entra(", "interno.rede_vida_ve(", "interno.rede_o9_recolhida("]],
   ["interno.rede_fed_federavel(interno.rede_posts, integer)", ["interno.rede_vida_federa(p)", "<> 'internet' then", "interno.rede_fed_impedimento(", "interno.rede_ve(p, null)", "interno.rede_fed_comunidade_ok("]],
@@ -166,11 +180,15 @@ ok("a migração o14-banco não guarda endereço de rede", !/\b(inet|ip_origem|e
   // Todo cron.schedule dentro de um bloco que confere o pg_cron, e o mesmo nome nunca para duas coisas diferentes.
   const semGuarda = [];
   const usos = new Map();
-  for (const { nome, sql } of [{ nome: "install.sql", sql: install }, ...migracoes]) {
+  // A guarda pode ser a extensão (extname = 'pg_cron') ou a própria função (to_regprocedure('cron.schedule(text,text,text)'), a da R1):
+  // a menção da função dentro da guarda não é um agendamento.
+  const GUARDA_PELA_FUNCAO = /to_regprocedure\s*\(\s*'cron\.schedule\(text,\s*text,\s*text\)'\s*\)\s*is\s+not\s+null/gi;
+  for (const { nome, sql: texto } of [{ nome: "install.sql", sql: install }, ...migracoes]) {
+    const sql = texto.replace(GUARDA_PELA_FUNCAO, "<guarda do pg_cron pela função>");
     for (const m of sql.matchAll(/cron\.schedule\s*\(\s*'([^']+)'\s*,\s*'[^']*'\s*,\s*('(?:[^']|'')*'|\$[a-z_]*\$[\s\S]*?\$[a-z_]*\$)/gi)) {
       const antes = sql.slice(0, m.index);
       const bloco = antes.slice(antes.lastIndexOf("do $"));
-      if (!/extname\s*=\s*'pg_cron'/.test(bloco)) semGuarda.push(`${nome}: ${m[1]}`);
+      if (!/extname\s*=\s*'pg_cron'|<guarda do pg_cron pela função>/.test(bloco)) semGuarda.push(`${nome}: ${m[1]}`);
       if (!usos.has(m[1])) usos.set(m[1], new Set());
       usos.get(m[1]).add(m[2].replace(/\s+/g, " "));
     }
@@ -187,6 +205,8 @@ ok("a migração o14-banco não guarda endereço de rede", !/\b(inet|ip_origem|e
   const definicoes = [install, ...migracoes.map((m) => m.sql)].flatMap((t) =>
     [...t.matchAll(/create or replace function interno\.alumia_porta_aberta\(p_nome text, p_argumentos text\)[\s\S]*?\$\$([\s\S]*?)\$\$/g)].map((m) => m[1]));
   const nomes = new Set(definicoes.flatMap((d) => [...d.replace(/--.*$/gm, "").matchAll(/'((?:rede|alumia)_[a-z0-9_]+)'/g)].map((m) => m[1])));
+  // rede_sel_depositar saiu da lista com a função dela (o envelope selado do chat do beta, apagado em 20261124-r2-dupla.sql).
+  nomes.delete("rede_sel_depositar");
   globalThis.NOMES_ABERTOS = nomes;
   ok("há definições da lista aberta para comparar", definicoes.length >= 3 && nomes.size >= 20);
 }
@@ -204,6 +224,8 @@ async function noBanco() {
     await exec(O14);
     await exec(O14);
     ok("a migração o14-banco roda duas vezes por cima do install.sql", true);
+    // E o install.sql inteiro de novo por cima: as definições finais (a lista de exceções da porta da R2, entre outras) voltam.
+    await banco.instalarDeNovo();
   } catch (e) {
     falhas.push(`a migração o14-banco roda duas vezes: ${e.message}`);
   }
@@ -231,7 +253,8 @@ async function noBanco() {
     const faltam = [...globalThis.NOMES_ABERTOS].filter((n) => !src.includes(`'${n}'`));
     ok(`a lista aberta final tem todo nome que as definições anteriores tinham (faltam: ${faltam.join(", ") || "nenhum"})`, faltam.length === 0);
     const [abre] = await linhas("select interno.alumia_porta_aberta('rede_sel_depositar', 'p_para uuid, p_senha text, p_envelope text') a, interno.alumia_porta_aberta('rede_kt_trecho', 'p_desde bigint') b, interno.alumia_porta_aberta('rede_kt_ponta', '') c, interno.alumia_porta_aberta('rede_sel_abrir', '') d");
-    ok("as três da Faixa 2 ficam abertas e as outras rede_sel_* não", abre.a && abre.b && abre.c && !abre.d);
+    // Desde a R2 o envelope selado do beta (rede_sel_depositar) saiu, com a função: só o registro das chaves fica aberto.
+    ok("o registro das chaves da Faixa 2 fica aberto, e nenhuma rede_sel_* (o selado do beta saiu na R2)", !abre.a && abre.b && abre.c && !abre.d);
     const [vida] = await linhas("select interno.rede_vida_federacao_ligada(gen_random_uuid()) as v");
     ok("com a federação compondo a vida do post, publicar não recusa mais o não listado de quem federa", vida.v === false);
     const [fed] = await linhas("select interno.rede_vida_federa(jsonb_populate_record(null::interno.rede_posts, jsonb_build_object('id', gen_random_uuid(), 'nao_listado', true))) a, interno.rede_vida_federa(jsonb_populate_record(null::interno.rede_posts, jsonb_build_object('id', gen_random_uuid(), 'nao_listado', false, 'fora_do_fediverso', false))) b");

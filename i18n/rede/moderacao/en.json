@@ -26,6 +26,24 @@
   },
   "prioridade": { "1": "Priority 1", "2": "Priority 2", "3": "Priority 3" },
   "denunciar": {
+    "prova": {
+      "titulo": "Report with proof",
+      "explica": "Mark the messages that show the problem. Alumia checks that they came from this conversation without anyone reading the rest.",
+      "saem": "Warning: the messages you mark leave the encryption and go to the moderators, who will read them. The rest of the conversation stays encrypted.",
+      "passa": "To check them, each marked message passes whole through the site's server; only the excerpt you keep is stored with the report.",
+      "marcadas": "Marked messages: {n}",
+      "nenhuma": "Mark at least one message.",
+      "marcar": "Send this message",
+      "rotulo": "The excerpt (cut what is not needed, up to 1,000 characters)",
+      "foraDaMensagem": "The excerpt must be in the message, with the same letters. Cut, but do not rewrite.",
+      "semProva": "This message arrived without proof (from before the chat change or from an old device): it cannot go as proof.",
+      "quem": "Who wrote it, as far as this device knows: {nome}",
+      "deduzir": "In a one-to-one conversation or a small group, the author may guess who reported.",
+      "enviar": "Send report with proof",
+      "feito": "Report with proof received. Protocol {protocolo}.",
+      "limite": "The proof shows that the exact text passed through this conversation on that day, sent with the pass the other person signed as theirs. Group messages do not carry that signature and go without proof.",
+      "postCifrado": "This post carries proof: the excerpt you send will be checked against the post, which stays encrypted."
+    },
     "titulo": "Report",
     "tituloPerfil": "Report this profile",
     "tituloComunidade": "Report this community",
@@ -95,9 +113,22 @@
     "modoLentoAjuda": "Minimum interval between two posts by the same person.",
     "lento": { "0": "Off", "30": "30 seconds", "60": "1 minute", "300": "5 minutes", "900": "15 minutes", "3600": "1 hour" },
     "lentoAviso": "Slow mode is on here: one post every {tempo}.",
-    "confirmeDestrutivo": "Confirm? The person will see this and it stays in the record."
+    "confirmeDestrutivo": "Confirm? The person will see this and it stays in the record.",
+    "feitoProprio": "It was your own post: it was deleted, with no moderation notice.",
+    "feitoRepetido": "That was already done. Nothing changed and no one was notified again."
   },
   "fila": {
+    "prova": {
+      "titulo": "Excerpts with proof ({n})",
+      "selo": "text checked",
+      "explica": "Checked by the server: the text is exact, passed through the reporter's conversation on that day, and was deposited with the pass the reported account signed as its own (the signature matches its key in the public key log). Limit: if both people collude, the proof holds against the writer, never against a third person. Check it against the rest of the case.",
+      "dia": "message from {dia}",
+      "origem": {
+        "conversa": "one-to-one conversation",
+        "grupo": "group",
+        "post": "encrypted post"
+      }
+    },
     "titulo": "Moderation queue",
     "abas": { "denuncias": "Reports", "retidos": "Waiting for review", "recursos": "Appeals", "lugares": "Places", "niveis": "Levels" },
     "abertas": "Open",
@@ -248,6 +279,7 @@
     "verDenuncias": "My reports and appeals"
   },
   "erros": {
+    "prova_nao_confere": "The proof does not check out: the excerpt must be in the message as it arrived. Cut, but do not rewrite.",
     "modo_lento": "This place is in slow mode: wait a little before writing again.",
     "nivel_links": "Your level does not allow that many links in a post yet. See the limits in How Alumia cares.",
     "nivel_imagens": "Your level does not allow that many images in a post yet. See the limits in How Alumia cares.",

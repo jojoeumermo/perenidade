@@ -2,9 +2,9 @@
 //
 // Posts restritos cifrados nas telas (pedido P21, docs/rede/POSTS-RESTRITOS.md): as contas puras que o compositor e o cartão
 // dividem. Qual grupo de chave vale para o post (núcleo, ou comunidade FECHADA), o pedido que vai ao banco (texto vazio, o grupo e o
-// corpo "p2.…") e a abertura no aparelho. A cifra é a do MLS (lib/rede/grupo-mls.ts), nada feito aqui. Sem "@/" de propósito:
+// corpo "p2.…") e a abertura no aparelho. A cifra é a do MLS (lib/rede/grupos/chaveiro.ts, OpenMLS), nada feito aqui. Sem "@/" de propósito:
 // roda no Node nos testes (scripts/testar-posts-restritos.mjs).
-import type { ChaveiroDeGrupo } from "../../../../lib/rede/grupo-mls";
+import type { ChaveiroDeGrupo } from "../../../../lib/rede/grupos/chaveiro";
 import type { Publico } from "../../../../lib/rede/tipos";
 import { mencionadosDoTexto } from "../../../../lib/rede/publicar/visibilidade";
 
@@ -38,7 +38,7 @@ export function postCifrado(post: { grupo?: string | null; corpo_grupo?: string 
 }
 
 /** O que a cifra devolve à tela: o par que vai ao banco, ou o código da recusa (que a tela traduz). */
-export type ResultadoDaCifra = { ok: true; grupo: string; corpo_grupo: string } | { ok: false; codigo: "sem_chave" | "grupo_suspeito" | "falha" };
+export type ResultadoDaCifra = { ok: true; grupo: string; corpo_grupo: string } | { ok: false; codigo: "sem_chave" | "grupo_suspeito" | "sem_identidade" | "falha" };
 
 const codigoDe = (e: unknown) => String((e as { message?: unknown })?.message ?? e);
 
@@ -56,16 +56,24 @@ export async function cifrarParaOGrupo(chaveiro: Pick<ChaveiroDeGrupo, "preparar
     } catch (e) {
       const codigo = codigoDe(e);
       if (codigo.includes("grupo_suspeito")) return { ok: false, codigo: "grupo_suspeito" };
+      // Onda R3: o certificado da folha é assinado pela identidade do chat; sem o chat ligado neste aparelho, não há como.
+      if (codigo.includes("sem_identidade")) return { ok: false, codigo: "sem_identidade" };
       if (!codigo.includes("sem_chave")) return { ok: false, codigo: "falha" };
       if (vez === 1) return { ok: false, codigo: "sem_chave" };
       try {
         await chaveiro.preparar(eu);
-      } catch {
-        return { ok: false, codigo: "sem_chave" };
+      } catch (e2) {
+        return { ok: false, codigo: codigoDe(e2).includes("sem_identidade") ? "sem_identidade" : "sem_chave" };
       }
     }
   }
   return { ok: false, codigo: "sem_chave" };
+}
+
+/** O pedido leva imagem, áudio ou vídeo (que não são cifrados): não pode ir como post cifrado. */
+export function temAnexoAberto(pedido: object): boolean {
+  const p = pedido as { midia?: unknown; audio?: unknown; video?: unknown };
+  return (Array.isArray(p.midia) && p.midia.length > 0) || (p.audio != null && typeof p.audio === "object") || (p.video != null && p.video !== false);
 }
 
 /**
@@ -77,6 +85,9 @@ export function pedidoCifrado<P extends { texto?: string; corpo?: string; titulo
   pedido: P,
   cifra: { grupo: string; corpo_grupo: string },
 ): Omit<P, "corpo" | "titulo"> & { texto: string; grupo: string; corpo_grupo: string; mencionados?: string[] } {
+  // Item 136: só o texto é cifrado. Imagem, áudio ou vídeo junto iriam abertos para o depósito; o pedido nem sai (o banco também
+  // recusa, nas tabelas dos anexos).
+  if (temAnexoAberto(pedido)) throw new Error("cifrado_com_anexo");
   const { corpo: _corpo, titulo: _titulo, ...resto } = pedido;
   void _corpo;
   void _titulo;

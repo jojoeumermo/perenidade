@@ -104,7 +104,11 @@ ok("figurinhas: 12 nomes, só eles valem", FIGURINHAS.length === 12 && eFigurinh
 ok("figurinhas: o texto do post só com figurinha", textoDaFigurinha("[Figurinha: {nome}]", "Cravo vermelho") === "[Figurinha: Cravo vermelho]");
 
 // ═══════════════════ 2. Banco e pessoas ═══════════════════
-const banco = await criarBanco();
+// O álbum do prompt 4 (20261127-p4-compositor.sql) sobe o teto para 20 e redefine inteiras as funções que esta onda mexe por replace:
+// depois que a junção o cola no install.sql, esta prova roda sobre o banco de antes dele (o que ela prova é a onda 12).
+const p4c = ler("supabase/migracoes/20261127-p4-compositor.sql");
+const semCr = (t) => t.replace(/\r\n/g, "\n");
+const banco = await criarBanco(semCr(ler("supabase/install.sql")).includes(semCr(p4c).trim()) ? { antesDe: p4c } : {});
 const { dono, criarUsuario, rpc } = banco;
 const exec = (s) => banco.exclusivo(() => banco.pg.exec(s));
 const um = async (texto, valores = []) => (await dono(texto, valores)).rows[0];

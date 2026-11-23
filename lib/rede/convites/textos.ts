@@ -3,6 +3,7 @@
 // Os textos da porta de entrada e dos convites: i18n/rede/convites/{pt,en,es,fr,ru,zh}.json (pt é o texto final; os outros têm
 // "_rascunho": true até a revisão). UM idioma por vez, por import dinâmico. Serve ao servidor (as páginas) e ao navegador.
 import type pt from "../../../i18n/rede/convites/pt.json";
+import { prontoOu } from "../textos-prontos";
 
 export type TextosDosConvites = typeof pt;
 
@@ -11,7 +12,7 @@ const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"] as const;
 export async function carregarTextosDosConvites(lang: string): Promise<TextosDosConvites> {
   const l = (IDIOMAS as readonly string[]).includes(lang) ? lang : "pt";
   try {
-    return ((await import(`../../../i18n/rede/convites/${l}.json`)) as { default: TextosDosConvites }).default;
+    return prontoOu(((await import(`../../../i18n/rede/convites/${l}.json`)) as { default: TextosDosConvites }).default, async () => ((await import("../../../i18n/rede/convites/pt.json")) as { default: TextosDosConvites }).default);
   } catch {
     return ((await import("../../../i18n/rede/convites/pt.json")) as { default: TextosDosConvites }).default;
   }

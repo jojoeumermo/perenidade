@@ -63,6 +63,17 @@ export function TelaDaBiblioteca({ lang, t, leituras, prateleiras }: { lang: Loc
         )}
       </section>
 
+      {/* P5, B2: Teoria revolucionária e Lutas do povo moram na Escola, abertas a todos (/escola/aulas, no endereço do instituto). */}
+      <section aria-labelledby="ef6-aulas-abertas" className="ef6-secao">
+        <h2 id="ef6-aulas-abertas" className="ef-t ef6-h2">
+          {t.aulasAbertasTitulo}
+        </h2>
+        <p className="ef6-nota">{t.aulasAbertasTexto}</p>
+        <Link href={localePath(lang, "/escola/aulas")} className="ef-botao-ouro">
+          {t.aulasAbertasLink}
+        </Link>
+      </section>
+
       {prateleiras.length > 0 && (
         <section aria-labelledby="ef6-caderno" className="ef6-secao">
           <h2 id="ef6-caderno" className="ef-t ef6-h2">

@@ -6,7 +6,7 @@
 //   com a chave de serviço (public.alumia_impressao_registrar). O endereço não vai ao banco, não é guardado nem escrito em log
 //   (decisão da coordenação de 13/11). Sem o segredo, nada é registrado e o banimento por rede fica indisponível.
 // A tela de entrada da Alumia chama esta rota ao entrar e antes de pedir a conta. A resposta diz só se a rede está barrada.
-import { enderecoDoPedido, impressaoDaRede } from "@/lib/rede/painel/impressao";
+import { enderecoDoPedido, impressoesDaRede } from "@/lib/rede/painel/impressao";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -50,14 +50,16 @@ export async function POST(pedido: Request) {
   if (!/^[0-9a-f-]{36}$/.test(conta)) return resposta({ ok: false, motivo: "entre_primeiro" }, 401);
   if (!passou(conta)) return resposta({ ok: false, motivo: "muitos_pedidos" }, 429);
 
-  const impressao = impressaoDaRede(enderecoDoPedido(pedido.headers), process.env.ALUMIA_IMPRESSAO_SEGREDO);
-  if (!impressao) return resposta({ ok: false, motivo: "sem_impressao" });
+  // Onda R3 (2.6): com o segredo novo, também a impressão do anterior (o banco aceita por 30 dias: os banimentos seguem valendo).
+  const impressoes = impressoesDaRede(enderecoDoPedido(pedido.headers));
+  if (!impressoes) return resposta({ ok: false, motivo: "sem_impressao" });
+  const { impressao, versao, anterior } = impressoes;
 
   try {
     const r = await fetch(`${SUPA}/rest/v1/rpc/alumia_impressao_registrar`, {
       method: "POST",
       headers: { apikey: servico, Authorization: `Bearer ${servico}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ p_usuario: conta, p_impressao: impressao, p_momento: momento }),
+      body: JSON.stringify({ p_usuario: conta, p_impressao: impressao, p_momento: momento, p_versao: versao, p_anterior: anterior }),
       cache: "no-store",
       signal: AbortSignal.timeout(5000),
     });

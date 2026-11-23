@@ -92,9 +92,17 @@ export interface EncontroDoNucleo {
   local_texto: string;
 }
 
-export interface PaginaDoNucleo extends NucleoResumo {
-  mediacao: string[];
-  encontros: EncontroDoNucleo[];
+/**
+ * A página de um núcleo como o servidor a dá desde a R2: só o perfil público e a entrada (base64url). Papel, mediação, encontros e
+ * mural moram no grupo, nos aparelhos de quem é do núcleo (lib/rede/membros).
+ */
+export interface PaginaDoNucleo {
+  id: string;
+  nome: string;
+  cidade: string;
+  trilha: string | null;
+  org: string | null;
+  entrada: { caixa: string; pd: string; xwing: string; chave: string; assinatura: string } | null;
 }
 
 export interface SituacaoDaTurma {

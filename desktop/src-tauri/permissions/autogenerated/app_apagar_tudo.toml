@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-app-apagar-tudo"
+description = "Enables the app_apagar_tudo command without any pre-configured scope."
+commands.allow = ["app_apagar_tudo"]
+
+[[permission]]
+identifier = "deny-app-apagar-tudo"
+description = "Denies the app_apagar_tudo command without any pre-configured scope."
+commands.deny = ["app_apagar_tudo"]

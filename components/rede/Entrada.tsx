@@ -11,6 +11,7 @@ import { textoDoErro } from "./erros";
 import { useAlumia2 } from "./publicar/alumia2/contexto";
 import { Icone } from "./publicar/alumia2/icones";
 import { Botao, LinkBotao } from "./ui/Botao";
+import { entradaDaAlumia } from "@/lib/rede/alumia";
 
 /**
  * A primeira entrada: regras, idade (18+), consentimento destacado para dado sensível (LGPD art. 11, I) e o codinome. Quem
@@ -40,10 +41,10 @@ export function Entrada({ s, lang, situacao, aoEntrar }: { s: TextosDaRede; lang
           ))}
         </ul>
         <div className="al2-convite-entrar-acoes">
-          <LinkBotao href={`${localePath(lang, "/entrar")}?criar&volta=/alumia`} variante="primario" pilula className="al2-aperta">
+          <LinkBotao href={entradaDaAlumia(lang, "/alumia", true)} variante="primario" pilula className="al2-aperta">
             {e.criarConta}
           </LinkBotao>
-          <LinkBotao href={`${localePath(lang, "/entrar")}?volta=/alumia`} variante="claro" pilula className="al2-aperta">
+          <LinkBotao href={entradaDaAlumia(lang, "/alumia")} variante="claro" pilula className="al2-aperta">
             {e.jaTenhoConta}
           </LinkBotao>
         </div>
@@ -70,10 +71,10 @@ export function Entrada({ s, lang, situacao, aoEntrar }: { s: TextosDaRede; lang
             ))}
           </ul>
           <div className="mt-4 flex flex-wrap gap-3">
-            <Link href={`${localePath(lang, "/entrar")}?criar&volta=/alumia`} className="alumia-botao inline-flex min-h-11 items-center rounded-full bg-[#c21f16] px-5 font-bold text-white hover:bg-white hover:text-[#1f1a14]">
+            <Link href={entradaDaAlumia(lang, "/alumia", true)} className="alumia-botao inline-flex min-h-11 items-center rounded-full bg-[#c21f16] px-5 font-bold text-white hover:bg-white hover:text-[#1f1a14]">
               {e.criarConta}
             </Link>
-            <Link href={`${localePath(lang, "/entrar")}?volta=/alumia`} className="inline-flex min-h-11 items-center rounded-full border-[1.5px] border-[#f4ecd8] px-5 font-bold hover:bg-white hover:text-[#1f1a14]">
+            <Link href={entradaDaAlumia(lang, "/alumia")} className="inline-flex min-h-11 items-center rounded-full border-[1.5px] border-[#f4ecd8] px-5 font-bold hover:bg-white hover:text-[#1f1a14]">
               {e.jaTenhoConta}
             </Link>
           </div>

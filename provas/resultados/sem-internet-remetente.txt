@@ -1,0 +1,6 @@
+modelo: sem-internet-remetente.pv
+sha256: 5050a1e64f836df16a3873d19162761c554f640b0faaecd08857b96ddacdd379
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+RESULT Observational equivalence is true.

@@ -12,9 +12,10 @@
     "frente": "Lúcia Revolutionary Front",
     "titulo": "Lúcia Maria Revolutionary School",
     "lema": "Educate, agitate, organize.",
-    "texto": "The training school for those who are active in the Front. Inside, it is for activists only: study in steps, base group, a task in the world and someone who walks with you.",
+    "texto": "The training school for those who are active in the Front. The Revolutionary theory and People's struggles lessons are open: anyone can read them, with no account and no sign-up. The guided path, the base group, the task in the world and someone who walks with you are for those who study through the School.",
     "quero": "I want to join",
     "manifesto": "Read the manifesto",
+    "aulasAbertas": "Read the open lessons",
     "resto": "The rest of the site stays open to everyone:",
     "aulas": "lessons",
     "acervo": "library",
@@ -158,7 +159,13 @@
       "titulo": "Live class today",
       "as": "at {hora}",
       "agora": "live now",
-      "entrar": "Enter the room"
+      "entrar": "Enter the room",
+      "lugar": "Live class",
+      "texto": "The Revolutionary theory and People’s struggles educators give live classes in here: video through YouTube without cookies, the class chat and attendance.",
+      "nenhuma": "No live class today.",
+      "proximas": "In the next few days",
+      "gravadas": "Recorded",
+      "assistir": "Watch"
     },
     "carregando": "Loading…",
     "falha": "Could not load right now."

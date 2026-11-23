@@ -1,0 +1,10 @@
+modelo: controles/sem-internet-farol-uma-assinatura.pv
+sha256: fa12b0e3fe39cd8b5ddfaefa5f30181069a32c912cba66cda38214a8ef2be85b
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+RESULT not attacker(segredo[]) is true.
+RESULT not attacker(farolSecreto[]) is true.
+RESULT event(Entregue(aparelhoA[],m_3,v_5)) ==> event(Enviou(aparelhoA[],m_3,v_5)) is true.
+A trace has been found.
+RESULT event(FarolAceito(f_4)) ==> event(Assinou(k2_1,f_4)) || event(Assinou(k3_1,f_4)) is false.

@@ -7,7 +7,7 @@
     "comunidades": "Comunidades",
     "chamados": "Chamados",
     "nucleos": "Núcleos",
-    "avisos": "Avisos",
+    "avisos": "Notificações",
     "salvos": "Salvos",
     "conversas": "Conversas",
     "perfil": "Perfil",
@@ -86,7 +86,7 @@
     "comunidade": "Comunidade (opcional)",
     "saltarParaConteudo": "Ir para a linha",
     "sairRapido": "Sair rápido",
-    "sairRapidoAjuda": "Sai da conta neste aparelho, apaga o que a Alumia guardou aqui, inclusive as chaves do chat privado e dos grupos, e abre uma página comum de fora (a previsão do tempo), sem nada do Instituto.",
+    "sairRapidoAjuda": "Sai da conta neste aparelho, apaga o que a Alumia guardou aqui, inclusive as chaves do chat privado e dos grupos, e abre uma página comum de fora (a previsão do tempo), sem nada do Instituto. O histórico do chat some deste aparelho e não volta: ainda não há cópia de segurança.",
     "cartaoSeguranca": "Segurança primeiro: nunca poste endereço de casa, telefone ou documento. Se algo preocupar, denuncie.",
     "cuidados": {
       "titulo": "Cuidado",
@@ -129,8 +129,8 @@
   "estados": {
     "carregando": "Carregando…",
     "vazioLinha": "Ainda não há nada por aqui. Escolha comunidades para acompanhar ou escreva o primeiro post.",
-    "vazioSeguindo": "Você ainda não segue ninguém. Siga pessoas pelas comunidades.",
-    "vazioComunidades": "Você ainda não entrou em nenhuma comunidade.",
+    "vazioSeguindo": "Você ainda não segue ninguém. Comece pelas comunidades: entre em duas e siga quem escreve o que te interessa.",
+    "vazioComunidades": "Você ainda não entrou em nenhuma comunidade. Escolha duas para começar: o que elas publicam aparece aqui.",
     "erro": "Não foi possível carregar agora.",
     "tentar": "Tentar de novo",
     "maisPosts": "Carregar mais",
@@ -181,7 +181,9 @@
     "lista_bloqueio": "A mediação deste lugar não permite posts seus aqui.",
     "leia_as_regras": "Esta comunidade pede que você aceite as regras antes de postar. Veja a aba Chegada.",
     "so_leitura": "Esta é uma comunidade de avisos: só a moderação abre post aqui.",
-    "so_leitura_respostas": "Nesta comunidade de avisos, a regra não deixa você responder."
+    "so_leitura_respostas": "Nesta comunidade de avisos, a regra não deixa você responder.",
+    "alumia_so_leitura": "A Alumia está em modo só leitura por decisão da coordenação: dá para ler, bloquear e denunciar, mas não publicar nem mudar nada agora.",
+    "nome_reservado": "Este nome ou @ é parecido com o de uma figura pública e está reservado. Escolha outro; se for você, peça o selo de verificado no seu perfil."
   },
   "alumia": {
     "voltarAoSite": "Voltar ao site do Instituto Lúcia",
@@ -234,6 +236,8 @@
   },
   "avisoFixado": {
     "rotulo": "Aviso da coordenação",
-    "abrir": "Abrir"
+    "abrir": "Abrir",
+    "soLeituraRotulo": "Só leitura",
+    "soLeitura": "A Alumia está em modo só leitura por decisão da coordenação. Dá para ler, bloquear, denunciar e conversar; publicar, comentar e reagir voltam quando o modo for desligado."
   }
 }

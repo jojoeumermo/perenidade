@@ -1,0 +1,9 @@
+modelo: sem-internet.pv
+sha256: 36369a9e3dfefe3c763b10132144ada29edc0c3039e3613c1f7a7a3b8e677806
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+RESULT not attacker(segredo[]) is true.
+RESULT not attacker(farolSecreto[]) is true.
+RESULT event(Entregue(aparelhoA[],m_3,v_5)) ==> event(Enviou(aparelhoA[],m_3,v_5)) is true.
+RESULT event(FarolAceito(f_4)) ==> event(Assinou(k2_1,f_4)) || event(Assinou(k3_1,f_4)) is true.

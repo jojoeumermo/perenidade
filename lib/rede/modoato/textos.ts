@@ -3,6 +3,7 @@
 // Os textos do modo ato (frente 9C): i18n/rede/modoato/{pt,en,es,fr,ru,zh}.json. Carrega só o idioma pedido, sob demanda; o
 // guia "Sem sinal?" lê daqui no servidor, para sair pronto no HTML. Sem "@/" de propósito (os testes leem daqui no Node).
 import type pt from "../../../i18n/rede/modoato/pt.json";
+import { carregarPronto } from "../textos-prontos";
 
 export type TextosDoModoAto = typeof pt;
 
@@ -20,8 +21,7 @@ export const IDIOMAS_DO_MODO_ATO = Object.keys(CARREGAR);
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export async function carregarTextosDoModoAto(lang: string): Promise<TextosDoModoAto> {
-  const carregar = CARREGAR[lang] ?? CARREGAR.pt;
-  return (await carregar()).default as TextosDoModoAto;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDoModoAto;
 }
 
 /** Troca {nome} pelo valor (o mesmo jeito dos outros textos da Alumia). */

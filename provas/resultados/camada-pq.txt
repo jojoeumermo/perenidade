@@ -1,0 +1,7 @@
+modelo: camada-pq.pv
+sha256: d01d82f2cb8a6a8268126f5e354b3dfda333544429b38d04f45a7034c359570b
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+RESULT not attacker(mensagemQuebraClassico[]) is true.
+RESULT not attacker(mensagemQuebraPq[]) is true.

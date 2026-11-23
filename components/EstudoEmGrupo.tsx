@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { fill } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
-import { JitsiSala } from "./JitsiSala";
+import { SalaDeVideo } from "./SalaDeVideo";
 import { useI18n } from "./I18n";
 
 type S = Dict["studyGroup"];
@@ -89,7 +89,7 @@ export function EstudoEmGrupo({ s }: { s: S }) {
         </div>
       </div>
       {dentro ? (
-        <JitsiSala sala={`instituto-lucia-estudo-${sala.id}`} nome={nome.trim() || s.someone} conduzo={false} lang={lang} assunto={s.title} aoSair={() => setDentro(false)} />
+        <SalaDeVideo sala={`instituto-lucia-estudo-${sala.id}`} nome={nome.trim() || s.someone} conduzo={false} lang={lang} assunto={s.title} aoSair={() => setDentro(false)} />
       ) : (
         <div className="flex flex-wrap items-end gap-3">
           <label className="block">

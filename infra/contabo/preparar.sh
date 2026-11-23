@@ -4,10 +4,10 @@
 # Prepara a VPS da Contabo (Cloud VPS 4, x86_64, Ubuntu 24.04) para o site. Roda como root, uma vez; pode rodar de novo
 # sem estragar nada. Passo a passo em docs/HOSPEDAGEM.md, seção "Contabo".
 #
-# O que faz: fuso, nome, memória de reserva, atualizações automáticas de segurança, SSH só com chave (a 22 e uma
-# porta extra, porque a rede de alguns lugares intercepta a 22; a extra vem de SSH_PORTA_EXTRA e não fica no repositório), Docker, Caddy (o HTTPS na frente do site) e o firewall: as portas 80 e 443
-# só aceitam conexões vindas do Cloudflare; o site em si só escuta em 127.0.0.1:3000.
-# Não guarda segredo nenhum: as chaves do site ficam em /opt/lucia/site.env, preenchido à mão (infra/contabo/segredos.sh).
+# O que faz: fuso, memória de reserva, atualizações de segurança, SSH só com chave e com fail2ban, Docker, Caddy (HTTPS) e o
+# firewall (80 e 443 só do Cloudflare). Os valores da operação vêm do ambiente e não ficam no repositório: SSH_PORTA_EXTRA,
+# LUCIA_ADMIN e os limites do fail2ban (F2B_TENTATIVAS, F2B_JANELA, F2B_BLOQUEIO, F2B_BLOQUEIO_MAXIMO; sem eles, valores comuns).
+# Não guarda segredo nenhum (infra/contabo/segredos.sh).
 set -euxo pipefail
 export DEBIAN_FRONTEND=noninteractive
 
@@ -22,14 +22,13 @@ if [ ! -f /swapfile ]; then
   swapon /swapfile
   echo '/swapfile none swap sw 0 0' >> /etc/fstab
 fi
-# IPv6 desligado: a rota IPv6 da Contabo até o GitHub (ghcr.io) cai no meio dos downloads, e o site só usa IPv4
-# (o DNS no Cloudflare aponta um registro A).
+# IPv6 desligado (o site só usa IPv4).
 printf 'vm.swappiness=10\nnet.ipv6.conf.all.disable_ipv6=1\nnet.ipv6.conf.default.disable_ipv6=1\n' > /etc/sysctl.d/90-lucia.conf
 sysctl --system > /dev/null
 
 apt-get update
 apt-get -y -o Dpkg::Options::=--force-confold upgrade
-apt-get install -y unattended-upgrades curl ca-certificates gnupg jq ufw docker.io docker-compose-v2 debian-keyring debian-archive-keyring apt-transport-https
+apt-get install -y unattended-upgrades fail2ban curl ca-certificates gnupg jq ufw docker.io docker-compose-v2 debian-keyring debian-archive-keyring apt-transport-https
 # Caddy do repositório oficial (o do Ubuntu 24.04 é o 2.6, sem trusted_proxies).
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor --yes -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' > /etc/apt/sources.list.d/caddy-stable.list
@@ -49,16 +48,60 @@ Unattended-Upgrade::Remove-Unused-Dependencies "true";
 EOF
 
 # SSH só com chave. O 50-cloud-init.conf da Contabo liga a senha; este arquivo vem antes (00-) e vale primeiro.
-cat > /etc/ssh/sshd_config.d/00-lucia.conf <<'EOF'
+# Entrar como root: só com chave, enquanto não houver outra conta. Com LUCIA_ADMIN (o nome de uma conta comum, anotado fora do
+# repositório), o script cria essa conta com sudo, copia para ela a chave que hoje entra como root e fecha o root no SSH. Só fecha
+# o root se a conta nova tiver uma chave: assim ninguém se tranca fora. Teste a entrada pela conta nova ANTES de sair da sessão.
+raiz_ssh=prohibit-password
+if [ -n "${LUCIA_ADMIN:-}" ] && [[ "$LUCIA_ADMIN" =~ ^[a-z][a-z0-9_-]{1,30}$ ]]; then
+  id "$LUCIA_ADMIN" > /dev/null 2>&1 || adduser --disabled-password --gecos "" "$LUCIA_ADMIN"
+  usermod -aG sudo "$LUCIA_ADMIN"
+  install -d -m 700 -o "$LUCIA_ADMIN" -g "$LUCIA_ADMIN" "/home/$LUCIA_ADMIN/.ssh"
+  if [ ! -s "/home/$LUCIA_ADMIN/.ssh/authorized_keys" ] && [ -s /root/.ssh/authorized_keys ]; then
+    install -m 600 -o "$LUCIA_ADMIN" -g "$LUCIA_ADMIN" /root/.ssh/authorized_keys "/home/$LUCIA_ADMIN/.ssh/authorized_keys"
+  fi
+  # A conta não tem senha: o sudo dela não pede nada além da chave do SSH.
+  printf '%s ALL=(ALL) NOPASSWD:ALL\n' "$LUCIA_ADMIN" > /etc/sudoers.d/90-lucia-admin
+  chmod 440 /etc/sudoers.d/90-lucia-admin
+  visudo -cf /etc/sudoers.d/90-lucia-admin
+  if [ -s "/home/$LUCIA_ADMIN/.ssh/authorized_keys" ]; then raiz_ssh=no; fi
+fi
+cat > /etc/ssh/sshd_config.d/00-lucia.conf <<EOF
 PubkeyAuthentication yes
 AuthorizedKeysFile .ssh/authorized_keys
 PasswordAuthentication no
 KbdInteractiveAuthentication no
-PermitRootLogin prohibit-password
+PermitRootLogin $raiz_ssh
+MaxAuthTries 3
+X11Forwarding no
+AllowAgentForwarding no
 EOF
 rm -f /etc/ssh/sshd_config.d/00-lucia-chave.conf /etc/ssh/sshd_config.d/10-chave.conf
 sshd -t
 systemctl restart ssh
+
+# fail2ban no SSH, com os limites do ambiente (conferidos: número; duração como 10m, 1h, 1w). Vê só quem tenta entrar no SSH,
+# nunca quem visita o site, e guarda o endereço só enquanto dura o bloqueio.
+duracao() { [[ "$1" =~ ^[1-9][0-9]{0,4}[smhdw]$ ]] && printf '%s' "$1" || printf '%s' "$2"; }
+f2b_tentativas=5
+if [[ "${F2B_TENTATIVAS:-}" =~ ^[1-9][0-9]?$ ]]; then f2b_tentativas=$F2B_TENTATIVAS; fi
+f2b_janela=$(duracao "${F2B_JANELA:-}" 10m)
+f2b_bloqueio=$(duracao "${F2B_BLOQUEIO:-}" 1h)
+f2b_maximo=$(duracao "${F2B_BLOQUEIO_MAXIMO:-}" 1w)
+cat > /etc/fail2ban/jail.d/lucia.conf <<EOF
+[DEFAULT]
+backend = systemd
+bantime = $f2b_bloqueio
+findtime = $f2b_janela
+maxretry = $f2b_tentativas
+bantime.increment = true
+bantime.maxtime = $f2b_maximo
+
+[sshd]
+enabled = true
+port = 22${SSH_PORTA_EXTRA:+,${SSH_PORTA_EXTRA}}
+EOF
+systemctl enable fail2ban
+systemctl restart fail2ban
 
 systemctl enable --now docker
 

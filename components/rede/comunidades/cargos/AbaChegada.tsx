@@ -15,6 +15,7 @@ import { cargos } from "./cliente";
 import { chaveDosInteresses, cuidaDeAlgo, escolhidosQueExistem, PERMISSOES, type PainelDosCargos, type Permissao } from "./regras";
 import { dataCurta, por, textoDoErro, type TextosDosCargos } from "./textos";
 import { useTextosDosCargos } from "./usarTextos";
+import { PorQueSemNumero } from "../../uso/PorQueSemNumero";
 
 const Gestao = dynamic(() => import("./Gestao"), { ssr: false });
 
@@ -341,7 +342,10 @@ function CargosDaComunidade({ t, d }: PropsDaSecao) {
               <h3 className="cg-cartao-nome al-cond">{k.nome}</h3>
               {k.descricao && <p className="cg-cartao-texto">{k.descricao}</p>}
               <FichasDePermissao t={t} permissoes={k.permissoes} />
-              <p className="cg-cartao-n">{k.pessoas === null ? t.cargos.poucas : por(t.cargos.pessoas, { n: k.pessoas })}</p>
+              <p className="cg-cartao-n">
+                {k.pessoas === null ? t.cargos.poucas : por(t.cargos.pessoas, { n: k.pessoas })}
+                {k.pessoas === null ? <PorQueSemNumero motivo="piso" /> : null}
+              </p>
             </li>
           ))}
         </ul>

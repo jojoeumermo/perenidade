@@ -4,6 +4,7 @@
 // "_rascunho": true até a revisão). UM idioma por vez, por import dinâmico. Sem hook aqui (o servidor também lê, para os
 // metadados): o hook está em usarTextos.ts.
 import type pt from "../../../i18n/rede/lei/pt.json";
+import { prontoOu } from "../../../lib/rede/textos-prontos";
 
 export type TextosDaLei = typeof pt;
 
@@ -12,7 +13,7 @@ const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"] as const;
 export async function carregarTextosDaLei(lang: string): Promise<TextosDaLei> {
   const l = (IDIOMAS as readonly string[]).includes(lang) ? lang : "pt";
   try {
-    return ((await import(`../../../i18n/rede/lei/${l}.json`)) as { default: TextosDaLei }).default;
+    return prontoOu(((await import(`../../../i18n/rede/lei/${l}.json`)) as { default: TextosDaLei }).default, async () => ((await import("../../../i18n/rede/lei/pt.json")) as { default: TextosDaLei }).default);
   } catch {
     return ((await import("../../../i18n/rede/lei/pt.json")) as { default: TextosDaLei }).default;
   }

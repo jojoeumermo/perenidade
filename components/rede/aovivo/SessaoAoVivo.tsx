@@ -11,6 +11,7 @@ import { Botao } from "../ui/Botao";
 import { EstadoDaAlumia } from "../ui/Estado";
 import { diaCurto, fraseDoErro, horaCurta } from "../mapa/comum";
 import type { TextosDoAoVivo } from "./textos";
+import { confirmar } from "@/components/perguntar";
 
 type T = TextosDoAoVivo;
 const A_CADA = 15_000;
@@ -264,8 +265,8 @@ export function SessaoAoVivoTela({ t, lang, id, situacao }: { t: T; lang: string
               variante="contorno"
               tamanho="p"
               disabled={ocupado}
-              onClick={() => {
-                if (window.confirm(t.sessao.cancelarConfirmar)) void fazer(() => aoVivo.cancelar(sessao.id), t.sessao.cancelada);
+              onClick={async () => {
+                if ((await confirmar(t.sessao.cancelarConfirmar))) void fazer(() => aoVivo.cancelar(sessao.id), t.sessao.cancelada);
               }}
             >
               {t.sessao.cancelar}

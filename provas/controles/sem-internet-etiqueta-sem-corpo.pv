@@ -1,0 +1,63 @@
+(* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   CONTROLE (tem de dar ataque): a etiqueta da malha SEM o resumo do corpo, como estava a primeira versão de
+   lib/rede/malha/pacote.ts (etiqueta = HMAC(k, rótulo ‖ nonce ‖ validade)).
+   O ataque que o ProVerif acha: quem repassa guarda um pacote velho de A para B e, quando aparece um pacote novo para a mesma
+   caixa, troca o cabeçalho do velho pelo do novo (validade, nonce e etiqueta). B reconhece a etiqueta (ela é do pacote novo) e
+   abre o corpo velho: a mensagem velha chega com uma validade que A nunca deu, e o pacote "que expira" não expira.
+   O conserto (sem-internet.pv): a etiqueta prende também SHA-256(corpo). *)
+
+free c: channel.
+
+type skey.
+type pkey.
+type key.
+
+fun pk(skey): pkey.
+fun hpke(pkey, bitstring, bitstring, bitstring): bitstring.
+reduc forall k: skey, a: bitstring, m: bitstring, r: bitstring; abrir(hpke(pk(k), a, m, r), k, a) = m.
+fun senc(bitstring, key): bitstring.
+reduc forall m: bitstring, k: key; sdec(senc(m, k), k) = m.
+fun h(bitstring): bitstring.
+fun hc(bitstring, bitstring): bitstring.
+fun hmac(bitstring, bitstring): bitstring.
+fun hkdf(bitstring, bitstring): bitstring.
+
+const rotuloChave: bitstring.
+free aparelhoA: bitstring.
+
+event Enviou(bitstring, bitstring, bitstring).
+event Entregue(bitstring, bitstring, bitstring).
+
+query m: bitstring, v: bitstring; event(Entregue(aparelhoA, m, v)) ==> event(Enviou(aparelhoA, m, v)).
+
+let Remetente(kab: key, pkb: pkey, idcaixa: bitstring, m: bitstring) =
+  in(c, v: bitstring);
+  new nonce: bitstring;
+  new r: bitstring;
+  new kf: bitstring;
+  let idh = h(idcaixa) in
+  let cc = hc(kf, (idh, m)) in
+  let corpo = (cc, hpke(pkb, (idh, cc), (aparelhoA, senc((m, kf), kab)), r)) in
+  event Enviou(aparelhoA, m, v);
+  out(c, (v, nonce, hmac(hkdf(idcaixa, rotuloChave), (nonce, v)), corpo)).
+
+let Destinatario(skb: skey, idcaixa: bitstring, kab: key) =
+  in(c, (v: bitstring, nonce: bitstring, etq: bitstring, corpo: bitstring));
+  if etq = hmac(hkdf(idcaixa, rotuloChave), (nonce, v)) then
+  let (cc: bitstring, env: bitstring) = corpo in
+  let idh = h(idcaixa) in
+  let (=aparelhoA, x: bitstring) = abrir(env, skb, (idh, cc)) in
+  let (m: bitstring, kf: bitstring) = sdec(x, kab) in
+  if cc = hc(kf, (idh, m)) then
+  event Entregue(aparelhoA, m, v).
+
+process
+  new skB: skey;
+  new kAB: key;
+  new idcaixa: bitstring;
+  out(c, pk(skB));
+  (
+    (!in(c, m: bitstring); Remetente(kAB, pk(skB), idcaixa, m))
+  | (!Destinatario(skB, idcaixa, kAB))
+  )

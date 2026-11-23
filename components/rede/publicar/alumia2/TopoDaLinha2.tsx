@@ -1,10 +1,12 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
+import { ligado } from "@/lib/recursos";
 import type { TextosDaRede } from "@/lib/rede/textos";
-import type { Aba, Situacao } from "@/lib/rede/tipos";
+import type { Aba, Post, Situacao } from "@/lib/rede/tipos";
 import { TopoDoInicioEncaixado } from "../../atos/encaixe";
 import { ENCAIXES } from "../../encaixes";
 import { Avatar16 } from "../../ui/Avatar16";
@@ -12,6 +14,9 @@ import type { TipoAoEscrever } from "./CascaDaAlumia2";
 import { useAlumia2 } from "./contexto";
 import { Icone } from "./icones";
 import { CartaoDoAtoDuble, FaixaProximoAtoDuble } from "./previa/Dubles";
+
+// A barrinha de escrever (A15 do P5, com "alumia-p4-compositor") é o próprio Escrever sem janela: só baixa quando aparece.
+const EscreverNaBarrinha = dynamic(() => import("./EscreverDaAlumia2").then((m) => m.EscreverDaAlumia2), { ssr: false });
 
 /** O id do painel da linha (role=tabpanel, em Rede.tsx) e o de cada aba, para aria-controls / aria-labelledby. */
 export const PAINEL_DA_LINHA = "al2-painel-linha";
@@ -59,6 +64,8 @@ export function TopoDaLinha2({
   aoEscrever,
   ordem,
   depoisDasAbas,
+  aoExpandir,
+  aoPublicarNaBarra,
 }: {
   lang: string;
   s: TextosDaRede;
@@ -71,6 +78,12 @@ export function TopoDaLinha2({
   ordem?: string;
   /** O que fica logo abaixo das abas (a barra da linha com regra aberta: a troca de ordem e as linhas fixadas). */
   depoisDasAbas?: React.ReactNode;
+  /**
+   * A barrinha (A15): com as duas e "alumia-p4-compositor" ligado, o "O que está acontecendo na sua luta?" vira um campo que publica
+   * dali; `aoExpandir` abre o Escrever completo com o texto e `aoPublicarNaBarra` recebe o post (o mesmo de quando a janela publica).
+   */
+  aoExpandir?: (texto: string) => void;
+  aoPublicarNaBarra?: (post: Post) => void;
 }) {
   const al2 = useAlumia2();
   const botoes = useRef<(HTMLButtonElement | null)[]>([]);
@@ -78,6 +91,8 @@ export function TopoDaLinha2({
   const [traco, setTraco] = useState<{ x: number; w: number } | null>(null);
   const sentinela = useRef<HTMLDivElement>(null);
   const [grudada, setGrudada] = useState(false);
+  // Depois de publicar (ou de expandir), a barrinha nasce de novo, vazia.
+  const [vezDaBarrinha, setVezDaBarrinha] = useState(0);
 
   useEffect(() => {
     const alvo = sentinela.current;
@@ -109,6 +124,23 @@ export function TopoDaLinha2({
   const rotuloDaAba = (a: Aba, curto: boolean) =>
     a === "seguindo" ? t.linha.seguindo : a === "comunidades" ? (curto ? t.linha.comunidadesCurto : t.linha.comunidades) : a === "tudo" ? t.linha.tudo : t.linha.geral;
   const ctx = { lang, s, situacao };
+  const naBarrinha = ligado("alumia-p4-compositor") && Boolean(aoExpandir && aoPublicarNaBarra);
+  const acoesDaBarra = (
+    <>
+      <button type="button" className="al2-acao" onClick={() => aoEscrever("imagem")} aria-label={t.compositor.imagem} title={t.compositor.imagem}>
+        <Icone nome="imagem" className="h-[18px] w-[18px]" />
+      </button>
+      <button type="button" className="al2-acao" onClick={() => aoEscrever("enquete")} aria-label={t.compositor.enquete} title={t.compositor.enquete}>
+        <Icone nome="enquete" className="h-[18px] w-[18px]" />
+      </button>
+      {temAto && (
+        <button type="button" className="al2-acao !text-[var(--al-dourado)]" onClick={() => aoEscrever("ato")}>
+          <Icone nome="atos" className="h-[18px] w-[18px]" />
+          {t.compositor.chamarAto}
+        </button>
+      )}
+    </>
+  );
 
   const escolher = (a: Aba) => {
     if (a === aba) return;
@@ -179,7 +211,31 @@ export function TopoDaLinha2({
       </div>
       {depoisDasAbas}
 
-      {pode && (
+      {pode && naBarrinha && (
+        <div className="hidden border-b border-[var(--al-linha)] px-5 pb-3 pt-4 lg:block 2xl:px-7">
+          <div className="flex items-start gap-3">
+            <Avatar16 handle={situacao.handle ?? situacao.codinome ?? "?"} tamanho={40} className="mt-0.5 shrink-0" />
+            <div className="min-w-0 flex-1">
+              <EscreverNaBarrinha
+                key={vezDaBarrinha}
+                s={s}
+                lang={lang}
+                situacao={situacao}
+                aoFechar={() => setVezDaBarrinha((n) => n + 1)}
+                aoPublicar={(post) => aoPublicarNaBarra?.(post)}
+                barrinha={{
+                  aoExpandir: (texto) => {
+                    aoExpandir?.(texto);
+                    setVezDaBarrinha((n) => n + 1);
+                  },
+                  acoes: acoesDaBarra,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+      {pode && !naBarrinha && (
         <div className="hidden border-b border-[var(--al-linha)] px-5 pb-3 pt-4 lg:block 2xl:px-7">
           <div className="flex items-center gap-3">
             <Avatar16 handle={situacao.handle ?? situacao.codinome ?? "?"} tamanho={40} className="shrink-0" />

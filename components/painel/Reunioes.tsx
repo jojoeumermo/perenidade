@@ -5,7 +5,7 @@ import { CalendarDays, Check, Clock, DoorOpen, ExternalLink, LogOut, Pencil, Pla
 import { useState } from "react";
 import { can, type Me, rpc } from "@/lib/backend";
 import { JITSI_DOMINIO } from "@/lib/jitsi";
-import { JitsiSala } from "../JitsiSala";
+import { SalaDeVideo } from "../SalaDeVideo";
 import { useI18n } from "../I18n";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Aviso, dataHora, rotulo, textoDoErro, useAcao, useLista } from "./comum";
@@ -132,7 +132,7 @@ export function Reunioes({ me }: { me: Me }) {
             </>
           }
         />
-        <JitsiSala sala={naSala.sala ?? ""} nome={me.nome} conduzo={naSala.conduzo} lang={lang} assunto={naSala.titulo} aoSair={() => void sair()} />
+        <SalaDeVideo sala={naSala.sala ?? ""} nome={me.nome} conduzo={naSala.conduzo} lang={lang} assunto={naSala.titulo} aoSair={() => void sair()} />
         {naSala.pauta && <Cartao><p className={rotulo}>Pauta</p><p className="mt-1 whitespace-pre-wrap" data-original>{naSala.pauta}</p></Cartao>}
         <p className="pn-ajuda">Nada de áudio ou vídeo fica no servidor do instituto; só quem entrou e quando. Quem abre a reunião entra primeiro e modera.</p>
         <Aviso texto={acao.aviso} />

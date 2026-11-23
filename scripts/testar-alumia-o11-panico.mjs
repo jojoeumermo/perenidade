@@ -43,10 +43,9 @@ function armazem() {
 
 // ═══════════════════ 1. O cofre ═══════════════════
 const conteudo = { email: "isca.teste@exemplo.org", senha: gerarSenhaDaIsca(), codinome: "Sabiá Comum", criada: "2026-11-17T12:00:00.000Z" };
-const VOLTAS = 2000; // poucas voltas para correr; uma prova abaixo usa o número de verdade
 {
-  const cofre = await fecharCofre("Corre pro mato 22", conteudo, VOLTAS);
-  ok("o cofre fechado tem a forma esperada", cofreValido(cofre) && cofre.v === 1 && cofre.voltas === VOLTAS && !cofre.isca);
+  const cofre = await fecharCofre("Corre pro mato 22", conteudo);
+  ok("o cofre fechado tem a forma esperada (v2, Argon2id 64 MiB e 3 passadas)", cofreValido(cofre) && cofre.v === 2 && cofre.m === 65536 && cofre.t === 3 && cofre.p === 1 && !cofre.isca);
   const aberto = await abrirCofre("Corre pro mato 22", cofre);
   ok("a senha de pânico abre o cofre e devolve a isca inteira", JSON.stringify(aberto) === JSON.stringify(conteudo));
   ok("senha errada não abre (nulo, sem lançar)", (await abrirCofre("Corre pro mato 23", cofre)) === null && (await abrirCofre("", cofre)) === null);
@@ -64,11 +63,11 @@ const VOLTAS = 2000; // poucas voltas para correr; uma prova abaixo usa o númer
   ok("verificador mexido: não abre", (await abrirCofre("Corre pro mato 22", { ...cofre, verificador: virar(cofre.verificador) })) === null);
   ok("iv mexido: não abre", (await abrirCofre("Corre pro mato 22", { ...cofre, iv: virar(cofre.iv) })) === null);
   ok("sal mexido: não abre", (await abrirCofre("Corre pro mato 22", { ...cofre, sal: virar(cofre.sal) })) === null);
-  ok("número de voltas mexido: não abre", (await abrirCofre("Corre pro mato 22", { ...cofre, voltas: VOLTAS + 1 })) === null);
-  const outro = await fecharCofre("Corre pro mato 22", conteudo, VOLTAS);
+  ok("valores do Argon2id mexidos: não abre", (await abrirCofre("Corre pro mato 22", { ...cofre, m: 32768 })) === null && (await abrirCofre("Corre pro mato 22", { ...cofre, t: 2 })) === null);
+  const outro = await fecharCofre("Corre pro mato 22", conteudo);
   ok("fechar de novo gera sal, iv, verificador e cifra novos", outro.sal !== cofre.sal && outro.iv !== cofre.iv && outro.verificador !== cofre.verificador && outro.cifra !== cofre.cifra);
   // A mesma senha com acento composto ou decomposto.
-  const acento = await fecharCofre("Paçoca do sábado", conteudo, VOLTAS);
+  const acento = await fecharCofre("Paçoca do sábado", conteudo);
   ok("a senha com acento vale escrita de qualquer jeito (NFC)", JSON.stringify(await abrirCofre("Paçoca do sábado", acento)) === JSON.stringify(conteudo));
   ok("o verificador e a chave não são o mesmo segredo (a cifra não repete o verificador)", !Buffer.from(cofre.cifra, "base64").includes(Buffer.from(cofre.verificador, "base64").subarray(0, 8)));
 }
@@ -76,19 +75,21 @@ const VOLTAS = 2000; // poucas voltas para correr; uma prova abaixo usa o númer
   const t0 = Date.now();
   const cofre = await fecharCofre("Senha de pânico de verdade", conteudo);
   const aberto = await abrirCofre("Senha de pânico de verdade", cofre);
-  ok("com as voltas de verdade (600 mil, PBKDF2-SHA-256) o cofre fecha e abre", VOLTAS_DO_COFRE === 600_000 && cofre.voltas === 600_000 && aberto?.email === conteudo.email);
-  console.log(`  (fechar e abrir com 600 mil voltas: ${Date.now() - t0} ms neste computador)`);
+  ok("com os valores de verdade (Argon2id; o PBKDF2 de 600 mil só para o cofre de antes) o cofre fecha e abre", VOLTAS_DO_COFRE === 600_000 && cofre.m === 65536 && aberto?.email === conteudo.email);
+  console.log(`  (fechar e abrir com o Argon2id, mais o PBKDF2 de antes que a abertura sempre roda: ${Date.now() - t0} ms neste computador)`);
 }
 {
   const a = armazem();
   ok("sem cofre: nulo", lerCofre(a) === null);
-  const cofre = await fecharCofre("Corre pro mato 22", conteudo, VOLTAS);
+  const cofre = await fecharCofre("Corre pro mato 22", conteudo);
   guardarCofre(cofre, a);
   ok("guardar e ler devolve o mesmo cofre", JSON.stringify(lerCofre(a)) === JSON.stringify(cofre));
   a.setItem(CHAVE_DO_COFRE, "{torto");
   ok("cofre torto no armazenamento conta como sem cofre", lerCofre(a) === null);
-  a.setItem(CHAVE_DO_COFRE, JSON.stringify({ ...cofre, voltas: 10 }));
-  ok("cofre com voltas de menos é recusado", lerCofre(a) === null);
+  a.setItem(CHAVE_DO_COFRE, JSON.stringify({ ...cofre, m: 1024 }));
+  ok("cofre com memória de menos é recusado", lerCofre(a) === null);
+  a.setItem(CHAVE_DO_COFRE, JSON.stringify({ v: 1, voltas: 10, sal: cofre.sal, iv: cofre.iv, verificador: cofre.verificador, cifra: cofre.cifra }));
+  ok("cofre de antes com voltas de menos é recusado", lerCofre(a) === null);
   a.setItem(CHAVE_DO_COFRE, JSON.stringify({ ...cofre, isca: "a".repeat(64) }));
   ok("a marca em claro das versões antigas é descartada ao ler", lerCofre(a) !== null && !("isca" in lerCofre(a)));
   garantirCofre(a);
@@ -116,10 +117,10 @@ const VOLTAS = 2000; // poucas voltas para correr; uma prova abaixo usa o númer
   const fachada = cofreDeFachada();
   const real = await fecharCofre("Corre pro mato 22", conteudo);
   const tam = (c) => Object.fromEntries(Object.entries(c).map(([k, v]) => [k, typeof v === "string" ? Buffer.from(v, "base64").length : v]));
-  ok("o cofre de fachada tem a forma de um de verdade (as mesmas voltas, sal, iv e verificador do mesmo tamanho, cifra do tamanho de uma isca)",
-    cofreValido(fachada) && Object.keys(fachada).sort().join() === Object.keys(real).sort().join() && fachada.voltas === real.voltas
+  ok("o cofre de fachada tem a forma de um de verdade (os mesmos valores, sal, iv e verificador do mesmo tamanho, cifra do tamanho de uma isca)",
+    cofreValido(fachada) && Object.keys(fachada).sort().join() === Object.keys(real).sort().join() && fachada.m === real.m && fachada.t === real.t
     && ["sal", "iv", "verificador"].every((k) => tam(fachada)[k] === tam(real)[k]) && tam(fachada).cifra >= 136 && tam(fachada).cifra < 200 && tam(real).cifra >= 120 && tam(real).cifra < 220);
-  ok("nenhuma senha abre o cofre de fachada", (await abrirCofre("", { ...fachada, voltas: VOLTAS })) === null && (await abrirCofre("Corre pro mato 22", { ...fachada, voltas: VOLTAS })) === null);
+  ok("nenhuma senha abre o cofre de fachada", (await abrirCofre("", fachada, null)) === null && (await abrirCofre("Corre pro mato 22", fachada, null)) === null);
   const b = armazem();
   ok("aparelho sem cofre ganha um de fachada", garantirCofre(b) !== null && lerCofre(b) !== null);
   const antes = b.getItem(CHAVE_DO_COFRE);
@@ -143,8 +144,10 @@ const VOLTAS = 2000; // poucas voltas para correr; uma prova abaixo usa o númer
   const encaixe = ler("components/rede/seguranca/encaixe-da-entrada.ts");
   ok("a troca tira a conta real do aparelho antes da isca entrar (a limpeza da saída rápida, sem trocar de página)", /apagarDoAparelho\(\)/.test(encaixe) && /aoSairRapido/.test(encaixe) && !/location/.test(encaixe));
   const cofreTs = ler("lib/rede/seguranca/cofre-de-panico.ts");
-  ok("o cofre não fala com servidor nenhum e não faz cripto à mão (só a Web Crypto)", !/fetch\(|rpc\(|import /.test(cofreTs.replace(/^\/\/.*$/gm, "")) && /subtle\(\)\.(encrypt|decrypt|deriveKey|deriveBits)|s\.deriveBits/.test(cofreTs)
-    && /name: "PBKDF2"/.test(cofreTs) && /name: "HKDF"/.test(cofreTs) && /name: "AES-GCM"/.test(cofreTs));
+  const importacoes = [...cofreTs.matchAll(/^import .* from "([^"]+)";$/gm)].map((m) => m[1]);
+  ok("o cofre não fala com servidor nenhum e não faz cripto à mão (Web Crypto e o Argon2id da libsodium, por lib/rede/cofre/argon.ts)",
+    !/fetch\(|rpc\(/.test(cofreTs.replace(/^\/\/.*$/gm, "")) && importacoes.join() === "../cifra/sodio,../cofre/argon" && /subtle\(\)\.(encrypt|decrypt|deriveKey|deriveBits)|s\.deriveBits/.test(cofreTs)
+    && /derivar\(senha/.test(cofreTs) && /name: "HKDF"/.test(cofreTs) && /name: "AES-GCM"/.test(cofreTs));
   const isca = ler("lib/rede/seguranca/isca.ts");
   ok("a isca nunca usa a sessão da conta real (nada de rpc ou getClient do site; segundo cliente só na memória)",
     !/import \{[^}]*\b(rpc|getClient|chamar)\b[^}]*\} from "@\/lib\/backend"/.test(isca) && /persistSession: false/.test(isca) && /autoRefreshToken: false/.test(isca) && /detectSessionInUrl: false/.test(isca));
@@ -202,7 +205,8 @@ const VOLTAS = 2000; // poucas voltas para correr; uma prova abaixo usa o númer
   const lei = Object.fromEntries(IDIOMAS.map((l) => [l, JSON.parse(ler(`i18n/rede/lei/${l}.json`))]));
   const conta = (l) => lei[l].termos.secoes.find((s) => s.id === "conta").paragrafos;
   const aparelho = (l) => lei[l].privacidade.secoes.find((s) => s.id === "aparelho").paragrafos;
-  ok("os termos (A sua conta) e a privacidade (No seu aparelho) ganharam o parágrafo nas seis línguas", IDIOMAS.every((l) => conta(l).length === 3 && aparelho(l).length === 2));
+  ok("os termos (A sua conta) e a privacidade (No seu aparelho) ganharam o parágrafo nas seis línguas", IDIOMAS.every((l) => conta(l).length === 3 && aparelho(l).length === 3));
+  // (O terceiro parágrafo de "No seu aparelho" é o do chat da R2: as chaves e a lista das conversas, apagadas no Sair rápido e no pânico.)
   const marcas = { pt: /ordens judiciais/, en: /court orders/, es: /órdenes judiciales/, fr: /décisions de justice/, ru: /решения суда/, zh: /法院命令/ };
   ok("o parágrafo diz que é segurança pessoal contra acesso forçado e que a lei e as ordens judiciais continuam valendo",
     IDIOMAS.every((l) => marcas[l].test(conta(l)[2]) && marcas[l].test(aparelho(l)[1]) && marcas[l].test(seg[l].isca.servidor)));

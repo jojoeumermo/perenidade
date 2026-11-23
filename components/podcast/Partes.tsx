@@ -8,6 +8,7 @@ import { type Episodio, lerLegendas, relogio } from "@/lib/podcast";
 import { radio, usePlayer } from "@/lib/radio";
 import { L } from "../I18n";
 import { faixaDoEpisodio, Ouvir } from "./Ouvir";
+import { mostrarParaCopiar } from "@/components/perguntar";
 
 /** O tocador grande da página do episódio: o play, a forma da onda (clicável) e os capítulos. */
 export function TocadorDoEpisodio({ e, programa, s }: { e: Episodio; programa: string; s: Dict["podcast"] }) {
@@ -248,7 +249,7 @@ export function Compartilhar({ titulo, s }: { titulo: string; s: Dict["podcast"]
       setCopiado(true);
       window.setTimeout(() => setCopiado(false), 2500);
     } catch {
-      window.prompt(s.copyLink, url);
+      await mostrarParaCopiar(s.copyLink, url);
     }
   }
   return (

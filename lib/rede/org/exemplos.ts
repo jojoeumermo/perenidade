@@ -39,9 +39,9 @@ export function orgDeExemplo(agora: Date = new Date()): OrgPublica {
     sino: false,
     gerencio: false,
     nucleos: [
-      { id: "n-zl", nome: "Núcleo Zona Leste", cor: 3, quando: "terças, 19h", onde: "Zona Leste", sou: false, pedi: false },
-      { id: "n-centro", nome: "Núcleo Centro", cor: 1, quando: "sábados, 10h", onde: "Centro", sou: false, pedi: false },
-      { id: "n-estudantes", nome: "Núcleo Estudantes", cor: 2, quando: "quartas, 18h", onde: null, sou: false, pedi: false },
+      { id: "n-zl", nome: "Núcleo Zona Leste", cor: 3, quando: "terças, 19h", onde: "Zona Leste" },
+      { id: "n-centro", nome: "Núcleo Centro", cor: 1, quando: "sábados, 10h", onde: "Centro" },
+      { id: "n-estudantes", nome: "Núcleo Estudantes", cor: 2, quando: "quartas, 18h", onde: null },
     ],
     votacoes: [
       {

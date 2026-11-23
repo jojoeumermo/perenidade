@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). -->
+<resources>
+    <string name="app_name">Instituto Lúcia</string>
+    <string name="rotulo_do_app">工具</string>
+    <string name="title_activity_main">工具</string>
+    <string name="nome_calculadora">计算器</string>
+    <string name="nome_notas">笔记</string>
+    <string name="canal_mensagens">消息</string>
+    <string name="nova_mensagem">新消息</string>
+    <string name="lembrete_neutro">提醒</string>
+    <string name="abrir_fora_titulo">在应用外打开？</string>
+    <string name="cancelar">取消</string>
+    <string name="abrir">打开</string>
+</resources>

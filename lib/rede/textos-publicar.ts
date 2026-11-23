@@ -9,10 +9,11 @@ import fr from "../../i18n/rede/publicar/fr.json";
 import pt from "../../i18n/rede/publicar/pt.json";
 import ru from "../../i18n/rede/publicar/ru.json";
 import zh from "../../i18n/rede/publicar/zh.json";
+import { prontoOuPortugues } from "./textos-prontos";
 
 export type TextosPublicar = typeof pt;
 
 const TEXTOS: Record<string, TextosPublicar> = { pt, en, es, fr, ru, zh } as unknown as Record<string, TextosPublicar>;
 
-export const textosPublicar = (lang: string): TextosPublicar => TEXTOS[lang] ?? pt;
+export const textosPublicar = (lang: string): TextosPublicar => prontoOuPortugues(TEXTOS[lang] ?? TEXTOS.pt, TEXTOS.pt);
 export const IDIOMAS_PUBLICAR = Object.keys(TEXTOS);

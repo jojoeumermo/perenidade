@@ -2,15 +2,13 @@
 //
 // A decisão e os números da comunidade (onda 10, frente 10E; supabase/migracoes/20261116-alumia-o10-decisao.sql): a votação interna
 // com quórum e prazo (secreta ou aberta, escolhida na abertura) e os números da semana para a moderação. Tipos, as chamadas ao banco
-// (com o dublê da prévia, NEXT_PUBLIC_ALUMIA_PREVIA=sim) e o voto secreto pelo MESMO esquema da consulta à base:
-//   - a cédula sai CIFRADA deste aparelho (lib/rede/voto/cedula.ts, a Web Crypto do navegador; nada feito à mão) com a chave pública
-//     da votação, que o servidor do site deriva do segredo dele (app/api/alumia/decisao/chave);
-//   - só quando o servidor responde que não tem o segredo do voto ("sem_servico") ela vai pela urna do banco, sem cifra. Freio, falta
-//     de rede ou cifra que falhou viram erro na tela: o voto nunca cai em silêncio para o caminho sem cifra;
-//   - fechada a votação, a tela pede ao servidor para abrir todas as cédulas de uma vez (app/api/alumia/decisao/abrir).
+// (com o dublê da prévia, NEXT_PUBLIC_ALUMIA_PREVIA=sim) e o voto secreto pelo MESMO caminho da consulta à base (R2, item 1.7):
+//   - a cédula sai CIFRADA deste aparelho para a chave da votação, cuja semente está dividida entre as guardiãs da mediação
+//     (lib/rede/voto/urna.ts); nem o servidor do site nem o banco a abrem. Sem a chave das guardiãs, não se vota ("sem_chave");
+//   - fechada a votação, as guardiãs repassam as partes à abridora, que apura no aparelho dela (components/rede/voto/Urna.tsx).
 // Sem os atalhos "@/" de propósito (roda no Node nos testes).
-import { BackendError, getClient, hasBackend, localBackend, rpc } from "../../backend";
-import { cifrarCedula } from "../voto/cedula";
+import { BackendError, hasBackend, rpc } from "../../backend";
+import { naUrna, urna } from "../voto/cliente";
 
 export type ModoDaDecisao = "secreta" | "aberta";
 export type SituacaoDaDecisao = "aberta" | "fechada" | "cancelada";
@@ -138,84 +136,36 @@ export function conferirPedido(p: PedidoDeDecisao, agora: number = Date.now()): 
   return null;
 }
 
-// ── O servidor do site (a chave e a apuração do voto secreto) ──────────────────────────────────────────────────────────────
-
-async function token(): Promise<string> {
-  const supabase = await getClient();
-  const t = (await supabase.auth.getSession()).data.session?.access_token;
-  if (!t) throw new BackendError("entre_primeiro");
-  return t;
-}
-
-async function postar(caminho: string, corpo: unknown): Promise<Record<string, unknown> | null> {
-  let r: Response;
-  try {
-    r = await fetch(caminho, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${await token()}` },
-      body: JSON.stringify(corpo),
-      cache: "no-store",
-      signal: AbortSignal.timeout(20_000),
-    });
-  } catch (e) {
-    if (e instanceof BackendError) throw e;
-    throw new BackendError("sem_conexao");
-  }
-  return (await r.json().catch(() => null)) as Record<string, unknown> | null;
-}
-
-// A chave pública de cada votação, guardada na memória desta aba (é pública; poupa pedidos ao servidor).
-const chaves = new Map<string, string>();
-
-/** A chave pública da votação, ou nulo SÓ quando o servidor diz que não tem o segredo do voto. Outra recusa vira erro. */
-async function chaveDaDecisao(decisao: string): Promise<string | null> {
-  const guardada = chaves.get(decisao);
-  if (guardada) return guardada;
-  const r = await postar("/api/alumia/decisao/chave", { decisao });
-  if (r?.ok && typeof r.chave === "string") {
-    chaves.set(decisao, r.chave);
-    return r.chave;
-  }
-  if (r?.motivo === "sem_servico") return null;
-  throw new BackendError(typeof r?.motivo === "string" ? r.motivo : "falha");
-}
-
-/** Pede ao servidor para abrir as cédulas cifradas de uma votação fechada. Verdadeiro se abriu (a tela recarrega). */
-export async function apurarDecisao(decisao: string): Promise<boolean> {
-  if (!hasBackend || localBackend || PREVIA_DA_DECISAO) return false;
-  try {
-    const r = await postar("/api/alumia/decisao/abrir", { decisao });
-    return r?.ok === true;
-  } catch {
-    return false;
-  }
-}
-
 // ── Chamadas ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 type Chamar = <T>(funcao: string, argumentos?: Record<string, unknown>) => Promise<T>;
 
 export function criarClienteDaDecisao(c: Chamar, cifrar: boolean) {
   return {
-    lista: (slug: string) => c<DecisoesDaComunidade>("alumia_decisao_lista", { p_slug: slug }),
+    /**
+     * A lista. Onda R3 (urna anônima): na secreta aberta, o aparelho pega CEDO o passe da urna (a emissão marca "já pegou a cédula"
+     * no banco) e, se este aparelho tem o passe ainda não depositado, a tela deixa votar mesmo com o banco dizendo "já votou".
+     */
+    lista: async (slug: string) => {
+      const r = await c<DecisoesDaComunidade>("alumia_decisao_lista", { p_slug: slug });
+      if (!cifrar) return r;
+      for (const d of r.decisoes ?? []) {
+        if (d.modo !== "secreta" || d.situacao !== "aberta") continue;
+        if (d.possoVotar) void urna.prepararCedula("decisao", d.id);
+        else if (d.votei && d.impedimento === "ja_votou" && (await urna.temCedula("decisao", d.id))) Object.assign(d, { votei: false, possoVotar: true, impedimento: null });
+      }
+      return r;
+    },
     criar: (slug: string, p: PedidoDeDecisao) => c<Decisao>("alumia_decisao_criar", { p_slug: slug, p: limparPedido(p) }),
     cancelar: (id: string) => c<Decisao>("alumia_decisao_cancelar", { p_id: id }),
     numeros: (slug: string) => c<NumerosDaComunidade>("alumia_decisao_numeros", { p_slug: slug }),
     /**
      * Vota. No modo aberto, direto ao banco (o nome vai junto, e a pessoa confirmou antes). No secreto, a cédula cifrada neste
-     * aparelho; a urna do banco sem cifra só quando o servidor não tem o segredo do voto.
+     * aparelho para a chave das guardiãs, depois de conferir o registro.
      */
     votar: async (d: Pick<Decisao, "id" | "modo">, opcao: string): Promise<{ votei: true }> => {
       if (d.modo === "aberta" || !cifrar) return c<{ votei: true }>("alumia_decisao_votar", { p_id: d.id, p_opcao: opcao });
-      const chave = await chaveDaDecisao(d.id);
-      if (chave === null) return c<{ votei: true }>("alumia_decisao_votar", { p_id: d.id, p_opcao: opcao });
-      let cedula: string;
-      try {
-        cedula = await cifrarCedula(d.id, chave, [opcao]);
-      } catch {
-        throw new BackendError("falha");
-      }
-      return c<{ votei: true }>("alumia_decisao_votar_cifrada", { p_id: d.id, p_cedula: cedula });
+      return naUrna(() => urna.votar("decisao", d.id, [opcao]) as Promise<{ votei: true }>);
     },
   };
 }
@@ -330,5 +280,5 @@ function chamarDuble(): Chamar {
   };
 }
 
-/** O cliente: na prévia, o dublê; na cópia local de testes (sem as rotas do servidor), tudo direto ao banco. */
-export const decisao = criarClienteDaDecisao(PREVIA_DA_DECISAO ? chamarDuble() : (f, a) => rpc(f, a ?? {}), hasBackend && !localBackend && !PREVIA_DA_DECISAO);
+/** O cliente: na prévia, o dublê; com o banco (inclusive a cópia local de testes), o voto secreto cifrado aqui. */
+export const decisao = criarClienteDaDecisao(PREVIA_DA_DECISAO ? chamarDuble() : (f, a) => rpc(f, a ?? {}), hasBackend && !PREVIA_DA_DECISAO);

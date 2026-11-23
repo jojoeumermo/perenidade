@@ -192,7 +192,8 @@ conferir("SO_APAGAR sem chave nova além do convite", SO_APAGAR.length === 4 && 
 
 // ───────────── 6. lib/prefs.ts ─────────────
 const prefs = ler("lib", "prefs.ts");
-conferir("defaultPrefs tem pacote:false", /pacote: false,\n\};/.test(prefs));
+// Depois do pacote podem vir outras escolhas (o "fortes" do redesign, Prompt 5 E1): basta o pacote nascer desligado.
+conferir("defaultPrefs tem pacote:false", /export const defaultPrefs: Prefs = \{[^}]*\n  pacote: false,\n[^}]*\};/.test(prefs));
 const listaFlags = /const flags = \[([\s\S]*?)\] as const;/.exec(prefs)?.[1] ?? "";
 const dosFlags = [...listaFlags.matchAll(/\["(\w+)", "(\w+)"\]/g)].map((m) => `${m[1]}:${m[2]}`).sort();
 // O script que roda antes da primeira pintura mora em lib/prefs-script.ts (a página do chat o libera pelo hash).

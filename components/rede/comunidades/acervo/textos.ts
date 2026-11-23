@@ -6,6 +6,7 @@
 import { useEffect, useState } from "react";
 import type pt from "@/i18n/rede/acervo/pt.json";
 import { codigoDoErro } from "../../erros";
+import { prontoDe } from "../../../../lib/rede/textos-prontos";
 
 export type TextosDoAcervo = typeof pt;
 
@@ -22,7 +23,7 @@ const JA: Record<string, Promise<TextosDoAcervo>> = {};
 
 export function carregarTextosDoAcervo(lang: string): Promise<TextosDoAcervo> {
   const chave = CARREGAR[lang] ? lang : "pt";
-  JA[chave] ??= CARREGAR[chave]().then((m) => m.default as TextosDoAcervo);
+  JA[chave] ??= prontoDe(CARREGAR[chave], CARREGAR.pt).then((d) => d as TextosDoAcervo);
   return JA[chave];
 }
 

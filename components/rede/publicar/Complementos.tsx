@@ -13,7 +13,8 @@ import type { MidiaDoPost, Post } from "@/lib/rede/tipos";
 import type { DetalhesDoPost, EdicaoAnterior, EnqueteDoPost } from "@/lib/rede/tipos-publicar";
 import { textoDoErro } from "../erros";
 import { TocadorDeAudio } from "../midia/TocadorDeAudio";
-import { enderecoDaMidia } from "./api";
+import { enderecoDaMidia, enderecosDaImagem } from "./api";
+import { montarSrcset, tamanhosDaImagem } from "@/lib/rede/publicar/versoes";
 import { detalhesDe, invalidar, publicarVencidosUmaVez } from "./detalhes";
 import { textoDoErroPublicar, useTextosPublicar } from "./textos";
 import { useAlumia2 } from "./alumia2/contexto";
@@ -52,19 +53,25 @@ interface TextosDoSelo {
 export function ImagemDoPost({ m, n, total, t, selo, preencher: encher = false }: { m: MidiaDoPost; n: number; total: number; t: TextosPublicar; selo?: TextosDoSelo; preencher?: boolean }) {
   const semente = sementeDoExemplo(m.id);
   const [url, setUrl] = useState(() => (semente !== null ? imagemDeExemplo(semente, m.largura ?? 800, m.altura ?? 600) : ""));
+  // A20: as versões menores da imagem, quando existem (lib/rede/publicar/versoes.ts): o navegador escolhe pelo tamanho da tela.
+  const [srcset, setSrcset] = useState("");
   const [falhou, setFalhou] = useState(false);
   const [verAlt, setVerAlt] = useState(false);
   useEffect(() => {
     if (semente !== null) return;
     let vivo = true;
-    enderecoDaMidia(m.id).then(
-      (u) => vivo && setUrl(u),
+    enderecosDaImagem(m.id, m.largura).then(
+      (e) => {
+        if (!vivo) return;
+        setSrcset(montarSrcset(e.versoes));
+        setUrl(e.principal);
+      },
       () => vivo && setFalhou(true),
     );
     return () => {
       vivo = false;
     };
-  }, [m.id, semente]);
+  }, [m.id, m.largura, semente]);
   const proporcao = encher ? { height: "100%" } : m.largura && m.altura ? { aspectRatio: `${m.largura} / ${m.altura}` } : { aspectRatio: "4 / 3" };
   const idDoAlt = `alt-${m.id}`;
   return (
@@ -72,7 +79,7 @@ export function ImagemDoPost({ m, n, total, t, selo, preencher: encher = false }
       {url ? (
         // Imagem do depósito privado (endereço assinado): o next/image não otimiza esse endereço.
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={url} alt={m.alt || preencher(t.imagens.ver, { n: n + 1, total })} loading="lazy" decoding="async" width={m.largura ?? undefined} height={m.altura ?? undefined} className="h-full w-full object-cover" onError={() => setFalhou(true)} />
+        <img src={url} srcSet={srcset || undefined} sizes={srcset ? tamanhosDaImagem(total) : undefined} alt={m.alt || preencher(t.imagens.ver, { n: n + 1, total })} loading="lazy" decoding="async" width={m.largura ?? undefined} height={m.altura ?? undefined} className="h-full w-full object-cover" onError={() => setFalhou(true)} />
       ) : (
         <figcaption className={`flex h-full items-center justify-center p-2 text-center text-sm ${selo ? "text-[var(--al-texto-3)]" : "text-ink-soft"}`}>{falhou ? m.alt || t.imagens.semAcesso : m.alt || t.audio.carregando}</figcaption>
       )}

@@ -15,6 +15,7 @@ import { deOutraOrigem, resposta, rpcDeServico, servico, SUPA } from "@/lib/rede
 import { EMAIL_VALIDO, passarSemTeto, servicoDeContas } from "@/lib/rede/convites/porta-sem-teto";
 import { conferirDesafioDaCloudflare } from "@/lib/rede/convites/turnstile";
 import { lerToken } from "@/lib/rede/seguranca/servico-de-contas";
+import { reconhecerNavegador } from "@/lib/sessao/aparelho-servidor";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -45,14 +46,20 @@ export async function POST(pedido: Request) {
   if (antes?.bloqueado) return resposta({ ok: false, motivo: "bloqueado", minutos: minutos(antes) }, 429);
 
   try {
-    const r = await servicoDeContas("/token?grant_type=password", { email, password: senha });
+    const agente = (pedido.headers.get("user-agent") ?? "").slice(0, 500);
+    const r = await servicoDeContas("/token?grant_type=password", { email, password: senha }, "POST", agente);
     const d = r.dado;
     if (r.status >= 200 && r.status < 300 && typeof d?.access_token === "string" && typeof d.refresh_token === "string") {
       await contaNoBanco(email, "certa");
       // O token acabou de sair do serviço de contas: a conta e a sessão dele valem. Banco sem a função: segue sem o aviso.
       const sessao = lerToken(d.access_token);
-      if (sessao) await rpcDeServico("alumia_porta_entrou", { p_usuario: sessao.conta, p_sessao: sessao.sessao, p_agente: (pedido.headers.get("user-agent") ?? "").slice(0, 500) });
-      return resposta({ ok: true, sessao: { access_token: d.access_token, refresh_token: d.refresh_token } });
+      // P5 (A4): o navegador conhecido (cookie HttpOnly) não recebe o aviso de entrada nova; o novo recebe na hora. Banco ainda sem
+      // a função: o aviso de antes (pelo gatilho ou por public.alumia_porta_entrou).
+      const reconhecido = sessao ? await reconhecerNavegador(pedido, sessao.conta, sessao.sessao) : null;
+      if (sessao && reconhecido?.conhecido === null) await rpcDeServico("alumia_porta_entrou", { p_usuario: sessao.conta, p_sessao: sessao.sessao, p_agente: agente });
+      const saida = resposta({ ok: true, sessao: { access_token: d.access_token, refresh_token: d.refresh_token } });
+      if (reconhecido?.setCookie) saida.headers.append("Set-Cookie", reconhecido.setCookie);
+      return saida;
     }
     const codigo = String(d?.error_code ?? d?.code ?? "");
     if (codigo === "email_not_confirmed") return resposta({ ok: false, motivo: "nao_confirmado" }, 400);

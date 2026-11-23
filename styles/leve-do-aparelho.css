@@ -1,0 +1,54 @@
+/*
+ * Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ *
+ * Aparelhos fracos (Prompt 5, E7). Vale para o site do instituto, a Escola e o painel; a Alumia fica de fora (<html data-na-alumia>,
+ * posto por lib/prefs-script.ts e lib/prefs.ts): lá o foco é a experiência (A17, A20) e o modo leve continua só como escolha.
+ *
+ *   1. Menos movimento pedido pelo sistema (prefers-reduced-motion): nada anima. Vai pela duração quase zero, e não por
+ *      "animation: none", para o que entra animado terminar no lugar certo (o estado final da animação vale).
+ *   2. Modo leve (o da pessoa ou o que ligou sozinho com aparelho fraco ou economia de dados): sem vidro fosco e sem sombra, e as
+ *      letras da Escola também ficam as do aparelho (as do site já ficam, em app/globals.css).
+ *
+ * Arquivo à parte de propósito: as regras do redesign (E1 a E5) mexem em app/globals.css e nos tokens de cada área.
+ */
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-na-alumia]) *,
+  :root:not([data-na-alumia]) *::before,
+  :root:not([data-na-alumia]) *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+  :root:not([data-na-alumia])::view-transition-old(*),
+  :root:not([data-na-alumia])::view-transition-new(*),
+  :root:not([data-na-alumia])::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* O foco do teclado continua à vista: o anel de foco de algumas peças é uma sombra (o "ring"). */
+:root[data-light]:not([data-na-alumia]) :not(:focus, :focus-visible),
+:root[data-light]:not([data-na-alumia]) ::before,
+:root[data-light]:not([data-na-alumia]) ::after {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+:root[data-light] [data-escola] {
+  --font-escola-titulo: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-escola-texto: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* O Vale o Escrito também fica com as letras do aparelho no modo leve (as dele vêm de lib/vale-o-escrito/fontes.ts). */
+:root[data-light] .ve {
+  --ve-display: "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+  --ve-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  --ve-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}

@@ -1,17 +1,20 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useId, useState } from "react";
-import { apurarDecisao, decisao as cliente, faltaAte, maiorVisivel, type Decisao } from "@/lib/rede/decisao/cliente";
+import { useId, useState } from "react";
+import { decisao as cliente, faltaAte, maiorVisivel, PREVIA_DA_DECISAO, type Decisao } from "@/lib/rede/decisao/cliente";
 import { preencher } from "@/lib/rede/preencher";
 import { Botao } from "../../ui/Botao";
 import { dataEHora, erroDaDecisao, tempoQueFalta, type TextosDaDecisao } from "./textos";
+import { PorQueSemNumero } from "../../uso/PorQueSemNumero";
+import { UrnaSecreta } from "../../voto/UrnaSecreta";
 
 /**
  * Uma votação da comunidade. Aberta: a pergunta, o carimbo do modo (secreto ou aberto, à vista ANTES de votar), o quórum, o prazo e
  * as opções em ladrilhos; no modo aberto, a pessoa confirma que o nome vai junto antes do voto sair. Encerrada: o resultado em
  * barras, só com 3 votos ou mais e o quórum atingido (a opção com menos de 3 diz "menos de 3", sem barra); no modo aberto, os nomes
- * por opção. Fechada com cédula cifrada ainda fechada, a tela pede a apuração ao servidor e lê de novo.
+ * por opção. No modo secreto, o voto é em limiar (R2, item 1.7): a cédula sai cifrada para a chave das guardiãs da mediação, e só K
+ * delas juntas abrem, depois do prazo (o bloco da urna, components/rede/voto/UrnaSecreta.tsx).
  */
 export function CartaoDaDecisao({ d, td, lang, modero, aoMudar, aoReler }: {
   d: Decisao;
@@ -28,16 +31,6 @@ export function CartaoDaDecisao({ d, td, lang, modero, aoMudar, aoReler }: {
   const [cancelar, setCancelar] = useState(false);
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState("");
-
-  // Fechada com cédulas cifradas: o servidor abre todas de uma vez; depois, a lista é lida de novo (uma vez por votação).
-  useEffect(() => {
-    if (d.situacao !== "fechada" || !d.apurar) return;
-    let vivo = true;
-    void apurarDecisao(d.id).then((abriu) => vivo && abriu && aoReler());
-    return () => {
-      vivo = false;
-    };
-  }, [d.id, d.situacao, d.apurar, aoReler]);
 
   const falta = d.situacao === "aberta" ? faltaAte(d.prazo) : null;
   const textoDa = (oid: string) => d.opcoes.find((o) => o.id === oid)?.texto ?? "";
@@ -169,6 +162,9 @@ export function CartaoDaDecisao({ d, td, lang, modero, aoMudar, aoReler }: {
           </div>
         )
       ) : null}
+      {d.modo === "secreta" && (d.situacao === "aberta" || d.apurar) && (modero || d.possoVotar || d.votei || d.situacao === "fechada" || PREVIA_DA_DECISAO) ? (
+        <UrnaSecreta tipo="decisao" alvo={d.id} lang={lang} fechada={d.situacao === "fechada"} aoMudar={aoReler} />
+      ) : null}
       {erro ? (
         <p className="d10-erro" role="alert">
           {erro}
@@ -217,6 +213,7 @@ function Resultado({ d, td, maior }: { d: Decisao; td: TextosDaDecisao; maior: n
       )}
       <p className="d10-nota">
         {linhaDeQuem} {semNumeros ? tc.quorumOk : d.votantes === null ? "" : d.quorumAtingido ? tc.quorumOk : tc.quorumNao}
+        {semNumeros || d.votantes === null ? <PorQueSemNumero motivo="piso" soma={semNumeros} /> : null}
       </p>
     </div>
   );

@@ -8,10 +8,11 @@ import fr from "../../i18n/rede/consertos/fr.json";
 import pt from "../../i18n/rede/consertos/pt.json";
 import ru from "../../i18n/rede/consertos/ru.json";
 import zh from "../../i18n/rede/consertos/zh.json";
+import { prontoOuPortugues } from "./textos-prontos";
 
 export type TextosDosConsertos = typeof pt;
 
 const TEXTOS: Record<string, TextosDosConsertos> = { pt, en, es, fr, ru, zh } as unknown as Record<string, TextosDosConsertos>;
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
-export const textosDosConsertos = (lang: string): TextosDosConsertos => TEXTOS[lang] ?? pt;
+export const textosDosConsertos = (lang: string): TextosDosConsertos => prontoOuPortugues(TEXTOS[lang] ?? TEXTOS.pt, TEXTOS.pt);

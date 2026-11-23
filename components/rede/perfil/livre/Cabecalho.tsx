@@ -5,7 +5,7 @@
 // pessoa edita). Tudo vem da aparência conferida (lib/rede/aparencia.ts): a cor vira só variáveis CSS com "#rrggbb" calculado
 // (com contraste garantido nos dois fundos e no botão), o clima e o modelo viram atributos de uma lista fechada, a capa e o rosto
 // são desenhados a partir de palavras e dígitos. Nada de CSS, HTML ou URL livre. Alto contraste e e-ink passam por cima de tudo.
-import type { CSSProperties, ReactNode } from "react";
+import { useRef, type CSSProperties, type ReactNode } from "react";
 import { linkLimpo, variaveisDoAcento, type AparenciaDoPerfil } from "@/lib/rede/aparencia";
 import { useFotoPublica } from "@/lib/rede/fotos-publicas";
 import { dataCurta } from "@/lib/rede/org/contagem";
@@ -15,9 +15,12 @@ import type { CampoDoPerfil, StatusDoPerfil } from "@/lib/rede/tipos-org";
 import type { ImagemDePerfil } from "@/lib/rede/tipos-perfil";
 import type { PublicoDoStatus, StatusDaLista } from "@/lib/rede/secoes-perfil";
 import { useTextosDasSecoes } from "../secoes/textos";
+import { seloContagensLigado } from "@/lib/rede/selo-contagens/cliente";
 import { SeloDeIdentidade } from "../../identidade/Selo";
+import { SeloDaPessoa } from "../../selo-contagens/PecasDoSelo";
 import { Avatar16 } from "../../ui/Avatar16";
 import { Avatar } from "../Avatar";
+import { PresencaRecente, useRostoProtegido } from "../../presenca/NoPerfil";
 import { BioFormatada, CapaDeMosaico, FaixaPropria, RostoDePixels } from "./Pecas";
 import type { TextosDoPerfilLivre } from "./textos";
 import "./livre.css";
@@ -32,6 +35,24 @@ export interface DadosDoCabecalho {
   campos: CampoDoPerfil[];
   avatar: ImagemDePerfil;
   capa: ImagemDePerfil;
+  /** Os selos que o banco mandou (rede_perfil_de): "coordenacao" e "equipe" viram o selo de verificado ao lado do nome (A10). */
+  selos?: readonly string[];
+}
+
+/** O selo de verificado da equipe e da coordenação (o papel no banco; some quando o papel sai). Não é apoio do instituto a ninguém. */
+function SeloVerificado({ selos, t }: { selos?: readonly string[]; t: TextosDoPerfilLivre }) {
+  const coordenacao = selos?.includes("coordenacao") ?? false;
+  if (!coordenacao && !selos?.includes("equipe")) return null;
+  const texto = coordenacao ? t.perfil.verificadoCoordenacao : t.perfil.verificadoEquipe;
+  return (
+    <span className="pf-verificado" title={texto}>
+      <svg aria-hidden viewBox="0 0 16 16" width="18" height="18">
+        <rect x={0.5} y={0.5} width={15} height={15} rx={4} fill="var(--al-vermelho, #e8321f)" />
+        <path d="M4 8.3 6.7 11 12 5.2" fill="none" stroke="var(--al-sobre-vermelho, #fff)" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+      <span className="sr-only">{texto}</span>
+    </span>
+  );
 }
 
 /** As variáveis da cor do perfil num objeto de estilo (só cores "#rrggbb" calculadas aqui). */
@@ -48,6 +69,7 @@ export function CabecalhoDoPerfil({
   depois,
   previa = false,
   nivel = 1,
+  logado = false,
 }: {
   dados: DadosDoCabecalho;
   aparencia: AparenciaDoPerfil;
@@ -60,6 +82,8 @@ export function CabecalhoDoPerfil({
   /** Na prévia do editor: rótulo de região e sem foco nos links (a prévia não navega). */
   previa?: boolean;
   nivel?: 1 | 2;
+  /** Quem vê tem conta (prompt 4: o "ativo recentemente" e a foto protegida só se pedem com conta). */
+  logado?: boolean;
 }) {
   const a = aparencia;
   const capaImagem = a.capa ? null : origemDaImagem(dados.capa, "capa");
@@ -74,8 +98,11 @@ export function CabecalhoDoPerfil({
   const rotuloDoStatus = (tipo: StatusDoPerfil | StatusDaLista): string =>
     (t.agora.statusTipos as Record<string, string>)[tipo] ?? (ts?.status.tipos as Record<string, string> | undefined)?.[tipo] ?? "";
   const fotoPublica = useFotoPublica(dados.handle);
+  // Prompt 4, item 1: a foto que a dona protegeu (desligado, ou na prévia do editor, a moldura de sempre, sem nada a mais).
+  const refDoRosto = useRef<HTMLDivElement>(null);
+  const protecao = useRostoProtegido(refDoRosto, previa ? null : dados.handle, lang, logado);
   const rosto = (
-    <div className="pf-rosto-moldura" style={{ width: tamanhoDoRosto, height: tamanhoDoRosto }}>
+    <div ref={refDoRosto} className="pf-rosto-moldura" style={{ width: tamanhoDoRosto, height: tamanhoDoRosto }} {...protecao.atributos}>
       {fotoPublica ? (
         // Quem escolheu aparecer com nome e foto: a foto vale em todo lugar, também aqui (o Avatar16 a desenha).
         <Avatar16 handle={dados.handle} tamanho={tamanhoDoRosto} />
@@ -87,15 +114,22 @@ export function CabecalhoDoPerfil({
         // Sem rosto desenhado nem imagem: o mesmo mosaico de 16 cartões que a pessoa tem nos cartões da linha (nunca iniciais).
         <Avatar16 handle={dados.handle} tamanho={tamanhoDoRosto} />
       )}
+      {protecao.camada}
     </div>
   );
   const nomes = (
     <div className="pf-nomes">
-      <Titulo className="al-cond pf-nome">{dados.codinome}</Titulo>
+      <Titulo className="al-cond pf-nome">
+        {dados.codinome}
+        <SeloVerificado selos={dados.selos} t={t} />
+      </Titulo>
       <p className="pf-handle">
         <span>@{dados.handle}</span>
         {dados.pronomes ? <span className="pf-pronomes">{dados.pronomes}</span> : null}
         <SeloDeIdentidade handle={dados.handle} lang={lang} />
+        {/* O selo de verificado das pessoas (Prompt 4, item 3): só fora da prévia do editor e com a flag. */}
+        {!previa && seloContagensLigado() ? <SeloDaPessoa handle={dados.handle} lang={lang} /> : null}
+        {previa ? null : <PresencaRecente handle={dados.handle} lang={lang} logado={logado} />}
       </p>
     </div>
   );

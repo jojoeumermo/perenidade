@@ -13,6 +13,32 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 /** O menor segredo aceito. Menor que isso, nada é calculado (e nada é registrado). */
 export const TAMANHO_MINIMO_DO_SEGREDO = 32;
 
+// ── Segredos com versão (onda R3, 2.6) ─────────────────────────────────────────────────────────────────────────────────────
+// Um segredo do servidor pode vir com versão: "v<N>:<base64url de 32 bytes ou mais>" (o que a cerimônia, scripts/segredos/
+// cerimonia.mjs, entrega). Sem o prefixo, é o segredo de antes (versão 1, o texto inteiro como chave: as impressões de antes valem
+// igual). Na troca, o servidor guarda também o anterior (ALUMIA_IMPRESSAO_SEGREDO_ANTERIOR) e calcula as duas impressões: o banco
+// aceita a anterior por 30 dias desde que viu a versão nova pela primeira vez (os banimentos por rede seguem valendo na troca), e a
+// de antes da anterior, nunca.
+
+export interface SegredoVersionado {
+  versao: number;
+  chave: Buffer;
+}
+
+/** Lê um segredo com ou sem versão. Nulo se curto, torto ou com versão fora de 1..32767. */
+export function lerSegredo(texto: string | undefined | null): SegredoVersionado | null {
+  if (!texto) return null;
+  const m = /^v([1-9][0-9]{0,4}):([A-Za-z0-9_-]+)$/.exec(texto);
+  if (m) {
+    const versao = Number(m[1]);
+    const chave = Buffer.from(m[2], "base64url");
+    return versao <= 32767 && chave.length >= TAMANHO_MINIMO_DO_SEGREDO && chave.toString("base64url") === m[2] ? { versao, chave } : null;
+  }
+  // Parece ter versão ("v<algarismos>:") mas não fecha: recusado (não vira, por engano, um segredo de antes).
+  if (/^v[0-9]+:/.test(texto)) return null;
+  return texto.length >= TAMANHO_MINIMO_DO_SEGREDO ? { versao: 1, chave: Buffer.from(texto, "utf8") } : null;
+}
+
 function ipv4(texto: string): string | null {
   const partes = texto.split(".");
   if (partes.length !== 4) return null;
@@ -51,8 +77,25 @@ export function redeDoEndereco(endereco: string | null | undefined): string | nu
 /** A impressão: HMAC-SHA-256 da rede, em hexadecimal (64 letras). Sem segredo bom ou sem endereço válido, nulo. */
 export function impressaoDaRede(endereco: string | null | undefined, segredo: string | undefined): string | null {
   const rede = redeDoEndereco(endereco);
-  if (!rede || !segredo || segredo.length < TAMANHO_MINIMO_DO_SEGREDO) return null;
-  return createHmac("sha256", segredo).update(`alumia:rede:${rede}`).digest("hex");
+  const s = lerSegredo(segredo);
+  if (!rede || !s) return null;
+  return createHmac("sha256", s.chave).update(`alumia:rede:${rede}`).digest("hex");
+}
+
+/**
+ * As impressões para o banco na troca de segredo: a da versão atual e, se o anterior é EXATAMENTE a versão de antes, a dele. Nulo
+ * sem segredo bom ou sem endereço válido. Um anterior de outra versão (mais velho, ou igual) é ignorado.
+ */
+export function impressoesDaRede(
+  endereco: string | null | undefined,
+  atual: string | undefined = process.env.ALUMIA_IMPRESSAO_SEGREDO,
+  anterior: string | undefined = process.env.ALUMIA_IMPRESSAO_SEGREDO_ANTERIOR,
+): { versao: number; impressao: string; anterior: string | null } | null {
+  const a = lerSegredo(atual);
+  const impressao = impressaoDaRede(endereco, atual);
+  if (!a || !impressao) return null;
+  const b = lerSegredo(anterior);
+  return { versao: a.versao, impressao, anterior: b && b.versao === a.versao - 1 ? impressaoDaRede(endereco, anterior) : null };
 }
 
 /** O pedido traz o sinal da borda (o cabeçalho que a regra da Cloudflare põe, com o segredo de ALUMIA_BORDA_SEGREDO)? */

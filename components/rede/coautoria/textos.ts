@@ -3,6 +3,7 @@
 // Os textos da frente 12C (assinar junto, "fonte?", marcar em foto e a checagem do Vale o Escrito na nota): i18n/rede/coautoria/
 // {pt,en,es,fr,ru,zh}.json. O português é o final; os outros cinco são rascunho. Carrega só o idioma pedido, sob demanda.
 import type pt from "../../../i18n/rede/coautoria/pt.json";
+import { prontoDe } from "../../../lib/rede/textos-prontos";
 
 export type TextosDaCoautoria = typeof pt;
 
@@ -22,7 +23,7 @@ export function carregarTextosDaCoautoria(lang: string): Promise<TextosDaCoautor
   const chave = CARREGAR[lang] ? lang : "pt";
   let p = prontos.get(chave);
   if (!p) {
-    p = CARREGAR[chave]().then((m) => m.default as TextosDaCoautoria);
+    p = prontoDe(CARREGAR[chave], CARREGAR.pt).then((d) => d as TextosDaCoautoria);
     prontos.set(chave, p);
   }
   return p;

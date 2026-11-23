@@ -1,52 +1,52 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// Configuração do Capacitor (docs/APP-LOJA.md). Está PRONTA, MAS NÃO PUBLICADA: o Capacitor não está nas dependências
-// do projeto e a pasta android/ não existe no repositório (gera-se na máquina de quem publica, passo a passo no
-// documento). Publicar na Play Store tem taxa única da loja e é decisão do Jonathan (plano, Etapa 11).
+// Configuração do Capacitor do app de Android (docs/APP-LOJA.md). Onda R3, item 1.2: o app deixou de ser um WebView que abre o
+// site. Agora ele leva DENTRO do pacote a casca do chat (casca/, um projeto estático montado por `node casca/montar.mjs`), com o
+// motor de cifra e as telas do chat: nenhum código de chave vem de servidor. Por isso:
+//   - SEM `server.url` e SEM `allowNavigation`: nenhuma página remota no WebView que tem a ponte com o nativo;
+//   - a rede social abre FORA da casca, numa tela própria do app (RedeActivity) com um WebView SEM ponte, em outro processo;
+//   - as rotas do Instituto saem pelo HTTP nativo do Capacitor (sem `Origin`), chamado pela casca; o fetch do WebView fica só para o
+//     serviço de contas, limitado pela política de segurança da casca;
+//   - a depuração pelo chrome://inspect fica desligada (liga só com ALUMIA_APP_DEPURAR=1, num pacote de teste).
+// A chave de assinatura NUNCA fica no projeto: o build sai sem assinatura e é assinado à parte (docs/APP-LOJA.md).
 //
-// Escolha: o aplicativo é um WebView que abre o site em produção (server.url). O site já é um PWA com casca de app
-// (docs/APP.md); o pacote nativo só dá o ícone na loja, a tela de abertura e o botão "voltar" do Android. Um build
-// estático não serve: o site tem páginas dinâmicas, rotas de API e o banco (Supabase), e sairia do ar a cada mudança.
-//
-// Sem import de "@capacitor/cli" de propósito: o tipo está escrito aqui embaixo para o `tsc` do site não depender de
-// um pacote que não está instalado. Ao instalar o Capacitor, dá para trocar por `import type { CapacitorConfig }`.
+// Sem import de "@capacitor/cli" de propósito: o tipo está escrito aqui embaixo para o `tsc` do site não depender do CLI.
 
 interface ConfiguracaoDoCapacitor {
   appId: string;
   appName: string;
-  /** Pasta com um index.html mínimo (o aplicativo só mostra o site; esta pasta existe porque o Capacitor exige uma). */
   webDir: string;
-  server?: { url?: string; cleartext?: boolean; allowNavigation?: string[]; androidScheme?: string };
-  android?: { appendUserAgent?: string; allowMixedContent?: boolean; webContentsDebuggingEnabled?: boolean };
+  server?: { url?: string; cleartext?: boolean; allowNavigation?: string[]; androidScheme?: string; hostname?: string };
+  android?: { appendUserAgent?: string; allowMixedContent?: boolean; webContentsDebuggingEnabled?: boolean; captureInput?: boolean };
   plugins?: Record<string, Record<string, unknown>>;
+  includePlugins?: string[];
 }
-
-// O endereço de produção. Pode ser trocado por uma variável na hora de gerar o pacote de teste
-// (APP_URL=http://10.0.2.2:3000 npx cap sync, que é o localhost do computador visto pelo emulador do Android).
-const endereco = process.env.APP_URL ?? "https://institutolucia.org";
 
 const config: ConfiguracaoDoCapacitor = {
   // Identificador do pacote na loja. NÃO muda depois da primeira publicação.
   appId: "org.institutolucia.app",
   appName: "Instituto Lúcia",
-  webDir: "app-loja/www",
+  webDir: "casca/saida",
+  // Nenhum plugin do npm entra no app: só os nativos próprios (AlumiaCofre, AlumiaApp), registrados na MainActivity. Os pacotes
+  // @capacitor/app e @capacitor/local-notifications estão nas dependências, mas a notificação sem conteúdo e a ida para o fundo são
+  // do AlumiaApp (VISIBILITY_SECRET na tela bloqueada, que o plugin genérico não garante).
+  includePlugins: [],
   server: {
-    url: endereco,
-    // Só o site do Instituto abre dentro do aplicativo; qualquer outro endereço abre no navegador do aparelho.
-    allowNavigation: ["institutolucia.org", "*.institutolucia.org"],
-    // Sem tráfego em texto puro, exceto no teste local pedido de propósito.
-    cleartext: endereco.startsWith("http://"),
+    // A casca é servida pelo próprio app, em https://localhost (contexto seguro para o WebCrypto e o OPFS do motor do chat).
+    androidScheme: "https",
+    hostname: "localhost",
   },
   android: {
-    // O site liga o visual de aplicativo (<html data-app>) quando o agente de usuário tem "; wv)" (lib/prefs.ts; o WebView
-    // do Android já traz isso sozinho). "InstitutoLuciaApp/2" é só uma marca de versão da casca (e2e/s24.spec.ts imita os dois).
-    appendUserAgent: "InstitutoLuciaApp/2",
     allowMixedContent: false,
-    // Depurar pelo chrome://inspect só em teste local; na loja fica desligado.
-    webContentsDebuggingEnabled: endereco.startsWith("http://"),
+    webContentsDebuggingEnabled: process.env.ALUMIA_APP_DEPURAR === "1",
+    // Os campos de texto passam pelo WebView próprio do app (CampoSemAprendizado), que pede ao teclado para não aprender.
+    captureInput: false,
   },
   plugins: {
-    SplashScreen: { launchShowDuration: 0, backgroundColor: "#ffffff" },
+    SplashScreen: { launchShowDuration: 0, backgroundColor: "#f8f5ee" },
+    // O fetch do WebView NÃO é trocado pelo HTTP nativo em tudo: só a casca escolhe o que sai pelo nativo (lib/rede/casca/android.ts).
+    CapacitorHttp: { enabled: false },
+    CapacitorCookies: { enabled: false },
   },
 };
 

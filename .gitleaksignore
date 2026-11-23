@@ -1,0 +1,23 @@
+# Achados do gitleaks conferidos um a um: nenhum é segredo. O histórico não se reescreve, então a impressão de cada um fica aqui.
+# Texto "-----BEGIN PRIVATE KEY----- de teste" cifrado e decifrado no teste dos segredos com versão (onda R3, 2.6).
+0fa7bf8a5b3ab163100acde31e478673e17d224b:scripts/testar-r3-resto-segredos.mjs:private-key:120
+0fa7bf8a5b3ab163100acde31e478673e17d224b:scripts/testar-r3-resto-segredos.mjs:private-key:123
+# O sha256 público do módulo SPQR em WebAssembly (o mesmo do build reproduzível).
+358caf65118340b33420e7576f43792e792cfa68:lib/rede/chat/r3/spqr.ts:sumologic-access-token:22
+# O checksum de um pacote no Cargo.lock.
+358caf65118340b33420e7576f43792e792cfa68:nativo/spqr-wasm/Cargo.lock:generic-api-key:526
+# Segredo de rotina inventado no teste do painel (ramos de antes).
+57790ff2ca1323998f1b8f7f2da02f5d24375c05:scripts/testar-alumia-admin.mjs:generic-api-key:323
+c2608f0f329be69dc461f57b47dc9b45eabf23ad:scripts/testar-alumia-admin.mjs:generic-api-key:313
+# Chave "sk_live_..." inventada no teste dos consertos da auditoria do Prompt 5 (o texto que a limpeza dos erros da tela tem de tirar).
+a5d01f08ab4543888ecce0f84b2efc37f566822a:scripts/testar-p5-auditoria.mjs:stripe-access-token:283
+# O nome de uma função do banco (rede_p4_contagens_salvar) no teste de tela do selo e das contagens (Prompt 4).
+a5cc0d38ac55201e681e0aa08a2a6478ce7c48e2:e2e/p4-selo-contagens.spec.ts:generic-api-key:51
+# Os nomes das funções do banco da cultura (rede_p4_obra_capitulo e vizinhas) na lista do teste do Prompt 4.
+17411c7286faed1d996a4c27d7217e1dfe0f6c41:scripts/testar-p4-cultura.mjs:generic-api-key:52
+# A lista de tabelas do verify.sql gerado (interno.rede_p4_capitulos ao lado de interno.rede_p4_cartas), na terceira junção do Prompt 4.
+4c06c424423aa024aacc18ded5d39bea88f8f06a:supabase/verify.sql:generic-api-key:8
+# A lista de tabelas do verify.sql gerado de novo na quarta junção do Prompt 4 (o mesmo falso positivo de interno.rede_p4_capitulos).
+148ecc9c852a5eaa24d1264b498596a047102454:supabase/verify.sql:generic-api-key:8
+# A lista de tabelas do verify.sql gerado de novo nos consertos da auditoria do Prompt 4 (o mesmo falso positivo de interno.rede_p4_capitulos).
+076318b95e63fdccfb374a4ec311174b500403aa:supabase/verify.sql:generic-api-key:8

@@ -182,7 +182,9 @@
     "lista_bloqueio": "La médiation de ce lieu n'autorise pas vos messages ici.",
     "leia_as_regras": "Cette communauté demande d'accepter les règles avant de publier. Vois l'onglet Arrivée.",
     "so_leitura": "C'est une communauté d'annonces : seule la modération ouvre des publications ici.",
-    "so_leitura_respostas": "Dans cette communauté d'annonces, la règle ne vous laisse pas répondre."
+    "so_leitura_respostas": "Dans cette communauté d'annonces, la règle ne vous laisse pas répondre.",
+    "alumia_so_leitura": "Alumia est en mode lecture seule sur décision de la coordination : on peut lire, bloquer et signaler, mais pas publier ni rien modifier pour l'instant.",
+    "nome_reservado": "Ce nom ou @ ressemble à celui d'une personnalité publique et il est réservé. Choisissez-en un autre ; si c'est vous, demandez le badge vérifié sur votre profil."
   },
   "alumia": {
     "voltarAoSite": "Retour au site de l’Instituto Lúcia",
@@ -235,6 +237,8 @@
   },
   "avisoFixado": {
     "rotulo": "Avis de la coordination",
-    "abrir": "Ouvrir"
+    "abrir": "Ouvrir",
+    "soLeituraRotulo": "Lecture seule",
+    "soLeitura": "Alumia est en mode lecture seule sur décision de la coordination. On peut lire, bloquer, signaler et discuter ; publier, commenter et réagir reviendront quand le mode sera désactivé."
   }
 }

@@ -11,6 +11,7 @@ import { ComecoEmTresPassos } from "../estudo/ComecoEmTresPassos";
 import { AlternativaComFiguras } from "../FiguraDaProva";
 import { L } from "../I18n";
 import type { NotebookStrings } from "./Caderno";
+import { confirmar } from "@/components/perguntar";
 
 const LETRAS = "ABCDE";
 
@@ -329,7 +330,7 @@ export function CopiaDeSeguranca({ s }: { s: NotebookStrings }) {
             if (!f) return;
             const copia = f.size < 20_000_000 ? lerCopia(await f.text()) : null;
             if (!copia) return setAviso(s.backupInvalid);
-            if (!window.confirm(s.backupConfirm)) return;
+            if (!(await confirmar(s.backupConfirm))) return;
             setAviso(fill(s.backupDone, { n: restaurarCopia(copia, window.localStorage) }));
             window.dispatchEvent(new Event("lucia:estudo"));
           }}

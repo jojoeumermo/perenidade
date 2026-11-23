@@ -4,6 +4,7 @@
 import Link from "@/components/Link";
 import { useEffect, useId, useState } from "react";
 import { redeMod } from "@/lib/rede/cliente-moderacao";
+import { deB64, provaInteira, trechoNoConteudo, type ProvaDeFranquia } from "@/lib/rede/franquia/protocolo";
 import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDaModeracao } from "@/lib/rede/textos-moderacao";
@@ -16,6 +17,9 @@ import { LIMITE_DO_TRECHO, trechoContido } from "./trecho";
 /** O post denunciado, quando é post: com grupo e corpo cifrado, a tela oferece mandar o trecho aberto neste aparelho. */
 export type PostDaDenuncia = { id: string; grupo?: string | null; corpo_grupo?: string | null; autor: { id: string | null } };
 
+/** O contrato com o módulo dos posts restritos: abrir o post com a prova da franquia (o módulo dos grupos o oferece na R2). */
+type AbrirComProva = (post: PostDaDenuncia) => Promise<{ texto: string; prova: ProvaDeFranquia | null } | null>;
+
 /**
  * O formulário de denúncia, para post, perfil ou comunidade: categoria (as de prioridade 1 vêm na frente), texto opcional e o protocolo
  * na volta. Diz, antes de enviar, que quem denuncia nunca é revelado. Confirmação dentro da página, nunca alert do navegador.
@@ -24,6 +28,10 @@ export type PostDaDenuncia = { id: string; grupo?: string | null; corpo_grupo?: 
  * se abriu, oferece mandar um trecho em texto aberto, com o custo dito na tela ("a moderação vai ler este trecho; o resto
  * continua cifrado"). O trecho começa desmarcado: sem ele, a denúncia vai sem o conteúdo. Só sai o que está no post (cortar
  * pode, reescrever não). Na prévia, nada vai ao banco: a volta é um protocolo de exemplo.
+ *
+ * Com prova (onda R2): quando o módulo dos posts restritos entrega a prova do post (`abrirComProva`, contrato do módulo dos grupos),
+ * o trecho vai pela denúncia com prova (lib/rede/franquia/cliente.ts): o servidor confere que ele está no post que passou pela
+ * caixa do grupo, e a fila mostra "texto conferido". Sem a prova, o caminho de antes (a fila diz que não deu para conferir).
  */
 export function FormularioDeDenuncia({
   lang, s, sm, alvoTipo, alvo, aoFechar, post, previa = false,
@@ -44,16 +52,26 @@ export function FormularioDeDenuncia({
   const [aberto, setAberto] = useState<string | null | undefined>(undefined);
   const [mandarTrecho, setMandarTrecho] = useState(false);
   const [trecho, setTrecho] = useState("");
+  // A prova do post (só neste aparelho, na memória da tela), quando o módulo dos grupos a entrega e o compromisso confere.
+  const [prova, setProva] = useState<ProvaDeFranquia | null>(null);
   const idDoCusto = useId();
   useEffect(() => {
     if (!cifrado || !post) return;
     let vivo = true;
-    const abrir = previa ? Promise.resolve(ABERTOS_NA_PREVIA[post.id] ?? null) : import("../publicar/restrito/aparelho").then((m) => m.abrirNoAparelho(post));
+    const abrir: Promise<{ texto: string; prova: ProvaDeFranquia | null } | null> = previa
+      ? Promise.resolve(ABERTOS_NA_PREVIA[post.id] ? { texto: ABERTOS_NA_PREVIA[post.id], prova: null } : null)
+      : import("../publicar/restrito/aparelho").then(async (m) => {
+          const comProva = (m as { abrirComProva?: AbrirComProva }).abrirComProva;
+          if (comProva) return comProva(post);
+          const t = await m.abrirNoAparelho(post);
+          return t ? { texto: t, prova: null } : null;
+        });
     abrir.then(
-      (t) => {
+      (r) => {
         if (!vivo) return;
-        setAberto(t || null);
-        if (t) setTrecho(t.slice(0, LIMITE_DO_TRECHO));
+        setAberto(r?.texto || null);
+        setProva(r && provaInteira(r.prova) ? r.prova : null);
+        if (r?.texto) setTrecho(r.texto.slice(0, LIMITE_DO_TRECHO));
       },
       () => vivo && setAberto(null),
     );
@@ -63,7 +81,9 @@ export function FormularioDeDenuncia({
     // O post só muda de verdade quando muda o id ou o corpo.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cifrado, post?.id, post?.corpo_grupo, previa]);
-  const trechoOk = !mandarTrecho || (typeof aberto === "string" && trechoContido(aberto, trecho));
+  // Com prova, o trecho tem de estar byte a byte na mensagem (o servidor confere assim); sem prova, a regra de antes.
+  const conteudoDaProva = prova ? deB64(prova.conteudo) : null;
+  const trechoOk = !mandarTrecho || (typeof aberto === "string" && (conteudoDaProva ? trechoNoConteudo(conteudoDaProva, trecho.trim()) : trechoContido(aberto, trecho)));
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState("");
   const [resultado, setResultado] = useState<ResultadoDeDenuncia | null>(null);
@@ -78,7 +98,11 @@ export function FormularioDeDenuncia({
     const vai = cifrado && mandarTrecho && typeof aberto === "string" ? trecho.replace(/\s+/g, " ").trim() : "";
     try {
       if (previa) setResultado({ protocolo: "EXEMPLO-2611", prioridade: 2, retido: false, ja: false });
-      else setResultado(await redeMod.denunciar(alvoTipo, alvo, categoria, texto.trim(), vai));
+      else if (cifrado && mandarTrecho && prova) {
+        const { denunciarComProva } = await import("@/lib/rede/franquia/cliente");
+        const r = await denunciarComProva({ categoria, autor: "", post: alvo, texto: texto.trim(), trechos: [{ texto: trecho.trim(), prova }] });
+        setResultado({ protocolo: r.protocolo, prioridade: r.prioridade === 1 ? 1 : r.prioridade === 2 ? 2 : 3, retido: false, ja: r.ja });
+      } else setResultado(await redeMod.denunciar(alvoTipo, alvo, categoria, texto.trim(), vai));
     } catch (x) {
       setErro(mensagemDeErro(s, sm, x));
     } finally {
@@ -135,6 +159,7 @@ export function FormularioDeDenuncia({
               {mandarTrecho ? (
                 <>
                   <p id={idDoCusto} role="note" className="rounded-md border-[1.5px] border-oxblood px-3 py-2 font-semibold">{sm.denunciar.cifrado.custo}</p>
+                  {prova && <p role="note" className="text-ink-soft">{sm.denunciar.prova.postCifrado}</p>}
                   <label className="block">
                     {sm.denunciar.cifrado.rotulo}
                     <textarea

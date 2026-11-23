@@ -61,7 +61,8 @@
       "pessoa": "@ Persona",
       "campanha": "#Campaña",
       "resposta": "Respuesta",
-      "decorativa": "Adorno"
+      "decorativa": "Adorno",
+      "teste": "Test"
     },
     "quemVe": "Quién ve",
     "publico": {
@@ -88,7 +89,7 @@
     "vazio": "Escribe un texto, dibuja, toma una foto o elige de la galería.",
     "deUmPost": "Historia a partir de una publicación: el enlace va junto.",
     "erro": {
-      "grande": "Imagen demasiado grande (hasta 3 MB una vez lista).",
+      "grande": "Imagen demasiado grande (hasta 6 MB ya lista).",
       "invalida": "No se pudo leer esta imagen. Usa JPG, PNG o WEBP.",
       "link": "El enlace debe empezar con https:// y tener una dirección válida.",
       "ato": "Elige un acto para la cuenta atrás.",
@@ -98,7 +99,10 @@
       "semConta": "Entra en tu cuenta para publicar.",
       "limite": "Publicaste muchas historias ahora. Espera un poco.",
       "banco": "La base de datos aún no tiene las historias (falta la actualización del servidor).",
-      "falha": "No se pudo publicar. Intenta de nuevo."
+      "semHandle": "Para publicar una historia, elige antes tu @nombre en Editar perfil.",
+      "falha": "No se pudo publicar. Intenta de nuevo.",
+      "teste": "Escribe la pregunta y al menos dos opciones distintas del test, y marca la correcta.",
+      "contagemLivre": "Ponle nombre a la cuenta regresiva y elige una hora futura (hasta un año)."
     },
     "camera": "Cámara",
     "galeriaAjuda": "Foto o video (hasta 60 s)",
@@ -160,7 +164,14 @@
       "foto": "Foto de la historia",
       "semMetadadoVideo": "El video se rehace en tu dispositivo en 720p: sale sin ubicación ni datos de la cámara.",
       "altVideo": "Describe el video para quien no ve (opcional)",
-      "lendo": "Abriendo el video…"
+      "lendo": "Abriendo el video…",
+      "ajustes": {
+        "titulo": "Ajustes",
+        "brilho": "Brillo",
+        "contraste": "Contraste",
+        "saturacao": "Saturación",
+        "zerar": "Volver a lo normal"
+      }
     },
     "progresso": {
       "preparando": "Preparando el video en tu dispositivo… {pct}%",
@@ -195,7 +206,15 @@
       "desavisar": "No avisar más",
       "comecou": "Ya empezó",
       "verAto": "Ver el acto",
-      "falta": "Faltan {dias} días, {horas} horas y {min} minutos para {titulo}"
+      "falta": "Faltan {dias} días, {horas} horas y {min} minutos para {titulo}",
+      "rotuloLivre": "Cuenta regresiva",
+      "seg": "Seg",
+      "tipo": "Cuenta regresiva para",
+      "doAto": "Un acto",
+      "livre": "Otro momento",
+      "nomeDoMomento": "Qué va a pasar",
+      "nomeVazio": "Plenaria, huelga, fiesta…",
+      "quando": "Cuándo"
     },
     "pergunta": {
       "rotulo": "Pregunta",
@@ -230,6 +249,26 @@
       "nenhuma": "Todavía no estás en ninguna comunidad.",
       "carregando": "Cargando tus comunidades…",
       "abrir": "Abrir la comunidad {nome}"
+    },
+    "teste": {
+      "rotulo": "Test",
+      "pergunta": "Pregunta del test",
+      "perguntaVazia": "Pregunta algo",
+      "opcao": "Opción {n}",
+      "qualCerta": "Cuál es la respuesta correcta",
+      "marcarCerta": "Marcar la opción {n} como correcta",
+      "tirarOpcao": "Quitar la opción {n}",
+      "maisOpcao": "+ Opción",
+      "notaCriar": "Toca la letra de la respuesta correcta. Solo tú ves cuántas personas eligieron cada opción, y solo a partir de 3. Nadie ve quién respondió.",
+      "certa": "la correcta",
+      "errada": "la tuya, incorrecta",
+      "total": "{n} respuestas",
+      "notaAutora": "Solo tú ves la suma. Nadie ve quién respondió.",
+      "poucas": "Pocas personas respondieron aún: la suma aparece a partir de 3.",
+      "nota": "La suma queda solo con {nome}. Tu nombre no aparece.",
+      "acertou": "¡Acertaste!",
+      "errou": "Esta vez no. La correcta está marcada.",
+      "jaRespondeu": "Ya respondiste este test."
     }
   },
   "visor": {
@@ -642,5 +681,65 @@
       "porNoStory": "Poner en la historia",
       "ajuda": "Crea una historia con la tarjeta de este acto (fecha y ciudad; desaparece en 24 h)"
     }
+  },
+  "p5": {
+    "abasRotulo": "Qué poner en el story",
+    "abas": {
+      "figurinhas": "Stickers",
+      "enfeites": "Adornos",
+      "midia": "Foto y video"
+    },
+    "quadros": {
+      "titulo": "Cuadros",
+      "ajuda": "Cada cuadro se vuelve un story, en orden, uno tras otro.",
+      "novo": "Nuevo cuadro",
+      "ir": "Ir al cuadro {n}",
+      "atual": "Cuadro {n} (editando)",
+      "tirar": "Quitar este cuadro",
+      "limite": "Llegaste a {max} cuadros.",
+      "vazio": "Cuadro {n} vacío",
+      "progresso": "Cuadro {k} de {n}",
+      "erroNoQuadro": "Cuadro {n}: {erro}"
+    },
+    "colagem": {
+      "botao": "Collage",
+      "titulo": "Collage de fotos",
+      "modelo": "Modelo",
+      "modelos": {
+        "dupla": "Dos, una sobre otra",
+        "lado": "Dos lado a lado",
+        "tres": "Tres",
+        "quatro": "Cuatro"
+      },
+      "escolher": "Elegir la foto {n}",
+      "trocar": "Cambiar la foto {n}",
+      "usar": "Usar el collage",
+      "cancelar": "Cancelar",
+      "falta": "Elige todas las fotos.",
+      "ajuda": "Las fotos se rehacen aquí, sin ubicación ni datos de la cámara.",
+      "fundo": "Color entre las fotos",
+      "lendo": "Armando el collage…"
+    },
+    "rascunhos": {
+      "botao": "Borradores",
+      "titulo": "Borradores de story",
+      "guardar": "Guardar borrador",
+      "guardado": "Borrador guardado solo en este aparato.",
+      "abrir": "Abrir",
+      "apagar": "Borrar",
+      "apagarTodos": "Borrar todos",
+      "vazio": "Ningún borrador en este aparato.",
+      "aviso": "Los borradores quedan solo en este aparato (nada va al servidor) y desaparecen en 30 días. Quien tome el aparato desbloqueado puede verlos; \"Salir de todo\" los borra.",
+      "quadros": "{n} cuadros",
+      "umQuadro": "1 cuadro",
+      "fechar": "Cerrar",
+      "modoSeguro": "En el modo seguro no se guarda nada en el aparato.",
+      "grande": "Video demasiado grande para guardar como borrador.",
+      "falha": "No se pudo guardar en este aparato.",
+      "substituir": "¿Abrir el borrador en lugar de lo que está en pantalla?",
+      "substituirSim": "Abrir",
+      "semArmazenamento": "Este navegador no permite guardar borradores."
+    },
+    "alta": "La foto va en alta resolución y en una versión menor, que abre al instante para quien ve."
   }
 }

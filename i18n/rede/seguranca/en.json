@@ -33,6 +33,15 @@
     "alertaTitulo": "New sign-in alert",
     "alertaTexto": "Every time your account signs in on a device, an alert arrives here on Alumia and in your email, with the browser, the system, the day and the time. If it was not you, sign the devices out."
   },
+  "avisos": {
+    "titulo": "Security alerts",
+    "texto": "New sign-in to your account, new authenticator app, entry approved: account alerts live here, not in notifications. If one wasn't you, disconnect your devices and change your password.",
+    "vazio": "No security alerts in the last 120 days.",
+    "novo": "New",
+    "vezes": "{n} times that day",
+    "carregando": "Loading alerts…",
+    "falha": "Couldn't load your security alerts right now."
+  },
   "codigos": {
     "titulo": "Recovery codes",
     "texto": "Ten single-use codes to get in if you lose the phone with the app. Using a code removes the app from the account: you set up another right away, and the other devices are signed out.",

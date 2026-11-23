@@ -131,6 +131,7 @@
     "trocouArroba": "C'est fait. Vous apparaissez de nouveau comme {codinome}, maintenant avec @{handle}."
   },
   "erros": {
+    "nome_com_selo": "Les signes qui ressemblent au badge vérifié (✓, ✔, ☑, ✅, 🔵) et les mots « vérifié » et « officiel » ne peuvent pas figurer dans un nom. Choisissez-en un autre.",
     "identidade_desligada": "La coordination a fermé, pour l'instant, le choix du nom et de la photo. Revenir au nom de code fonctionne toujours.",
     "identidade_org": "Un compte d'organisation n'utilise pas ce choix.",
     "identidade_codinome": "Pour envoyer une photo, choisissez d'abord d'apparaître avec votre nom.",

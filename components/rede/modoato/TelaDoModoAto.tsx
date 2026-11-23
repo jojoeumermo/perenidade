@@ -12,8 +12,10 @@ import { Icone } from "../publicar/alumia2/icones";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { useTextosDaSeguranca } from "../seguranca/base";
 import { Panico } from "../seguranca/Panico";
+import { SemInternet } from "./SemInternet";
 import { Botao } from "../ui/Botao";
 import { Faixa } from "../ui/Faixa";
+import { KitDeBolso } from "../uso/KitDeBolso";
 import { daquiA, escolherAssessoria, horaCurta, trocar, useMarcaDoModoAto, useModoAto, useTextosDoModoAto } from "./usar";
 import "./modoato.css";
 
@@ -112,7 +114,11 @@ export default function TelaDoModoAto({ lang, situacao }: PropsDaTelaDoPacote) {
       <div className="ma-grade">
         <EstouBem t={t} sit={sit} />
         <SemSinal t={t} lang={lang} />
+        <SemInternet t={t} />
       </div>
+
+      {/* R1 (A4.1): o kit de bolso, montado e guardado só neste aparelho, para abrir sem internet no guia "Sem sinal?". */}
+      {situacao.logado && <KitDeBolso lang={lang} />}
 
       <div className="ma-panico">
         <Panico t={ts} />

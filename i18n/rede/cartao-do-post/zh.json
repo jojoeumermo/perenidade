@@ -1,0 +1,51 @@
+{
+  "_rascunho": true,
+  "reacoes": {
+    "titulo": "本社区的表情回应",
+    "ajuda": "调解员为这里的帖子选择最多 6 个表情。没有人能看到谁做了回应：只显示每个表情的总数，且从 3 起才显示。",
+    "rotulo": "表情（最多 6 个）",
+    "salvar": "保存列表",
+    "padrao": "恢复默认列表",
+    "salvo": "列表已保存。",
+    "voltou": "社区已恢复默认列表。",
+    "propria": "本社区自己的列表",
+    "daAlumia": "Alumia 默认列表",
+    "previa": "预览",
+    "sairam": "被移出列表的表情的回应不再显示，表情恢复后会重新出现。",
+    "erros": {
+      "muitos": "最多 6 个表情。",
+      "emoji": "只能用表情，不能有字母、数字或不雅手势。",
+      "repetido": "有重复的表情。",
+      "geral": "保存失败，请重试。"
+    }
+  },
+  "pasta": {
+    "tornar": "将此文件夹设为公开",
+    "publica": "此文件夹已公开：在你的个人主页上显示为合集。",
+    "ajuda": "只有公开的帖子会进入合集。受限的帖子（关注者、社区、小组或团队）只留在这里，阅读合集的人也只能看到本来就能看到的内容。",
+    "ficouFora": "此文件夹中有些帖子受限，只留在这里。",
+    "privada": "改回私密",
+    "verNoPerfil": "在我的主页查看",
+    "semHandle": "要拥有公开合集，请先在个人主页选择你的 @。",
+    "erro": "更改失败，请重试。"
+  },
+  "traducao": {
+    "noAparelho": "已在本设备上翻译：文本没有离开这里。",
+    "noServidor": "由 Alumia 的服务器翻译：文本发送到我们的服务器，而不是第三方。",
+    "baixarAjuda": "第一次使用时，浏览器会从其开发商下载翻译模型。帖子文本不会离开设备。",
+    "leve": "轻量模式下，设备上的翻译处于关闭状态。"
+  },
+  "imagem": {
+    "semAutora": "隐藏作者",
+    "destino": "发往",
+    "destinos": {
+      "instagram-feed": "Instagram（动态）",
+      "instagram-stories": "Instagram（快拍）",
+      "whatsapp": "WhatsApp",
+      "whatsapp-status": "WhatsApp（状态）"
+    },
+    "compartilhar": "分享",
+    "restrito": "只有对互联网公开的帖子才能变成图片。",
+    "ajuda": "图片在本设备上生成，并带有 Alumia 的地址和 @institutoluciaorg。"
+  }
+}

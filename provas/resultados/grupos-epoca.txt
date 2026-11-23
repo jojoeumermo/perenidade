@@ -1,0 +1,10 @@
+modelo: grupos-epoca.pv
+sha256: b71351d43ee482f42345dee4f4ce83c26e938051740600de9a4d08c5c30b9a15
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+RESULT not attacker(epoca2[]) is true.
+RESULT not attacker(hkdf(epoca2[],rotuloCaixa)) is true.
+RESULT not attacker(chave(hkdf(epoca2[],rotuloChave))) is true.
+RESULT not attacker(segredoDoGrupo[]) is true.
+RESULT event(Aceitou(q,m_4)) ==> event(Depositou(q,m_4)) is true.

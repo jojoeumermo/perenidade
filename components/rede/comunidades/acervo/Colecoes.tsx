@@ -12,6 +12,7 @@ import { acervo } from "./cliente";
 import { mover, postDoEndereco } from "./regras";
 import { erroDoAcervo, type TextosDoAcervo } from "./textos";
 import type { Colecao, ListaDeColecoes } from "./tipos";
+import { confirmar } from "@/components/perguntar";
 
 type Alvo = { slug: string } | { handle: string };
 
@@ -231,8 +232,8 @@ function ColecaoAberta({ id, slug, podeSugerir, lang, s, t, logado, aoVoltar }: 
                 className="acv-botao"
                 data-pequeno=""
                 disabled={ocupado}
-                onClick={() => {
-                  if (!window.confirm(t.colecoes.confirmarApagar)) return;
+                onClick={async () => {
+                  if (!(await confirmar(t.colecoes.confirmarApagar))) return;
                   void acervo.apagarColecao(k.id).then(aoVoltar, aoErro);
                 }}
               >

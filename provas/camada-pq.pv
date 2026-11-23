@@ -1,0 +1,44 @@
+(* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   A camada pós-quântica da conversa a dois (onda R3, itens 1.1 e 2.5): a mensagem fica secreta se UM dos dois ratchets se mantém.
+   O desenho (frente pq-trafego-mixnet, lib/rede/chat/r3/camada-pq.ts): a mensagem já cifrada pelo Proteus (clássico, X25519) é
+   cifrada de novo com uma chave que só sai do SPQR (o ratchet pós-quântico do Signal, ML-KEM), e tudo vai no envelope X-Wing.
+   O modelo é o das camadas: duas cifras simétricas, cada uma com a chave de um ratchet. Duas fases:
+     - o atacante que quebra o clássico (no meio da conversa) recebe a chave do Proteus daquele momento;
+     - o atacante que quebra o SPQR recebe a chave do SPQR daquele momento.
+   Propriedade: em cada um dos dois casos, a mensagem continua secreta. (Os dois quebrados ao mesmo tempo abrem, claro.)
+   O SPQR em si tem os modelos ProVerif do próprio repositório do Signal (citados no relatório da onda); aqui só a composição.
+   O envelope X-Wing não entra (seria uma terceira camada: tirá-lo só deixa o modelo mais forte contra o atacante). *)
+
+free c: channel.
+
+type key.
+
+fun senc(bitstring, key, bitstring): bitstring.
+reduc forall m: bitstring, k: key, r: bitstring; sdec(senc(m, k, r), k) = m.
+
+free mensagemQuebraClassico: bitstring [private].
+free mensagemQuebraPq: bitstring [private].
+
+query attacker(mensagemQuebraClassico).
+query attacker(mensagemQuebraPq).
+
+let Camadas(kProteus: key, kSpqr: key, m: bitstring) =
+  new r1: bitstring;
+  new r2: bitstring;
+  out(c, senc(senc(m, kProteus, r1), kSpqr, r2)).
+
+process
+  (
+    (* O clássico quebrado: o atacante tem a chave do Proteus, não a do SPQR. *)
+    new kP: key; new kS: key;
+    out(c, kP);
+    !Camadas(kP, kS, mensagemQuebraClassico)
+  )
+  |
+  (
+    (* O pós-quântico quebrado (ou a chave do SPQR vazada): o atacante tem a do SPQR, não a do Proteus. *)
+    new kP: key; new kS: key;
+    out(c, kS);
+    !Camadas(kP, kS, mensagemQuebraPq)
+  )

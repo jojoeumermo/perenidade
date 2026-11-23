@@ -12,7 +12,7 @@ import { chamar, type Chamar } from "./cliente";
 import { aoVivoDeExemplo, extrasDeExemplo, HANDLE_DE_EXEMPLO, orgDeExemplo, previaLigada } from "./org/exemplos";
 import type { PaginaDaLinha } from "./tipos";
 import type {
-  ExtrasDoPerfil, OrgPublica, PedidoDeConsulta, PedidoDeExtras, PedidoDeNucleo, PedidoDePlenaria, PedidoDeSelo, PedidoDeVotacao, PedidoNaFila, PedidoParaONucleo,
+  ExtrasDoPerfil, OrgPublica, PedidoDeConsulta, PedidoDeExtras, PedidoDeNucleo, PedidoDePlenaria, PedidoDeSelo, PedidoDeVotacao, PedidoNaFila,
   PlenariaAoVivo, VotacaoDaOrg,
 } from "./tipos-org";
 
@@ -65,8 +65,6 @@ export function criarClienteOrg(c: Chamar, previa: () => boolean = previaLigada,
     seguir: (handle: string, sim: boolean) => c<{ sigo: boolean; pendente: boolean }>("rede_perfil_seguir", { p_handle: handle, p_sim: sim }),
     /** O sininho: avisar quando a organização postar (aviso "org_postou", sem texto no push). */
     sino: (handle: string, sim: boolean) => c<{ sino: boolean }>("rede_org_sino", { p_handle: handle, p_sim: sim }),
-    /** Pedir para entrar num núcleo da organização (quem media decide; ninguém vê a lista de pedidos além da mediação). */
-    entrarNoNucleo: (nucleo: string) => c<{ sou: boolean; pedi: boolean }>("rede_org_nucleo_entrar", { p_nucleo: nucleo }),
     /** Votar numa consulta: `ranking` é a ordem de preferência (na simples, uma opção). O voto é secreto: nada volta além de "votei". */
     votar: (consulta: string, ranking: string[]) => c<{ votei: true }>("rede_org_consulta_votar", { p_consulta: consulta, p_ranking: ranking }),
     /** Mandar pergunta para a fila da plenária (entra no fim, por ordem de chegada). `mostrar`: o meu @ aparece na fila. */
@@ -91,10 +89,14 @@ export function criarClienteOrg(c: Chamar, previa: () => boolean = previaLigada,
     adicionarGestor: (org: string, handle: string) => c<{ ok: true }>("rede_org_gestor_adicionar", { p_org: org, p_handle: handle }),
     removerGestor: (org: string, handle: string) => c<{ ok: true }>("rede_org_gestor_remover", { p_org: org, p_handle: handle }),
     sairDaGestao: (org: string) => c<{ ok: true }>("rede_org_gestor_sair", { p_org: org }),
-    /** Só gestor: criar núcleo, ver e decidir os pedidos para entrar (codinome e @, nada mais). */
+    /**
+     * Só gestor: criar núcleo. Quem cria não entra nele pelo servidor (R2): o aparelho cria o grupo e publica a entrada
+     * (publicarEntradaDoNucleo). Os pedidos para entrar chegam cifrados à mediação, no aparelho.
+     */
     criarNucleo: (handle: string, p: PedidoDeNucleo) => c<{ id: string }>("rede_org_nucleo_criar", { p_handle: handle, p }),
-    pedidosDosNucleos: (handle: string) => c<PedidoParaONucleo[]>("rede_org_nucleo_pedidos", { p_handle: handle }),
-    decidirNucleo: (nucleo: string, handle: string, aceitar: boolean) => c<{ ok: true }>("rede_org_nucleo_decidir", { p_nucleo: nucleo, p_handle: handle, p_aceitar: aceitar }),
+    /** A primeira entrada do núcleo (ou o recomeço): caixa, passe de depósito, chave X-Wing, chave de gestão e assinatura, e o resumo do passe de gestão. */
+    publicarEntradaDoNucleo: (nucleo: string, entrada: { caixa: string; pd: string; xwing: string; chave: string; assinatura: string; gestao_h: string }) =>
+      c<{ ok: true }>("rede_nucleo_entrada_iniciar", { p_nucleo: nucleo, p: entrada }),
     /** Só gestor: abrir consulta (regra escrita antes e que não muda) e marcar e conduzir plenária. */
     abrirConsulta: (handle: string, p: PedidoDeConsulta) => c<{ id: string }>("rede_org_consulta_abrir", { p_handle: handle, p }),
     abrirPlenaria: (handle: string, p: PedidoDePlenaria) => c<{ id: string }>("rede_org_plenaria_abrir", { p_handle: handle, p }),

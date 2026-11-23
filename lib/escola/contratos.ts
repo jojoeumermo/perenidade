@@ -218,6 +218,18 @@ export interface FuncoesDaEscola {
   // F6 · 20261108-escola-frente.sql
   escola_frente_escolher: { frente: "F6"; args: { p_frente: FrenteDeAtuacao | null }; volta: Ok };
   escola_frentes_somadas: { frente: "F6"; args: Record<string, never>; volta: FrentesSomadas };
+  // P5 · 20261126-p5-escola.sql (a tag de revolucionária(o) e a frente no perfil da Alumia)
+  escola_tag_definir: { frente: "P5"; args: { p_mostrar: boolean }; volta: Ok };
+  escola_tag_minha: { frente: "P5"; args: Record<string, never>; volta: TagDaEscola };
+}
+
+/** O estado da tag de quem chama (public.escola_tag_minha). */
+export interface TagDaEscola {
+  mostrar: boolean;
+  publico: PublicoDasConquistas;
+  /** Está na Frente Revolucionária (departamento Revolucionários), conferido no banco. */
+  na_frente: boolean;
+  frente: FrenteDeAtuacao | null;
 }
 
 export type FuncaoDaEscola = keyof FuncoesDaEscola;
@@ -245,6 +257,8 @@ export const FUNCOES_DA_ESCOLA: { readonly [N in FuncaoDaEscola]: FuncoesDaEscol
   escola_conquistas_minhas: "F5",
   escola_frente_escolher: "F6",
   escola_frentes_somadas: "F6",
+  escola_tag_definir: "P5",
+  escola_tag_minha: "P5",
 };
 
 /** A migração de cada frente (supabase/migracoes/). A F2 não tem SQL. */
@@ -254,6 +268,7 @@ export const MIGRACOES_DA_ESCOLA = {
   F4: "20261108-escola-nucleo.sql",
   F5: "20261108-escola-conquistas.sql",
   F6: "20261108-escola-frente.sql",
+  P5: "20261126-p5-escola.sql",
 } as const;
 
 // ───────────────────────────── Endereços das telas (sem o idioma) ─────────────────────────────

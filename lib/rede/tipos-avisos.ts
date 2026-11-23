@@ -75,6 +75,21 @@ export interface PaginaDeAvisos {
   nao_lidos: number;
 }
 
+/** Um aviso de segurança da conta, como `rede_aviso_seguranca_listar` devolve: o mesmo texto no mesmo dia vem uma vez. */
+export interface AvisoDeSeguranca {
+  id: string;
+  texto: string;
+  lido: boolean;
+  criado_em: string;
+  /** Quantas vezes o mesmo aviso veio naquele dia. */
+  vezes: number;
+}
+
+export interface AvisosDeSeguranca {
+  itens: AvisoDeSeguranca[];
+  nao_lidos: number;
+}
+
 export interface PreferenciasDeAviso {
   /** Por tipo: ligado no site / no celular. */
   site: Record<TipoDeAviso, boolean>;
@@ -101,7 +116,19 @@ export interface FrasesDoTipo {
   varios: string;
   anonimo: string;
   anonimoVarios: string;
+  /** "{quem} responderam…": quando há menos de 3 outras pessoas, {quem} é "Ana e Bia", "Ana e mais alguém" (nunca um número). */
+  plural?: string;
 }
+
+/** Como juntar os nomes quando há menos de 3 outras pessoas ("Ana e Bia", "Ana e mais alguém", "Ana e mais algumas pessoas"). */
+export interface JuntarNomes {
+  dois: string;
+  maisAlguem: string;
+  maisGente: string;
+}
+
+/** Nenhum número abaixo de 3 numa notificação (princípio da Alumia): com menos, a frase diz "alguém" ou junta os nomes. */
+export const MENOR_NUMERO = 3;
 
 /**
  * Os textos fixos que o SERVIDOR grava em português (o aviso só guarda texto) e que a tela mostra no idioma de quem lê. A chave é
@@ -144,6 +171,7 @@ export function fraseDoAviso(
   frases: Record<string, FrasesDoTipo>,
   reserva: string,
   doServidor?: Partial<Record<FraseDoServidor, string>>,
+  juntar?: JuntarNomes,
 ): string {
   const f = item.tipo ? frases[item.tipo] : undefined;
   // Texto fixo do servidor (o lembrete do ato): sai no idioma de quem lê, seja qual for o tipo com que o aviso foi gravado
@@ -160,12 +188,24 @@ export function fraseDoAviso(
     }
   }
   if (!f || ((TIPOS_COM_TEXTO as readonly string[]).includes(item.tipo ?? "") && item.texto)) return item.texto || reserva;
-  const nome = (TIPOS_SEM_NOME as readonly string[]).includes(item.tipo ?? "") ? null : (item.atores[0] ?? null);
+  const semNome = (TIPOS_SEM_NOME as readonly string[]).includes(item.tipo ?? "");
+  const nome = semNome ? null : (item.atores[0] ?? null);
   if (nome) {
-    if (item.pessoas > 1) return preencher(f.varios, { a: nome, n: item.pessoas - 1 });
+    const outras = item.pessoas - 1;
+    if (outras >= MENOR_NUMERO) return preencher(f.varios, { a: nome, n: outras });
+    if (outras > 0) {
+      // Menos de 3 outras pessoas: nada de "Ana e mais 1"; os nomes que podem aparecer, ou "mais alguém".
+      const segundo = item.atores[1] ?? null;
+      const quem = !juntar ? null
+        : outras === 1 && segundo ? preencher(juntar.dois, { a: nome, b: segundo })
+        : outras === 1 ? preencher(juntar.maisAlguem, { a: nome })
+        : preencher(juntar.maisGente, { a: nome });
+      if (quem && f.plural) return preencher(f.plural, { quem });
+      return f.varios.includes("{n}") ? preencher(f.um, { a: nome }) : preencher(f.varios, { a: nome });
+    }
     return item.total > 1 ? preencher(f.vezes, { a: nome, n: item.total }) : preencher(f.um, { a: nome });
   }
-  return item.pessoas > 1 ? preencher(f.anonimoVarios, { n: item.pessoas }) : preencher(f.anonimo, {});
+  return item.pessoas >= MENOR_NUMERO ? preencher(f.anonimoVarios, { n: item.pessoas }) : preencher(f.anonimo, {});
 }
 
 /** O endereço da tela de avisos. */

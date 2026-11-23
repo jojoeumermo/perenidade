@@ -11,6 +11,7 @@ import { dataCurta, dataPorExtenso } from "@/lib/rede/atos/tempo";
 import { enderecos } from "@/lib/rede/tipos";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
 import { corValida, type Ato } from "@/lib/rede/tipos-atos";
+import { PorQueSemNumero } from "../uso/PorQueSemNumero";
 
 export interface PropsDoCartaoDoAto {
   ato: Ato;
@@ -32,7 +33,7 @@ export function FraseDoMosaico({ ato, t, longa }: { ato: Ato; t: TextosDosAtos; 
     );
   }
   if (ato.vou_eu) return <p className="al-ato-frase">{t.mosaico.voceConfirmou}</p>;
-  if (ato.acesos === null) return <p className="al-ato-frase">{t.mosaico.poucas}</p>;
+  if (ato.acesos === null) return <p className="al-ato-frase">{t.mosaico.poucas}<PorQueSemNumero motivo="ambos" /></p>;
   return longa ? <p className="al-ato-frase">{t.mosaico.explica}</p> : null;
 }
 

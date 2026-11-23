@@ -20,6 +20,8 @@ import { DenunciarDeFora } from "./DenunciarDeFora";
 import { HtmlDeFora } from "./HtmlDeFora";
 import { imagensDeFora, MidiaDeFora } from "./MidiaDeFora";
 import { SeloDoServidor } from "./SeloDoServidor";
+import { CartaoDeMidiaDeFora } from "../p4/pontes/CartaoDeMidiaDeFora";
+import { pontesP4Ligado } from "@/lib/rede/p4/pontes/ligado";
 
 export type DensidadeDoCartaoRemoto = "lista" | "compacta" | "aberta";
 
@@ -262,7 +264,9 @@ export default function CartaoRemoto({
     <>
       <HtmlDeFora html={post.html} texto={post.texto} className={`al2-texto break-words leading-relaxed ${tamanhoDoTexto} ${CLASSES_DO_HTML}`} />
       <MidiaDeFora midia={post.midia} sensivel={post.sensivel} t={tf.cartao} />
-      {temOutraMidia && original && (
+      {/* Prompt 4, item 83: com o lote ligado, o cartão diz se é vídeo ou áudio e de que servidor, e avisa antes de sair. */}
+      {temOutraMidia && pontesP4Ligado() ? <CartaoDeMidiaDeFora post={post} lang={lang} /> : null}
+      {temOutraMidia && original && !pontesP4Ligado() && (
         <a href={original} rel="noopener noreferrer nofollow" target="_blank" className="mt-2 inline-flex min-h-[44px] items-center gap-1.5 text-sm font-semibold underline">
           <Icone nome="fediverso" className="h-4 w-4" />
           {tf.cartao.abrirOriginal}
@@ -376,8 +380,8 @@ export default function CartaoRemoto({
                 </button>
               </>
             ) : (
-              // Sem sessão, como no cartão daqui: a denúncia vai pela página Denunciar do site.
-              <Link href={localePath(lang, "/denunciar")} className="al2-acao justify-start">
+              // Sem sessão, como no cartão daqui: a denúncia vai pela página Denunciar da Alumia (P5, A5).
+              <Link href={localePath(lang, "/alumia/denunciar")} className="al2-acao justify-start">
                 <Icone nome="alerta" className="h-[18px] w-[18px]" />
                 {tf.cartao.denunciar}
               </Link>

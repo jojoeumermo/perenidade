@@ -197,6 +197,8 @@ export interface Aviso {
 
 /** O que `rede_publicar` aceita. Campos de outros pacotes (mídia, enquete, agendamento) entram nas funções deles. */
 export interface PedidoDePost {
+  /** A chave deste envio, gerada no aparelho (lib/backend-envio.ts): vai no cabeçalho e o banco recusa o mesmo envio duas vezes. */
+  chave_envio?: string;
   tipo?: TipoDePost;
   texto?: string;
   titulo?: string;
@@ -230,6 +232,8 @@ export const ERROS_DA_REDE = [
   "dado_pessoal", "sem_permissao", "nao_encontrado", "travado", "limite_de_niveis", "muitos_pedidos", "banco_desatualizado",
   "sem_servico", "sem_conexao", "modo_lento", "nivel_links", "nivel_imagens", "limite_diario", "lista_bloqueio", "falha",
   "limite_identidades",
+  // Prompt 4, item 3: cadastro ou troca de codinome ou @ parecido com um nome reservado (20261127-p4-selo-contagens.sql).
+  "nome_reservado",
 ] as const;
 export type ErroDaRede = (typeof ERROS_DA_REDE)[number];
 

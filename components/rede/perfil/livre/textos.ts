@@ -5,6 +5,7 @@
 // até a revisão). UM idioma por vez, por import dinâmico.
 import { useEffect, useState } from "react";
 import type pt from "../../../../i18n/rede/perfil-livre/pt.json";
+import { prontoOu } from "../../../../lib/rede/textos-prontos";
 
 export type TextosDoPerfilLivre = typeof pt;
 
@@ -13,7 +14,7 @@ const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"] as const;
 export async function carregarTextosDoPerfilLivre(lang: string): Promise<TextosDoPerfilLivre> {
   const l = (IDIOMAS as readonly string[]).includes(lang) ? lang : "pt";
   try {
-    return ((await import(`../../../../i18n/rede/perfil-livre/${l}.json`)) as { default: TextosDoPerfilLivre }).default;
+    return prontoOu(((await import(`../../../../i18n/rede/perfil-livre/${l}.json`)) as { default: TextosDoPerfilLivre }).default, async () => ((await import("../../../../i18n/rede/perfil-livre/pt.json")) as { default: TextosDoPerfilLivre }).default);
   } catch {
     return ((await import("../../../../i18n/rede/perfil-livre/pt.json")) as { default: TextosDoPerfilLivre }).default;
   }

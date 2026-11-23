@@ -395,7 +395,8 @@ try {
   const textos = await import("../lib/rede/fediverso/tela/textos.ts");
   const [pt, ru, xx] = await Promise.all([textos.carregarTextosDoFediverso("pt"), textos.carregarTextosDoFediverso("ru"), textos.carregarTextosDoFediverso("xx")]);
   espera("carregador: traz o idioma pedido, cai no português e guarda em memória", () => [pt.cartao.curtir, ru.cartao.curtir, xx === pt, textos.textoDoErroDeFora(pt, "nao_encontrado"), textos.textoDoErroDeFora(pt, "invalido:post"), textos.textoDoErroDeFora(pt, "toString"), textos.textoDoErroDeFora(pt, null)],
-    (r) => r[0] === "Acender" && r[1] === "Зажечь" && r[2] === true && r[3] === PT.erros.nao_encontrado && r[4] === PT.erros.falha && r[5] === PT.erros.falha && r[6] === PT.erros.falha);
+    // O russo com a marca "_rascunho" não vai para a tela: vem o português (R1, A3.4, lib/rede/textos-prontos.ts).
+    (r) => r[0] === "Acender" && r[1] === (ler("ru")._rascunho ? "Acender" : "Зажечь") && r[2] === true && r[3] === PT.erros.nao_encontrado && r[4] === PT.erros.falha && r[5] === PT.erros.falha && r[6] === PT.erros.falha);
 } catch (erro) {
   if (erro?.code !== "ERR_MODULE_NOT_FOUND") falhas.push(`carregador de textos: ${erro.message}`);
   else console.log("(carregador de textos não conferido: o React não está instalado)");
@@ -579,8 +580,9 @@ try {
   espera("P5: a busca acha a conta de fora", () => /<BuscaDeForaNaBusca q=\{q\} lang=\{lang\} \/>/.test(buscar));
   const mencoes = fonte("components/rede/conversa/TextoComMencoes.tsx");
   espera("P6: a menção de fora leva ao perfil de fora, só com gente de fora na tela", () => /t\.tipo === "mencao_de_fora" && deFora \? \(\s*<Link key=\{i\} href=\{enderecoDoPerfilRemoto\(lang, t\.conta\)\}/.test(mencoes) && /fediversoNaTela\(\)/.test(mencoes));
-  const menu = fonte("components/rede/publicar/alumia2/CascaDaAlumia2.tsx");
-  espera("P10: o item Fediverso do menu continua em /alumia/fediverso", () => /chave: "fediverso", href: `\$\{linha\}\/fediverso`/.test(menu));
+  const menu = fonte("components/rede/publicar/alumia2/ContaDaAlumia2.tsx");
+  // P5 (A9): a privacidade no Fediverso mora no painel de Segurança.
+  espera("P10: o item Fediverso do menu continua em /alumia/fediverso", () => /chave: "fediverso", icone: "fediverso", texto: t\.seguranca\.fediverso, href: rota\("fediverso"\)/.test(menu));
 }
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);

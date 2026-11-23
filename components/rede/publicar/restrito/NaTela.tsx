@@ -29,7 +29,41 @@ export function SeloDaCifra({ t, onde, nota }: { t: TextosDoRestrito; onde: "nuc
           ))}
         </ul>
       </details>
+      <AvisoDeAparelhoNovo t={t} />
       {nota}
+    </div>
+  );
+}
+
+/**
+ * Onda R3: o aviso forte de aparelho novo. Conta que este aparelho já conhecia entrou no grupo com um aparelho novo (certificado pela
+ * identidade dela, conferida no registro público): o compositor mostra até a pessoa marcar que viu. Sem nomes nem contagem.
+ */
+function AvisoDeAparelhoNovo({ t }: { t: TextosDoRestrito }) {
+  const [avisos, setAvisos] = useState<{ trocada: boolean }[]>([]);
+  useEffect(() => {
+    let vivo = true;
+    void import("./aparelho").then((m) => m.avisosNoAparelho()).then((a) => vivo && setAvisos(a));
+    return () => {
+      vivo = false;
+    };
+  }, []);
+  if (!avisos.length) return null;
+  return (
+    <div className="al-restrito-aviso" role="alert">
+      <p className="font-bold">{t.avisoForte.titulo}</p>
+      <p>{t.avisoForte.texto}</p>
+      {avisos.some((a) => a.trocada) && <p className="font-bold">{t.avisoForte.trocada}</p>}
+      <button
+        type="button"
+        className="al-restrito-entendi"
+        onClick={() => {
+          setAvisos([]);
+          void import("./aparelho").then((m) => m.marcarAvisosVistos());
+        }}
+      >
+        {t.avisoForte.entendi}
+      </button>
     </div>
   );
 }

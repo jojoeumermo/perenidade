@@ -16,6 +16,7 @@ import { atos as cliente } from "@/lib/rede/cliente-atos";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
 import type { Corrente, OrgQuePosso } from "@/lib/rede/tipos-atos";
 import "./atos.css";
+import { PorQueSemNumero } from "../uso/PorQueSemNumero";
 
 const ELOS = 10;
 
@@ -123,6 +124,7 @@ function CartaoDaCorrente({ k, t, lang, aoMudar }: { k: Corrente; t: TextosDosAt
       <p className="al-corrente-elos" aria-hidden>
         {k.fechada ? t.corrente.fechada : k.elos === null ? t.corrente.poucos : preencherAto(t.corrente.elos, { pct: Math.round(k.elos * 100) })}
       </p>
+      {!k.fechada && k.elos === null ? <PorQueSemNumero lang={lang} motivo="piso" /> : null}
       {k.total !== null ? <p className="al-corrente-total">{preencherAto(t.corrente.total, { n: k.total })}</p> : null}
       {k.fechada && !k.vou_eu ? null : (
         <Botao variante={k.vou_eu ? "claro" : "primario"} pressionado={k.vou_eu} aria-busy={ocupado} onClick={() => void alternar()} icone={k.vou_eu ? Icone.visto(18) : undefined} className="al-corrente-botao">

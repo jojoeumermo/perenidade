@@ -10,10 +10,18 @@
     "Il ne part jamais vers le Fédivers."
   ],
   "semAgendar": "Le post chiffré part tout de suite : impossible de le programmer, de lui donner un délai pour disparaître ou d’arranger les images.",
+  "semAnexo": "Le post chiffré ne contient que le texte : images, audio et vidéo ne sont pas encore chiffrés et arriveraient en clair au serveur.",
   "cifrando": "Chiffrement sur cet appareil…",
   "semChave": "Cet appareil est encore en train d’entrer dans le groupe. Réessayez dans quelques secondes.",
   "suspeito": "Impossible d’écrire dans ce groupe pour l’instant : la clé de quelqu’un a changé",
   "falha": "Impossible de chiffrer pour l’instant. Rien n’a été publié.",
+  "semIdentidade": "Pour écrire et lire dans les groupes chiffrés, activez d’abord le chat sur cet appareil (c’est son identité qui signe cet appareil).",
+  "avisoForte": {
+    "titulo": "Nouvel appareil dans le groupe",
+    "texto": "Un compte que cet appareil connaissait déjà est entré dans le groupe avec un nouvel appareil. Il est signé par l’identité de la personne, vérifiée dans le registre public. Si vous ne vous y attendiez pas, demandez-lui et comparez le code de sécurité dans le chat.",
+    "trocada": "L’identité de ce compte a aussi changé (la personne a réactivé le chat, ou quelqu’un a pris le compte). Confirmez avec elle avant d’écrire quelque chose de sensible.",
+    "entendi": "Compris"
+  },
   "abrindo": "Ouverture sur cet appareil…",
   "naoAbre": "Impossible d’ouvrir sur cet appareil",
   "naoAbreAjuda": "Qui est entré dans le groupe après le post, ou l’ouvre sur un nouvel appareil, lit ce qui vient à partir de là.",

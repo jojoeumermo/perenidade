@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). -->
+<resources>
+    <string name="app_name">Instituto Lúcia</string>
+    <string name="rotulo_do_app">Herramientas</string>
+    <string name="title_activity_main">Herramientas</string>
+    <string name="nome_calculadora">Calculadora</string>
+    <string name="nome_notas">Notas</string>
+    <string name="canal_mensagens">Mensajes</string>
+    <string name="nova_mensagem">Mensaje nuevo</string>
+    <string name="lembrete_neutro">Recordatorio</string>
+    <string name="abrir_fora_titulo">¿Abrir fuera de la app?</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="abrir">Abrir</string>
+</resources>

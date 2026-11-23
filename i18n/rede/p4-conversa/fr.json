@@ -1,0 +1,60 @@
+{
+  "_rascunho": true,
+  "foto": {
+    "botao": "Photo à voir une fois",
+    "explica": "La photo est refaite sur cet appareil (sans lieu, appareil photo ni date), chiffrée et ne s’ouvre qu’une fois pour qui la reçoit.",
+    "rotulo": "Photo à voir une fois",
+    "abrir": "Ouvrir la photo une fois",
+    "escondido": "La photo disparaît quand cette fenêtre n’est plus au premier plan.",
+    "aviso": "Protégée contre la copie seulement dans ce navigateur : cela n’empêche ni la capture d’écran ni un autre appareil photo. L’expéditrice n’est jamais prévenue.",
+    "invalida": "Impossible de lire cette image. Utilisez JPG, PNG ou WebP jusqu’à 3 Mo."
+  },
+  "encaminhar": {
+    "acao": "Transférer",
+    "titulo": "Transférer à",
+    "explica": "Il part comme un nouveau message chiffré de votre part, marqué comme transféré. Le serveur ne le sait pas.",
+    "limite": "Ce message a déjà été transféré de nombreuses fois : une seule conversation à la fois.",
+    "ate": "Jusqu’à {n} conversations à la fois.",
+    "enviar": "Transférer",
+    "cancelar": "Annuler",
+    "nenhuma": "Aucune autre conversation ouverte sur cet appareil.",
+    "erro": "Impossible de transférer. Réessayez.",
+    "marca": "Transféré",
+    "muitas": "Transféré de nombreuses fois"
+  },
+  "notas": {
+    "titulo": "Notes pour moi",
+    "linha": "Vous seule les lisez. Chiffrées, sur vos appareils.",
+    "explica": "Vous seule les lisez. Chaque note reste chiffrée sur cet appareil et part, chiffrée, seulement vers vos autres appareils liés au chat. Le serveur ne sait pas qu’elles existent. La Sortie rapide efface les notes de cet appareil.",
+    "escreva": "Écrire une note",
+    "guardar": "Enregistrer la note",
+    "vazio": "Aucune note pour l’instant.",
+    "apagar": "Supprimer",
+    "apagarConfirma": "Supprimer cette note de cet appareil et de vos autres appareils ?",
+    "erro": "Impossible d’enregistrer ou de lire les notes. Réessayez."
+  },
+  "silencio": {
+    "descricao": "Pendant les heures choisies, les notifications d’Alumia arrivent sans son ni vibration. La plage reste seulement sur cet appareil : le serveur ne sait ni si ni quand vous coupez les notifications. Chaque appareil a la sienne.",
+    "levado": "L’horaire enregistré sur le serveur a été déplacé vers cet appareil et effacé du serveur."
+  },
+  "agendar": {
+    "botao": "Programmer l'envoi",
+    "titulo": "Programmer ce texte",
+    "aviso": "Il reste seulement sur cet appareil et part à l'heure si l'appareil est allumé avec le chat d'Alumia ouvert. S'il est éteint, il part quand vous rouvrez le chat. Le serveur ne l'apprend qu'au départ du message.",
+    "quando": "Part à",
+    "confirmar": "Programmer",
+    "cancelar": "Annuler",
+    "hora": "Choisissez une heure entre 1 minute et 30 jours à partir de maintenant.",
+    "erro": "Impossible de programmer. Réessayez.",
+    "marca": "programmé pour {quando}, seulement sur cet appareil",
+    "desistir": "Renoncer à l'envoi"
+  },
+  "transcrever": {
+    "botao": "Transcrire sur cet appareil",
+    "ouvindo": "Transcription sur cet appareil…",
+    "rotulo": "Transcription",
+    "aviso": "Faite par cet appareil, sans envoyer l'audio ailleurs. Elle peut contenir des erreurs. Elle n'est pas conservée.",
+    "vazia": "Aucun mot n'a pu être compris.",
+    "falhou": "Ce navigateur a arrêté la transcription. Écoutez la note."
+  }
+}

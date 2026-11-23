@@ -9,7 +9,9 @@ import { timingSafeEqual } from "node:crypto";
 import { configDoAmbiente } from "@/lib/rede/contas-extra";
 import { telegramLigado } from "@/lib/rede/pontes/ligado";
 import { chamarComoServico } from "@/lib/rede/pontes/robos";
-import { enviarAoCanal, mensagemDoPost, tokenDoAmbiente, type PostParaOTelegram } from "@/lib/rede/pontes/telegram";
+import { enviarAoCanal, mensagemDoPost, tokenDoAmbiente } from "@/lib/rede/pontes/telegram";
+import { pontesP4Ligado } from "@/lib/rede/p4/pontes/ligado";
+import { mensagemDoAto, type PostOuAtoParaOTelegram } from "@/lib/rede/p4/pontes/telegram-ato";
 import { site } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -29,15 +31,27 @@ async function rodar(pedido: Request) {
   if (!telegramLigado() || !token) return Response.json({ ok: true, saidos: 0, falhas: 0, desligado: true }, { headers: { "Cache-Control": "no-store" } });
   const cfg = configDoAmbiente();
   if (!cfg) return Response.json({ erro: "banco_nao_configurado" }, { status: 503 });
-  const lista = await chamarComoServico<PostParaOTelegram[]>(cfg, "rede_pontes_telegram_pendentes", { p_limite: 20 });
+  const lista = await chamarComoServico<PostOuAtoParaOTelegram[]>(cfg, "rede_pontes_telegram_pendentes", { p_limite: 20 });
   if (!lista.ok) return Response.json({ erro: "banco" }, { status: 502 });
   let saidos = 0;
   let falhas = 0;
   for (const p of Array.isArray(lista.dado) ? lista.dado : []) {
-    const ok = await enviarAoCanal(token, p.canal, mensagemDoPost(p, site.url));
+    // Prompt 4, item 86: o post de um ato sai como aviso de ato (só o ponto público e o endereço).
+    const ok = await enviarAoCanal(token, p.canal, mensagemDoAto(p, site.url) ?? mensagemDoPost(p, site.url));
     if (ok) saidos++;
     else falhas++;
     await chamarComoServico(cfg, "rede_pontes_telegram_resultado", { p_post: p.post, p_ok: ok });
+  }
+  // Prompt 4, item 86: o ato que foi adiado ou cancelado depois de sair no canal (uma vez cada mudança).
+  if (pontesP4Ligado()) {
+    const mudancas = await chamarComoServico<PostOuAtoParaOTelegram[]>(cfg, "rede_p4_telegram_atos_pendentes", { p_limite: 20 });
+    for (const p of mudancas.ok && Array.isArray(mudancas.dado) ? mudancas.dado : []) {
+      const texto = mensagemDoAto(p, site.url);
+      const ok = texto ? await enviarAoCanal(token, p.canal, texto) : false;
+      if (ok) saidos++;
+      else falhas++;
+      await chamarComoServico(cfg, "rede_p4_telegram_atos_resultado", { p_post: p.post, p_situacao: p.ato?.situacao ?? "", p_ok: ok });
+    }
   }
   return Response.json({ ok: true, saidos, falhas }, { headers: { "Cache-Control": "no-store" } });
 }

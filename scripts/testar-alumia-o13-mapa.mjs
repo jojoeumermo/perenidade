@@ -171,6 +171,9 @@ const visitante = () => ({ papel: "anon", ip: `203.0.113.${ip++ % 250}` });
 await espera("a migração instala sobre o install.sql", () => exec(sql));
 await espera("de novo (idempotente)", () => exec(sql));
 await espera("e uma terceira vez sem estrago", () => exec(sql));
+// O install.sql inteiro de novo por cima: as definições finais (a R2 redefiniu funções desta migração) voltam a valer.
+await espera("e o install.sql inteiro de novo por cima (as definições finais voltam)", () => banco.instalarDeNovo());
+await banco.filiacaoDeTeste();
 await espera("a regra da porta não deixa nenhuma função aberta", async () => (await dono("select interno.alumia_trancar() as r")).rows[0].r, (r) => r.abertas.length === 0);
 const PUBLICAS = ["rede_mapa", "rede_ama_marcar", "rede_ama_convite", "rede_ama_cancelar", "rede_ama_lista", "rede_ama", "rede_ama_perguntar", "rede_ama_responder", "rede_ama_retirar", "rede_ama_agenda"];
 await espera("toda função pública nova passa pela porta", async () =>
@@ -240,7 +243,8 @@ await dono("insert into interno.rede_orgs (perfil, tipo, cidade, palavra, docume
 await dono("insert into interno.rede_orgs (perfil, tipo, cidade, palavra) values ($1, 'coletivo', 'Natal', 'SEM')", [P.orgsem]);
 const nucleo = async (org, cidade, uf, noMapa) => {
   const id = (await um("insert into interno.rede_nucleos (nome, org, org_cidade, org_uf, org_no_mapa) values ($1, $2, $3, $4, $5) returning id", [`Núcleo ${++n}`, P[org], cidade, uf, noMapa])).id;
-  for (const m of ["m1", "m2", "m3", "m4"]) await dono("insert into interno.rede_nucleo_membros (nucleo, usuario, entrou_em) values ($1, $2, now() - interval '2 hours')", [id, P[m]]);
+  // Filiação de teste (scripts/banco-local.mjs, filiacaoDeTeste): o assunto aqui não é quem é do núcleo.
+  for (const m of ["m1", "m2", "m3", "m4"]) await dono("insert into interno.teste_nucleo_membros (nucleo, usuario, entrou_em) values ($1, $2, now() - interval '2 hours')", [id, P[m]]);
 };
 await nucleo("org", "Recife", "PE", true);
 await nucleo("org", "Olinda", "PE", true);
@@ -254,17 +258,18 @@ await espera("membro: São Paulo com 4 chamados (ato e mutirão) e evento abaixo
   const sp2 = lugarDe(r, "sao paulo", "SP");
   return r.dias === 60 && sp.chamados === 3 && sp.chamados_ha && sp.eventos === null && sp.eventos_ha && !sp.nucleos_ha && sp2.chamados === null && sp2.chamados_ha;
 });
-await espera("membro: Recife com 3 eventos, chamado abaixo de 3, núcleo sem número e a organização com selo", () => rpc(A("dona"), "rede_mapa"), (r) => {
+// Depois da R2 (membros escondidos) o servidor não sabe quantas pessoas há num núcleo: o "chama" do núcleo (interno.alumia_chama, que
+// pedia 3 pessoas) não fica pleno, e o núcleo sai do mapa. Decisão registrada para o dono (o mapa dos núcleos).
+await espera("membro: Recife com 3 eventos, chamado abaixo de 3; o núcleo não aparece (o servidor não sabe quantos há nele)", () => rpc(A("dona"), "rede_mapa"), (r) => {
   const re = lugarDe(r, "recife", "PE");
-  return re.eventos === 3 && re.chamados === null && re.chamados_ha && re.nucleos_ha && re.orgs.length === 1 && re.orgs[0].handle === "lume_o13" && !("nucleos" in re);
+  return re.eventos === 3 && re.chamados === null && re.chamados_ha && !re.nucleos_ha && re.orgs.length === 0 && !("nucleos" in re);
 });
 await espera("o núcleo fora do mapa e o da organização sem selo não aparecem; cancelado e passado não contam", () => rpc(A("dona"), "rede_mapa"),
-  (r) => !r.lugares.some((l) => l.nome === "natal" || l.nome === "cancelada" || l.nome === "passado") && !!lugarDe(r, "olinda", "PE"));
+  (r) => !r.lugares.some((l) => l.nome === "natal" || l.nome === "cancelada" || l.nome === "passado") && !lugarDe(r, "olinda", "PE"));
 await espera("nenhuma pessoa na resposta do mapa (só a organização)", () => rpc(A("dona"), "rede_mapa"), (r) => semPessoas(r, ["org"]));
 // Fora das comunidades das disciplinas, "internet" vale como "membros" (interno.rede2_publico): o visitante não vê esses chamados.
-await espera("visitante: só o que é público na internet (aqui, só os núcleos das organizações com selo)", () => rpc(visitante(), "rede_mapa"), (r) => {
-  const re = lugarDe(r, "recife", "PE");
-  return !lugarDe(r, "sao paulo", null) && !lugarDe(r, "sao paulo", "SP") && re && !re.chamados_ha && !re.eventos_ha && re.nucleos_ha && semPessoas(r, ["org"]);
+await espera("visitante: só o que é público na internet (aqui, nada: os núcleos saíram do mapa com a R2)", () => rpc(visitante(), "rede_mapa"), (r) => {
+  return !lugarDe(r, "sao paulo", null) && !lugarDe(r, "sao paulo", "SP") && !lugarDe(r, "recife", "PE") && semPessoas(r, ["org"]);
 });
 await espera("quem foi bloqueado pela organização não vê a organização no mapa", async () => {
   await dono("insert into interno.rede_bloqueios (quem, bloqueado) values ($1, $2)", [P.org, P.bloq]);

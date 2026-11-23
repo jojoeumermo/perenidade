@@ -182,7 +182,9 @@
     "lista_bloqueio": "This place's mediators do not allow posts from you here.",
     "leia_as_regras": "This community asks you to accept the rules before posting. See the Arrival tab.",
     "so_leitura": "This is an announcements community: only the moderators start posts here.",
-    "so_leitura_respostas": "In this announcements community, the rule does not let you reply."
+    "so_leitura_respostas": "In this announcements community, the rule does not let you reply.",
+    "alumia_so_leitura": "Alumia is in read-only mode by decision of the coordination: you can read, block and report, but not post or change anything right now.",
+    "nome_reservado": "This name or @ looks like that of a public figure and is reserved. Choose another; if it is you, request the verified badge on your profile."
   },
   "alumia": {
     "voltarAoSite": "Back to the Instituto Lúcia website",
@@ -235,6 +237,8 @@
   },
   "avisoFixado": {
     "rotulo": "Notice from the coordination",
-    "abrir": "Open"
+    "abrir": "Open",
+    "soLeituraRotulo": "Read only",
+    "soLeitura": "Alumia is in read-only mode by decision of the coordination. You can read, block, report and chat; posting, commenting and reacting come back when the mode is turned off."
   }
 }

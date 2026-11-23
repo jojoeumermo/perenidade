@@ -7,10 +7,15 @@
 //
 // Cada mensagem fica CIFRADA (AES-256-GCM, WebCrypto) num IndexedDB próprio ("lucia-alumia-historico"). A chave do histórico:
 //   - sem trava: uma chave NÃO exportável deste aparelho (só este navegador a usa; ninguém a lê em bytes);
-//   - com trava: a mesma chave, embrulhada (AES-KW) por uma chave tirada da senha da trava (PBKDF2-SHA-256, 600 mil rodadas,
-//     sal sorteado). Sem a senha, o histórico não abre nem neste aparelho. A senha não fica guardada em lugar nenhum.
+//   - com trava: a mesma chave, embrulhada (AES-KW) por uma chave tirada da senha da trava (Argon2id, 64 MiB e 3 passadas, sal
+//     sorteado: lib/rede/cofre/argon.ts). Sem a senha, o histórico não abre nem neste aparelho. A senha não fica guardada em lugar
+//     nenhum. A trava do formato de antes (PBKDF2-SHA-256, 600 mil rodadas) abre com a mesma senha e é refeita na hora com o
+//     Argon2id, sem perder nada.
 // Fora do cifrado ficam só: a conta, a conversa, o momento (para ordenar) e o prazo (para apagar o que venceu sem abrir).
 // O "Sair rápido" apaga este banco inteiro (lib/rede/chat/gaveta.ts).
+
+import { type CabecalhoA2id, cabecalhoValido, derivar } from "../cofre/argon";
+import type { ProvaDeFranquia } from "../franquia/protocolo";
 
 export const BANCO_DO_HISTORICO = "lucia-alumia-historico";
 const MENSAGENS = "mensagens";
@@ -28,6 +33,20 @@ export interface ConteudoGuardado {
   versao: number;
   /** "Ver uma vez": some depois de aberta na tela. */
   umaVez: boolean;
+  /** A prova da franquia (chat da R2; lib/rede/franquia/protocolo.ts), guardada cifrada com o resto, para a denúncia com prova. */
+  prova?: ProvaDeFranquia | null;
+  /** Quem escreveu mudou o texto depois (o controle "editar", que vem dentro do cifrado). */
+  editada?: boolean;
+  /** Escrita aqui e ainda na fila deste aparelho (a outra pessoa não confirmou a conversa): sai sozinha depois. */
+  pendente?: boolean;
+  /** Anexo cifrado (Prompt 4, itens 137 e 138): o corpo em base64url, com a chave e o endereço; cifrado aqui como o resto. */
+  anexo?: string;
+  /** Encaminhada (Prompt 4, item 14): quantas vezes o texto já tinha sido encaminhado (a contagem de dentro do cifrado). */
+  encaminhada?: number;
+  /** Agendada (Prompt 4, item 18): minha, para sair neste momento (ms); ainda só neste aparelho. */
+  agendada?: number;
+  /** Pedido de ajuda (Prompt 4, item 7): o corpo da posição em JSON; cifrado aqui como o resto, some em 24 h. */
+  posicao?: string;
 }
 
 export interface MensagemGuardada extends ConteudoGuardado {
@@ -56,8 +75,10 @@ interface ChaveGuardada {
   conta: string;
   /** Sem trava: a chave (não exportável). */
   chave?: CryptoKey;
-  /** Com trava: a chave embrulhada e o sal da senha. */
+  /** Com trava: a chave embrulhada e o cabeçalho do Argon2id (com o sal). */
   embrulhada?: ArrayBuffer;
+  a2id?: CabecalhoA2id;
+  /** A trava do formato de antes: só o sal do PBKDF2 (sem `a2id`). */
   sal?: Uint8Array;
 }
 
@@ -111,11 +132,27 @@ export function esquecerChavesDoHistorico() {
 }
 
 const encoder = new TextEncoder();
-const RODADAS = 600_000;
+/** As rodadas do PBKDF2 da trava de antes: só para abrir e refazer com o Argon2id. */
+const RODADAS_DE_ANTES = 600_000;
 
-async function chaveDaSenha(senha: string, sal: Uint8Array): Promise<CryptoKey> {
+/** A chave que embrulha (AES-KW), tirada da senha com o Argon2id. Sem cabeçalho, um novo (sal sorteado). */
+async function chaveDaSenha(senha: string, cabecalho?: CabecalhoA2id): Promise<{ chave: CryptoKey; a2id: CabecalhoA2id }> {
+  const { chave: bytes, cabecalho: a2id } = await derivar(senha, cabecalho);
+  try {
+    const crua = new Uint8Array(new ArrayBuffer(32));
+    crua.set(bytes);
+    const chave = await crypto.subtle.importKey("raw", crua, { name: "AES-KW" }, false, ["wrapKey", "unwrapKey"]);
+    crua.fill(0);
+    return { chave, a2id };
+  } finally {
+    bytes.fill(0);
+  }
+}
+
+/** A chave da trava de antes (PBKDF2, sem normalizar a senha: como era). */
+async function chaveDaSenhaDeAntes(senha: string, sal: Uint8Array): Promise<CryptoKey> {
   const base = await crypto.subtle.importKey("raw", encoder.encode(senha), "PBKDF2", false, ["deriveKey"]);
-  return crypto.subtle.deriveKey({ name: "PBKDF2", hash: "SHA-256", salt: sal as Uint8Array<ArrayBuffer>, iterations: RODADAS }, base, { name: "AES-KW", length: 256 }, false, ["wrapKey", "unwrapKey"]);
+  return crypto.subtle.deriveKey({ name: "PBKDF2", hash: "SHA-256", salt: sal as Uint8Array<ArrayBuffer>, iterations: RODADAS_DE_ANTES }, base, { name: "AES-KW", length: 256 }, false, ["wrapKey", "unwrapKey"]);
 }
 
 /** O histórico desta conta está travado com senha? */
@@ -149,10 +186,10 @@ export async function travarHistorico(conta: string, senha: string): Promise<voi
   const todas = await lerTudo(conta);
   const organizacoes = await resumoDasConversas(conta);
   const nova = await crypto.subtle.generateKey({ name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
-  const sal = crypto.getRandomValues(new Uint8Array(new ArrayBuffer(16)));
-  const embrulhada = await crypto.subtle.wrapKey("raw", nova, await chaveDaSenha(senha, sal), "AES-KW");
+  const { chave: kek, a2id } = await chaveDaSenha(senha);
+  const embrulhada = await crypto.subtle.wrapKey("raw", nova, kek, "AES-KW");
   // A cópia que fica na memória não é extraível.
-  const naMemoria = await crypto.subtle.unwrapKey("raw", embrulhada, await chaveDaSenha(senha, sal), "AES-KW", "AES-GCM", false, ["encrypt", "decrypt"]);
+  const naMemoria = await crypto.subtle.unwrapKey("raw", embrulhada, kek, "AES-KW", "AES-GCM", false, ["encrypt", "decrypt"]);
   abertas.set(conta, naMemoria);
   for (const m of todas) await guardarComChave(m, naMemoria);
   for (const [conversa, o] of organizacoes) {
@@ -160,18 +197,36 @@ export async function travarHistorico(conta: string, senha: string): Promise<voi
     void naoLidas;
     if (org.pasta || org.nota || org.sonecaAte || org.lidaAte || org.lembretes.length) await mudarOrganizacao(conta, conversa, () => org);
   }
-  await naGaveta(CHAVES, "readwrite", (s) => s.put({ conta, embrulhada, sal } satisfies ChaveGuardada));
+  await naGaveta(CHAVES, "readwrite", (s) => s.put({ conta, embrulhada, a2id } satisfies ChaveGuardada));
 }
 
 /** Abre o histórico travado nesta aba. Senha errada: "senha_errada". */
 export async function destravarHistorico(conta: string, senha: string): Promise<void> {
   const g = await naGaveta<ChaveGuardada | undefined>(CHAVES, "readonly", (s) => s.get(conta));
-  if (!g?.embrulhada || !g.sal) return;
+  if (!g?.embrulhada) return;
+  if (g.a2id && cabecalhoValido(g.a2id)) {
+    try {
+      const { chave: kek } = await chaveDaSenha(senha, g.a2id);
+      abertas.set(conta, await crypto.subtle.unwrapKey("raw", g.embrulhada, kek, "AES-KW", "AES-GCM", false, ["encrypt", "decrypt"]));
+    } catch (erro) {
+      if ((erro as { code?: string })?.code === "sem_memoria") throw erro;
+      throw Object.assign(new Error("senha_errada"), { code: "senha_errada" });
+    }
+    return;
+  }
+  if (!g.sal) return;
+  // A trava de antes (PBKDF2): abre com a senha, e a chave é embrulhada de novo com o Argon2id (as mensagens não mudam).
+  let extraivel: CryptoKey;
   try {
-    abertas.set(conta, await crypto.subtle.unwrapKey("raw", g.embrulhada, await chaveDaSenha(senha, g.sal), "AES-KW", "AES-GCM", false, ["encrypt", "decrypt"]));
+    extraivel = await crypto.subtle.unwrapKey("raw", g.embrulhada, await chaveDaSenhaDeAntes(senha, g.sal), "AES-KW", "AES-GCM", true, ["encrypt", "decrypt"]);
   } catch {
     throw Object.assign(new Error("senha_errada"), { code: "senha_errada" });
   }
+  const { chave: kek, a2id } = await chaveDaSenha(senha);
+  const embrulhada = await crypto.subtle.wrapKey("raw", extraivel, kek, "AES-KW");
+  const naMemoria = await crypto.subtle.unwrapKey("raw", embrulhada, kek, "AES-KW", "AES-GCM", false, ["encrypt", "decrypt"]);
+  await naGaveta(CHAVES, "readwrite", (s) => s.put({ conta, embrulhada, a2id } satisfies ChaveGuardada));
+  abertas.set(conta, naMemoria);
 }
 
 /** Fecha o histórico nesta aba (a chave sai da memória). Só faz sentido com trava. */
@@ -179,7 +234,7 @@ export const fecharHistorico = (conta: string) => void abertas.delete(conta);
 
 async function guardarComChave(m: MensagemGuardada, chave: CryptoKey) {
   const iv = crypto.getRandomValues(new Uint8Array(new ArrayBuffer(12)));
-  const dentro: ConteudoGuardado = { texto: m.texto, idInterno: m.idInterno, contador: m.contador, visto: m.visto, versao: m.versao, umaVez: m.umaVez };
+  const dentro: ConteudoGuardado = { texto: m.texto, idInterno: m.idInterno, contador: m.contador, visto: m.visto, versao: m.versao, umaVez: m.umaVez, ...(m.prova ? { prova: m.prova } : {}) };
   const cifrado = await crypto.subtle.encrypt({ name: "AES-GCM", iv, additionalData: encoder.encode(`alumia-historico:${m.conta}:${m.id}`) }, chave, encoder.encode(JSON.stringify(dentro)));
   const registro: Registro = { id: m.id, conta: m.conta, conversa: m.conversa, autor: m.autor, quando: m.quando, expira: m.expira, iv, cifrado };
   await naGaveta(MENSAGENS, "readwrite", (s) => s.put(registro));

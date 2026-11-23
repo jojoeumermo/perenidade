@@ -227,7 +227,9 @@ for (const l of LINGUAS) {
   await espera(`política e "o que guardamos" (${l}) dizem que os links vão ao Google Safe Browsing e o que fica no aparelho`, async () => {
     const fora = lei.privacidade.secoes.find((s) => s.id === "fora").itens.join(" ");
     const guardamos = JSON.stringify(lei.guardamos);
-    return [fora.includes("Google Safe Browsing"), guardamos.includes("Google Safe Browsing"), lei.guardamos.grupos[1].linhas.length, lei.guardamos.grupos[4].linhas[1].tempo];
+    return [fora.includes("Google Safe Browsing"), guardamos.includes("Google Safe Browsing"), lei.guardamos.grupos[1].linhas.length,
+      // A linha dos links pelo texto, não pela posição (a R1 acrescentou o grupo do Fediverso antes do de segurança).
+      (lei.guardamos.grupos.flatMap((g) => g.linhas).find((x) => JSON.stringify(x).includes("Google Safe Browsing")) ?? {}).tempo];
   }, ([a, b, n, tempo]) => a && b && n === 8 && tempo === "—");
 }
 await espera("textos novos sem as palavras proibidas", async () => /diploma|universidade|algoritmo/i.test(LINGUAS.map((l) => ler(`i18n/rede/links/${l}.json`)).join("")), (x) => x === false);

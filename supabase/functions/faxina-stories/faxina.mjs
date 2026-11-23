@@ -190,6 +190,22 @@ export function conferirVideo(entrada) {
 }
 
 /**
+ * Confere UM arquivo de story (o mesmo da rodada, e o que o site faz logo depois de publicar: app/api/rede/stories/conferir).
+ * Devolve "conferido" (limpo, ou já estava limpo), "ruim" (não é a imagem ou o vídeo que o nome diz: o story sai do ar) ou lança
+ * se a ida ao Storage falhar (fica para a próxima rodada). `limpo` diz se precisou subir de novo sem o metadado.
+ *   baixar(caminho) → Uint8Array; subir(caminho, bytes, tipo) → void (sobrescreve).
+ */
+export async function conferirUm(caminho, { baixar, subir }) {
+  const bytes = await baixar(caminho);
+  const esperado = formatoDoCaminho(caminho);
+  if (esperado === "mp4" || esperado === "webm") return { resultado: conferirVideo(bytes) === esperado ? "conferido" : "ruim", limpo: false };
+  const r = limparMetadados(bytes);
+  if (!r || r.formato !== esperado) return { resultado: "ruim", limpo: false };
+  if (r.mudou) await subir(caminho, r.bytes, `image/${r.formato}`);
+  return { resultado: "conferido", limpo: r.mudou };
+}
+
+/**
  * Uma rodada da faxina.
  *   chamar(funcao, argumentos) → o JSON da função do banco (chave de serviço);
  *   baixar(caminho) → Uint8Array; subir(caminho, bytes, tipo) → void (sobrescreve); remover(caminhos[]) → void.
@@ -201,23 +217,10 @@ export async function rodada({ chamar, baixar, subir, remover, limite = 200 }) {
   let limpos = 0;
   for (const { id, caminho } of lista.conferir ?? []) {
     try {
-      const bytes = await baixar(caminho);
-      const esperado = formatoDoCaminho(caminho);
-      if (esperado === "mp4" || esperado === "webm") {
-        if (conferirVideo(bytes) !== esperado) ruins.push(id);
-        else conferidos.push(id);
-        continue;
-      }
-      const r = limparMetadados(bytes);
-      if (!r || r.formato !== formatoDoCaminho(caminho)) {
-        ruins.push(id);
-        continue;
-      }
-      if (r.mudou) {
-        await subir(caminho, r.bytes, `image/${r.formato}`);
-        limpos++;
-      }
-      conferidos.push(id);
+      const r = await conferirUm(caminho, { baixar, subir });
+      if (r.resultado === "ruim") ruins.push(id);
+      else conferidos.push(id);
+      if (r.limpo) limpos++;
     } catch {
       // Falhou a ida ao Storage: fica para a próxima rodada (o story continua no ar, como estava).
     }

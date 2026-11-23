@@ -103,9 +103,10 @@ const LINHA_COM_PADRAO = `
                 join pg_type ty on ty.oid = t.o join pg_class c on c.oid = ty.typrelid
                 where ty.typtype = 'c' and c.relkind in ('r', 'p') and t.i > p.pronargs - p.pronargdefaults)`;
 /** O corpo final das funções que as duas faixas redefinem. */
+// (O envelope selado do beta, rede_sel_depositar, saiu da lista com a função dela na R2: 20261124-r2-dupla.sql e r2-fim.)
 const FINAIS = `
   select interno.alumia_porta_aberta('rede_fed_servidor', '') and interno.alumia_porta_aberta('rede_org_diretorio', 'p jsonb')
-         and interno.alumia_porta_aberta('alumia_transparencia', '') and interno.alumia_porta_aberta('rede_sel_depositar', '')
+         and interno.alumia_porta_aberta('alumia_transparencia', '')
          and interno.alumia_porta_aberta('rede_kt_ponta', '') and interno.alumia_porta_aberta('rede_kt_trecho', '') as lista,
          (select prosrc ~ 'rede_vida_federa' from pg_proc where oid = to_regprocedure('interno.rede_fed_federavel(interno.rede_posts, integer)')) as federa,
          (select count(*)::int from pg_proc where oid = to_regprocedure('interno.alumia_passa()') or oid = to_regprocedure('interno.rede_ve(interno.rede_posts, uuid)')) as passa_e_ve,

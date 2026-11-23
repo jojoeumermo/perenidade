@@ -48,7 +48,7 @@
     "cancelarNao": "Retour",
     "cancelada": "Vote annulé par la modération. Les votes ont été effacés.",
     "comoTitulo": "Comment fonctionne le vote secret",
-    "comoTexto": "Qui a voté et ce qui a été voté sont gardés séparément, sans rien qui relie l'un à l'autre, et les bulletins sont mélangés à chaque vote. Même la modération ne voit le vote de personne. Les bulletins ne sont comptés qu'à la fin de l'échéance, et le résultat montre des totaux : aucun nombre inférieur à 3.",
+    "comoTexto": "Qui a voté et ce qui a été voté sont gardés séparément, sans rien qui relie l'un à l'autre, et les bulletins sont mélangés à chaque vote. Même la modération ne voit le vote de personne. Les bulletins ne sont comptés qu'à la fin de l'échéance, et le résultat montre des totaux : aucun nombre inférieur à 3. Le bulletin quitte votre appareil chiffré et ne s'ouvre que lorsque des gardiennes de la médiation se réunissent, après l'échéance ; ni Alumia ni le serveur ne l'ouvrent.",
     "regraVoto": "Seules les personnes déjà membres à l'ouverture du vote peuvent voter. Un vote ne change plus une fois exprimé."
   },
   "nova": {

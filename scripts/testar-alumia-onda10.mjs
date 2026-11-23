@@ -112,7 +112,9 @@ const FUNCOES_DA_REDE = `
     and (has_function_privilege('anon', p.oid, 'execute') or has_function_privilege('authenticated', p.oid, 'execute'))`;
 const semPorta = async (dono) => (await dono(FUNCOES_DA_REDE)).rows.filter((f) => !f.porta && !f.aberta).map((f) => `${f.nome}(${f.args})`);
 /** As funções públicas que as frentes da onda 10 criaram (pelo texto das migrações): todas têm de ter a porta. */
-const DA_ONDA = [...new Set([...onda.matchAll(/create (?:or replace )?function public\.([a-z0-9_]+)\s*\(/gi)].map((m) => m[1].toLowerCase()))].filter((n) => n !== "rede_alumia_versao");
+/** As que a R2 tirou de propósito (o voto em limiar, 20261124-r2-voto.sql: o servidor não abre nem apura cédula da decisão). */
+const TIRADAS_NA_R2 = ["alumia_decisao_cifradas", "alumia_decisao_apurar"];
+const DA_ONDA = [...new Set([...onda.matchAll(/create (?:or replace )?function public\.([a-z0-9_]+)\s*\(/gi)].map((m) => m[1].toLowerCase()))].filter((n) => n !== "rede_alumia_versao" && !TIRADAS_NA_R2.includes(n));
 
 // ═══════════════════ 1. Do zero ═══════════════════
 {
@@ -132,6 +134,10 @@ const DA_ONDA = [...new Set([...onda.matchAll(/create (?:or replace )?function p
       if (faltam.length) console.log("  sem porta ou ausentes:", faltam.join(", "));
       return DA_ONDA.length > 10 && faltam.length === 0;
     });
+  await espera("as que abriam a cédula da decisão no servidor saíram com a R2", async () => (await dono("select count(*)::int as n from pg_proc p join pg_namespace s on s.oid = p.pronamespace where s.nspname = 'public' and p.proname = any ($1::text[])", [TIRADAS_NA_R2])).rows[0].n, (n) => n === 0);
+  // Rodar a onda 10 de novo por cima prova o código dela como foi escrito: o que ela pressupõe dos núcleos (a filiação, que a R2 tirou
+  // do banco) volta só neste banco de teste (scripts/banco-local.mjs, legadoDosNucleos).
+  await espera("o legado dos núcleos que a onda 10 pressupõe (só neste banco de teste)", () => banco.legadoDosNucleos());
   await espera("a onda roda de novo por cima do install.sql", () => exec(onda));
   await espera("e mais uma vez, sem estrago (idempotente)", () => exec(onda));
   await espera("fica na versão 7 (o fim da onda 10 rodado de novo) e sem porta aberta", async () => [await rpc({ papel: "anon", ip: "203.0.113.6" }, "rede_alumia_versao"), (await dono("select interno.alumia_trancar() as r")).rows[0].r], ([v, r]) => v === 7 && r.abertas.length === 0);

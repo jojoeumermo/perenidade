@@ -15,6 +15,7 @@
 // Nenhuma peça mostra número ou lista de pessoas.
 import dynamic from "next/dynamic";
 import { pontesLigadas, traducaoLigada } from "@/lib/rede/pontes/ligado";
+import { cartaoP4Ligado } from "@/lib/rede/p4/cartao/ligado";
 import { alumia2Ligada } from "@/lib/rede/rotas-novas";
 import type { ContextoDoEncaixe, Encaixe } from "../encaixes";
 import { PREVIA_DAS_PONTES } from "./cliente";
@@ -27,7 +28,8 @@ const NOME_DOS_AJUSTES: Record<string, string> = { pt: "Pontes", en: "Bridges", 
 
 const ALUMIA = PREVIA_DAS_PONTES || alumia2Ligada();
 const LIGADAS = PREVIA_DAS_PONTES || pontesLigadas();
-const TRADUCAO = traducaoLigada() || PREVIA_DAS_PONTES;
+// Prompt 4, item 31: com "alumia-p4-cartao-do-post", o Traduzir aparece também sem o nosso servidor (traduz no aparelho).
+const TRADUCAO = traducaoLigada() || PREVIA_DAS_PONTES || cartaoP4Ligado();
 
 const BotaoTraduzir = dynamic(() => import("./Traduzir").then((m) => m.BotaoTraduzir), { ssr: false });
 const TraducaoNoCartao = dynamic(() => import("./Traduzir").then((m) => m.TraducaoNoCartao), { ssr: false });

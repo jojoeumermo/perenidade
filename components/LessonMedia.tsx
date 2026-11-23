@@ -145,7 +145,7 @@ export function PendingImage({ path, alt, caption }: { path: string; alt: string
   return (
     <span className="figura">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      {src ? <img src={src} alt={alt} /> : <span className="block border border-dashed border-rule p-6 text-center font-sans text-sm text-ink-soft">{alt}</span>}
+      {src ? <img src={src} alt={alt} loading="lazy" decoding="async" /> : <span className="block border border-dashed border-rule p-6 text-center font-sans text-sm text-ink-soft">{alt}</span>}
       <span className="legenda">
         {caption ? `${caption} · ` : ""}
         {t.lesson.imagePending}

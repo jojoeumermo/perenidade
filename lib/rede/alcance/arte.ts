@@ -27,10 +27,10 @@ export const PALETA_NOITE: Paleta = {
   vermelho: "#e8321f", dourado: "#ffc21a", qrClaro: "#f3efe6", qrEscuro: "#0f0e0d",
 };
 
-/** Os tokens do tema claro. */
+/** Os tokens do tema claro (P5, A17: branco neutro e cinzas neutros; o nome ficou do creme de antes). */
 export const PALETA_CREME: Paleta = {
-  fundo: "#f3efe6", superficie: "#fbf8f2", linha: "#d5cdbf", texto: "#0f0e0d", texto2: "#2f2a25", texto3: "#5c554d",
-  vermelho: "#bc2217", dourado: "#7a5800", qrClaro: "#fbf8f2", qrEscuro: "#0f0e0d",
+  fundo: "#ffffff", superficie: "#f6f6f7", linha: "#dedee2", texto: "#0f0e0d", texto2: "#2c2c30", texto3: "#5b5b63",
+  vermelho: "#bc2217", dourado: "#7a5800", qrClaro: "#f6f6f7", qrEscuro: "#0f0e0d",
 };
 
 /** A faixa tecida: 11 listras nas proporções 5-2-3-1-4-2-3-1-3-2-4 (a mesma de --al-faixa). */
@@ -40,10 +40,12 @@ export const FAIXA_TECIDA: readonly { cor: string; peso: number }[] = [
   { cor: "#1f8a85", peso: 3 }, { cor: "#f0b323", peso: 2 }, { cor: "#c21f16", peso: 4 },
 ];
 
-export type Formato = "retrato" | "quadrado";
+// "story" (9:16) é do Prompt 4, item 120: os stories do Instagram e o status do WhatsApp.
+export type Formato = "retrato" | "quadrado" | "story";
 export const TAMANHOS: Record<Formato, { largura: number; altura: number }> = {
   retrato: { largura: 1080, altura: 1350 },
   quadrado: { largura: 1080, altura: 1080 },
+  story: { largura: 1080, altura: 1920 },
 };
 
 /**
@@ -146,6 +148,8 @@ export interface ConteudoDaArte {
   marca: string;
   chamada: string;
   rotuloAviso: string;
+  /** Prompt 4, item 120: a linha do pé com o endereço da Alumia e o @ do Instituto; sem ela, o pé é o de antes. */
+  rodape?: string | null;
 }
 
 /** A matriz do QR (biblioteca qrcode: QRCode.create). */
@@ -215,7 +219,7 @@ export function desenharArte(ctx: Contexto, formato: Formato, paleta: Paleta, c:
   }
 
   // O pé: quem escreveu (à esquerda), o QR (à direita) e a fileira de ladrilhos.
-  const altoDoPe = qr ? 250 : 120;
+  const altoDoPe = (qr ? 250 : 120) + (c.rodape ? 40 : 0);
   const peTopo = A - 60 - altoDoPe;
   let y = topo + 48 + 60;
 
@@ -254,7 +258,7 @@ export function desenharArte(ctx: Contexto, formato: Formato, paleta: Paleta, c:
     y += h + 40;
   }
   if (c.titulo?.trim()) {
-    const { tamanho, linhas } = ajustarTitulo(c.titulo.toUpperCase(), medirEm(900, true), util, c.aviso ? 3 : 4, formato === "retrato" ? 132 : 112, 60);
+    const { tamanho, linhas } = ajustarTitulo(c.titulo.toUpperCase(), medirEm(900, true), util, c.aviso ? 3 : 4, formato === "quadrado" ? 112 : 132, 60);
     letra(900, tamanho, true);
     ctx.fillStyle = paleta.texto;
     linhas.forEach((l, i) => ctx.fillText(l, M, y + tamanho * 0.9 + i * tamanho * 0.95));
@@ -268,7 +272,7 @@ export function desenharArte(ctx: Contexto, formato: Formato, paleta: Paleta, c:
     // Sem título, o texto é a arte: o maior tamanho (de 76 a 40) em que ele cabe inteiro; com título, um tamanho fixo de apoio.
     let tamanho = 38;
     let linhas: string[] = [];
-    for (let t = semTitulo ? (formato === "retrato" ? 76 : 68) : 38; t >= (semTitulo ? 40 : 38); t -= 4) {
+    for (let t = semTitulo ? (formato === "quadrado" ? 68 : 76) : 38; t >= (semTitulo ? 40 : 38); t -= 4) {
       letra(peso, t, false);
       const maximo = Math.max(1, Math.floor(restante / (t * 1.3)));
       linhas = quebrarEmLinhas(c.texto, (s) => ctx.measureText(s).width, util, maximo);
@@ -313,6 +317,14 @@ export function desenharArte(ctx: Contexto, formato: Formato, paleta: Paleta, c:
     ctx.textAlign = "right";
     ctx.fillText(c.chamada.toUpperCase(), qx - 20, qy + lado - 8);
     ctx.textAlign = "left";
+  }
+
+  // O endereço da Alumia e o @ do Instituto, logo acima da fileira de ladrilhos (Prompt 4, item 120).
+  if (c.rodape) {
+    letra(600, 24, false);
+    ctx.fillStyle = paleta.texto3;
+    const linha = quebrarEmLinhas(c.rodape, (s) => ctx.measureText(s).width, util, 1)[0] ?? "";
+    ctx.fillText(linha, M, A - 46);
   }
 
   // A fileira de ladrilhos (o mosaico da arquibancada), no pé.

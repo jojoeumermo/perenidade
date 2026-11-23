@@ -12,6 +12,7 @@ import { L, useI18n } from "../I18n";
 import { Star } from "../Masthead";
 import { CopiaDeSeguranca, Erros, Ler, Revisao } from "./Estudo";
 import { CadernosProntos, enderecoDoSite, montarCaderno, PublicarCadernoPronto, type ReferenciaDoSite } from "./Prontos";
+import { confirmar } from "@/components/perguntar";
 
 export type NotebookStrings = Dict["notebook"];
 type Ferramenta = "resumo" | "ler" | "perguntar" | "cartoes" | "revisao" | "questionario" | "erros" | "mapa" | "tempo" | "audio" | "notas" | "plano" | "roteiro";
@@ -232,8 +233,8 @@ export function CadernoDeEstudos({ s, modo = "site" }: { s: NotebookStrings; mod
           <button
             type="button"
             className={`${elo} ml-auto normal-case tracking-normal`}
-            onClick={() => {
-              if (!window.confirm(s.confirmDelete)) return;
+            onClick={async () => {
+              if (!(await confirmar(s.confirmDelete))) return;
               const lista = cadernos.filter((c) => c.id !== atual.id);
               const pronta = lista.length ? lista : [novoCaderno(s.untitled)];
               guardarCadernos(pronta);

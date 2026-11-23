@@ -18,6 +18,17 @@ import {
   slugDe,
 } from "@/lib/vale-o-escrito/curadoria";
 import { UFS } from "@/lib/vale-o-escrito/regras";
+
+/** Os países que aparecem primeiro no editor (Prompt 5, C1: o Vale o Escrito começa o mundo pelos Estados Unidos e Israel). */
+const PRIMEIROS_PAISES = ["BR", "US", "IL"];
+/** O nome do país em português, pelo próprio navegador. */
+function nomeDoPaisNoPainel(iso: string): string {
+  try {
+    return new Intl.DisplayNames(["pt-BR"], { type: "region" }).of(iso) ?? iso;
+  } catch {
+    return iso;
+  }
+}
 import {
   CONFIANCAS,
   type Fonte,
@@ -387,15 +398,46 @@ export function EditorDeEntrada({ item, inicial, irmaos, fechar, depois }: { ite
             ))}
           </Selecao>
           <Campo rotulo="Etiquetas (separadas por vírgula)" value={doc.etiquetas.join(", ")} onChange={(e) => alterar({ etiquetas: e.target.value.split(",").map((t) => t.replace(/^\s+/, "")) })} />
-          <Selecao rotulo="UF" value={doc.lugar.regiao ?? ""} onChange={(e) => alterar({ lugar: { ...doc.lugar, regiao: e.target.value || undefined, ...(e.target.value ? {} : { municipioIbge: undefined }) } })}>
-            <option value="">(sem UF)</option>
-            {UFS.map((u) => (
-              <option key={u} value={u}>
-                {u}
+          {/* Prompt 5, C1: o Vale o Escrito é do mundo. Os primeiros países com casos de fora são os Estados Unidos e Israel;
+              qualquer outro entra pelo código de 2 letras. UF e município (IBGE) só no Brasil. */}
+          <Selecao
+            rotulo="País"
+            value={PRIMEIROS_PAISES.includes(doc.lugar.pais) ? doc.lugar.pais : "outro"}
+            onChange={(e) => {
+              const p = e.target.value === "outro" ? "" : e.target.value;
+              alterar({ lugar: p === "BR" ? { ...doc.lugar, pais: p } : { pais: p, nome: doc.lugar.nome } });
+            }}
+          >
+            {PRIMEIROS_PAISES.map((p) => (
+              <option key={p} value={p}>
+                {nomeDoPaisNoPainel(p)} ({p})
               </option>
             ))}
+            <option value="outro">Outro país…</option>
           </Selecao>
-          <Campo rotulo="Município (código IBGE de 7 dígitos)" inputMode="numeric" value={doc.lugar.municipioIbge ?? ""} maxLength={7} onChange={(e) => alterar({ lugar: { ...doc.lugar, municipioIbge: e.target.value.replace(/\D/g, "") || undefined } })} />
+          {!PRIMEIROS_PAISES.includes(doc.lugar.pais) && (
+            <Campo
+              rotulo={`Código do país (ISO de 2 letras)${/^[A-Z]{2}$/.test(doc.lugar.pais) ? `: ${nomeDoPaisNoPainel(doc.lugar.pais)}` : ""}`}
+              value={doc.lugar.pais}
+              maxLength={2}
+              onChange={(e) => alterar({ lugar: { pais: e.target.value.replace(/[^a-z]/gi, "").toUpperCase(), nome: doc.lugar.nome } })}
+            />
+          )}
+          {doc.lugar.pais === "BR" ? (
+            <>
+              <Selecao rotulo="UF" value={doc.lugar.regiao ?? ""} onChange={(e) => alterar({ lugar: { ...doc.lugar, regiao: e.target.value || undefined, ...(e.target.value ? {} : { municipioIbge: undefined }) } })}>
+                <option value="">(sem UF)</option>
+                {UFS.map((u) => (
+                  <option key={u} value={u}>
+                    {u}
+                  </option>
+                ))}
+              </Selecao>
+              <Campo rotulo="Município (código IBGE de 7 dígitos)" inputMode="numeric" value={doc.lugar.municipioIbge ?? ""} maxLength={7} onChange={(e) => alterar({ lugar: { ...doc.lugar, municipioIbge: e.target.value.replace(/\D/g, "") || undefined } })} />
+            </>
+          ) : (
+            <Campo rotulo="Região (opcional, código ISO 3166-2, como US-CA)" value={doc.lugar.regiao ?? ""} maxLength={6} onChange={(e) => alterar({ lugar: { ...doc.lugar, regiao: e.target.value.toUpperCase() || undefined } })} />
+          )}
           <Campo rotulo="Nome do município ou lugar" value={doc.lugar.nome ?? ""} maxLength={120} onChange={(e) => alterar({ lugar: { ...doc.lugar, nome: e.target.value } })} />
         </div>
 

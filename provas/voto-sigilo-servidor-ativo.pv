@@ -1,0 +1,51 @@
+(* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   Voto em limiar (onda R2, item 1.7; onda R3, item 2.5): SIGILO DO VOTO contra o servidor ATIVO (o servidor tomado, que muda o
+   que entra na urna). O mesmo de voto-sigilo.pv, com uma diferença só: a cédula chega à urna pelo servidor (canal público), e o
+   servidor também emite os passes da urna (RSA cego: quem tem a chave do emissor faz quantos passes quiser). Então ele pode jogar
+   fora a cédula de V2 e pôr, no lugar, uma cédula dele com um voto que ele conhece. A urna confere "cédula repetida" (as duas
+   cédulas têm de ser diferentes) e "não há mais cédulas que pessoas" (duas), e as duas conferências passam.
+   RESULTADO ESPERADO: o ProVerif NÃO prova a equivalência (o ataque: com a cédula de V2 trocada por uma "a" do servidor, o
+   resultado é "a, a" de um lado e "a, b" do outro, e diz o voto de V1). Este arquivo é o registro do ataque, com o conserto e o
+   limite em docs/rede/SEM-INTERNET.md, seção "Provas formais", e no relatório da onda.
+   O que já segura hoje: o resultado só sai com 3 cédulas ou mais (o servidor precisa trocar todas menos uma para isolar um voto,
+   e as eleitoras trocadas não acham a delas); o que fecha: cada eleitora conferir que a cédula dela está na lista que a abridora
+   abriu (verificação individual), e a abridora publicar a lista dos resumos das cédulas abertas antes do resultado. *)
+
+free c: channel.
+
+type skey.
+type pkey.
+
+fun pk(skey): pkey.
+fun hpke(pkey, bitstring, bitstring, bitstring): bitstring.
+reduc forall k: skey, a: bitstring, m: bitstring, r: bitstring; abrir(hpke(pk(k), a, m, r), k, a) = m.
+
+const votacao: bitstring.
+const votoA, votoB: bitstring.
+const resultadoAB: bitstring.
+const votou: bitstring.
+free eleitoraV1, eleitoraV2: bitstring.
+
+let Eleitora(eu: bitstring, pkV: pkey, v: bitstring) =
+  new r: bitstring;
+  out(c, (eu, votou));
+  out(c, hpke(pkV, votacao, v, r)).
+
+let Abridora(skV: skey) =
+  in(c, c1: bitstring);
+  in(c, c2: bitstring);
+  if c1 <> c2 then
+  let x1 = abrir(c1, skV, votacao) in
+  let x2 = abrir(c2, skV, votacao) in
+  (* Só a contagem: aqui, "uma a e uma b" (o único resultado possível com as duas eleitoras honestas). *)
+  if (x1 = votoA && x2 = votoB) || (x1 = votoB && x2 = votoA) then out(c, resultadoAB).
+
+process
+  new skV: skey;
+  out(c, pk(skV));
+  (
+    Eleitora(eleitoraV1, pk(skV), choice[votoA, votoB])
+  | Eleitora(eleitoraV2, pk(skV), choice[votoB, votoA])
+  | Abridora(skV)
+  )

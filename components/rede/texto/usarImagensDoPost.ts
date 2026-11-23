@@ -7,7 +7,7 @@ import { enderecoDaMidia } from "../publicar/api";
 import type { ImagemDoTexto } from "./TextoFormatado";
 
 /** O texto pede alguma imagem no meio ("![descrição](imagem:2)")? */
-export const pedeImagem = (texto: string) => /\]\(imagem:[1-4]\)/.test(texto);
+export const pedeImagem = (texto: string) => /\]\(imagem:(?:[1-9]|1[0-9]|20)\)/.test(texto);
 
 /**
  * As imagens anexadas ao post, com o endereço assinado do depósito da própria Alumia, só quando o texto pede alguma no meio (sem
@@ -21,7 +21,7 @@ export function useImagensDoPost(texto: string, midia: readonly MidiaDoPost[] | 
     if (!chave || !midia) return;
     let vivo = true;
     Promise.all(
-      midia.slice(0, 4).map((m) =>
+      midia.slice(0, 20).map((m) =>
         enderecoDaMidia(m.id).then(
           (src): ImagemDoTexto => ({ src, alt: m.alt, largura: m.largura, altura: m.altura }),
           () => null,

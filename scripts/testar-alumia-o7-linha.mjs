@@ -45,6 +45,8 @@ const { dono, criarUsuario, rpc } = banco;
 const um = async (texto, valores = []) => (await dono(texto, valores)).rows[0];
 await espera("a migração instala", () => banco.exclusivo(() => banco.pg.exec(sql)));
 await espera("instala de novo sem estrago (idempotente)", () => banco.exclusivo(() => banco.pg.exec(sql)));
+// O install.sql inteiro de novo por cima: as definições finais (a R2 redefiniu funções desta migração) voltam a valer.
+await espera("e o install.sql inteiro de novo por cima (as definições finais voltam)", () => banco.instalarDeNovo());
 
 let ip = 10;
 const como = (sub) => ({ papel: "authenticated", sub, ip: `198.51.100.${ip++ % 250}` });
@@ -303,14 +305,14 @@ await espera("só estudo: as comunidades das disciplinas", async () => {
   return linha("ana", "tudo", "roda", { estudo: true });
 }, (r) => igual(nomesDe(r), ["mat"]));
 await espera("por #tema", () => linha("ana", "tudo", "chegada", { tags: ["#ENEM"] }), (r) => igual(nomesDe(r), ["mat"]));
-await espera("só núcleos: só o que é dos núcleos de que a pessoa faz parte", async () => {
+// Depois da R2 (membros escondidos) o banco não tem post de núcleo (rede_posts_sem_nucleo) nem sabe quem é de qual núcleo: o filtro
+// "só núcleos" continua aceito e volta vazio (o mural do núcleo é do grupo, nos aparelhos).
+await recusa("só núcleos: o banco não aceita post de núcleo", async () => {
   const nucleo = (await um("insert into interno.rede_nucleos (nome, cidade) values ('Núcleo do teste', 'Recife') returning id")).id;
-  await dono("insert into interno.rede_nucleo_membros (nucleo, usuario) values ($1, $2)", [nucleo, p.ana]);
-  id.nuc = (await um("insert into interno.rede_posts (autor, texto, publico, criado_em, nucleo) values ($1, 'Pauta do núcleo de quinta.', 'nucleo', $2, $3) returning id", [p.ana, em(P, 14), nucleo])).id;
-  const a = await linha("ana", "tudo", "roda", { nucleos: true });
-  const b = await linha("bia", "tudo", "roda", { nucleos: true });
-  return [nomesDe(a), nomesDe(b)];
-}, ([a, b]) => igual(a, ["nuc"]) && b.length === 0);
+  return um("insert into interno.rede_posts (autor, texto, publico, criado_em, nucleo) values ($1, 'Pauta do núcleo de quinta.', 'nucleo', $2, $3) returning id", [p.ana, em(P, 14), nucleo]);
+}, "rede_posts_sem_nucleo");
+await espera("só núcleos: a linha vem vazia para todo mundo", async () => [nomesDe(await linha("ana", "tudo", "roda", { nucleos: true })), nomesDe(await linha("bia", "tudo", "roda", { nucleos: true }))],
+  ([a, b]) => a.length === 0 && b.length === 0);
 await recusa("filtro com chave desconhecida", () => linha("ana", "tudo", "roda", { curtidas_minimas: 10 }), "invalido:filtro");
 await recusa("filtro com tipo que não existe", () => linha("ana", "tudo", "roda", { tipos: ["patrocinado"] }), "invalido:filtro");
 await espera("a aba dos #temas seguidos", async () => {

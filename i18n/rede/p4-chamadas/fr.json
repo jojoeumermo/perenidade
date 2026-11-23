@@ -1,0 +1,60 @@
+{
+  "_rascunho": true,
+  "botoes": {
+    "voz": "Appel vocal",
+    "video": "Appel vidéo"
+  },
+  "tocando": {
+    "voz": "{nome} vous appelle",
+    "video": "{nome} vous appelle en vidéo",
+    "atender": "Répondre",
+    "atenderSoVoz": "Répondre en audio seulement",
+    "atenderComCamera": "Répondre avec la caméra",
+    "recusar": "Refuser"
+  },
+  "fases": {
+    "ligando": "Appel de {nome}…",
+    "conectando": "Connexion avec {nome}…",
+    "emChamada": "En appel avec {nome}"
+  },
+  "acoes": {
+    "mudo": "Couper le micro",
+    "falar": "Activer le micro",
+    "cameraDesligar": "Couper la caméra",
+    "cameraLigar": "Activer la caméra",
+    "desligar": "Raccrocher",
+    "desistir": "Annuler",
+    "fechar": "Fermer"
+  },
+  "voce": "Vous",
+  "semCamera": "{nome} n'a pas de caméra active.",
+  "fim": {
+    "cancelou": "{nome} a arrêté d'appeler.",
+    "recusou": "{nome} a refusé l'appel.",
+    "desligou": "{nome} a raccroché.",
+    "atendida": "L'appel est terminé.",
+    "nao_atendeu": "{nome} n'a pas répondu.",
+    "nao_conectou": "La connexion ne s'est pas ouverte. Réessayez.",
+    "saiu": "L'appel est terminé.",
+    "eu": "Appel terminé.",
+    "erro": "Impossible de passer l'appel."
+  },
+  "erros": {
+    "NotAllowedError": "Le navigateur n'a pas autorisé le micro ou la caméra. Autorisez-les dans les permissions du site.",
+    "NotFoundError": "Aucun micro ni caméra trouvé sur cet appareil.",
+    "NotReadableError": "Un autre programme utilise le micro ou la caméra.",
+    "voz_desligada": "Les appels sont désactivés sur ce serveur.",
+    "voz_sem_retransmissao": "Le serveur de relais n'a pas répondu. Sans lui l'appel ne s'ouvre pas : c'est lui qui cache votre adresse.",
+    "voz_sem_canal": "Le canal de l'appel ne s'est pas ouvert. Réessayez.",
+    "sem_chat": "Ouvrez le chat sur cet appareil avant d'appeler.",
+    "chamada_nao_saiu": "La sonnerie n'est pas partie : aucun appareil de l'autre personne n'est prêt.",
+    "dm_aguardando": "La conversation n'a pas encore été acceptée.",
+    "dm_fechada": "Cette conversation est fermée.",
+    "dm_identidade_mudou": "L'identité de l'autre personne a changé. Vérifiez le code avant d'appeler.",
+    "dm_exige_comparar": "L'identité de l'autre personne a changé. Comparez le code avant d'appeler.",
+    "dm_fora_do_registro": "Le registre public ne confirme pas l'identité de l'autre personne. Impossible d'appeler.",
+    "outro": "Impossible de passer l'appel. Réessayez."
+  },
+  "privacidade": "Chiffré de bout en bout. La sonnerie passe dans la conversation chiffrée ; la voix et la vidéo passent par le relais, qui ne peut ni entendre ni voir. Aucun journal d'appels n'est gardé.",
+  "limite": "La sonnerie n'arrive que si Alumia est ouverte sur l'appareil de l'autre personne, et peut prendre jusqu'à une minute et demie."
+}

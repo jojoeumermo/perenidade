@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { Building2, FileText, Flag, Globe, HeartPulse, KeyRound, Rocket, ScrollText, ShieldAlert, ToggleRight, UserCheck, Users } from "lucide-react";
+import { BadgeCheck, Building2, FileText, Flag, Globe, GraduationCap, HeartPulse, KeyRound, MessageSquareWarning, Rocket, ScrollText, ShieldAlert, Siren, ToggleRight, UserCheck, Users } from "lucide-react";
 import { type ComponentType, useCallback, useMemo, useState } from "react";
 import { Carimbo } from "@/components/rede/ui/Carimbo";
 import { Faixa } from "@/components/rede/ui/Faixa";
@@ -20,17 +20,21 @@ import { Papeis } from "../Papeis";
 import { classeDasLetras, Estado, type IdDaAba, PainelCtx, TemaDaAlumiaCtx, useDado, useTemaDaAlumia } from "../pecas";
 import { Pessoas } from "../Pessoas";
 import { Registro } from "../Registro";
+import { SeloDasPessoas } from "../SeloDasPessoas";
 import { ApagarPost } from "./ApagarPost";
 import { Ataque } from "./Ataque";
 import { Beta, situacaoDoBeta } from "./Beta";
 import { PainelUnicoCtx } from "./cliente";
+import { EducadoresDaEscola, Emergencia } from "./Emergencia";
 import { Fediverso } from "./Fediverso";
 import { Recursos } from "./Recursos";
+import { ErrosDaTela, Relatos } from "./Relatos";
 
-type IdDoAdmin = "beta" | "recursos" | "cadastros" | "pessoas" | "conteudo" | "denuncias" | "comunidades" | "fediverso" | "ataque" | "saude" | "papeis" | "registro";
+type IdDoAdmin = "beta" | "emergencia" | "recursos" | "cadastros" | "pessoas" | "conteudo" | "denuncias" | "comunidades" | "fediverso" | "ataque" | "saude" | "relatos" | "papeis" | "registro" | "escola" | "selo-pessoas";
 
 const ABAS: { id: IdDoAdmin; nome: string; simbolo: ComponentType<{ "aria-hidden"?: boolean }> }[] = [
   { id: "beta", nome: "Beta fechado", simbolo: Rocket },
+  { id: "emergencia", nome: "Emergência: só leitura e aviso geral", simbolo: Siren },
   { id: "recursos", nome: "Recursos", simbolo: ToggleRight },
   { id: "cadastros", nome: "Entrada e convites", simbolo: UserCheck },
   { id: "pessoas", nome: "Contas: suspender e banir", simbolo: Users },
@@ -40,8 +44,12 @@ const ABAS: { id: IdDoAdmin; nome: string; simbolo: ComponentType<{ "aria-hidden
   { id: "fediverso", nome: "Fediverso: servidores", simbolo: Globe },
   { id: "ataque", nome: "Ataque: bloqueio na borda", simbolo: ShieldAlert },
   { id: "saude", nome: "Saúde e números", simbolo: HeartPulse },
+  { id: "relatos", nome: "Relatos do beta", simbolo: MessageSquareWarning },
   { id: "papeis", nome: "Papéis", simbolo: KeyRound },
   { id: "registro", nome: "Registro", simbolo: ScrollText },
+  { id: "escola", nome: "Escola: educadores", simbolo: GraduationCap },
+  // Prompt 4, item 3: o selo das pessoas e os nomes reservados (o interruptor "alumia-p4-selo-contagens" fica em Recursos).
+  { id: "selo-pessoas", nome: "Selo das pessoas e nomes reservados", simbolo: BadgeCheck },
 ];
 
 /** As abas do painel de controle (reaproveitadas aqui) apontam umas para as outras pelo nome antigo: cada uma tem o seu lugar no painel único. */
@@ -186,9 +194,18 @@ export function PainelUnico() {
                 {aba.id === "comunidades" && <Comunidades />}
                 {aba.id === "fediverso" && <Fediverso recarregarEstado={atualizar} />}
                 {aba.id === "ataque" && <Ataque recarregarEstado={atualizar} />}
-                {aba.id === "saude" && <Geral />}
+                {aba.id === "saude" && (
+                  <div className="ap-tela">
+                    <Geral />
+                    <ErrosDaTela />
+                  </div>
+                )}
+                {aba.id === "relatos" && <Relatos />}
                 {aba.id === "papeis" && <Papeis />}
                 {aba.id === "registro" && <Registro />}
+                {aba.id === "emergencia" && <Emergencia irPara={irAqui} />}
+                {aba.id === "escola" && <EducadoresDaEscola />}
+                {aba.id === "selo-pessoas" && <SeloDasPessoas />}
               </div>
             </div>
           </PainelCtx.Provider>

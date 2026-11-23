@@ -75,7 +75,7 @@ ok("em produção, sem o cabeçalho da borda não há endereço (o x-forwarded-f
 ok("fora de produção (cópia local), o primeiro do x-forwarded-for vale", enderecoDoPedido(new Headers({ "x-forwarded-for": "198.51.100.1, 10.0.0.1" }), false) === "198.51.100.1" && enderecoDoPedido(new Headers(), false) === null);
 ok("a rota da impressão entrega ao banco só a impressão: sem endereço, sem porta, sem registro de acesso", (() => {
   const rota = ler("app/api/alumia/impressao/route.ts");
-  return /rpc\/alumia_impressao_registrar/.test(rota) && !/p_endereco|p_porta|alumia_acesso_registrar|x-porta-de-origem/.test(rota) && /JSON\.stringify\(\{ p_usuario: conta, p_impressao: impressao, p_momento: momento \}\)/.test(rota);
+  return /rpc\/alumia_impressao_registrar/.test(rota) && !/p_endereco|p_porta|alumia_acesso_registrar|x-porta-de-origem/.test(rota) && /JSON\.stringify\(\{ p_usuario: conta, p_impressao: impressao, p_momento: momento, p_versao: versao, p_anterior: anterior \}\)/.test(rota);
 })());
 ok("a rota da mídia do painel pergunta ao banco (que confere e registra) antes de assinar", /rpc\/alumia_painel_midia_abrir/.test(ler("app/api/alumia/painel/midia/route.ts")));
 
@@ -105,10 +105,13 @@ for (const nome of Object.keys(P)) {
 await espera("a migração instala sobre o install.sql", () => exec(sql));
 await espera("de novo (idempotente)", () => exec(sql));
 await espera("e uma terceira vez sem estrago", () => exec(sql));
+// O install.sql inteiro de novo por cima: as definições finais (a R2 redefiniu funções desta migração) voltam a valer.
+await espera("e o install.sql inteiro de novo por cima (as definições finais voltam)", () => banco.instalarDeNovo());
+await banco.filiacaoDeTeste();
 for (const nome of ["admin", "membro", "alvo", "socio", "inocente", "org", "apagavel", "mediador"]) {
   await dono("insert into interno.alumia_entrada (usuario, situacao, origem, decidido_em) values ($1, 'aprovada', 'cadastro', now()) on conflict (usuario) do update set situacao = 'aprovada'", [P[nome]]);
 }
-await dono("insert into interno.alumia_entrada (usuario, situacao, motivo_pedido) values ($1, 'em_analise', 'Quero me organizar com o núcleo do meu bairro.')", [P.nova]);
+await dono("insert into interno.alumia_entrada (usuario, situacao, motivo_pedido) values ($1, 'em_analise', 'Quero me organizar com o núcleo do meu bairro.') on conflict (usuario) do update set situacao = 'em_analise', motivo_pedido = excluded.motivo_pedido, decidido_em = null", [P.nova]);
 
 // ═══════════════════ 2. Quem NÃO passa ═══════════════════
 const funcoesDoPainel = (await dono(`
@@ -362,6 +365,9 @@ await espera("se uma versão antiga criou o registro de acesso (com o gatilho qu
   let antes = "";
   try { await dono("delete from interno.alumia_registro_acesso"); } catch (e) { antes = e.message; }
   await exec(sql);
+  // As definições finais de depois (a R2 redefiniu funções desta migração) voltam com o install.sql inteiro.
+  await banco.instalarDeNovo();
+  await banco.filiacaoDeTeste();
   return {
     antes,
     sobrou: (await dono("select count(*)::int as n from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'interno' and c.relname in ('alumia_registro_acesso', 'alumia_impressao_banidas_endereco')")).rows[0].n,
@@ -378,8 +384,9 @@ const p1 = await post(P.alvo, "Post de teste sobre a assembleia do bairro");
 const p2 = await post(P.socio, "Outro post, com a palavra SINDICATO");
 const r1 = await post(P.membro, "Resposta ao primeiro post", { resposta_a: p1 });
 const nucleo = (await dono("insert into interno.rede_nucleos (nome) values ('Núcleo de teste') returning id")).rows[0].id;
-await dono("insert into interno.rede_nucleo_membros (nucleo, usuario, papel) values ($1, $2, 'mediacao')", [nucleo, P.inocente]);
-const pn = await post(P.alvo, "Post de dentro de um núcleo fechado", { nucleo });
+// Depois da R2 (membros escondidos) o banco não aceita post de núcleo: o mural do núcleo é mensagem do grupo, nos aparelhos.
+await recusa("o banco não aceita post de núcleo (R2)", () => post(P.alvo, "Post de dentro de um núcleo fechado", { nucleo }), "rede_posts_sem_nucleo");
+const pn = null;
 const pv = await post(P.socio, "Post velho de outubro", { criado_em: "2026-10-01T12:00:00Z" });
 await espera("a busca acha posts e respostas, e NÃO mostra post de núcleo", () => rpc(A, "alumia_painel_posts", { p: {} }), (r) => r.itens.length === 4 && !r.itens.some((x) => x.id === pn) && r.mais === false);
 await espera("filtro por texto", () => rpc(A, "alumia_painel_posts", { p: { busca: "sindicato" } }), (r) => r.itens.length === 1 && r.itens[0].id === p2);
@@ -388,7 +395,6 @@ await espera("filtro por tipo: só respostas", () => rpc(A, "alumia_painel_posts
 await espera("filtro por data", () => rpc(A, "alumia_painel_posts", { p: { de: "2026-10-01", ate: "2026-10-02" } }), (r) => r.itens.length === 1 && r.itens[0].id === pv);
 await recusa("data torta", () => rpc(A, "alumia_painel_posts", { p: { de: "ontem" } }), "invalido:data");
 await recusa("ocultar pede motivo", () => rpc(A, "alumia_painel_post_agir", { p_id: p1, p_acao: "ocultar", p_motivo: "ruim" }), "invalido:motivo");
-await recusa("post de núcleo não se mexe por aqui: só pela denúncia", () => rpc(C, "alumia_painel_post_agir", { p_id: pn, p_acao: "ocultar", p_motivo: MOTIVO }), "so_pela_denuncia");
 await espera("ocultar: some, o autor é avisado com o recurso e a decisão entra no registro de moderação", async () => {
   await rpc(A, "alumia_painel_post_agir", { p_id: p1, p_acao: "ocultar", p_motivo: MOTIVO });
   return {
@@ -444,10 +450,7 @@ await espera("abrir a imagem de um post para moderar fica no registro do painel"
   r: await rpc(A, "alumia_painel_midia_abrir", { p_tipo: "post", p_caminho: `${P.alvo}/11111111-1111-4111-8111-111111111111.webp` }),
   n: (await dono("select count(*)::int as n from interno.alumia_painel_registro where acao = 'midia_aberta' and alvo = $1", [p1])).rows[0].n,
 }), ({ r, n }) => r.ok === true && n === 1);
-await recusa("a imagem de um post de núcleo não se abre por aqui", async () => {
-  await dono("insert into interno.rede_midia (post, caminho, tipo, largura, altura, alt) values ($1, $2, 'image/webp', 800, 600, 'Foto do núcleo')", [pn, `${P.alvo}/33333333-3333-4333-8333-333333333333.webp`]);
-  return rpc(A, "alumia_painel_midia_abrir", { p_tipo: "post", p_caminho: `${P.alvo}/33333333-3333-4333-8333-333333333333.webp` });
-}, "nao_encontrado");
+// (O post de núcleo e a imagem dele não existem mais no banco desde a R2.)
 await recusa("nem um caminho que não é de post nenhum", () => rpc(A, "alumia_painel_midia_abrir", { p_tipo: "post", p_caminho: `${P.alvo}/44444444-4444-4444-8444-444444444444.webp` }), "nao_encontrado");
 await espera("apagar uma imagem: o post fica", async () => {
   await rpc(A, "alumia_painel_midia_apagar", { p_id: midia, p_motivo: MOTIVO });
@@ -465,15 +468,10 @@ await espera("tirar o aviso", async () => { await rpc(A, "alumia_painel_aviso_ti
 const denuncia = async (tipo, alvo, categoria = "assedio") => (await dono("insert into interno.rede_denuncias (alvo_tipo, alvo, categoria, prioridade, texto, quem) values ($1, $2, $3, 2, 'Texto da denúncia de teste.', $4) returning id, protocolo", [tipo, alvo, categoria, P.membro])).rows[0];
 const d1 = await denuncia("post", p1);
 const d2 = await denuncia("perfil", P.socio, "spam");
-const dn = await denuncia("post", pn, "ameaca");
-await espera("a fila única, sem quem denunciou", () => rpc(A, "alumia_painel_denuncias"), (r) => r.length === 3 && !JSON.stringify(r).includes(P.membro) && !/Codinome membro|c_membro/.test(JSON.stringify(r)));
+// (A denúncia de post de núcleo, com o quebra-vidro, saiu com os posts de núcleo na R2: o mural do núcleo é do grupo.)
+await espera("a fila única, sem quem denunciou", () => rpc(A, "alumia_painel_denuncias"), (r) => r.length === 2 && !JSON.stringify(r).includes(P.membro) && !/Codinome membro|c_membro/.test(JSON.stringify(r)));
 await espera("abrir a denúncia mostra o post e marca em análise", () => rpc(A, "alumia_painel_denuncia", { p_id: d1.id }), (r) => r.denuncia.situacao === "em_analise" && /assembleia/.test(r.alvo.texto) && !JSON.stringify(r).includes(P.membro));
 await recusa("decidir pede regra e motivo", () => rpc(A, "alumia_painel_denuncia_decidir", { p_id: d1.id, p_decisao: "ocultar", p_regra: "", p_motivo: MOTIVO }), "invalido:regra");
-await recusa("post de núcleo: decidir sem abrir antes não vale", () => rpc(A, "alumia_painel_denuncia_decidir", { p_id: dn.id, p_decisao: "ocultar", p_regra: "Ameaça", p_motivo: MOTIVO }), "abra_primeiro");
-await espera("abrir denúncia de post de núcleo deixa o acesso registrado (quebra-vidro)", async () => {
-  await rpc(A, "alumia_painel_denuncia", { p_id: dn.id });
-  return (await dono("select count(*)::int as n from interno.rede_moderacao where acao = 'quebra_vidro' and denuncia = $1", [dn.id])).rows[0].n;
-}, (n) => n === 1);
 await espera("ocultar pela denúncia: o post sai, a denúncia fecha e quem denunciou recebe a resposta", async () => {
   await rpc(A, "alumia_painel_denuncia_decidir", { p_id: d1.id, p_decisao: "ocultar", p_regra: "Assédio", p_motivo: MOTIVO, p_resposta: "Retiramos o post. Se voltar a acontecer, avise." });
   return {

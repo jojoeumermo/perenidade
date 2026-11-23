@@ -1,0 +1,6 @@
+modelo: voto-sigilo.pv
+sha256: 000bde13fadfcbc3cae87bb53e3f1a580309b51aff9d9dfb5cdfbe577cf4456e
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+RESULT Observational equivalence is true.

@@ -1,0 +1,347 @@
+{
+  "_rascunho": true,
+  "titulo": "Conta e convivência",
+  "intro": "Proteção da sua conta, seu horário de atendimento, o cuidado das suas comunidades e o que fica só neste aparelho. Nada aqui mostra lista de pessoas nem número abaixo de 3.",
+  "abas": {
+    "rotulo": "Partes de Conta e convivência",
+    "protecao": "Proteção",
+    "atendimento": "Atendimento",
+    "comunidades": "Comunidades",
+    "mediacoes": "Mediações",
+    "diario": "Diário",
+    "viagem": "Viagem",
+    "mudar": "Mudar de servidor"
+  },
+  "comum": {
+    "salvar": "Salvar",
+    "salvo": "Salvo.",
+    "cancelar": "Cancelar",
+    "carregando": "Carregando…",
+    "sim": "Sim",
+    "nao": "Não"
+  },
+  "nivel": {
+    "titulo": "Níveis de proteção",
+    "sobre": "Cada nível liga de uma vez escolhas que você também pode mudar uma a uma. Nenhum nível mostra mais de você: subir ou descer nunca liga o status online nem as contagens públicas.",
+    "atual": "Agora: {nivel}",
+    "nenhum": "Você ainda não escolheu um nível.",
+    "nomes": {
+      "basico": "Básico",
+      "reforcado": "Reforçado",
+      "maximo": "Máximo"
+    },
+    "descricoes": {
+      "basico": "Qualquer pessoa da Alumia menciona você; marcar em foto, só quem você segue, e com a sua aprovação.",
+      "reforcado": "Menção só de quem você segue; as outras esperam a sua revisão. Status online e contagens públicas desligados.",
+      "maximo": "Ninguém menciona nem marca você. Revisão ligada, status e contagens desligados e a foto do perfil protegida contra print."
+    },
+    "escolher": "Usar o nível {nivel}",
+    "pronto": "Nível {nivel} ligado.",
+    "sugestoesTitulo": "Você também pode, se fizer sentido para você:",
+    "sugestoes": {
+      "sair_rapido": "Ativar o Sair rápido (três toques na marca apagam a Alumia da tela e deste aparelho).",
+      "print": "Proteger seus stories contra print (no navegador a proteção é mais fraca: a tela avisa).",
+      "trancar": "Trancar o perfil: só quem você aprova vê seus posts.",
+      "fediverso": "Desligar o Fediverso: seus posts públicos param de sair para outras redes."
+    },
+    "tourTitulo": "Qual é o seu caso?",
+    "tourSobre": "Escolha o que mais parece com a sua situação; a Alumia sugere um nível. A escolha fica só nesta tela.",
+    "riscos": {
+      "comeco": "Estou começando e quero o padrão",
+      "exposta": "Sou figura pública ou falo em nome de um coletivo",
+      "perseguida": "Estou sofrendo ataque ou perseguição",
+      "ato": "Vou a atos e me preocupo com exposição"
+    },
+    "sugerido": "Sugerido para o seu caso: {nivel}."
+  },
+  "mencoes": {
+    "titulo": "Menções",
+    "revisar": "Revisar antes de aparecer as menções de quem eu não sigo",
+    "revisarSobre": "Ligada, a menção de quem você não segue espera aqui, sem aviso, até você aprovar. Quem escreveu não fica sabendo se a menção espera ou foi recusada. Some sozinha em 30 dias.",
+    "quem": "Quem pode me mencionar agora: {quem}",
+    "quemNomes": {
+      "todos": "qualquer pessoa da Alumia",
+      "seguindo": "só quem eu sigo",
+      "ninguem": "ninguém"
+    },
+    "fila": "Esperando a sua revisão",
+    "vazia": "Nenhuma menção esperando.",
+    "de": "{codinome} (@{handle})",
+    "aprovar": "Aprovar a menção",
+    "recusar": "Recusar a menção",
+    "abrir": "Abrir o post"
+  },
+  "checkup": {
+    "titulo": "Checkup de privacidade",
+    "sobre": "Uma revisão guiada, passo a passo. A data do último checkup fica só neste aparelho; a Alumia volta a sugerir a cada {dias} dias.",
+    "hora": "Está na hora de revisar.",
+    "feito": "Último checkup neste aparelho: {quando}.",
+    "comecar": "Começar o checkup",
+    "passo": "Passo {n} de {total}",
+    "anterior": "Passo anterior",
+    "proximo": "Próximo passo",
+    "terminar": "Terminar o checkup",
+    "terminado": "Checkup feito. Obrigada por cuidar da sua conta.",
+    "ir": "Abrir esta tela",
+    "passos": {
+      "nivel": {
+        "titulo": "Seu nível de proteção",
+        "texto": "Confira se o nível escolhido ainda combina com o seu momento.",
+        "link": ""
+      },
+      "mencoes": {
+        "titulo": "Quem pode mencionar e marcar você",
+        "texto": "Revise quem pode mencionar, quem pode marcar e se as menções esperam a sua revisão.",
+        "link": "/alumia/privacidade"
+      },
+      "perfil": {
+        "titulo": "O que o seu perfil mostra",
+        "texto": "Codinome, foto, links e o que aparece para quem não segue você.",
+        "link": "/alumia/editar-perfil"
+      },
+      "aparelhos": {
+        "titulo": "Aparelhos conectados",
+        "texto": "Tire os aparelhos que você não reconhece ou não usa mais.",
+        "link": "/alumia/aparelhos"
+      },
+      "fediverso": {
+        "titulo": "Fediverso",
+        "texto": "Seus posts públicos saem para outras redes? Confira se é isso que você quer.",
+        "link": "/alumia/fediverso"
+      },
+      "sair_rapido": {
+        "titulo": "Sair rápido e senha de pânico",
+        "texto": "Confira se o Sair rápido e a senha de pânico estão como você quer.",
+        "link": "/alumia/seguranca"
+      },
+      "dados": {
+        "titulo": "O que guardamos de você",
+        "texto": "Veja e baixe uma cópia dos seus dados.",
+        "link": "/alumia/meus-dados"
+      }
+    }
+  },
+  "atendimento": {
+    "titulo": "Horário de atendimento",
+    "sobre": "Escolha sua. Quem vai escrever para você vê “fora do horário” e a sua mensagem, calculado na hora. Nada é guardado sobre quem olhou.",
+    "ter": "Tenho horário de atendimento",
+    "dias": "Dias",
+    "diasNomes": [
+      "Dom",
+      "Seg",
+      "Ter",
+      "Qua",
+      "Qui",
+      "Sex",
+      "Sáb"
+    ],
+    "de": "Das",
+    "ate": "Até",
+    "ausencia": "Mensagem de ausência (até 280 letras, sem telefone nem e-mail)",
+    "ausenciaDica": "Aparece fora do horário (ou sempre, se você não tiver horário).",
+    "agora": "Agora você está {estado}.",
+    "dentro": "no horário",
+    "fora": "fora do horário",
+    "foraAviso": "Fora do horário de atendimento.",
+    "horario": "Atende {dias}, das {de} às {ate} (horário de Brasília)."
+  },
+  "respostas": {
+    "titulo": "Respostas rápidas",
+    "sobre": "Textos prontos para colar no chat. Ficam só neste aparelho (o Sair rápido apaga) e nunca vão ao servidor fora das suas mensagens.",
+    "nova": "Nova resposta rápida",
+    "adicionar": "Guardar a resposta",
+    "apagar": "Apagar “{texto}”",
+    "vazia": "Nenhuma resposta guardada.",
+    "limite": "Até {n} respostas de até {letras} letras.",
+    "usar": "Respostas rápidas",
+    "usarItem": "Colar: {texto}"
+  },
+  "comunidades": {
+    "qual": "Comunidade",
+    "nenhuma": "Você ainda não está em nenhuma comunidade.",
+    "secoes": "O que cuidar nesta comunidade",
+    "secoesNomes": {
+      "guia": "Guia de entrada",
+      "quiz": "Quiz das regras",
+      "escudo": "Escudo",
+      "cuidado": "Sala de cuidado",
+      "mediacao": "Mediação"
+    }
+  },
+  "escudo": {
+    "titulo": "Escudo contra invasão",
+    "sobre": "Quando muitas contas novas entram de uma vez, a entrada de contas novas trava por um tempo e a mediação recebe um aviso só com os números. Contas antigas continuam entrando. O escudo não guarda quem entrou.",
+    "ligado": "Escudo ligado",
+    "contas": "Quantas contas novas (a partir de 3)",
+    "contaDias": "Conta nova é a que tem menos de (dias)",
+    "minutos": "Em quantos minutos",
+    "horas": "Trava por (horas)",
+    "travado": "A entrada de contas novas está travada até {quando}.",
+    "livre": "A entrada está livre.",
+    "destravar": "Destravar agora",
+    "soMediacao": "Só a mediação calibra o escudo."
+  },
+  "quiz": {
+    "titulo": "Quiz das regras",
+    "sobre": "Com o quiz, o “li e aceito” das regras só vale depois de acertar todas. As respostas não ficam guardadas: só o aceite.",
+    "pergunta": "Pergunta {n}",
+    "textoDaPergunta": "Pergunta",
+    "opcao": "Opção {n}",
+    "certa": "Esta é a certa",
+    "adicionarPergunta": "Adicionar pergunta",
+    "adicionarOpcao": "Adicionar opção",
+    "tirarPergunta": "Tirar a pergunta {n}",
+    "vazio": "Esta comunidade não tem quiz.",
+    "responder": "Enviar as respostas",
+    "errou": "{n} resposta(s) errada(s). Releia as regras e tente de novo.",
+    "aceito": "Você acertou todas: as regras estão aceitas.",
+    "jaAceitei": "Você já aceitou as regras desta comunidade.",
+    "naComunidade": "Antes de aceitar as regras, responda o quiz"
+  },
+  "guia": {
+    "titulo": "Guia de entrada",
+    "sobre": "Até 6 passos para quem chega. O que cada pessoa já fez fica só no aparelho dela.",
+    "vazio": "Esta comunidade não tem guia de entrada.",
+    "passo": "Passo {n}",
+    "tituloDoPasso": "Título",
+    "textoDoPasso": "Texto",
+    "linkDoPasso": "Caminho na Alumia (opcional, começa com /alumia/)",
+    "adicionar": "Adicionar passo",
+    "tirar": "Tirar o passo {n}",
+    "feito": "Feito",
+    "abrir": "Abrir",
+    "progresso": "{feitos} de {total} passos feitos"
+  },
+  "cuidado": {
+    "titulo": "Sala de cuidado",
+    "sobre": "Uma comunidade de apoio entre pares, com mediação. No alto dela aparecem o CVV e os serviços públicos. Não substitui atendimento profissional.",
+    "marcar": "Esta comunidade é uma sala de cuidado",
+    "texto": "Texto da mediação para o alto da sala (opcional)",
+    "encaminhar": "Mandar, em particular, o caminho do CVV e dos serviços públicos a alguém da comunidade",
+    "handle": "@ da pessoa",
+    "enviar": "Mandar o caminho",
+    "enviado": "Enviado. Só ela recebe; não fica registro de a quem foi.",
+    "faixa": "Sala de cuidado. Se você precisa conversar agora: CVV, ligue 188 (24 horas, de graça) ou acesse cvv.org.br. Em emergência, SAMU 192. O CAPS e a UBS do seu bairro atendem de graça.",
+    "paginaTitulo": "Salas de cuidado entre pares",
+    "paginaSobre": "Comunidades de apoio mútuo, com mediação. Não substituem atendimento profissional: se você precisa de ajuda agora, ligue 188 (CVV, 24 horas, de graça) ou 192 (SAMU).",
+    "nenhumaSala": "Nenhuma sala de cuidado que você possa ver, por enquanto.",
+    "ir": "Abrir {nome}"
+  },
+  "mediacao": {
+    "titulo": "Mediação restaurativa",
+    "sobre": "Uma alternativa à punição: quem modera convida duas pessoas para uma conversa mediada. As duas aceitam ou recusam. Só as três leem. No fim, as falas são apagadas e fica só o acordo, por 30 dias. Não entra no histórico de moderação de ninguém. Não é cifrada: enquanto dura, quem administra o banco poderia ler.",
+    "convidar": "Convidar duas pessoas desta comunidade",
+    "a": "@ da primeira pessoa",
+    "b": "@ da segunda pessoa",
+    "abrir": "Mandar o convite",
+    "aberta": "Convite mandado. As duas recebem um aviso que não diz com quem nem por quê.",
+    "nenhuma": "Nenhuma mediação.",
+    "situacoes": {
+      "convite": "Convite",
+      "aberta": "Conversa aberta",
+      "acordo": "Terminou com acordo",
+      "sem_acordo": "Terminou sem acordo",
+      "recusada": "Recusada"
+    },
+    "comunidade": "Em {nome}",
+    "mediadora": "Mediação: {nome}",
+    "partes": "Com: {nomes}",
+    "aceitar": "Aceitar a conversa",
+    "recusar": "Recusar",
+    "fala": "Sua fala (até 1000 letras)",
+    "falar": "Enviar a fala",
+    "acordo": "Acordo proposto",
+    "propor": "Propor o acordo",
+    "textoDoAcordo": "Texto do acordo",
+    "aceitarAcordo": "Aceito o acordo",
+    "retirarAceite": "Retirar o meu aceite",
+    "aceitouAcordo": "aceitou o acordo",
+    "encerrar": "Encerrar sem acordo",
+    "naoCifrada": "Esta conversa não é cifrada de ponta a ponta."
+  },
+  "diario": {
+    "titulo": "Diário privado",
+    "sobre": "Só neste aparelho, cifrado com a senha do diário (Argon2id e XChaCha20-Poly1305, as mesmas da senha de pânico). Nada vai ao servidor. Sem a senha, ninguém lê, nem nós. Se você esquecer a senha, o diário não volta.",
+    "criar": "Criar o diário",
+    "senhaNova": "Senha do diário (pelo menos 8 letras)",
+    "senha": "Senha do diário",
+    "abrir": "Abrir o diário",
+    "errada": "Senha errada.",
+    "fechar": "Fechar o diário",
+    "nova": "Escrever",
+    "guardar": "Guardar a entrada",
+    "vazio": "Nenhuma entrada ainda.",
+    "abrindo": "Abrindo (leva alguns segundos de propósito)…",
+    "apagarTudo": "Apagar o diário deste aparelho",
+    "apagarConfirma": "Apagar o diário inteiro deste aparelho? Não tem volta."
+  },
+  "viagem": {
+    "titulo": "Modo viagem",
+    "sobre": "Escolha conversas para sumirem da lista do chat até você digitar o código. Esta tela fica igual com o modo ligado ou desligado, e o registro neste aparelho tem sempre o mesmo tamanho. Limite honesto: esconde da tela, não apaga do aparelho; quem examinar o aparelho a fundo pode achar.",
+    "escolher": "Conversas para esconder (até 20)",
+    "semChat": "Ative o chat neste aparelho para escolher conversas.",
+    "codigo": "Código (pelo menos 6 letras)",
+    "ligar": "Esconder as escolhidas",
+    "ligado": "Pronto.",
+    "desligarTitulo": "Mostrar de novo",
+    "desligar": "Mostrar as conversas",
+    "desligado": "Pronto.",
+    "errado": "Código errado.",
+    "trabalhando": "Conferindo (leva alguns segundos de propósito)…"
+  },
+  "mudar": {
+    "titulo": "Mudar de servidor no Fediverso",
+    "sobre": "Leve suas seguidoras de outras redes para uma conta nova. Primeiro, na conta nova, declare esta como um apelido (alsoKnownAs; no Mastodon: Preferências › Conta › Mudar de uma conta diferente). Depois aponte a conta nova aqui: o servidor confere e as instâncias das suas seguidoras recebem o aviso de mudança.",
+    "semFederacao": "Sua conta não está ligada ao Fediverso; não há seguidoras de outras redes para levar.",
+    "atual": "Sua conta no Fediverso: @{handle}",
+    "seguidoras": "Seguidoras em outras redes: {n}",
+    "poucas": "menos de 3",
+    "alvo": "Endereço da conta nova (https://…)",
+    "apontar": "Conferir e mudar",
+    "desistir": "Desistir",
+    "conferir": "Esperando a conferência da conta nova ({alvo}).",
+    "enviada": "Mudança enviada para {alvo}. Seu perfil passa a apontar para lá.",
+    "erroAlias": "A conta nova ainda não declara esta como apelido (alsoKnownAs). Faça isso lá e tente de novo.",
+    "copia": "A cópia completa dos seus dados está em O que guardamos.",
+    "copiaLink": "Baixar a cópia dos meus dados"
+  },
+  "releia": {
+    "aviso": "Releia antes de enviar: o texto parece agressivo ({motivos}). Isto é só um aviso deste aparelho; nada foi enviado a ninguém.",
+    "motivos": {
+      "palavra": "tem uma palavra que costuma ferir",
+      "gritando": "está quase todo em maiúsculas",
+      "exclamacoes": "tem muitos pontos de exclamação"
+    }
+  },
+  "aparelho": {
+    "titulo": "Checagem do aparelho",
+    "sobre": "Feita só neste aparelho; nada vai ao servidor.",
+    "conferir": "Conferir o aparelho",
+    "tudoCerto": "Nada para avisar.",
+    "desatualizado": "O sistema não recebe atualização de segurança há mais de 6 meses ({patch}). Atualize, se o aparelho permitir.",
+    "antigo": "Esta versão do Android já não recebe atualizações de segurança. Se puder, troque de aparelho para conversas sensíveis.",
+    "semBloqueio": "O aparelho não tem bloqueio de tela. Ponha senha, PIN ou digital.",
+    "acessibilidade": "{n} app(s) com permissão de acessibilidade, que pode ler a tela: {nomes}. Confira se você reconhece cada um."
+  },
+  "erros": {
+    "desligado": "Esta parte da Alumia ainda não está ligada.",
+    "nao_encontrado": "Não encontrado.",
+    "sem_permissao": "Você não tem permissão para isso.",
+    "dado_pessoal": "Tire telefone, e-mail, CPF ou endereço com número do texto.",
+    "invalido": "Confira o que foi preenchido.",
+    "quiz_pendente": "Responda o quiz das regras antes de aceitar.",
+    "escudo": "A entrada de contas novas está travada por um tempo nesta comunidade.",
+    "ja_existe": "Já há uma mediação aberta com essas duas pessoas.",
+    "encerrada": "Esta mediação já terminou (ou ainda não começou).",
+    "sem_acordo": "Ainda não há acordo proposto.",
+    "nao_e_sala": "Esta comunidade não é uma sala de cuidado.",
+    "sem_federacao": "Sua conta não está ligada ao Fediverso.",
+    "ja_enviada": "A mudança já foi enviada.",
+    "servidor_bloqueado": "Esse servidor está bloqueado pela mediação da Alumia.",
+    "muitos_pedidos": "Muitos pedidos seguidos. Espere um pouco.",
+    "senha_curta": "A senha precisa de pelo menos 8 letras.",
+    "codigo_curto": "O código precisa de pelo menos 6 letras.",
+    "sem_conversas": "Escolha pelo menos uma conversa.",
+    "outro": "Algo deu errado. Tente de novo."
+  }
+}

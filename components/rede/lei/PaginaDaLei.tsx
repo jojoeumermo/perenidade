@@ -8,8 +8,8 @@ import { alumia2Ligada } from "@/lib/rede/rotas-novas";
 import { textosDaRede } from "@/lib/rede/textos";
 import { carregarTextosDaLei } from "./textos";
 
-/** As quatro telas da frente 8B com rota própria (o que guardamos continua na rota da onda 5, lib/rede/rotas-novas.ts). */
-export type TelaDaLei = "termos" | "privacidade" | "regras" | "ajuda";
+/** As telas da frente 8B com rota própria (e a de denunciar, do P5: A5) (o que guardamos continua na rota da onda 5, lib/rede/rotas-novas.ts). */
+export type TelaDaLei = "termos" | "privacidade" | "regras" | "ajuda" | "denunciar";
 
 /**
  * Os metadados: só o nome da página e o da rede. São páginas públicas e iguais para todo mundo (o combinado da casa), então podem
@@ -19,7 +19,7 @@ export async function metadadosDaLei(nome: TelaDaLei, params: Promise<{ lang: st
   if (!alumia2Ligada()) return {};
   const { lang } = await loadLang(params);
   const t = await carregarTextosDaLei(lang);
-  const titulo = { termos: t.termos.titulo, privacidade: t.privacidade.titulo, regras: t.regras.titulo, ajuda: t.ajuda.titulo }[nome];
+  const titulo = { termos: t.termos.titulo, privacidade: t.privacidade.titulo, regras: t.regras.titulo, ajuda: t.ajuda.titulo, denunciar: t.denunciar.titulo }[nome];
   return { title: `${titulo} · ${textosDaRede(lang).marca}` };
 }
 

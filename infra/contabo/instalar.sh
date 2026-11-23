@@ -6,6 +6,11 @@
 set -euxo pipefail
 cd /root/lucia-infra
 
+# O registro do sistema com prazo de 7 dias (o mesmo do registro do site).
+install -d -m 755 /etc/systemd/journald.conf.d
+install -m 644 journald-lucia.conf /etc/systemd/journald.conf.d/90-lucia.conf
+systemctl restart systemd-journald
+
 install -m 644 Caddyfile /etc/caddy/Caddyfile
 mkdir -p /etc/caddy/extra
 mkdir -p /var/log/caddy && chown caddy:caddy /var/log/caddy
@@ -52,7 +57,7 @@ systemctl enable --now lucia-fediverso.timer
 # `systemctl --failed`.
 install -m 700 backup-banco.sh /usr/local/sbin/lucia-backup-banco
 install -m 644 lucia-backup-banco.service lucia-backup-banco.timer /etc/systemd/system/
-docker pull -q postgres:17-alpine
+docker pull -q "$(sed -n 's/^IMAGEM=//p' backup-banco.sh)"
 systemctl daemon-reload
 systemctl enable --now lucia-backup-banco.timer
 echo "Instalado."

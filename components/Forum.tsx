@@ -325,8 +325,8 @@ function TopicList({ s }: { s: S }) {
     </button>
   ) : (
     <span className="flex flex-wrap gap-x-4">
-      <L href="/entrar" className="underline hover:text-oxblood">{s.signInToPost}</L>
-      {cadastro.aberto && <L href="/entrar?criar=1" className="font-medium underline hover:text-oxblood">{s.signUp}</L>}
+      <L href="/alumia?entrar" className="underline hover:text-oxblood">{s.signInToPost}</L>
+      {cadastro.aberto && <L href="/alumia?criar" className="font-medium underline hover:text-oxblood">{s.signUp}</L>}
     </span>
   );
   const chipSala = (slug: string | null) => slug ? (
@@ -810,8 +810,8 @@ function TopicView({ id, s }: { id: string; s: S }) {
         </form>
       ) : (
         <p className="mt-6 flex flex-wrap gap-x-4">
-          <L href="/entrar" className="underline hover:text-oxblood">{s.signInToPost}</L>
-          {cadastro.aberto && <L href="/entrar?criar=1" className="font-medium underline hover:text-oxblood">{s.signUp}</L>}
+          <L href="/alumia?entrar" className="underline hover:text-oxblood">{s.signInToPost}</L>
+          {cadastro.aberto && <L href="/alumia?criar" className="font-medium underline hover:text-oxblood">{s.signUp}</L>}
         </p>
       )}
       <p role="alert" className="mt-2 min-h-5 text-oxblood">{message}</p>

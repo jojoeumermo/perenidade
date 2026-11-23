@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import type pt from "@/i18n/rede/publicar/compositor/pt.json";
+import { prontoDe } from "../../../../lib/rede/textos-prontos";
 
 /** Os textos do compositor (onda 12, 12A: fio, carrossel e colagem, fuso, figurinhas, cartão do link): i18n/rede/publicar/compositor/{pt,en,es,fr,ru,zh}.json. */
 export type TextosDoCompositor = typeof pt;
@@ -24,8 +25,8 @@ export function carregarTextosDoCompositor(lang: string): Promise<TextosDoCompos
   const l = lang in CARREGADORES ? lang : "pt";
   let p = guardados.get(l);
   if (!p) {
-    p = CARREGADORES[l]().then((m) => {
-      const t = m.default as TextosDoCompositor;
+    p = prontoDe(CARREGADORES[l], CARREGADORES.pt).then((d) => {
+      const t = d as TextosDoCompositor;
       prontos.set(l, t);
       return t;
     });

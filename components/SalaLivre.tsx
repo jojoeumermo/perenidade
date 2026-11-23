@@ -9,6 +9,7 @@ import { useI18n } from "./I18n";
 import { editorPt } from "./rotulosDoEditor";
 import { Apresentador, Projetar } from "./sala-livre/Projetar";
 import { gravarSalas, lerSalas, roteiro, type Sala } from "./sala-livre/salas";
+import { confirmar } from "@/components/perguntar";
 
 // A Sala livre: o professor monta, no próprio navegador, uma aula com tudo o que o site oferece (texto, jogos, testes,
 // laboratórios, obras do acervo, editores do Estúdio, simulações do PhET, ferramentas) e projeta na sala de aula, com
@@ -148,7 +149,7 @@ export function SalaLivre() {
           <button type="button" onClick={() => baixar(sala)} className="cursor-pointer border-2 border-ink px-4 py-2 font-semibold hover:border-oxblood">Baixar o arquivo da sala</button>
           <button type="button" onClick={() => criar({ ...sala, titulo: `${sala.titulo} (cópia)`.slice(0, 120) })} className="cursor-pointer border-2 border-ink px-4 py-2 font-semibold hover:border-oxblood">Duplicar</button>
           <button type="button" onClick={() => window.print()} className="cursor-pointer border-2 border-ink px-4 py-2 font-semibold hover:border-oxblood">Imprimir</button>
-          <button type="button" onClick={() => { if (window.confirm("Apagar esta sala deste navegador? Baixe o arquivo antes, se quiser guardar.")) { salvar(salas.filter((s) => s.id !== sala.id)); setAberta(null); } }} className="cursor-pointer px-3 py-2 text-oxblood underline">Apagar</button>
+          <button type="button" onClick={async () => { if ((await confirmar("Apagar esta sala deste navegador? Baixe o arquivo antes, se quiser guardar."))) { salvar(salas.filter((s) => s.id !== sala.id)); setAberta(null); } }} className="cursor-pointer px-3 py-2 text-oxblood underline">Apagar</button>
         </p>
 
         <section aria-label="Roteiro da aula" className="mt-5 rounded border-2 border-ink bg-parchment-deep p-3">

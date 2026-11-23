@@ -1,0 +1,6 @@
+modelo: sem-internet-nao-ligacao.pv
+sha256: a3996ef3b6a4c028d70d22322ce2b7566fa4f1bf61f2703012a106d717d80bea
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+RESULT Observational equivalence is true.

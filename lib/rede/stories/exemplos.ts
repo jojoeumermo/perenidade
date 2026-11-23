@@ -5,7 +5,7 @@
 // do back-end existir. Fora da prévia este arquivo nem é baixado (lib/rede/cliente-stories.ts importa sob demanda).
 // Codinomes e organizações de exemplo, nenhuma pessoa real. Sem "@/" de propósito (roda no Node nos testes).
 import type { ClienteDeStories } from "../cliente-stories";
-import type { AutoraDoStory, DestaqueDeStories, FigurinhaEnquete, PedidoDeStory, PessoaDaRoda, Story } from "../tipos-stories";
+import type { AutoraDoStory, DestaqueDeStories, FigurinhaEnquete, FigurinhaTeste, PedidoDeStory, PessoaDaRoda, Story } from "../tipos-stories";
 import { LIMITES_DO_STORY } from "../tipos-stories";
 
 const H = 60 * 60 * 1000;
@@ -184,6 +184,12 @@ export function criarClienteDaPrevia(relogio: () => number = Date.now): ClienteD
       if (!f) return Promise.reject(new Error("sumiu"));
       f.meu_voto = f.meu_voto ?? opcao;
       return espera(f);
+    },
+    testar: (id, opcao) => {
+      const f = achar(id)?.figurinhas.find((x): x is FigurinhaTeste => x.tipo === "teste");
+      if (!f) return Promise.reject(new Error("sumiu"));
+      f.minha = f.minha ?? opcao;
+      return espera({ ...f, certa: f.certa ?? 0 });
     },
     avisar: (id, sim) => {
       const f = achar(id)?.figurinhas.find((x) => x.tipo === "contagem");

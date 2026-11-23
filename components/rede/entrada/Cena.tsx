@@ -1,19 +1,24 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+"use client";
+
 import type { ReactNode } from "react";
 import { Lampiao } from "@/components/rede/ui/Lampiao";
 import type { FiguraDaEntrada } from "@/lib/rede/entrada/figuras";
 import type { TextosDaEntrada } from "@/lib/rede/entrada/textos";
 import { Parede } from "./Parede";
+import { useParede } from "./useParede";
 
 /**
  * A cena da entrada da Alumia, a mesma em todos os estados: a faixa tecida, a cabeça com o lampião (o logo da Alumia, como ele é)
  * e o "Voltar ao site", o chamado, a parede de ladrilhos com as silhuetas e o painel de quem chega, o cartão (o que muda: entrar,
  * pedir, em análise, segundo fator…), o "Como entrar" (só para quem ainda não tem sessão) e o pé com os créditos das imagens.
+ * A parede gira (P5, A1: useParede.ts): os nomes embaixo dela e os créditos do pé são só das figuras que estão na tela agora.
  */
 export function Cena({ t, figuras, site, organizacoes, comoEntrar = false, ocupado = false, children }: {
   t: TextosDaEntrada; figuras: FiguraDaEntrada[]; site: string; organizacoes?: string | null; comoEntrar?: boolean; ocupado?: boolean; children: ReactNode;
 }) {
   const corte = t.p.tituloDestaque ? t.titulo.indexOf(t.p.tituloDestaque) : -1;
+  const naTela = useParede(figuras);
   return (
     <div className="ale" data-alumia-entrada="">
       <div aria-hidden className="ale-faixa" />
@@ -53,7 +58,7 @@ export function Cena({ t, figuras, site, organizacoes, comoEntrar = false, ocupa
             <div aria-hidden className="ale-faixa" />
             <div className="ale-cartao-corpo">{children}</div>
           </section>
-          <Parede t={t} figuras={figuras} />
+          <Parede t={t} figuras={naTela} />
         </div>
         {comoEntrar && (
           <section className="ale-como" aria-labelledby="ale-como">
@@ -81,7 +86,7 @@ export function Cena({ t, figuras, site, organizacoes, comoEntrar = false, ocupa
             <summary>{t.creditos}</summary>
             <p>{t.creditosTexto}</p>
             <ul>
-              {figuras.map((f) => (
+              {naTela.map((f) => (
                 <li key={f.id}>
                   <strong>{f.nome}</strong> · {t.creditosAutor}: {f.credito.autor} · {t.creditosLicenca}:{" "}
                   {f.credito.licencaUrl ? (
@@ -93,7 +98,7 @@ export function Cena({ t, figuras, site, organizacoes, comoEntrar = false, ocupa
                   )}{" "}
                   · {t.creditosFonte}:{" "}
                   <a href={f.credito.fonte} rel="noopener noreferrer" target="_blank">
-                    Wikimedia Commons
+                    {f.credito.fonte.startsWith("https://commons.wikimedia.org/") ? "Wikimedia Commons" : f.credito.fonte.replace(/^https:\/\/([^/]+).*$/, "$1")}
                   </a>
                   {f.credito.licencaDerivada ? <span> · {t.creditosDerivada.replace("{licenca}", f.credito.licencaDerivada)}</span> : null}
                   {f.credito.cuidado ? <span> · {f.credito.cuidado}</span> : null}

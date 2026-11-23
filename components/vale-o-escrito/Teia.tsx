@@ -141,7 +141,7 @@ function FundoDaTeia({ cena }: { cena: RefObject<Cena> }) {
         return false;
       }
     })();
-    let w = 0, h = 0, dpr = 1, quadro = 0, naTela = true, ultimo = "";
+    let w = 0, h = 0, dpr = 1, quadro = 0, naTela = true, ultimo = "", desenhadoEm = 0;
     const leve = () => c.closest("[data-qualidade]")?.getAttribute("data-qualidade") === "baixa";
     const medir = () => {
       const r = c.getBoundingClientRect();
@@ -159,6 +159,13 @@ function FundoDaTeia({ cena }: { cena: RefObject<Cena> }) {
       const animado = !calmo && !leve() && naTela && document.visibilityState === "visible";
       const chave = `${k.t.k},${k.t.x},${k.t.y},${k.selecionado},${k.fios.length},${k.kq}`;
       if (!animado && chave === ultimo) return;
+      // Prompt 5, C2: parada (sem zoom, arrasto nem seleção), a teia só "respira" (um ciclo de ~6 s): 15 quadros por segundo
+      // bastam. Antes eram 60 por segundo, com todos os halos de novo em "lighter", o que pesava junto com o fundo vivo.
+      if (animado && chave === ultimo && agora - desenhadoEm < 66) {
+        quadro = requestAnimationFrame(desenhar);
+        return;
+      }
+      desenhadoEm = agora;
       ultimo = chave;
       // viewBox com preserveAspectRatio "xMidYMid meet": a mesma conta do SVG.
       const s = Math.min(w / L, h / A);

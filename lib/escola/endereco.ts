@@ -20,9 +20,12 @@ export function urlDaEscolaOk(url: string): boolean {
 export const escolaComEndereco = urlDaEscolaOk(ESCOLA_URL);
 
 const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"];
-/** Páginas da Escola que ficariam no site do instituto. Desde 09/11/2026, nenhuma: o chamado, o manifesto e o entrar
- * abrem no endereço da Escola, no desenho dela, também para quem ainda não é militante (lib/escola/rotas.ts). */
-const ABERTAS: string[] = [];
+/** Páginas da Escola que ficam no site do instituto. O chamado, o manifesto e o entrar abrem no endereço da Escola, no
+ * desenho dela, também para quem ainda não é militante (lib/escola/rotas.ts). Desde o P5 (B2), as aulas abertas de Teoria
+ * revolucionária e de Lutas do povo (/escola/aulas) ficam aqui, no desenho da Escola: o progresso de quem já estudou mora
+ * no armazenamento deste endereço, e as peças das aulas (laboratórios, editores) não entram no endereço fechado da Escola
+ * (lib/escola/aulas-abertas.ts explica). */
+const ABERTAS: string[] = ["aulas"];
 /** Fora da Escola, o que também abre no host dela: entrar, as regras e a página de fora do ar. */
 export const PAGINAS_LIVRES_NA_ESCOLA = ["entrar", "conduta", "privacidade", "termos", "meus-dados", "fora-do-ar", "modo-seguro"] as const;
 
@@ -74,4 +77,16 @@ export function siteVistoDaEscola(protocolo: string, host: string, padrao: URL):
   const h = host.toLowerCase();
   if (h.startsWith("escola.")) return new URL(`${protocolo}//${h.slice("escola.".length)}`);
   return padrao;
+}
+
+/**
+ * A entrada do site do instituto, vista de dentro da Escola ("Voltar ao site", o "Instituto Lúcia" da porta, a volta depois
+ * de sair). Com a Escola no endereço próprio, "/pt" relativo cairia no host da Escola, que manda o idioma sozinho de volta
+ * para /pt/escola (rotaNaEscola): o botão parecia não fazer nada (P5, B1). Por isso, com o endereço próprio ligado, o
+ * caminho vai com o endereço do site na frente; sem ele, fica relativo, como sempre.
+ */
+export function inicioDoSite(lang: string, siteUrl: string, base: string = ESCOLA_URL): string {
+  const caminho = `/${IDIOMAS.includes(lang) ? lang : "pt"}`;
+  if (!urlDaEscolaOk(base)) return caminho;
+  return `${siteUrl.replace(/\/+$/, "")}${caminho}`;
 }

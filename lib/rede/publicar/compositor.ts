@@ -12,6 +12,8 @@ export const LIMITE_DE_BLOCOS = 10;
 export const LIMITE_DO_BLOCO = 500;
 /** Até 10 imagens por post (eram 4). */
 export const LIMITE_DE_IMAGENS = 10;
+/** O álbum do prompt 4 (item 27, interruptor "alumia-p4-compositor"): até 20 imagens por post. */
+export const LIMITE_DO_ALBUM = 20;
 /** A legenda de cada imagem (aparece para todo mundo, embaixo dela). */
 export const LIMITE_DA_LEGENDA = 280;
 
@@ -102,7 +104,7 @@ export interface Ladrilho {
  */
 export function ladrilhosDaColagem(n: number): Ladrilho[] {
   const saida: Ladrilho[] = [];
-  let resta = Math.max(0, Math.min(LIMITE_DE_IMAGENS, Math.floor(n)));
+  let resta = Math.max(0, Math.min(LIMITE_DO_ALBUM, Math.floor(n)));
   while (resta > 0) {
     if (resta === 1) {
       saida.push({ colunas: 6, linhas: 2 });

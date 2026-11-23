@@ -1,0 +1,6 @@
+modelo: sem-internet-cobertura.pv
+sha256: d158db4585a6e0115890019a0fde470ffd3e0416fec87069286f2f4eb150a911
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+RESULT Observational equivalence is true.

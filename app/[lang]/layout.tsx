@@ -6,6 +6,10 @@ import "../globals.css";
 import "../celular.css";
 // A casca do aplicativo (barra de baixo, voltar por gesto, transições): só vale no celular e no site instalado.
 import "../app-casca.css";
+// O redesign "Caderno aberto" (Prompt 5, E1): só vale com o recurso "design-novo" ligado e sem "Contornos fortes".
+import "@/styles/design/instituto.css";
+// Aparelhos fracos (Prompt 5, E7): menos movimento e o modo leve sem vidro nem sombra, fora da Alumia.
+import "@/styles/leve-do-aparelho.css";
 import { A11yWidget } from "@/components/A11yWidget";
 import { DadosEstruturados } from "@/components/DadosEstruturados";
 import { BottomNav } from "@/components/BottomNav";
@@ -17,6 +21,8 @@ import { I18nProvider } from "@/components/I18n";
 import { MaisGaveta } from "@/components/MaisGaveta";
 import { RegistroDoPassaporte } from "@/components/escola/campus/RegistroDoPassaporte";
 import { OfflineSupport } from "@/components/Offline";
+import { RecarregarPorPedaco } from "@/components/RecarregarPorPedaco";
+import { LeveDoAparelho } from "@/components/LeveDoAparelho";
 import { OpeningNotice } from "@/components/OpeningNotice";
 import { OutsidePanel } from "@/components/OutsidePanel";
 import { RadioPlayer } from "@/components/RadioPlayer";
@@ -27,6 +33,7 @@ import { Shortcuts } from "@/components/Shortcuts";
 import { VoltarAoTopo } from "@/components/VoltarAoTopo";
 import { BotaoDoAssistente } from "@/components/assistente/BotaoDoAssistente";
 import { textosDoAssistente } from "@/i18n/assistente";
+import { textosDoDesign } from "@/i18n/design";
 import { EMAIL_DE_CONTATO, perguntasFrequentes } from "@/lib/perguntas-frequentes-dados";
 import { PrefsScript } from "@/components/ThemeToggle";
 import abertura from "@/content/abertura.json";
@@ -109,9 +116,14 @@ const primeiraAula = comecar.flatMap((bloco) => bloco.aulas)[0] ?? null;
 
 export default async function RootLayout({ children, params }: LayoutProps<"/[lang]">) {
   const { lang, t } = await loadLang(params);
+  // Prompt 5 (E1): o redesign só vale com o recurso "design-novo" ligado. Desligado, o <html> fica sem a marca e nenhum estilo
+  // de styles/design/ casa: o site é o de hoje. Ligado, quem escolher "Contornos fortes" (data-fortes, posto antes da primeira
+  // pintura pelo prefsScript) volta ao design de hoje por completo.
+  const designNovo = ligado("design-novo");
   return (
     <html
       lang={htmlLang[lang]}
+      data-design={designNovo ? "novo" : undefined}
       className={`${serif.variable} ${ui.variable} ${mono.variable} ${cartaz.variable} ${mao.variable} h-full antialiased`}
       suppressHydrationWarning
     >
@@ -162,10 +174,12 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
             />
           </OutsidePanel>
           <OutsidePanel mostrarNasCriancas>
-            <A11yWidget />
+            <A11yWidget design={designNovo ? textosDoDesign(lang) : undefined} />
           </OutsidePanel>
           <Shortcuts />
           <OfflineSupport />
+          <RecarregarPorPedaco />
+          <LeveDoAparelho />
           {/* O histórico local (só grava quando a pessoa ligou) e a saída rápida do modo seguro (sempre disponível). */}
           <RegistroDeVisita />
           {/* E4-09: o passaporte do campus (primeira visita a cada prédio, só no aparelho), só com a Escola ligada. */}

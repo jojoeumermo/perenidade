@@ -1,0 +1,16 @@
+{
+  "identifier": "principal",
+  "description": "A janela da casca do chat (empacotada no app). Só os oito comandos do app; nenhum comando de plugin; nenhuma página remota (sem o campo remote).",
+  "local": true,
+  "windows": ["principal"],
+  "permissions": [
+    "allow-cofre-embrulhar",
+    "allow-cofre-desembrulhar",
+    "allow-atualizacao-conferir",
+    "allow-atualizacao-instalar",
+    "allow-rede-abrir",
+    "allow-rede-pedir",
+    "allow-app-apagar-tudo",
+    "allow-notificar"
+  ]
+}

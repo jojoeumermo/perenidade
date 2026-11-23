@@ -119,6 +119,9 @@ const migracao = ler("supabase/migracoes/20261110-alumia-perfil.sql");
 ok("a migração está colada no fim do install.sql (seguida só das datadas posteriores)", noFimDoInstall(migracao, ler("supabase/install.sql")));
 await espera("instala de novo sem estrago (idempotente)", () => banco.exclusivo(() => banco.pg.exec(migracao)));
 await espera("e uma terceira vez", () => banco.exclusivo(() => banco.pg.exec(migracao)));
+// O install.sql inteiro de novo por cima: as definições finais (a R2 redefiniu funções desta migração) voltam a valer.
+await espera("e o install.sql inteiro de novo por cima (as definições finais voltam)", () => banco.instalarDeNovo());
+await banco.filiacaoDeTeste();
 
 let ip = 10;
 const como = (sub) => ({ papel: "authenticated", sub, ip: `198.51.100.${ip++ % 250}` });
@@ -151,7 +154,8 @@ await rpc(como(SEMSELO), "eu");
 await sql("update interno.perfis set rede_codinome = 'Sem Selo', rede_codinome_ok = true, rede_handle = 'sem_selo' where id = $1", [SEMSELO]);
 await sql("insert into interno.rede_orgs (perfil, tipo) values ($1, 'coletivo')", [SEMSELO]);
 const NUC = (await sql("insert into interno.rede_nucleos (nome, org) values ('Núcleo Lume', $1) returning id", [ORG])).rows[0].id;
-await sql("insert into interno.rede_nucleo_membros (nucleo, usuario) values ($1, $2)", [NUC, P.nucleo1]);
+// Filiação de teste (scripts/banco-local.mjs, filiacaoDeTeste): o assunto aqui não é quem é do núcleo.
+await sql("insert into interno.teste_nucleo_membros (nucleo, usuario) values ($1, $2)", [NUC, P.nucleo1]);
 
 // Posts: da Ana (um comum, um ato, um retido) e do Beto.
 const post = async (autor, extra = {}) =>

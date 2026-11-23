@@ -33,6 +33,10 @@ export type FundoDoStory =
       alt: string;
       /** O caminho no depósito ("<uid>/<id>.webp"), como o banco devolve; o cliente troca por `url`. */
       caminho?: string;
+      /** P5: a versão menor da foto (540 × 960), para abrir na hora enquanto a alta (`url`) chega. */
+      menor?: string | null;
+      /** O endereço assinado da versão menor. */
+      urlMenor?: string;
     }
   | {
       tipo: "video";
@@ -69,11 +73,11 @@ export interface EstiloDoStory {
  * As figurinhas: as 4 da prancha, a menção de comunidade e as do B1 ("vou" no ato, menção a pessoa, #campanha e a "resposta" à
  * pergunta, que só nasce de uma resposta que chegou), mais as decorativas da Alumia (lista fechada, desenhadas no aparelho).
  */
-export type TipoInterativo = "contagem" | "pergunta" | "enquete" | "link" | "comunidade" | "vou" | "pessoa" | "campanha" | "resposta";
+export type TipoInterativo = "contagem" | "pergunta" | "enquete" | "teste" | "link" | "comunidade" | "vou" | "pessoa" | "campanha" | "resposta";
 export type TipoDeFigurinha = TipoInterativo | "decorativa";
 /** As interativas que a autora liga pelos botões do "criar" (a "resposta" vem da caixa de respostas). */
 export type TipoDoBotao = Exclude<TipoInterativo, "resposta">;
-export const TIPOS_DE_FIGURINHA: readonly TipoDoBotao[] = ["contagem", "pergunta", "enquete", "link", "comunidade", "vou", "pessoa", "campanha"];
+export const TIPOS_DE_FIGURINHA: readonly TipoDoBotao[] = ["contagem", "pergunta", "enquete", "teste", "link", "comunidade", "vou", "pessoa", "campanha"];
 
 /** As figurinhas decorativas da Alumia (o banco aceita só estes nomes; o desenho é components/rede/figurinhas/Decorativas.tsx). */
 export const DECORATIVAS = ["punho", "lampiao", "megafone", "faixa", "carimbo-luta", "carimbo-presente", "estrela", "flor"] as const;
@@ -91,11 +95,13 @@ export interface LegendaDoVideo {
   grande?: boolean;
 }
 
-/** Contagem regressiva para um ato (lê o ato da F2 só pelo id). */
+/** Contagem regressiva para um ato (lê o ato da F2 só pelo id) ou, P5, para um momento livre (nome e hora da autora). */
 export interface FigurinhaContagem {
   tipo: "contagem";
-  /** O ato (rede_chamados/rede_posts da F2); nulo num story antigo cujo ato sumiu. */
+  /** O ato (rede_chamados/rede_posts da F2); nulo num story antigo cujo ato sumiu, ou na contagem livre. */
   ato: string | null;
+  /** P5: a contagem livre (não é ato da Alumia): sem "me avise" nem link para o ato. */
+  livre?: boolean;
   /** "PASSE LIVRE JÁ": o nome do ato, como o ato diz. */
   titulo: string;
   /** Quando começa (ISO). */
@@ -121,6 +127,24 @@ export interface FigurinhaEnquete {
   ja_votou?: boolean;
   /** A soma por opção, SÓ quando quem vê é a autora; nula abaixo de 3 votos no total. */
   soma?: [number, number] | null;
+}
+
+/**
+ * P5: teste com resposta certa (2 a 4 opções). Quem vê só recebe a certa DEPOIS de responder; a resposta vai pelo servidor do site
+ * (a marca de "já respondeu"), e a opção, para uma urna sem pessoa. A autora vê a certa e a soma por opção, só a partir de 3.
+ */
+export interface FigurinhaTeste {
+  tipo: "teste";
+  pergunta: string;
+  opcoes: string[];
+  /** Qual é a certa: no pedido, e de volta só para a autora ou para quem já respondeu. */
+  certa?: number | null;
+  /** O que ESTE aparelho respondeu (fica só nele). */
+  minha?: number | null;
+  /** Já tinha respondido (em outro aparelho): a resposta de antes vale. */
+  ja_respondeu?: boolean;
+  /** A soma por opção, SÓ para a autora; nula abaixo de 3 respostas. */
+  soma?: number[] | null;
 }
 
 /** Link para fora (só https), aberto sem passar quem veio. */
@@ -197,6 +221,7 @@ export type Figurinha = (
   | FigurinhaContagem
   | FigurinhaPergunta
   | FigurinhaEnquete
+  | FigurinhaTeste
   | FigurinhaLink
   | FigurinhaComunidade
   | FigurinhaDecorativa
@@ -330,12 +355,16 @@ export interface AtoParaContagem {
 
 /** O pedido de publicar um story. */
 export interface PedidoDeStory {
+  /** A chave deste envio, gerada no aparelho (lib/backend-envio.ts): vai no cabeçalho e o banco recusa o mesmo envio duas vezes. */
+  chave_envio?: string;
   publico: PublicoDoStory;
   fundo: { tipo: "listras" | "mosaico" | "imagem" | "video"; cor: CorDoStory };
   texto: string;
   legenda: string | null;
   /** O caminho no depósito rede-stories ("<uid>/<id>.webp" ou ".mp4/.webm") quando há mídia; o envio vem antes (enviarImagem). */
   imagem: string | null;
+  /** P5: a versão menor da foto (só com foto), enviada junto. */
+  menor?: string | null;
   /** Só com fundo "video": a duração, se vai com som, a música da Alumia e as legendas. */
   video?: { duracao_ms: number; som: boolean; musica?: MusicaDoStory | null; legendas?: LegendaDoVideo[] } | null;
   /** Público "comunidade": o slug (de uma comunidade em que sou membro ativa). */
@@ -372,6 +401,8 @@ export const LIMITES_DO_STORY = {
   resposta: 500,
   pergunta: 90,
   opcao: 24,
+  /** P5: as opções do teste com resposta certa. */
+  opcoesDoTeste: 4,
   rotuloDoLink: 40,
   /** Interativas (as decorativas contam à parte). */
   figurinhas: 3,

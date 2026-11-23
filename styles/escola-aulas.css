@@ -1,0 +1,182 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ *
+ * As aulas abertas da Escola (P5, B2): /escola/aulas e as páginas de disciplina, trilha e aula de Teoria revolucionária e de
+ * Lutas do povo, no desenho da Escola (tokens --ef-* de styles/escola-formacao.css). As páginas de disciplina, trilha e aula
+ * são as MESMAS do site (as funções continuam todas), dentro da moldura da porta: as cores do site já viram as da Escola em
+ * .ef-conteudo; aqui fica o que é próprio destas páginas. Escuro nos dois temas, como o resto da Escola.
+ */
+
+.efl-aulas {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+  color: var(--ef-giz);
+}
+.efl-cabeca {
+  max-width: 760px;
+}
+.efl-olho {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ef-ouro);
+}
+.efl-titulo {
+  margin: 8px 0 0;
+  font-size: clamp(40px, 7vw, 72px);
+  font-weight: 800;
+  line-height: 0.95;
+}
+.efl-lead {
+  margin: 20px 0 0;
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--ef-giz-2);
+}
+.efl-nota {
+  margin: 12px 0 0;
+  padding: 12px 16px;
+  border-left: 3px solid var(--ef-ouro);
+  border-radius: 0 12px 12px 0;
+  background: var(--ef-fundo-fundo);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ef-suave);
+}
+.efl-grupo {
+  margin-top: 48px;
+}
+.efl-grupo-titulo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--ef-borda);
+  font-size: 32px;
+  font-weight: 800;
+}
+.efl-grupo-titulo > span[aria-hidden] {
+  color: var(--ef-vermelho);
+}
+.efl-conta {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ef-apagado);
+}
+.efl-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: 16px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.efl-grade > li {
+  display: flex;
+}
+[data-escola-formacao] a.efl-cartao {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 168px;
+  padding: 18px 18px 16px;
+  border: 1px solid var(--ef-borda);
+  border-top: 6px solid var(--efl-cor, var(--ef-vermelho));
+  border-radius: 16px;
+  background: var(--ef-fundo-fundo);
+  color: var(--ef-giz);
+  text-decoration: none;
+}
+[data-escola-formacao] a.efl-cartao:hover {
+  border-color: var(--ef-ouro);
+  border-top-color: var(--efl-cor, var(--ef-vermelho));
+  background: #241a17;
+}
+.efl-nome {
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1.05;
+}
+.efl-descricao {
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--ef-suave);
+}
+.efl-aulas-n {
+  margin-top: auto;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ef-ouro);
+}
+.efl-cadastro {
+  margin-top: 56px;
+  padding: 24px;
+  border: 1px solid var(--ef-borda);
+  border-radius: 18px;
+  background: var(--ef-fundo-fundo);
+}
+.efl-cadastro h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+}
+.efl-cadastro p {
+  max-width: 720px;
+  margin: 10px 0 18px;
+  line-height: 1.55;
+  color: var(--ef-giz-2);
+}
+
+/* As páginas do site (disciplina, trilha, aula) dentro da Escola: a faixa "voltar às aulas abertas" no alto. */
+.efl-pagina {
+  color: var(--ef-giz);
+}
+.efl-voltar {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 20px 16px 0;
+}
+[data-escola-formacao] .efl-voltar a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1.5px solid var(--ef-ouro);
+  border-radius: 12px;
+  color: var(--ef-ouro);
+  font-weight: 700;
+  text-decoration: none;
+}
+[data-escola-formacao] .efl-voltar a:hover {
+  background: var(--ef-ouro);
+  color: var(--ef-fundo-fundo);
+}
+/* A folha da aula do site fica papel claro dentro da Escola, como a folha da aula da Formação (formacao.css, .efa-folha). */
+.efl-pagina .folha-da-aula {
+  --parchment: #fbfaf6;
+  --parchment-deep: #efe9dc;
+  --ink: #1f1a14;
+  --ink-soft: #5a4e3c;
+  --gold: #8a5f1c;
+  --oxblood: #6e1f1a;
+  --rule: #d9cfbc;
+  --ok: #2f5d34;
+  --folha: #fffdf8;
+  --sombra: #1f1a14;
+  --prelo-texto: #c21f16;
+  --texto-meio: #4a4034;
+  border-radius: 6px 18px 18px 6px;
+  background-color: #fbfaf6;
+  color: #1f1a14;
+}
+.efl-pagina .folha-da-aula :is(input, textarea, select) {
+  background: #fffdf8;
+  color: #1f1a14;
+  border-color: #d9cfbc;
+}
+.efl-pagina .folha-da-aula a {
+  color: revert-layer;
+}

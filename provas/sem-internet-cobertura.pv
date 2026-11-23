@@ -1,0 +1,70 @@
+(* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   Mensagens sem internet (onda R3, itens 2.2 e 2.5): a MENSAGEM, o FAROL e a COBERTURA são iguais para quem repassa.
+   Equivalência observacional, em dois lados: (esquerda) um pacote de mensagem de A para B e um farol de um ato; (direita) dois
+   pacotes de cobertura (lib/rede/malha/pacote.ts, montarCobertura: um envelope HPKE de verdade para uma chave sorteada e jogada
+   fora, etiqueta e c sorteados). Quem repassa escolhe as mensagens e a validade e conhece as chaves públicas.
+   (Os bytes que o modelo simbólico não vê, como o bit alto da chave X25519 dentro do "enc" do X-Wing e a média dos bytes, estão
+   no teste: scripts/testar-r3-malha.mjs, "cobertura".) *)
+
+free c: channel.
+
+type skey.
+type pkey.
+type key.
+
+fun pk(skey): pkey.
+fun hpke(pkey, bitstring, bitstring, bitstring): bitstring.
+reduc forall k: skey, a: bitstring, m: bitstring, r: bitstring; abrir(hpke(pk(k), a, m, r), k, a) = m.
+fun senc(bitstring, key): bitstring.
+reduc forall m: bitstring, k: key; sdec(senc(m, k), k) = m.
+fun h(bitstring): bitstring.
+fun hc(bitstring, bitstring): bitstring.
+fun hmac(bitstring, bitstring): bitstring.
+fun hkdf(bitstring, bitstring): bitstring.
+fun parDoAto(bitstring): skey.
+
+const rotuloChave, rotuloEtiquetaAto, rotuloXwingAto: bitstring.
+free aparelhoA: bitstring.
+
+(* Cada processo monta os dois pacotes (o de verdade e uma cobertura) e solta um: o de verdade na esquerda, a cobertura na direita. *)
+letfun cobertura(v: bitstring) =
+  new nonce: bitstring;
+  new etq: bitstring;
+  new c0: bitstring;
+  new sk: skey;
+  new aad: bitstring;
+  new dentro: bitstring;
+  new r: bitstring;
+  (v, nonce, etq, (c0, hpke(pk(sk), aad, dentro, r))).
+
+let Mensagem(kab: key, pkb: pkey, idcaixa: bitstring) =
+  in(c, (v: bitstring, m: bitstring));
+  new nonce: bitstring;
+  new r: bitstring;
+  new kf: bitstring;
+  let idh = h(idcaixa) in
+  let cc = hc(kf, (idh, m)) in
+  let corpo = (cc, hpke(pkb, (idh, cc), (aparelhoA, senc((m, kf), kab)), r)) in
+  let deVerdade = (v, nonce, hmac(hkdf(idcaixa, rotuloChave), (nonce, v, h(corpo))), corpo) in
+  out(c, choice[deVerdade, cobertura(v)]).
+
+let Farol(kato: bitstring) =
+  in(c, (v: bitstring, f: bitstring));
+  new nonce: bitstring;
+  new r: bitstring;
+  new c0: bitstring;
+  let corpo = (c0, hpke(pk(parDoAto(hkdf(kato, rotuloXwingAto))), (v, nonce), f, r)) in
+  let deVerdade = (v, nonce, hmac(hkdf(kato, rotuloEtiquetaAto), (nonce, v, h(corpo))), corpo) in
+  out(c, choice[deVerdade, cobertura(v)]).
+
+process
+  new skB: skey;
+  new kAB: key;
+  new caixa: bitstring;
+  new kato: bitstring;
+  out(c, pk(skB));
+  (
+    (!Mensagem(kAB, pk(skB), caixa))
+  | (!Farol(kato))
+  )
