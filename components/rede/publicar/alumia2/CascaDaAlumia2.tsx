@@ -71,6 +71,15 @@ export const AVISOS_DA_PREVIA = 5;
 /** A barra de baixo do celular (prancha celular-inicio): Início, Explorar, [+], Atos, Perfil. */
 const BARRA: Chave[] = ["inicio", "explorar", "chamados", "perfil"];
 
+/**
+ * Perfil e Conversas são páginas feitas a cada pedido (o perfil muda com o @nome; as conversas, pelo nonce do endereço do chat): a
+ * pré-carga normal só traz o esqueleto, e o toque ainda esperava o servidor e mais o intervalo mínimo do React (300 ms) para trocar
+ * o esqueleto pela tela. Estes dois itens do menu pré-carregam a tela inteira (só a casca da página, sem dado nenhum de pessoa: os
+ * dados vêm do banco depois, no navegador), guardada na memória da aba. Quem economiza dados não pré-carrega nada (components/Link.tsx).
+ */
+const PRECARGA_INTEIRA: ReadonlySet<Chave> = new Set<Chave>(["perfil", "conversas"]);
+const precargaDe = (chave: Chave): true | undefined => (PRECARGA_INTEIRA.has(chave) ? true : undefined);
+
 function hrefDe(d: Destino, lang: string, s: TextosDaRede, situacao: Situacao): string | null {
   const troca = ENCAIXES.menu.find((m) => m.substitui === d.chave);
   return troca ? troca.href({ lang, s, situacao }) : d.href(lang, situacao);
@@ -357,7 +366,7 @@ export function CascaDaAlumia2({
                   return (
                     <li key={d.chave}>
                       {href ? (
-                        <Link href={href} className="al2-menu-item" aria-current={atual ? "page" : undefined}>
+                        <Link href={href} prefetch={precargaDe(d.chave)} className="al2-menu-item" aria-current={atual ? "page" : undefined}>
                           {conteudo}
                         </Link>
                       ) : (
@@ -508,6 +517,7 @@ export function CascaDaAlumia2({
                 {href ? (
                   <Link
                     href={href}
+                    prefetch={precargaDe(chave)}
                     className="al2-barra-item"
                     aria-current={atual ? "page" : undefined}
                     onClick={(e) => {

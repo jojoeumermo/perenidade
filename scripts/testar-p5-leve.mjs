@@ -292,6 +292,10 @@ const casca = ler("components/rede/publicar/alumia2/CascaDaAlumia2.tsx");
 ok("casca: os links trocam de tela por View Transitions, e a entrada de antes fica de reserva", casca.includes("useTransicaoNosLinks(roteador);") && casca.includes("!trocaEmCurso()") && casca.includes('className={entrando ? "al2-tela-entra" : undefined}'));
 const transicao = ler("components/rede/publicar/alumia2/TransicaoDaTela.tsx");
 ok("transição: sem a API, com menos movimento ou no leitor de tinta, só navega", /if \(!trocaAnimada\(\)\) return roteador\.push\(href\);/.test(transicao) && transicao.includes("!semMovimento()") && transicao.includes('data-eink'));
+// Durante a transição o navegador não pinta quadros: esperar o endereço por requestAnimationFrame deixava cada clique parado até o
+// Chrome desistir (4 s). A espera é por relógio.
+const espera = transicao.slice(transicao.indexOf("function esperarOEndereco"), transicao.indexOf("export function navegarComTransicao"));
+ok("transição: espera o endereço por relógio, nunca por requestAnimationFrame", espera.includes("window.setTimeout(olhar") && !espera.includes("requestAnimationFrame(olhar"));
 const linkDoSite = ler("components/Link.tsx");
 ok("Link do site: só a casca da Alumia registra a navegação animada; sem registro, nada muda", linkDoSite.includes("if (navegacaoAnimada && typeof href === \"string\" && !replace && navegacaoAnimada(href)) e.preventDefault();"));
 ok("cartão: abre a conversa pela transição", cartao.includes("navegarComTransicao(router, caminhoDoPost);"));
