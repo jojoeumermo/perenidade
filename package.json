@@ -366,7 +366,8 @@
     "testar:p4-conta": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-p4-conta.mjs",
     "testar:p4-pontes": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-p4-pontes.mjs",
     "testar:p4-chamadas": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-p4-chamadas.mjs",
-    "testar:p4-sala-livekit": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-p4-sala-livekit.mjs"
+    "testar:p4-sala-livekit": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-p4-sala-livekit.mjs",
+    "testar:coordenacao-geral": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-coordenacao-geral.mjs"
   },
   "dependencies": {
     "@capacitor/app": "8.1.2",
