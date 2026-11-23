@@ -9,3 +9,5 @@ e2e
 *.log
 .env.local
 .env.development.local
+# Cópias de trabalho do repositório (git worktree) que ficam dentro da pasta: não são o site.
+.claude
