@@ -5,8 +5,12 @@ name: Montar a imagem de teste
 # ela chegar ao master: a imagem de teste roda num contêiner à parte e é comparada com a que está no ar.
 # Nada aqui toca a etiqueta :producao, a etiqueta do commit, o servidor, o Coolify nem o cache do Cloudflare: a VPS só
 # troca de versão quando :producao muda, e esta rotina nunca escreve nela.
+# O botão (workflow_dispatch) só aparece para rotinas que já estão no master; até lá, e para os ramos de trabalho da imagem,
+# todo envio num ramo imagem-* também monta a imagem de teste.
 on:
   workflow_dispatch:
+  push:
+    branches: ["imagem-*"]
 
 permissions:
   contents: read
