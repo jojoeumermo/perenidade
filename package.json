@@ -388,7 +388,7 @@
     "@radix-ui/react-tooltip": "^1.4.1",
     "@ruby/3.4-wasm-wasi": "^2.10.1",
     "@scure/bip39": "2.4.0",
-    "@supabase/supabase-js": "^2.117.3",
+    "@supabase/supabase-js": "^2.119.2",
     "@tanstack/react-table": "^8.21.3",
     "@tauri-apps/api": "2.12.4",
     "@wireapp/core-crypto": "11.0.1",
