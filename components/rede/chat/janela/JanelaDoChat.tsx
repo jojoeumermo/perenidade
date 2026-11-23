@@ -32,6 +32,14 @@ import { Avatar } from "../../perfil/Avatar";
 import { botaoForte, botaoLeve, erroDoChat } from "../comum";
 import { Conversa } from "../Conversa";
 import { carregarTextosDaRede } from "./textos-da-rede";
+import type { GrupoNaLista } from "@/lib/rede/chat/grupo/cliente";
+import { carregarTextosDoChatGrupo, type TextosDoChatGrupo } from "@/lib/rede/textos-chat-grupo";
+import { ListaDeGrupos } from "../grupo/ListaDeGrupos";
+import { ConversaDoGrupo } from "../grupo/ConversaDoGrupo";
+
+/** Na janela, um grupo aberto tem o id "g:<grupo>" (as conversas a dois têm o id delas): o estado da janela é um só. */
+const PREFIXO_DO_GRUPO = "g:";
+const grupoDaJanela = (id: string) => (id.startsWith(PREFIXO_DO_GRUPO) ? id.slice(PREFIXO_DO_GRUPO.length) : null);
 
 type Aparelho =
   | { estado: "carregando" }
@@ -90,6 +98,18 @@ export default function JanelaDoChat({ lang, estado, despachar, aoMinimizar, aoF
   const raiz = useRef<HTMLDivElement>(null);
   const titulo = useRef<HTMLHeadingElement>(null);
   const comConversaP4 = ligado("alumia-p4-conversa");
+  // A conversa em grupo (recurso "alumia-chat-grupo"): os grupos aparecem na lista e abrem aqui, como as conversas a dois.
+  const comGrupos = ligado("alumia-chat-grupo");
+  const [tg, setTg] = useState<TextosDoChatGrupo | null>(null);
+  const [grupos, setGrupos] = useState<GrupoNaLista[]>([]);
+  useEffect(() => {
+    if (!comGrupos) return;
+    let vivo = true;
+    carregarTextosDoChatGrupo(lang).then((x) => vivo && setTg(x)).catch(() => undefined);
+    return () => {
+      vivo = false;
+    };
+  }, [comGrupos, lang]);
   // O modo viagem (Prompt 4, item 109): as conversas escondidas não aparecem aqui, como na página.
   const escondidas = useEscondidasDaViagem((lista ?? []).map((c) => c.id));
 
@@ -182,6 +202,7 @@ export default function JanelaDoChat({ lang, estado, despachar, aoMinimizar, aoF
       aoApagarTudoDoChat(() => {
         setLista([]);
         setNaoLidas(new Map());
+        setGrupos([]);
         despachar({ tipo: "esquecer" });
         aoFechar();
       }),
@@ -200,8 +221,13 @@ export default function JanelaDoChat({ lang, estado, despachar, aoMinimizar, aoF
 
   const visiveis = useMemo(() => (lista ?? []).filter((c) => !escondidas.has(c.id)), [lista, escondidas]);
   const porId = useMemo(() => new Map(visiveis.map((c) => [c.id, c])), [visiveis]);
-  // As conversas abertas que ainda existem (apagada, escondida pelo modo viagem ou fora da lista: sai da janela).
-  const abertas = estado.conversas.filter((c) => porId.has(c.id));
+  const grupoPorId = useMemo(() => new Map(grupos.map((g) => [g.id, g])), [grupos]);
+  const grupoDe = (id: string) => {
+    const g = grupoDaJanela(id);
+    return g ? (grupoPorId.get(g) ?? null) : null;
+  };
+  // As conversas abertas que ainda existem (apagada, escondida pelo modo viagem ou fora da lista: sai da janela). O grupo também.
+  const abertas = estado.conversas.filter((c) => porId.has(c.id) || (comGrupos && !!tg && grupoDe(c.id) !== null));
   // No celular, uma coisa por vez: a conversa mais recente que não está minimizada, ou a lista.
   const daVez = cheia ? abertas.find((c) => !c.minimizada) ?? null : null;
 
@@ -305,7 +331,7 @@ export default function JanelaDoChat({ lang, estado, despachar, aoMinimizar, aoF
   const tj = t?.janela;
   const paginaDasConversas = `/${lang}/alumia/conversas`;
   // Expandir leva à página Conversas inteira, já na conversa aberta (o mesmo ?conversa= da carona), e minimiza a janela.
-  const primeiraAberta = abertas.find((c) => !c.minimizada)?.id ?? null;
+  const primeiraAberta = abertas.find((c) => !c.minimizada && !grupoDaJanela(c.id))?.id ?? null;
   const enderecoExpandido = primeiraAberta ? `${paginaDasConversas}?conversa=${encodeURIComponent(primeiraAberta)}` : paginaDasConversas;
 
   const botoesDaJanela = tj && (
@@ -384,6 +410,20 @@ export default function JanelaDoChat({ lang, estado, despachar, aoMinimizar, aoF
             {aviso}
           </p>
         )}
+        {comGrupos && tg && eu && (
+          <ListaDeGrupos
+            tg={tg}
+            conta={eu.usuario}
+            compacta
+            termo={termo}
+            abertos={abertas.map((a) => grupoDaJanela(a.id) ?? "")}
+            aoListar={setGrupos}
+            aoAbrir={(g) => {
+              setAviso("");
+              despachar({ tipo: "abrirConversa", id: `${PREFIXO_DO_GRUPO}${g.id}`, cabem });
+            }}
+          />
+        )}
         {pedidos.length > 0 && !termo && (
           <div className="border-b border-rule px-3 py-3">
             <h3 className="text-xs font-bold uppercase tracking-wider text-ink-soft">{t.lista.pedidos}</h3>
@@ -446,13 +486,14 @@ export default function JanelaDoChat({ lang, estado, despachar, aoMinimizar, aoF
   // ── Celular: tela inteira, uma coisa por vez ──
   if (cheia) {
     const conversa = daVez ? porId.get(daVez.id) : null;
+    const grupo = daVez && !conversa ? grupoDe(daVez.id) : null;
     return (
       <div
         ref={raiz}
         className="al-cf al-cf-cheia no-print bg-parchment text-ink"
         role="dialog"
         aria-modal="true"
-        aria-label={conversa && tj ? preencher(tj.conversaCom, { nome: conversa.com.codinome }) : (tj?.rotulo ?? undefined)}
+        aria-label={conversa && tj ? preencher(tj.conversaCom, { nome: conversa.com.codinome }) : grupo && tg ? preencher(tg.conversa.rotulo, { nome: grupo.nome }) : (tj?.rotulo ?? undefined)}
         hidden={oculta}
         onKeyDown={(e) => aoTeclar(e)}
         data-chat-flutuante
@@ -480,6 +521,10 @@ export default function JanelaDoChat({ lang, estado, despachar, aoMinimizar, aoF
                 }}
               />
             </div>
+          ) : grupo && tg && eu && daVez ? (
+            <div className="al-cf-conversa">
+              <ConversaDoGrupo lang={lang} tg={tg} conta={eu.usuario} grupo={grupo} idDoCampo={`${id}-texto-${daVez.id}`} aoVoltar={() => despachar({ tipo: "fecharConversa", id: daVez.id })} />
+            </div>
           ) : (
             corpoDaLista()
           )}
@@ -502,6 +547,46 @@ export default function JanelaDoChat({ lang, estado, despachar, aoMinimizar, aoF
       </section>
       {t && s && eu && tj &&
         abertas.map((a) => {
+          const g = grupoDe(a.id);
+          if (g && tg) {
+            const nome = g.nome;
+            const rotulo = preencher(tg.conversa.rotulo, { nome });
+            return (
+              <section
+                key={a.id}
+                className="al-cf-painel al-cf-painel-conversa bg-parchment text-ink"
+                data-minimizada={a.minimizada ? "" : undefined}
+                role="region"
+                aria-label={rotulo}
+                onKeyDown={(e) => aoTeclar(e, a.id)}
+                data-chat-flutuante-conversa
+              >
+                <div className="al-cf-barra border-b border-rule bg-paper">
+                  <button
+                    type="button"
+                    className="flex min-h-11 min-w-0 flex-1 items-center gap-2 pl-1 text-left font-semibold"
+                    aria-expanded={!a.minimizada}
+                    aria-label={preencher(a.minimizada ? tj.restaurarConversa : tj.minimizarConversa, { nome: rotulo })}
+                    onClick={() => despachar(a.minimizada ? { tipo: "restaurarConversa", id: a.id, cabem } : { tipo: "minimizarConversa", id: a.id })}
+                  >
+                    <span className="truncate">{nome}</span>
+                  </button>
+                  {!a.minimizada && (
+                    <button type="button" className="al-cf-icone" onClick={() => despachar({ tipo: "minimizarConversa", id: a.id })} aria-label={preencher(tj.minimizarConversa, { nome: rotulo })} title={preencher(tj.minimizarConversa, { nome: rotulo })}>
+                      <Icone d={ICONE_MINIMIZAR} />
+                    </button>
+                  )}
+                  <button type="button" className="al-cf-icone" onClick={() => despachar({ tipo: "fecharConversa", id: a.id })} aria-label={preencher(tj.fecharConversa, { nome: rotulo })} title={preencher(tj.fecharConversa, { nome: rotulo })}>
+                    <Icone d={ICONE_FECHAR} />
+                  </button>
+                </div>
+                {/* Minimizado, o grupo continua montado (o rascunho não se perde); só o corpo sai de vista. */}
+                <div className="al-cf-corpo al-cf-conversa" hidden={a.minimizada}>
+                  <ConversaDoGrupo lang={lang} tg={tg} conta={eu.usuario} grupo={g} compacta idDoCampo={`${id}-texto-${a.id}`} aoVoltar={() => despachar({ tipo: "fecharConversa", id: a.id })} />
+                </div>
+              </section>
+            );
+          }
           const c = porId.get(a.id) as ConversaDoChat;
           const nome = c.com.codinome;
           return (

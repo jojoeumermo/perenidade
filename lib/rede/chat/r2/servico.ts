@@ -32,7 +32,7 @@ import { ENVIO_NOVO, ESTADO_NOVO, faltando, type Aviso, type EstadoDeEnvio, type
 import { corpoDeTexto, lerCorpoDeTexto, type Prazo, type TipoDoBloco } from "./bloco";
 import { copia, deB64Url, deTexto, iguais, paraB64Url, sortear, texto, type Bytes } from "./bytes";
 import {
-  assinarChaveDaSemana, assinarChaveDePedidos, semanaDoCertificado, assinarDeclaracao, assinarTextoDoVoto, certificarAparelho, chaveDePedidosConfere, codigoDeSeguranca, declaracaoConfere,
+  assinarChaveDaSemana, assinarChaveDePedidos, semanaDoCertificado, assinarDeclaracao, assinarTextoDoGrupo, assinarTextoDoVoto, certificarAparelho, chaveDePedidosConfere, codigoDeSeguranca, declaracaoConfere,
   novoParEd25519, type ParEd25519, parDaSemente,
 } from "./certificados";
 import { type AparelhoPublico, aparelhosConfiaveis, type Destino, type Eu, mandar, receber, resumoDaCaixa, resumoDoPasse } from "./conversa";
@@ -45,6 +45,7 @@ import { contagemAoEncaminhar, destinosPermitidos } from "../encaminhar";
 import { horaValida } from "../agendar";
 import { type CorpoDePosicao, lerCorpoDePosicao, VIDA_DO_SOS_MS } from "../../perto/posicao";
 import { type CorpoDoToque, lerCorpoDoToque } from "../../chamada/toque";
+import { type CorpoDoConvite, lerCorpoDoConvite } from "../grupo/formato";
 import { provaDoPacote, type ProvaDeFranquia } from "../../franquia/protocolo";
 import type { MotorSpqr } from "../r3/spqr";
 
@@ -209,6 +210,12 @@ export interface Dependencias {
    * Quem guarda (lib/rede/chamada/guarda.ts) fica com ele só na memória. Sem isto, o toque é descartado.
    */
   aoChamada?: (c: { conversa: B64; autor: string; nome: string; corpo: CorpoDoToque; quando: number }) => void;
+  /**
+   * Conversa em grupo (recurso "alumia-chat-grupo", lib/rede/chat/grupo/): o convite de um grupo, o pedido de entrada ou a recusa
+   * chegou da OUTRA pessoa desta conversa, de dentro do cifrado. Quem cuida dos grupos (lib/rede/chat/grupo/servico.ts) decide no
+   * aparelho; nada disso entra no histórico da conversa a dois. Sem isto, o corpo é descartado.
+   */
+  aoGrupo?: (c: { conversa: B64; autor: string; codinome: string; corpo: CorpoDoConvite; quando: number }) => void;
 }
 
 // ── O estado (JSON, base64url) ──────────────────────────────────────────────────────────────────────────────────────────────
@@ -442,7 +449,12 @@ interface Chamada {
   a: "chamada";
   c: string;
 }
-type Controle = Anuncio | Apagar | Editar | Posicao | Chamada;
+/** Conversa em grupo: o convite, o pedido de entrada ou a recusa de um grupo (o corpo de lib/rede/chat/grupo/formato.ts, em JSON). */
+interface DoGrupo {
+  a: "grupo";
+  g: string;
+}
+type Controle = Anuncio | Apagar | Editar | Posicao | Chamada | DoGrupo;
 const controle = (c: Controle) => texto(JSON.stringify(c));
 function lerControle(corpo: Uint8Array): Controle | null {
   try {
@@ -452,6 +464,7 @@ function lerControle(corpo: Uint8Array): Controle | null {
     if (c?.a === "editar" && typeof c.id === "string" && typeof c.t === "string" && c.t.trim() && [...c.t].length <= 2000) return c;
     if (c?.a === "posicao" && typeof c.p === "string" && c.p.length <= 512 && lerCorpoDePosicao(c.p)) return c;
     if (c?.a === "chamada" && typeof c.c === "string" && lerCorpoDoToque(c.c)) return c;
+    if (c?.a === "grupo" && typeof c.g === "string" && lerCorpoDoConvite(c.g)) return c;
     return null;
   } catch {
     return null;
@@ -1448,6 +1461,12 @@ export class ChatDoAparelho {
         const corpo = lerCorpoDoToque(ctl.c);
         if (corpo) this.d.aoChamada?.({ conversa: convId, autor: r.de.conta, nome: conv.codinome, corpo, quando: this.agora() });
       }
+      // Conversa em grupo: o convite, o pedido ou a recusa, só da OUTRA pessoa desta conversa (nunca de um aparelho meu, nunca de
+      // quem bloqueei). Não entra no histórico: quem decide é o aparelho, pelos grupos (lib/rede/chat/grupo/servico.ts).
+      if (ctl?.a === "grupo" && conv && !conv.apagada && !r.de.meu && conv.com === r.de.conta && !this.bloqueado(conv.com)) {
+        const corpo = lerCorpoDoConvite(ctl.g);
+        if (corpo) this.d.aoGrupo?.({ conversa: convId, autor: r.de.conta, codinome: conv.codinome, corpo, quando: this.agora() });
+      }
       return 0;
     }
     if ((r.bloco.tipo !== "texto" && r.bloco.tipo !== "anexo") || !conv || conv.apagada) return 0;
@@ -1620,6 +1639,14 @@ export class ChatDoAparelho {
     return assinarTextoDoVoto(this.identidade, t);
   }
 
+  /**
+   * Assina com a identidade da conta SÓ um texto do grupo com membros escondidos (apresentação, papéis, autorização de commit,
+   * boas-vindas: certificados.ts, assinarTextoDoGrupo). É o que a conversa em grupo (lib/rede/chat/grupo/) pede à identidade.
+   */
+  assinarParaOGrupo(t: Uint8Array): Uint8Array {
+    return assinarTextoDoGrupo(this.identidade, t);
+  }
+
   /** A identidade da conta de outra pessoa é a do registro público das chaves (o mesmo caminho da conversa a dois)? */
   conferirNoRegistro(usuario: string, identidade: Uint8Array): Promise<"confere" | "nao_confere" | "quebrado"> {
     return this.d.conferirRegistro(usuario, identidade);
@@ -1660,6 +1687,22 @@ export class ChatDoAparelho {
     await this.anunciar(id);
     const destinos = await this.destinosDaConversa(id);
     const r = await this.enviarBloco(id, "controle", controle({ a: "chamada", c }), destinos, false);
+    return { entregues: r.entregues };
+  }
+
+  /**
+   * Conversa em grupo (recurso "alumia-chat-grupo"): manda o convite, o pedido de entrada ou a recusa de um grupo à outra pessoa
+   * desta conversa, num controle "grupo" DENTRO do cifrado, pelo mesmo caminho do toque da chamada (mesma cifra, mesmo envelope de
+   * tamanho fixo, mesmo ritmo). Não vai aos meus outros aparelhos (o grupo é deste aparelho) e não fica em histórico nenhum.
+   */
+  async mandarGrupo(id: B64, corpo: string): Promise<{ entregues: number }> {
+    if (!lerCorpoDoConvite(corpo)) throw erro("convite_invalido");
+    const conv = this.estado.lista.conversas[id];
+    if (conv && this.bloqueado(conv.com)) throw erro("dm_fechada");
+    await this.garantirMinhaCaixa(id);
+    await this.anunciar(id);
+    const destinos = await this.destinosDaConversa(id);
+    const r = await this.enviarBloco(id, "controle", controle({ a: "grupo", g: corpo }), destinos, false);
     return { entregues: r.entregues };
   }
 
