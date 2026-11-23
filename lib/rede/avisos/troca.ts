@@ -3,7 +3,8 @@
 // O que o aviso da troca do chat do beta mostra no alto do Início (onda R2, components/rede/avisos/AvisoDaTroca.tsx). A data e a
 // limpeza do aparelho são da conversa a dois (lib/rede/chat/r2/troca.ts e limpeza.ts, pelo contrato da onda R2); aqui só a
 // decisão, para o teste rodar sem navegador:
-//   - antes da data (e no próprio dia, até a virada em UTC): o aviso com a data, que a pessoa fecha nesta aba;
+//   - antes da data (até o dia da troca começar, em UTC): o aviso com a data, que a pessoa fecha nesta aba; no próprio dia ele já
+//     não aparece (a frase "serão apagados neste dia" estaria no tempo errado);
 //   - a limpeza deste aparelho apagou agora as lojas do chat do beta: uma vez, que foram apagadas (com a data, se houver);
 //   - sem data marcada, nada antes: o site não inventa data.
 //
