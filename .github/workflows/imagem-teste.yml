@@ -1,0 +1,78 @@
+name: Montar a imagem de teste
+
+# Monta a imagem do site com a mesma receita da rotina "Publicar no servidor" (producao.yml), a partir do ramo escolhido,
+# e guarda SÓ na etiqueta :teste-imagem do GitHub Container Registry. Serve para provar uma mudança no Dockerfile antes de
+# ela chegar ao master: a imagem de teste roda num contêiner à parte e é comparada com a que está no ar.
+# Nada aqui toca a etiqueta :producao, a etiqueta do commit, o servidor, o Coolify nem o cache do Cloudflare: a VPS só
+# troca de versão quando :producao muda, e esta rotina nunca escreve nela.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: imagem-de-teste
+  cancel-in-progress: true
+
+jobs:
+  montar:
+    # A mesma máquina da publicação (o processador precisa ser o do servidor).
+    runs-on: ${{ vars.MAQUINA_DE_MONTAGEM || 'ubuntu-24.04-arm' }}
+    timeout-minutes: 90
+    env:
+      IMAGEM: ghcr.io/${{ github.repository }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+          # O histórico inteiro: a página de histórico do acervo sai do Git (igual à publicação).
+          fetch-depth: 0
+
+      - name: Entrar no GitHub Container Registry
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: echo "$GITHUB_TOKEN" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Montar a imagem de teste
+        env:
+          # As mesmas variáveis públicas da publicação (producao.yml): a imagem de teste tem de sair igual à do ar.
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}
+          NEXT_PUBLIC_ESTUDIO_URL: ${{ vars.NEXT_PUBLIC_ESTUDIO_URL }}
+          NEXT_PUBLIC_RECURSOS: ${{ vars.NEXT_PUBLIC_RECURSOS }}
+          NEXT_PUBLIC_JITSI_DOMAIN: ${{ vars.NEXT_PUBLIC_JITSI_DOMAIN }}
+          NEXT_PUBLIC_LIVEKIT_URL: ${{ vars.NEXT_PUBLIC_LIVEKIT_URL }}
+          NEXT_PUBLIC_VIDEO_HOSTS: ${{ vars.NEXT_PUBLIC_VIDEO_HOSTS }}
+          CSP_REPORT_URL: ${{ vars.CSP_REPORT_URL }}
+          NEXT_PUBLIC_ALUMIA_URL: ${{ vars.NEXT_PUBLIC_ALUMIA_URL || 'https://alumia.institutolucia.org' }}
+          NEXT_PUBLIC_ESCOLA_URL: ${{ vars.NEXT_PUBLIC_ESCOLA_URL }}
+          NEXT_PUBLIC_GALENE_URL: ${{ vars.NEXT_PUBLIC_GALENE_URL }}
+          NEXT_PUBLIC_VAPID_PUBLIC_KEY: ${{ vars.NEXT_PUBLIC_VAPID_PUBLIC_KEY }}
+          NEXT_PUBLIC_ESPELHOS: ${{ vars.NEXT_PUBLIC_ESPELHOS }}
+          NEXT_PUBLIC_CHAT_URL: ${{ vars.NEXT_PUBLIC_CHAT_URL }}
+          NEXT_PUBLIC_CHAT_ONION: ${{ vars.NEXT_PUBLIC_CHAT_ONION }}
+        run: |
+          set -euo pipefail
+          if [ -z "$NEXT_PUBLIC_SUPABASE_URL" ] || [ -z "$NEXT_PUBLIC_SUPABASE_ANON_KEY" ]; then
+            echo "::error::Faltam as variáveis NEXT_PUBLIC_SUPABASE_URL e NEXT_PUBLIC_SUPABASE_ANON_KEY."
+            exit 1
+          fi
+          : > .env.production.local
+          for nome in NEXT_PUBLIC_SITE_URL NEXT_PUBLIC_SUPABASE_URL NEXT_PUBLIC_SUPABASE_ANON_KEY NEXT_PUBLIC_TURNSTILE_SITE_KEY \
+                      NEXT_PUBLIC_ESTUDIO_URL NEXT_PUBLIC_RECURSOS NEXT_PUBLIC_JITSI_DOMAIN NEXT_PUBLIC_LIVEKIT_URL NEXT_PUBLIC_VIDEO_HOSTS CSP_REPORT_URL \
+                      NEXT_PUBLIC_ALUMIA_URL NEXT_PUBLIC_ESCOLA_URL NEXT_PUBLIC_GALENE_URL NEXT_PUBLIC_VAPID_PUBLIC_KEY NEXT_PUBLIC_ESPELHOS NEXT_PUBLIC_CHAT_URL NEXT_PUBLIC_CHAT_ONION; do
+            valor="${!nome:-}"
+            if [ -n "$valor" ]; then printf '%s=%s\n' "$nome" "$valor" >> .env.production.local; fi
+          done
+          COMMIT=$(git rev-parse HEAD)
+          echo "$COMMIT" > public/versao.txt
+          # Só a etiqueta de teste: nem :producao, nem a etiqueta do commit (que a publicação usa para pular montagens).
+          docker build --pull \
+            --label "org.opencontainers.image.revision=$COMMIT" \
+            -t "$IMAGEM:teste-imagem" .
+          docker push "$IMAGEM:teste-imagem"
+          docker image inspect "$IMAGEM:teste-imagem" --format 'Tamanho da imagem de teste: {{.Size}} bytes'
