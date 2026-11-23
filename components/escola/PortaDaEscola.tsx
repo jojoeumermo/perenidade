@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import type { Locale } from "@/i18n/config";
 import type { TextosDaFormacaoBase } from "@/i18n/escola/formacao-base";
 import { useEscola } from "@/lib/escola/acesso";
+import { caminhoDasAulasAbertas } from "@/lib/escola/aulas-abertas";
 import { publicaDaEscola } from "@/lib/escola/rotas";
 import { trazerSessaoDoSite } from "@/lib/sessao/cliente-ponte";
 import { Casca } from "./casca/Casca";
@@ -40,7 +41,10 @@ export function PortaDaEscola({ lang, t, children }: { lang: Locale; t: Pick<Tex
   }, [escola.estado]);
   // As páginas abertas (o chamado, o manifesto e o entrar) abrem para todo mundo, sempre no desenho da Escola: quem já é
   // militante as lê dentro da casca; os outros, na moldura da porta (PortaPublica), sem cair no papel claro do site.
-  if (publicaDaEscola(caminho.replace(/^\/[a-z]{2}(?=\/|$)/, "") || "/") && escola.estado !== "militante") {
+  // As aulas abertas (P5, B2) moram no endereço do instituto (lib/escola/aulas-abertas.ts): ali a moldura é sempre a da porta,
+  // também para quem é militante, para a casca fechada (cofre, modo discreto, núcleo) nunca abrir fora do endereço da Escola.
+  const semIdioma = caminho.replace(/^\/[a-z]{2}(?=\/|$)/, "") || "/";
+  if (caminhoDasAulasAbertas(semIdioma) || (publicaDaEscola(semIdioma) && escola.estado !== "militante")) {
     return (
       <PortaPublica lang={lang} t={t.porta} caminho={caminho}>
         {children}

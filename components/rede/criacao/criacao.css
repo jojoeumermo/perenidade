@@ -1,0 +1,96 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * A criação coletiva da Alumia (Prompt 4, itens 33, 34, 36 e 37; /alumia/criacao). Linguagem do Mosaico da Arquibancada, só com os
+ * tokens de styles/alumia-tokens.css (escuro, claro, contraste e e-ink). Todo alvo de toque tem 44 px no mínimo; nada se mexe com
+ * movimento reduzido. A folha da zine usa as classes do site (.folha-livrinho e .livrinho-quadro, app/globals.css) e sai sozinha
+ * na impressão.
+ */
+
+.cc-pagina { container-type: inline-size; padding: 1.5rem 1rem 3.5rem; color: var(--al-texto); max-width: 60rem; }
+@media (min-width: 1024px) { .cc-pagina { padding: 1.9rem 1.5rem 4rem; } }
+
+.cc-cabeca { position: relative; margin-bottom: 1.2rem; padding-bottom: 1.3rem; }
+.cc-cabeca::after { content: ""; position: absolute; inset: auto 0 0; height: var(--al-faixa-altura, 6px); background: var(--al-faixa); border-radius: 2px; }
+.cc-cabeca h1 { margin: 0; font-size: clamp(2.2rem, 7cqi, 3.6rem); color: var(--al-texto); text-wrap: balance; }
+.cc-chamada { margin: 0.9rem 0 0; color: var(--al-texto-2); font-size: 1.04rem; line-height: 1.55; }
+
+.cc-abas { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 1.4rem; }
+.cc-aba { display: inline-flex; align-items: center; min-height: 44px; padding: 0 1rem; border-radius: 999px; border: 1.5px solid var(--al-linha); color: var(--al-texto); font-weight: 700; text-decoration: none; background: var(--al-fundo); cursor: pointer; font: inherit; font-weight: 700; }
+.cc-aba[aria-selected="true"] { background: var(--al-texto); color: var(--al-fundo); border-color: var(--al-texto); }
+.cc-aba:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+
+.cc-bloco { margin: 0 0 1.6rem; padding: 1.1rem 1rem 1.2rem; border: 1px solid var(--al-linha); border-radius: 14px; background: var(--al-fundo); min-width: 0; }
+.cc-bloco h2 { margin: 0 0 0.5rem; font-size: 1.6rem; color: var(--al-texto); }
+.cc-bloco h3 { margin: 0 0 0.4rem; font-size: 1.15rem; color: var(--al-texto); }
+.cc-texto { margin: 0 0 0.85rem; color: var(--al-texto-2); font-size: 0.97rem; line-height: 1.6; }
+.cc-nota { margin: 0.4rem 0 0; color: var(--al-texto-3); font-size: 0.86rem; line-height: 1.45; overflow-wrap: anywhere; }
+.cc-aviso { margin: 0 0 1rem; padding: 0.6rem 0.85rem; border-left: 4px solid var(--al-dourado); border-radius: 8px; background: var(--al-superficie); color: var(--al-texto); font-size: 0.92rem; line-height: 1.5; }
+.cc-erro { margin: 0.6rem 0 0; padding: 0.55rem 0.8rem; border-radius: 8px; border-left: 4px solid var(--al-vermelho); background: var(--al-superficie); color: var(--al-texto); font-size: 0.92rem; }
+.cc-ok { margin: 0.6rem 0 0; color: var(--al-texto-2); font-size: 0.92rem; }
+
+.cc-form { display: grid; gap: 0.85rem; }
+.cc-campo { display: grid; gap: 0.3rem; min-width: 0; }
+.cc-campo > span { color: var(--al-texto); font-size: 0.9rem; font-weight: 700; }
+.cc-campo input:not([type="checkbox"]):not([type="color"]), .cc-campo select, .cc-campo textarea {
+  width: 100%; min-height: 44px; padding: 0.55rem 0.75rem; border-radius: 10px; border: 1.5px solid var(--al-linha);
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-size: 1rem;
+}
+.cc-campo textarea { min-height: 6.5rem; resize: vertical; line-height: 1.5; }
+.cc-campo input[type="color"] { width: 100%; min-height: 44px; padding: 0.2rem; border-radius: 10px; border: 1.5px solid var(--al-linha); background: var(--al-fundo); cursor: pointer; }
+.cc-campo input:focus-visible, .cc-campo select:focus-visible, .cc-campo textarea:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 1px; border-color: transparent; }
+.cc-marcar { display: flex; align-items: center; gap: 0.6rem; min-height: 44px; color: var(--al-texto); font-size: 0.95rem; cursor: pointer; }
+.cc-marcar input { width: 1.25rem; height: 1.25rem; accent-color: var(--al-vermelho); flex: none; }
+.cc-acoes { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.3rem; }
+.cc-seta { min-width: 44px; justify-content: center; }
+.cc-grade { display: grid; gap: 0.85rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); }
+
+.cc-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.cc-item { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 0.8rem; padding: 0.7rem 0.9rem; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-linha); min-width: 0; }
+.cc-item > div { min-width: 0; }
+.cc-item strong { color: var(--al-texto); overflow-wrap: anywhere; }
+.cc-selo { display: inline-block; margin-left: 0.4rem; padding: 0 0.45rem; border-radius: 999px; border: 1px solid var(--al-linha); color: var(--al-texto-2); font-size: 0.8rem; }
+
+/* A página com a margem: o texto à esquerda e a margem à direita; no celular, a margem desce. */
+.cc-leitura { display: grid; gap: 1.2rem; grid-template-columns: minmax(0, 1fr); }
+@container (min-width: 760px) { .cc-leitura { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); } }
+.cc-corpo { margin: 0; padding: 1rem; border-radius: 12px; border: 1px solid var(--al-linha); background: var(--al-superficie); color: var(--al-texto); font-size: 1.05rem; line-height: 1.75; white-space: pre-wrap; overflow-wrap: anywhere; }
+.cc-marca { background: color-mix(in srgb, var(--al-dourado) 35%, transparent); border-bottom: 2px solid var(--al-dourado); border-radius: 2px; cursor: pointer; color: inherit; }
+.cc-marca[data-ativa] { background: color-mix(in srgb, var(--al-vermelho) 30%, transparent); border-bottom-color: var(--al-vermelho); }
+.cc-trecho { margin: 0.3rem 0 0.6rem; padding: 0.4rem 0.7rem; border-left: 3px solid var(--al-dourado); color: var(--al-texto-2); font-style: italic; overflow-wrap: anywhere; }
+.cc-cartao { padding: 0.8rem 0.9rem; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-linha); min-width: 0; }
+.cc-cartao[data-ativa] { border-color: var(--al-vermelho); }
+.cc-cartao[data-resolvida] { opacity: 0.75; }
+.cc-cartao p { margin: 0.3rem 0 0; color: var(--al-texto); overflow-wrap: anywhere; line-height: 1.5; }
+.cc-respostas { list-style: none; margin: 0.6rem 0 0; padding: 0 0 0 0.8rem; border-left: 2px solid var(--al-linha); display: grid; gap: 0.4rem; }
+.cc-del { text-decoration: line-through; color: var(--al-texto-3); }
+.cc-ins { text-decoration: underline; text-decoration-color: var(--al-dourado); text-decoration-thickness: 2px; }
+
+/* O estúdio: a prévia ao lado do formulário; no celular, embaixo. */
+.cc-estudio { display: grid; gap: 1.2rem; grid-template-columns: minmax(0, 1fr); }
+@container (min-width: 760px) { .cc-estudio { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.cc-tela { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--al-linha); background: var(--al-superficie); }
+.cc-amostras { display: flex; gap: 0.4rem; }
+.cc-amostra { width: 2rem; height: 2rem; border-radius: 6px; border: 1px solid var(--al-linha); }
+
+/* A zine: a folha rola de lado no celular (é A4 deitada, em milímetros). */
+.cc-folha { margin-top: 1.2rem; overflow-x: auto; }
+.cc-folha .folha-livrinho { color: #17130e; }
+.cc-quadro { display: flex; flex-direction: column; height: 100%; padding: 5mm; overflow: hidden; font-family: Georgia, "EB Garamond", serif; }
+.cc-quadro h4 { margin: 0 0 1.5mm; padding-bottom: 1mm; border-bottom: 1.5px solid #17130e; font-size: 11pt; line-height: 1.15; }
+.cc-quadro p { margin: 0 0 2mm; font-size: 8.8pt; line-height: 1.35; }
+.cc-quadro small { display: block; margin-top: -1mm; margin-bottom: 2.5mm; font-family: ui-monospace, monospace; font-size: 6.5pt; opacity: 0.75; }
+.cc-quadro .cc-num { margin-top: auto; text-align: right; font-family: ui-monospace, monospace; font-size: 7pt; opacity: 0.6; }
+.cc-capa { justify-content: center; background: #1f1a14; color: #f4ecd8; }
+.cc-capa h4 { border-color: #f4ecd8; font-size: 20pt; }
+.cc-linhas { flex: 1; background-image: repeating-linear-gradient(to bottom, transparent 0 6.5mm, rgb(23 19 14 / 0.18) 6.5mm calc(6.5mm + 0.3px)); }
+
+/* Na impressão sai só a folha (a zine) ou só a imagem (o cartaz): o resto da casca fica invisível, e a peça vai para o canto. */
+@media print {
+  body:has([data-cc-imprimir]) * { visibility: hidden !important; }
+  [data-cc-imprimir], [data-cc-imprimir] * { visibility: visible !important; }
+  [data-cc-imprimir] { position: absolute !important; inset: 0 auto auto 0 !important; margin: 0 !important; overflow: visible !important; }
+  [data-cc-imprimir] .folha-livrinho { outline: none; }
+  canvas[data-cc-imprimir] { width: 100% !important; height: auto !important; border: 0 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) { .cc-pagina * { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }

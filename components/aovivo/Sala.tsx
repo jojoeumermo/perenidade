@@ -17,6 +17,9 @@ import { TocadorPeerTube } from "./TocadorPeerTube";
 import { TocadorYoutube } from "../TocadorYoutube";
 import { L, useI18n } from "../I18n";
 import { CartaoDeAula, type LiveStrings } from "./Agenda";
+import { confirmar } from "@/components/perguntar";
+import { JanelaDeLibras } from "@/components/rede/p4/pontes/JanelaDeLibras";
+import { pontesP4LigadoNoSite } from "@/lib/rede/p4/pontes/ligado";
 
 const botao = "cursor-pointer bg-ink px-4 py-2 font-sans text-sm font-semibold text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50";
 const claro = "cursor-pointer border-2 border-ink px-3 py-1.5 font-sans text-sm font-semibold hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50";
@@ -501,6 +504,8 @@ function Dentro({ aula, s, conduzo, nome, recarregar }: { aula: Aula; s: LiveStr
             {videos.map(([chave, fluxo]) => <Video key={chave} fluxo={fluxo} nome={nomeDe(chave)} destaque />)}
           </div>
         )}
+        {/* Prompt 4, item 87: a janela de Libras (a escolha da intérprete fica só nesta tela). */}
+        {pontesP4LigadoNoSite() && videos.length > 0 && <JanelaDeLibras videos={videos.map(([chave, fluxo]) => ({ chave, fluxo, nome: nomeDe(chave) }))} lang={lang} />}
         {!local && videos.length === 0 && aula.status !== "encerrada" && aula.status !== "cancelada" && (
           <div className="flex aspect-video flex-col items-center justify-center border-2 border-dashed border-rule bg-parchment-deep p-6 text-center font-sans text-sm text-ink-soft">
             {canal === "sem" ? (
@@ -543,7 +548,7 @@ function Dentro({ aula, s, conduzo, nome, recarregar }: { aula: Aula; s: LiveStr
             </div>
             <div className="flex flex-wrap gap-2 border-t border-rule pt-3">
               {aula.status === "agendada" && <button type="button" className={vermelho} disabled={ocupado} onClick={() => void estado("ao_vivo")}>{s.startClass}</button>}
-              {aula.status === "ao_vivo" && <button type="button" className={botao} disabled={ocupado} onClick={() => { if (window.confirm(s.confirmEnd)) void estado("encerrada"); }}>{s.endClass}</button>}
+              {aula.status === "ao_vivo" && <button type="button" className={botao} disabled={ocupado} onClick={async () => { if ((await confirmar(s.confirmEnd))) void estado("encerrada"); }}>{s.endClass}</button>}
             </div>
             <p className="text-xs text-ink-soft">{s.recordHint}</p>
             {maos.length > 0 && (

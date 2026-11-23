@@ -400,6 +400,21 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 :root:has([data-al="2"])::view-transition-new(al2-linha) { animation: 260ms ease-out both al2-tela-entra; }
 @keyframes al2-some { to { opacity: 0; transform: translateY(-4px); } }
 
+/* Troca de TELA com View Transitions (Prompt 5, A17; components/rede/publicar/alumia2/TransicaoDaTela.tsx): a tela que sai some para
+   cima e a que chega sobe no lugar; o menu do lado e a barra de baixo ficam parados (nome próprio, sem animação). Curto, para o
+   toque seguinte não esperar, e a camada da transição não segura o clique. */
+[data-al="2"] .al2-menu-lateral { view-transition-name: al2-menu; }
+[data-al="2"] .al2-barra-baixo { view-transition-name: al2-barra; }
+:root:has([data-al="2"])::view-transition { pointer-events: none; }
+:root:has([data-al="2"])::view-transition-group(al2-menu), :root:has([data-al="2"])::view-transition-group(al2-barra) { animation: none; }
+:root[data-al-transicao]:has([data-al="2"])::view-transition-old(root) { animation: 120ms ease-in both al2-some; }
+:root[data-al-transicao]:has([data-al="2"])::view-transition-new(root) { animation: 240ms cubic-bezier(0.2, 0.8, 0.2, 1) both al2-tela-entra; }
+@media (prefers-reduced-motion: reduce) {
+  :root:has([data-al="2"])::view-transition-group(*), :root:has([data-al="2"])::view-transition-old(*), :root:has([data-al="2"])::view-transition-new(*) { animation: none !important; }
+}
+:root[data-parado]:has([data-al="2"])::view-transition-group(*), :root[data-parado]:has([data-al="2"])::view-transition-old(*), :root[data-parado]:has([data-al="2"])::view-transition-new(*) { animation: none !important; }
+:root[data-eink]:has([data-al="2"])::view-transition-group(*), :root[data-eink]:has([data-al="2"])::view-transition-old(*), :root[data-eink]:has([data-al="2"])::view-transition-new(*) { animation: none !important; }
+
 /* "N posts novos": logo abaixo das abas (nunca por cima delas), fixa enquanto a pessoa rola, entra com mola. */
 [data-al="2"] .al2-novos-lugar {
   position: sticky; top: calc(var(--al2-abas-h) + 4px); z-index: 15; display: flex; justify-content: center;
@@ -424,6 +439,19 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 /* Cartão que entra: sobe e acende, um depois do outro (no máximo 10 de atraso). */
 @keyframes al2-cartao-entra { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 [data-al="2"] .al2-entra { animation: al2-cartao-entra 520ms var(--al2-mola-suave) backwards; animation-delay: calc(var(--i, 0) * 45ms); }
+
+/* O post que está saindo (Prompt 5, A17: interface otimista): aparece no alto da linha no toque de Publicar, meio apagado, e dá lugar
+   ao cartão de verdade quando o banco confirma. O ponto pulsa só com opacidade. */
+[data-al="2"] .al2-a-caminho { padding: 14px 18px; border-bottom: 1px solid var(--al-linha); opacity: 0.72; }
+[data-al="2"] .al2-a-caminho-estado { display: flex; align-items: center; gap: 0.5rem; color: var(--al-texto-2); font-size: 0.8125rem; font-weight: 700; }
+[data-al="2"] .al2-a-caminho-ponto { width: 0.55rem; height: 0.55rem; border-radius: 999px; background: var(--al-vermelho); animation: al2-a-caminho-pulsa 1.1s ease-in-out infinite alternate; }
+[data-al="2"] .al2-a-caminho-texto { margin-top: 0.35rem; white-space: pre-wrap; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+[data-al="2"] .al2-a-caminho-nota { margin-top: 0.3rem; color: var(--al-texto-2); font-size: 0.8125rem; }
+@keyframes al2-a-caminho-pulsa { from { opacity: 1; } to { opacity: 0.25; } }
+@media (prefers-reduced-motion: reduce) { [data-al="2"] .al2-a-caminho-ponto { animation: none; } }
+:root[data-parado] [data-al="2"] .al2-a-caminho-ponto { animation: none; }
+:root[data-eink] [data-al="2"] .al2-a-caminho { opacity: 1; }
+:root[data-eink] [data-al="2"] .al2-a-caminho-ponto { animation: none; background: #000; }
 
 /* Esqueletos com brilho que atravessa (no lugar do pulso). */
 @keyframes al2-brilho { from { background-position: 150% 0; } to { background-position: -50% 0; } }
@@ -1139,6 +1167,15 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] .al2-cartao-com:focus-within { border-color: var(--al3-cor, var(--al-superficie-2)); }
 [data-al="2"] .al2-cartao-com .al3-anel { flex: none; width: 26px; height: 26px; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-cartao-com { border: 2px solid var(--al-texto); }
+/* O cartão inteiro abre a comunidade (Prompt 5, A11): a área do link do nome cobre o cartão; os botões ficam por cima dela. A regra
+   pesa mais que a do alvo de toque de 44 px (aparencia/acabamento.css), que prenderia a área ao nome. */
+[data-al="2"] .al2-cartao-com.al2-cartao-abre { position: relative; cursor: pointer; }
+[data-al="2"] .al2-cartao-com.al2-cartao-abre a.al2-nome-link.al2-cartao-alvo { position: static; }
+[data-al="2"] .al2-cartao-com.al2-cartao-abre a.al2-nome-link.al2-cartao-alvo::after {
+  content: ""; position: absolute; inset: 0; left: 0; top: 0; width: auto; height: auto; transform: none; border-radius: inherit; z-index: 0;
+}
+[data-al="2"] .al2-cartao-com.al2-cartao-abre .al2-cartao-por-cima { position: relative; z-index: 1; cursor: auto; }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-cartao-com.al2-cartao-abre:hover { background: var(--al-superficie-2, var(--al-superficie)); } }
 
 /* O estado com título de página (components/rede/ui/Estado.tsx): o título grande e condensado. */
 [data-al="2"] .al2-estado h1.al2-estado-titulo { margin-top: 1.25rem; font-size: clamp(2.4rem, 8vw, 3.4rem); }
@@ -1230,3 +1267,81 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 /* Onda 14 (teclado): nos campos de data e hora o Tab entra nos pedaços de dentro (hora, minuto) e o :focus-visible do campo nem sempre
    acende; o contorno do foco vale para o campo inteiro enquanto o foco está dentro dele. */
 [data-al="2"] :is(input[type="time"], input[type="date"], input[type="datetime-local"]):focus-within { outline: 3px solid var(--al-foco); outline-offset: 1px; }
+
+/* ───── P5 (A9): o menu reorganizado ───── */
+/* Os itens que são botão (o grupo "Mais" e a Segurança) com a mesma cara dos links do menu. */
+[data-al="2"] button.al2-menu-item { border: 0; background: none; font: inherit; text-align: start; cursor: pointer; }
+[data-al="2"] .al2-menu-item[data-atual] { background: var(--al-superficie); color: var(--al-texto); font-weight: 700; }
+[data-al="2"] .al2-menu-item[data-atual] svg { color: var(--al-vermelho); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-menu-item[data-atual] { outline: 2px solid var(--al-texto); }
+[data-al="2"] .al2-menu-mais-seta { transition: transform 260ms var(--al2-mola); }
+[data-al="2"] .al2-menu-item[aria-expanded="true"] .al2-menu-mais-seta { transform: rotate(90deg); }
+/* Os itens do "Mais" um degrau abaixo: recuados, menores, entrando em cascata quando o grupo abre. */
+[data-al="2"] .al2-menu-mais-lista { padding-left: 0.85rem; }
+[data-al="2"] .al2-menu-lateral .al2-menu-item-mais { min-height: 38px; font-size: 0.9375rem; gap: 0.7rem; }
+[data-al="2"] .al2-menu-mais-lista:not([hidden]) > li { animation: al2-painel-item 320ms var(--al2-mola-suave) backwards; animation-delay: calc(min(var(--i, 0), 8) * 22ms); }
+@media (prefers-reduced-motion: reduce) { [data-al="2"] .al2-menu-mais-lista > li, [data-al="2"] .al2-menu-mais-seta { animation: none !important; transition: none; } }
+:root:is([data-parado], [data-eink]) [data-al="2"] .al2-menu-mais-lista > li { animation: none !important; }
+/* Os grupos do menu da conta e do painel de Segurança, separados por uma linha fina. */
+[data-al="2"] .al2-conta-grupo { margin-top: 0.35rem; padding-top: 0.35rem; border-top: 1px solid var(--al-linha); }
+[data-al="2"] .al2-conta-grupo > .al2-conta-secao { margin-top: 0.35rem; }
+/* Telas baixas (um notebook de 720 px, a janela do navegador com barras): o menu inteiro cabe sem rolar. */
+@media (max-height: 760px) {
+  [data-al="2"] .al2-menu-rola { padding-top: 0.75rem; }
+  [data-al="2"] .al2-menu-nav { margin-top: 0.5rem; }
+  [data-al="2"] .al2-menu-lateral .al2-menu-item { min-height: 34px; font-size: 0.975rem; }
+  [data-al="2"] .al2-menu-lateral .al2-menu-item-mais { min-height: 32px; }
+  [data-al="2"] .al2-menu-marca svg { width: auto; height: 34px; }
+  [data-al="2"] .al2-menu-marca .al-cond { font-size: 1.65rem; }
+  [data-al="2"] .al2-menu-escrever { min-height: 42px; }
+  [data-al="2"] .al2-menu-pe { padding-top: 0.5rem; padding-bottom: 0.6rem; }
+  [data-al="2"] .al2-menu-pe .al2-conta > summary { padding-block: 0.4rem; }
+}
+@media (max-height: 640px) {
+  [data-al="2"] .al2-menu-lateral .al2-menu-item { min-height: 30px; font-size: 0.9375rem; }
+}
+
+@media (max-height: 640px) {
+  [data-al="2"] .al2-menu-marca > span > span:last-child { display: none; }
+  [data-al="2"] .al2-menu-escrever { min-height: 40px; }
+}
+@media (max-height: 760px) {
+  /* O esmaecido do pé da parte que rola encolhe (ele ocupava 40 px no fim da lista e fazia o menu rolar à toa). */
+  [data-al="2"] .al2-menu-esmaece { height: 1rem; margin-top: 0; }
+  [data-al="2"] .al2-menu-esmaece::after { bottom: 0.1rem; }
+  [data-al="2"] .al2-menu-pe .al2-menu-escrever { min-height: 44px; padding-block: 0; }
+}
+
+/* P5 (A17): o "Enviando em N s · Desfazer" com a cara da Alumia (era uma pílula creme com um botão vermelho de formulário, que
+   destoava no escuro): a superfície da casa com borda, o relógio num anel dourado e o Desfazer como ação de texto dourada. */
+[data-al="2"] .al2-aviso-flutuante {
+  gap: 0.6rem; padding: 0.4rem 0.4rem 0.4rem 0.55rem; border: 1px solid var(--al-superficie-2);
+  background: var(--al-superficie); color: var(--al-texto); box-shadow: 0 10px 34px var(--al-sombra);
+}
+[data-al="2"] .al2-aviso-flutuante .al2-aviso-relogio { background: none; box-shadow: inset 0 0 0 2px var(--al-dourado); color: var(--al-texto); font-weight: 800; }
+[data-al="2"] .al2-aviso-flutuante .al2-aviso-barra { background: var(--al-dourado); opacity: 0.85; }
+[data-al="2"] .al2-desfazer {
+  display: inline-flex; align-items: center; gap: 0.4rem; min-height: 40px; padding: 0 0.9rem; border: 0; border-radius: 999px;
+  background: color-mix(in srgb, var(--al-dourado) 14%, transparent); color: var(--al-dourado); font: 800 0.9375rem/1 var(--al-fonte);
+  cursor: pointer; transition: background-color 160ms ease, transform 200ms var(--al2-mola);
+}
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-desfazer:hover { background: color-mix(in srgb, var(--al-dourado) 24%, transparent); } }
+[data-al="2"] .al2-desfazer:focus-visible { outline: 2px solid var(--al-foco, var(--al-dourado)); outline-offset: 2px; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-desfazer { background: none; color: var(--al-texto); text-decoration: underline; }
+@media (min-height: 821px) and (max-height: 940px) {
+  [data-al="2"] .al2-menu-lateral .al2-menu-item { min-height: 42px; }
+}
+/* P5 (A17): o botão principal do Escrever desligado (o Ato ainda sem tudo) fica neutro, e não um vermelho apagado com letra cinza. */
+[data-al="2"] .al-botao-primario.al2-publicar:disabled { background: var(--al-superficie-2); color: var(--al-texto-3); opacity: 1; box-shadow: none; }
+
+/*
+ * Prompt 5, A20: a linha longa não desenha o que está fora da tela. "content-visibility: auto" deixa o navegador pular o
+ * layout e a pintura dos cartões longe da vista (o efeito de uma lista virtualizada, mas com todos os cartões no documento: a
+ * busca do navegador, o leitor de tela e o "pular para" continuam achando tudo). "contain-intrinsic-size: auto" guarda a altura
+ * de verdade depois do primeiro desenho, então a rolagem não pula. O cartão com o foco ou com um menu aberto fica de fora (o
+ * menu não é cortado). Navegador sem :has() ignora a regra inteira e desenha tudo, como antes.
+ */
+[data-al="2"] .alumia-lista-leve > li:not(:focus-within):not(:has(details[open], [aria-expanded="true"])) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 420px;
+}

@@ -8,6 +8,7 @@ import { Icone } from "../publicar/alumia2/icones";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { Ladrilhos, por, useTextosDaSeguranca } from "./base";
 import { ListaDeAparelhos } from "./ListaDeAparelhos";
+import { AvisoDoChat } from "../uso/AvisoDoChat";
 
 /**
  * Os aparelhos conectados (/alumia/aparelhos): cada sessão aberta da conta, com o navegador, o sistema, o dia em que entrou e o da
@@ -34,6 +35,8 @@ export default function TelaDosAparelhos({ lang, s }: PropsDaTelaDoPacote) {
       <section className="sg-bloco" aria-label={t.aparelhos.titulo}>
         <ListaDeAparelhos t={t} lang={lang} aoMudar={setN} />
       </section>
+      {/* R1 (A3.5): trocar ou perder o aparelho leva junto o histórico do chat. */}
+      <AvisoDoChat lang={lang} />
     </article>
   );
 }

@@ -1,13 +1,18 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Prova a sala de voz cifrada (lib/rede/voz/sala.ts, lib/rede/voz/retransmissao.ts e a chave de voz do MLS em
-// lib/rede/grupo-mls.ts) no Node, com conexões de mentira (o Node não tem WebRTC) e o MLS de verdade num Postgres local: só
+// lib/rede/grupos/chaveiro.ts, OpenMLS) no Node, com conexões de mentira (o Node não tem WebRTC) e o MLS de verdade num Postgres local: só
 // quem é do grupo combina a chamada, recado mexido ou velho é descartado, a conexão é sempre por retransmissão (nenhum
 // candidato com o endereço da pessoa é usado), quem liga é sempre o de id menor, a sala tem teto, e as contas do TURN.
 // Uso: npm run testar:voz
 import { createHmac } from "node:crypto";
+import fs from "node:fs";
 import { criarBanco } from "./banco-local.mjs";
-import { criarChaveiroDeGrupo } from "../lib/rede/grupo-mls.ts";
+import { motorNoNode } from "./cifra-no-node.mjs";
+import { criarChaveiroDeGrupo } from "../lib/rede/grupos/chaveiro.ts";
+import { registroDeTeste } from "./identidade-de-teste.mjs";
+import { segredosDaEpoca } from "../lib/rede/grupos/epoca.ts";
+import { idDoGrupo } from "../lib/rede/grupos/motor-de-grupo.ts";
 import { abrirRecado, criarSalaDeVoz, MAXIMO_NA_SALA, selarRecado } from "../lib/rede/voz/sala.ts";
 import { doCoturn, soTurn } from "../lib/rede/voz/retransmissao.ts";
 
@@ -26,6 +31,12 @@ async function espera(nome, promessa, conferir = () => true) {
 // ── O MLS de verdade: Ana e Bia no núcleo, a intrusa fora ──
 const banco = await criarBanco();
 const { dono, criarUsuario, rpc } = banco;
+// Os grupos no OpenMLS (20261124-r2-grupos.sql): idempotente, roda por cima do install.sql com ou sem ela colada.
+await banco.exclusivo(() => banco.pg.exec(fs.readFileSync(new URL("../supabase/migracoes/20261124-r2-grupos.sql", import.meta.url), "utf8")));
+// Onda R3 (14): as folhas dos grupos com certificado (rede_mls_publicar com p_certificado; rede_mls_estado com os certificados).
+await banco.exclusivo(() => banco.pg.exec(fs.readFileSync(new URL("../supabase/migracoes/20261125-r3-resto-r2.sql", import.meta.url), "utf8")));
+const registro = registroDeTeste();
+const MOTOR = await motorNoNode();
 let ip = 10;
 const como = (sub) => ({ papel: "authenticated", sub, ip: `198.51.100.${ip++ % 250}` });
 const P = {};
@@ -36,24 +47,44 @@ for (const nome of ["ana", "bia", "intrusa"]) {
   await dono("update interno.perfis set rede_18 = true, rede_consentimento = 1, rede_handle = $2 where id = $1", [P[nome], `${nome}_voz`]);
   await dono("insert into interno.rede_consentimentos (usuario, versao) values ($1, 1) on conflict do nothing", [P[nome]]);
 }
-const nucleo = (await (await dono("insert into interno.rede_nucleos (nome) values ('Núcleo da voz') returning id")).rows[0]).id;
-for (const nome of ["ana", "bia"]) await dono("insert into interno.rede_nucleo_membros (nucleo, usuario) values ($1, $2)", [nucleo, P[nome]]);
-const GRUPO = `nucleo:${nucleo}`;
+// Depois da R2 (membros escondidos) o servidor não sabe quem é de qual núcleo, e os grupos do MLS no banco são das comunidades
+// fechadas (a sala de voz do núcleo vai pelo grupo de lib/rede/membros, nos aparelhos): a sala daqui é a de uma comunidade fechada.
+await dono("insert into interno.rede_comunidades (slug, nome, categoria, tipo) values ('voz-fechada', 'Sala da voz', 'lutas', 'fechada') on conflict do nothing");
+for (const nome of ["ana", "bia"]) await dono("insert into interno.rede_comunidade_membros (comunidade, usuario, situacao) values ('voz-fechada', $1, 'ativo')", [P[nome]]);
+const GRUPO = "comunidade:voz-fechada";
 const memoria = () => { const m = new Map(); return { ler: async (k) => m.get(k) ?? null, guardar: async (k, v) => void m.set(k, v), apagar: async (k) => void m.delete(k) }; };
 const ch = {};
-for (const nome of ["ana", "bia", "intrusa"]) ch[nome] = criarChaveiroDeGrupo({ chamar: (f, a) => rpc(como(P[nome]), f, a), guarda: memoria() });
+const guardas = {};
+for (const nome of ["ana", "bia", "intrusa"]) {
+  const cc = MOTOR.CoreCrypto.new(MOTOR.Database.inMemory());
+  ch[nome] = criarChaveiroDeGrupo({ chamar: (f, a) => rpc(como(P[nome]), f, a), guarda: (guardas[nome] = memoria()), abrirMotor: async () => ({ M: MOTOR, cc }), identidade: async () => registro.fonte(P[nome]) });
+}
 await ch.bia.preparar(P.bia);
 const kAna = await ch.ana.chaveDeVoz(GRUPO, P.ana, "estudo");
 const kBia = await ch.bia.chaveDeVoz(GRUPO, P.bia, "estudo");
-await espera("Ana e Bia (do núcleo) chegam à mesma chave da sala, na mesma época", async () => {
+await espera("Ana e Bia (do grupo) chegam à mesma chave da sala, na mesma época", async () => {
   const r = await selarRecado(kAna.chave, kAna.epoca, "s", { de: "a", para: null, tipo: "ola", quando: Date.now() });
   return [kAna.epoca === kBia.epoca, (await abrirRecado(kBia.chave, "s", r))?.tipo];
 }, (r) => r[0] && r[1] === "ola");
-await espera("a intrusa (fora do núcleo) não consegue a chave", () => ch.intrusa.chaveDeVoz(GRUPO, P.intrusa, "estudo").then((k) => k, (e) => e.message), (r) => r === null || /nao_encontrado/.test(String(r)));
+await espera("a intrusa (fora do grupo) não consegue a chave", () => ch.intrusa.chaveDeVoz(GRUPO, P.intrusa, "estudo").then((k) => k, (e) => e.message), (r) => r === null || /nao_encontrado/.test(String(r)));
 await espera("outra sala do mesmo grupo tem outra chave", async () => {
   const outra = await ch.bia.chaveDeVoz(GRUPO, P.bia, "outra");
   const r = await selarRecado(kAna.chave, kAna.epoca, "s", { de: "a", para: null, tipo: "ola", quando: Date.now() });
   return abrirRecado(outra.chave, "s", r);
+}, (r) => r === null);
+
+// Uma chave, uma finalidade: quem tem a chave dos posts "p2" do grupo (que fica guardada para ler posts antigos) não chega à
+// chave da voz por ela. Até 17/11/2026 a voz era tirada (HKDF) da chave dos posts; agora vem do exporter com rótulo próprio.
+await espera("a chave da voz NÃO sai da chave dos posts do grupo (rótulo próprio no exporter)", async () => {
+  const guardadas = await guardas.ana.ler(`${P.ana}:segredos:grupo:${GRUPO}`);
+  const exportado = Uint8Array.from(Buffer.from(guardadas[kAna.epoca], "base64"));
+  const daPost = segredosDaEpoca(exportado, idDoGrupo("grupo", GRUPO), "grupo").conteudo;
+  const base = await crypto.subtle.importKey("raw", daPost, "HKDF", false, ["deriveKey"]);
+  const daChaveDosPosts = await crypto.subtle.deriveKey(
+    { name: "HKDF", hash: "SHA-256", salt: new Uint8Array(32), info: new TextEncoder().encode(`alumia:voz:1:${GRUPO}:estudo`) },
+    base, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
+  const r = await selarRecado(kAna.chave, kAna.epoca, "s", { de: "a", para: null, tipo: "ola", quando: Date.now() });
+  return abrirRecado(daChaveDosPosts, "s", r);
 }, (r) => r === null);
 
 // ── Recados ──

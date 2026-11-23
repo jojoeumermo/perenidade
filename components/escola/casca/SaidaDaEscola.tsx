@@ -2,11 +2,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { localePath, type Locale } from "@/i18n/config";
+import type { Locale } from "@/i18n/config";
 import type { TextosDaFormacaoBase } from "@/i18n/escola/formacao-base";
 import { getClient } from "@/lib/backend";
+import { inicioDoSite } from "@/lib/escola/endereco";
 import { apagarCofre } from "@/lib/escola/cofre";
 import { BASE_DOS_AUDIOS_DA_VIDA } from "@/lib/escola/vida";
+import { site } from "@/lib/site";
 import { KEYS, notifyStored } from "@/lib/storage";
 
 type T = TextosDaFormacaoBase["casca"];
@@ -65,13 +67,13 @@ async function sairDaEscola(lang: Locale, tudo: boolean) {
     }
   }
   notifyStored();
-  location.replace(localePath(lang, "/"));
+  location.replace(inicioDoSite(lang, site.url));
 }
 
 /** O link "Voltar ao site", que leva à entrada do site do instituto. */
 export function VoltarAoSiteDaEscola({ lang, t, celular = false }: { lang: Locale; t: T; celular?: boolean }) {
   return (
-    <a href={localePath(lang, "/")} className={celular ? "ef-voltar-site ef-voltar-site-celular" : "ef-voltar-site"}>
+    <a href={inicioDoSite(lang, site.url)} className={celular ? "ef-voltar-site ef-voltar-site-celular" : "ef-voltar-site"}>
       <span aria-hidden>←</span> {celular ? t.voltarSiteCurto : t.voltarSite}
     </a>
   );

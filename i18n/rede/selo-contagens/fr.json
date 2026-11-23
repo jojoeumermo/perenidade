@@ -1,0 +1,53 @@
+{
+  "_rascunho": true,
+  "selo": {
+    "rotulos": {
+      "pessoa_publica": "Personnalité publique vérifiée",
+      "educadora": "Éducatrice vérifiée",
+      "organizacao": "Organisation vérifiée"
+    },
+    "explica": "Vérifié par la coordination d’Alumia : le compte appartient à qui il dit être. Cela ne veut pas dire qu’Alumia soutient cette personne.",
+    "desde": "depuis le {data}",
+    "abrir": "Que veut dire ce badge ?",
+    "fechar": "Fermer",
+    "pedir": {
+      "titulo": "Badge vérifié",
+      "sobre": "Pour qui peut être usurpé : personnalités publiques et éducatrices. C’est gratuit, toujours ; il n’existe pas de badge payant. La coordination vérifie par un canal officiel et ne garde ni document ni preuve, seulement la décision.",
+      "tipo": "Vous êtes",
+      "tipos": {
+        "pessoa_publica": "Une personnalité publique",
+        "educadora": "Une éducatrice ou un éducateur"
+      },
+      "canal": "Par où la coordination peut vérifier",
+      "canais": {
+        "email_institucional": "E-mail institutionnel",
+        "perfil_oficial": "Profil officiel déjà vérifié sur un autre réseau",
+        "gabinete": "Cabinet ou équipe"
+      },
+      "enviar": "Demander le badge",
+      "enviado": "Demande envoyée. La coordination vous contactera par le canal choisi.",
+      "esperando": "Votre demande attend la coordination depuis le {data} ({canal}).",
+      "desistir": "Retirer la demande",
+      "desistido": "Demande retirée.",
+      "tem": "Votre profil a le badge « {tipo} » depuis le {data}. Seule la coordination le retire.",
+      "org": "Les comptes d’organisation utilisent le badge des organisations, sur le profil de l’organisation."
+    },
+    "erros": {
+      "ja_pedido": "Vous avez déjà une demande en attente.",
+      "ja_verificada": "Votre profil a déjà le badge.",
+      "usar_selo_org": "Les comptes d’organisation utilisent le badge des organisations.",
+      "desligado": "Le badge et les nombres ne sont pas encore activés."
+    }
+  },
+  "contagens": {
+    "titulo": "Nombres publics",
+    "sobre": "Par défaut, personne ne voit combien de personnes vous suivent ni combien de soutiens ont vos posts. Vous pouvez choisir de les montrer. En dessous de 3, seul « moins de 3 » apparaît, et la liste de qui suit ou a soutenu n’apparaît jamais.",
+    "seguidores": "Montrer combien de personnes me suivent",
+    "apoios": "Montrer le nombre de soutiens sur mes posts",
+    "salvo": "Choix enregistré.",
+    "seguem": "{n} personnes suivent",
+    "seguemMenos": "Moins de 3 personnes suivent",
+    "apoiosN": "{n} soutiens",
+    "apoiosMenos": "moins de 3 soutiens"
+  }
+}

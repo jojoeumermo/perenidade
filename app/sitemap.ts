@@ -1,4 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import { areaNaEscola, BASE_DAS_AULAS, caminhoDaAula, caminhoDaEstante, caminhoDaTrilha } from "@/lib/escola/aulas-abertas";
 import type { MetadataRoute } from "next";
 import { defaultLocale, htmlLang, type Locale, locales } from "@/i18n/config";
 import { areaSlugs, tools } from "@/lib/areas";
@@ -51,6 +52,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // T08: com as turmas em pausa (recurso "turmas"), o endereço mostra só um aviso e fica fora do mapa.
     ...(ligado("turmas") ? ["/turmas"] : []),
     "/relatorio",
+    "/transparencia",
+    "/transparencia/o-que-o-servidor-guarda",
+    "/transparencia/pedidos",
+    "/transparencia/trimestral",
+    "/transparencia/canario",
+    "/transparencia/relatorios",
     "/seguranca-digital",
     "/status",
     "/comecar",
@@ -110,7 +117,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     paths.push("/cursos", "/campus", ...PAGINAS_DA_VIDA);
     for (const curso of carregarCursos()) if (cursoAberto(curso.slug)) paths.push(`/cursos/${curso.slug}`);
   }
-  for (const area of areaSlugs) paths.push(`/estantes/${area}`);
+  // Teoria revolucionária e Lutas do povo moram na Escola (P5, B2): as páginas entram no mapa pelo endereço novo.
+  for (const area of areaSlugs) paths.push(caminhoDaEstante(area));
+  if (areaNaEscola("marxismo")) paths.push(BASE_DAS_AULAS);
   for (const tool of tools) paths.push(`/ferramentas/${tool}`);
   for (const territorio of territorios) paths.push(`/territorios/${territorio.slug}`);
   // A data real da última alteração, lida do histórico do Git, só para o que tem arquivo próprio (aula, trilha, obra, matéria).
@@ -125,16 +134,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     if (updated) datas.set(path, updated);
   };
   for (const track of getTracks(defaultLocale)) {
-    paths.push(`/trilhas/${track.slug}`);
+    const daTrilha = caminhoDaTrilha(track);
+    paths.push(daTrilha);
     let ultima = "";
     for (const lesson of track.lessons) {
-      paths.push(`/trilhas/${track.slug}/${lesson.slug}`);
-      soEm.set(`/trilhas/${track.slug}/${lesson.slug}`, idiomasDe(lesson.file));
-      anotar(`/trilhas/${track.slug}/${lesson.slug}`, lesson.file);
-      const d = datas.get(`/trilhas/${track.slug}/${lesson.slug}`);
+      const daAula = caminhoDaAula(track, lesson.slug);
+      paths.push(daAula);
+      soEm.set(daAula, idiomasDe(lesson.file));
+      anotar(daAula, lesson.file);
+      const d = datas.get(daAula);
       if (d && d > ultima) ultima = d;
     }
-    if (ultima) datas.set(`/trilhas/${track.slug}`, ultima);
+    if (ultima) datas.set(daTrilha, ultima);
   }
   for (const book of getBooks(defaultLocale)) {
     paths.push(`/acervo/${book.id}`);

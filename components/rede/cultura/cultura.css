@@ -1,0 +1,73 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * A cultura (/alumia/cultura), Prompt 4, itens 38 a 42. A mesma linguagem das telas do Prompt 4 (faixa tecida, carimbo, Archivo
+ * condensada), só com os tokens de styles/alumia-tokens.css (vale no escuro, no claro, no contraste e no e-ink). Computador
+ * primeiro: a lista à esquerda e o formulário à direita a partir de 980 px; no celular, uma coluna só, sem rolar para o lado.
+ * Alvos de toque de 44 px; nada anima com movimento reduzido.
+ */
+
+.cu-pagina { container-type: inline-size; display: grid; gap: 1.25rem; padding: 1.25rem 16px 3rem; color: var(--al-texto); min-width: 0; }
+@media (min-width: 1024px) { .cu-pagina { padding: 1.75rem 1.5rem 3.5rem; } }
+
+.cu-cabeca { display: grid; gap: 0.6rem; justify-items: start; }
+.cu-faixa { width: 7.5rem; border-radius: 2px; }
+.cu-titulo { margin: 0; font-size: clamp(2.4rem, 6cqi, 4rem); line-height: 0.95; }
+.cu-chamada { margin: 0; max-width: 68ch; color: var(--al-texto-2); font-size: 1.06rem; line-height: 1.5; }
+.cu-carimbo {
+  display: inline-flex; align-items: center; margin: 0; padding: 0.38rem 0.7rem 0.3rem; border: 2px solid var(--al-vermelho); border-radius: 6px;
+  color: var(--al-vermelho-letra); font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; transform: rotate(-1.2deg); transform-origin: left center;
+}
+
+.cu-privacidade { max-width: 72ch; padding: 0 1rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); }
+.cu-privacidade summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; font-weight: 700; }
+.cu-privacidade p { margin: 0 0 0.7rem; color: var(--al-texto-2); font-size: 0.94rem; line-height: 1.5; }
+
+/* ───── As abas ───── */
+.cu-abas { display: flex; gap: 0.4rem; overflow-x: auto; padding-bottom: 0.25rem; scrollbar-width: thin; min-width: 0; }
+.cu-aba {
+  flex: none; min-height: 44px; padding: 0 1rem; border: 1px solid var(--al-linha); border-radius: 999px; background: var(--al-superficie);
+  color: var(--al-texto-2); font-weight: 700; cursor: pointer; transition: background-color 160ms ease, color 160ms ease;
+}
+.cu-aba[aria-selected="true"] { background: var(--al-texto); border-color: var(--al-texto); color: var(--al-fundo); }
+.cu-aba:focus-visible { outline: 3px solid var(--al-foco, var(--al-dourado)); outline-offset: 2px; }
+
+.cu-painel { display: grid; gap: 1.25rem; min-width: 0; }
+.cu-colunas { display: grid; gap: 1.5rem; align-items: start; min-width: 0; }
+@container (min-width: 980px) { .cu-colunas { grid-template-columns: minmax(0, 1.5fr) minmax(19rem, 1fr); gap: 2rem; } }
+
+.cu-bloco { display: grid; gap: 0.75rem; align-content: start; min-width: 0; }
+.cu-subtitulo { margin: 0; font-size: 1.5rem; letter-spacing: 0.02em; line-height: 1.05; overflow-wrap: anywhere; }
+.cu-miudo { margin: 0; color: var(--al-texto-3); font-size: 0.92rem; line-height: 1.5; }
+.cu-texto { margin: 0; color: var(--al-texto-2); line-height: 1.5; overflow-wrap: anywhere; }
+.cu-etiqueta { margin: 0; color: var(--al-vermelho-letra); font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.cu-erro { margin: 0; padding: 0.55rem 0.8rem; border-radius: 8px; border-left: 4px solid var(--al-vermelho); background: var(--al-superficie); color: var(--al-texto); font-size: 0.94rem; }
+.cu-ok { margin: 0; color: var(--al-texto-2); font-size: 0.94rem; }
+.cu-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.cu-filtros { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: end; }
+.cu-filtros .cu-campo { flex: 1 1 12rem; }
+
+/* ───── Campos e formulários ───── */
+.cu-campo { display: grid; gap: 0.3rem; min-width: 0; font-weight: 700; font-size: 0.92rem; color: var(--al-texto-2); }
+.cu-campo .al2-campo { min-height: 44px; width: 100%; }
+.cu-campo textarea.al2-campo { min-height: 5.5rem; resize: vertical; }
+.cu-campo-comunidade { max-width: 24rem; }
+.cu-form { display: grid; gap: 0.75rem; align-content: start; padding: 1rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); min-width: 0; }
+.cu-form-titulo { margin: 0; font-size: 1.1rem; }
+.cu-duas { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); }
+
+/* ───── Listas ───── */
+.cu-lista { display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+.cu-item { display: grid; gap: 0.35rem; padding: 0.8rem 0.9rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); min-width: 0; overflow-wrap: anywhere; }
+.cu-item-titulo { font-size: 1.05rem; }
+.cu-obra-cabeca { display: grid; gap: 0.35rem; }
+.cu-mural { grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+.cu-citacao { margin: 0; padding-left: 0.8rem; border-left: 3px solid var(--al-dourado); font-style: italic; line-height: 1.5; }
+.cu-faixa-imagem { width: 100%; max-width: 12rem; aspect-ratio: 1; object-fit: cover; border-radius: 8px; background: var(--al-superficie-2); }
+.cu-barra { position: relative; height: 0.6rem; border-radius: 999px; background: var(--al-superficie-2); overflow: hidden; }
+.cu-barra > span { position: absolute; inset: 0 auto 0 0; background: var(--al-vermelho); border-radius: 999px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cu-carimbo { transform: none; }
+  .cu-aba { transition: none; }
+}
+:root:is([data-contrast], [data-eink]) .cu-carimbo { transform: none; color: var(--al-texto); border-color: var(--al-texto); }

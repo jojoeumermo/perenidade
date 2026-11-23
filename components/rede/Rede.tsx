@@ -20,6 +20,7 @@ import { textoDoErro } from "./erros";
 import { Escrever } from "./Escrever";
 import { ENCAIXES } from "./encaixes";
 import { Linha, type RegraDaLinha } from "./Linha";
+import { confirmarPost } from "@/lib/rede/otimista";
 import { linhaAbertaLigada, useLinhasMontadas, useModoDaLinha, useTextosDaLinha } from "./linha/base";
 import { REGISTRO } from "./registro";
 import { TelaDaComunidade, TelaDoPerfil } from "./Telas";
@@ -48,10 +49,13 @@ const EscreverDaAlumia2 = dynamic(() => import("./publicar/alumia2/EscreverDaAlu
   ),
 });
 const TopoDaLinha2 = dynamic(() => import("./publicar/alumia2/TopoDaLinha2").then((m) => m.TopoDaLinha2));
+// P5 (A6): a janela dos termos, que bloqueia o uso até o aceite (só chega ao navegador de quem entrou).
+const JanelaDosTermos = dynamic(() => import("./lei/JanelaDosTermos").then((m) => m.JanelaDosTermos), { ssr: false });
 const AbaInicialDaAlumia2 = dynamic(() => import("./publicar/alumia2/AbaInicial").then((m) => m.AbaInicialDaAlumia2), { ssr: false });
 // A linha com regra aberta (interruptor "alumia-linha-aberta"): a barra e a faixa só descem com ele ligado.
 const RODA = AL2 && linhaAbertaLigada();
 const BarraDaLinha = dynamic(() => import("./linha/BarraDaLinha").then((m) => m.BarraDaLinha), { ssr: false });
+const LinkDaRegra = dynamic(() => import("./linha/BarraDaLinha").then((m) => m.LinkDaRegra), { ssr: false });
 const EnquantoFora = dynamic(() => import("./linha/EnquantoFora").then((m) => m.EnquantoFora), { ssr: false });
 
 // Com a flag ligada, os pedaços começam a descer já, junto com os textos (sem esperar a primeira pintura).
@@ -236,6 +240,8 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
     if (idDaLinha === "temas") return { id: "temas", nome: tLinha.barra.temas, base: "temas", filtro: {}, fixada: false };
     return linhasMontadas.find((l) => l.id === idDaLinha) ?? null;
   }, [rodaAqui, idDaLinha, linhasMontadas, tLinha]);
+  // "Como a linha é montada" vai para a linha do "Abrir sempre nesta aba" (A15: antes ficava sozinho numa linha, com espaço morto).
+  const regraJunto = Boolean(rodaAqui && tLinha && pode && !linhaAtiva && ["seguindo", "comunidades", "tudo"].includes(abaAtual));
   // A regra que a Linha usa: uma linha montada (com o filtro dela) ou a aba em roda. Em ordem de chegada sem filtro, a linha de sempre.
   const regra = useMemo<RegraDaLinha | null>(() => {
     if (!rodaAqui || !tLinha) return null;
@@ -284,6 +290,12 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
                 aba={abaDaLinha}
                 aoAba={setAba}
                 aoEscrever={aoEscrever2}
+                // A barrinha (A15, com "alumia-p4-compositor"): expandir leva o texto para o Escrever; o post publicado dali entra na
+                // linha como o da janela.
+                aoExpandir={(texto) => setEscrevendo({ respostaA: null, comunidade: null, texto })}
+                aoPublicarNaBarra={(post) => {
+                  if (!post.retido) confirmarPost(post);
+                }}
                 ordem={rodaAqui && tLinha ? "" : undefined}
                 depoisDasAbas={
                   rodaAqui && tLinha ? (
@@ -296,12 +308,13 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
                       ativa={linhaAtiva}
                       aoLinha={(l) => setIdDaLinha(l?.id ?? null)}
                       nomeDaAba={s.abas[abaDaLinha as "seguindo" | "comunidades" | "tudo"] ?? s.abas.tudo}
+                      semRegra={regraJunto}
                     />
                   ) : undefined
                 }
               />
               {rodaAqui && tLinha && !linhaAtiva && ["seguindo", "comunidades", "tudo"].includes(abaDaLinha) && <EnquantoFora lang={lang} t={tLinha} aba={abaDaLinha as AbaDaRegra} />}
-              {pode && !linhaAtiva && <AbaInicialDaAlumia2 aba={abaAtual} />}
+              {pode && !linhaAtiva && <AbaInicialDaAlumia2 aba={abaAtual} junto={regraJunto && tLinha ? <LinkDaRegra lang={lang} t={tLinha} /> : null} />}
               <div role="tabpanel" id="al2-painel-linha" aria-labelledby={`al2-aba-${abaAtual === "geral" && pode ? "tudo" : abaAtual}`}>
               <Linha
                 key={`${abaAtual}:${recarregar}:${regra?.chave ?? ""}`}
@@ -363,7 +376,17 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
               />
             </>
           )}
-          {tela.tipo === "post" && <TelaDaConversa key={`${tela.id}:${recarregar}`} id={tela.id} lang={lang} s={s} situacao={aberta} aoResponder={aoResponder} />}
+          {tela.tipo === "post" && (
+            <TelaDaConversa
+              key={`${tela.id}:${recarregar}`}
+              id={tela.id}
+              lang={lang}
+              s={s}
+              situacao={aberta}
+              aoResponder={aoResponder}
+              aoResponderCom={(p, texto) => setEscrevendo({ respostaA: p, comunidade: null, texto })}
+            />
+          )}
           {tela.tipo === "comunidade" && <TelaDaComunidade slug={tela.slug} lang={lang} s={s} situacao={aberta} aoEscrever={aoEscrever} aoResponder={aoResponder} aoCarregar={aoComunidade} />}
           {tela.tipo === "perfil" && <TelaDoPerfil handle={tela.handle} lang={lang} s={s} situacao={aberta} aoResponder={aoResponder} />}
 
@@ -384,7 +407,12 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
               textoInicial={escrevendo.texto}
               tipoInicial={escrevendo.tipo}
               aoFechar={() => setEscrevendo(null)}
-              aoPublicar={() => setRecarregar(++memoria.geracao)}
+              // A17 (interface otimista): o post novo entra no alto da linha aberta na hora (lib/rede/otimista.ts), sem recarregar a
+              // linha nem passar pelo esqueleto. A resposta recarrega a conversa, como antes; o retido não aparece para ninguém ainda.
+              aoPublicar={(post) => {
+                if (post.resposta_a) setRecarregar(++memoria.geracao);
+                else if (!post.retido) confirmarPost(post);
+              }}
             />
           )}
           {escrevendo && pode && !contexto2 && (
@@ -400,6 +428,7 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
           )}
         </>
       )}
+      {aberta?.logado && <JanelaDosTermos lang={lang} s={s} situacao={aberta} />}
     </CascaDaVez>
   );
   return contexto2 ? <ProvedorAlumia2 value={contexto2}>{conteudo}</ProvedorAlumia2> : conteudo;

@@ -1,0 +1,52 @@
+{
+  "selo": {
+    "rotulos": {
+      "pessoa_publica": "Pessoa pública verificada",
+      "educadora": "Educadora verificada",
+      "organizacao": "Organização verificada"
+    },
+    "explica": "Verificado pela coordenação da Alumia: a conta é de quem diz ser. Não quer dizer que a Alumia apoia esta pessoa.",
+    "desde": "desde {data}",
+    "abrir": "O que quer dizer este selo?",
+    "fechar": "Fechar",
+    "pedir": {
+      "titulo": "Selo de verificado",
+      "sobre": "Para quem pode ser imitado: figuras públicas e educadoras. É gratuito, sempre; selo pago não existe. A coordenação confere por um canal oficial e não guarda documento nem prova, só a decisão.",
+      "tipo": "Você é",
+      "tipos": {
+        "pessoa_publica": "Pessoa pública",
+        "educadora": "Educadora ou educador"
+      },
+      "canal": "Por onde a coordenação pode conferir",
+      "canais": {
+        "email_institucional": "E-mail institucional",
+        "perfil_oficial": "Perfil oficial já verificado em outra rede",
+        "gabinete": "Gabinete ou assessoria"
+      },
+      "enviar": "Pedir o selo",
+      "enviado": "Pedido enviado. A coordenação procura você pelo canal escolhido.",
+      "esperando": "Seu pedido espera a coordenação desde {data} ({canal}).",
+      "desistir": "Desistir do pedido",
+      "desistido": "Pedido retirado.",
+      "tem": "Seu perfil tem o selo “{tipo}” desde {data}. Só a coordenação tira.",
+      "org": "Contas de organização usam o selo das organizações, no perfil da organização."
+    },
+    "erros": {
+      "ja_pedido": "Você já tem um pedido esperando.",
+      "ja_verificada": "Seu perfil já tem o selo.",
+      "usar_selo_org": "Contas de organização usam o selo das organizações.",
+      "desligado": "O selo e as contagens ainda não estão ligados."
+    }
+  },
+  "contagens": {
+    "titulo": "Números públicos",
+    "sobre": "Por padrão, ninguém vê quantas pessoas seguem você nem quantos apoios seus posts têm. Você pode escolher mostrar. Abaixo de 3 aparece só “menos de 3”, e a lista de quem segue ou apoiou nunca aparece.",
+    "seguidores": "Mostrar quantas pessoas me seguem",
+    "apoios": "Mostrar o número de apoios nos meus posts",
+    "salvo": "Escolha salva.",
+    "seguem": "{n} pessoas seguem",
+    "seguemMenos": "Menos de 3 pessoas seguem",
+    "apoiosN": "{n} apoios",
+    "apoiosMenos": "menos de 3 apoios"
+  }
+}

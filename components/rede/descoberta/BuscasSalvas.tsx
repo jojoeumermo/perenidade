@@ -133,7 +133,7 @@ export function BuscasSalvas({ lang, q, membro, s, tb, t, torradas }: {
               <Icone nome="lupa" />
               <span className="max-w-[12rem] truncate">{x.nome}</span>
             </Link>
-            <button type="button" className="ac-ficha !rounded-l-none !px-2.5" aria-label={preencher(b.apagarSalva, { nome: x.nome })} title={preencher(b.apagarSalva, { nome: x.nome })} onClick={() => apagar(x)}>
+            <button type="button" className="ac-ficha !rounded-l-none min-w-11 !px-2.5" aria-label={preencher(b.apagarSalva, { nome: x.nome })} title={preencher(b.apagarSalva, { nome: x.nome })} onClick={() => apagar(x)}>
               <Icone nome="fechar" />
             </button>
           </li>

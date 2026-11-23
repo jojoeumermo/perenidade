@@ -115,7 +115,7 @@
       },
       "nucleos": {
         "titulo": "Núcleos, formação e o Fediverso",
-        "texto": "Divida a base por bairro, categoria ou escola. Ligue cada debate às aulas do Instituto Lúcia. E fale com quem está no Mastodon, no Lemmy e no Misskey sem sair daqui.",
+        "texto": "Divida a base por bairro, categoria ou escola. Ligue cada debate às aulas do Instituto Lúcia. E fale com quem está no Mastodon, no Lemmy, no Misskey e no resto do Fediverso sem sair daqui.",
         "rotulo": "Exemplo de núcleos de uma organização",
         "lista": [
           {
@@ -241,9 +241,10 @@
     "subir": "Subir {opcao}",
     "descer": "Descer {opcao}",
     "votar": "Votar",
-    "secreto": "O voto é secreto: nem a organização vê o que você votou. Depois de votar não dá para trocar.",
+    "secreto": "O voto é secreto: nem a organização vê o que você votou. Depois de votar não dá para trocar. A cédula sai cifrada deste aparelho; só guardiãs da gestão, juntas e depois do prazo, abrem as cédulas, sem saber de quem são.",
     "votei": "Seu voto foi registrado; o resultado sai no fechamento.",
     "naoPosso": "Só quem está num núcleo desta organização vota.",
+    "semVotoAgora": "Por enquanto, a consulta à base não recebe votos. Para proteger quem é de cada núcleo, essa lista saiu do servidor, e a Alumia ainda não tem como conferir que você é de um núcleo sem saber quem você é. O caminho para decidir agora é a enquete dentro do grupo cifrado do núcleo: só quem é do núcleo vê, mas ela não é secreta entre os membros (cada um vê como os outros votaram). Ela aparece quando a tela do grupo do núcleo for ligada.",
     "verNucleos": "Ver os núcleos",
     "resultadoDepois": "O resultado sai para todo mundo quando a consulta fechar.",
     "semResultado": "Sem resultado: ele só aparece com o quórum atingido e com 3 votos ou mais.",

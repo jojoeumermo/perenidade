@@ -1,0 +1,50 @@
+{
+  "reacoes": {
+    "titulo": "Reações desta comunidade",
+    "ajuda": "A mediação escolhe até 6 emojis para as reações dos posts daqui. Ninguém vê quem reagiu: só o total de cada emoji, e só a partir de 3.",
+    "rotulo": "Emojis (até 6)",
+    "salvar": "Salvar a lista",
+    "padrao": "Voltar à lista padrão",
+    "salvo": "Lista salva.",
+    "voltou": "A comunidade voltou à lista padrão.",
+    "propria": "Lista própria desta comunidade",
+    "daAlumia": "Lista padrão da Alumia",
+    "previa": "Como fica",
+    "sairam": "As reações com um emoji que sair da lista deixam de aparecer e voltam se ele voltar.",
+    "erros": {
+      "muitos": "No máximo 6 emojis.",
+      "emoji": "Só emojis, sem letras, números ou o gesto obsceno.",
+      "repetido": "Há um emoji repetido.",
+      "geral": "Não deu para salvar. Tente de novo."
+    }
+  },
+  "pasta": {
+    "tornar": "Tornar esta pasta pública",
+    "publica": "Esta pasta é pública: aparece como coleção no seu perfil.",
+    "ajuda": "Só entram na coleção os posts abertos. Os restritos (de seguidores, de comunidade, de núcleo ou da equipe) continuam só aqui, e quem lê a coleção só vê o que já poderia ver.",
+    "ficouFora": "Alguns posts desta pasta são restritos e ficaram só aqui.",
+    "privada": "Voltar a ser privada",
+    "verNoPerfil": "Ver no meu perfil",
+    "semHandle": "Para ter coleção pública, escolha antes o seu @ no perfil.",
+    "erro": "Não deu para mudar. Tente de novo."
+  },
+  "traducao": {
+    "noAparelho": "Traduzido no aparelho: o texto não saiu daqui.",
+    "noServidor": "Traduzido pelo servidor da Alumia: o texto foi ao nosso servidor, não a terceiros.",
+    "baixarAjuda": "Na primeira vez, o navegador baixa o modelo de tradução do próprio fabricante. O texto do post não sai do aparelho.",
+    "leve": "No modo leve, a tradução no aparelho fica desligada."
+  },
+  "imagem": {
+    "semAutora": "Esconder quem escreveu",
+    "destino": "Para onde",
+    "destinos": {
+      "instagram-feed": "Instagram (feed)",
+      "instagram-stories": "Instagram (stories)",
+      "whatsapp": "WhatsApp",
+      "whatsapp-status": "WhatsApp (status)"
+    },
+    "compartilhar": "Compartilhar",
+    "restrito": "Só post aberto à internet vira imagem.",
+    "ajuda": "A imagem é feita aqui no aparelho e leva o endereço da Alumia e o @institutoluciaorg."
+  }
+}

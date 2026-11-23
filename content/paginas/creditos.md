@@ -17,6 +17,7 @@ resumo: "O instituto é feito com software livre e conteúdo aberto. Aqui está 
 | [math.js](https://mathjs.org) | contas e gráficos | Apache-2.0 |
 | [MiniSearch](https://lucaong.github.io/minisearch/) | busca no aparelho | MIT |
 | [Jitsi Meet](https://jitsi.org) (External API) | Sala Lúcia e Reuniões | Apache-2.0 |
+| [LiveKit](https://livekit.io) (livekit-client) | Salas de vídeo do painel, quando a coordenação liga o LiveKit Cloud | Apache-2.0 |
 | [LanguageTool](https://languagetool.org) | conferência de ortografia e gramática | LGPL-2.1 (serviço) |
 | [Hanzi Writer](https://github.com/chanind/hanzi-writer) | animação e treino dos traços na ferramenta Escrita chinesa | MIT |
 | Traços dos caracteres chineses: [Make Me a Hanzi](https://github.com/skishore/makemeahanzi), pelo pacote [hanzi-writer-data](https://github.com/chanind/hanzi-writer-data), a partir das fontes AR PL da Arphic (copiados sem alteração, com a licença ao lado) | Escrita chinesa | Arphic Public License |

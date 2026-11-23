@@ -4,13 +4,15 @@
 // O perfil de pessoa no perfil livre: o cabeçalho que a pessoa montou (cor, clima, modelo, capa, faixa, rosto, bio, campos,
 // status e "tocando agora") e as abas que ela escolheu, na ordem dela. Sem contagem de seguidores e sem lista de quem segue
 // (regra da casa); organizações só as que a pessoa escolheu mostrar, uma a uma (LGPD art. 11).
-import { useEffect, useId, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { flushSync } from "react-dom";
 import Link from "@/components/Link";
 import { SelosDaEscola } from "@/components/escola/percurso/SelosDaEscola";
 import { selosDaEscola } from "@/lib/escola/conquistas";
 import { hexDoAcento, PALETA_DO_PERFIL, type AbaDoPerfil } from "@/lib/rede/aparencia";
 import { redePerfil } from "@/lib/rede/cliente-perfil";
+import { seloContagensLigado } from "@/lib/rede/selo-contagens/cliente";
+import { criarInterruptor, type Interruptor } from "@/lib/rede/otimista";
 import { enderecoDeEditarPerfil } from "@/lib/rede/perfil";
 import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaRede } from "@/lib/rede/textos";
@@ -26,6 +28,7 @@ import { Linha } from "../../Linha";
 import { Abas } from "../../org/Abas";
 import { Botao, LinkBotao } from "../../ui/Botao";
 import { FileiraDoPerfil, fileiraDeDestaquesLigada } from "../FileiraDoPerfil";
+import { ContagemDoPerfil } from "../../selo-contagens/PecasDoSelo";
 import { CabecalhoDoPerfil, estiloDoAcento } from "./Cabecalho";
 import { linhaDoPerfil, meusPosts, postsFixados, previa, type AparenciaLida } from "./dados";
 import type { TextosDoPerfilLivre } from "./textos";
@@ -78,25 +81,29 @@ export function PaginaDoPerfil({
   ];
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState("");
+  // O Seguir otimista (A17): criado no primeiro toque, com o estado que o banco mandou.
+  const seguidor = useRef<Interruptor | null>(null);
 
   async function seguir(sim: boolean) {
-    setOcupado(true);
     setErro("");
     if (previa()) {
       // Na prévia não há serviço de contas: o seguir só muda aqui (perfil trancado vira "pedido enviado").
+      setOcupado(true);
       await new Promise((r) => setTimeout(r, 220));
       setDado((d) => ({ ...d, sigo: sim && d.modo !== "trancado", pendente: sim && d.modo === "trancado" }));
       setOcupado(false);
       return;
     }
-    try {
-      const r = await redePerfil.seguir(dado.handle, sim);
-      setDado((d) => ({ ...d, sigo: r.sigo, pendente: r.pendente }));
-    } catch (e) {
-      setErro(textoDoErro(s, e));
-    } finally {
-      setOcupado(false);
-    }
+    // A17 (interface otimista): o botão muda no toque (perfil trancado vira "pedido enviado") e o banco confirma depois
+    // (lib/rede/otimista.ts). O pedido leva o estado querido, então repetir não duplica nem avisa duas vezes; o último toque vale.
+    seguidor.current ??= criarInterruptor(dado.sigo || dado.pendente, {
+      enviar: (quer) => redePerfil.seguir(dado.handle, quer),
+      confirmado: (r) => r.sigo || r.pendente,
+      mostrar: (quer) => setDado((d) => ({ ...d, sigo: quer && d.modo !== "trancado", pendente: quer && d.modo === "trancado" })),
+      aoConfirmar: (r) => setDado((d) => ({ ...d, sigo: r.sigo, pendente: r.pendente })),
+      aoFalhar: (e) => setErro(textoDoErro(s, e)),
+    });
+    seguidor.current.querer(sim);
   }
 
   const acoes = dado.meu ? (
@@ -191,15 +198,21 @@ export function PaginaDoPerfil({
   return (
     <div className="al-perfil pf-pagina" style={estiloDoAcento(a.acento)}>
       <CabecalhoDoPerfil
-        dados={{ codinome: dado.codinome, handle: dado.handle, pronomes: extras?.pronomes ?? null, bio: dado.bio, status: extras?.status ?? null, campos: extras?.campos ?? [], avatar: dado.avatar, capa: dado.capa }}
+        dados={{ codinome: dado.codinome, handle: dado.handle, pronomes: extras?.pronomes ?? null, bio: dado.bio, status: extras?.status ?? null, campos: extras?.campos ?? [], avatar: dado.avatar, capa: dado.capa, selos: dado.selos }}
         aparencia={a}
         t={t}
         lang={lang}
+        logado={situacao.logado}
         acoes={acoes}
         depois={
           <>
             {dado.modo === "trancado" ? <p className="al-perfil-nota">{s.perfil.trancado}</p> : null}
-            <p className="al-perfil-nota">{s.perfil.semContagens}</p>
+            {/* Contagem de seguidores só por escolha da dona (Prompt 4, item 5); sem a escolha, a frase de sempre. */}
+            {seloContagensLigado() && !previa() ? (
+              <ContagemDoPerfil handle={dado.handle} lang={lang} semEscolha={<p className="al-perfil-nota">{s.perfil.semContagens}</p>} />
+            ) : (
+              <p className="al-perfil-nota">{s.perfil.semContagens}</p>
+            )}
             {erro ? (
               <p className="al-perfil-erro" role="alert">
                 {erro}

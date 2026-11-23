@@ -158,6 +158,7 @@
     "codinome": "Seudónimo",
     "codinomeAjuda": "El nombre que aparece en Alumia: 3 a 30 letras. Nunca tu nombre civil.",
     "erros": {
+      "nome_com_selo": "Los signos parecidos al sello de verificado (✓, ✔, ☑, ✅, 🔵) y las palabras “verificado” y “oficial” no pueden ir en un nombre. Elige otro.",
       "codinome_usado": "Ese seudónimo ya es de otra persona.",
       "codinome_civil": "Parece tu nombre civil. Elige otro, por tu seguridad.",
       "codinome_reservado": "Ese nombre está reservado.",
@@ -254,6 +255,8 @@
     "tirar": "Quitar"
   },
   "perfil": {
+    "verificadoEquipe": "Verificado: equipo del instituto. El sello viene de la función en el equipo y desaparece cuando termina.",
+    "verificadoCoordenacao": "Verificado: coordinación del instituto.",
     "tocando": "Sonando ahora",
     "ouvirEm": "escuchar en {dominio}",
     "ate": "hasta {data}",

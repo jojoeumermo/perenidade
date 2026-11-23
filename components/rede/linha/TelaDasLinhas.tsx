@@ -31,6 +31,7 @@ import { Icone } from "../publicar/alumia2/icones";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { avisarQueMudou, descreverLinha, previa, TrocaDeModo, useLinhasMontadas, useModoDaLinha, useTextosDaLinha } from "./base";
 import { EmAlta } from "./EmAlta";
+import { confirmar } from "@/components/perguntar";
 
 type Pronta = "cidade" | "nucleos" | "estudo" | "tema";
 
@@ -223,8 +224,8 @@ export default function TelaDasLinhas({ lang, s, situacao }: PropsDaTelaDoPacote
                       <button
                         type="button"
                         className="ro-acao ro-acao-apagar"
-                        onClick={() => {
-                          if (!window.confirm(preencher(t.linhas.apagarCerteza, { nome: l.nome }))) return;
+                        onClick={async () => {
+                          if (!(await confirmar(preencher(t.linhas.apagarCerteza, { nome: l.nome })))) return;
                           gravar(apagarLinha(linhas, l.id));
                           setNota(t.linhas.apagada);
                         }}

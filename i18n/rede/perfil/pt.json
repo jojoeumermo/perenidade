@@ -11,6 +11,7 @@
     "fixado": "Post fixado",
     "escolherHandle": "Escolha o seu @nome para ter uma página na Alumia.",
     "selos": {
+      "coordenacao": "Coordenação do instituto",
       "equipe": "Equipe do instituto",
       "educador": "Educação",
       "moderacao": "Moderação",
@@ -24,6 +25,17 @@
       "degrau": "Degrau {n} da Escola",
       "caderno": "Caderno {n} da Escola",
       "aulas": "Aulas da Escola: {n}",
+      "revolucionario": "Revolucionária(o)",
+      "frente": "Frente: {nome}",
+      "frentes": {
+        "estudantil": "Movimento estudantil",
+        "bairros": "Bairros e moradia",
+        "trabalho": "Trabalho e sindicatos",
+        "agitprop": "Agitação e propaganda",
+        "atos": "Atos e mobilização",
+        "cultura": "Cultura e periferia",
+        "solidariedade": "Solidariedade"
+      },
       "ajuda": "Aulas e cadernos da Escola são declarados pela pessoa; a carteirinha e o degrau são conferidos pela coordenação."
     }
   },

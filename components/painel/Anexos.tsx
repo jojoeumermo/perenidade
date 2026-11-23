@@ -123,12 +123,15 @@ export async function preparar(arquivos: File[], jaTem: number): Promise<Prepara
   return saida;
 }
 
-/** Cifra cada arquivo com a própria chave, sobe o cifrado e devolve o que vai dentro da mensagem. */
-export async function subir(preparados: Preparado[], conversa: string, andamento?: (feitos: number) => void): Promise<Anexo[]> {
+/**
+ * Cifra cada arquivo com a própria chave, sobe o cifrado e devolve o que vai dentro da mensagem. `dono`: o resumo da ficha de dono da
+ * mensagem que vai levar os arquivos (onda R3: o banco não guarda quem subiu; só a mesma ficha prende os arquivos à mensagem).
+ */
+export async function subir(preparados: Preparado[], conversa: string, dono: string, andamento?: (feitos: number) => void): Promise<Anexo[]> {
   const anexos: Anexo[] = [];
   for (const [indice, item] of preparados.entries()) {
     const selado = await cifrarArquivo(item.bytes, conversa);
-    const { id } = await rpc<{ id: string }>("chat_anexo_enviar", { p_conversa: conversa, p_cifrado: paraBase64Comum(selado.cifrado), p_uma_vez: item.umaVez });
+    const { id } = await rpc<{ id: string }>("chat_anexo_enviar", { p_conversa: conversa, p_cifrado: paraBase64Comum(selado.cifrado), p_uma_vez: item.umaVez, p_dono: dono });
     const anexo: Anexo = { id, tipo: item.tipo, mime: item.mime, nome: item.nome, tamanho: item.bytes.length, chave: selado.chave, iv: selado.iv, hash: selado.hash };
     if (item.largura && item.altura) Object.assign(anexo, { largura: item.largura, altura: item.altura });
     if (item.duracao !== undefined) anexo.duracao = item.duracao;
@@ -143,12 +146,12 @@ export async function subir(preparados: Preparado[], conversa: string, andamento
 export const soltar = (preparados: Preparado[]) => preparados.forEach((item) => URL.revokeObjectURL(item.url));
 
 /** Encaminhar: baixa e abre cada arquivo, e cifra de novo com chave nova para a conversa de destino (a chave de uma conversa nunca vale em outra). */
-export async function reenviar(anexos: Anexo[], de: string, para: string): Promise<Anexo[]> {
+export async function reenviar(anexos: Anexo[], de: string, para: string, dono: string): Promise<Anexo[]> {
   const saida: Anexo[] = [];
   for (const anexo of anexos) {
     const { bytes } = await baixar(anexo, de);
     const selado = await cifrarArquivo(bytes, para);
-    const { id } = await rpc<{ id: string }>("chat_anexo_enviar", { p_conversa: para, p_cifrado: paraBase64Comum(selado.cifrado), p_uma_vez: false });
+    const { id } = await rpc<{ id: string }>("chat_anexo_enviar", { p_conversa: para, p_cifrado: paraBase64Comum(selado.cifrado), p_uma_vez: false, p_dono: dono });
     const { uma_vez: _umaVez, ...resto } = anexo;
     void _umaVez;
     saida.push({ ...resto, id, chave: selado.chave, iv: selado.iv, hash: selado.hash });

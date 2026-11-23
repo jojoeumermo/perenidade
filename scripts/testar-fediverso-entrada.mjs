@@ -101,7 +101,9 @@ const db = {
   respostasDe: () => ({ itens: [], proximo: null, total: 0 }),
 };
 const dominioDe = (u) => { try { return new URL(u).host; } catch { return ""; } };
-const bloqueado = (u) => { const h = dominioDe(u); return Boolean(h) && [...db.bloqueados].some((d) => h === d || h.endsWith(`.${d}`)); };
+// Como interno.rede_fed_bloqueado/rede_fed_dominio: o domínio sai do TEXTO do endereço (sem normalizar), em minúsculas.
+const dominioDoBanco = (u) => (/^https:\/\/([^/:?#]+)/.exec(String(u ?? ""))?.[1] ?? "").toLowerCase();
+const bloqueado = (u) => { const h = dominioDoBanco(u); return Boolean(h) && [...db.bloqueados].some((d) => h === d || h.endsWith(`.${d}`)); };
 const conexao = (s) => s === 0 || s === 502 || s === 503 || s === 504 || (s >= 520 && s <= 526) || s === 530;
 const acoes = {
   bloqueado: (p) => bloqueado(p.url),
@@ -1095,6 +1097,23 @@ await espera("Update(Person): o perfil mudou e sai o documento do ator inteiro, 
     Boolean(feito(deOutra.id)),
   ];
 }, (r) => r.join() === "true,true,true,true,1,true");
+await espera("r1: Delete(Person) de quem desligou a federação (objeto ator:<handle>): sai assinado pela pessoa, com o ator como objeto; de outra pessoa, não sai", async () => {
+  rede.entregas = [];
+  rede.post = () => ({ status: 202 });
+  const certo = item("delete", "https://remota.teste/inbox", {}, "ator:autora");
+  const deOutra = item("delete", "https://remota.teste/inbox", {}, "ator:outra");
+  db.fila.push(certo, deOutra);
+  await entrega.processarFila(200);
+  const e = rede.entregas.find((x) => x.corpo.type === "Delete" && x.corpo.object === `${BASE}/api/fediverso/u/autora`);
+  return [
+    e?.corpo.actor === `${BASE}/api/fediverso/u/autora`,
+    e?.corpo.id === `${BASE}/api/fediverso/u/autora#delete`,
+    e?.corpo.to?.[0] === PUBLICO,
+    e ? conferirEntrega(e, autora.publica) : false,
+    rede.entregas.filter((x) => x.corpo.type === "Delete").length,
+    Boolean(feito(deOutra.id)),
+  ];
+}, (r) => r.join() === "true,true,true,true,1,true");
 await espera("like, undo-like, announce, undo-announce, block e undo-block saem assinados pela pessoa; cada Undo repete o id do original", async () => {
   rede.entregas = [];
   rede.post = () => ({ status: 202 });
@@ -1229,6 +1248,48 @@ await espera("com a chave desligada, um tipo novo na fila não sai (nada muda em
   process.env.NEXT_PUBLIC_RECURSOS = LIGADO;
   return [rede.entregas.length, feito(i.id)?.ok, "status" in (feito(i.id) ?? {})];
 }, (r) => r[0] === 0 && r[1] === true && r[2] === false);
+
+// ═══════════════════ Instância bloqueada disfarçada e documento por redirecionamento (r1, A2.1/B4) ═══════════════════
+// O banco compara o domínio pelo TEXTO do endereço; a rede, pelo endereço já normalizado. "ｂloqueada.teste" (letra de largura
+// cheia), "bloqueada%2Eteste" e "bloqueada.teste." são, para a rede, o mesmo servidor bloqueado: nada deles pode passar.
+for (const [nome, ator] of [
+  ["letra de largura cheia", "https://ｂloqueada.teste/users/eve"],
+  ["ponto escrito como %2E", "https://bloqueada%2Eteste/users/eve"],
+  ["ponto no fim do nome", "https://bloqueada.teste./users/eve"],
+]) {
+  await espera(`instância bloqueada disfarçada (${nome}): a caixa recusa e nada é guardado nem buscado`, async () => {
+    db.bloqueados.add("bloqueada.teste");
+    const eve = gerarParDeChaves();
+    rede.docs.set(new URL(ator).href, atorDoc(ator, eve.publica));
+    const antes = rede.gets.length;
+    const objeto = novaNota({ id: `${ator}/notes/1`, attributedTo: ator, inReplyTo: URL_POST_LOCAL });
+    const r = await enviar(criar(objeto, ator), { quem: ator, chave: eve.privada });
+    db.bloqueados.delete("bloqueada.teste");
+    return [r.status, r.motivo, db.notas.has(objeto.id), rede.gets.length - antes];
+  }, (r) => r[0] >= 400 && r[2] === false && r[3] === 0);
+}
+await espera("ator lido por redirecionamento para OUTRO servidor (redirecionamento aberto na origem): a chave de lá não vale", async () => {
+  const FALSO = "https://remota.teste/sair/eve";
+  const eve = gerarParDeChaves();
+  rede.redirecionar.set(FALSO, "https://ruim.teste/eve.json");
+  rede.docs.set("https://ruim.teste/eve.json", atorDoc(FALSO, eve.publica));
+  const objeto = novaNota({ id: "https://remota.teste/sair/eve/notes/1", attributedTo: FALSO, inReplyTo: URL_POST_LOCAL });
+  const r = await enviar(criar(objeto, FALSO), { quem: FALSO, chave: eve.privada });
+  rede.redirecionar.delete(FALSO);
+  return [r.status, r.motivo, db.notas.has(objeto.id)];
+}, (r) => r[0] === 401 && r[1] === "chave_desconhecida" && r[2] === false);
+await espera("documento lido com redirecionamento no MESMO servidor continua valendo (Mastodon e Lemmy fazem isso)", async () => {
+  const VAI = "https://remota.teste/@bia2";
+  const BIA2 = "https://remota.teste/users/bia2";
+  rede.redirecionar.set(VAI, BIA2);
+  rede.docs.set(BIA2, atorDoc(BIA2, chaves.bia.publica));
+  const doc = await servidor.buscarDocumento(VAI);
+  rede.redirecionar.delete(VAI);
+  return doc?.id;
+}, (id) => id === "https://remota.teste/users/bia2");
+await espera("pedido a endereço com nome disfarçado não sai (nem GET nem entrega)", async () =>
+  [await pedirAoFediverso("https://ｂloqueada.teste/x"), await pedirAoFediverso("https://bloqueada.teste./x"), await pedirAoFediverso("https://u@remota.teste/x"), await pedirAoFediverso("https://bloqueada%2Eteste/x", { metodo: "POST", corpo: "{}" })],
+(r) => r.every((x) => x === null));
 
 usarDubleDeRede(null);
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);

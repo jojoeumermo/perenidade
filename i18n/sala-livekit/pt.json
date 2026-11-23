@@ -1,0 +1,31 @@
+{
+  "entrando": "Entrando na sala…",
+  "entrar": "Entrar na sala",
+  "desafio": "Confirme que você não é um robô para entrar.",
+  "na_sala": "{n} na sala",
+  "ninguem": "Por enquanto, só você na sala.",
+  "voce": "Você",
+  "sem_nome": "Alguém",
+  "acoes": {
+    "micLigar": "Ligar o microfone",
+    "micDesligar": "Desligar o microfone",
+    "camLigar": "Ligar a câmera",
+    "camDesligar": "Desligar a câmera",
+    "telaLigar": "Mostrar a tela",
+    "telaDesligar": "Parar de mostrar a tela",
+    "sair": "Sair da sala",
+    "abrirNoJitsi": "Abrir no Jitsi"
+  },
+  "erros": {
+    "livekit_sem_config": "A sala de vídeo nova ainda não foi configurada neste servidor.",
+    "nao_encontrado": "Esta sala não existe ou você não pode entrar nela.",
+    "sem_sessao": "Entre na sua conta para abrir esta sala.",
+    "limite": "Muitas entradas seguidas. Espere um pouco e tente de novo.",
+    "desafio": "A confirmação de que você não é um robô não valeu. Tente de novo.",
+    "sem_servico": "O estudo em grupo está fechado neste servidor até a confirmação contra robôs ser configurada.",
+    "conexao": "O serviço de vídeo não respondeu. Tente de novo ou abra no Jitsi.",
+    "NotAllowedError": "O navegador não deixou usar o microfone ou a câmera. Libere nas permissões do site.",
+    "outro": "Não deu para abrir a sala."
+  },
+  "privacidade": "Sala de vídeo pelo LiveKit Cloud, um serviço de fora: enquanto você está na sala, ele recebe o seu endereço de rede, o nome que você usa aqui, o seu áudio e o seu vídeo, e tem acesso técnico a eles. O Instituto não grava nada; no painel fica só quem entrou e quando."
+}

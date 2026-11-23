@@ -1,0 +1,51 @@
+{
+  "_rascunho": true,
+  "reacoes": {
+    "titulo": "Reactions in this community",
+    "ajuda": "Moderation picks up to 6 emojis for reactions on posts here. Nobody sees who reacted: only the total for each emoji, and only from 3 up.",
+    "rotulo": "Emojis (up to 6)",
+    "salvar": "Save the list",
+    "padrao": "Back to the default list",
+    "salvo": "List saved.",
+    "voltou": "The community is back to the default list.",
+    "propria": "This community's own list",
+    "daAlumia": "Alumia's default list",
+    "previa": "Preview",
+    "sairam": "Reactions with an emoji that leaves the list stop showing and come back if it returns.",
+    "erros": {
+      "muitos": "6 emojis at most.",
+      "emoji": "Emojis only, no letters, numbers or the obscene gesture.",
+      "repetido": "There is a repeated emoji.",
+      "geral": "Could not save. Try again."
+    }
+  },
+  "pasta": {
+    "tornar": "Make this folder public",
+    "publica": "This folder is public: it shows as a collection on your profile.",
+    "ajuda": "Only open posts go into the collection. Restricted ones (followers, community, núcleo or staff) stay only here, and whoever reads the collection only sees what they could already see.",
+    "ficouFora": "Some posts in this folder are restricted and stayed only here.",
+    "privada": "Make it private again",
+    "verNoPerfil": "See on my profile",
+    "semHandle": "To have a public collection, first choose your @ on your profile.",
+    "erro": "Could not change it. Try again."
+  },
+  "traducao": {
+    "noAparelho": "Translated on this device: the text did not leave it.",
+    "noServidor": "Translated by Alumia's server: the text went to our server, not to third parties.",
+    "baixarAjuda": "The first time, the browser downloads the translation model from its own maker. The post text does not leave the device.",
+    "leve": "In light mode, on-device translation is off."
+  },
+  "imagem": {
+    "semAutora": "Hide who wrote it",
+    "destino": "Where to",
+    "destinos": {
+      "instagram-feed": "Instagram (feed)",
+      "instagram-stories": "Instagram (stories)",
+      "whatsapp": "WhatsApp",
+      "whatsapp-status": "WhatsApp (status)"
+    },
+    "compartilhar": "Share",
+    "restrito": "Only posts open to the internet become images.",
+    "ajuda": "The image is made here on the device and carries Alumia's address and @institutoluciaorg."
+  }
+}

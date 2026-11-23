@@ -11,6 +11,7 @@ import { clienteDoApoio } from "./cliente";
 import { casasDaMeta, documentoDaEntrega, lerMetaDaPeticao, type PeticaoComMeta } from "./regras";
 import { fraseDoApoio, preencherApoio, type TextosDoApoio } from "./textos";
 import "./apoio.css";
+import { PorQueSemNumero } from "../uso/PorQueSemNumero";
 
 const numero = (n: number, lang: string) => n.toLocaleString(lang === "pt" ? "pt-BR" : lang);
 
@@ -115,7 +116,7 @@ export function CuidarDaPeticao({ p, t, lang, aoMudar }: { p: PeticaoComMeta; t:
       <details className="ap-detalhe" onToggle={(e) => { if (!(e.currentTarget as HTMLDetailsElement).open) setDoc(null); }}>
         <summary>{tp.entregar}</summary>
         <p className="al-q-ajuda">{tp.entregarAjuda}</p>
-        {p.total === null ? <p className="al-q-ajuda">{tp.poucas}</p> : doc === null ? (
+        {p.total === null ? <p className="al-q-ajuda">{tp.poucas}<PorQueSemNumero lang={lang} motivo="piso" /></p> : doc === null ? (
           <Botao variante="contorno" tamanho="p" disabled={ocupado} aria-busy={ocupado || undefined} onClick={() => void gerar()}>{tp.gerar}</Botao>
         ) : (
           <>

@@ -6,6 +6,8 @@ import { Botao } from "@/components/rede/ui/Botao";
 import { rpc } from "@/lib/backend";
 import type { ServidorBloqueado } from "@/lib/rede/admin/tipos";
 import { Campo, Estado, Etiqueta, motivoDe, Nota, quando, Quadro, Titulo, useDado, useJanela } from "../pecas";
+import { pontesP4LigadoNoSite } from "@/lib/rede/p4/pontes/ligado";
+import { ServidoresAprovados } from "./ServidoresAprovados";
 
 const DOMINIO = /^[a-z0-9.-]{3,253}$/;
 
@@ -100,6 +102,8 @@ export function Fediverso({ recarregarEstado }: { recarregarEstado: () => void }
           ))}
         </ul>
       </Quadro>
+      {/* Prompt 4, item 82: só com "alumia-p4-pontes" ligado na montagem. */}
+      {pontesP4LigadoNoSite() ? <ServidoresAprovados depois={depois} /> : null}
       <Nota>Ligar e desligar o Fediverso inteiro fica no Beta fechado e em Recursos. Desligar não apaga nada.</Nota>
       {janela}
     </div>

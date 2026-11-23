@@ -4,6 +4,7 @@
 // cinco são rascunho marcado ("_rascunho"). No navegador, cada idioma é um pedaço separado (import dinâmico); as rotas do servidor
 // (RSS e cartão) leem os seis de uma vez (textosDoServidor). Sem "@/" de propósito.
 import type pt from "../../../i18n/rede/alcance/pt.json";
+import { carregarPronto } from "../textos-prontos";
 
 export type TextosDoAlcance = typeof pt;
 
@@ -18,8 +19,7 @@ const CARREGAR: Record<string, () => Promise<{ default: unknown }>> = {
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export async function carregarTextosDoAlcance(lang: string): Promise<TextosDoAlcance> {
-  const carregar = CARREGAR[lang] ?? CARREGAR.pt;
-  return (await carregar()).default as TextosDoAlcance;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDoAlcance;
 }
 
 /** O código de erro vira o texto da frente (ou o genérico). */

@@ -60,7 +60,7 @@
       "vencido": "vencido",
       "cancelado": "cancelado"
     },
-    "nota": "O convite usado sai da lista e do banco na hora: a Alumia não guarda qual foi, nem quem pediu a entrada com ele.",
+    "nota": "O convite usado sai da lista e do banco na hora: a Alumia não guarda qual foi, nem quem pediu a entrada com ele. O cancelado também sai, e a vaga do mês volta.",
     "cancelar": "Cancelar",
     "cancelarRotulo": "Cancelar o convite gerado em {data}",
     "acabaram": "Os convites deste mês acabaram. No mês que vem tem mais.",

@@ -12,6 +12,8 @@ import { documentoDoAtor, documentoDoAtorSaindo, imagemDoBanco } from "@/lib/red
 import { HANDLE_FED, modoTotal } from "@/lib/rede/fediverso/enderecos";
 import { conferirLeitor, conferirTeto, querHtml } from "@/lib/rede/fediverso/rotas";
 import { atorComChaves, fed, respostaAP } from "@/lib/rede/fediverso/servidor";
+import { comMovedTo } from "@/lib/rede/conta/mudanca";
+import { mudouPara } from "@/lib/rede/conta/mudanca-servidor";
 
 export const runtime = "nodejs";
 
@@ -35,16 +37,18 @@ export async function GET(pedido: Request, { params }: { params: Promise<{ handl
   if (!a) return new Response("Service Unavailable", { status: 503, headers: { "Retry-After": "60" } });
   if (a.estado === "ligado" && a.chave_publica) {
     const base = { handle, nome: a.nome ?? handle, bio: a.bio ?? "", ligado_em: a.ligado_em ?? null, chave_publica: a.chave_publica };
-    if (!modoTotal()) return respostaAP(documentoDoAtor(fed, base, { total: false, grupos: false }), 200, 300);
+    // Prompt 4, item 74: quem já mandou a mudança de servidor aponta para a conta nova (movedTo). Desligado, nulo.
+    const mudou = await mudouPara(handle);
+    if (!modoTotal()) return respostaAP(comMovedTo(documentoDoAtor(fed, base, { total: false, grupos: false }) as Record<string, unknown>, mudou), 200, 300);
     const x = a as typeof a & ExtrasDoAtor;
     return respostaAP(
-      documentoDoAtor(fed, {
+      comMovedTo(documentoDoAtor(fed, {
         ...base,
         avatar: imagemDoBanco(fed, x.avatar_url),
         capa: imagemDoBanco(fed, x.capa_url),
         discoverable: x.discoverable === true,
         trancado: x.trancado === true,
-      }),
+      }) as Record<string, unknown>, mudou),
       200,
       300,
     );

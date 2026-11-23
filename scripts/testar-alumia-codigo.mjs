@@ -66,6 +66,8 @@ const linhas = async (s, v = []) => (await dono(s, v)).rows;
 const um = async (s, v = []) => (await dono(s, v)).rows[0];
 await espera("a migração roda por cima do install.sql", () => exec(SQL));
 await espera("e de novo (idempotente)", () => exec(SQL));
+// O install.sql inteiro de novo por cima: as definições finais (a R2 redefiniu funções desta migração) voltam a valer.
+await espera("e o install.sql inteiro de novo por cima (as definições finais voltam)", () => banco.instalarDeNovo());
 {
   const r = (await um("select interno.alumia_trancar() as r")).r;
   ok(`trancar não acha nada aberto (abertas: ${JSON.stringify(r.abertas)})`, r.trancadas === 0 && r.abertas.length === 0);
@@ -111,8 +113,10 @@ try {
   const zerar = () => dono("delete from interno.limites");
 
   const { id: NUCLEO } = await um("insert into interno.rede_nucleos (nome) values ('Núcleo do teste') returning id");
-  for (const n of ["ana", "bia", "duda"]) await dono("insert into interno.rede_nucleo_membros (nucleo, usuario) values ($1, $2)", [NUCLEO, P[n]]);
-  await dono("insert into interno.rede_comunidades (slug, nome, categoria, tipo) values ('roda-fechada', 'Roda fechada', 'lutas', 'fechada') on conflict do nothing");
+  // Depois da R2 (membros escondidos) o servidor não sabe quem é de qual núcleo nem aceita post de núcleo: o post cifrado "do grupo"
+  // daqui é de uma segunda comunidade fechada (roda-dois, com a Ana, a Bia e a Duda), e o do núcleo é recusado.
+  await dono("insert into interno.rede_comunidades (slug, nome, categoria, tipo) values ('roda-fechada', 'Roda fechada', 'lutas', 'fechada'), ('roda-dois', 'Roda dois', 'lutas', 'fechada') on conflict do nothing");
+  for (const n of ["ana", "bia", "duda"]) await dono("insert into interno.rede_comunidade_membros (comunidade, usuario, situacao) values ('roda-dois', $1, 'ativo')", [P[n]]);
   for (const n of ["ana", "bia"]) await dono("insert into interno.rede_comunidade_membros (comunidade, usuario, situacao) values ('roda-fechada', $1, 'ativo')", [P[n]]);
   const CIFRA = "p2.3.dmV0b3I.Y2lmcmFkb3NlZ3JlZG9wYWxhdnJhdW5pY2E";
   const publicar = async (quem, pedido) => {
@@ -125,14 +129,15 @@ try {
   };
 
   // ═══════════════════ 3. A denúncia de post cifrado ═══════════════════
-  const cifrado = await espera("a Ana publica um post cifrado no núcleo", () => publicar("ana", { publico: "nucleo", nucleo: NUCLEO, grupo: `nucleo:${NUCLEO}`, corpo_grupo: CIFRA }), (r) => r?.corpo_grupo === CIFRA);
+  await recusa("no núcleo, o servidor não aceita post (o mural do núcleo é do grupo)", () => publicar("ana", { publico: "nucleo", nucleo: NUCLEO, grupo: `nucleo:${NUCLEO}`, corpo_grupo: CIFRA }), "sem_permissao");
+  const cifrado = await espera("a Ana publica um post cifrado na comunidade fechada roda-dois", () => publicar("ana", { comunidade: "roda-dois", publico: "comunidade", grupo: "comunidade:roda-dois", corpo_grupo: CIFRA }), (r) => r?.corpo_grupo === CIFRA);
   const daRoda = await espera("e um na comunidade fechada", () => publicar("ana", { comunidade: "roda-fechada", publico: "comunidade", grupo: "comunidade:roda-fechada", corpo_grupo: CIFRA }), (r) => r?.corpo_grupo === CIFRA);
-  const aberto = await espera("e um aberto no núcleo", () => publicar("ana", { publico: "nucleo", nucleo: NUCLEO, texto: "Reunião na quinta, às 19h." }), (r) => r?.texto?.startsWith("Reunião"));
+  const aberto = await espera("e um aberto na roda-dois", () => publicar("ana", { comunidade: "roda-dois", publico: "comunidade", texto: "Reunião na quinta, às 19h." }), (r) => r?.texto?.startsWith("Reunião"));
 
   const TRECHO = "Ato de quinta: levem a lista de quem vai e o endereço da casa da vereadora.";
-  const comTrecho = await espera("a Bia (do núcleo) denuncia o post cifrado mandando o trecho que abriu", () => denunciar("bia", cifrado?.id, { p_trecho: `  ${TRECHO}  ` }), (r) => r?.protocolo && r.ja === false);
+  const comTrecho = await espera("a Bia (da roda) denuncia o post cifrado mandando o trecho que abriu", () => denunciar("bia", cifrado?.id, { p_trecho: `  ${TRECHO}  ` }), (r) => r?.protocolo && r.ja === false);
   await espera("o trecho fica na denúncia (sem os espaços das pontas)", () => um("select trecho, texto from interno.rede_denuncias where protocolo = $1", [comTrecho?.protocolo]), (r) => r.trecho === TRECHO && r.texto === "");
-  await espera("a Duda (do núcleo) denuncia sem trecho: vai sem conteúdo", async () => {
+  await espera("a Duda (da roda) denuncia sem trecho: vai sem conteúdo", async () => {
     const r = await denunciar("duda", cifrado?.id);
     return um("select trecho from interno.rede_denuncias where protocolo = $1", [r.protocolo]);
   }, (r) => r.trecho === null);
@@ -154,13 +159,13 @@ try {
   await recusa("visitante não denuncia pela função", () => rpc(anon, "rede_mod_denunciar", { p_alvo_tipo: "post", p_alvo: cifrado?.id, p_categoria: "spam", p_texto: "", p_trecho: "x" }), "permission denied");
   {
     // Quem sai do grupo deixa de ver o post e não manda mais trecho (a regra é a do grupo, conferida na hora).
-    await dono("delete from interno.rede_nucleo_membros where nucleo = $1 and usuario = $2", [NUCLEO, P.duda]);
-    await recusa("quem saiu do núcleo não denuncia mais com trecho", () => denunciar("duda", cifrado?.id, { p_trecho: "outro" }), "nao_encontrado");
+    await dono("delete from interno.rede_comunidade_membros where comunidade = 'roda-dois' and usuario = $1", [P.duda]);
+    await recusa("quem saiu da roda não denuncia mais com trecho", () => denunciar("duda", cifrado?.id, { p_trecho: "outro" }), "nao_encontrado");
   }
   {
     // A fila da moderação (o item): o trecho aberto e a marca de cifrado; o post de núcleo continua sem o texto de prévia.
     const item = await um("select interno.rede3_mod_item(d) as j from interno.rede_denuncias d where protocolo = $1", [comTrecho?.protocolo]);
-    ok(`a fila recebe o trecho aberto e a marca de cifrado (${JSON.stringify(item?.j)?.slice(0, 200)})`, item?.j.aberto === TRECHO && item.j.cifrado === true && item.j.trecho === null);
+    ok(`a fila recebe o trecho aberto e a marca de cifrado (${JSON.stringify(item?.j)?.slice(0, 200)})`, item?.j.aberto === TRECHO && item.j.cifrado === true && !item.j.trecho);
     const semCifra = await um("select interno.rede3_mod_item(d) as j from interno.rede_denuncias d where alvo = $1 limit 1", [aberto?.id]);
     ok("post aberto: cifrado falso, aberto nulo", semCifra?.j.cifrado === false && semCifra.j.aberto === null);
   }

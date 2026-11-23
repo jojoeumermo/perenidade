@@ -1,6 +1,6 @@
 {
   "meta": {
-    "titulo": "Vale o Escrito：巴西权力之网",
+    "titulo": "Vale o Escrito：世界权力之网",
     "descricao": "一个记录公共利益犯罪案件的观察站，所有案件均已见于公开来源：诉讼、官方调查、组织报告或新闻报道。每份档案都列出来源、日期、摘录，并以文字写明法律状态。"
   },
   "emPreparacao": {
@@ -11,7 +11,7 @@
   "entrada": {
     "olho": "观察站",
     "titulo": "Vale o Escrito",
-    "subtitulo": "巴西权力之网",
+    "subtitulo": "世界权力之网",
     "linhaHonesta": "这不是我们自己的调查，不是警情播报，也不是法庭。我们汇集已经见于公开来源的内容，附上链接、日期和摘录，并写明每个案件的法律状态。"
   },
   "avisos": {
@@ -70,17 +70,18 @@
     "orbita": "轨道",
     "grupos": "分组",
     "fluxo": "流向",
-    "mapa": "巴西地图",
+    "mapa": "世界地图",
     "linha": "时间线"
   },
   "zoom": {
+    "mundo": "世界",
     "pais": "国家",
     "estado": "州",
     "municipio": "市镇"
   },
   "mapa": {
     "semWebgl": "此浏览器无法绘制地图（缺少 WebGL）。下方的案件列表仍可使用。",
-    "semMalha": "此服务器尚未生成 IBGE 边界文件。",
+    "semMalha": "此服务器尚未生成地图边界文件（Natural Earth 和 IBGE）。",
     "voltar": "返回上一级",
     "brasil": "巴西",
     "casos": "{n} 个案件",
@@ -89,15 +90,17 @@
     "casosAqui": "此处的案件",
     "abrirFicha": "打开档案",
     "listaDeCasos": "地图上的案件（供键盘和读屏软件使用的列表）",
-    "aria": "巴西地图，按州和市镇显示已发布案件",
-    "credito": "行政边界：IBGE。无第三方地图，无追踪。",
+    "aria": "世界地图，显示已发布案件；在巴西还按州和市镇显示",
+    "credito": "边界：Natural Earth（世界，公有领域）和 IBGE（巴西）。无第三方地图，无追踪。",
     "nivel": "地图级别",
     "aproximado": "大致位置（州中心）",
     "ramos": "案件的关联",
     "reduzirMovimento": "减少动态效果",
     "ativarMovimento": "开启动态效果",
     "fecharRamos": "关闭分支",
-    "abrirFonte": "打开来源"
+    "abrirFonte": "打开来源",
+    "mundo": "世界",
+    "aproximadoPais": "大致位置（国家中心）"
   },
   "enviar": {
     "titulo": "提交来源",
@@ -225,8 +228,8 @@
       "titulo": "围绕 {nome} 的轨道"
     },
     "mapa": {
-      "emPreparacao": "巴西地图筹备中",
-      "texto": "巴西霓虹地图（国家、州、市）将在此打开。目前先按地点列出案件：",
+      "emPreparacao": "世界地图筹备中",
+      "texto": "世界霓虹地图（国家；在巴西还有州和市镇）将在此打开。目前先按地点列出案件：",
       "semLugar": "未注明地点"
     },
     "ficha": {
@@ -303,7 +306,9 @@
         "movimentacao_suposta": "涉嫌资金流动"
       },
       "dataDaFonte": "无确切日期；来源日期 {data}"
-    }
+    },
+    "filtroPais": "国家",
+    "todosPaises": "所有国家"
   },
   "navegacao": {
     "inicio": "观察站",
@@ -395,7 +400,8 @@
       "pessoas": "公众人物",
       "organizacoes": "机构",
       "fontes": "引用来源",
-      "lugares": "州"
+      "lugares": "州",
+      "paises": "个国家"
     },
     "barra": "已发布案件的法律状态",
     "rodape": "每份档案都有来源、日期和摘录。活的网络：每个点是一条记录，每条线是一条有来源的关联。"

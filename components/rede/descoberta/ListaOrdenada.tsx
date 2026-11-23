@@ -32,6 +32,7 @@ export function ListaOrdenada({
   vazioPeca,
   aoResponder,
   aoPagina,
+  comComunidade = true,
 }: {
   lang: string;
   s: TextosDaRede;
@@ -47,6 +48,8 @@ export function ListaOrdenada({
   aoResponder?: (post: Post) => void;
   /** Avisa a tela de cada primeira página recebida (a página da tag usa para mostrar a linha temática). */
   aoPagina?: (pagina: PaginaOrdenada) => void;
+  /** A ficha com o nome da comunidade em cada post (desligada dentro da própria comunidade, onde ela só repetiria o nome). */
+  comComunidade?: boolean;
 }) {
   // Na Alumia nova, o cartão único da F3 (o mesmo da comunidade, com a ficha da comunidade); na de hoje, o cartão de sempre.
   const nova = useAlumia2();
@@ -99,6 +102,21 @@ export function ListaOrdenada({
       setMaisCarregando(false);
     }
   }
+
+  // A próxima página vem sozinha quando a pessoa chega a ~1 tela do fim (Prompt 5, A20: rolagem infinita, como na linha do
+  // Início); o botão continua lá para teclado e leitor de tela, e para quando o navegador não tem IntersectionObserver.
+  const sentinela = useRef<HTMLDivElement>(null);
+  const maisAgora = useRef(mais);
+  useEffect(() => {
+    maisAgora.current = mais;
+  });
+  useEffect(() => {
+    const alvo = sentinela.current;
+    if (!alvo || !proximo || typeof IntersectionObserver === "undefined") return;
+    const obs = new IntersectionObserver((e) => e.some((x) => x.isIntersecting) && void maisAgora.current(), { rootMargin: "0px 0px 900px 0px" });
+    obs.observe(alvo);
+    return () => obs.disconnect();
+  }, [proximo, pedido]);
 
   const o = d.ordens as unknown as Record<string, { nome: string; formula: string }>;
   const pronto = estado?.pedido === pedido;
@@ -153,11 +171,11 @@ export function ListaOrdenada({
           {itens.length === 0 ? (
             (vazioPeca ?? <p className="px-[18px] py-8 font-sans text-ink-soft">{vazio}</p>)
           ) : (
-            <ol aria-label={o[ordem]?.nome} className="al3-lista-entra" key={pedido}>
+            <ol aria-label={o[ordem]?.nome} className="al3-lista-entra alumia-lista-leve" key={pedido}>
               {itens.map((p, i) => (
                 <li key={p.id} style={{ "--i": i } as CSSProperties}>
                   {nova && t3 ? (
-                    <PostCompacto post={p} lang={lang} s={s} t={t3} logado={logado} comComunidade aoErro={(e) => torradas.mostrar({ texto: textoDoErro(s, e), erro: true })} />
+                    <PostCompacto post={p} lang={lang} s={s} t={t3} logado={logado} comComunidade={comComunidade} aoErro={(e) => torradas.mostrar({ texto: textoDoErro(s, e), erro: true })} />
                   ) : (
                     <CartaoDePost post={p} lang={lang} s={s} logado={logado} aoResponder={aoResponder} />
                   )}
@@ -166,7 +184,7 @@ export function ListaOrdenada({
             </ol>
           )}
           {proximo ? (
-            <div className="px-[18px] py-4 text-center">
+            <div ref={sentinela} className="px-[18px] py-4 text-center">
               <button type="button" onClick={() => void mais()} disabled={maisCarregando} className="min-h-11 cursor-pointer rounded-full border-[1.5px] border-ink px-5 font-sans font-bold hover:bg-parchment-deep disabled:opacity-60">
                 {maisCarregando ? d.estados.carregando : d.estados.maisPosts}
               </button>

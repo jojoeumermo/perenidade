@@ -1,0 +1,6 @@
+modelo: grupos-anonimato.pv
+sha256: 509ec96896c9569dba2226dc72bd969b92b16736ec6b772a9238412a36fcfa53
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+RESULT Observational equivalence is true.

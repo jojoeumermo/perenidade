@@ -8,10 +8,21 @@ import type { TextosDaLinha } from "@/lib/rede/textos-linha";
 import { Icone } from "../publicar/alumia2/icones";
 import { descreverLinha, TrocaDeModo } from "./base";
 
+/** O caminho para "Como a linha é montada" (na barra, ou ao lado do "Abrir sempre nesta aba"). */
+export function LinkDaRegra({ lang, t }: { lang: string; t: TextosDaLinha }) {
+  return (
+    <Link href={`/${lang}/alumia/como-a-linha`} className="ro-barra-regra">
+      <Icone nome="ajuda" className="h-4 w-4" />
+      {t.modo.comoMontada}
+    </Link>
+  );
+}
+
 /**
  * A barra que fica entre as abas e os posts do Início: a troca "Em roda / Ordem de chegada" (a escolha fica só no aparelho), o
  * caminho para "Como a linha é montada" e as linhas que a pessoa fixou. Com uma linha aberta, a barra diz por extenso o que
- * entra nela (o filtro nunca fica escondido) e como voltar para a aba.
+ * entra nela (o filtro nunca fica escondido) e como voltar para a aba. Com `semRegra`, o caminho fica ao lado do "Abrir sempre
+ * nesta aba" (Rede.tsx), em vez de ocupar uma linha sozinho.
  */
 export function BarraDaLinha({
   lang,
@@ -22,6 +33,7 @@ export function BarraDaLinha({
   ativa,
   aoLinha,
   nomeDaAba,
+  semRegra = false,
 }: {
   lang: string;
   t: TextosDaLinha;
@@ -32,6 +44,8 @@ export function BarraDaLinha({
   ativa: LinhaMontada | null;
   aoLinha: (l: LinhaMontada | null) => void;
   nomeDaAba: string;
+  /** O "Como a linha é montada" vai para a linha do "Abrir sempre nesta aba" (Rede.tsx), e não fica aqui sozinho. */
+  semRegra?: boolean;
 }) {
   const naBarra = linhas.filter((l) => l.fixada);
   return (
@@ -51,10 +65,7 @@ export function BarraDaLinha({
             {naBarra.length ? t.barra.todas : t.barra.montar}
           </Link>
         </div>
-        <Link href={`/${lang}/alumia/como-a-linha`} className="ro-barra-regra">
-          <Icone nome="ajuda" className="h-4 w-4" />
-          {t.modo.comoMontada}
-        </Link>
+        {!semRegra && <LinkDaRegra lang={lang} t={t} />}
       </div>
       {ativa && (
         <p className="ro-barra-aberta" role="status">

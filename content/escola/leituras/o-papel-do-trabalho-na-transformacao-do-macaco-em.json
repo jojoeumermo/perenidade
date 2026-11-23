@@ -1,0 +1,45 @@
+{
+  "obra": "o-papel-do-trabalho-na-transformacao-do-macaco-em",
+  "titulo": "O Papel do Trabalho na Transformação do Macaco em Homem",
+  "revisao": "em-revisao",
+  "apresentacao": "Leia uma parte por vez, na edição indicada na ficha do Acervo, e responda com as suas palavras. Não há resposta certa para decorar: as perguntas ajudam a entender o texto e a discutir em grupo.",
+  "secoes": [
+    {
+      "id": "a-mao",
+      "titulo": "A mão e o andar de pé",
+      "referencia": "O começo do texto: andar sobre dois pés, a mão livre e o trabalho como o que forma a mão.",
+      "perguntas": [
+        "Por que Engels diz que a mão não é só o órgão do trabalho, mas também fruto dele?",
+        "Que ligação o texto faz entre trabalhar em conjunto e surgir a linguagem?"
+      ]
+    },
+    {
+      "id": "sociedade",
+      "titulo": "Do trabalho à sociedade",
+      "referencia": "O meio do texto: a alimentação, o fogo, os instrumentos, a agricultura e o surgimento da sociedade humana.",
+      "perguntas": [
+        "O que diferencia, segundo Engels, a atividade humana da de outros animais?",
+        "Que exemplos o texto dá de como o trabalho mudou o próprio corpo e o cérebro?"
+      ]
+    },
+    {
+      "id": "vingancas-da-natureza",
+      "titulo": "As vinganças da natureza",
+      "referencia": "A parte final: os efeitos que ninguém planejou do domínio sobre a natureza e a crítica ao modo de produção que só olha o lucro imediato.",
+      "perguntas": [
+        "O que Engels quer dizer quando fala que a natureza se vinga?",
+        "Que exemplo de hoje (desmatamento, clima, rios) você daria para essa parte?",
+        "Por que, segundo o texto, o lucro imediato atrapalha olhar para as consequências?"
+      ]
+    },
+    {
+      "id": "para-conversar",
+      "titulo": "Para conversar",
+      "referencia": "O texto inteiro, depois da leitura.",
+      "perguntas": [
+        "O texto é de 1876 e ficou inacabado. O que nele parece escrito para os dias de hoje?",
+        "Que pergunta você levaria para discutir em grupo?"
+      ]
+    }
+  ]
+}

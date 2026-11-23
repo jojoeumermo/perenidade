@@ -61,7 +61,7 @@
       "vencido": "vencida",
       "cancelado": "cancelada"
     },
-    "nota": "La invitación usada sale de la lista y de la base de datos en el acto: Alumia no guarda cuál fue ni quién pidió la entrada con ella.",
+    "nota": "La invitación usada sale de la lista y de la base de datos en el acto: Alumia no guarda cuál fue ni quién pidió la entrada con ella. La cancelada también sale, y recuperas el cupo del mes.",
     "cancelar": "Cancelar",
     "cancelarRotulo": "Cancelar la invitación creada el {data}",
     "acabaram": "Las invitaciones de este mes se acabaron. El mes que viene habrá más.",

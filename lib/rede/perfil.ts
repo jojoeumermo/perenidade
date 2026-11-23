@@ -80,12 +80,13 @@ export function escolherSelosDeTrilha(slugs: Iterable<string>): string[] {
 }
 
 /**
- * Os únicos selos que existem: da equipe e dos papéis (equipe, educador, moderação) e de trilha declarada. Nunca opinião política,
+ * Os únicos selos que existem: da coordenação e da equipe (o papel no banco, A10 do Prompt 5), dos papéis (educador, moderação) e de
+ * trilha declarada. Nunca opinião política,
  * filiação, saúde ou outro dado sensível (LGPD, art. 5º, II, e art. 11): não há como criar selo fora desta lista.
  */
-export const TIPOS_DE_SELO = ["equipe", "educador", "moderacao", "trilha"] as const;
+export const TIPOS_DE_SELO = ["coordenacao", "equipe", "educador", "moderacao", "trilha"] as const;
 export type TipoDeSelo = (typeof TIPOS_DE_SELO)[number];
-export const tipoDoSelo = (selo: string): TipoDeSelo | null => (selo === "equipe" || selo === "educador" || selo === "moderacao" ? selo : slugDoSelo(selo) ? "trilha" : null);
+export const tipoDoSelo = (selo: string): TipoDeSelo | null => (selo === "coordenacao" || selo === "equipe" || selo === "educador" || selo === "moderacao" ? selo : slugDoSelo(selo) ? "trilha" : null);
 
 /** O endereço da tela de editar o próprio perfil (rota do pacote, no idioma da página). */
 export const enderecoDeEditarPerfil = (lang: string): string => `/${lang}/alumia/editar-perfil`;

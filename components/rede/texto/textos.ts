@@ -5,6 +5,7 @@
 // guarda o que já veio (várias peças da mesma tela pedem juntas).
 import { useEffect, useState } from "react";
 import type pt from "@/i18n/rede/texto/pt.json";
+import { prontoDe } from "../../../lib/rede/textos-prontos";
 
 export type TextosDoTexto = typeof pt;
 
@@ -21,7 +22,7 @@ const JA: Record<string, Promise<TextosDoTexto>> = {};
 
 export function carregarTextosDoTexto(lang: string): Promise<TextosDoTexto> {
   const chave = CARREGAR[lang] ? lang : "pt";
-  JA[chave] ??= CARREGAR[chave]().then((m) => m.default as TextosDoTexto);
+  JA[chave] ??= prontoDe(CARREGAR[chave], CARREGAR.pt).then((d) => d as TextosDoTexto);
   return JA[chave];
 }
 

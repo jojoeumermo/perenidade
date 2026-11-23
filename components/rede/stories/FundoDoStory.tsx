@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-import type { CSSProperties, Ref } from "react";
+import { useState, type CSSProperties, type Ref } from "react";
 import { corValida, fundoListrado, mosaicoDeFundo, PALETA_DO_STORY } from "@/lib/rede/stories/visual";
 import type { CorDoStory, FundoDoStory as Fundo } from "@/lib/rede/tipos-stories";
 
@@ -22,6 +22,7 @@ export function FundoDoStory({
   cor,
   semente,
   url,
+  urlMenor,
   alt,
   videoRef,
   mudo = true,
@@ -33,6 +34,8 @@ export function FundoDoStory({
   cor: CorDoStory;
   semente: string;
   url?: string;
+  /** P5: a versão menor da foto, que aparece na hora enquanto a alta chega. */
+  urlMenor?: string;
   alt?: string;
   videoRef?: Ref<HTMLVideoElement>;
   mudo?: boolean;
@@ -63,15 +66,7 @@ export function FundoDoStory({
       </div>
     );
   }
-  if (tipo === "imagem" && url) {
-    return (
-      <div className="al-st-fundo al-st-fundo-imagem">
-        {/* Endereço assinado e de vida curta (ou local, na prévia): sem otimização do Next, que guardaria a imagem em cache. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={url} alt={alt ?? ""} referrerPolicy="no-referrer" decoding="async" />
-      </div>
-    );
-  }
+  if (tipo === "imagem" && url) return <FotoDoStory key={url} url={url} urlMenor={urlMenor} alt={alt} />;
   if (tipo === "mosaico" || tipo === "video") {
     const cartoes = mosaicoDeFundo(semente, cor, COLUNAS, LINHAS);
     return (
@@ -86,4 +81,31 @@ export function FundoDoStory({
     );
   }
   return <div className="al-st-fundo" aria-hidden style={{ background: fundoListrado(cor) }} />;
+}
+
+/**
+ * P5 (A16): a foto do story em alta, com a versão menor por baixo enquanto a alta não chega (quem vê não espera a foto grande para
+ * ver alguma coisa). Sem a menor (story de antes), é a foto de sempre.
+ */
+function FotoDoStory({ url, urlMenor, alt }: { url: string; urlMenor?: string; alt?: string }) {
+  const [pronta, setPronta] = useState(false);
+  return (
+    <div className="al-st-fundo al-st-fundo-imagem">
+      {/* Endereços assinados e de vida curta (ou locais, na prévia): sem otimização do Next, que guardaria a imagem em cache. */}
+      {urlMenor && !pronta ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img className="al-st-fundo-menor" src={urlMenor} alt="" aria-hidden referrerPolicy="no-referrer" decoding="async" />
+      ) : null}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        className={urlMenor ? "al-st-fundo-alta" : undefined}
+        data-pronta={urlMenor ? (pronta ? "sim" : "nao") : undefined}
+        src={url}
+        alt={alt ?? ""}
+        referrerPolicy="no-referrer"
+        decoding="async"
+        onLoad={() => setPronta(true)}
+      />
+    </div>
+  );
 }

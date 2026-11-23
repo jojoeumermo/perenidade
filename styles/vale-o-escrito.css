@@ -330,11 +330,14 @@
   gap: 2px;
   height: 14px;
 }
+/* As barras têm a altura toda e encolhem por transform (E7: só transform e opacity animam; altura animada refazia o layout). */
 .ve-som-barras i {
   width: 2px;
-  height: 4px;
+  height: 14px;
   background: currentColor;
-  transition: height 0.2s;
+  transform: scaleY(0.2857);
+  transform-origin: bottom;
+  transition: transform 0.2s;
 }
 .ve-som[data-ligado="true"] .ve-som-barras i {
   background: var(--ve-sangue-claro);
@@ -593,6 +596,30 @@
   font-size: 0.86rem;
   color: var(--ve-suave);
   animation: ve-sobe 0.35s var(--ve-curva) both;
+}
+/* Prompt 5, C1: o filtro por país (só aparece com caso de mais de um país). */
+.ve-filtro-pais {
+  display: grid;
+  gap: 6px;
+  margin: 16px 16px 0;
+  font-family: var(--ve-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.ve-filtro-pais select {
+  min-height: 40px;
+  padding: 6px 8px;
+  border: 1px solid var(--ve-linha-forte);
+  background: var(--ve-painel-solido);
+  color: var(--ve-texto);
+  font: inherit;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.ve-filtro-pais select:focus-visible {
+  outline: 2px solid var(--ve-sangue-claro);
+  outline-offset: 2px;
 }
 .ve-esq-links {
   display: grid;
@@ -1892,10 +1919,10 @@
 }
 @keyframes ve-equalizador {
   from {
-    height: 3px;
+    transform: scaleY(0.2143);
   }
   to {
-    height: 14px;
+    transform: scaleY(1);
   }
 }
 

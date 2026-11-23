@@ -3,6 +3,7 @@
 // Dados estruturados (JSON-LD, schema.org) para os buscadores entenderem o que cada página é: a organização, o site, a
 // trilha (curso), a aula (recurso de aprendizagem), a obra do acervo (livro) e o caminho até a página (migalhas).
 // Só o que a própria página já mostra: nada de autor, data ou nota inventados, e nenhuma pessoa física como responsável.
+import { caminhoDaAula, caminhoDaTrilha } from "./escola/aulas-abertas";
 import { htmlLang, type Locale } from "@/i18n/config";
 import type { Book, Lesson, Track } from "@/lib/content";
 import { site } from "@/lib/site";
@@ -60,11 +61,11 @@ export function curso(lang: Locale, trilha: Track): JsonLd {
     "@type": "Course",
     name: trilha.title,
     description: trilha.summary,
-    url: `${site.url}/${lang}/trilhas/${trilha.slug}`,
+    url: `${site.url}/${lang}${caminhoDaTrilha(trilha)}`,
     inLanguage: idiomaDoTexto(lang, trilha.translated),
     isAccessibleForFree: true,
     provider: { "@id": ORGANIZACAO_ID },
-    hasPart: trilha.lessons.slice(0, 60).map((aula) => ({ "@type": "LearningResource", name: aula.title, url: `${site.url}/${lang}/trilhas/${trilha.slug}/${aula.slug}` })),
+    hasPart: trilha.lessons.slice(0, 60).map((aula) => ({ "@type": "LearningResource", name: aula.title, url: `${site.url}/${lang}${caminhoDaAula(trilha, aula.slug)}` })),
   };
 }
 
@@ -75,12 +76,12 @@ export function recursoDeAula(lang: Locale, trilha: Track, aula: Lesson): JsonLd
     "@type": "LearningResource",
     name: aula.title,
     description: aula.summary,
-    url: `${site.url}/${lang}/trilhas/${trilha.slug}/${aula.slug}`,
+    url: `${site.url}/${lang}${caminhoDaAula(trilha, aula.slug)}`,
     inLanguage: idiomaDoTexto(lang, aula.translated),
     isAccessibleForFree: true,
     learningResourceType: "lesson",
     timeRequired: aula.minutes > 0 ? `PT${aula.minutes}M` : undefined,
-    isPartOf: { "@type": "Course", name: trilha.title, url: `${site.url}/${lang}/trilhas/${trilha.slug}` },
+    isPartOf: { "@type": "Course", name: trilha.title, url: `${site.url}/${lang}${caminhoDaTrilha(trilha)}` },
     ...(aula.authors.length ? { author: aula.authors.map((nome) => ({ "@type": "Person", name: nome })) } : {}),
     publisher: { "@id": ORGANIZACAO_ID },
   };

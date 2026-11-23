@@ -1,0 +1,7 @@
+modelo: controles/sem-internet-etiqueta-sem-corpo.pv
+sha256: 4e57fe99ef08c35dc88877aea4b68fb1aa647fb92de1a4af5b8e5ec4a81fefb5
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+A trace has been found.
+RESULT event(Entregue(aparelhoA[],m_2,v_2)) ==> event(Enviou(aparelhoA[],m_2,v_2)) is false.

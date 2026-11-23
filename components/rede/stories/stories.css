@@ -1250,3 +1250,109 @@
 /* Onda 14: no tema claro o miolo do destaque escreve na cor do texto (a cor do anel, feita para a noite, caía abaixo de 4,5:1 sobre o
    creme); o anel continua com a cor. */
 [data-al="2"][data-al-tema="claro"] .al-st-destaque-post-miolo { color: var(--al-texto); }
+
+/* ───────────── P5 (A16): a tela de criar reorganizada: quadros, abas, colagem, rascunhos; o teste e a contagem livre ───────────── */
+/* Os quadros: uma fileira de miniaturas 9:16 (o atual com o contorno dourado) e o "+" para o próximo. */
+[data-al="2"] .al-st-quadros { margin: 0 0 18px; }
+[data-al="2"] .al-st-quadros-lista { display: flex; gap: 8px; margin: 8px 0 0; padding: 2px 2px 4px; list-style: none; overflow-x: auto; scrollbar-width: none; }
+[data-al="2"] .al-st-quadros-lista::-webkit-scrollbar { display: none; }
+[data-al="2"] .al-st-quadro-mini {
+  position: relative; display: grid; place-items: center; width: 46px; aspect-ratio: 9 / 16; flex: none; padding: 0; overflow: hidden;
+  border: 1.5px solid var(--al-superficie-2); border-radius: 9px; color: #f3efe6; font: inherit; font-weight: 900; font-size: 13px; cursor: pointer;
+  transition: transform 0.18s cubic-bezier(0.2, 1.5, 0.4, 1), border-color 0.15s;
+}
+[data-al="2"] .al-st-quadro-mini img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+[data-al="2"] .al-st-quadro-mini[aria-current="true"] { border: 2.5px solid var(--al-dourado); transform: translateY(-2px); }
+[data-al="2"] .al-st-quadro-mini:hover:not(:disabled) { transform: translateY(-2px); }
+[data-al="2"] .al-st-quadro-novo { background: var(--al-superficie); color: var(--al-texto); border-style: dashed; font-size: 22px; }
+[data-al="2"] .al-st-quadro-mini:disabled { opacity: 0.55; cursor: default; }
+[data-al="2"] .al-st-link-botao { border: 0; background: none; padding: 0; color: var(--al-texto); font: inherit; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+[data-al="2"] .al-st-link-botao:disabled { opacity: 0.55; cursor: default; }
+
+/* As abas do que pôr no story: uma régua só, a escolhida cheia. */
+[data-al="2"] .al-st-abas { display: flex; gap: 6px; margin: 0 0 14px; padding: 4px; border-radius: 14px; background: var(--al-superficie); }
+[data-al="2"] .al-st-aba {
+  flex: 1; min-height: 40px; border: 0; border-radius: 10px; background: transparent; color: var(--al-texto); font: inherit; font-size: 14px;
+  font-weight: 800; cursor: pointer; white-space: nowrap; transition: background-color 0.15s, color 0.15s;
+}
+[data-al="2"] .al-st-aba[aria-selected="true"] { background: var(--al-saliente); color: var(--al-sobre-saliente); }
+[data-al="2"] .al-st-aba-n { opacity: 0.75; font-weight: 700; }
+[data-al="2"] .al-st-aba:focus-visible { outline: 3px solid var(--al-dourado); outline-offset: 2px; }
+[data-al="2"] .al-st-painel-aba { animation: al-st-aba-entra 0.22s ease both; }
+@keyframes al-st-aba-entra { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-st-aba[aria-selected="true"] { background: var(--al-texto); color: var(--al-fundo); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-st-abas { border: 2px solid var(--al-texto); }
+
+/* Colagem, guardar e abrir rascunhos: uma fileira discreta acima das ações. */
+[data-al="2"] .al-st-acoes-mais { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+[data-al="2"] .al-st-acoes-mais .al-botao { min-height: 40px; border-radius: 12px; }
+
+/* As janelas da colagem e dos rascunhos (dentro do "criar"). */
+[data-al="2"] .al-st-colagem { position: fixed; inset: 0; z-index: 92; display: grid; place-items: center; padding: 16px; background: rgba(8, 7, 6, 0.72); }
+[data-al="2"] .al-st-colagem-caixa {
+  width: min(100%, 420px); max-height: calc(100dvh - 32px); overflow: auto; padding: 18px; border-radius: 20px;
+  background: var(--al-fundo); color: var(--al-texto); border: 1px solid var(--al-superficie-2); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  animation: al-st-aba-entra 0.24s ease both;
+}
+[data-al="2"] .al-st-colagem-modelos { display: flex; gap: 6px; margin: 10px 0 12px; }
+[data-al="2"] .al-st-colagem-modelos .al-ed-alvo-op { flex: 1; display: grid; place-items: center; min-height: 52px; }
+[data-al="2"] .al-st-colagem-icone { position: relative; display: block; width: 22px; aspect-ratio: 9 / 16; }
+[data-al="2"] .al-st-colagem-icone i { position: absolute; background: currentColor; border-radius: 2px; }
+[data-al="2"] .al-st-colagem-tela { position: relative; width: min(100%, 240px); aspect-ratio: 9 / 16; margin: 0 auto 12px; border-radius: 14px; overflow: hidden; }
+[data-al="2"] .al-st-colagem-celula {
+  position: absolute; display: grid; place-items: center; padding: 0; overflow: hidden; border: 0; border-radius: 6px;
+  background: rgba(243, 239, 230, 0.16); color: #f3efe6; font: inherit; font-size: 26px; font-weight: 900; cursor: pointer;
+}
+[data-al="2"] .al-st-colagem-celula img { width: 100%; height: 100%; object-fit: cover; }
+[data-al="2"] .al-st-colagem-celula:focus-visible { outline: 3px solid var(--al-dourado); outline-offset: -3px; }
+[data-al="2"] .al-st-colagem .al-st-cores { margin-bottom: 4px; }
+[data-al="2"] .al-st-rascunhos { display: grid; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+[data-al="2"] .al-st-rascunho { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto auto; gap: 8px; align-items: center; padding: 8px; border-radius: 12px; background: var(--al-superficie); }
+[data-al="2"] .al-st-rascunho-mini { position: relative; display: block; width: 40px; aspect-ratio: 9 / 16; border-radius: 7px; overflow: hidden; }
+[data-al="2"] .al-st-rascunho-mini img { width: 100%; height: 100%; object-fit: cover; }
+[data-al="2"] .al-st-rascunho-texto { display: grid; min-width: 0; font-size: 13px; }
+[data-al="2"] .al-st-rascunho-texto strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
+[data-al="2"] .al-st-rascunho-texto span { color: var(--al-texto-3); }
+@media (max-width: 420px) {
+  [data-al="2"] .al-st-rascunho { grid-template-columns: 40px minmax(0, 1fr) auto; }
+  [data-al="2"] .al-st-rascunho > .al-botao:last-child { grid-column: 2 / -1; justify-self: start; }
+}
+
+/* A foto em alta chega por cima da menor, sem pulo. */
+[data-al="2"] .al-st-fundo-imagem .al-st-fundo-menor { position: absolute; inset: 0; filter: blur(2px); transform: scale(1.01); }
+[data-al="2"] .al-st-fundo-imagem .al-st-fundo-alta { position: relative; transition: opacity 0.25s ease; }
+[data-al="2"] .al-st-fundo-imagem .al-st-fundo-alta[data-pronta="nao"] { opacity: 0; }
+
+/* O teste com resposta certa: letras A–D, a certa em verde, a errada riscada. */
+[data-al="2"] .al-fg-teste .al-fg-teste-etiqueta { margin: 0 0 6px; color: #2e7d4f; }
+[data-al="2"] .al-fg-teste-opcoes { grid-template-columns: 1fr; }
+[data-al="2"] .al-fg-teste-opcao { display: flex; align-items: center; gap: 8px; padding: 0 10px; text-align: left; }
+[data-al="2"] .al-fg-teste-letra { display: grid; place-items: center; flex: none; width: 24px; height: 24px; border-radius: 50%; background: #0f0e0d; color: #f3efe6; font-size: 12px; }
+[data-al="2"] .al-fg-teste-opcao[data-estado="certa"] { border-color: #2e7d4f; background: #2e7d4f; color: #fff; }
+[data-al="2"] .al-fg-teste-opcao[data-estado="certa"] .al-fg-teste-letra { background: #fff; color: #2e7d4f; }
+[data-al="2"] .al-fg-teste-opcao[data-estado="errada"] { border-color: #c4291c; color: #c4291c; text-decoration: line-through; }
+[data-al="2"] .al-fg-teste-opcao[data-estado="outra"] { opacity: 0.6; }
+[data-al="2"] .al-fg-teste-marcar { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 2px solid #0f0e0d; background: transparent; color: #0f0e0d; font: inherit; font-weight: 900; cursor: pointer; }
+[data-al="2"] .al-fg-teste-marcar[aria-checked="true"] { background: #2e7d4f; border-color: #2e7d4f; color: #fff; }
+[data-al="2"] .al-fg-teste-opcao[data-estado="certa"] .al-fg-teste-marcar { border-color: #fff; }
+[data-al="2"] .al-fg-teste-campo { flex: 1; min-width: 0; }
+[data-al="2"] .al-fg-teste-campo input { width: 100%; border: 0; background: none; font: inherit; color: inherit; min-height: 40px; }
+[data-al="2"] .al-fg-teste-campo input::placeholder { color: inherit; opacity: 0.55; }
+[data-al="2"] .al-fg-teste-tirar { flex: none; border: 0; background: none; color: inherit; font: inherit; font-size: 20px; cursor: pointer; padding: 0 2px; }
+[data-al="2"] .al-fg-teste-mais { margin-top: 8px; border: 2px dashed #0f0e0d; border-radius: 12px; background: none; color: #0f0e0d; font: inherit; font-weight: 800; min-height: 38px; width: 100%; cursor: pointer; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-fg-teste-opcao[data-estado="certa"] { background: #000; color: #fff; border-color: #000; }
+
+/* A contagem: escolher entre um ato e outro momento; os campos do momento livre. */
+[data-al="2"] .al-fg-modo-contagem { display: flex; gap: 4px; margin: 10px 0 0; padding: 3px; border-radius: 10px; background: rgba(0, 0, 0, 0.35); }
+[data-al="2"] .al-fg-modo-contagem button { flex: 1; min-height: 34px; border: 0; border-radius: 8px; background: transparent; color: #f3efe6; font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; }
+[data-al="2"] .al-fg-modo-contagem button[aria-checked="true"] { background: #ffc21a; color: #0f0e0d; }
+[data-al="2"] .al-fg-papel .al-fg-modo-contagem button { color: #0f0e0d; }
+[data-al="2"] .al-fg-papel .al-fg-modo-contagem { background: rgba(0, 0, 0, 0.08); }
+[data-al="2"] .al-fg-livre-campo { display: grid; gap: 3px; margin-top: 8px; color: #f3efe6; font-size: 11px; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; }
+[data-al="2"] .al-fg-livre-campo input { min-height: 40px; border-radius: 10px; border: 0; padding: 0 10px; background: #0f0e0d; color: #ffc21a; font: inherit; font-size: 14px; letter-spacing: 0; text-transform: none; color-scheme: dark; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-al="2"] :is(.al-st-painel-aba, .al-st-colagem-caixa) { animation: none; }
+  [data-al="2"] :is(.al-st-quadro-mini, .al-st-fundo-imagem .al-st-fundo-alta) { transition: none; }
+}
+:root[data-parado] [data-al="2"] :is(.al-st-painel-aba, .al-st-colagem-caixa) { animation: none; }

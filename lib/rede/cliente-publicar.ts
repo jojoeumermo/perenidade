@@ -59,6 +59,10 @@ export function criarClientePublicar(c: Chamar) {
       c<(Post & { repostado_em: string })[]>("rede_pub_repostes", { p_ate: ate, p_desde: desde, p_limite: limite }),
     /** Desfaz um post que acabou de sair (até 30 s, só o autor, nunca o que a triagem segurou). */
     desfazer: (post: string) => c<{ desfeito: boolean }>("rede_pub_desfazer", { p_post: post }),
+    /** Apaga um post meu (sai de vez; com resposta, fica "[post apagado]"). Sem aviso de moderação. */
+    apagar: (post: string) => c<{ apagado: boolean }>("rede_pub_apagar", { p_post: post }),
+    /** O que uma chave de envio já publicou (o post, para a autora), quando o banco respondeu "envio_repetido". */
+    acharEnvio: (chave: string) => c<Post | null>("rede_envio_achar", { p_chave: chave }),
     /** Os números dos emblemas do menu, todos da própria pessoa: avisos não lidos, conversas com novidade, atos confirmados. */
     // ───── B1 da casca (20261110-alumia-b1-casca.sql) ─────
     /** Publicar com quem pode citar e a enquete avançada (resultado só no fim, ordem embaralhada). */
@@ -77,7 +81,7 @@ export function criarClientePublicar(c: Chamar) {
     meusAtos: () => c<MeuAto[]>("rede_pub_meus_atos"),
     /** Apaga todos os meus rascunhos da conta (ao desligar "guardar na conta"). */
     apagarTodosRascunhos: () => c<{ apagados: number }>("rede_pub_rascunhos_apagar_todos"),
-    emblemas: () => c<{ avisos: number; conversas: number; atos: number }>("rede_alumia_emblemas"),
+    emblemas: () => c<{ avisos: number; conversas: number; atos: number; seguranca?: number }>("rede_alumia_emblemas"),
 
     // ───── Onda 9, 9D: público e vida do post (20261115-alumia-o9-publicar.sql) ─────
     /** Publicar com "só a minha roda", não listado e o prazo para sumir (o resto é o rede_pub_publicar_mais de sempre). */

@@ -25,6 +25,24 @@
   },
   "prioridade": { "1": "Prioridade 1", "2": "Prioridade 2", "3": "Prioridade 3" },
   "denunciar": {
+    "prova": {
+      "titulo": "Denunciar com prova",
+      "explica": "Marque as mensagens que mostram o problema. A Alumia confere que elas vieram desta conversa sem que ninguém leia o resto.",
+      "saem": "Atenção: as mensagens que você marcar saem do cifrado e vão para a moderação, que vai lê-las. O resto da conversa continua cifrado.",
+      "passa": "Para conferir, cada mensagem marcada passa inteira pelo servidor do site; com a denúncia fica guardado só o trecho que você deixar.",
+      "marcadas": "Mensagens marcadas: {n}",
+      "nenhuma": "Marque ao menos uma mensagem.",
+      "marcar": "Mandar esta mensagem",
+      "rotulo": "O trecho (corte o que não for preciso, até 1.000 caracteres)",
+      "foraDaMensagem": "O trecho tem de estar na mensagem, com as mesmas letras. Corte, mas não reescreva.",
+      "semProva": "Esta mensagem chegou sem a prova (de antes da troca do chat ou de um aparelho antigo): não pode ir como prova.",
+      "quem": "Quem escreveu, pelo que este aparelho sabe: {nome}",
+      "deduzir": "Numa conversa a dois ou num grupo pequeno, quem escreveu pode deduzir quem denunciou.",
+      "enviar": "Enviar denúncia com prova",
+      "feito": "Denúncia com prova recebida. Protocolo {protocolo}.",
+      "limite": "A prova mostra que o texto exato passou por esta conversa naquele dia, enviado com o passe que a outra pessoa assinou como dela. Mensagens de grupo não levam essa assinatura e vão sem prova.",
+      "postCifrado": "Este post leva a prova: o trecho que você mandar será conferido com o post, que continua cifrado."
+    },
     "titulo": "Denunciar",
     "tituloPerfil": "Denunciar este perfil",
     "tituloComunidade": "Denunciar esta comunidade",
@@ -94,9 +112,22 @@
     "modoLentoAjuda": "Intervalo mínimo entre dois posts da mesma pessoa.",
     "lento": { "0": "Desligado", "30": "30 segundos", "60": "1 minuto", "300": "5 minutos", "900": "15 minutos", "3600": "1 hora" },
     "lentoAviso": "Modo lento ligado aqui: um post a cada {tempo}.",
-    "confirmeDestrutivo": "Confirma? Isto aparece para a pessoa e fica no registro."
+    "confirmeDestrutivo": "Confirma? Isto aparece para a pessoa e fica no registro.",
+    "feitoProprio": "Era o seu post: ele foi apagado, sem aviso de moderação.",
+    "feitoRepetido": "Isso já estava feito. Nada mudou e ninguém foi avisado de novo."
   },
   "fila": {
+    "prova": {
+      "titulo": "Trechos com prova ({n})",
+      "selo": "texto conferido",
+      "explica": "Conferido pelo servidor: o texto é exato, passou pela conversa de quem denunciou naquele dia e foi depositado com o passe que a conta denunciada assinou como dela (a assinatura confere com a chave dela no registro público). Limite: se as duas pessoas combinarem, a prova vale contra quem escreveu, nunca contra uma terceira pessoa. Confira com o resto do caso.",
+      "dia": "mensagem de {dia}",
+      "origem": {
+        "conversa": "conversa a dois",
+        "grupo": "grupo",
+        "post": "post cifrado"
+      }
+    },
     "titulo": "Fila de moderação",
     "abas": { "denuncias": "Denúncias", "retidos": "Esperando leitura", "recursos": "Recursos", "lugares": "Lugares", "niveis": "Níveis" },
     "abertas": "Abertas",
@@ -247,6 +278,7 @@
     "verDenuncias": "Minhas denúncias e recursos"
   },
   "erros": {
+    "prova_nao_confere": "A prova não confere: o trecho tem de estar na mensagem como ela chegou. Corte, mas não reescreva.",
     "modo_lento": "Este lugar está em modo lento: espere um pouco para escrever de novo.",
     "nivel_links": "Seu nível ainda não permite tantos links num post. Veja os limites em Como a Alumia cuida.",
     "nivel_imagens": "Seu nível ainda não permite tantas imagens num post. Veja os limites em Como a Alumia cuida.",

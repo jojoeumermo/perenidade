@@ -40,7 +40,7 @@
     "preparando": "正在处理图片…",
     "invalida": "请使用 JPG、PNG 或 WebP 图片。",
     "grande": "图片太大。",
-    "maximo": "最多 4 张图片。",
+    "maximo": "最多 {n} 张图片。",
     "ver": "第 {n} 张，共 {total} 张",
     "semAcesso": "登录后才能查看图片。"
   },

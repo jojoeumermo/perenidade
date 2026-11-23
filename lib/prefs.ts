@@ -48,6 +48,11 @@ export interface Prefs {
   light: boolean;
   /** Modo pacote de dados (E4-17): liga também o modo leve e avisa antes de baixar algo grande. */
   pacote: boolean;
+  /**
+   * Contornos fortes (Prompt 5, E1): o design de sempre, de ponta a ponta, com o redesign ligado (recurso "design-novo").
+   * Vira <html data-fortes>; os estilos do redesign (styles/design/) só valem sem ele. Sem o redesign, não muda nada.
+   */
+  fortes: boolean;
 }
 
 export const defaultPrefs: Prefs = {
@@ -67,6 +72,7 @@ export const defaultPrefs: Prefs = {
   black: false,
   light: false,
   pacote: false,
+  fortes: false,
 };
 
 /** Interruptores que viram data-<nome> em <html>, com o nome que o CSS usa. */
@@ -81,6 +87,7 @@ const flags = [
   ["links", "links"],
   ["motion", "parado"],
   ["cursor", "cursor"],
+  ["fortes", "fortes"],
 ] as const;
 
 /** Escolhas com valor, que viram data-<nome>="valor" (sem valor, o atributo sai). */
@@ -113,6 +120,9 @@ export function applyPrefs(prefs: Prefs) {
   else root.removeAttribute("data-spacing");
   if (reader) root.setAttribute("data-leitor", "");
   if (isApp()) root.setAttribute("data-app", "");
+  // A área da página (E7): o CSS do aparelho fraco e do "menos movimento" do instituto não vale dentro da Alumia.
+  if (naAlumia()) root.setAttribute("data-na-alumia", "");
+  else root.removeAttribute("data-na-alumia");
 }
 
 export const isReader = () => typeof navigator !== "undefined" && readerDevice.test(navigator.userAgent);
@@ -136,11 +146,35 @@ export const isApp = () =>
 export function pedeEconomia(): boolean {
   if (typeof window === "undefined") return false;
   const conexao = (navigator as { connection?: { saveData?: boolean } }).connection;
-  return conexao?.saveData === true || window.matchMedia("(prefers-reduced-data: reduce)").matches;
+  return conexao?.saveData === true || window.matchMedia("(prefers-reduced-data: reduce)").matches || aparelhoFraco();
+}
+
+/**
+ * Aparelho fraco (Prompt 5, E7): pouca memória, navigator.deviceMemory ≤ 2 (o Chrome e parentes arredondam para 0,25, 0,5, 1, 2,
+ * 4 ou 8; os outros navegadores não dizem, e aí não conta).
+ */
+export function aparelhoFraco(): boolean {
+  if (typeof navigator === "undefined") return false;
+  const memoria = (navigator as { deviceMemory?: number }).deviceMemory;
+  return typeof memoria === "number" && memoria > 0 && memoria <= 2;
+}
+
+/** A página é da Alumia (endereço próprio ou /<idioma>/alumia)? A mesma conta do script inline (lib/prefs-script.ts). */
+export function naAlumia(): boolean {
+  if (typeof window === "undefined") return false;
+  return window.location.hostname.indexOf("alumia.") === 0 || window.location.pathname.split("/")[2] === "alumia";
+}
+
+/**
+ * O modo leve ligou sozinho? (o aparelho pede economia ou é fraco, a pessoa nunca escolheu, e a página é do instituto). Na Alumia
+ * ele nunca liga sozinho (E7: lá o foco é a experiência; o leve continua como escolha).
+ */
+export function leveSozinho(guardado: Partial<Prefs> = parse<Partial<Prefs>>(getItem(KEYS.a11y), {})): boolean {
+  return guardado.light === undefined && !naAlumia() && pedeEconomia();
 }
 
 function comEconomia(guardado: Partial<Prefs>): Prefs {
-  const prefs: Prefs = { ...defaultPrefs, light: guardado.light ?? pedeEconomia(), ...guardado };
+  const prefs: Prefs = { ...defaultPrefs, light: guardado.light ?? leveSozinho(guardado), ...guardado };
   // O antigo "Texto espaçado" vira as duas escolhas novas, com valores parecidos com os de antes.
   if (guardado.spacing && guardado.lines === undefined && guardado.letters === undefined) {
     prefs.lines = 2;

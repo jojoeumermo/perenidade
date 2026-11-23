@@ -1,0 +1,118 @@
+name: Manifesto do chat
+
+# A cada versão publicada, a lista dos arquivos que o navegador baixa para rodar o chat cifrado, com o SHA-256 de cada um
+# (scripts/manifesto-do-chat.mjs; como conferir em docs/rede/CHAT-PRIVADO.md, "Conferir o código que o navegador recebe").
+#
+# 1. Abre a imagem :producao que a rotina "Publicar no servidor" montou numa máquina do GitHub a partir do código público, e
+#    tira de dentro dela a pasta .next/static (sem rodar nada da imagem).
+# 2. Publica o manifesto FORA do servidor: chat/<commit>.json no ramo "transparencia" deste repositório (o mesmo do registro
+#    das chaves; o ramo deve ter a regra "bloquear push forçado e exclusão").
+# 3. Espera o site mostrar esse commit em /versao.txt e baixa do site no ar (e do endereço do chat, se houver) os arquivos da
+#    cifra, comparando com o manifesto. Diferença: a rotina falha e avisa o gancho da coordenação.
+# Configuração: as variáveis da montagem (SERVIDOR, MAQUINA_DE_MONTAGEM, NEXT_PUBLIC_CHAT_URL) e o aviso do monitor
+# (OPERACAO_DESTINO, segredo OPERACAO_GANCHO).
+on:
+  workflow_run:
+    workflows: ["Publicar no servidor"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: transparencia
+  cancel-in-progress: false
+
+jobs:
+  manifesto:
+    if: vars.SERVIDOR != 'nenhum' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
+    # A mesma máquina da montagem (a imagem é do processador do servidor).
+    runs-on: ${{ vars.MAQUINA_DE_MONTAGEM || 'ubuntu-24.04-arm' }}
+    timeout-minutes: 40
+    permissions:
+      contents: write
+      packages: read
+      issues: write
+    env:
+      IMAGEM: ghcr.io/${{ github.repository }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: master
+          persist-credentials: false
+          sparse-checkout: scripts
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+      - name: Tirar os arquivos de dentro da imagem publicada
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          echo "$GITHUB_TOKEN" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          docker pull --quiet "$IMAGEM:producao"
+          COMMIT=$(docker inspect -f '{{ index .Config.Labels "org.opencontainers.image.revision" }}' "$IMAGEM:producao")
+          if ! [[ "$COMMIT" =~ ^[0-9a-f]{40}$ ]]; then echo "::error::A imagem :producao não diz de que commit é."; exit 1; fi
+          echo "COMMIT=$COMMIT" >> "$GITHUB_ENV"
+          caixa=$(docker create "$IMAGEM:producao")
+          docker cp "$caixa:/app/.next/static" "$RUNNER_TEMP/estatico"
+          docker rm "$caixa" > /dev/null
+      - name: Trazer o ramo transparencia
+        env:
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --heads "https://github.com/$REPO.git" transparencia > /dev/null; then
+            git clone --quiet --depth 1 --branch transparencia --single-branch "https://github.com/$REPO.git" "$RUNNER_TEMP/publicado"
+          else
+            git init --quiet -b transparencia "$RUNNER_TEMP/publicado"
+          fi
+      - name: Montar o manifesto
+        run: node scripts/manifesto-do-chat.mjs gerar --pasta "$RUNNER_TEMP/estatico" --commit "$COMMIT" --saida "$RUNNER_TEMP/publicado/chat/$COMMIT.json"
+      - name: Publicar o manifesto
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/publicado"
+          # Um manifesto já publicado nunca é trocado: se o mesmo commit der outro manifesto, é para alguém olhar.
+          if git cat-file -e "HEAD:chat/$COMMIT.json" 2> /dev/null; then
+            if git diff --quiet -- "chat/$COMMIT.json"; then echo "O manifesto de $COMMIT já estava publicado."; exit 0; fi
+            echo "::error::O manifesto de $COMMIT já publicado é diferente do de agora (a imagem :producao mudou sem mudar de commit)."
+            exit 1
+          fi
+          echo "$COMMIT $(date -u +%F)" >> chat/versoes.txt
+          git add "chat/$COMMIT.json" chat/versoes.txt
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit --quiet -m "Manifesto do chat: $COMMIT"
+          git push --quiet "https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git" HEAD:transparencia
+      - name: Conferir o que o site entrega
+        id: conferir
+        env:
+          SITE: ${{ vars.SITE_URL || 'https://institutolucia.org' }}
+          CHAT: ${{ vars.NEXT_PUBLIC_CHAT_URL }}
+        run: |
+          set -uo pipefail
+          # A VPS troca a versão sozinha em alguns minutos: espera o site mostrar este commit (até 25 minutos).
+          for _ in $(seq 1 150); do
+            no_ar=$(curl -fsS --max-time 10 "$SITE/versao.txt?v=$RANDOM$RANDOM" 2> /dev/null | tr -d '[:space:]' || true)
+            [ "$no_ar" = "$COMMIT" ] && break
+            sleep 10
+          done
+          if [ "$no_ar" != "$COMMIT" ]; then echo "::warning::O site não mostrou o commit $COMMIT: a conferência fica para a próxima versão."; exit 0; fi
+          resultado=0
+          node scripts/manifesto-do-chat.mjs conferir --site "$SITE" --manifesto "$RUNNER_TEMP/publicado/chat/$COMMIT.json" || resultado=$?
+          if [ -n "$CHAT" ] && [ "$resultado" = 0 ]; then
+            node scripts/manifesto-do-chat.mjs conferir --site "$CHAT" --manifesto "$RUNNER_TEMP/publicado/chat/$COMMIT.json" || resultado=$?
+          fi
+          echo "resultado=$resultado" >> "$GITHUB_OUTPUT"
+          exit "$resultado"
+      - name: Avisar
+        if: failure() && steps.conferir.outputs.resultado == '1'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          OPERACAO_DESTINO: ${{ vars.OPERACAO_DESTINO }}
+          OPERACAO_GANCHO: ${{ secrets.OPERACAO_GANCHO }}
+        run: node scripts/operacao/avisar.mjs falha --etiqueta manifesto-do-chat --titulo "Manifesto do chat: o site entrega outro código" --arquivo manifesto-do-chat.md

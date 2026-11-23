@@ -36,6 +36,23 @@
 //   ./pontes/encaixe                  onda 13 · pontes (Traduzir, o rótulo de robô, o Mural no menu e a seção Pontes nos Ajustes)
 //   ./leve/encaixe                    onda 13 · leve e no seu tempo (por último: o antesDePublicar dele roda depois dos outros)
 //   ./fediverso/encaixe               Faixa 2 · gente de fora (Fediverso): as peças entram pelo nome no cartão, na linha, na conversa, nos avisos e na busca; o encaixe é {}
+//   ./presenca/encaixe                prompt 4 · presença e proteção contra print (a seção nos Ajustes, atrás de "alumia-p4-presenca-print")
+//   ./publicar/p4/encaixe             prompt 4 · compositor: a versão curta, os capítulos, o convite e o selo "Com fonte" no cartão e o filtro de
+//                                     imagens sem descrição nos Ajustes (atrás de "alumia-p4-compositor")
+//   ./p4/cartao/encaixe               prompt 4 · cartão do post: a lista de reações da comunidade no alto da comunidade, só para a mediação
+//                                     (atrás de "alumia-p4-cartao-do-post")
+//   ./criacao/encaixe                 prompt 4 · o item Criação coletiva no menu Mais (atrás de "alumia-p4-criacao-coletiva")
+//   ./cultura/encaixe                 prompt 4 · o item Cultura no grupo Mais do menu (atrás de "alumia-p4-cultura"; só menu, nada de aba)
+//                                     Os quatro ficam na lista depois dos rótulos e antes do modo ato: depois da Estrutura vem o alcance
+//                                     (onda 13), entre o alcance e as questões só a memória, e o leve é sempre o último.
+//   ./memoria/encaixe                 prompt 4 · memória e luta (o quadro Neste dia na luta no topo da linha e os itens Memória da luta e
+//                                     Desafio do dia no menu, atrás de "alumia-p4-memoria-e-luta"; logo depois do alcance, sem aba nem antesDePublicar)
+//   ./organizacao/encaixe             prompt 4 · organização e ação coletiva (o item Organizar no menu Mais e o "Pedir checagem" no menu
+//                                     do cartão, atrás de "alumia-p4-organizacao"; logo depois da cultura, antes da ação coletiva)
+//   ./coletiva/encaixe                prompt 4 · ação coletiva (o item Ação coletiva no menu Mais e o aviso de Pix no cartão, atrás de
+//                                     "alumia-p4-coletiva"; logo depois da organização, antes do modo ato, sem aba nem antesDePublicar)
+//   ./descoberta-estudo/encaixe       prompt 4 · os itens Descobrir e Estudar no grupo Mais do menu (atrás de "alumia-p4-descoberta-estudo";
+//                                     só menu; logo depois do Perto, na primeira linha da lista)
 //
 // A ordem das abas da comunidade é a desta lista (o Fórum da 10A vem de ./conversa): Posts, Fórum, Decisões, Acervo, Chegada,
 // Estrutura, Levar (onda 13) e, depois, Atos, Aulas, Wiki, Perguntas e Sobre (components/rede/comunidades/PaginaDaComunidadeAlumia.tsx).
@@ -76,6 +93,19 @@ import { encaixe as publicar } from "./publicar/encaixe";
 import { encaixe as rotulos } from "./rotulos/encaixe";
 import { encaixe as seguranca } from "./seguranca/encaixe";
 import { encaixe as stories } from "./stories/encaixe";
+import { encaixe as presencaPrint } from "./presenca/encaixe";
+import { encaixe as segurancaPessoal } from "./seguranca-pessoal/encaixe";
+import { encaixe as compositorP4 } from "./publicar/p4/encaixe";
+import { encaixe as p4cartao } from "./p4/cartao/encaixe";
+import { encaixe as criacaoColetiva } from "./criacao/encaixe";
+import { encaixe as cultura } from "./cultura/encaixe";
+import { encaixe as memoria } from "./memoria/encaixe";
+import { encaixe as organizacao } from "./organizacao/encaixe";
+import { encaixe as coletiva } from "./coletiva/encaixe";
+import { encaixe as perto } from "./perto/encaixe";
+import { encaixe as descobertaEstudo } from "./descoberta-estudo/encaixe";
+import { encaixe as contaP4 } from "./conta/encaixe";
+import { encaixe as chamadas } from "./chamada/encaixe";
 
 /** O que toda peça encaixada recebe. */
 export interface ContextoDoEncaixe {
@@ -96,6 +126,11 @@ export interface ItemDoMenuEncaixado {
   href: (ctx: ContextoDoEncaixe) => string | null;
   /** Número no emblema (já agregado, sem nomes); nulo = sem emblema. */
   emblema?: (ctx: ContextoDoEncaixe) => number | null;
+  /**
+   * Onde o item mora na casca da Alumia nova (P5, A9): "mais" (padrão) no grupo "Mais" do menu; "seguranca" no painel do botão
+   * Segurança; "conta" no menu da conta (os três pontinhos). A casca antiga ignora e põe tudo no menu.
+   */
+  lugar?: "mais" | "seguranca" | "conta";
 }
 
 /** Uma aba a mais (perfil, comunidade, núcleo). */
@@ -166,8 +201,10 @@ export function juntarEncaixes(lista: readonly Encaixe[]): EncaixesJuntos {
 
 /** A ordem fixa das frentes. */
 const FRENTES: readonly Encaixe[] = [
-  publicar, coautoria, atos, conversa, fediverso, org, stories, seguranca, chat, protecao, lei, convites, meusdados, moderacao, rotulos, modoato, decisao, acervo, cargos, estrutura,
-  alcance, questoes, turma, agenda, redacao, conquistas, midia, pontes, leve,
+  publicar, coautoria, atos, conversa, fediverso, org, stories, seguranca, presencaPrint, chat, segurancaPessoal, perto, descobertaEstudo, protecao, lei, convites, meusdados,
+  contaP4, chamadas, moderacao, rotulos,
+  compositorP4, p4cartao, criacaoColetiva, cultura, organizacao, coletiva, modoato, decisao, acervo, cargos, estrutura,
+  alcance, memoria, questoes, turma, agenda, redacao, conquistas, midia, pontes, leve,
 ];
 
 /**

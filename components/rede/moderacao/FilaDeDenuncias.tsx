@@ -10,6 +10,7 @@ import type { TextosDaModeracao } from "@/lib/rede/textos-moderacao";
 import type { ChecagemDisponivel, DenunciaAberta, ItemDaFila, PostRetido } from "@/lib/rede/tipos-moderacao";
 import { enderecos } from "@/lib/rede/tipos";
 import { dataCurta, dataEHora, estilo, mensagemDeErro, nivelEmFrase, nomeDaRegra } from "./base";
+import { TrechosComProva } from "../franquia/TrechosComProva";
 import { FormularioDeAcao } from "./FormularioDeAcao";
 
 /** O carimbo do prazo de resposta (onda 8): até quando, ou "vencido" em vermelho. Sem prazo (banco antigo), nada. */
@@ -102,7 +103,7 @@ function Detalhe({ item, lang, s, sm, checagens, comunidades, nomes, aoMudar }: 
       )}
       {item.texto && <p className="rounded-md bg-parchment-deep px-3 py-2 text-sm">{item.texto}</p>}
       {/* Post cifrado: a moderação não tem a chave. Só o que quem denunciou escolheu abrir chega aqui, e a tela diz de quem é. */}
-      {post && item.cifrado && (item.aberto ? (
+      {post && item.cifrado && !(item.prova && item.prova.length > 0) && (item.aberto ? (
         <figure className="rounded-md border-[1.5px] border-oxblood px-3 py-2 text-sm">
           <figcaption className="text-xs font-semibold">{sm.fila.aberto}</figcaption>
           <blockquote className="mt-1 whitespace-pre-line break-words">{item.aberto}</blockquote>
@@ -110,6 +111,8 @@ function Detalhe({ item, lang, s, sm, checagens, comunidades, nomes, aoMudar }: 
       ) : (
         <p role="note" className="rounded-md bg-parchment-deep px-3 py-2 text-sm">{sm.fila.cifradoSem}</p>
       ))}
+      {/* Denúncia com prova (onda R2): os trechos que quem denunciou tirou do cifrado, conferidos pelo servidor, com o nível da prova. */}
+      {item.prova && item.prova.length > 0 && <TrechosComProva sm={sm} lang={lang} prova={item.prova} />}
 
       {dado.historico.length > 0 && (
         <div>

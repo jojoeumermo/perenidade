@@ -129,6 +129,13 @@ const sit = situacaoDasVariaveis({ SUPABASE_SERVICE_ROLE_KEY: "x".repeat(40), AL
 ok("a situação das variáveis: presente, curta e falta, sem o valor", sit.find((v) => v.nome === "SUPABASE_SERVICE_ROLE_KEY")?.situacao === "presente"
   && sit.find((v) => v.nome === "ALUMIA_VOTO_SEGREDO")?.situacao === "curta" && sit.find((v) => v.nome === "TURNSTILE_SECRET_KEY")?.situacao === "falta"
   && !JSON.stringify(sit).includes("xxxx") && !JSON.stringify(sit).includes("curto"));
+{
+  // R3 (2.6): os segredos "de antes" só existem na troca; vazios não são falta, curtos são.
+  const s2 = situacaoDasVariaveis({ ALUMIA_FEDIVERSO_SEGREDO_ANTERIOR: "curto" });
+  ok("a Saúde conhece os segredos de antes da troca (impressão e federação)", ["ALUMIA_IMPRESSAO_SEGREDO_ANTERIOR", "ALUMIA_FEDIVERSO_SEGREDO_ANTERIOR"].every((n) => VARIAVEIS_DO_SERVIDOR.some((v) => v.nome === n && v.opcional)));
+  ok("o segredo de antes vazio não conta como falta; curto conta", s2.find((v) => v.nome === "ALUMIA_IMPRESSAO_SEGREDO_ANTERIOR")?.situacao === "dispensada"
+    && s2.find((v) => v.nome === "ALUMIA_FEDIVERSO_SEGREDO_ANTERIOR")?.situacao === "curta");
+}
 
 {
   const rota = ler("app/api/alumia/conta/route.ts");
@@ -302,9 +309,15 @@ await espera("o vencimento das sessões não quebra a entrada da equipe", () => 
 // O código de recuperação com o aplicativo que o banco não pode apagar.
 await dono("insert into auth.mfa_factors (user_id, status) values ($1, 'verified')", [P.duda]);
 const d1 = await novaSessao(P.duda, FIREFOX);
-const duda = (sessao, aal = "aal2") => ({ sub: P.duda, sessao, aal });
+await new Promise((r) => setTimeout(r, 1100));
+// Os aparelhos de duda entram depois do pânico do painel (acima): o "iat" do token de cada um é da hora em que entrou, como no serviço
+// de verdade (o interno.eu do reforço do banco para o token de antes do corte).
+const emitido = new Map();
+const duda = (sessao, aal = "aal2") => ({ sub: P.duda, sessao, aal, ...(emitido.has(sessao) ? { iat: emitido.get(sessao) } : {}) });
+emitido.set(d1, agora());
 const gerados = await espera("gera os códigos", () => rpc(duda(d1), "conta_codigos_gerar"), (r) => r.codigos.length === 10);
 const d2 = await novaSessao(P.duda, CHROME, "aal1");
+emitido.set(d2, agora() + 1);
 const restam = async () => (await dono("select count(*)::int as n from interno.codigos_recuperacao where usuario = $1 and usado_em is null", [P.duda])).rows[0].n;
 await espera("chamado direto, sem poder tirar o aplicativo: não gasta o código", () => rpc(duda(d2, "aal1"), "conta_codigo_usar", { p_codigo: gerados?.codigos[0] }),
   (r) => r.ok === false && r.motivo === "pelo_servidor");

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "titulo": "Vale o Escrito : la toile du pouvoir au Brésil",
+    "titulo": "Vale o Escrito : la toile du pouvoir dans le monde",
     "descricao": "Observatoire de crimes d'intérêt public déjà présents dans des sources publiques : procédure judiciaire, enquête officielle, rapport d'organisation ou reportage. Chaque fiche indique source, date, extrait et la situation juridique par écrit."
   },
   "emPreparacao": {
@@ -11,7 +11,7 @@
   "entrada": {
     "olho": "Observatoire",
     "titulo": "Vale o Escrito",
-    "subtitulo": "La toile du pouvoir au Brésil",
+    "subtitulo": "La toile du pouvoir dans le monde",
     "linhaHonesta": "Ce n'est ni une enquête propre, ni un fil policier, ni un tribunal. Nous réunissons ce qui figure déjà dans des sources publiques, avec lien, date et extrait, et nous écrivons la situation juridique de chaque cas."
   },
   "avisos": {
@@ -70,17 +70,18 @@
     "orbita": "Orbite",
     "grupos": "Groupes",
     "fluxo": "Flux",
-    "mapa": "Carte du Brésil",
+    "mapa": "Carte du monde",
     "linha": "Chronologie"
   },
   "zoom": {
+    "mundo": "Monde",
     "pais": "Pays",
     "estado": "État",
     "municipio": "Commune"
   },
   "mapa": {
     "semWebgl": "Ce navigateur ne peut pas dessiner la carte (WebGL absent). La liste des cas ci-dessous reste valable.",
-    "semMalha": "Les fonds de carte de l'IBGE n'ont pas encore été générés sur ce serveur.",
+    "semMalha": "Les fonds de carte (Natural Earth et IBGE) n'ont pas encore été générés sur ce serveur.",
     "voltar": "Remonter d'un niveau",
     "brasil": "Brésil",
     "casos": "{n} cas",
@@ -89,15 +90,17 @@
     "casosAqui": "Cas à cet endroit",
     "abrirFicha": "Ouvrir la fiche",
     "listaDeCasos": "Cas sur la carte (liste pour clavier et lecteur d'écran)",
-    "aria": "Carte du Brésil avec les cas publiés, par État et par commune",
-    "credito": "Limites territoriales : IBGE. Pas de carte tierce, pas de traçage.",
+    "aria": "Carte du monde avec les cas publiés ; au Brésil, aussi par État et par commune",
+    "credito": "Fonds de carte : Natural Earth (monde, domaine public) et IBGE (Brésil). Pas de carte tierce, pas de traçage.",
     "nivel": "Niveau de la carte",
     "aproximado": "lieu approximatif (centre de l'État)",
     "ramos": "Liens de l'affaire",
     "reduzirMovimento": "Réduire les animations",
     "ativarMovimento": "Activer les animations",
     "fecharRamos": "Fermer les ramifications",
-    "abrirFonte": "Ouvrir la source"
+    "abrirFonte": "Ouvrir la source",
+    "mundo": "Monde",
+    "aproximadoPais": "lieu approximatif (centre du pays)"
   },
   "enviar": {
     "titulo": "Envoyer une source",
@@ -225,8 +228,8 @@
       "titulo": "Orbite autour de {nome}"
     },
     "mapa": {
-      "emPreparacao": "Carte du Brésil en préparation",
-      "texto": "La carte néon du Brésil (pays, État, municipalité) s'ouvre ici. En attendant, les cas par lieu :",
+      "emPreparacao": "Carte du monde en préparation",
+      "texto": "La carte néon du monde (pays ; au Brésil, État et commune) s'ouvre ici. En attendant, les cas par lieu :",
       "semLugar": "Lieu non indiqué"
     },
     "ficha": {
@@ -303,7 +306,9 @@
         "movimentacao_suposta": "mouvement présumé"
       },
       "dataDaFonte": "sans date propre ; source du {data}"
-    }
+    },
+    "filtroPais": "Pays",
+    "todosPaises": "Tous les pays"
   },
   "navegacao": {
     "inicio": "Observatoire",
@@ -395,7 +400,8 @@
       "pessoas": "personnes publiques",
       "organizacoes": "organisations",
       "fontes": "sources citées",
-      "lugares": "États"
+      "lugares": "États",
+      "paises": "pays"
     },
     "barra": "Situation juridique des cas publiés",
     "rodape": "Source, date et extrait sur chaque fiche. Toile vivante : chaque point est un enregistrement, chaque ligne un lien sourcé."

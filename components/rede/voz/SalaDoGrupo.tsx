@@ -43,7 +43,7 @@ export function SalaDoGrupo({ lang, grupo, sala = "geral", previa = false }: { l
       </button>
       {aberta && (
         <div className="al-voz-grupo-corpo">
-          {dados ? <SalaDeVoz t={dados.voz} eu={dados.eu} grupo={grupo} sala={sala} /> : <p role="status">{t.voz.carregando}</p>}
+          {dados ? <SalaDeVoz t={dados.voz} eu={dados.eu} grupo={grupo} sala={sala} lang={lang} /> : <p role="status">{t.voz.carregando}</p>}
         </div>
       )}
     </section>

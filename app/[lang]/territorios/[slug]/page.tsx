@@ -15,6 +15,7 @@ import { withLangs } from "@/lib/params";
 import { paginaMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { territorios } from "@/lib/territorios";
+import { comEdicao, paginaEditada } from "@/lib/territorios-servidor";
 
 // Refeita a cada hora.
 export const revalidate = 3600;
@@ -43,8 +44,10 @@ const botao = "inline-flex items-center gap-2 border-2 px-5 py-3 font-sans font-
 export default async function TerritorioPage({ params }: PageProps<"/[lang]/territorios/[slug]">) {
   const { lang, t } = await loadLang(params);
   const { slug } = await params;
-  const territorio = territorios.find((item) => item.slug === slug);
-  if (!territorio) notFound();
+  const doSite = territorios.find((item) => item.slug === slug);
+  if (!doSite) notFound();
+  // O texto que o parceiro do instituto editou no painel passa por cima do texto do site (campo vazio = o de sempre).
+  const territorio = comEdicao(doSite, await paginaEditada(doSite.slug));
   // Os coletivos com identidade visual própria (NoizOcupa, Kamikaze, Desordem, noismemo studios) têm a sua página.
   if (territorio.visual) return <PaginaDoColetivo territorio={territorio} lang={lang} t={t} />;
   const s = t.territorios;

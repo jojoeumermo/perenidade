@@ -25,7 +25,6 @@ function acoesDeExemplo(org: OrgPublica): AcoesDaOrg {
   return {
     seguir: async (sim) => (await pausa(), { sigo: sim }),
     sino: async (sim) => (await pausa(), { sino: sim }),
-    entrarNoNucleo: async () => (await pausa(), { sou: false, pedi: true }),
     votar: async () => pausa(),
     perguntar: async () => (await pausa(), { naFila: (naFila += 1) }),
   };
@@ -69,7 +68,7 @@ export function PerfilDeExemplo({ lang, aba, naCasca = false }: { lang: string; 
               <strong>{t.exemplo.aviso}</strong>
               {t.exemplo.texto} <Link href={enderecosDaOrg.pagina(lang)}>{t.exemplo.voltar}</Link>
             </div>
-            {naCasca ? null : <BotoesDoSiteDaOrg t={t} />}
+            {naCasca ? null : <BotoesDoSiteDaOrg t={t} lang={lang} />}
           </div>
         }
       />

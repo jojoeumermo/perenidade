@@ -40,6 +40,9 @@ const permitidos = [
   "fi1.api.radio-browser.info",
   "api.pwnedpasswords.com",
   "factchecktools.googleapis.com",
+  // Alumia, Prompt 4 (lote ação coletiva, item 97): a previsão do tempo do ato, serviço aberto e sem chave.
+  "geocoding-api.open-meteo.com",
+  "api.open-meteo.com",
 ];
 
 /** Os serviços pedem para se identificar: nome do projeto e endereço. */

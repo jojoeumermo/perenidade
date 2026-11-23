@@ -1,44 +1,56 @@
 <!-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). -->
-# Aplicativo na Play Store (Capacitor ou TWA)
+# Aplicativo de Android (Capacitor) e a Play Store
 
-Etapa 11 (B20), pacote `app-loja`. **Pronto, não publicado.** Publicar tem taxa única da loja e é decisão do Jonathan:
-nada aqui cria conta, paga ou envia coisa alguma. A arquitetura da casca do aplicativo está em [APP.md](APP.md); o
-roteiro de teste em aparelho em [TESTE-EM-APARELHO-REAL.md](TESTE-EM-APARELHO-REAL.md).
+Etapa 11 (B20), pacote `app-loja`, refeito na onda R3 (itens 1.2 e 2.3). **Pronto, não publicado.** Publicar tem taxa única da
+loja e é decisão do Jonathan: nada aqui cria conta, paga ou envia coisa alguma. O roteiro de teste em aparelho está em
+[TESTE-EM-APARELHO-REAL.md](TESTE-EM-APARELHO-REAL.md).
+
+## O que mudou na onda R3
+
+Antes, o app era um WebView que abria o site (`server.url`): todo o código, inclusive o das chaves do chat, vinha do servidor a
+cada abertura. Agora o app leva **dentro do pacote** a casca do chat (`casca/`, um projeto Next estático): o motor de cifra, as
+telas do chat e as chaves ficam no aparelho, e **nenhum código de chave vem de servidor**. A rede social continua sendo o site, mas
+abre **fora** da casca, numa tela própria sem ponte nenhuma com o nativo e em outro processo.
 
 ## O que está no repositório
 
 | Arquivo | O que é |
 | --- | --- |
-| `capacitor.config.ts` | Configuração do Capacitor: `server.url` aponta para `https://institutolucia.org`, pacote `org.institutolucia.app`, agente de usuário com marca `InstitutoLuciaApp/2`. Sem import do Capacitor (o pacote não está instalado). |
-| `app-loja/www/index.html` | Página mínima que o Capacitor exige (`webDir`). Só aparece se o site não abrir. Sem script nem rede. |
-| `.gitignore` | `android/`, `ios/`, `*.jks` e `*.keystore` ficam de fora: a pasta é gerada na máquina de quem publica (centenas de arquivos que não são código nosso) e a chave de assinatura nunca vai para o repositório. |
+| `capacitor.config.ts` | Pacote `org.institutolucia.app`, `webDir` = `casca/saida`. **Sem** `server.url` e **sem** `allowNavigation`: nenhuma página remota no WebView que tem a ponte. Nenhum plugin do npm (`includePlugins: []`). |
+| `casca/` | A casca do chat: `casca/montar.mjs` copia os WebAssembly do chat, monta o Next estático em `casca/saida` e põe a política de segurança (CSP) em cada HTML. |
+| `android/` | O projeto Android (Capacitor 8.6.0), **sem chave nenhuma**. Plugins próprios em `android/app/src/main/java/org/institutolucia/app/`: `AlumiaCofre` (Keystore/StrongBox, contagem das senhas erradas, apagar tudo), `AlumiaApp` (disfarce, notificação sem conteúdo, rede social fora da casca, link de fora só com confirmação). |
+| `lib/rede/casca/` | A interface comum dos apps (`plataforma.ts`), a do Android (`android.ts`) e a trava do app (`trava.ts`). |
+| `.gitignore` | `casca/saida`, `casca/public/cifra`, o que o `cap sync` gera dentro de `android/`, `*.jks` e `*.keystore`. |
+| `scripts/testar-r3-android-casca.mjs` | A casca e a trava no Node, com plugins falsos (ataques escritos como teste). |
+| `scripts/testar-r3-android-manifesto.mjs` | O manifesto, a configuração e o código nativo (sem aparelho). |
+| `scripts/testar-r3-android-build.mjs` | Monta o pacote duas vezes, em pastas diferentes, e compara byte a byte. |
+| `scripts/testar-r3-android-aparelho.mjs` | No emulador: instala o pacote, confere o manifesto do APK, roda os testes instrumentados e as provas de reiniciar, desligar à força e apagar no meio. |
 | `npm run testar:app-loja` | Confere a configuração e este documento (sem rede). |
-| `npm run testar:app-aparelho` | Playwright: Galaxy S24 (navegador e WebView) e celular de entrada contra um `next start` (ver o roteiro de teste). |
 
-`android/` **não foi gerada** de propósito. O passo a passo abaixo a gera em minutos.
+## Segurança do app (celular apreendido)
 
-Por que `server.url` e não um build estático: o site tem páginas dinâmicas, rotas de API e banco (Supabase). Um build
-estático exigiria reescrever isso e exigiria nova versão na loja a cada mudança. Com `server.url`, o aplicativo é o site.
-
-## Escolha: Capacitor ou TWA
-
-| | Capacitor (WebView) | TWA (Bubblewrap, Chrome Custom Tabs) |
-| --- | --- | --- |
-| O que é | Um aplicativo Android com um WebView que abre o site. | O Chrome do aparelho, sem barra, dentro de um pacote da loja. |
-| Código nativo no repositório | A pasta `android/` (gerada) e plugins. | Quase nada: um `twa-manifest.json`. |
-| Exige mudança no site | Não. | Sim: `/.well-known/assetlinks.json` com a impressão digital da chave de assinatura (sem ele aparece a barra de endereço). |
-| Botão "voltar" do Android | Volta no histórico do WebView e, na raiz, sai do aplicativo (comportamento padrão do `BridgeActivity`, sem plugin). | O Chrome cuida. |
-| Agente de usuário | O WebView traz `; wv)` sozinho, e é isso que liga `<html data-app>` (`lib/prefs.ts` só procura `; wv)`); `InstitutoLuciaApp/2` é só marca de versão. | Do Chrome, sem `; wv)`. O site cai no ramo "instalado" (`display-mode: standalone`); com `pointer: coarse` a casca também vale (APP.md). |
-| Service worker, voz do aparelho, vídeo | Dependem da versão do WebView do sistema (atualiza pela Play Store). | Os do Chrome, geralmente mais novos e iguais aos do PWA instalado. |
-| Plugins nativos (compartilhar arquivo, notificações, biometria) | Sim, quando fizer falta. | Não. |
-| Tamanho do pacote | Alguns MB. | Cerca de 1 a 2 MB. |
-| Manutenção | Atualizar o Capacitor e o Android Gradle Plugin de tempos em tempos; subir o `targetSdk` quando a loja exigir. | Praticamente só o `targetSdk`. |
-| iPhone | O mesmo projeto gera o de iPhone (exige Mac e conta Apple paga por ano; **fora do escopo**). | Não existe TWA no iPhone. |
-
-**Recomendação:** começar pela **TWA** se o objetivo é só estar na loja: é menos código e o site continua sendo o único
-programa. Escolher o **Capacitor** se a equipe quiser plugins nativos no futuro (por exemplo, avisos da aula ao vivo) ou
-o controle do agente de usuário. A casca funciona nos dois (o gesto com `touchcancel` e a consulta de mídia não dependem
-do empacotamento). Não são excludentes: o mesmo `org.institutolucia.app` pode sair por um ou por outro.
+- **Chaves no cofre do aparelho**: uma chave AES-256-GCM não exportável no Android Keystore, no **StrongBox** quando o aparelho
+  tem (senão no TEE), embrulha o que o app guarda (a senha do app; a loja do chat entra pela junção). Só serve com o aparelho
+  destravado. A tela de ajustes diz onde a chave ficou.
+- **Senha do app e trava automática**: o chat só aparece depois da senha do app (Argon2id). Trava ao ir para o fundo e depois de
+  1 a 30 minutos parado (o padrão é 2).
+- **Senha de pânico**: a da Alumia (onda 11), digitada na trava ou na entrada, tira a conta real do aparelho e abre a conta isca.
+- **Apagar depois de X senhas erradas**: **desligado por padrão**; ligado (3 a 50), com aviso na tela. A tentativa é contada no
+  disco **antes** de a senha ser conferida: desligar o aparelho no meio não dá tentativa grátis. Ao chegar no limite, o app apaga a
+  chave do cofre e **todos** os dados dele (`clearApplicationUserData`).
+- **Nome e ícone disfarçados**: "Instituto Lúcia", "Calculadora" ou "Notas" (nos ajustes).
+- **Nada na tela bloqueada**: a notificação é só "Nova mensagem", escondida na tela bloqueada (`VISIBILITY_SECRET`). O app não usa
+  serviço de notificação do Google: só avisa enquanto está rodando.
+- **Captura de tela bloqueada** (`FLAG_SECURE`) e a foto da troca de apps em branco; **teclado sem aprendizado** nos campos (o
+  WebView do app pede `IME_FLAG_NO_PERSONALIZED_LEARNING`; é um pedido, e teclados de terceiros podem ignorar).
+- **Nada na cópia do sistema**: `allowBackup="false"` e regras que excluem tudo da nuvem e da transferência entre aparelhos.
+- **Modo sem internet (Bluetooth LE)**: só quando a pessoa ativa, com o aviso; só Android 12+ (a procura usa `neverForLocation`:
+  o app não pede localização). O anúncio leva só o identificador do serviço da Alumia, sem nome do aparelho; o endereço Bluetooth
+  é o aleatório do Android e não sai do nativo. O nativo só move bytes: o que guardar, repassar e entregar é do núcleo
+  (`lib/rede/malha/**`, documento público em `docs/rede/SEM-INTERNET.md`).
+- **Trocar o nome do app fecha a tela** (o sistema fecha a tarefa aberta pelo nome antigo): abra de novo pelo nome novo.
+- **Nenhum link abre ação sem confirmação**: o app não tem filtro de link (deep link); a casca não navega para fora (o que não é
+  dela é bloqueado); endereço de fora só depois de uma confirmação nativa com o endereço inteiro.
 
 ## Antes de tudo: a conta de desenvolvedor
 
@@ -50,55 +62,70 @@ do empacotamento). Não são excludentes: o mesmo `org.institutolucia.app` pode 
    Console**: ela muda. Reserve umas semanas.
 4. Ative a verificação em duas etapas na conta Google dona do aplicativo. Perder essa conta é perder o aplicativo.
 
-## Passo a passo com o Capacitor
+## Passo a passo do pacote
 
-Na máquina de quem publica: Node 20 ou mais novo, **Android Studio** (traz o JDK e o SDK) e um aparelho ou emulador com
-Android 10 ou mais novo.
+Na máquina de quem monta: Node 24, **JDK 21** e o **Android SDK** (plataforma 36, build-tools 36). O Capacitor (8.6.0, versão
+exata) já está nas dependências do projeto (`npx cap add android` não é mais preciso: a pasta `android/` está no repositório).
 
 ```bash
-# 1. Instalar o Capacitor SÓ nesta máquina, sem gravar no package.json do site:
-npm install --no-save @capacitor/core @capacitor/cli @capacitor/android
+# 1. A casca do chat (estática), com o endereço do serviço de contas de produção:
+NEXT_PUBLIC_SUPABASE_URL=… NEXT_PUBLIC_SUPABASE_ANON_KEY=… node casca/montar.mjs
 
-# 2. Gerar a pasta android/ (usa o capacitor.config.ts do repositório):
-npx cap add android
-npx cap sync android
+# 2. Copiar a casca para dentro do projeto Android (o cap sync, e o caminho do Capacitor de volta para ../node_modules):
+node casca/android.mjs
 
-# 3. Abrir no Android Studio:
-npx cap open android
+# 3. O pacote de lançamento SEM assinatura:
+cd android && ./gradlew assembleRelease     # → app/build/outputs/apk/release/app-release-unsigned.apk
 ```
 
-Se a equipe decidir manter o Capacitor, instale com `npm install` (grava no `package.json`) e registre a decisão em
-`PROGRESSO.md`. Até lá o site não depende dele (e o rastreio do deploy não cresce).
+Abrir no **Android Studio** é opcional (`npx cap open android`).
 
-### Teste local antes de publicar
+### Build reproduzível
 
-- Emulador: Android Studio › Device Manager › criar um aparelho de 1080 × 2340 (Pixel 8, que tem a mesma proporção do
-  Galaxy S24) com Android 14.
-- Contra o site rodando no seu computador: `APP_URL=http://10.0.2.2:3000 npx cap sync android` (10.0.2.2 é o
-  `localhost` do computador visto pelo emulador). O `capacitor.config.ts` liga o tráfego em texto puro e a depuração
-  **só** quando o endereço começa com `http://`. Depurar: `chrome://inspect` no Chrome do computador.
-- Volte ao endereço de produção antes de gerar o pacote da loja: `npx cap sync android` **sem** `APP_URL`.
-- Conferir: o visual de aplicativo liga (`<html data-app>`), a barra de baixo tem 5 abas, o botão "voltar" volta uma tela
-  por vez e, na raiz de uma aba, sai do aplicativo; navegação por gestos **e** por três botões (APP.md, app-loja).
+Duas montagens do mesmo commit, em pastas diferentes, dão o **mesmo** `app-release-unsigned.apk` byte a byte (conferido por
+`node scripts/testar-r3-android-build.mjs`, que monta duas vezes e compara). O que garante isso:
 
-### Ícone e tela de abertura
+- a casca: `generateBuildId` fixo pela versão, `SOURCE_DATE_EPOCH`, sem mapas de código, os números de módulo do webpack
+  tirados do nome **sem** a pasta do repositório (a mesma casca em qualquer pasta), e o resumo da árvore em `casca/arvore.sha256`;
+- o Android: versões fixas (Capacitor 8.6.0, Android Gradle Plugin e Gradle do `gradle-wrapper.properties`, com o resumo SHA-256
+  da distribuição), **sem** a informação do git no pacote (`vcsInfo`), **sem** o bloco de dependências do Google
+  (`dependenciesInfo`) e sem assinatura;
+- o mesmo JDK (21) e o mesmo SDK. Limite dito: máquinas com JDK ou build-tools diferentes podem gerar bytes diferentes; o roteiro
+  fixa as versões.
 
-Os ícones do site estão em `public/` (`icone-512.png`, `marca-512.png`, `icone-recorte-512.png`). No Android Studio:
-botão direito em `res` › New › Image Asset, tipo "Launcher Icons (Adaptive and Legacy)", primeiro plano
-`public/icone-recorte-512.png` (a versão recortada deixa folga para as máscaras redondas). Na tela de abertura o Capacitor
-usa o ícone sobre fundo branco (`SplashScreen` no `capacitor.config.ts`). Nada de animação nem propaganda.
+Para conferir um APK assinado contra o do build reproduzível, compare sem o bloco de assinatura (por exemplo com
+`apksigcopier compare`, ou tirando a assinatura e comparando o resto).
 
 ### Assinatura
 
-A loja exige o pacote **AAB** assinado. Use a **Play App Signing** (a loja guarda a chave final; você guarda só a chave
-de envio):
+A chave de assinatura **nunca** fica no projeto, no CI nem no disco do repositório. O pacote sai sem assinatura e o Jonathan assina
+na máquina dele (a **Play App Signing** guarda a chave final da loja; você guarda só a chave de envio):
 
-1. Android Studio › Build › Generate Signed Bundle / APK › Android App Bundle › Create new keystore.
-2. Guarde o arquivo `.jks` e as senhas **fora do repositório** (o `.gitignore` ignora `*.jks` e `*.keystore`). Faça
-   **duas cópias** em lugares diferentes. Sem a chave de envio o aplicativo não recebe atualização (há como pedir a
-   troca ao suporte da loja, mas demora).
-3. Em `android/app/build.gradle`, `versionCode` sobe de 1 em 1 a cada envio; `versionName` é o que a pessoa vê (comece
-   em `1.0.0`). Confira se o `targetSdk` atende ao que o Play Console exige na data (ele avisa, e sobe todo ano).
+```bash
+apksigner sign --ks /caminho/fora/do/projeto/alumia.jks --out alumia-0.1.0.apk app-release-unsigned.apk
+apksigner verify --print-certs alumia-0.1.0.apk
+```
+
+Para a loja, o pacote é o **AAB** (`./gradlew bundleRelease`). Guarde o `.jks` e as senhas **fora do repositório** (o `.gitignore`
+ignora `*.jks` e `*.keystore`), em **duas cópias**. `versionCode` sobe de 1 em 1 a cada envio. Confira se o `targetSdk` atende ao
+que o Play Console exige na data.
+
+### Teste no emulador
+
+- O pacote de **teste** (expõe o cofre, a trava e o chat à prova, pela depuração do WebView; o de lançamento não leva isso):
+  `NEXT_PUBLIC_CASCA_TESTE=1 ALUMIA_APP_DEPURAR=1 node casca/montar.mjs`, `ALUMIA_APP_DEPURAR=1 node casca/android.mjs` e
+  `cd android && ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest`.
+- Com um emulador ligado: `node --experimental-wasm-jspi --experimental-wasm-exnref --import ./scripts/carregar-ts.mjs
+  scripts/testar-r3-android-aparelho.mjs` instala, roda os testes instrumentados e as provas (reiniciar o aparelho, desligar à
+  força, apagar no limite, sincronia interrompida). `--sem-reiniciar` pula as duas reinicializações.
+- **O chat precisa do Android System WebView 137 ou mais novo** (o motor de cifra usa o JSPI do WebAssembly). A imagem AOSP do
+  emulador traz um WebView antigo (124): nela todo o resto roda, e a prova do chat aparece como **não conferida**. Num aparelho
+  com o WebView atualizado pela loja, a prova do chat roda; sem ele, a casca diz "atualize o Android System WebView".
+- O lado nativo do modo sem internet (corte em pedaços, pares, tetos) roda sem aparelho: `cd android && ./gradlew
+  :app:testDebugUnitTest` (transporte falso; o emulador não tem Bluetooth).
+- Contra o site no seu computador: `ALUMIA_APP_BASE=http://10.0.2.2:3000 NEXT_PUBLIC_ALUMIA_APP_BASE=http://10.0.2.2:3000` na
+  montagem. **Só o pacote de depuração** aceita `http` (para 10.0.2.2 e 127.0.0.1); o de lançamento recusa texto puro.
+- Depurar o WebView: `ALUMIA_APP_DEPURAR=1 node casca/android.mjs` e `chrome://inspect`. Nunca no pacote da loja.
 
 ### Enviar
 
@@ -200,14 +227,13 @@ política antes.
 
 ## Depois de publicar
 
-- Versão nova do site **não** exige versão nova do aplicativo (ele abre o site). Só mude o pacote para trocar o ícone,
-  subir o `targetSdk`, mudar permissões ou a ficha.
+- Versão nova do **chat** exige versão nova do app (a casca vai dentro do pacote: é o que garante que nenhum código de chave vem do
+  servidor). Versão nova da rede social, não (ela abre o site).
 - Mudou a política de privacidade? Reenviar o formulário "Segurança dos dados".
 - Anotar em `docs/MANUTENCAO.md` quem tem a conta e onde estão as duas cópias da chave.
 
 ## O que NÃO foi feito (de propósito)
 
-- Instalar o Capacitor no `package.json`: aumenta as dependências e o rastreio do deploy sem necessidade enquanto não se
-  decidir publicar.
-- Gerar `android/`, a chave de assinatura, a conta, mexer no `assetlinks.json` existente e qualquer envio.
-- iPhone (App Store): exige Mac e conta paga por ano; fora da etapa.
+- A chave de assinatura de produção, a conta, mexer no `assetlinks.json` existente e qualquer envio.
+- iPhone (App Store): fora (decisão do dono, 18/11/2026). A casca é a mesma; o cofre seria um plugin com a mesma interface.
+- A alternativa TWA (acima) continua documentada, mas **não serve ao chat**: na TWA todo o código viria do site.

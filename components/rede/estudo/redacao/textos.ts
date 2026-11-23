@@ -3,6 +3,7 @@
 // Os textos da roda de redação: i18n/rede/redacao/{pt,en,es,fr,ru,zh}.json (pt é o texto final). Um idioma por vez, por import
 // dinâmico; o hook fica em usarTextos.ts.
 import type pt from "../../../../i18n/rede/redacao/pt.json";
+import { prontoOu } from "../../../../lib/rede/textos-prontos";
 
 export type TextosDaRedacao = typeof pt;
 
@@ -11,7 +12,7 @@ const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"] as const;
 export async function carregarTextosDaRedacao(lang: string): Promise<TextosDaRedacao> {
   const l = (IDIOMAS as readonly string[]).includes(lang) ? lang : "pt";
   try {
-    return ((await import(`../../../../i18n/rede/redacao/${l}.json`)) as { default: TextosDaRedacao }).default;
+    return prontoOu(((await import(`../../../../i18n/rede/redacao/${l}.json`)) as { default: TextosDaRedacao }).default, async () => ((await import("../../../../i18n/rede/redacao/pt.json")) as { default: TextosDaRedacao }).default);
   } catch {
     return ((await import("../../../../i18n/rede/redacao/pt.json")) as { default: TextosDaRedacao }).default;
   }

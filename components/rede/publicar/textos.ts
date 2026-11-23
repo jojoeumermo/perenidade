@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import type { TextosPublicar } from "@/lib/rede/textos-publicar";
+import { prontoDe } from "../../../lib/rede/textos-prontos";
 
 /**
  * Os textos do pacote publicar no idioma da pessoa. O navegador baixa SÓ o idioma que vai usar (import dinâmico de um arquivo
@@ -23,7 +24,7 @@ export function carregarTextosPublicar(lang: string): Promise<TextosPublicar> {
   const l = lang in CARREGADORES ? lang : "pt";
   let p = guardados.get(l);
   if (!p) {
-    p = CARREGADORES[l]().then((m) => m.default as TextosPublicar);
+    p = prontoDe(CARREGADORES[l], CARREGADORES.pt).then((d) => d as TextosPublicar);
     guardados.set(l, p);
   }
   return p;

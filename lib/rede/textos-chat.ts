@@ -3,6 +3,7 @@
 // Os textos das telas novas da Alumia: o chat privado, i18n/rede/chat/{pt,en,es,fr,ru,zh}.json (pt é o final; os outros
 // cinco são rascunho marcado). Carrega só o idioma pedido, sob demanda. Sem "@/" de propósito (roda no Node nos testes).
 import type pt from "../../i18n/rede/chat/pt.json";
+import { carregarPronto } from "./textos-prontos";
 
 export type TextosDoChat = typeof pt;
 
@@ -17,6 +18,5 @@ const CARREGAR: Record<string, () => Promise<{ default: unknown }>> = {
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export async function carregarTextosDoChat(lang: string): Promise<TextosDoChat> {
-  const carregar = CARREGAR[lang] ?? CARREGAR.pt;
-  return (await carregar()).default as TextosDoChat;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDoChat;
 }

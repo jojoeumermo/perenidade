@@ -144,7 +144,8 @@ export interface EdicaoAnterior {
 }
 
 /** Limites de uma imagem e de um áudio no cliente (o servidor e o banco conferem de novo). */
-export const LIMITES_PUBLICAR = { imagens: 4, opcoesMin: 2, opcoesMax: 4, opcaoTexto: 80, audioSegundos: 60, textoAlt: 1000, horasMax: 168, janelaEdicaoMin: 15 } as const;
+// imagens: o teto mais alto (o álbum do prompt 4); o que vale para cada pedido é limiteDeImagens (lib/rede/publicar/p4-compositor.ts).
+export const LIMITES_PUBLICAR = { imagens: 20, opcoesMin: 2, opcoesMax: 4, opcaoTexto: 80, audioSegundos: 60, textoAlt: 1000, horasMax: 168, janelaEdicaoMin: 15 } as const;
 
 // ───── Onda 9, 9D: público e vida do post (supabase/migracoes/20261115-alumia-o9-publicar.sql) ─────
 

@@ -92,6 +92,10 @@
   "explorar": {
     "titulo": "Explore",
     "lead": "Discover communities, theme lines and current conversations. Everything with a written rule, no hidden algorithm.",
+    "noticiaDoDia": "News of the day",
+    "noticiaAjuda": "The latest headline from the institute's news roundup. The full text stays with the outlet that wrote it.",
+    "lerNaFonte": "Read on {veiculo}",
+    "vazios": "Still empty here",
     "mudarEscolhas": "Change my 3 struggles and 3 tracks",
     "comunidades": "Communities",
     "categorias": { "lutas": "Struggles", "disciplinas": "Subjects", "instituto": "Institute" },

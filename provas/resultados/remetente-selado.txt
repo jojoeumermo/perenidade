@@ -1,0 +1,7 @@
+modelo: remetente-selado.pv
+sha256: d6407be3ed32a60dae8e096289e01af6bcebe12131d2854b9393ef7e4d2928fd
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+RESULT not attacker(segredo[]) is true.
+RESULT event(Recebeu(aparelhoA[],i,m_4,x_1)) ==> event(Mandou(aparelhoA[],i,m_4,x_1)) is true.

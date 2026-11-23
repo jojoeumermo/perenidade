@@ -1,0 +1,47 @@
+(* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   CONTROLE (tem de dar ataque): sem-internet-nao-ligacao.pv com a etiqueta SEM o nonce sorteado e sem o corpo
+   (etiqueta = HMAC(k, validade)). Dois pacotes para a mesma caixa na mesma hora têm a mesma etiqueta, e quem repassa liga os dois:
+   "estes dois vão para a mesma pessoa". Por isso o nonce existe e entra na etiqueta. *)
+
+free c: channel.
+
+type skey.
+type pkey.
+type key.
+
+fun pk(skey): pkey.
+fun hpke(pkey, bitstring, bitstring, bitstring): bitstring.
+reduc forall k: skey, a: bitstring, m: bitstring, r: bitstring; abrir(hpke(pk(k), a, m, r), k, a) = m.
+fun senc(bitstring, key): bitstring.
+reduc forall m: bitstring, k: key; sdec(senc(m, k), k) = m.
+fun h(bitstring): bitstring.
+fun hc(bitstring, bitstring): bitstring.
+fun hmac(bitstring, bitstring): bitstring.
+fun hkdf(bitstring, bitstring): bitstring.
+
+const rotuloChave: bitstring.
+free aparelhoA: bitstring.
+
+let Pacote(kab: key, pkb: pkey, idcaixa: bitstring) =
+  in(c, (v: bitstring, m: bitstring));
+  new nonce: bitstring;
+  new r: bitstring;
+  new kf: bitstring;
+  let idh = h(idcaixa) in
+  let cc = hc(kf, (idh, m)) in
+  let corpo = (cc, hpke(pkb, (idh, cc), (aparelhoA, senc((m, kf), kab)), r)) in
+  out(c, (v, nonce, hmac(hkdf(idcaixa, rotuloChave), v), corpo)).
+
+process
+  new skB: skey;
+  new skC: skey;
+  new kAB: key;
+  new kAC: key;
+  new caixaB: bitstring;
+  new caixaC: bitstring;
+  out(c, (pk(skB), pk(skC)));
+  (
+    (!Pacote(kAB, pk(skB), caixaB))
+  | (!Pacote(choice[kAB, kAC], choice[pk(skB), pk(skC)], choice[caixaB, caixaC]))
+  )

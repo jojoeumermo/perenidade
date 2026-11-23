@@ -1,0 +1,6 @@
+modelo: remetente-selado-anonimato.pv
+sha256: 938076b42beee8405e00d5e74c657a959342ddf690b22bcc1d9eaed67c1d7d01
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+RESULT Observational equivalence is true.

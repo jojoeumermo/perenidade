@@ -2,20 +2,29 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { ativarNesteAparelho, estadoDoAparelho, type OrganizacaoDaConversa, receberMensagens, resumoDasConversas } from "@/lib/rede/chat-chaveiro";
+import { ativarNesteAparelho, enviarAgendadas, estadoDoAparelho, type OrganizacaoDaConversa, receberMensagens, resumoDasConversas } from "@/lib/rede/chat-chaveiro";
 import type { Eu } from "@/lib/rede/chat-chaveiro";
 import { aoApagarTudoDoChat } from "@/lib/rede/chat/gaveta";
-import { chat, type ConversaDoChat, type SituacaoDoChat } from "@/lib/rede/cliente-chat";
+import { chat, type ConversaDoChat, PREVIA_DO_CHAT, type SituacaoDoChat } from "@/lib/rede/cliente-chat";
 import { preencher } from "@/lib/rede/preencher";
 import { carregarTextosDoChat, type TextosDoChat } from "@/lib/rede/textos-chat";
 import { Avatar } from "../perfil/Avatar";
 import type { ImagemDePerfil } from "@/lib/rede/tipos-perfil";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
+import { AvisoDoChat } from "../uso/AvisoDoChat";
 import { Ajustes } from "./Ajustes";
+import { Aparelhos } from "./Aparelhos";
+import { avisarTroca, dataDaTrocaNaTela } from "@/lib/rede/chat/r2/troca";
 import { Conversa } from "./Conversa";
 import { codigoDoErro } from "../erros";
+import { conversasDaPasta, pastasDoResumo } from "@/lib/rede/chat/pastas";
+import { ligado } from "@/lib/recursos";
+import { carregarTextosDaConversaP4, type TextosDaConversaP4 } from "@/lib/rede/textos-p4-conversa";
+import { Notas } from "./Notas";
+import { CONFERIR_AGENDADAS_MS } from "@/lib/rede/chat/agendar";
 import { botaoForte, botaoLeve, erroDoChat } from "./comum";
+import { useEscondidasDaViagem } from "../conta/NoChat";
 
 type Aparelho = { estado: "carregando" } | { estado: "pronto"; eu: Eu } | { estado: "sem_chave" } | { estado: "outro_aparelho"; tinhaChaveAqui: boolean } | { estado: "apagado" } | { estado: "erro"; texto: string; calmo: boolean };
 
@@ -28,6 +37,8 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const [sit, setSit] = useState<SituacaoDoChat | null>(null);
   const [aparelho, setAparelho] = useState<Aparelho>({ estado: "carregando" });
   const [lista, setLista] = useState<ConversaDoChat[] | null>(null);
+  // Prompt 4, item 109: as conversas que o modo viagem esconde (nenhuma com o lote "conta" desligado).
+  const escondidasPelaViagem = useEscondidasDaViagem((lista ?? []).map((c) => c.id));
   const [aberta, setAberta] = useState<ConversaDoChat | null>(null);
   const [handle, setHandle] = useState("");
   const [aviso, setAviso] = useState("");
@@ -38,6 +49,20 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const [resumo, setResumo] = useState<Map<string, OrganizacaoDaConversa & { naoLidas: number }>>(new Map());
   const [pasta, setPasta] = useState("");
   const [agora, setAgora] = useState(() => new Date().toISOString());
+  // As lojas do chat do beta foram apagadas agora, neste aparelho (mostra o aviso uma vez).
+  const [betaApagado, setBetaApagado] = useState(false);
+  // O lote da conversa do Prompt 4 (atrás de "alumia-p4-conversa"): as notas para mim (item 15) abertas e os textos do lote.
+  const comConversaP4 = ligado("alumia-p4-conversa");
+  const [tc, setTc] = useState<TextosDaConversaP4 | null>(null);
+  const [notasAbertas, setNotasAbertas] = useState(false);
+  useEffect(() => {
+    if (!comConversaP4) return;
+    let vivo = true;
+    carregarTextosDaConversaP4(lang).then((x) => vivo && setTc(x)).catch(() => undefined);
+    return () => {
+      vivo = false;
+    };
+  }, [comConversaP4, lang]);
 
   useEffect(() => {
     let vivo = true;
@@ -65,6 +90,7 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
         const estado = await estadoDoAparelho(nova);
         if (!vivo) return;
         setAparelho(estado);
+        void import("@/lib/rede/chat/r2/navegador").then((n) => vivo && setBetaApagado(n.betaApagadoAgora()), () => undefined);
         const busca = new URLSearchParams(window.location.search);
         const com = busca.get("com");
         // Veio de "Combinar pelo chat" de uma carona (lib/rede/chat/carona.ts): abre a conversa pelo id e tira o id do endereço.
@@ -116,6 +142,7 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
     () =>
       aoApagarTudoDoChat(() => {
         setAberta(null);
+        setNotasAbertas(false);
         setLista([]);
         setResumo(new Map());
         setPasta("");
@@ -126,6 +153,26 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
       }),
     [],
   );
+
+  // O tráfego de cobertura (lib/rede/caixas/agenda.ts e ritmo.ts): com o chat pronto neste aparelho, SEMPRE ligado (onda R3, 3.3),
+  // mais devagar em segundo plano e com a bateria fraca. Só baixa o código das caixas aqui; na prévia não há servidor.
+  useEffect(() => {
+    if (aparelho.estado !== "pronto" || PREVIA_DO_CHAT) return;
+    void Promise.all([import("@/lib/rede/caixas/agenda"), import("@/lib/rede/caixas/ritmo")]).then(([{ cobertura }, { observarBateria }]) => {
+      observarBateria();
+      cobertura(true);
+    }, () => undefined);
+  }, [aparelho.estado]);
+
+  // Envio agendado (Prompt 4, item 18): com o chat pronto e o lote ligado, a cada 30 s (e logo ao abrir) manda as agendadas que
+  // venceram. Só roda com a Alumia aberta neste aparelho: é o que a tela de agendar avisa. Nada vai ao servidor só para conferir.
+  useEffect(() => {
+    if (!eu || !comConversaP4 || PREVIA_DO_CHAT) return;
+    const conferir = () => void enviarAgendadas(eu).catch(() => undefined);
+    conferir();
+    const id = window.setInterval(conferir, CONFERIR_AGENDADAS_MS);
+    return () => window.clearInterval(id);
+  }, [eu, comConversaP4]);
 
   // A lista se atualiza sozinha a cada 30 s, só com a aba visível e sem conversa aberta.
   useEffect(() => {
@@ -205,11 +252,29 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
         </svg>
         <span>{t.lead}</span>
       </p>
+      {/* A troca de cifra (onda R2): antes da data, o aviso de que as conversas do beta serão apagadas; depois, uma vez, que foram. */}
+      {avisarTroca() && dataDaTrocaNaTela() && (
+        <p role="note" className="mt-3 rounded-md border-[1.5px] border-oxblood px-3 py-2 text-sm font-semibold">{preencher(t.troca.aviso, { data: dataDaTrocaNaTela() ?? "" })}</p>
+      )}
+      {betaApagado && (
+        <p role="status" className="mt-3 rounded-md bg-parchment-deep px-3 py-2 text-sm">
+          {dataDaTrocaNaTela() ? preencher(t.troca.depois, { data: dataDaTrocaNaTela() ?? "" }) : t.troca.depoisSemData}
+        </p>
+      )}
     </header>
   );
 
   if (!situacao.logado) return <section aria-labelledby="alumia-chat-titulo">{cabecalho}<p className="px-[18px] py-8 font-sans text-ink-soft">{t.entre}</p></section>;
   if (!situacao.membro) return <section aria-labelledby="alumia-chat-titulo">{cabecalho}<p className="px-[18px] py-8 font-sans text-ink-soft">{t.soMembros}</p></section>;
+
+  if (aparelho.estado === "pronto" && notasAbertas && tc) {
+    return (
+      <section aria-labelledby="alumia-chat-titulo" className="font-sans">
+        <h1 id="alumia-chat-titulo" className="sr-only">{t.titulo}</h1>
+        <Notas lang={lang} t={t} tc={tc.notas} eu={aparelho.eu} aoVoltar={() => setNotasAbertas(false)} />
+      </section>
+    );
+  }
 
   if (aparelho.estado === "pronto" && aberta) {
     return (
@@ -235,9 +300,11 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
   }
 
   const pedidos = (lista ?? []).filter((c) => c.situacao === "pedido" && !c.pedi);
-  const todas = (lista ?? []).filter((c) => !(c.situacao === "pedido" && !c.pedi));
-  const pastas = [...new Set([...resumo.values()].map((o) => o.pasta).filter(Boolean))].sort();
-  const conversas = pasta ? todas.filter((c) => resumo.get(c.id)?.pasta === pasta) : todas;
+  // O modo viagem (Prompt 4, item 109, lote "conta"): as conversas escolhidas saem da lista até o código, sem marca nenhuma na tela.
+  const todas = (lista ?? []).filter((c) => !(c.situacao === "pedido" && !c.pedi) && !escondidasPelaViagem.has(c.id));
+  // As pastas (item 16 do Prompt 4): só deste aparelho, cifradas no histórico (lib/rede/chat/pastas.ts).
+  const pastas = pastasDoResumo(resumo);
+  const conversas = conversasDaPasta(todas, resumo, pasta);
   const lembretesVencidos = todas.flatMap((c) => (resumo.get(c.id)?.lembretes ?? []).filter((l) => l.quando <= agora).map((l) => ({ ...l, conversa: c })));
 
   return (
@@ -262,6 +329,13 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
         <div className="px-[18px] py-6">
           <h2 className="font-serif text-xl font-bold">{aparelho.estado === "sem_chave" ? t.ativar.titulo : aparelho.estado === "apagado" ? t.ativar.apagadoTitulo : t.ativar.outroTitulo}</h2>
           <p className="mt-2 max-w-prose text-ink-soft">{aparelho.estado === "sem_chave" ? t.ativar.texto : aparelho.estado === "apagado" ? t.ativar.apagadoTexto : t.ativar.outroTexto}</p>
+          {aparelho.estado !== "sem_chave" && sit && (
+            // O caminho certo para um aparelho a mais: ligar pelo QR do aparelho que já tem o chat, ou restaurar a cópia de segurança.
+            <div className="mt-4 max-w-prose">
+              <Aparelhos t={t} s={s} conta={sit.eu} codinome={situacao.handle ?? sit.codinome ?? null} modo="novo" aoLigar={() => window.location.reload()} />
+              <p className="mt-5 font-semibold">{t.ativar.doZeroTitulo}</p>
+            </div>
+          )}
           {aparelho.estado !== "sem_chave" && (
             // Outra chave no servidor para a PRÓPRIA conta, ou a chave daqui foi apagada: criar uma nova não é um clique. Primeiro o
             // risco, depois o "entendi".
@@ -277,6 +351,8 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
           <button type="button" disabled={ocupado || (aparelho.estado !== "sem_chave" && !entendi)} onClick={() => void ativar()} className={`${botaoForte} mt-4`}>
             {aparelho.estado === "sem_chave" ? t.ativar.botao : aparelho.estado === "apagado" ? t.ativar.apagadoBotao : t.ativar.outroBotao}
           </button>
+          {/* O aviso do beta (R1, A3.5): o histórico mora só neste aparelho e ainda não tem cópia de segurança. */}
+          <AvisoDoChat lang={lang} className="mt-6 max-w-prose" />
         </div>
       ) : ajustes && sit ? (
         <Ajustes
@@ -342,6 +418,22 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
               </ul>
             </div>
           )}
+          {tc && (
+            // Notas para mim (item 15): a conversa só consigo mesma, sempre no alto da lista.
+            <div className="border-b border-rule">
+              <button type="button" onClick={() => setNotasAbertas(true)} className="flex min-h-11 w-full items-center gap-3 px-[18px] py-3 text-left hover:bg-parchment-deep" data-notas-abrir>
+                <span aria-hidden className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-rule">
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M6 3h9l3 3v15H6zM9 9h6M9 13h6M9 17h4" />
+                  </svg>
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate font-semibold">{tc.notas.titulo}</span>
+                  <span className="block truncate text-sm text-ink-soft">{tc.notas.linha}</span>
+                </span>
+              </button>
+            </div>
+          )}
           {pastas.length > 0 && (
             <div className="flex flex-wrap gap-2 border-b border-rule px-[18px] py-3 text-sm" role="group" aria-label={t.organizar.pastas}>
               {["", ...pastas].map((p) => (
@@ -377,7 +469,7 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
                     {(resumo.get(c.id)?.sonecaAte ?? "") > agora && <span className="text-xs text-ink-soft">{t.organizar.silenciada}</span>}
                     {(() => {
                       // Não lidas: contadas neste aparelho (o banco não sabe mais quantas chegaram). Silenciada: sem o número vermelho.
-                      const n = resumo.get(c.id)?.naoLidas ?? (eu?.olm ? 0 : c.nao_lidas);
+                      const n = Math.max(resumo.get(c.id)?.naoLidas ?? 0, c.nao_lidas);
                       if (n <= 0) return null;
                       if ((resumo.get(c.id)?.sonecaAte ?? "") > agora) return <span className="rounded-full border border-rule px-2 py-0.5 text-xs">{n}</span>;
                       return <span className="rounded-full bg-[#c21f16] px-2 py-0.5 text-xs font-bold text-white">{preencher(t.lista.naoLidas, { n: String(n) })}</span>;

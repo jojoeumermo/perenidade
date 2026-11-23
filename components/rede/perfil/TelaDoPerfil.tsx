@@ -157,7 +157,7 @@ function TelaDoPerfilDeHoje({ handle, lang, s, situacao, aoResponder }: { handle
               {selos.map((selo) => {
                 const tipo = tipoDoSelo(selo);
                 const slug = slugDoSelo(selo);
-                const texto = tipo === "trilha" && slug ? preencher(sp.perfil.selos.trilha, { nome: nomeDaTrilha(slug) }) : sp.perfil.selos[tipo as "equipe" | "educador" | "moderacao"];
+                const texto = tipo === "trilha" && slug ? preencher(sp.perfil.selos.trilha, { nome: nomeDaTrilha(slug) }) : sp.perfil.selos[tipo as "coordenacao" | "equipe" | "educador" | "moderacao"];
                 return (
                   <li key={selo} className={`rounded px-1.5 py-0.5 text-xs font-semibold ${tipo === "trilha" ? "border border-rule bg-folha" : "bg-ink uppercase tracking-wider text-parchment"}`}>
                     {slug ? <Link href={localePath(lang, `/trilhas/${slug}`)} className="hover:underline">{texto}</Link> : texto}

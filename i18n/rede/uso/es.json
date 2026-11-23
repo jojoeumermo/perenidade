@@ -1,0 +1,156 @@
+{
+  "_rascunho": true,
+  "porque": {
+    "rotulo": "¿Por qué no aparece el número?",
+    "fechar": "Entendido",
+    "piso": "El número de personas solo aparece a partir de 3. Con 1 o 2 sería fácil adivinar quién fue, y en una red de militantes eso puede convertirse en persecución. Por eso escribimos “menos de 3”, también cuando es cero.",
+    "marco": "El número avanza cada 15 minutos, no al instante. Si cambiara en el momento en que alguien actúa, quien mira antes y después sabría quién acaba de actuar.",
+    "ambos": "El número de personas solo aparece a partir de 3 y avanza cada 15 minutos. Con 1 o 2 sería fácil adivinar quién fue; cambiando al instante, quien mira antes y después sabría quién acaba de actuar. Por eso “menos de 3” vale también para el cero.",
+    "soma": "A veces un número desaparece aunque sea mayor que 3: cuando el total menos las otras partes revelaría un número menor que 3, ocultamos uno más, para que la cuenta no exponga a nadie."
+  },
+  "falar": {
+    "titulo": "Hablar con la moderación",
+    "chamada": "Una conversación directa con quienes moderan esta comunidad, para aclarar una duda, pedir la revisión de una decisión o contar algo que no es una denuncia.",
+    "quemLe": "Quién lo lee",
+    "quemLeItens": [
+      "Las personas que moderan esta comunidad y el equipo de cuidado de Alumia.",
+      "No está cifrado de extremo a extremo: el texto queda en el servidor de Alumia, y quien administra la base de datos puede leerlo.",
+      "La respuesta llega firmada como “Mediación”, nunca con el nombre de quien moderó.",
+      "Una conversación cerrada se borra sola en 90 días."
+    ],
+    "naoUse": "Para algo que necesita secreto de verdad, usa la conversación cifrada. Para denunciar un post o a una persona, usa “Denunciar” en el propio post.",
+    "codinome": "Mostrar mi apodo a la mediación",
+    "codinomeAjuda": "Sin marcar, la mediación solo ve “Conversación n.º”, sin saber quién escribió.",
+    "rotuloTexto": "Lo que quieres decir",
+    "contador": "{n} de 2000",
+    "enviar": "Enviar a la mediación",
+    "enviando": "Enviando…",
+    "enviado": "Enviado. La respuesta aparece aquí, en la pestaña Sobre de la comunidad.",
+    "minhas": "Tus conversaciones aquí",
+    "nenhuma": "Todavía no has escrito a la mediación de esta comunidad.",
+    "conversaN": "Conversación n.º {n}",
+    "aberta": "abierta",
+    "encerrada": "cerrada",
+    "nova": "respuesta nueva",
+    "abrir": "Abrir",
+    "voltar": "Volver",
+    "voce": "Tú",
+    "mediacao": "Mediación",
+    "pessoa": "Persona",
+    "responder": "Responder",
+    "encerrar": "Cerrar conversación",
+    "encerrarAviso": "Cerrada, nadie puede escribir más en ella, y desaparece en 90 días.",
+    "encerradaNota": "Conversación cerrada. Desaparece en 90 días.",
+    "desligado": "Por ahora, el mensaje a la mediación va por el formulario de denuncia, con protocolo, y llega a la cola de quienes moderan sin exponer tu nombre.",
+    "entrar": "Entra en Alumia para hablar con la moderación.",
+    "erros": {
+      "muitas_abertas": "Ya tienes 3 conversaciones abiertas con esta mediación. Cierra una para abrir otra.",
+      "encerrada": "Esta conversación fue cerrada.",
+      "muitos_pedidos": "Demasiados mensajes en poco tiempo. Espera un poco e inténtalo de nuevo.",
+      "desligado": "Este canal todavía no está activado.",
+      "nao_encontrado": "Conversación no encontrada.",
+      "invalido": "Escribe de 1 a 2000 caracteres.",
+      "falha": "No se pudo enviar ahora. Inténtalo de nuevo."
+    }
+  },
+  "caixa": {
+    "titulo": "Mensajes a la mediación",
+    "explica": "Cada conversación aparece por su número. El apodo solo aparece cuando la persona eligió mostrarlo. Respondes como “Mediación”: tu nombre no sale.",
+    "vazia": "No hay conversaciones aquí.",
+    "abertas": "Abiertas",
+    "anteriores": "Cerradas",
+    "semNome": "sin apodo",
+    "recarregar": "Actualizar"
+  },
+  "entrada": {
+    "situacaoTitulo": "Dónde está tu solicitud",
+    "passos": {
+      "na_fila": "En la cola",
+      "em_analise": "En análisis",
+      "aprovada": "Aprobada",
+      "recusada": "Rechazada"
+    },
+    "explica": {
+      "na_fila": "Tu solicitud llegó y espera su turno. Nadie del equipo de revisión ha abierto todavía la lista con ella.",
+      "em_analise": "El equipo de revisión ya vio tu solicitud y está decidiendo. Suele tardar pocos días.",
+      "aprovada": "Aprobada. Solo falta el segundo factor para entrar.",
+      "recusada": "La solicitud fue rechazada. El motivo, cuando lo hay, aparece abajo."
+    },
+    "quem": "La revisión la hace la coordinación o la mediación de Alumia. No mostramos quién revisó, y Alumia no guarda quién vio tu solicitud ni cuándo: solo si ya fue vista.",
+    "atual": "ahora"
+  },
+  "fator": {
+    "perdiTitulo": "¿Perdiste el móvil de la aplicación?",
+    "perdiTexto": "Usa uno de los diez códigos de recuperación que guardaste al registrar la aplicación. La aplicación anterior sale de la cuenta, los otros dispositivos se desconectan y registras la nueva en el momento.",
+    "perdiBotao": "Entrar con un código de recuperación",
+    "semCodigos": "¿Sin códigos? Solo la coordinación puede quitar la aplicación de tu cuenta, después de comprobar que eres tú. Pídelo en la página de ayuda.",
+    "ajuda": "Abrir la ayuda",
+    "codigosTitulo": "Guarda los códigos de recuperación",
+    "codigosTexto": "Si pierdes el móvil de la aplicación, estos códigos son la única forma de entrar sin pedirlo a la coordinación. Aparecen una sola vez.",
+    "gerar": "Mostrar mis códigos",
+    "gerando": "Generando…",
+    "baixar": "Descargar en texto",
+    "copiar": "Copiar",
+    "copiados": "Códigos copiados.",
+    "guardei": "Ya los guardé, entrar en Alumia",
+    "depois": "Hacerlo después",
+    "depoisAviso": "Sin los códigos, perder el móvil de la aplicación te deja fuera de la cuenta. Puedes generarlos después en Seguridad de la cuenta.",
+    "falhou": "No se pudieron generar los códigos ahora. Puedes hacerlo después en Seguridad de la cuenta.",
+    "exemplo": "Códigos de ejemplo, sin valor (vista previa)."
+  },
+  "chat": {
+    "titulo": "El chat vive solo en este dispositivo",
+    "itens": [
+      "Las conversaciones cifradas se guardan solo en este dispositivo. El servidor no tiene una copia legible.",
+      "Si pierdes el dispositivo, cambias de dispositivo, borras los datos del navegador o usas “Salir rápido”, el historial del chat desaparece y no vuelve.",
+      "Todavía no hay copia de seguridad del chat. Si una conversación importa, acuerda con la otra persona dónde guardar lo que debe quedar."
+    ]
+  },
+  "kit": {
+    "rotulo": "Sin internet",
+    "titulo": "Kit de bolsillo para la protesta",
+    "texto": "Los contactos de la asesoría jurídica de las organizaciones, la guía “¿Sin señal?” y lo básico para el día de la protesta, guardados en este dispositivo para abrir sin internet.",
+    "privacidade": "El kit se arma aquí, con la misma lista que el modo protesta ya lee. Alumia no anota quién guardó el kit, y no va al servidor. “Salir rápido” borra el kit de este dispositivo.",
+    "escolher": "Asesorías que entran en el kit",
+    "nenhumaOrg": "Ninguna organización con sello ha publicado asesoría jurídica todavía. El kit lleva la guía y lo básico.",
+    "minhasNotas": "Tus notas (solo en este dispositivo)",
+    "minhasNotasAjuda": "Un teléfono de quien te recoja, un punto de encuentro. Hasta 400 caracteres. No escribas lo que no puede leerse si te quitan el móvil.",
+    "guardar": "Guardar en el dispositivo",
+    "atualizar": "Guardar de nuevo",
+    "apagar": "Borrar el kit",
+    "guardado": "Kit guardado en este dispositivo el {quando}.",
+    "naoGuardado": "Todavía no hay kit guardado en este dispositivo.",
+    "semEspaco": "El dispositivo no permitió guardar (modo privado o sin espacio).",
+    "apagado": "Kit borrado de este dispositivo.",
+    "abrirGuia": "Abrir la guía “¿Sin señal?”",
+    "noGuia": "Tu kit de bolsillo",
+    "noGuiaVazio": "Guarda el kit desde el modo protesta para que aparezca aquí, incluso sin internet.",
+    "assessorias": "Asesoría jurídica",
+    "basico": "Lo básico",
+    "basicoItens": [
+      "Acuerda antes un punto de encuentro y una hora para dar noticias.",
+      "Anota en papel, con bolígrafo, el teléfono de quien te recoja y de la asesoría jurídica.",
+      "Lleva documento, agua y el cargador. Deja en casa lo que no se puede perder.",
+      "Si te detienen: mantén la calma, di que quieres hablar con un abogado y no firmes nada sin leerlo."
+    ]
+  },
+  "busca": {
+    "titulo": "Buscar en los posts cifrados",
+    "rotulo": "En este dispositivo",
+    "explica": "Los posts de este grupo están cifrados: el servidor no puede buscar en ellos. La búsqueda ocurre aquí, abriendo los posts en este dispositivo.",
+    "limites": "Para no cargar tu móvil ni tu plan de datos, la búsqueda descarga como máximo los {posts} posts más recientes de los últimos {dias} días y guarda hasta {mb} MB de texto abierto, solo en la memoria de esta pestaña. Cerrar la pestaña lo borra. Nada de lo que buscas va al servidor.",
+    "campo": "Buscar",
+    "buscar": "Descargar y buscar",
+    "buscando": "Abriendo {n} posts en este dispositivo…",
+    "resultado": "{achados} de {abertos} posts abiertos tienen “{termo}”.",
+    "nada": "Ninguno de los {abertos} posts abiertos tiene “{termo}”.",
+    "paradoPosts": "Se detuvo en el límite de {posts} posts. Los posts más antiguos quedaron fuera.",
+    "paradoDias": "Se detuvo en los posts de hace {dias} días. Los posts más antiguos quedaron fuera.",
+    "paradoMemoria": "Se detuvo en el límite de {mb} MB de texto. Los posts más antiguos quedaron fuera.",
+    "fechados": "{n} posts no se abrieron en este dispositivo (clave de antes de que entraras al grupo).",
+    "limpar": "Borrar de la memoria",
+    "abrir": "Abrir el post",
+    "curto": "Escribe al menos 2 letras.",
+    "falha": "No se pudieron descargar los posts ahora. Inténtalo de nuevo."
+  }
+}

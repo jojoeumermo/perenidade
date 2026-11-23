@@ -1,0 +1,32 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# Regras do Semgrep da Alumia para o SQL das migrações (modo "generic": o Semgrep não tem gramática do PL/pgSQL). O teste está em
+# alumia-sql.sql. As regras olham o CABEÇALHO de cada função (de "create ... function" até o "as $$").
+rules:
+  - id: alumia-definer-com-search-path
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      Função "security definer" sem "set search_path" fixo: quem chama pode pôr um esquema seu na frente e fazer a função rodar o
+      código dele com os poderes do dono. Use "set search_path = interno, pg_temp" (ou public, pg_temp).
+    paths:
+      include: ["/supabase/migracoes/*.sql", "/supabase/install.sql", "/nativo/servidor-chat/banco/*.sql", "/.semgrep/*.sql"]
+    pattern-regex: (?i)create\s+(or\s+replace\s+)?function\s+[\w.]+\s*\((?:(?!\bas\s+\$)[\s\S]){0,800}?\bsecurity\s+definer\b(?:(?!\bas\s+\$|set\s+search_path)[\s\S]){0,400}?\bas\s+\$
+
+  - id: alumia-sem-raise-com-dado
+    languages: [generic]
+    severity: WARNING
+    message: >-
+      "raise notice/log/info" com valor vai para o log do Postgres (e para quem lê o log da hospedagem). Nada de dado de pessoa em log.
+    paths:
+      include: ["/supabase/migracoes/2026112*.sql", "/nativo/servidor-chat/banco/*.sql", "/.semgrep/*.sql"]
+    pattern-regex: (?i)\braise\s+(notice|log|info|debug)\s+'[^']*%[^']*'\s*,
+
+  - id: alumia-interno-sem-grant-para-fora
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      Função ou tabela de "interno" não se dá a anon nem a authenticated: só a porta (as funções de public) fala com quem chama.
+    paths:
+      include: ["/supabase/migracoes/*.sql", "/supabase/install.sql", "/.semgrep/*.sql"]
+    pattern-regex: (?i)\bgrant\s+[\w\s,]+\s+on\s+(function|table|all\s+tables\s+in\s+schema|all\s+functions\s+in\s+schema)\s+interno\b[^;]*\bto\s+[^;]*\b(anon|authenticated|public)\b

@@ -9,11 +9,12 @@ import { anelEmCss, barrasDoProgresso, duracaoNaTela, estiloDoTexto, PALETA_DO_S
 import type { ClienteDeStories } from "@/lib/rede/cliente-stories";
 import type { TextosDosStories } from "@/lib/rede/textos-stories";
 import { CATEGORIAS_DE_DENUNCIA, type CategoriaDeDenuncia } from "@/lib/rede/tipos-moderacao";
-import { votoLembrado } from "@/lib/rede/voto/cliente";
-import { LIMITES_DO_STORY, REACOES_DO_STORY, type AutoraDoStory, type Figurinha, type FigurinhaEnquete, type FigurinhaVou, type ReacaoDoStory, type Story } from "@/lib/rede/tipos-stories";
+import { comTesteLembrado, votoLembrado } from "@/lib/rede/voto/cliente";
+import { LIMITES_DO_STORY, REACOES_DO_STORY, type AutoraDoStory, type Figurinha, type FigurinhaEnquete, type FigurinhaTeste, type FigurinhaVou, type ReacaoDoStory, type Story } from "@/lib/rede/tipos-stories";
 import { ComunidadeVer } from "../figurinhas/Comunidade";
 import { ContagemVer } from "../figurinhas/Contagem";
 import { EnqueteVer } from "../figurinhas/Enquete";
+import { TesteVer } from "../figurinhas/Teste";
 import { LinkVer } from "../figurinhas/Link";
 import { PerguntaVer } from "../figurinhas/Pergunta";
 import { DecorativaVer } from "../figurinhas/Decorativas";
@@ -26,6 +27,7 @@ import { estiloDaPosicao } from "./FigurinhaSolta";
 import { FundoDoStory, estiloDaTela } from "./FundoDoStory";
 import { GuardarNoDestaque } from "./GuardarNoDestaque";
 import { IconeFechar, IconePausar, IconeSetaDir, IconeSetaEsq, IconeTocar, IconeTresPontos } from "./icones";
+import { useProtecaoDoStory } from "../presenca/NoStory";
 import { avisarDestaques, codigoDoErro, focarNoGrupo, indiceDaSeta, larguraDaTela, preencherStory, useAgora, useModalDosStories } from "./usar";
 
 /** As reações da prancha (conjunto fechado, sem emoji livre: PLANO-ALUMIA §12). */
@@ -240,6 +242,8 @@ export function Visor({
   const temSom = ehVideo && atual?.fundo.tipo === "video" && atual.fundo.som;
   const pausado = pausadoPelaPessoa || segurando || digitando || caixa !== null || ocupado || trocando;
   const indiceNaTela = vivos && vivos.length > 0 ? Math.min(i, vivos.length - 1) : null;
+  // Prompt 4, item 1: a proteção contra print do story que a autora protegeu ("alumia-p4-presenca-print"; desligada, nada muda).
+  const protecao = useProtecaoDoStory(tela, vivos?.map((s) => s.id) ?? [], atual?.id ?? null, lang);
 
   // Em que story estou: guardado para quando eu voltar a esta pessoa, e no endereço (recarregar abre aqui mesmo).
   const aoTrocarAgora = useRef(aoTrocar);
@@ -557,7 +561,7 @@ export function Visor({
     }
   }
 
-  function trocarFigurinha(id: string, nova: Partial<FigurinhaEnquete> | { avisar: boolean } | Partial<FigurinhaVou>, tipo: "enquete" | "contagem" | "vou") {
+  function trocarFigurinha(id: string, nova: Partial<FigurinhaEnquete> | { avisar: boolean } | Partial<FigurinhaVou> | Partial<FigurinhaTeste>, tipo: "enquete" | "contagem" | "vou" | "teste") {
     setStories((lista) =>
       lista?.map((s) => (s.id !== id ? s : { ...s, figurinhas: s.figurinhas.map((f) => (f.tipo === tipo ? ({ ...f, ...nova } as typeof f) : f)) })) ?? null,
     );
@@ -569,6 +573,20 @@ export function Visor({
     try {
       const f = await cliente.votar(atual.id, opcao);
       trocarFigurinha(atual.id, { meu_voto: f.ja_votou ? (f.meu_voto ?? null) : (f.meu_voto ?? opcao) }, "enquete");
+    } catch {
+      avisar(t.visor.erroAoEnviar);
+    } finally {
+      setOcupado(false);
+    }
+  }
+
+  /** P5: responder o teste (pelo servidor do site); a certa só chega aqui, na resposta. */
+  async function testar(opcao: number) {
+    if (!atual) return;
+    setOcupado(true);
+    try {
+      const f = await cliente.testar(atual.id, opcao);
+      trocarFigurinha(atual.id, { certa: f.certa ?? null, minha: f.ja_respondeu ? (f.minha ?? null) : (f.minha ?? opcao), ja_respondeu: !!f.ja_respondeu }, "teste");
     } catch {
       avisar(t.visor.erroAoEnviar);
     } finally {
@@ -781,10 +799,13 @@ export function Visor({
   /** Uma figurinha como quem vê a recebe (a mesma para a pilha antiga e para a solta). */
   const figurinhaNaTela = (f: Figurinha, k: number) =>
     !atual ? null : f.tipo === "contagem" ? (
-      <ContagemVer key={k} f={f} t={t.figurinha.contagem} agora={agora} lang={lang} ocupado={ocupado} aoAvisar={meu ? null : pedirAviso} />
+      <ContagemVer key={k} f={f} t={t.figurinha.contagem} agora={agora} lang={lang} ocupado={ocupado} aoAvisar={meu || f.livre || !f.ato ? null : pedirAviso} />
     ) : f.tipo === "enquete" ? (
       // O voto não fica com a pessoa no banco: o que ela escolheu, este aparelho lembra (lib/rede/voto/cliente.ts).
       <EnqueteVer key={k} f={f.meu_voto == null ? { ...f, meu_voto: votoLembrado<0 | 1>("story", atual.id) } : f} t={t.figurinha.enquete} nome={chamada} meu={meu} ocupado={ocupado} aoVotar={votar} />
+    ) : f.tipo === "teste" ? (
+      // P5: o teste com resposta certa. O que esta pessoa respondeu (e a certa, que só chegou depois) este aparelho lembra.
+      <TesteVer key={k} f={comTesteLembrado(f, atual.id)} t={t.figurinha.teste} nome={chamada} meu={meu} ocupado={ocupado} aoResponder={(o) => void testar(o)} />
     ) : f.tipo === "pergunta" ? (
       <PerguntaVer key={k} texto={f.texto} t={t.figurinha.pergunta} nome={chamada} meu={meu} enviar={enviarRespostaDaPergunta} aoFoco={setDigitando} />
     ) : f.tipo === "comunidade" ? (
@@ -823,7 +844,7 @@ export function Visor({
         {atual?.fundo.tipo === "imagem" && atual.fundo.url ? (
           // Endereço assinado do próprio story (já baixado pela tela); só a cópia desfocada.
           // eslint-disable-next-line @next/next/no-img-element
-          <img key={atual.id} src={atual.fundo.url} alt="" />
+          <img key={atual.id} src={atual.fundo.urlMenor ?? atual.fundo.url} alt="" />
         ) : null}
       </div>
       <div ref={palco} className="al-st-visor-palco" onPointerDown={aoBaixar} onPointerMove={aoMover} onPointerUp={aoSoltar} onPointerCancel={aoSoltar}>
@@ -869,7 +890,7 @@ export function Visor({
                   tipo={face.story.fundo.tipo === "video" ? "listras" : face.story.fundo.tipo}
                   cor={face.story.fundo.cor}
                   semente={face.story.id}
-                  url={face.story.fundo.tipo === "imagem" ? face.story.fundo.url : undefined}
+                  url={face.story.fundo.tipo === "imagem" ? (face.story.fundo.urlMenor ?? face.story.fundo.url) : undefined}
                   alt=""
                 />
                 <div className="al-st-topo al-st-topo-vizinha">
@@ -897,7 +918,7 @@ export function Visor({
             )}
           </div>
         ) : null}
-        <div ref={tela} className="al-st-tela" data-carregando={!atual && !erro && !(vivos && vivos.length === 0) ? "sim" : undefined} style={atual ? estiloDaTela(atual.fundo.cor) : undefined}>
+        <div ref={tela} className="al-st-tela" data-carregando={!atual && !erro && !(vivos && vivos.length === 0) ? "sim" : undefined} style={atual ? estiloDaTela(atual.fundo.cor) : undefined} {...protecao.atributos}>
           {atual ? (
             <FundoDoStory
               key={`fundo-${atual.id}`}
@@ -905,6 +926,7 @@ export function Visor({
               cor={atual.fundo.cor}
               semente={atual.id}
               url={atual.fundo.tipo === "imagem" || atual.fundo.tipo === "video" ? atual.fundo.url : undefined}
+              urlMenor={atual.fundo.tipo === "imagem" ? atual.fundo.urlMenor : undefined}
               alt={atual.fundo.tipo === "imagem" ? atual.fundo.alt || t.visor.imagem : atual.fundo.tipo === "video" ? atual.fundo.alt || t.visor.video : undefined}
               videoRef={video}
               mudo={mudo || !temSom || somBloqueado}
@@ -1108,6 +1130,21 @@ export function Visor({
             >
               {meu ? (
                 <>
+                  {protecao.disponivel ? (
+                    <li role="none">
+                      <button
+                        type="button"
+                        role="menuitem"
+                        tabIndex={-1}
+                        onClick={() => {
+                          setCaixa(null);
+                          void protecao.alternar().then((texto) => texto && avisar(texto));
+                        }}
+                      >
+                        {protecao.rotulo}
+                      </button>
+                    </li>
+                  ) : null}
                   {destaque ? (
                     <li role="none">
                       <button type="button" role="menuitem" tabIndex={-1} onClick={() => void tirarDoDestaque()}>
@@ -1215,6 +1252,7 @@ export function Visor({
               {recado}
             </p>
           ) : null}
+          {protecao.camada}
         </div>
         <button type="button" className="al-st-seta al-st-seta-esq" aria-label={i === 0 && temAnterior ? t.visor.pessoaAnterior : t.visor.anterior} disabled={!temAnterior} onClick={voltar}>
           <IconeSetaEsq />

@@ -5,6 +5,7 @@
 // revisão). UM idioma por vez, por import dinâmico.
 import { useEffect, useState } from "react";
 import type pt from "../../../i18n/rede/apoio/pt.json";
+import { prontoOu } from "../../../lib/rede/textos-prontos";
 
 export type TextosDoApoio = typeof pt;
 
@@ -13,7 +14,7 @@ const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"] as const;
 export async function carregarTextosDoApoio(lang: string): Promise<TextosDoApoio> {
   const l = (IDIOMAS as readonly string[]).includes(lang) ? lang : "pt";
   try {
-    return ((await import(`../../../i18n/rede/apoio/${l}.json`)) as { default: TextosDoApoio }).default;
+    return prontoOu(((await import(`../../../i18n/rede/apoio/${l}.json`)) as { default: TextosDoApoio }).default, async () => ((await import("../../../i18n/rede/apoio/pt.json")) as { default: TextosDoApoio }).default);
   } catch {
     return ((await import("../../../i18n/rede/apoio/pt.json")) as { default: TextosDoApoio }).default;
   }

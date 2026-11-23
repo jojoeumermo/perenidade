@@ -1,0 +1,26 @@
+{
+  "_rascunho": true,
+  "ajustes": {
+    "titulo": "Presencia y protección contra capturas",
+    "carregando": "Cargando…",
+    "erro": "No se pudo guardar ahora. Inténtalo de nuevo.",
+    "presenca": "Mostrar “activo recientemente” a mi círculo de confianza",
+    "presencaAjuda": "Desactivado por defecto. Activado, solo quien está en tu círculo de confianza lo ve, y solo “activo recientemente” (usaste Alumia en las últimas una o dos horas), nunca la hora exacta. El servidor guarda un solo campo, redondeado a la hora en punto y sobrescrito: no hay historial. Desactivar borra el campo. Quien lo vea puede darse cuenta de que está en tu círculo.",
+    "foto": "Proteger mi foto de perfil",
+    "fotoAjuda": "En la página de tu perfil, la foto desaparece cuando la ventana de quien mira deja de estar al frente, no se puede copiar ni arrastrar y lleva una marca de agua discreta con el seudónimo de quien mira.",
+    "story": "Para proteger una historia, ábrela y elige “Proteger esta historia” en el menú.",
+    "sairRapido": "Tocar tres veces seguidas la marca de Alumia también hace la Salida rápida."
+  },
+  "aviso": "Esto impide la captura por descuido. No impide una foto de la pantalla con otro celular. Envía solo lo que aceptarías ver filtrado.",
+  "avisoNavegador": "En el navegador la protección es más débil: oculta el contenido cuando la ventana deja de estar al frente y desactiva copiar y arrastrar, pero no bloquea la captura del sistema.",
+  "avisoApp": "En la app de Android, el sistema deja en negro las capturas y grabaciones de pantalla de Alumia. Aun así, no impide una foto de la pantalla con otro celular.",
+  "naoAvisa": "Nadie recibe aviso de capturas, ni la autora: eso crearía un registro de quién lee.",
+  "escondido": "Contenido protegido. Vuelve a esta ventana para verlo.",
+  "protegido": "Protegido contra capturas por descuido",
+  "storyProteger": "Proteger esta historia",
+  "storyDesproteger": "Quitar la protección de esta historia",
+  "storyProtegido": "Historia protegida contra capturas por descuido. En el navegador la protección es más débil.",
+  "storyDesprotegido": "Se quitó la protección de esta historia.",
+  "recente": "activo recientemente",
+  "recenteAjuda": "Esta persona eligió mostrar a su círculo de confianza que estuvo en Alumia en las últimas horas."
+}

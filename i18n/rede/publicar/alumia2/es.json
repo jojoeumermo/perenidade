@@ -11,9 +11,9 @@
     "explorar": "Explorar",
     "atos": "Actos",
     "comunidades": "Comunidades",
-    "nucleos": "Núcleos",
-    "avisos": "Avisos",
-    "avisosNovos": "Avisos, {n} nuevos",
+    "nucleos": "Núcleos y grupos",
+    "avisos": "Notificaciones",
+    "avisosNovos": "Notificaciones, {n} nuevas",
     "emblema": "{n} con novedades",
     "conversas": "Conversaciones",
     "salvos": "Guardados",
@@ -30,7 +30,10 @@
     "fechar": "Cerrar",
     "organizacoes": "Organizaciones",
     "calendario": "Calendario",
-    "aqui": "estás aquí"
+    "aqui": "estás aquí",
+    "moderacao": "Moderación",
+    "maisMostrar": "Mostrar más opciones",
+    "maisEsconder": "Ocultar las opciones extra"
   },
   "conta": {
     "rotulo": "Tu cuenta",
@@ -53,7 +56,23 @@
     "verPerfil": "Ver tu perfil",
     "aparencia": "Apariencia y lectura",
     "series": "Posts que se repiten",
-    "temas": "Temas que sigo"
+    "temas": "Temas que sigo",
+    "linhaDoTempo": "Línea de tiempo"
+  },
+  "seguranca": {
+    "titulo": "Seguridad",
+    "abrir": "Abrir el panel de Seguridad",
+    "intro": "Todo lo que te protege en Alumia, en un solo lugar.",
+    "conta": "Contraseña, autenticador y pánico",
+    "aparelhos": "Dispositivos conectados",
+    "silenciados": "Silenciados",
+    "denuncias": "Mis denuncias",
+    "regras": "Reglas y cuidado",
+    "termos": "Términos de uso",
+    "fediverso": "Privacidad en el Fediverso",
+    "guardamos": "Lo que Alumia guarda",
+    "minhaConta": "Mi cuenta y mis datos",
+    "fechar": "Cerrar"
   },
   "linha": {
     "titulo": "Inicio",
@@ -67,6 +86,10 @@
     "novosUm": "post nuevo",
     "novosOutros": "posts nuevos",
     "mostrarNovos": "Mostrar {n} posts nuevos",
+    "aCaminho": "Enviando…",
+    "aCaminhoNota": "Los demás lo ven cuando termine el envío.",
+    "aCaminhoImagem": "+ {n} imagen",
+    "aCaminhoImagens": "+ {n} imágenes",
     "erroTitulo": "La línea no cargó",
     "fimTitulo": "Ya lo viste todo",
     "fimTexto": "No hay nada más de quien sigues por ahora. Sin desplazamiento infinito: ¿qué tal ir a una comunidad o a un acto?",
@@ -104,7 +127,12 @@
     "materia": "Artículo del Instituto Lúcia",
     "indisponivel": "Esto llega con la próxima actualización de Alumia.",
     "naoRepostavel": "Solo se puede repostear una publicación de otra persona escrita para todo el mundo (no una respuesta ni una publicación para un grupo más pequeño).",
-    "veioDeRepost": "Reposteado por alguien que sigues"
+    "veioDeRepost": "Reposteado por alguien que sigues",
+    "apagar": "Borrar publicación",
+    "apagarPergunta": "¿Borrar esta publicación? Si alguien ya respondió o la citó, queda “[publicación borrada]” en su lugar.",
+    "apagarSim": "Borrar",
+    "apagarNao": "Mantener",
+    "apagado": "Publicación borrada."
   },
   "enquete": {
     "rotulo": "Encuesta",
@@ -345,6 +373,13 @@
     "texto": "Esta dirección no existe en Alumia, o la publicación ya no está. Tu línea sigue en el mismo lugar.",
     "voltar": "Volver al inicio de Alumia",
     "buscar": "Buscar"
+  },
+  "naoAbriu": {
+    "titulo": "Esta pantalla no se abrió",
+    "texto": "Algo salió mal al abrir esta parte de Alumia. Tu cuenta y tus borradores siguen en su lugar.",
+    "atualizando": "Alumia tiene una versión nueva. Actualizando la página…",
+    "tentar": "Intentar de nuevo",
+    "recarregar": "Recargar la página"
   },
   "visibilidade": {
     "eu": "Solo yo",

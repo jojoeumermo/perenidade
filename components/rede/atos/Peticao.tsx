@@ -15,6 +15,7 @@ import { CuidarDaPeticao, PlacarDaMeta } from "../apoio/PeticaoMeta";
 import { lerMetaDaPeticao, type PeticaoComMeta } from "../apoio/regras";
 import { useTextosDoApoio, type TextosDoApoio } from "../apoio/textos";
 import "./quadros.css";
+import { PorQueSemNumero } from "../uso/PorQueSemNumero";
 
 /**
  * O abaixo-assinado do ato (PLANO-ALUMIA §4.2, "petição sem lista"): para quem, o que pede, o prazo e o total. NINGUÉM vê quem
@@ -139,7 +140,7 @@ export function Peticao({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
               </span>
             </>
           ) : (
-            <span className="al-q-poucas">{t.peticao.poucas}</span>
+            <span className="al-q-poucas">{t.peticao.poucas}<PorQueSemNumero lang={lang} motivo="ambos" /></span>
           )}
         </p>
         {p.prazo ? (

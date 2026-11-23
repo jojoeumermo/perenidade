@@ -3,6 +3,7 @@
 
 import type { PropsDaTelaDoPacote } from "../registro";
 import { CabecaDaLei, CarregandoALei, NavDaLei, Rico } from "./base";
+import { RelatarProblema } from "./RelatarProblema";
 import { useTextosDaLei } from "./usarTextos";
 
 /** A cor do ladrilho de cada grupo de perguntas (as cores da casa e das comunidades, só tokens). */
@@ -10,9 +11,10 @@ const CORES = ["var(--al-vermelho)", "var(--al-dourado)", "var(--al-com-1)", "va
 
 /**
  * A ajuda da Alumia (/alumia/ajuda): as perguntas que mais chegam, por assunto (entrar, segundo fator, como apareço, denunciar e
- * recorrer, sair e apagar), cada uma abrindo no próprio lugar. Abre sem conta.
+ * recorrer, sair e apagar), cada uma abrindo no próprio lugar. Abre sem conta. No fim (P5, A21): relatar um problema (só para quem está
+ * dentro) e o pedido de não divulgar uma falha de segurança antes da correção, com o contato de /.well-known/security.txt.
  */
-export default function TelaDaAjuda({ lang, s }: PropsDaTelaDoPacote) {
+export default function TelaDaAjuda({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const t = useTextosDaLei(lang);
   if (!t) return <CarregandoALei rotulo={s.estados.carregando} />;
   const a = t.ajuda;
@@ -36,6 +38,14 @@ export default function TelaDaAjuda({ lang, s }: PropsDaTelaDoPacote) {
       <section className="le-faq-mais" aria-labelledby="le-faq-mais">
         <h2 id="le-faq-mais" className="al-cond">{a.mais}</h2>
         <p><Rico lang={lang} texto={t.comum.contato} /></p>
+      </section>
+      <RelatarProblema t={a.relatar} logado={situacao.logado && situacao.membro} />
+      <section className="le-faq-mais" aria-labelledby="le-falhas">
+        <h2 id="le-falhas" className="al-cond">{a.falhas.titulo}</h2>
+        <p>{a.falhas.texto}</p>
+        <p className="mt-2">
+          <a href="/.well-known/security.txt" className="underline" rel="noopener">{a.falhas.link}</a>
+        </p>
       </section>
     </article>
   );

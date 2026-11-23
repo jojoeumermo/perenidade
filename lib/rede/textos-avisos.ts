@@ -4,6 +4,7 @@
 // Carrega só o idioma pedido, sob demanda (cada arquivo vira um pedaço à parte no pacote): a tela de avisos não traz os seis.
 // Sem "@/" de propósito (roda no Node nos testes).
 import type pt from "../../i18n/rede/avisos/pt.json";
+import { carregarPronto } from "./textos-prontos";
 
 export type TextosDeAvisos = typeof pt;
 
@@ -18,6 +19,5 @@ const CARREGAR: Record<string, () => Promise<{ default: unknown }>> = {
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export async function carregarTextosDeAvisos(lang: string): Promise<TextosDeAvisos> {
-  const carregar = CARREGAR[lang] ?? CARREGAR.pt;
-  return (await carregar()).default as TextosDeAvisos;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDeAvisos;
 }

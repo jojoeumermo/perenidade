@@ -146,7 +146,7 @@ ${"```"}
 {
   const sujo = "[a](javascript:alert(1)) [b](//evil.example/x) [c](/alumia/p/1) [d](https://ok.example/x?y=1#z) ![e](imagem:1) ![f](https://evil.example/t.png) "
     + "[g](HTTPS://Exemplo.org) [h](https://usuario@evil.example) [i](/\\evil.example) [j](data:text/html;base64,PHNjcmlwdD4=) [k](vbscript:x) "
-    + "\u202Eabc\u2066\r\nfim\u0007 [l](#) ![m](imagem:9) [n]( https://ok.example )";
+    + "\u202Eabc\u2066\r\nfim\u0007 [l](#) ![m](imagem:21) [n]( https://ok.example )";
   const limpo = limparFonte(sujo);
   ok("limpeza: só sobra link http(s) e do site; imagem de fora vira a descrição; sem caractere de direção nem de controle", limpo === "[a](#) [b](#) [c](/alumia/p/1) [d](https://ok.example/x?y=1#z) ![e](imagem:1) f "
     + "[g](HTTPS://Exemplo.org) [h](#) [i](#) [j](#) [k](#) abc\nfim [l](#) m [n](#)");
@@ -336,7 +336,8 @@ await recusa("visitante não lê questões", () => rpc(visitante, "rede_questoes
 {
   const corpus = [
     "[a](javascript:alert(1)) [b](//evil.example/x) [c](/alumia/p/1) [d](https://ok.example/x?y=1#z)",
-    "![e](imagem:1) ![f](https://evil.example/t.png) ![g](imagem:5) ![](data:x)",
+    // A imagem 5 a 20 do álbum do prompt 4 tem a prova dela (testar-p4-compositor): aqui, uma fora de qualquer faixa.
+    "![e](imagem:1) ![f](https://evil.example/t.png) ![g](imagem:25) ![](data:x)",
     "[g](HTTPS://Exemplo.org) [h](https://usuario@evil.example) [i](/\\evil.example) [j](data:text/html;base64,PHNjcmlwdD4=)",
     "\u202Eabc\u2066def\u2069\r\nfim\u0007\u007f\rtudo",
     "## Título\n\n$$x^2$$ e `código` e **forte** [l](#) [m](   https://ok.example   ) [n](https://ok.example/a b)",

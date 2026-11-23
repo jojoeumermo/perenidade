@@ -7,6 +7,7 @@ import { fill, type Locale, localePath } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { hasBackend, rpc, useMe } from "@/lib/backend";
 import { JITSI_DOMINIO } from "@/lib/jitsi";
+import { SalaDaTurma } from "./SalaDeVideo";
 import { lessonId } from "@/lib/ids";
 import { useCompleted } from "@/lib/progress";
 import type { TurmaDoMes as Turma } from "@/lib/turma-do-mes";
@@ -67,7 +68,7 @@ export function TurmaDoMes({ turma, lang, s, proxima = false }: { turma: Turma; 
         ) : situacao?.eu ? (
           <>
             {situacao.sala && !proxima && (
-              <a href={`https://${JITSI_DOMINIO}/${situacao.sala}`} target="_blank" rel="noreferrer" className="botao botao-tinta">{s.abrirSala}</a>
+              <SalaDaTurma sala={situacao.sala} entrada={{ origem: "turma-mes", mes: turma.mes }} lang={lang} rotulo={s.abrirSala} href={`https://${JITSI_DOMINIO}/${situacao.sala}`} className="botao botao-tinta" nome={quem.status === "in" ? quem.me.nome : ""} />
             )}
             <button type="button" className="botao" disabled={enviando} onClick={() => mudar(false)}>{s.sair}</button>
           </>

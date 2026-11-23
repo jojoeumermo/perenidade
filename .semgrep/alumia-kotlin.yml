@@ -1,0 +1,60 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# Regras do Semgrep da Alumia para o Kotlin do app Android (android/app/src/main/java/org/institutolucia/app/**). O teste está em
+# alumia-kotlin.kt.
+rules:
+  - id: alumia-kotlin-sorteio-fraco
+    languages: [kotlin]
+    severity: ERROR
+    message: >-
+      java.util.Random e kotlin.random.Random são previsíveis: para chave, nonce ou qualquer sorteio de segurança use
+      java.security.SecureRandom.
+    paths:
+      include: ["/android/**", "/.semgrep/*.kt"]
+    pattern-either:
+      - pattern: java.util.Random(...)
+      - pattern: Random(...)
+      - pattern: kotlin.random.Random.nextBytes(...)
+      - pattern: Random.nextBytes(...)
+      - pattern: Random.nextInt(...)
+
+  - id: alumia-kotlin-sem-log-de-conteudo
+    languages: [kotlin]
+    severity: ERROR
+    message: >-
+      Nada de Log.* no app (o logcat é lido por quem tem o celular na mão com depuração, e por relatórios de erro): sem chave, sem
+      mensagem, sem pacote.
+    paths:
+      include: ["/android/app/src/main/**", "/.semgrep/*.kt"]
+    pattern-either:
+      - pattern: Log.d(...)
+      - pattern: Log.v(...)
+      - pattern: Log.i(...)
+      - pattern: Log.w(...)
+      - pattern: Log.e(...)
+      - pattern: println(...)
+
+  - id: alumia-kotlin-webview-ponte-remota
+    languages: [kotlin]
+    severity: ERROR
+    message: >-
+      WebView com ponte para o nativo (addJavascriptInterface) ou com acesso a arquivo não abre página remota: a casca do chat é
+      local, e a rede social abre num WebView SEM ponte.
+    paths:
+      include: ["/android/**", "/.semgrep/*.kt"]
+    pattern-either:
+      - pattern: $W.addJavascriptInterface(...)
+      - pattern: $S.allowFileAccessFromFileURLs = true
+      - pattern: $S.allowUniversalAccessFromFileURLs = true
+      - pattern: $S.setAllowUniversalAccessFromFileURLs(true)
+      - pattern: $S.setAllowFileAccessFromFileURLs(true)
+
+  - id: alumia-kotlin-chave-exportavel
+    languages: [kotlin]
+    severity: WARNING
+    message: >-
+      Chave do cofre fora do AndroidKeyStore (SecretKeySpec com bytes no código ou no armazenamento comum) pode ser copiada do
+      aparelho. A chave que embrulha fica no Keystore/StrongBox, não exportável.
+    paths:
+      include: ["/android/app/src/main/**", "/.semgrep/*.kt"]
+    pattern: SecretKeySpec($BYTES, "AES")

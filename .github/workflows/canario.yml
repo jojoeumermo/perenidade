@@ -1,0 +1,68 @@
+name: Canário
+
+# O canário (content/transparencia/canario.md), assinado com o Sigstore sem chave guardada: a identidade é a deste fluxo, no ramo
+# master; o Rekor registra o texto exato e a hora. Quem baixou confere com cosign verify-blob ou com
+# node scripts/ferramentas/canario.mjs conferir (a identidade exata está em scripts/ferramentas/canario.mjs e na página).
+#   - Quando o canario.md muda no master: confere o arquivo, assina e publica uma versão (release) canario-AAAA-MM-DD com o texto e o
+#     pacote de assinatura.
+#   - Toda segunda-feira: avisa (falha o fluxo) quando faltam menos de 10 dias para a validade, para a coordenação renovar a tempo.
+# O NOME DESTE ARQUIVO (canario.yml) E O RAMO (master) FAZEM PARTE DA IDENTIDADE: mudar um dos dois exige mudar a página e o script.
+on:
+  push:
+    branches: [master]
+    paths:
+      - "content/transparencia/canario.md"
+  schedule:
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: canario
+  cancel-in-progress: false
+
+jobs:
+  assinar:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write # criar a versão (release) com o canário e a assinatura
+      id-token: write # a identidade do fluxo para o Sigstore (sem chave guardada)
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/ferramentas/canario.mjs conferir-arquivo
+      - run: node scripts/ferramentas/canario.mjs assinar canario.sigstore.json
+      - name: publicar a versão
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          dia=$(sed -n 's/^emitido: "\([0-9-]*\)"/\1/p' content/transparencia/canario.md)
+          cp content/transparencia/canario.md canario.md
+          gh release create "canario-$dia" canario.md canario.sigstore.json \
+            --title "Canário de $dia" --notes "Canário de $dia. Para conferir: veja /transparencia/canario." --latest=false
+
+  validade:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: faltam mais de 10 dias?
+        run: |
+          grep -q '^situacao: "publicado"' content/transparencia/canario.md || { echo "canário ainda aguardando"; exit 0; }
+          ate=$(sed -n 's/^valido_ate: "\([0-9-]*\)"/\1/p' content/transparencia/canario.md)
+          faltam=$(( ($(date -d "$ate" +%s) - $(date +%s)) / 86400 ))
+          echo "o canário vale até $ate (faltam $faltam dias)"
+          [ "$faltam" -ge 10 ] || { echo "::error::renove o canário (content/transparencia/canario.md) antes de $ate"; exit 1; }

@@ -1,0 +1,75 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Memória da luta (/alumia/memoria-da-luta), o desafio do dia (/alumia/desafio) e o quadro "Neste dia na luta" (topo da linha),
+ * Prompt 4. Só usa os tokens de styles/alumia-tokens.css (vale no escuro, no claro, no contraste e no e-ink). Uma coluna no celular,
+ * sem rolar para o lado; alvos de toque de 44 px; sem animação com movimento reduzido.
+ */
+
+.ml-pagina { container-type: inline-size; display: grid; gap: 1.25rem; padding: 1.25rem 16px 3rem; color: var(--al-texto); min-width: 0; }
+@media (min-width: 1024px) { .ml-pagina { padding: 1.75rem 1.5rem 3.5rem; } }
+
+.ml-cabeca { display: grid; gap: 0.6rem; justify-items: start; }
+.ml-faixa { width: 7.5rem; border-radius: 2px; }
+.ml-titulo { margin: 0; font-size: clamp(2.2rem, 6cqi, 3.6rem); line-height: 0.95; }
+.ml-chamada { margin: 0; max-width: 68ch; color: var(--al-texto-2); font-size: 1.04rem; line-height: 1.5; }
+
+.ml-abas { display: flex; flex-wrap: wrap; gap: 0.4rem; border-bottom: 1px solid var(--al-linha); padding-bottom: 0.5rem; }
+.ml-aba {
+  min-height: 44px; min-width: 44px; padding: 0.5rem 0.9rem; border: 1px solid var(--al-linha); border-radius: 999px; background: transparent;
+  color: var(--al-texto-2); font: inherit; font-weight: 700; cursor: pointer;
+}
+.ml-aba[aria-selected="true"] { border-color: var(--al-dourado); background: var(--al-superficie); color: var(--al-texto); }
+.ml-aba:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+
+.ml-bloco { display: grid; gap: 0.85rem; min-width: 0; }
+.ml-subtitulo { margin: 0; font-size: 1.4rem; letter-spacing: 0.02em; line-height: 1.1; }
+.ml-miudo { margin: 0; color: var(--al-texto-3); font-size: 0.92rem; line-height: 1.5; overflow-wrap: anywhere; }
+.ml-erro { margin: 0; padding: 0.55rem 0.8rem; border-radius: 8px; border-left: 4px solid var(--al-vermelho); background: var(--al-superficie); color: var(--al-texto); font-size: 0.94rem; }
+.ml-ok { margin: 0; color: var(--al-texto-2); font-size: 0.94rem; }
+.ml-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+
+.ml-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; min-width: 0; }
+.ml-cartao { display: grid; gap: 0.45rem; padding: 0.9rem 1rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); min-width: 0; }
+.ml-cartao h3 { margin: 0; font-size: 1.12rem; line-height: 1.25; overflow-wrap: anywhere; }
+.ml-cartao p { margin: 0; line-height: 1.5; overflow-wrap: anywhere; }
+.ml-etiqueta { display: inline-flex; align-items: center; gap: 0.35rem; margin: 0; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--al-texto-3); }
+
+/* A linha do tempo da campanha: um fio à esquerda e um ponto por item. */
+.ml-linha { list-style: none; margin: 0; padding: 0 0 0 1.1rem; border-left: 2px solid var(--al-linha); display: grid; gap: 0.9rem; min-width: 0; }
+.ml-linha > li { position: relative; display: grid; gap: 0.3rem; min-width: 0; }
+.ml-linha > li::before { content: ""; position: absolute; left: calc(-1.1rem - 7px); top: 0.35rem; width: 12px; height: 12px; border-radius: 50%; background: var(--al-dourado); }
+.ml-linha > li[data-tipo="vitoria"]::before { background: var(--al-vermelho); }
+
+.ml-form { display: grid; gap: 0.7rem; padding: 0.9rem 1rem; border: 1px dashed var(--al-linha); border-radius: var(--al-raio); min-width: 0; }
+.ml-form label, .ml-form fieldset { display: grid; gap: 0.3rem; font-weight: 700; font-size: 0.95rem; color: var(--al-texto-2); min-width: 0; }
+.ml-form fieldset { margin: 0; padding: 0; border: 0; }
+.ml-form legend { padding: 0; margin-bottom: 0.3rem; }
+.ml-form input[type="text"], .ml-form input[type="url"], .ml-form input[type="date"], .ml-form textarea, .ml-form select {
+  min-height: 44px; width: 100%; max-width: 100%; box-sizing: border-box; padding: 0.5rem 0.7rem; border: 1px solid var(--al-linha); border-radius: 8px;
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-weight: 400;
+}
+.ml-form textarea { min-height: 6rem; resize: vertical; }
+.ml-opcao { display: flex !important; gap: 0.6rem; align-items: center; min-height: 44px; font-weight: 400 !important; color: var(--al-texto) !important; cursor: pointer; }
+.ml-opcao input { width: 22px; height: 22px; flex: none; }
+.ml-pagina .al-botao, .ml-quadro .al-botao, .ml-pagina a.ml-link { min-height: 44px; min-width: 44px; }
+.ml-pagina a.ml-link { display: inline-flex; align-items: center; color: var(--al-texto); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ───── O quadro "Neste dia na luta" no topo da linha ───── */
+.ml-quadro { display: grid; gap: 0.45rem; margin: 0 0 1rem; padding: 0.85rem 1rem; border: 1px solid var(--al-linha); border-left: 4px solid var(--al-dourado); border-radius: var(--al-raio); background: var(--al-superficie); color: var(--al-texto); }
+.ml-quadro h2 { margin: 0; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--al-texto-3); }
+.ml-quadro p { margin: 0; line-height: 1.5; overflow-wrap: anywhere; }
+.ml-quadro a { color: var(--al-texto); text-decoration: underline; text-underline-offset: 3px; display: inline-flex; align-items: center; min-height: 44px; }
+
+/* ───── O desafio do dia ───── */
+.ml-pergunta { display: grid; gap: 0.75rem; padding: 1rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); min-width: 0; }
+.ml-pergunta blockquote { margin: 0; font-size: 1.08rem; line-height: 1.55; overflow-wrap: anywhere; }
+.ml-opcoes { display: grid; gap: 0.5rem; grid-template-columns: 1fr; }
+@container (min-width: 560px) { .ml-opcoes { grid-template-columns: 1fr 1fr; } }
+.ml-opcoes button { min-height: 48px; padding: 0.55rem 0.9rem; border: 1px solid var(--al-linha); border-radius: 10px; background: var(--al-fundo); color: var(--al-texto); font: inherit; text-align: left; cursor: pointer; transition: background-color 0.15s ease; overflow-wrap: anywhere; }
+.ml-opcoes button[data-estado="certa"] { border-color: var(--al-dourado); background: var(--al-superficie); font-weight: 700; }
+.ml-opcoes button[data-estado="errada"] { border-color: var(--al-vermelho); text-decoration: line-through; }
+.ml-opcoes button:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ml-pagina *, .ml-quadro * { transition: none !important; animation: none !important; }
+}

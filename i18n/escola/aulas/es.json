@@ -1,0 +1,19 @@
+{
+  "metaTitulo": "Clases abiertas de la Escuela: Teoría revolucionaria y Luchas del pueblo",
+  "metaDescricao": "Las clases de Teoría revolucionaria y de Luchas del pueblo de la Escuela Revolucionaria Lúcia Maria, abiertas para leer, sin cuenta y sin registro.",
+  "olho": "Clases abiertas de la Escuela",
+  "titulo": "Teoría revolucionaria y Luchas del pueblo",
+  "lead": "Todas las clases de estos dos estantes viven en la Escuela y son abiertas: cualquier persona lee cualquier clase, sin cuenta y sin registro.",
+  "semRastro": "Quien lee sin cuenta no deja rastro: la Escuela no registra quién leyó qué. Tu progreso, tus notas y tus guardados quedan solo en este dispositivo, como siempre.",
+  "cadastroTitulo": "Lo que la Escuela da a quien estudia por ella",
+  "cadastroTexto": "Leer es libre. Estudiar por la Escuela es lo que da el recorrido guiado (con pruebas), el certificado, las clases en vivo, el grupo y el núcleo, el acompañamiento de la coordinación, la entrada al Frente y la etiqueta en Alumia.",
+  "cadastroBotao": "Cómo entrar en la Escuela",
+  "contagem": "{n} clases",
+  "disciplinas": "{n} disciplinas",
+  "voltar": "Clases abiertas de la Escuela",
+  "trechoTitulo": "Fragmento de una clase de la Escuela",
+  "trechoTexto": "Esta clase vive en la Escuela Revolucionaria Lúcia Maria y es abierta: cualquier persona la lee, sin cuenta.",
+  "trechoLer": "Leer la clase entera en la Escuela",
+  "trechoFechar": "Cerrar",
+  "trechoFalha": "No se pudo abrir el fragmento ahora. El enlace lleva a la clase entera."
+}

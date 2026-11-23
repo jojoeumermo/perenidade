@@ -2,6 +2,7 @@
 import type { Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { getArticles, getAuthors, getBooks, getDebates, getFactChecks, getFallacies, getGlossaryIndex, getQuestions, getTracks, getTributes } from "@/lib/content";
+import { caminhoDaAula, caminhoDaTrilha } from "@/lib/escola/aulas-abertas";
 import { entradaDoModoSeguro, entradasDaEscola, textosDaBusca } from "@/lib/escola/indice";
 import { ligado } from "@/lib/recursos";
 import type { SearchEntry } from "@/lib/search";
@@ -28,9 +29,9 @@ export function entradasDaBusca(lang: Locale, t: Dict): SearchEntry[] {
     const also = everywhere(track.area);
     // A trilha entra na busca mesmo sem aula escrita: o roteiro (os títulos das aulas previstas) já diz o que ela cobre.
     const planned = track.plan.filter((item) => !item.ready).map((item) => item.title).join(" · ");
-    entries.push({ kind: "trilha", title: track.title, href: `/trilhas/${track.slug}`, area, context: t.stages[track.stage], text: `${track.summary} ${plainText(track.intro)} ${planned}`, also });
+    entries.push({ kind: "trilha", title: track.title, href: caminhoDaTrilha(track), area, context: t.stages[track.stage], text: `${track.summary} ${plainText(track.intro)} ${planned}`, also });
     for (const lesson of track.lessons) {
-      entries.push({ kind: "aula", title: lesson.title, href: `/trilhas/${track.slug}/${lesson.slug}`, area, context: track.title, text: `${lesson.summary} ${plainText(lesson.body)}`, also });
+      entries.push({ kind: "aula", title: lesson.title, href: caminhoDaAula(track, lesson.slug), area, context: track.title, text: `${lesson.summary} ${plainText(lesson.body)}`, also });
     }
   }
   for (const book of getBooks(lang)) {

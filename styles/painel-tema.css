@@ -1980,12 +1980,13 @@ button.pn-estatistica:hover {
 }
 
 /* Abas: o sublinhado bordô desliza de uma aba a outra. */
+/* As abas quebram a linha quando não cabem: escondidas numa faixa rolável sem barra, pareciam cortadas e ninguém via
+   as que ficavam para o lado. */
 .pn-abas {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.15rem;
-  overflow-x: auto;
   border-bottom: 1px solid var(--pn-borda);
-  scrollbar-width: none;
 }
 .pn-aba {
   position: relative;
@@ -2807,4 +2808,56 @@ html[data-escrita-foco="1"] #painel-corpo {
   flex-wrap: wrap;
   gap: 0.5rem;
   margin: 0 0 1rem;
+}
+/* Nas seções de tela inteira (o painel da Alumia), a fileira ganha a margem que a seção não tem. */
+.pn-tambem-aqui.pn-tambem-aqui-tela {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--pn-borda);
+}
+/* Dentro do ALUMIA, a Escola Revolucionária fica num grupo à parte, com o nome em cima (Prompt 5, D1). */
+.pn-tambem-aqui-grupo {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 0.75rem;
+  border-left: 1px solid var(--pn-borda);
+}
+
+/* ───────── 10. Redesign "Caderno aberto" (Prompt 5, E2, imagem 74) ─────────
+   Só com o recurso "design-novo" ligado (<html data-design="novo">) e sem "Contornos fortes", alto contraste, papel
+   eletrônico ou leitor de tinta. As mesmas funções, as mesmas telas: muda só o desenho, nas variáveis do painel ("--pn-*").
+   - títulos na Inter pesada e fechada, como o site no canvas (o nome do menu continua no Garamond: é a marca);
+   - cantos maiores (controles 10 px, cartões 16 px) e botões e selos em pílula;
+   - as variáveis "--d-*" do site têm aqui o valor do painel, para as seções antigas que usam as peças do site (.botao,
+     .cartao…) ficarem na mesma linguagem; a barreira de styles/design/instituto.css as zera, e este seletor, mais forte, vale. */
+@media screen {
+  :root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor]) .painel {
+    --pn-raio: 10px;
+    --pn-raio-cartao: 16px;
+    --pn-fonte-titulo: var(--font-ui), "Inter", system-ui, "Segoe UI", "Noto Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --d-fio: 1px;
+    --d-fio-fino: 1px;
+    --d-fio-grosso: 1px;
+    --d-cor-fio: var(--pn-borda-forte);
+    --d-sombra: var(--pn-sombra-cartao);
+    --d-sombra-alta: var(--pn-sombra-cartao);
+    --d-sombra-baixa: none;
+    --d-sobe: none;
+    --d-afunda: none;
+  }
+  :root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor]) .painel:not(.painel-porta) :is(.pn-titulo, .pn-titulo-secao, h1, :is(h2, h3).font-serif) {
+    font-weight: 800;
+    letter-spacing: -0.025em;
+  }
+  :root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor]) .painel .pn-menu-nome {
+    font-family: var(--font-serif-display), "EB Garamond", Georgia, serif;
+  }
+  :root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor]) .painel :is(.pn-botao, .botao) {
+    border-radius: 999px;
+  }
+  :root[data-design="novo"]:not([data-fortes], [data-contrast], [data-eink], [data-leitor]) .painel :is(.cartao, .cartao-v) {
+    border-radius: var(--pn-raio-cartao);
+  }
 }

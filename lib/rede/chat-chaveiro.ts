@@ -1,219 +1,83 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-// O chaveiro do chat privado da Alumia, neste aparelho. Documento: docs/rede/CHAT-PRIVADO.md.
+// O chaveiro do chat a dois da Alumia, neste aparelho, na onda R2. Documento: docs/rede/CHAT-PRIVADO.md.
 //
-// A cifra é a da biblioteca do Matrix (lib/rede/chat/olm.ts): cada mensagem vai por Olm (Double Ratchet) só para o aparelho
-// confiável da outra pessoa, dentro de um envelope selado (lib/rede/chat/selado.ts, HPKE X-Wing) que só ela abre, com quem mandou
-// DENTRO. O banco recebe só "para quem", o envelope e o dia, e apaga ao entregar. O histórico fica neste aparelho, cifrado
-// (lib/rede/chat/historico.ts), com trava opcional por senha.
-//
-// Aqui fica o que é do chat: a identidade que este aparelho já conhece de cada pessoa ("confiar na primeira vez, avisar quando
-// mudar"), o aperto de mão de cada conversa (a senha de entrega da caixa e a chave do envelope, trocadas por Olm), o que já
-// chegou de cada autor (repetição, buraco e ordem trocada) e o "apagar tudo". As chamadas ao banco ficam em
-// lib/rede/cliente-chat.ts. O servidor não é de confiança para nada além de entregar.
-import { paraBase64 } from "./../sigilo";
-import { compararIdentidade, textoCabe, type Visto } from "./chat-privado";
-import { lerBloco, montarBloco, NADA_VISTO } from "./chat/c3";
-import {
-  anotarLojaAberta, aoApagarTudoDoChat, apagarDaGaveta, avisarAsOutrasAbas, apagarLojasDaBiblioteca, apagarPrefixoDaGaveta, apagarTudoDoChat as apagarTudoNoAparelho, CONHECIDAS, CONTAS, guardarNaGaveta, lerDaGaveta,
-  lerPrefixoDaGaveta, mudarNaGaveta, ORDEM, PREFIXO_DA_LOJA_OLM,
-} from "./chat/gaveta";
-import { apagarConversaDoHistorico, apagarDoHistorico, esquecerChavesDoHistorico, exigirHistoricoAberto, guardarNoHistorico, type MensagemGuardada, mensagensDoHistorico } from "./chat/historico";
-import { abrirAparelho, type AparelhoOlm, cifrarParaAparelho, entregarABiblioteca, fecharAparelho, idMatrix, novoNomeDeAparelho, type RecadoAberto, sincronizar, type TransporteOlm } from "./chat/olm";
-import {
-  buracos, chaveDaOrdem, chaveDasVersoes, chaveDoPiso, comContadorUsado, julgar, juntarRegistros, marcaDaLeitura, type MarcaDeVersoes, ordemDaTela, type OrdemDaTela, type PisoDeOrdem, podeFechar, prefixoDaOrdem, proximoContador,
-  type RegistroDeOrdem, versaoDaChave,
-} from "./chat/ordem";
-import { abrirEnvelope, novaSenhaDeEntrega, novoParDoEnvelope, selar } from "./chat/selado";
-import { atualizarVista, carimbo, conferir, INICIO, type TransporteDoRegistro, type VistaDoRegistro } from "./chat/transparencia";
+// A cifra é o Double Ratchet (Proteus, do @wireapp/core-crypto) por APARELHO, dentro de um envelope pós-quântico (HPKE com X-Wing),
+// depositado em caixas anônimas: lib/rede/chat/r2/. Este arquivo mantém a forma que a tela já usava (Eu, Sessao, MensagemAberta,
+// abrir sessão, mandar, ler, confiar, apagar) e traduz para o chat novo (lib/rede/chat/r2/servico.ts). Saíram: a biblioteca do
+// Matrix na conversa a dois, a caixa selada por conta, a senha de entrega e o aperto de mão (o pedido de conversa e o anúncio das
+// caixas fazem esse papel, sem o servidor saber quem fala com quem).
+import { identidadeNaTela } from "./chat-privado";
+import { apagarTudoDoChat as apagarTudoNoAparelho, aoApagarTudoDoChat } from "./chat/gaveta";
+import { apagarDoHistorico, mensagensDoHistorico, type MensagemGuardada } from "./chat/historico";
+import type { ChatDoAparelho } from "./chat/r2/servico";
+import type { ProvaDeFranquia } from "./franquia/protocolo";
+import { type CorpoDePosicao, lerCorpoDePosicao } from "./perto/posicao";
+import { abrirAnexo, contextoDaConversa, type CorpoDeAnexo, corpoGuardado, type DiasDoAnexo, montarCorpoDeAnexo, prepararAnexo } from "./chat/anexo-cifrado";
 import { chat, PREVIA_DO_CHAT, type Prazo, type SituacaoDoChat } from "./cliente-chat";
 
-/** Eu, neste aparelho: a conta, a versão da minha chave no servidor, e o aparelho da biblioteca (fora da prévia). */
 export { destravarHistorico, fecharHistorico, historicoTravado, lerOrganizacao, mudarOrganizacao, ORGANIZACAO_VAZIA, type OrganizacaoDaConversa, resumoDasConversas, travarHistorico } from "./chat/historico";
 
+/** Eu, neste aparelho. `identidade.publica`: "<conta>:<identidade da conta>" (é ela que entra no código de segurança). */
 export interface Eu {
   usuario: string;
   versao: number;
-  /** "o" + a chave ed25519 do aparelho: é ela que entra no código de segurança. */
   identidade: { publica: string };
-  /** "o" + a chave curve25519 do aparelho. */
+  /** A chave deste aparelho (base64url). */
   aparelho: { publica: string };
-  olm: AparelhoOlm | null;
+  chat: ChatDoAparelho | null;
 }
 
-const EU_DA_PREVIA = (usuario: string, versao = 1): Eu => ({ usuario, versao, aparelho: { publica: "previa-aparelho-eu" }, identidade: { publica: "previa-identidade-eu" }, olm: null });
-
-/** O que este aparelho guarda da conta (na gaveta). */
-interface Guardado {
-  usuario: string;
-  dispositivo: string;
-  ed25519: string;
-  curve25519: string;
-  /** Chave HMAC NÃO exportável: a senha da loja da biblioteca é calculada com ela, e só neste aparelho. */
-  segredo: CryptoKey;
-  /** A senha de entrega da minha caixa (o banco guarda só o resumo) e o par do meu envelope. */
-  entrega?: { senha: string; resumo: string };
-  envelope?: { publica: string; privada: string };
-}
-
-interface Conhecida {
-  /** "<eu>:<outra pessoa>". */
-  chave: string;
-  identidade: string;
-  /** A chave do aparelho da pessoa ("o" + curve25519). */
-  publica?: string;
-  verificado: boolean;
-  /** O que a pessoa me mandou no aperto de mão: a senha da caixa dela e a chave do envelope dela. */
-  entrega?: { senha: string; envelope: string };
-  /** O resumo da MINHA senha de entrega que já mandei a ela (se a senha mudar, mando de novo). */
-  mandei?: string;
-}
-
-const lerConta = (usuario: string) => lerDaGaveta<Guardado>(CONTAS, usuario);
-const lerConhecida = (eu: string, outro: string) => lerDaGaveta<Conhecida>(CONHECIDAS, `${eu}:${outro}`);
-const guardarConhecida = (dados: Conhecida) => guardarNaGaveta(CONHECIDAS, dados);
-const mudarConhecida = (eu: string, outro: string, mudar: (c: Conhecida) => Conhecida) =>
-  mudarNaGaveta<Conhecida>(CONHECIDAS, `${eu}:${outro}`, (atual) => (atual ? mudar(atual) : null));
-
+const EU_DA_PREVIA = (usuario: string): Eu => ({ usuario, versao: 1, aparelho: { publica: "previa-aparelho-eu" }, identidade: { publica: "previa-identidade-eu" }, chat: null });
 const erroDoChat = (codigo: string) => Object.assign(new Error(codigo), { code: codigo });
-const codigoDe = (erro: unknown) => (typeof erro === "object" && erro !== null && "code" in erro ? String((erro as { code: unknown }).code ?? "") : "");
+const navegador = () => import("./chat/r2/navegador");
 
-/** Os erros em que o servidor com certeza NÃO guardou o envelope (o contador dele pode ser usado de novo). */
-const RECUSA_CERTA = /^(dm_fechada|dm_sem_chave|muitos_pedidos|consentimento|nao_encontrado|sem_servico|sem_permissao|invalido:)/;
-
-const nomeDaLoja = (usuario: string) => `${PREFIXO_DA_LOJA_OLM}${usuario}`;
-const ehOlm = (chave: { certificado?: string } | null | undefined) => chave?.certificado === "olm1";
-const tirarO = (s: string) => (s.startsWith("o") ? s.slice(1) : s);
-const PRAZOS: Prazo[] = [1, 7, 30];
-
-/** As conversas abertas nesta página e os aparelhos da biblioteca abertos (um por conta). */
-const sessoesAbertas = new Map<string, Sessao>();
-const aparelhosAbertos = new Map<string, Promise<AparelhoOlm>>();
-let geracao = 0;
-const nascidoEm = new WeakMap<Eu, number>();
-const marcar = (eu: Eu): Eu => {
-  nascidoEm.set(eu, geracao);
-  return eu;
-};
-const vale = (eu: Eu) => nascidoEm.get(eu) === geracao;
-function esquecerSessoes() {
-  geracao++;
-  sessoesAbertas.clear();
-  const abertos = [...aparelhosAbertos.values()];
-  aparelhosAbertos.clear();
-  for (const a of abertos) void a.then(fecharAparelho, () => undefined);
-  esquecerChavesDoHistorico();
+function euDe(c: ChatDoAparelho): Eu {
+  return { usuario: c.estado.conta, versao: 2, identidade: { publica: identidadeNaTela(c.estado.conta, identidadeDaConta(c)) }, aparelho: { publica: c.estado.aparelho.publico.aparelho }, chat: c };
 }
-aoApagarTudoDoChat(esquecerSessoes);
-
-const transporte: TransporteOlm = {
-  publicar: (p) => chat.olm.publicar(p),
-  consultar: (u) => chat.olm.consultar(u),
-  reivindicar: (p) => chat.olm.reivindicar(p),
-  enviar: (t, m) => chat.olm.enviar(t, m),
-  receber: () => chat.olm.receber(),
-  confirmar: (ate) => chat.olm.confirmar(ate),
-};
-
-async function senhaDaLoja(segredo: CryptoKey, usuario: string): Promise<string> {
-  const assinatura = await crypto.subtle.sign("HMAC", segredo, new TextEncoder().encode(`lucia:alumia:olm:loja:${usuario}`));
-  return paraBase64(new Uint8Array(assinatura));
+/** A identidade pública da conta, como o diretório e o código de segurança a mostram (base64url). */
+function identidadeDaConta(c: ChatDoAparelho): string {
+  return c.identidadePublica();
 }
 
-const confiavelPara = (eu: string) => async (outro: string) => {
-  const conhecida = await lerConhecida(eu, outro);
-  return conhecida ? tirarO(conhecida.identidade) : null;
-};
-
-function abrirAparelhoDaConta(guardado: Guardado): Promise<AparelhoOlm> {
-  const aberto = aparelhosAbertos.get(guardado.usuario);
-  if (aberto) return aberto;
-  const nome = nomeDaLoja(guardado.usuario);
-  anotarLojaAberta(nome);
-  const novo = (async () =>
-    abrirAparelho({ usuario: guardado.usuario, dispositivo: guardado.dispositivo, transporte, confiavel: confiavelPara(guardado.usuario), loja: { nome, senha: await senhaDaLoja(guardado.segredo, guardado.usuario) } }))();
-  aparelhosAbertos.set(guardado.usuario, novo);
-  novo.catch(() => aparelhosAbertos.delete(guardado.usuario));
-  return novo;
-}
-
-/** Garante a minha senha de entrega e o par do meu envelope (cria e publica o resumo na primeira vez, ou quando `trocar`). */
-async function garantirEntrega(usuario: string, trocar = false): Promise<Required<Pick<Guardado, "entrega" | "envelope">>> {
-  const guardado = await lerConta(usuario);
-  if (!guardado) throw erroDoChat("dm_apagado");
-  if (guardado.entrega && guardado.envelope && !trocar) return { entrega: guardado.entrega, envelope: guardado.envelope };
-  const entrega = await novaSenhaDeEntrega();
-  const envelope = guardado.envelope && !trocar ? guardado.envelope : await novoParDoEnvelope();
-  // Na troca, a senha antiga vale mais um pouco (mensagem no caminho), menos para quem foi bloqueado: aí só a nova.
-  await chat.sel.publicarEntrega([entrega.resumo]);
-  await guardarNaGaveta(CONTAS, { ...guardado, entrega, envelope } satisfies Guardado);
-  return { entrega, envelope };
-}
-
-/**
- * Apaga deste aparelho tudo o que o chat guardou da conta (depois de "apagar tudo do chat" nos Ajustes). As outras abas são
- * avisadas (o mesmo aviso do pânico) e apagam a memória delas: nenhuma continua com a chave da conversa aberta.
- */
+/** Apaga deste aparelho tudo o que o chat guardou da conta ("apagar tudo do chat" nos Ajustes). */
 export async function esquecerNesteAparelho(usuario: string) {
-  esquecerSessoes();
-  avisarAsOutrasAbas();
-  await apagarDaGaveta(CONTAS, usuario);
-  await apagarPrefixoDaGaveta(CONHECIDAS, `${usuario}:`);
-  await apagarPrefixoDaGaveta(ORDEM, `${usuario}:`);
-  await apagarConversaDoHistorico(usuario).catch(() => undefined);
-  apagarLojasDaBiblioteca([nomeDaLoja(usuario)]);
+  const { esquecerAqui } = await navegador();
+  await esquecerAqui(usuario);
 }
 
-/**
- * PÂNICO: apaga deste aparelho TUDO do chat, de todas as contas: o banco do chat, o histórico, as lojas da biblioteca, o que está
- * na memória. Termina em menos de meio segundo e nunca lança. É o que o "Sair rápido" da Alumia chama.
- */
+/** PÂNICO: apaga deste aparelho TUDO do chat, de todas as contas (lojas, motor, histórico, memória). Nunca lança. */
 export async function apagarTudoDoChat(): Promise<void> {
-  if (PREVIA_DO_CHAT) {
-    esquecerSessoes();
-    return;
-  }
   await apagarTudoNoAparelho();
 }
+aoApagarTudoDoChat(() => void navegador().then((n) => n.esquecerNaMemoria(), () => undefined));
 
+/**
+ * "sem_chave": a conta ainda não ativou o chat novo em aparelho nenhum (ativar cria as chaves da conta). "outro_aparelho": já ativou
+ * em outro aparelho; aqui, o caminho é ligar este aparelho pelo QR (ou restaurar a cópia de segurança). Começar do zero aqui cria
+ * uma identidade NOVA (os contatos são avisados de que ela mudou).
+ */
 export type EstadoDoAparelho = { estado: "pronto"; eu: Eu } | { estado: "sem_chave" } | { estado: "outro_aparelho"; tinhaChaveAqui: boolean };
 
 export async function estadoDoAparelho(situacao: SituacaoDoChat): Promise<EstadoDoAparelho> {
-  if (PREVIA_DO_CHAT) return { estado: "pronto", eu: EU_DA_PREVIA(situacao.eu, situacao.chave?.versao) };
-  const guardado = await lerConta(situacao.eu);
-  if (!situacao.chave) return { estado: "sem_chave" };
-  const valido = guardado && "dispositivo" in guardado && ehOlm(situacao.chave) && situacao.chave.identidade === `o${guardado.ed25519}` && situacao.chave.publica === `o${guardado.curve25519}`;
-  if (!guardado || !valido) return { estado: "outro_aparelho", tinhaChaveAqui: !!guardado };
-  const quando = geracao;
-  const olm = await abrirAparelhoDaConta(guardado);
-  if (quando !== geracao || olm.identidade.ed25519 !== guardado.ed25519) throw erroDoChat("dm_apagado");
-  await garantirEntrega(situacao.eu);
-  return { estado: "pronto", eu: marcar({ usuario: situacao.eu, versao: situacao.chave.versao, identidade: { publica: `o${guardado.ed25519}` }, aparelho: { publica: `o${guardado.curve25519}` }, olm }) };
+  if (PREVIA_DO_CHAT) return { estado: "pronto", eu: EU_DA_PREVIA(situacao.eu) };
+  const { chatDaConta, naFila } = await navegador();
+  const c = await chatDaConta(situacao.eu);
+  if (c) {
+    await naFila(() => c.trocarChaveDaSemana()).catch(() => undefined);
+    return { estado: "pronto", eu: euDe(c) };
+  }
+  return situacao.chave ? { estado: "outro_aparelho", tinhaChaveAqui: false } : { estado: "sem_chave" };
 }
 
+/** Ativa o chat neste aparelho com chaves NOVAS da conta (o primeiro aparelho, ou "começar do zero"). */
 export async function ativarNesteAparelho(usuario: string): Promise<Eu> {
   if (PREVIA_DO_CHAT) return EU_DA_PREVIA(usuario);
-  const quando = geracao;
-  const antigo = aparelhosAbertos.get(usuario);
-  aparelhosAbertos.delete(usuario);
-  if (antigo) fecharAparelho(await antigo.catch(() => null));
-  apagarLojasDaBiblioteca([nomeDaLoja(usuario)]);
-  const segredo = await crypto.subtle.generateKey({ name: "HMAC", hash: "SHA-256", length: 256 }, false, ["sign"]);
-  const dispositivo = novoNomeDeAparelho();
-  const nome = nomeDaLoja(usuario);
-  anotarLojaAberta(nome);
-  const olm = await abrirAparelho({ usuario, dispositivo, transporte, confiavel: confiavelPara(usuario), loja: { nome, senha: await senhaDaLoja(segredo, usuario) } });
-  if (quando !== geracao) {
-    fecharAparelho(olm);
-    throw erroDoChat("dm_apagado");
-  }
-  await guardarNaGaveta(CONTAS, { usuario, dispositivo, segredo, ed25519: olm.identidade.ed25519, curve25519: olm.identidade.curve25519 } satisfies Guardado, { criar: true });
-  aparelhosAbertos.set(usuario, Promise.resolve(olm));
-  await garantirEntrega(usuario, true);
-  const situacao = await chat.situacao();
-  if (!ehOlm(situacao.chave) || situacao.chave?.identidade !== `o${olm.identidade.ed25519}`) throw erroDoChat("dm_sem_chave");
-  return marcar({ usuario, versao: situacao.chave.versao, identidade: { publica: `o${olm.identidade.ed25519}` }, aparelho: { publica: `o${olm.identidade.curve25519}` }, olm });
+  const { ativarAqui, quemSouEu, naFila } = await navegador();
+  const { codinome } = await quemSouEu();
+  if (!codinome) throw erroDoChat("sem_codinome");
+  return euDe(await naFila(() => ativarAqui(usuario, codinome)));
 }
 
 /** Uma conversa aberta neste aparelho e o que se sabe da outra pessoa. */
@@ -221,151 +85,78 @@ export interface Sessao {
   conversa: string;
   eu: Eu;
   outro: string;
-  /** A versão da MINHA chave (a conta dos meus contadores). */
   versao: number;
+  /** As identidades ("<conta>:<identidade>") que este aparelho confia: a minha e a da outra pessoa. */
   confiadas: Record<string, string>;
   chavesConfiadas: Record<string, string>;
+  /** A identidade NOVA que o diretório mostra da outra pessoa (nada sai até aceitar). */
   mudou: string | null;
   mudouChave: string | null;
   exigeComparar: boolean;
   chaveEstranha: boolean;
-  /** A outra pessoa ainda não ativou o chat (na biblioteca) em aparelho nenhum. */
+  /** A outra pessoa não tem aparelho confiável com o chat novo. */
   semChaveDoOutro: boolean;
-  /** A outra pessoa ainda não mandou o aperto de mão (a senha da caixa dela): dá para ler, ainda não para escrever. */
+  /** O pedido ainda não foi aceito, ou nenhum aparelho da outra pessoa confirmou a caixa: o que eu escrever não sai na hora. */
   aguardandoOutro: boolean;
   /**
-   * O registro público das chaves não confirma a chave: "nao_confere" (o servidor mostra da outra pessoa uma chave que não é a
-   * última do registro), "meu" (o registro diz que a MINHA chave é outra), "quebrado" (a corrente do registro não fecha). Nada
-   * sai enquanto isso valer.
+   * A conversa está aberta, mas nenhum aparelho da outra pessoa confirmou a caixa ainda: dá para escrever, e a mensagem fica na fila
+   * deste aparelho até a confirmação (sai sozinha). Falso com o pedido ainda sem resposta (aí não dá para escrever).
    */
+  naFila: boolean;
+  /** O registro público de transparência não confirma a identidade da outra pessoa (ou a corrente não fecha). */
   foraDoRegistro: "nao_confere" | "meu" | "quebrado" | null;
-  /** O ponto do registro que este aparelho conferiu ("nº·começo do resumo"), para duas pessoas compararem. */
   carimbo: string | null;
   verificado: boolean;
 }
 
-/** Os recados Olm que chegaram fora do envelope (o aperto de mão de cada conversa): guarda o que veio de aparelho confiável. */
-async function guardarRecados(eu: string, recados: RecadoAberto[]) {
-  for (const r of recados) {
-    if (r.tipo !== "alumia.entrega" || typeof r.conteudo.senha !== "string" || typeof r.conteudo.envelope !== "string") continue;
-    const conhecida = await lerConhecida(eu, r.de);
-    if (!conhecida?.publica || tirarO(conhecida.publica) !== r.curve25519) continue;
-    await mudarConhecida(eu, r.de, (c) => ({ ...c, entrega: { senha: r.conteudo.senha as string, envelope: r.conteudo.envelope as string } }));
-  }
-}
-
-const registro: TransporteDoRegistro = { ponta: () => chat.kt.ponta(), trecho: (desde) => chat.kt.trecho(desde) };
-type VistaGuardada = VistaDoRegistro & { chave: string };
-
-/** Traz o registro público até a ponta (conferindo a corrente) e guarda a vista neste aparelho. */
-async function vistaDoRegistro(eu: string): Promise<VistaDoRegistro> {
-  const chave = `${eu}:kt`;
-  const guardada = (await lerDaGaveta<VistaGuardada>(ORDEM, chave)) ?? { ...INICIO, chave };
-  const nova = await atualizarVista(guardada, registro);
-  if (nova !== guardada) await guardarNaGaveta(ORDEM, { ...nova, chave } satisfies VistaGuardada);
-  return nova;
-}
-
-/** Manda à outra pessoa, por Olm, a senha da minha caixa e a chave do meu envelope (se ainda não mandou esta senha). */
-async function apertarAMao(eu: Eu, outro: string) {
-  if (!eu.olm) return;
-  const conhecida = await lerConhecida(eu.usuario, outro);
-  const { entrega, envelope } = await garantirEntrega(eu.usuario);
-  if (!conhecida || conhecida.mandei === entrega.resumo) return;
-  const { dispositivo, cifrado } = await cifrarParaAparelho(eu.olm, outro, "alumia.entrega", { senha: entrega.senha, envelope: envelope.publica });
-  await chat.olm.enviar("m.room.encrypted", { [idMatrix(outro)]: { [dispositivo]: cifrado } });
-  await mudarConhecida(eu.usuario, outro, (c) => ({ ...c, mandei: entrega.resumo }));
-}
-
-/** Abre a conversa: confere a identidade e a chave do aparelho da outra pessoa e faz o aperto de mão. */
 export async function abrirSessao(eu: Eu, conversa: string, outro: string, anterior?: Sessao | null): Promise<Sessao> {
-  if (PREVIA_DO_CHAT) {
+  if (PREVIA_DO_CHAT || !eu.chat) {
     return {
       conversa, eu, outro, versao: 1, confiadas: { [eu.usuario]: eu.identidade.publica, [outro]: `previa-identidade-${outro}` },
-      chavesConfiadas: {}, mudou: null, mudouChave: null, exigeComparar: false, chaveEstranha: false, semChaveDoOutro: false, aguardandoOutro: false, foraDoRegistro: null, carimbo: null, verificado: anterior?.verificado ?? false,
+      chavesConfiadas: {}, mudou: null, mudouChave: null, exigeComparar: false, chaveEstranha: false, semChaveDoOutro: false, aguardandoOutro: false, naFila: false, foraDoRegistro: null, carimbo: null, verificado: anterior?.verificado ?? false,
     };
   }
-  if (!vale(eu) || !eu.olm) throw erroDoChat("dm_apagado");
-  const dados = await chat.chaves(conversa);
-  const doOutro = dados.participantes.find((p) => p.usuario === outro && ehOlm(p)) ?? null;
-  const conhecida = await lerConhecida(eu.usuario, outro);
-  const sessao: Sessao = {
-    conversa,
-    eu,
-    outro,
-    versao: eu.versao,
-    confiadas: { [eu.usuario]: eu.identidade.publica },
-    chavesConfiadas: { [eu.usuario]: eu.aparelho.publica },
-    mudou: null,
-    mudouChave: null,
-    exigeComparar: false,
-    chaveEstranha: false,
-    semChaveDoOutro: !doOutro,
-    aguardandoOutro: true,
-    foraDoRegistro: null,
-    carimbo: null,
-    verificado: !!conhecida?.verificado,
-  };
-  // O registro público: a minha chave e a da outra pessoa têm de ser as últimas de lá.
-  if (doOutro) {
-    try {
-      const vista = await vistaDoRegistro(eu.usuario);
-      sessao.carimbo = carimbo(vista);
-      if ((await conferir(vista, eu.usuario, eu.identidade.publica, eu.versao)) !== "confere") sessao.foraDoRegistro = "meu";
-      else if ((await conferir(vista, outro, doOutro.identidade, doOutro.versao)) !== "confere") sessao.foraDoRegistro = "nao_confere";
-    } catch (e) {
-      if (codigoDe(e) === "kt_quebrado" || String((e as Error)?.message) === "kt_quebrado") sessao.foraDoRegistro = "quebrado";
-      else throw e;
-    }
-  }
-  if (doOutro) {
-    const comparacao = compararIdentidade(conhecida?.identidade, doOutro.identidade);
-    if (comparacao === "nova") {
-      await guardarConhecida({ chave: `${eu.usuario}:${outro}`, identidade: doOutro.identidade, publica: doOutro.publica, verificado: false });
-      sessao.chavesConfiadas[outro] = doOutro.publica;
-    } else if (comparacao === "mudou") {
-      sessao.mudou = doOutro.identidade;
-      sessao.mudouChave = doOutro.publica;
-      sessao.exigeComparar = !!conhecida?.verificado;
-      sessao.verificado = false;
-      if (conhecida?.publica) sessao.chavesConfiadas[outro] = conhecida.publica;
-    } else if (conhecida?.publica && conhecida.publica !== doOutro.publica) {
-      sessao.mudou = doOutro.identidade;
-      sessao.mudouChave = doOutro.publica;
-      sessao.chaveEstranha = true;
-      sessao.verificado = false;
-      sessao.chavesConfiadas[outro] = conhecida.publica;
-    } else {
-      if (conhecida && !conhecida.publica) await guardarConhecida({ ...conhecida, publica: doOutro.publica });
-      sessao.chavesConfiadas[outro] = doOutro.publica;
-    }
-    sessao.confiadas[outro] = conhecida?.identidade ?? doOutro.identidade;
-  }
-  await guardarRecados(eu.usuario, await sincronizar(eu.olm, [outro]));
-  if (doOutro && !sessao.mudou && !sessao.foraDoRegistro) await apertarAMao(eu, outro);
-  sessao.aguardandoOutro = !(await lerConhecida(eu.usuario, outro))?.entrega;
-  if (!vale(eu)) throw erroDoChat("dm_apagado");
-  sessoesAbertas.set(conversa, sessao);
-  return sessao;
+  const c = eu.chat;
+  const { naFila } = await navegador();
+  return naFila(async () => {
+    const conv = c.estado.lista.conversas[conversa];
+    if (!conv || conv.apagada) throw erroDoChat("nao_encontrado");
+    const contato = (await c.contatoPorCodinome(conv.codinome).catch(() => null)) ?? c.estado.lista.contatos[outro] ?? null;
+    c.marcarLida(conversa);
+    const sessao: Sessao = {
+      conversa,
+      eu,
+      outro,
+      versao: 2,
+      confiadas: { [eu.usuario]: eu.identidade.publica, ...(contato ? { [outro]: identidadeNaTela(outro, contato.identidade) } : {}) },
+      chavesConfiadas: {},
+      mudou: contato?.mudou ? identidadeNaTela(outro, contato.mudou) : null,
+      mudouChave: null,
+      exigeComparar: !!contato?.mudou && !!contato.verificado,
+      chaveEstranha: false,
+      semChaveDoOutro: !contato || contato.aparelhos.length === 0,
+      aguardandoOutro: !c.podeEscreverAgora(conversa),
+      naFila: conv.situacao === "aberta" && !c.podeEscreverAgora(conversa),
+      foraDoRegistro: contato && contato.registro !== "confere" ? contato.registro : null,
+      carimbo: null,
+      verificado: !!contato?.verificado && !contato.mudou,
+    };
+    return sessao;
+  });
 }
 
 export async function confiarNaIdentidade(sessao: Sessao, identidade: string, verificado = false) {
-  if (PREVIA_DO_CHAT) return;
-  if (!vale(sessao.eu)) throw erroDoChat("dm_apagado");
-  if (sessao.chaveEstranha) throw erroDoChat("dm_chave_estranha");
+  if (PREVIA_DO_CHAT || !sessao.eu.chat) return;
   const esperada = sessao.mudou ?? sessao.confiadas[sessao.outro];
   if (!esperada || identidade !== esperada) throw erroDoChat("dm_identidade_mudou");
   if (sessao.exigeComparar && !verificado) throw erroDoChat("dm_exige_comparar");
-  const publica = sessao.mudou ? sessao.mudouChave : sessao.chavesConfiadas[sessao.outro];
-  // Identidade nova: o aperto de mão antigo (do aparelho antigo da pessoa) não vale mais.
-  const antes = await lerConhecida(sessao.eu.usuario, sessao.outro);
-  const mesmaPessoa = antes && antes.identidade === identidade;
-  await guardarConhecida({ chave: `${sessao.eu.usuario}:${sessao.outro}`, identidade, ...(publica ? { publica } : {}), verificado, ...(mesmaPessoa && antes?.entrega ? { entrega: antes.entrega, mandei: antes.mandei } : {}) });
-  if (sessao.eu.olm) await guardarRecados(sessao.eu.usuario, await sincronizar(sessao.eu.olm, [sessao.outro]));
+  const c = sessao.eu.chat;
+  const { naFila } = await navegador();
+  await naFila(() => c.confiar(sessao.outro, verificado));
 }
 
 export interface MensagemAberta {
-  /** O id NESTE aparelho (o banco não tem mais a mensagem). */
+  /** O id NESTE aparelho (o servidor não tem mais a mensagem). */
   id: string;
   autor: string;
   versao: number;
@@ -373,198 +164,88 @@ export interface MensagemAberta {
   expira_em: string;
   texto: string | null;
   contador: number | null;
-  visto: Visto | null;
+  visto: null;
   repetida: boolean;
+  /** A cadeia de mensagens deste aparelho da outra pessoa não fecha (não deveria acontecer: aviso forte). */
   duvidosa: boolean;
   /** "Ver uma vez": a tela mostra e apaga. */
   umaVez: boolean;
+  /** Chegou fora da ordem em que foi escrita. */
+  foraDeOrdem?: boolean;
+  /** Chegou depois de um buraco (faltou mensagem antes dela). */
+  depoisDeFalta?: boolean;
+  /** A prova da franquia (denúncia com prova; lib/rede/franquia/protocolo.ts). Nula se a mensagem não tem. */
+  prova?: ProvaDeFranquia | null;
+  /** Quem escreveu mudou o texto depois. */
+  editada?: boolean;
+  /** Minha, ainda na fila deste aparelho (a outra pessoa não confirmou a conversa). */
+  pendente?: boolean;
+  /** Anexo cifrado (Prompt 4, itens 137 e 138: áudio ou vídeo curto): o corpo com a chave e o endereço. O `texto` vem vazio. */
+  anexo?: CorpoDeAnexo | null;
+  /** Encaminhada (Prompt 4, item 14): quantas vezes o texto já foi encaminhado (a contagem de dentro do cifrado). */
+  encaminhada?: number;
+  /** Agendada (Prompt 4, item 18): minha, ainda só neste aparelho, para sair nesta hora (ISO). */
+  agendada?: string;
+  /** Pedido de ajuda (Prompt 4, item 7): o corpo da posição (lib/rede/perto/posicao.ts). O `texto` vem vazio. */
+  posicao?: CorpoDePosicao | null;
 }
 
-let filaDaOrdem: Promise<unknown> = Promise.resolve();
-function naFilaDaOrdem<T>(fazer: () => Promise<T>): Promise<T> {
-  const vez = filaDaOrdem.then(fazer, fazer);
-  filaDaOrdem = vez.catch(() => undefined);
-  return vez;
+function aberta(m: MensagemGuardada): MensagemAberta {
+  const bits = m.visto?.versao ?? 0;
+  return {
+    id: m.id, autor: m.autor, versao: m.versao, criado_em: m.quando, expira_em: m.expira, texto: m.texto, contador: m.contador, visto: null, repetida: false,
+    duvidosa: (bits & 2) !== 0, umaVez: m.umaVez, foraDeOrdem: (bits & 1) !== 0, depoisDeFalta: (bits & 4) !== 0, prova: m.prova ?? null,
+    editada: !!m.editada, pendente: !!m.pendente, ...(m.anexo ? { anexo: corpoGuardado(m.anexo) } : {}),
+    ...(m.encaminhada ? { encaminhada: m.encaminhada } : {}),
+    ...(m.agendada ? { agendada: new Date(m.agendada).toISOString() } : {}),
+    ...(m.posicao ? { posicao: lerCorpoDePosicao(m.posicao) } : {}),
+  };
 }
-
-/** Confere repetição contra o que este aparelho já viu, e guarda o que é novo. Marca as repetidas e as duvidosas em `abertas`. */
-async function conferirOrdem(sessao: Sessao, abertas: MensagemAberta[], internos: Map<string, string>) {
-  const eu = sessao.eu.usuario;
-  const agora = Date.now();
-  const registros = new Map<string, RegistroDeOrdem>();
-  const pisos = new Map<string, number>();
-  const mudados = new Set<string>();
-  let marca: MarcaDeVersoes | null = null;
-  for (const guardado of await lerPrefixoDaGaveta<RegistroDeOrdem | PisoDeOrdem | MarcaDeVersoes>(ORDEM, prefixoDaOrdem(eu, sessao.conversa))) {
-    if ("topo" in guardado) marca = guardado;
-    else if ("versao" in guardado) pisos.set(guardado.chave, guardado.versao);
-    else registros.set(guardado.chave, guardado);
-  }
-  // A versão atual de cada autor nesta conversa: a maior que este aparelho tem dele. Ela nunca fecha (o contador de quem
-  // escreve nunca recomeça dentro dela); só as antigas viram piso.
-  const atualDoAutor = new Map<string, number>();
-  for (const chave of registros.keys()) {
-    const versao = versaoDaChave(chave);
-    const autor = chave.slice(0, chave.lastIndexOf(":"));
-    if (versao !== null && versao > (atualDoAutor.get(autor) ?? 0)) atualDoAutor.set(autor, versao);
-  }
-  // Registro de versão ANTIGA que passou da vida útil vira piso. Nada vence numa leitura em que o relógio do aparelho andou
-  // para trás ou saltou dias (rede hostil, relógio sem bateria), nem nas seguintes: o salto fica anotado na marca (logo
-  // abaixo) e vale até passar uma vida inteira de registro sem outro salto.
-  for (const [chave, registro] of [...registros]) {
-    const versao = versaoDaChave(chave);
-    const autor = chave.slice(0, chave.lastIndexOf(":"));
-    if (versao === null || !podeFechar(registro, versao, atualDoAutor.get(autor) ?? versao, marca?.lida, agora, marca?.suspeita)) continue;
-    const doPiso = `${autor}:piso`;
-    if (versao > (pisos.get(doPiso) ?? 0)) {
-      pisos.set(doPiso, versao);
-      await guardarNaGaveta(ORDEM, { chave: doPiso, versao } satisfies PisoDeOrdem);
-    }
-    registros.delete(chave);
-    await apagarDaGaveta(ORDEM, chave);
-  }
-  // A hora desta leitura, para a próxima desconfiar de salto (gravada no máximo uma vez por minuto); e, se o relógio saltou
-  // AGORA, a suspeita, para as próximas leituras não confiarem nele. Na primeira leitura da conversa a marca nasce (e nada
-  // vence nela). Decidido sobre o que está guardado, numa transação só (outra aba pode ter gravado no meio).
-  if (!marca || marcaDaLeitura(marca, agora) !== marca) {
-    const chaveDaMarca = chaveDasVersoes(eu, sessao.conversa);
-    await mudarNaGaveta<MarcaDeVersoes>(ORDEM, chaveDaMarca, (guardada) => {
-      if (!guardada) return { chave: chaveDaMarca, topo: sessao.versao, desde: agora, lida: agora };
-      const nova = marcaDaLeitura(guardada, agora);
-      return nova === guardada ? null : nova;
-    });
-  }
-  for (const m of [...abertas].sort((a, b) => a.criado_em.localeCompare(b.criado_em))) {
-    const interno = internos.get(m.id);
-    if (!interno || m.contador === null) continue;
-    const chave = chaveDaOrdem(eu, sessao.conversa, m.autor, m.versao);
-    const antes = registros.get(chave) ?? null;
-    const piso = pisos.get(chaveDoPiso(eu, sessao.conversa, m.autor)) ?? 0;
-    const r = julgar(antes, piso, chave, { servidor: interno, autor: m.autor, versao: m.versao, id: interno, contador: m.contador }, agora);
-    if (r.juizo === "repetida") m.repetida = true;
-    if (r.juizo === "fechada" || r.juizo === "duvidosa") m.duvidosa = true;
-    if (r.registro && r.registro !== antes) {
-      registros.set(chave, r.registro);
-      mudados.add(chave);
-    }
-  }
-  for (const chave of mudados) {
-    const novo = registros.get(chave) as RegistroDeOrdem;
-    await mudarNaGaveta<RegistroDeOrdem>(ORDEM, chave, (guardado) => juntarRegistros(guardado, novo));
-  }
-}
-
-/** Um envelope por vez: dois leitores ao mesmo tempo entregariam a mesma mensagem Olm duas vezes à biblioteca. */
-let filaDaCaixa: Promise<unknown> = Promise.resolve();
 
 /**
- * Busca a minha caixa selada, abre cada envelope, confere que o aparelho que cifrou é o aparelho confiável de quem o envelope
- * diz ter mandado, e guarda no histórico deste aparelho. Depois avisa o banco, que apaga. Envelope de quem este aparelho ainda
- * não conhece fica na caixa até a conversa ser aberta (e a identidade, guardada).
+ * Busca as caixas deste aparelho (pedidos, sincronia, conversas) e guarda o que chegou. Devolve quantas mensagens novas. Onda R3
+ * (3.3): com a agenda das caixas ligada (lib/rede/chat/r2/navegador.ts), cada caixa já é buscada no seu horário; a tela não puxa
+ * nada (abrir uma conversa ou a lista não vira pedido ao servidor, que ligaria as caixas pelo horário) e só lê o histórico.
  */
-export function receberMensagens(eu: Eu): Promise<number> {
-  const vez = filaDaCaixa.then(() => receberAgora(eu), () => receberAgora(eu));
-  filaDaCaixa = vez.catch(() => undefined);
-  return vez;
-}
-async function receberAgora(eu: Eu): Promise<number> {
-  if (PREVIA_DO_CHAT || !eu.olm || !vale(eu)) return 0;
-  const guardado = await lerConta(eu.usuario);
-  if (!guardado?.envelope) return 0;
-  // Histórico travado: não abre nada da caixa (a mensagem Olm aberta e não guardada se perderia).
-  await exigirHistoricoAberto(eu.usuario);
-  await guardarRecados(eu.usuario, await sincronizar(eu.olm));
-  const caixa = await chat.sel.receber();
-  let ate = 0;
-  let novas = 0;
-  for (const item of caixa) {
-    const dentro = await abrirEnvelope(guardado.envelope.privada, item.envelope);
-    if (dentro) {
-      const conhecida = await lerConhecida(eu.usuario, dentro.de);
-      // Ainda não sei quem é esta pessoa: deixa na caixa (para aqui, para não pular a ordem do Olm).
-      if (!conhecida?.publica) break;
-      const [recado] = await entregarABiblioteca(eu.olm, [{ sender: idMatrix(dentro.de), type: "m.room.encrypted", content: dentro.cifrado }]);
-      if (recado && recado.de === dentro.de && recado.curve25519 === tirarO(conhecida.publica)) novas += await guardarRecebida(eu, recado);
-    }
-    ate = item.id;
-  }
-  if (ate > 0) await chat.sel.confirmar(ate);
-  return novas;
-}
-
-async function guardarRecebida(eu: Eu, recado: RecadoAberto): Promise<number> {
-  const c = recado.conteudo;
-  if (recado.tipo === "alumia.apagar" && typeof c.conversa === "string" && typeof c.idInterno === "string") {
-    const daConversa = await mensagensDoHistorico(eu.usuario, c.conversa, null, 10_000);
-    await apagarDoHistorico(daConversa.filter((m) => m.autor === recado.de && m.idInterno === c.idInterno).map((m) => m.id));
-    return 0;
-  }
-  if (recado.tipo !== "alumia.dm" || typeof c.conversa !== "string" || typeof c.b !== "string") return 0;
-  const bytes = Uint8Array.from(atob(c.b), (x) => x.charCodeAt(0));
-  const aberta = lerBloco(bytes);
-  bytes.fill(0);
-  if (!aberta) return 0;
-  const agora = Date.now();
-  const quando = typeof c.quando === "string" && !Number.isNaN(Date.parse(c.quando)) ? new Date(Math.min(Date.parse(c.quando), agora)).toISOString() : new Date(agora).toISOString();
-  const dias = PRAZOS.includes(c.prazo as Prazo) ? (c.prazo as number) : 7;
-  const minutos = typeof c.minutos === "number" && c.minutos >= 1 && c.minutos <= 1440 ? c.minutos : null;
-  const expira = new Date(Date.parse(quando) + (minutos ? minutos * 60_000 : dias * 86_400_000)).toISOString();
-  await guardarNoHistorico({
-    id: crypto.randomUUID(), conta: eu.usuario, conversa: c.conversa, autor: recado.de, quando, expira, texto: aberta.texto, idInterno: aberta.id, contador: aberta.contador,
-    visto: aberta.visto, versao: typeof c.versao === "number" ? c.versao : 1, umaVez: c.umaVez === true,
+export async function receberMensagens(eu: Eu): Promise<number> {
+  if (PREVIA_DO_CHAT || !eu.chat) return 0;
+  const c = eu.chat;
+  const { naFila, agendaLigada } = await navegador();
+  if (agendaLigada(c)) return 0;
+  return naFila(async () => {
+    await c.receberPedidos().catch(() => 0);
+    return c.receber();
   });
-  return 1;
 }
 
-/** As mensagens da conversa, do histórico deste aparelho (depois de buscar a caixa). `antes`: para carregar as mais antigas. */
+/** As mensagens da conversa, do histórico deste aparelho (depois de buscar as caixas). `antes`: para carregar as mais antigas. */
 export async function mensagensDaConversa(sessao: Sessao, antes: string | null = null): Promise<MensagemAberta[]> {
-  if (PREVIA_DO_CHAT) {
+  if (PREVIA_DO_CHAT || !sessao.eu.chat) {
     const lista = await chat.mensagens(sessao.conversa, antes);
     return lista.map((m) => ({ id: m.id, autor: m.autor, versao: m.versao, criado_em: m.criado_em, expira_em: m.expira_em, texto: m.corpo, contador: null, visto: null, repetida: false, duvidosa: false, umaVez: false }));
   }
-  if (!vale(sessao.eu)) throw erroDoChat("dm_apagado");
   if (!antes) await receberMensagens(sessao.eu);
-  const guardadas = await mensagensDoHistorico(sessao.eu.usuario, sessao.conversa, antes);
-  const internos = new Map<string, string>();
-  const abertas = guardadas.map((m: MensagemGuardada): MensagemAberta => {
-    internos.set(m.id, m.idInterno);
-    return { id: m.id, autor: m.autor, versao: m.versao, criado_em: m.quando, expira_em: m.expira, texto: m.texto, contador: m.contador, visto: m.visto, repetida: false, duvidosa: false, umaVez: m.umaVez };
-  });
-  await naFilaDaOrdem(() => conferirOrdem(sessao, abertas, internos));
-  if (!vale(sessao.eu)) throw erroDoChat("dm_apagado");
-  return abertas.map((m) => (m.repetida ? { ...m, texto: null } : m));
+  sessao.eu.chat.marcarLida(sessao.conversa);
+  // Nesta conversa só aparece o que veio de mim ou da outra pessoa dela (o autor é o que a sessão Proteus e o certificado provaram).
+  const guardadas = (await mensagensDoHistorico(sessao.eu.usuario, sessao.conversa, antes)).filter((m) => m.autor === sessao.eu.usuario || m.autor === sessao.outro);
+  return guardadas.map(aberta);
 }
 
+/** As mensagens que chegaram depois de faltar alguma (o aviso discreto de buraco). */
 export function depoisDeBuraco(mensagens: readonly MensagemAberta[]): Set<string> {
-  return buracos(mensagens.filter((m) => m.contador !== null && !m.repetida).map((m) => ({ servidor: m.id, autor: m.autor, versao: m.versao, contador: m.contador as number })));
+  return new Set(mensagens.filter((m) => m.depoisDeFalta).map((m) => m.id));
 }
 
-export function ordemDaConversa(mensagens: readonly MensagemAberta[], eu: string): OrdemDaTela<MensagemAberta> {
-  const semConferir = new Set(mensagens.filter((m) => m.repetida || m.texto === null).map((m) => m.id));
-  const r = ordemDaTela(mensagens.map((m) => (semConferir.has(m.id) ? { ...m, contador: null } : m)), eu);
-  const porId = new Map(mensagens.map((m) => [m.id, m]));
-  return { ...r, ordenadas: r.ordenadas.map((m) => porId.get(m.id) as MensagemAberta) };
+export interface OrdemDaTela<T> {
+  ordenadas: T[];
+  foraDeOrdem: Set<string>;
+  semConfirmar: Set<string>;
 }
 
-async function vistoDaOutra(sessao: Sessao): Promise<Visto> {
-  let visto: Visto = NADA_VISTO;
-  const prefixo = `${prefixoDaOrdem(sessao.eu.usuario, sessao.conversa)}${sessao.outro}:`;
-  for (const guardado of await lerPrefixoDaGaveta<RegistroDeOrdem | PisoDeOrdem>(ORDEM, prefixo)) {
-    const versao = versaoDaChave(guardado.chave);
-    if (versao === null || !("maior" in guardado) || guardado.maior < 1) continue;
-    if (versao > visto.versao) visto = { versao, contador: guardado.maior };
-  }
-  return visto;
-}
-
-/** Fecha um conteúdo por Olm para o aparelho da outra pessoa, sela e deixa na caixa dela (sem dizer ao banco quem mandou). */
-async function mandarSelado(sessao: Sessao, tipo: string, conteudo: Record<string, unknown>) {
-  const olm = sessao.eu.olm;
-  const conhecida = await lerConhecida(sessao.eu.usuario, sessao.outro);
-  if (!olm || !conhecida?.entrega) throw erroDoChat("dm_aguardando");
-  const { cifrado } = await cifrarParaAparelho(olm, sessao.outro, tipo, conteudo);
-  const envelope = await selar(conhecida.entrega.envelope, { de: sessao.eu.usuario, cifrado });
-  await chat.sel.depositar(sessao.outro, conhecida.entrega.senha, envelope);
+/** A ordem da tela: dentro de cada aparelho vale o contador de dentro do cifrado; a hora de chegada intercala. */
+export function ordemDaConversa(mensagens: readonly MensagemAberta[], ...[]: [eu: string]): OrdemDaTela<MensagemAberta> {
+  const ordenadas = [...mensagens].sort((a, b) => a.criado_em.localeCompare(b.criado_em) || (a.autor === b.autor ? (a.contador ?? 0) - (b.contador ?? 0) : a.id.localeCompare(b.id)));
+  return { ordenadas, foraDeOrdem: new Set(mensagens.filter((m) => m.foraDeOrdem).map((m) => m.id)), semConfirmar: new Set() };
 }
 
 /** Opções de uma mensagem: prazo em dias (1, 7 ou 30), ou temporária em minutos (1 a 1440), e "ver uma vez". */
@@ -574,75 +255,198 @@ export interface OpcoesDaMensagem {
   umaVez?: boolean;
 }
 
-/** Cifra no aparelho (Olm), sela e envia. Com a identidade ou a chave da outra pessoa mudada, nada sai. */
+/** Cifra no aparelho (para cada aparelho confiável da outra pessoa e para os meus outros) e deposita. */
 export async function enviarTexto(sessao: Sessao, texto: string, opcoes: OpcoesDaMensagem = {}): Promise<Sessao> {
-  if (PREVIA_DO_CHAT) {
+  if (PREVIA_DO_CHAT || !sessao.eu.chat) {
     await chat.enviar(sessao.conversa, 1, texto);
     return sessao;
   }
-  if (!textoCabe(texto)) throw erroDoChat("texto_grande");
-  if (!vale(sessao.eu)) throw erroDoChat("dm_apagado");
-  if (sessao.mudou) throw erroDoChat(sessao.chaveEstranha ? "dm_chave_estranha" : sessao.exigeComparar ? "dm_exige_comparar" : "dm_sem_chave");
-  if (sessao.semChaveDoOutro) throw erroDoChat("dm_sem_chave");
+  if (sessao.mudou) throw erroDoChat(sessao.exigeComparar ? "dm_exige_comparar" : "dm_identidade_mudou");
   if (sessao.foraDoRegistro) throw erroDoChat("dm_fora_do_registro");
-  const prazo = opcoes.prazoDias && PRAZOS.includes(opcoes.prazoDias) ? opcoes.prazoDias : 7;
-  const minutos = opcoes.minutos && opcoes.minutos >= 1 && opcoes.minutos <= 1440 ? Math.round(opcoes.minutos) : null;
-  await naFilaDaOrdem(async () => {
-    const daOrdem = chaveDaOrdem(sessao.eu.usuario, sessao.conversa, sessao.eu.usuario, sessao.versao);
-    const reservado = await mudarNaGaveta<RegistroDeOrdem>(ORDEM, daOrdem, (registro) => comContadorUsado(registro, daOrdem, proximoContador(registro)));
-    if (!reservado || !vale(sessao.eu)) throw erroDoChat("dm_apagado");
-    const contador = reservado.maior;
-    const visto = await vistoDaOutra(sessao);
-    const bloco = montarBloco(texto.trim(), contador, visto);
-    const aberta = lerBloco(bloco);
-    let b = "";
-    for (const x of bloco) b += String.fromCharCode(x);
-    const quando = new Date().toISOString();
-    try {
-      await mandarSelado(sessao, "alumia.dm", { conversa: sessao.conversa, versao: sessao.versao, b: btoa(b), quando, prazo, ...(minutos ? { minutos } : {}), umaVez: !!opcoes.umaVez });
-    } catch (erro) {
-      if (RECUSA_CERTA.test(codigoDe(erro))) {
-        await mudarNaGaveta<RegistroDeOrdem>(ORDEM, daOrdem, (registro) => (registro && registro.maior === contador ? { ...registro, maior: contador - 1 } : null));
-      }
-      throw erro;
-    } finally {
-      bloco.fill(0);
-      b = "";
-    }
-    // A minha cópia: só neste aparelho. "Ver uma vez" não fica nem para quem mandou.
-    if (aberta && !opcoes.umaVez) {
-      const expira = new Date(Date.parse(quando) + (minutos ? minutos * 60_000 : prazo * 86_400_000)).toISOString();
-      await guardarNoHistorico({ id: crypto.randomUUID(), conta: sessao.eu.usuario, conversa: sessao.conversa, autor: sessao.eu.usuario, quando, expira, texto: aberta.texto, idInterno: aberta.id, contador, visto, versao: sessao.versao, umaVez: false });
-    }
-  });
+  const c = sessao.eu.chat;
+  const { naFila } = await navegador();
+  await naFila(() => c.mandarTexto(sessao.conversa, texto, { prazo: opcoes.prazoDias, umaVez: !!opcoes.umaVez, minutos: opcoes.minutos ?? undefined }));
   return sessao;
 }
 
-/** Apaga uma mensagem minha: daqui, e manda à outra pessoa (selado) o pedido de apagar a cópia dela. */
-export async function apagarMensagem(sessao: Sessao, id: string): Promise<void> {
-  if (PREVIA_DO_CHAT) {
-    await chat.apagarMensagem(id);
-    return;
-  }
-  const minhas = await mensagensDoHistorico(sessao.eu.usuario, sessao.conversa, null, 10_000);
-  const m = minhas.find((x) => x.id === id);
-  if (!m) return;
-  if (m.autor === sessao.eu.usuario) await mandarSelado(sessao, "alumia.apagar", { conversa: sessao.conversa, idInterno: m.idInterno }).catch(() => undefined);
-  await apagarDoHistorico([id]);
+// ── Envio agendado (Prompt 4, item 18) ──
+/** Agenda um texto para sair na hora (de 1 minuto a 30 dias). Fica só neste aparelho; sai se ele estiver ligado com a Alumia aberta. */
+export async function agendarTexto(sessao: Sessao, texto: string, quando: Date): Promise<void> {
+  if (PREVIA_DO_CHAT || !sessao.eu.chat) return;
+  if (sessao.mudou) throw erroDoChat(sessao.exigeComparar ? "dm_exige_comparar" : "dm_identidade_mudou");
+  if (sessao.foraDoRegistro) throw erroDoChat("dm_fora_do_registro");
+  const c = sessao.eu.chat;
+  const { naFila } = await navegador();
+  await naFila(() => c.agendar(sessao.conversa, texto, quando.getTime()));
 }
 
-/** Apaga a conversa deste aparelho (o histórico dela) e da lista no servidor. */
-export async function apagarConversa(sessao: Sessao | null, eu: Eu, conversa: string): Promise<void> {
-  if (!PREVIA_DO_CHAT) await apagarConversaDoHistorico(eu.usuario, conversa).catch(() => undefined);
-  void sessao;
-  await chat.apagar(conversa);
+/** Desiste de uma agendada (pelo id local do histórico). */
+export async function cancelarAgendada(sessao: Sessao, id: string): Promise<void> {
+  if (PREVIA_DO_CHAT || !sessao.eu.chat) return;
+  const c = sessao.eu.chat;
+  const m = (await mensagensDoHistorico(sessao.eu.usuario, sessao.conversa, null, 10_000)).find((x) => x.id === id);
+  if (!m?.agendada) return;
+  const { naFila } = await navegador();
+  await naFila(() => c.cancelarAgendada(sessao.conversa, m.idInterno));
+}
+
+/** Manda as agendadas que já venceram (a tela do chat chama de tempos em tempos, só com a aba aberta). Devolve quantas saíram. */
+export async function enviarAgendadas(eu: Eu): Promise<number> {
+  if (PREVIA_DO_CHAT || !eu.chat) return 0;
+  const c = eu.chat;
+  const { naFila } = await navegador();
+  return naFila(() => c.enviarAgendadas());
+}
+
+// ── Notas para mim (Prompt 4, item 15) ──
+/** O id da conversa das notas para mim desta conta (o mesmo em todos os meus aparelhos; o servidor não o conhece). */
+export const idDasMinhasNotas = (eu: Eu): string | null => eu.chat?.notas ?? null;
+/** Na prévia (sem servidor nem chave), as notas ficam só na memória desta aba. */
+const NOTAS_DA_PREVIA: MensagemAberta[] = [];
+
+/** As notas para mim, do histórico deste aparelho (depois de buscar as caixas, que trazem as dos meus outros aparelhos). */
+export async function minhasNotas(eu: Eu): Promise<MensagemAberta[]> {
+  const id = idDasMinhasNotas(eu);
+  if (PREVIA_DO_CHAT) return [...NOTAS_DA_PREVIA];
+  if (!id) return [];
+  await receberMensagens(eu);
+  return (await mensagensDoHistorico(eu.usuario, id, null, 500)).filter((m) => m.autor === eu.usuario).map(aberta);
+}
+
+/** Guarda uma nota para mim: aqui e, cifrada, nos meus outros aparelhos. */
+export async function escreverNota(eu: Eu, texto: string): Promise<void> {
+  if (PREVIA_DO_CHAT) {
+    const agora = new Date().toISOString();
+    NOTAS_DA_PREVIA.push({ id: `previa-nota-${NOTAS_DA_PREVIA.length + 1}`, autor: eu.usuario, versao: 2, criado_em: agora, expira_em: agora, texto: texto.trim(), contador: null, visto: null, repetida: false, duvidosa: false, umaVez: false });
+    return;
+  }
+  if (!eu.chat) return;
+  const c = eu.chat;
+  const { naFila } = await navegador();
+  await naFila(() => c.mandarNota(texto));
+}
+
+/** Apaga uma nota (pelo id local) daqui e dos meus outros aparelhos. */
+export async function apagarNota(eu: Eu, id: string): Promise<void> {
+  if (PREVIA_DO_CHAT) {
+    NOTAS_DA_PREVIA.splice(0, NOTAS_DA_PREVIA.length, ...NOTAS_DA_PREVIA.filter((n) => n.id !== id));
+    return;
+  }
+  const notas = idDasMinhasNotas(eu);
+  if (!eu.chat || !notas) return;
+  const c = eu.chat;
+  const m = (await mensagensDoHistorico(eu.usuario, notas, null, 10_000)).find((x) => x.id === id);
+  if (!m) return;
+  const { naFila } = await navegador();
+  await naFila(() => c.apagarNota(m.idInterno));
 }
 
 /**
- * Troca a senha de entrega da minha caixa (ao bloquear alguém): a pessoa bloqueada não deposita mais nada. As outras conversas
- * recebem a senha nova no próximo aperto de mão (ao abrir a conversa).
+ * Encaminha um texto (Prompt 4, item 14) para as conversas escolhidas, com a contagem de encaminhamentos dentro do cifrado e o freio
+ * (lib/rede/chat/encaminhar.ts): o que já foi encaminhado muitas vezes só vai para uma conversa por vez. Cada conversa recebe uma
+ * mensagem nova minha, cifrada como qualquer outra.
  */
-export async function trocarSenhaDeEntrega(eu: Eu): Promise<void> {
-  if (PREVIA_DO_CHAT || !vale(eu)) return;
-  await garantirEntrega(eu.usuario, true);
+export async function encaminharTexto(eu: Eu, conversas: readonly string[], texto: string, contagem: number | undefined): Promise<void> {
+  if (PREVIA_DO_CHAT || !eu.chat) return;
+  const c = eu.chat;
+  const { naFila } = await navegador();
+  await naFila(() => c.encaminhar(conversas, texto, contagem));
+}
+
+/**
+ * Manda um áudio ou vídeo curto (Prompt 4, itens 137 e 138): confere e cifra NO APARELHO, sobe só o cifrado ao depósito (sem sessão,
+ * com um passe anônimo) e manda a chave e o endereço dentro da mensagem cifrada. O arquivo aberto nunca sai daqui. Sem fila: a
+ * conversa tem de estar confirmada pela outra pessoa. O prazo do arquivo no depósito é o da conversa (1, 7 ou 30 dias).
+ */
+export async function enviarAnexo(sessao: Sessao, arquivo: Uint8Array<ArrayBuffer>, mime: string, duracaoMs: number, opcoes: OpcoesDaMensagem = {}): Promise<Sessao> {
+  if (PREVIA_DO_CHAT || !sessao.eu.chat) throw erroDoChat("anexo_desligado");
+  if (sessao.mudou) throw erroDoChat(sessao.exigeComparar ? "dm_exige_comparar" : "dm_identidade_mudou");
+  if (sessao.foraDoRegistro) throw erroDoChat("dm_fora_do_registro");
+  if (sessao.aguardandoOutro) throw erroDoChat("dm_aguardando");
+  const c = sessao.eu.chat;
+  const dias: DiasDoAnexo = opcoes.prazoDias ?? c.estado.lista.conversas[sessao.conversa]?.prazo ?? 7;
+  const { cifrado, corpo } = await prepararAnexo(arquivo, mime, duracaoMs, contextoDaConversa("r2", sessao.conversa), { dias, ...(opcoes.umaVez ? { umaVez: true } : {}) });
+  const { depositarAnexo } = await import("./chat/anexo-deposito");
+  const endereco = await depositarAnexo(cifrado, dias);
+  const bytes = montarCorpoDeAnexo({ ...corpo, endereco });
+  const { naFila } = await navegador();
+  await naFila(() => c.mandarAnexo(sessao.conversa, bytes, { prazo: dias }));
+  return sessao;
+}
+
+/**
+ * Baixa e abre o anexo de uma mensagem, NESTE aparelho: confere o resumo do cifrado, decifra e confere o resumo do arquivo. Devolve
+ * o arquivo como Blob (a tela faz o endereço blob: e o solta ao fechar), ou null se o arquivo não existe mais ou foi mexido.
+ */
+export async function abrirAnexoDaMensagem(sessao: Sessao, corpo: CorpoDeAnexo): Promise<Blob | null> {
+  if (PREVIA_DO_CHAT || !sessao.eu.chat) return null;
+  const { baixarAnexo } = await import("./chat/anexo-deposito");
+  const cifrado = await baixarAnexo(corpo);
+  if (!cifrado) return null;
+  const aberto = await abrirAnexo(cifrado, corpo, contextoDaConversa("r2", sessao.conversa));
+  return aberto ? new Blob([aberto], { type: corpo.mime }) : null;
+}
+
+/** "Ver uma vez" aberto, ou "apagar para todos" de um anexo meu: pede ao depósito que apague o cifrado (nunca lança). */
+export async function tirarAnexoDoDeposito(corpo: CorpoDeAnexo): Promise<void> {
+  const { tirarAnexo } = await import("./chat/anexo-deposito");
+  await tirarAnexo(corpo.endereco);
+}
+
+/**
+ * Apaga uma mensagem. "todos" (só a minha): daqui e pede aos outros aparelhos (dela e meus) que apaguem a cópia; ainda na fila, só sai
+ * da fila. "aqui": só a cópia deste aparelho (a da outra pessoa e a dos meus outros aparelhos ficam).
+ */
+export async function apagarMensagem(sessao: Sessao, id: string, modo: "todos" | "aqui" = "todos"): Promise<void> {
+  if (PREVIA_DO_CHAT || !sessao.eu.chat) {
+    await chat.apagarMensagem(id);
+    return;
+  }
+  const c = sessao.eu.chat;
+  const m = (await mensagensDoHistorico(sessao.eu.usuario, sessao.conversa, null, 10_000)).find((x) => x.id === id);
+  if (!m) return;
+  const { naFila } = await navegador();
+  // Na fila, "só para mim" e "para todos" dão no mesmo: ela nunca saiu daqui, e não pode sair depois.
+  if (m.autor === sessao.eu.usuario && (modo === "todos" || m.pendente)) {
+    await naFila(() => c.apagarMensagem(sessao.conversa, m.idInterno));
+    // O anexo meu apagado para todos sai também do depósito (ninguém baixa mais).
+    const corpo = m.anexo ? corpoGuardado(m.anexo) : null;
+    if (corpo) await tirarAnexoDoDeposito(corpo);
+  } else await apagarDoHistorico([id]);
+}
+
+/** Edita uma mensagem MINHA: troca aqui e pede aos outros aparelhos (dela e meus) que troquem a cópia (fica a marca "editada"). */
+export async function editarMensagem(sessao: Sessao, id: string, texto: string): Promise<void> {
+  if (PREVIA_DO_CHAT || !sessao.eu.chat) return;
+  const c = sessao.eu.chat;
+  const m = (await mensagensDoHistorico(sessao.eu.usuario, sessao.conversa, null, 10_000)).find((x) => x.id === id);
+  if (!m || m.autor !== sessao.eu.usuario) throw erroDoChat("nao_encontrado");
+  const { naFila } = await navegador();
+  await naFila(() => c.editarMensagem(sessao.conversa, m.idInterno, texto));
+}
+
+/**
+ * Avisa a tela quando a agenda das caixas acabou de buscar (o id da conversa, "sincronia" ou "pedidos"), para reler o histórico
+ * deste aparelho na hora. Só dentro da aba: o horário das buscas não muda. Devolve a função que para de ouvir.
+ */
+export function aoChegarNoChat(fazer: (qual: string) => void): () => void {
+  if (PREVIA_DO_CHAT) return () => undefined;
+  let parar: (() => void) | null = null;
+  let parado = false;
+  void navegador().then((n) => {
+    if (!parado) parar = n.aoChegarNoChat(fazer);
+  }, () => undefined);
+  return () => {
+    parado = true;
+    parar?.();
+  };
+}
+
+/** Apaga a conversa deste e dos meus outros aparelhos (pela lista) e as minhas caixas dela. */
+export async function apagarConversa(...[, eu, conversa]: [sessao: Sessao | null, eu: Eu, conversa: string]): Promise<void> {
+  if (PREVIA_DO_CHAT || !eu.chat) {
+    await chat.apagar(conversa);
+    return;
+  }
+  await chat.apagar(conversa);
 }

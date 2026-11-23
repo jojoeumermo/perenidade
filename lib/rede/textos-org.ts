@@ -3,6 +3,7 @@
 // Os textos da F4 (perfis e organizações): i18n/rede/org/{pt,en,es,fr,ru,zh}.json (pt é o texto final; os outros cinco têm
 // "_rascunho": true até a revisão). Carrega UM idioma por vez (import dinâmico), no servidor ou no navegador. Sem "@/" de propósito.
 import type pt from "../../i18n/rede/org/pt.json";
+import { prontoOu } from "./textos-prontos";
 
 export type TextosDaOrg = typeof pt;
 
@@ -12,7 +13,7 @@ export const IDIOMAS_DA_ORG = ["pt", "en", "es", "fr", "ru", "zh"] as const;
 export async function carregarTextosDaOrg(lang: string): Promise<TextosDaOrg> {
   const l = (IDIOMAS_DA_ORG as readonly string[]).includes(lang) ? lang : "pt";
   try {
-    return ((await import(`../../i18n/rede/org/${l}.json`)) as { default: TextosDaOrg }).default;
+    return prontoOu(((await import(`../../i18n/rede/org/${l}.json`)) as { default: TextosDaOrg }).default, async () => ((await import("../../i18n/rede/org/pt.json")) as { default: TextosDaOrg }).default);
   } catch {
     return ((await import("../../i18n/rede/org/pt.json")) as { default: TextosDaOrg }).default;
   }

@@ -46,11 +46,15 @@ export interface RespostaDasContas {
  * Chama o serviço de contas (Supabase Auth) com a chave de serviço. `caminho` começa com "/". Lança só se não houver conexão.
  * A chave de serviço também dispensa o desafio de terceiros no serviço de contas, enquanto ele ainda estiver ligado lá.
  */
-export async function servicoDeContas(caminho: string, corpo: unknown, metodo = "POST"): Promise<RespostaDasContas> {
+export async function servicoDeContas(caminho: string, corpo: unknown, metodo = "POST", agente?: string | null): Promise<RespostaDasContas> {
   const chave = servico();
+  // P5 (A4): a sessão aberta pelo servidor (entrar com senha) guardava o "user agent" do próprio servidor, e a tela de aparelhos e o
+  // aviso diziam "Navegador desconhecido em sistema desconhecido". Quem chama passa o do navegador da pessoa, que o serviço de
+  // contas grava na sessão. O endereço de rede NÃO vai junto (a sessão fica com o do servidor, que o gatilho já apaga).
+  const comoNavegador: Record<string, string> = agente ? { "User-Agent": agente.replace(/[^ -~]/g, "").slice(0, 500) } : {};
   const r = await fetch(`${SUPA}/auth/v1${caminho}`, {
     method: metodo,
-    headers: { apikey: chave, Authorization: `Bearer ${chave}`, "Content-Type": "application/json" },
+    headers: { apikey: chave, Authorization: `Bearer ${chave}`, "Content-Type": "application/json", ...comoNavegador },
     body: corpo === undefined ? undefined : JSON.stringify(corpo),
     cache: "no-store",
     signal: AbortSignal.timeout(10_000),
@@ -58,13 +62,51 @@ export async function servicoDeContas(caminho: string, corpo: unknown, metodo = 
   return { status: r.status, dado: (await r.json().catch(() => null)) as Record<string, unknown> | null };
 }
 
-/** O endereço de volta do e-mail só vale na mesma origem de quem pediu. */
-export function voltaDaMesmaOrigem(pedido: Request, volta: unknown): string | null {
+/**
+ * As origens do próprio Instituto para onde o link de um e-mail (confirmação, senha nova) pode voltar: o site, os subdomínios
+ * alumia., escola. e conversas. dele, os endereços próprios configurados (Alumia, Escola, chat) e o .onion do chat. Fora de
+ * produção, também http (localhost). A lista vem só das variáveis do servidor, nunca do pedido.
+ */
+export function origensDeVolta(env: Record<string, string | undefined> = process.env): Set<string> {
+  const producao = env.NODE_ENV === "production";
+  const origens = new Set<string>();
+  const juntar = (texto: string | undefined) => {
+    if (!texto?.trim()) return;
+    try {
+      const u = new URL(texto.trim());
+      if (u.protocol === "https:" || (!producao && u.protocol === "http:")) origens.add(u.origin);
+    } catch {
+      // endereço mal escrito na variável: fica de fora
+    }
+  };
+  const site = env.NEXT_PUBLIC_SITE_URL?.trim() || (producao ? "https://institutolucia.org" : "http://localhost:3000");
+  juntar(site);
+  try {
+    const u = new URL(site);
+    for (const sub of ["alumia", "escola", "conversas"]) juntar(`${u.protocol}//${sub}.${u.host}`);
+  } catch {
+    // sem o site, só valem os endereços próprios abaixo
+  }
+  juntar(env.NEXT_PUBLIC_ALUMIA_URL);
+  juntar(env.NEXT_PUBLIC_ESCOLA_URL);
+  juntar(env.NEXT_PUBLIC_CHAT_URL);
+  const onion = (env.NEXT_PUBLIC_CHAT_ONION ?? "").trim();
+  if (/^[a-z2-7]{56}\.onion$/.test(onion)) origens.add(`http://${onion}`);
+  return origens;
+}
+
+/**
+ * O endereço de volta do e-mail: só na mesma origem de quem pediu E numa origem do próprio Instituto. O cabeçalho Origin, fora do
+ * navegador, quem chama escolhe: sozinho ele deixava um robô pedir a senha nova de outra pessoa com a volta para um site dele (o
+ * link do e-mail, com o código, iria para lá se o serviço de contas aceitasse o endereço). A lista fechada não depende disso.
+ */
+export function voltaDaMesmaOrigem(pedido: Request, volta: unknown, origens: Set<string> = origensDeVolta()): string | null {
   const origem = pedido.headers.get("origin");
   if (!origem || typeof volta !== "string" || volta.length > 300) return null;
   try {
     const url = new URL(volta);
-    return url.origin === origem ? url.toString() : null;
+    if (url.username || url.password) return null;
+    return url.origin === origem && origens.has(url.origin) ? url.toString() : null;
   } catch {
     return null;
   }

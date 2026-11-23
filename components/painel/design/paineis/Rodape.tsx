@@ -14,7 +14,7 @@ export function RodapeDoPalco() {
   const a = ed.ajudas;
   return (
     <div className="pointer-events-none absolute inset-x-3 bottom-3 z-10 flex items-end justify-between gap-3">
-      <div className="pointer-events-auto flex max-w-[60%] items-end gap-1.5 overflow-x-auto rounded-xl bg-[#1f1a14]/70 p-1.5 backdrop-blur [scrollbar-width:thin]" role="list" aria-label="Páginas">
+      <div className="pointer-events-auto flex max-w-[60%] items-end gap-1.5 overflow-x-auto rounded-xl bg-[#1f1a14]/90 p-1.5 [scrollbar-width:thin]" role="list" aria-label="Páginas">
         {ed.projeto.paginas.map((d, i) => (
           <div key={d.id ?? i} role="listitem" className="relative shrink-0">
             <button

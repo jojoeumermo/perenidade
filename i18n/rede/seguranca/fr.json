@@ -33,6 +33,15 @@
     "alertaTitulo": "Alerte de nouvelle connexion",
     "alertaTexto": "Chaque fois que votre compte se connecte sur un appareil, une alerte arrive ici sur Alumia et dans votre e-mail, avec le navigateur, le système, le jour et l'heure. Si ce n'était pas vous, déconnectez les appareils."
   },
+  "avisos": {
+    "titulo": "Alertes de sécurité",
+    "texto": "Nouvelle connexion à votre compte, nouvelle application d’authentification, entrée approuvée : les alertes du compte sont ici, pas dans les notifications. Si l’une d’elles n’était pas vous, déconnectez vos appareils et changez votre mot de passe.",
+    "vazio": "Aucune alerte de sécurité ces 120 derniers jours.",
+    "novo": "Nouveau",
+    "vezes": "{n} fois ce jour-là",
+    "carregando": "Chargement des alertes…",
+    "falha": "Impossible de charger les alertes de sécurité pour le moment."
+  },
   "codigos": {
     "titulo": "Codes de récupération",
     "texto": "Dix codes à usage unique pour entrer si vous perdez le téléphone de l'application. Utiliser un code retire l'application du compte : vous en enregistrez une autre aussitôt, et les autres appareils sont déconnectés.",

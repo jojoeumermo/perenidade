@@ -1,0 +1,76 @@
+{
+  "_rascunho": true,
+  "titulo": "对话",
+  "carregando": "正在打开…",
+  "trava": {
+    "titulo": "应用已锁定",
+    "texto": "输入应用密码以查看对话。",
+    "rotulo": "应用密码",
+    "abrir": "打开",
+    "errada": "密码错误。",
+    "restam": "密码错误。再错 {n} 次将清除本设备上的全部内容。",
+    "conferindo": "正在核对…"
+  },
+  "criar": {
+    "titulo": "设置应用密码",
+    "texto": "应用闲置或转到后台时，它会锁住对话。它不是账户密码，也不会离开本设备。至少 6 个字符。",
+    "rotulo": "应用密码",
+    "repetir": "再输入一次",
+    "diferentes": "两次输入的密码不一致。",
+    "curta": "至少 6 个字符。",
+    "salvar": "保存并继续"
+  },
+  "entrar": {
+    "titulo": "登录",
+    "texto": "用 Alumia 账户登录。聊天在本应用内运行：任何密钥代码都不来自网站。",
+    "email": "电子邮件",
+    "senha": "账户密码",
+    "botao": "登录",
+    "entrando": "正在登录…",
+    "credenciais": "电子邮件或密码错误。",
+    "nao_confirmado": "请先确认电子邮件再登录。",
+    "bloqueado": "尝试次数过多。请等待 {n} 分钟。",
+    "falha": "现在无法登录。请检查网络后重试。",
+    "codigo": "身份验证器应用的代码",
+    "codigoErrado": "代码错误。",
+    "confirmar": "确认",
+    "semFator": "此账户还没有身份验证器应用。请在网站上设置后再回来。"
+  },
+  "menu": {
+    "ajustes": "应用设置",
+    "rede": "打开社交网络",
+    "travar": "立即锁定",
+    "voltar": "返回对话"
+  },
+  "ajustes": {
+    "titulo": "应用设置",
+    "disfarce": "主屏幕上的名称和图标",
+    "disfarceTexto": "换成一个普通的名称。应用本身不变；更改可能需要几秒钟才会显示。",
+    "disfarces": {
+      "padrao": "Instituto Lúcia",
+      "calculadora": "计算器",
+      "notas": "笔记"
+    },
+    "trava": "闲置多久后自动锁定",
+    "minutos": "{n} 分钟",
+    "apagar": "密码错误多次后清除全部",
+    "apagarDesligado": "关闭",
+    "apagarDepois": "错误 {n} 次后",
+    "apagarAviso": "注意：开启后，任何人输错应用密码达到这个次数，就会清除本设备上的全部内容（对话、密钥和本应用中的账户），无法恢复。孩子或摆弄你手机的人可能会误删。请先保存聊天的备份。",
+    "apagarConfirmar": "我明白这个警告，要开启",
+    "cofre": "密钥存放在哪里",
+    "cofres": {
+      "strongbox": "在设备的安全芯片中（StrongBox）。",
+      "tee": "在处理器的受保护区域中（TEE）。",
+      "software": "仅软件：本设备没有硬件保险库。"
+    },
+    "senhaNova": "更改应用密码",
+    "salvo": "已保存。"
+  },
+  "link": {
+    "pergunta": "在应用外打开这个地址？",
+    "aviso": "任何链接都不会自动打开：请先核对地址。"
+  },
+  "apagado": "本设备上的全部内容已清除。",
+  "sem_webview": "要打开对话，本设备需要更新的 Android System WebView（137 或更新版本）。请在设备的应用商店中更新，然后重新打开本应用。"
+}

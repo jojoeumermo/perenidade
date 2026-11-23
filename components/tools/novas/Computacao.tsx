@@ -5,6 +5,8 @@ import { useEffect, useMemo, useState } from "react";
 import { type Algoritmo, buscar, type Grafo, largura, menorCaminho, ordenar, profundidade, sorteio } from "@/lib/ferramentas/rodada";
 import { Bancada, Botao, BotaoClaro, Deslizante, Escolha, Leitura } from "../../labs/kit";
 import { ComoUsar } from "./comum";
+import { ARGON2ID } from "@/lib/rede/cifra/sodio";
+import { derivar } from "@/lib/rede/cofre/argon";
 
 const vetorDe = (semente: number, n: number) => { const r = sorteio(semente); return Array.from({ length: n }, () => 5 + Math.floor(r() * 95)); };
 
@@ -112,9 +114,20 @@ export function Criptografia() {
     return () => { vivo = false; };
   }, [texto, vizinho, algo]);
   const diferentes = h1 && h2 ? bits(h1).split("").filter((c, i) => c !== bits(h2)[i]).length : 0;
+  // A chave sai da senha pelo Argon2id (64 MiB e 3 passadas: lib/rede/cofre/argon.ts). O texto cifrado de antes (PBKDF2) ainda
+  // abre: se o Argon2id não abrir, tenta o PBKDF2 de antes.
   async function chave(sal: Uint8Array) {
+    const { chave: bytes } = await derivar(senha, { v: 1, alg: "argon2id13", m: ARGON2ID.memoria / 1024, t: ARGON2ID.passadas, p: 1, sal: b64(sal) });
+    const crua = new Uint8Array(new ArrayBuffer(32));
+    crua.set(bytes);
+    bytes.fill(0);
+    const k = await crypto.subtle.importKey("raw", crua, { name: "AES-GCM" }, false, ["encrypt", "decrypt"]);
+    crua.fill(0);
+    return k;
+  }
+  async function chaveDeAntes(sal: Uint8Array) {
     const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(senha), "PBKDF2", false, ["deriveKey"]);
-    return crypto.subtle.deriveKey({ name: "PBKDF2", salt: sal as BufferSource, iterations: 200_000, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
+    return crypto.subtle.deriveKey({ name: "PBKDF2", salt: sal as BufferSource, iterations: 200_000, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
   }
   async function cifrar() {
     const sal = crypto.getRandomValues(new Uint8Array(16));
@@ -127,7 +140,10 @@ export function Criptografia() {
   async function decifrar() {
     try {
       const [s, i, c] = cifrado.split(".").map(de64);
-      const p = await crypto.subtle.decrypt({ name: "AES-GCM", iv: i as BufferSource }, await chave(s), c as BufferSource);
+      if (s?.length !== 16) throw new Error("sal");
+      const p = await crypto.subtle
+        .decrypt({ name: "AES-GCM", iv: i as BufferSource }, await chave(s), c as BufferSource)
+        .catch(async () => crypto.subtle.decrypt({ name: "AES-GCM", iv: i as BufferSource }, await chaveDeAntes(s), c as BufferSource));
       setAberto(new TextDecoder().decode(p));
       setErro("");
     } catch {
@@ -147,14 +163,14 @@ export function Criptografia() {
         <div className="mt-3 grid grid-cols-2 gap-2"><Leitura rotulo="Bits diferentes" valor={`${diferentes} de ${h1.length * 4}`} destaque /><Leitura rotulo="Proporção" valor={h1 ? `${Math.round((diferentes / (h1.length * 4)) * 100)}%` : "—"} /></div>
       </Bancada>
       <div className="mt-6">
-        <Bancada titulo="Cifrar e decifrar com senha" subtitulo="AES-GCM de 256 bits, chave tirada da senha com PBKDF2">
+        <Bancada titulo="Cifrar e decifrar com senha" subtitulo="AES-GCM de 256 bits, chave tirada da senha com Argon2id">
           <label className="block text-sm font-semibold">Mensagem<textarea value={segredo} onChange={(e) => setSegredo(e.target.value.slice(0, 2000))} rows={2} className={campo} /></label>
           <label className="mt-2 block text-sm font-semibold">Senha<input value={senha} onChange={(e) => setSenha(e.target.value.slice(0, 200))} className={campo} /></label>
           <div className="mt-3 flex flex-wrap gap-2"><BotaoClaro onClick={() => void cifrar()}>Cifrar</BotaoClaro><BotaoClaro onClick={() => void decifrar()} desligado={!cifrado}>Decifrar</BotaoClaro></div>
           {cifrado && <label className="mt-3 block text-sm font-semibold">Texto cifrado (sal . vetor . cifra, em base64; pode editar para ver o que acontece)<textarea value={cifrado} onChange={(e) => setCifrado(e.target.value)} rows={3} className={`${campo} text-xs`} /></label>}
           {aberto && <p className="mt-2 rounded border-2 border-[#1d6b3a] bg-parchment-deep p-2 text-sm">✓ {aberto}</p>}
           {erro && <p className="mt-2 text-sm text-oxblood">{erro}</p>}
-          <p className="mt-3 text-xs text-ink-soft">Tudo acontece neste aparelho, com a criptografia que já vem no navegador. Nada é enviado nem guardado.</p>
+          <p className="mt-3 text-xs text-ink-soft">Tudo acontece neste aparelho, com a criptografia do navegador e a da libsodium. Nada é enviado nem guardado.</p>
         </Bancada>
       </div>
       <ComoUsar

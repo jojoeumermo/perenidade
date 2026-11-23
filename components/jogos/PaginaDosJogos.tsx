@@ -303,7 +303,7 @@ export function PaginaDosJogos({
       </header>
 
       {/* As categorias: um filtro na mesma página (os links #treino, #proprios... continuam valendo). */}
-      <nav aria-label={s.pagina.categorias} className="sticky top-0 z-10 border-b-2 border-ink bg-parchment/95 backdrop-blur-sm max-md:static">
+      <nav aria-label={s.pagina.categorias} className="sticky top-0 z-10 border-b-2 border-ink bg-parchment max-md:static">
         <div className="mx-auto flex max-w-[78rem] gap-2 overflow-x-auto px-4 py-3 sm:px-6 lg:px-8">
           {(["todos", ...CATEGORIAS] as const).map((c) => {
             const n = c === "todos" ? cartoes.length : cartoes.filter((x) => x.categoria === c).length;

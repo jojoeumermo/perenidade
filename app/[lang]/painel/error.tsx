@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { recarregarSePedacoPerdido } from "@/lib/pedaco-perdido";
 
 /**
  * Quando o painel quebra no navegador, em vez da tela genérica do Next ("This page couldn't load"): o que aconteceu, a
@@ -11,6 +12,8 @@ import { useEffect } from "react";
 export default function ErroDoPainel({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
     console.error("Painel:", error);
+    // O "pedaço não encontrado" de depois de uma versão nova: recarrega sozinho uma vez (lib/pedaco-perdido.ts).
+    recarregarSePedacoPerdido(error);
   }, [error]);
 
   const recomecar = async () => {

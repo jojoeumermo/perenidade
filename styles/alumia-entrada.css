@@ -281,8 +281,21 @@
   display: block;
   width: 100%;
   height: 100%;
+  /* As silhuetas são 3 × 4 e entram inteiras; as fotos do Memorial (a parede gira) se ajustam ao painel sem esticar. */
+  object-fit: cover;
   /* Só a cor muda (preto, brasa, vermelho e creme, o filtro #ale-tritom da própria página): o desenho da figura é o do arquivo. */
   filter: url(#ale-tritom);
+}
+/* P5 (A1): nada da parede se arrasta, se seleciona ou abre o "salvar imagem" do toque longo (o endereço caía nos campos). */
+.ale-parede-grade,
+.ale-parede-grade img {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+.ale-parede-grade img {
+  pointer-events: none;
 }
 /* O rejunte: linhas finas por cima de tudo, que cortam os painéis em ladrilhos sem tocar nas figuras. */
 .ale-rejunte {
@@ -668,6 +681,8 @@
   display: flex;
   gap: 12px;
   align-items: flex-start;
+  /* R1 (A3.3): a linha inteira é o alvo de toque da caixa, com pelo menos 44 px. */
+  min-height: 44px;
   font-size: 15px;
   line-height: 1.45;
   cursor: pointer;

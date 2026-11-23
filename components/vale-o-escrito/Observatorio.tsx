@@ -55,6 +55,18 @@ const Grupos = dynamic(() => import("./VisoesLeves").then((m) => m.Grupos), { ss
 const Fluxo = dynamic(() => import("./VisoesLeves").then((m) => m.Fluxo), { ssr: false, loading: Carregando });
 const LinhaDoTempo = dynamic(() => import("./VisoesLeves").then((m) => m.LinhaDoTempo), { ssr: false, loading: Carregando });
 
+/** O país do caso (código de 2 letras); sem país escrito, o Brasil (os casos de antes do mapa do mundo). */
+const paisDaEntrada = (e: { lugar?: { pais?: string } }): string => (e.lugar?.pais && /^[A-Za-z]{2}$/.test(e.lugar.pais) ? e.lugar.pais.toUpperCase() : "BR");
+
+/** O nome do país no idioma da página, pelo próprio navegador (Intl.DisplayNames); sem ele, o código. */
+function nomeDoPais(iso: string, lang: string): string {
+  try {
+    return new Intl.DisplayNames([lang, "pt"], { type: "region" }).of(iso) ?? iso;
+  } catch {
+    return iso;
+  }
+}
+
 const dividir = (chave: string): [string, string] => {
   const i = chave.indexOf(":");
   return [chave.slice(0, i), chave.slice(i + 1)];
@@ -90,7 +102,9 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
     escolheuAgora.current = true;
     setSelecionadoCru(valor);
   }, []);
-  const [zoomMapa, setZoomMapa] = useState<NivelDeZoom>("pais");
+  const [zoomMapa, setZoomMapa] = useState<NivelDeZoom>("mundo");
+  // Prompt 5, C1: o filtro por país (null = o mundo inteiro). Vale para todas as visões, como a categoria.
+  const [pais, setPais] = useState<string | null>(null);
   const [listaAberta, setListaAberta] = useState(false);
   // Dossiê de leitura aberto (lib/vale-o-escrito/leituras.ts): filtra a base e põe o papel de leitura na coluna da direita.
   const [leitura, setLeitura] = useState<string | null>(null);
@@ -126,12 +140,20 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
 
   const { ligado, ultimo } = useAoVivo(dados, (id, entrada) => setDados((d) => aplicarEntradaAoVivo(d, id, entrada)));
 
-  // Dossiê de leitura aberto: só os casos dele (e as ligações deles) entram nas visões.
+  // Dossiê de leitura aberto: só os casos dele (e as ligações deles) entram nas visões. O país escolhido também filtra.
   const visiveis = useMemo(() => {
-    if (!leitura) return dados;
-    const ids = new Set(entradasDaLeitura(leitura, dados.entradas).map((e) => e.id));
-    return { ...dados, entradas: dados.entradas.filter((e) => ids.has(e.id)), ligacoes: dados.ligacoes.filter((l) => ids.has(l.entradaId)) };
-  }, [dados, leitura]);
+    if (!leitura && !pais) return dados;
+    const daLeitura = leitura ? new Set(entradasDaLeitura(leitura, dados.entradas).map((e) => e.id)) : null;
+    const entradas = dados.entradas.filter((e) => (!daLeitura || daLeitura.has(e.id)) && (!pais || paisDaEntrada(e) === pais));
+    const ids = new Set(entradas.map((e) => e.id));
+    return { ...dados, entradas, ligacoes: dados.ligacoes.filter((l) => ids.has(l.entradaId)) };
+  }, [dados, leitura, pais]);
+  // Os países com caso (mais casos primeiro), com o nome no idioma da página pelo próprio navegador.
+  const paises = useMemo(() => {
+    const n = new Map<string, number>();
+    for (const e of dados.entradas) n.set(paisDaEntrada(e), (n.get(paisDaEntrada(e)) ?? 0) + 1);
+    return [...n].map(([iso, total]) => ({ iso, total, nome: nomeDoPais(iso, lang) })).sort((a, b) => b.total - a.total || a.nome.localeCompare(b.nome, lang));
+  }, [dados.entradas, lang]);
   const grafo = useMemo(() => montarGrafo(visiveis, dossie), [visiveis, dossie]);
   const entradas = useMemo(() => (dossie ? visiveis.entradas.filter((e) => e.dossie === dossie) : visiveis.entradas), [visiveis, dossie]);
   const lista = useMemo(() => listaTextual(grafo), [grafo]);
@@ -155,6 +177,15 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
     setSelecionado((atual) => (atual && montarGrafo(dados, slug).nos.some((n) => n.chave === atual) ? atual : null));
   }
   const escolherCaso = useCallback((id: string) => setSelecionado(chaveDe("entrada", id)), [setSelecionado]);
+  /** Escolhe o país (ou o mundo, com null): a seleção só continua se o caso ainda está no recorte. */
+  function escolherPais(iso: string | null) {
+    setPais(iso);
+    setSelecionado((atual) => {
+      if (!atual || !iso || !atual.startsWith("entrada:")) return iso ? null : atual;
+      const e = acharEntrada(dados, atual.slice(8));
+      return e && paisDaEntrada(e) === iso ? atual : null;
+    });
+  }
   /**
    * Escolha feita pela lista textual (ou pelo atalho "ver a ficha"): além de escolher, leva a pessoa até a ficha. No
    * celular a ficha fica abaixo do palco e da lista; sem isso parecia que "a ficha não abriu" (NOVAS-TAREFAS, T31 3.2).
@@ -243,12 +274,14 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
   const vazio = dados.entradas.length === 0;
 
   // O banco em números (sempre o banco inteiro, como um painel de investigação): casos, pessoas, organizações, fontes
-  // distintas (pelo link) e estados com caso.
+  // distintas (pelo link), países e estados (do Brasil) com caso.
   const numeros = useMemo(() => {
     const links = new Set<string>();
     const ufs = new Set<string>();
+    const comCaso = new Set<string>();
     for (const e of dados.entradas) {
       for (const f of e.fontes) links.add(f.url);
+      comCaso.add(paisDaEntrada(e));
       if (e.lugar?.pais === "BR" && e.lugar.regiao) ufs.add(e.lugar.regiao);
     }
     return [
@@ -256,6 +289,7 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
       { chave: "pessoas", n: dados.pessoas.length },
       { chave: "organizacoes", n: dados.organizacoes.length },
       { chave: "fontes", n: links.size },
+      { chave: "paises", n: comCaso.size },
       { chave: "lugares", n: ufs.size },
     ] as const;
   }, [dados]);
@@ -286,6 +320,8 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
     aoSelecionarNo: setSelecionado,
     destaque,
     qualidadeBaixa: qualidade === "baixa",
+    pais,
+    idioma: lang,
     textos: {
       carregando: s.visual.carregando,
       mapaEmPreparacao: s.visual.mapa.emPreparacao,
@@ -412,6 +448,22 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
               })}
             </div>
             {dossieAtual && <p className="ve-dossie-desc">{dossieAtual.descricao}</p>}
+            {/* Filtro por país (Prompt 5, C1): só aparece quando há caso de mais de um país. */}
+            {paises.length > 1 && (
+              <label className="ve-filtro-pais">
+                <span className="ve-rotulo">{s.visual.filtroPais}</span>
+                <select value={pais ?? ""} onChange={(e) => escolherPais(e.target.value || null)}>
+                  <option value="">
+                    {s.visual.todosPaises} ({dados.entradas.length})
+                  </option>
+                  {paises.map((p) => (
+                    <option key={p.iso} value={p.iso}>
+                      {p.nome} ({p.total})
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
             <ul className="ve-contagens" aria-label={s.ficha.situacao}>
               {(Object.keys(contagens) as (keyof typeof contagens)[])
                 .filter((k) => contagens[k] > 0)

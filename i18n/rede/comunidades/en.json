@@ -121,7 +121,8 @@
     "entrarNaComunidade": "Join the community to write about the lesson."
   },
   "nucleos": {
-    "titulo": "Study groups and class",
+    "titulo": "Cells and classes",
+    "turmasDeEstudo": "Your study groups (with schedule and meetings)",
     "intro": "The closed space of the study groups you belong to and the monthly class conversation. Only members can see it.",
     "meus": "Your study groups",
     "vazio": "You are not in any study group yet. Entry is by invitation from the group's moderators.",
@@ -155,7 +156,11 @@
     "turmaIntro": "Whoever signed up for the monthly class joins its conversation.",
     "turmaNao": "You are not signed up for this class.",
     "turmaEntrar": "Join the class conversation",
-    "turmaAbrir": "Open the class conversation"
+    "turmaAbrir": "Open the class conversation",
+    "noAparelhoTitulo": "The group lives on its members' devices",
+    "noAparelho": "Who belongs to this group, the mediators, the board and the meetings are kept only on members' devices, encrypted. Alumia's server does not know who is here, who asked to join or who accepted: the request goes encrypted from your device to the mediators.",
+    "entradaPronta": "This group's entry is published and signed by the group's key. The encrypted request leaves this device once the new chat is switched on.",
+    "semEntrada": "Whoever created this group has not published its entry yet."
   },
   "erros": {
     "invalido:slug": "This address is not valid or already in use.",

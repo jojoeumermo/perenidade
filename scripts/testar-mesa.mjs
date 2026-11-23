@@ -31,8 +31,8 @@ conferir("coordenação começa pela segurança; revisão, pelas pendências", d
 const backend = ler("lib", "backend.ts");
 const papeisDoBanco = [...backend.match(/papel: ("[a-z_]+"(?: \| "[a-z_]+")+);/)[1].matchAll(/"([a-z_]+)"/g)].map((m) => m[1]);
 conferir("li os papéis do backend", papeisDoBanco.length >= 15, String(papeisDoBanco.length));
-const semFuncao = papeisDoBanco.filter((p) => !FUNCAO_DO_PAPEL[p] && p !== "representante");
-conferir("todo papel tem Mesa (menos representante, que fica na geral)", semFuncao.length === 0, semFuncao.join(","));
+const semFuncao = papeisDoBanco.filter((p) => !FUNCAO_DO_PAPEL[p] && p !== "representante" && p !== "parceiro");
+conferir("todo papel tem Mesa (menos representante e parceiro do instituto, que ficam na geral)", semFuncao.length === 0, semFuncao.join(","));
 conferir("sem papel cai na geral", funcoesDaPessoa([]).join() === "geral");
 conferir("coordenação e vice na coordenação", funcoesDaPessoa(["vice"])[0] === "coordenacao");
 conferir("design vai para comunicação (B10)", funcoesDaPessoa(["design"])[0] === "comunicacao");

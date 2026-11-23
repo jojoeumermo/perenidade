@@ -26,10 +26,10 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   projects: [
-    { name: "computador", use: { ...devices["Desktop Chrome"], channel: "chrome" }, testIgnore: /aparelho-de-entrada/ },
+    { name: "computador", use: { ...devices["Desktop Chrome"], channel: "chrome" }, testIgnore: /aparelho-de-entrada|vale-o-escrito-lento/ },
     // A fumaça (e2e/fumaca.spec.ts) roda no computador e no Galaxy S24; o Pixel 7 fica com os outros fluxos, para a
     // suíte não rodar três vezes.
-    { name: "celular", use: { ...devices["Pixel 7"], channel: "chrome" }, testIgnore: /visual|fumaca|aparelho-de-entrada/ },
+    { name: "celular", use: { ...devices["Pixel 7"], channel: "chrome" }, testIgnore: /visual|fumaca|aparelho-de-entrada|vale-o-escrito-lento/ },
     // O Galaxy S24 pelo navegador do celular (o visual dentro do aplicativo é o de e2e/s24.spec.ts). Só a fumaça.
     { name: "s24", use: { ...devices["Galaxy S24"], channel: "chrome" }, testMatch: /fumaca\.spec\.ts/ },
     // O celular de entrada (E4-04, R1-89): tela de 360x640, toque, e no próprio teste a CPU 4x mais lenta e a rede 3G lenta
@@ -37,7 +37,8 @@ export default defineConfig({
     {
       name: "entrada",
       use: { viewport: { width: 360, height: 640 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, channel: "chrome", userAgent: devices["Pixel 7"].userAgent },
-      testMatch: /aparelho-de-entrada\.spec\.ts/,
+      // Também o Vale o Escrito no celular fraco (Prompt 5, C2): `npm run testar:vale-o-escrito-lento`.
+      testMatch: /aparelho-de-entrada\.spec\.ts|vale-o-escrito-lento\.spec\.ts/,
     },
   ],
   webServer: process.env.BASE_URL

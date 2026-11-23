@@ -1,0 +1,148 @@
+name: Lançamento dos apps
+
+# Onda R3, item 2.4 (docs/BUILD-REPRODUZIVEL.md). Numa tag de versão (v1.2.3), monta o app do computador nas três plataformas a
+# partir do código público, com o Rust e as dependências fixados, e registra CADA arquivo no Rekor (Sigstore, sem chave guardada:
+# a identidade que assina é este fluxo, nesta tag). Os apps só aceitam atualização assinada por esta identidade
+# (lib/rede/transparencia-apps/identidade.ts e nativo/nucleo/src/identidade.rs: o nome deste arquivo faz parte dela).
+# O lançamento sai como RASCUNHO: a coordenação junta o APK assinado (fluxo do Android) e publica.
+on:
+  push:
+    tags: ["v[0-9]+.[0-9]+.[0-9]+"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: apps-lancamento-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  computador:
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - os: windows-2025
+            alvo: windows-x64
+            pacotes: nsis
+            executavel: alumia.exe
+            instalador: "bundle/nsis/*-setup.exe"
+            final: setup.exe
+          - os: ubuntu-24.04
+            alvo: linux-x64
+            pacotes: appimage
+            executavel: alumia
+            instalador: "bundle/appimage/*.AppImage"
+            final: AppImage
+          - os: macos-15
+            alvo: macos-arm64
+            pacotes: dmg
+            executavel: alumia
+            instalador: "bundle/dmg/*.dmg"
+            final: dmg
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 90
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 24
+      - name: A tag bate com a versão do app
+        shell: bash
+        run: |
+          set -euo pipefail
+          V="${GITHUB_REF_NAME#v}"
+          grep -q "^version = \"$V\"$" desktop/src-tauri/Cargo.toml || { echo "::error::Cargo.toml não está na versão $V"; exit 1; }
+          node -e 'const v=require("./desktop/src-tauri/tauri.conf.json").version; if (v !== process.argv[1]) { console.error("tauri.conf.json em " + v); process.exit(1) }' "$V"
+          echo "V=$V" >> "$GITHUB_ENV"
+      - name: Bibliotecas do sistema (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf
+      - run: npm ci
+      # A casca do chat (o mesmo projeto estático do Android, frente android): casca/saida.
+      - name: Montar a casca do chat
+        run: npm run casca:montar
+      - name: Montar o app (build reproduzível)
+        shell: bash
+        working-directory: desktop/src-tauri
+        run: |
+          set -euo pipefail
+          export SOURCE_DATE_EPOCH="$(git log -1 --format=%ct)"
+          export CARGO_INCREMENTAL=0
+          CARGO_DIR="${CARGO_HOME:-$HOME/.cargo}"
+          export RUSTFLAGS="--remap-path-prefix=$GITHUB_WORKSPACE=/alumia --remap-path-prefix=$CARGO_DIR=/cargo"
+          if [ "$RUNNER_OS" = "Windows" ]; then export RUSTFLAGS="$RUSTFLAGS -C link-arg=/Brepro"; fi
+          npx tauri build --ci --bundles "${{ matrix.pacotes }}" -- --locked
+      - name: Dar os nomes do lançamento
+        shell: bash
+        working-directory: desktop/src-tauri/target/release
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/saida"
+          SUF=""; [ "$RUNNER_OS" = "Windows" ] && SUF=".exe"
+          cp "${{ matrix.executavel }}" "$RUNNER_TEMP/saida/alumia-$V-${{ matrix.alvo }}-executavel$SUF"
+          cp ${{ matrix.instalador }} "$RUNNER_TEMP/saida/alumia-$V-${{ matrix.alvo }}${{ matrix.final == 'setup.exe' && '-setup.exe' || format('.{0}', matrix.final) }}"
+          ls -la "$RUNNER_TEMP/saida"
+          echo "EXECUTAVEL=$RUNNER_TEMP/saida/alumia-$V-${{ matrix.alvo }}-executavel$SUF" >> "$GITHUB_ENV"
+          echo "INSTALADOR=$(ls "$RUNNER_TEMP"/saida/alumia-$V-${{ matrix.alvo }}* | grep -v executavel)" >> "$GITHUB_ENV"
+      # Um atestado POR ARQUIVO (um "subject" só em cada pacote: o verificador Rust confere o primeiro).
+      - name: Registrar o executável no Rekor
+        id: rekor-executavel
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: ${{ env.EXECUTAVEL }}
+      - name: Registrar o instalador no Rekor
+        id: rekor-instalador
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: ${{ env.INSTALADOR }}
+      - name: Guardar os pacotes ao lado e conferir como o app confere
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp "${{ steps.rekor-executavel.outputs.bundle-path }}" "$EXECUTAVEL.sigstore.json"
+          cp "${{ steps.rekor-instalador.outputs.bundle-path }}" "$INSTALADOR.sigstore.json"
+          node scripts/conferir-app.mjs "$EXECUTAVEL" "$EXECUTAVEL.sigstore.json" --versao "$V"
+          node scripts/conferir-app.mjs "$INSTALADOR" "$INSTALADOR.sigstore.json" --versao "$V"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: computador-${{ matrix.alvo }}
+          path: ${{ runner.temp }}/saida/
+          if-no-files-found: error
+
+  rascunho:
+    needs: computador
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 24
+      - run: npm ci
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          path: ${{ runner.temp }}/lancamento
+          merge-multiple: true
+      - name: Lista das versões (só o que confere entra)
+        run: node scripts/apps-versoes.mjs --pasta "$RUNNER_TEMP/lancamento" --versao "${GITHUB_REF_NAME#v}" --saida "$RUNNER_TEMP/lancamento/versoes.json"
+      - name: Lançamento em rascunho
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release create "$GITHUB_REF_NAME" --draft --verify-tag --title "Alumia $GITHUB_REF_NAME" \
+            --notes "Confira cada arquivo antes de instalar: docs/BUILD-REPRODUZIVEL.md e a página /alumia/app." \
+            "$RUNNER_TEMP"/lancamento/*

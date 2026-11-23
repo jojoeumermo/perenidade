@@ -48,6 +48,10 @@ const BASE = ler("supabase", "migracoes", "20261108-escola-formacao-base.sql");
 const MIGRACAO = ler("supabase", "migracoes", "20261108-escola-nucleo.sql");
 const banco = await criarBanco();
 const { rpc, dono, criarUsuario, pg, exclusivo } = banco;
+// Este teste prova o código do núcleo da Escola como ele foi escrito (rodando as migrações dele de novo por cima do banco montado).
+// Desde a R2 (membros escondidos) o banco não guarda quem é de qual núcleo nem aceita núcleo na Escola (o que vale hoje está em
+// scripts/testar-r2-membros-banco.mjs); o que estas migrações pressupõem volta só neste banco de teste (scripts/banco-local.mjs).
+await espera("o legado dos núcleos que a Escola pressupõe (só neste banco de teste)", () => banco.legadoDosNucleos());
 await espera("a migração da F1 instala", () => exclusivo(() => pg.exec(BASE)));
 const instalar = () => exclusivo(() => pg.exec(MIGRACAO));
 await espera("a migração da F4 instala sobre a F1", instalar);

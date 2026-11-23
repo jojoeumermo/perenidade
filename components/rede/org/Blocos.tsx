@@ -5,15 +5,16 @@
 // contas), a plenária (entrar na sala, mandar pergunta, fila em ordem de chegada) e os núcleos (pedir para entrar). Cada um recebe
 // as ações de fora (`AcoesDaOrg`): no perfil de verdade, o banco (lib/rede/cliente-org.ts); no perfil de exemplo, ações que só
 // mudam a tela e não guardam nada.
-import { useEffect, useId, useState } from "react";
+import { useId, useState } from "react";
 import { dataComMes, dataCurta, escreverPessoas, faltaPara, linkSeguro, haQuanto } from "@/lib/rede/org/contagem";
 import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaOrg } from "@/lib/rede/textos-org";
 import { LIMITES, type ConsultaDaOrg, type NucleoDaOrg, type PlenariaDaOrg, type VotacaoDaOrg } from "@/lib/rede/tipos-org";
+import { enderecosCom } from "@/lib/rede/tipos-comunidades";
 import { clienteOrgB1 } from "@/lib/rede/cliente-org-b1";
-import { apurarConsulta } from "@/lib/rede/voto/cliente";
 import { useTextosDaOrgB1 } from "@/lib/rede/textos-org-b1";
-import { Botao } from "../ui/Botao";
+import { Botao, LinkBotao } from "../ui/Botao";
+import { UrnaSecreta } from "../voto/UrnaSecreta";
 import { useAgora, useLerDeNovo } from "./b1/usar";
 import { BarrasDaConsulta, CartaoAoVivo, ListaDeNucleos } from "./partes";
 import "./b1/b1.css";
@@ -22,7 +23,6 @@ import "./b1/b1.css";
 export interface AcoesDaOrg {
   seguir: (sim: boolean) => Promise<{ sigo: boolean }>;
   sino: (sim: boolean) => Promise<{ sino: boolean }>;
-  entrarNoNucleo: (id: string) => Promise<{ sou: boolean; pedi: boolean }>;
   votar: (consulta: string, ranking: string[]) => Promise<unknown>;
   perguntar: (plenaria: string, texto: string, mostrar: boolean) => Promise<{ naFila: number }>;
 }
@@ -39,8 +39,12 @@ function useErro(t: TextosDaOrg) {
   };
 }
 
-/** Uma consulta à base: aberta (votar, se a pessoa é de um núcleo) ou fechada (resultado, votantes e quórum). */
-export function CartaoDaConsulta({ c, t, lang, acoes, aoVerNucleos }: { c: ConsultaDaOrg; t: TextosDaOrg; lang: string; acoes: AcoesDaOrg; aoVerNucleos: () => void }) {
+/**
+ * Uma consulta à base: aberta (votar, se a pessoa é de um núcleo) ou fechada (resultado, votantes e quórum). O voto é secreto em
+ * limiar (R2, item 1.7): a cédula sai cifrada deste aparelho para a chave das guardiãs da gestão, e só K delas juntas abrem, depois
+ * do prazo (o bloco da urna, components/rede/voto/UrnaSecreta.tsx; só no perfil de verdade: `urna`).
+ */
+export function CartaoDaConsulta({ c, t, lang, acoes, aoVerNucleos, urna = false, aoMudar }: { c: ConsultaDaOrg; t: TextosDaOrg; lang: string; acoes: AcoesDaOrg; aoVerNucleos: () => void; urna?: boolean; aoMudar?: () => void }) {
   const tc = t.consulta;
   const id = useId();
   const [escolha, setEscolha] = useState<string>("");
@@ -51,11 +55,6 @@ export function CartaoDaConsulta({ c, t, lang, acoes, aoVerNucleos }: { c: Consu
   const falta = c.situacao === "aberta" ? faltaPara(c.prazo) : null;
   const tempo = falta ? (falta.dias > 0 ? preencher(tc.dias, { d: falta.dias, h: falta.horas }) : preencher(tc.horas, { h: falta.horas })) : "";
   const texto = (oid: string) => c.opcoes.find((o) => o.id === oid)?.texto ?? oid;
-  // Fechada com cédulas cifradas ainda fechadas: pede ao servidor para abrir todas de uma vez (o resultado aparece na próxima
-  // leitura). Qualquer pessoa que veja a consulta pode pedir; abrir de novo não muda nada.
-  useEffect(() => {
-    if (c.situacao === "fechada" && c.apurar) void apurarConsulta(c.id);
-  }, [c.id, c.situacao, c.apurar]);
 
   function mover(i: number, d: -1 | 1) {
     setOrdem((o) => {
@@ -159,14 +158,17 @@ export function CartaoDaConsulta({ c, t, lang, acoes, aoVerNucleos }: { c: Consu
         </form>
       ) : (
         <div className="al-consulta-nota">
+          {/* Onda R3 (decisão do dono): com a consulta aberta e a pessoa sem poder votar (a filiação aos núcleos saiu do servidor), a tela
+              diz por quê e qual é o caminho (a enquete no grupo do núcleo, que não é secreta entre os membros). */}
           <p style={{ margin: 0 }}>
-            {tc.naoPosso} {tc.resultadoDepois}
+            {tc.semVotoAgora} {tc.resultadoDepois}
           </p>
           <Botao variante="contorno" tamanho="p" onClick={aoVerNucleos} style={{ marginTop: 8 }}>
             {tc.verNucleos}
           </Botao>
         </div>
       )}
+      {urna && (c.situacao === "aberta" || c.apurar) ? <UrnaSecreta tipo="consulta" alvo={c.id} lang={lang} fechada={c.situacao === "fechada"} aoMudar={aoMudar} /> : null}
       {erro ? (
         <p className="al-perfil-erro" role="alert">
           {erro}
@@ -372,11 +374,13 @@ export function BlocoDaPlenaria({ p, t, lang, acoes, podePerguntar }: { p: Plena
   );
 }
 
-/** Os núcleos da organização, cada um com o seu botão: Entrar (pede), Pedido enviado, ou Você é daqui. */
-export function NucleosDaOrg({ nucleos, t, acoes, podeEntrar, lang = "pt", gerencio = false }: { nucleos: NucleoDaOrg[]; t: TextosDaOrg; acoes: AcoesDaOrg; podeEntrar: boolean; lang?: string; gerencio?: boolean }) {
+/**
+ * Os núcleos da organização, cada um com o caminho para pedir a entrada. O pedido é feito na página do núcleo, cifrado no aparelho para
+ * a chave da entrada do núcleo (R2): o servidor não sabe quem pediu, quem é do núcleo nem quem aceitou, e não diz "você é daqui".
+ */
+export function NucleosDaOrg({ nucleos, t, podeEntrar, lang = "pt", gerencio = false }: { nucleos: NucleoDaOrg[]; t: TextosDaOrg; acoes?: AcoesDaOrg; podeEntrar: boolean; lang?: string; gerencio?: boolean }) {
   const tn = t.perfil.nucleos;
   const tb = useTextosDaOrgB1(lang);
-  const [estado, setEstado] = useState<Record<string, { sou: boolean; pedi: boolean }>>(() => Object.fromEntries(nucleos.map((n) => [n.id, { sou: n.sou, pedi: n.pedi }])));
   const [mapa, setMapa] = useState<Record<string, boolean>>(() => Object.fromEntries(nucleos.map((n) => [n.id, !!n.mapa])));
   const [ocupado, setOcupado] = useState<string | null>(null);
   const { erro, limpar, falhou } = useErro(t);
@@ -407,37 +411,19 @@ export function NucleosDaOrg({ nucleos, t, acoes, podeEntrar, lang = "pt", geren
   }
   if (nucleos.length === 0) return <p className="al-painel-vazio">{tn.vazio}</p>;
 
-  async function entrar(id: string) {
-    setOcupado(id);
-    limpar();
-    try {
-      const r = await acoes.entrarNoNucleo(id);
-      setEstado((e) => ({ ...e, [id]: r }));
-    } catch (e) {
-      falhou(e);
-    } finally {
-      setOcupado(null);
-    }
-  }
-
   return (
     <>
       <ListaDeNucleos
         nucleos={nucleos}
         rotulo={tn.titulo}
         acao={(id) => {
-          const e = estado[id];
           const n = nucleos.find((x) => x.id === id);
           const nome = n?.nome ?? "";
-          const acao = e?.sou ? (
-            <span className="al-ok">{tn.sou}</span>
-          ) : e?.pedi ? (
-            <span className="al-consulta-nota">{tn.pedido}</span>
-          ) : (
-            <Botao variante="contorno" tamanho="p" disabled={!podeEntrar || ocupado === id} onClick={() => void entrar(id)} aria-label={preencher(tn.entrarNo, { nome })}>
+          const acao = podeEntrar ? (
+            <LinkBotao href={enderecosCom.nucleo(lang, id)} variante="contorno" tamanho="p" aria-label={preencher(tn.entrarNo, { nome })}>
               {tn.entrar}
-            </Botao>
-          );
+            </LinkBotao>
+          ) : null;
           return n ? <span className="b1-nucleo-acoes">{extra(n)}{acao}</span> : acao;
         }}
       />

@@ -85,7 +85,7 @@ export function criarClienteDosAtos(c: Chamar) {
       return { vou_eu: !!r.vou_eu, acesos: proporcaoValida(r.acesos), total: typeof r.total === "number" ? r.total : null };
     },
     /** Chama um ato (o tipo "Ato" do compositor). Devolve o ato como a tela mostra. */
-    publicar: async (d: DadosDoAto, comum: { publico?: string; comunidade?: string | null } = {}) =>
+    publicar: async (d: DadosDoAto, comum: { publico?: string; comunidade?: string | null; chave_envio?: string } = {}) =>
       limparAto(await c<Ato>("rede_ato_publicar", { p: pedidoDoAto(d, comum) })),
     /** Adiar, cancelar ou confirmar de novo (só quem organizou). O aviso "ato_mudou" vai só a quem confirmou. */
     mudar: async (id: string, m: PedidoDeMudanca) =>
@@ -169,7 +169,7 @@ export function chamarDuble(duble = criarDuble()): Chamar {
 export const atos = criarClienteDosAtos(PREVIA_DOS_ATOS ? chamarDuble() : chamar);
 
 /** O pedido do rede_ato_publicar para um ato. O texto do post é o chamado; o nome, a palavra, a data, o ponto e a cidade vão junto. */
-export function pedidoDoAto(d: DadosDoAto, comum: { publico?: string; comunidade?: string | null } = {}) {
+export function pedidoDoAto(d: DadosDoAto, comum: { publico?: string; comunidade?: string | null; chave_envio?: string } = {}) {
   return {
     tipo: d.tipo,
     titulo: d.titulo,
@@ -183,5 +183,7 @@ export function pedidoDoAto(d: DadosDoAto, comum: { publico?: string; comunidade
     ...(d.link_apoio ? { link_apoio: d.link_apoio } : {}),
     publico: comum.publico,
     comunidade: comum.comunidade ?? null,
+    // A chave do envio (lib/backend-envio.ts): vai no cabeçalho, e o banco recusa o mesmo ato chamado duas vezes.
+    ...(comum.chave_envio ? { chave_envio: comum.chave_envio } : {}),
   };
 }

@@ -47,6 +47,8 @@ export async function POST(pedido: Request) {
   }
 
   const codigo = typeof c?.codigo === "string" ? c.codigo.slice(0, 40) : "";
+  // O byte zero não cabe num text do Postgres: o banco recusaria com erro de codificação (e a tela veria 502). Código assim é inválido.
+  if (codigo.includes("\u0000")) return resposta({ ok: false, motivo: "invalido" }, 400);
   // Primeiro como a pessoa (o freio de tentativas e a conferência do código). Se o banco não pode tirar o aplicativo, ele responde
   // "pelo_servidor" sem gastar o código; com a chave de serviço, o servidor termina pela função que só ela chama e tira o aplicativo
   // pelo serviço de contas. Nenhum cabeçalho do pedido decide isso: o cliente põe o cabeçalho que quiser.

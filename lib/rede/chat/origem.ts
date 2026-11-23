@@ -10,6 +10,7 @@
 // Sem "@/": o proxy.ts (borda) usa.
 import { prefsScript } from "../../prefs-script";
 import { scriptDaAparencia } from "../aparencia-da-rede";
+import { chatSoApp } from "../transparencia-apps/recurso";
 
 /** O endereço do chat (NEXT_PUBLIC_CHAT_URL, sem barra no fim). Vazio: o chat fica onde sempre esteve. */
 export const CHAT_URL = (process.env.NEXT_PUBLIC_CHAT_URL ?? "").trim().replace(/\/$/, "");
@@ -33,14 +34,17 @@ export type DecisaoNoChat = { tipo: "reescrever"; destino: string } | { tipo: "s
 
 /**
  * No endereço do chat só abre o chat (e entrar na conta). "/" e "/<idioma>" mostram as conversas; o painel (para onde o entrar
- * leva) volta para as conversas; qualquer outra página vai para o site do instituto.
+ * leva) volta para as conversas; qualquer outra página vai para o site do instituto. A página de baixar e conferir o app
+ * (/<idioma>/alumia/app) também abre aqui; com "alumia-chat-so-app" ligado (onda R3), é ela que "/" e "/<idioma>" mostram: o
+ * endereço do chat vira só a página de baixar e conferir (`soApp` existe para os testes).
  */
-export function rotaNoChat(caminho: string): DecisaoNoChat {
+export function rotaNoChat(caminho: string, soApp: boolean = chatSoApp()): DecisaoNoChat {
   const partes = caminho.split("/").filter(Boolean);
   const lang = IDIOMAS.includes(partes[0] ?? "") ? partes[0] : null;
   const resto = lang ? partes.slice(1) : partes;
   const l = lang ?? "pt";
-  if (resto.length === 0) return { tipo: "reescrever", destino: `/${l}/alumia/conversas` };
+  if (resto.length === 0) return { tipo: "reescrever", destino: soApp ? `/${l}/alumia/app` : `/${l}/alumia/conversas` };
+  if (lang && resto[0] === "alumia" && resto[1] === "app" && resto.length === 2) return { tipo: "seguir" };
   if (lang && resto[0] === "alumia" && resto[1] === "conversas") return { tipo: "seguir" };
   if (lang && resto[0] === "entrar") return { tipo: "seguir" };
   if (resto[0] === "painel" || (resto[0] === "alumia" && resto.length === 1)) return { tipo: "chat", destino: `/${l}` };
@@ -121,8 +125,14 @@ export function politicaDoChat(nonce: string, desenvolvimento = false, scriptsDa
   ].join("; ");
 }
 
-/** Os serviços do site que a tela do chat chama: a entrada (porta), a conta e a impressão da rede (o banimento por rede). */
-export const SERVICOS_DO_CHAT = ["/api/alumia/porta", "/api/alumia/conta", "/api/alumia/impressao"];
+/**
+ * Os serviços do site que a tela do chat chama: a entrada (porta), a conta e a impressão da rede (o banimento por rede); e, desde a
+ * onda R2, o transporte anônimo das caixas (caixa, pedido, diretório e passes, sem a sessão da conta) e a denúncia com prova.
+ */
+export const SERVICOS_DO_CHAT = [
+  "/api/alumia/porta", "/api/alumia/conta", "/api/alumia/impressao",
+  "/api/alumia/caixa", "/api/alumia/pedido", "/api/alumia/diretorio", "/api/alumia/passes", "/api/alumia/franquia",
+];
 
 const EXTENSOES_DA_PAGINA = /\.(?:png|ico|svg|webp|jpe?g|woff2?|css|js|mjs|wasm|webmanifest)$/i;
 

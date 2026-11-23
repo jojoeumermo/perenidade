@@ -1,0 +1,75 @@
+{
+  "titulo": "Conversas",
+  "carregando": "Abrindo…",
+  "trava": {
+    "titulo": "App travado",
+    "texto": "Digite a senha do app para ver as conversas.",
+    "rotulo": "Senha do app",
+    "abrir": "Abrir",
+    "errada": "Senha errada.",
+    "restam": "Senha errada. Restam {n} tentativas antes de tudo ser apagado deste aparelho.",
+    "conferindo": "Conferindo…"
+  },
+  "criar": {
+    "titulo": "Crie a senha do app",
+    "texto": "Ela trava as conversas quando o app fica parado ou vai para o fundo. Não é a senha da conta e não sai deste aparelho. Use pelo menos 6 caracteres.",
+    "rotulo": "Senha do app",
+    "repetir": "Repita a senha",
+    "diferentes": "As duas senhas não são iguais.",
+    "curta": "Use pelo menos 6 caracteres.",
+    "salvar": "Salvar e continuar"
+  },
+  "entrar": {
+    "titulo": "Entrar",
+    "texto": "Entre com a conta da Alumia. O chat roda dentro deste app: nenhum código de chave vem do site.",
+    "email": "E-mail",
+    "senha": "Senha da conta",
+    "botao": "Entrar",
+    "entrando": "Entrando…",
+    "credenciais": "E-mail ou senha errados.",
+    "nao_confirmado": "Confirme o e-mail antes de entrar.",
+    "bloqueado": "Muitas tentativas. Espere {n} minutos.",
+    "falha": "Não deu para entrar agora. Confira a internet e tente de novo.",
+    "codigo": "Código do aplicativo autenticador",
+    "codigoErrado": "Código errado.",
+    "confirmar": "Confirmar",
+    "semFator": "Esta conta ainda não tem o aplicativo autenticador. Cadastre pelo site e volte aqui."
+  },
+  "menu": {
+    "ajustes": "Ajustes do app",
+    "rede": "Abrir a rede social",
+    "travar": "Travar agora",
+    "voltar": "Voltar às conversas"
+  },
+  "ajustes": {
+    "titulo": "Ajustes do app",
+    "disfarce": "Nome e ícone na tela inicial",
+    "disfarceTexto": "Troque para um nome comum. O app continua o mesmo; a troca pode levar alguns segundos para aparecer.",
+    "disfarces": {
+      "padrao": "Instituto Lúcia",
+      "calculadora": "Calculadora",
+      "notas": "Notas"
+    },
+    "trava": "Travar sozinho depois de",
+    "minutos": "{n} min",
+    "apagar": "Apagar tudo depois de senhas erradas",
+    "apagarDesligado": "Desligado",
+    "apagarDepois": "Depois de {n} senhas erradas",
+    "apagarAviso": "Atenção: ligado, quem errar a senha do app esse número de vezes apaga TUDO deste aparelho (conversas, chaves e conta neste app), sem volta. Uma criança ou alguém mexendo no seu celular pode apagar sem querer. Guarde a cópia de segurança do chat antes.",
+    "apagarConfirmar": "Entendi o aviso e quero ligar",
+    "cofre": "Onde as chaves ficam",
+    "cofres": {
+      "strongbox": "No chip de segurança do aparelho (StrongBox).",
+      "tee": "Na área protegida do processador (TEE).",
+      "software": "Só em software: este aparelho não tem cofre de hardware."
+    },
+    "senhaNova": "Trocar a senha do app",
+    "salvo": "Salvo."
+  },
+  "link": {
+    "pergunta": "Abrir este endereço fora do app?",
+    "aviso": "Nenhum link abre sozinho: confira o endereço antes."
+  },
+  "apagado": "Tudo foi apagado deste aparelho.",
+  "sem_webview": "Para abrir as conversas, este aparelho precisa do Android System WebView atualizado (versão 137 ou mais nova). Atualize pela loja de apps do aparelho e abra o app de novo."
+}

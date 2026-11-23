@@ -1,6 +1,6 @@
 {
   "meta": {
-    "titulo": "Vale o Escrito: Brazil's web of power",
+    "titulo": "Vale o Escrito: the world's web of power",
     "descricao": "An observatory of crimes of public interest that already appear in public sources: court records, official investigations, organisation reports or news stories. Every record shows source, date, excerpt and the legal status in writing."
   },
   "emPreparacao": {
@@ -11,7 +11,7 @@
   "entrada": {
     "olho": "Observatory",
     "titulo": "Vale o Escrito",
-    "subtitulo": "Brazil's web of power",
+    "subtitulo": "The world's web of power",
     "linhaHonesta": "This is not our own investigation, a police feed or a court. We gather what is already in public sources, with the link, date and excerpt, and we write the legal status of each case."
   },
   "avisos": {
@@ -70,17 +70,18 @@
     "orbita": "Orbit",
     "grupos": "Groups",
     "fluxo": "Flow",
-    "mapa": "Map of Brazil",
+    "mapa": "World map",
     "linha": "Timeline"
   },
   "zoom": {
+    "mundo": "World",
     "pais": "Country",
     "estado": "State",
     "municipio": "Municipality"
   },
   "mapa": {
     "semWebgl": "This browser cannot draw the map (WebGL is missing). The case list below still works.",
-    "semMalha": "The IBGE boundary files have not been generated on this server yet.",
+    "semMalha": "The map boundary files (Natural Earth and IBGE) have not been generated on this server yet.",
     "voltar": "Back one level",
     "brasil": "Brazil",
     "casos": "{n} cases",
@@ -89,15 +90,17 @@
     "casosAqui": "Cases at this point",
     "abrirFicha": "Open the record",
     "listaDeCasos": "Cases on the map (list for keyboard and screen readers)",
-    "aria": "Map of Brazil with published cases, by state and municipality",
-    "credito": "Territorial boundaries: IBGE. No third-party map, no tracking.",
+    "aria": "World map with the published cases; in Brazil, also by state and municipality",
+    "credito": "Boundaries: Natural Earth (world, public domain) and IBGE (Brazil). No third-party map, no tracking.",
     "nivel": "Map level",
     "aproximado": "approximate location (state centre)",
     "ramos": "Links of the case",
     "reduzirMovimento": "Reduce motion",
     "ativarMovimento": "Turn motion on",
     "fecharRamos": "Close branches",
-    "abrirFonte": "Open the source"
+    "abrirFonte": "Open the source",
+    "mundo": "World",
+    "aproximadoPais": "approximate place (centre of the country)"
   },
   "enviar": {
     "titulo": "Send a source",
@@ -225,8 +228,8 @@
       "titulo": "Orbit around {nome}"
     },
     "mapa": {
-      "emPreparacao": "Map of Brazil in preparation",
-      "texto": "The neon map of Brazil (country, state, municipality) opens here. Meanwhile, the cases by place:",
+      "emPreparacao": "World map in preparation",
+      "texto": "The neon world map (country; in Brazil, state and municipality) opens here. Meanwhile, the cases by place:",
       "semLugar": "No place given"
     },
     "ficha": {
@@ -303,7 +306,9 @@
         "movimentacao_suposta": "alleged movement"
       },
       "dataDaFonte": "no date of its own; source of {data}"
-    }
+    },
+    "filtroPais": "Country",
+    "todosPaises": "All countries"
   },
   "navegacao": {
     "inicio": "Observatory",
@@ -395,7 +400,8 @@
       "pessoas": "public figures",
       "organizacoes": "organisations",
       "fontes": "sources cited",
-      "lugares": "states"
+      "lugares": "states",
+      "paises": "countries"
     },
     "barra": "Legal status of published cases",
     "rodape": "Source, date and excerpt on every record. Living web: each point is a record, each line a sourced link."

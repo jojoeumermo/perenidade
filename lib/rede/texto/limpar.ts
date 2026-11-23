@@ -5,7 +5,7 @@
 // navegador pode ser alterado. As regras são poucas e iguais dos dois lados (o teste compara os dois com as mesmas entradas):
 //   1. tira caracteres de controle e os que invertem a direção do texto (U+202A–U+202E, U+2066–U+2069: o truque de esconder
 //      código dentro de um bloco de código); quebra de linha do Windows vira "\n";
-//   2. imagem só do próprio post: "![descrição](imagem:1)" a "(imagem:4)" (as imagens que a pessoa anexou, que passaram pela
+//   2. imagem só do próprio post: "![descrição](imagem:1)" a "(imagem:20)" (as imagens que a pessoa anexou, que passaram pela
 //      limpeza de metadados do servidor). Imagem de qualquer outro endereço vira só a descrição: nada de fora é carregado;
 //   3. link só para http(s) ou para um caminho do próprio site ("/alumia/…"); o resto ("javascript:", "data:", "//outro") vira "#".
 // HTML nunca é interpretado (a tela desenha só os nós conhecidos, lib/rede/texto/desenhar.ts); a fórmula passa pelo KaTeX sem
@@ -17,9 +17,9 @@ export const MAXIMO_DO_TEXTO = 20_000;
 // Controle (menos tabulação e quebra de linha), DEL e os marcadores de direção. Igual ao do banco.
 const CONTROLE = /[\u0001-\u0008\u000B\u000C\u000E-\u001F\u007F\u202A-\u202E\u2066-\u2069]/g;
 // Imagem que não é do próprio post: fica só a descrição.
-const IMAGEM_DE_FORA = /!\[([^\]\n]{0,255})\]\((?!imagem:[1-4]\))(?:[^()\n]|\([^()\n]*\))*\)/g;
+const IMAGEM_DE_FORA = /!\[([^\]\n]{0,255})\]\((?!imagem:(?:[1-9]|1[0-9]|20)\))(?:[^()\n]|\([^()\n]*\))*\)/g;
 // Destino de link que não é http(s) nem caminho do site: vira "#".
-const DESTINO_RUIM = /\]\(\s*(?!https?:\/\/[^\s()/@\\]+(?:[/?#](?:[^\s()\\]|\([^\s()\\]*\))*)?\)|\/(?![/\\])(?:[^\s()\\]|\([^\s()\\]*\))*\)|imagem:[1-4]\)|#\))(?:[^()\n]|\([^()\n]*\))*\)/gi;
+const DESTINO_RUIM = /\]\(\s*(?!https?:\/\/[^\s()/@\\]+(?:[/?#](?:[^\s()\\]|\([^\s()\\]*\))*)?\)|\/(?![/\\])(?:[^\s()\\]|\([^\s()\\]*\))*\)|imagem:(?:[1-9]|1[0-9]|20)\)|#\))(?:[^()\n]|\([^()\n]*\))*\)/gi;
 
 /** O texto como o banco vai guardar (a mesma regra de interno.rede_texto_limpo). */
 export function limparFonte(texto: string): string {

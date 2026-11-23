@@ -1,0 +1,52 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * A segurança pessoal da Alumia (Prompt 4, itens 10 a 12; /alumia/seguranca-pessoal). Linguagem do Mosaico da Arquibancada, só com
+ * os tokens de styles/alumia-tokens.css (escuro, claro, contraste e e-ink). Todo alvo de toque tem 44 px no mínimo; nada se mexe
+ * com movimento reduzido.
+ */
+
+.sp-pagina { container-type: inline-size; padding: 1.5rem 1rem 3.5rem; color: var(--al-texto); max-width: 52rem; }
+@media (min-width: 1024px) { .sp-pagina { padding: 1.9rem 1.5rem 4rem; } }
+
+.sp-cabeca { position: relative; margin-bottom: 1.5rem; padding-bottom: 1.4rem; }
+.sp-cabeca::after { content: ""; position: absolute; inset: auto 0 0; height: var(--al-faixa-altura, 6px); background: var(--al-faixa); border-radius: 2px; }
+.sp-cabeca h1 { margin: 0; font-size: clamp(2.2rem, 7cqi, 3.6rem); color: var(--al-texto); text-wrap: balance; }
+.sp-chamada { margin: 0.9rem 0 0; color: var(--al-texto-2); font-size: 1.04rem; line-height: 1.55; }
+.sp-limite { margin: 0.8rem 0 0; padding: 0.6rem 0.85rem; border-left: 4px solid var(--al-dourado); border-radius: 8px; background: var(--al-superficie); color: var(--al-texto); font-size: 0.92rem; line-height: 1.5; }
+
+.sp-bloco { margin: 0 0 2rem; padding: 1.1rem 1rem 1.2rem; border: 1px solid var(--al-linha); border-radius: 14px; background: var(--al-fundo); }
+.sp-bloco h2 { margin: 0 0 0.5rem; font-size: 1.6rem; color: var(--al-texto); }
+.sp-texto { margin: 0 0 0.85rem; color: var(--al-texto-2); font-size: 0.97rem; line-height: 1.6; }
+.sp-nota { margin: 0.4rem 0 0; color: var(--al-texto-3); font-size: 0.86rem; line-height: 1.45; overflow-wrap: anywhere; }
+.sp-erro { margin: 0.6rem 0 0; padding: 0.55rem 0.8rem; border-radius: 8px; border-left: 4px solid var(--al-vermelho); background: var(--al-superficie); color: var(--al-texto); font-size: 0.92rem; }
+.sp-ok { margin: 0.6rem 0 0; color: var(--al-texto-2); font-size: 0.92rem; }
+
+.sp-form { display: grid; gap: 0.85rem; }
+.sp-campo { display: grid; gap: 0.3rem; min-width: 0; }
+.sp-campo > span { color: var(--al-texto); font-size: 0.9rem; font-weight: 700; }
+.sp-campo input:not([type="checkbox"]):not([type="radio"]), .sp-campo select, .sp-campo textarea {
+  width: 100%; min-height: 44px; padding: 0.55rem 0.75rem; border-radius: 10px; border: 1.5px solid var(--al-linha);
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-size: 1rem;
+}
+.sp-campo textarea { min-height: 6.5rem; resize: vertical; line-height: 1.5; }
+.sp-campo input:focus-visible, .sp-campo select:focus-visible, .sp-campo textarea:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 1px; border-color: transparent; }
+.sp-marcar { display: flex; align-items: center; gap: 0.6rem; min-height: 44px; color: var(--al-texto); font-size: 0.95rem; cursor: pointer; }
+.sp-marcar input { width: 1.25rem; height: 1.25rem; accent-color: var(--al-vermelho); flex: none; }
+.sp-opcoes { display: grid; gap: 0.1rem; border: 0; margin: 0; padding: 0; min-width: 0; }
+.sp-opcoes legend { padding: 0; margin-bottom: 0.3rem; color: var(--al-texto); font-size: 0.9rem; font-weight: 700; }
+.sp-arquivo { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 1rem; border-radius: 10px; border: 1.5px dashed var(--al-linha); color: var(--al-texto); font-weight: 700; cursor: pointer; }
+.sp-arquivo:focus-within { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+.sp-arquivo input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.sp-acoes { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.3rem; }
+
+.sp-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
+.sp-item { padding: 0.8rem 0.9rem; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-linha); min-width: 0; }
+.sp-item h3 { margin: 0; font-size: 1.15rem; color: var(--al-texto); }
+.sp-ficha { display: grid; grid-template-columns: minmax(0, 9rem) minmax(0, 1fr); gap: 0.3rem 0.8rem; margin: 0.6rem 0 0; font-size: 0.92rem; }
+.sp-ficha dt { color: var(--al-texto-3); }
+.sp-ficha dd { margin: 0; color: var(--al-texto); overflow-wrap: anywhere; }
+@container (max-width: 420px) { .sp-ficha { grid-template-columns: minmax(0, 1fr); } .sp-ficha dd { margin-bottom: 0.3rem; } }
+.sp-midia { display: block; max-width: 100%; max-height: 22rem; margin-top: 0.7rem; border-radius: 10px; }
+.sp-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--al-texto); font-weight: 600; text-decoration: underline; text-decoration-color: var(--al-dourado); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) { .sp-pagina * { transition: none !important; animation: none !important; } }

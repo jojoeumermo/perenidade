@@ -13,13 +13,12 @@ interface Nucleo {
   uf: string;
   acompanha: string;
   aberto: boolean;
-  pessoas: number;
 }
 
 /**
  * Núcleos fechados da Rede: abre o espaço da Rede de um núcleo de estudo ativo (public.rede_com_nucleo_abrir, coordenação ou
- * quem acompanha o núcleo). Quem acompanha vira a mediação do espaço, que só quem é do núcleo enxerga. A lista vem de
- * public.rede_nucleos_fechados_listar: mostra só quantas pessoas há, nunca quem são.
+ * quem acompanha o núcleo). Desde a R2 (membros escondidos), o servidor não sabe quem é de qual núcleo nem quantas pessoas há:
+ * quem acompanha cria o grupo no aparelho e publica a entrada. A lista (public.rede_nucleos_fechados_listar) não traz número nenhum.
  */
 export function NucleosFechados() {
   const lista = useLista<Nucleo[]>("rede_nucleos_fechados_listar", {}, { quieta: true });
@@ -43,7 +42,7 @@ export function NucleosFechados() {
   async function abrir(n: Nucleo) {
     const certo = await confirmar({
       titulo: `Abrir o espaço fechado de "${n.nome}"?`,
-      texto: n.acompanha ? `${n.acompanha}, que acompanha o núcleo, passa a ser a mediação do espaço, se já tiver conta na Rede.` : "O núcleo não tem quem acompanhe: a coordenação cuida do espaço até alguém assumir.",
+      texto: n.acompanha ? `Abre o espaço do núcleo na Rede. ${n.acompanha}, que acompanha o núcleo, cria o grupo no próprio aparelho e publica a entrada; o servidor não guarda quem é do núcleo.` : "O núcleo não tem quem acompanhe: a coordenação cuida do espaço até alguém assumir.",
       confirmar: "Abrir espaço",
     });
     if (certo) await executar("rede_com_nucleo_abrir", { p_nucleo: n.nucleo }, "Espaço do núcleo aberto na Rede.");
@@ -52,7 +51,7 @@ export function NucleosFechados() {
     { accessorKey: "nome", header: "Núcleo" },
     { id: "lugar", header: "Cidade", accessorFn: (n) => `${n.cidade} (${n.uf})` },
     { accessorKey: "acompanha", header: "Acompanha", cell: ({ getValue }) => String(getValue() || "ninguém") },
-    { id: "situacao", header: "Espaço na Rede", accessorFn: (n) => (n.aberto ? `Aberto · ${n.pessoas} ${n.pessoas === 1 ? "pessoa" : "pessoas"}` : "Ainda fechado") },
+    { id: "situacao", header: "Espaço na Rede", accessorFn: (n) => (n.aberto ? "Aberto" : "Ainda fechado") },
     {
       id: "acoes",
       header: () => <span className="sr-only">Ações</span>,

@@ -1,0 +1,64 @@
+{
+  "obra": "o-estado-e-a-revolucao",
+  "titulo": "O Estado e a Revolução",
+  "revisao": "em-revisao",
+  "apresentacao": "Leia uma parte por vez, na edição indicada na ficha do Acervo, e responda com as suas palavras. Não há resposta certa para decorar: as perguntas ajudam a entender o texto e a discutir em grupo.",
+  "secoes": [
+    {
+      "id": "sociedade-de-classes-e-estado",
+      "titulo": "Capítulo I. A sociedade de classes e o Estado",
+      "referencia": "O primeiro capítulo: o Estado como fruto das contradições de classe, as forças armadas e a ideia de extinção do Estado em Engels.",
+      "perguntas": [
+        "Para Lenin, por que o Estado existe?",
+        "Que exemplos de hoje você daria para o que o capítulo diz sobre forças armadas e prisões?",
+        "O que é a extinção do Estado, segundo o capítulo?"
+      ]
+    },
+    {
+      "id": "1848-1851",
+      "titulo": "Capítulo II. A experiência de 1848 a 1851",
+      "referencia": "O segundo capítulo: o que Marx tirou das revoluções de 1848 na França e a ideia de que a máquina do Estado precisa ser quebrada, e não só tomada.",
+      "perguntas": [
+        "O que muda entre tomar a máquina do Estado e quebrá-la?",
+        "Por que Lenin volta a textos escritos mais de sessenta anos antes?"
+      ]
+    },
+    {
+      "id": "a-comuna",
+      "titulo": "Capítulos III e IV. A Comuna de Paris",
+      "referencia": "Os capítulos sobre a Comuna de Paris de 1871: como os trabalhadores organizaram o poder, a revogabilidade dos eleitos, o salário dos funcionários igual ao de um operário, e os comentários de Engels.",
+      "perguntas": [
+        "Cite duas medidas da Comuna que Lenin destaca. O que elas tinham de diferente de um governo comum?",
+        "Por que a revogabilidade dos eleitos aparece como algo tão importante?",
+        "Que pergunta você faria a quem viveu a Comuna?"
+      ]
+    },
+    {
+      "id": "base-economica",
+      "titulo": "Capítulo V. As bases econômicas da extinção do Estado",
+      "referencia": "O quinto capítulo: as fases da sociedade comunista e o que cada uma pede, a partir da Crítica do Programa de Gotha.",
+      "perguntas": [
+        "Quais são as duas fases de que o capítulo fala? O que muda de uma para a outra?",
+        "Por que, segundo o capítulo, o Estado não some de um dia para o outro?"
+      ]
+    },
+    {
+      "id": "oportunismo",
+      "titulo": "Capítulo VI e o posfácio",
+      "referencia": "O sexto capítulo, sobre como outros socialistas da época leram Marx, e o posfácio em que Lenin conta por que o livro ficou sem o capítulo final.",
+      "perguntas": [
+        "Que crítica Lenin faz a outros socialistas do seu tempo?",
+        "O posfácio explica por que o livro ficou inacabado. O que isso diz sobre o momento em que ele foi escrito?"
+      ]
+    },
+    {
+      "id": "para-conversar",
+      "titulo": "Para conversar",
+      "referencia": "O texto inteiro, depois da leitura.",
+      "perguntas": [
+        "O que deste livro ajuda a entender o Estado brasileiro de hoje? O que não ajuda?",
+        "Que pergunta você levaria para discutir em grupo?"
+      ]
+    }
+  ]
+}

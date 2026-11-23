@@ -4,6 +4,7 @@
 // i18n/rede/meusdados/{pt,en,es,fr,ru,zh}.json. O português é o final; os outros cinco são rascunho marcado. Carrega só o idioma
 // pedido, sob demanda. Sem "@/" de propósito (o servidor do arquivo e os testes também leem daqui).
 import type pt from "../../../i18n/rede/meusdados/pt.json";
+import { carregarPronto } from "../textos-prontos";
 
 export type TextosDeMeusDados = typeof pt;
 
@@ -21,8 +22,7 @@ export const IDIOMAS_DE_MEUS_DADOS = Object.keys(CARREGAR);
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export async function carregarTextosDeMeusDados(lang: string): Promise<TextosDeMeusDados> {
-  const carregar = CARREGAR[lang] ?? CARREGAR.pt;
-  return (await carregar()).default as TextosDeMeusDados;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDeMeusDados;
 }
 
 /** Troca {nome} pelo valor (o mesmo jeito dos outros textos da Alumia). */

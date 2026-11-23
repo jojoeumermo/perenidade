@@ -4,6 +4,8 @@
 import Link from "@/components/Link";
 import { localePath, type Locale } from "@/i18n/config";
 import type { TextosDaFormacaoBase } from "@/i18n/escola/formacao-base";
+import { inicioDoSite } from "@/lib/escola/endereco";
+import { site } from "@/lib/site";
 import { FaixaDeCores } from "../casca/FaixaDeCores";
 
 /**
@@ -18,9 +20,9 @@ export function PortaPublica({ lang, t, caminho, children }: { lang: Locale; t: 
     <div className="ef-porta ef-porta-publica" data-escola-formacao="" data-porta-da-escola="publica">
       <FaixaDeCores />
       <header className="ef-porta-cabeca">
-        <Link href={localePath(lang, "/")} className="ef-porta-instituto">
+        <a href={inicioDoSite(lang, site.url)} className="ef-porta-instituto">
           {t.instituto}
-        </Link>
+        </a>
         <span aria-hidden className="ef-porta-barra">
           /
         </span>

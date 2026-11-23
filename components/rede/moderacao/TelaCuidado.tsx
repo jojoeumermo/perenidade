@@ -8,6 +8,7 @@ import { redeMod } from "@/lib/rede/cliente-moderacao";
 import { preencher } from "@/lib/rede/preencher";
 import { enderecosModeracao, type MeuNivel, type RegraDeNivel } from "@/lib/rede/tipos-moderacao";
 import { useTextosMod } from "./base";
+import { SalasDeCuidado } from "../conta/SalasDeCuidado";
 
 /** O que falta para o próximo nível, em texto corrido. */
 function faltam(m: MeuNivel, sm: NonNullable<ReturnType<typeof useTextosMod>>): string | null {
@@ -115,6 +116,8 @@ export default function TelaCuidado({ lang, s, situacao }: PropsDaTelaDoPacote) 
             </div>
           )}
         </section>
+        {/* Prompt 4, item 105 (lote "conta", atrás de alumia-p4-conta): o CVV, os serviços públicos e as salas de cuidado entre pares. */}
+        <SalasDeCuidado lang={lang} logado={situacao.logado} />
         {situacao.logado && <Link href={enderecosModeracao.denuncias(lang)} className="inline-block min-h-11 py-2 font-bold underline">{c.verDenuncias}</Link>}
       </div>
     </div>

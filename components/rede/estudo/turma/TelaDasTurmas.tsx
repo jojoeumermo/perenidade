@@ -13,6 +13,7 @@ import { criarTextos, encher, Ladrilhos, Nota, textoDoErro } from "./comum";
 import { codigoDoTexto, COMBINADOS_DE_EXEMPLO, diaEMes, enderecoDoConvite, fileiraDeSemanas, LIMITES_DA_TURMA, type Turma } from "./regras";
 import { carregarTextosDaTurma, type TextosDaTurma } from "./textos";
 import "./estudo.css";
+import { PorQueSemNumero } from "../../uso/PorQueSemNumero";
 
 type T = TextosDaTurma;
 const useTextosDaTurma = criarTextos(carregarTextosDaTurma);
@@ -148,7 +149,10 @@ function CartaoDaTurma({ t, lang, turma, aoMudar, aoSair, avisar }: {
         {turma.cuida && <span className="es-carimbo">{t.turma.cuida}</span>}
       </div>
       <h3 id={`${id}-nome`} className="es-cartao-titulo al-cond">{turma.nome}</h3>
-      <p className="es-pessoas">{turma.pessoas !== null ? encher(t.turma.pessoas, { n: turma.pessoas }) : t.turma.poucasPessoas}</p>
+      <p className="es-pessoas">
+        {turma.pessoas !== null ? encher(t.turma.pessoas, { n: turma.pessoas }) : t.turma.poucasPessoas}
+        {turma.pessoas === null ? <PorQueSemNumero lang={lang} motivo="piso" /> : null}
+      </p>
 
       <div className="es-combinado">
         <p className="es-rotulo al-cond">{t.turma.combinado}</p>
@@ -161,6 +165,7 @@ function CartaoDaTurma({ t, lang, turma, aoMudar, aoSair, avisar }: {
           <p className="es-total" aria-live="polite">
             {turma.total !== null && <span className="es-total-n al-cond" data-al-numero>{turma.total}</span>}
             <span>{totalTexto}</span>
+            {turma.total === null ? <PorQueSemNumero lang={lang} motivo="ambos" /> : null}
           </p>
         </div>
         <Botao

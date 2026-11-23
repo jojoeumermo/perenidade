@@ -232,17 +232,16 @@ await dono("insert into interno.rede_posts (autor, texto, resposta_a, tipo, publ
 await recusa("com resposta de outra pessoa não se desfaz (apagaria a dela)", () => desfazer("autora", comResposta.id), "sem_permissao");
 
 // ═══════════════════ Emblemas ═══════════════════
+// Os emblemas da F1 contavam as conversas a dois do beta (tabela que a R2 tirou; desde a R2 a lista de conversas fica no aparelho): o
+// install.sql inteiro de novo por cima devolve as definições finais, as que o banco de produção tem, e os emblemas são provados nelas.
+await espera("o install.sql inteiro de novo por cima (as definições finais dos emblemas voltam)", () => banco.instalarDeNovo());
 await zerar();
 const emblemas = (quem) => rpc(como(p[quem]), "rede_alumia_emblemas");
 await recusa("visitante não chama os emblemas", () => rpc(visitante(), "rede_alumia_emblemas"), "permission denied");
 await espera("sem consentimento: tudo zero", () => emblemas("semconsent"), (e) => e.avisos === 0 && e.conversas === 0 && e.atos === 0);
-await espera("emblemas trazem só números da própria pessoa", () => emblemas("autora"), (e) => Object.keys(e).sort().join() === "atos,avisos,conversas" && Object.values(e).every((n) => Number.isInteger(n) && n >= 0));
+await espera("emblemas trazem só números da própria pessoa", () => emblemas("autora"), (e) => Object.keys(e).sort().join() === "atos,avisos,conversas,seguranca" && Object.values(e).every((n) => Number.isInteger(n) && n >= 0));
 await espera("avisos: a mesma conta do rede_aviso_contar", async () => [(await emblemas("autora")).avisos, await rpc(como(p.autora), "rede_aviso_contar")], ([a, b]) => a === b);
-await espera("conversas: um pedido esperando conta 1 para quem recebeu e 0 para quem pediu", async () => {
-  const [a, b] = [p.autora, p.membro].sort();
-  await dono("insert into interno.rede_dm_conversas (a, b, pediu) values ($1, $2, $3)", [a, b, p.membro]);
-  return [(await emblemas("autora")).conversas, (await emblemas("membro")).conversas];
-}, ([recebeu, pediu]) => recebeu === 1 && pediu === 0);
+await espera("conversas: o servidor não conta conversas (desde a R2 a lista fica no aparelho): 0 para todas", async () => [(await emblemas("autora")).conversas, (await emblemas("membro")).conversas, await dono("select to_regclass('interno.rede_dm_conversas') as t").then((r) => r.rows[0].t)], ([a, b, t]) => a === 0 && b === 0 && t === null);
 await espera("atos: o chamado que confirmei e ainda vai acontecer conta; o passado não", async () => {
   const futuro = await um("insert into interno.rede_posts (autor, texto, chamado) values ($1, 'ato', $2) returning id", [p.autora, JSON.stringify({ quando: new Date(Date.now() + 86400000).toISOString(), onde: "praça" })]);
   const passado = await um("insert into interno.rede_posts (autor, texto, chamado) values ($1, 'ato velho', $2) returning id", [p.autora, JSON.stringify({ quando: "2020-01-01T10:00:00Z", onde: "praça" })]);

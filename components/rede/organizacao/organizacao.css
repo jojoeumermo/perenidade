@@ -1,0 +1,82 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Organizar (/alumia/organizar),
+ * Prompt 4. Só usa os tokens de styles/alumia-tokens.css (vale no escuro, no claro, no contraste e no e-ink). Uma coluna no celular,
+ * sem rolar para o lado; alvos de toque de 44 px; sem animação com movimento reduzido.
+ */
+
+.or-pagina { container-type: inline-size; display: grid; gap: 1.25rem; padding: 1.25rem 16px 3rem; color: var(--al-texto); min-width: 0; }
+@media (min-width: 1024px) { .or-pagina { padding: 1.75rem 1.5rem 3.5rem; } }
+
+.or-cabeca { display: grid; gap: 0.6rem; justify-items: start; }
+.or-faixa { width: 7.5rem; border-radius: 2px; }
+.or-titulo { margin: 0; font-size: clamp(2.2rem, 6cqi, 3.6rem); line-height: 0.95; }
+.or-chamada { margin: 0; max-width: 68ch; color: var(--al-texto-2); font-size: 1.04rem; line-height: 1.5; }
+
+.or-abas { display: flex; flex-wrap: wrap; gap: 0.4rem; border-bottom: 1px solid var(--al-linha); padding-bottom: 0.5rem; }
+.or-aba {
+  min-height: 44px; min-width: 44px; padding: 0.5rem 0.9rem; border: 1px solid var(--al-linha); border-radius: 999px; background: transparent;
+  color: var(--al-texto-2); font: inherit; font-weight: 700; cursor: pointer;
+}
+.or-aba[aria-selected="true"] { border-color: var(--al-dourado); background: var(--al-superficie); color: var(--al-texto); }
+.or-aba:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+
+.or-bloco { display: grid; gap: 0.85rem; min-width: 0; }
+.or-subtitulo { margin: 0; font-size: 1.4rem; letter-spacing: 0.02em; line-height: 1.1; }
+.or-miudo { margin: 0; color: var(--al-texto-3); font-size: 0.92rem; line-height: 1.5; overflow-wrap: anywhere; }
+.or-erro { margin: 0; padding: 0.55rem 0.8rem; border-radius: 8px; border-left: 4px solid var(--al-vermelho); background: var(--al-superficie); color: var(--al-texto); font-size: 0.94rem; }
+.or-ok { margin: 0; color: var(--al-texto-2); font-size: 0.94rem; }
+.or-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+
+.or-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; min-width: 0; }
+.or-cartao { display: grid; gap: 0.45rem; padding: 0.9rem 1rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); min-width: 0; }
+.or-cartao h3 { margin: 0; font-size: 1.12rem; line-height: 1.25; overflow-wrap: anywhere; }
+.or-cartao p { margin: 0; line-height: 1.5; overflow-wrap: anywhere; }
+.or-etiqueta { display: inline-flex; align-items: center; gap: 0.35rem; margin: 0; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--al-texto-3); }
+
+/* A linha do tempo da campanha: um fio à esquerda e um ponto por item. */
+.or-linha { list-style: none; margin: 0; padding: 0 0 0 1.1rem; border-left: 2px solid var(--al-linha); display: grid; gap: 0.9rem; min-width: 0; }
+.or-linha > li { position: relative; display: grid; gap: 0.3rem; min-width: 0; }
+.or-linha > li::before { content: ""; position: absolute; left: calc(-1.1rem - 7px); top: 0.35rem; width: 12px; height: 12px; border-radius: 50%; background: var(--al-dourado); }
+.or-linha > li[data-tipo="vitoria"]::before { background: var(--al-vermelho); }
+
+.or-form { display: grid; gap: 0.7rem; padding: 0.9rem 1rem; border: 1px dashed var(--al-linha); border-radius: var(--al-raio); min-width: 0; }
+.or-form label, .or-form fieldset { display: grid; gap: 0.3rem; font-weight: 700; font-size: 0.95rem; color: var(--al-texto-2); min-width: 0; }
+.or-form fieldset { margin: 0; padding: 0; border: 0; }
+.or-form legend { padding: 0; margin-bottom: 0.3rem; }
+.or-form input[type="text"], .or-form input[type="url"], .or-form input[type="date"], .or-form textarea, .or-form select {
+  min-height: 44px; width: 100%; max-width: 100%; box-sizing: border-box; padding: 0.5rem 0.7rem; border: 1px solid var(--al-linha); border-radius: 8px;
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-weight: 400;
+}
+.or-form textarea { min-height: 6rem; resize: vertical; }
+.or-opcao { display: flex !important; gap: 0.6rem; align-items: center; min-height: 44px; font-weight: 400 !important; color: var(--al-texto) !important; cursor: pointer; }
+.or-opcao input { width: 22px; height: 22px; flex: none; }
+.or-pagina .al-botao, .or-quadro .al-botao, .or-pagina a.or-link { min-height: 44px; min-width: 44px; }
+.or-pagina a.or-link { display: inline-flex; align-items: center; color: var(--al-texto); text-decoration: underline; text-underline-offset: 3px; }
+
+.or-sub { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.or-sub .or-aba { font-weight: 600; font-size: 0.95rem; }
+.or-escolha { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: end; }
+.or-escolha label { display: grid; gap: 0.3rem; font-weight: 700; font-size: 0.95rem; color: var(--al-texto-2); min-width: 0; max-width: 100%; }
+.or-escolha select { min-height: 44px; max-width: 100%; padding: 0.5rem 0.7rem; border: 1px solid var(--al-linha); border-radius: 8px; background: var(--al-fundo); color: var(--al-texto); font: inherit; }
+.or-colunas { display: grid; gap: 0.75rem; grid-template-columns: 1fr; min-width: 0; }
+@container (min-width: 760px) { .or-colunas { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.or-coluna { display: grid; align-content: start; gap: 0.6rem; min-width: 0; }
+.or-coluna > h3 { margin: 0; font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--al-texto-3); }
+.or-barra { height: 10px; border-radius: 999px; background: var(--al-linha); overflow: hidden; }
+.or-barra > span { display: block; height: 100%; background: var(--al-dourado); }
+.or-numero { font-variant-numeric: tabular-nums; font-weight: 700; }
+.or-mapa { width: 100%; max-width: 520px; height: auto; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-fundo); }
+.or-mapa polyline { fill: none; stroke: var(--al-vermelho); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+.or-mapa circle { fill: var(--al-dourado); }
+.or-mapa text { fill: var(--al-texto); font-size: 11px; }
+.or-form input[type="number"], .or-form input[type="time"], .or-form input[type="datetime-local"], .or-form input[type="file"] {
+  min-height: 44px; width: 100%; max-width: 100%; box-sizing: border-box; padding: 0.5rem 0.7rem; border: 1px solid var(--al-linha); border-radius: 8px;
+  background: var(--al-fundo); color: var(--al-texto); font: inherit; font-weight: 400;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .or-pagina * { transition: none !important; animation: none !important; }
+}
+.or-cartao-titulo { margin: 0; font-size: 1.05rem; line-height: 1.25; overflow-wrap: anywhere; }
+.or-form .or-opcao, .or-opcao { min-width: 44px; }

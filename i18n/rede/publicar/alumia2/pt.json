@@ -11,9 +11,9 @@
     "explorar": "Explorar",
     "atos": "Atos",
     "comunidades": "Comunidades",
-    "nucleos": "Núcleos",
-    "avisos": "Avisos",
-    "avisosNovos": "Avisos, {n} novos",
+    "nucleos": "Núcleos e turmas",
+    "avisos": "Notificações",
+    "avisosNovos": "Notificações, {n} novas",
     "emblema": "{n} com novidade",
     "conversas": "Conversas",
     "salvos": "Salvos",
@@ -30,7 +30,10 @@
     "fechar": "Fechar",
     "organizacoes": "Organizações",
     "calendario": "Calendário",
-    "aqui": "você está aqui"
+    "aqui": "você está aqui",
+    "moderacao": "Moderação",
+    "maisMostrar": "Mostrar mais itens",
+    "maisEsconder": "Esconder os itens a mais"
   },
   "conta": {
     "rotulo": "Sua conta",
@@ -38,7 +41,7 @@
     "visitante": "Visitante",
     "entrar": "Entrar na Alumia",
     "sairRapido": "Sair rápido",
-    "sairRapidoAjuda": "Sai da conta neste aparelho, apaga o que a Alumia guardou aqui, inclusive as chaves do chat privado e dos grupos, e abre uma página comum de fora (a previsão do tempo), sem nada do Instituto.",
+    "sairRapidoAjuda": "Sai da conta neste aparelho, apaga o que a Alumia guardou aqui, inclusive as chaves do chat privado e dos grupos, e abre uma página comum de fora (a previsão do tempo), sem nada do Instituto. O histórico do chat some deste aparelho e não volta: ainda não há cópia de segurança.",
     "sairDaConta": "Sair da conta",
     "voltarAoSite": "Voltar ao site",
     "cuidados": "Cuidados",
@@ -53,7 +56,23 @@
     "verPerfil": "Ver seu perfil",
     "aparencia": "Aparência e leitura",
     "series": "Posts que se repetem",
-    "temas": "Temas que sigo"
+    "temas": "Temas que sigo",
+    "linhaDoTempo": "Linha do tempo"
+  },
+  "seguranca": {
+    "titulo": "Segurança",
+    "abrir": "Abrir o painel de Segurança",
+    "intro": "Tudo o que protege você na Alumia, num lugar só.",
+    "conta": "Senha, autenticador e pânico",
+    "aparelhos": "Aparelhos conectados",
+    "silenciados": "Silenciados",
+    "denuncias": "Minhas denúncias",
+    "regras": "Regras e cuidado",
+    "termos": "Termos de uso",
+    "fediverso": "Privacidade no Fediverso",
+    "guardamos": "O que a Alumia guarda",
+    "minhaConta": "Minha conta e meus dados",
+    "fechar": "Fechar"
   },
   "linha": {
     "titulo": "Início",
@@ -67,6 +86,10 @@
     "novosUm": "post novo",
     "novosOutros": "posts novos",
     "mostrarNovos": "Mostrar {n} posts novos",
+    "aCaminho": "Enviando…",
+    "aCaminhoNota": "Aparece para os outros quando o envio terminar.",
+    "aCaminhoImagem": "+ {n} imagem",
+    "aCaminhoImagens": "+ {n} imagens",
     "erroTitulo": "A linha não carregou",
     "fimTitulo": "Você viu tudo",
     "fimTexto": "Não tem mais nada de quem você segue por agora. Sem rolagem sem fim: que tal ir a uma comunidade ou a um ato?",
@@ -104,7 +127,12 @@
     "materia": "Matéria do Instituto Lúcia",
     "indisponivel": "Isso chega com a próxima atualização da Alumia.",
     "naoRepostavel": "Só dá para repostar post de outra pessoa escrito para todo mundo (não resposta, nem post para um grupo menor).",
-    "veioDeRepost": "Repostado por quem você segue"
+    "veioDeRepost": "Repostado por quem você segue",
+    "apagar": "Apagar post",
+    "apagarPergunta": "Apagar este post? Se alguém já respondeu ou citou, fica “[post apagado]” no lugar.",
+    "apagarSim": "Apagar",
+    "apagarNao": "Manter",
+    "apagado": "Post apagado."
   },
   "enquete": {
     "rotulo": "Enquete",
@@ -170,7 +198,7 @@
     "rascunhosCheios": "Você já tem 20 rascunhos na conta: este fica só neste aparelho. Apague um para guardar na conta.",
     "anexos": "Anexos",
     "gravarAudio": "Gravar áudio (até 1 minuto)",
-    "ajudaInternet": "Qualquer pessoa, também no Mastodon, Lemmy, Misskey e no resto do Fediverso.",
+    "ajudaInternet": "Qualquer pessoa, também no Mastodon, Lemmy, Misskey, Pixelfed, Friendica, GoToSocial, Akkoma e no resto do Fediverso.",
     "ajudaMembros": "Só quem tem conta na Alumia.",
     "ajudaSeguidores": "Só quem segue você.",
     "ajudaComunidade": "Só quem está nesta comunidade.",
@@ -178,7 +206,7 @@
     "ajudaEquipe": "Só a equipe do instituto.",
     "publicoRoda": "Só a roda de confiança",
     "rodaEmBreve": "A sua lista de confiança chega com o perfil novo. Ninguém fica sabendo quem está nela.",
-    "notaFediverso": "Também no Fediverso: o post sai para quem te segue no Mastodon, no Lemmy e no Misskey, com o seu codinome.",
+    "notaFediverso": "Também no Fediverso: o post sai para quem te segue no Fediverso (Mastodon, Lemmy, Misskey, Pixelfed, Friendica, GoToSocial, Akkoma e outros), com o seu codinome.",
     "respostaA": "Escreva sua resposta a {nome}",
     "falta": "Falta: {campos}",
     "campos": {
@@ -196,7 +224,7 @@
     "rotulo": "Na Alumia agora",
     "buscar": "Buscar pessoas, atos, #temas",
     "fediTitulo": "Você também está no Fediverso",
-    "fediTexto": "Gente do Mastodon, do Lemmy e do Misskey te segue e responde aqui mesmo, no mesmo feed. Seu endereço:",
+    "fediTexto": "Gente do Mastodon, do Lemmy, do Misskey, do Pixelfed, do Friendica, do GoToSocial, do Akkoma e de outras redes do Fediverso te segue e responde aqui mesmo, no mesmo feed. Seu endereço:",
     "fediSemNome": "Escolha um @nome no seu perfil para ganhar o endereço.",
     "fediVer": "Como funciona",
     "rodape": "Regra aberta · sem anúncio · sem rastreio · codinome por padrão"
@@ -345,6 +373,13 @@
     "texto": "Este endereço não existe na Alumia, ou o post saiu do ar. A sua linha continua no mesmo lugar.",
     "voltar": "Voltar ao início da Alumia",
     "buscar": "Buscar"
+  },
+  "naoAbriu": {
+    "titulo": "Esta tela não abriu",
+    "texto": "Algo deu errado ao abrir esta parte da Alumia. A sua conta e os seus rascunhos continuam no lugar.",
+    "atualizando": "A Alumia ganhou uma versão nova. Atualizando a página…",
+    "tentar": "Tentar de novo",
+    "recarregar": "Recarregar a página"
   },
   "visibilidade": {
     "eu": "Só eu",

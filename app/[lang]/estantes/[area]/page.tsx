@@ -1,4 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import { areaNaEscola, caminhoDaEstante } from "@/lib/escola/aulas-abertas";
 import { corDaCapa } from "@/lib/capas";
 import type { Metadata } from "next";
 import Link from "@/components/Link";
@@ -26,13 +27,13 @@ import { withLangs } from "@/lib/params";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return withLangs(areaSlugs.map((area) => ({ area })));
+  return withLangs(areaSlugs.filter((area) => !areaNaEscola(area)).map((area) => ({ area })));
 }
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/estantes/[area]">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
   const { area } = await params;
-  return isArea(area) ? paginaMeta(lang, `/estantes/${area}`, t.areas[area][0], t.areas[area][1], { kicker: t.nav.disciplines }) : {};
+  return isArea(area) ? paginaMeta(lang, caminhoDaEstante(area), t.areas[area][0], t.areas[area][1], { kicker: t.nav.disciplines }) : {};
 }
 
 export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[area]">) {

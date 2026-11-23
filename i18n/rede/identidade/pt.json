@@ -130,6 +130,7 @@
     "trocouArroba": "Pronto. Você voltou a aparecer como {codinome}, agora com o @{handle}."
   },
   "erros": {
+    "nome_com_selo": "Sinais parecidos com o selo de verificado (✓, ✔, ☑, ✅, 🔵) e as palavras “verificado” e “oficial” não entram em nome. Escolha outro.",
     "identidade_desligada": "A coordenação fechou, por enquanto, a escolha de nome e foto. Voltar ao codinome continua funcionando.",
     "identidade_org": "Conta de organização não usa esta escolha.",
     "identidade_codinome": "Para enviar foto, primeiro escolha aparecer com nome.",

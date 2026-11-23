@@ -3,6 +3,8 @@
 import Link from "@/components/Link";
 import { localePath, type Locale } from "@/i18n/config";
 import type { TextosDaFormacaoBase } from "@/i18n/escola/formacao-base";
+import { inicioDoSite } from "@/lib/escola/endereco";
+import { site } from "@/lib/site";
 import { FaixaDeCores, Estrela } from "../casca/FaixaDeCores";
 
 export type SituacaoNaPorta = "sem-conta" | "sem-militancia" | "sem-servico" | "falha";
@@ -20,9 +22,9 @@ export function PortaVermelha({ lang, t, situacao, aoTentar }: { lang: Locale; t
     <div className="ef-porta" data-escola-formacao="" data-porta-da-escola="fechada" data-situacao={situacao}>
       <FaixaDeCores />
       <header className="ef-porta-cabeca">
-        <Link href={localePath(lang, "/")} className="ef-porta-instituto">
+        <a href={inicioDoSite(lang, site.url)} className="ef-porta-instituto">
           {t.instituto}
-        </Link>
+        </a>
         <span aria-hidden className="ef-porta-barra">
           /
         </span>
@@ -61,6 +63,10 @@ export function PortaVermelha({ lang, t, situacao, aoTentar }: { lang: Locale; t
             </Link>
             <Link href={localePath(lang, "/escola/manifesto")} className="ef-botao-vazado ef-botao-grande">
               {t.manifesto}
+            </Link>
+            {/* P5, B2: as aulas de Teoria revolucionária e de Lutas do povo moram na Escola e abrem sem conta. */}
+            <Link href={localePath(lang, "/escola/aulas")} className="ef-botao-vazado ef-botao-grande" data-aulas-abertas="">
+              {t.aulasAbertas}
             </Link>
           </div>
           <p className="ef-porta-resto">

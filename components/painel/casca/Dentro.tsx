@@ -10,12 +10,15 @@ import { Clapperboard, Columns2, Feather, Focus, LogOut, Monitor, Moon, PanelLef
 import { AnimatePresence, LazyMotion, MotionConfig } from "motion/react";
 import * as m from "motion/react-m";
 import dynamic from "next/dynamic";
+import { ChatSoNoAppNoPainel } from "@/components/rede/transparencia-apps/ChatSoNoAppNoPainel";
+import { chatSoApp } from "@/lib/rede/transparencia-apps/recurso";
 import { useRouter } from "next/navigation";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import nesteDia from "@/content/neste-dia.json";
 import { areaSlugs } from "@/lib/areas";
 import { areasPublicas } from "@/lib/interdicao";
-import { can, leads, manages, type Me, nivelDe, porNivel, type Role, rpc } from "@/lib/backend";
+import { can, leads, manages, type Me, nivelDe, porNivel, type Role } from "@/lib/backend";
+import { instantaneoDasLidas, ouvirLidas } from "@/lib/equipe/lidas";
 import { avisar, avisosDisponiveis, escolherModo, type ModoDeAviso, modoDeAviso, permissaoDeAviso } from "@/lib/notificacoes";
 import { ligarTrava, travaDisponivel, travaLigada, travarAgora } from "@/lib/trava";
 import { applyPrefs, readPrefs } from "@/lib/prefs";
@@ -59,8 +62,8 @@ import { EscritorioNoPainel } from "../Escritorio";
 import { PorOndeComecar } from "../Comecar";
 import { AcervoPorDentro, MinhasContribuicoes, ParaVoceHoje, Tarefas } from "../Tarefas";
 import { Exercicios } from "../Exercicios";
-import { Conversas } from "../Conversas";
 import { Curriculo as DisciplinasETrilhas } from "../Curriculo";
+import { PaginaDoTerritorio } from "../PaginaDoTerritorio";
 import { ParceirosDosTerritorios } from "../ParceirosDosTerritorios";
 import { Divulgacao } from "../Divulgacao";
 import { Equipe, type Membro } from "../Equipe";
@@ -108,6 +111,10 @@ import { Glossario } from "./Glossario";
 
 /** O painel da Escola de Formação (PLANO-ESCOLA.md, F4): só baixa quando a coordenação abre a seção. */
 const PainelDaEscola = dynamic(() => import("../escola/PainelDaEscola").then((m) => m.PainelDaEscola));
+// As conversas da equipe (cifradas) vêm só quando a seção abre, e nunca com "alumia-chat-so-app" ligado: aí a seção mostra só o
+// aviso "Para conversar, use o app", e nenhum código de chave do chat chega ao navegador (lib/rede/transparencia-apps/recurso.ts).
+const Conversas = dynamic(() => import("../Conversas").then((m) => m.Conversas));
+const CHAT_SO_APP = chatSoApp();
 
 /** Os recursos do Framer Motion, carregados sob demanda (casca/recursos.ts). */
 const carregarRecursos = () => import("./recursos").then((r) => r.default);
@@ -167,8 +174,7 @@ const DENTRO_DE: Record<string, string> = {
   tecnico: "centro",
   abertura: "centro",
   reunioes: "conversas",
-  "rede-propostas": "comunidade",
-  "rede-semeadura": "comunidade",
+  // "rede-propostas" e "rede-semeadura" moravam em "comunidade": agora entram no ALUMIA (DA_ALUMIA, abaixo).
   juntas: "minhas",
   contribuicoes: "minhas",
   previa: "conta",
@@ -176,6 +182,20 @@ const DENTRO_DE: Record<string, string> = {
   termos: "pessoas",
   triagem: "fila",
 };
+
+/**
+ * Prompt 5, D1: as seções da Alumia, na ordem de quem vira o botão "ALUMIA" (a primeira que a pessoa vê); as outras moram dentro
+ * dele. Também a Escola de Formação, num grupo separado. Quem não vê nenhuma seção da Alumia continua vendo a Escola onde estava.
+ */
+const DA_ALUMIA = ["alumia-admin", "alumia-painel", "comunidade", "alumia-entrada", "rede-organizacoes", "rede-propostas", "rede-semeadura"];
+const DA_ESCOLA_NA_ALUMIA = ["escola"];
+/** Dentro do ALUMIA, o "Alumia: " (e o "Rede: ") do nome sobra. */
+function nomeDentroDaAlumia(nome: string): string {
+  // A fila da Alumia (seção "comunidade") se chamava só "Alumia": dentro do ALUMIA, o nome diz o que ela é.
+  if (nome === "Alumia") return "Moderação e filtro";
+  const curto = nome.replace(/^(Alumia|Rede): /, "");
+  return curto.charAt(0).toUpperCase() + curto.slice(1);
+}
 
 /** As seções "tela" ocupam a altura inteira, sem margem e sem cabeçalho (o nome fica na trilha). */
 const TELA = new Set(["conversas", "reunioes", "alumia-painel", "alumia-admin"]);
@@ -221,18 +241,19 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
   const atualizarResumo = resumo.recarregar;
   // De minuto em minuto o painel diz que a pessoa está por aqui, pergunta se chegou mensagem nova e refaz as
   // contagens do menu. Ao voltar para a aba do navegador, as contagens também se refazem na hora.
-  const presenca = useLista<{ conversas: number }>("presenca");
+  // As conversas com mensagem nova contam pelo "lido até" deste aparelho (lib/equipe/lidas.ts): o banco conta e não grava.
+  const lidasAgora = useSyncExternalStore(ouvirLidas, () => instantaneoDasLidas(eu.id), () => "{}");
+  const argsDaPresenca = useMemo(() => ({ p_lidos: JSON.parse(lidasAgora) as Record<string, number> }), [lidasAgora]);
+  const presenca = useLista<{ conversas: number }>("presenca", argsDaPresenca);
   const avisarPresenca = presenca.recarregar;
-  // Aviso do navegador quando a contagem de conversas pendentes sobe com a aba escondida. Sem prévia: o aviso diz só
-  // que chegou mensagem (e, se a pessoa quis, de quem). O nome vem da lista de conversas, nunca do conteúdo.
+  // Aviso do navegador quando a contagem de conversas pendentes sobe com a aba escondida. Sem prévia e sem nome: o aviso diz só
+  // que chegou mensagem (o banco não sabe mais quem escreveu; abrir a mensagem só para o aviso, com a aba escondida, não vale a pena).
   const pendentes = presenca.dados?.conversas;
   const [vistasAntes, setVistasAntes] = useState<number | null>(null);
   useEffect(() => {
     if (pendentes === undefined) return;
     if (vistasAntes !== null && pendentes > vistasAntes && document.visibilityState !== "visible" && modoDeAviso() !== "nenhum") {
-      void rpc<{ nao_lidas: number; silenciada: boolean; arquivada: boolean; ultima: { autor: string; minha: boolean } | null }[]>("chat_conversas")
-        .then((lista) => avisar(lista.filter((c) => c.nao_lidas > 0 && !c.silenciada && !c.arquivada && c.ultima && !c.ultima.minha).map((c) => c.ultima!.autor), traduzirNoPainel))
-        .catch(() => avisar([], traduzirNoPainel));
+      avisar([], traduzirNoPainel);
     }
     const marca = window.setTimeout(() => setVistasAntes(pendentes), 0);
     return () => window.clearTimeout(marca);
@@ -272,7 +293,7 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
   const acompanha = can(eu, "coordenacao", "supervisao", "revisao", "mediacao");
   const atividadeNova = useAtividadeAoVivo(acompanha, aba === "atividade");
   // Cada função enxerga só as ferramentas dela. A coordenação e a vice-coordenação enxergam todas.
-  const secoes: Secao[] = (
+  const secoesDoMenu: Secao[] = (
     [
       { id: "mesa", nome: "Mesa", sobre: "O que espera por você hoje.", grupo: "", mostra: true, conta: eu.avisos },
       { id: "atividade", nome: "Atividade do site", sobre: "Tudo o que a galera posta no site e no painel, na hora em que acontece, com aviso por e-mail se você quiser.", grupo: "", mostra: acompanha, conta: atividadeNova || undefined },
@@ -322,6 +343,7 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
       { id: "reunioes", nome: "Reuniões", sobre: "A agenda de reuniões, dentro de Conversas e reuniões.", grupo: "Pessoas", mostra: voluntario && aba === "reunioes" },
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar + (r.pedidos ?? 0) : undefined },
       { id: "saude", nome: cuidaDaSaude ? "Mural de Saúde" : "Meu perfil no mural", sobre: "O mural de contatos de profissionais de saúde com registro ativo: o perfil de cada um, o termo, a conferência do registro e a chave geral.", grupo: "Pessoas", mostra: can(eu, "coordenacao", "saude") || cuidaDaSaude },
+      { id: "territorio", nome: "Minha página no território", sobre: "Para o parceiro do instituto: editar a página do seu território em Territórios (só a dele). A coordenação edita qualquer uma.", grupo: "Pessoas", mostra: can(eu, "coordenacao", "parceiro") },
       { id: "termos", nome: "Termos assinados", sobre: "O termo de voluntário, o termo de adesão e o da vitrine de saúde, aceitos por cada pessoa: o texto exato, a versão, a data e a impressão digital. Ninguém apaga.", grupo: "Pessoas", mostra: can(eu, "coordenacao", "supervisao") },
       { id: "estatisticas", nome: "Estatísticas", sobre: "O que os estudantes procuram e o que a equipe produz, por disciplina: a base para decidir o que entra e o que sai.", grupo: "Pessoas", mostra: lidera || can(eu, "vice") },
       { id: "operacao", nome: "Operação do site", sobre: "Ver a última publicação e a última cópia do banco, limpar o cache e acompanhar o vencimento do token do Instagram.", grupo: "Site", mostra: can(eu, "coordenacao") },
@@ -348,6 +370,14 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
       { id: "conta", nome: "Minha conta", sobre: "Seu nome, sua senha e a proteção da sua conta.", grupo: "Você", mostra: true },
     ] satisfies Secao[]
   ).filter((secao) => secao.mostra);
+  // Prompt 5, D1: tudo o que é da Alumia vira UM botão, "ALUMIA", em Minha conta; as outras seções da Alumia (e as da Escola)
+  // abrem por dentro dele, no "Também nesta seção". A mãe é a primeira da lista que esta pessoa vê (a coordenação: o painel de
+  // admin; o admin da Alumia: o painel de controle; a mediação: a fila da Alumia). Nada muda de endereço nem de permissão: quem
+  // decide o que cada um vê continua sendo o banco, em cada função.
+  const maeDaAlumia = DA_ALUMIA.find((id) => secoesDoMenu.some((secao) => secao.id === id));
+  const secoes = secoesDoMenu.map((secao) => (secao.id === maeDaAlumia ? { ...secao, nome: "ALUMIA", grupo: "Você" } : secao));
+  const dentroDe = (id: string): string | undefined =>
+    maeDaAlumia && id !== maeDaAlumia && (DA_ALUMIA.includes(id) || DA_ESCOLA_NA_ALUMIA.includes(id)) ? maeDaAlumia : DENTRO_DE[id];
 
   const atual = secoes.find((secao) => secao.id === aba) ?? secoes[0];
   // As conversas ocupam a tela inteira (como o Discord): sem cabeçalho e sem a margem das outras seções.
@@ -486,10 +516,14 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
   const essenciais = ["mesa", "conversas", "escrever", "minhas", "fila", "caderno", "horas", "conta"];
   // Fora do menu: as que moram dentro de outra (DENTRO_DE), quando a mãe aparece para esta pessoa; a aberta agora fica visível.
   const ids = new Set(secoes.map((secao) => secao.id));
-  const recolhida = (secao: Secao) => secao.id !== atual.id && Boolean(DENTRO_DE[secao.id]) && ids.has(DENTRO_DE[secao.id]);
+  const recolhida = (secao: Secao) => {
+    const dela = dentroDe(secao.id);
+    return secao.id !== atual.id && Boolean(dela) && ids.has(dela!);
+  };
   const noMenu = modoFoco ? secoes.filter((secao) => essenciais.includes(secao.id) || secao.id === atual.id) : secoes.filter((secao) => !recolhida(secao));
-  const tambemAqui = secoes.filter((secao) => DENTRO_DE[secao.id] === atual.id);
-  const mae = DENTRO_DE[atual.id] ? secoes.find((secao) => secao.id === DENTRO_DE[atual.id]) : undefined;
+  const tambemAqui = secoes.filter((secao) => dentroDe(secao.id) === atual.id);
+  const maeDaAtual = dentroDe(atual.id);
+  const mae = maeDaAtual ? secoes.find((secao) => secao.id === maeDaAtual) : undefined;
   // O principal primeiro (o de maior nível) e, quando há mais de dois, "+N": a linha do menu é curta. A lista inteira vai no título.
   const todasAsFuncoes = [...new Set(porNivel(eu.papeis).map((papel) => papeis[papel.papel]))];
   const funcao = !voluntario ? "Alumia" : todasAsFuncoes.length <= 2 ? todasAsFuncoes.join(" · ") : `${todasAsFuncoes[0]} +${todasAsFuncoes.length - 1}`;
@@ -607,24 +641,36 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
                       />
                     )}
                     {(tambemAqui.length > 0 || mae) && (
-                      <nav aria-label="Também nesta seção" className="pn-tambem-aqui no-print">
+                      <nav aria-label="Também nesta seção" className={cx("pn-tambem-aqui no-print", tela && "pn-tambem-aqui-tela")}>
                         {mae && (
                           <Botao variante="discreto" pequeno onClick={() => ir(mae.id)}>
                             ← {mae.nome}
                           </Botao>
                         )}
-                        {tambemAqui.map((secao) => (
+                        {tambemAqui.filter((secao) => !DA_ESCOLA_NA_ALUMIA.includes(secao.id)).map((secao) => (
                           <Botao key={secao.id} variante="padrao" pequeno onClick={() => ir(secao.id)}>
-                            {secao.nome}
+                            {nomeDentroDaAlumia(secao.nome)}
                             {secao.conta ? ` (${secao.conta})` : ""}
                           </Botao>
                         ))}
+                        {/* A Escola dentro do ALUMIA, separada (D1). */}
+                        {tambemAqui.some((secao) => DA_ESCOLA_NA_ALUMIA.includes(secao.id)) && (
+                          <span className="pn-tambem-aqui-grupo">
+                            <span className="pn-rotulo-mono">Escola Revolucionária</span>
+                            {tambemAqui.filter((secao) => DA_ESCOLA_NA_ALUMIA.includes(secao.id)).map((secao) => (
+                              <Botao key={secao.id} variante="padrao" pequeno onClick={() => ir(secao.id)}>
+                                {secao.nome}
+                                {secao.conta ? ` (${secao.conta})` : ""}
+                              </Botao>
+                            ))}
+                          </span>
+                        )}
                       </nav>
                     )}
                     <AnimatePresence mode="popLayout" initial={false}>
                       <m.div key={atual.id} className="pn-secao-viva" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0, transition: { duration: 0.18, ease: [0.2, 0.7, 0.2, 1] } }} exit={{ opacity: 0, transition: { duration: 0.1 } }}>
                         {atual.id === "mesa" && <Mesa me={eu} resumo={r ?? null} recarregar={() => { recarregar(); resumo.recarregar(); }} ir={ir} secoes={secoes} acompanha={acompanha} />}
-                        {atual.id === "conversas" && <Conversas me={eu} />}
+                        {atual.id === "conversas" && (CHAT_SO_APP ? <ChatSoNoAppNoPainel /> : <Conversas me={eu} />)}
                         {atual.id === "rede" && <Equipe usuario={eu.id} lider={leads(eu)} modera={lidera || supervisiona} aprendiz={eu.aprendizado} recarregar={recarregar} />}
                         {atual.id === "escrever" && <Escrever me={eu} />}
                         {atual.id === "videoaulas" && <Videoaulas me={eu} />}
@@ -667,7 +713,7 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
                             <CuidadoDaEquipe />
                           </>
                         )}
-                        {atual.id === "reunioes" && <Conversas me={eu} inicial="reunioes" />}
+                        {atual.id === "reunioes" && (CHAT_SO_APP ? <ChatSoNoAppNoPainel /> : <Conversas me={eu} inicial="reunioes" />)}
                         {atual.id === "horas" && <Horas me={eu} />}
                         {atual.id === "centro" && <CentroDeControle ir={ir} />}
                         {atual.id === "site" && <Site />}
@@ -710,6 +756,7 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
                         {atual.id === "previa" && <PreviaDiaria />}
                         {atual.id === "eixos-equipe" && <EixosEquipe coordena={lidera || can(eu, "vice")} />}
                         {atual.id === "saude" && <SaudeNoPainel me={eu} />}
+                        {atual.id === "territorio" && <PaginaDoTerritorio me={eu} />}
                         {atual.id === "erros" && <ErrosRelatados />}
                         {atual.id === "controles-avancados" && <ControlesAvancados coordena={lidera || can(eu, "vice")} edita={can(eu, "coordenacao", "vice", "curadoria", "desenvolvimento")} cura={can(eu, "coordenacao", "vice", "curadoria")} />}
                         {atual.id === "confirmacoes" && <Confirmacoes />}

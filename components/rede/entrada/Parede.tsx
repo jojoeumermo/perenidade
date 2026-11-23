@@ -12,6 +12,9 @@ import { PainelDeVoce, useVoce } from "./Voce";
  * inteiro, no retrato dele, sem recorte novo) e, por último, o painel de quem chega. O "ladrilho" é só o rejunte desenhado por
  * cima (CSS) e a cor (um filtro da própria página, preto → brasa → vermelho → creme): o desenho de cada figura não muda.
  * Para o leitor de tela a parede é uma imagem só, com nome; a legenda embaixo anuncia quando o painel da pessoa se forma.
+ * P5 (A1): as figuras não se arrastam, não se selecionam e não abrem o menu de "salvar imagem" (o endereço de uma delas caía no
+ * campo de e-mail ao arrastar). Isso só impede o uso casual: quem abre as ferramentas do navegador ainda vê o endereço.
+ * As figuras chegam de Cena.tsx já na leva da vez (a parede gira: useParede.ts); o painel novo assenta com a mesma animação.
  */
 export function Parede({ t, figuras }: { t: TextosDaEntrada; figuras: FiguraDaEntrada[] }) {
   const { codinome, foto } = useVoce();
@@ -28,12 +31,13 @@ export function Parede({ t, figuras }: { t: TextosDaEntrada; figuras: FiguraDaEn
   return (
     <div className="ale-parede-bloco">
       <div className="ale-parede">
-        <div className="ale-parede-grade" role="img" aria-label={t.p.rotulo} style={{ "--ale-fileiras": fileiras, "--ale-fileiras-p": fileirasNoCelular } as CSSProperties}>
+        <div className="ale-parede-grade" role="img" aria-label={t.p.rotulo} style={{ "--ale-fileiras": fileiras, "--ale-fileiras-p": fileirasNoCelular } as CSSProperties}
+          onDragStart={(e) => e.preventDefault()} onContextMenu={(e) => e.preventDefault()}>
           {figuras.map((f, i) => (
             <span key={f.id} className="ale-painel" data-figura={f.id} style={{ "--i": i } as CSSProperties}>
               {/* As silhuetas são pequenas (≈10 KB cada) e já saem prontas do roteiro: sem o otimizador de imagens. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`/${f.src}`} alt="" width={480} height={640} decoding="async" />
+              <img src={`/${f.src}`} alt="" width={480} height={640} decoding="async" draggable={false} />
             </span>
           ))}
           <PainelDeVoce t={t} indice={figuras.length} />

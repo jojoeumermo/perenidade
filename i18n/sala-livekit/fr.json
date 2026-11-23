@@ -1,0 +1,32 @@
+{
+  "_rascunho": true,
+  "entrando": "Entrée dans la salle…",
+  "entrar": "Entrer dans la salle",
+  "desafio": "Confirmez que vous n'êtes pas un robot pour entrer.",
+  "na_sala": "{n} dans la salle",
+  "ninguem": "Pour l'instant, vous êtes seul·e dans la salle.",
+  "voce": "Vous",
+  "sem_nome": "Quelqu'un",
+  "acoes": {
+    "micLigar": "Activer le micro",
+    "micDesligar": "Couper le micro",
+    "camLigar": "Activer la caméra",
+    "camDesligar": "Couper la caméra",
+    "telaLigar": "Partager l'écran",
+    "telaDesligar": "Arrêter le partage d'écran",
+    "sair": "Quitter la salle",
+    "abrirNoJitsi": "Ouvrir dans Jitsi"
+  },
+  "erros": {
+    "livekit_sem_config": "La nouvelle salle vidéo n'est pas encore configurée sur ce serveur.",
+    "nao_encontrado": "Cette salle n'existe pas ou vous ne pouvez pas y entrer.",
+    "sem_sessao": "Connectez-vous pour ouvrir cette salle.",
+    "limite": "Trop d'entrées d'affilée. Attendez un peu et réessayez.",
+    "desafio": "La vérification anti-robot n'a pas abouti. Réessayez.",
+    "sem_servico": "L’étude en groupe est fermée sur ce serveur tant que la vérification anti-robots n’est pas configurée.",
+    "conexao": "Le service vidéo n'a pas répondu. Réessayez ou ouvrez dans Jitsi.",
+    "NotAllowedError": "Le navigateur n'a pas autorisé le micro ou la caméra. Autorisez-les dans les permissions du site.",
+    "outro": "Impossible d'ouvrir la salle."
+  },
+  "privacidade": "Salle vidéo par LiveKit Cloud, un service externe : pendant que vous êtes dans la salle, il reçoit votre adresse réseau, le nom que vous utilisez ici, votre audio et votre vidéo, et y a un accès technique. L'Institut n'enregistre rien ; le panneau garde seulement qui est entré et quand."
+}

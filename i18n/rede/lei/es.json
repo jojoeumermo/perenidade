@@ -14,7 +14,7 @@
     "indice": "En esta página",
     "carregando": "Cargando…",
     "erro": "No funcionó ahora. Inténtalo de nuevo en un rato.",
-    "contato": "Habla con la coordinación por la página [Denunciar](/denunciar) (elige el asunto \"datos personales\") o por el correo institutolucia@tutamail.com. Respondemos en hasta 15 días.",
+    "contato": "Habla con la coordinación por la página [Denunciar](/alumia/denunciar) (elige el asunto \"datos personales\") o por el correo institutolucia@tutamail.com. Respondemos en hasta 15 días.",
     "horas": "{n} horas",
     "dias": "{n} días",
     "enviar": "Enviar",
@@ -156,7 +156,7 @@
           "**La solicitud de entrada:** el seudónimo y el motivo que escribiste; el motivo desaparece 30 días después de la decisión.",
           "**La aceptación:** la versión de las normas y de estos términos que aceptaste y cuándo.",
           "**Lo que publicas y haces:** publicaciones, respuestas, encuestas, reacciones, guardados, carpetas, a quién sigues, las comunidades y núcleos en que estás. Lo que borras, desaparece.",
-          "**Conversaciones privadas:** cifradas en tu aparato; el servidor guarda el texto cifrado, que no lee, hasta el plazo de la conversación.",
+          "**Conversaciones privadas y de grupo:** cifradas en tu aparato. El servidor solo entrega paquetes en cajas sin nombre: la base de datos no guarda quién habla con quién ni quién está en cada núcleo o grupo del chat, solo el paquete cifrado y el día en que llegó. La lista de tus conversaciones queda en tu aparato. En cada llamada, el servidor ve la dirección de red y la hora, como cualquier sitio; la base de datos no guarda nada de eso.",
           "**Moderación:** las denuncias, el registro de las decisiones y los recursos.",
           "**Seguridad:** un resumen cifrado de la red desde la que entró la cuenta, que no permite recuperar la dirección, por 30 días; contadores de uso para frenar abusos, por 2 días; el registro de algunas acciones de la cuenta, por hasta 400 días."
         ]
@@ -186,7 +186,7 @@
           "**Alojamiento, base de datos y protección contra ataques**, con parte de los servidores fuera de Brasil (transferencia internacional, art. 33).",
           "**Envío de correos**, solo la dirección y el texto de cada mensaje.",
           "**Aviso en el celular**, si lo activas: el servicio de entrega de tu navegador recibe solo un número cifrado, sin fragmento de publicación y sin nombre.",
-          "**Fediverso**, si activas la federación: los otros servidores reciben el seudónimo, el @nombre, la bio y las publicaciones marcadas como Internet, y guardan copias según sus reglas.",
+          "**Fediverso**, si consientes la federación: los otros servidores reciben el seudónimo, el @nombre, la bio, la foto de perfil y las publicaciones en las que elijas \"Alumia y el Fediverso\" (y, en las comunidades abiertas que federan, las del público más abierto), y guardan copias según sus reglas. \"Todo Alumia\" nunca sale.",
           "**Verificación de enlaces con Google Safe Browsing**, cuando publicas un post con enlace: el servidor de Alumia convierte cada enlace en resúmenes (SHA-256) y envía a Google solo los 4 primeros bytes de cada resumen, que sirven para muchísimas direcciones; Google devuelve los resúmenes de las páginas peligrosas que empiezan así y la comparación se hace en nuestro servidor. El texto del post, tu nombre y tu cuenta nunca van; el enlace no se guarda. Un enlace marcado como peligroso no se publica, y la pantalla dice por qué.",
           "**Evaluación automática de mensajes**, cuando la coordinación la activa: el título y el texto de una publicación, sin tu nombre ni tu cuenta, van a un servicio de moderación de una empresa externa, que devuelve una clasificación. Ninguna cuenta se suspende por esa evaluación."
         ]
@@ -226,7 +226,8 @@
         "titulo": "En tu aparato",
         "paragrafos": [
           "Alumia guarda en el navegador solo lo necesario: la sesión de quien entró y preferencias como el tema, el tamaño de letra y el orden de la línea. No hay cookies de terceros ni herramientas de medición de audiencia. **Salir rápido** borra lo que Alumia guardó en el aparato. Las respuestas del cuestionario de intereses también quedan solo aquí: van con cada lectura del muro y el servidor no las guarda.",
-          "Si activas la **contraseña de pánico**, el aparato guarda un cofre cifrado (Web Crypto, con una clave sacada de la contraseña de pánico) con el correo y la contraseña de la cuenta señuelo. El cofre no va al servidor. Para que la contraseña de pánico siga valiendo, Salir rápido y el botón de pánico no borran el cofre; desactivar la contraseña de pánico lo cambia por un cofre vacío del mismo formato, como el que recibe todo aparato que entra en Alumia. El señuelo se trata como cualquier otra cuenta, y Alumia cumple la ley y las órdenes judiciales válidas con los datos reales."
+          "Si activas la **contraseña de pánico**, el aparato guarda un cofre cifrado (con una clave sacada de la contraseña de pánico por Argon2id) con el correo y la contraseña de la cuenta señuelo. El cofre no va al servidor. Para que la contraseña de pánico siga valiendo, Salir rápido y el botón de pánico no borran el cofre; desactivar la contraseña de pánico lo cambia por un cofre vacío del mismo formato, como el que recibe todo aparato que entra en Alumia. El señuelo se trata como cualquier otra cuenta, y Alumia cumple la ley y las órdenes judiciales válidas con los datos reales.",
+          "El chat guarda en el aparato, cifradas, las claves y la lista de tus conversaciones; Salir rápido y el botón de pánico lo borran todo."
         ]
       },
       {
@@ -268,7 +269,8 @@
           { "dado": "Códigos de recuperación del segundo factor", "onde": "Base de datos del Instituto, solo un resumen que no permite leer el código", "tempo": "Hasta que generes otros; cada uno vale una vez", "quem": "Nadie" },
           { "dado": "Invitaciones que generaste (un resumen del código y el plazo; la invitación usada se borra en el acto)", "onde": "Base de datos de Alumia", "tempo": "45 días", "quem": "Solo tú ves las tuyas; no se guarda quién usó una invitación" },
           { "dado": "Marca \"vino por invitación\" en la solicitud de entrada", "onde": "Base de datos de Alumia", "tempo": "Hasta que la revisión decida", "quem": "La revisión, sin saber de quién fue la invitación" },
-          { "dado": "Solicitud de borrar la cuenta", "onde": "Base de datos de Alumia", "tempo": "Los 7 días del plazo para desistir; después, la cuenta se borra", "quem": "Tú; la coordinación solo ve cuántas solicitudes hay" }
+          { "dado": "Solicitud de borrar la cuenta", "onde": "Base de datos de Alumia", "tempo": "Los 7 días del plazo para desistir; después, la cuenta se borra", "quem": "Tú; la coordinación solo ve cuántas solicitudes hay" },
+          { "dado": "Marca de correo bloqueado (solo si la coordinación banea la cuenta)", "onde": "Base de datos de Alumia, solo un resumen cifrado del correo, hecho con una clave que solo tiene el servidor", "tempo": "Mientras dure el baneo (el plazo está en revisión jurídica)", "quem": "Nadie lo lee; el sistema solo lo compara, para que la cuenta baneada no vuelva con el mismo correo" }
         ]
       },
       {
@@ -287,10 +289,25 @@
       {
         "titulo": "Conversaciones y avisos",
         "linhas": [
-          { "dado": "Conversaciones privadas y de grupo", "onde": "Base de datos de Alumia, cifradas en el aparato de quien escribe", "tempo": "Hasta el plazo de la conversación; una solicitud de conversación sin respuesta desaparece en 30 días", "quem": "Solo quien participa lee el texto; el servidor sabe quién está en cada conversación" },
+          { "dado": "Conversaciones privadas y de grupo (mensajes, núcleos, posts restringidos)", "onde": "Base de datos de Alumia, en cajas sin nombre: solo el paquete, cifrado en el aparato de quien escribe, y el día en que llegó", "tempo": "En la conversación de dos, desaparece al entregarse; en los grupos, cuando se cambia la caja de la época; lo que nadie busque desaparece en 30 días", "quem": "Solo quien participa lo lee; la base de datos no sabe de quién es cada caja ni quién está en cada conversación o grupo" },
+          { "dado": "Tu caja de pedidos de conversación", "onde": "Base de datos de Alumia, ligada a tu cuenta (es por ella que alguien pide hablar contigo)", "tempo": "El pedido sin respuesta desaparece en 30 días", "quem": "El servidor sabe que recibes pedidos, no de quién; solo tu aparato los abre" },
+          { "dado": "Lista de tus conversaciones y copia de seguridad (si la creas)", "onde": "En tu aparato; en el servidor, solo un archivo cifrado en el aparato, que él no lee", "tempo": "Hasta que la borres", "quem": "Solo tú, en tus aparatos o con las 24 palabras" },
+          { "dado": "Pases anónimos del día (para frenar abusos sin decir quién es)", "onde": "Base de datos de Alumia: una marca de que la cuenta tomó el lote de hoy y, aparte, el resumen de cada pase gastado, sin vínculo entre los dos", "tempo": "La marca desaparece al día siguiente; el pase gastado, en 14 días", "quem": "Nadie" },
+          { "dado": "Fragmentos de una denuncia con prueba (mensaje o post cifrado)", "onde": "Base de datos de Alumia, junto a la denuncia: solo los fragmentos que elegiste, el día y de dónde vinieron", "tempo": "Durante el plazo del registro de moderación", "quem": "La moderación; el resto de la conversación sigue cifrado" },
           { "dado": "Avisos (respuestas, menciones, moderación)", "onde": "Base de datos de Alumia", "tempo": "Los leídos desaparecen en 30 días; todos en 120 días", "quem": "Solo tú" },
           { "dado": "Aparato que recibe avisos en el celular (si los activas)", "onde": "Base de datos de Alumia", "tempo": "Hasta que los apagues", "quem": "Nadie; solo lo usa el envío" },
-          { "dado": "Horario de silencio de los avisos en el celular (si lo eliges)", "onde": "Base de datos de Alumia", "tempo": "Hasta que lo cambies", "quem": "Nadie; solo el envío lo usa" }
+          { "dado": "Horario de silencio de los avisos en el celular (si lo eliges)", "onde": "Base de datos de Alumia", "tempo": "Hasta que lo cambies", "quem": "Nadie; solo el envío lo usa" },
+          { "dado": "Claves públicas de tus aparatos y el registro público de claves", "onde": "Base de datos de Alumia; el registro de claves guarda solo un resumen de la cuenta, la clave pública y el día", "tempo": "Las claves de un aparato salen con él o con la cuenta; el registro de claves solo crece y no se borra (permite comprobar que nadie cambió tu clave)", "quem": "La clave pública, quien conversa contigo; el registro, cualquier persona" }
+        ]
+      },
+      {
+        "titulo": "Fediverso (solo si lo activas)",
+        "linhas": [
+          { "dado": "Tu perfil en el Fediverso (alias, @nombre, bio, foto) y la clave que firma en tu nombre", "onde": "Base de datos de Alumia; la clave cifrada en el servidor", "tempo": "Hasta que desactives la federación; la clave se borra después", "quem": "El perfil, cualquier persona en el Fediverso; la clave, nadie" },
+          { "dado": "Posts en \"Alumia y el Fediverso\" (y, en las comunidades abiertas que federan, tus posts en el público más abierto)", "onde": "Base de datos de Alumia y copias en los servidores de fuera que los reciban", "tempo": "Hasta que los borres; borrar o desactivar envía a todos el pedido de borrar, pero Alumia no puede obligar a un servidor de fuera", "quem": "Cualquier persona en el Fediverso" },
+          { "dado": "Quién te sigue desde fuera y a quién sigues fuera", "onde": "Base de datos de Alumia, solo la dirección pública de la cuenta de fuera", "tempo": "Hasta dejar de seguir o desactivar la federación", "quem": "Tú; los demás ven como mucho un total, a partir de 3" },
+          { "dado": "Me gusta e impulsos que vienen de fuera", "onde": "Base de datos de Alumia, solo un apodo cifrado de quien dio me gusta, nunca la dirección", "tempo": "Con el aviso: los leídos se van en 30 días; todos en 120 días", "quem": "Solo tú" },
+          { "dado": "Posts públicos de quien alguien de aquí sigue fuera", "onde": "Base de datos de Alumia, solo el texto ya limpio; las imágenes pasan por el servidor del sitio", "tempo": "30 días", "quem": "Quien puede verlos en la línea" }
         ]
       },
       {
@@ -310,11 +327,12 @@
           { "dado": "Resumen cifrado de la red desde la que entró la cuenta", "onde": "Base de datos de Alumia", "tempo": "30 días sin uso", "quem": "Nadie lo lee; el sistema solo compara, para frenar a quien fue expulsado" },
           { "dado": "Contadores de uso por cuenta (para frenar abusos)", "onde": "Base de datos del Instituto", "tempo": "2 días", "quem": "Nadie; el sistema solo cuenta" },
           { "dado": "Registro de algunas acciones de la cuenta (entrar en la red, pedir la entrada, aceptar los términos, descargar los datos, decisiones de moderación)", "onde": "Base de datos del Instituto", "tempo": "Hasta 400 días", "quem": "Solo la coordinación" },
-          { "dado": "Conteo de cuentas y solicitudes nuevas por red (un resumen que cambia cada hora, sin la dirección)", "onde": "Base de datos de Alumia", "tempo": "1 día", "quem": "Nadie; el sistema solo cuenta, para frenar registros masivos" }
+          { "dado": "Conteo de cuentas y solicitudes nuevas por red (un resumen que cambia cada hora, sin la dirección)", "onde": "Base de datos de Alumia", "tempo": "1 día", "quem": "Nadie; el sistema solo cuenta, para frenar registros masivos" },
+          { "dado": "Bloqueo de una dirección de red durante un ataque", "onde": "En Cloudflare (la protección delante del sitio), nunca en la base de Alumia, y sin vínculo con ninguna cuenta", "tempo": "De 1 a 7 días; desaparece solo", "quem": "La coordinación envía el bloqueo desde el panel; la base guarda solo el motivo y el plazo" }
         ]
       }
     ],
-    "nota": "Borrar la cuenta borra lo que es tuyo, menos el registro de moderación, que es la prueba de que el proceso se cumplió. Para descargar una copia o borrar, ve a [Mis datos](/alumia/meus-dados)."
+    "nota": "Borrar la cuenta borra lo que es tuyo, menos el registro de moderación, que es la prueba de que el proceso se cumplió. Para descargar una copia o borrar, ve a [Mis datos](/alumia/meus-dados). La lista completa, tabla por tabla y generada de la propia base de datos, está en [Lo que guarda el servidor](/transparencia/o-que-o-servidor-guarda)."
   },
   "regras": {
     "titulo": "Reglas de Alumia",
@@ -371,7 +389,7 @@
       "ja": "Ya habías denunciado esto. Protocolo {protocolo}.",
       "alvoInvalido": "No reconocemos esa dirección. Pega la dirección de la publicación, el @ del perfil o la dirección de la comunidad.",
       "naoEncontrado": "No lo encontramos, o no tienes cómo verlo.",
-      "semConta": "Para denunciar aquí, entra en Alumia. Sin cuenta, usa la página [Denunciar](/denunciar) del sitio.",
+      "semConta": "Para denunciar aquí, entra en Alumia. Sin cuenta, usa la página [Denunciar en Alumia](/alumia/denunciar).",
       "proprio": "Esto es tuyo. Para sacarlo del aire, bórralo."
     },
     "revisao": {
@@ -449,6 +467,15 @@
         ]
       },
       {
+        "titulo": "Conversaciones",
+        "perguntas": [
+          { "p": "¿El servidor sabe con quién hablo?", "r": "Por la base de datos, no: los mensajes van a cajas sin nombre, y ni la base ni quien tenga una copia de ella liga una caja a una cuenta o lista quién está en cada núcleo. En cada llamada, el servidor ve la dirección de red y la hora, como cualquier sitio, y no las guarda. Tu caja de pedidos es la única ligada a la cuenta: dice que recibes pedidos, no de quién." },
+          { "p": "¿Cómo denuncio un mensaje del chat?", "r": "En la conversación, elige Denunciar y marca los mensajes. Antes de enviar, la pantalla avisa: los fragmentos marcados salen del cifrado y van a la moderación, que los leerá; el resto sigue cifrado. El servidor comprueba que el texto es exactamente el que pasó por la conversación ese día, sin haber leído nada antes. Eso no prueba por sí solo quién lo escribió: la moderación ve el nombre que muestra tu aparato." },
+          { "p": "Cambié de móvil. ¿Cómo llevo las conversaciones?", "r": "Vincula el aparato nuevo por el QR, con el viejo en la mano, o restaura la copia de seguridad con las 24 palabras. La copia lleva la lista de conversaciones y el historial que elijas guardar, pero no las claves de sesión: las conversaciones se rehacen en el aparato nuevo. Si pierdes las palabras, pierdes la copia; quien tenga las palabras y entre en tu cuenta abre la copia." },
+          { "p": "¿Qué pasó con las conversaciones de la beta?", "r": "Con el cambio de cifrado del chat, las conversaciones y los grupos de la beta se borraron en el servidor y en cada aparato, con aviso y fecha antes. No quedó ninguna clave ni mensaje antiguo guardado para leerse después. Las copias de seguridad de la base guardan las tablas antiguas, que ya estaban cifradas, hasta que vencen." }
+        ]
+      },
+      {
         "titulo": "Salir y borrar",
         "perguntas": [
           { "p": "¿Qué hace Salir rápido?", "r": "Borra lo que Alumia guardó en este aparato y abre una página común de afuera (el pronóstico del tiempo), sin nada del Instituto. Está en el menú de tu cuenta y en Más." },
@@ -457,7 +484,25 @@
         ]
       }
     ],
-    "mais": "¿Aún tienes dudas?"
+    "mais": "¿Aún tienes dudas?",
+    "relatar": {
+      "titulo": "Informar un problema",
+      "texto": "¿Encontraste algo roto en Alumia? Cuéntalo aquí. Solo va la pantalla en la que estás (sin nada que diga quién eres), el tipo de aparato y la versión del sitio. Nadie sabe quién lo informó, ni la coordinación.",
+      "campo": "¿Qué pasó?",
+      "ajudaCampo": "Qué hiciste, qué esperabas y qué apareció. No escribas contraseñas, correos ni datos de otra persona.",
+      "vaiJunto": "Va junto: {tela} · {aparelho}",
+      "enviar": "Enviar el informe",
+      "enviando": "Enviando…",
+      "enviado": "Recibido. Gracias por ayudar a Alumia.",
+      "curto": "Escribe un poco más (al menos 10 letras).",
+      "erro": "No se pudo enviar ahora. Inténtalo de nuevo en un momento.",
+      "entrar": "Para informar un problema, entra en Alumia."
+    },
+    "falhas": {
+      "titulo": "¿Encontraste una falla de seguridad?",
+      "texto": "No la publiques ni se la cuentes a nadie antes de que se corrija: eso pone en riesgo a quien usa Alumia. Escribe al contacto de seguridad del instituto y espera la respuesta.",
+      "link": "Ver el contacto de seguridad"
+    }
   },
   "reaceite": {
     "tituloNovo": "Lee los términos de Alumia",
@@ -512,5 +557,56 @@
     "aceita": "Aceptaste el {quando}.",
     "pendente": "Aún no aceptaste esta versión.",
     "lerEAceitar": "Leer y aceptar"
+  },
+  "janela": {
+    "titulo": "Términos de Alumia",
+    "leia": "Para usar Alumia, lee los términos de uso, la política de privacidad y las reglas, versión del {data}. Todo se abre aquí mismo; al final, marca que leíste y aceptas.",
+    "saida": "Salida rápida",
+    "saidaAjuda": "Sale de Alumia al instante y va a una página común. Pulsar Esc tres veces también sale, si el modo seguro está activado.",
+    "fechar": "Cerrar",
+    "rever": "Revisar los términos"
+  },
+  "denunciar": {
+    "titulo": "Denunciar en Alumia",
+    "chamada": "Para lo que pasa aquí dentro. Nada va al sitio del instituto.",
+    "comoPost": "En una publicación, lo más rápido es la propia publicación: **Denunciar**, en su menú, con un protocolo para seguir el caso. Usa esta página para lo demás: un perfil, una comunidad, un problema con tus datos, o si no tienes cuenta.",
+    "item": "Qué estás denunciando",
+    "itemDica": "Pega la dirección de la publicación, del perfil o de la comunidad (ej.: /alumia/u/seudonimo).",
+    "motivo": "Motivo",
+    "motivos": ["Me están exponiendo (mis datos o fotos)","Amenaza o acoso","Odio o discriminación","Estafa o cuenta falsa","Datos personales expuestos","Otro motivo"],
+    "detalhes": "Qué pasó",
+    "detalhesDica": "Cuenta lo que viste. Al menos 20 caracteres. No necesitas identificarte.",
+    "enviar": "Enviar denuncia",
+    "faltaAlgo": "Di qué denuncias y cuenta qué pasó (al menos 20 caracteres).",
+    "enviada": "Denuncia recibida. La moderación de Alumia la revisará; la exposición de datos va enseguida a la coordinación.",
+    "semServico": "El envío de denuncias aún no está activo en esta copia.",
+    "urgente": "¿Corres peligro ahora? Usa la salida rápida y busca ayuda cerca. Alumia no sustituye a los servicios de emergencia."
+  },
+  "primeiraVez": {
+    "rotulo": "Primera vez en Alumia",
+    "pular": "Saltar",
+    "proximo": "Siguiente",
+    "voltar": "Atrás",
+    "comecar": "Empezar",
+    "passo": "Paso {n} de {total}",
+    "passos": [
+      { "titulo": "Tu línea de tiempo", "texto": "Aquí aparece lo que publican las personas y las comunidades que sigues, por orden de llegada. Las pestañas Siguiendo, Mis comunidades y Todo cambian lo que entra. Nadie elige por ti lo que aparece.", "links": [] },
+      { "titulo": "Comunidades", "texto": "Cada lucha, disciplina y tema tiene su comunidad. Entra en dos o tres y la línea cobra vida.", "links": [{ "href": "/alumia/comunidades", "rotulo": "Ver las comunidades" }] },
+      { "titulo": "Núcleos y grupos de estudio", "texto": "Los núcleos reúnen a quien se organiza en el mismo lugar o en el mismo frente. Los grupos de estudio aprenden juntos: elige uno y combina los encuentros allí.", "links": [{ "href": "/alumia/nucleos", "rotulo": "Ver los núcleos" }, { "href": "/alumia/turmas", "rotulo": "Ver los grupos" }] },
+      { "titulo": "Seguridad", "texto": "En el botón Seguridad activas el segundo factor, ves los dispositivos conectados y encuentras el pánico. La salida rápida está siempre a la vista: te saca de Alumia al instante.", "links": [{ "href": "/alumia/seguranca", "rotulo": "Abrir Seguridad" }] }
+    ],
+    "lista": {
+      "titulo": "Primeros pasos",
+      "texto": "Cuatro cosas para empezar. Marca lo que ya hiciste; esto queda solo en este dispositivo.",
+      "pronto": "Todo hecho. ¡Buen comienzo!",
+      "rever": "Ver el recorrido otra vez",
+      "esconder": "Ocultar",
+      "itens": [
+        { "texto": "Elegir tu cara: dibujo, pintura o foto", "link": "/alumia/editar-perfil" },
+        { "texto": "Entrar en dos comunidades", "link": "/alumia/comunidades" },
+        { "texto": "Seguir a personas de los paquetes de bienvenida", "link": "/alumia/explorar" },
+        { "texto": "Conocer el botón de Seguridad", "link": "/alumia/seguranca" }
+      ]
+    }
   }
 }

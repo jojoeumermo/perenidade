@@ -9,6 +9,7 @@ import { arrastavel, CANTOS, type Canto, estiloDaPosicao, gravarPosicao, ladoDe,
 import { ligado } from "@/lib/recursos";
 import { speechSupported, startReading, stopReading, useSpeaking } from "@/lib/speech";
 import { useHydrated } from "@/lib/storage";
+import type { TextosDoDesign } from "@/i18n/design";
 import { useI18n } from "./I18n";
 
 // VLibras (recurso "vlibras", desligado por padrão): o código só é baixado com o recurso ligado e o painel aberto.
@@ -196,7 +197,7 @@ export const ALTERNAR_ACESSIBILIDADE = "lucia:alternar-acessibilidade";
  * No aplicativo o botão redondo não flutua por cima do conteúdo (cobria ícones e títulos, coisa de site): o painel abre
  * pelo item "Acessibilidade" do "Mais". Só volta a aparecer enquanto a leitura em voz alta está tocando, para dar como parar.
  */
-export function A11yWidget() {
+export function A11yWidget({ design }: { /** Com o redesign ligado ("design-novo"), os textos da opção Contornos fortes (E1). */ design?: TextosDoDesign } = {}) {
   const { t } = useI18n();
   const a = t.a11y;
   const prefs = usePrefs();
@@ -358,6 +359,8 @@ export function A11yWidget() {
             <Grupo titulo={a.groupColor}>
               <Switch checked={prefs.contrast} onChange={(contrast) => setPrefs({ contrast })} label={a.contrast} hint={a.contrastHint} />
               <Switch checked={prefs.eink} onChange={(eink) => setPrefs({ eink })} label={a.eink} hint={a.einkHint} />
+              {/* Prompt 5 (E1): com o redesign ligado, o design de antes inteiro continua aqui, como escolha da pessoa. */}
+              {design && <Switch checked={prefs.fortes} onChange={(fortes) => setPrefs({ fortes })} label={design.fortes} hint={design.fortesDica} />}
               <Opcoes legenda={a.color} dica={a.colorHint} valores={COLOR_MODES} rotulos={a.colorModes} atual={prefs.color} escolher={(color) => setPrefs({ color })} />
               <Switch checked={prefs.black} onChange={(black) => setPrefs({ black })} label={a.black} hint={a.blackHint} />
             </Grupo>

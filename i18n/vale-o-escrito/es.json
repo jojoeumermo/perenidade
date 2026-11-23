@@ -1,6 +1,6 @@
 {
   "meta": {
-    "titulo": "Vale o Escrito: la red del poder en Brasil",
+    "titulo": "Vale o Escrito: la red del poder en el mundo",
     "descricao": "Observatorio de delitos de interés público que ya constan en fuentes públicas: proceso judicial, investigación oficial, informe de organización o reportaje. Cada ficha trae fuente, fecha, extracto y la situación jurídica por escrito."
   },
   "emPreparacao": {
@@ -11,7 +11,7 @@
   "entrada": {
     "olho": "Observatorio",
     "titulo": "Vale o Escrito",
-    "subtitulo": "La red del poder en Brasil",
+    "subtitulo": "La red del poder en el mundo",
     "linhaHonesta": "No es una investigación propia, ni una guardia policial, ni un tribunal. Reunimos lo que ya está en fuentes públicas, con enlace, fecha y extracto, y escribimos la situación jurídica de cada caso."
   },
   "avisos": {
@@ -70,17 +70,18 @@
     "orbita": "Órbita",
     "grupos": "Grupos",
     "fluxo": "Flujo",
-    "mapa": "Mapa de Brasil",
+    "mapa": "Mapa del mundo",
     "linha": "Línea de tiempo"
   },
   "zoom": {
+    "mundo": "Mundo",
     "pais": "País",
     "estado": "Estado",
     "municipio": "Municipio"
   },
   "mapa": {
     "semWebgl": "Este navegador no puede dibujar el mapa (falta WebGL). La lista de casos de abajo sigue sirviendo.",
-    "semMalha": "Las mallas del IBGE aún no se generaron en este servidor.",
+    "semMalha": "Las mallas del mapa (Natural Earth e IBGE) aún no se generaron en este servidor.",
     "voltar": "Volver un nivel",
     "brasil": "Brasil",
     "casos": "{n} casos",
@@ -89,15 +90,17 @@
     "casosAqui": "Casos en este punto",
     "abrirFicha": "Abrir la ficha",
     "listaDeCasos": "Casos en el mapa (lista para teclado y lector de pantalla)",
-    "aria": "Mapa de Brasil con los casos publicados, por estado y municipio",
-    "credito": "Mallas territoriales: IBGE. Sin mapa de terceros y sin rastreo.",
+    "aria": "Mapa del mundo con los casos publicados; en Brasil, también por estado y municipio",
+    "credito": "Mallas: Natural Earth (mundo, dominio público) e IBGE (Brasil). Sin mapa de terceros y sin rastreo.",
     "nivel": "Nivel del mapa",
     "aproximado": "ubicación aproximada (centro del estado)",
     "ramos": "Vínculos del caso",
     "reduzirMovimento": "Reducir movimiento",
     "ativarMovimento": "Activar movimiento",
     "fecharRamos": "Cerrar ramificaciones",
-    "abrirFonte": "Abrir la fuente"
+    "abrirFonte": "Abrir la fuente",
+    "mundo": "Mundo",
+    "aproximadoPais": "lugar aproximado (centro del país)"
   },
   "enviar": {
     "titulo": "Enviar una fuente",
@@ -225,8 +228,8 @@
       "titulo": "Órbita en torno a {nome}"
     },
     "mapa": {
-      "emPreparacao": "Mapa de Brasil en preparación",
-      "texto": "El mapa neón de Brasil (país, estado, municipio) se abre aquí. Mientras tanto, los casos por lugar:",
+      "emPreparacao": "Mapa del mundo en preparación",
+      "texto": "El mapa neón del mundo (país; en Brasil, estado y municipio) se abre aquí. Mientras tanto, los casos por lugar:",
       "semLugar": "Sin lugar indicado"
     },
     "ficha": {
@@ -303,7 +306,9 @@
         "movimentacao_suposta": "movimiento supuesto"
       },
       "dataDaFonte": "sin fecha propia; fuente del {data}"
-    }
+    },
+    "filtroPais": "País",
+    "todosPaises": "Todos los países"
   },
   "navegacao": {
     "inicio": "Observatorio",
@@ -395,7 +400,8 @@
       "pessoas": "personas públicas",
       "organizacoes": "organizaciones",
       "fontes": "fuentes citadas",
-      "lugares": "estados"
+      "lugares": "estados",
+      "paises": "países"
     },
     "barra": "Situación jurídica de los casos publicados",
     "rodape": "Fuente, fecha y fragmento en cada ficha. Red viva: cada punto es un registro, cada línea un vínculo con fuente."

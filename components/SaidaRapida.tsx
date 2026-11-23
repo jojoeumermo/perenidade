@@ -48,8 +48,12 @@ export function SaidaRapida() {
   if (!ligado || !contexto) return null;
   const s = contexto.textos.seguro;
   return (
-    <button type="button" onClick={() => void sairRapido()} aria-label={s.sairRotulo} title={s.sairRotulo} className="saida-rapida no-print" data-saida-rapida>
-      {s.sair}
+    <button type="button" onClick={() => void sairRapido()} aria-label={s.sairRotulo} title={s.sairRotulo} className="saida-rapida al-pele no-print" data-saida-rapida>
+      {/* P5 (A17): só o visual mudou (pílula com o ícone de saída); a função é a mesma. */}
+      <svg aria-hidden viewBox="0 0 24 24" className="saida-rapida-icone" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h10" />
+      </svg>
+      <span>{s.sair}</span>
     </button>
   );
 }

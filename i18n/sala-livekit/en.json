@@ -1,0 +1,32 @@
+{
+  "_rascunho": true,
+  "entrando": "Joining the room…",
+  "entrar": "Join the room",
+  "desafio": "Confirm you are not a robot to join.",
+  "na_sala": "{n} in the room",
+  "ninguem": "For now, only you are in the room.",
+  "voce": "You",
+  "sem_nome": "Someone",
+  "acoes": {
+    "micLigar": "Turn microphone on",
+    "micDesligar": "Turn microphone off",
+    "camLigar": "Turn camera on",
+    "camDesligar": "Turn camera off",
+    "telaLigar": "Share screen",
+    "telaDesligar": "Stop sharing screen",
+    "sair": "Leave the room",
+    "abrirNoJitsi": "Open in Jitsi"
+  },
+  "erros": {
+    "livekit_sem_config": "The new video room is not set up on this server yet.",
+    "nao_encontrado": "This room does not exist or you cannot join it.",
+    "sem_sessao": "Sign in to open this room.",
+    "limite": "Too many joins in a row. Wait a little and try again.",
+    "desafio": "The robot check did not pass. Try again.",
+    "sem_servico": "Group study is closed on this server until the robot check is set up.",
+    "conexao": "The video service did not answer. Try again or open in Jitsi.",
+    "NotAllowedError": "The browser did not allow the microphone or camera. Allow them in the site permissions.",
+    "outro": "Could not open the room."
+  },
+  "privacidade": "Video room by LiveKit Cloud, an outside service: while you are in the room it receives your network address, the name you use here, your audio and your video, and has technical access to them. The Institute records nothing; the panel keeps only who joined and when."
+}

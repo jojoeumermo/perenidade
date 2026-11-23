@@ -1,0 +1,62 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/* A casca usa o mesmo visual do site: as cores e a base de app/globals.css e os tokens da Alumia. O Tailwind procura as classes nas
+   telas do chat (components/rede) e na própria casca. */
+@import "../../app/globals.css";
+@import "../../app/app-casca.css";
+@import "../../styles/alumia-tokens.css";
+@source "../../components/rede";
+@source "./";
+
+.casca-tela {
+  min-height: 100dvh;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  max-width: 720px;
+  margin: 0 auto;
+}
+.casca-campo {
+  display: block;
+  width: 100%;
+  margin: 6px 0 14px;
+  padding: 12px;
+  border: 2px solid var(--borda-forte);
+  border-radius: 10px;
+  background: var(--folha);
+  color: var(--ink);
+  font-size: 18px;
+}
+.casca-botao {
+  display: inline-block;
+  padding: 12px 18px;
+  border: 2px solid var(--borda-forte);
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--parchment);
+  font-weight: 700;
+}
+.casca-botao[disabled] {
+  opacity: 0.6;
+}
+.casca-leve {
+  background: transparent;
+  color: var(--ink);
+}
+.casca-barra {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+.casca-aviso {
+  border-left: 4px solid var(--prelo-texto);
+  padding: 8px 12px;
+  margin: 8px 0;
+  background: var(--folha);
+}
+/* A capa que cobre tudo quando o app trava (e na hora de ir para o fundo, antes da foto da troca de apps). */
+.casca-capa {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  background: var(--parchment);
+}

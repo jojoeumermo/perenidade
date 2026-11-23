@@ -196,7 +196,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       />
       {/* ── O alto: busca e lambe-lambe no papel pontilhado ── */}
       {/* No aplicativo, o começo é o InicioDoApp acima: o lambe-lambe grande fica para o site. */}
-      <section className="pont border-b-[3px] border-ink app:max-md:hidden">
+      {/* "capa-do-inicio": a parte inicial que o redesign deixa como está, só sem os contornos fortes (E3, styles/design/instituto.css). */}
+      <section className="capa-do-inicio pont border-b-[3px] border-ink app:max-md:hidden">
         <div className="mx-auto grid max-w-[78rem] items-center gap-12 px-4 pt-14 pb-16 sm:px-6 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-14 lg:px-8 lg:pt-[4.5rem] lg:pb-20 max-md:pt-7 max-md:pb-9">
           <div className="min-w-0">
             <p className="rotulo">{h.kicker}</p>

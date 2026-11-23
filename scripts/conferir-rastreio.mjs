@@ -25,7 +25,10 @@ const servidor = path.join(raiz, ".next", "server");
 // tracing do next.config duplicam content/ inteiro em dezenas de funções; nenhum módulo novo lendo disco). Se a imagem
 // ficar pesada demais, o caminho continua sendo o outputFileTracingExcludes, não este número. O limite de funções que
 // levam o projeto inteiro (abaixo) segue valendo.
-const LIMITE_TOTAL = 1_000_000;
+// 22/11/2026: 1 milhão → 1,1 milhão. O PR da Alumia (banco v13→v18, chat cifrado, 57 migrações) levou o total a 1,019 milhão, de novo
+// só por crescimento de arquivos tracejados (o número de funções que levam o projeto inteiro continua em 4, abaixo do limite de 6).
+// Mesmo motivo da subida de 20/11: não há mais upload de funções para a Vercel; o site roda na VPS (docs/HOSPEDAGEM.md).
+const LIMITE_TOTAL = 1_100_000;
 const LIMITE_FUNCOES_COM_PROJETO = 6;
 
 if (!fs.existsSync(servidor)) {

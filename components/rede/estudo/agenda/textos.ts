@@ -4,6 +4,7 @@
 // marcado ("_rascunho"). Cada idioma é um pedaço separado (import dinâmico): o navegador só baixa o que usa. A página lê daqui no
 // servidor (o título). Sem "@/" de propósito (o teste lê daqui no Node).
 import type pt from "../../../../i18n/rede/agenda/pt.json";
+import { carregarPronto } from "../../../../lib/rede/textos-prontos";
 
 export type TextosDaAgenda = typeof pt;
 
@@ -18,6 +19,5 @@ const CARREGAR: Record<string, () => Promise<{ default: unknown }>> = {
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export async function carregarTextosDaAgenda(lang: string): Promise<TextosDaAgenda> {
-  const carregar = CARREGAR[lang] ?? CARREGAR.pt;
-  return (await carregar()).default as TextosDaAgenda;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDaAgenda;
 }

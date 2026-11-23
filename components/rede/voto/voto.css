@@ -1,0 +1,58 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * O voto secreto em limiar (components/rede/voto/UrnaSecreta.tsx): guardiãs, impressão da chave, abrir a urna. Cores só pelos
+ * tokens de styles/alumia-tokens.css (claro, escuro, contraste e e-ink); no painel da equipe, onde os tokens podem faltar, cada
+ * cor tem a volta para a cor do texto.
+ */
+
+.vt-urna {
+  margin-top: 0.9rem; padding: 0.85rem 0.95rem 0.95rem; border-radius: var(--al-raio, 10px);
+  border: 1px solid var(--al-linha, currentColor); background: var(--al-superficie-2, transparent); color: var(--al-texto, inherit);
+  min-width: 0; overflow-wrap: anywhere;
+}
+.vt-titulo {
+  display: flex; align-items: center; gap: 0.45rem; margin: 0; font-size: 0.95rem; font-weight: 900; letter-spacing: 0.03em;
+  text-transform: uppercase; font-family: var(--al-fonte, inherit);
+}
+.vt-cadeado { display: inline-grid; place-items: center; color: var(--al-dourado, currentColor); }
+.vt-texto { margin: 0.55rem 0 0; font-size: 0.92rem; line-height: 1.5; color: var(--al-texto, inherit); }
+.vt-forte { font-weight: 700; }
+.vt-nota { margin: 0.4rem 0 0; font-size: 0.84rem; line-height: 1.45; color: var(--al-texto-3, inherit); }
+.vt-subtitulo { margin: 0.2rem 0 0; font-size: 0.9rem; font-weight: 800; }
+.vt-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin-top: 0.75rem; }
+.vt-ok, .vt-ok-texto { color: var(--al-texto, inherit); font-weight: 700; }
+.vt-ok { margin: 0.7rem 0 0; padding: 0.55rem 0.75rem; border-radius: 8px; background: var(--al-superficie, transparent); border: 1px solid var(--al-linha, currentColor); font-size: 0.9rem; }
+.vt-alerta {
+  margin: 0.6rem 0 0; padding: 0.6rem 0.8rem; border-radius: 8px; border: 2px solid var(--al-vermelho-texto, currentColor);
+  color: var(--al-texto, inherit); font-size: 0.92rem; font-weight: 700; line-height: 1.45;
+}
+.vt-alerta-curto { display: block; margin: 0.6rem 0 0; color: var(--al-vermelho-letra, var(--al-vermelho-texto, inherit)); font-size: 0.88rem; font-weight: 700; }
+.vt-acoes .vt-alerta-curto, .vt-acoes .vt-ok { margin: 0; }
+
+/* A impressão da chave: grande, legível, para ler em voz alta e comparar. */
+.vt-impressao { margin-top: 0.7rem; padding: 0.6rem 0.75rem; border-radius: 8px; border: 1px dashed var(--al-linha, currentColor); background: var(--al-superficie, transparent); }
+.vt-impressao-rotulo { margin: 0; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--al-texto-2, inherit); }
+.vt-impressao-numero {
+  margin: 0.2rem 0 0; font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: clamp(1.15rem, 5vw, 1.45rem);
+  font-weight: 700; letter-spacing: 0.08em; font-variant-numeric: tabular-nums; color: var(--al-texto, inherit);
+}
+
+.vt-abrir { margin-top: 0.4rem; }
+
+/* A escolha das guardiãs. */
+.vt-escolha { margin-top: 0.75rem; padding: 0.75rem 0.8rem; border-radius: 8px; background: var(--al-superficie, transparent); border: 1px solid var(--al-linha, currentColor); }
+.vt-guardias { display: grid; gap: 0.35rem; margin: 0.6rem 0 0; padding: 0; border: 0; min-width: 0; }
+.vt-guardia { display: flex; align-items: flex-start; gap: 0.55rem; min-height: 2.25rem; padding: 0.35rem 0.5rem; border-radius: 6px; font-size: 0.92rem; line-height: 1.35; cursor: pointer; }
+.vt-guardia input { flex: none; width: 1.15rem; height: 1.15rem; margin-top: 0.1rem; accent-color: var(--al-vermelho, currentColor); }
+.vt-guardia-ruim { opacity: 0.7; cursor: not-allowed; }
+.vt-k { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 0.7rem; font-size: 0.9rem; font-weight: 700; }
+.vt-k select {
+  min-height: 2.25rem; padding: 0 0.5rem; border-radius: 6px; border: 1px solid var(--al-linha, currentColor);
+  background: var(--al-superficie, transparent); color: var(--al-texto, inherit); font: inherit;
+}
+
+/* A chave de guardiã desta conta. */
+.vt-minha { margin-top: 0.8rem; padding-top: 0.6rem; border-top: 1px solid var(--al-linha, currentColor); }
+.vt-minha > summary { cursor: pointer; font-size: 0.88rem; font-weight: 800; min-height: 2rem; display: flex; align-items: center; }
+
+.vt-oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

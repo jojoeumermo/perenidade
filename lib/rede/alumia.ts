@@ -47,6 +47,28 @@ export const ROTAS_DA_ALUMIA = [
   "pacote",
   // Onda 13: o mapa e o ao vivo (/alumia/mapa, /alumia/mapa/ao-vivo), as pontes e o Mural dos Trabalhadores.
   "mapa", "pontes", "trabalhadores",
+  // P5 (A5): a página de denúncia da própria Alumia.
+  "denunciar",
+  // Prompt 4: a segurança pessoal (registro de abuso, plantão jurídico, interruptor de sumiço).
+  "seguranca-pessoal",
+  // Prompt 4: a criação coletiva (rascunho coletivo, margem do acervo, cartaz e zine).
+  "criacao",
+  // Prompt 4: a cultura (obra seriada, mural de arte, cineclube, clube de leitura e playlist).
+  "cultura",
+  // Prompt 4: a memória da luta e o desafio do dia.
+  "memoria-da-luta", "desafio",
+  // Prompt 4: organização e ação coletiva.
+  "organizar",
+  // Prompt 4: a ação coletiva (Parte F).
+  "acao-coletiva",
+  // Prompt 4: o perto (localização cifrada, pedido de ajuda e volta para casa).
+  "perto",
+  // Prompt 4: descoberta e estudo (assuntos em movimento, linhas compartilháveis, simulado, mentoria, editais e o resto da Parte G).
+  "descobrir", "estudar",
+  // Prompt 4: conta e convivência (Parte H).
+  "conta",
+  // Prompt 4: o leitor de fios (lote "pontes", item 133).
+  "fio",
 ] as const;
 
 /**
@@ -54,6 +76,34 @@ export const ROTAS_DA_ALUMIA = [
  * a privacidade e os meus dados da Alumia (onda 8) são telas dela, em ROTAS_DA_ALUMIA.
  */
 export const PAGINAS_LIVRES_NA_ALUMIA = ["entrar", "conduta", "fora-do-ar"] as const;
+
+/**
+ * A entrada da Alumia (P5, A3): entrar e criar conta na Alumia é só dentro dela, no portão (components/rede/entrada/PortaoDaAlumia.tsx),
+ * nunca na página de entrar do site. `volta` é a tela da Alumia para onde a pessoa vai depois de entrar (/alumia/organizacoes,
+ * /pt/alumia/p/<id>, o antigo /comunidade/…); qualquer outra coisa (outro endereço, "//", barra invertida) vira a linha. O portão
+ * abre a aba pedida (?entrar ou ?criar) e, depois de entrar, mostra a própria tela. `extra`: outros parâmetros que vão junto (a
+ * volta de um link de e-mail, ?code=…), já sem o "?".
+ */
+export function entradaDaAlumia(lang: string, volta?: string | null, criar = false, extra = ""): string {
+  const lingua = IDIOMAS.includes(lang) ? lang : "pt";
+  const caminho = (volta ?? "").split(/[?#]/)[0];
+  const m = /^\/(?:(?:pt|en|es|fr|ru|zh)\/)?(?:alumia|comunidade)((?:\/[\w\-~@][\w\-.~%@]*)*)\/?$/.exec(caminho);
+  return `/${lingua}/alumia${m?.[1] ?? ""}?${criar ? "criar" : "entrar"}${extra ? `&${extra}` : ""}`;
+}
+
+/** A entrada da Alumia para quem chegou na página de entrar do site com a busca `busca` (?volta=/alumia/…&criar&code=…). */
+export function entradaDaAlumiaPelaBusca(lang: string, busca: string): string {
+  const p = new URLSearchParams(busca);
+  const criar = p.has("criar");
+  const volta = p.get("volta");
+  for (const k of ["criar", "entrar", "volta"]) p.delete(k);
+  return entradaDaAlumia(lang, volta, criar, p.toString());
+}
+
+/** A volta (?volta=) é uma tela da Alumia? Então a página de entrar do site manda para a entrada da Alumia. */
+export function voltaDaAlumia(volta: string | null | undefined): boolean {
+  return /^\/(?:(?:pt|en|es|fr|ru|zh)\/)?(?:alumia|comunidade)(?:[/?#]|$)/.test(volta ?? "");
+}
 
 /** O host (com ou sem porta) é o da Alumia? */
 export function hostDaAlumia(host: string | null | undefined): boolean {
@@ -103,9 +153,9 @@ export type DecisaoDaAlumia =
   | { tipo: "mover"; destino: string; completo: string }
   /**
    * Redirecionar (307) para outro caminho no mesmo host da Alumia. `busca` (com o "?") vai junto quando existe: o proxy a põe no
-   * endereço novo (sem ela, a busca do pedido é tirada).
+   * endereço novo (sem ela, a busca do pedido é tirada). `permanente`: 308, o endereço mudou de vez.
    */
-  | { tipo: "redirecionar"; destino: string; busca?: string }
+  | { tipo: "redirecionar"; destino: string; busca?: string; permanente?: true }
   /** O resto do site mora no endereço do instituto: redirecionar (307) para lá, mesmo caminho. */
   | { tipo: "site"; destino: string };
 
@@ -119,7 +169,7 @@ const ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
  * Decide o caminho de um pedido no host da Alumia. `aceita` é o cabeçalho Accept: um servidor do Fediverso que pede um
  * perfil (/@nome, /pt/u/nome) ou um post (/pt/p/<id>) em ActivityPub recebe o documento da federação, não a página.
  */
-export function rotaNaAlumia(pathname: string, aceita = ""): DecisaoDaAlumia {
+export function rotaNaAlumia(pathname: string, aceita = "", busca = ""): DecisaoDaAlumia {
   const partes = pathname.split("/").filter(Boolean);
   const ap = ACTIVITY.test(aceita);
 
@@ -162,6 +212,13 @@ export function rotaNaAlumia(pathname: string, aceita = ""): DecisaoDaAlumia {
   if (jaCompleto) return comIdioma ? { tipo: "seguir" } : { tipo: "reescrever", destino: `/pt/${resto.join("/")}` };
 
   if ((ROTAS_DA_ALUMIA as readonly string[]).includes(resto[0])) return { tipo: "reescrever", destino: `/${lang}/alumia/${resto.join("/")}` };
+  // P5 (A3): entrar e criar conta na Alumia é só no portão dela. A página de entrar do site, no endereço da Alumia, vai de vez para
+  // a entrada da Alumia (a tela da volta, com a aba pedida e os outros parâmetros, como o ?code= de um link de e-mail).
+  if (resto[0] === "entrar" && resto.length === 1) {
+    const destino = entradaDaAlumiaPelaBusca(lang, busca);
+    const i = destino.indexOf("?");
+    return { tipo: "redirecionar", destino: destino.slice(0, i), busca: destino.slice(i), permanente: true };
+  }
   if ((PAGINAS_LIVRES_NA_ALUMIA as readonly string[]).includes(resto[0])) {
     return comIdioma ? { tipo: "seguir" } : { tipo: "reescrever", destino: `/pt/${resto.join("/")}` };
   }

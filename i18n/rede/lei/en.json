@@ -14,7 +14,7 @@
     "indice": "On this page",
     "carregando": "Loading…",
     "erro": "That didn't work right now. Try again in a moment.",
-    "contato": "Talk to the coordination through the [Report](/denunciar) page (choose the subject \"personal data\") or by e-mail at institutolucia@tutamail.com. We answer within 15 days.",
+    "contato": "Talk to the coordination through the [Report](/alumia/denunciar) page (choose the subject \"personal data\") or by e-mail at institutolucia@tutamail.com. We answer within 15 days.",
     "horas": "{n} hours",
     "dias": "{n} days",
     "enviar": "Send",
@@ -156,7 +156,7 @@
           "**The entry request:** the code name and the reason you wrote; the reason disappears 30 days after the decision.",
           "**The acceptance:** the version of the norms and of these terms you accepted, and when.",
           "**What you publish and do:** posts, replies, polls, reactions, saved items, folders, who you follow, the communities and cells you are in. What you delete disappears.",
-          "**Private conversations:** encrypted on your device; the server keeps the encrypted text, which it cannot read, until the conversation's deadline.",
+          "**Private and group conversations:** encrypted on your device. The server only delivers packets to unnamed boxes: the database does not keep who talks to whom or who is in each cell or chat group, only the encrypted packet and the day it arrived. Your conversation list stays on your device. At each call the server sees the network address and the time, like any site; the database keeps none of it.",
           "**Moderation:** reports, the record of decisions and appeals.",
           "**Security:** a scrambled digest of the network the account came from, which does not allow recovering the address, for 30 days; usage counters to curb abuse, for 2 days; the record of some account actions, for up to 400 days."
         ]
@@ -186,7 +186,7 @@
           "**Hosting, database and attack protection**, with part of the servers outside Brazil (international transfer, art. 33).",
           "**E-mail sending**, only the address and the text of each message.",
           "**Phone notifications**, if you turn them on: your browser's delivery service receives only an encrypted number, with no excerpt of a post and no name.",
-          "**Fediverse**, if you turn on federation: other servers receive the code name, the @handle, the bio and the posts marked as Internet, and keep copies under their own rules.",
+          "**Fediverse**, if you consent to federation: other servers receive the code name, the @handle, the bio, the profile photo and the posts where you choose \"Alumia and the Fediverse\" (and, in open communities that federate, those in the widest audience), and keep copies under their own rules. \"Everyone on Alumia\" never leaves.",
           "**Link checking by Google Safe Browsing**, when you publish a post with a link: Alumia's server turns each link into hashes (SHA-256) and sends Google only the first 4 bytes of each hash, which match a great many addresses; Google returns the hashes of dangerous pages that start that way, and the comparison is made on our server. The text of the post, your name and your account never go; the link is not stored. A link flagged as dangerous is not published, and the screen says why.",
           "**Automatic message evaluation**, when the coordination turns it on: the title and text of a post, without your name or your account, go to a moderation service from an outside company, which returns a classification. No account is suspended by this evaluation."
         ]
@@ -226,7 +226,8 @@
         "titulo": "On your device",
         "paragrafos": [
           "Alumia stores in the browser only what it needs: the session of whoever logged in and preferences such as the theme, text size and feed order. There are no third-party cookies and no audience measurement tools. **Quick exit** erases what Alumia stored on the device. The answers to the interests questionnaire also stay only here: they go along with each read of the feed and the server does not keep them.",
-          "If you turn on the **panic password**, the device keeps an encrypted vault (Web Crypto, with a key derived from the panic password) holding the decoy account's email and password. The vault never goes to the server. So that the panic password keeps working, Quick exit and the panic button do not delete the vault; turning off the panic password swaps it for an empty vault of the same format, like the one every device that enters Alumia receives. The decoy is treated like any other account, and Alumia complies with the law and valid court orders using the real data."
+          "If you turn on the **panic password**, the device keeps an encrypted vault (with a key derived from the panic password by Argon2id) holding the decoy account's email and password. The vault never goes to the server. So that the panic password keeps working, Quick exit and the panic button do not delete the vault; turning off the panic password swaps it for an empty vault of the same format, like the one every device that enters Alumia receives. The decoy is treated like any other account, and Alumia complies with the law and valid court orders using the real data.",
+          "The chat keeps on the device, encrypted, the keys and the list of your conversations; Quick exit and the panic button erase all of it."
         ]
       },
       {
@@ -268,7 +269,8 @@
           { "dado": "Second-factor recovery codes", "onde": "Institute database, only a digest that does not reveal the code", "tempo": "Until you generate new ones; each works once", "quem": "No one" },
           { "dado": "Invitations you created (a digest of the code and the deadline; a used invitation is deleted right away)", "onde": "Alumia database", "tempo": "45 days", "quem": "Only you see yours; who used an invitation is not kept" },
           { "dado": "\"Came by invitation\" mark on the request to join", "onde": "Alumia database", "tempo": "Until the screening decides", "quem": "The screening, without knowing whose invitation it was" },
-          { "dado": "Request to delete the account", "onde": "Alumia database", "tempo": "The 7 days to change your mind; then the account is deleted", "quem": "You; the coordination only sees how many requests there are" }
+          { "dado": "Request to delete the account", "onde": "Alumia database", "tempo": "The 7 days to change your mind; then the account is deleted", "quem": "You; the coordination only sees how many requests there are" },
+          { "dado": "Blocked e-mail mark (only if the account is banned by the coordination)", "onde": "Alumia database, only a scrambled summary of the e-mail, made with a key only the server has", "tempo": "While the ban lasts (the period is under legal review)", "quem": "Nobody reads it; the system only compares it, so the banned account cannot come back with the same e-mail" }
         ]
       },
       {
@@ -287,10 +289,25 @@
       {
         "titulo": "Conversations and notices",
         "linhas": [
-          { "dado": "Private and group conversations", "onde": "Alumia database, encrypted on the writer's device", "tempo": "Until the conversation's deadline; an unanswered conversation request disappears in 30 days", "quem": "Only participants read the text; the server knows who is in each conversation" },
+          { "dado": "Private and group conversations (messages, cells, restricted posts)", "onde": "Alumia database, in unnamed boxes: only the packet, encrypted on the writer's device, and the day it arrived", "tempo": "In one-to-one conversations, gone once delivered; in groups, when the epoch's box is replaced; anything nobody fetches is gone in 30 days", "quem": "Only participants read it; the database does not know whose box is whose or who is in each conversation or group" },
+          { "dado": "Your conversation request box", "onde": "Alumia database, linked to your account (it is how someone asks to talk to you)", "tempo": "Unanswered requests are gone in 30 days", "quem": "The server knows you receive requests, not from whom; only your device opens them" },
+          { "dado": "Your conversation list and backup (if you create one)", "onde": "On your device; on the server, only a file encrypted on the device, which it cannot read", "tempo": "Until you delete it", "quem": "Only you, on your devices or with the 24 words" },
+          { "dado": "Anonymous passes of the day (to curb abuse without saying who)", "onde": "Alumia database: a mark that the account took today's batch and, separately, a digest of each spent pass, with no link between them", "tempo": "The mark is gone the next day; the spent pass, in 14 days", "quem": "No one" },
+          { "dado": "Excerpts of a report with proof (encrypted message or post)", "onde": "Alumia database, with the report: only the excerpts you chose, the day and where they came from", "tempo": "For the moderation record's period", "quem": "The moderators; the rest of the conversation stays encrypted" },
           { "dado": "Notices (replies, mentions, moderation)", "onde": "Alumia database", "tempo": "Read ones disappear in 30 days; all in 120 days", "quem": "Only you" },
           { "dado": "Device that receives phone notifications (if you turn them on)", "onde": "Alumia database", "tempo": "Until you turn them off", "quem": "Nobody; only the sending uses it" },
-          { "dado": "Quiet hours for phone notifications (if you choose them)", "onde": "Alumia database", "tempo": "Until you change them", "quem": "No one; only the sending uses it" }
+          { "dado": "Quiet hours for phone notifications (if you choose them)", "onde": "Alumia database", "tempo": "Until you change them", "quem": "No one; only the sending uses it" },
+          { "dado": "Public keys of your devices and the public key log", "onde": "Alumia database; the key log keeps only a summary of the account, the public key and the day", "tempo": "A device's keys leave with the device or the account; the key log only grows and is not erased (it lets anyone check that nobody swapped your key)", "quem": "The public key, whoever talks to you; the log, anyone" }
+        ]
+      },
+      {
+        "titulo": "Fediverse (only if you turn it on)",
+        "linhas": [
+          { "dado": "Your Fediverse profile (codename, @name, bio, photo) and the key that signs in your name", "onde": "Alumia database; the key encrypted on the server", "tempo": "Until you turn federation off; the key is deleted after that", "quem": "The profile, anyone in the Fediverse; the key, nobody" },
+          { "dado": "Posts in \"Alumia and the Fediverse\" (and, in open communities that federate, your posts in the widest audience)", "onde": "Alumia database and copies on the outside servers that receive them", "tempo": "Until you delete them; deleting or turning off sends everyone a deletion request, but Alumia cannot force an outside server", "quem": "Anyone in the Fediverse" },
+          { "dado": "Who follows you from outside and whom you follow outside", "onde": "Alumia database, only the public address of the outside account", "tempo": "Until you unfollow or turn federation off", "quem": "You; others see at most a total, from 3 up" },
+          { "dado": "Likes and boosts coming from outside", "onde": "Alumia database, only a scrambled nickname of who liked, never the address", "tempo": "With the notice: read ones go in 30 days; all in 120 days", "quem": "Only you" },
+          { "dado": "Public posts of people someone here follows outside", "onde": "Alumia database, only the cleaned text; images go through the site's server", "tempo": "30 days", "quem": "Whoever can see them in the feed" }
         ]
       },
       {
@@ -310,11 +327,12 @@
           { "dado": "Scrambled digest of the network the account came from", "onde": "Alumia database", "tempo": "30 days without use", "quem": "Nobody reads it; the system only compares, to stop banned people" },
           { "dado": "Usage counters per account (to curb abuse)", "onde": "Institute database", "tempo": "2 days", "quem": "Nobody; the system only counts" },
           { "dado": "Record of some account actions (joining the network, requesting entry, accepting the terms, downloading data, moderation decisions)", "onde": "Institute database", "tempo": "Up to 400 days", "quem": "Only the coordination" },
-          { "dado": "Count of new accounts and requests per network (a digest that changes every hour, without the address)", "onde": "Alumia database", "tempo": "1 day", "quem": "No one; the system only counts, to slow down mass sign-ups" }
+          { "dado": "Count of new accounts and requests per network (a digest that changes every hour, without the address)", "onde": "Alumia database", "tempo": "1 day", "quem": "No one; the system only counts, to slow down mass sign-ups" },
+          { "dado": "Blocking a network address during an attack", "onde": "At Cloudflare (the protection in front of the site), never in the Alumia database, and not linked to any account", "tempo": "From 1 to 7 days; it expires by itself", "quem": "The coordination sends the block from the panel; the database keeps only the reason and the period" }
         ]
       }
     ],
-    "nota": "Deleting the account deletes what is yours, except the moderation record, which is proof that the process was followed. To download a copy or delete, go to [My data](/alumia/meus-dados)."
+    "nota": "Deleting the account deletes what is yours, except the moderation record, which is proof that the process was followed. To download a copy or delete, go to [My data](/alumia/meus-dados). The complete list, table by table and generated from the database itself, is at [What the server stores](/transparencia/o-que-o-servidor-guarda)."
   },
   "regras": {
     "titulo": "Alumia rules",
@@ -371,7 +389,7 @@
       "ja": "You had already reported this. Protocol {protocolo}.",
       "alvoInvalido": "We do not recognize that address. Paste the post address, the profile @ or the community address.",
       "naoEncontrado": "We could not find it, or you cannot see it.",
-      "semConta": "To report here, log in to Alumia. Without an account, use the site's [Report](/denunciar) page.",
+      "semConta": "To report here, log in to Alumia. Without an account, use the [Report on Alumia](/alumia/denunciar) page.",
       "proprio": "This is yours. To take it down, delete it."
     },
     "revisao": {
@@ -449,6 +467,15 @@
         ]
       },
       {
+        "titulo": "Conversations",
+        "perguntas": [
+          { "p": "Does the server know who I talk to?", "r": "Not through the database: messages go to unnamed boxes, and neither the database nor anyone with a copy of it can link a box to an account or list who is in each cell. At each call the server sees the network address and the time, like any site, and does not keep them. Your request box is the only one linked to the account: it says you receive requests, not from whom." },
+          { "p": "How do I report a chat message?", "r": "In the conversation, choose Report and mark the messages. Before sending, the screen warns you: the marked excerpts leave the encryption and go to the moderators, who will read them; the rest stays encrypted. The server checks that the text is exactly what passed through the conversation that day, without having read anything before. On its own this does not prove who wrote it: the moderators see the name your device shows." },
+          { "p": "I changed phones. How do I bring my conversations?", "r": "Link the new device by QR code with the old one in hand, or restore the backup with the 24 words. The backup carries the conversation list and the history you chose to keep, but not the session keys: conversations are set up again on the new device. Lose the words and you lose the backup; whoever has the words and gets into your account opens the backup." },
+          { "p": "What happened to the beta conversations?", "r": "With the chat's encryption change, the beta conversations and groups were erased on the server and on each device, with a dated notice beforehand. No old key or message was kept to be read later. The database backups keep the old tables, which were already encrypted, until they expire." }
+        ]
+      },
+      {
         "titulo": "Leaving and deleting",
         "perguntas": [
           { "p": "What does Quick exit do?", "r": "It erases what Alumia stored on this device and opens an ordinary outside page (the weather forecast), with nothing from the Institute. It is in your account menu and in More." },
@@ -457,7 +484,25 @@
         ]
       }
     ],
-    "mais": "Still have questions?"
+    "mais": "Still have questions?",
+    "relatar": {
+      "titulo": "Report a problem",
+      "texto": "Found something broken on Alumia? Tell us here. Only the screen you are on (with nothing that says who you are), the kind of device and the site version go along. Nobody knows who reported it, not even the coordination.",
+      "campo": "What happened?",
+      "ajudaCampo": "What you did, what you expected and what showed up. Do not write passwords, e-mails or anyone else's data.",
+      "vaiJunto": "Goes along: {tela} · {aparelho}",
+      "enviar": "Send the report",
+      "enviando": "Sending…",
+      "enviado": "Received. Thank you for helping Alumia.",
+      "curto": "Write a little more (at least 10 letters).",
+      "erro": "Could not send it now. Try again in a moment.",
+      "entrar": "To report a problem, sign in to Alumia."
+    },
+    "falhas": {
+      "titulo": "Found a security flaw?",
+      "texto": "Do not publish it or tell anyone before it is fixed: that puts people who use Alumia at risk. Write to the institute's security contact and wait for the answer.",
+      "link": "See the security contact"
+    }
   },
   "reaceite": {
     "tituloNovo": "Read the Alumia terms",
@@ -512,5 +557,56 @@
     "aceita": "You accepted on {quando}.",
     "pendente": "You have not accepted this version yet.",
     "lerEAceitar": "Read and accept"
+  },
+  "janela": {
+    "titulo": "Alumia terms",
+    "leia": "To use Alumia, read the terms of use, the privacy policy and the rules, version of {data}. Everything opens right here; at the end, tick that you read and accept.",
+    "saida": "Quick exit",
+    "saidaAjuda": "Leaves Alumia at once and goes to an ordinary page. Pressing Esc three times also leaves, if safe mode is on.",
+    "fechar": "Close",
+    "rever": "Review the terms"
+  },
+  "denunciar": {
+    "titulo": "Report on Alumia",
+    "chamada": "For what happens in here. Nothing goes to the institute's website.",
+    "comoPost": "For a post, the quickest way is the post itself: **Report**, in its menu, with a protocol number to follow up. Use this page for the rest: a profile, a community, a problem with your data, or if you have no account.",
+    "item": "What you are reporting",
+    "itemDica": "Paste the address of the post, profile or community (e.g. /alumia/u/nickname).",
+    "motivo": "Reason",
+    "motivos": ["They are exposing me (my data or photos)","Threat or harassment","Hate or discrimination","Scam or fake account","Personal data exposed","Other reason"],
+    "detalhes": "What happened",
+    "detalhesDica": "Tell what you saw. At least 20 characters. You don't need to identify yourself.",
+    "enviar": "Send report",
+    "faltaAlgo": "Say what you are reporting and tell what happened (at least 20 characters).",
+    "enviada": "Report received. Alumia's moderation will look at it; exposed data goes straight to the coordination.",
+    "semServico": "Sending reports is not active on this copy yet.",
+    "urgente": "In danger right now? Use the quick exit and look for help from people nearby. Alumia does not replace emergency services."
+  },
+  "primeiraVez": {
+    "rotulo": "First time on Alumia",
+    "pular": "Skip",
+    "proximo": "Next",
+    "voltar": "Back",
+    "comecar": "Get started",
+    "passo": "Step {n} of {total}",
+    "passos": [
+      { "titulo": "Your timeline", "texto": "Here you see what the people and communities you follow post, in order of arrival. The Following, My communities and Everything tabs change what comes in. Nobody picks for you what shows up.", "links": [] },
+      { "titulo": "Communities", "texto": "Every struggle, subject and topic has its own community. Join two or three and your timeline comes alive.", "links": [{ "href": "/alumia/comunidades", "rotulo": "See the communities" }] },
+      { "titulo": "Cells and study groups", "texto": "Cells bring together people organising in the same place or on the same front. Study groups learn together: pick one and plan the meetings there.", "links": [{ "href": "/alumia/nucleos", "rotulo": "See the cells" }, { "href": "/alumia/turmas", "rotulo": "See the study groups" }] },
+      { "titulo": "Safety", "texto": "The Safety button is where you turn on the second factor, see connected devices and find the panic option. Quick exit is always in view: it takes you out of Alumia at once.", "links": [{ "href": "/alumia/seguranca", "rotulo": "Open Safety" }] }
+    ],
+    "lista": {
+      "titulo": "First steps",
+      "texto": "Four things to get started. Tick what you have done; this stays on this device only.",
+      "pronto": "All done. Good start!",
+      "rever": "See the tour again",
+      "esconder": "Hide",
+      "itens": [
+        { "texto": "Choose your face: drawing, painting or photo", "link": "/alumia/editar-perfil" },
+        { "texto": "Join two communities", "link": "/alumia/comunidades" },
+        { "texto": "Follow people from the newcomer packs", "link": "/alumia/explorar" },
+        { "texto": "Get to know the Safety button", "link": "/alumia/seguranca" }
+      ]
+    }
   }
 }

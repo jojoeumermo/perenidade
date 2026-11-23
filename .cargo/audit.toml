@@ -1,0 +1,9 @@
+# Instituto Lúcia — exceções do cargo audit (cada uma com a justificativa ao lado; tirar da lista assim que a correção subir).
+[advisories]
+ignore = [
+    # rsa 0.9.10 (RUSTSEC-2023-0071, "Marvin Attack"): a falha é um oráculo de tempo na DECRIPTAÇÃO RSA PKCS#1v1.5.
+    # O rsa entra pela cadeia sigstore 0.14 (só o feature "verify") -> openidconnect: o uso é VERIFICAÇÃO de assinatura
+    # (RS256 de JWT e a cadeia do Fulcio), nunca decriptação com chave privada. Não há chave RSA privada no processo,
+    # então o oráculo não existe aqui. Sai da lista quando o sigstore subir para uma versão com rsa >= 0.10.
+    "RUSTSEC-2023-0071",
+]

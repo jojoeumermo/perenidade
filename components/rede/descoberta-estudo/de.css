@@ -1,0 +1,102 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Descobrir (/alumia/descobrir) e Estudar (/alumia/estudar), Prompt 4, lote descoberta e estudo. A mesma linguagem das telas do Prompt 4 (faixa tecida, carimbo, Archivo
+ * condensada), só com os tokens de styles/alumia-tokens.css (vale no escuro, no claro, no contraste e no e-ink). Computador
+ * primeiro: a lista à esquerda e o formulário à direita a partir de 980 px; no celular, uma coluna só, sem rolar para o lado.
+ * Alvos de toque de 44 px; nada anima com movimento reduzido.
+ */
+
+.de-pagina { container-type: inline-size; display: grid; gap: 1.25rem; padding: 1.25rem 16px 3rem; color: var(--al-texto); min-width: 0; }
+@media (min-width: 1024px) { .de-pagina { padding: 1.75rem 1.5rem 3.5rem; } }
+
+.de-cabeca { display: grid; gap: 0.6rem; justify-items: start; }
+.de-faixa { width: 7.5rem; border-radius: 2px; }
+.de-titulo { margin: 0; font-size: clamp(2.4rem, 6cqi, 4rem); line-height: 0.95; }
+.de-chamada { margin: 0; max-width: 68ch; color: var(--al-texto-2); font-size: 1.06rem; line-height: 1.5; }
+.de-carimbo {
+  display: inline-flex; align-items: center; margin: 0; padding: 0.38rem 0.7rem 0.3rem; border: 2px solid var(--al-vermelho); border-radius: 6px;
+  color: var(--al-vermelho-letra); font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; transform: rotate(-1.2deg); transform-origin: left center;
+}
+
+.de-privacidade { max-width: 72ch; padding: 0 1rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); }
+.de-privacidade summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; font-weight: 700; }
+.de-privacidade p { margin: 0 0 0.7rem; color: var(--al-texto-2); font-size: 0.94rem; line-height: 1.5; }
+
+/* ───── As abas ───── */
+.de-abas { display: flex; gap: 0.4rem; overflow-x: auto; padding-bottom: 0.25rem; scrollbar-width: thin; min-width: 0; }
+.de-aba {
+  flex: none; min-height: 44px; padding: 0 1rem; border: 1px solid var(--al-linha); border-radius: 999px; background: var(--al-superficie);
+  color: var(--al-texto-2); font-weight: 700; cursor: pointer; transition: background-color 160ms ease, color 160ms ease;
+}
+.de-aba[aria-selected="true"] { background: var(--al-texto); border-color: var(--al-texto); color: var(--al-fundo); }
+.de-aba:focus-visible { outline: 3px solid var(--al-foco, var(--al-dourado)); outline-offset: 2px; }
+
+.de-painel { display: grid; gap: 1.25rem; min-width: 0; }
+.de-colunas { display: grid; gap: 1.5rem; align-items: start; min-width: 0; }
+@container (min-width: 980px) { .de-colunas { grid-template-columns: minmax(0, 1.5fr) minmax(19rem, 1fr); gap: 2rem; } }
+
+.de-bloco { display: grid; gap: 0.75rem; align-content: start; min-width: 0; }
+.de-subtitulo { margin: 0; font-size: 1.5rem; letter-spacing: 0.02em; line-height: 1.05; overflow-wrap: anywhere; }
+.de-miudo { margin: 0; color: var(--al-texto-3); font-size: 0.92rem; line-height: 1.5; }
+.de-texto { margin: 0; color: var(--al-texto-2); line-height: 1.5; overflow-wrap: anywhere; }
+.de-etiqueta { margin: 0; color: var(--al-vermelho-letra); font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.de-erro { margin: 0; padding: 0.55rem 0.8rem; border-radius: 8px; border-left: 4px solid var(--al-vermelho); background: var(--al-superficie); color: var(--al-texto); font-size: 0.94rem; }
+.de-ok { margin: 0; color: var(--al-texto-2); font-size: 0.94rem; }
+.de-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.de-filtros { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: end; }
+.de-filtros .de-campo { flex: 1 1 12rem; }
+
+/* ───── Campos e formulários ───── */
+.de-campo { display: grid; gap: 0.3rem; min-width: 0; font-weight: 700; font-size: 0.92rem; color: var(--al-texto-2); }
+.de-campo .al2-campo { min-height: 44px; width: 100%; }
+.de-campo textarea.al2-campo { min-height: 5.5rem; resize: vertical; }
+.de-campo-comunidade { max-width: 24rem; }
+.de-form { display: grid; gap: 0.75rem; align-content: start; padding: 1rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); min-width: 0; }
+.de-form-titulo { margin: 0; font-size: 1.1rem; }
+.de-duas { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); }
+
+/* ───── Listas ───── */
+.de-lista { display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+.de-item { display: grid; gap: 0.35rem; padding: 0.8rem 0.9rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); min-width: 0; overflow-wrap: anywhere; }
+.de-item-titulo { font-size: 1.05rem; }
+.de-obra-cabeca { display: grid; gap: 0.35rem; }
+.de-mural { grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+.de-citacao { margin: 0; padding-left: 0.8rem; border-left: 3px solid var(--al-dourado); font-style: italic; line-height: 1.5; }
+.de-faixa-imagem { width: 100%; max-width: 12rem; aspect-ratio: 1; object-fit: cover; border-radius: 8px; background: var(--al-superficie-2); }
+.de-barra { position: relative; height: 0.6rem; border-radius: 999px; background: var(--al-superficie-2); overflow: hidden; }
+.de-barra > span { position: absolute; inset: 0 auto 0 0; background: var(--al-vermelho); border-radius: 999px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .de-carimbo { transform: none; }
+  .de-aba { transition: none; }
+}
+:root:is([data-contrast], [data-eink]) .de-carimbo { transform: none; color: var(--al-texto); border-color: var(--al-texto); }
+
+/* ───── Descobrir e Estudar: o que é só deste lote ───── */
+.de-temas { grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
+.de-tema { display: grid; gap: 0.15rem; min-height: 44px; padding: 0.7rem 0.9rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); color: var(--al-texto); text-decoration: none; overflow-wrap: anywhere; }
+.de-tema:hover { border-color: var(--al-texto-2); }
+.de-tema:focus-visible { outline: 3px solid var(--al-foco, var(--al-dourado)); outline-offset: 2px; }
+.de-marca { display: flex; align-items: center; gap: 0.6rem; min-height: 44px; font-weight: 700; cursor: pointer; }
+.de-marca input { width: 1.4rem; height: 1.4rem; min-width: 1.4rem; accent-color: var(--al-vermelho); }
+.de-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.de-chip { display: inline-flex; align-items: center; gap: 0.15rem; }
+.de-item-linha { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.de-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--al-texto); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.de-pre { white-space: pre-line; }
+.de-resumo { display: flex; align-items: center; min-height: 44px; cursor: pointer; font-weight: 700; color: var(--al-texto-2); }
+.de-codigo { display: block; padding: 0.5rem 0.6rem; border-radius: 6px; background: var(--al-superficie-2); font-size: 0.85rem; overflow-wrap: anywhere; }
+.de-cartao { display: grid; gap: 0.75rem; padding: 1.1rem; border: 2px solid var(--al-texto); border-radius: var(--al-raio); background: var(--al-superficie); min-width: 0; }
+.de-frente { margin: 0; font-size: 1.25rem; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere; white-space: pre-line; }
+.de-verso { margin: 0; padding-top: 0.75rem; border-top: 1px dashed var(--al-linha); line-height: 1.5; overflow-wrap: anywhere; white-space: pre-line; }
+.de-referencia { margin: 0; font-family: var(--al-serifa, Georgia, serif); line-height: 1.5; overflow-wrap: anywhere; }
+.de-pontos { display: grid; gap: 0.45rem; margin: 0; padding-left: 1.2rem; line-height: 1.5; }
+.de-pergunta { display: grid; gap: 0.25rem; margin: 0; padding: 0.75rem 0.9rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); min-width: 0; }
+.de-pergunta legend { padding: 0 0.3rem; font-weight: 700; }
+.de-data { display: grid; gap: 0.25rem; padding: 0.6rem 0.75rem; border-left: 3px solid var(--al-linha); justify-items: start; }
+.de-data-inscricao { border-left-color: var(--al-vermelho); }
+.de-termo { display: inline; }
+.de-termo-botao { display: inline; min-height: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: underline dotted; text-decoration-thickness: 2px; text-underline-offset: 3px; cursor: help; }
+.de-termo-botao:focus-visible { outline: 3px solid var(--al-foco, var(--al-dourado)); outline-offset: 2px; }
+.de-termo-balao { display: block; margin: 0.35rem 0; padding: 0.55rem 0.75rem; border-left: 3px solid var(--al-dourado); border-radius: 6px; background: var(--al-superficie-2); font-size: 0.94rem; line-height: 1.45; }
+.de-x { min-width: 44px; justify-content: center; }

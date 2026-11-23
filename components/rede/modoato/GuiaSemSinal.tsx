@@ -2,6 +2,7 @@
 import Link from "@/components/Link";
 import type { TextosDoModoAto } from "@/lib/rede/modoato/textos";
 import { Faixa } from "../ui/Faixa";
+import { KitNoGuia } from "../uso/KitDeBolso";
 import "./modoato.css";
 
 /**
@@ -67,6 +68,8 @@ export function GuiaSemSinal({ t, lang }: { t: TextosDoModoAto; lang: string }) 
             ))}
           </ol>
         </section>
+        {/* R1 (A4.1): o kit de bolso que a pessoa guardou neste aparelho (lido só daqui, nunca do servidor). */}
+        <KitNoGuia lang={lang} />
       </div>
       <p className="ma-guia-voltar">
         <Link href={`/${lang}/alumia/modo-ato`} className="al-botao al-botao-contorno al-botao-m">

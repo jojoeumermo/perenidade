@@ -893,20 +893,33 @@
     background-position-y: 2.2rem;
   }
 }
+/* O eco é uma segunda sombra, maior, numa camada por cima que só acende e apaga (opacity): animar a própria sombra repinta a
+   faixa a cada quadro, e o modo leve do P5 não deixa animação de sombra no instituto (scripts/testar-p5-leve.mjs). */
+.ori-faixa {
+  position: relative;
+}
+.ori-faixa::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: 8px 8px 0 var(--col-destaque);
+  opacity: 0;
+  pointer-events: none;
+}
 @keyframes ori-eco {
   0%,
   100% {
-    box-shadow: 5px 5px 0 var(--col-destaque);
+    opacity: 0;
   }
   50% {
-    box-shadow: 8px 8px 0 var(--col-destaque);
+    opacity: 1;
   }
 }
 @media (prefers-reduced-motion: no-preference) {
   :root:not([data-light]) .ori-espiral {
     animation: ori-espiral-desce 3.2s linear infinite;
   }
-  :root:not([data-light]) .ori-faixa {
+  :root:not([data-light]) .ori-faixa::after {
     animation: ori-eco 2.8s ease-in-out infinite;
   }
 }
@@ -1005,17 +1018,26 @@
 }
 /* Vida na identidade: a sombra do lambe da logo tremula como chama. Fora do modo leve e só para quem não pediu
    menos movimento. */
+/* Como o eco da ORI: a chama é uma sombra maior, na cor do rótulo, numa camada por cima que só acende e apaga (opacity). */
+.fenix-moldura::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  box-shadow: 10px 10px 0 var(--col-rotulo);
+  opacity: 0;
+  pointer-events: none;
+}
 @keyframes fenix-chama {
   0%,
   100% {
-    box-shadow: 8px 8px 0 var(--col-destaque);
+    opacity: 0;
   }
   50% {
-    box-shadow: 10px 10px 0 var(--col-rotulo);
+    opacity: 1;
   }
 }
 @media (prefers-reduced-motion: no-preference) {
-  :root:not([data-light]) .fenix-moldura {
+  :root:not([data-light]) .fenix-moldura::after {
     animation: fenix-chama 2.4s ease-in-out infinite;
   }
 }

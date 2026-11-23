@@ -1,0 +1,111 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Os avisos de local (/alumia/mapa/avisos), Prompt 4, item 4. Linguagem do Mosaico da Arquibancada: faixa tecida, carimbo, Archivo
+ * condensada e ladrilhos no lugar de alfinetes. Só usa os tokens de styles/alumia-tokens.css (vale no escuro, no claro, no contraste
+ * e no e-ink). Computador primeiro: o desenho à esquerda e a lista à direita a partir de 980 px; no celular, uma coluna só, sem rolar
+ * para o lado. Alvos de toque de 44 px; sem animação com movimento reduzido.
+ */
+
+.av-pagina { container-type: inline-size; display: grid; gap: 1.25rem; padding: 1.25rem 16px 3rem; color: var(--al-texto); min-width: 0; }
+@media (min-width: 1024px) { .av-pagina { padding: 1.75rem 1.5rem 3.5rem; } }
+
+.av-cabeca { display: grid; gap: 0.6rem; justify-items: start; }
+.av-faixa { width: 7.5rem; border-radius: 2px; }
+.av-titulo { margin: 0; font-size: clamp(2.4rem, 6cqi, 4rem); line-height: 0.95; }
+.av-chamada { margin: 0; max-width: 68ch; color: var(--al-texto-2); font-size: 1.06rem; line-height: 1.5; }
+.av-carimbo {
+  display: inline-flex; align-items: center; margin: 0; padding: 0.38rem 0.7rem 0.3rem; border: 2px solid var(--al-vermelho); border-radius: 6px;
+  color: var(--al-vermelho-letra); font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; transform: rotate(-1.2deg); transform-origin: left center;
+}
+.av-rotulo {
+  margin: 0; padding: 0.45rem 0.75rem; border-radius: 8px; border-left: 4px solid var(--al-dourado); background: var(--al-superficie);
+  font-weight: 700; font-size: 0.95rem;
+}
+
+.av-privacidade { display: grid; gap: 0.4rem; max-width: 72ch; padding: 0.9rem 1rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); }
+.av-privacidade p { margin: 0; color: var(--al-texto-2); font-size: 0.94rem; line-height: 1.5; }
+
+.av-colunas { display: grid; gap: 1.5rem; align-items: start; min-width: 0; }
+@container (min-width: 980px) { .av-colunas { grid-template-columns: minmax(0, 1.4fr) minmax(19rem, 1fr); gap: 2rem; } }
+.av-principal, .av-lado { display: grid; gap: 1.25rem; align-content: start; min-width: 0; }
+
+.av-bloco { display: grid; gap: 0.75rem; min-width: 0; }
+.av-subtitulo { margin: 0; font-size: 1.5rem; letter-spacing: 0.02em; line-height: 1.05; }
+.av-miudo { margin: 0; color: var(--al-texto-3); font-size: 0.92rem; line-height: 1.5; }
+.av-rotulo-campo { margin: 0 0 0.35rem; padding: 0; font-weight: 700; font-size: 0.95rem; color: var(--al-texto-2); }
+.av-erro { margin: 0; padding: 0.55rem 0.8rem; border-radius: 8px; border-left: 4px solid var(--al-vermelho); background: var(--al-superficie); color: var(--al-texto); font-size: 0.94rem; }
+.av-ok { margin: 0; color: var(--al-texto-2); font-size: 0.94rem; }
+.av-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+
+/* ───── O município ───── */
+.av-municipio { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: end; }
+.av-campo { display: grid; gap: 0.3rem; flex: 1 1 12rem; min-width: 0; font-weight: 700; font-size: 0.92rem; color: var(--al-texto-2); }
+.av-campo-uf { flex: 0 0 6rem; }
+.av-campo .al2-campo { min-height: 44px; width: 100%; }
+
+/* ───── O desenho ───── */
+.av-desenho-caixa { display: grid; gap: 0.75rem; justify-items: start; min-width: 0; }
+.av-setas { display: grid; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); gap: 4px; }
+.av-seta { min-width: 44px; min-height: 44px; padding: 0; font-size: 1.15rem; }
+.av-seta[data-rumo="n"] { grid-column: 2; grid-row: 1; }
+.av-seta[data-rumo="o"] { grid-column: 1; grid-row: 2; }
+.av-seta[data-rumo="l"] { grid-column: 3; grid-row: 2; }
+.av-seta[data-rumo="s"] { grid-column: 2; grid-row: 3; }
+
+.av-desenho {
+  display: grid; gap: 3px; padding: 6px; width: min(100%, 26rem); border-radius: var(--al-raio); background: var(--al-superficie-2);
+  border: 1px solid var(--al-linha);
+}
+.av-desenho:focus-visible { outline: 3px solid var(--al-foco, var(--al-dourado)); outline-offset: 3px; }
+.av-linha { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 3px; }
+.av-quadrado {
+  aspect-ratio: 1; min-width: 0; min-height: 44px; padding: 0; border: 1px solid var(--al-linha); border-radius: 6px; cursor: pointer;
+  background: var(--al-fundo); transition: background-color 160ms ease, border-color 160ms ease;
+}
+.av-quadrado:hover { border-color: var(--al-texto-3); }
+.av-quadrado[data-aviso] { background: color-mix(in srgb, var(--al-dourado) 35%, var(--al-fundo)); border-color: var(--al-dourado); }
+.av-quadrado[data-aviso="confirmado"] { background: var(--al-vermelho); border-color: var(--al-vermelho-escuro); }
+.av-quadrado[data-meio] { box-shadow: inset 0 0 0 3px var(--al-texto); }
+.av-pulos { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.av-legenda { display: flex; flex-wrap: wrap; gap: 0.35rem 0.6rem; align-items: center; }
+.av-legenda-meio, .av-legenda-aviso { display: inline-block; width: 1rem; height: 1rem; border-radius: 4px; border: 1px solid var(--al-linha); }
+.av-legenda-meio { box-shadow: inset 0 0 0 3px var(--al-texto); background: var(--al-fundo); }
+.av-legenda-aviso { background: var(--al-vermelho); }
+
+/* ───── Avisar ───── */
+.av-categorias { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: 0.5rem; margin: 0 0 0.9rem; padding: 0; border: 0; min-width: 0; }
+.av-categorias > legend { float: left; width: 100%; }
+.av-categoria {
+  display: flex; align-items: center; gap: 0.6rem; min-height: 44px; padding: 0.4rem 0.75rem; border: 1px solid var(--al-linha); border-radius: 10px;
+  background: var(--al-superficie); cursor: pointer; font-weight: 600;
+}
+.av-categoria:has(input:checked) { border-color: var(--al-texto); box-shadow: inset 0 0 0 1px var(--al-texto); }
+.av-categoria input { width: 1.15rem; height: 1.15rem; margin: 0; accent-color: var(--al-vermelho); }
+.av-marca { display: inline-block; flex: none; width: 0.9rem; height: 0.9rem; border-radius: 3px; background: var(--al-com-1); }
+[data-categoria="assalto"] .av-marca, .av-categoria[data-categoria="assalto"] .av-marca { background: var(--al-vermelho); }
+[data-categoria="violencia_manifestantes"] .av-marca { background: var(--al-vermelho-escuro); }
+[data-categoria="obra"] .av-marca { background: var(--al-dourado); }
+[data-categoria="rua_bloqueada"] .av-marca { background: var(--al-com-3); }
+[data-categoria="alagamento"] .av-marca { background: var(--al-com-4); }
+[data-categoria="cuidado"] .av-marca { background: var(--al-com-2); }
+
+/* ───── A lista ───── */
+.av-lista { display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+.av-aviso { display: grid; gap: 0.35rem; padding: 0.8rem 0.9rem; border: 1px solid var(--al-linha); border-radius: var(--al-raio); background: var(--al-superficie); min-width: 0; }
+.av-aviso[data-confirmado="sim"] { border-left: 4px solid var(--al-vermelho); }
+.av-aviso-cabeca { display: flex; flex-wrap: wrap; gap: 0.4rem 0.6rem; align-items: center; }
+.av-aviso-nome { font-size: 1.05rem; }
+.av-estado { padding: 0.15rem 0.5rem; border-radius: 999px; border: 1px solid var(--al-linha); font-size: 0.85rem; letter-spacing: 0.03em; color: var(--al-texto-2); }
+.av-aviso[data-confirmado="sim"] .av-estado { border-color: var(--al-vermelho); color: var(--al-vermelho-letra); }
+.av-rotulo-miudo { margin: 0; color: var(--al-texto-3); font-size: 0.84rem; font-style: italic; }
+
+/* ───── Moderação ───── */
+.av-moderacao { padding: 0.9rem 1rem; border: 1px dashed var(--al-linha); border-radius: var(--al-raio); }
+.av-trava { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: end; }
+
+@media (prefers-reduced-motion: reduce) {
+  .av-carimbo { transform: none; }
+  .av-quadrado { transition: none; }
+}
+:root:is([data-contrast], [data-eink]) .av-carimbo { transform: none; color: var(--al-texto); border-color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) .av-quadrado[data-aviso] { background: var(--al-texto); border-color: var(--al-texto); }

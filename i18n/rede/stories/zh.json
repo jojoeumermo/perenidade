@@ -61,7 +61,8 @@
       "pessoa": "@ 某人",
       "campanha": "#行动",
       "resposta": "回答",
-      "decorativa": "装饰"
+      "decorativa": "装饰",
+      "teste": "测验"
     },
     "quemVe": "谁能看",
     "publico": {
@@ -88,7 +89,7 @@
     "vazio": "写点文字、画画、拍照或从相册选择。",
     "deUmPost": "从帖子生成的快拍：会附上帖子的链接。",
     "erro": {
-      "grande": "图片太大（处理后最多 3 MB）。",
+      "grande": "图片太大（处理后最多 6 MB）。",
       "invalida": "无法读取这张图片。请使用 JPG、PNG 或 WEBP。",
       "link": "链接必须以 https:// 开头并且地址有效。",
       "ato": "请为倒计时选择一个行动。",
@@ -98,7 +99,10 @@
       "semConta": "登录后才能发布。",
       "limite": "你刚刚发布了很多快拍，请稍等。",
       "banco": "数据库还没有快拍功能（服务器尚未更新）。",
-      "falha": "发布失败，请重试。"
+      "semHandle": "发布快拍前，请先在“编辑个人资料”中选择你的 @用户名。",
+      "falha": "发布失败，请重试。",
+      "teste": "写下问题和至少两个不同的测验选项，并标出正确答案。",
+      "contagemLivre": "给倒计时起个名字，并选择一个将来的时间（一年以内）。"
     },
     "camera": "相机",
     "galeriaAjuda": "照片或视频（最长 60 秒）",
@@ -160,7 +164,14 @@
       "foto": "快拍照片",
       "semMetadadoVideo": "视频会在你的设备上重新生成为 720p：不含位置和相机信息。",
       "altVideo": "为看不见的人描述视频（可选）",
-      "lendo": "正在打开视频…"
+      "lendo": "正在打开视频…",
+      "ajustes": {
+        "titulo": "调整",
+        "brilho": "亮度",
+        "contraste": "对比度",
+        "saturacao": "饱和度",
+        "zerar": "恢复原样"
+      }
     },
     "progresso": {
       "preparando": "正在设备上处理视频… {pct}%",
@@ -195,7 +206,15 @@
       "desavisar": "不再提醒",
       "comecou": "已经开始",
       "verAto": "查看行动",
-      "falta": "距离 {titulo} 还有 {dias} 天 {horas} 小时 {min} 分钟"
+      "falta": "距离 {titulo} 还有 {dias} 天 {horas} 小时 {min} 分钟",
+      "rotuloLivre": "倒计时",
+      "seg": "秒",
+      "tipo": "倒计时到",
+      "doAto": "一次行动",
+      "livre": "其他时刻",
+      "nomeDoMomento": "将要发生什么",
+      "nomeVazio": "全会、罢工、聚会……",
+      "quando": "时间"
     },
     "pergunta": {
       "rotulo": "提问",
@@ -230,6 +249,26 @@
       "nenhuma": "你还没有加入任何社区。",
       "carregando": "正在加载你的社区…",
       "abrir": "打开社区 {nome}"
+    },
+    "teste": {
+      "rotulo": "测验",
+      "pergunta": "测验问题",
+      "perguntaVazia": "问点什么",
+      "opcao": "选项 {n}",
+      "qualCerta": "哪个是正确答案",
+      "marcarCerta": "把选项 {n} 标为正确",
+      "tirarOpcao": "去掉选项 {n}",
+      "maisOpcao": "+ 选项",
+      "notaCriar": "点正确答案的字母。只有你能看到每个选项有多少人选，而且至少 3 人才显示。没人能看到谁回答了。",
+      "certa": "正确答案",
+      "errada": "你的，错了",
+      "total": "{n} 个回答",
+      "notaAutora": "只有你能看到总数。没人能看到谁回答了。",
+      "poucas": "回答的人还很少：满 3 人才显示总数。",
+      "nota": "总数只有 {nome} 能看到。你的名字不会出现。",
+      "acertou": "答对了！",
+      "errou": "这次没答对。正确答案已标出。",
+      "jaRespondeu": "你已经回答过这个测验。"
     }
   },
   "visor": {
@@ -642,5 +681,65 @@
       "porNoStory": "加入快拍",
       "ajuda": "用这个行动的卡片创建快拍（日期和城市；24 小时后消失）"
     }
+  },
+  "p5": {
+    "abasRotulo": "往快拍里加什么",
+    "abas": {
+      "figurinhas": "贴纸",
+      "enfeites": "装饰",
+      "midia": "照片和视频"
+    },
+    "quadros": {
+      "titulo": "画面",
+      "ajuda": "每个画面都会成为一条快拍，按顺序一条接一条。",
+      "novo": "新画面",
+      "ir": "转到画面 {n}",
+      "atual": "画面 {n}（正在编辑）",
+      "tirar": "去掉这个画面",
+      "limite": "已达到 {max} 个画面。",
+      "vazio": "画面 {n} 是空的",
+      "progresso": "第 {k} 个画面，共 {n} 个",
+      "erroNoQuadro": "画面 {n}：{erro}"
+    },
+    "colagem": {
+      "botao": "拼图",
+      "titulo": "照片拼图",
+      "modelo": "版式",
+      "modelos": {
+        "dupla": "两张，上下排列",
+        "lado": "两张，左右排列",
+        "tres": "三张",
+        "quatro": "四张"
+      },
+      "escolher": "选择第 {n} 张照片",
+      "trocar": "更换第 {n} 张照片",
+      "usar": "使用拼图",
+      "cancelar": "取消",
+      "falta": "请选好所有照片。",
+      "ajuda": "照片在这里重新绘制，不带位置和相机信息。",
+      "fundo": "照片之间的颜色",
+      "lendo": "正在拼图……"
+    },
+    "rascunhos": {
+      "botao": "草稿",
+      "titulo": "快拍草稿",
+      "guardar": "保存草稿",
+      "guardado": "草稿只保存在这台设备上。",
+      "abrir": "打开",
+      "apagar": "删除",
+      "apagarTodos": "全部删除",
+      "vazio": "这台设备上没有草稿。",
+      "aviso": "草稿只保存在这台设备上（不会传到服务器），30 天后消失。拿到解锁设备的人可以看到；“退出全部”会删除它们。",
+      "quadros": "{n} 个画面",
+      "umQuadro": "1 个画面",
+      "fechar": "关闭",
+      "modoSeguro": "安全模式下不会在设备上保存任何东西。",
+      "grande": "视频太大，无法存为草稿。",
+      "falha": "无法保存在这台设备上。",
+      "substituir": "用草稿替换屏幕上的内容？",
+      "substituirSim": "打开",
+      "semArmazenamento": "这个浏览器不允许保存草稿。"
+    },
+    "alta": "照片以高清上传，另附一个较小的版本，观看时可立即打开。"
   }
 }

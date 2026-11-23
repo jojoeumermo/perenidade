@@ -2,6 +2,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { mostrarParaCopiar } from "@/components/perguntar";
 
 // O que cada pessoa arruma na comunidade (salas que segue, conversas salvas e escondidas, jeito de ver a lista) fica
 // só neste aparelho: não vai para o servidor, não forma perfil e some ao limpar os dados do site.
@@ -85,7 +86,7 @@ export async function compartilhar(url: string, titulo: string) {
     await navigator.clipboard.writeText(url);
     return true;
   } catch {
-    window.prompt("", url);
+    await mostrarParaCopiar("", url);
     return false;
   }
 }

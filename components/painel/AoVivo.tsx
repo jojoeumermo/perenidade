@@ -14,6 +14,7 @@ import { lerCadernoAula, podeMarcarNaEscola } from "@/lib/escola/aovivo";
 import { CADERNOS_DA_ESCOLA, caminhoDaSalaAoVivo } from "@/lib/escola/contratos";
 import { preencher } from "@/lib/escola/textos";
 import { JITSI_DOMINIO, novaSalaJitsi } from "@/lib/jitsi";
+import { comLivekit } from "@/components/SalaDeVideo";
 import { useI18n } from "../I18n";
 import { useTrackOptions } from "../useTrackOptions";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
@@ -581,10 +582,13 @@ function Marcar({ me, aula, fechar, depois }: { me: Me; aula: Aula | null; fecha
                       <span className="block text-xs text-ink-soft">Turma de até uns 50, chat, tela compartilhada e gravação. Você entra como professor pela página da aula.</span>
                     </button>
                   )}
-                  <button type="button" aria-pressed={Boolean(form.sala_externa) && !salaPropria} onClick={() => (!form.sala_externa || salaPropria) && mudar("sala_externa", novaSalaJitsi())} className={opcaoDeSala(Boolean(form.sala_externa) && !salaPropria)}>
-                    <span className="block text-sm font-semibold">Sala no Jitsi</span>
-                    <span className="block text-xs text-ink-soft">Recomendada para turma grande. Abre dentro da página da aula, com nome sorteado.</span>
-                  </button>
+                  {/* Prompt 4, item 141: com o LiveKit ligado ("sala-livekit"), não se cria sala NOVA no Jitsi (as já marcadas continuam). */}
+                  {!comLivekit() && (
+                    <button type="button" aria-pressed={Boolean(form.sala_externa) && !salaPropria} onClick={() => (!form.sala_externa || salaPropria) && mudar("sala_externa", novaSalaJitsi())} className={opcaoDeSala(Boolean(form.sala_externa) && !salaPropria)}>
+                      <span className="block text-sm font-semibold">Sala no Jitsi</span>
+                      <span className="block text-xs text-ink-soft">Recomendada para turma grande. Abre dentro da página da aula, com nome sorteado.</span>
+                    </button>
+                  )}
                 </div>
                 {form.sala_externa && !salaPropria && (
                   <div className="mt-2">

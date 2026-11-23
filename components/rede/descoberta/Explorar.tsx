@@ -89,6 +89,57 @@ function Pacote({ lang, slug, titulo, descricao, pessoas, d, s }: { lang: string
   );
 }
 
+interface NoticiaDoDia {
+  titulo: string;
+  veiculo: string;
+  link: string;
+  data: string;
+}
+
+/**
+ * A notícia do dia no alto do Explorar (Prompt 5, A19; decisão da coordenação): a manchete mais recente do giro de notícias do
+ * site, só com o título, o veículo e o link para ler na fonte. Sem imagem e sem o texto da matéria. O navegador pede só ao próprio
+ * site (/api/noticia-do-dia); quem lê os veículos é o servidor. Sem notícia recente, nada aparece.
+ */
+function NoticiaDoDiaNoAlto({ lang, d }: { lang: string; d: TextosDaDescoberta }) {
+  const [noticia, setNoticia] = useState<NoticiaDoDia | null>(null);
+  useEffect(() => {
+    let vivo = true;
+    fetch("/api/noticia-do-dia")
+      .then((r) => (r.ok ? (r.json() as Promise<{ noticia: NoticiaDoDia | null }>) : null))
+      .then((r) => {
+        const n = r?.noticia;
+        if (vivo && n && /^https:\/\//.test(n.link)) setNoticia(n);
+      })
+      .catch(() => undefined);
+    return () => {
+      vivo = false;
+    };
+  }, []);
+  if (!noticia) return null;
+  const e = d.explorar;
+  const data = new Date(noticia.data);
+  return (
+    <section aria-labelledby="explorar-noticia" className="al3-noticia-do-dia al3-entra">
+      <h2 id="explorar-noticia" className="al3-cond al3-noticia-rotulo">{e.noticiaDoDia}</h2>
+      <p className="al3-noticia-titulo">{noticia.titulo}</p>
+      <p className="al3-noticia-pe">
+        <span>{noticia.veiculo}</span>
+        {!Number.isNaN(data.getTime()) && (
+          <>
+            <span aria-hidden> · </span>
+            <time dateTime={noticia.data}>{data.toLocaleString(lang, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</time>
+          </>
+        )}
+      </p>
+      <a href={noticia.link} target="_blank" rel="noopener noreferrer nofollow" className="al3-noticia-ir">
+        {preencher(e.lerNaFonte, { veiculo: noticia.veiculo })} <span aria-hidden>↗</span>
+      </a>
+      <p className="al3-noticia-ajuda">{e.noticiaAjuda}</p>
+    </section>
+  );
+}
+
 /**
  * Explorar (/alumia/explorar): comunidades, linhas temáticas com a regra pública, pacotes de pessoas para seguir e as hashtags da
  * semana. Com ?linha=<slug> mostra a linha temática, com a ordenação escrita. Nada aqui é "para você": é o mesmo para quem tem a mesma permissão.
@@ -194,6 +245,12 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
         </div>
       )}
 
+      {!linha && (
+        <div className="px-[18px] pt-5">
+          <NoticiaDoDiaNoAlto lang={lang} d={d} />
+        </div>
+      )}
+
       {linha ? (
         <section aria-labelledby="explorar-linha">
           <div className="border-b border-rule px-[18px] py-3">
@@ -236,71 +293,6 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
             </section>
           )}
 
-          <section aria-labelledby="explorar-tags">
-            <h2 id="explorar-tags" className="al3-cond al3-titulo-secao">{e.tags}</h2>
-            <p className="text-sm text-ink-soft">{e.tagsAjuda}</p>
-            {x.tags.length === 0 ? (
-              <p className="mt-2 text-ink-soft">{e.tagsVazio}</p>
-            ) : (
-              // Duas ou mais por linha também no celular; a barrinha embaixo mostra o volume da semana (relativo ao #tema maior).
-              <ul className="al3-fichas al3-fichas-volume mt-2">
-                {x.tags.map((tg, i) => (
-                  <li key={tg.tag} style={{ "--i": i, "--vol": tg.posts / Math.max(1, ...x.tags.map((z) => z.posts)) } as CSSProperties}>
-                    <Link href={enderecosDescoberta.tag(lang, tg.tag)} className="al3-ficha">
-                      <span className="font-bold">#{tg.tag}</span>
-                      <span className="al3-ficha-n" aria-hidden>{tg.posts.toLocaleString(lang)}</span>
-                      <span className="sr-only">{preencher(e.posts, { n: tg.posts })}</span>
-                      <span className="al3-ficha-barra" aria-hidden />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-
-          <section aria-labelledby="explorar-linhas">
-            <h2 id="explorar-linhas" className="al3-cond al3-titulo-secao">{e.linhas}</h2>
-            <p className="text-sm text-ink-soft">{e.linhasAjuda}</p>
-            <ul className="al3-cartoes mt-2">
-              {x.linhas.map((l, i) => (
-                <li key={l.slug} style={{ "--i": i } as CSSProperties}>
-                  <Link href={enderecosDescoberta.explorar(lang, l.slug)} className="al3-cartao">
-                    <span className="al3-cartao-titulo">{l.titulo}</span>
-                    <span className="al3-cartao-regra">
-                      {e.regra}: {l.regra}
-                    </span>
-                    <span className="al3-cartao-ir" aria-hidden>→</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          {situacao.logado && (
-            <section aria-labelledby="explorar-pacotes">
-              <h2 id="explorar-pacotes" className="al3-cond al3-titulo-secao">{e.pacotes}</h2>
-              <p className="text-sm text-ink-soft">{e.pacotesAjuda}</p>
-              {x.pacotes.length === 0 ? (
-                <p className="mt-2 text-ink-soft">{e.pacotesVazio}</p>
-              ) : (
-                <ul className="mt-2 grid gap-2">
-                  {x.pacotes.map((p) => (
-                    <Pacote key={p.slug} lang={lang} slug={p.slug} titulo={p.titulo} descricao={p.descricao} pessoas={p.pessoas} d={d} s={s} />
-                  ))}
-                </ul>
-              )}
-              {situacao.membro && (
-                <div className="mt-3 rounded-xl border border-dashed border-ink p-3">
-                  <p className="font-bold">{e.aparecerTitulo}</p>
-                  <p className="text-sm text-ink-soft">{e.aparecerAjuda}</p>
-                  <button type="button" onClick={() => void aparecer(!x.eu?.aparece)} className={`${botao} mt-2`}>
-                    {x.eu?.aparece ? e.aparecerDesligar : e.aparecerLigar}
-                  </button>
-                </div>
-              )}
-            </section>
-          )}
-
           <section aria-labelledby="explorar-comunidades">
             <h2 id="explorar-comunidades" className="al3-cond al3-titulo-secao">{e.comunidades}</h2>
             {categorias.map((cat) => {
@@ -339,6 +331,105 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
               );
             })}
           </section>
+          {x.tags.length > 0 && (
+          <section aria-labelledby="explorar-tags">
+            <h2 id="explorar-tags" className="al3-cond al3-titulo-secao">{e.tags}</h2>
+            <p className="text-sm text-ink-soft">{e.tagsAjuda}</p>
+            {x.tags.length === 0 ? (
+              <p className="mt-2 text-ink-soft">{e.tagsVazio}</p>
+            ) : (
+              // Duas ou mais por linha também no celular; a barrinha embaixo mostra o volume da semana (relativo ao #tema maior).
+              <ul className="al3-fichas al3-fichas-volume mt-2">
+                {x.tags.map((tg, i) => (
+                  <li key={tg.tag} style={{ "--i": i, "--vol": tg.posts / Math.max(1, ...x.tags.map((z) => z.posts)) } as CSSProperties}>
+                    <Link href={enderecosDescoberta.tag(lang, tg.tag)} className="al3-ficha">
+                      <span className="font-bold">#{tg.tag}</span>
+                      <span className="al3-ficha-n" aria-hidden>{tg.posts.toLocaleString(lang)}</span>
+                      <span className="sr-only">{preencher(e.posts, { n: tg.posts })}</span>
+                      <span className="al3-ficha-barra" aria-hidden />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+
+          )}
+          <section aria-labelledby="explorar-linhas">
+            <h2 id="explorar-linhas" className="al3-cond al3-titulo-secao">{e.linhas}</h2>
+            <p className="text-sm text-ink-soft">{e.linhasAjuda}</p>
+            <ul className="al3-cartoes mt-2">
+              {x.linhas.map((l, i) => (
+                <li key={l.slug} style={{ "--i": i } as CSSProperties}>
+                  <Link href={enderecosDescoberta.explorar(lang, l.slug)} className="al3-cartao">
+                    <span className="al3-cartao-titulo">{l.titulo}</span>
+                    <span className="al3-cartao-regra">
+                      {e.regra}: {l.regra}
+                    </span>
+                    <span className="al3-cartao-ir" aria-hidden>→</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {situacao.logado && x.pacotes.length > 0 && (
+            <section aria-labelledby="explorar-pacotes">
+              <h2 id="explorar-pacotes" className="al3-cond al3-titulo-secao">{e.pacotes}</h2>
+              <p className="text-sm text-ink-soft">{e.pacotesAjuda}</p>
+              {x.pacotes.length === 0 ? (
+                <p className="mt-2 text-ink-soft">{e.pacotesVazio}</p>
+              ) : (
+                <ul className="mt-2 grid gap-2">
+                  {x.pacotes.map((p) => (
+                    <Pacote key={p.slug} lang={lang} slug={p.slug} titulo={p.titulo} descricao={p.descricao} pessoas={p.pessoas} d={d} s={s} />
+                  ))}
+                </ul>
+              )}
+              {situacao.membro && (
+                <div className="mt-3 rounded-xl border border-dashed border-ink p-3">
+                  <p className="font-bold">{e.aparecerTitulo}</p>
+                  <p className="text-sm text-ink-soft">{e.aparecerAjuda}</p>
+                  <button type="button" onClick={() => void aparecer(!x.eu?.aparece)} className={`${botao} mt-2`}>
+                    {x.eu?.aparece ? e.aparecerDesligar : e.aparecerLigar}
+                  </button>
+                </div>
+              )}
+            </section>
+          )}
+
+          {(x.tags.length === 0 || (situacao.logado && x.pacotes.length === 0)) && (
+            // O que ainda não tem nada (sem hashtag em alta, sem pacote de pessoas) desce para o fim, junto e compacto: nada some,
+            // mas o começo do Explorar fica com o que tem conteúdo.
+            <section aria-labelledby="explorar-vazios" className="al3-explorar-vazios">
+              <h2 id="explorar-vazios" className="al3-cond al3-titulo-secao">{e.vazios}</h2>
+              <ul className="mt-2 space-y-3">
+                {x.tags.length === 0 && (
+                  <li>
+                    <p className="font-bold">{e.tags}</p>
+                    <p className="text-sm text-ink-soft">{e.tagsAjuda}</p>
+                    <p className="text-sm text-ink-soft">{e.tagsVazio}</p>
+                  </li>
+                )}
+                {situacao.logado && x.pacotes.length === 0 && (
+                  <li>
+                    <p className="font-bold">{e.pacotes}</p>
+                    <p className="text-sm text-ink-soft">{e.pacotesAjuda}</p>
+                    <p className="text-sm text-ink-soft">{e.pacotesVazio}</p>
+                    {situacao.membro && (
+                      <div className="mt-2 rounded-xl border border-dashed border-ink p-3">
+                        <p className="font-bold">{e.aparecerTitulo}</p>
+                        <p className="text-sm text-ink-soft">{e.aparecerAjuda}</p>
+                        <button type="button" onClick={() => void aparecer(!x.eu?.aparece)} className={`${botao} mt-2`}>
+                          {x.eu?.aparece ? e.aparecerDesligar : e.aparecerLigar}
+                        </button>
+                      </div>
+                    )}
+                  </li>
+                )}
+              </ul>
+            </section>
+          )}
         </div>
       )}
       <Torradas estado={torradas} />

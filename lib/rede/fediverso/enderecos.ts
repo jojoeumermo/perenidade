@@ -114,6 +114,27 @@ export function enderecosDaFederacao(base: string = ALUMIA_URL) {
 
 export type EnderecosDaFederacao = ReturnType<typeof enderecosDaFederacao>;
 
+/**
+ * O endereço https está escrito com o nome do servidor na forma de sempre? O banco (interno.rede_fed_dominio, que decide o
+ * bloqueio de instância) lê o domínio do TEXTO do endereço; a rede usa o endereço normalizado. "https://ｂloqueada.org/" (letra de
+ * largura cheia), "https://bloqueada%2Eorg/", "https://bloqueada.org./" e "https://u@bloqueada.org/" chegam todos em
+ * bloqueada.org, mas o texto não bate com o bloqueio. Só passa o endereço cujo nome, escrito, já é o normalizado (a porta 443
+ * escrita à toa também passa: o banco a ignora).
+ */
+export function hostCanonico(texto: string): boolean {
+  const m = /^https:\/\/([^/?#\\]*)/i.exec(texto);
+  if (!m) return false;
+  let u: URL;
+  try {
+    u = new URL(texto);
+  } catch {
+    return false;
+  }
+  if (u.username || u.password || !u.hostname || u.hostname.endsWith(".")) return false;
+  const escrito = m[1].toLowerCase();
+  return escrito === u.host || escrito === `${u.hostname}:443`;
+}
+
 /** Lê um endereço de conta do Fediverso: "@nome@instancia.org", "nome@instancia.org" ou "acct:nome@instancia.org". */
 export function lerConta(texto: string): { usuario: string; dominio: string } | null {
   const m = /^(?:acct:)?@?([a-z0-9_.-]{1,64})@([a-z0-9.-]{3,253}(?::\d{1,5})?)$/i.exec(texto.trim());
@@ -126,6 +147,15 @@ export function lerConta(texto: string): { usuario: string; dominio: string } | 
 /** Os domínios que esta instância aceita num acct: (o da Alumia e, no modo total, o curto). */
 export function dominiosDaConta(e: { dominio: string; dominioCurto: string }, total: boolean): string[] {
   return [e.dominio, ...(total && e.dominioCurto ? [e.dominioCurto] : [])].filter(Boolean).map((d) => d.toLowerCase());
+}
+
+/**
+ * A conta "@nome@dominio" é de alguém daqui? O host da Alumia sempre; no modo total, também o domínio curto, que é o endereço que a
+ * tela mostra ("@ana@institutolucia.org"). Sem isso, a busca ia perguntar ao WebFinger da própria casa e mostrava a pessoa daqui
+ * como se fosse de fora.
+ */
+export function contaDaqui(conta: { dominio: string }, e: { dominio: string; dominioCurto: string }, total: boolean): boolean {
+  return dominiosDaConta(e, total).includes(conta.dominio.toLowerCase());
 }
 
 /**

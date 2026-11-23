@@ -95,8 +95,9 @@ await espera("a coordenação vê as duas inscrições na mesma lista, com o tip
 await recusa("quem não é da coordenação não vê a lista", () => rpc(anon("198.51.100.17"), "inscricoes_listar"), "");
 await espera("rodar a migração de novo não muda nada", async () => {
   await banco.exclusivo(() => banco.pg.exec(sql));
-  // A correção T33 vem depois da T15 (no install.sql também): rodar a T15 de novo pede a T33 de novo.
-  await banco.exclusivo(() => banco.pg.exec(ler("supabase", "migracoes", "20261107-t33-seguranca.sql")));
+  // A correção T33 vem depois da T15 (no install.sql também): rodar a T15 de novo pede o que vem depois dela. A T33 sozinha não roda
+  // mais por cima do banco montado (ela mexe nas tabelas do chat a dois do beta, que a R2 tirou): vai o install.sql inteiro de novo.
+  await banco.instalarDeNovo();
   return dono("select count(*)::int as n, count(*) filter (where tipo = 'militante')::int as m from interno.inscricoes");
 }, (r) => r.rows[0].n === 2 && r.rows[0].m === 1);
 

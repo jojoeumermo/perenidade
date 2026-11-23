@@ -125,6 +125,7 @@ export const icones: Record<string, LucideIcon> = {
   reunioes: CalendarClock,
   horas: Clock,
   saude: HeartPulse,
+  territorio: MapPin,
   termos: FilePenLine,
   estatisticas: ChartColumn,
   operacao: Server,

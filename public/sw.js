@@ -280,6 +280,41 @@ const TEXTOS_AVISO = {
   zh: ["Alumia", (n) => (n > 0 ? `你在 Alumia 上有 ${n} 条通知。` : "你在 Alumia 上有新通知。")],
 };
 
+// Não perturbe só no aparelho (Prompt 4, item 17): a janela que a pessoa escolheu NESTE aparelho (lib/rede/avisos/
+// silencio-no-aparelho.ts, no IndexedDB "lucia-alumia-silencio", no horário do aparelho). Dentro dela o aviso chega sem som nem
+// vibração (o navegador exige mostrar todo push). O servidor não sabe da janela. A conta é a mesma de lá (noSilencio).
+const BANCO_DO_SILENCIO = "lucia-alumia-silencio";
+function noSilencio(j, m) {
+  if (!j || !Number.isInteger(j.inicio) || !Number.isInteger(j.fim) || j.inicio === j.fim) return false;
+  if (j.inicio < 0 || j.inicio > 1439 || j.fim < 0 || j.fim > 1439) return false;
+  return j.inicio < j.fim ? m >= j.inicio && m < j.fim : m >= j.inicio || m < j.fim;
+}
+function janelaDoSilencio() {
+  return new Promise((pronto) => {
+    try {
+      const p = indexedDB.open(BANCO_DO_SILENCIO, 1);
+      p.onupgradeneeded = () => {
+        if (!p.result.objectStoreNames.contains("janela")) p.result.createObjectStore("janela");
+      };
+      p.onsuccess = () => {
+        try {
+          const g = p.result.transaction("janela", "readonly").objectStore("janela").get("janela");
+          g.onsuccess = () => {
+            pronto(g.result || null);
+            p.result.close();
+          };
+          g.onerror = () => pronto(null);
+        } catch {
+          pronto(null);
+        }
+      };
+      p.onerror = () => pronto(null);
+    } catch {
+      pronto(null);
+    }
+  });
+}
+
 self.addEventListener("push", (evento) => {
   let dados = {};
   try {
@@ -291,13 +326,18 @@ self.addEventListener("push", (evento) => {
   const n = Number.isInteger(dados.n) && dados.n > 0 && dados.n < 100 ? dados.n : 0;
   const [titulo, frase] = TEXTOS_AVISO[lang];
   evento.waitUntil(
-    self.registration.showNotification(titulo, {
-      body: frase(n),
-      icon: "/icone-192.png",
-      badge: "/marca-96.png",
-      tag: "rede-avisos",
-      data: { lang },
-    }),
+    (async () => {
+      const agora = new Date();
+      const quieto = noSilencio(await janelaDoSilencio(), agora.getHours() * 60 + agora.getMinutes());
+      await self.registration.showNotification(titulo, {
+        body: frase(n),
+        icon: "/icone-192.png",
+        badge: "/marca-96.png",
+        tag: "rede-avisos",
+        data: { lang },
+        ...(quieto ? { silent: true } : {}),
+      });
+    })(),
   );
 });
 
@@ -322,5 +362,5 @@ self.addEventListener("notificationclick", (evento) => {
 
 // Só para o teste (scripts/testar-app-offline.mjs). No navegador `module` não existe e isto não roda.
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { VERSAO, PAGINAS, FIXOS, LEVES, CASCA, CURSOS, TEXTOS_SEM_REDE, idiomaDe, semRede, fixo, leve, privado, urlsDaCasca, caminhoPermitido, planoDaCasca };
+  module.exports = { VERSAO, PAGINAS, FIXOS, LEVES, CASCA, CURSOS, TEXTOS_SEM_REDE, idiomaDe, semRede, fixo, leve, privado, urlsDaCasca, caminhoPermitido, planoDaCasca, noSilencio, BANCO_DO_SILENCIO };
 }

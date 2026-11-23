@@ -48,3 +48,16 @@
 .al-voz-grupo-abrir:hover { background: var(--al-superficie-2, var(--parchment-deep, transparent)); }
 .al-voz-grupo-abrir:focus-visible { outline: 2px solid var(--al-foco, var(--ink)); outline-offset: 2px; }
 .al-voz-grupo-corpo { margin-top: 0.75rem; }
+
+/* Onda R3: o aviso forte de aparelho novo no grupo (no selo do compositor). */
+.al-restrito-aviso {
+  margin-top: 0.5rem; border: 1px solid var(--al-vermelho-texto, var(--oxblood)); border-radius: var(--al-raio, 10px);
+  padding: 0.5rem 0.75rem; color: var(--al-texto, var(--ink)); line-height: 1.45;
+}
+.al-restrito-aviso p + p { margin-top: 0.25rem; }
+.al-restrito-aviso p:first-child { color: var(--al-vermelho-texto, var(--oxblood)); }
+.al-restrito-entendi {
+  margin-top: 0.375rem; min-height: 44px; padding: 0 0.75rem; font-weight: 700; cursor: pointer;
+  border: 1px solid var(--al-texto-3, var(--rule)); border-radius: var(--al-raio, 10px); background: transparent; color: inherit;
+}
+.al-restrito-entendi:focus-visible { outline: 2px solid var(--al-foco, var(--ink)); outline-offset: 2px; }

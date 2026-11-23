@@ -39,7 +39,7 @@
     "preparando": "Preparando a imagem…",
     "invalida": "Use uma imagem JPG, PNG ou WebP.",
     "grande": "A imagem é grande demais.",
-    "maximo": "No máximo 4 imagens.",
+    "maximo": "No máximo {n} imagens.",
     "ver": "Imagem {n} de {total}",
     "semAcesso": "Entre na sua conta para ver a imagem."
   },

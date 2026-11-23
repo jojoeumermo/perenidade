@@ -4,6 +4,7 @@
 // rascunho marcado). Carrega só o idioma pedido, sob demanda, e guarda em memória. Sem "@/" de propósito (roda no Node nos testes).
 import { useEffect, useState } from "react";
 import type pt from "../../../../i18n/rede/fediverso/pt.json";
+import { prontoDe } from "../../textos-prontos";
 
 export type TextosDoFediverso = typeof pt;
 
@@ -26,10 +27,11 @@ export function carregarTextosDoFediverso(lang: string): Promise<TextosDoFediver
   if (pronto) return Promise.resolve(pronto);
   let pedido = pedidos.get(idioma);
   if (!pedido) {
-    pedido = CARREGAR[idioma]()
-      .catch(() => CARREGAR.pt())
+    // A tradução em rascunho não vai para a tela: com a marca "_rascunho", vem o português (lib/rede/textos-prontos.ts).
+    pedido = prontoDe(CARREGAR[idioma], CARREGAR.pt)
+      .catch(async () => (await CARREGAR.pt()).default)
       .then((m) => {
-        const t = m.default as TextosDoFediverso;
+        const t = m as TextosDoFediverso;
         guardados.set(idioma, t);
         return t;
       });

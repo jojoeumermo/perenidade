@@ -47,7 +47,7 @@
     "cancelarNao": "Voltar",
     "cancelada": "Votação cancelada pela moderação. Os votos foram apagados.",
     "comoTitulo": "Como o voto secreto funciona",
-    "comoTexto": "Quem votou e o que votou ficam guardados separados, sem nada que ligue um ao outro, e as cédulas são misturadas a cada voto. Nem a moderação vê o voto de ninguém. As cédulas só são contadas quando o prazo acaba, e o resultado mostra totais: nenhum número abaixo de 3.",
+    "comoTexto": "Quem votou e o que votou ficam guardados separados, sem nada que ligue um ao outro, e as cédulas são misturadas a cada voto. Nem a moderação vê o voto de ninguém. As cédulas só são contadas quando o prazo acaba, e o resultado mostra totais: nenhum número abaixo de 3. A cédula sai cifrada do seu aparelho e só abre quando guardiãs da mediação se juntam, depois do prazo; nem a Alumia nem o servidor abrem.",
     "regraVoto": "Só vota quem já era da comunidade quando a votação abriu. O voto não muda depois de dado."
   },
   "nova": {

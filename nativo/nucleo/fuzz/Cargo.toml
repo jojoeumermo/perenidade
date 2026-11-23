@@ -1,0 +1,45 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# Fuzzing do núcleo nativo do computador (onda R3, parte 4) com o cargo-fuzz (libFuzzer). Cada alvo também confere uma regra, não
+# só "não caiu": pacote qualquer nunca passa na conferência do Rekor, o cofre devolve o que embrulhou e não abre nada mexido, e o
+# caminho da rede social nunca vira outro endereço. Roda com o nightly (o libFuzzer pede):
+#   cargo +nightly-2026-10-01 fuzz run <alvo> -- -max_total_time=1200
+# Alvos: cargo +nightly-2026-10-01 fuzz list. Fica fora do crate de cima (pasta e Cargo.lock próprios).
+[package]
+name = "alumia-nucleo-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+license = "AGPL-3.0-or-later"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "=0.4.13"
+alumia-nucleo = { path = ".." }
+
+# Fora de qualquer workspace de cima.
+[workspace]
+members = ["."]
+
+[[bin]]
+name = "conferir_no_log"
+path = "fuzz_targets/conferir_no_log.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "cofre"
+path = "fuzz_targets/cofre.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "caminho"
+path = "fuzz_targets/caminho.rs"
+test = false
+doc = false
+bench = false

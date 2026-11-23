@@ -1,0 +1,60 @@
+{
+  "_rascunho": true,
+  "foto": {
+    "botao": "Photo that opens once",
+    "explica": "The photo is redrawn on this device (no place, camera or date), encrypted and opens only once for the recipient.",
+    "rotulo": "View-once photo",
+    "abrir": "Open the photo once",
+    "escondido": "The photo disappears when this window leaves the front.",
+    "aviso": "Protected against copying only in this browser: it does not stop screenshots or another camera. The sender is never told.",
+    "invalida": "Could not read this image. Use JPG, PNG or WebP up to 3 MB."
+  },
+  "encaminhar": {
+    "acao": "Forward",
+    "titulo": "Forward to",
+    "explica": "It goes as a new encrypted message from you, marked as forwarded. The server does not find out.",
+    "limite": "This has been forwarded many times: only one chat at a time.",
+    "ate": "Up to {n} chats at once.",
+    "enviar": "Forward",
+    "cancelar": "Cancel",
+    "nenhuma": "No other open chat on this device.",
+    "erro": "Could not forward. Try again.",
+    "marca": "Forwarded",
+    "muitas": "Forwarded many times"
+  },
+  "notas": {
+    "titulo": "Notes to self",
+    "linha": "Only you read them. Encrypted, on your devices.",
+    "explica": "Only you read them. Each note is encrypted on this device and goes, encrypted, only to your other devices linked to the chat. The server does not know they exist. Quick exit deletes the notes on this device.",
+    "escreva": "Write a note",
+    "guardar": "Save note",
+    "vazio": "No notes yet.",
+    "apagar": "Delete",
+    "apagarConfirma": "Delete this note from this and your other devices?",
+    "erro": "Could not save or read the notes. Try again."
+  },
+  "silencio": {
+    "descricao": "During the chosen hours, Alumia notifications arrive without sound or vibration. The window stays only on this device: the server does not know whether or when you silence it. Each device has its own.",
+    "levado": "The schedule that was stored on the server was moved to this device and deleted from there."
+  },
+  "agendar": {
+    "botao": "Schedule send",
+    "titulo": "Schedule this text",
+    "aviso": "It stays only on this device and goes out on time if the device is on with the Alumia chat open. If it is off, it goes out when you open the chat again. The server only learns about it when the message goes out.",
+    "quando": "Goes out at",
+    "confirmar": "Schedule",
+    "cancelar": "Cancel",
+    "hora": "Pick a time between 1 minute and 30 days from now.",
+    "erro": "Could not schedule. Try again.",
+    "marca": "scheduled for {quando}, only on this device",
+    "desistir": "Cancel sending"
+  },
+  "transcrever": {
+    "botao": "Transcribe on this device",
+    "ouvindo": "Transcribing on this device…",
+    "rotulo": "Transcript",
+    "aviso": "Made by this device, without sending the audio anywhere. It may contain errors. It is not saved.",
+    "vazia": "No words could be understood.",
+    "falhou": "This browser stopped the transcription. Listen to the note."
+  }
+}

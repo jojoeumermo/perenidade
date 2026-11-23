@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). -->
+<resources>
+    <string name="app_name">Instituto Lúcia</string>
+    <!-- O rótulo da APLICAÇÃO e das telas: aparece no cabeçalho de toda notificação, nas telas de licença do sistema e em
+         Configurações > Apps, e não muda com o disfarce. Por isso é neutro (auditoria interna da R3); o nome "Instituto Lúcia" fica só no
+         ícone padrão da tela inicial (app_name) e no título da troca de apps quando o disfarce é o padrão (AlumiaApp.tituloDaTarefa). -->
+    <string name="rotulo_do_app">Ferramentas</string>
+    <string name="title_activity_main">Ferramentas</string>
+    <string name="package_name">org.institutolucia.app</string>
+    <string name="custom_url_scheme">org.institutolucia.app</string>
+    <string name="nome_calculadora">Calculadora</string>
+    <string name="nome_notas">Notas</string>
+    <string name="canal_mensagens">Mensagens</string>
+    <string name="nova_mensagem">Nova mensagem</string>
+    <!-- O título da notificação com o disfarce ligado (Calculadora, Notas): não diz "mensagem". -->
+    <string name="lembrete_neutro">Lembrete</string>
+    <string name="abrir_fora_titulo">Abrir fora do app?</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="abrir">Abrir</string>
+</resources>

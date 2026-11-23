@@ -99,6 +99,8 @@ await espera("as portas instalam de novo depois da entrada (idempotente)", () =>
 await espera("e uma terceira vez sem estrago", () => exec(portas));
 await espera("o7: instala depois das portas", () => exec(o7));
 await espera("o7: e de novo, sem estrago (idempotente)", () => exec(o7));
+// O install.sql inteiro de novo por cima: as definições finais (a lista de exceções da porta da R2, entre outras) voltam a valer.
+await espera("e o install.sql inteiro de novo por cima (as definições finais voltam)", () => banco.instalarDeNovo());
 await espera("quem já era membro ficou aprovado (ja_membro)", async () => (await dono("select situacao, origem from interno.alumia_entrada where usuario = $1", [P.antiga])).rows[0], (r) => r?.situacao === "aprovada" && r.origem === "ja_membro");
 await espera("com a trava desligada, visitante lê a linha aberta como antes", () => rpc(visitante(), "rede_linha", { p_aba: "geral" }), (r) => Array.isArray(r?.itens));
 await espera("com a trava desligada, a antiga lê 'tudo' mesmo sem aal2", () => rpc(como(P.antiga), "rede_linha", { p_aba: "tudo" }), (r) => Array.isArray(r?.itens));
@@ -252,14 +254,20 @@ const ABERTAS = ["alumia_entrada_eu()", "alumia_entrada_pedir(p_codinome text, p
   // onda 7: o diretório das organizações com selo e o mapa dele
   "rede_org_diretorio(p jsonb)", "rede_org_mapa()",
   // onda 8: o pedido de revisão de quem teve a conta suspensa ou retida e a marca de convite da triagem
-  "alumia_lei_minha_conta()", "alumia_lei_recorrer_conta(p_acao uuid, p_texto text)", "alumia_triagem_convites()"];
+  "alumia_lei_minha_conta()", "alumia_lei_recorrer_conta(p_acao uuid, p_texto text)", "alumia_triagem_convites()",
+  // onda 9: o relatório de transparência, público como a página; Faixa 2: o registro público das chaves (conferido por qualquer
+  // pessoa). Já estavam na lista escrita; com o install.sql inteiro de novo no fim (as definições finais), aparecem aqui.
+  "alumia_transparencia()", "rede_kt_ponta()", "rede_kt_trecho(p_desde bigint)"];
 // onda 8: rede_midia_cabe, a regra da cota de mídia no depósito (20261114-alumia-o8-operacao.sql), também responde "não" em vez de erro.
 const SO_FALSO = ["rede_pub_midia_pode", "rede_pub_pode_enviar", "rede_story_pode", "rede_midia_cabe",
   // A política do depósito do acervo (20261116-alumia-o10-acervo.sql): no Storage, um erro quebraria a listagem; a porta é o alumia_passa() dela.
   "rede_acervo_deposito_pode",
   // A regra de leitura do depósito do vídeo curto (20261118-alumia-o12-midia.sql), pelo mesmo motivo: a porta é o alumia_passa() dela.
   // (O depósito do vídeo não tem regra de envio para quem tem conta: só o servidor grava.)
-  "rede_video_pode"];
+  "rede_video_pode",
+  // Prompt 4 (20261127-p4-memoria-e-luta.sql): a regra de leitura do depósito "rede-memoria" (as fotos do arquivo vivo), pelo mesmo
+  // motivo: a porta é o alumia_passa() dela. (O depósito não tem regra de envio para quem tem conta: só o servidor grava.)
+  "rede_p4_memoria_foto_pode"];
 const funcoesDaRede = async () => (await dono(`
   select p.proname as nome, pg_get_function_identity_arguments(p.oid) as args, p.prosrc ~ 'interno\\.alumia_(porta|passa)\\(\\)' as porta,
     has_function_privilege('anon', p.oid, 'execute') as anon, has_function_privilege('authenticated', p.oid, 'execute') as aut
@@ -272,6 +280,7 @@ const valorDe = (tipo) => {
   if (tipo === "uuid") return "00000000-0000-4000-8000-00000000abcd";
   if (/^(integer|smallint|bigint|numeric|double precision|real)$/.test(tipo)) return 1;
   if (tipo === "boolean") return true;
+  if (tipo === "bytea") return new Uint8Array([1]);
   if (/^jsonb?$/.test(tipo)) return {};
   if (/^(timestamp|date)/.test(tipo)) return new Date(0).toISOString();
   return "x";
@@ -299,6 +308,42 @@ const argumentosDe = (args) => Object.fromEntries(args.split(", ").filter((a) =>
     }
   }
   ok(`portas: toda função da rede recusa quem não passou pela entrada (${furos.slice(0, 6).join(" | ")}${furos.length > 6 ? ` … e mais ${furos.length - 6}` : ""})`, furos.length === 0);
+}
+// R2 (supabase/migracoes/20261124-r2-caixas.sql): as funções das caixas anônimas ficam SEM a porta por desenho (não usam a sessão de
+// conta) e por isso só o servidor do site as chama. Conferido: sem a porta e fora do alcance de visitante e de conta só ficam as desta
+// lista, cada uma na lista de exceções escrita; nenhuma outra função da rede vive sem a porta "porque só o servidor chama".
+// R3 (20261125-r3-servidor-chat.sql e 20261125-r3-fim.sql): a chave RSA da semana dos passes, lida e guardada só pelo servidor do site.
+const CAIXAS_R2 = ["rede_caixa_apagar", "rede_caixa_buscar", "rede_caixa_confirmar", "rede_caixa_lote", "rede_caixa_trocar", "rede_diretorio_ler",
+  "rede_diretorio_reivindicar", "rede_franquia_autoria", "rede_franquia_denunciar", "rede_passe_gastar", "rede_passes_chave_guardar", "rede_passes_chave_ler",
+  "rede_passes_chave_registrar"];
+if ((await dono("select to_regproc('public.rede_caixa_lote') is not null as tem")).rows[0].tem) {
+  const soServico = (await dono(`
+    select p.proname as nome, interno.alumia_porta_aberta(p.proname, pg_get_function_identity_arguments(p.oid)) as excecao,
+      has_function_privilege('service_role', p.oid, 'execute') as serv
+    from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+    where n.nspname = 'public' and p.prokind = 'f' and p.proname ~ '^rede_(caixa|diretorio|passe|franquia)'
+      and p.prosrc !~ 'interno\\.alumia_(porta|passa)\\(\\)'
+      and not has_function_privilege('anon', p.oid, 'execute') and not has_function_privilege('authenticated', p.oid, 'execute')
+    order by 1`)).rows;
+  ok("portas (R2): sem a porta, só para o servidor do site, ficam exatamente as funções das caixas anônimas", soServico.map((f) => f.nome).join() === CAIXAS_R2.join(), soServico.map((f) => f.nome).join());
+  ok("portas (R2): cada uma está na lista de exceções escrita e o servidor do site chama", soServico.every((f) => f.excecao && f.serv));
+}
+// R3 (20261125-r3-resto-r2.sql): a urna anônima recebe a cédula sem sessão de conta; só o servidor do site chama, e está na lista escrita.
+if ((await dono("select to_regproc('public.rede_urna_depositar_anonimo') is not null as tem")).rows[0].tem) {
+  const u = (await dono(`select interno.alumia_porta_aberta(p.proname, pg_get_function_identity_arguments(p.oid)) as excecao,
+      has_function_privilege('service_role', p.oid, 'execute') as serv, has_function_privilege('anon', p.oid, 'execute') as anon,
+      has_function_privilege('authenticated', p.oid, 'execute') as aut, p.prosrc ~ 'interno\\.alumia_(porta|passa)\\(\\)' as porta
+    from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and p.proname in ('rede_urna_depositar_anonimo', 'rede_urna_cedula_contar')`)).rows;
+  ok("portas (R3): a urna anônima e o contador dela, sem a porta e só para o servidor do site, estão na lista de exceções escrita", u.length === 2 && u.every((x) => x.excecao && x.serv && !x.anon && !x.aut && !x.porta), JSON.stringify(u));
+}
+// P5 (20261126-p5-entrada.sql e 20261126-p5-fim.sql): o servidor do site conta ao banco que um navegador entrou, na hora de entrar,
+// sem sessão da Alumia; só o servidor do site chama, e está na lista escrita (a porta nunca é posta nela).
+if ((await dono("select to_regproc('public.alumia_aparelho_entrou') is not null as tem")).rows[0].tem) {
+  const u = (await dono(`select interno.alumia_porta_aberta(p.proname, pg_get_function_identity_arguments(p.oid)) as excecao,
+      has_function_privilege('service_role', p.oid, 'execute') as serv, has_function_privilege('anon', p.oid, 'execute') as anon,
+      has_function_privilege('authenticated', p.oid, 'execute') as aut, p.prosrc ~ 'interno\\.alumia_(porta|passa)\\(\\)' as porta
+    from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and p.proname = 'alumia_aparelho_entrou'`)).rows;
+  ok("portas (P5): a entrada de um navegador, sem a porta e só para o servidor do site, está na lista de exceções escrita", u.length === 1 && u[0].excecao && u[0].serv && !u[0].anon && !u[0].aut && !u[0].porta, JSON.stringify(u));
 }
 await espera("portas: função nova em plpgsql nasce aberta, e a regra tranca", async () => {
   await exec(`create or replace function public.rede_teste_nova() returns text language plpgsql security definer set search_path = interno, pg_temp as $f$ begin return 'aberta'; end $f$;

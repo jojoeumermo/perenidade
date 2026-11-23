@@ -59,8 +59,9 @@ export async function POST(pedido: Request) {
     const feitos: number[] = [];
     const ruins: number[] = [];
     // O álbum dos atos entra na fila quando a foto sai do registro (20261117-alumia-onda11-fim.sql); o vídeo do post, quando sai
-    // do post ou a reserva vence (20261118-alumia-o12-midia.sql).
-    for (const deposito of ["rede-midia", "rede-stories", "rede-album", "rede-video"]) {
+    // do post ou a reserva vence (20261118-alumia-o12-midia.sql); o anexo cifrado do chat, quando vence, é aberto uma vez ou quem
+    // mandou apaga (20261127-p4-anexo-cifrado.sql).
+    for (const deposito of ["rede-midia", "rede-stories", "rede-album", "rede-video", "alumia-anexos"]) {
       const deste = fila.filter((a) => a.deposito === deposito);
       if (deste.length === 0) continue;
       try {

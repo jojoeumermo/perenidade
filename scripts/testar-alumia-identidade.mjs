@@ -95,7 +95,7 @@ try {
   ok("a foto é conferida na tela antes de enviar (bytes sem EXIF)", /fotoAceitavel\(/.test(ler("components/rede/identidade/foto.ts")));
   ok("o recorte desenha num canvas (os pixels vão, os metadados ficam)", /getContext\("2d"\)/.test(ler("components/rede/identidade/foto.ts")) && /toDataURL\("image\/webp"/.test(ler("components/rede/identidade/foto.ts")));
   ok("as fotos dos outros ficam só na memória da aba (nada de localStorage)", !/localStorage|sessionStorage|indexedDB/.test(ler("lib/rede/fotos-publicas.ts")));
-  ok("o rosto da rede mostra a foto pública e cai no mosaico sem ela", /useFotoPublica\(/.test(ler("components/rede/ui/Avatar16.tsx")) && /celulasDoAvatar\(/.test(ler("components/rede/ui/Avatar16.tsx")));
+  ok("o rosto da rede mostra a foto pública e cai no mosaico sem ela", /useFotoPublica\(/.test(ler("components/rede/ui/Avatar16.tsx")) && /desenhoDe\(handle\)/.test(ler("components/rede/ui/Avatar16.tsx"))); // P5 (A2): o mosaico automático virou o desenho do @nome
 } catch (erro) {
   falhas.push(`as telas da identidade: ${erro.message}`);
 }

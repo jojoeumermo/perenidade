@@ -32,7 +32,8 @@ export function criarClienteModeracao(c: Chamar) {
     retidos: () => c<PostRetido[]>("rede_mod_retidos"),
     /** Agir: sempre com a regra citada e o motivo. `contexto` é a comunidade, para banir e desbanir. */
     agir: (denuncia: string | null, tipo: "post" | "perfil", alvo: string, acao: AcaoDeModeracao, regra: string, motivo: string, contexto: string | null = null) =>
-      c<{ acao: string }>("rede_mod_agir", { p_denuncia: denuncia, p_alvo_tipo: tipo, p_alvo: alvo, p_acao: acao, p_regra: regra, p_motivo: motivo, p_contexto: contexto }),
+      // apagado: era o próprio post de quem modera (sai como apagar, sem aviso); repetida: já estava assim (nada muda, ninguém é avisado).
+      c<{ acao: string | null; apagado?: boolean; repetida?: boolean }>("rede_mod_agir", { p_denuncia: denuncia, p_alvo_tipo: tipo, p_alvo: alvo, p_acao: acao, p_regra: regra, p_motivo: motivo, p_contexto: contexto }),
     situacaoDaDenuncia: (denuncia: string, situacao: Exclude<SituacaoDaDenuncia, "aberta">, nota = "") =>
       c<{ situacao: string }>("rede_mod_denuncia_situacao", { p_denuncia: denuncia, p_situacao: situacao, p_nota: nota }),
 

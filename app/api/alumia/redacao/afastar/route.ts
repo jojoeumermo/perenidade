@@ -26,7 +26,9 @@ export async function POST(pedido: Request) {
   if (!UUID.test(denuncia)) return resposta({ ok: false, motivo: "invalido" }, 400);
 
   const dados = await rpcDeServico<{ pendente: boolean; correcao?: string; lacre?: string | null; candidatos?: unknown[] }>("alumia_redacao_afastar_dados", { p_denuncia: denuncia });
-  if (!dados.ok) return resposta({ ok: false, motivo: dados.codigo === "nao_encontrado" ? "nao_encontrado" : "sem_servico" }, dados.status === 0 ? 503 : 502);
+  // Denúncia que não existe é 404, não erro do servidor (o fuzzing achou o 502 com um uuid qualquer).
+  if (!dados.ok && dados.codigo === "nao_encontrado") return resposta({ ok: false, motivo: "nao_encontrado" }, 404);
+  if (!dados.ok) return resposta({ ok: false, motivo: "sem_servico" }, dados.status === 0 ? 503 : 502);
   if (!dados.dado.pendente) return resposta({ ok: true, afastamento: "decidido" });
   // Sem o segredo agora, não há como conferir: o afastamento fica pendente (a tela tenta de novo depois).
   const segredo = segredoDoLacre();

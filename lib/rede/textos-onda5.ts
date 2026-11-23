@@ -3,6 +3,7 @@
 // Os textos das telas novas da Onda 5 enquanto estão "em construção": i18n/rede/onda5/{pt,en,es,fr,ru,zh}.json (pt é o final; os
 // outros cinco são rascunho). Carrega só o idioma pedido, sob demanda. Sem "@/" de propósito (roda no Node nos testes).
 import type pt from "../../i18n/rede/onda5/pt.json";
+import { carregarPronto } from "./textos-prontos";
 
 export type TextosDaOnda5 = typeof pt;
 
@@ -17,8 +18,7 @@ const CARREGAR: Record<string, () => Promise<{ default: unknown }>> = {
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export async function carregarTextosDaOnda5(lang: string): Promise<TextosDaOnda5> {
-  const carregar = CARREGAR[lang] ?? CARREGAR.pt;
-  return (await carregar()).default as TextosDaOnda5;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDaOnda5;
 }
 
 /** O título e a descrição de uma tela nova; nome desconhecido dá nulo. */

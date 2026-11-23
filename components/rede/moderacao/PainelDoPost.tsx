@@ -25,13 +25,14 @@ export function PainelDoPost({ post, s, sm, aoFechar, aoAgir }: { post: Post; s:
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState("");
   const [feito, setFeito] = useState("");
+  const [agiu, setAgiu] = useState(false);
   const [lento, setLento] = useState(0);
   const acoes = sm.moderar.acoes as Record<string, string>;
   const doPost: AcaoDeModeracao[] = ["remover", "reter", "restaurar", post.travado ? "destravar" : "travar", "avisar"];
   const grave = acao === "remover" || acao === "reter";
 
   async function aplicar() {
-    if (ocupado) return;
+    if (ocupado || agiu) return;
     if (grave && !confirmando) {
       setConfirmando(true);
       return;
@@ -39,8 +40,11 @@ export function PainelDoPost({ post, s, sm, aoFechar, aoAgir }: { post: Post; s:
     setOcupado(true);
     setErro("");
     try {
-      await redeMod.agir(null, "post", post.id, acao, regra.trim(), motivo.trim());
-      setFeito(sm.moderar.feito);
+      const r = await redeMod.agir(null, "post", post.id, acao, regra.trim(), motivo.trim());
+      // Feito: o formulário sai e fica só o resultado e o Fechar. Antes ele voltava ao "Aplicar" com tudo preenchido, parecia que
+      // o "Confirmar" não tinha feito nada, e cada novo toque mandava outro aviso à pessoa.
+      setFeito(r?.apagado ? sm.moderar.feitoProprio : r?.repetida ? sm.moderar.feitoRepetido : sm.moderar.feito);
+      setAgiu(true);
       setConfirmando(false);
       aoAgir?.();
     } catch (e) {
@@ -64,36 +68,45 @@ export function PainelDoPost({ post, s, sm, aoFechar, aoAgir }: { post: Post; s:
   return (
     <div className={`${estilo.caixa} mt-2 w-full basis-full space-y-3`} role="group" aria-label={sm.moderar.titulo}>
       <p className="font-bold">{sm.moderar.titulo}</p>
-      <label className="block text-sm">
-        {sm.moderar.acao}
-        <select value={acao} onChange={(e) => { setAcao(e.target.value as AcaoDeModeracao); setConfirmando(false); }} className={`${estilo.campo} mt-1`}>
-          {doPost.map((a) => <option key={a} value={a}>{acoes[a]}</option>)}
-        </select>
-      </label>
-      <label className="block text-sm">
-        {sm.moderar.regra}
-        <input value={regra} onChange={(e) => setRegra(e.target.value)} maxLength={80} className={`${estilo.campo} mt-1`} />
-      </label>
-      <label className="block text-sm">
-        {sm.moderar.motivo}
-        <textarea value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={1000} rows={3} className={`${estilo.campo} mt-1`} />
-      </label>
-      <p className="text-xs text-ink-soft">{sm.moderar.sobreOAviso}</p>
-      {confirmando && <p role="alert" className="text-sm font-bold">{sm.moderar.confirmeDestrutivo}</p>}
-      <div className="flex flex-wrap gap-2">
-        <button type="button" disabled={ocupado || regra.trim().length < 3 || motivo.trim().length < 3} onClick={() => void aplicar()} className={estilo.botaoForte}>
-          {ocupado ? sm.moderar.aplicando : confirmando ? sm.confirmar : sm.moderar.aplicar}
-        </button>
-        <button type="button" className={estilo.botao} onClick={aoFechar}>{sm.fechar}</button>
-      </div>
-      <label className="block text-sm">
-        {sm.moderar.modoLento}
-        <select value={lento} onChange={(e) => void mudarLento(Number(e.target.value))} className={`${estilo.campo} mt-1`}>
-          {SEGUNDOS.map((n) => <option key={n} value={n}>{rotuloDoLento(sm, n)}</option>)}
-        </select>
-        <span className="text-xs text-ink-soft">{sm.moderar.modoLentoAjuda}</span>
-      </label>
-      {feito && <p role="status" className="text-sm font-bold">{feito}</p>}
+      {agiu ? (
+        <div className="flex flex-wrap items-center gap-2">
+          <p role="status" className="text-sm font-bold">{feito}</p>
+          <button type="button" className={estilo.botao} onClick={aoFechar}>{sm.fechar}</button>
+        </div>
+      ) : (
+        <>
+          <label className="block text-sm">
+            {sm.moderar.acao}
+            <select value={acao} onChange={(e) => { setAcao(e.target.value as AcaoDeModeracao); setConfirmando(false); }} className={`${estilo.campo} mt-1`}>
+              {doPost.map((a) => <option key={a} value={a}>{acoes[a]}</option>)}
+            </select>
+          </label>
+          <label className="block text-sm">
+            {sm.moderar.regra}
+            <input value={regra} onChange={(e) => setRegra(e.target.value)} maxLength={80} className={`${estilo.campo} mt-1`} />
+          </label>
+          <label className="block text-sm">
+            {sm.moderar.motivo}
+            <textarea value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={1000} rows={3} className={`${estilo.campo} mt-1`} />
+          </label>
+          <p className="text-xs text-ink-soft">{sm.moderar.sobreOAviso}</p>
+          {confirmando && <p role="alert" className="text-sm font-bold">{sm.moderar.confirmeDestrutivo}</p>}
+          <div className="flex flex-wrap gap-2">
+            <button type="button" disabled={ocupado || regra.trim().length < 3 || motivo.trim().length < 3} onClick={() => void aplicar()} className={estilo.botaoForte}>
+              {ocupado ? sm.moderar.aplicando : confirmando ? sm.confirmar : sm.moderar.aplicar}
+            </button>
+            <button type="button" className={estilo.botao} onClick={aoFechar}>{sm.fechar}</button>
+          </div>
+          <label className="block text-sm">
+            {sm.moderar.modoLento}
+            <select value={lento} onChange={(e) => void mudarLento(Number(e.target.value))} className={`${estilo.campo} mt-1`}>
+              {SEGUNDOS.map((n) => <option key={n} value={n}>{rotuloDoLento(sm, n)}</option>)}
+            </select>
+            <span className="text-xs text-ink-soft">{sm.moderar.modoLentoAjuda}</span>
+          </label>
+          {feito && <p role="status" className="text-sm font-bold">{feito}</p>}
+        </>
+      )}
       {erro && <p role="alert" className="text-sm text-oxblood">{erro}</p>}
     </div>
   );

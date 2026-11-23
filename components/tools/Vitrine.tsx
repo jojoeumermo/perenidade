@@ -100,7 +100,7 @@ export function Vitrine({ itens, grupos, laboratorios, s }: { itens: ItemDaVitri
 
   return (
     <div className="font-sans">
-      <div className="sticky top-0 z-20 -mx-4 mt-8 border-b border-rule bg-parchment/95 px-4 py-3 backdrop-blur">
+      <div className="sticky top-0 z-20 -mx-4 mt-8 border-b border-rule bg-parchment px-4 py-3">
         <label className="relative block">
           <span className="sr-only">{s.findTool}</span>
           <span aria-hidden className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-soft">⌕</span>

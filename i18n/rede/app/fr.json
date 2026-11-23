@@ -1,0 +1,49 @@
+{
+  "_rascunho": "Traduction provisoire du texte portugais (pt.json fait foi).",
+  "titulo": "L'appli Alumia",
+  "lead": "Pour discuter sur Alumia avec la messagerie chiffrée, utilisez l'appli du téléphone ou de l'ordinateur. Le code de la messagerie est dans l'appli : ce qui tourne sur votre appareil ne vient pas du serveur à chaque ouverture. Et chaque version est inscrite dans un registre public que tout le monde peut vérifier.",
+  "soApp": {
+    "titulo": "Pour discuter, utilisez l'appli",
+    "texto": "Le site présente le réseau social. La messagerie chiffrée tourne dans l'appli du téléphone ou de l'ordinateur, avec le code à l'intérieur et chaque version inscrite dans un registre public.",
+    "baixar": "Télécharger et vérifier l'appli",
+    "voltar": "Retour à Alumia"
+  },
+  "baixar": {
+    "titulo": "Télécharger",
+    "android": "Android",
+    "windows": "Windows",
+    "macos": "macOS",
+    "linux": "Linux",
+    "iphone": "Il n'y a pas encore d'appli pour iPhone. Les personnes sur iPhone continuent à discuter par le site tant que la messagerie du site reste ouverte.",
+    "semVersao": "Aucune version n'a encore été publiée. Quand il y en aura une, elle apparaîtra ici, avec l'empreinte de chaque fichier et son inscription au registre public.",
+    "versao": "Version {versao}",
+    "arquivo": "Fichier",
+    "para": "Pour",
+    "tamanho": "Taille",
+    "resumo": "Empreinte SHA-256",
+    "livro": "Au registre public",
+    "entrada": "entrée {indice}",
+    "pacote": "paquet de vérification"
+  },
+  "conferir": {
+    "titulo": "Vérifier avant d'installer",
+    "texto": "Chaque fichier des applis est signé par le flux de publication du dépôt public de l'Institut, sur une étiquette de version, et inscrit dans Rekor, le registre public de signatures de Sigstore. Personne ne détient de clé capable de signer en dehors : la signature vient de l'identité du flux, et le registre rend chacune publique pour toujours.",
+    "passos": [
+      "Téléchargez le fichier et son paquet de vérification (le fichier du même nom terminé par .sigstore.json).",
+      "Vérifiez avec l'une des commandes ci-dessous. Les deux indiquent si le fichier est exactement celui que le flux a signé et si la signature est au registre.",
+      "N'installez que si la vérification réussit. Sinon, n'installez pas et prévenez la coordination."
+    ],
+    "comandoNode": "Avec le code du dépôt (Node 22 ou plus récent) :",
+    "comandoCosign": "Avec l'outil officiel de Sigstore :",
+    "roteiro": "Guide pour construire l'appli de zéro et obtenir le même fichier",
+    "trocar": "Remplacez {versao} par la version et {arquivo} par le nom du fichier."
+  },
+  "sistema": {
+    "titulo": "L'avertissement de Windows et de macOS",
+    "texto": "L'appli n'a pas la signature payante de Microsoft ni celle d'Apple. C'est pourquoi le système prévient que le programme est d'origine inconnue. La confiance vient d'ailleurs : du registre public et de la compilation reproductible. Vérifiez l'empreinte avant d'ouvrir."
+  },
+  "atualizacao": {
+    "titulo": "Mises à jour",
+    "texto": "L'appli n'installe qu'une mise à jour inscrite au registre public, signée par le flux de publication du dépôt. Hors du registre, elle refuse et dit pourquoi. Une version installée autrement et absente du registre s'ouvre, mais pas la messagerie."
+  }
+}

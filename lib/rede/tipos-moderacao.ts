@@ -68,6 +68,13 @@ export interface MinhaDenuncia {
   regra: string | null;
 }
 
+/** Um trecho conferido de uma denúncia com prova, como a fila o mostra (nada da caixa, da marca nem da chave). */
+export interface TrechoComProvaNaFila {
+  texto: string;
+  dia: string;
+  origem: "conversa" | "grupo" | "post";
+}
+
 /** Uma denúncia na fila. Sem quem denunciou; sem trecho quando o post é de núcleo (só abrindo). */
 export interface ItemDaFila {
   id: string;
@@ -87,6 +94,11 @@ export interface ItemDaFila {
   cifrado?: boolean;
   /** O trecho que quem denunciou abriu no aparelho e mandou em texto aberto (só de post cifrado; escrito por essa pessoa). */
   aberto?: string | null;
+  /**
+   * Os trechos da denúncia com prova (onda R2, lib/rede/franquia/protocolo.ts): o texto exato, o dia da mensagem e de onde veio.
+   * Conferidos pelo servidor (passaram pela conversa de quem denunciou naquele dia); a autoria é a que o aparelho de quem denunciou diz.
+   */
+  prova?: TrechoComProvaNaFila[] | null;
   mesmas: number;
   /** O prazo de resposta da denúncia (onda 8: 24 h para os casos graves e o conteúdo ilegal, 72 h, 7 dias). */
   responder_ate?: string | null;

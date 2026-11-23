@@ -1,18 +1,29 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
+import { permanentRedirect } from "next/navigation";
 import Link from "@/components/Link";
 import { Star } from "@/components/Masthead";
 import { SignIn } from "@/components/SignIn";
 import { localePath } from "@/i18n/config";
 import { loadLang } from "@/i18n";
+import { entradaDaAlumiaPelaBusca, voltaDaAlumia } from "@/lib/rede/alumia";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/entrar">): Promise<Metadata> {
   const { t } = await loadLang(params);
   return { title: t.auth.title, robots: { index: false } };
 }
 
-export default async function Entrar({ params }: PageProps<"/[lang]/entrar">) {
+export default async function Entrar({ params, searchParams }: PageProps<"/[lang]/entrar">) {
   const { lang, t } = await loadLang(params);
+  // P5 (A3): entrar e criar conta na Alumia é só no portão dela. Quem chega aqui a caminho da Alumia (?volta=/alumia/…, links
+  // antigos) vai de vez para a entrada da Alumia, com a aba e os outros parâmetros. As contas do site (estudo, voluntariado,
+  // painel, Escola) continuam entrando aqui.
+  const busca = await searchParams;
+  const volta = typeof busca.volta === "string" ? busca.volta : null;
+  if (voltaDaAlumia(volta)) {
+    const pares = Object.entries(busca).flatMap(([k, v]) => (Array.isArray(v) ? v.map((x) => [k, x]) : v === undefined ? [] : [[k, v]]));
+    permanentRedirect(entradaDaAlumiaPelaBusca(lang, new URLSearchParams(pares).toString()));
+  }
   // Duas colunas (09/11/2026): à esquerda, o cartaz preto com a estrela, no desenho das faixas da inicial ("Aqui a
   // gente estuda"), dizendo para que serve a conta; à direita, o formulário em cartão. No celular, um embaixo do outro.
   return (

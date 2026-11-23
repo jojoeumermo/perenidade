@@ -27,6 +27,7 @@ import { atos as cliente, PREVIA_DOS_ATOS } from "@/lib/rede/cliente-atos";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
 import { LIMITES_DO_ATO, type Ato, type SituacaoDoAto } from "@/lib/rede/tipos-atos";
 import "./atos.css";
+import { PorQueSemNumero } from "../uso/PorQueSemNumero";
 
 /**
  * A página de um ato (/alumia/ato/[id]; prancha celular-modo-atos): o ato aberto com Você vai, Conversa, Chegar e Chamar; embaixo,
@@ -201,7 +202,9 @@ function PainelDeQuemChamou({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
       <h2 id={`al-ato-org-${ato.id}`} ref={titulo} tabIndex={-1} className="al-cond al-ato-org-titulo">
         {t.pagina.organizou}
       </h2>
-      <p>{ato.total !== null && ato.total >= 3 ? preencherAto(t.pagina.total, { n: ato.total }) : t.pagina.totalPoucas}</p>
+      <p>{ato.total !== null && ato.total >= 3 ? preencherAto(t.pagina.total, { n: ato.total }) : t.pagina.totalPoucas}
+        {ato.total !== null && ato.total >= 3 ? null : <PorQueSemNumero motivo="ambos" />}
+      </p>
       {modo ? (
         <form className="al-ato-org-form" onSubmit={enviar} onKeyDown={aoTecla} noValidate>
           {modo === "adiado" ? (

@@ -51,6 +51,8 @@
 [data-al="2"] .pf-rosto-moldura > .al-avatar16 { display: block; border-radius: 50%; }
 [data-al="2"] .pf-nomes { grid-area: nomes; min-width: 0; padding-bottom: 2px; }
 [data-al="2"] .pf-nome { margin: 0; font-size: clamp(1.9rem, 7vw, 2.6rem); line-height: 0.95; overflow-wrap: anywhere; }
+[data-al="2"] .pf-verificado { display: inline-flex; vertical-align: 0.12em; margin-left: 0.35rem; }
+[data-al="2"] .pf-verificado svg { width: 0.62em; height: 0.62em; min-width: 18px; min-height: 18px; }
 [data-al="2"] .pf-handle { margin: 6px 0 0; display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 0.92rem; color: var(--al-texto-3); overflow-wrap: anywhere; }
 [data-al="2"] .pf-pronomes { padding: 0 8px; border-radius: var(--al-raio-pilula); border: 1px solid var(--al-linha); font-size: 0.8rem; line-height: 1.5; }
 [data-al="2"] .pf-acoes { grid-area: acoes; display: flex; flex-wrap: wrap; gap: 8px; }

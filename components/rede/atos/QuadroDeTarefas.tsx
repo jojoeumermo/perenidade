@@ -12,6 +12,7 @@ import { atos as cliente } from "@/lib/rede/cliente-atos";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
 import { LIMITES_DO_ATO, type Ato, type QuadroDeTarefas as Quadro, type TarefaDoAto } from "@/lib/rede/tipos-atos";
 import "./quadros.css";
+import { PorQueSemNumero } from "../uso/PorQueSemNumero";
 
 /**
  * "Quem leva o quê" (PLANO-ALUMIA §4.2): cada tarefa é um ladrilho que vira dourado quando já tem quem leve. O público vê só o item,
@@ -130,7 +131,9 @@ export function QuadroDeTarefas({ ato, t, logado }: { ato: Ato; t: TextosDosAtos
                     </p>
                     {/* Pedindo 1 ou 2, "falta gente" já diz tudo; a partir de 3, a linha diz quantas (ou que ainda são menos de 3). */}
                     {q.organiza && (tarefa.assumidas !== null || (!tarefa.completa && tarefa.quantos >= 3)) ? (
-                      <p className="al-q-org">{tarefa.assumidas !== null ? preencherAto(t.tarefas.assumidas, { a: tarefa.assumidas, q: tarefa.quantos }) : t.tarefas.poucas}</p>
+                      <p className="al-q-org">{tarefa.assumidas !== null ? preencherAto(t.tarefas.assumidas, { a: tarefa.assumidas, q: tarefa.quantos }) : t.tarefas.poucas}
+                        {tarefa.assumidas === null ? <PorQueSemNumero motivo="piso" /> : null}
+                      </p>
                     ) : null}
                   </div>
                   <div className="al-q-botoes">

@@ -20,7 +20,9 @@ type Campo = keyof CamposDoAto;
  * O formulário do tipo "Ato" no compositor (prancha celular-escrever-ato): "Nome do ato (vira a palavra do mosaico)", Quando,
  * Onde, Cidade (é ela que põe o ato em "Perto"; nada de GPS), Chamado e a prévia do mosaico APAGADO com a palavra que vai sair.
  * A cada mudança entrega ao compositor o que conferiu (lib/rede/atos/formulario.ts, os mesmos limites do banco); os problemas
- * só aparecem depois que a pessoa sai do campo, para não gritar enquanto ela escreve.
+ * só aparecem depois que a pessoa sai do campo, para não gritar enquanto ela escreve. P5 (A17): campo vazio que a pessoa só
+ * atravessou (abriu o seletor do Quando, passou com o Tab) não vira "Preencha este campo": o que falta já aparece debaixo do botão
+ * desligado; o aviso de vazio só vem quando ela escreveu e apagou.
  */
 export function FormularioDoAto({ lang, aoMudar }: ContextoDoEncaixe & { aoMudar: (dados: Record<string, unknown>) => void }) {
   const t = useTextosDosAtos(lang);
@@ -28,6 +30,8 @@ export function FormularioDoAto({ lang, aoMudar }: ContextoDoEncaixe & { aoMudar
   const id = useId();
   const [c, setC] = useState<CamposDoAto>(CAMPOS_VAZIOS);
   const [tocado, setTocado] = useState<Partial<Record<Campo, boolean>>>({});
+  // Os campos em que a pessoa já escreveu alguma coisa (só esses podem reclamar de vazio).
+  const [sujo, setSujo] = useState<Partial<Record<Campo, boolean>>>({});
   const aoMudarRef = useRef(aoMudar);
   // A pessoa escreveu a cidade à mão: a sugestão tirada do Onde para de mexer nela.
   const cidadeMexida = useRef(false);
@@ -51,17 +55,23 @@ export function FormularioDoAto({ lang, aoMudar }: ContextoDoEncaixe & { aoMudar
 
   if (!t) return <div className="al-ato-form" aria-busy="true" />;
 
-  const mudar = (campo: Campo, valor: string | null) => setC((x) => ({ ...x, [campo]: valor }));
-  const mudarOnde = (valor: string) =>
+  const mudar = (campo: Campo, valor: string | null) => {
+    if (valor && !sujo[campo]) setSujo((x) => ({ ...x, [campo]: true }));
+    setC((x) => ({ ...x, [campo]: valor }));
+  };
+  const mudarOnde = (valor: string) => {
+    if (valor && !sujo.onde) setSujo((x) => ({ ...x, onde: true }));
     setC((x) => {
       if (cidadeMexida.current) return { ...x, onde: valor };
       const i = valor.lastIndexOf(",");
       const sugerida = i > 0 ? valor.slice(i + 1).trim() : "";
       return { ...x, onde: valor, cidade: sugerida.slice(0, LIMITES_DO_ATO.cidadeMax) };
     });
+  };
   const sair = (campo: Campo) => setTocado((x) => ({ ...x, [campo]: true }));
   const problema = (campo: Exclude<Campo, never>) => {
     const p = tocado[campo] ? dados.problemas[campo] : undefined;
+    if (p === "vazio" && !sujo[campo]) return null;
     return p ? t.formulario.problemas[p] : null;
   };
   const props = (campo: Campo, extra?: string) => {

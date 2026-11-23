@@ -1,0 +1,137 @@
+{
+  "caixas-nao-ligacao.pv": {
+    "o_que_prova": "Caixas anônimas: o servidor não distingue duas caixas da mesma pessoa de caixas de pessoas diferentes.",
+    "resultados": [
+      "verdadeira"
+    ],
+    "rastro_de_ataque": false
+  },
+  "camada-pq.pv": {
+    "o_que_prova": "Camada pós-quântica: a mensagem fica secreta se um dos dois ratchets (Proteus ou SPQR) se mantém.",
+    "resultados": [
+      "verdadeira",
+      "verdadeira"
+    ],
+    "rastro_de_ataque": false
+  },
+  "grupos-anonimato.pv": {
+    "o_que_prova": "Grupos: o servidor não distingue qual membro depositou.",
+    "resultados": [
+      "verdadeira"
+    ],
+    "rastro_de_ataque": false
+  },
+  "grupos-epoca.pv": {
+    "o_que_prova": "Grupos: quem não é membro da época não deriva caixa nem chave, não lê e não se passa por membro.",
+    "resultados": [
+      "verdadeira",
+      "verdadeira",
+      "verdadeira",
+      "verdadeira",
+      "verdadeira"
+    ],
+    "rastro_de_ataque": false
+  },
+  "passes-cegos.pv": {
+    "o_que_prova": "Passes por assinatura cega: o passe gasto não se liga a quem o pediu, nem para o emissor.",
+    "resultados": [
+      "verdadeira"
+    ],
+    "rastro_de_ataque": false
+  },
+  "remetente-selado-anonimato.pv": {
+    "o_que_prova": "Remetente selado: o servidor não distingue quem mandou (A1 ou A2) para a mesma caixa.",
+    "resultados": [
+      "verdadeira"
+    ],
+    "rastro_de_ataque": false
+  },
+  "remetente-selado.pv": {
+    "o_que_prova": "Remetente selado: sigilo da mensagem e autenticação do aparelho que mandou (com a franquia).",
+    "resultados": [
+      "verdadeira",
+      "verdadeira"
+    ],
+    "rastro_de_ataque": false
+  },
+  "sem-internet-cobertura.pv": {
+    "o_que_prova": "Sem internet: mensagem e farol iguais à cobertura para quem repassa.",
+    "resultados": [
+      "verdadeira"
+    ],
+    "rastro_de_ataque": false
+  },
+  "sem-internet-nao-ligacao.pv": {
+    "o_que_prova": "Sem internet: quem repassa não distingue o destino (mesma caixa ou caixas diferentes).",
+    "resultados": [
+      "verdadeira"
+    ],
+    "rastro_de_ataque": false
+  },
+  "sem-internet-remetente.pv": {
+    "o_que_prova": "Sem internet: quem repassa não distingue o remetente.",
+    "resultados": [
+      "verdadeira"
+    ],
+    "rastro_de_ataque": false
+  },
+  "sem-internet.pv": {
+    "o_que_prova": "Sem internet: sigilo, autenticação, validade presa pela etiqueta, e o farol só com uma assinatura honesta (duas exigidas).",
+    "resultados": [
+      "verdadeira",
+      "verdadeira",
+      "verdadeira",
+      "verdadeira"
+    ],
+    "rastro_de_ataque": false
+  },
+  "voto-limiar.pv": {
+    "o_que_prova": "Voto em limiar: com uma guardiã corrompida (K−1 = 1 de 2 de 3), a semente e o voto ficam secretos.",
+    "resultados": [
+      "verdadeira",
+      "verdadeira",
+      "verdadeira",
+      "verdadeira"
+    ],
+    "rastro_de_ataque": false
+  },
+  "voto-sigilo-servidor-ativo.pv": {
+    "o_que_prova": "ATAQUE ESPERADO: o servidor ativo, que emite passes da urna, troca a cédula de uma eleitora pela dele e o resultado diz o voto da outra. Fica registrado até o conserto (verificação individual).",
+    "resultados": [
+      "nao_provada",
+      "nao_provada"
+    ],
+    "rastro_de_ataque": true
+  },
+  "voto-sigilo.pv": {
+    "o_que_prova": "Sigilo do voto (troca de votos de duas eleitoras) contra quem lê o banco inteiro.",
+    "resultados": [
+      "verdadeira"
+    ],
+    "rastro_de_ataque": false
+  },
+  "controles/sem-internet-etiqueta-sem-corpo.pv": {
+    "o_que_prova": "CONTROLE: a primeira versão da etiqueta (sem o resumo do corpo) deixa emendar cabeçalho novo em corpo velho. Tem de dar ataque.",
+    "resultados": [
+      "falsa"
+    ],
+    "rastro_de_ataque": true
+  },
+  "controles/sem-internet-etiqueta-sem-nonce.pv": {
+    "o_que_prova": "CONTROLE: sem o nonce, a etiqueta se repete e liga os pacotes do mesmo destino. Tem de dar ataque.",
+    "resultados": [
+      "nao_provada"
+    ],
+    "rastro_de_ataque": true
+  },
+  "controles/sem-internet-farol-uma-assinatura.pv": {
+    "o_que_prova": "CONTROLE: o farol com uma assinatura só deixa a coordenadora corrompida fazer o farol sozinha. Tem de dar ataque.",
+    "resultados": [
+      "verdadeira",
+      "verdadeira",
+      "verdadeira",
+      "falsa"
+    ],
+    "rastro_de_ataque": true
+  }
+}

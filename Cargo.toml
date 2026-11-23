@@ -1,0 +1,19 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# Raiz do Cargo SÓ para o app do computador (desktop/src-tauri), por causa do build reproduzível (docs/BUILD-REPRODUZIVEL.md):
+# o Cargo dá a cada pacote de caminho (o app e o nativo/nucleo) uma identidade que entra nos nomes internos do executável. Para
+# pacote DENTRO da raiz, essa identidade usa o caminho relativo; FORA dela, o caminho inteiro da máquina, e o executável muda de
+# uma pasta para outra. Com esta raiz, o mesmo código dá o mesmo executável em qualquer pasta (conferido no Windows).
+# As outras pastas Rust (nativo/*) continuam com o próprio Cargo.toml e Cargo.lock, fora desta raiz (exclude).
+[workspace]
+members = ["desktop/src-tauri"]
+exclude = ["nativo"]
+resolver = "2"
+
+[profile.release]
+panic = "abort"
+lto = true
+codegen-units = 1
+opt-level = "s"
+strip = "symbols"
+incremental = false

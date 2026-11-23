@@ -4,6 +4,7 @@ import { SERVIDORES_JITSI } from "./lib/jitsi";
 import { GALENE_URL } from "./lib/aula-sala";
 import { ORIGENS_DAS_FIGURAS } from "./lib/figuras-da-prova";
 import { ligado } from "./lib/recursos";
+import { enderecoDoLivekit } from "./lib/sala/livekit";
 
 const dev = process.env.NODE_ENV !== "production";
 
@@ -18,6 +19,16 @@ function serviceOrigin(): string {
 const service = serviceOrigin();
 // O canal de tempo real do serviço (avisos entre painéis, sala das aulas ao vivo) é o mesmo endereço, por WebSocket.
 const realtime = service.replace(/^https:/, "wss:");
+// O servidor do chat separado (onda R3, item 3.1; docs/rede/CHAT-SEPARADO.md): só a origem https da configuração. Vazio (o padrão) =
+// o chat nas rotas do próprio site, e nada muda aqui.
+const chatSeparado = (() => {
+  try {
+    const e = (process.env.NEXT_PUBLIC_ALUMIA_CHAT_SERVIDOR ?? "").trim();
+    return /^https:\/\//.test(e) ? new URL(e).origin : "";
+  } catch {
+    return "";
+  }
+})();
 
 // Desafio contra robôs da entrada (Turnstile, da Cloudflare, que já está na frente do site inteiro): a única exceção, só para
 // challenges.cloudflare.com e só quando NEXT_PUBLIC_TURNSTILE_SITE_KEY existe. A resposta é conferida no servidor
@@ -27,6 +38,15 @@ const captcha = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ? " https://challenge
 // A sala de vídeo (Sala Lúcia, Reuniões e estudo em grupo): os servidores Jitsi de lib/jitsi.ts (públicos, sem limite
 // de tempo nem login de moderador); troca-se por um próprio em NEXT_PUBLIC_JITSI_DOMAIN.
 const jitsi = SERVIDORES_JITSI.map((d) => `https://${d}`).join(" ");
+// Prompt 4, item 141: a sala de vídeo do painel pelo LiveKit Cloud ("sala-livekit"). Sem quadro (não entra no frame-src): só o
+// endereço do projeto no connect-src (wss e https), e só quando NEXT_PUBLIC_LIVEKIT_URL existe. A câmera e o microfone já valem na
+// própria origem (Permissions-Policy abaixo). Não entra na política da Alumia: a sala de vídeo não é da Alumia.
+const livekit = (() => {
+  const u = enderecoDoLivekit(process.env.NEXT_PUBLIC_LIVEKIT_URL);
+  if (!u || !u.startsWith("wss://")) return "";
+  const host = new URL(u.replace(/^wss:/, "https:")).host;
+  return ` wss://${host} https://${host}`;
+})();
 // Na Permissions-Policy cada origem vai entre aspas.
 // A sala própria das aulas ao vivo (Galène, infra/aula-ao-vivo/): só com NEXT_PUBLIC_GALENE_URL; entra nos quadros e nas permissões de câmera.
 const galene = GALENE_URL;
@@ -113,7 +133,7 @@ const policy = (script: string) =>
     // sem referência da página de origem (as tags pedem no-referrer).
     `img-src 'self' data: blob: ${service} ${ORIGENS_DAS_FIGURAS.join(" ")}${vlibras}`.replace(/\s+/g, " ").trim(),
     `font-src 'self'${vlibras}`,
-    `connect-src 'self' ${service} ${realtime}${dev ? " ws:" : ""}${vlibras}`.replace(/\s+/g, " ").trim(),
+    `connect-src 'self' ${service} ${chatSeparado} ${realtime}${livekit}${dev ? " ws:" : ""}${vlibras}`.replace(/\s+/g, " ").trim(),
     // A rádio e o podcast tocam arquivos do próprio acervo ou a transmissão ao vivo indicada pela coordenação;
     // blob: é o áudio gravado ou escolhido no próprio aparelho (pergunta gravada, teste de microfone, corte de vídeo).
     `media-src 'self' https: blob: ${service}`.trim(),
@@ -133,8 +153,9 @@ const policy = (script: string) =>
   ].join("; ");
 
 // 'unsafe-inline' é exigido pelos scripts de hidratação das páginas estáticas do Next. 'wasm-unsafe-eval' deixa compilar
-// WebAssembly (e só isso: não libera eval de JavaScript): é como roda a biblioteca de cifra do Matrix no chat privado da Alumia
-// (lib/rede/chat/olm.ts). Vale para todas as páginas porque a navegação do Next não recarrega a política ao trocar de página.
+// WebAssembly (e só isso: não libera eval de JavaScript): é como rodam as bibliotecas de cifra do chat da Alumia (o motor do MLS e
+// do Proteus, lib/rede/cifra/motor.ts, e a libsodium, lib/rede/cifra/sodio.ts). Vale para todas as páginas porque a navegação do
+// Next não recarrega a política ao trocar de página.
 const pages = policy(`'unsafe-inline' 'wasm-unsafe-eval' ${captcha} ${jitsi}${dev ? " 'unsafe-eval'" : ""}${vlibrasCodigo}`);
 // Os interpretadores de Python e PHP rodam isolados em um Worker, sem acesso à página;
 // só ali é permitido compilar WebAssembly e código gerado em tempo de execução.
@@ -154,7 +175,7 @@ const politicaDaAlumia = [
   "style-src 'self' 'unsafe-inline'",
   `img-src 'self' data: blob: ${service}`.trim(),
   "font-src 'self'",
-  `connect-src 'self' ${service} ${realtime} ${vozDaAlumia}${dev ? " ws:" : ""}`.replace(/\s+/g, " ").trim(),
+  `connect-src 'self' ${service} ${chatSeparado} ${realtime} ${vozDaAlumia}${dev ? " ws:" : ""}`.replace(/\s+/g, " ").trim(),
   `media-src 'self' blob: ${service}`.trim(),
   "worker-src 'self' blob:",
   "manifest-src 'self'",
@@ -167,6 +188,11 @@ const politicaDaAlumia = [
 ].join("; ");
 // O endereço das conversas (conversas.*, Faixa 2) tem a política dele, com nonce: a regra da Alumia não vale lá.
 const foraDasConversas = [{ type: "host" as const, value: "conversas\\..*" }];
+// O que as telas da Alumia podem pedir ao aparelho: câmera (stories, foto) e microfone (áudio do post, sala de voz), só do próprio
+// endereço e só depois do toque. Nada de localização, tela, pagamento, USB nem quadro de outro site (a Alumia não embute Jitsi,
+// laboratório nem vídeo de fora): a lista da casa, mais aberta, fica para o resto do site.
+const permissoesDaAlumia =
+  "camera=(self), microphone=(self), display-capture=(), fullscreen=(self), autoplay=(self), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), midi=(), browsing-topics=()";
 
 const common = [
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
@@ -195,15 +221,6 @@ const cabecalhosDaPonte = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  // Os grupos cifrados (lib/rede/grupo-mls.ts) usam a suíte X-Wing do ts-mls, que vem do pacote "mlkem". O ts-mls também tenta
-  // carregar, sob demanda, dois opcionais que a suíte não usa (X448 e ML-KEM puro): no webpack eles viram módulo vazio, sem o
-  // aviso de "Module not found" em toda página. A importação continua dentro do try do ts-mls: nada muda na cifra.
-  webpack: (config: { resolve?: { alias?: Record<string, unknown> } }) => {
-    config.resolve = { ...config.resolve, alias: { ...config.resolve?.alias, "@hpke/dhkem-x448": false, "@hpke/ml-kem": false } };
-    return config;
-  },
-  // O mesmo no Turbopack (o padrão do next build e do next dev): os dois opcionais viram o módulo vazio.
-  turbopack: { resolveAlias: { "@hpke/dhkem-x448": "./lib/modulo-vazio.ts", "@hpke/ml-kem": "./lib/modulo-vazio.ts" } },
   // Endereço que nenhuma rota atende ganha a página de app/global-not-found.tsx: o layout do site vive dentro de
   // [lang], e sem isso o Next mostrava a tela branca dele, em inglês.
   experimental: { globalNotFound: true },
@@ -278,9 +295,10 @@ const nextConfig: NextConfig = {
       { source: "/api/rede/embed/:resto*", headers: common.filter((c) => !["X-Frame-Options", "Cross-Origin-Opener-Policy", "Cross-Origin-Resource-Policy", "Referrer-Policy", "Permissions-Policy"].includes(c.key)) },
       { source: "/workers/:path*", headers: [{ key: "Content-Security-Policy", value: workers }, ...common] },
       // As telas da Alumia: a política própria (acima) vem DEPOIS da geral e fica no lugar dela, pelo caminho do site e no
-      // endereço próprio. Os serviços (/api) e os arquivos do build seguem com a geral.
-      { source: "/:lang(pt|en|es|fr|ru|zh)/alumia/:path*", missing: foraDasConversas, headers: [{ key: "Content-Security-Policy", value: politicaDaAlumia }] },
-      { source: "/((?!api/|_next/|workers/).*)", has: [{ type: "host", value: "alumia\\..*" }], missing: foraDasConversas, headers: [{ key: "Content-Security-Policy", value: politicaDaAlumia }] },
+      // endereço próprio. Os serviços (/api) e os arquivos do build seguem com a geral. Na Alumia nenhum link manda o endereço de
+      // onde se veio (Referrer-Policy: no-referrer): o site de fora não fica sabendo de qual post, perfil ou núcleo a pessoa saiu.
+      { source: "/:lang(pt|en|es|fr|ru|zh)/alumia/:path*", missing: foraDasConversas, headers: [{ key: "Content-Security-Policy", value: politicaDaAlumia }, { key: "Referrer-Policy", value: "no-referrer" }, { key: "Permissions-Policy", value: permissoesDaAlumia }] },
+      { source: "/((?!api/|_next/|workers/).*)", has: [{ type: "host", value: "alumia\\..*" }], missing: foraDasConversas, headers: [{ key: "Content-Security-Policy", value: politicaDaAlumia }, { key: "Referrer-Policy", value: "no-referrer" }, { key: "Permissions-Policy", value: permissoesDaAlumia }] },
       // O quadro da ponte de sessão: só os subdomínios embutem, só o próprio script roda, nada vai para o cache.
       { source: "/api/sessao/ponte/:resto*", headers: [{ key: "Content-Security-Policy", value: politicaDaPonte }, { key: "Cache-Control", value: "private, no-store" }, ...cabecalhosDaPonte] },
       // Os interpretadores são grandes e mudam raramente: o navegador pode guardá-los por uma semana.

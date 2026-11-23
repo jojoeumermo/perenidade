@@ -30,6 +30,39 @@ export function filtroEmCss(f: string): string {
   return (FILTROS_DO_STORY as readonly string[]).includes(f) ? CSS_DO_FILTRO[f as FiltroDoStory] : "none";
 }
 
+// ── Ajustes da foto e do vídeo (P5, A16): brilho, contraste e saturação, de −50 a +50 (por cento), "queimados" na mídia ──────
+export interface AjustesDaMidia {
+  brilho: number;
+  contraste: number;
+  saturacao: number;
+}
+export const SEM_AJUSTE: AjustesDaMidia = { brilho: 0, contraste: 0, saturacao: 0 };
+export const LIMITE_DO_AJUSTE = 50;
+
+const ajuste = (v: number) => (Number.isFinite(v) ? Math.round(Math.min(LIMITE_DO_AJUSTE, Math.max(-LIMITE_DO_AJUSTE, v))) : 0);
+
+/** Os ajustes dentro dos limites (número inválido vira zero). Puro. */
+export function ajustesValidos(a: Partial<AjustesDaMidia> | null | undefined): AjustesDaMidia {
+  return { brilho: ajuste(a?.brilho as number), contraste: ajuste(a?.contraste as number), saturacao: ajuste(a?.saturacao as number) };
+}
+
+export const semAjuste = (a: AjustesDaMidia) => a.brilho === 0 && a.contraste === 0 && a.saturacao === 0;
+
+/**
+ * O filtro (da lista fechada) e os ajustes num texto de CSS só (para o `filter` da prévia e o `ctx.filter` do canvas). Só
+ * números conhecidos entram: nunca texto livre. Puro.
+ */
+export function filtroCompleto(f: string, a?: Partial<AjustesDaMidia> | null): string {
+  const base = filtroEmCss(f);
+  const v = ajustesValidos(a);
+  const partes = [base === "none" ? "" : base];
+  if (v.brilho) partes.push(`brightness(${(1 + v.brilho / 100).toFixed(2)})`);
+  if (v.contraste) partes.push(`contrast(${(1 + v.contraste / 100).toFixed(2)})`);
+  if (v.saturacao) partes.push(`saturate(${(1 + v.saturacao / 100).toFixed(2)})`);
+  const texto = partes.filter(Boolean).join(" ");
+  return texto || "none";
+}
+
 // ── Giro, zoom e posição (dois dedos, roda do mouse ou botões) ───────────────────────────────────────────────────────────
 /** x e y em frações da tela (−1 a 1), escala (0,25 a 5) e giro em radianos (−π a π). */
 export interface Transformacao {
@@ -147,7 +180,7 @@ export function desenharQuadro(
   ctx: CanvasRenderingContext2D,
   l: number,
   a: number,
-  p: { fundo: string; fonte?: Fonte | null; filtro: FiltroDoStory; transformacao: Transformacao; tracos: readonly TracoDoStory[]; espelhar?: boolean },
+  p: { fundo: string; fonte?: Fonte | null; filtro: FiltroDoStory; ajustes?: AjustesDaMidia | null; transformacao: Transformacao; tracos: readonly TracoDoStory[]; espelhar?: boolean },
 ): void {
   ctx.save();
   ctx.fillStyle = p.fundo;
@@ -160,7 +193,7 @@ export function desenharQuadro(
       ctx.translate(l / 2 + t.x * l, a / 2 + t.y * a);
       ctx.rotate(t.giro);
       ctx.scale(t.escala * (p.espelhar ? -1 : 1), t.escala);
-      if (temFiltro(ctx)) ctx.filter = filtroEmCss(p.filtro);
+      if (temFiltro(ctx)) ctx.filter = filtroCompleto(p.filtro, p.ajustes);
       ctx.drawImage(p.fonte, (-fl * cobre) / 2, (-fa * cobre) / 2, fl * cobre, fa * cobre);
       if (temFiltro(ctx)) ctx.filter = "none";
     }
@@ -201,7 +234,7 @@ function paraBlob(canvas: HTMLCanvasElement, tipo: string, qualidade: number): P
 }
 
 /** A foto final: 1080 × 1920, WEBP (JPEG onde o navegador não faz WEBP), até 3 MB. Erro "grande" se não couber. */
-export async function comporFoto(p: { fundo: string; imagem?: Blob | null; filtro: FiltroDoStory; transformacao: Transformacao; tracos: readonly TracoDoStory[] }): Promise<Blob> {
+export async function comporFoto(p: { fundo: string; imagem?: Blob | null; filtro: FiltroDoStory; ajustes?: AjustesDaMidia | null; transformacao: Transformacao; tracos: readonly TracoDoStory[] }): Promise<Blob> {
   const canvas = document.createElement("canvas");
   canvas.width = 1080;
   canvas.height = 1920;
@@ -215,13 +248,59 @@ export async function comporFoto(p: { fundo: string; imagem?: Blob | null; filtr
       throw new Error("invalida");
     }
   }
-  desenharQuadro(ctx, 1080, 1920, { fundo: p.fundo, fonte: bitmap, filtro: p.filtro, transformacao: p.transformacao, tracos: p.tracos });
+  desenharQuadro(ctx, 1080, 1920, { fundo: p.fundo, fonte: bitmap, filtro: p.filtro, ajustes: p.ajustes, transformacao: p.transformacao, tracos: p.tracos });
   bitmap?.close();
   for (const q of [0.88, 0.78, 0.66, 0.52]) {
     const b = (await paraBlob(canvas, "image/webp", q)) ?? (await paraBlob(canvas, "image/jpeg", q));
     if (b && b.size <= TAMANHO_MAXIMO_DA_FOTO) return b;
   }
   throw new Error("grande");
+}
+
+/** P5 (A16): as medidas da foto em alta e da versão menor (a menor abre na hora; a alta chega depois). */
+export const VERSOES_DA_FOTO = {
+  alta: { largura: 1440, altura: 2560, bytes: 6 * 1024 * 1024 },
+  menor: { largura: 540, altura: 960, bytes: 512 * 1024 },
+} as const;
+
+/**
+ * P5 (A16): a foto final em duas versões, as duas redesenhadas aqui (sem metadado): a alta (1440 × 2560, até 6 MB) e a menor
+ * (540 × 960, até 512 KB), tirada da alta. Erro "grande" se uma não couber.
+ */
+export async function comporFotoEmVersoes(p: { fundo: string; imagem?: Blob | null; filtro: FiltroDoStory; ajustes?: AjustesDaMidia | null; transformacao: Transformacao; tracos: readonly TracoDoStory[] }): Promise<{ alta: Blob; menor: Blob }> {
+  const { alta: A, menor: M } = VERSOES_DA_FOTO;
+  const canvas = document.createElement("canvas");
+  canvas.width = A.largura;
+  canvas.height = A.altura;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("invalida");
+  let bitmap: ImageBitmap | null = null;
+  if (p.imagem) {
+    try {
+      bitmap = await createImageBitmap(p.imagem, { imageOrientation: "from-image" });
+    } catch {
+      throw new Error("invalida");
+    }
+  }
+  desenharQuadro(ctx, A.largura, A.altura, { fundo: p.fundo, fonte: bitmap, filtro: p.filtro, ajustes: p.ajustes, transformacao: p.transformacao, tracos: p.tracos });
+  bitmap?.close();
+  const caber = async (c: HTMLCanvasElement, limite: number, qualidades: number[]) => {
+    for (const q of qualidades) {
+      const b = (await paraBlob(c, "image/webp", q)) ?? (await paraBlob(c, "image/jpeg", q));
+      if (b && b.size <= limite) return b;
+    }
+    throw new Error("grande");
+  };
+  const alta = await caber(canvas, A.bytes, [0.92, 0.85, 0.75, 0.62]);
+  const pequeno = document.createElement("canvas");
+  pequeno.width = M.largura;
+  pequeno.height = M.altura;
+  const cp = pequeno.getContext("2d");
+  if (!cp) throw new Error("invalida");
+  cp.imageSmoothingQuality = "high";
+  cp.drawImage(canvas, 0, 0, M.largura, M.altura);
+  const menor = await caber(pequeno, M.bytes, [0.8, 0.7, 0.55]);
+  return { alta, menor };
 }
 
 /** Um quadro da câmera (o que está no visor agora) como imagem crua, para o editor (sai do aparelho só depois de recomposta). */
@@ -350,6 +429,8 @@ export async function regravarVideo(p: {
   som: boolean;
   fundo: string;
   filtro: FiltroDoStory;
+  /** Brilho, contraste e saturação (P5, A16). */
+  ajustes?: AjustesDaMidia | null;
   transformacao: Transformacao;
   tracos: readonly TracoDoStory[];
   /** A música da Alumia, gerada aqui (lib/rede/stories/musica.ts) e misturada no áudio; vai mesmo com o som do vídeo desligado. */
@@ -420,7 +501,7 @@ export async function regravarVideo(p: {
   await esperarEvento(video, "seeked");
   // Com borrões, cada quadro passa antes por uma tela do tamanho do vídeo, onde os rostos viram blocos (não dá para desfazer).
   const borrar = p.borroes?.length ? criarBorrador(video, p.borroes) : null;
-  const desenhar = () => desenharQuadro(ctx, L, A, { fundo: p.fundo, fonte: borrar ? borrar() : video, filtro: p.filtro, transformacao: p.transformacao, tracos: p.tracos });
+  const desenhar = () => desenharQuadro(ctx, L, A, { fundo: p.fundo, fonte: borrar ? borrar() : video, filtro: p.filtro, ajustes: p.ajustes, transformacao: p.transformacao, tracos: p.tracos });
   desenhar();
 
   let quadro = 0;

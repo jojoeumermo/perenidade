@@ -4,6 +4,7 @@
 // linha é montada" e a ordem das respostas): i18n/rede/linha/{pt,en,es,fr,ru,zh}.json. O português é o final; os outros cinco
 // são rascunho marcado. Carrega só o idioma pedido, sob demanda. Sem "@/" de propósito.
 import type pt from "../../i18n/rede/linha/pt.json";
+import { carregarPronto } from "./textos-prontos";
 
 export type TextosDaLinha = typeof pt;
 
@@ -18,6 +19,5 @@ const CARREGAR: Record<string, () => Promise<{ default: unknown }>> = {
 
 /** Os textos do idioma pedido; idioma desconhecido cai no português. */
 export async function carregarTextosDaLinha(lang: string): Promise<TextosDaLinha> {
-  const carregar = CARREGAR[lang] ?? CARREGAR.pt;
-  return (await carregar()).default as TextosDaLinha;
+  return (await carregarPronto(CARREGAR, lang)) as TextosDaLinha;
 }

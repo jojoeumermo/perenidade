@@ -1,0 +1,64 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# Regras do Semgrep da Alumia para TypeScript (o site, as rotas e o chat). Cada regra é um princípio da casa que um erro de digitação
+# quebraria sem ninguém notar. O teste das regras está em alumia-ts.ts (semgrep --test .semgrep); o roteiro que roda tudo, em
+# scripts/ferramentas/semgrep.sh. Exceção só com comentário "nosemgrep: <id>" e o motivo na mesma linha.
+rules:
+  - id: alumia-sem-math-random-na-rede
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      Math.random não serve para nada da rede (sorteio previsível). Use crypto.getRandomValues (lib/rede/chat/r2/bytes.ts, sortear).
+    paths:
+      include: ["/lib/rede/**", "/app/api/alumia/**", "/components/rede/chat/**", "/.semgrep/*.ts"]
+      exclude: ["**/*exemplos*.ts"]
+    pattern: Math.random()
+
+  - id: alumia-caixas-sem-credenciais
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      O caminho das caixas anônimas nunca manda cookie: credentials "omit", não "include"/"same-origin" (uma conta ligada a uma caixa
+      por engano não tem volta).
+    paths:
+      include: ["/lib/rede/caixas/**", "/lib/rede/chat/**", "/lib/rede/passes/**", "/lib/rede/voz/**", "/.semgrep/*.ts"]
+    pattern-either:
+      - pattern: 'fetch($URL, {..., credentials: "include", ...})'
+      - pattern: 'fetch($URL, {..., credentials: "same-origin", ...})'
+
+  - id: alumia-rota-anonima-sem-log
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      Rota anônima não escreve log (nem corpo, nem endereço, nem cabeçalho): o log liga o pedido a quem fez.
+    paths:
+      include:
+        - "/app/api/alumia/caixa/**"
+        - "/app/api/alumia/pedido/**"
+        - "/app/api/alumia/diretorio/**"
+        - "/app/api/alumia/passes/**"
+        - "/app/api/alumia/voz/**"
+        - "/app/api/alumia/urna/**"
+        - "/app/api/alumia/franquia/**"
+        - "/app/api/alumia/voto/**"
+        - "/lib/rede/caixas/rota.ts"
+        - "/.semgrep/*.ts"
+    pattern-either:
+      - pattern: console.log(...)
+      - pattern: console.info(...)
+      - pattern: console.warn(...)
+      - pattern: console.error(...)
+      - pattern: console.debug(...)
+
+  - id: alumia-sem-token-no-armazenamento-aberto
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      Chave ou segredo do chat não vai para localStorage/sessionStorage em claro: use a loja cifrada do aparelho (lib/rede/chat/r2/loja.ts).
+    paths:
+      include: ["/lib/rede/chat/**", "/lib/rede/caixas/**", "/lib/rede/grupos/**", "/lib/rede/voto/**", "/lib/rede/aparelhos/**", "/.semgrep/*.ts"]
+    pattern-either:
+      - pattern: localStorage.setItem($K, <... $X.privada ...>)
+      - pattern: localStorage.setItem($K, <... $X.segredo ...>)
+      - pattern: sessionStorage.setItem($K, <... $X.privada ...>)
+      - pattern: sessionStorage.setItem($K, <... $X.segredo ...>)

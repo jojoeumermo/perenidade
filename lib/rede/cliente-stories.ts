@@ -12,7 +12,7 @@
 import { chamar, type Chamar } from "./cliente";
 import { faltaFuncaoNoBanco } from "./reserva";
 import type {
-  AtoParaContagem, CartaoDoPost, ComunidadeParaMencao, CorDoStory, DestaqueDeStories, FaixaDeStories, FigurinhaEnquete, GrupoDaFaixa, ItemDaCaixa,
+  AtoParaContagem, CartaoDoPost, ComunidadeParaMencao, CorDoStory, DestaqueDeStories, FaixaDeStories, FigurinhaEnquete, FigurinhaTeste, GrupoDaFaixa, ItemDaCaixa,
   PedidoDeStory, PessoaDaRoda, ReacaoDoStory, RespostaDoStory, Story,
 } from "./tipos-stories";
 import type { CategoriaDeDenuncia } from "./tipos-moderacao";
@@ -46,6 +46,8 @@ export interface ClienteDeStories {
   reagir: (id: string, reacao: ReacaoDoStory) => Promise<{ ok: boolean }>;
   /** Voto secreto na enquete: a autora vê só a soma (a partir de 3); devolve a figurinha como eu passo a ver. */
   votar: (id: string, opcao: 0 | 1) => Promise<FigurinhaEnquete>;
+  /** P5: responder o teste com resposta certa (pelo servidor do site, como o voto); devolve a figurinha com a certa. */
+  testar: (id: string, opcao: number) => Promise<FigurinhaTeste>;
   /** "Me avise quando começar": um lembrete MEU do ato; ninguém (nem a autora) sabe quem pediu. */
   avisar: (id: string, sim: boolean) => Promise<{ avisar: boolean }>;
   /** Os atos que posso pôr numa contagem (os próximos que organizo ou confirmei; F2, só pelo id). */
@@ -93,6 +95,7 @@ export function criarClienteDeStories(
   c: Chamar,
   enviar: (imagem: Blob, aoProgresso?: (fracao: number) => void) => Promise<string> = enviarAoDeposito,
   assinar: Assinar = assinarNoDeposito,
+  conferir: (id: string) => Promise<void> = conferirNoServidor,
 ): ClienteDeStories {
   return {
     previa: false,
@@ -110,12 +113,17 @@ export function criarClienteDeStories(
           throw e;
         }
       }
-      return c<{ id: string; expira_em: string }>("rede_story_publicar", { p: pedido });
+      const publicado = await c<{ id: string; expira_em: string }>("rede_story_publicar", { p: pedido });
+      // P5 (A16): a mídia é conferida no servidor logo agora (sem esperar a faxina); até lá, só a autora abre o arquivo. Sem esperar
+      // a resposta: o story já está publicado, e se a conferência falhar a faxina de 15 em 15 minutos faz.
+      if (pedido.imagem && publicado?.id) void conferir(publicado.id).catch(() => undefined);
+      return publicado;
     },
     apagar: (id) => c<{ apagado: boolean }>("rede_story_apagar", { p_id: id }),
     responder: (id, texto) => c<{ ok: boolean }>("rede_story_responder", { p_id: id, p_texto: texto }),
     reagir: (id, reacao) => c<{ ok: boolean }>("rede_story_reagir", { p_id: id, p_reacao: reacao }),
     votar: (id, opcao) => c<FigurinhaEnquete>("rede_story_votar", { p_id: id, p_opcao: opcao }),
+    testar: (id, opcao) => c<FigurinhaTeste>("rede_story_testar", { p_id: id, p_opcao: opcao }),
     avisar: (id, sim) => c<{ avisar: boolean }>("rede_story_avisar", { p_id: id, p_sim: sim }),
     atos: () => c<AtoParaContagem[]>("rede_story_atos"),
     denunciar: (id, categoria, texto = "") => c<{ protocolo: string }>("rede_story_denunciar", { p_id: id, p_categoria: categoria, p_texto: texto }),
@@ -175,7 +183,15 @@ function idDoArquivo(): string {
  */
 export async function comEnderecos(lista: Story[], assinar: Assinar): Promise<Story[]> {
   if (!Array.isArray(lista)) return lista;
-  const caminhos = [...new Set(lista.flatMap((s) => ((s.fundo?.tipo === "imagem" || s.fundo?.tipo === "video") && s.fundo.caminho ? [s.fundo.caminho] : [])))];
+  // P5: a versão menor da foto também (abre na hora; a alta chega depois).
+  const caminhos = [
+    ...new Set(
+      lista.flatMap((s) => {
+        if ((s.fundo?.tipo !== "imagem" && s.fundo?.tipo !== "video") || !s.fundo.caminho) return [];
+        return s.fundo.tipo === "imagem" && s.fundo.menor ? [s.fundo.caminho, s.fundo.menor] : [s.fundo.caminho];
+      }),
+    ),
+  ];
   if (caminhos.length === 0) return lista;
   let enderecos: Record<string, string> = {};
   try {
@@ -186,7 +202,9 @@ export async function comEnderecos(lista: Story[], assinar: Assinar): Promise<St
   return lista.map((s) => {
     if ((s.fundo?.tipo !== "imagem" && s.fundo?.tipo !== "video") || !s.fundo.caminho) return s;
     const url = enderecos[s.fundo.caminho];
-    return url ? { ...s, fundo: { ...s.fundo, url } } : { ...s, fundo: { tipo: "listras", cor: s.fundo.cor } };
+    if (!url) return { ...s, fundo: { tipo: "listras", cor: s.fundo.cor } };
+    const urlMenor = s.fundo.tipo === "imagem" && s.fundo.menor ? enderecos[s.fundo.menor] : undefined;
+    return { ...s, fundo: urlMenor ? { ...s.fundo, url, urlMenor } : { ...s.fundo, url } };
   });
 }
 
@@ -198,6 +216,20 @@ async function assinarNoDeposito(caminhos: string[]): Promise<Record<string, str
   const saida: Record<string, string> = {};
   for (const x of data) if (x.path && x.signedUrl && !x.error) saida[x.path] = x.signedUrl;
   return saida;
+}
+
+/** Pede ao servidor do site a conferência da mídia do story (app/api/rede/stories/conferir), com a sessão da própria pessoa. */
+async function conferirNoServidor(id: string): Promise<void> {
+  const { getClient } = await import("../backend");
+  const token = (await (await getClient()).auth.getSession()).data.session?.access_token;
+  if (!token) return;
+  await fetch("/api/rede/stories/conferir", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ id }),
+    cache: "no-store",
+    keepalive: true,
+  });
 }
 
 /**

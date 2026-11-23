@@ -38,6 +38,9 @@ do $$
 declare v_nome text;
 begin
   -- A regra de ordem da tabela tem o nome que o Postgres deu (rede_midia_ordem_check); troca qualquer uma que fale de "ordem".
+  -- Rodando de novo num banco em que uma migração posterior já alargou a regra (20261127-p4-compositor.sql, até 19) e há imagem
+  -- além da 10ª, a regra mais larga fica (estreitar aqui falharia).
+  if exists (select 1 from interno.rede_midia where ordem > 9) then return; end if;
   for v_nome in
     select c.conname from pg_constraint c
     where c.conrelid = 'interno.rede_midia'::regclass and c.contype = 'c' and pg_get_constraintdef(c.oid) ~ '\mordem\M'
@@ -53,6 +56,9 @@ end $$;
 do $$
 declare v_nome text;
 begin
+  -- Rodando de novo num banco em que uma migração posterior já alargou o teto (20261127-p4-compositor.sql, até 20) e algum nível
+  -- passa de 10, a regra mais larga fica (estreitar aqui falharia).
+  if exists (select 1 from interno.rede_niveis where imagens > 10) then return; end if;
   for v_nome in
     select c.conname from pg_constraint c
     where c.conrelid = 'interno.rede_niveis'::regclass and c.contype = 'c' and pg_get_constraintdef(c.oid) ~ '\mimagens\M'
@@ -69,6 +75,8 @@ declare v_def text; v_novo text;
 begin
   v_def := pg_get_functiondef('public.rede_publicar(jsonb)'::regprocedure);
   if position('jsonb_array_length(v_midia) > 10' in v_def) > 0 then return; end if;
+  -- Rodando de novo depois do compositor do Prompt 4 (20261127-p4-compositor.sql), o teto já é o do álbum: fica.
+  if position('jsonb_array_length(v_midia) > interno.rede_p4c_imagens()' in v_def) > 0 then return; end if;
   v_novo := replace(v_def, 'jsonb_array_length(v_midia) > 4', 'jsonb_array_length(v_midia) > 10');
   if v_novo = v_def then
     raise exception 'public.rede_publicar mudou de forma: o teto de imagens não foi achado';

@@ -158,11 +158,18 @@ await confere("o texto assinado e cifrado abre por inteiro, com acento e quebra 
 
 // ── Aprovação de aparelho novo pelo código ──
 const codigo = novoCodigo();
-await confere("o código tem oito números", () => FORMATO_CODIGO.test(codigo) && novoCodigo() !== codigo);
+await confere("o código tem doze números (C3 da R1: um trilhão de possibilidades, não cem milhões)", () => FORMATO_CODIGO.test(codigo) && /^[0-9]{12}$/.test(codigo) && !FORMATO_CODIGO.test("12345678") && novoCodigo() !== codigo);
 const pedido = await selarPedido(codigo, contaDaAna, bia.publica);
 await confere("o pedido selado não mostra a chave pública", () => !JSON.stringify(pedido).includes(bia.publica.slice(0, 20)));
 await confere("quem digita o código certo recebe a chave pública do aparelho novo", async () => (await abrirPedido(codigo, contaDaAna, pedido)) === bia.publica);
-await confere("código errado não abre o pedido", async () => (await abrirPedido(codigo === "00000000" ? "00000001" : "00000000", contaDaAna, pedido)) === null);
+await confere("código errado não abre o pedido", async () => (await abrirPedido(codigo === "000000000000" ? "000000000001" : "000000000000", contaDaAna, pedido)) === null);
+await confere("o pedido vale dez minutos, contados pela hora cifrada nele (o servidor não muda)", async () => {
+  const agora = Date.now();
+  const velho = await selarPedido(codigo, contaDaAna, bia.publica, agora - 10 * 60_000 - 1000);
+  const quase = await selarPedido(codigo, contaDaAna, bia.publica, agora - 9 * 60_000);
+  const futuro = await selarPedido(codigo, contaDaAna, bia.publica, agora + 5 * 60_000);
+  return (await abrirPedido(codigo, contaDaAna, velho, agora)) === null && (await abrirPedido(codigo, contaDaAna, quase, agora)) === bia.publica && (await abrirPedido(codigo, contaDaAna, futuro, agora)) === null;
+});
 await confere("código malformado não abre o pedido", async () => (await abrirPedido("abc", contaDaAna, pedido)) === null);
 await confere("pedido de outra conta não abre", async () => (await abrirPedido(codigo, crypto.randomUUID(), pedido)) === null);
 await confere("pedido adulterado não abre", async () => (await abrirPedido(codigo, contaDaAna, { ...pedido, cifrado: troca(pedido.cifrado, 5) })) === null);

@@ -198,7 +198,7 @@ await espera("selos: a pessoa pode esconder; o dono ainda os vê", async () => {
   return [(await perfilDe(P("bia"), "ana_luta")).selos, (await perfilDe(P("ana"), "ana_luta")).selos];
 }, (r) => r[0].length === 0 && r[1].length === 2);
 await rpc(P("ana"), "rede_perfil_editar", { p: { selos_mostrar: true } });
-await espera("selos: todos têm um dos 4 tipos do catálogo (o texto da trilha é declarado e só passa pela triagem de abuso)", async () => {
+await espera("selos: todos têm um dos 5 tipos do catálogo (o texto da trilha é declarado e só passa pela triagem de abuso)", async () => {
   const todosOsSelos = (await perfilDe(P("bia"), "ana_luta")).selos.concat((await perfilDe(P("bia"), "profe_equipe")).selos);
   return todosOsSelos.every((s) => tipoDoSelo(s) !== null);
 }, (v) => v === true);
@@ -495,7 +495,7 @@ await espera("regras puras: trilhas com progresso e selos", async () => [
   escolherSelosDeTrilha(["historia", "historia", "Ruim!", "fisica"]), escolherSelosDeTrilha(Array.from({ length: 30 }, (_, i) => `trilha-${i}`)).length,
   slugDoSelo("trilha:historia"), slugDoSelo("equipe"), nomeDaTrilha("ensino-medio-fisica"), tipoDoSelo("equipe"), tipoDoSelo("trilha:historia"), tipoDoSelo("filiado-partido"), TIPOS_DE_SELO.length,
 ], (r) => r[0].length === 2 && r[0][0].slug === "historia" && r[0][0].feitas === 3 && r[1].join() === "historia,fisica" && r[2] === 12 && r[3] === "historia" && r[4] === null
-  && r[5] === "ensino medio fisica" && r[6] === "equipe" && r[7] === "trilha" && r[8] === null && r[9] === 4);
+  && r[5] === "ensino medio fisica" && r[6] === "equipe" && r[7] === "trilha" && r[8] === null && r[9] === 5);
 await espera("o cliente chama as funções do contrato pelos nomes e parâmetros certos", async () => {
   const chamadas = [];
   const c = criarClientePerfil(async (f, a) => (chamadas.push([f, a]), {}));

@@ -1,0 +1,93 @@
+name: Análise estática
+
+# CodeQL (o analisador do GitHub, de graça em repositório público) com as regras de segurança ("security-extended") para o
+# TypeScript e o JavaScript do site e da Alumia: injeção, XSS, SSRF, redirecionamento aberto, caminho de arquivo, ReDoS, segredo no
+# código. O SQL do banco não entra aqui (o CodeQL não lê PL/pgSQL): o banco tem as conferências dele (testar:banco e os testes da
+# porta). Os achados vão para a aba "Security" do repositório; o pedido de junção mostra os novos.
+on:
+  pull_request:
+    paths-ignore:
+      - "content/**"
+      - "docs/**"
+      - "historico/**"
+      - "*.md"
+  push:
+    branches: [master]
+    paths-ignore:
+      - "content/**"
+      - "docs/**"
+      - "historico/**"
+      - "*.md"
+  schedule:
+    - cron: "15 6 * * 3"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: analise-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  codeql:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      actions: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - linguagem: javascript-typescript
+            modo: none
+            pasta: "."
+          - linguagem: rust
+            modo: none
+            pasta: nativo
+          - linguagem: java-kotlin
+            modo: manual
+            pasta: android
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - id: tem
+        run: |
+          if [ -d "${{ matrix.pasta }}" ]; then echo "sim=1" >> "$GITHUB_OUTPUT"; else echo "sem ${{ matrix.pasta }} ainda"; fi
+      - if: steps.tem.outputs.sim == '1' && matrix.linguagem == 'java-kotlin'
+        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0 (commit da tag, tirado do git ls-remote oficial)
+        with:
+          distribution: temurin
+          java-version: "21"
+      - if: steps.tem.outputs.sim == '1'
+        uses: github/codeql-action/init@1fc58d04a4d4374f921bdac573c3811c240f9c26 # v4.39.2
+        with:
+          languages: ${{ matrix.linguagem }}
+          build-mode: ${{ matrix.modo }}
+          queries: security-extended
+          config: |
+            paths-ignore:
+              - content
+              - historico
+              - public
+              - node_modules
+              - "**/*.min.js"
+      # O Kotlin só entra na base do CodeQL compilando. Sem assinar (assembleDebug) e sem o build do site (o android/ usa a casca).
+      # O gradle lê android/capacitor-cordova-android-plugins/cordova.variables.gradle, que NÃO vai no repositório: o
+      # `npx cap sync android` gera. Sem este passo o assembleDebug falha antes de compilar.
+      - if: steps.tem.outputs.sim == '1' && matrix.linguagem == 'java-kotlin'
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 24
+          cache: npm
+      - if: steps.tem.outputs.sim == '1' && matrix.linguagem == 'java-kotlin'
+        run: npm ci && npm run app:casca
+      - if: steps.tem.outputs.sim == '1' && matrix.linguagem == 'java-kotlin'
+        run: cd android && ./gradlew --no-daemon assembleDebug
+      - if: steps.tem.outputs.sim == '1'
+        uses: github/codeql-action/analyze@1fc58d04a4d4374f921bdac573c3811c240f9c26 # v4.39.2
+        with:
+          category: "/language:${{ matrix.linguagem }}"

@@ -1,0 +1,60 @@
+{
+  "_rascunho": true,
+  "botoes": {
+    "voz": "语音通话",
+    "video": "视频通话"
+  },
+  "tocando": {
+    "voz": "{nome} 正在呼叫",
+    "video": "{nome} 正在视频呼叫",
+    "atender": "接听",
+    "atenderSoVoz": "仅语音接听",
+    "atenderComCamera": "开摄像头接听",
+    "recusar": "拒绝"
+  },
+  "fases": {
+    "ligando": "正在呼叫 {nome}…",
+    "conectando": "正在连接 {nome}…",
+    "emChamada": "正在与 {nome} 通话"
+  },
+  "acoes": {
+    "mudo": "关闭麦克风",
+    "falar": "打开麦克风",
+    "cameraDesligar": "关闭摄像头",
+    "cameraLigar": "打开摄像头",
+    "desligar": "挂断",
+    "desistir": "取消",
+    "fechar": "关闭"
+  },
+  "voce": "你",
+  "semCamera": "{nome} 没有开摄像头。",
+  "fim": {
+    "cancelou": "{nome} 取消了呼叫。",
+    "recusou": "{nome} 拒绝了通话。",
+    "desligou": "{nome} 挂断了。",
+    "atendida": "通话已结束。",
+    "nao_atendeu": "{nome} 没有接听。",
+    "nao_conectou": "连接没有建立，请再试一次。",
+    "saiu": "通话已结束。",
+    "eu": "通话已结束。",
+    "erro": "无法拨打电话。"
+  },
+  "erros": {
+    "NotAllowedError": "浏览器没有允许使用麦克风或摄像头。请在网站权限中允许。",
+    "NotFoundError": "此设备上没有找到麦克风或摄像头。",
+    "NotReadableError": "另一个程序正在使用麦克风或摄像头。",
+    "voz_desligada": "此服务器已关闭通话。",
+    "voz_sem_retransmissao": "中继服务器没有响应。没有它通话无法建立：是它隐藏你的地址。",
+    "voz_sem_canal": "通话频道没有打开，请再试一次。",
+    "sem_chat": "请先在此设备上打开聊天再拨打。",
+    "chamada_nao_saiu": "呼叫没有发出：对方没有准备好的设备。",
+    "dm_aguardando": "对话尚未被接受。",
+    "dm_fechada": "此对话已关闭。",
+    "dm_identidade_mudou": "对方的身份已改变。拨打前请核对代码。",
+    "dm_exige_comparar": "对方的身份已改变。拨打前请比较代码。",
+    "dm_fora_do_registro": "公共记录无法确认对方的身份。无法拨打。",
+    "outro": "无法拨打电话，请再试一次。"
+  },
+  "privacidade": "端到端加密。呼叫在加密对话中传递；语音和视频经过中继，中继无法听到或看到。不保存任何通话记录。",
+  "limite": "只有当对方设备上打开了 Alumia 时呼叫才会到达，可能需要最多一分半钟。"
+}

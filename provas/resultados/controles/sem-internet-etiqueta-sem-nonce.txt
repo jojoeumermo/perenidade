@@ -1,0 +1,7 @@
+modelo: controles/sem-internet-etiqueta-sem-nonce.pv
+sha256: 00d8f3b7794b00f8cbd11d1cc1ab27b70bc026a3b2076b9ebce509815fcd9cd9
+verificador: Proverif 2.05
+dia: 2026-11-18
+
+A trace has been found.
+RESULT Observational equivalence cannot be proved.

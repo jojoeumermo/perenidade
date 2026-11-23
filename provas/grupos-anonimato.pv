@@ -1,0 +1,28 @@
+(* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   Acesso aos grupos pelo segredo da época (onda R2, item 1.3; onda R3, item 2.5): o servidor NÃO DISTINGUE OS MEMBROS.
+   Equivalência observacional: um depósito na caixa do grupo feito pelo membro M1 e um feito pelo membro M2 são iguais para o
+   servidor (o resumo da caixa e o passe são os da época, iguais para todos os membros; quem mandou vai cifrado por dentro).
+   As mesmas abstrações de grupos-epoca.pv. O servidor escolhe a mensagem.
+   Fora do modelo: o IP e a hora do depósito (a via e a agenda: lib/rede/caixas/vias.ts e agenda.ts) e o tamanho (faixas fixas). *)
+
+free c: channel.
+
+type key.
+
+fun hkdf(bitstring, bitstring): bitstring.
+fun hash(bitstring): bitstring.
+fun chave(bitstring): key.
+fun senc(bitstring, key, bitstring): bitstring.
+reduc forall m: bitstring, k: key, r: bitstring; sdec(senc(m, k, r), k) = m.
+
+const rotuloCaixa, rotuloPasse, rotuloChave: bitstring.
+free membroM1, membroM2: bitstring.
+
+let Membro(eu: bitstring, s: bitstring, m: bitstring) =
+  new r: bitstring;
+  out(c, (hash(hkdf(s, rotuloCaixa)), hkdf(s, rotuloPasse), senc((eu, m), chave(hkdf(s, rotuloChave)), r))).
+
+process
+  new epoca: bitstring;
+  !(in(c, m: bitstring); Membro(choice[membroM1, membroM2], epoca, m))

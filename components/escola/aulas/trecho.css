@@ -1,0 +1,69 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ * A janela do trecho de uma aula da Escola citada numa aula do site (TrechoDaEscola.tsx, P5, B2): no desenho do site, que é
+ * onde ela abre. */
+.trecho-da-escola {
+  width: min(40rem, calc(100vw - 2rem));
+  max-height: min(80vh, 44rem);
+  margin: auto;
+  padding: 1.5rem;
+  border: 2px solid var(--ink);
+  background: var(--folha, var(--parchment));
+  color: var(--ink);
+  box-shadow: 6px 6px 0 var(--sombra);
+  font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+}
+.trecho-da-escola::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+.trecho-da-escola-olho {
+  margin: 0;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--prelo-texto, var(--oxblood));
+}
+.trecho-da-escola-texto h2 {
+  margin: 0.5rem 0 0.75rem;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.6rem;
+  line-height: 1.15;
+}
+.trecho-da-escola-texto p {
+  margin: 0 0 0.75rem;
+  line-height: 1.6;
+}
+.trecho-da-escola-nota {
+  margin: 1rem 0 0;
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--gold);
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.trecho-da-escola-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.trecho-da-escola-botoes :is(a, button) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border: 2px solid var(--ink);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+.trecho-da-escola-botoes a {
+  background: var(--ink);
+  color: var(--parchment);
+}
+.trecho-da-escola-botoes a:hover {
+  background: var(--oxblood);
+}
+.trecho-da-escola-botoes button {
+  background: transparent;
+  color: var(--ink);
+}

@@ -13,6 +13,7 @@ import { apagarDoDeposito } from "../api";
 import { invalidar } from "../detalhes";
 import { Icone } from "./icones";
 import type { TextosAlumia2 } from "./textos";
+import { confirmar } from "@/components/perguntar";
 
 /**
  * Corrigir depois de publicar (rede_pub_corrigir), sem mexer no texto (o texto tem o editor com histórico): o aviso de conteúdo, a
@@ -99,8 +100,8 @@ export function CorrigirDoPost({ post, t, s, citarQuem, aoSalvar, aoFechar }: { 
                   type="button"
                   className="al2-acao mt-1 text-sm"
                   aria-pressed={tirada}
-                  onClick={() => {
-                    if (!tirada && !window.confirm(preencher(b.tirarConfirmar, { n: n + 1 }))) return;
+                  onClick={async () => {
+                    if (!tirada && !(await confirmar(preencher(b.tirarConfirmar, { n: n + 1 })))) return;
                     setTirar((l) => (tirada ? l.filter((x) => x !== m.id) : [...l, m.id]));
                   }}
                 >

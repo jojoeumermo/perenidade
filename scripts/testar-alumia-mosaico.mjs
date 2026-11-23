@@ -176,7 +176,8 @@ for (const p of [null, 0.35, 48]) {
   try {
     const { Avatar16 } = await jiti.import(path.join(raiz, "components/rede/ui/Avatar16.tsx"));
     const a = html(h(Avatar16, { handle: "rosavermelha" }));
-    ok("Avatar16: decorativo sem rótulo, cantos arredondados, só cartões cheios", a.includes('aria-hidden="true"') && a.includes('rx="8"') && (a.match(/<rect x=/g) ?? []).length === celulasDoAvatar("rosavermelha").filter((c) => c !== 0).length);
+    // P5 (A2): o rosto automático passou de 16 cartões ao acaso para um desenho 12 × 12 (lib/rede/desenhos.ts), em caminhos.
+    ok("Avatar16: decorativo sem rótulo, cantos arredondados, o desenho do @nome", a.includes('aria-hidden="true"') && a.includes('rx="2.4"') && a.includes('viewBox="0 0 12 12"') && /data-desenho="[a-z-]+"/.test(a) && (a.match(/<path /g) ?? []).length >= 2);
     ok("Avatar16: com rótulo vira imagem", html(h(Avatar16, { handle: "faisca", rotulo: "Rosto de @faisca" })).includes('role="img" aria-label="Rosto de @faisca"'));
   } catch (e) {
     falhas.push(`Avatar16: ${e.message}`);

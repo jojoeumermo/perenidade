@@ -14,7 +14,7 @@
     "indice": "Sur cette page",
     "carregando": "Chargement…",
     "erro": "Ça n'a pas marché pour l'instant. Réessayez dans un moment.",
-    "contato": "Parlez à la coordination par la page [Signaler](/denunciar) (choisissez le sujet « données personnelles ») ou par e-mail à institutolucia@tutamail.com. Nous répondons sous 15 jours.",
+    "contato": "Parlez à la coordination par la page [Signaler](/alumia/denunciar) (choisissez le sujet « données personnelles ») ou par e-mail à institutolucia@tutamail.com. Nous répondons sous 15 jours.",
     "horas": "{n} heures",
     "dias": "{n} jours",
     "enviar": "Envoyer",
@@ -156,7 +156,7 @@
           "**La demande d'entrée :** le pseudonyme et le motif que vous avez écrit ; le motif disparaît 30 jours après la décision.",
           "**L'acceptation :** la version des normes et de ces conditions que vous avez acceptée, et quand.",
           "**Ce que vous publiez et faites :** publications, réponses, sondages, réactions, enregistrements, dossiers, qui vous suivez, les communautés et noyaux dont vous faites partie. Ce que vous effacez disparaît.",
-          "**Conversations privées :** chiffrées sur votre appareil ; le serveur garde le texte chiffré, qu'il ne lit pas, jusqu'au délai de la conversation.",
+          "**Conversations privées et de groupe :** chiffrées sur votre appareil. Le serveur ne fait que livrer des paquets dans des boîtes sans nom : la base ne garde pas qui parle à qui ni qui est dans chaque noyau ou groupe du chat, seulement le paquet chiffré et le jour de son arrivée. La liste de vos conversations reste sur votre appareil. À chaque appel, le serveur voit l'adresse réseau et l'heure, comme tout site ; la base n'en garde rien.",
           "**Modération :** les signalements, le registre des décisions et les recours.",
           "**Sécurité :** une empreinte brouillée du réseau d'où vient le compte, qui ne permet pas de retrouver l'adresse, pendant 30 jours ; des compteurs d'usage pour freiner les abus, pendant 2 jours ; le registre de certaines actions du compte, jusqu'à 400 jours."
         ]
@@ -186,7 +186,7 @@
           "**Hébergement, base de données et protection contre les attaques**, avec une partie des serveurs hors du Brésil (transfert international, art. 33).",
           "**Envoi d'e-mails**, seulement l'adresse et le texte de chaque message.",
           "**Notification sur le téléphone**, si vous l'activez : le service de livraison de votre navigateur reçoit seulement un nombre chiffré, sans extrait de publication ni nom.",
-          "**Fédivers**, si vous activez la fédération : les autres serveurs reçoivent le pseudonyme, l'@nom, la bio et les publications marquées Internet, et en gardent des copies selon leurs règles.",
+          "**Fediverse**, si vous consentez à la fédération : les autres serveurs reçoivent le nom de code, le @nom, la bio, la photo de profil et les publications pour lesquelles vous choisissez « Alumia et le Fediverse » (et, dans les communautés ouvertes qui fédèrent, celles au public le plus large), et en gardent des copies selon leurs règles. « Tout Alumia » ne sort jamais.",
           "**Vérification des liens par Google Safe Browsing**, quand vous publiez un post avec un lien : le serveur d'Alumia transforme chaque lien en empreintes (SHA-256) et n'envoie à Google que les 4 premiers octets de chaque empreinte, qui correspondent à un très grand nombre d'adresses ; Google renvoie les empreintes des pages dangereuses qui commencent ainsi et la comparaison se fait sur notre serveur. Le texte du post, votre nom et votre compte ne partent jamais ; le lien n'est pas conservé. Un lien signalé comme dangereux n'est pas publié, et l'écran dit pourquoi.",
           "**Évaluation automatique des messages**, quand la coordination l'active : le titre et le texte d'une publication, sans votre nom ni votre compte, vont à un service de modération d'une entreprise extérieure, qui renvoie une classification. Aucun compte n'est suspendu par cette évaluation."
         ]
@@ -226,7 +226,8 @@
         "titulo": "Sur votre appareil",
         "paragrafos": [
           "Alumia garde dans le navigateur seulement ce qu'il faut : la session de qui s'est connecté et des préférences comme le thème, la taille du texte et l'ordre du fil. Il n'y a ni cookie tiers ni outil de mesure d'audience. La **Sortie rapide** efface ce qu'Alumia a gardé sur l'appareil. Les réponses au questionnaire de centres d'intérêt restent aussi seulement ici : elles accompagnent chaque lecture du fil et le serveur ne les garde pas.",
-          "Si vous activez le **mot de passe de panique**, l'appareil garde un coffre chiffré (Web Crypto, avec une clé tirée du mot de passe de panique) contenant l'e-mail et le mot de passe du compte leurre. Le coffre ne va pas au serveur. Pour que le mot de passe de panique continue de valoir, Sortie rapide et le bouton de panique n'effacent pas le coffre ; désactiver le mot de passe de panique le remplace par un coffre vide du même format, comme celui que reçoit tout appareil qui entre dans Alumia. Le leurre est traité comme n'importe quel autre compte, et Alumia respecte la loi et les décisions de justice valables avec les données réelles."
+          "Si vous activez le **mot de passe de panique**, l'appareil garde un coffre chiffré (avec une clé tirée du mot de passe de panique par Argon2id) contenant l'e-mail et le mot de passe du compte leurre. Le coffre ne va pas au serveur. Pour que le mot de passe de panique continue de valoir, Sortie rapide et le bouton de panique n'effacent pas le coffre ; désactiver le mot de passe de panique le remplace par un coffre vide du même format, comme celui que reçoit tout appareil qui entre dans Alumia. Le leurre est traité comme n'importe quel autre compte, et Alumia respecte la loi et les décisions de justice valables avec les données réelles.",
+          "Le chat garde sur l'appareil, chiffrées, les clés et la liste de vos conversations ; la Sortie rapide et le bouton de panique effacent tout cela."
         ]
       },
       {
@@ -268,7 +269,8 @@
           { "dado": "Codes de récupération du second facteur", "onde": "Base de données de l'Institut, seulement une empreinte qui ne permet pas de lire le code", "tempo": "Jusqu'à ce que vous en génériez d'autres ; chacun vaut une fois", "quem": "Personne" },
           { "dado": "Invitations que vous avez créées (une empreinte du code et le délai ; l'invitation utilisée est supprimée aussitôt)", "onde": "Base de données d'Alumia", "tempo": "45 jours", "quem": "Vous seul·e voyez les vôtres ; qui a utilisé une invitation n'est pas gardé" },
           { "dado": "Marque « venu par invitation » sur la demande d'entrée", "onde": "Base de données d'Alumia", "tempo": "Jusqu'à la décision de l'accueil", "quem": "L'accueil, sans savoir de qui venait l'invitation" },
-          { "dado": "Demande de suppression du compte", "onde": "Base de données d'Alumia", "tempo": "Les 7 jours pour changer d'avis ; ensuite, le compte est supprimé", "quem": "Vous ; la coordination voit seulement combien de demandes il y a" }
+          { "dado": "Demande de suppression du compte", "onde": "Base de données d'Alumia", "tempo": "Les 7 jours pour changer d'avis ; ensuite, le compte est supprimé", "quem": "Vous ; la coordination voit seulement combien de demandes il y a" },
+          { "dado": "Marque d’e-mail bloqué (seulement si la coordination bannit le compte)", "onde": "Base de données d’Alumia, seulement un résumé brouillé de l’e-mail, fait avec une clé que seul le serveur possède", "tempo": "Tant que le bannissement vaut (la durée est en révision juridique)", "quem": "Personne ne le lit ; le système ne fait que comparer, pour que le compte banni ne revienne pas avec le même e-mail" }
         ]
       },
       {
@@ -287,10 +289,25 @@
       {
         "titulo": "Conversations et notifications",
         "linhas": [
-          { "dado": "Conversations privées et de groupe", "onde": "Base d'Alumia, chiffrées sur l'appareil de qui écrit", "tempo": "Jusqu'au délai de la conversation ; une demande de conversation sans réponse disparaît en 30 jours", "quem": "Seuls les participants lisent le texte ; le serveur sait qui est dans chaque conversation" },
+          { "dado": "Conversations privées et de groupe (messages, noyaux, posts restreints)", "onde": "Base d'Alumia, dans des boîtes sans nom : seulement le paquet, chiffré sur l'appareil de la personne qui écrit, et le jour de son arrivée", "tempo": "En conversation à deux, disparaît une fois livré ; dans les groupes, quand la boîte de l'époque est remplacée ; ce que personne ne récupère disparaît en 30 jours", "quem": "Seules les personnes qui participent lisent ; la base ne sait pas à qui est chaque boîte ni qui est dans chaque conversation ou groupe" },
+          { "dado": "Votre boîte de demandes de conversation", "onde": "Base d'Alumia, liée à votre compte (c'est par elle qu'on vous demande de parler)", "tempo": "Une demande sans réponse disparaît en 30 jours", "quem": "Le serveur sait que vous recevez des demandes, pas de qui ; seul votre appareil les ouvre" },
+          { "dado": "Liste de vos conversations et copie de sauvegarde (si vous en créez une)", "onde": "Sur votre appareil ; sur le serveur, seulement un fichier chiffré sur l'appareil, qu'il ne lit pas", "tempo": "Jusqu'à ce que vous l'effaciez", "quem": "Vous seule, sur vos appareils ou avec les 24 mots" },
+          { "dado": "Passes anonymes du jour (pour freiner les abus sans dire qui)", "onde": "Base d'Alumia : une marque indiquant que le compte a pris le lot du jour et, à part, le condensé de chaque passe utilisé, sans lien entre les deux", "tempo": "La marque disparaît le lendemain ; le passe utilisé, en 2 jours", "quem": "Personne" },
+          { "dado": "Extraits d'un signalement avec preuve (message ou post chiffré)", "onde": "Base d'Alumia, avec le signalement : seulement les extraits choisis, le jour et leur origine", "tempo": "Pendant la durée du registre de modération", "quem": "La modération ; le reste de la conversation reste chiffré" },
           { "dado": "Notifications (réponses, mentions, modération)", "onde": "Base d'Alumia", "tempo": "Lues : disparaissent en 30 jours ; toutes en 120 jours", "quem": "Seulement vous" },
           { "dado": "Appareil qui reçoit les notifications sur le téléphone (si vous les activez)", "onde": "Base d'Alumia", "tempo": "Jusqu'à ce que vous les désactiviez", "quem": "Personne ; seul l'envoi l'utilise" },
-          { "dado": "Heures de silence des notifications sur le téléphone (si vous les choisissez)", "onde": "Base de données d'Alumia", "tempo": "Jusqu'à ce que vous les changiez", "quem": "Personne ; seul l'envoi s'en sert" }
+          { "dado": "Heures de silence des notifications sur le téléphone (si vous les choisissez)", "onde": "Base de données d'Alumia", "tempo": "Jusqu'à ce que vous les changiez", "quem": "Personne ; seul l'envoi s'en sert" },
+          { "dado": "Clés publiques de vos appareils et le registre public des clés", "onde": "Base de données d’Alumia ; le registre des clés ne garde qu’un résumé du compte, la clé publique et le jour", "tempo": "Les clés d’un appareil partent avec lui ou avec le compte ; le registre ne fait qu’ajouter et ne s’efface pas (il permet de vérifier que personne n’a changé votre clé)", "quem": "La clé publique, qui converse avec vous ; le registre, tout le monde" }
+        ]
+      },
+      {
+        "titulo": "Fediverse (seulement si vous l’activez)",
+        "linhas": [
+          { "dado": "Votre profil dans le Fediverse (nom de code, @nom, bio, photo) et la clé qui signe en votre nom", "onde": "Base de données d’Alumia ; la clé chiffrée sur le serveur", "tempo": "Jusqu’à ce que vous désactiviez la fédération ; la clé est ensuite effacée", "quem": "Le profil, tout le monde dans le Fediverse ; la clé, personne" },
+          { "dado": "Publications en « Alumia et le Fediverse » (et, dans les communautés ouvertes qui fédèrent, vos publications au public le plus large)", "onde": "Base de données d’Alumia et copies sur les serveurs extérieurs qui les reçoivent", "tempo": "Jusqu’à ce que vous les effaciez ; effacer ou désactiver envoie à tous la demande d’effacer, mais Alumia ne peut pas y obliger un serveur extérieur", "quem": "Tout le monde dans le Fediverse" },
+          { "dado": "Qui vous suit de l’extérieur et qui vous suivez à l’extérieur", "onde": "Base de données d’Alumia, seulement l’adresse publique du compte extérieur", "tempo": "Jusqu’à ne plus suivre ou désactiver la fédération", "quem": "Vous ; les autres voient au plus un total, à partir de 3" },
+          { "dado": "J’aime et partages venant de l’extérieur", "onde": "Base de données d’Alumia, seulement un surnom brouillé de qui a aimé, jamais l’adresse", "tempo": "Avec la notification : lues, elles partent en 30 jours ; toutes en 120 jours", "quem": "Vous seul·e" },
+          { "dado": "Publications publiques de comptes qu’une personne d’ici suit à l’extérieur", "onde": "Base de données d’Alumia, seulement le texte nettoyé ; les images passent par le serveur du site", "tempo": "30 jours", "quem": "Qui peut les voir dans le fil" }
         ]
       },
       {
@@ -310,7 +327,8 @@
           { "dado": "Empreinte brouillée du réseau d'où vient le compte", "onde": "Base d'Alumia", "tempo": "30 jours sans usage", "quem": "Personne ne la lit ; le système compare seulement, pour arrêter qui a été banni" },
           { "dado": "Compteurs d'usage par compte (pour freiner les abus)", "onde": "Base de l'Institut", "tempo": "2 jours", "quem": "Personne ; le système compte seulement" },
           { "dado": "Registre de certaines actions du compte (entrer dans le réseau, demander l'entrée, accepter les conditions, télécharger les données, décisions de modération)", "onde": "Base de l'Institut", "tempo": "Jusqu'à 400 jours", "quem": "Seulement la coordination" },
-          { "dado": "Nombre de comptes et de demandes nouveaux par réseau (une empreinte qui change toutes les heures, sans l'adresse)", "onde": "Base de données d'Alumia", "tempo": "1 jour", "quem": "Personne ; le système ne fait que compter, pour freiner les inscriptions en masse" }
+          { "dado": "Nombre de comptes et de demandes nouveaux par réseau (une empreinte qui change toutes les heures, sans l'adresse)", "onde": "Base de données d'Alumia", "tempo": "1 jour", "quem": "Personne ; le système ne fait que compter, pour freiner les inscriptions en masse" },
+          { "dado": "Blocage d’une adresse réseau pendant une attaque", "onde": "Chez Cloudflare (la protection devant le site), jamais dans la base d’Alumia, et sans lien avec aucun compte", "tempo": "De 1 à 7 jours ; il disparaît seul", "quem": "La coordination envoie le blocage depuis le panneau ; la base ne garde que le motif et la durée" }
         ]
       }
     ],
@@ -371,7 +389,7 @@
       "ja": "Vous aviez déjà signalé cela. Protocole {protocolo}.",
       "alvoInvalido": "Nous ne reconnaissons pas cette adresse. Collez l'adresse de la publication, l'@ du profil ou l'adresse de la communauté.",
       "naoEncontrado": "Nous ne l'avons pas trouvé, ou vous ne pouvez pas le voir.",
-      "semConta": "Pour signaler ici, connectez-vous à Alumia. Sans compte, utilisez la page [Signaler](/denunciar) du site.",
+      "semConta": "Pour signaler ici, connectez-vous à Alumia. Sans compte, utilisez la page [Signaler sur Alumia](/alumia/denunciar).",
       "proprio": "C'est à vous. Pour le retirer, supprimez-le."
     },
     "revisao": {
@@ -449,6 +467,15 @@
         ]
       },
       {
+        "titulo": "Conversations",
+        "perguntas": [
+          { "p": "Le serveur sait-il avec qui je parle ?", "r": "Pas par la base : les messages vont dans des boîtes sans nom, et ni la base ni qui en a une copie ne peut lier une boîte à un compte ou lister qui est dans chaque noyau. À chaque appel, le serveur voit l'adresse réseau et l'heure, comme tout site, et ne les garde pas. Votre boîte de demandes est la seule liée au compte : elle dit que vous recevez des demandes, pas de qui." },
+          { "p": "Comment signaler un message du chat ?", "r": "Dans la conversation, choisissez Signaler et cochez les messages. Avant l'envoi, l'écran prévient : les extraits cochés sortent du chiffrement et vont à la modération, qui les lira ; le reste reste chiffré. Le serveur vérifie que le texte est exactement celui qui est passé par la conversation ce jour-là, sans avoir rien lu avant. Cela ne prouve pas à soi seul qui l'a écrit : la modération voit le nom qu'affiche votre appareil." },
+          { "p": "J'ai changé de téléphone. Comment garder mes conversations ?", "r": "Liez le nouvel appareil par le QR, l'ancien en main, ou restaurez la copie de sauvegarde avec les 24 mots. La copie emporte la liste des conversations et l'historique que vous choisissez de garder, mais pas les clés de session : les conversations se refont sur le nouvel appareil. Mots perdus, copie perdue ; qui a les mots et entre dans votre compte ouvre la copie." },
+          { "p": "Qu'est-il arrivé aux conversations de la bêta ?", "r": "Au changement de chiffrement du chat, les conversations et les groupes de la bêta ont été effacés sur le serveur et sur chaque appareil, avec un avis daté au préalable. Aucune ancienne clé ni ancien message n'a été gardé pour être lu plus tard. Les sauvegardes de la base gardent les anciennes tables, déjà chiffrées, jusqu'à leur expiration." }
+        ]
+      },
+      {
         "titulo": "Partir et effacer",
         "perguntas": [
           { "p": "Que fait la Sortie rapide ?", "r": "Elle efface ce qu'Alumia a gardé sur cet appareil et ouvre une page ordinaire extérieure (la météo), sans rien de l'Institut. Elle est dans le menu de votre compte et dans Plus." },
@@ -457,7 +484,25 @@
         ]
       }
     ],
-    "mais": "Encore une question ?"
+    "mais": "Encore une question ?",
+    "relatar": {
+      "titulo": "Signaler un problème",
+      "texto": "Quelque chose ne marche pas sur Alumia ? Racontez-le ici. Seuls l'écran où vous êtes (sans rien qui dise qui vous êtes), le type d'appareil et la version du site sont envoyés. Personne ne sait qui l'a signalé, pas même la coordination.",
+      "campo": "Que s'est-il passé ?",
+      "ajudaCampo": "Ce que vous avez fait, ce que vous attendiez et ce qui est apparu. N'écrivez ni mot de passe, ni e-mail, ni données d'une autre personne.",
+      "vaiJunto": "Envoyé avec : {tela} · {aparelho}",
+      "enviar": "Envoyer le signalement",
+      "enviando": "Envoi…",
+      "enviado": "Reçu. Merci d'aider Alumia.",
+      "curto": "Écrivez un peu plus (au moins 10 lettres).",
+      "erro": "Impossible d'envoyer maintenant. Réessayez dans un instant.",
+      "entrar": "Pour signaler un problème, entrez dans Alumia."
+    },
+    "falhas": {
+      "titulo": "Vous avez trouvé une faille de sécurité ?",
+      "texto": "Ne la publiez pas et n'en parlez à personne avant sa correction : cela met en danger les personnes qui utilisent Alumia. Écrivez au contact de sécurité de l'institut et attendez la réponse.",
+      "link": "Voir le contact de sécurité"
+    }
   },
   "reaceite": {
     "tituloNovo": "Lisez les conditions d'Alumia",
@@ -512,5 +557,56 @@
     "aceita": "Vous avez accepté le {quando}.",
     "pendente": "Vous n'avez pas encore accepté cette version.",
     "lerEAceitar": "Lire et accepter"
+  },
+  "janela": {
+    "titulo": "Conditions d'Alumia",
+    "leia": "Pour utiliser Alumia, lisez les conditions d'utilisation, la politique de confidentialité et les règles, version du {data}. Tout s'ouvre ici même ; à la fin, cochez que vous avez lu et acceptez.",
+    "saida": "Sortie rapide",
+    "saidaAjuda": "Quitte Alumia tout de suite et ouvre une page ordinaire. Appuyer trois fois sur Échap quitte aussi, si le mode sûr est activé.",
+    "fechar": "Fermer",
+    "rever": "Relire les conditions"
+  },
+  "denunciar": {
+    "titulo": "Signaler sur Alumia",
+    "chamada": "Pour ce qui se passe ici. Rien ne part vers le site de l'institut.",
+    "comoPost": "Pour une publication, le plus rapide est la publication elle-même : **Signaler**, dans son menu, avec un numéro de suivi. Utilisez cette page pour le reste : un profil, une communauté, un problème avec vos données, ou si vous n'avez pas de compte.",
+    "item": "Ce que vous signalez",
+    "itemDica": "Collez l'adresse de la publication, du profil ou de la communauté (ex. : /alumia/u/pseudonyme).",
+    "motivo": "Motif",
+    "motivos": ["On m'expose (mes données ou photos)","Menace ou harcèlement","Haine ou discrimination","Arnaque ou faux compte","Données personnelles exposées","Autre motif"],
+    "detalhes": "Ce qui s'est passé",
+    "detalhesDica": "Racontez ce que vous avez vu. Au moins 20 caractères. Pas besoin de vous identifier.",
+    "enviar": "Envoyer le signalement",
+    "faltaAlgo": "Dites ce que vous signalez et racontez ce qui s'est passé (au moins 20 caractères).",
+    "enviada": "Signalement reçu. La modération d'Alumia va l'examiner ; une exposition de données part aussitôt vers la coordination.",
+    "semServico": "L'envoi de signalements n'est pas encore actif sur cette copie.",
+    "urgente": "En danger maintenant ? Utilisez la sortie rapide et cherchez de l'aide autour de vous. Alumia ne remplace pas les secours."
+  },
+  "primeiraVez": {
+    "rotulo": "Première fois sur Alumia",
+    "pular": "Passer",
+    "proximo": "Suivant",
+    "voltar": "Retour",
+    "comecar": "Commencer",
+    "passo": "Étape {n} sur {total}",
+    "passos": [
+      { "titulo": "Votre fil", "texto": "Ici apparaît ce que publient les personnes et les communautés que vous suivez, par ordre d’arrivée. Les onglets Abonnements, Mes communautés et Tout changent ce qui entre. Personne ne choisit à votre place ce qui apparaît.", "links": [] },
+      { "titulo": "Communautés", "texto": "Chaque lutte, discipline et sujet a sa communauté. Rejoignez-en deux ou trois et votre fil prend vie.", "links": [{ "href": "/alumia/comunidades", "rotulo": "Voir les communautés" }] },
+      { "titulo": "Noyaux et groupes d’étude", "texto": "Les noyaux réunissent celles et ceux qui s’organisent au même endroit ou sur le même front. Les groupes d’étude apprennent ensemble : choisissez-en un et organisez les rencontres là-bas.", "links": [{ "href": "/alumia/nucleos", "rotulo": "Voir les noyaux" }, { "href": "/alumia/turmas", "rotulo": "Voir les groupes" }] },
+      { "titulo": "Sécurité", "texto": "Le bouton Sécurité permet d’activer le second facteur, de voir les appareils connectés et de trouver le bouton panique. La sortie rapide reste toujours visible : elle vous fait quitter Alumia tout de suite.", "links": [{ "href": "/alumia/seguranca", "rotulo": "Ouvrir Sécurité" }] }
+    ],
+    "lista": {
+      "titulo": "Premiers pas",
+      "texto": "Quatre choses pour commencer. Cochez ce que vous avez fait ; cela reste seulement sur cet appareil.",
+      "pronto": "Tout est fait. Bon début !",
+      "rever": "Revoir la visite",
+      "esconder": "Masquer",
+      "itens": [
+        { "texto": "Choisir votre visage : dessin, peinture ou photo", "link": "/alumia/editar-perfil" },
+        { "texto": "Rejoindre deux communautés", "link": "/alumia/comunidades" },
+        { "texto": "Suivre des personnes des paquets d’accueil", "link": "/alumia/explorar" },
+        { "texto": "Découvrir le bouton Sécurité", "link": "/alumia/seguranca" }
+      ]
+    }
   }
 }

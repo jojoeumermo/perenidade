@@ -85,3 +85,32 @@ export async function desenhoEmImagem(fundo: string, tracos: readonly Traco[], i
   }
   return comprimir(canvas);
 }
+
+// ── P5 (A16): a foto em alta ──────────────────────────────────────────────────────────────────────────────────────────────
+/** A foto em alta do story: até 1440 × 2560 e 6 MB (o banco confere de novo). */
+export const ALTA_DA_IMAGEM = { largura: 1440, altura: 2560, bytes: 6 * 1024 * 1024 } as const;
+
+/** Refaz a foto da galeria em alta (sem metadado, até 1440 × 2560, WEBP, até 6 MB). Erro "invalida" ou "grande". */
+export async function refazerImagemEmAlta(arquivo: Blob): Promise<Blob> {
+  if (!(TIPOS_ACEITOS as readonly string[]).includes(arquivo.type)) throw new Error("invalida");
+  if (arquivo.size > 40 * 1024 * 1024) throw new Error("grande");
+  let bitmap: ImageBitmap;
+  try {
+    bitmap = await createImageBitmap(arquivo, { imageOrientation: "from-image" });
+  } catch {
+    throw new Error("invalida");
+  }
+  const m = medidaQueCabe(bitmap.width, bitmap.height, ALTA_DA_IMAGEM.largura, ALTA_DA_IMAGEM.altura);
+  const canvas = document.createElement("canvas");
+  canvas.width = m.largura;
+  canvas.height = m.altura;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("invalida");
+  ctx.drawImage(bitmap, 0, 0, m.largura, m.altura);
+  bitmap.close();
+  for (const q of [0.92, 0.85, 0.75, 0.62]) {
+    const b = await paraBlob(canvas, q);
+    if (b && b.size <= ALTA_DA_IMAGEM.bytes) return b;
+  }
+  throw new Error("grande");
+}

@@ -13,6 +13,8 @@ import { dataLegivel, Ladrilhos, por, textoDoErro, useTextosDaSeguranca, type T 
 import { Codigos } from "./Codigos";
 import { EntrarPeloTor } from "./EntrarPeloTor";
 import { ListaDeAparelhos } from "./ListaDeAparelhos";
+import { AvisoDoChat } from "../uso/AvisoDoChat";
+import { AvisosDeSeguranca } from "./AvisosDeSeguranca";
 import { Panico } from "./Panico";
 import { SenhaDePanico } from "./SenhaDePanico";
 
@@ -148,12 +150,16 @@ export default function TelaDaSeguranca({ lang, s, situacao: situacaoDaRede }: P
       <div className="sg-grade">
         <div className="sg-coluna">
           <Panico t={t} />
+          {/* R1 (A3.5): o histórico do chat mora só neste aparelho e o pânico/"Sair rápido" o apaga de vez. */}
+          <AvisoDoChat lang={lang} />
           <SenhaDePanico t={t} lang={lang} />
           <ForaDaBusca t={t} situacao={situacao} aoMudar={(fora) => setSituacao({ ...situacao, fora_da_busca: fora })} />
           <EntrarPeloTor t={t} />
         </div>
 
         <div className="sg-coluna">
+          {/* A8: os avisos da conta (entrada nova, autenticador) saíram das notificações e moram aqui. */}
+          <AvisosDeSeguranca t={t} lang={lang} />
           <section className="sg-bloco" aria-labelledby="sg-fator-t">
             <h2 id="sg-fator-t" className="sg-titulo al-cond">{t.fator.titulo}</h2>
             <p className="sg-situacao sg-fator" data-ligado={situacao.segundo_fator || undefined}>

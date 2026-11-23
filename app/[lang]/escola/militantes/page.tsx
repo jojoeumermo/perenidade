@@ -37,7 +37,7 @@ export default async function Militantes({ params }: PageProps<"/[lang]/escola/m
   const m = f.militantes;
   const base = textosDaBase(lang);
   // Os textos do formulário: os do voluntariado, com o que muda no chamado militante.
-  const s = { ...t.volunteer, title: m.formTitulo, lead: m.formLead, role: m.formFuncao, message: m.formMensagem, send: m.formEnviar, sent: m.formEnviado, privacy: m.formPrivacidade };
+  const s = { ...t.volunteer, title: m.formTitulo, lead: m.formLead, role: m.formFuncao, message: m.formMensagem, send: m.formEnviar, sent: m.formEnviado, privacy: m.formPrivacidade, instagramHint: m.formInstagram };
   return (
     <div className="ef6-tela ef-manifesto" data-escola-escura="" data-militantes="">
       <section aria-labelledby="ef-militantes-titulo" className="ef6-cartaz">

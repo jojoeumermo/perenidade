@@ -8,6 +8,7 @@
 //
 // Privacidade (PLANO-ALUMIA §6; LGPD art. 5º, II e art. 11): sem contagem de seguidores, sem lista de quem segue, de quem é de um
 // núcleo ou de quem votou; pessoas na sala só agregadas e a partir de 3; quem cuida da conta nunca aparece.
+import dynamic from "next/dynamic";
 import { useEffect, useId, useRef, useState, type ReactNode, type RefObject } from "react";
 import { dataCurta } from "@/lib/rede/org/contagem";
 import { preencher } from "@/lib/rede/preencher";
@@ -33,6 +34,9 @@ import { previaLigada } from "@/lib/rede/org/exemplos";
 import { clienteOrgB1 } from "@/lib/rede/cliente-org-b1";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import "./org.css";
+
+// Prompt 4, item 22: o canal de aviso (todo post, só os avisos ou nada; o número só a partir de 3 para quem gere). Desligado, não desenha.
+const CanalDeAvisos = dynamic(() => import("../perto/CanalDeAvisos").then((m) => m.CanalDeAvisos), { ssr: false });
 
 export interface PropsDoPerfilDaOrg {
   /** Os textos da Rede (para as mensagens de erro do Tear e do Lampião). */
@@ -156,7 +160,7 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
       org.consultas.length === 0 ? (
         <p className="al-painel-vazio">{t.consulta.vazio}</p>
       ) : (
-        org.consultas.map((c) => <CartaoDaConsulta key={c.id} c={c} t={t} lang={lang} acoes={acoes} aoVerNucleos={verNucleos} />)
+        org.consultas.map((c) => <CartaoDaConsulta key={c.id} c={c} t={t} lang={lang} acoes={acoes} aoVerNucleos={verNucleos} urna={vivo && membro} aoMudar={aoMudar} />)
       ),
     plenarias: (
       <>
@@ -243,6 +247,7 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
               </Botao>
             </div>
             {vivo && membro ? <BoletimNoPerfil handle={org.handle} lang={lang} /> : null}
+            {membro ? <CanalDeAvisos handle={org.handle} lang={lang} gerencio={!!org.gerencio} aoMudarSino={setSino} /> : null}
             {!membro ? <p className="al-perfil-nota">{tp.entreParaSeguir}</p> : null}
             {org.gerencio ? <p className="al-perfil-nota">{tp.gerencio}</p> : null}
             <p className="al-perfil-nota">{tp.semContagens}</p>
@@ -257,7 +262,7 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
 
           {abertas.length > 0 && aba !== "consultas" ? (
             <section className="al-perfil-bloco" aria-label={t.consulta.aberta}>
-              <CartaoDaConsulta c={abertas[0]} t={t} lang={lang} acoes={acoes} aoVerNucleos={verNucleos} />
+              <CartaoDaConsulta c={abertas[0]} t={t} lang={lang} acoes={acoes} aoVerNucleos={verNucleos} urna={vivo && membro} aoMudar={aoMudar} />
             </section>
           ) : null}
 

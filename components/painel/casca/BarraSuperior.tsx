@@ -12,7 +12,7 @@ import type { ItemDoMenu } from "../Menu";
 import { Botao, Kbd, MenuSuspenso } from "../ui";
 
 /** As funções que a coordenação pode "vestir" na prévia, e as que pedem uma disciplina. */
-export const PAPEIS_DA_PREVIA: Role["papel"][] = ["vice", "supervisao", "curadoria", "mediacao", "educacao", "educacao_secundaria", "revisao", "traducao", "jornalismo", "mentoria", "marketing", "desenvolvimento", "representante", "porta_voz", "saude"];
+export const PAPEIS_DA_PREVIA: Role["papel"][] = ["vice", "supervisao", "curadoria", "mediacao", "educacao", "educacao_secundaria", "revisao", "traducao", "jornalismo", "mentoria", "marketing", "desenvolvimento", "representante", "porta_voz", "saude", "parceiro"];
 export const POR_DISCIPLINA: Role["papel"][] = ["educacao", "educacao_secundaria", "mentoria", "representante"];
 
 export interface Previa {

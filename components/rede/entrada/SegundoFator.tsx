@@ -8,7 +8,8 @@ import { useState } from "react";
 import { getClient, hasBackend, localBackend, rpc } from "@/lib/backend";
 import { gerador, sementeDe } from "@/lib/rede/mosaico";
 import type { TextosDaEntrada } from "@/lib/rede/entrada/textos";
-import { LinkPerdiOAplicativo, RecuperarComCodigo } from "../seguranca/RecuperarComCodigo";
+import { RecuperarComCodigo } from "../seguranca/RecuperarComCodigo";
+import { PerdiOAplicativo } from "../uso/NaEntrada";
 import { Mensagem } from "./Formularios";
 
 type T = TextosDaEntrada;
@@ -102,9 +103,10 @@ export function PedirCodigo({ t, lang, fator, conta, aoConfirmar, aoSair }: { t:
         <button type="submit" className="ale-botao ale-botao-principal" disabled={ocupado || codigo.replace(/\D/g, "").length !== 6} aria-busy={ocupado || undefined}>
           {t.codigoConfirmar}
         </button>
-        <LinkPerdiOAplicativo lang={lang} aoAbrir={() => setRecuperando(true)} />
         <button type="button" className="ale-link" onClick={aoSair}>{t.outraConta}</button>
       </form>
+      {/* R1 (A3.2): o caminho de quem perdeu o celular do aplicativo, à vista, e o que fazer sem os códigos. */}
+      <PerdiOAplicativo lang={lang} aoAbrir={() => setRecuperando(true)} />
     </>
   );
 }
