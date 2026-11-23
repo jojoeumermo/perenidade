@@ -186,6 +186,9 @@ export interface ArestaDaTeia {
   confianca?: Confianca;
 }
 
+/** O raio de um nó na teia: o caso cresce com as ligações; lugar é menor. Entra no cálculo das posições (posicoes.ts). */
+export const raioDoNo = (n: NoDaTeia): number => (n.tipo === "entrada" ? 7 + Math.min(n.grau, 8) * 0.7 : n.tipo === "lugar" ? 5 : 6);
+
 export interface Grafo {
   nos: NoDaTeia[];
   arestas: ArestaDaTeia[];

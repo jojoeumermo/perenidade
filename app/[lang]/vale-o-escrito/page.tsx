@@ -6,7 +6,9 @@ import { loadLang } from "@/i18n";
 import { ligado } from "@/lib/recursos";
 import { paginaMeta } from "@/lib/seo";
 import { dadosDoObservatorio } from "@/lib/vale-o-escrito/consulta";
+import { posicoesParaEnviar } from "@/lib/vale-o-escrito/posicoes";
 import { textosDoObservatorio } from "@/lib/vale-o-escrito/textos";
+import { montarGrafo } from "@/lib/vale-o-escrito/visual";
 
 // Os casos aprovados no banco entram sem novo deploy: a página é refeita a cada 5 minutos (lib/vale-o-escrito/banco.ts).
 export const revalidate = 300;
@@ -36,5 +38,7 @@ export default async function ValeOEscrito({ params }: { params: Promise<{ lang:
       </div>
     );
   }
-  return <Observatorio dados={await dadosDoObservatorio(lang)} s={s} lang={lang} />;
+  const dados = await dadosDoObservatorio(lang);
+  // A teia de abertura (o banco inteiro, sem filtro) sai calculada daqui: no celular a simulação travava a tela ~2 s.
+  return <Observatorio dados={dados} posicoes={posicoesParaEnviar(montarGrafo(dados, null))} s={s} lang={lang} />;
 }
