@@ -46,7 +46,7 @@ export const RECURSOS = {
   "alumia-stories": "Alumia: stories de 24 h, sem registro de quem viu, que nunca federam. Precisa de rede-v2 e alumia-2",
   "alumia-modo-ato": "Alumia: modo ato, Fui detido, Estou bem e as identidades. Precisa de rede-v2 e alumia-2 (a segurança da conta e os aparelhos conectados abrem com alumia-2)",
   "alumia-org": "Alumia: organizações com selo (não é apoio do Instituto), consultas à base, plenárias e prestação de contas. Precisa de rede-v2 e alumia-2",
-  "alumia-chat-grupo": "Alumia: conversa cifrada de ponta a ponta do núcleo (grupo). Precisa de rede-v2 e alumia-2",
+  "alumia-chat-grupo": "Alumia: conversa em grupo cifrada de ponta a ponta (MLS na suíte híbrida, caixas anônimas): criar, convidar pelo @ quem já tem conversa a dois, quem está, código de segurança, tirar e sair, na página Conversas e na janela flutuante. O servidor não sabe quem está em qual grupo nem o nome dele. Sem SQL novo. Precisa de rede-v2 e alumia-2",
   "alumia-chat-so-app": "Alumia: o chat só nos apps (o site mostra o aviso e a página de baixar e conferir). Só pelo nome; desligado no beta",
   "alumia-linha-aberta": "Alumia: a linha com regra aberta (Em roda), igual para todo mundo e escrita na tela, com troca para a ordem de chegada; linhas montadas por filtro, assuntos em alta, enquanto você esteve fora, ordem das respostas e ocultar resposta. Precisa de rede-v2, alumia-2 e do SQL 20261113-alumia-o7-linha.sql",
   "alumia-convites": "Alumia: convites para a Alumia que levam à triagem (não aprovam ninguém; a triagem vê só \"veio por convite\", nunca de quem). Mostra o item Convidar e abre /alumia/convite. Precisa de rede-v2, alumia-2 e do SQL 20261114-alumia-o8-porta.sql",
