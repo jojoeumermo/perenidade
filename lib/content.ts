@@ -118,6 +118,22 @@ export interface Book extends Localized {
   pdf?: string;
 }
 
+/**
+ * A obra como a estante do Acervo (cliente) recebe: sem o que ela não mostra nem busca (o caminho do arquivo, os
+ * autores em slug, o crédito da capa e o idioma da edição). Eram cerca de 150 KB a mais na página, em 1.400 obras.
+ */
+export type ObraNaEstante = Omit<Book, "authorSlugs" | "file" | "coverCredit" | "language">;
+
+/** Só os campos que a estante usa (ObraNaEstante). */
+export function obraNaEstante(book: Book): ObraNaEstante {
+  const obra: Partial<Book> = { ...book };
+  delete obra.authorSlugs;
+  delete obra.file;
+  delete obra.coverCredit;
+  delete obra.language;
+  return obra as ObraNaEstante;
+}
+
 /** Obra vinda dos catálogos abertos (content/catalogo): só os dados que a fonte publica. */
 export interface CatalogEntry {
   t: string;

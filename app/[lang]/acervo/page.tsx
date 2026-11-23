@@ -7,7 +7,7 @@ import { loadLang } from "@/i18n";
 import { pickSections } from "@/i18n/core";
 import { I18nProvider } from "@/components/I18n";
 import { paginaMeta } from "@/lib/seo";
-import { getBooks } from "@/lib/content";
+import { getBooks, obraNaEstante } from "@/lib/content";
 import { fileHistory } from "@/lib/history";
 
 // Obras do mesmo dia (acrescentadas em lote) saem numa ordem fixa, mas não alfabética: uma estante de Novidades com oito "A…" seguidos não diz nada.
@@ -34,7 +34,7 @@ export default async function Acervo({ params }: PageProps<"/[lang]/acervo">) {
         {t.library.lead}
       </Cartaz>
       <Suspense>
-        <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><AcervoBrowser books={books} novidades={novidades} /></I18nProvider>
+        <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><AcervoBrowser books={books.map(obraNaEstante)} novidades={novidades} /></I18nProvider>
       </Suspense>
     </div>
   );
