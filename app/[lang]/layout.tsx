@@ -1,4 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import { BarraDeNavegacao } from "@/components/BarraDeNavegacao";
 import type { Metadata, Viewport } from "next";
 import { Anton, Caveat, EB_Garamond, Inter, IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
@@ -131,6 +132,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
         <PrefsScript />
       </head>
       <body className="paper min-h-full flex flex-col">
+        <BarraDeNavegacao />
         <DadosEstruturados dados={[organizacao(), siteWeb(lang, t.meta.description)]} />
         {/* O núcleo sem as seções extras (i18n/core.ts): a rota que precisa de t.areas no navegador acrescenta a sua. */}
         <I18nProvider lang={lang} t={pickBase(t)}>
