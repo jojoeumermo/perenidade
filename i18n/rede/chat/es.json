@@ -311,5 +311,27 @@
   "confirmar": {
     "sim": "Confirmar",
     "nao": "Cancelar"
+  },
+  "janela": {
+    "botao": "Conversaciones",
+    "abrir": "Abrir las conversaciones",
+    "rotulo": "Conversaciones",
+    "minimizar": "Minimizar las conversaciones",
+    "expandir": "Abrir la página Conversaciones",
+    "fechar": "Cerrar las conversaciones",
+    "voltar": "Volver a la lista de conversaciones",
+    "buscar": "Buscar o empezar una conversación",
+    "placeholder": "@ o nombre",
+    "buscarDica": "Tus conversaciones aparecen mientras escribes. Para empezar una nueva, usa el @ de la persona.",
+    "comecar": "Empezar conversación con @{nome}",
+    "vazio": "Aún no hay conversaciones. Empieza una con el @ de la persona.",
+    "nadaNaBusca": "Ninguna de tus conversaciones tiene ese nombre.",
+    "conversaCom": "Conversación con {nome}",
+    "minimizarConversa": "Minimizar la conversación con {nome}",
+    "restaurarConversa": "Abrir la conversación con {nome}",
+    "fecharConversa": "Cerrar la conversación con {nome}",
+    "ativarAqui": "Para conversar desde aquí, activa el chat en este dispositivo. Las claves se quedan solo en él.",
+    "outroAparelho": "Tu chat está activo en otro dispositivo. Para vincular este, abre la página Conversaciones.",
+    "irParaConversas": "Abrir la página Conversaciones"
   }
 }

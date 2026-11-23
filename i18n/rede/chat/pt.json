@@ -310,5 +310,27 @@
   "confirmar": {
     "sim": "Confirmar",
     "nao": "Cancelar"
+  },
+  "janela": {
+    "botao": "Conversas",
+    "abrir": "Abrir as conversas",
+    "rotulo": "Conversas",
+    "minimizar": "Minimizar as conversas",
+    "expandir": "Abrir na página Conversas",
+    "fechar": "Fechar as conversas",
+    "voltar": "Voltar à lista de conversas",
+    "buscar": "Buscar ou começar conversa",
+    "placeholder": "@ ou codinome",
+    "buscarDica": "As conversas que você já tem aparecem enquanto você digita. Para começar uma nova, use o @ da pessoa.",
+    "comecar": "Começar conversa com @{nome}",
+    "vazio": "Nenhuma conversa ainda. Comece uma conversa pelo @ da pessoa.",
+    "nadaNaBusca": "Nenhuma conversa sua com esse nome.",
+    "conversaCom": "Conversa com {nome}",
+    "minimizarConversa": "Minimizar a conversa com {nome}",
+    "restaurarConversa": "Abrir a conversa com {nome}",
+    "fecharConversa": "Fechar a conversa com {nome}",
+    "ativarAqui": "Para conversar daqui, ative o chat neste aparelho. As chaves ficam só nele.",
+    "outroAparelho": "O seu chat está ativo em outro aparelho. Para ligar este, abra a página Conversas.",
+    "irParaConversas": "Abrir a página Conversas"
   }
 }

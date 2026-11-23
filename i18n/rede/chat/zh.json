@@ -311,5 +311,27 @@
   "confirmar": {
     "sim": "确认",
     "nao": "取消"
+  },
+  "janela": {
+    "botao": "对话",
+    "abrir": "打开对话",
+    "rotulo": "对话",
+    "minimizar": "最小化对话",
+    "expandir": "打开对话页面",
+    "fechar": "关闭对话",
+    "voltar": "返回对话列表",
+    "buscar": "搜索或开始对话",
+    "placeholder": "@ 或代号",
+    "buscarDica": "输入时会显示你已有的对话。要开始新对话，请使用对方的 @。",
+    "comecar": "与 @{nome} 开始对话",
+    "vazio": "还没有对话。用对方的 @ 开始一段对话。",
+    "nadaNaBusca": "你的对话中没有这个名字。",
+    "conversaCom": "与 {nome} 的对话",
+    "minimizarConversa": "最小化与 {nome} 的对话",
+    "restaurarConversa": "打开与 {nome} 的对话",
+    "fecharConversa": "关闭与 {nome} 的对话",
+    "ativarAqui": "要在这里聊天，请在此设备上开启聊天。密钥只保存在此设备上。",
+    "outroAparelho": "你的聊天已在另一台设备上开启。要连接这台设备，请打开对话页面。",
+    "irParaConversas": "打开对话页面"
   }
 }

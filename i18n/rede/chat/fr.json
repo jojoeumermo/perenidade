@@ -311,5 +311,27 @@
   "confirmar": {
     "sim": "Confirmer",
     "nao": "Annuler"
+  },
+  "janela": {
+    "botao": "Conversations",
+    "abrir": "Ouvrir les conversations",
+    "rotulo": "Conversations",
+    "minimizar": "Réduire les conversations",
+    "expandir": "Ouvrir la page Conversations",
+    "fechar": "Fermer les conversations",
+    "voltar": "Retour à la liste des conversations",
+    "buscar": "Chercher ou commencer une conversation",
+    "placeholder": "@ ou pseudonyme",
+    "buscarDica": "Vos conversations apparaissent pendant la saisie. Pour en commencer une nouvelle, utilisez le @ de la personne.",
+    "comecar": "Commencer une conversation avec @{nome}",
+    "vazio": "Aucune conversation pour l'instant. Commencez-en une avec le @ de la personne.",
+    "nadaNaBusca": "Aucune de vos conversations ne porte ce nom.",
+    "conversaCom": "Conversation avec {nome}",
+    "minimizarConversa": "Réduire la conversation avec {nome}",
+    "restaurarConversa": "Ouvrir la conversation avec {nome}",
+    "fecharConversa": "Fermer la conversation avec {nome}",
+    "ativarAqui": "Pour discuter d'ici, activez le chat sur cet appareil. Les clés restent uniquement sur lui.",
+    "outroAparelho": "Votre chat est actif sur un autre appareil. Pour relier celui-ci, ouvrez la page Conversations.",
+    "irParaConversas": "Ouvrir la page Conversations"
   }
 }

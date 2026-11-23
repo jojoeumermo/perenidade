@@ -311,5 +311,27 @@
   "confirmar": {
     "sim": "Confirm",
     "nao": "Cancel"
+  },
+  "janela": {
+    "botao": "Messages",
+    "abrir": "Open messages",
+    "rotulo": "Messages",
+    "minimizar": "Minimize messages",
+    "expandir": "Open the Messages page",
+    "fechar": "Close messages",
+    "voltar": "Back to the list of conversations",
+    "buscar": "Search or start a conversation",
+    "placeholder": "@ or codename",
+    "buscarDica": "Your conversations show up as you type. To start a new one, use the person's @.",
+    "comecar": "Start a conversation with @{nome}",
+    "vazio": "No conversations yet. Start one with the person's @.",
+    "nadaNaBusca": "None of your conversations has that name.",
+    "conversaCom": "Conversation with {nome}",
+    "minimizarConversa": "Minimize the conversation with {nome}",
+    "restaurarConversa": "Open the conversation with {nome}",
+    "fecharConversa": "Close the conversation with {nome}",
+    "ativarAqui": "To chat from here, turn on messages on this device. The keys stay only on it.",
+    "outroAparelho": "Your messages are active on another device. To link this one, open the Messages page.",
+    "irParaConversas": "Open the Messages page"
   }
 }
