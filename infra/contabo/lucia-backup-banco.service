@@ -7,6 +7,8 @@
 Description=Instituto Lucia: copia do banco
 After=docker.service network-online.target
 Wants=network-online.target
+# Cópia guardada: manda a cópia de fora (R2). Se a de fora falhar, ela aparece sozinha em `systemctl --failed`.
+OnSuccess=lucia-copia-externa.service
 
 [Service]
 Type=oneshot

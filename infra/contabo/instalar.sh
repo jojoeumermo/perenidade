@@ -58,6 +58,11 @@ systemctl enable --now lucia-fediverso.timer
 install -m 700 backup-banco.sh /usr/local/sbin/lucia-backup-banco
 install -m 644 lucia-backup-banco.service lucia-backup-banco.timer /etc/systemd/system/
 docker pull -q "$(sed -n 's/^IMAGEM=//p' backup-banco.sh)"
+# A cópia de fora (R2), disparada pela cópia do banco. Sem /etc/lucia/copia-externa.env ou sem a chave pública das cópias, ela
+# falha e aparece em `systemctl --failed` (nada sai sem cifra).
+install -m 700 copia-externa.sh /usr/local/sbin/lucia-copia-externa
+install -m 644 lucia-copia-externa.service /etc/systemd/system/
+docker pull -q "$(sed -n 's/^IMAGEM=//p' copia-externa.sh)"
 systemctl daemon-reload
 systemctl enable --now lucia-backup-banco.timer
 echo "Instalado."
