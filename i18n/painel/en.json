@@ -8130,5 +8130,8 @@
  "Pausar agora tudo o que o público pode enviar? Contribuições, mensagens da Alumia, anúncios, pedidos de reforço e assinaturas do boletim param até alguém reabrir.": "Pause everything the public can send right now? Contributions, Alumia messages, ads, tutoring requests and newsletter sign-ups stop until someone reopens them.",
  "Quem cuida da Alumia, do Mural dos Trabalhadores e da Gaveta Aberta.": "Who looks after Alumia, the Workers' Board and the Open Drawer.",
  "Segunda avaliação da Alumia": "Alumia second review",
- "Voto secreto com menos de 3 votos: o resultado não aparece.": "Secret ballot with fewer than 3 votes: the result is not shown."
+ "Voto secreto com menos de 3 votos: o resultado não aparece.": "Secret ballot with fewer than 3 votes: the result is not shown.",
+ "Nenhum aparelho seu está aprovado agora, então não há onde ler o código. Use a chave de recuperação, se você guardou uma. Se não guardou, recomece a identidade aqui: as conversas voltam a funcionar neste aparelho, e o que foi escrito antes não abre mais.": "None of your devices is approved right now, so there is nowhere to read the code. Use your recovery key, if you saved one. If you didn't, restart your identity here: conversations will work again on this device, and what was written before will no longer open.",
+ "Não tem outro aparelho aprovado? Use uma das saídas no fim desta tela.": "No other approved device? Use one of the options at the end of this screen.",
+ "Não tenho a chave de recuperação": "I don't have the recovery key"
 }

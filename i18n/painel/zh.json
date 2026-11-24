@@ -8130,5 +8130,8 @@
  "Pausar agora tudo o que o público pode enviar? Contribuições, mensagens da Alumia, anúncios, pedidos de reforço e assinaturas do boletim param até alguém reabrir.": "立即暂停公众可以提交的所有内容？投稿、Alumia消息、启事、辅导请求和简报订阅都会停止，直到有人重新开放。",
  "Quem cuida da Alumia, do Mural dos Trabalhadores e da Gaveta Aberta.": "负责Alumia、劳动者公告墙和开放抽屉的人。",
  "Segunda avaliação da Alumia": "Alumia二次审核",
- "Voto secreto com menos de 3 votos: o resultado não aparece.": "少于3票的秘密投票：不显示结果。"
+ "Voto secreto com menos de 3 votos: o resultado não aparece.": "少于3票的秘密投票：不显示结果。",
+ "Nenhum aparelho seu está aprovado agora, então não há onde ler o código. Use a chave de recuperação, se você guardou uma. Se não guardou, recomece a identidade aqui: as conversas voltam a funcionar neste aparelho, e o que foi escrito antes não abre mais.": "你现在没有任何已批准的设备，所以没有地方读取这个代码。如果你保存过恢复密钥，请使用它。如果没有，请在这里重新开始身份：对话会在这台设备上恢复使用，之前写的内容将无法再打开。",
+ "Não tem outro aparelho aprovado? Use uma das saídas no fim desta tela.": "没有其他已批准的设备？请使用本页底部的选项之一。",
+ "Não tenho a chave de recuperação": "我没有恢复密钥"
 }
