@@ -1,0 +1,18 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# A cópia de fora (Cloudflare R2), disparada por lucia-backup-banco.service quando a cópia do banco dá certo (OnSuccess=). O que
+# roda é /usr/local/sbin/lucia-copia-externa (infra/contabo/copia-externa.sh). Lê a pasta e a chave pública das cópias do mesmo
+# ajuste da cópia do banco; as credenciais do R2 ficam em /etc/lucia/copia-externa.env.
+
+[Unit]
+Description=Instituto Lucia: copia de fora (R2)
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/lucia/backup-banco.conf
+TimeoutStartSec=45min
+ExecStart=/usr/local/sbin/lucia-copia-externa
+Nice=15
+IOSchedulingClass=idle
