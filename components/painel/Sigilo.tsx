@@ -321,8 +321,14 @@ export function AparelhoPendente({ chaveiro }: { chaveiro: Chaveiro }) {
   const codigo = chaveiro.codigoDePedido;
   // Nenhum aparelho da conta aprovado (o navegador apagou a chave do único que funcionava, por exemplo): o código não tem onde ser
   // lido. A tela mostra logo as duas saídas, a chave de recuperação e o recomeço, em vez de deixá-las escondidas embaixo do QR.
-  const meus = useLista<{ id: string; estado: "aprovado" | "pendente" }[]>("chat_aparelhos_meus", {}, { quieta: true });
-  const semAprovado = Boolean(meus.dados && !meus.dados.some((aparelho) => aparelho.estado === "aprovado"));
+  const meus = useLista<{ id: string; estado: "aprovado" | "pendente"; vale_desde?: string | null }[]>("chat_aparelhos_meus", {}, { quieta: true });
+  // Este aparelho já recomeçou a identidade (ou usou a chave de recuperação) numa conta que tinha uma: o banco o segura por 24 horas
+  // antes de valer. A tela diz até quando e esconde o recomeço, que só gastaria uma tentativa e começaria a espera de novo.
+  const este = meus.dados?.find((aparelho) => aparelho.id === chaveiro.aparelho);
+  const [agora] = useState(() => Date.now());
+  const esperaAte = este?.vale_desde && Date.parse(este.vale_desde) > agora ? este.vale_desde : null;
+  const temAprovado = Boolean(meus.dados?.some((aparelho) => aparelho.estado === "aprovado"));
+  const semAprovado = Boolean(meus.dados) && !temAprovado && !esperaAte;
 
   async function recuperar() {
     setOcupado(true);
@@ -359,21 +365,25 @@ export function AparelhoPendente({ chaveiro }: { chaveiro: Chaveiro }) {
             <span aria-hidden className="pn-cabecalho-icone"><MonitorSmartphone aria-hidden /></span>
             <span>Este aparelho ainda não foi aprovado</span>
           </h2>
-          {semAprovado ? (
+          {esperaAte ? (
+            <p className="pn-cabecalho-sobre" role="status">
+              Identidade pronta neste aparelho. Por segurança, ele só passa a abrir as conversas em {dataHora(esperaAte)}, 24 horas depois do recomeço. Não precisa fazer mais nada: volte depois desse horário e as conversas abrem sozinhas. Não recomece de novo, porque isso começa a espera outra vez.
+            </p>
+          ) : semAprovado ? (
             <p className="pn-cabecalho-sobre">
-              Nenhum aparelho seu está aprovado agora, então não há onde ler o código. Use a chave de recuperação, se você guardou uma. Se não guardou, recomece a identidade aqui: as conversas voltam a funcionar neste aparelho, e o que foi escrito antes não abre mais.
+              Nenhum aparelho seu está aprovado agora, então não há onde ler o código. Use a chave de recuperação, se você guardou uma. Se não guardou, recomece a identidade aqui: as conversas voltam a funcionar neste aparelho 24 horas depois, e o que foi escrito antes não abre mais.
             </p>
           ) : (
             <p className="pn-cabecalho-sobre">
               As conversas só abrem em aparelhos que você aprovou. Abra o painel num aparelho que já funciona, vá em Conversas → Aparelhos, escolha este aparelho e digite o código abaixo (ou leia o QR). Até lá, nenhuma chave chega aqui.
             </p>
           )}
-          {!semAprovado && (
+          {!semAprovado && !esperaAte && (
             <p className="pn-cabecalho-sobre">Não tem outro aparelho aprovado? Use uma das saídas no fim desta tela.</p>
           )}
         </div>
       </div>
-      {semAprovado ? null : codigo ? (
+      {semAprovado || (esperaAte && !temAprovado) ? null : codigo ? (
         <Cartao as="div" variante="destaque" className="flex flex-wrap items-center gap-6">
           <Qr texto={qrDoPedido(codigo, chaveiro.publica)} rotulo="Código deste aparelho, para ler com a câmera de um aparelho aprovado" />
           <div>
@@ -398,11 +408,12 @@ export function AparelhoPendente({ chaveiro }: { chaveiro: Chaveiro }) {
           <Botao type="submit" variante="principal" simbolo={KeyRound} carregando={ocupado} disabled={!chaveDeRecuperacaoValida(chave)}>Recuperar</Botao>
         </form>
       </details>
-      <details className="pn-cartao pn-cartao-alerta" open={semAprovado || undefined}>
+      {!esperaAte && <details className="pn-cartao pn-cartao-alerta" open={semAprovado || undefined}>
         <summary className="flex cursor-pointer items-center gap-2 font-semibold"><ShieldAlert aria-hidden className="h-4 w-4" />{semAprovado ? "Não tenho a chave de recuperação" : "Perdi todos os aparelhos e não tenho a chave de recuperação"}</summary>
         <p className="pn-ajuda mt-2">
           Recomeçar a identidade remove todos os aparelhos antigos da conta e cria uma identidade nova neste. As conversas trocam de chave; o que foi escrito antes não abre mais aqui, e os colegas que tinham verificado você vão ver o aviso de que a sua chave de segurança mudou.
         </p>
+        <p className="pn-ajuda mt-2 font-semibold">Por segurança, este aparelho só passa a abrir as conversas 24 horas depois do recomeço. Faça isso uma vez só: recomeçar de novo começa a espera outra vez.</p>
         {confirmaRecomeco ? (
           <Botao perigo className="mt-3" simbolo={RotateCcw} carregando={ocupado} onClick={() => void recomecarIdentidade()}>
             Confirmar: recomeçar a identidade
@@ -410,7 +421,7 @@ export function AparelhoPendente({ chaveiro }: { chaveiro: Chaveiro }) {
         ) : (
           <Botao className="mt-3" simbolo={RotateCcw} onClick={() => setConfirmaRecomeco(true)}>Recomeçar a identidade</Botao>
         )}
-      </details>
+      </details>}
       <Aviso texto={aviso} />
     </div>
   );
