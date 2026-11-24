@@ -8130,5 +8130,8 @@
  "Pausar agora tudo o que o público pode enviar? Contribuições, mensagens da Alumia, anúncios, pedidos de reforço e assinaturas do boletim param até alguém reabrir.": "Приостановить сейчас всё, что может присылать публика? Вклады, сообщения «Alumia», объявления, запросы о помощи в учёбе и подписки на рассылку остановятся, пока кто-нибудь их снова не откроет.",
  "Quem cuida da Alumia, do Mural dos Trabalhadores e da Gaveta Aberta.": "Кто заботится о сообществе, «Доске трудящихся» и «Открытом ящике».",
  "Segunda avaliação da Alumia": "Вторая проверка Alumia",
- "Voto secreto com menos de 3 votos: o resultado não aparece.": "Тайное голосование, меньше 3 голосов: итог не показывается."
+ "Voto secreto com menos de 3 votos: o resultado não aparece.": "Тайное голосование, меньше 3 голосов: итог не показывается.",
+ "Nenhum aparelho seu está aprovado agora, então não há onde ler o código. Use a chave de recuperação, se você guardou uma. Se não guardou, recomece a identidade aqui: as conversas voltam a funcionar neste aparelho, e o que foi escrito antes não abre mais.": "Сейчас ни одно ваше устройство не одобрено, поэтому код негде прочитать. Используйте ключ восстановления, если вы его сохранили. Если нет, начните личность заново здесь: беседы снова заработают на этом устройстве, а написанное раньше больше не откроется.",
+ "Não tem outro aparelho aprovado? Use uma das saídas no fim desta tela.": "Нет другого одобренного устройства? Воспользуйтесь одним из вариантов внизу этого экрана.",
+ "Não tenho a chave de recuperação": "У меня нет ключа восстановления"
 }
