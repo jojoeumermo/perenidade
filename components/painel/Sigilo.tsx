@@ -319,6 +319,10 @@ export function AparelhoPendente({ chaveiro }: { chaveiro: Chaveiro }) {
   const [ocupado, setOcupado] = useState(false);
   const [confirmaRecomeco, setConfirmaRecomeco] = useState(false);
   const codigo = chaveiro.codigoDePedido;
+  // Nenhum aparelho da conta aprovado (o navegador apagou a chave do único que funcionava, por exemplo): o código não tem onde ser
+  // lido. A tela mostra logo as duas saídas, a chave de recuperação e o recomeço, em vez de deixá-las escondidas embaixo do QR.
+  const meus = useLista<{ id: string; estado: "aprovado" | "pendente" }[]>("chat_aparelhos_meus", {}, { quieta: true });
+  const semAprovado = Boolean(meus.dados && !meus.dados.some((aparelho) => aparelho.estado === "aprovado"));
 
   async function recuperar() {
     setOcupado(true);
@@ -355,12 +359,21 @@ export function AparelhoPendente({ chaveiro }: { chaveiro: Chaveiro }) {
             <span aria-hidden className="pn-cabecalho-icone"><MonitorSmartphone aria-hidden /></span>
             <span>Este aparelho ainda não foi aprovado</span>
           </h2>
-          <p className="pn-cabecalho-sobre">
-            As conversas só abrem em aparelhos que você aprovou. Abra o painel num aparelho que já funciona, vá em Conversas → Aparelhos, escolha este aparelho e digite o código abaixo (ou leia o QR). Até lá, nenhuma chave chega aqui.
-          </p>
+          {semAprovado ? (
+            <p className="pn-cabecalho-sobre">
+              Nenhum aparelho seu está aprovado agora, então não há onde ler o código. Use a chave de recuperação, se você guardou uma. Se não guardou, recomece a identidade aqui: as conversas voltam a funcionar neste aparelho, e o que foi escrito antes não abre mais.
+            </p>
+          ) : (
+            <p className="pn-cabecalho-sobre">
+              As conversas só abrem em aparelhos que você aprovou. Abra o painel num aparelho que já funciona, vá em Conversas → Aparelhos, escolha este aparelho e digite o código abaixo (ou leia o QR). Até lá, nenhuma chave chega aqui.
+            </p>
+          )}
+          {!semAprovado && (
+            <p className="pn-cabecalho-sobre">Não tem outro aparelho aprovado? Use uma das saídas no fim desta tela.</p>
+          )}
         </div>
       </div>
-      {codigo ? (
+      {semAprovado ? null : codigo ? (
         <Cartao as="div" variante="destaque" className="flex flex-wrap items-center gap-6">
           <Qr texto={qrDoPedido(codigo, chaveiro.publica)} rotulo="Código deste aparelho, para ler com a câmera de um aparelho aprovado" />
           <div>
@@ -374,7 +387,7 @@ export function AparelhoPendente({ chaveiro }: { chaveiro: Chaveiro }) {
       ) : (
         <p role="status" className={rotulo}>Preparando o código…</p>
       )}
-      <details className="pn-cartao">
+      <details className="pn-cartao" open={semAprovado || undefined}>
         <summary className="flex cursor-pointer items-center gap-2 font-semibold"><KeyRound aria-hidden className="h-4 w-4" />Tenho a chave de recuperação</summary>
         <p className="pn-ajuda mt-2">Se você guardou a chave de recuperação (oito grupos de quatro letras), ela restaura a sua identidade aqui, sem precisar de outro aparelho.</p>
         <form className="mt-3 flex flex-wrap items-end gap-2" onSubmit={(e) => { e.preventDefault(); void recuperar(); }}>
@@ -385,8 +398,8 @@ export function AparelhoPendente({ chaveiro }: { chaveiro: Chaveiro }) {
           <Botao type="submit" variante="principal" simbolo={KeyRound} carregando={ocupado} disabled={!chaveDeRecuperacaoValida(chave)}>Recuperar</Botao>
         </form>
       </details>
-      <details className="pn-cartao pn-cartao-alerta">
-        <summary className="flex cursor-pointer items-center gap-2 font-semibold"><ShieldAlert aria-hidden className="h-4 w-4" />Perdi todos os aparelhos e não tenho a chave de recuperação</summary>
+      <details className="pn-cartao pn-cartao-alerta" open={semAprovado || undefined}>
+        <summary className="flex cursor-pointer items-center gap-2 font-semibold"><ShieldAlert aria-hidden className="h-4 w-4" />{semAprovado ? "Não tenho a chave de recuperação" : "Perdi todos os aparelhos e não tenho a chave de recuperação"}</summary>
         <p className="pn-ajuda mt-2">
           Recomeçar a identidade remove todos os aparelhos antigos da conta e cria uma identidade nova neste. As conversas trocam de chave; o que foi escrito antes não abre mais aqui, e os colegas que tinham verificado você vão ver o aviso de que a sua chave de segurança mudou.
         </p>
