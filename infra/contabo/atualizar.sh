@@ -19,6 +19,11 @@ flock -n 9 || { echo "Outra atualização em andamento."; exit 0; }
 
 # Com limite de tempo: um download preso seguraria a trava e nenhuma versão nova entraria. 45 minutos (eram 15): a imagem
 # passa de 11 GB, e com 15 minutos o download era cortado no meio várias vezes seguidas antes de entrar.
+# As camadas da imagem vêm de pkg-containers.githubusercontent.com, que também responde por IPv6 (2606:50c0::/32). Daqui, pelo
+# IPv6, a conexão cai no meio do download ("connection reset by peer"): em 24/11/2026 foram 25 tentativas seguidas sem nenhuma
+# versão entrar. Com a faixa do GitHub inalcançável pelo IPv6, o Docker vai direto pelo IPv4, que funciona; o resto do IPv6 da
+# VPS não muda. Posta a cada rodada porque uma rota assim some quando a rede é refeita (reinício, troca de configuração).
+ip -6 route replace unreachable 2606:50c0::/32 2> /dev/null || true
 timeout 2700 docker pull -q "$IMAGEM:$ALVO" > /dev/null
 nova=$(docker image inspect -f '{{.Id}}' "$IMAGEM:$ALVO")
 
