@@ -29,7 +29,7 @@ export interface AulaDaJornada {
 export function Barra({ feitas, total, rotulo }: { feitas: number; total: number; rotulo: string }) {
   const pct = total ? Math.round((feitas / total) * 100) : 0;
   return (
-    <div className="app-barra" role="progressbar" aria-label={rotulo} aria-valuemin={0} aria-valuemax={total} aria-valuenow={feitas}>
+    <div className="app-progresso" role="progressbar" aria-label={rotulo} aria-valuemin={0} aria-valuemax={total} aria-valuenow={feitas}>
       <span style={{ width: `${pct}%` }} />
     </div>
   );

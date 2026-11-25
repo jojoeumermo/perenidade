@@ -582,7 +582,7 @@
   text-transform: uppercase;
   color: var(--texto-meio, #4a4034);
 }
-.app-barra {
+.app-progresso {
   height: 0.4rem;
   margin-top: 0.45rem;
   overflow: hidden;
@@ -590,7 +590,7 @@
   border-radius: 999px;
   background: var(--parchment);
 }
-.app-barra span {
+.app-progresso span {
   display: block;
   height: 100%;
   background: #c21f16;
