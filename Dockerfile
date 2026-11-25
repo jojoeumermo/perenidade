@@ -11,7 +11,7 @@
 # ---- 1. Montagem -----------------------------------------------------------------------------------------------------
 # A imagem de base vai fixada pelo resumo (@sha256), não só pela etiqueta: a etiqueta pode passar a apontar para outra imagem.
 # O dependabot (ecossistema docker) propõe a troca do resumo quando sai uma imagem nova.
-FROM node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54 AS montagem
+FROM node:25-bookworm-slim@sha256:81db02c4b671288a03915da9534dbd54f96d0e7c24d80ccc54f5b36b2e684370 AS montagem
 ENV NEXT_TELEMETRY_DISABLED=1 \
     NEXT_OUTPUT_STANDALONE=1 \
     NODE_OPTIONS=--max-old-space-size=8192
@@ -37,7 +37,7 @@ RUN npm run build
 RUN rm -rf .next/standalone/public .next/standalone/content .next/standalone/historico .next/standalone/docs  && node scripts/imagem-juntar-iguais.mjs .next/standalone/.next/server/app
 
 # ---- 2. O site no ar -------------------------------------------------------------------------------------------------
-FROM node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54 AS site
+FROM node:25-bookworm-slim@sha256:81db02c4b671288a03915da9534dbd54f96d0e7c24d80ccc54f5b36b2e684370 AS site
 LABEL org.opencontainers.image.source="https://github.com/jojoeumermo/perenidade" \
       org.opencontainers.image.description="Instituto Lúcia: escola livre e gratuita" \
       org.opencontainers.image.licenses="AGPL-3.0-or-later"
