@@ -77,6 +77,7 @@ igual("Alumia: área do caminho", areaDoCaminho("/alumia/organizacoes"), "comuni
 // O aplicativo instalado: as abas que mostram conteúdo de uma área fecham com ela, direto ou pelo idioma; o início e o Eu só fecham com o site todo.
 const soEstudo = { geral: false, areas: ["estudo"], mensagem: "" };
 const soFerramentas = { geral: false, areas: ["ferramentas"], mensagem: "" };
+igual("app: o caderno do app fecha com ferramentas e a busca do app com estudo", [fechado("/pt/app/eu/caderno", soFerramentas), fechado("/pt/app/eu/caderno", soEstudo), fechado("/pt/app/estudar/buscar", soEstudo), fechado("/pt/app/eu", soFerramentas)], ["ferramentas", null, "estudo", null]);
 igual("app: /app/estudar fecha com a área estudo", [fechado("/pt/app/estudar", soEstudo), fechado("/en/app/estudar", soEstudo)], ["estudo", "estudo"]);
 igual("app: /app/jogos fecha com a área ferramentas", [fechado("/pt/app/jogos", soFerramentas), fechado("/es/app/jogos", soFerramentas)], ["ferramentas", "ferramentas"]);
 igual("app: estudo fechado não fecha jogos, início nem Eu", ["/pt/app/jogos", "/pt/app", "/pt/app/eu"].map((c) => fechado(c, soEstudo)), [null, null, null]);

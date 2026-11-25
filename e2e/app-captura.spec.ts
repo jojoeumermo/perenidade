@@ -312,9 +312,10 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
 
   test("auditoria: telas do app sem 'Voltar ao site' nem link para /alumia", async ({ page }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
-    for (const caminho of ["/pt/app", "/pt/app/estudar", "/pt/app/jogos", "/pt/app/eu", "/pt/app/estudar/enem", "/pt/app/estudar/enem/enem-como-funciona", "/pt/app/estudar/enem/enem-como-funciona/como-funciona-o-enem"]) {
+    for (const caminho of ["/pt/app", "/pt/app/estudar", "/pt/app/jogos", "/pt/app/eu", "/pt/app/eu/caderno", "/pt/app/estudar/enem", "/pt/app/estudar/enem/enem-como-funciona", "/pt/app/estudar/enem/enem-como-funciona/como-funciona-o-enem"]) {
       await page.goto(caminho);
       await page.waitForLoadState("networkidle");
+      if (caminho === "/pt/app/eu/caderno") await foto(page, "app-caderno");
       if (caminho === "/pt/app/estudar/enem") await foto(page, "app-enem-porta");
       if (caminho.endsWith("/como-funciona-o-enem")) await foto(page, "app-enem-aula");
       const texto = await page.locator("body").innerText();
