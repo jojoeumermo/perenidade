@@ -9,8 +9,6 @@ import "../celular.css";
 import "../app-casca.css";
 // A experiência própria do aplicativo instalado (rotas /app, barras novas, sem a Alumia): só vale com <html data-app>.
 import "../app-instalado.css";
-// A experiência própria do aplicativo instalado (rotas /app, barras novas, sem a Alumia): só vale com <html data-app>.
-// A experiência própria do aplicativo instalado (rotas /app, barras novas, sem a Alumia): só vale com <html data-app>.
 // O redesign "Caderno aberto" (Prompt 5, E1): só vale com o recurso "design-novo" ligado e sem "Contornos fortes".
 import "@/styles/design/instituto.css";
 // Aparelhos fracos (Prompt 5, E7): menos movimento e o modo leve sem vidro nem sombra, fora da Alumia.
