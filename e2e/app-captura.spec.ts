@@ -139,10 +139,9 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.locator(".shell-acoes a").first().click();
     await page.waitForURL(/\/app\/estudar\/buscar/);
     await page.locator('input[type="search"], input[type="text"]').first().fill("pré-história");
-    await page.waitForTimeout(800);
-    await foto(page, "app-busca-resultados");
     const aula = page.locator('a[href*="/app/estudar/ir/"]').first();
-    await expect(aula).toBeVisible();
+    await expect(aula).toBeVisible({ timeout: 20000 });
+    await foto(page, "app-busca-resultados");
     await aula.click();
     await page.waitForURL((u) => /\/app\/estudar\/[^/]+\/[^/]+(\/[^/]+)?$/.test(u.pathname) && !u.pathname.includes("/estudar/ir/"));
     await page.waitForLoadState("networkidle");
