@@ -229,6 +229,49 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "eu-depois-da-alumia");
   });
 
+  test("navegador do celular: decisão do visual no início, no reload, no voltar e ao girar/redimensionar", async ({ page }) => {
+    test.skip(v.id !== "navegador", "só no navegador");
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    const sonda = async (rotulo: string) => {
+      const r = await page.evaluate(() => ({
+        app: document.documentElement.hasAttribute("data-app"),
+        coarse: matchMedia("(pointer: coarse)").matches,
+        anyCoarse: matchMedia("(any-pointer: coarse)").matches,
+        hoverNone: matchMedia("(hover: none)").matches,
+        larg: matchMedia("(max-width: 768px)").matches,
+        pontos: navigator.maxTouchPoints,
+        tela: `${screen.width}x${screen.height}`,
+        janela: `${innerWidth}x${innerHeight}`,
+      }));
+      console.log(`SONDA ${rotulo} ${JSON.stringify(r)}`);
+      return r;
+    };
+    await page.goto("/pt/app");
+    await page.waitForLoadState("networkidle");
+    expect((await sonda("carga /pt/app")).app).toBe(true);
+    await page.goto("/pt/trilhas");
+    await page.waitForLoadState("networkidle");
+    expect((await sonda("carga /pt/trilhas (site)")).app).toBe(true);
+    await page.reload();
+    await page.waitForLoadState("networkidle");
+    expect((await sonda("reload")).app).toBe(true);
+    await page.goBack();
+    await page.waitForLoadState("networkidle");
+    expect((await sonda("voltar")).app).toBe(true);
+    await page.setViewportSize({ width: 844, height: 390 });
+    await page.waitForTimeout(500);
+    const girado = await sonda("girado 844x390");
+    await page.goto("/pt/app/estudar");
+    await page.waitForLoadState("networkidle");
+    const girado2 = await sonda("girado, página nova");
+    await foto(page, "girado-844x390");
+    console.log(`SONDA resumo girado: antes=${girado.app} nova=${girado2.app}`);
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/pt/trilhas");
+    await page.waitForLoadState("networkidle");
+    await sonda("janela 1280x800");
+  });
+
   test("auditoria: telas do app sem 'Voltar ao site' nem link para /alumia", async ({ page }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     for (const caminho of ["/pt/app", "/pt/app/estudar", "/pt/app/jogos", "/pt/app/eu", "/pt/app/estudar/enem", "/pt/app/estudar/enem/enem-como-funciona", "/pt/app/estudar/enem/enem-como-funciona/como-funciona-o-enem"]) {
