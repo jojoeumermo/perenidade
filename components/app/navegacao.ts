@@ -23,6 +23,8 @@ export interface Roteador {
 export function voltarOuSubir(roteador: Roteador, pathname: string, lang: string, historico: { length: number } = window.history): "voltou" | "subiu" | "raiz" {
   const trechos = trechosDoEndereco(pathname);
   if (trechos.length === 0) return "raiz";
+  // A raiz da experiência do aplicativo instalado (/app) é como a raiz do site: não há "voltar" nela.
+  if (trechos[0] === "app" && trechos.length === 1) return "raiz";
   if (andou && historico.length > 1) {
     roteador.back();
     return "voltou";

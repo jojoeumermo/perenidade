@@ -1,0 +1,563 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+
+/* ───── A experiência própria do aplicativo instalado (app/[lang]/app/..., components/app/ShellDoApp.tsx) ─────
+   Vale só com <html data-app> (lib/prefs-script.ts põe o atributo antes da primeira pintura: site instalado, WebView
+   ou TWA). No navegador — celular ou computador — NADA daqui aparece: os elementos saem escondidos e as regras não
+   casam. Fora do leitor de tinta (data-leitor), que continua com o desenho de livro.
+   Cores sempre pelas variáveis do site (papel, tinta, o vermelho do prelo): tema escuro, contraste e os modos de
+   acessibilidade continuam mandando. Sem desfoque nem sombra animada: precisa rodar liso em celular simples. */
+
+/* O portão: fora do aplicativo, a área /app não existe na tela; dentro dele, o aviso de "abra o site" some. */
+.so-no-app,
+.shell-do-app {
+  display: none;
+}
+.aviso-abrir-site {
+  margin: 3rem auto;
+  max-width: 30rem;
+  padding: 0 1.25rem;
+  text-align: center;
+  font: 500 1.05rem/1.5 var(--font-serif, Georgia, serif);
+}
+.aviso-abrir-site a {
+  color: #c21f16;
+  font-weight: 700;
+}
+
+:root[data-app] .aviso-abrir-site {
+  display: none;
+}
+
+:root[data-app]:not([data-leitor]) .so-no-app {
+  display: block;
+}
+
+/* ───── O chrome do aplicativo: as barras novas entram; as do site/casca saem ─────
+   A casca (CascaDoApp) continua ativa: gesto de voltar, transições e marcas em <html>. Só as barras trocam. Na folha da
+   aula a barra do celular fica: ela tem o ouvir, a letra e a régua de leitura, e a minha barra de cima sai. */
+:root[data-app]:not([data-leitor]) .app-casca-abas {
+  display: none !important;
+}
+:root[data-app]:not([data-leitor]) .barra-do-celular {
+  display: none !important;
+}
+:root[data-app]:not([data-leitor]) body:has(.folha-da-aula) .barra-do-celular {
+  display: block !important;
+}
+:root[data-app]:not([data-leitor]) body:has(.folha-da-aula) .shell-topo {
+  display: none;
+}
+
+/* Na folha da aula a barra de cima do app sai (a folha tem a própria): sem ela, sem o respiro dela também. */
+:root[data-app]:not([data-leitor]) body:has(.folha-da-aula) main#conteudo {
+  padding-top: 0;
+}
+
+:root[data-app]:not([data-leitor]) .shell-do-app {
+  display: block;
+}
+
+/* A barra de cima: papel com fio de tinta, a marca à esquerda (ou o voltar), o título no meio e a busca à direita. */
+.shell-topo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 3.5rem;
+  padding: calc(env(safe-area-inset-top, 0px) + 0.35rem) 0.75rem 0.35rem;
+  background: var(--parchment);
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink);
+  -webkit-user-select: none;
+  user-select: none;
+}
+.shell-marca {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: inherit;
+  text-decoration: none;
+}
+.shell-marca img {
+  border-radius: 0.45rem;
+}
+.shell-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 999px;
+  color: inherit;
+  cursor: pointer;
+}
+.shell-icone:active {
+  background: rgb(0 0 0 / 0.08);
+}
+.shell-titulo {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.15s ease-out;
+}
+.shell-titulo[data-visivel] {
+  opacity: 1;
+}
+.shell-topo[data-raiz] .shell-titulo {
+  display: none;
+}
+.shell-acoes {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+/* As abas de baixo: barra flutuante de tinta, quatro abas (sem a Alumia), a aberta com a pílula vermelha. */
+.shell-abas {
+  position: fixed;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: calc(0.6rem + var(--recuo-baixo));
+  z-index: 30;
+  max-width: 30rem;
+  margin: 0 auto;
+  border: 2px solid var(--borda-forte, #1f1a14);
+  border-radius: 1.35rem;
+  background: var(--ink);
+  color: var(--parchment);
+  box-shadow: 0 6px 0 rgb(0 0 0 / 0.28);
+}
+.shell-abas ul {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0.3rem;
+  list-style: none;
+}
+.shell-abas a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  min-height: 3.4rem;
+  padding: 0.35rem 0.25rem;
+  border-radius: 1rem;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1;
+  color: inherit;
+  text-decoration: none;
+}
+.shell-abas a[data-aberta] {
+  background: #c21f16;
+  color: #fff;
+  font-weight: 800;
+}
+.shell-abas a:not([data-aberta]):active {
+  background: rgb(255 255 255 / 0.12);
+}
+
+/* O conteúdo termina acima da barra flutuante. */
+:root[data-app]:not([data-leitor]) main#conteudo {
+  padding-top: calc(3.75rem + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(6rem + var(--recuo-baixo)) !important;
+}
+
+/* ───── O Início do aplicativo ───── */
+.app-inicio {
+  max-width: 30rem;
+  margin: 0 auto;
+  padding-bottom: 0.5rem;
+}
+.app-saudacao {
+  padding: 1.25rem 1rem 0;
+}
+.app-saudacao-data {
+  margin: 0;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--texto-meio, #4a4034);
+}
+.app-saudacao-ola {
+  margin: 0.35rem 0 0;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.05;
+}
+.app-saudacao-ola em {
+  color: #c21f16;
+}
+
+.app-busca {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1rem 1rem 0;
+  padding-left: 1rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--folha, #fbf6e9);
+  color: var(--ink);
+}
+.app-busca svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  color: var(--texto-meio, #4a4034);
+}
+.app-busca input {
+  min-width: 0;
+  flex: 1;
+  padding: 0.8rem 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 1rem;
+  color: inherit;
+  outline: none;
+}
+.app-busca button {
+  margin: 0.25rem;
+  padding: 0.5rem 1.15rem;
+  border: 0;
+  border-radius: 999px;
+  background: #c21f16;
+  color: #fff;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.app-continuar {
+  padding: 1rem 1rem 0;
+}
+.app-cartao {
+  display: block;
+  border-radius: 1.25rem;
+  padding: 1.1rem 1.15rem;
+  text-decoration: none;
+}
+.app-cartao-tinta {
+  border: 1.5px solid var(--borda-forte, #1f1a14);
+  background: #1f1a14;
+  color: #f4ecd8;
+  box-shadow: 4px 4px 0 #c21f16;
+}
+.app-cartao-rotulo {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #e0837a;
+}
+.app-cartao-titulo {
+  display: block;
+  margin-top: 0.4rem;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+.app-cartao-titulo-menor {
+  font-size: 1.25rem;
+}
+.app-cartao-aux {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.92rem;
+  color: #d9ccac;
+}
+.app-cartao-pe {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+}
+.app-pontos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+.app-pontos span {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: #c21f16;
+}
+.app-botao {
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: #c21f16;
+  padding: 0.5rem 1.1rem;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #fff;
+}
+.app-resumo {
+  margin: 0.6rem 0 0;
+  padding: 0 0.25rem;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.8rem;
+  color: var(--texto-meio, #4a4034);
+}
+
+.app-inicio .aula-do-dia {
+  margin: 1rem 1rem 0;
+}
+
+.app-secao {
+  margin-top: 1.5rem;
+}
+.app-secao-cabeca {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 1rem 0.6rem;
+}
+.app-titulo-secao {
+  margin: 0;
+  padding: 0 1rem 0.6rem;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.app-secao-cabeca .app-titulo-secao {
+  padding: 0;
+}
+.app-titulo-secao::before {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 4px;
+  margin-bottom: 0.5rem;
+  background: #c21f16;
+}
+.app-secao-cabeca .app-titulo-secao::before {
+  display: none;
+}
+.app-ver-tudo {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #c21f16;
+  text-decoration: none;
+}
+
+/* A fileira de estantes (cadernos), correndo de lado. */
+.app-estantes {
+  display: flex;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0 1rem 0.75rem;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.app-estantes li {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+.app-estantes .caderno {
+  display: flex;
+  flex-direction: column;
+  width: 8.75rem;
+  height: 11rem;
+  text-decoration: none;
+}
+.caderno-etapa {
+  padding: 0.75rem 0.6rem 0 1.75rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.caderno-nome {
+  display: block;
+  margin: 0.6rem 0.6rem 0 1.75rem;
+  padding: 0.35rem 0.5rem;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.05;
+}
+.caderno-aulas {
+  margin-top: auto;
+  padding: 0 0.6rem 0.75rem 1.75rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* A grade de atalhos e o muro reaproveitam o desenho do celular; aqui só os respiros do aplicativo. */
+.app-secao > nav[aria-label] {
+  padding: 0 1rem;
+}
+.app-secao .lambe-papel,
+.app-secao > section {
+  margin: 0 1rem;
+}
+
+/* ───── Avisos, temas e modos de acessibilidade ───── */
+/* Os avisos de rede sobem acima da barra flutuante. */
+:root[data-app] .aviso-rede {
+  bottom: calc(5.4rem + var(--recuo-baixo));
+}
+
+/* Contraste, e-ink e leitor de tinta: a barra de tinta vira papel com contorno, como as abas do site. */
+:root[data-app]:is([data-contrast], [data-eink]) .shell-abas {
+  background: var(--parchment) !important;
+  color: var(--ink) !important;
+  border-color: var(--ink) !important;
+  box-shadow: none;
+}
+:root[data-app]:is([data-contrast], [data-eink]) .shell-abas a[data-aberta] {
+  background: var(--ink) !important;
+  color: var(--parchment) !important;
+}
+:root[data-app]:is([data-contrast], [data-eink]) .app-cartao-tinta {
+  background: var(--parchment) !important;
+  color: var(--ink) !important;
+  box-shadow: none;
+}
+:root[data-app]:is([data-contrast], [data-eink]) .app-cartao-tinta :is(.app-cartao-rotulo, .app-cartao-aux) {
+  color: var(--ink) !important;
+}
+
+/* O aviso de "a Alumia não abre no aplicativo" no desenho novo. */
+:root[data-app]:not([data-leitor]) .al-fora-do-app {
+  min-height: 70dvh;
+  padding-bottom: calc(6rem + var(--recuo-baixo));
+}
+
+/* ───── Os hubs do aplicativo (Estudar, Jogos, Eu) ───── */
+.app-hub {
+  max-width: 30rem;
+  margin: 0 auto;
+  padding-bottom: 0.5rem;
+}
+.app-hub-cabeca {
+  padding: 1.25rem 1rem 0;
+}
+.app-hub-cabeca h1 {
+  margin: 0;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.9rem;
+  font-weight: 600;
+  line-height: 1.08;
+}
+.app-hub-cabeca h1::before {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 4px;
+  margin-bottom: 0.55rem;
+  background: #c21f16;
+}
+.app-hub-cabeca p {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--texto-meio, #4a4034);
+}
+
+/* A lista de disciplinas do Estudar. */
+.app-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0 1rem;
+  list-style: none;
+}
+.app-item-lista {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3.75rem;
+  padding: 0.6rem 0.9rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 1rem;
+  background: var(--folha, #fbf6e9);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: 2px 2px 0 var(--sombra, rgb(0 0 0 / 0.2));
+}
+.app-item-lista:active {
+  box-shadow: none;
+  transform: translate(1px, 1px);
+}
+.app-item-texto {
+  min-width: 0;
+  flex: 1;
+}
+.app-item-titulo {
+  display: block;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.app-item-aux {
+  display: block;
+  margin-top: 0.1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.8rem;
+  color: var(--texto-meio, #4a4034);
+}
+.app-item-num {
+  flex-shrink: 0;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--texto-meio, #4a4034);
+}
+
+/* A aba Jogos: a entrada de Laboratórios em cima; a tela de jogos reaproveitada perde o cabeçalhão de página. */
+.app-atalho-labs {
+  margin: 1rem 1rem 0;
+}
+.app-hub-jogos > div:first-child,
+.app-hub-jogos > section:first-child {
+  margin-top: 0;
+}
+.app-atalho-enem {
+  margin: 1rem 1rem 0;
+}
