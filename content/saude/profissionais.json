@@ -16,6 +16,23 @@
       "foto": "/saude/jessica-correia.webp",
       "autorizado_em": "2026-10-20",
       "termo_versao": "2026-10-25"
+    },
+    {
+      "id": "fernanda-jose-maria",
+      "nome": "Fernanda J. Maria",
+      "profissao": "Psicóloga",
+      "conselho": "CRP",
+      "uf": "RJ",
+      "registro": "05/62958",
+      "abordagem": "",
+      "areas": [],
+      "modalidade": null,
+      "bio": "",
+      "contatos": { "instagram": "fernandajmarianeuropsi" },
+      "foto": "/saude/fernanda-jose-maria.webp",
+      "autorizado_em": "2026-11-23",
+      "termo_versao": null,
+      "aceite_dispensado": { "por": "Jonathan Santos, coordenador-geral do Instituto Lúcia", "em": "2026-11-23" }
     }
   ]
 }
