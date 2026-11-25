@@ -730,3 +730,40 @@
   color: var(--ink);
   font: 700 0.85rem/1 var(--font-sans, system-ui, sans-serif);
 }
+
+/* Eu: números em linha e o painel completo recolhido. */
+.app-numeros {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin: 0.8rem 1rem 0;
+  padding: 0;
+  list-style: none;
+}
+.app-numeros li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.7rem 0.6rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 0.9rem;
+  background: var(--folha, #fbf6e9);
+}
+.app-numeros strong {
+  font: 700 1.5rem/1 var(--font-serif, Georgia, serif);
+}
+.app-numeros span {
+  font: 0.72rem/1.25 var(--font-sans, system-ui, sans-serif);
+  color: var(--texto-meio, #4a4034);
+}
+.app-mais {
+  margin: 1.2rem 1rem 0;
+}
+.app-mais > summary {
+  min-height: 2.75rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font: 700 0.95rem/1.2 var(--font-sans, system-ui, sans-serif);
+  color: #c21f16;
+}

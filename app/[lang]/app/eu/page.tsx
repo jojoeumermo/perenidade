@@ -16,8 +16,7 @@ import { matrizDoEnem } from "@/lib/enem-conteudo";
 import { ligado } from "@/lib/recursos";
 import { textosDoEstudo } from "@/lib/textos-estudo";
 import { textosDoAppNovo } from "@/components/app/textos-app";
-import { ResumoDeProgresso } from "@/components/app/jornada";
-import { getTracks } from "@/lib/content";
+import { EuDoApp as ResumoDoEu } from "@/components/app/eu";
 
 export const revalidate = 3600;
 
@@ -30,7 +29,6 @@ export default async function EuDoApp({ params }: PageProps<"/[lang]/app/eu">) {
   const { lang, t } = await loadLang(params);
   const { s, traduzido } = textosDoEstudo(lang);
   const n = textosDoAppNovo(lang);
-  const totalDeAulas = getTracks(lang).reduce((soma, tr) => soma + tr.lessons.length, 0);
   return (
     <div className="app-hub">
       <header className="app-hub-cabeca">
@@ -38,13 +36,15 @@ export default async function EuDoApp({ params }: PageProps<"/[lang]/app/eu">) {
         <p>{n.euLead}</p>
       </header>
       <Untranslated lang={lang} t={t} show={!traduzido} />
-      <ResumoDeProgresso total={totalDeAulas} continuar="/app/estudar" />
+      <ResumoDoEu s={s.meuEstudo} />
       {ligado("enem-curso") && (
         <Link href={localePath(lang, "/enem")} className="app-cartao app-cartao-tinta app-atalho-enem">
           <span className="app-cartao-titulo app-cartao-titulo-menor">{s.enem.irParaCurso} →</span>
         </Link>
       )}
       <RegistroDeConclusao />
+      <details className="app-mais">
+        <summary>{n.maisDoEstudo}</summary>
       <MeuEstudo
         s={s.meuEstudo}
         caderno={t.notebook}
@@ -58,6 +58,7 @@ export default async function EuDoApp({ params }: PageProps<"/[lang]/app/eu">) {
           </>
         }
       />
+      </details>
       {/* No aplicativo o convite ao apoio não abre sozinho na primeira tela (components/OpeningNotice.tsx): ele mora aqui. */}
       <Link href={localePath(lang, "/apoie")} className="app-cartao app-atalho-apoiar">
         <span className="app-cartao-titulo app-cartao-titulo-menor">{n.apoiar}</span>

@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { L } from "@/components/I18n";
-import { ContinuarDoApp } from "@/components/app/inicio";
+import { RetomarEstudo } from "@/components/app/jornada";
 import { textosDoAppNovo } from "@/components/app/textos-app";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
@@ -40,7 +40,7 @@ export default async function EstudarDoApp({ params }: PageProps<"/[lang]/app/es
         <p>{n.estudarLead}</p>
       </header>
 
-      <ContinuarDoApp textos={{ continuar: t.tracks.continue, retomar: t.tracks.resume, comecar: t.nav.start, comecarTexto: t.home.startText }} />
+      <RetomarEstudo />
 
       <form action={localePath(lang, "/busca")} role="search" className="app-busca">
         <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
