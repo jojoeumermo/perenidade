@@ -33,7 +33,10 @@ igual("versão do termo da Gaveta: site = banco", versaoNoSite, versaoNoBanco);
 const gerais = ["sobre", "guia", "privacidade", "termos", "status", "seguranca-digital", "certificado", "meus-dados", "historico", "explorar", "painel", "entrar", "fora-do-ar", "quem-somos", "creditos", "original", "por-onde-andei", "modo-seguro",
   // Onda R3: a transparência (relatórios, pedidos de órgãos públicos, canário) fica sempre aberta, como a privacidade: uma área
   // que a coordenação pudesse fechar faria o canário sumir sem aviso.
-  "transparencia"];
+  "transparencia",
+  // A casca do aplicativo instalado (/app, /app/estudar, /app/jogos, /app/eu): só reúne e leva às áreas, cada uma fecha pelo seu
+  // próprio caminho; o site inteiro fora do ar (interdição geral) fecha o /app junto.
+  "app"];
 // "por-onde-andei" é o histórico pessoal (fica no aparelho) e "modo-seguro" é a saída segura: nenhum dos dois pode
 // fechar quando a busca ou uma área for interditada (Etapa 4, E4-05).
 for (const pasta of fs.readdirSync(path.join(raiz, "app/[lang]"), { withFileTypes: true })) {
