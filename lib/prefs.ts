@@ -164,9 +164,16 @@ export function aparelhoFraco(): boolean {
  * (<html data-app>), mas continua sendo o navegador: a Alumia segue acessível (sem data-sem-alumia). Mesma conta do script
  * inline (lib/prefs-script.ts).
  */
+let toqueGuardado: boolean | null = null;
+/** O aparelho é de toque? Decidido UMA vez por carga da página (como no script inline): um aparelho não troca de ponteiro no meio da leitura. */
+function toqueNaCarga(): boolean {
+  if (toqueGuardado === null) toqueGuardado = window.matchMedia("(pointer: coarse)").matches;
+  return toqueGuardado;
+}
+
 export function celularNoNavegador(): boolean {
   if (typeof window === "undefined") return false;
-  return !naAlumia() && window.matchMedia("(pointer: coarse)").matches && Math.min(window.screen.width, window.screen.height) <= 768 && !readerDevice.test(navigator.userAgent);
+  return !naAlumia() && toqueNaCarga() && Math.min(window.screen.width, window.screen.height) <= 768 && !readerDevice.test(navigator.userAgent);
 }
 
 /** A página é da Alumia (endereço próprio ou /<idioma>/alumia)? A mesma conta do script inline (lib/prefs-script.ts). */
