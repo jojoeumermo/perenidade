@@ -157,7 +157,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/estudar/enem/enem-por-area/ciencias-humanas-filosofia-e-sociologia");
     await page.waitForLoadState("networkidle");
-    const bloco = page.locator("#questoes-oficiais");
+    const bloco = page.locator('section[aria-labelledby="questoes-oficiais"]');
     await expect(bloco).toHaveCount(1);
     await bloco.scrollIntoViewIfNeeded();
     await foto(page, "app-enem-questoes");
