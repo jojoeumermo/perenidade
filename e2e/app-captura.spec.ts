@@ -132,6 +132,27 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     }
   });
 
+  test("busca própria do app: digitar, abrir aula no leitor do app, voltar", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/estudar");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".shell-acoes a").first().click();
+    await page.waitForURL(/\/app\/estudar\/buscar/);
+    await page.locator('input[type="search"], input[type="text"]').first().fill("pré-história");
+    await page.waitForTimeout(800);
+    await foto(page, "app-busca-resultados");
+    const aula = page.locator('a[href*="/app/estudar/ir/"]').first();
+    await expect(aula).toBeVisible();
+    await aula.click();
+    await page.waitForURL(/\/app\/estudar\/[^/]+\/[^/]+(\/[^/]+)?$/);
+    expect(page.url()).not.toContain("/estudar/ir/");
+    console.log(`BUSCA abriu ${page.url()} data-app=${await atributo(page, "data-app")}`);
+    await foto(page, "app-busca-aberto");
+    await page.goBack();
+    await page.waitForURL(/\/app\/estudar\/buscar/);
+    await expect(page.locator(".shell-abas, .shell-topo").first()).toBeVisible();
+  });
+
   test("jornada própria: disciplina, trilha, aula, concluir, progresso", async ({ page }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/estudar");

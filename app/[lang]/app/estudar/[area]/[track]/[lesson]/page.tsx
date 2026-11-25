@@ -41,6 +41,7 @@ export default async function AulaDoApp({ params }: PageProps<"/[lang]/app/estud
   const { area, track: trackSlug, lesson: lessonSlug } = await params;
   const track = getTrack(trackSlug, lang);
   const index = track?.lessons.findIndex((l) => l.slug === lessonSlug) ?? -1;
+  if (track && index >= 0 && area === "ir" && !areaNaEscola(track.area)) redirect(localePath(lang, `/app/estudar/${track.area}/${track.slug}/${lessonSlug}`));
   if (!track || index < 0 || track.area !== area || areaNaEscola(track.area)) notFound();
   const caminho = (slug: string) => `/app/estudar/${area}/${track.slug}/${slug}`;
   const lesson = track.lessons[index];

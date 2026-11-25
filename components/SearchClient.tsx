@@ -18,7 +18,10 @@ const ORDEM_DOS_TIPOS = ["pagina", "trilha", "aula", "obra", "autor", "verbete",
 const ordemDoTipo = (tipo: string) => (ORDEM_DOS_TIPOS.includes(tipo) ? ORDEM_DOS_TIPOS.indexOf(tipo) : ORDEM_DOS_TIPOS.length);
 const chip = (ativo: boolean) => `cursor-pointer border-2 border-ink px-3 py-1.5 font-semibold ${ativo ? "bg-ink text-parchment" : "bg-parchment hover:border-oxblood hover:text-oxblood"}`;
 
-export function SearchClient() {
+/** No app, aulas e trilhas abrem no leitor do app (o "ir" deixa a página achar a disciplina); o resto segue para o site. */
+const noApp = (href: string) => (href.startsWith("/trilhas/") ? href.replace("/trilhas/", "/app/estudar/ir/") : href);
+
+export function SearchClient({ app = false }: { app?: boolean } = {}) {
   const { lang, t } = useI18n();
   const textosDaBusca = useTextosDaBusca();
   const params = useSearchParams();
@@ -123,7 +126,7 @@ export function SearchClient() {
               <ul className="divide-y divide-rule">
                 {vistos.map(({ entry, snippet }) => (
                   <li key={entry.href}>
-                    <L href={entry.href} className="group block py-4">
+                    <L href={app ? noApp(entry.href) : entry.href} className="group block py-4">
                       {(entry.area || entry.context) && <p className="font-mono text-xs text-gold">{[entry.area, entry.context].filter(Boolean).join(" · ")}</p>}
                       <p className="mt-1 text-xl font-semibold group-hover:text-oxblood">{entry.title}</p>
                       <p className="mt-1 line-clamp-2 text-ink-soft">{snippet}</p>
