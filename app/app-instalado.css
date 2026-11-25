@@ -955,3 +955,23 @@
   font-size: 0.9rem;
   line-height: 1.35;
 }
+
+/* Estados do app: carregando, erro (com "tentar de novo") e vazio. */
+.app-estado {
+  margin: 1.25rem 0;
+  padding: 1rem 1.1rem;
+  border: 1.5px dashed #1f1a14;
+  border-radius: 1rem;
+  background: #f1ebde;
+  font: 400 0.95rem/1.45 var(--font-sans, system-ui, sans-serif);
+}
+.app-estado p {
+  margin: 0;
+}
+.app-estado-erro {
+  border-style: solid;
+  border-color: #c21f16;
+}
+.app-estado-carregando {
+  opacity: 0.8;
+}

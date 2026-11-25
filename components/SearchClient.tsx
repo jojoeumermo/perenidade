@@ -28,9 +28,11 @@ export function SearchClient({ app = false }: { app?: boolean } = {}) {
   const [query, setQuery] = useState(params.get("q") ?? "");
   const [entries, setEntries] = useState<SearchEntry[] | null>(null);
   const [failed, setFailed] = useState(false);
+  const [tentativa, setTentativa] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
+    setFailed(false);
     fetch(localePath(lang, "/indice.json"))
       .then((response) => {
         if (!response.ok) throw new Error(String(response.status));
@@ -45,7 +47,7 @@ export function SearchClient({ app = false }: { app?: boolean } = {}) {
     return () => {
       cancelled = true;
     };
-  }, [lang]);
+  }, [lang, tentativa]);
 
   const search = useMemo(() => (entries ? buildSearch(entries, synonyms) : null), [entries]);
   const hits = search ? search(query) : [];
@@ -79,6 +81,16 @@ export function SearchClient({ app = false }: { app?: boolean } = {}) {
         <BuscaPorVoz aoOuvir={(texto) => setQuery(texto)} className="self-center pr-1" />
       </div>
 
+      {app && (failed || !entries) ? (
+        <div role="status" className={`app-estado ${failed ? "app-estado-erro" : "app-estado-carregando"}`}>
+          <p>{failed ? t.search.failed : t.search.loading}</p>
+          {failed && (
+            <button type="button" className="app-botao-contorno" onClick={() => setTentativa((n) => n + 1)}>
+              {t.lesson.tryAgain}
+            </button>
+          )}
+        </div>
+      ) : (
       <p role="status" className="mt-6 font-mono text-xs text-ink-soft">
         {failed
           ? t.search.failed
@@ -88,6 +100,7 @@ export function SearchClient({ app = false }: { app?: boolean } = {}) {
               ? plural(lang, hits.length, t.search.results)
               : fill(t.search.indexSize, { n: entries.length })}
       </p>
+      )}
 
       {entries && typed && <MelhorCaminho consulta={query} entradas={entries} />}
       {!typed && (
@@ -143,7 +156,7 @@ export function SearchClient({ app = false }: { app?: boolean } = {}) {
           );
         })}
       {entries && typed && hits.length === 0 && (
-        <p className="mt-8 text-xl text-ink-soft">
+        <p className={app ? "app-estado app-estado-vazio" : "mt-8 text-xl text-ink-soft"}>
           {fill(t.search.nothingFor, { q: query.trim() })}{" "}
           <L href="/contribuir" className="underline hover:text-oxblood">{t.search.canContribute}</L>.
         </p>

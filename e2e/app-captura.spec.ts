@@ -196,6 +196,23 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "app-ajuda-aberta");
   });
 
+  test("estados da busca do app: sem resultado e sem conexão com tentar de novo", async ({ page, context }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/estudar/buscar");
+    await page.waitForLoadState("networkidle");
+    await page.locator('input[type="search"], input[type="text"]').first().fill("zzqxjkwv");
+    await expect(page.locator(".app-estado-vazio")).toBeVisible({ timeout: 20000 });
+    await foto(page, "app-estado-vazio");
+    // sem conexão no momento de carregar o índice: erro com botão; ao voltar a rede, o botão recupera
+    await page.route("**/indice.json", (rota) => rota.abort());
+    await page.goto("/pt/app/estudar/buscar");
+    await expect(page.locator(".app-estado-erro")).toBeVisible({ timeout: 20000 });
+    await foto(page, "app-estado-erro");
+    await page.unroute("**/indice.json");
+    await page.locator(".app-estado-erro button").click();
+    await expect(page.locator(".app-estado-erro")).toHaveCount(0, { timeout: 20000 });
+  });
+
   test("jornada própria: disciplina, trilha, aula, concluir, progresso", async ({ page }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/estudar");
