@@ -7,6 +7,10 @@ import "../globals.css";
 import "../celular.css";
 // A casca do aplicativo (barra de baixo, voltar por gesto, transições): só vale no celular e no site instalado.
 import "../app-casca.css";
+// A experiência própria do aplicativo instalado (rotas /app, barras novas, sem a Alumia): só vale com <html data-app>.
+import "../app-instalado.css";
+// A experiência própria do aplicativo instalado (rotas /app, barras novas, sem a Alumia): só vale com <html data-app>.
+// A experiência própria do aplicativo instalado (rotas /app, barras novas, sem a Alumia): só vale com <html data-app>.
 // O redesign "Caderno aberto" (Prompt 5, E1): só vale com o recurso "design-novo" ligado e sem "Contornos fortes".
 import "@/styles/design/instituto.css";
 // Aparelhos fracos (Prompt 5, E7): menos movimento e o modo leve sem vidro nem sombra, fora da Alumia.
@@ -151,6 +155,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
             <RadioPlayer />
             <BottomNav />
             <CascaDoApp />
+            <ShellDoApp />
+            <LevarParaOApp />
             <VoltarAoTopo label={t.lists.top} />
             {/* O botão "?" em todas as páginas: perguntas frequentes com respostas prontas (sem IA, sem rede), só as do idioma
                 da página. Fora do painel e da área infantil (OutsidePanel). */}

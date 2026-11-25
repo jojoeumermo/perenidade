@@ -1,0 +1,25 @@
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import { L } from "@/components/I18n";
+import { textosDoAppNovo } from "@/components/app/textos-app";
+import { loadLang } from "@/i18n";
+import JogosDoSite from "../../jogos/page";
+
+export const revalidate = 3600;
+
+/**
+ * A aba Jogos do aplicativo instalado: os jogos e a formação na tela de jogos do próprio projeto (reaproveitada inteira,
+ * sem copiar código), com a entrada de Laboratórios que faltava no hub — no aplicativo ela existe (o site não muda).
+ */
+export default async function JogosDoApp({ params }: PageProps<"/[lang]/app/jogos">) {
+  const { lang, t } = await loadLang(params);
+  const n = textosDoAppNovo(lang);
+  return (
+    <div className="app-hub app-hub-jogos">
+      <L href="/laboratorios" className="app-cartao app-cartao-tinta app-atalho-labs">
+        <span className="app-cartao-rotulo">{n.laboratorios}</span>
+        <span className="app-cartao-titulo app-cartao-titulo-menor">{t.nav.labs} →</span>
+      </L>
+      <JogosDoSite params={params} />
+    </div>
+  );
+}
