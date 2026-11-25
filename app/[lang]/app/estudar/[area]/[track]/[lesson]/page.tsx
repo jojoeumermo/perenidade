@@ -7,6 +7,11 @@ import { SourceList } from "@/components/Cards";
 import { OuvirAula } from "@/components/aula/OuvirAula";
 import { BarraDaAula, GuardarAula } from "@/components/app/jornada";
 import { textosDoAppNovo } from "@/components/app/textos-app";
+import { ExerciciosComExplicacaoSobDemanda as ExerciciosComExplicacao, IssoAjudouSobDemanda as IssoAjudou, RegistroDeConclusaoSobDemanda as RegistroDeConclusao } from "@/components/estudo/NaAula";
+import { PraticaSobDemanda as Pratica } from "@/components/estudo/PraticaSobDemanda";
+import { exerciciosDaAula } from "@/lib/exercicios-conteudo";
+import { linguaDe } from "@/lib/pratica";
+import { textosDoEstudo } from "@/lib/textos-estudo";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { defaultLocale, fill, localePath } from "@/i18n/config";
@@ -41,10 +46,14 @@ export default async function AulaDoApp({ params }: PageProps<"/[lang]/app/estud
   const proxima = track.lessons[index + 1];
   const posicao = fill(t.lesson.position, { i: index + 1, n: track.lessons.length });
   const terms = lesson.translated ? getGlossary(lang).filter((g) => g.translated).map(({ slug, term, summary }) => ({ slug, term, summary })) : [];
+  const estudo = textosDoEstudo(lang).s;
+  const exercicios = ligado("exercicios") ? exerciciosDaAula(track.slug, lesson.slug) : [];
+  const corrigir = `/contribuir?corrigir=${encodeURIComponent(`/app/estudar/${area}/${track.slug}/${lesson.slug}`)}`;
   const letraGrande = track.area === "alfabetizacao" && track.stage !== "superior";
 
   return (
     <article className="app-aula" data-posicao={posicao}>
+      {(ligado("meu-estudo") || ligado("metas")) && <RegistroDeConclusao />}
       <GuardarAula path={`/app/estudar/${area}/${track.slug}/${lesson.slug}`} title={lesson.title} track={track.title} area={track.area} />
       <header className="app-aula-cabeca">
         <p className="app-aula-trilho">
@@ -62,8 +71,13 @@ export default async function AulaDoApp({ params }: PageProps<"/[lang]/app/estud
           {lesson.body}
         </Markdown>
         {lesson.quiz.length > 0 && <Quiz key={id} questions={lesson.quiz} registro={id} guardarNoAparelho={ligado("meu-estudo")} audio={letraGrande} />}
+        {exercicios.length > 0 && <ExerciciosComExplicacao exercicios={exercicios} aula={id} s={estudo.exercicios} corrigir={corrigir} praticar="/meu-estudo/praticar" />}
+        {lesson.practice.length > 0 && (
+          <Pratica key={`pratica-${id}`} id={id} exercicios={lesson.practice} lingua={linguaDe(track.area)} s={t.practice} semPlacar={ligado("pratica-sem-placar")} lead={ligado("pratica-sem-placar") ? estudo.praticaSemPlacar.lead : undefined} />
+        )}
         <SourceList sources={lesson.sources} title={t.lesson.sources} />
       </div>
+      {ligado("ajudou") && <IssoAjudou aula={id} s={estudo.ajudou} sugerir={corrigir} />}
       <footer className="app-aula-fim">
         {proxima ? (
           <L href={caminho(proxima.slug)} className="app-cartao app-cartao-tinta">
