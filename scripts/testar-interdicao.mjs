@@ -74,6 +74,16 @@ igual("Alumia: uma tela nova fecha junto", fechado("/en/alumia/atos", comunidade
 igual("Alumia: o caminho antigo também fecha", fechado("/pt/comunidade/p/x", comunidade), "comunidade");
 igual("Alumia: prefixo parecido não conta", fechado("/pt/alumiar", comunidade), null);
 igual("Alumia: área do caminho", areaDoCaminho("/alumia/organizacoes"), "comunidade");
+// O aplicativo instalado: as abas que mostram conteúdo de uma área fecham com ela, direto ou pelo idioma; o início e o Eu só fecham com o site todo.
+const soEstudo = { geral: false, areas: ["estudo"], mensagem: "" };
+const soFerramentas = { geral: false, areas: ["ferramentas"], mensagem: "" };
+igual("app: /app/estudar fecha com a área estudo", [fechado("/pt/app/estudar", soEstudo), fechado("/en/app/estudar", soEstudo)], ["estudo", "estudo"]);
+igual("app: /app/jogos fecha com a área ferramentas", [fechado("/pt/app/jogos", soFerramentas), fechado("/es/app/jogos", soFerramentas)], ["ferramentas", "ferramentas"]);
+igual("app: estudo fechado não fecha jogos, início nem Eu", ["/pt/app/jogos", "/pt/app", "/pt/app/eu"].map((c) => fechado(c, soEstudo)), [null, null, null]);
+igual("app: ferramentas fechada não fecha estudar, início nem Eu", ["/pt/app/estudar", "/pt/app", "/pt/app/eu"].map((c) => fechado(c, soFerramentas)), [null, null, null]);
+igual("app: Alumia fechada não fecha nenhuma rota do app", ["/pt/app", "/pt/app/estudar", "/pt/app/jogos", "/pt/app/eu"].map((c) => fechado(c, comunidade)), [null, null, null, null]);
+igual("app: site fora do ar fecha as quatro rotas", ["/pt/app", "/pt/app/estudar", "/pt/app/jogos", "/pt/app/eu"].map((c) => fechado(c, tudo)), ["geral", "geral", "geral", "geral"]);
+igual("app: prefixo parecido não conta", fechado("/pt/app/estudar-mais", soEstudo), null);
 igual("contribuir fecha a denúncia junto", fechado("/pt/denunciar", { geral: false, areas: ["contribuir"], mensagem: "" }), "contribuir");
 
 igual("estado lido do site()", lerEstado({ faixa: "", interdicao: { geral: true, areas: ["mural", 3], mensagem: "x" } }), { geral: true, areas: ["mural"], mensagem: "x" });
