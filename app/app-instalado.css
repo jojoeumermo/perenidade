@@ -838,3 +838,7 @@
   border-radius: 999px;
   border: 1.5px solid var(--ink);
 }
+
+/* Aba Jogos com um jogo aberto: some a cabeça da aba e o atalho de laboratórios. */
+:root[data-app] .app-hub-jogos[data-jogo-aberto] > .app-hub-cabeca,
+:root[data-app] .app-hub-jogos[data-jogo-aberto] > .app-atalho-labs { display: none; }

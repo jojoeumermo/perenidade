@@ -198,7 +198,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.locator(".app-jogo-linha").first().click();
     await expect(page.locator("#palco-titulo")).toBeVisible();
     await foto(page, "jogos-2-jogo-aberto");
-    await page.locator("section[aria-labelledby=palco-titulo] button").first().click({ timeout: 10_000 });
+    await page.getByRole("button", { name: /Voltar aos jogos/ }).click({ timeout: 10_000 });
     await expect(page.locator(".app-jogos")).toBeVisible();
     console.log(`JOGOS voltar do palco fechou o jogo, URL ${page.url()}`);
     expect(page.url()).toMatch(/\/pt\/app\/jogos$/);
@@ -252,7 +252,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.waitForLoadState("networkidle");
     const aoAbrir = page.url();
     await foto(page, "voltar-1-disciplina");
-    await page.locator("section[aria-labelledby=palco-titulo] button").first().click({ timeout: 10_000 });
+    await page.locator("button.shell-icone").first().click();
     await page.waitForURL(/\/pt\/app\/estudar$/);
     await page.waitForLoadState("networkidle");
     console.log(`VOLTAR estudar: abriu ${aoAbrir}, voltou para ${page.url()}`);
@@ -264,7 +264,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.waitForURL(/\/pt\/apoie/);
     await page.waitForLoadState("networkidle");
     await foto(page, "voltar-3-apoie");
-    await page.locator("section[aria-labelledby=palco-titulo] button").first().click({ timeout: 10_000 });
+    await page.getByRole("button", { name: /Voltar aos jogos/ }).click({ timeout: 10_000 });
     await page.waitForURL(/\/pt\/app\/eu$/);
     await page.waitForLoadState("networkidle");
     console.log(`VOLTAR eu: voltou para ${page.url()}`);
