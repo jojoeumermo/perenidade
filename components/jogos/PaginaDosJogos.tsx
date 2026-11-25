@@ -231,6 +231,13 @@ export function PaginaDosJogos({
     }, 0);
   };
   useTelaDaVez("jogo-aberto", Boolean(app && aberto), () => abrir(null));
+  // Com um jogo aberto no app, a cabeça da aba e o atalho de laboratórios (da página do servidor) saem da tela: o jogo é o assunto.
+  useEffect(() => {
+    if (!app || !aberto) return;
+    const hub = document.querySelector(".app-hub-jogos");
+    hub?.setAttribute("data-jogo-aberto", "");
+    return () => hub?.removeAttribute("data-jogo-aberto");
+  }, [app, aberto]);
   // O convite de uma sala (/jogos#sala=ABC23) abre direto os jogos em grupo, com o código já preenchido.
   useEffect(() => {
     const pelaSala = () => {
