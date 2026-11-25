@@ -189,6 +189,21 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "jornada-7-estudar-continuar");
   });
 
+  test("Jogos no app: abrir um jogo e voltar pela casca fecha o jogo", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/jogos");
+    await page.waitForLoadState("networkidle");
+    await expect(page.locator(".app-jogos")).toBeVisible();
+    await foto(page, "jogos-1-catalogo");
+    await page.locator(".app-jogo-linha").first().click();
+    await expect(page.locator("#palco-titulo")).toBeVisible();
+    await foto(page, "jogos-2-jogo-aberto");
+    await page.locator("button.shell-icone").first().click();
+    await expect(page.locator(".app-jogos")).toBeVisible();
+    console.log(`JOGOS voltar da casca fechou o jogo, URL ${page.url()}`);
+    expect(page.url()).toMatch(/\/pt\/app\/jogos$/);
+  });
+
   test("área útil, fim da rolagem, voltar e pequeno (360x640)", async ({ page }) => {
     test.skip(v.id !== "standalone", "basta numa variante");
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
