@@ -57,8 +57,8 @@ export function montarManifesto(lang: Locale, t: TextosDoManifesto): MetadataRou
       // Ícone com margem de segurança: o Android recorta em círculo, gota ou quadrado sem comer a estrela e o livro.
       { src: "/marca-recorte-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
-    // Os atalhos do ícone (toque longo). Os três primeiros são as abas do aplicativo (a quarta, Eu, também);
-    // a Alumia ficou de fora porque não existe no aplicativo instalado.
+    // Os atalhos do ícone (toque longo). Os três primeiros são abas do aplicativo; a Alumia ficou de fora
+    // porque não existe no aplicativo instalado. Os dois últimos (acervo e rádio) seguem no site.
     shortcuts: [
       { name: abas.estudar, short_name: abas.estudar, description: t.nav.disciplines, url: localePath(lang, "/app/estudar"), icons: [icone] },
       { name: abas.jogos, short_name: abas.jogos, url: localePath(lang, "/app/jogos"), icons: [icone] },
