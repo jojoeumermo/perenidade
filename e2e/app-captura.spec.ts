@@ -47,6 +47,7 @@ test.describe("site no navegador do computador (1280 px)", () => {
   for (const [nome, caminho] of SITE.slice(0, 5)) {
     test(`computador ${nome}`, async ({ page }) => {
       await abrir(page, caminho);
+      console.log(`DESKTOP ${nome} html=${await page.evaluate(() => Array.from(document.documentElement.attributes).map((x) => x.name + (x.value ? "=" + x.value.slice(0, 20) : "")).join(" "))} header=${await page.evaluate(() => { const h = document.querySelector("header"); return h ? JSON.stringify({ d: getComputedStyle(h).display, v: getComputedStyle(h).visibility, t: getComputedStyle(h).transform, p: getComputedStyle(h).position, y: Math.round(h.getBoundingClientRect().top), sy: window.scrollY, c: h.className.slice(0, 60) }) : "sem"; })}`);
       await foto(page, `site-computador-${nome}`);
     });
   }
