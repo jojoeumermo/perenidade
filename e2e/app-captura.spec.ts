@@ -264,7 +264,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.waitForURL(/\/pt\/apoie/);
     await page.waitForLoadState("networkidle");
     await foto(page, "voltar-3-apoie");
-    await page.getByRole("button", { name: /Voltar aos jogos/ }).click({ timeout: 10_000 });
+    await page.locator("button.shell-icone").first().click();
     await page.waitForURL(/\/pt\/app\/eu$/);
     await page.waitForLoadState("networkidle");
     console.log(`VOLTAR eu: voltou para ${page.url()}`);
