@@ -207,13 +207,16 @@ export const podeGuardarCasca = (conexao: { saveData?: boolean; effectiveType?: 
 
 // ───── Pedidos da página ao service worker (só no navegador) ─────
 
-/** Manda o service worker guardar as 5 telas das abas do idioma e, se vierem, as aulas indicadas (hrefs sem o idioma). Sem efeito se não houver service worker ou se o aparelho pediu economia de dados. */
+/** Manda o service worker guardar as telas das abas do idioma e, se vierem, as aulas indicadas (hrefs sem o idioma).
+    No aplicativo instalado (a Alumia não existe lá) o plano sai sem a tela da Alumia; no navegador, completo.
+    Sem efeito se não houver service worker ou se o aparelho pediu economia de dados. */
 export async function pedirCasca(lang: string, extras: readonly string[] = []): Promise<void> {
   try {
     if (typeof navigator === "undefined" || !("serviceWorker" in navigator) || navigator.onLine === false) return;
     if (!podeGuardarCasca((navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection)) return;
     const registro = await navigator.serviceWorker.ready;
-    registro.active?.postMessage({ tipo: "casca", lang, extras: extras.map((href) => `/${lang}${href}`) });
+    const semAlumia = typeof document !== "undefined" && document.documentElement.hasAttribute("data-sem-alumia");
+    registro.active?.postMessage({ tipo: "casca", lang, ...(semAlumia ? { semAlumia: true } : {}), extras: extras.map((href) => `/${lang}${href}`) });
   } catch {
     // sem service worker (desenvolvimento, navegação privada): a casca só não fica guardada
   }

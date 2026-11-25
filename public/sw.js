@@ -14,7 +14,9 @@
 // v6 (06/11/2026): o site saiu da Vercel para a VPS. As cópias guardadas na v5 apontam para os arquivos da Vercel
 // (/_next/static/immutable/...), que não existem na VPS: abrir uma delas dava "This page couldn't load". A v6 não traz
 // nada da v5 (só os cursos guardados, que ficam num cache sem versão).
-const VERSAO = "v6";
+// v7 (25/11/2026): no aplicativo instalado (sem a Alumia), a página pede a casca sem a tela da Alumia
+// (mensagem "casca" com semAlumia); no navegador o plano continua com as 5 telas de sempre.
+const VERSAO = "v7";
 /** Versões cujas cópias NÃO passam para a atual (feitas noutra hospedagem, com outros arquivos). */
 const NAO_MIGRAR = /-v[1-5]$/;
 const PAGINAS = `lucia-paginas-${VERSAO}`;
@@ -86,12 +88,14 @@ function caminhoPermitido(valor) {
   return url.pathname;
 }
 
-/** O que a mensagem "casca" manda guardar: as 5 telas do idioma e até MAXIMO_DE_EXTRAS páginas extras (as aulas do dia). */
+/** O que a mensagem "casca" manda guardar: as 5 telas do idioma e até MAXIMO_DE_EXTRAS páginas extras (as aulas do dia).
+    No aplicativo instalado (semAlumia, components/offline/offline.ts) a tela da Alumia fica de fora: lá ela não existe. */
 function planoDaCasca(mensagem) {
   const lang = typeof mensagem?.lang === "string" && IDIOMAS.includes(mensagem.lang) ? mensagem.lang : null;
   if (!lang) return [];
   const extras = Array.isArray(mensagem.extras) ? mensagem.extras.slice(0, MAXIMO_DE_EXTRAS).map(caminhoPermitido).filter(Boolean) : [];
-  return [...new Set([...urlsDaCasca(lang), ...extras])];
+  const raizes = mensagem.semAlumia === true ? urlsDaCasca(lang).filter((caminho) => !caminho.endsWith("/alumia")) : urlsDaCasca(lang);
+  return [...new Set([...raizes, ...extras])];
 }
 
 const tamanhoPermitido = (resposta) => {
@@ -254,6 +258,7 @@ async function guardarCasca(caminhos) {
 // Mensagens da página (só do próprio site: um service worker só recebe mensagens das páginas que controla).
 //  {tipo: "pular"}                        a pessoa tocou em "atualizar": a versão nova assume
 //  {tipo: "casca", lang, extras: [...]}   guarda as 5 telas das abas do idioma e as aulas do dia
+//  {tipo: "casca", lang, semAlumia: true} no aplicativo instalado: as telas SEM a da Alumia
 //  {tipo: "versao"}                       responde {tipo: "versao", versao}
 self.addEventListener("message", (evento) => {
   const dados = evento.data;
