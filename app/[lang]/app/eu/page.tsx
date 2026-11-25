@@ -38,7 +38,7 @@ export default async function EuDoApp({ params }: PageProps<"/[lang]/app/eu">) {
       <Untranslated lang={lang} t={t} show={!traduzido} />
       <ResumoDoEu s={s.meuEstudo} />
       {ligado("enem-curso") && (
-        <Link href={localePath(lang, "/enem")} className="app-cartao app-cartao-tinta app-atalho-enem">
+        <Link href={localePath(lang, "/app/estudar/enem")} className="app-cartao app-cartao-tinta app-atalho-enem">
           <span className="app-cartao-titulo app-cartao-titulo-menor">{s.enem.irParaCurso} →</span>
         </Link>
       )}
