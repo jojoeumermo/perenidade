@@ -31,14 +31,23 @@ export interface Profissional {
   autorizado_em?: string | null;
   /** Perfis do arquivo: a versão do termo aceita (combinada com a coordenação). Sem a versão vigente, não aparece. */
   termo_versao?: string | null;
+  /**
+   * Dispensa administrativa do aceite do termo, para um perfil do arquivo cuja pessoa autorizou o uso dos dados mas não
+   * aceitou o termo ela mesma. Não é aceite dela: diz quem dispensou a etapa e quando. Sem os dois campos, não vale.
+   */
+  aceite_dispensado?: { por: string; em: string } | null;
 }
+
+/** A dispensa só vale com quem dispensou e a data (AAAA-MM-DD). */
+export const dispensaValida = (p: Pick<Profissional, "aceite_dispensado">) =>
+  Boolean(p.aceite_dispensado?.por?.trim()) && /^\d{4}-\d{2}-\d{2}$/.test(p.aceite_dispensado?.em ?? "");
 
 /**
  * Um perfil publicado pelo arquivo (content/saude/profissionais.json) só aparece se seguir as mesmas regras do painel:
- * categoria aberta, termo vigente aceito e nenhum texto que o filtro barre. O banco confere os perfis do painel.
+ * categoria aberta, termo vigente aceito (ou a dispensa registrada pela coordenação) e nenhum texto que o filtro barre. O banco confere os perfis do painel.
  */
 export function perfilDoArquivoVisivel(p: Profissional): boolean {
-  return categoriaLigada(p.conselho) && p.termo_versao === REGRAS.termoVersao && conferirCampos({ nome: p.nome, abordagem: p.abordagem, areas: p.areas, cidade: p.cidade, bio: p.bio }) === null;
+  return categoriaLigada(p.conselho) && (p.termo_versao === REGRAS.termoVersao || dispensaValida(p)) && conferirCampos({ nome: p.nome, abordagem: p.abordagem, areas: p.areas, cidade: p.cidade, bio: p.bio }) === null;
 }
 
 /** "Psicóloga", "Psicólogo"…: a palavra da profissão vem da categoria; o que não está na lista não aparece. */
