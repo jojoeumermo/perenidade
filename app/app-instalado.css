@@ -908,3 +908,14 @@
   color: inherit;
   cursor: pointer;
 }
+
+/* Porta do curso ENEM no app. */
+.app-enem-contagem {
+  padding: 1rem;
+  border: 2px solid #1f1a14;
+  border-radius: 1rem;
+  background: #f1ebde;
+}
+.app-item-em-breve {
+  opacity: 0.6;
+}

@@ -2,6 +2,8 @@
 import { notFound } from "next/navigation";
 import { CartaoDaTrilha, ContinuarEstudo, type AulaDaJornada } from "@/components/app/jornada";
 import { textosDoAppNovo } from "@/components/app/textos-app";
+import { EnemNoApp } from "@/components/app/EnemNoApp";
+import { ligado } from "@/lib/recursos";
 import { loadLang } from "@/i18n";
 import { getTracks } from "@/lib/content";
 import { lessonId } from "@/lib/ids";
@@ -30,6 +32,7 @@ export default async function DisciplinaDoApp({ params }: PageProps<"/[lang]/app
         <h1>{nome[0]}</h1>
         <p>{nome[1]}</p>
       </header>
+      {area === "enem" && ligado("enem-curso") && <EnemNoApp lang={lang} />}
       <ContinuarEstudo aulas={aulas} />
       <section className="app-secao" aria-label={s.trilhas}>
         <h2 className="app-titulo-secao">{s.trilhas}</h2>
