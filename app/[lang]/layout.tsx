@@ -19,6 +19,7 @@ import { BottomNav } from "@/components/BottomNav";
 import { CascaDoApp } from "@/components/app/CascaDoApp";
 import { ShellDoApp } from "@/components/app/ShellDoApp";
 import { LevarParaOApp } from "@/components/app/RedirecionarDoNavegador";
+import { VisualDoApp } from "@/components/app/VisualDoApp";
 import { BarraDoCelular } from "@/components/celular/BarraDoCelular";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -156,6 +157,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
             <BottomNav />
             <CascaDoApp />
             <ShellDoApp />
+            <VisualDoApp />
             <LevarParaOApp />
             <VoltarAoTopo label={t.lists.top} />
             {/* O botão "?" em todas as páginas: perguntas frequentes com respostas prontas (sem IA, sem rede), só as do idioma

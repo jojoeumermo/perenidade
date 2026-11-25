@@ -53,9 +53,9 @@ test.describe("site no navegador do computador (1280 px)", () => {
   }
 });
 
-test.describe("navegador comum abre /pt/app (390 px)", () => {
+test.describe("navegador do computador abre /pt/app (1280 px)", () => {
   test.skip(!TUDO, "o ramo-base não tem as rotas do app");
-  test.use(CELULAR);
+  test.use({ viewport: { width: 1280, height: 800 } });
   test("o navegador comum que abre /pt/app é levado ao site", async ({ page }) => {
     await abrir(page, "/pt/app");
     await page.waitForTimeout(2500);
@@ -79,6 +79,8 @@ const SIMULA_STANDALONE = () => {
 const VARIANTES = [
   { id: "standalone", ua: undefined as string | undefined, simula: true },
   { id: "wv", ua: UA_APP, simula: false },
+  // Celular em navegador comum (toque, 390 px, sem standalone): a partir de 25/11 veste o mesmo visual do app e mantém a Alumia.
+  { id: "navegador", ua: undefined as string | undefined, simula: false },
 ];
 
 for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () => {
@@ -94,7 +96,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.waitForLoadState("networkidle");
     await foto(page, "app-primeira-abertura");
     expect(await atributo(page, "data-app")).toBe(true);
-    expect(await atributo(page, "data-sem-alumia")).toBe(true);
+    expect(await atributo(page, "data-sem-alumia")).toBe(v.id !== "navegador");
     await expect(page.locator(".shell-abas")).toBeVisible();
     console.log(`${v.id}: URL ${page.url()}, data-app presente, shell visível`);
     await expect(page.locator("dialog[open]")).toHaveCount(0);
@@ -113,8 +115,8 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
       await foto(page, `app-${nome}`);
       await foto(page, `app-${nome}-cheia`, true);
     }
-    // nenhuma aba mostra a Alumia
-    await expect(page.locator('a[href*="/alumia"]:visible')).toHaveCount(0);
+    // nenhuma aba mostra a Alumia no app instalado; no navegador do celular só o cartão da aba Eu (a última aberta) leva a ela
+    await expect(page.locator('a[href*="/alumia"]:visible')).toHaveCount(v.id === "navegador" ? 1 : 0);
   });
 
   test("jornadas dentro do app: aula, busca, apoie, laboratórios", async ({ page }) => {
@@ -205,6 +207,27 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     expect(page.url()).toMatch(/\/pt\/app\/jogos$/);
   });
 
+  test("navegador do celular: a Alumia abre sem o visual do app e o voltar traz o app de volta", async ({ page }) => {
+    test.skip(v.id !== "navegador", "só no navegador");
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/eu");
+    await page.waitForLoadState("networkidle");
+    expect(await atributo(page, "data-app")).toBe(true);
+    await page.locator("a.app-atalho-alumia").click();
+    await page.waitForURL(/\/pt\/alumia/);
+    await page.waitForLoadState("networkidle");
+    const naAlumia = await atributo(page, "data-app");
+    console.log(`NAVEGADOR na Alumia: data-app=${naAlumia} URL ${page.url()}`);
+    await foto(page, "alumia-pelo-eu");
+    expect(naAlumia).toBe(false);
+    await page.goBack();
+    await page.waitForURL(/\/pt\/app\/eu$/);
+    await page.waitForLoadState("networkidle");
+    console.log(`NAVEGADOR voltou: data-app=${await atributo(page, "data-app")}`);
+    expect(await atributo(page, "data-app")).toBe(true);
+    await foto(page, "eu-depois-da-alumia");
+  });
+
   test("auditoria: telas do app sem 'Voltar ao site' nem link para /alumia", async ({ page }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     for (const caminho of ["/pt/app", "/pt/app/estudar", "/pt/app/jogos", "/pt/app/eu", "/pt/app/estudar/enem", "/pt/app/estudar/enem/enem-como-funciona", "/pt/app/estudar/enem/enem-como-funciona/como-funciona-o-enem"]) {
@@ -215,7 +238,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
       const alumia = await page.locator('a[href*="/alumia"]:visible').count();
       console.log(`AUDITORIA ${caminho}: voltar-ao-site=${achou} links-alumia-visiveis=${alumia}`);
       expect(achou, `${caminho}: texto "Voltar ao site"`).toBe(false);
-      expect(alumia, `${caminho}: link visível para a Alumia`).toBe(0);
+      expect(alumia, `${caminho}: links visíveis para a Alumia`).toBe(v.id === "navegador" && caminho === "/pt/app/eu" ? 1 : 0);
     }
   });
 
