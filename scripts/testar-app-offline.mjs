@@ -275,6 +275,10 @@ await ok("planoDaCasca: 5 telas + até 12 extras sem repetir; idioma ruim não g
   assert.deepEqual([...sw.planoDaCasca({ lang: "xx", extras })], []);
   assert.deepEqual([...sw.planoDaCasca(null)], []);
   assert.equal(sw.planoDaCasca({ lang: "en" }).length, 5);
+  const planoDoApp = sw.planoDaCasca({ lang: "pt", semAlumia: true });
+  assert.equal(planoDoApp.length, 4, "no aplicativo instalado a casca sai sem a tela da Alumia");
+  assert.ok(!planoDoApp.some((p) => p.endsWith("/alumia")), "nenhuma tela da Alumia no plano do app");
+  assert.ok(planoDoApp.includes("/pt/meu-estudo"), "as outras abas continuam no plano do app");
 });
 await ok("mensagem 'casca' guarda as 5 telas no cache da casca (e só o que falta); depois funcionam sem rede", async () => {
   const amb = criarAmbiente();
@@ -489,9 +493,10 @@ await ok("manifesto: standalone, orientação, atalhos do aplicativo e os antigo
     assert.equal(m.orientation, "any");
     assert.equal(m.scope, "/");
     assert.equal(m.id, `/${lang}`);
-    assert.equal(m.start_url, `/${lang}`);
+    assert.equal(m.start_url, `/${lang}/app`, "o aplicativo abre na Início do app");
     const urls = m.shortcuts.map((s) => s.url);
-    assert.deepEqual(urls.slice(0, 4), [`/${lang}/trilhas`, `/${lang}/jogos`, `/${lang}/alumia`, `/${lang}/meu-estudo`], "os 4 primeiros são as abas");
+    assert.deepEqual(urls.slice(0, 3), [`/${lang}/app/estudar`, `/${lang}/app/jogos`, `/${lang}/app/eu`], "os 3 primeiros são as abas do app");
+    assert.ok(!urls.some((u) => u.endsWith("/alumia")), "a Alumia não existe no aplicativo instalado");
     assert.ok(urls.includes(`/${lang}/acervo`) && urls.includes(`/${lang}/radio`), "os atalhos antigos continuam");
     for (const s of m.shortcuts) {
       assert.ok(s.name.trim().length > 0 && s.icons?.[0]?.src === "/marca-96.png" && s.icons[0].sizes === "96x96");
