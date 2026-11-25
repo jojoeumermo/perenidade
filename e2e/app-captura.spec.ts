@@ -144,8 +144,8 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     const aula = page.locator('a[href*="/app/estudar/ir/"]').first();
     await expect(aula).toBeVisible();
     await aula.click();
-    await page.waitForURL(/\/app\/estudar\/[^/]+\/[^/]+(\/[^/]+)?$/);
-    expect(page.url()).not.toContain("/estudar/ir/");
+    await page.waitForURL((u) => /\/app\/estudar\/[^/]+\/[^/]+(\/[^/]+)?$/.test(u.pathname) && !u.pathname.includes("/estudar/ir/"));
+    await page.waitForLoadState("networkidle");
     console.log(`BUSCA abriu ${page.url()} data-app=${await atributo(page, "data-app")}`);
     await foto(page, "app-busca-aberto");
     await page.goBack();
