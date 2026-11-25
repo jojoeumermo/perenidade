@@ -122,7 +122,7 @@ export function ShellDoApp() {
         )}
         <span ref={tituloRef} className="shell-titulo" aria-hidden={raiz} />
         <span className="shell-acoes">
-          <Link href={localePath(lang, "/busca")} className="shell-icone" aria-label={n.buscar}>
+          <Link href={localePath(lang, "/app/estudar/buscar")} className="shell-icone" aria-label={n.buscar}>
             <svg aria-hidden viewBox="0 0 24 24" className="h-[22px] w-[22px]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
               <circle cx="10.5" cy="10.5" r="6.5" />
               <path d="M15.5 15.5 20 20" />

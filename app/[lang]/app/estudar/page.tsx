@@ -42,7 +42,7 @@ export default async function EstudarDoApp({ params }: PageProps<"/[lang]/app/es
 
       <RetomarEstudo />
 
-      <form action={localePath(lang, "/busca")} role="search" className="app-busca">
+      <form action={localePath(lang, "/app/estudar/buscar")} role="search" className="app-busca">
         <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
           <circle cx="10.5" cy="10.5" r="6.5" />
           <path d="M15.5 15.5 20 20" />

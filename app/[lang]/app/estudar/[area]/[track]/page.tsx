@@ -1,9 +1,9 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { ContinuarEstudo, ListaDaTrilha, type AulaDaJornada } from "@/components/app/jornada";
 import { textosDoAppNovo } from "@/components/app/textos-app";
 import { loadLang } from "@/i18n";
-import { fill } from "@/i18n/config";
+import { fill, localePath } from "@/i18n/config";
 import { getTrack } from "@/lib/content";
 import { lessonId } from "@/lib/ids";
 import { areaNaEscola } from "@/lib/escola/aulas-abertas";
@@ -19,6 +19,8 @@ export default async function TrilhaDoApp({ params }: PageProps<"/[lang]/app/est
   const { lang, t } = await loadLang(params);
   const { area, track: slug } = await params;
   const track = getTrack(slug, lang);
+  // "ir": atalho da busca, que só sabe a trilha; leva para o endereço com a disciplina certa.
+  if (track && area === "ir" && !areaNaEscola(track.area)) redirect(localePath(lang, `/app/estudar/${track.area}/${track.slug}`));
   if (!track || track.area !== area || areaNaEscola(track.area)) notFound();
   const s = textosDoAppNovo(lang);
   const minutos = track.lessons.reduce((soma, l) => soma + l.minutes, 0);
