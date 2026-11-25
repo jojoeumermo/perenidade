@@ -10,7 +10,7 @@ export const revalidate = 3600;
  * A aba Jogos do aplicativo instalado: os jogos e a formação na tela de jogos do próprio projeto (reaproveitada inteira,
  * sem copiar código), com a entrada de Laboratórios que faltava no hub — no aplicativo ela existe (o site não muda).
  */
-export default async function JogosDoApp({ params }: PageProps<"/[lang]/app/jogos">) {
+export default async function JogosDoApp({ params, searchParams }: PageProps<"/[lang]/app/jogos">) {
   const { lang, t } = await loadLang(params);
   const n = textosDoAppNovo(lang);
   return (
@@ -19,7 +19,7 @@ export default async function JogosDoApp({ params }: PageProps<"/[lang]/app/jogo
         <span className="app-cartao-rotulo">{n.laboratorios}</span>
         <span className="app-cartao-titulo app-cartao-titulo-menor">{t.nav.labs} →</span>
       </L>
-      <JogosDoSite params={params} />
+      <JogosDoSite params={params} searchParams={searchParams} />
     </div>
   );
 }
