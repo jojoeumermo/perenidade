@@ -1,6 +1,8 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { notFound } from "next/navigation";
 import Link from "@/components/Link";
+import { AjudaNoApp } from "@/components/app/AjudaNoApp";
+import { textosDoAssistente } from "@/i18n/assistente";
 import { ProgressoEnem } from "@/components/enem/ProgressoEnem";
 import { MeuEstudo } from "@/components/estudo/MeuEstudo";
 import { MetaDaSemana } from "@/components/estudo/Metas";
@@ -69,6 +71,7 @@ export default async function EuDoApp({ params }: PageProps<"/[lang]/app/eu">) {
         <span className="app-cartao-texto">{n.alumiaEntradaLead}</span>
       </Link>
       {/* No aplicativo o convite ao apoio não abre sozinho na primeira tela (components/OpeningNotice.tsx): ele mora aqui. */}
+      <AjudaNoApp titulo={textosDoAssistente(lang).botao} />
       <Link href={localePath(lang, "/apoie")} className="app-cartao app-atalho-apoiar">
         <span className="app-cartao-titulo app-cartao-titulo-menor">{n.apoiar}</span>
         <span className="app-cartao-texto">{n.apoiarLead}</span>
