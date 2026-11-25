@@ -4,8 +4,10 @@
 // Peças da jornada de estudo própria do aplicativo instalado (disciplina → trilha → aula → concluir → progresso).
 // O progresso vem do aparelho (lib/progress.ts, chave lucia:done): nada novo é guardado, nada é apagado.
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { localePath, type Locale } from "@/i18n/config";
+import { getItem, setItem, useHydrated } from "@/lib/storage";
+import type { AulaLigada } from "@/lib/content";
 import { rememberLesson, setCompleted, useCompleted, useLastLesson } from "@/lib/progress";
 import { L, useI18n } from "../I18n";
 import { textosDoAppNovo } from "./textos-app";
@@ -197,5 +199,48 @@ export function RetomarEstudo() {
         {ultima.track} · {s.aulasFeitas(feitas.size)}
       </span>
     </L>
+  );
+}
+
+/** "Antes desta aula" do app: a mesma regra do site (chave lucia:requisitos-vistos, nunca tranca), com links para o leitor do app. */
+export function AntesDaAulaApp({ aula, requisitos }: { aula: string; requisitos: AulaLigada[] }) {
+  const { t } = useI18n();
+  const s = t.lesson;
+  const hidratado = useHydrated();
+  const feitas = useCompleted();
+  const [dispensado, setDispensado] = useState(false);
+  if (!hidratado || requisitos.length === 0 || dispensado) return null;
+  let vistos: string[] = [];
+  try {
+    vistos = JSON.parse(getItem("lucia:requisitos-vistos") || "[]") as string[];
+  } catch {
+    vistos = [];
+  }
+  if (requisitos.every((r) => feitas.has(r.id)) || vistos.includes(aula)) return null;
+  return (
+    <aside aria-label={s.beforeTitle} className="app-aula-antes">
+      <p className="app-aula-antes-rotulo">{s.beforeTitle}</p>
+      <p>{s.beforeLead}</p>
+      <ul>
+        {requisitos.map((r) => (
+          <li key={r.id}>
+            <span aria-hidden>{feitas.has(r.id) ? "✓" : "○"}</span>
+            <L href={r.path} className="app-link-forte">{r.title}</L>
+            <span className="app-item-aux"> · {r.track}</span>
+            <span className="sr-only">{feitas.has(r.id) ? ` (${s.beforeDone})` : ` (${s.beforeMissing})`}</span>
+          </li>
+        ))}
+      </ul>
+      <button
+        type="button"
+        className="app-botao-contorno"
+        onClick={() => {
+          setItem("lucia:requisitos-vistos", JSON.stringify([...vistos, aula].slice(-500)));
+          setDispensado(true);
+        }}
+      >
+        {s.beforeKnow}
+      </button>
+    </aside>
   );
 }
