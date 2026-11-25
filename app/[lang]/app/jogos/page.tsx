@@ -16,8 +16,8 @@ export default async function JogosDoApp({ params, searchParams }: PageProps<"/[
   return (
     <div className="app-hub app-hub-jogos">
       <L href="/laboratorios" className="app-cartao app-cartao-tinta app-atalho-labs">
-        <span className="app-cartao-rotulo">{n.laboratorios}</span>
         <span className="app-cartao-titulo app-cartao-titulo-menor">{t.nav.labs} →</span>
+        <span className="app-cartao-aux">{n.jogosLead}</span>
       </L>
       <JogosDoSite params={params} searchParams={searchParams} />
     </div>
