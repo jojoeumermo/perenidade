@@ -19,6 +19,8 @@ import { A11yWidget } from "@/components/A11yWidget";
 import { DadosEstruturados } from "@/components/DadosEstruturados";
 import { BottomNav } from "@/components/BottomNav";
 import { CascaDoApp } from "@/components/app/CascaDoApp";
+import { ShellDoApp } from "@/components/app/ShellDoApp";
+import { LevarParaOApp } from "@/components/app/RedirecionarDoNavegador";
 import { BarraDoCelular } from "@/components/celular/BarraDoCelular";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
