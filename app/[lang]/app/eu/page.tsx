@@ -16,6 +16,8 @@ import { matrizDoEnem } from "@/lib/enem-conteudo";
 import { ligado } from "@/lib/recursos";
 import { textosDoEstudo } from "@/lib/textos-estudo";
 import { textosDoAppNovo } from "@/components/app/textos-app";
+import { ResumoDeProgresso } from "@/components/app/jornada";
+import { getTracks } from "@/lib/content";
 
 export const revalidate = 3600;
 
@@ -28,6 +30,7 @@ export default async function EuDoApp({ params }: PageProps<"/[lang]/app/eu">) {
   const { lang, t } = await loadLang(params);
   const { s, traduzido } = textosDoEstudo(lang);
   const n = textosDoAppNovo(lang);
+  const totalDeAulas = getTracks(lang).reduce((soma, tr) => soma + tr.lessons.length, 0);
   return (
     <div className="app-hub">
       <header className="app-hub-cabeca">
@@ -35,6 +38,7 @@ export default async function EuDoApp({ params }: PageProps<"/[lang]/app/eu">) {
         <p>{n.euLead}</p>
       </header>
       <Untranslated lang={lang} t={t} show={!traduzido} />
+      <ResumoDeProgresso s={n} total={totalDeAulas} continuar="/app/estudar" />
       {ligado("enem-curso") && (
         <Link href={localePath(lang, "/enem")} className="app-cartao app-cartao-tinta app-atalho-enem">
           <span className="app-cartao-titulo app-cartao-titulo-menor">{s.enem.irParaCurso} →</span>

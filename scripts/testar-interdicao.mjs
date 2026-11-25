@@ -83,6 +83,8 @@ igual("app: estudo fechado não fecha jogos, início nem Eu", ["/pt/app/jogos", 
 igual("app: ferramentas fechada não fecha estudar, início nem Eu", ["/pt/app/estudar", "/pt/app", "/pt/app/eu"].map((c) => fechado(c, soFerramentas)), [null, null, null]);
 igual("app: Alumia fechada não fecha nenhuma rota do app", ["/pt/app", "/pt/app/estudar", "/pt/app/jogos", "/pt/app/eu"].map((c) => fechado(c, comunidade)), [null, null, null, null]);
 igual("app: site fora do ar fecha as quatro rotas", ["/pt/app", "/pt/app/estudar", "/pt/app/jogos", "/pt/app/eu"].map((c) => fechado(c, tudo)), ["geral", "geral", "geral", "geral"]);
+igual("app: disciplina, trilha e aula do app fecham com a área estudo", ["/pt/app/estudar/historia", "/pt/app/estudar/historia/x", "/en/app/estudar/historia/x/y"].map((c) => fechado(c, soEstudo)), ["estudo", "estudo", "estudo"]);
+igual("app: aula do app aberta com só ferramentas fechada", fechado("/pt/app/estudar/historia/x/y", soFerramentas), null);
 igual("app: prefixo parecido não conta", fechado("/pt/app/estudar-mais", soEstudo), null);
 igual("contribuir fecha a denúncia junto", fechado("/pt/denunciar", { geral: false, areas: ["contribuir"], mensagem: "" }), "contribuir");
 

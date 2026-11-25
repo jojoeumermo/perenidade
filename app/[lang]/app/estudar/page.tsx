@@ -6,7 +6,6 @@ import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
 import { essential, groups, stages, type Stage } from "@/lib/areas";
 import { getTracks } from "@/lib/content";
-import { caminhoDaEstante } from "@/lib/escola/aulas-abertas";
 
 export const revalidate = 3600;
 
@@ -60,7 +59,7 @@ export default async function EstudarDoApp({ params }: PageProps<"/[lang]/app/es
               const prontas = area.counts.fundamental[0] + area.counts.medio[0] + area.counts.superior[0];
               return (
                 <li key={area.slug}>
-                  <L href={caminhoDaEstante(area.slug)} className="app-item-lista">
+                  <L href={`/app/estudar/${area.slug}`} className="app-item-lista">
                     <span className="app-item-texto">
                       <span className="app-item-titulo">
                         {area.essential ? "★ " : ""}

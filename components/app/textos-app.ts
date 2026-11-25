@@ -31,6 +31,24 @@ export interface TextosDoAppNovo {
   /** O cartão de apoio da aba Eu: no aplicativo o convite não abre sozinho, ele mora aqui. */
   apoiar: string;
   apoiarLead: string;
+  /** Jornada de estudo própria (disciplina, trilha, aula). */
+  trilhas: string;
+  progressoDe: (feitas: number, total: number) => string;
+  continuarEstudo: string;
+  comecarTrilha: string;
+  concluirESeguir: string;
+  concluirTrilha: string;
+  desfazer: string;
+  aulaConcluida: string;
+  proximaAula: string;
+  trilhaConcluida: string;
+  voltarParaTrilha: string;
+  emPreparacao: string;
+  semAulasAinda: string;
+  aulaDe: (i: number, n: number) => string;
+  minutos: (n: number) => string;
+  seuProgresso: string;
+  continuarDeOndeParou: string;
 }
 
 const PT: TextosDoAppNovo = {
@@ -53,6 +71,23 @@ const PT: TextosDoAppNovo = {
   euLead: "Seu estudo, seu caderno e suas preferências, neste aparelho.",
   apoiar: "Apoiar o instituto",
   apoiarLead: "Gratuito, sem anúncio e sem rastreador: quem pode contribuir mantém tudo no ar.",
+  trilhas: "Trilhas",
+  progressoDe: (f, n) => `${f} de ${n} aulas`,
+  continuarEstudo: "Continuar estudando",
+  comecarTrilha: "Começar a trilha",
+  concluirESeguir: "Concluir e seguir",
+  concluirTrilha: "Concluir a trilha",
+  desfazer: "Desfazer",
+  aulaConcluida: "Aula concluída",
+  proximaAula: "Próxima aula",
+  trilhaConcluida: "Trilha concluída. Bom trabalho!",
+  voltarParaTrilha: "Voltar para a trilha",
+  emPreparacao: "em preparação",
+  semAulasAinda: "Nenhuma aula pronta ainda nesta disciplina.",
+  aulaDe: (i, n) => `Aula ${i} de ${n}`,
+  minutos: (n) => `${n} min`,
+  seuProgresso: "Seu progresso",
+  continuarDeOndeParou: "Continuar de onde parou",
 };
 
 export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
@@ -78,6 +113,23 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     euLead: "Your studies, notebook and preferences, on this device.",
     apoiar: "Support the institute",
     apoiarLead: "Free, ad-free and tracker-free: those who can contribute keep everything running.",
+    trilhas: "Tracks",
+    progressoDe: (f, n) => `${f} of ${n} lessons`,
+    continuarEstudo: "Keep studying",
+    comecarTrilha: "Start the track",
+    concluirESeguir: "Complete and continue",
+    concluirTrilha: "Complete the track",
+    desfazer: "Undo",
+    aulaConcluida: "Lesson complete",
+    proximaAula: "Next lesson",
+    trilhaConcluida: "Track complete. Well done!",
+    voltarParaTrilha: "Back to the track",
+    emPreparacao: "in preparation",
+    semAulasAinda: "No lesson ready in this subject yet.",
+    aulaDe: (i, n) => `Lesson ${i} of ${n}`,
+    minutos: (n) => `${n} min`,
+    seuProgresso: "Your progress",
+    continuarDeOndeParou: "Continue where you left off",
   },
   es: {
     ...PT,
@@ -100,6 +152,23 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     euLead: "Tu estudio, tu cuaderno y tus preferencias, en este aparato.",
     apoiar: "Apoyar el instituto",
     apoiarLead: "Gratuito, sin anuncios y sin rastreadores: quien puede contribuir mantiene todo en pie.",
+    trilhas: "Rutas",
+    progressoDe: (f, n) => `${f} de ${n} clases`,
+    continuarEstudo: "Seguir estudiando",
+    comecarTrilha: "Empezar la ruta",
+    concluirESeguir: "Completar y seguir",
+    concluirTrilha: "Completar la ruta",
+    desfazer: "Deshacer",
+    aulaConcluida: "Clase completada",
+    proximaAula: "Próxima clase",
+    trilhaConcluida: "Ruta completada. ¡Buen trabajo!",
+    voltarParaTrilha: "Volver a la ruta",
+    emPreparacao: "en preparación",
+    semAulasAinda: "Aún no hay clases listas en esta disciplina.",
+    aulaDe: (i, n) => `Clase ${i} de ${n}`,
+    minutos: (n) => `${n} min`,
+    seuProgresso: "Tu progreso",
+    continuarDeOndeParou: "Continuar donde lo dejaste",
   },
   fr: {
     ...PT,
@@ -122,6 +191,23 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     euLead: "Votre étude, votre carnet et vos préférences, sur cet appareil.",
     apoiar: "Soutenir l'institut",
     apoiarLead: "Gratuit, sans pub ni traqueur : ceux qui peuvent contribuer maintiennent tout en ligne.",
+    trilhas: "Parcours",
+    progressoDe: (f, n) => `${f} leçons sur ${n}`,
+    continuarEstudo: "Continuer à étudier",
+    comecarTrilha: "Commencer le parcours",
+    concluirESeguir: "Terminer et continuer",
+    concluirTrilha: "Terminer le parcours",
+    desfazer: "Annuler",
+    aulaConcluida: "Leçon terminée",
+    proximaAula: "Leçon suivante",
+    trilhaConcluida: "Parcours terminé. Bravo !",
+    voltarParaTrilha: "Retour au parcours",
+    emPreparacao: "en préparation",
+    semAulasAinda: "Aucune leçon prête dans cette discipline.",
+    aulaDe: (i, n) => `Leçon ${i} sur ${n}`,
+    minutos: (n) => `${n} min`,
+    seuProgresso: "Votre progression",
+    continuarDeOndeParou: "Reprendre où vous vous étiez arrêté",
   },
   ru: {
     ...PT,
@@ -144,6 +230,23 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     euLead: "Ваша учёба, тетрадь и настройки на этом устройстве.",
     apoiar: "Поддержать институт",
     apoiarLead: "Бесплатно, без рекламы и трекеров: те, кто может, поддерживают всё это.",
+    trilhas: "Маршруты",
+    progressoDe: (f, n) => `${f} из ${n} уроков`,
+    continuarEstudo: "Продолжить учёбу",
+    comecarTrilha: "Начать маршрут",
+    concluirESeguir: "Завершить и дальше",
+    concluirTrilha: "Завершить маршрут",
+    desfazer: "Отменить",
+    aulaConcluida: "Урок пройден",
+    proximaAula: "Следующий урок",
+    trilhaConcluida: "Маршрут пройден. Отличная работа!",
+    voltarParaTrilha: "Назад к маршруту",
+    emPreparacao: "в подготовке",
+    semAulasAinda: "В этой дисциплине пока нет готовых уроков.",
+    aulaDe: (i, n) => `Урок ${i} из ${n}`,
+    minutos: (n) => `${n} мин`,
+    seuProgresso: "Ваш прогресс",
+    continuarDeOndeParou: "Продолжить с того места",
   },
   zh: {
     ...PT,
@@ -166,6 +269,23 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     euLead: "您的学习、笔记本和偏好设置,都在本设备上。",
     apoiar: "支持学院",
     apoiarLead: "免费、无广告、无跟踪:有能力的人捐款,让一切维持运转。",
+    trilhas: "路线",
+    progressoDe: (f, n) => `${f}/${n} 课`,
+    continuarEstudo: "继续学习",
+    comecarTrilha: "开始路线",
+    concluirESeguir: "完成并继续",
+    concluirTrilha: "完成路线",
+    desfazer: "撤销",
+    aulaConcluida: "本课已完成",
+    proximaAula: "下一课",
+    trilhaConcluida: "路线已完成,做得好!",
+    voltarParaTrilha: "返回路线",
+    emPreparacao: "准备中",
+    semAulasAinda: "该学科暂无可用课程。",
+    aulaDe: (i, n) => `第 ${i}/${n} 课`,
+    minutos: (n) => `${n} 分钟`,
+    seuProgresso: "您的进度",
+    continuarDeOndeParou: "从上次的地方继续",
   },
 };
 

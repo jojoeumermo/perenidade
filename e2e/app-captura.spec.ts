@@ -128,6 +128,58 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     }
   });
 
+  test("jornada própria: disciplina, trilha, aula, concluir, progresso", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/estudar");
+    await page.waitForLoadState("networkidle");
+    const hrefs = await page.locator('a.app-item-lista[href*="/app/estudar/"]').evaluateAll((els) => els.map((e) => (e as HTMLAnchorElement).getAttribute("href")!));
+    console.log(`JORNADA disciplinas: ${hrefs.length}`);
+    for (const h of hrefs) {
+      await page.goto(h);
+      await page.waitForLoadState("networkidle");
+      if ((await page.locator(".app-trilha-cartao").count()) > 0) break;
+    }
+    await foto(page, "jornada-1-disciplina");
+    await page.locator(".app-trilha-cartao").first().click();
+    await page.waitForURL(/\/app\/estudar\/[^/]+\/[^/]+$/);
+    await page.waitForLoadState("networkidle");
+    await foto(page, "jornada-2-trilha");
+    await page.locator(".app-continuar-estudo").first().click();
+    await page.waitForURL(/\/app\/estudar\/[^/]+\/[^/]+\/[^/]+$/);
+    await page.waitForLoadState("networkidle");
+    const aula1 = page.url();
+    await foto(page, "jornada-3-aula-topo");
+    await expect(page.locator(".app-aula h1")).toBeVisible();
+    await expect(page.locator(".shell-abas")).toBeHidden();
+    await expect(page.locator(".app-barra-aula")).toBeVisible();
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await page.waitForTimeout(600);
+    await foto(page, "jornada-4-aula-fim");
+    const sobra = await page.evaluate(() => {
+      const barra = document.querySelector(".app-barra-aula")!.getBoundingClientRect().top;
+      const ult = document.querySelector(".app-aula-fim")!.getBoundingClientRect().bottom;
+      return { barra: Math.round(barra), ultimo: Math.round(ult) };
+    });
+    console.log(`JORNADA fim da aula: ${JSON.stringify(sobra)}`);
+    expect(sobra.ultimo).toBeLessThanOrEqual(sobra.barra + 1);
+    await page.locator(".app-barra-aula .app-botao").click();
+    await page.waitForURL((u) => u.toString() !== aula1);
+    await page.waitForLoadState("networkidle");
+    console.log(`JORNADA concluir: ${aula1} -> ${page.url()}`);
+    await foto(page, "jornada-5-proxima-aula");
+    const feitas = await page.evaluate(() => window.localStorage.getItem("lucia:done"));
+    console.log(`JORNADA lucia:done = ${feitas}`);
+    expect(feitas).toContain("/");
+    await page.goto("/pt/app/eu");
+    await page.waitForLoadState("networkidle");
+    await expect(page.locator(".app-resumo-progresso")).toContainText(/1/);
+    await foto(page, "jornada-6-eu-progresso");
+    await page.goto("/pt/app/estudar");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".app-continuar-estudo, .app-continuar").first().waitFor({ state: "attached" }).catch(() => undefined);
+    await foto(page, "jornada-7-estudar-continuar");
+  });
+
   test("área útil, fim da rolagem, voltar e pequeno (360x640)", async ({ page }) => {
     test.skip(v.id !== "standalone", "basta numa variante");
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
