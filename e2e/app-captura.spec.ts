@@ -304,6 +304,8 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     for (const caminho of ["/pt/app", "/pt/app/estudar", "/pt/app/jogos", "/pt/app/eu", "/pt/app/estudar/enem", "/pt/app/estudar/enem/enem-como-funciona", "/pt/app/estudar/enem/enem-como-funciona/como-funciona-o-enem"]) {
       await page.goto(caminho);
       await page.waitForLoadState("networkidle");
+      if (caminho === "/pt/app/estudar/enem") await foto(page, "app-enem-porta");
+      if (caminho.endsWith("/como-funciona-o-enem")) await foto(page, "app-enem-aula");
       const texto = await page.locator("body").innerText();
       const achou = /voltar (ao|para o) site|back to the web ?site/i.test(texto);
       const alumia = await page.locator('a[href*="/alumia"]:visible').count();
