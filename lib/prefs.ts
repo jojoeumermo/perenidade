@@ -160,13 +160,13 @@ export function aparelhoFraco(): boolean {
 }
 
 /**
- * Celular no navegador comum (toque e tela estreita, fora da Alumia e sem leitor de tinta): veste o MESMO visual do aplicativo
+ * Celular no navegador comum (toque e aparelho de tela pequena em qualquer orientação: o lado menor da tela até 768 px, fora da Alumia e sem leitor de tinta): veste o MESMO visual do aplicativo
  * (<html data-app>), mas continua sendo o navegador: a Alumia segue acessível (sem data-sem-alumia). Mesma conta do script
  * inline (lib/prefs-script.ts).
  */
 export function celularNoNavegador(): boolean {
   if (typeof window === "undefined") return false;
-  return !naAlumia() && window.matchMedia("(pointer: coarse) and (max-width: 768px)").matches && !readerDevice.test(navigator.userAgent);
+  return !naAlumia() && window.matchMedia("(pointer: coarse)").matches && Math.min(window.screen.width, window.screen.height) <= 768 && !readerDevice.test(navigator.userAgent);
 }
 
 /** A página é da Alumia (endereço próprio ou /<idioma>/alumia)? A mesma conta do script inline (lib/prefs-script.ts). */
