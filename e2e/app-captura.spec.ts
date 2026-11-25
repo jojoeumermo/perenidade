@@ -164,6 +164,24 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await expect(bloco.locator("a").first()).toHaveAttribute("href", /\/enem\/praticar\?q=/);
   });
 
+  test("caderno do app: no fim da rolagem nenhum controle fica sob a barra de abas ou o botão flutuante", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/eu/caderno");
+    await page.waitForLoadState("networkidle");
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await page.waitForTimeout(600);
+    await foto(page, "app-caderno-fim");
+    const r = await page.evaluate(() => {
+      const abas = document.querySelector(".shell-abas")?.getBoundingClientRect();
+      const itens = [...document.querySelectorAll(".app-caderno-corpo button, .app-caderno-corpo a, .app-caderno-corpo input, .app-caderno-corpo textarea")].filter((e) => (e as HTMLElement).offsetParent !== null);
+      const ultimo = itens[itens.length - 1]?.getBoundingClientRect();
+      return { topoDasAbas: abas?.top ?? null, fimDoUltimo: ultimo?.bottom ?? null, controles: itens.length, altura: innerHeight };
+    });
+    console.log(`CADERNO-FIM ${JSON.stringify(r)}`);
+    expect(r.controles).toBeGreaterThan(0);
+    if (r.topoDasAbas !== null && r.fimDoUltimo !== null) expect(r.fimDoUltimo).toBeLessThanOrEqual(r.topoDasAbas + 1);
+  });
+
   test("jornada própria: disciplina, trilha, aula, concluir, progresso", async ({ page }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/estudar");
