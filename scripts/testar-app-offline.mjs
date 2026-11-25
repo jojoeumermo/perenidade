@@ -6,7 +6,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import vm from "node:vm";
-import { CHAVE_DA_FILA, IDIOMAS_DOS_AVISOS, LIMITES_DA_FILA, acompanharAtualizacao, descartarFila, enderecoDaFilaValido, enfileirar, enviarOuEnfileirar, esvaziarFila, lerFila, podeBuscarVersao, podeGuardarCasca, situacaoDoStatus, textosDeRede } from "../components/offline/offline.ts";
+import { CHAVE_DA_FILA, IDIOMAS_DOS_AVISOS, LIMITES_DA_FILA, acompanharAtualizacao, descartarFila, enderecoDaFilaValido, enfileirar, enviarOuEnfileirar, esvaziarFila, lerFila, podeBuscarVersao, RAIZES_DO_APP, podeGuardarCasca, situacaoDoStatus, textosDeRede } from "../components/offline/offline.ts";
 import { montarManifesto } from "../lib/manifesto.ts";
 import pt from "../i18n/pt.json" with { type: "json" };
 
@@ -291,6 +291,17 @@ await ok("mensagem 'casca' guarda as 5 telas no cache da casca (e só o que falt
   assert.equal(amb.chamadas.buscas.length, antes, "não baixa de novo o que já tem");
   amb.estado.online = false;
   for (const t of ["/pt", "/pt/jogos", "/pt/meu-estudo", "/pt/trilhas/comece-aqui/aula-1"]) assert.equal((await amb.navegar(t)).status, 200, t);
+});
+await ok("telas próprias do app (/app, estudar, jogos, eu, buscar) entram na casca e abrem sem rede", async () => {
+  const amb = criarAmbiente();
+  const extras = RAIZES_DO_APP.map((r) => `/pt${r}`);
+  for (const e of extras) assert.equal(amb.sw.caminhoPermitido(e), e, e);
+  await amb.disparar("message", { data: { tipo: "casca", lang: "pt", semAlumia: true, extras } });
+  const guardadas = urls(amb, amb.sw.CASCA);
+  for (const e of extras) assert.ok(guardadas.includes(`https://lucia.test${e}`), e);
+  assert.ok(!guardadas.some((g) => g.endsWith("/alumia")), "app sem Alumia");
+  amb.estado.online = false;
+  for (const e of extras) assert.equal((await amb.navegar(e)).status, 200, e);
 });
 await ok("'casca' sem internet não tenta baixar nada e nunca lança", async () => {
   const amb = criarAmbiente({ online: false });
