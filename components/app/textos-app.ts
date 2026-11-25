@@ -49,6 +49,7 @@ export interface TextosDoAppNovo {
   minutos: (n: number) => string;
   seuProgresso: string;
   continuarDeOndeParou: string;
+  maisDoEstudo: string;
 }
 
 const PT: TextosDoAppNovo = {
@@ -88,6 +89,7 @@ const PT: TextosDoAppNovo = {
   minutos: (n) => `${n} min`,
   seuProgresso: "Seu progresso",
   continuarDeOndeParou: "Continuar de onde parou",
+  maisDoEstudo: "Revisão, temas, cópia e dados",
 };
 
 export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
@@ -130,6 +132,7 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     minutos: (n) => `${n} min`,
     seuProgresso: "Your progress",
     continuarDeOndeParou: "Continue where you left off",
+    maisDoEstudo: "Review, topics, backup and data",
   },
   es: {
     ...PT,
@@ -169,6 +172,7 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     minutos: (n) => `${n} min`,
     seuProgresso: "Tu progreso",
     continuarDeOndeParou: "Continuar donde lo dejaste",
+    maisDoEstudo: "Repaso, temas, copia y datos",
   },
   fr: {
     ...PT,
@@ -208,6 +212,7 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     minutos: (n) => `${n} min`,
     seuProgresso: "Votre progression",
     continuarDeOndeParou: "Reprendre où vous vous étiez arrêté",
+    maisDoEstudo: "Révision, thèmes, copie et données",
   },
   ru: {
     ...PT,
@@ -247,6 +252,7 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     minutos: (n) => `${n} мин`,
     seuProgresso: "Ваш прогресс",
     continuarDeOndeParou: "Продолжить с того места",
+    maisDoEstudo: "Повторение, темы, копия и данные",
   },
   zh: {
     ...PT,
@@ -286,6 +292,7 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     minutos: (n) => `${n} 分钟`,
     seuProgresso: "您的进度",
     continuarDeOndeParou: "从上次的地方继续",
+    maisDoEstudo: "复习、主题、备份与数据",
   },
 };
 

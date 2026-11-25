@@ -6,7 +6,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { localePath, type Locale } from "@/i18n/config";
-import { rememberLesson, setCompleted, useCompleted } from "@/lib/progress";
+import { rememberLesson, setCompleted, useCompleted, useLastLesson } from "@/lib/progress";
 import { L, useI18n } from "../I18n";
 import { textosDoAppNovo } from "./textos-app";
 
@@ -180,5 +180,22 @@ export function ResumoDeProgresso({ total, continuar }: { total: number; continu
         {s.continuarDeOndeParou} →
       </L>
     </section>
+  );
+}
+
+/** O alto do Estudar: continuar de onde parou (a última aula aberta neste aparelho). Sem aula aberta, nada: a lista de disciplinas é o começo. */
+export function RetomarEstudo() {
+  const s = useS();
+  const ultima = useLastLesson();
+  const feitas = useCompleted();
+  if (!ultima?.path) return null;
+  return (
+    <L href={ultima.path} className="app-cartao app-continuar-estudo">
+      <span className="app-cartao-rotulo">{s.continuarDeOndeParou}</span>
+      <span className="app-cartao-titulo">{ultima.title}</span>
+      <span className="app-cartao-aux">
+        {ultima.track} · {s.aulasFeitas(feitas.size)}
+      </span>
+    </L>
   );
 }
