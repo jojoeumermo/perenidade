@@ -174,6 +174,15 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.waitForLoadState("networkidle");
     await expect(page.locator(".app-resumo-progresso")).toContainText(/1/);
     await foto(page, "jornada-6-eu-progresso");
+    // Progresso antigo (formato de sempre, lista de "trilha/aula" em lucia:concluidas) e nova sessão: a marca aparece e persiste.
+    const idAula1 = new URL(aula1).pathname.split("/").slice(-2).join("/");
+    const guardado = await page.evaluate(() => JSON.parse(window.localStorage.getItem("lucia:concluidas") ?? "[]") as string[]);
+    console.log(`JORNADA concluidas: ${JSON.stringify(guardado)} (esperado conter ${idAula1})`);
+    expect(guardado).toContain(idAula1);
+    await page.context().clearCookies();
+    await page.reload();
+    await page.waitForLoadState("networkidle");
+    await expect(page.locator(".app-resumo-progresso")).toContainText(/1/);
     await page.goto("/pt/app/estudar");
     await page.waitForLoadState("networkidle");
     await page.locator(".app-continuar-estudo, .app-continuar").first().waitFor({ state: "attached" }).catch(() => undefined);

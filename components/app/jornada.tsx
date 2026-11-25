@@ -21,6 +21,8 @@ export interface AulaDaJornada {
   title: string;
   minutos?: number;
   ready: boolean;
+  /** Trilha da aula (só nas telas que misturam trilhas, como a da disciplina). */
+  trilha?: { slug: string; titulo: string };
 }
 
 /** Barra fina de progresso com texto para leitor de tela. */
@@ -59,12 +61,17 @@ export function ContinuarEstudo({ aulas, comecar }: { aulas: AulaDaJornada[]; co
   if (prontas.length === 0) return null;
   const alvo = prontas.find((a) => !feitas.has(a.id));
   if (!alvo) return null;
-  const n = prontas.filter((a) => feitas.has(a.id)).length;
+  // O contador é sempre o da trilha da aula que o botão abre; na tela da disciplina o nome da trilha vem junto.
+  const daTrilha = alvo.trilha ? prontas.filter((a) => a.trilha?.slug === alvo.trilha!.slug) : prontas;
+  const n = daTrilha.filter((a) => feitas.has(a.id)).length;
   return (
     <L href={alvo.href} className="app-cartao app-continuar-estudo">
       <span className="app-cartao-rotulo">{n === 0 || comecar ? s.comecarTrilha : s.continuarEstudo}</span>
       <span className="app-cartao-titulo">{alvo.title}</span>
-      <span className="app-cartao-aux">{s.progressoDe(n, prontas.length)}</span>
+      <span className="app-cartao-aux">
+        {alvo.trilha ? `${alvo.trilha.titulo} · ` : ""}
+        {s.progressoDe(n, daTrilha.length)}
+      </span>
     </L>
   );
 }

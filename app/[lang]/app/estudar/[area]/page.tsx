@@ -22,7 +22,7 @@ export default async function DisciplinaDoApp({ params }: PageProps<"/[lang]/app
   if (!nome || areaNaEscola(area as never)) notFound();
   const trilhas = getTracks(lang).filter((tr) => tr.area === area);
   const aulas: AulaDaJornada[] = trilhas.flatMap((tr) =>
-    tr.plan.map((item) => ({ id: lessonId(tr.slug, item.slug), href: `/app/estudar/${area}/${tr.slug}/${item.slug}`, title: item.title, ready: item.ready !== false })),
+    tr.plan.map((item) => ({ id: lessonId(tr.slug, item.slug), href: `/app/estudar/${area}/${tr.slug}/${item.slug}`, title: item.title, ready: item.ready !== false, trilha: { slug: tr.slug, titulo: tr.title } })),
   );
   return (
     <div className="app-hub">
