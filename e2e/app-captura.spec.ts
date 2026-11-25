@@ -153,6 +153,17 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await expect(page.locator(".shell-abas, .shell-topo").first()).toBeVisible();
   });
 
+  test("aula do ENEM: bloco de questões oficiais no pé do leitor", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/estudar/enem/enem-por-area/ciencias-humanas-filosofia-e-sociologia");
+    await page.waitForLoadState("networkidle");
+    const bloco = page.locator("#questoes-oficiais");
+    await expect(bloco).toHaveCount(1);
+    await bloco.scrollIntoViewIfNeeded();
+    await foto(page, "app-enem-questoes");
+    await expect(bloco.locator("a").first()).toHaveAttribute("href", /\/enem\/praticar\?q=/);
+  });
+
   test("jornada própria: disciplina, trilha, aula, concluir, progresso", async ({ page }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/estudar");
