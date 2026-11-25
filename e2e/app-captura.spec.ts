@@ -239,6 +239,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
         anyCoarse: matchMedia("(any-pointer: coarse)").matches,
         hoverNone: matchMedia("(hover: none)").matches,
         larg: matchMedia("(max-width: 768px)").matches,
+        combinada: matchMedia("(pointer: coarse) and (max-width: 768px)").matches,
         pontos: navigator.maxTouchPoints,
         tela: `${screen.width}x${screen.height}`,
         janela: `${innerWidth}x${innerHeight}`,
@@ -261,15 +262,20 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.setViewportSize({ width: 844, height: 390 });
     await page.waitForTimeout(500);
     const girado = await sonda("girado 844x390");
+    expect(girado.app).toBe(true);
     await page.goto("/pt/app/estudar");
     await page.waitForLoadState("networkidle");
     const girado2 = await sonda("girado, página nova");
     await foto(page, "girado-844x390");
     console.log(`SONDA resumo girado: antes=${girado.app} nova=${girado2.app}`);
+    expect(girado2.app).toBe(true);
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/pt/trilhas");
     await page.waitForLoadState("networkidle");
-    await sonda("janela 1280x800");
+    expect((await sonda("janela 1280x800")).app).toBe(false);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.waitForTimeout(500);
+    expect((await sonda("de volta a 390x844 sem recarregar")).app).toBe(true);
   });
 
   test("auditoria: telas do app sem 'Voltar ao site' nem link para /alumia", async ({ page }) => {

@@ -15,9 +15,14 @@ export function VisualDoApp() {
   useLayoutEffect(() => {
     if (isApp()) return;
     const raiz = document.documentElement;
-    // Só liga onde vale e só desliga na Alumia: uma conta de mídia que falhe numa troca de página não derruba o visual do app.
-    if (naAlumia()) raiz.removeAttribute("data-app");
-    else if (celularNoNavegador()) raiz.setAttribute("data-app", "");
+    const refazer = () => {
+      // Liga onde vale; desliga na Alumia e quando o aparelho deixa de ser um celular (janela de computador, tela grande).
+      if (naAlumia() || !celularNoNavegador()) raiz.removeAttribute("data-app");
+      else raiz.setAttribute("data-app", "");
+    };
+    refazer();
+    window.addEventListener("resize", refazer);
+    return () => window.removeEventListener("resize", refazer);
   }, [caminho]);
   return null;
 }
