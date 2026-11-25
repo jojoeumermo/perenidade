@@ -5,7 +5,12 @@ import { Markdown } from "@/components/Markdown";
 import { Quiz } from "@/components/Quiz";
 import { SourceList } from "@/components/Cards";
 import { OuvirAula } from "@/components/aula/OuvirAula";
-import { BarraDaAula, GuardarAula } from "@/components/app/jornada";
+import { AntesDaAulaApp, BarraDaAula, GuardarAula } from "@/components/app/jornada";
+import { FaixaDoCursoSobDemanda as FaixaDoCurso } from "@/components/escola/cursos/FaixaDoCursoSobDemanda";
+import { textosDosCursos } from "@/i18n/escola/cursos";
+import { textosDaAula } from "@/i18n/escola/aula";
+import { cursosDaAula } from "@/lib/escola/cursos-vista";
+import { questoesOficiaisDaAula } from "@/lib/enem-conteudo";
 import { textosDoAppNovo } from "@/components/app/textos-app";
 import { ExerciciosComExplicacaoSobDemanda as ExerciciosComExplicacao, IssoAjudouSobDemanda as IssoAjudou, RegistroDeConclusaoSobDemanda as RegistroDeConclusao } from "@/components/estudo/NaAula";
 import { PraticaSobDemanda as Pratica } from "@/components/estudo/PraticaSobDemanda";
@@ -15,7 +20,7 @@ import { textosDoEstudo } from "@/lib/textos-estudo";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { defaultLocale, fill, localePath } from "@/i18n/config";
-import { getGlossary, getTrack } from "@/lib/content";
+import { getGlossary, getTrack, requisitosDaAula } from "@/lib/content";
 import { lessonId } from "@/lib/ids";
 import { areaNaEscola } from "@/lib/escola/aulas-abertas";
 import { ligado } from "@/lib/recursos";
@@ -49,6 +54,10 @@ export default async function AulaDoApp({ params }: PageProps<"/[lang]/app/estud
   const estudo = textosDoEstudo(lang).s;
   const exercicios = ligado("exercicios") ? exerciciosDaAula(track.slug, lesson.slug) : [];
   const corrigir = `/contribuir?corrigir=${encodeURIComponent(`/app/estudar/${area}/${track.slug}/${lesson.slug}`)}`;
+  const requisitos = requisitosDaAula(lang, track, lesson.slug).map((r) => ({ ...r, path: `/app/estudar/${r.area}/${r.id}` }));
+  const oficiais = ligado("enem-curso") ? questoesOficiaisDaAula(track.slug, lesson.slug) : [];
+  const sa = ligado("escola") ? textosDaAula(lang) : null;
+  const cursosDestaAula = sa ? cursosDaAula(id) : [];
   const letraGrande = track.area === "alfabetizacao" && track.stage !== "superior";
 
   return (
@@ -64,6 +73,7 @@ export default async function AulaDoApp({ params }: PageProps<"/[lang]/app/estud
           <p className="app-aula-resumo">{lesson.summary}</p>
         </div>
       </header>
+      <AntesDaAulaApp aula={id} requisitos={requisitos} />
       <OuvirAula minutos={fill(t.tracks.minutes, { n: lesson.minutes })} lexico={lerLexico()} />
       <Untranslated lang={lang} t={t} show={!lesson.translated} />
       <div id="texto-da-aula" className="app-aula-texto" {...originalLang(lesson.translated)}>
@@ -75,9 +85,28 @@ export default async function AulaDoApp({ params }: PageProps<"/[lang]/app/estud
         {lesson.practice.length > 0 && (
           <Pratica key={`pratica-${id}`} id={id} exercicios={lesson.practice} lingua={linguaDe(track.area)} s={t.practice} semPlacar={ligado("pratica-sem-placar")} lead={ligado("pratica-sem-placar") ? estudo.praticaSemPlacar.lead : undefined} />
         )}
+        {oficiais.length > 0 && (
+          <section aria-labelledby="questoes-oficiais" className="app-aula-oficiais">
+            <h2 id="questoes-oficiais">{estudo.enem.naAula.titulo}</h2>
+            <p>{estudo.enem.naAula.lead}</p>
+            <ul>
+              {oficiais.slice(0, 30).map((q) => (
+                <li key={q.id}>
+                  <L href={`/enem/praticar?q=${q.id}`}>{fill(estudo.enem.naAula.item, { ano: q.ano, n: Number(q.id.split("-")[2]) })}</L>
+                </li>
+              ))}
+            </ul>
+            <L href={`/enem/praticar?q=${oficiais.map((q) => q.id).join(",")}`} className="app-link-forte">
+              {estudo.enem.naAula.praticarTodas} →
+            </L>
+          </section>
+        )}
         <SourceList sources={lesson.sources} title={t.lesson.sources} />
       </div>
       {ligado("ajudou") && <IssoAjudou aula={id} s={estudo.ajudou} sugerir={corrigir} />}
+      {sa && cursosDestaAula.length > 0 && (
+        <FaixaDoCurso aula={id} cursos={cursosDestaAula} proximaDaTrilha={proxima && { caminho: caminho(proxima.slug), titulo: proxima.title }} s={textosDosCursos(lang).faixa} sProximo={sa.proximo} />
+      )}
       <footer className="app-aula-fim">
         {proxima ? (
           <L href={caminho(proxima.slug)} className="app-cartao app-cartao-tinta">
