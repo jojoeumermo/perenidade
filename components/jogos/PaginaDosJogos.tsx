@@ -2,6 +2,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useTelaDaVez } from "@/components/app/telas";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { JogoProprio } from "@/components/jogos/proprios/Catalogo";
 import { JogoProprio2 } from "@/components/jogos/proprios2/Catalogo";
@@ -191,6 +192,7 @@ export function PaginaDosJogos({
   lang,
   titulo,
   avisos,
+  app,
 }: {
   cartoes: CartaoDeJogo[];
   /** O cartão que vai grande no alto (o Rumos, que abre os jogos de formação). */
@@ -205,6 +207,8 @@ export function PaginaDosJogos({
   titulo: ReactNode;
   /** Os avisos de idioma (glossário e jogos só em português), por categoria, fora do português. */
   avisos: Partial<Record<Categoria, string>>;
+  /** Só no aplicativo instalado: o catálogo em lista compacta e o "voltar" da casca fecha o jogo aberto. O site não passa isto. */
+  app?: boolean;
 }) {
   const s = textos.s;
   const [filtro, setFiltro] = useState<Categoria | "todos">("todos");
@@ -226,6 +230,7 @@ export function PaginaDosJogos({
       titulo?.scrollIntoView({ block: "start" });
     }, 0);
   };
+  useTelaDaVez("jogo-aberto", Boolean(app && aberto), () => abrir(null));
   // O convite de uma sala (/jogos#sala=ABC23) abre direto os jogos em grupo, com o código já preenchido.
   useEffect(() => {
     const pelaSala = () => {
@@ -274,6 +279,58 @@ export function PaginaDosJogos({
         </div>
         </Palco>
       </section>
+    );
+  }
+
+  if (app) {
+    const d = destaque.cartao;
+    return (
+      <div className="app-jogos">
+        <article aria-labelledby="destaque-titulo" className="app-cartao app-cartao-tinta app-jogo-destaque">
+          <span className="app-cartao-rotulo">★ {s.pagina.destaque}</span>
+          <h2 id="destaque-titulo" className="app-cartao-titulo">{destaque.nome}</h2>
+          <p className="app-cartao-aux">{destaque.texto}</p>
+          <button type="button" className="app-botao" onClick={() => abrir(d)} aria-label={`${s.pagina.jogar}: ${destaque.nome}`}>
+            {s.pagina.jogar} →
+          </button>
+        </article>
+        <nav aria-label={s.pagina.categorias} className="app-jogos-filtros">
+          {(["todos", ...CATEGORIAS] as const).map((c) => (
+            <button key={c} type="button" aria-pressed={filtro === c} onClick={() => setFiltro(c)}>
+              {c === "todos" ? s.pagina.todos : textos.categorias[c].nome}
+              <span>{c === "todos" ? cartoes.length : cartoes.filter((x) => x.categoria === c).length}</span>
+            </button>
+          ))}
+        </nav>
+        {visiveis.map((c) => {
+          const daqui = cartoes.filter((x) => x.categoria === c);
+          if (daqui.length === 0) return null;
+          return (
+            <section key={c} id={c} aria-labelledby={`${c}-titulo`} className="app-secao">
+              <h2 id={`${c}-titulo`} className="app-titulo-secao">{textos.categorias[c].nome}</h2>
+              <p className="app-jogos-lead">{textos.categorias[c].lead} {avisos[c] && <span>{avisos[c]}</span>}</p>
+              <ul className="app-lista">
+                {daqui.map((cartao) => (
+                  <li key={cartao.chave} lang={idioma(cartao)}>
+                    <button type="button" className="app-item-lista app-jogo-linha" onClick={() => abrir(cartao)} aria-label={`${s.pagina.jogar}: ${cartao.titulo}`}>
+                      <span aria-hidden className="app-jogo-cor" style={{ background: COR[cartao.categoria].fundo }} />
+                      <span className="app-item-texto">
+                        <span className="app-item-titulo">{cartao.titulo}</span>
+                        <span className="app-item-aux app-item-aux-livre">{cartao.texto}</span>
+                        <span className="app-item-aux app-item-aux-livre">
+                          {cartao.minutos ? s.proprios.minutos.replace("{n}", String(cartao.minutos)) : s.pagina.noSeuTempo} ·{" "}
+                          {cartao.jogadores === "grupo" ? s.grupo.jogadores : cartao.jogadores === 2 ? s.pagina.umOuDois : s.pagina.umJogador}
+                        </span>
+                      </span>
+                      <span aria-hidden className="app-item-num">▶</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })}
+      </div>
     );
   }
 
