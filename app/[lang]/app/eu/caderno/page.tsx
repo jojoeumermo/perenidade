@@ -11,7 +11,9 @@ export default async function CadernoDoApp({ params }: PageProps<"/[lang]/app/eu
         <h1>{t.notebook.title}</h1>
         <p>{t.notebook.lead}</p>
       </header>
-      <CadernoDeEstudos s={t.notebook} />
+      <div className="app-caderno-corpo">
+        <CadernoDeEstudos s={t.notebook} />
+      </div>
     </div>
   );
 }
