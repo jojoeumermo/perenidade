@@ -15,7 +15,8 @@ const AULA = "/pt/trilhas/historia-antiga/pre-historia-os-primeiros-seres-humano
 
 async function fotoGeral(page: Page, nome: string, cheia = false) {
   await page.waitForTimeout(800);
-  await page.screenshot({ path: `test-results/capturas/${ROTULO}-${nome}.png`, fullPage: cheia });
+  // O indicador do servidor de desenvolvimento do Next não existe em produção: sai das capturas do app (as do site ficam como na base, para a comparação).
+  await page.screenshot({ path: `test-results/capturas/${ROTULO}-${nome}.png`, fullPage: cheia, ...(nome.startsWith("site-") ? {} : { style: "nextjs-portal { display: none !important }" }) });
 }
 const foto = fotoGeral;
 const atributo = (page: Page, a: string) => page.evaluate((n) => document.documentElement.hasAttribute(n), a);
