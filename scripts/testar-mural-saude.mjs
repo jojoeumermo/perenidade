@@ -51,6 +51,15 @@ const base = { id: "x", nome: "Ana Lima", profissao: "Psicóloga", conselho: "CR
 confere("perfil do arquivo em dia aparece", perfilDoArquivoVisivel(base));
 confere("perfil do arquivo de categoria fechada nunca aparece", !perfilDoArquivoVisivel({ ...base, conselho: "CRM" }));
 confere("perfil do arquivo com termo antigo fica oculto", !perfilDoArquivoVisivel({ ...base, termo_versao: "2026-10-20" }));
+{
+  const dispensa = { por: "Coordenação", em: "2026-11-23" };
+  confere("sem termo e sem dispensa fica oculto", !perfilDoArquivoVisivel({ ...base, termo_versao: null }));
+  confere("dispensa registrada (quem e quando) mostra o perfil", perfilDoArquivoVisivel({ ...base, termo_versao: null, aceite_dispensado: dispensa }));
+  confere("dispensa sem quem dispensou não vale", !perfilDoArquivoVisivel({ ...base, termo_versao: null, aceite_dispensado: { por: " ", em: "2026-11-23" } }));
+  confere("dispensa sem data válida não vale", !perfilDoArquivoVisivel({ ...base, termo_versao: null, aceite_dispensado: { por: "Coordenação", em: "ontem" } }));
+  confere("a dispensa não ultrapassa categoria fechada", !perfilDoArquivoVisivel({ ...base, conselho: "CRM", termo_versao: null, aceite_dispensado: dispensa }));
+  confere("a dispensa não ultrapassa o filtro de texto", !perfilDoArquivoVisivel({ ...base, bio: "consulta gratis", termo_versao: null, aceite_dispensado: dispensa }));
+}
 confere("perfil do arquivo com texto proibido fica oculto", !perfilDoArquivoVisivel({ ...base, bio: "Atendo de graça." }));
 
 // 4. Varredura dos textos públicos: nada de gratuidade, preço social, voluntariado nem lema antigo.
