@@ -35,7 +35,7 @@ export function EuDoApp({ s }: { s: TextosDoEstudo["meuEstudo"] }) {
     .filter((tr) => ativas.has(tr[0]))
     .map((tr) => {
       const ids = tr[5].map(([a]) => `${tr[0]}/${a}`);
-      return { slug: tr[0], titulo: tr[1], area: tr[2], feitas: ids.filter((id) => feitas.has(id)).length, total: ids.length };
+      return { slug: tr[0], titulo: tr[1], area: tr[2], nomeDaArea: tr[3], feitas: ids.filter((id) => feitas.has(id)).length, total: ids.length };
     });
   const vazio = feitas.size === 0 && Object.keys(testes).length === 0 && Object.keys(respostas).length === 0;
 
@@ -76,20 +76,28 @@ export function EuDoApp({ s }: { s: TextosDoEstudo["meuEstudo"] }) {
       {trilhas.length > 0 && (
         <section className="app-secao" aria-label={s.porDisciplina}>
           <h2 className="app-titulo-secao">{s.porDisciplina}</h2>
-          <ul className="app-lista">
-            {trilhas.map((tr) => (
-              <li key={tr.slug}>
-                <L href={`/app/estudar/${tr.area}/${tr.slug}`} className="app-item-lista">
-                  <span className="app-item-texto">
-                    <span className="app-item-titulo">{tr.titulo}</span>
-                    <Barra feitas={tr.feitas} total={tr.total} rotulo={fill(s.progressoDa, { trilha: tr.titulo })} />
-                    <span className="app-item-aux app-item-aux-livre">{fill(s.aulasDe, { a: tr.feitas, b: tr.total })}</span>
-                  </span>
-                  <span aria-hidden className="app-item-num">→</span>
-                </L>
-              </li>
-            ))}
-          </ul>
+          {[...new Set(trilhas.map((tr) => tr.area))].map((area) => {
+            const daArea = trilhas.filter((tr) => tr.area === area);
+            return (
+              <div key={area} className="app-grupo">
+                <h3 className="app-grupo-nome">{daArea[0].nomeDaArea}</h3>
+                <ul className="app-lista">
+                  {daArea.map((tr) => (
+                    <li key={tr.slug}>
+                      <L href={`/app/estudar/${tr.area}/${tr.slug}`} className="app-item-lista">
+                        <span className="app-item-texto">
+                          <span className="app-item-titulo">{tr.titulo}</span>
+                          <Barra feitas={tr.feitas} total={tr.total} rotulo={fill(s.progressoDa, { trilha: tr.titulo })} />
+                          <span className="app-item-aux app-item-aux-livre">{fill(s.aulasDe, { a: tr.feitas, b: tr.total })}</span>
+                        </span>
+                        <span aria-hidden className="app-item-num">→</span>
+                      </L>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </section>
       )}
     </>

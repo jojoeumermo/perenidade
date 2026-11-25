@@ -767,3 +767,74 @@
   font: 700 0.95rem/1.2 var(--font-sans, system-ui, sans-serif);
   color: #c21f16;
 }
+.app-grupo + .app-grupo {
+  margin-top: 1rem;
+}
+.app-grupo-nome {
+  margin: 0 1rem 0.4rem;
+  font: 700 0.72rem/1.2 var(--font-mono, monospace);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--texto-meio, #4a4034);
+}
+
+/* Jogos: catálogo em lista compacta (o jogo aberto usa o palco do próprio projeto). */
+.app-jogos {
+  padding-bottom: 1rem;
+}
+.app-jogo-destaque {
+  display: block;
+  margin: 1rem 1rem 0;
+}
+.app-jogo-destaque .app-botao {
+  margin-top: 0.8rem;
+  min-height: 2.75rem;
+  cursor: pointer;
+}
+.app-jogos-filtros {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+  padding: 0 1rem 0.25rem;
+  overflow-x: auto;
+}
+.app-jogos-filtros button {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.5rem;
+  padding: 0.4rem 0.85rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: 700 0.82rem/1 var(--font-sans, system-ui, sans-serif);
+  cursor: pointer;
+}
+.app-jogos-filtros button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--parchment);
+}
+.app-jogos-filtros button span {
+  font: 0.68rem/1 var(--font-mono, monospace);
+  opacity: 0.8;
+}
+.app-jogos-lead {
+  margin: 0 1rem 0.6rem;
+  font: 0.85rem/1.4 var(--font-sans, system-ui, sans-serif);
+  color: var(--texto-meio, #4a4034);
+}
+.app-jogo-linha {
+  width: calc(100% - 0px);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.app-jogo-cor {
+  flex-shrink: 0;
+  width: 0.5rem;
+  align-self: stretch;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink);
+}
