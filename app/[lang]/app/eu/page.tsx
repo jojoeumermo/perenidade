@@ -59,6 +59,12 @@ export default async function EuDoApp({ params }: PageProps<"/[lang]/app/eu">) {
         }
       />
       </details>
+      {/* A Alumia não mora no aplicativo instalado: o CSS esconde este cartão lá (links /alumia somem com data-sem-alumia).
+          No navegador do celular, que veste o mesmo visual, ele é a entrada para ela. */}
+      <Link href={localePath(lang, "/alumia")} data-entrada-alumia="" className="app-cartao app-atalho-alumia">
+        <span className="app-cartao-titulo app-cartao-titulo-menor">{n.alumiaEntrada}</span>
+        <span className="app-cartao-texto">{n.alumiaEntradaLead}</span>
+      </Link>
       {/* No aplicativo o convite ao apoio não abre sozinho na primeira tela (components/OpeningNotice.tsx): ele mora aqui. */}
       <Link href={localePath(lang, "/apoie")} className="app-cartao app-atalho-apoiar">
         <span className="app-cartao-titulo app-cartao-titulo-menor">{n.apoiar}</span>

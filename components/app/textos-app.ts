@@ -31,6 +31,8 @@ export interface TextosDoAppNovo {
   /** O cartão de apoio da aba Eu: no aplicativo o convite não abre sozinho, ele mora aqui. */
   apoiar: string;
   apoiarLead: string;
+  alumiaEntrada: string;
+  alumiaEntradaLead: string;
   /** Jornada de estudo própria (disciplina, trilha, aula). */
   trilhas: string;
   progressoDe: (feitas: number, total: number) => string;
@@ -72,6 +74,8 @@ const PT: TextosDoAppNovo = {
   euLead: "Seu estudo, seu caderno e suas preferências, neste aparelho.",
   apoiar: "Apoiar o instituto",
   apoiarLead: "Gratuito, sem anúncio e sem rastreador: quem pode contribuir mantém tudo no ar.",
+  alumiaEntrada: "Alumia →",
+  alumiaEntradaLead: "A rede social do instituto, no próprio endereço.",
   trilhas: "Trilhas",
   progressoDe: (f, n) => `${f} de ${n} aulas`,
   continuarEstudo: "Continuar estudando",
@@ -115,6 +119,8 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     euLead: "Your studies, notebook and preferences, on this device.",
     apoiar: "Support the institute",
     apoiarLead: "Free, ad-free and tracker-free: those who can contribute keep everything running.",
+    alumiaEntrada: "Alumia →",
+    alumiaEntradaLead: "The institute's social network, at its own address.",
     trilhas: "Tracks",
     progressoDe: (f, n) => `${f} of ${n} lessons`,
     continuarEstudo: "Keep studying",
@@ -155,6 +161,8 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     euLead: "Tu estudio, tu cuaderno y tus preferencias, en este aparato.",
     apoiar: "Apoyar el instituto",
     apoiarLead: "Gratuito, sin anuncios y sin rastreadores: quien puede contribuir mantiene todo en pie.",
+    alumiaEntrada: "Alumia →",
+    alumiaEntradaLead: "La red social del instituto, en su propia dirección.",
     trilhas: "Rutas",
     progressoDe: (f, n) => `${f} de ${n} clases`,
     continuarEstudo: "Seguir estudiando",
@@ -195,6 +203,8 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     euLead: "Votre étude, votre carnet et vos préférences, sur cet appareil.",
     apoiar: "Soutenir l'institut",
     apoiarLead: "Gratuit, sans pub ni traqueur : ceux qui peuvent contribuer maintiennent tout en ligne.",
+    alumiaEntrada: "Alumia →",
+    alumiaEntradaLead: "Le réseau social de l'institut, à sa propre adresse.",
     trilhas: "Parcours",
     progressoDe: (f, n) => `${f} leçons sur ${n}`,
     continuarEstudo: "Continuer à étudier",
@@ -235,6 +245,8 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     euLead: "Ваша учёба, тетрадь и настройки на этом устройстве.",
     apoiar: "Поддержать институт",
     apoiarLead: "Бесплатно, без рекламы и трекеров: те, кто может, поддерживают всё это.",
+    alumiaEntrada: "Alumia →",
+    alumiaEntradaLead: "Социальная сеть института, по её собственному адресу.",
     trilhas: "Маршруты",
     progressoDe: (f, n) => `${f} из ${n} уроков`,
     continuarEstudo: "Продолжить учёбу",
@@ -275,6 +287,8 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     euLead: "您的学习、笔记本和偏好设置,都在本设备上。",
     apoiar: "支持学院",
     apoiarLead: "免费、无广告、无跟踪:有能力的人捐款,让一切维持运转。",
+    alumiaEntrada: "Alumia →",
+    alumiaEntradaLead: "学院的社交网络,有自己的网址。",
     trilhas: "路线",
     progressoDe: (f, n) => `${f}/${n} 课`,
     continuarEstudo: "继续学习",
