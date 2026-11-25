@@ -8,7 +8,12 @@ import { useEffect } from "react";
 import { localePath, type Locale } from "@/i18n/config";
 import { rememberLesson, setCompleted, useCompleted } from "@/lib/progress";
 import { L, useI18n } from "../I18n";
-import type { TextosDoAppNovo } from "./textos-app";
+import { textosDoAppNovo } from "./textos-app";
+
+/** Os textos do app no idioma da página (as funções de texto não passam de servidor para cliente: cada peça os lê aqui). */
+function useS() {
+  return textosDoAppNovo(useI18n().lang);
+}
 
 export interface AulaDaJornada {
   id: string;
@@ -29,7 +34,8 @@ export function Barra({ feitas, total, rotulo }: { feitas: number; total: number
 }
 
 /** Um cartão de trilha na tela da disciplina: título, quanto já foi feito, barra. */
-export function CartaoDaTrilha({ href, title, resumo, aulas, s }: { href: string; title: string; resumo: string; aulas: string[]; s: TextosDoAppNovo }) {
+export function CartaoDaTrilha({ href, title, resumo, aulas }: { href: string; title: string; resumo: string; aulas: string[] }) {
+  const s = useS();
   const feitas = useCompleted();
   const n = aulas.filter((id) => feitas.has(id)).length;
   return (
@@ -46,7 +52,8 @@ export function CartaoDaTrilha({ href, title, resumo, aulas, s }: { href: string
 }
 
 /** O botão grande de "continuar": a primeira aula pronta ainda não concluída (ou a primeira, se nada foi feito). */
-export function ContinuarEstudo({ aulas, s, comecar }: { aulas: AulaDaJornada[]; s: TextosDoAppNovo; comecar?: boolean }) {
+export function ContinuarEstudo({ aulas, comecar }: { aulas: AulaDaJornada[]; comecar?: boolean }) {
+  const s = useS();
   const feitas = useCompleted();
   const prontas = aulas.filter((a) => a.ready);
   if (prontas.length === 0) return null;
@@ -63,7 +70,8 @@ export function ContinuarEstudo({ aulas, s, comecar }: { aulas: AulaDaJornada[];
 }
 
 /** A lista de aulas da trilha, com a marca de concluída e a próxima destacada. */
-export function ListaDaTrilha({ aulas, s }: { aulas: AulaDaJornada[]; s: TextosDoAppNovo }) {
+export function ListaDaTrilha({ aulas }: { aulas: AulaDaJornada[] }) {
+  const s = useS();
   const feitas = useCompleted();
   const proxima = aulas.find((a) => a.ready && !feitas.has(a.id))?.id;
   return (
@@ -116,7 +124,8 @@ export function GuardarAula({ path, title, track, area }: { path: string; title:
  * A barra fixa de baixo da aula (no lugar da barra de abas, que sai para não cobrir o texto): "Concluir e seguir" marca
  * a aula e vai para a próxima; na última, volta para a trilha. Aula já concluída: "Próxima aula" e "Desfazer".
  */
-export function BarraDaAula({ id, proxima, trilha, posicao, s, lang }: { id: string; proxima?: string; trilha: string; posicao: string; s: TextosDoAppNovo; lang: Locale }) {
+export function BarraDaAula({ id, proxima, trilha, posicao, lang }: { id: string; proxima?: string; trilha: string; posicao: string; lang: Locale }) {
+  const s = useS();
   const feitas = useCompleted();
   const router = useRouter();
   const { t } = useI18n();
@@ -152,7 +161,8 @@ export function BarraDaAula({ id, proxima, trilha, posicao, s, lang }: { id: str
 }
 
 /** O resumo de progresso do alto da aba Eu: aulas feitas e o caminho de volta ao estudo. */
-export function ResumoDeProgresso({ s, total, continuar }: { s: TextosDoAppNovo; total: number; continuar: string }) {
+export function ResumoDeProgresso({ total, continuar }: { total: number; continuar: string }) {
+  const s = useS();
   const feitas = useCompleted();
   return (
     <section className="app-cartao app-resumo-progresso" aria-label={s.seuProgresso}>

@@ -77,7 +77,7 @@ export default async function AulaDoApp({ params }: PageProps<"/[lang]/app/estud
           ← {s.voltarParaTrilha}
         </L>
       </footer>
-      <BarraDaAula id={id} proxima={proxima && caminho(proxima.slug)} trilha={`/app/estudar/${area}/${track.slug}`} posicao={posicao} s={s} lang={lang} />
+      <BarraDaAula id={id} proxima={proxima && caminho(proxima.slug)} trilha={`/app/estudar/${area}/${track.slug}`} posicao={posicao} lang={lang} />
     </article>
   );
 }

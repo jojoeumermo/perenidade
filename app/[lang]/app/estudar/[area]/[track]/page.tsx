@@ -39,9 +39,9 @@ export default async function TrilhaDoApp({ params }: PageProps<"/[lang]/app/est
         <h1>{track.title}</h1>
         <p>{track.summary}</p>
       </header>
-      <ContinuarEstudo aulas={aulas} s={s} />
+      <ContinuarEstudo aulas={aulas} />
       <section className="app-secao" aria-label={t.nav.disciplines}>
-        <ListaDaTrilha aulas={aulas} s={s} />
+        <ListaDaTrilha aulas={aulas} />
       </section>
     </div>
   );
