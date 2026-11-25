@@ -204,6 +204,20 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     expect(page.url()).toMatch(/\/pt\/app\/jogos$/);
   });
 
+  test("auditoria: telas do app sem 'Voltar ao site' nem link para /alumia", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    for (const caminho of ["/pt/app", "/pt/app/estudar", "/pt/app/jogos", "/pt/app/eu", "/pt/app/estudar/enem", "/pt/app/estudar/enem/enem-como-funciona", "/pt/app/estudar/enem/enem-como-funciona/como-funciona-o-enem"]) {
+      await page.goto(caminho);
+      await page.waitForLoadState("networkidle");
+      const texto = await page.locator("body").innerText();
+      const achou = /voltar (ao|para o) site|back to the web ?site/i.test(texto);
+      const alumia = await page.locator('a[href*="/alumia"]:visible').count();
+      console.log(`AUDITORIA ${caminho}: voltar-ao-site=${achou} links-alumia-visiveis=${alumia}`);
+      expect(achou, `${caminho}: texto "Voltar ao site"`).toBe(false);
+      expect(alumia, `${caminho}: link visível para a Alumia`).toBe(0);
+    }
+  });
+
   test("área útil, fim da rolagem, voltar e pequeno (360x640)", async ({ page }) => {
     test.skip(v.id !== "standalone", "basta numa variante");
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
