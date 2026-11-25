@@ -842,3 +842,8 @@
 /* Aba Jogos com um jogo aberto: some a cabeça da aba e o atalho de laboratórios. */
 :root[data-app] .app-hub-jogos[data-jogo-aberto] > .app-hub-cabeca,
 :root[data-app] .app-hub-jogos[data-jogo-aberto] > .app-atalho-labs { display: none; }
+
+/* Deitado (largura acima de 768 px) o cabeçalho do site voltava e brigava com a barra de cima do app: no visual do app ele não existe em largura nenhuma. */
+:root[data-app]:not([data-leitor]) .cabecalho-site {
+  display: none !important;
+}
