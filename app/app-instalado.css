@@ -552,7 +552,13 @@
 
 /* A aba Jogos: a entrada de Laboratórios em cima; a tela de jogos reaproveitada perde o cabeçalhão de página. */
 .app-atalho-labs {
-  margin: 1rem 1rem 0;
+  margin: 1rem 1rem 1.5rem;
+}
+.app-atalho-labs .app-cartao-titulo {
+  margin-top: 0;
+}
+.app-atalho-labs .app-cartao-aux {
+  margin-top: 0.35rem;
 }
 .app-hub-jogos > div:first-child,
 .app-hub-jogos > section:first-child {
