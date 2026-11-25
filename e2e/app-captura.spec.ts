@@ -167,8 +167,8 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.waitForLoadState("networkidle");
     console.log(`JORNADA concluir: ${aula1} -> ${page.url()}`);
     await foto(page, "jornada-5-proxima-aula");
-    const feitas = await page.evaluate(() => window.localStorage.getItem("lucia:done"));
-    console.log(`JORNADA lucia:done = ${feitas}`);
+    const feitas = await page.evaluate(() => window.localStorage.getItem("lucia:concluidas"));
+    console.log(`JORNADA lucia:concluidas = ${feitas}`);
     expect(feitas).toContain("/");
     await page.goto("/pt/app/eu");
     await page.waitForLoadState("networkidle");
@@ -210,10 +210,12 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.goto("/pt/app/estudar");
     await page.waitForLoadState("networkidle");
     await page.locator(".app-item-lista").first().click();
+    await page.waitForURL(/\/pt\/app\/estudar\/[^/]+$/);
     await page.waitForLoadState("networkidle");
     const aoAbrir = page.url();
     await foto(page, "voltar-1-disciplina");
     await page.locator("button.shell-icone").first().click();
+    await page.waitForURL(/\/pt\/app\/estudar$/);
     await page.waitForLoadState("networkidle");
     console.log(`VOLTAR estudar: abriu ${aoAbrir}, voltou para ${page.url()}`);
     await foto(page, "voltar-2-de-volta");
@@ -225,6 +227,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.waitForLoadState("networkidle");
     await foto(page, "voltar-3-apoie");
     await page.locator("button.shell-icone").first().click();
+    await page.waitForURL(/\/pt\/app\/eu$/);
     await page.waitForLoadState("networkidle");
     console.log(`VOLTAR eu: voltou para ${page.url()}`);
     expect(page.url()).toMatch(/\/pt\/app\/eu$/);
