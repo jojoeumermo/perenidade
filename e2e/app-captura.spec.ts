@@ -13,10 +13,11 @@ const ROTULO = process.env.CAPTURA_ROTULO ?? "x";
 const TUDO = process.env.CAPTURA_GRUPO === "tudo";
 const AULA = "/pt/trilhas/historia-antiga/pre-historia-os-primeiros-seres-humanos";
 
-async function foto(page: Page, nome: string, cheia = false) {
+async function fotoGeral(page: Page, nome: string, cheia = false) {
   await page.waitForTimeout(800);
   await page.screenshot({ path: `test-results/capturas/${ROTULO}-${nome}.png`, fullPage: cheia });
 }
+const foto = fotoGeral;
 const atributo = (page: Page, a: string) => page.evaluate((n) => document.documentElement.hasAttribute(n), a);
 
 // O aplicativo instalado é reconhecido pelo <html data-app>, posto pelo prefsScript (lib/prefs-script.ts) no modo standalone, no
@@ -62,9 +63,30 @@ test.describe("navegador comum abre /pt/app (390 px)", () => {
   });
 });
 
-test.describe("app instalado (390 px, navegador embutido com \"; wv)\")", () => {
+// Duas formas de ser o app: "standalone" = UA comum, sem query, com matchMedia(display-mode: standalone) e navigator.standalone
+// verdadeiros ANTES de qualquer script da página (como o navegador faz no app instalado); "wv" = navegador embutido ("; wv)").
+// São simulações em navegador de teste: não substituem um aparelho com o app instalado.
+const SIMULA_STANDALONE = () => {
+  const original = window.matchMedia.bind(window);
+  window.matchMedia = (q: string) => {
+    const m = original(q);
+    if (!/display-mode:\s*(standalone|minimal-ui)/.test(q)) return m;
+    return new Proxy(m, { get: (t, k) => (k === "matches" ? /standalone/.test(q) : typeof (t as never)[k] === "function" ? ((t as never)[k] as () => unknown).bind(t) : (t as never)[k]) });
+  };
+  Object.defineProperty(navigator, "standalone", { get: () => true });
+};
+const VARIANTES = [
+  { id: "standalone", ua: undefined as string | undefined, simula: true },
+  { id: "wv", ua: UA_APP, simula: false },
+];
+
+for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () => {
   test.skip(!TUDO, "o ramo-base não tem as rotas do app");
-  test.use({ ...CELULAR, userAgent: UA_APP });
+  test.use({ ...CELULAR, ...(v.ua ? { userAgent: v.ua } : {}) });
+  test.beforeEach(async ({ page }) => {
+    if (v.simula) await page.addInitScript(SIMULA_STANDALONE);
+  });
+  const foto = (page: Page, nome: string, cheia = false) => fotoGeral(page, `${v.id}-${nome}`, cheia);
 
   test("primeira abertura do app: sem modal de apoio", async ({ page }) => {
     await page.goto("/pt/app");
@@ -72,6 +94,8 @@ test.describe("app instalado (390 px, navegador embutido com \"; wv)\")", () => 
     await foto(page, "app-primeira-abertura");
     expect(await atributo(page, "data-app")).toBe(true);
     expect(await atributo(page, "data-sem-alumia")).toBe(true);
+    await expect(page.locator(".shell-abas")).toBeVisible();
+    console.log(`${v.id}: URL ${page.url()}, data-app presente, shell visível`);
     await expect(page.locator("dialog[open]")).toHaveCount(0);
   });
 
