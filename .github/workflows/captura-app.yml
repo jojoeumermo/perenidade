@@ -51,6 +51,7 @@ jobs:
         run: npx playwright test e2e/app-captura --project=computador
         env:
           CI: "1"
+          NEXT_PUBLIC_RECURSOS: "enem-curso"
           CAPTURA_ROTULO: ${{ matrix.rotulo }}
           CAPTURA_GRUPO: ${{ matrix.grupo }}
           ALUMIA_VOTO_SEGREDO: "segredo-so-de-teste-do-e2e-0123456789abcdef"
