@@ -3,7 +3,7 @@
 
 import { usePathname } from "next/navigation";
 import { useLayoutEffect } from "react";
-import { celularNoNavegador, isApp } from "@/lib/prefs";
+import { celularNoNavegador, isApp, naAlumia } from "@/lib/prefs";
 
 /**
  * No celular em navegador comum o <html data-app> vale em todas as páginas, MENOS na Alumia (o interior dela não muda). O
@@ -15,8 +15,9 @@ export function VisualDoApp() {
   useLayoutEffect(() => {
     if (isApp()) return;
     const raiz = document.documentElement;
-    if (celularNoNavegador()) raiz.setAttribute("data-app", "");
-    else raiz.removeAttribute("data-app");
+    // Só liga onde vale e só desliga na Alumia: uma conta de mídia que falhe numa troca de página não derruba o visual do app.
+    if (naAlumia()) raiz.removeAttribute("data-app");
+    else if (celularNoNavegador()) raiz.setAttribute("data-app", "");
   }, [caminho]);
   return null;
 }

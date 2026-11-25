@@ -110,6 +110,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "app-1-inicio-cheia", true);
     for (const [aba, nome] of [["/pt/app/estudar", "2-estudar"], ["/pt/app/jogos", "3-jogos"], ["/pt/app/eu", "4-eu"]] as const) {
       await page.locator(`.shell-abas a[href="${aba}"]`).first().click();
+      console.log(`TAB ${aba} ${v.id} data-app=${await atributo(page, "data-app")} mq=${await page.evaluate(() => matchMedia("(pointer: coarse) and (max-width: 768px)").matches)} url=${page.url()}`);
       await page.waitForURL(new RegExp(`${aba}$`));
       await page.waitForLoadState("networkidle");
       await foto(page, `app-${nome}`);
