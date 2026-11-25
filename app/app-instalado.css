@@ -925,3 +925,33 @@
   padding-inline: 1rem;
   overflow-x: clip;
 }
+
+/* O "?" flutuante cobria texto no fim das telas do app: some aqui (leitor e telas cheias já o escondem). A ajuda mora na aba Eu e
+   abre a mesma janela. O painel aberto não é afetado: só o gatilho some. */
+:root[data-app] .assistente-gatilho {
+  display: none !important;
+}
+.app-atalho-ajuda,
+.app-atalho-alumia,
+.app-atalho-apoiar,
+.app-atalho-caderno {
+  box-sizing: border-box;
+  width: calc(100% - 2rem);
+  margin: 1rem 1rem 0;
+  border: 1.5px solid #1f1a14;
+  background: #fffdf7;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  box-shadow: 3px 3px 0 #1f1a14;
+}
+.app-atalho-ajuda {
+  cursor: pointer;
+}
+.app-atalho-alumia .app-cartao-texto,
+.app-atalho-apoiar .app-cartao-texto {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
