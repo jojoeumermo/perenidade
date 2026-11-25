@@ -14,7 +14,7 @@ const ler = (rel) => fs.readFileSync(path.join(raiz, rel), "utf8");
 
 const IDS = ["eletricista-autonomo", "costureira-e-cooperativa", "desenvolvedor-de-software-livre", "sindicato-de-bairro", "radio-comunitaria", "cursinho-popular", "reforma-agraria-e-mutirao", "coletivo-de-artes-e-hip-hop"];
 const lab = ler("lib/laboratorios.ts");
-const pagina = ler("app/[lang]/jogos/page.tsx");
+const pagina = ler("lib/jogos/pagina-servidor.tsx");
 const conteudo = (b) => JSON.stringify(b);
 
 for (const id of IDS) {
