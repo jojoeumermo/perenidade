@@ -30,7 +30,7 @@ export default async function DisciplinaDoApp({ params }: PageProps<"/[lang]/app
         <h1>{nome[0]}</h1>
         <p>{nome[1]}</p>
       </header>
-      <ContinuarEstudo aulas={aulas} s={s} />
+      <ContinuarEstudo aulas={aulas} />
       <section className="app-secao" aria-label={s.trilhas}>
         <h2 className="app-titulo-secao">{s.trilhas}</h2>
         {trilhas.length === 0 ? (
@@ -39,7 +39,7 @@ export default async function DisciplinaDoApp({ params }: PageProps<"/[lang]/app
           <ul className="app-lista">
             {trilhas.map((tr) => (
               <li key={tr.slug}>
-                <CartaoDaTrilha href={`/app/estudar/${area}/${tr.slug}`} title={tr.title} resumo={tr.summary} aulas={tr.plan.filter((i) => i.ready !== false).map((i) => lessonId(tr.slug, i.slug))} s={s} />
+                <CartaoDaTrilha href={`/app/estudar/${area}/${tr.slug}`} title={tr.title} resumo={tr.summary} aulas={tr.plan.filter((i) => i.ready !== false).map((i) => lessonId(tr.slug, i.slug))} />
               </li>
             ))}
           </ul>
