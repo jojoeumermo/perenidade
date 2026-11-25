@@ -182,6 +182,20 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     if (r.topoDasAbas !== null && r.fimDoUltimo !== null) expect(r.fimDoUltimo).toBeLessThanOrEqual(r.topoDasAbas + 1);
   });
 
+  test("ajuda do app: o ? flutuante some e a aba Eu abre as perguntas frequentes", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/estudar");
+    await page.waitForLoadState("networkidle");
+    await expect(page.locator(".assistente-gatilho")).toBeHidden();
+    await page.goto("/pt/app/eu");
+    await page.waitForLoadState("networkidle");
+    await foto(page, "app-eu-atalhos");
+    await page.locator("[data-ajuda-do-app]").scrollIntoViewIfNeeded();
+    await page.locator("[data-ajuda-do-app]").click();
+    await expect(page.locator("#assistente-do-site")).toBeVisible({ timeout: 15000 });
+    await foto(page, "app-ajuda-aberta");
+  });
+
   test("jornada própria: disciplina, trilha, aula, concluir, progresso", async ({ page }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/estudar");
