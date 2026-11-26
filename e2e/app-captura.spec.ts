@@ -223,6 +223,17 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "app-podcasts");
   });
 
+  test("laboratórios do app: o atalho da aba Jogos e labs abre a tela própria com cartões por finalidade", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/jogos");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".app-atalho-labs").click();
+    await page.waitForURL("**/app/jogos/laboratorios");
+    expect(await page.locator(".app-labs-cartao").count()).toBeGreaterThan(10);
+    await expect(page.locator("[data-lab=ide]")).toBeVisible();
+    await foto(page, "app-labs");
+  });
+
   test("estados da busca do app: sem resultado e sem conexão com tentar de novo", async ({ page, context }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/estudar/buscar");
