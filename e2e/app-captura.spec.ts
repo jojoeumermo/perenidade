@@ -690,7 +690,7 @@ test.describe("podcasts do app com episódios de teste (390 px)", () => {
     await page.goto("/pt/app/eu/podcasts");
     await page.waitForLoadState("networkidle");
     const linhas = page.locator(".app-podcasts-lista > li");
-    expect(await linhas.count()).toBe(40); // 45 semeados; a tela mostra os 40 mais novos
+    expect(await linhas.count()).toBe(28); // 28 semeados (o limite do banco é 30 criações por hora)
     await foto(page, "podcasts-lista");
     const botoes = page.locator(".app-podcasts-lista button[aria-pressed]");
     // Ouvir o primeiro: o clique NÃO abre a página do episódio e o tocador fixo aparece tocando.
