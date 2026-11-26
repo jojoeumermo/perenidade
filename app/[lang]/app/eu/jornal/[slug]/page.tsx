@@ -9,7 +9,7 @@ import { loadLang } from "@/i18n";
 import { defaultLocale, fill, htmlLang, localePath } from "@/i18n/config";
 import { materiasDoApp, termosDoApp } from "@/lib/jornal/leitura-do-app";
 import { leiaTambem } from "@/lib/jornal/selecao";
-import { withLangs } from "@/lib/params";
+import { withLangs } from "@/lib/idiomas-estaticos";
 
 // O endereço de cada matéria é permanente: nenhuma expira (docs/jornal/EXPIRACAO.md). Mesma regra da página do site.
 // A leitura vem de lib/jornal/leitura-do-app.ts (só content/jornal e content/glossario), não de lib/content.ts: assim a função
