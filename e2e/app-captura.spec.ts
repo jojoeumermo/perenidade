@@ -935,8 +935,8 @@ test.describe("margem sob a barra de baixo no fim das páginas, dentro do app (3
     await page.waitForTimeout(500);
     console.log(`MARGEM diagnostico-prova ${page.url()} ${JSON.stringify(await margem(page))}`);
     await foto(page, "margem-diagnostico-prova");
-    await page.locator("header button[aria-label], header a[aria-label]").first().click({ timeout: 5000 }).catch(() => {});
-    await page.waitForTimeout(800);
+    await page.locator(".shell-topo button[aria-label]").first().click({ timeout: 5000 }).catch(() => {});
+    await page.waitForTimeout(1500);
     console.log(`JORNADA-DIAG-VOLTAR ${page.url()} radios=${await page.locator('input[type="radio"]').count()} h1=${await page.locator("h1").first().textContent().catch(() => "")} textoCurto=${JSON.stringify((await page.locator("main").innerText().catch(() => "")).slice(0, 160))}`);
     await foto(page, "jornada-diag-voltar");
   });
