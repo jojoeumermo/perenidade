@@ -1,5 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import Link from "@/components/Link";
+import { Ouvir } from "@/components/podcast/Ouvir";
 import { htmlLang, localePath } from "@/i18n/config";
 import { loadLang } from "@/i18n";
 import { minutos } from "@/lib/podcast";
@@ -19,8 +20,8 @@ const plataformas: [string, string][] = [
 
 /**
  * Podcasts dentro do aplicativo (aba Eu): a lista dos episódios (mais novo primeiro), onde assinar e o endereço do feed.
- * Sem episódio publicado mostra o aviso "em breve". Tocar um episódio ainda abre a página do site (o tocador mora lá):
- * pendência registrada, não tratada como pronta.
+ * Sem episódio publicado mostra o aviso "em breve". Cada episódio tem o botão de ouvir do site (components/podcast/Ouvir, mesmo tocador fixo) e o cartão que abre a
+ * página do episódio. Não visto com episódios de verdade: o banco de teste do CI não tem episódio publicado.
  */
 export default async function PodcastsDoApp({ params }: PageProps<"/[lang]/app/eu/podcasts">) {
   const { lang, t } = await loadLang(params);
@@ -42,7 +43,8 @@ export default async function PodcastsDoApp({ params }: PageProps<"/[lang]/app/e
       ) : (
         <ol className="app-podcasts-lista">
           {episodios.slice(0, 40).map((e) => (
-            <li key={e.id}>
+            <li key={e.id} className="app-radio-linha">
+              <Ouvir episodio={e} fila={episodios} programa={s.title} rotulo={s.listen} pausar={s.pause} />
               <Link href={localePath(lang, `/podcasts/${e.slug}`)} className="app-cartao app-podcasts-episodio">
                 <span className="app-cartao-titulo app-cartao-titulo-menor">{e.titulo}</span>
                 <span className="app-cartao-texto">
