@@ -257,7 +257,14 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     expect(await page.locator(".app-radio-emissora").count()).toBeGreaterThan(20);
     await expect(page.locator("[data-emissora=brasil-de-fato]")).toHaveAttribute("target", "_blank");
     await foto(page, "app-radio");
-    // O som continua só no tocador do site: o cartão do topo leva a ele e a página abre dentro do app.
+    // O botão redondo de uma emissora com transmissão usa o tocador do site (a transmissão de verdade não toca no CI: só se
+    // registra o estado, e o botão e o tocador fixo têm de existir).
+    expect(await page.locator("[data-tocar-emissora]").count()).toBeGreaterThan(5);
+    await page.locator("[data-tocar-emissora=brasil-de-fato]").click();
+    await page.waitForTimeout(1500);
+    console.log(`RADIO-APP pressed=${await page.locator("[data-tocar-emissora=brasil-de-fato]").getAttribute("aria-pressed")} tocador=${await page.locator(".radio-player").count()}`);
+    await foto(page, "app-radio-tocando");
+    // O cartão do topo leva ao tocador do site, aberto dentro do app. Antes, o som só tocava ali.
     await page.locator("[data-radio-tocador]").click();
     await page.waitForURL(/\/pt\/radio$/);
     await expect(page.locator("h1").first()).toBeVisible();
