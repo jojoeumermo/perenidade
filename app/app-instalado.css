@@ -946,6 +946,11 @@
 .app-jornal-materia,
 .app-atalho-instituto,
 .app-atalho-voluntarios,
+.app-atalho-saude,
+.app-saude-emergencia,
+.app-saude-aviso,
+.app-saude-como li,
+.app-saude-link,
 .app-voluntarios-cartao,
 .app-instituto-bloco,
 .app-instituto-valor,
@@ -1061,3 +1066,13 @@
 :root[data-app] .app-voluntarios-acao { display: block; margin-top: 0.6rem; font-weight: 700; color: #8a1c14; }
 :root[data-app] .app-voluntarios-mais summary { cursor: pointer; font-weight: 700; color: #8a1c14; }
 :root[data-app] .app-voluntarios-form { margin: 1.5rem 1rem 0; }
+
+/* Mural de Saúde dentro do app (Eu → Saúde): emergência e aviso primeiro, depois a vitrine do site e o "como funciona". */
+:root[data-app] .app-saude-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-saude-emergencia ul, :root[data-app] .app-saude-aviso ul, :root[data-app] .app-saude-como { list-style: none; margin: 0.4rem 0 0; padding: 0; }
+:root[data-app] .app-saude-emergencia li { display: flex; justify-content: space-between; align-items: baseline; padding: 0.35rem 0; }
+:root[data-app] .app-saude-emergencia a { font-size: 1.35rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+:root[data-app] .app-saude-aviso li { margin-top: 0.5rem; line-height: 1.4; font-size: 0.95rem; }
+:root[data-app] .app-saude-vitrine { margin: 1.25rem 1rem 0; }
+:root[data-app] .app-saude-como li { display: block; margin-bottom: 0; }
+:root[data-app] .app-saude-link { display: block; text-decoration: none; }
