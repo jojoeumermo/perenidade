@@ -681,7 +681,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
 // áudio é silêncio em MP3). Nada disso toca o conteúdo publicado. Prova comportamento simulado no Chrome do CI: não são
 // episódios reais nem som real, só o estado do <audio> e da interface.
 test.describe("podcasts do app com episódios de teste (390 px)", () => {
-  test.skip(process.env.SEMEAR_PODCAST !== "2" || !TUDO, "só roda no passo com episódios de teste semeados");
+  test.skip(!process.env.SEMEAR_PODCAST || !TUDO, "só roda no passo com episódios de teste semeados");
   test.use({ ...CELULAR, userAgent: UA_APP });
   const estadoAudio = (page: Page) => page.evaluate(() => { const a = document.querySelector("audio"); return a ? { paused: a.paused, t: Math.round(a.currentTime * 10) / 10, src: a.currentSrc.split("/").slice(-2).join("/"), erro: a.error?.code ?? null } : null; });
 
@@ -690,7 +690,7 @@ test.describe("podcasts do app com episódios de teste (390 px)", () => {
     await page.goto("/pt/app/eu/podcasts");
     await page.waitForLoadState("networkidle");
     const linhas = page.locator(".app-podcasts-lista > li");
-    await expect(linhas).toHaveCount(2);
+    expect(await linhas.count()).toBe(40); // 45 semeados; a tela mostra os 40 mais novos
     await foto(page, "podcasts-lista");
     const botoes = page.locator(".app-podcasts-lista button[aria-pressed]");
     // Ouvir o primeiro: o clique NÃO abre a página do episódio e o tocador fixo aparece tocando.
@@ -719,16 +719,19 @@ test.describe("podcasts do app com episódios de teste (390 px)", () => {
     await expect(botoes.nth(1)).toHaveAttribute("aria-pressed", "true");
     await expect(botoes.nth(0)).toHaveAttribute("aria-pressed", "false");
     await foto(page, "podcasts-troca");
+    // Em lista longa, o 2º botão (visível) é o 2º episódio mais novo: a troca acima já o usou.
     // Espaçamento: o último cartão fica acima do tocador fixo.
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
     await page.waitForTimeout(400);
     const medidas = await page.evaluate(() => {
-      const c = Array.from(document.querySelectorAll(".app-podcasts-episodio")).pop()?.getBoundingClientRect();
+      const c = document.querySelector(".app-podcasts-radio")?.getBoundingClientRect();
       const t = document.querySelector(".radio-player")?.getBoundingClientRect();
       const ass = document.querySelector(".app-podcasts-assinar")?.getBoundingClientRect();
-      return { cartaoBase: Math.round(c?.bottom ?? -1), tocadorTopo: Math.round(t?.top ?? -1), assinarTopo: Math.round(ass?.top ?? -1), altura: window.innerHeight };
+      return { radioBase: Math.round(c?.bottom ?? -1), tocadorTopo: Math.round(t?.top ?? -1), assinarTopo: Math.round(ass?.top ?? -1), altura: window.innerHeight };
     });
     console.log(`PODCAST-MEDIDAS ${JSON.stringify(medidas)}`);
+    expect(medidas.radioBase).toBeLessThanOrEqual(medidas.tocadorTopo);
+    await foto(page, "podcasts-fim");
     // O cartão abre a página do episódio (e só ele).
     await page.evaluate(() => window.scrollTo(0, 0));
     await linhas.nth(0).locator("a.app-podcasts-episodio").click();
@@ -747,7 +750,15 @@ test.describe("podcasts do app com episódios de teste (390 px)", () => {
     const a = await estadoAudio(page);
     const pressionado = await botao.getAttribute("aria-pressed");
     console.log(`PODCAST-FALHA pressed=${pressionado} audio=${JSON.stringify(a)} aviso=${await page.locator(".radio-player").innerText().catch(() => "")}`);
+    await expect(page.locator("[data-podcast-falhou]")).toBeVisible();
     await foto(page, "podcasts-falha");
     expect(pressionado).toBe("false");
+    // Tentar de novo (agora com a mídia liberada) tira o aviso e toca.
+    await page.unroute("**/*");
+    await botao.click();
+    await expect(page.locator("[data-podcast-falhou]")).toHaveCount(0);
+    await page.waitForTimeout(1500);
+    expect((await estadoAudio(page))?.paused).toBe(false);
+    await foto(page, "podcasts-retomou");
   });
 });
