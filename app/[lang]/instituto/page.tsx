@@ -7,23 +7,12 @@ import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
 import { paginaMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { VALORES } from "@/lib/instituto-valores";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/instituto">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
   return paginaMeta(lang, "/instituto", t.nav.institute, t.instituto.description);
 }
-
-const VALORES: [string, string][] = [
-  ["Conhecimento livre", "O saber foi produzido por gerações de trabalhadoras e trabalhadores. Aqui ele não é mercadoria: nada é vendido, e tudo o que o instituto escreve pode ser copiado."],
-  ["Gratuidade, sem lucro", "Ninguém paga para estudar e ninguém lucra. Sem anúncios. O apoio de quem pode ajudar paga servidor, domínio e materiais, com as contas abertas."],
-  ["Privacidade", "Para estudar não há cadastro, e o que a pessoa faz nas aulas fica no aparelho dela. O instituto não vende dados e não usa rastreadores."],
-  ["Fonte à vista", "Cada aula mostra em que se apoia, para quem lê poder conferir. Fato vem com fonte; erro encontrado é corrigido, e o histórico guarda as versões."],
-  ["Lado declarado, com rigor", "O instituto é de esquerda e está do lado de quem trabalha e luta. Isso não autoriza distorcer ninguém: o ensino é rigoroso e cita o que cada autor disse."],
-  ["Respeito a quem cria", "Só entra o que é livre para circular. Obra protegida aparece como referência, com link para a editora ou uma biblioteca."],
-  ["Cada pessoa no seu tempo", "Sem ranking, sem pressa, sem pontuação para viciar. Estudar não é competição."],
-  ["Voluntariado com autonomia", "Quem faz o instituto é voluntário: escolhe quando e como contribui, sem chefe, sem horário e sem salário."],
-  ["Acessível a todos", "Leitor de tela, teclado, contraste, letra grande, tradução para Libras e páginas leves para celular simples e internet fraca."],
-];
 
 /** Propósito, missão, visão, valores e a carta de funcionamento (o estatuto, enquanto o instituto não é associação registrada). */
 export default async function Instituto({ params }: PageProps<"/[lang]/instituto">) {

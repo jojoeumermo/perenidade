@@ -943,7 +943,11 @@
 .app-labs-cartao,
 .app-radio-tocador,
 .app-radio-emissora,
-.app-jornal-materia {
+.app-jornal-materia,
+.app-atalho-instituto,
+.app-instituto-bloco,
+.app-instituto-valor,
+.app-instituto-estatuto {
   box-sizing: border-box;
   width: calc(100% - 2rem);
   margin: 1rem 1rem 0;
@@ -1033,3 +1037,14 @@
 :root[data-app] .app-jornal-materia { display: block; text-decoration: none; }
 :root[data-app] .app-jornal-materia .app-cartao-aux { display: block; margin-top: 0.4rem; font-size: 0.8rem; opacity: 1; color: #3d352c; font-weight: 600; }
 :root[data-app] .app-jornal-selo { display: inline-block; margin-bottom: 0.35rem; padding: 0.1rem 0.5rem; background: #c21f16; color: #fff; font: 700 0.7rem/1.4 var(--font-sans, system-ui, sans-serif); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* Instituto dentro do app (Eu → Instituto): blocos de texto e os valores em sanfona. */
+:root[data-app] .app-instituto-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-instituto-valores { list-style: none; margin: 0; padding: 0; }
+:root[data-app] .app-instituto-rotulo { margin: 0; font: 700 0.75rem/1.4 var(--font-mono, ui-monospace, monospace); letter-spacing: 0.2em; text-transform: uppercase; color: #8a1c14; }
+:root[data-app] .app-instituto-texto { margin: 0.4rem 0 0; font-size: 1.05rem; line-height: 1.5; }
+:root[data-app] .app-instituto-valor summary { cursor: pointer; font-weight: 700; list-style: none; }
+:root[data-app] .app-instituto-valor summary::-webkit-details-marker { display: none; }
+:root[data-app] .app-instituto-num { display: inline-block; margin-right: 0.4rem; font: 700 0.75rem/1 var(--font-mono, ui-monospace, monospace); color: #8a1c14; }
+:root[data-app] .app-instituto-estatuto { display: block; text-decoration: none; margin-bottom: 1rem; }
+:root[data-app] .app-instituto-valor .app-cartao-texto { display: block; margin-top: 0.5rem; }

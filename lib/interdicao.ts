@@ -24,7 +24,7 @@ export const areasPublicas = [
   { id: "materiais", nome: "Materiais de campanha", caminhos: ["/materiais"] },
   { id: "dados", nome: "Dados do povo", caminhos: ["/dados"] },
   { id: "videos", nome: "Vídeos e videoaulas", caminhos: ["/videos", "/videoaulas"] },
-  { id: "voluntariado", nome: "Voluntariado, apoio e o instituto", caminhos: ["/voluntarios", "/app/eu/apoio", "/apoie", "/instituto", "/voluntarie-se", "/contribuidores", "/direitos-autorais", "/conduta", "/uso", "/eventos", "/divulgue", "/direitos", "/territorios", "/relatorio", "/imprensa"] },
+  { id: "voluntariado", nome: "Voluntariado, apoio e o instituto", caminhos: ["/voluntarios", "/app/eu/apoio", "/app/eu/instituto", "/apoie", "/instituto", "/voluntarie-se", "/contribuidores", "/direitos-autorais", "/conduta", "/uso", "/eventos", "/divulgue", "/direitos", "/territorios", "/relatorio", "/imprensa"] },
   { id: "busca", nome: "Busca", caminhos: ["/busca"] },
   { id: "gaveta", nome: "Gaveta Aberta", caminhos: ["/gaveta"] },
 ] as const;
