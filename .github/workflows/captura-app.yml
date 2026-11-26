@@ -55,6 +55,16 @@ jobs:
           CAPTURA_ROTULO: ${{ matrix.rotulo }}
           CAPTURA_GRUPO: ${{ matrix.grupo }}
           ALUMIA_VOTO_SEGREDO: "segredo-so-de-teste-do-e2e-0123456789abcdef"
+      - name: Podcasts com episódios de teste (banco local semeado, nada publicado)
+        if: matrix.rotulo == 'app'
+        run: npx playwright test e2e/app-captura -g "podcasts do app com episódios de teste" --project=computador --output=/tmp/pw-podcast
+        env:
+          CI: "1"
+          NEXT_PUBLIC_RECURSOS: "enem-curso"
+          CAPTURA_ROTULO: ${{ matrix.rotulo }}
+          CAPTURA_GRUPO: ${{ matrix.grupo }}
+          SEMEAR_PODCAST: "2"
+          ALUMIA_VOTO_SEGREDO: "segredo-so-de-teste-do-e2e-0123456789abcdef"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: always()
         with:
