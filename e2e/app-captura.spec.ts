@@ -858,15 +858,22 @@ test.describe("margem sob a barra de baixo no fim das páginas, dentro do app (3
       window.scrollTo(0, document.documentElement.scrollHeight);
       await new Promise((r) => setTimeout(r, 500));
       window.scrollTo(0, document.documentElement.scrollHeight);
-      const barra = document.querySelector("nav.app-abas")?.getBoundingClientRect();
       const fixo = (e: Element) => { for (let n: Element | null = e; n; n = n.parentElement) { const p = getComputedStyle(n).position; if (p === "fixed" || p === "sticky") return true; } return false; };
+      // A barra de baixo: o elemento fixo mais baixo, encostado no fim da tela, com altura de barra.
+      let barraTopo = -1;
+      for (const e of Array.from(document.body.querySelectorAll("nav, div, section, footer"))) {
+        if (getComputedStyle(e).position !== "fixed") continue;
+        const r = e.getBoundingClientRect();
+        if (r.height >= 40 && r.height <= 120 && r.width > 200 && r.bottom >= window.innerHeight - 40 && r.bottom <= window.innerHeight + 1 && (barraTopo < 0 || r.top < barraTopo)) barraTopo = r.top;
+      }
+      // O último conteúdo de fluxo normal: o folha (sem filhos) visível mais baixo que não está sob um elemento fixo.
       let base = 0;
       for (const e of Array.from(document.body.querySelectorAll("*"))) {
-        if (fixo(e)) continue;
+        if (e.children.length > 0 || fixo(e)) continue;
         const r = e.getBoundingClientRect();
         if (r.height > 0 && r.width > 0 && r.bottom > base && r.bottom <= window.innerHeight + 2) base = r.bottom;
       }
-      return { conteudoBase: Math.round(base), barraTopo: Math.round(barra?.top ?? -1), folga: Math.round((barra?.top ?? 0) - base), noFim: Math.round(window.scrollY + window.innerHeight) >= document.documentElement.scrollHeight - 2 };
+      return { conteudoBase: Math.round(base), barraTopo: Math.round(barraTopo), folga: Math.round(barraTopo - base), noFim: Math.round(window.scrollY + window.innerHeight) >= document.documentElement.scrollHeight - 2 };
     });
   for (const rota of MARGEM) {
     test(`margem ${rota}`, async ({ page }) => {
@@ -890,10 +897,25 @@ test.describe("margem sob a barra de baixo no fim das páginas, dentro do app (3
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/enem/diagnostico", { waitUntil: "domcontentloaded" });
     await page.waitForLoadState("networkidle").catch(() => {});
-    await page.locator('a:has-text("Começar a prova"), button:has-text("Começar a prova")').first().click({ timeout: 20000 });
-    await page.waitForLoadState("networkidle").catch(() => {});
+    const comecar = page.locator('a:has-text("Começar a prova"), button:has-text("Começar a prova")');
+    for (let i = 0; i < 3 && (await comecar.count()) > 0; i++) {
+      await comecar.first().click({ timeout: 20000 });
+      await page.waitForLoadState("networkidle").catch(() => {});
+      await page.waitForTimeout(800);
+    }
+    const opcoes = await page.locator('input[type="radio"]').count();
+    console.log(`JORNADA-DIAG url=${page.url()} radios=${opcoes} h1=${await page.locator("h1").first().textContent().catch(() => "")}`);
+    await foto(page, "jornada-diag-questao");
+    if (opcoes > 0) {
+      await page.locator('input[type="radio"]').first().check({ force: true }).catch(() => {});
+      await page.waitForTimeout(500);
+      await foto(page, "jornada-diag-respondida");
+    }
     console.log(`MARGEM diagnostico-prova ${page.url()} ${JSON.stringify(await margem(page))}`);
     await foto(page, "margem-diagnostico-prova");
+    await page.locator("header button[aria-label], header a[aria-label]").first().click({ timeout: 5000 }).catch(() => {});
+    await page.waitForTimeout(800);
+    console.log(`JORNADA-DIAG-VOLTAR ${page.url()}`);
   });
 });
 
