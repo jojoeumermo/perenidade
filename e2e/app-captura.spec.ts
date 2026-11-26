@@ -780,3 +780,68 @@ test.describe("varredura das rotas do site dentro do app (390 px)", () => {
     });
   }
 });
+
+// Página inteira (temporário): as rotas ENEM e uma amostra de rotas dinâmicas abertas a partir das listas, dentro do app (390 px).
+const COMPLETAS = ["enem", "enem/diagnostico", "enem/plano", "enem/praticar", "enem/provas", "enem/simulados", "enem/redacao", "enem/dia-da-prova", "perguntas", "glossario"];
+const DINAMICAS: [string, string][] = [["acervo", "/pt/acervo"], ["jornal", "/pt/jornal"], ["trilha", "/pt/trilhas"], ["podcast", "/pt/podcasts"], ["debate", "/pt/debates"]];
+test.describe("página inteira das rotas ENEM e dinâmicas dentro do app (390 px)", () => {
+  test.skip(!TUDO || !!process.env.SEMEAR_PODCAST || !process.env.CAPTURA_VARREDURA, "só no passo da varredura");
+  test.use({ ...CELULAR, userAgent: UA_APP });
+  const medir = (page: Page) => page.evaluate(() => ({ larg: document.documentElement.scrollWidth, tela: window.innerWidth, alt: document.documentElement.scrollHeight, caminho: location.pathname, h1: document.querySelector("h1")?.textContent?.trim().slice(0, 60) ?? "" }));
+  for (const rota of COMPLETAS) {
+    test(`inteira ${rota}`, async ({ page }) => {
+      await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+      await page.goto(`/pt/${rota}`, { waitUntil: "domcontentloaded" });
+      await page.waitForLoadState("networkidle").catch(() => {});
+      console.log(`INTEIRA ${rota} ${JSON.stringify(await medir(page))}`);
+      await foto(page, `inteira-${rota.replace(/\//g, "_")}`, true);
+    });
+  }
+  for (const [nome, lista] of DINAMICAS) {
+    test(`dinâmica ${nome}`, async ({ page }) => {
+      await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+      await page.goto(lista, { waitUntil: "domcontentloaded" });
+      await page.waitForLoadState("networkidle").catch(() => {});
+      const prefixo = new URL(lista, "http://x").pathname;
+      const link = page.locator(`main a[href^="${prefixo}/"]`).first();
+      const n = await page.locator(`main a[href^="${prefixo}/"]`).count();
+      console.log(`DINAMICA ${nome} links=${n}`);
+      if (n === 0) return;
+      await link.click();
+      await page.waitForLoadState("networkidle").catch(() => {});
+      console.log(`DINAMICA ${nome} ${JSON.stringify(await medir(page))}`);
+      await foto(page, `dinamica-${nome}`, true);
+    });
+  }
+  test("jornada ENEM: diagnóstico, começar a prova e voltar", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app", { waitUntil: "domcontentloaded" });
+    await page.goto("/pt/enem/diagnostico", { waitUntil: "domcontentloaded" });
+    await page.waitForLoadState("networkidle").catch(() => {});
+    await page.getByRole("link", { name: /começar a prova/i }).first().click().catch(async () => { await page.getByRole("button", { name: /começar a prova/i }).first().click(); });
+    await page.waitForLoadState("networkidle").catch(() => {});
+    console.log(`JORNADA-ENEM ${JSON.stringify(await medir(page))}`);
+    await foto(page, "jornada-enem-prova", true);
+    await page.goBack();
+    await page.waitForLoadState("networkidle").catch(() => {});
+    console.log(`JORNADA-ENEM-VOLTAR ${page.url()}`);
+  });
+});
+
+// /escola (temporário): recurso "escola" ligado SÓ neste passo de teste (NEXT_PUBLIC_RECURSOS="enem-curso,escola"), sem sessão de
+// militante: o que se vê é a porta vermelha e as páginas abertas a todos. A tela "Hoje" e o resto, que dependem de militante
+// confirmado no banco, NÃO são exercitados aqui.
+test.describe("escola dentro do app, sem sessão (390 px, recurso ligado só no teste)", () => {
+  test.skip(!TUDO || !process.env.CAPTURA_ESCOLA, "só no passo da escola");
+  test.use({ ...CELULAR, userAgent: UA_APP });
+  for (const rota of ["escola", "escola/manifesto", "escola/militantes", "escola/matricula", "escola/biblioteca"]) {
+    test(`escola ${rota}`, async ({ page }) => {
+      await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+      const r = await page.goto(`/pt/${rota}`, { waitUntil: "domcontentloaded" });
+      await page.waitForLoadState("networkidle").catch(() => {});
+      const m = await page.evaluate(() => ({ larg: document.documentElement.scrollWidth, tela: window.innerWidth, caminho: location.pathname, h1: document.querySelector("h1")?.textContent?.trim().slice(0, 60) ?? "", abas: !!document.querySelector("nav.app-abas"), escola: !!document.querySelector("[data-escola]") }));
+      console.log(`ESCOLA ${rota} status=${r?.status()} ${JSON.stringify(m)}`);
+      await foto(page, `escola-${rota.replace(/\//g, "_")}`, true);
+    });
+  }
+});
