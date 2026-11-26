@@ -940,7 +940,9 @@
 .app-atalho-podcasts,
 .app-podcasts-episodio,
 .app-podcasts-radio,
-.app-labs-cartao {
+.app-labs-cartao,
+.app-radio-tocador,
+.app-radio-emissora {
   box-sizing: border-box;
   width: calc(100% - 2rem);
   margin: 1rem 1rem 0;
@@ -958,7 +960,9 @@
 .app-atalho-apoiar .app-cartao-texto,
 .app-apoio-botao .app-cartao-texto,
 .app-podcasts-episodio .app-cartao-texto,
-.app-labs-cartao .app-cartao-texto {
+.app-labs-cartao .app-cartao-texto,
+.app-radio-tocador .app-cartao-texto,
+.app-radio-emissora .app-cartao-texto {
   display: block;
   margin-top: 0.3rem;
   font-size: 0.9rem;
@@ -1013,3 +1017,10 @@
 :root[data-app] .app-labs-serve { margin-top: 0.25rem; font-size: 0.9rem; line-height: 1.4; }
 :root[data-app] .app-labs-grupo ul { list-style: none; margin: 0; padding: 0; }
 :root[data-app] .app-labs-cartao { display: block; text-decoration: none; }
+
+/* Rádios dentro do app (Eu → Podcasts → Rádio): diretório por frente, cartões de uma coluna. */
+:root[data-app] .app-radio-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-radio-grupo { margin-top: 1.25rem; }
+:root[data-app] .app-radio-grupo h2 { margin-left: 1rem; margin-right: 1rem; }
+:root[data-app] .app-radio-grupo ul { list-style: none; margin: 0; padding: 0; }
+:root[data-app] .app-radio-tocador, :root[data-app] .app-radio-emissora { display: block; text-decoration: none; }
