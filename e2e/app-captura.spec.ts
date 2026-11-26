@@ -762,3 +762,21 @@ test.describe("podcasts do app com episódios de teste (390 px)", () => {
     await foto(page, "podcasts-retomou");
   });
 });
+
+// Varredura (temporária): cada rota do site aberta DENTRO do app instalado (390 px), para ver o que ainda está com cara de site.
+// Mede também a rolagem horizontal (conteúdo mais largo que a tela). Só o primeiro quadro de cada rota.
+const VARREDURA = ["ao-vivo", "apoie", "autores", "busca", "caderno", "campus", "certificado", "checagens", "comecar", "conduta", "consciencia", "contribuidores", "contribuir", "creditos", "criancas", "cursos", "dados", "debates", "denunciar", "direitos", "direitos-autorais", "divulgue", "enem", "enem/diagnostico", "enem/plano", "enem/praticar", "enem/provas", "enem/simulados", "enem/redacao", "enem/dia-da-prova", "entrar", "estudio-de-pratica", "estudo-em-grupo", "eventos", "explorar", "falacias", "ferramentas", "galeria", "gaveta", "glossario", "guia", "historico", "imprensa", "instituto", "jogos", "jornal", "laboratorios", "linha-do-tempo", "materiais", "memorial", "meu-estudo", "meus-dados", "modo-seguro", "nivelamento", "noticias", "nucleos", "painel", "perguntas", "podcasts", "privacidade", "professores", "quem-somos", "questoes", "radio", "reforco", "relatar-erro", "relatorio", "revisao-pendente", "sala-livre", "saude", "seguranca-digital", "sobre", "status", "termos", "territorios", "transparencia", "trilhas", "turma", "turmas", "uso", "vale-o-escrito", "vida", "videoaulas", "videos", "voluntarie-se", "voluntarios"];
+test.describe("varredura das rotas do site dentro do app (390 px)", () => {
+  test.skip(!TUDO || !!process.env.SEMEAR_PODCAST || !process.env.CAPTURA_VARREDURA, "só no passo da varredura");
+  test.use({ ...CELULAR, userAgent: UA_APP });
+  for (const rota of VARREDURA) {
+    test(`varredura ${rota}`, async ({ page }) => {
+      await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+      const resposta = await page.goto(`/pt/${rota}`, { waitUntil: "domcontentloaded" });
+      await page.waitForLoadState("networkidle").catch(() => {});
+      const m = await page.evaluate(() => ({ larg: document.documentElement.scrollWidth, tela: window.innerWidth, h1: document.querySelector("h1")?.textContent?.trim().slice(0, 50) ?? "", abas: !!document.querySelector("nav.app-abas"), app: document.documentElement.hasAttribute("data-app"), caminho: location.pathname }));
+      console.log(`VARREDURA ${rota} status=${resposta?.status()} ${JSON.stringify(m)}`);
+      await foto(page, `varredura-${rota.replace(/\//g, "_")}`);
+    });
+  }
+});
