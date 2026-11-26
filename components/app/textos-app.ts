@@ -38,6 +38,7 @@ export interface TextosDoAppNovo {
   radioTocador: string;
   radioTocadorLead: string;
   radioFalhou: string;
+  podcastFalhou: string;
   /** Jornada de estudo própria (disciplina, trilha, aula). */
   trilhas: string;
   progressoDe: (feitas: number, total: number) => string;
@@ -85,6 +86,7 @@ const PT: TextosDoAppNovo = {
   radioTocador: "Página de rádio do site",
   radioTocadorLead: "A lista completa, com abas por frente e filtro, aberta aqui dentro. Para ouvir direto, use os botões abaixo.",
   radioFalhou: "Não foi possível tocar esta emissora agora. Tente de novo ou abra o site dela.",
+  podcastFalhou: "Não foi possível tocar este episódio agora. Tente de novo ou abra a página dele.",
   trilhas: "Trilhas",
   progressoDe: (f, n) => `${f} de ${n} aulas`,
   continuarEstudo: "Continuar estudando",
@@ -134,6 +136,7 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     radioTocador: "The site's radio page",
     radioTocadorLead: "The full list, with tabs by front and a filter, opened inside this app. To listen right away, use the buttons below.",
     radioFalhou: "This station could not play right now. Try again or open its site.",
+    podcastFalhou: "This episode could not play right now. Try again or open its page.",
     trilhas: "Tracks",
     progressoDe: (f, n) => `${f} of ${n} lessons`,
     continuarEstudo: "Keep studying",
@@ -180,6 +183,7 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     radioTocador: "La página de radio del sitio",
     radioTocadorLead: "La lista completa, con pestañas por frente y filtro, abierta aquí dentro. Para escuchar ya, usa los botones de abajo.",
     radioFalhou: "No se pudo reproducir esta emisora ahora. Inténtalo de nuevo o abre su sitio.",
+    podcastFalhou: "No se pudo reproducir este episodio ahora. Inténtalo de nuevo o abre su página.",
     trilhas: "Rutas",
     progressoDe: (f, n) => `${f} de ${n} clases`,
     continuarEstudo: "Seguir estudiando",
@@ -226,6 +230,7 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     radioTocador: "La page radio du site",
     radioTocadorLead: "La liste complète, avec onglets par front et filtre, ouverte ici dans l'application. Pour écouter tout de suite, utilisez les boutons ci-dessous.",
     radioFalhou: "Impossible de lire cette station pour le moment. Réessayez ou ouvrez son site.",
+    podcastFalhou: "Impossible de lire cet épisode pour le moment. Réessayez ou ouvrez sa page.",
     trilhas: "Parcours",
     progressoDe: (f, n) => `${f} leçons sur ${n}`,
     continuarEstudo: "Continuer à étudier",
@@ -272,6 +277,7 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     radioTocador: "Страница радио сайта",
     radioTocadorLead: "Полный список с вкладками по направлениям и фильтром, открытый внутри приложения. Чтобы слушать сразу, используйте кнопки ниже.",
     radioFalhou: "Сейчас не удалось включить эту станцию. Попробуйте ещё раз или откройте её сайт.",
+    podcastFalhou: "Сейчас не удалось включить этот выпуск. Попробуйте ещё раз или откройте его страницу.",
     trilhas: "Маршруты",
     progressoDe: (f, n) => `${f} из ${n} уроков`,
     continuarEstudo: "Продолжить учёбу",
@@ -318,6 +324,7 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     radioTocador: "网站的电台页面",
     radioTocadorLead: "完整列表,带分区标签和筛选,在应用内打开。想直接收听,请用下面的按钮。",
     radioFalhou: "目前无法播放这个电台。请重试,或打开它的网站。",
+    podcastFalhou: "目前无法播放这一集。请重试,或打开它的页面。",
     trilhas: "路线",
     progressoDe: (f, n) => `${f}/${n} 课`,
     continuarEstudo: "继续学习",

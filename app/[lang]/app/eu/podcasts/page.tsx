@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import Link from "@/components/Link";
-import { Ouvir } from "@/components/podcast/Ouvir";
+import { OuvirNoApp } from "@/components/app/OuvirNoApp";
+import { textosDoAppNovo } from "@/components/app/textos-app";
 import { htmlLang, localePath } from "@/i18n/config";
 import { loadLang } from "@/i18n";
 import { minutos } from "@/lib/podcast";
@@ -26,6 +27,7 @@ const plataformas: [string, string][] = [
 export default async function PodcastsDoApp({ params }: PageProps<"/[lang]/app/eu/podcasts">) {
   const { lang, t } = await loadLang(params);
   const s = t.podcast;
+  const n = textosDoAppNovo(lang);
   const { config, episodios } = await catalogo();
   const data = new Intl.DateTimeFormat(htmlLang[lang], { day: "numeric", month: "short", year: "numeric", timeZone: "America/Sao_Paulo" });
   const links = plataformas.filter(([chave]) => config?.links?.[chave as keyof typeof config.links]);
@@ -44,7 +46,7 @@ export default async function PodcastsDoApp({ params }: PageProps<"/[lang]/app/e
         <ol className="app-podcasts-lista">
           {episodios.slice(0, 40).map((e) => (
             <li key={e.id} className="app-radio-linha">
-              <Ouvir episodio={e} fila={episodios} programa={s.title} rotulo={s.listen} pausar={s.pause} />
+              <OuvirNoApp episodio={e} fila={episodios} programa={s.title} rotulo={s.listen} pausar={s.pause} falhou={n.podcastFalhou} />
               <Link href={localePath(lang, `/podcasts/${e.slug}`)} className="app-cartao app-podcasts-episodio">
                 <span className="app-cartao-titulo app-cartao-titulo-menor">{e.titulo}</span>
                 <span className="app-cartao-texto">

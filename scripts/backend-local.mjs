@@ -100,10 +100,10 @@ export async function iniciar({ silencioso = false } = {}) {
     const jornal = { papel: "authenticated", sub: ids.jornal };
     await banco.rpc(coord, "podcast_funcoes_definir", { p_usuario: ids.revisor, p_funcoes: ["supervisao"] });
     const serie = await banco.rpc(jornal, "podcast_serie_salvar", { p_id: null, p: { titulo: "Revoluções", descricao: "As grandes revoluções contadas de baixo, por quem fez." } });
-    // SEMEAR_PODCAST=2 semeia dois episódios (para provar a troca de episódio no tocador); qualquer outro valor, um só.
+    // SEMEAR_PODCAST=N (N>1) semeia N episódios (troca de episódio no tocador, lista longa); qualquer outro valor, um só.
     const TITULOS = ["A Comuna de Paris em 72 dias", "Os quilombos e a luta pela terra"];
-    for (let n = 0; n < (process.env.SEMEAR_PODCAST === "2" ? 2 : 1); n++) {
-      const { id } = await banco.rpc(jornal, "podcast_salvar", { p_id: null, p: { titulo: TITULOS[n] } });
+    for (let n = 0; n < Math.min(Math.max(Number(process.env.SEMEAR_PODCAST) || 1, 1), 60); n++) {
+      const { id } = await banco.rpc(jornal, "podcast_salvar", { p_id: null, p: { titulo: TITULOS[n] ?? `Episódio de teste ${n + 1}: uma conversa bem longa sobre história, trabalho e organização popular no Brasil` } });
       const fala = [
         [0, 6, "Abertura. Neste episódio, a Comuna de Paris."],
         [6, 15, "Em março de 1871, os trabalhadores de Paris tomaram o governo da cidade."],
