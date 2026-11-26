@@ -234,6 +234,17 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "app-labs");
   });
 
+  test("rádio do app: o cartão Rádio dos podcasts abre o diretório por frente", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/eu/podcasts");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".app-podcasts-radio").click();
+    await page.waitForURL("**/app/eu/radio");
+    expect(await page.locator(".app-radio-emissora").count()).toBeGreaterThan(20);
+    await expect(page.locator("[data-emissora=brasil-de-fato]")).toHaveAttribute("target", "_blank");
+    await foto(page, "app-radio");
+  });
+
   test("estados da busca do app: sem resultado e sem conexão com tentar de novo", async ({ page, context }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/estudar/buscar");

@@ -72,7 +72,7 @@ export default async function PodcastsDoApp({ params }: PageProps<"/[lang]/app/e
           </li>
         </ul>
       </section>
-      <Link href={localePath(lang, "/radio")} className="app-cartao app-podcasts-radio">
+      <Link href={localePath(lang, "/app/eu/radio")} className="app-cartao app-podcasts-radio">
         <span className="app-cartao-titulo app-cartao-titulo-menor">{t.nav.radio}</span>
       </Link>
     </div>

@@ -15,7 +15,7 @@ export const areasPublicas = [
   { id: "reforco", nome: "Aula de reforço", caminhos: ["/reforco"] },
   { id: "contribuir", nome: "Contribuir, denunciar e relatar erros", caminhos: ["/contribuir", "/denunciar", "/relatar-erro"] },
   { id: "jornal", nome: "Jornal, notícias e boletim", caminhos: ["/jornal", "/noticias"] },
-  { id: "radio", nome: "Rádio e podcasts", caminhos: ["/app/eu/podcasts", "/radio", "/podcasts"] },
+  { id: "radio", nome: "Rádio e podcasts", caminhos: ["/app/eu/podcasts", "/app/eu/radio", "/radio", "/podcasts"] },
   { id: "acervo", nome: "Acervo, catálogo e autores", caminhos: ["/acervo", "/catalogo", "/autores"] },
   { id: "estudo", nome: "Disciplinas, trilhas e aulas", caminhos: ["/app/estudar", "/trilhas", "/estantes", "/avulsos", "/comecar", "/perguntas", "/ao-vivo", "/plantao", "/questoes", "/enem", "/meu-estudo", "/revisao-pendente", "/turma", "/professores", "/nivelamento", "/criancas", "/despertar", "/consciencia", "/nucleos", "/turmas", "/escola", "/cursos", "/campus", "/vida", "/libras", "/aula-do-dia"] },
   { id: "ferramentas", nome: "Ferramentas de prática e caderno", caminhos: ["/app/jogos", "/app/eu/caderno", "/ferramentas", "/caderno", "/estudo-em-grupo", "/laboratorios", "/jogos", "/estudio-de-pratica", "/sala-livre"] },
