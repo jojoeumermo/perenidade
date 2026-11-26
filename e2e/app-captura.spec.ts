@@ -14,6 +14,8 @@ const TUDO = process.env.CAPTURA_GRUPO === "tudo";
 const AULA = "/pt/trilhas/historia-antiga/pre-historia-os-primeiros-seres-humanos";
 
 async function fotoGeral(page: Page, nome: string, cheia = false) {
+  // As fontes (o pôster do dia usa unidade de contêiner e letra Anton) precisam ter carregado: sem isso a foto do desktop oscilava.
+  await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(800);
   // O indicador do servidor de desenvolvimento do Next não existe em produção: sai das capturas do app (as do site ficam como na base, para a comparação).
   await page.screenshot({ path: `test-results/capturas/${ROTULO}-${nome}.png`, fullPage: cheia, ...(nome.startsWith("site-") ? {} : { style: "nextjs-portal { display: none !important }" }) });
