@@ -209,6 +209,18 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "app-apoio");
   });
 
+  test("podcasts do app: o cartão da aba Eu abre a tela própria com onde assinar e o RSS", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/eu");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".app-atalho-podcasts").scrollIntoViewIfNeeded();
+    await page.locator(".app-atalho-podcasts").click();
+    await page.waitForURL("**/app/eu/podcasts");
+    await expect(page.locator(".app-podcasts-assinar")).toBeVisible();
+    await expect(page.locator("[data-feed-rss]")).toHaveAttribute("href", /podcast\.xml$/);
+    await foto(page, "app-podcasts");
+  });
+
   test("estados da busca do app: sem resultado e sem conexão com tentar de novo", async ({ page, context }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/estudar/buscar");
