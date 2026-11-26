@@ -1057,6 +1057,7 @@
 :root[data-app] .app-voluntarios-texto { margin: 1rem 1rem 0; font-size: 1rem; line-height: 1.5; }
 :root[data-app] .app-voluntarios-cartao { display: block; }
 :root[data-app] .app-voluntarios-cartao > * + * { margin-top: 0.4rem; }
-:root[data-app] .app-voluntarios-acao { display: inline-block; margin-top: 0.6rem; font-weight: 700; color: #8a1c14; }
+:root[data-app] .app-voluntarios-cartao .app-cartao-texto { display: block; line-height: 1.4; }
+:root[data-app] .app-voluntarios-acao { display: block; margin-top: 0.6rem; font-weight: 700; color: #8a1c14; }
 :root[data-app] .app-voluntarios-mais summary { cursor: pointer; font-weight: 700; color: #8a1c14; }
 :root[data-app] .app-voluntarios-form { margin: 1.5rem 1rem 0; }
