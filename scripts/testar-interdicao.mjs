@@ -82,6 +82,8 @@ const soVoluntariado = { geral: false, areas: ["voluntariado"], mensagem: "" };
 igual("app: o apoio do app fecha com a área voluntariado", [fechado("/pt/app/eu/apoio", soVoluntariado), fechado("/pt/app/eu/apoio", soEstudo)], ["voluntariado", null]);
 const soRadio = { geral: false, areas: ["radio"], mensagem: "" };
 igual("app: a rádio do app fecha com a área radio", [fechado("/pt/app/eu/radio", soRadio), fechado("/pt/app/eu/radio", soEstudo)], ["radio", null]);
+const soJornal = { geral: false, areas: ["jornal"], mensagem: "" };
+igual("app: o jornal do app fecha com a área jornal", [fechado("/pt/app/eu/jornal", soJornal), fechado("/pt/app/eu/jornal", soEstudo)], ["jornal", null]);
 igual("app: os podcasts do app fecham com a área radio", [fechado("/pt/app/eu/podcasts", soRadio), fechado("/pt/app/eu/podcasts", soEstudo)], ["radio", null]);
 igual("app: /app/estudar fecha com a área estudo", [fechado("/pt/app/estudar", soEstudo), fechado("/en/app/estudar", soEstudo)], ["estudo", "estudo"]);
 igual("app: /app/jogos fecha com a área ferramentas", [fechado("/pt/app/jogos", soFerramentas), fechado("/es/app/jogos", soFerramentas)], ["ferramentas", "ferramentas"]);

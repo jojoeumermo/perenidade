@@ -200,14 +200,16 @@ export const ATALHOS: Record<Chave, Atalho> = {
 };
 
 /** Uma fileira de ladrilhos coloridos (quatro por linha), como a tela inicial de um aparelho. */
-export function Ladrilhos({ chaves, rotulo, aoAbrir }: { chaves: ChaveDoDia[]; rotulo: string; aoAbrir?: (path: string) => void }) {
+/** `rotas` troca o destino de alguns atalhos (o aplicativo manda para as telas próprias dele); sem ela valem as páginas do site. */
+export function Ladrilhos({ chaves, rotulo, aoAbrir, rotas }: { chaves: ChaveDoDia[]; rotulo: string; aoAbrir?: (path: string) => void; rotas?: Partial<Record<ChaveDoDia, string>> }) {
   const { t } = useI18n();
   return (
     <nav aria-label={rotulo} className="grid grid-cols-4 gap-x-1.5 gap-y-4">
       {chaves.map((chave) => {
         const atalho = ATALHOS[chave];
+        const destino = rotas?.[chave] ?? atalho.path;
         return (
-          <L key={chave} href={atalho.path} className="ladrilho-de-app" onClick={() => aoAbrir?.(atalho.path)}>
+          <L key={chave} href={destino} className="ladrilho-de-app" onClick={() => aoAbrir?.(destino)}>
             <span style={{ background: atalho.fundo, color: atalho.tinta }}>
               <svg aria-hidden viewBox="0 0 24 24" className="h-[26px] w-[26px]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 {atalho.desenho}

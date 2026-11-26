@@ -250,6 +250,16 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "app-radio-tocador-do-site");
   });
 
+  test("jornal do app: o atalho do início abre a lista das matérias na tela própria", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app");
+    await page.waitForLoadState("networkidle");
+    await page.locator('a.ladrilho-de-app[href$="/app/eu/jornal"]').click();
+    await page.waitForURL("**/app/eu/jornal");
+    expect(await page.locator(".app-jornal-materia").count()).toBeGreaterThan(0);
+    await foto(page, "app-jornal");
+  });
+
   test("estados da busca do app: sem resultado e sem conexão com tentar de novo", async ({ page, context }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/estudar/buscar");

@@ -87,7 +87,7 @@ export default async function InicioDoApp({ params }: PageProps<"/[lang]/app">) 
       <AulaDoDia aulas={aulasDoDia} />
 
       <section className="app-secao" aria-label={n.atalhos}>
-        <Ladrilhos chaves={["radio", "podcasts", "journal", "news", "glossary", "labs", "questionBank", "live"]} rotulo={n.atalhos} />
+        <Ladrilhos chaves={["radio", "podcasts", "journal", "news", "glossary", "labs", "questionBank", "live"]} rotulo={n.atalhos} rotas={{ radio: "/app/eu/radio", podcasts: "/app/eu/podcasts", journal: "/app/eu/jornal", labs: "/app/jogos/laboratorios" }} />
       </section>
 
       <section className="app-secao" aria-label={n.noMuro}>
