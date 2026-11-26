@@ -847,3 +847,72 @@ test.describe("escola dentro do app, sem sessão (390 px, recurso ligado só no 
     });
   }
 });
+
+// Margem sob a barra fixa (temporário): no fim da rolagem, o último conteúdo de fluxo normal tem de ficar acima da barra de baixo do app.
+const MARGEM = ["enem", "enem/diagnostico", "enem/plano", "enem/praticar", "enem/provas", "enem/simulados", "enem/redacao", "enem/dia-da-prova", "perguntas", "glossario", "podcasts", "meus-dados", "meu-estudo", "videos", "sobre"];
+test.describe("margem sob a barra de baixo no fim das páginas, dentro do app (390 px)", () => {
+  test.skip(!TUDO || !!process.env.SEMEAR_PODCAST || !process.env.CAPTURA_VARREDURA, "só no passo da varredura");
+  test.use({ ...CELULAR, userAgent: UA_APP });
+  const margem = (page: Page) =>
+    page.evaluate(async () => {
+      window.scrollTo(0, document.documentElement.scrollHeight);
+      await new Promise((r) => setTimeout(r, 500));
+      window.scrollTo(0, document.documentElement.scrollHeight);
+      const barra = document.querySelector("nav.app-abas")?.getBoundingClientRect();
+      const fixo = (e: Element) => { for (let n: Element | null = e; n; n = n.parentElement) { const p = getComputedStyle(n).position; if (p === "fixed" || p === "sticky") return true; } return false; };
+      let base = 0;
+      for (const e of Array.from(document.body.querySelectorAll("*"))) {
+        if (fixo(e)) continue;
+        const r = e.getBoundingClientRect();
+        if (r.height > 0 && r.width > 0 && r.bottom > base && r.bottom <= window.innerHeight + 2) base = r.bottom;
+      }
+      return { conteudoBase: Math.round(base), barraTopo: Math.round(barra?.top ?? -1), folga: Math.round((barra?.top ?? 0) - base), noFim: Math.round(window.scrollY + window.innerHeight) >= document.documentElement.scrollHeight - 2 };
+    });
+  for (const rota of MARGEM) {
+    test(`margem ${rota}`, async ({ page }) => {
+      await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+      await page.goto(`/pt/${rota}`, { waitUntil: "domcontentloaded" });
+      await page.waitForLoadState("networkidle").catch(() => {});
+      console.log(`MARGEM ${rota} ${JSON.stringify(await margem(page))}`);
+      await foto(page, `margem-${rota.replace(/\//g, "_")}`);
+    });
+  }
+  test("margem matéria do jornal", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/jornal", { waitUntil: "domcontentloaded" });
+    await page.waitForLoadState("networkidle").catch(() => {});
+    await page.locator('a[href^="/pt/jornal/"]:not([href*="?"]):not([href*="#"]):not([href$="/arquivo"])').first().click({ timeout: 20000 });
+    await page.waitForLoadState("networkidle").catch(() => {});
+    console.log(`MARGEM jornal-materia ${page.url()} ${JSON.stringify(await margem(page))}`);
+    await foto(page, "margem-jornal-materia");
+  });
+  test("margem prova do diagnóstico (jornada ENEM)", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/enem/diagnostico", { waitUntil: "domcontentloaded" });
+    await page.waitForLoadState("networkidle").catch(() => {});
+    await page.locator('a:has-text("Começar a prova"), button:has-text("Começar a prova")').first().click({ timeout: 20000 });
+    await page.waitForLoadState("networkidle").catch(() => {});
+    console.log(`MARGEM diagnostico-prova ${page.url()} ${JSON.stringify(await margem(page))}`);
+    await foto(page, "margem-diagnostico-prova");
+  });
+});
+
+// Hidratação (temporário): as mesmas rotas SEM app (navegador comum do celular e do computador), na base e no ramo, para ver se o aviso
+// "Hydration failed" é anterior ao app. Também confere se a tela segue usável depois do aviso.
+test.describe("hidratação das rotas com aviso, sem app", () => {
+  for (const [nome, vp] of [["celular", { width: 390, height: 844 }], ["computador", { width: 1280, height: 800 }]] as const) {
+    for (const rota of ["meus-dados", "podcasts"]) {
+      test(`hidratação ${rota} ${nome}`, async ({ page }) => {
+        await page.setViewportSize(vp);
+        const erros: string[] = [];
+        page.on("pageerror", (e) => erros.push(e.message.slice(0, 80).replace(/\n/g, " ")));
+        await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+        await page.goto(`/pt/${rota}`, { waitUntil: "domcontentloaded" });
+        await page.waitForLoadState("networkidle").catch(() => {});
+        await page.waitForTimeout(1500);
+        const uso = await page.evaluate(() => ({ botoes: document.querySelectorAll("main button").length, formularios: document.querySelectorAll("main form").length, app: document.documentElement.hasAttribute("data-app") }));
+        console.log(`HIDRATACAO ${ROTULO} ${rota} ${nome} hidratou-errado=${erros.some((e) => /Hydration/.test(e))} erros=${erros.length} ${JSON.stringify(uso)}`);
+      });
+    }
+  }
+});
