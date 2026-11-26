@@ -676,3 +676,78 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "aula-fim");
   });
 });
+
+// Podcasts do app com episódios DE TESTE: o banco local em memória semeia dois (SEMEAR_PODCAST=2, scripts/backend-local.mjs; o
+// áudio é silêncio em MP3). Nada disso toca o conteúdo publicado. Prova comportamento simulado no Chrome do CI: não são
+// episódios reais nem som real, só o estado do <audio> e da interface.
+test.describe("podcasts do app com episódios de teste (390 px)", () => {
+  test.skip(process.env.SEMEAR_PODCAST !== "2" || !TUDO, "só roda no passo com episódios de teste semeados");
+  test.use({ ...CELULAR, userAgent: UA_APP });
+  const estadoAudio = (page: Page) => page.evaluate(() => { const a = document.querySelector("audio"); return a ? { paused: a.paused, t: Math.round(a.currentTime * 10) / 10, src: a.currentSrc.split("/").slice(-2).join("/"), erro: a.error?.code ?? null } : null; });
+
+  test("lista, Ouvir sem abrir o cartão, tocador fixo, pausa, troca de episódio e falha de mídia", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/eu/podcasts");
+    await page.waitForLoadState("networkidle");
+    const linhas = page.locator(".app-podcasts-lista > li");
+    await expect(linhas).toHaveCount(2);
+    await foto(page, "podcasts-lista");
+    const botoes = page.locator(".app-podcasts-lista button[aria-pressed]");
+    // Ouvir o primeiro: o clique NÃO abre a página do episódio e o tocador fixo aparece tocando.
+    await botoes.nth(0).click();
+    await expect(page.locator(".radio-player")).toBeVisible();
+    await page.waitForTimeout(1500);
+    expect(page.url()).toMatch(/\/pt\/app\/eu\/podcasts$/);
+    await expect(botoes.nth(0)).toHaveAttribute("aria-pressed", "true");
+    const tocando = await estadoAudio(page);
+    console.log(`PODCAST-TOCANDO ${JSON.stringify(tocando)}`);
+    expect(tocando?.paused).toBe(false);
+    await foto(page, "podcasts-tocando");
+    // O mesmo botão pausa.
+    await botoes.nth(0).click();
+    await page.waitForTimeout(500);
+    await expect(botoes.nth(0)).toHaveAttribute("aria-pressed", "false");
+    expect((await estadoAudio(page))?.paused).toBe(true);
+    // Troca: ouvir o segundo faz o tocador trocar de episódio, e só o segundo fica "tocando".
+    const antes = (await estadoAudio(page))?.src;
+    await botoes.nth(1).click();
+    await page.waitForTimeout(1500);
+    const depois = await estadoAudio(page);
+    console.log(`PODCAST-TROCA antes=${antes} depois=${JSON.stringify(depois)}`);
+    expect(depois?.paused).toBe(false);
+    expect(depois?.src).not.toBe(antes);
+    await expect(botoes.nth(1)).toHaveAttribute("aria-pressed", "true");
+    await expect(botoes.nth(0)).toHaveAttribute("aria-pressed", "false");
+    await foto(page, "podcasts-troca");
+    // Espaçamento: o último cartão fica acima do tocador fixo.
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await page.waitForTimeout(400);
+    const medidas = await page.evaluate(() => {
+      const c = Array.from(document.querySelectorAll(".app-podcasts-episodio")).pop()?.getBoundingClientRect();
+      const t = document.querySelector(".radio-player")?.getBoundingClientRect();
+      const ass = document.querySelector(".app-podcasts-assinar")?.getBoundingClientRect();
+      return { cartaoBase: Math.round(c?.bottom ?? -1), tocadorTopo: Math.round(t?.top ?? -1), assinarTopo: Math.round(ass?.top ?? -1), altura: window.innerHeight };
+    });
+    console.log(`PODCAST-MEDIDAS ${JSON.stringify(medidas)}`);
+    // O cartão abre a página do episódio (e só ele).
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await linhas.nth(0).locator("a.app-podcasts-episodio").click();
+    await page.waitForURL(/\/pt\/podcasts\/[a-z0-9-]+$/);
+    await foto(page, "podcasts-episodio");
+  });
+
+  test("falha de mídia: com o áudio bloqueado o botão não fica 'tocando'", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.route("**/*", (rota) => (rota.request().resourceType() === "media" ? rota.abort("failed") : rota.continue()));
+    await page.goto("/pt/app/eu/podcasts");
+    await page.waitForLoadState("networkidle");
+    const botao = page.locator(".app-podcasts-lista button[aria-pressed]").first();
+    await botao.click();
+    await page.waitForTimeout(3000);
+    const a = await estadoAudio(page);
+    const pressionado = await botao.getAttribute("aria-pressed");
+    console.log(`PODCAST-FALHA pressed=${pressionado} audio=${JSON.stringify(a)} aviso=${await page.locator(".radio-player").innerText().catch(() => "")}`);
+    await foto(page, "podcasts-falha");
+    expect(pressionado).toBe("false");
+  });
+});
