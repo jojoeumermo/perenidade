@@ -863,6 +863,8 @@ test.describe("margem sob a barra de baixo no fim das páginas, dentro do app (3
       let quem = "";
       for (const e of Array.from(document.body.querySelectorAll("*"))) {
         if (e.children.length > 0 || fixo(e)) continue;
+        const fechado = e.closest("details:not([open])");
+        if (fechado && !e.closest("summary")) continue;
         const cs = getComputedStyle(e);
         if (cs.visibility === "hidden" || cs.opacity === "0" || cs.display === "none") continue;
         const r = e.getBoundingClientRect();
@@ -896,7 +898,10 @@ test.describe("margem sob a barra de baixo no fim das páginas, dentro do app (3
     page.on("response", (r) => { if (r.status() >= 400) falhas.push(`${r.status()} ${r.url().replace(/^https?:\/\/[^/]+/, "")}`); });
     page.on("requestfailed", (r) => falhas.push(`falhou ${r.url().replace(/^https?:\/\/[^/]+/, "")}`));
     const comecar = page.locator('a:has-text("Começar a prova"), button:has-text("Começar a prova")');
-    for (let i = 0; i < 3 && (await comecar.count()) > 0; i++) {
+    for (let i = 0; i < 4; i++) {
+      await page.getByText("Carregando a prova").waitFor({ state: "detached", timeout: 40000 }).catch(() => {});
+      if ((await comecar.count()) === 0) break;
+      console.log(`JORNADA-DIAG-ETAPA ${i} clica Começar (radios antes=${await page.locator('input[type="radio"]').count()})`);
       await comecar.first().click({ timeout: 20000 });
       await page.waitForLoadState("networkidle").catch(() => {});
       await page.waitForTimeout(800);
