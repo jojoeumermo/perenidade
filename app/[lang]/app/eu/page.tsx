@@ -1,4 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import { textosDoPlantao } from "@/i18n/plantao";
 import { notFound } from "next/navigation";
 import Link from "@/components/Link";
 import { AjudaNoApp } from "@/components/app/AjudaNoApp";
@@ -77,6 +78,12 @@ export default async function EuDoApp({ params }: PageProps<"/[lang]/app/eu">) {
       </Link>
       <Link href={localePath(lang, "/app/eu/dedicatoria")} className="app-cartao app-atalho-dedicatoria">
         <span className="app-cartao-titulo app-cartao-titulo-menor">{t.dedication.title}</span>
+      </Link>
+      <Link href={localePath(lang, "/app/eu/plantao")} className="app-cartao app-atalho-plantao">
+        <span className="app-cartao-titulo app-cartao-titulo-menor">{textosDoPlantao(lang).titulo}</span>
+      </Link>
+      <Link href={localePath(lang, "/app/eu/acervo")} className="app-cartao app-atalho-acervo">
+        <span className="app-cartao-titulo app-cartao-titulo-menor">{t.library.title}</span>
       </Link>
       <Link href={localePath(lang, "/app/eu/mural")} className="app-cartao app-atalho-mural">
         <span className="app-cartao-titulo app-cartao-titulo-menor">{t.mural.title}</span>

@@ -304,6 +304,30 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.waitForURL("**/app/eu/mural");
     await expect(page.locator(".app-mural-regras")).toBeVisible();
     await foto(page, "app-mural");
+    await page.locator(".app-mural-corpo").scrollIntoViewIfNeeded();
+    await foto(page, "app-mural-corpo");
+  });
+
+  test("acervo do app: o cartão da aba Eu abre a estante com busca", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/eu");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".app-atalho-acervo").scrollIntoViewIfNeeded();
+    await page.locator(".app-atalho-acervo").click();
+    await page.waitForURL("**/app/eu/acervo");
+    await expect(page.locator(".app-acervo-corpo")).toBeVisible();
+    await foto(page, "app-acervo");
+  });
+
+  test("plantão do app: o cartão da aba Eu abre os canais de dúvida", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/eu");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".app-atalho-plantao").scrollIntoViewIfNeeded();
+    await page.locator(".app-atalho-plantao").click();
+    await page.waitForURL("**/app/eu/plantao");
+    await expect(page.locator('.app-plantao-canal[data-canal="reforco"]')).toBeVisible();
+    await foto(page, "app-plantao");
   });
 
   test("dedicatória do app: o cartão da aba Eu abre o verbete, o busto e o texto", async ({ page }) => {
