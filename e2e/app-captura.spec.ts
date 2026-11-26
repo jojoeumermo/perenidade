@@ -890,6 +890,21 @@ test.describe("margem sob a barra de baixo no fim das páginas, dentro do app (3
     console.log(`MARGEM jornal-materia ${page.url()} ${JSON.stringify(await margem(page))}`);
     await foto(page, "margem-jornal-materia");
   });
+  test("voltar da barra de cima: link direto sobe, não sai do site", async ({ page }) => {
+    test.setTimeout(120000);
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    const erros: string[] = [];
+    page.on("pageerror", (e) => erros.push(e.message.slice(0, 60)));
+    for (const rota of ["enem/diagnostico", "enem/plano", "trilhas/enem-como-funciona"]) {
+      await page.goto(`/pt/${rota}`, { waitUntil: "domcontentloaded" });
+      await page.waitForLoadState("networkidle").catch(() => {});
+      const antes = await page.evaluate(() => window.history.length);
+      await page.locator(".shell-topo button[aria-label]").first().click({ timeout: 8000 }).catch((e) => console.log(`VOLTAR-ERRO ${rota} ${String(e).slice(0, 80)}`));
+      await page.waitForTimeout(1800);
+      console.log(`VOLTAR ${rota} -> ${page.url()} historico=${antes} erros=${JSON.stringify(erros)}`);
+      await foto(page, `voltar-${rota.replace(/\//g, "_")}`);
+    }
+  });
   test("margem prova do diagnóstico (jornada ENEM)", async ({ page }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/enem/diagnostico", { waitUntil: "domcontentloaded" });
@@ -935,10 +950,7 @@ test.describe("margem sob a barra de baixo no fim das páginas, dentro do app (3
     await page.waitForTimeout(500);
     console.log(`MARGEM diagnostico-prova ${page.url()} ${JSON.stringify(await margem(page))}`);
     await foto(page, "margem-diagnostico-prova");
-    await page.locator(".shell-topo button[aria-label]").first().click({ timeout: 5000 }).catch(() => {});
-    await page.waitForTimeout(1500);
-    console.log(`JORNADA-DIAG-VOLTAR ${page.url()} radios=${await page.locator('input[type="radio"]').count()} h1=${await page.locator("h1").first().textContent().catch(() => "")} textoCurto=${JSON.stringify((await page.locator("main").innerText().catch(() => "")).slice(0, 160))}`);
-    await foto(page, "jornada-diag-voltar");
+
   });
 });
 
