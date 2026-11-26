@@ -271,6 +271,34 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "app-radio-tocador-do-site");
   });
 
+  test("rádio do app: o último item continua alcançável com o tocador fixo, e transmissão com erro não fica 'tocando'", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    // Toda mídia de fora falha: a transmissão da emissora cai.
+    await page.route("**/*", (rota) => (rota.request().resourceType() === "media" ? rota.abort("failed") : rota.continue()));
+    await page.goto("/pt/app/eu/radio");
+    await page.waitForLoadState("networkidle");
+    await page.locator("[data-tocar-emissora=brasil-de-fato]").click();
+    await expect(page.locator("[data-radio-falhou=brasil-de-fato]")).toBeVisible({ timeout: 15000 });
+    await expect(page.locator("[data-tocar-emissora=brasil-de-fato]")).toHaveAttribute("aria-pressed", "false");
+    await foto(page, "app-radio-erro");
+    // Aberto o som (sem bloquear a mídia) o tocador fixo aparece; o último item da lista tem de ficar acima dele e da barra de baixo.
+    await page.unroute("**/*");
+    await page.locator("[data-tocar-emissora=brasil-de-fato]").click();
+    await expect(page.locator(".radio-player")).toBeVisible();
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await page.waitForTimeout(500);
+    const medidas = await page.evaluate(() => {
+      const itens = Array.from(document.querySelectorAll(".app-radio-emissora"));
+      const ultimo = itens[itens.length - 1].getBoundingClientRect();
+      const tocador = document.querySelector(".radio-player")?.getBoundingClientRect();
+      const barra = document.querySelector("nav.app-abas")?.getBoundingClientRect();
+      return { ultimoBase: Math.round(ultimo.bottom), tocadorTopo: Math.round(tocador?.top ?? -1), barraTopo: Math.round(barra?.top ?? -1), altura: window.innerHeight };
+    });
+    console.log(`RADIO-FIM ${JSON.stringify(medidas)}`);
+    await foto(page, "app-radio-fim");
+    expect(medidas.ultimoBase).toBeLessThanOrEqual(medidas.tocadorTopo);
+  });
+
   test("jornal do app: o atalho do início abre a lista das matérias na tela própria", async ({ page }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app");

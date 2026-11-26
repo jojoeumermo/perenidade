@@ -41,7 +41,7 @@ export default async function RadioDoApp({ params }: PageProps<"/[lang]/app/eu/r
               .filter((e) => e.frente === f)
               .map((e) => (
                 <li key={e.id} className={e.transmissao ? "app-radio-linha" : undefined}>
-                  {e.transmissao && <TocarEmissora id={e.id} nome={e.nome} lugar={e.lugar} url={e.transmissao} ouvir={t.radio.listen} pausar={t.radio.pause} />}
+                  {e.transmissao && <TocarEmissora id={e.id} nome={e.nome} lugar={e.lugar} url={e.transmissao} ouvir={t.radio.listen} pausar={t.radio.pause} falhou={n.radioFalhou} />}
                   <a href={e.site} target="_blank" rel="noopener noreferrer" className="app-cartao app-radio-emissora" data-emissora={e.id}>
                     <span className="app-cartao-titulo app-cartao-titulo-menor">{e.nome}</span>
                     <span className="app-cartao-texto">{e.lugar} · {e.descricao}</span>

@@ -1047,7 +1047,8 @@
 :root[data-app] .app-radio-grupo ul { list-style: none; margin: 0; padding: 0; }
 :root[data-app] .app-radio-tocador, :root[data-app] .app-radio-emissora { display: block; text-decoration: none; }
 /* Emissora com transmissão: o botão redondo de ouvir (mesmo tocador do site) ao lado do cartão que abre o site dela. */
-:root[data-app] .app-radio-linha { display: flex; align-items: center; gap: 0.75rem; margin: 1rem 1rem 0; }
+:root[data-app] .app-radio-linha { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin: 1rem 1rem 0; }
+:root[data-app] .app-radio-erro { flex-basis: 100%; margin: 0; padding: 0.5rem 0.75rem; border-left: 4px solid #c21f16; background: #fffdf7; font-size: 0.9rem; }
 :root[data-app] .app-radio-linha .app-radio-emissora { flex: 1; min-width: 0; width: auto; margin: 0; }
 :root[data-app] .app-radio-tocar { flex: none; display: flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; min-height: 44px; border: 1.5px solid #1f1a14; border-radius: 999px; background: #c21f16; color: #fff; box-shadow: 3px 3px 0 #1f1a14; cursor: pointer; }
 :root[data-app] .app-radio-tocar[aria-pressed="true"] { background: #1f1a14; }
