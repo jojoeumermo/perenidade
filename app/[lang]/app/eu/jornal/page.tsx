@@ -9,8 +9,7 @@ export const revalidate = 3600;
 
 /**
  * O Jornal dentro do aplicativo (aba Eu): a lista das matérias, a mais nova primeiro, com a em destaque no topo. Sem matéria
- * mostra o aviso "no prelo". Abrir uma matéria ainda leva à página dela no site (o leitor inteiro, com fontes e "Leia
- * também", mora lá): pendência registrada, não tratada como pronta.
+ * mostra o aviso "no prelo". Cada matéria abre no leitor do app (/app/eu/jornal/[slug]).
  */
 export default async function JornalDoApp({ params }: PageProps<"/[lang]/app/eu/jornal">) {
   const { lang, t } = await loadLang(params);
@@ -21,7 +20,7 @@ export default async function JornalDoApp({ params }: PageProps<"/[lang]/app/eu/
   const outras = materias.filter((m) => m.slug !== destaque?.slug);
   const cartao = (m: (typeof materias)[number], tipo: "destaque" | "normal") => (
     <li key={m.slug}>
-      <Link href={localePath(lang, `/jornal/${m.slug}`)} className={`app-cartao app-jornal-materia${tipo === "destaque" ? " app-jornal-destaque" : ""}`} data-materia={m.slug}>
+      <Link href={localePath(lang, `/app/eu/jornal/${m.slug}`)} className={`app-cartao app-jornal-materia${tipo === "destaque" ? " app-jornal-destaque" : ""}`} data-materia={m.slug}>
         {tipo === "destaque" && <span className="app-jornal-selo">{s.featured}</span>}
         <span className="app-cartao-titulo app-cartao-titulo-menor">{m.title}</span>
         <span className="app-cartao-texto">{m.subtitle}</span>

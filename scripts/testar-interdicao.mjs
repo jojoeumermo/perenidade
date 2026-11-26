@@ -90,6 +90,7 @@ igual("app: o mural dos trabalhadores do app fecha com a área mural", [fechado(
 const soAcervo = { geral: false, areas: ["acervo"], mensagem: "" };
 igual("app: o acervo do app fecha com a área acervo", [fechado("/pt/app/eu/acervo", soAcervo), fechado("/pt/app/eu/acervo", soEstudo)], ["acervo", null]);
 igual("app: o plantão do app fecha com a área estudo", [fechado("/pt/app/eu/plantao", soEstudo), fechado("/pt/app/eu/plantao", soAcervo)], ["estudo", null]);
+igual("app: a matéria do app fecha com a área jornal", [fechado("/pt/app/eu/jornal/qualquer", { geral: false, areas: ["jornal"], mensagem: "" }), fechado("/pt/app/eu/jornal/qualquer", soEstudo)], ["jornal", null]);
 const soMemoria = { geral: false, areas: ["memoria"], mensagem: "" };
 igual("app: a dedicatória do app fecha com a área memoria", [fechado("/pt/app/eu/dedicatoria", soMemoria), fechado("/pt/app/eu/dedicatoria", soEstudo)], ["memoria", null]);
 const soJornal = { geral: false, areas: ["jornal"], mensagem: "" };

@@ -1118,3 +1118,16 @@
 :root[data-app] .app-plantao-atalhos, :root[data-app] .app-plantao-canais { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
 :root[data-app] .app-plantao-quem { margin: 0.3rem 0 0; font-weight: 600; }
 :root[data-app] .app-plantao-abrir { display: inline-flex; align-items: center; min-height: 44px; margin-top: 0.5rem; margin-right: 0.8rem; text-decoration: underline; color: #8a1c14; }
+
+/* Leitor de matéria do jornal dentro do app (Eu → Jornal → matéria): chapéu, manchete, assinatura, capa e texto. */
+:root[data-app] .app-materia-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-materia-cabeca { margin: 0 1rem; }
+:root[data-app] .app-materia-editoria { margin: 0.5rem 0 0; font: 600 0.72rem/1.2 var(--font-mono, ui-monospace, monospace); letter-spacing: 0.15em; text-transform: uppercase; color: #8a1c14; }
+:root[data-app] .app-materia-cabeca h1 { margin: 0.5rem 0 0; font-size: 2.1rem; line-height: 1.08; }
+:root[data-app] .app-materia-linha-fina { margin: 0.8rem 0 0; font-size: 1.2rem; line-height: 1.3; color: #3d352c; }
+:root[data-app] .app-materia-assinatura { margin: 1rem 0 0; padding: 0.6rem 0; border-top: 2px solid #1f1a14; border-bottom: 2px solid #1f1a14; font: 600 0.7rem/1.4 var(--font-mono, ui-monospace, monospace); letter-spacing: 0.08em; text-transform: uppercase; }
+:root[data-app] .app-materia-capa { margin: 1rem 1rem 0; }
+:root[data-app] .app-materia-capa img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border: 2px solid #1f1a14; }
+:root[data-app] .app-materia-capa figcaption { margin-top: 0.4rem; font: 400 0.68rem/1.3 var(--font-mono, ui-monospace, monospace); text-transform: uppercase; color: #3d352c; }
+:root[data-app] .app-materia-texto { margin: 1.25rem 1rem 0; min-width: 0; font-size: 1.1rem; line-height: 1.6; overflow-wrap: anywhere; }
+:root[data-app] .app-plantao-aviso + .app-titulo-secao { margin-top: 1.5rem; }

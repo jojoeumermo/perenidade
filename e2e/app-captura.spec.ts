@@ -330,6 +330,19 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "app-plantao");
   });
 
+  test("matéria do app: abrir uma matéria da lista do jornal mostra o leitor do app", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/eu/jornal");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".app-jornal-materia").first().click();
+    await page.waitForURL("**/app/eu/jornal/*");
+    await expect(page.locator(".app-materia-cabeca h1")).toBeVisible();
+    await foto(page, "app-materia");
+    await page.locator(".app-materia-texto").scrollIntoViewIfNeeded();
+    await page.evaluate(() => window.scrollBy(0, 600));
+    await foto(page, "app-materia-texto");
+  });
+
   test("dedicatória do app: o cartão da aba Eu abre o verbete, o busto e o texto", async ({ page }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/eu");
