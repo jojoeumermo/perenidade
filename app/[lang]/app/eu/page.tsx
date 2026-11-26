@@ -75,6 +75,9 @@ export default async function EuDoApp({ params }: PageProps<"/[lang]/app/eu">) {
       <Link href={localePath(lang, "/app/eu/podcasts")} className="app-cartao app-atalho-podcasts">
         <span className="app-cartao-titulo app-cartao-titulo-menor">{t.podcast.title}</span>
       </Link>
+      <Link href={localePath(lang, "/app/eu/instituto")} className="app-cartao app-atalho-instituto">
+        <span className="app-cartao-titulo app-cartao-titulo-menor">{t.nav.institute}</span>
+      </Link>
       <Link href={localePath(lang, "/app/eu/apoio")} className="app-cartao app-atalho-apoiar">
         <span className="app-cartao-titulo app-cartao-titulo-menor">{n.apoiar}</span>
         <span className="app-cartao-texto">{n.apoiarLead}</span>

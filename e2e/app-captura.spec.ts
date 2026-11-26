@@ -260,6 +260,18 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "app-jornal");
   });
 
+  test("instituto do app: o cartão da aba Eu abre propósito, missão, visão e os valores", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/eu");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".app-atalho-instituto").scrollIntoViewIfNeeded();
+    await page.locator(".app-atalho-instituto").click();
+    await page.waitForURL("**/app/eu/instituto");
+    await page.locator(".app-instituto-valor").first().locator("summary").click();
+    await expect(page.locator(".app-instituto-valor").first().locator("p")).toBeVisible();
+    await foto(page, "app-instituto");
+  });
+
   test("estados da busca do app: sem resultado e sem conexão com tentar de novo", async ({ page, context }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/estudar/buscar");
