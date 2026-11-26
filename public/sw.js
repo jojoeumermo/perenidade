@@ -40,14 +40,14 @@ const MAXIMO_DE_EXTRAS = 12;
 const RAIZES_DAS_ABAS = ["", "/trilhas", "/jogos", "/alumia", "/meu-estudo"];
 
 // A página "sem conexão" no idioma do endereço. Sem prefixo, português.
-// [html lang, título, h1, texto, link para as disciplinas, botão "tentar de novo"]
+// [html lang, título, h1, texto, link para as disciplinas, botão "tentar de novo", link para o início do app]
 const TEXTOS_SEM_REDE = {
-  pt: ["pt-BR", "Sem conexão", "Você está sem conexão", "Esta página ainda não foi guardada neste aparelho. As aulas que você já abriu, e os cursos que mandou guardar, continuam disponíveis.", "Ir para as disciplinas", "Tentar de novo"],
-  en: ["en", "Offline", "You are offline", "This page has not been saved on this device yet. The lessons you have already opened, and the courses you saved, are still available.", "Go to the subjects", "Try again"],
-  es: ["es", "Sin conexión", "Estás sin conexión", "Esta página todavía no se guardó en este aparato. Las clases que ya abriste, y los cursos que guardaste, siguen disponibles.", "Ir a las disciplinas", "Intentar de nuevo"],
-  fr: ["fr", "Hors ligne", "Vous êtes hors ligne", "Cette page n'a pas encore été enregistrée sur cet appareil. Les leçons déjà ouvertes, et les cours enregistrés, restent disponibles.", "Aller aux disciplines", "Réessayer"],
-  ru: ["ru", "Нет связи", "Нет подключения к интернету", "Эта страница ещё не сохранена на этом устройстве. Уроки, которые вы уже открывали, и сохранённые курсы по-прежнему доступны.", "К дисциплинам", "Повторить"],
-  zh: ["zh", "离线", "你目前处于离线状态", "此页面尚未保存在本设备上。你已打开过的课程和已保存的课程仍可使用。", "前往学科", "重试"],
+  pt: ["pt-BR", "Sem conexão", "Você está sem conexão", "Esta página ainda não foi guardada neste aparelho. As aulas que você já abriu, e os cursos que mandou guardar, continuam disponíveis.", "Ir para as disciplinas", "Tentar de novo", "Voltar ao início do app"],
+  en: ["en", "Offline", "You are offline", "This page has not been saved on this device yet. The lessons you have already opened, and the courses you saved, are still available.", "Go to the subjects", "Try again", "Back to the app home"],
+  es: ["es", "Sin conexión", "Estás sin conexión", "Esta página todavía no se guardó en este aparato. Las clases que ya abriste, y los cursos que guardaste, siguen disponibles.", "Ir a las disciplinas", "Intentar de nuevo", "Volver al inicio de la app"],
+  fr: ["fr", "Hors ligne", "Vous êtes hors ligne", "Cette page n'a pas encore été enregistrée sur cet appareil. Les leçons déjà ouvertes, et les cours enregistrés, restent disponibles.", "Aller aux disciplines", "Réessayer", "Retour à l'accueil de l'app"],
+  ru: ["ru", "Нет связи", "Нет подключения к интернету", "Эта страница ещё не сохранена на этом устройстве. Уроки, которые вы уже открывали, и сохранённые курсы по-прежнему доступны.", "К дисциплинам", "Повторить", "На главную приложения"],
+  zh: ["zh", "离线", "你目前处于离线状态", "此页面尚未保存在本设备上。你已打开过的课程和已保存的课程仍可使用。", "前往学科", "重试", "返回应用首页"],
 };
 const IDIOMAS = Object.keys(TEXTOS_SEM_REDE);
 
@@ -57,10 +57,12 @@ function idiomaDe(caminho) {
 
 function semRede(caminho) {
   const lang = idiomaDe(caminho);
-  const [html, titulo, h1, texto, link, tentar] = TEXTOS_SEM_REDE[lang];
+  const [html, titulo, h1, texto, link, tentar, inicioDoApp] = TEXTOS_SEM_REDE[lang];
+  // Endereço do aplicativo (/<idioma>/app...): a saída é o início do app (onde está a barra de baixo), não as disciplinas do site.
+  const noApp = /^\/(pt|en|es|fr|ru|zh)\/app(\/|$)/.test(caminho);
   return `<!doctype html><html lang="${html}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${titulo} — Instituto Lúcia</title>
 <style>body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4ecd8;color:#1f1a14;font-family:Georgia,serif;padding:1.5rem}main{max-width:32rem}h1{font-size:2rem;margin:0 0 .75rem}p{font-size:1.15rem;line-height:1.5}a{color:#6e1f1a}button{font:inherit;font-weight:700;padding:.7rem 1.2rem;border-radius:999px;border:2px solid #1f1a14;background:#c21f16;color:#fff;min-height:44px}@media(prefers-color-scheme:dark){body{background:#17130e;color:#efe4c8}a{color:#e0837a}button{border-color:#efe4c8}}</style></head>
-<body><main><h1>${h1}</h1><p>${texto}</p><p><button type="button" onclick="location.reload()">${tentar}</button></p><p><a href="/${lang}/trilhas">${link}</a></p></main></body></html>`;
+<body><main><h1>${h1}</h1><p>${texto}</p><p><button type="button" onclick="location.reload()">${tentar}</button></p><p>${noApp ? `<a href="/${lang}/app" data-sem-rede-app>${inicioDoApp}</a>` : `<a href="/${lang}/trilhas">${link}</a>`}</p></main></body></html>`;
 }
 
 const fixo = (caminho) => /^\/(_next\/static\/|imagens\/|arquivos\/|marca|icon|apple-icon|cartao)/.test(caminho);

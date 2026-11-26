@@ -202,7 +202,7 @@ await ok("os 6 idiomas da página 'sem conexão' têm todos os campos", async ()
   const amb = criarAmbiente();
   assert.deepEqual([...Object.keys(amb.sw.TEXTOS_SEM_REDE)].sort(), ["en", "es", "fr", "pt", "ru", "zh"]);
   for (const campos of Object.values(amb.sw.TEXTOS_SEM_REDE)) {
-    assert.equal(campos.length, 6);
+    assert.equal(campos.length, 7);
     for (const c of campos) assert.ok(c.trim().length > 0);
   }
 });
@@ -530,6 +530,20 @@ await ok("manifesto: screenshots só entram quando a lista (lib/capturas-app.jso
     }
   }
   assert.ok(ler("scripts/gerar-capturas-app.mjs").includes("capturas-app.json"));
+});
+
+await ok("página sem conexão: no app leva ao início do app no idioma do endereço; fora do app segue para as disciplinas", async () => {
+  const amb = criarAmbiente();
+  for (const lang of ["pt", "en", "es", "fr", "ru", "zh"]) {
+    const noApp = amb.sw.semRede(`/${lang}/app/eu/jornal`);
+    assert.ok(noApp.includes(`href="/${lang}/app"`), `${lang}: sem o link para o início do app`);
+    assert.ok(!noApp.includes("/trilhas"), `${lang}: ainda aponta para as disciplinas dentro do app`);
+    assert.equal(amb.sw.TEXTOS_SEM_REDE[lang].length, 7, `${lang}: faltou o texto do link do app`);
+    assert.ok(amb.sw.TEXTOS_SEM_REDE[lang][6].trim().length > 3);
+    const foraDoApp = amb.sw.semRede(`/${lang}/trilhas/historia`);
+    assert.ok(foraDoApp.includes(`href="/${lang}/trilhas"`) && !foraDoApp.includes("data-sem-rede-app"), `${lang}: fora do app mudou`);
+  }
+  assert.ok(!amb.sw.semRede("/pt/aplicativos").includes("data-sem-rede-app"), "/pt/aplicativos não é o app");
 });
 
 // ───── Cercas: rastreio do deploy e privacidade ─────
