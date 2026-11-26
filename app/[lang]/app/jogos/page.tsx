@@ -21,7 +21,7 @@ export default async function JogosDoApp({ params }: PageProps<"/[lang]/app/jogo
         <h1>{j.meta.titulo}</h1>
         <p>{j.pagina.lead}</p>
       </header>
-      <L href="/laboratorios" className="app-cartao app-cartao-tinta app-atalho-labs">
+      <L href="/app/jogos/laboratorios" className="app-cartao app-cartao-tinta app-atalho-labs">
         <span className="app-cartao-titulo app-cartao-titulo-menor">{t.nav.labs} →</span>
         <span className="app-cartao-aux">{n.jogosLead}</span>
       </L>

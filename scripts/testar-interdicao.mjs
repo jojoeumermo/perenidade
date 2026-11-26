@@ -84,6 +84,7 @@ const soRadio = { geral: false, areas: ["radio"], mensagem: "" };
 igual("app: os podcasts do app fecham com a área radio", [fechado("/pt/app/eu/podcasts", soRadio), fechado("/pt/app/eu/podcasts", soEstudo)], ["radio", null]);
 igual("app: /app/estudar fecha com a área estudo", [fechado("/pt/app/estudar", soEstudo), fechado("/en/app/estudar", soEstudo)], ["estudo", "estudo"]);
 igual("app: /app/jogos fecha com a área ferramentas", [fechado("/pt/app/jogos", soFerramentas), fechado("/es/app/jogos", soFerramentas)], ["ferramentas", "ferramentas"]);
+igual("app: os laboratórios do app fecham com a área ferramentas (prefixo /app/jogos)", [fechado("/pt/app/jogos/laboratorios", soFerramentas), fechado("/pt/app/jogos/laboratorios", soEstudo)], ["ferramentas", null]);
 igual("app: estudo fechado não fecha jogos, início nem Eu", ["/pt/app/jogos", "/pt/app", "/pt/app/eu"].map((c) => fechado(c, soEstudo)), [null, null, null]);
 igual("app: ferramentas fechada não fecha estudar, início nem Eu", ["/pt/app/estudar", "/pt/app", "/pt/app/eu"].map((c) => fechado(c, soFerramentas)), [null, null, null]);
 igual("app: Alumia fechada não fecha nenhuma rota do app", ["/pt/app", "/pt/app/estudar", "/pt/app/jogos", "/pt/app/eu"].map((c) => fechado(c, comunidade)), [null, null, null, null]);
