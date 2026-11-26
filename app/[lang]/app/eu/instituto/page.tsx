@@ -7,8 +7,7 @@ import { VALORES } from "@/lib/instituto-valores";
 
 /**
  * O Instituto dentro do aplicativo (aba Eu): propósito, missão, visão e os nove valores em cartões, cada valor numa
- * sanfona (<details>) para a tela caber no celular. O estatuto inteiro (13 artigos) ainda abre na página do site:
- * pendência registrada. O texto está em português, como na página do site, com o aviso das outras línguas.
+ * sanfona (<details>) para a tela caber no celular. O estatuto inteiro (13 artigos) abre em /app/eu/instituto/estatuto. O texto está em português, como na página do site, com o aviso das outras línguas.
  */
 export default async function InstitutoDoApp({ params }: PageProps<"/[lang]/app/eu/instituto">) {
   const { lang, t } = await loadLang(params);
@@ -43,9 +42,9 @@ export default async function InstitutoDoApp({ params }: PageProps<"/[lang]/app/
           </li>
         ))}
       </ol>
-      <Link href={localePath(lang, "/instituto")} className="app-cartao app-instituto-estatuto">
+      <Link href={localePath(lang, "/app/eu/instituto/estatuto")} className="app-cartao app-instituto-estatuto">
         <span className="app-cartao-titulo app-cartao-titulo-menor">Estatuto e acessibilidade</span>
-        <span className="app-cartao-texto">A carta de funcionamento com os 13 artigos abre na página do site.</span>
+        <span className="app-cartao-texto">A carta de funcionamento com os 13 artigos e a acessibilidade.</span>
       </Link>
     </div>
   );
