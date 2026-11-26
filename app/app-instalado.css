@@ -948,6 +948,11 @@
 .app-atalho-voluntarios,
 .app-atalho-saude,
 .app-atalho-dedicatoria,
+.app-atalho-plantao,
+.app-plantao-aviso,
+.app-plantao-canal,
+.app-plantao-atalho,
+.app-atalho-acervo,
 .app-atalho-mural,
 .app-mural-regras,
 .app-dedicatoria-verbete,
@@ -1102,3 +1107,14 @@
 :root[data-app] .app-mural-corpo { margin: 0 1rem; min-width: 0; }
 :root[data-app] .app-mural-como { margin: 0 1rem; }
 :root[data-app] .app-mural-como section { margin-top: 1.5rem; }
+
+/* Acervo dentro do app (Eu → Acervo): a estante do site com busca e filtros, em coluna única. */
+:root[data-app] .app-acervo-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-acervo-corpo { margin: 0 1rem; min-width: 0; }
+
+/* Plantão de dúvidas dentro do app (Eu → Plantão): aviso, atalhos de busca e um cartão por canal. */
+:root[data-app] .app-plantao-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-plantao-texto { margin: 0.25rem 1rem 0.6rem; line-height: 1.45; color: #3d352c; }
+:root[data-app] .app-plantao-atalhos, :root[data-app] .app-plantao-canais { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+:root[data-app] .app-plantao-quem { margin: 0.3rem 0 0; font-weight: 600; }
+:root[data-app] .app-plantao-abrir { display: inline-flex; align-items: center; min-height: 44px; margin-top: 0.5rem; margin-right: 0.8rem; text-decoration: underline; color: #8a1c14; }
