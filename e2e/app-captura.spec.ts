@@ -343,6 +343,18 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "app-materia-texto");
   });
 
+  test("não encontrado: endereço que não existe dentro do app e na raiz do idioma", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    const resposta = await page.goto("/pt/app/eu/pagina-que-nao-existe");
+    console.log(`NAOENCONTRADO app status=${resposta?.status()} data-app=${await atributo(page, "data-app")}`);
+    await page.waitForLoadState("networkidle");
+    await foto(page, "app-nao-encontrado");
+    const r2 = await page.goto("/pt/pagina-que-nao-existe");
+    console.log(`NAOENCONTRADO raiz status=${r2?.status()} data-app=${await atributo(page, "data-app")}`);
+    await page.waitForLoadState("networkidle");
+    await foto(page, "app-nao-encontrado-raiz");
+  });
+
   test("estatuto do app: o cartão da tela do instituto abre os 13 artigos e a acessibilidade", async ({ page }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/eu/instituto");
