@@ -33,6 +33,10 @@ export interface TextosDoAppNovo {
   apoiarLead: string;
   alumiaEntrada: string;
   alumiaEntradaLead: string;
+  /** Rádios: o diretório do app abre cada emissora no site dela; o tocador com som é o do site. */
+  radioLead: string;
+  radioTocador: string;
+  radioTocadorLead: string;
   /** Jornada de estudo própria (disciplina, trilha, aula). */
   trilhas: string;
   progressoDe: (feitas: number, total: number) => string;
@@ -76,6 +80,9 @@ const PT: TextosDoAppNovo = {
   apoiarLead: "Gratuito, sem anúncio e sem rastreador: quem pode contribuir mantém tudo no ar.",
   alumiaEntrada: "Alumia →",
   alumiaEntradaLead: "A rede social do instituto, no próprio endereço.",
+  radioLead: "Emissoras populares, comunitárias e de trabalhadores do Brasil e do mundo. Cada uma abre no site dela, em outra aba.",
+  radioTocador: "Ouvir no tocador do site",
+  radioTocadorLead: "O som toca na página de rádio do site, aberta aqui dentro.",
   trilhas: "Trilhas",
   progressoDe: (f, n) => `${f} de ${n} aulas`,
   continuarEstudo: "Continuar estudando",
@@ -121,6 +128,9 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     apoiarLead: "Free, ad-free and tracker-free: those who can contribute keep everything running.",
     alumiaEntrada: "Alumia →",
     alumiaEntradaLead: "The institute's social network, at its own address.",
+    radioLead: "Popular, community and workers' stations from Brazil and the world. Each one opens on its own site, in another tab.",
+    radioTocador: "Listen in the site player",
+    radioTocadorLead: "Sound plays on the site's radio page, opened inside this app.",
     trilhas: "Tracks",
     progressoDe: (f, n) => `${f} of ${n} lessons`,
     continuarEstudo: "Keep studying",
@@ -163,6 +173,9 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     apoiarLead: "Gratuito, sin anuncios y sin rastreadores: quien puede contribuir mantiene todo en pie.",
     alumiaEntrada: "Alumia →",
     alumiaEntradaLead: "La red social del instituto, en su propia dirección.",
+    radioLead: "Emisoras populares, comunitarias y de trabajadores de Brasil y del mundo. Cada una se abre en su propio sitio, en otra pestaña.",
+    radioTocador: "Escuchar en el reproductor del sitio",
+    radioTocadorLead: "El sonido suena en la página de radio del sitio, abierta aquí dentro.",
     trilhas: "Rutas",
     progressoDe: (f, n) => `${f} de ${n} clases`,
     continuarEstudo: "Seguir estudiando",
@@ -205,6 +218,9 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     apoiarLead: "Gratuit, sans pub ni traqueur : ceux qui peuvent contribuer maintiennent tout en ligne.",
     alumiaEntrada: "Alumia →",
     alumiaEntradaLead: "Le réseau social de l'institut, à sa propre adresse.",
+    radioLead: "Radios populaires, communautaires et de travailleurs du Brésil et du monde. Chacune s'ouvre sur son propre site, dans un autre onglet.",
+    radioTocador: "Écouter dans le lecteur du site",
+    radioTocadorLead: "Le son passe par la page radio du site, ouverte ici dans l'application.",
     trilhas: "Parcours",
     progressoDe: (f, n) => `${f} leçons sur ${n}`,
     continuarEstudo: "Continuer à étudier",
@@ -247,6 +263,9 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     apoiarLead: "Бесплатно, без рекламы и трекеров: те, кто может, поддерживают всё это.",
     alumiaEntrada: "Alumia →",
     alumiaEntradaLead: "Социальная сеть института, по её собственному адресу.",
+    radioLead: "Народные, общинные и рабочие радиостанции Бразилии и мира. Каждая открывается на своём сайте, в другой вкладке.",
+    radioTocador: "Слушать в плеере сайта",
+    radioTocadorLead: "Звук идёт на странице радио сайта, открытой внутри приложения.",
     trilhas: "Маршруты",
     progressoDe: (f, n) => `${f} из ${n} уроков`,
     continuarEstudo: "Продолжить учёбу",
@@ -289,6 +308,9 @@ export const TEXTOS_DO_APP_NOVO: Record<string, TextosDoAppNovo> = {
     apoiarLead: "免费、无广告、无跟踪:有能力的人捐款,让一切维持运转。",
     alumiaEntrada: "Alumia →",
     alumiaEntradaLead: "学院的社交网络,有自己的网址。",
+    radioLead: "巴西和世界各地的人民、社区和工人电台。每个电台都在自己的网站上打开,在另一个标签页。",
+    radioTocador: "在网站播放器中收听",
+    radioTocadorLead: "声音在网站的电台页面播放,该页面在应用内打开。",
     trilhas: "路线",
     progressoDe: (f, n) => `${f}/${n} 课`,
     continuarEstudo: "继续学习",

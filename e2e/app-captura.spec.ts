@@ -243,6 +243,11 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     expect(await page.locator(".app-radio-emissora").count()).toBeGreaterThan(20);
     await expect(page.locator("[data-emissora=brasil-de-fato]")).toHaveAttribute("target", "_blank");
     await foto(page, "app-radio");
+    // O som continua só no tocador do site: o cartão do topo leva a ele e a página abre dentro do app.
+    await page.locator("[data-radio-tocador]").click();
+    await page.waitForURL(/\/pt\/radio$/);
+    await expect(page.locator("h1").first()).toBeVisible();
+    await foto(page, "app-radio-tocador-do-site");
   });
 
   test("estados da busca do app: sem resultado e sem conexão com tentar de novo", async ({ page, context }) => {
