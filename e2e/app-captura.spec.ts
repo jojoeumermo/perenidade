@@ -272,6 +272,18 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "app-instituto");
   });
 
+  test("voluntariado do app: o cartão da aba Eu abre os jeitos de ajudar e o formulário na tela própria", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/eu");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".app-atalho-voluntarios").scrollIntoViewIfNeeded();
+    await page.locator(".app-atalho-voluntarios").click();
+    await page.waitForURL("**/app/eu/voluntarios");
+    expect(await page.locator(".app-voluntarios-cartao").count()).toBeGreaterThan(2);
+    await expect(page.locator(".app-voluntarios-form form")).toBeAttached();
+    await foto(page, "app-voluntarios");
+  });
+
   test("estados da busca do app: sem resultado e sem conexão com tentar de novo", async ({ page, context }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/estudar/buscar");
