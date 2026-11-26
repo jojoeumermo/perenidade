@@ -85,6 +85,22 @@ export function ShellDoApp() {
     return () => observador.disconnect();
   }, [pathname, raiz]);
 
+  // A altura da barra de cima fica em --app-topo: as faixas coladas ao rolar (a da prova, os índices) e as âncoras param logo
+  // abaixo dela, não por baixo (a medida do site olha a barra do navegador, que no app está escondida).
+  useEffect(() => {
+    const barra = document.querySelector<HTMLElement>(".shell-topo");
+    if (!barra) return;
+    const raizDoc = document.documentElement;
+    const medir = () => raizDoc.style.setProperty("--app-topo", `${Math.round(barra.getBoundingClientRect().height)}px`);
+    medir();
+    const observador = new ResizeObserver(medir);
+    observador.observe(barra);
+    return () => {
+      observador.disconnect();
+      raizDoc.style.removeProperty("--app-topo");
+    };
+  }, []);
+
   const ir = (href: string, direcao: Direcao) => {
     const espera = esperarARota();
     avisarRota.current = espera.avisar;

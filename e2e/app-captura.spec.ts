@@ -923,10 +923,10 @@ test.describe("margem sob a barra de baixo no fim das páginas, dentro do app (3
       await page.waitForTimeout(500);
       const m = await page.evaluate(() => {
         const faixa = document.querySelector("#prova > div.sticky");
-        const cab = document.querySelector("header");
+        const cab = document.querySelector(".shell-topo") ?? document.querySelector("header");
         const art = document.querySelector("#questao-atual");
         const r = (e: Element | null) => (e ? { top: Math.round(e.getBoundingClientRect().top), bottom: Math.round(e.getBoundingClientRect().bottom), pos: getComputedStyle(e).position, cssTop: getComputedStyle(e).top } : null);
-        return { y: Math.round(window.scrollY), faixa: r(faixa), cabecalho: r(cab), questao: r(art), altura: document.documentElement.style.getPropertyValue("--altura-topo"), topoFixo: document.documentElement.hasAttribute("data-topo-fixo"), rolou: document.documentElement.hasAttribute("data-rolou") };
+        return { y: Math.round(window.scrollY), faixa: r(faixa), cabecalho: r(cab), questao: r(art), altura: document.documentElement.style.getPropertyValue("--altura-topo"), appTopo: document.documentElement.style.getPropertyValue("--app-topo"), topoFixo: document.documentElement.hasAttribute("data-topo-fixo"), rolou: document.documentElement.hasAttribute("data-rolou") };
       });
       console.log(`FAIXA-PROVA ${JSON.stringify(m)}`);
       await foto(page, `faixa-prova-${y}`);
