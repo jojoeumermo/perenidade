@@ -14,7 +14,7 @@ export const areasPublicas = [
   { id: "mural", nome: "Mural dos Trabalhadores e Mural de Saúde", caminhos: ["/mural", "/saude"] },
   { id: "reforco", nome: "Aula de reforço", caminhos: ["/reforco"] },
   { id: "contribuir", nome: "Contribuir, denunciar e relatar erros", caminhos: ["/contribuir", "/denunciar", "/relatar-erro"] },
-  { id: "jornal", nome: "Jornal, notícias e boletim", caminhos: ["/jornal", "/noticias"] },
+  { id: "jornal", nome: "Jornal, notícias e boletim", caminhos: ["/app/eu/jornal", "/jornal", "/noticias"] },
   { id: "radio", nome: "Rádio e podcasts", caminhos: ["/app/eu/podcasts", "/app/eu/radio", "/radio", "/podcasts"] },
   { id: "acervo", nome: "Acervo, catálogo e autores", caminhos: ["/acervo", "/catalogo", "/autores"] },
   { id: "estudo", nome: "Disciplinas, trilhas e aulas", caminhos: ["/app/estudar", "/trilhas", "/estantes", "/avulsos", "/comecar", "/perguntas", "/ao-vivo", "/plantao", "/questoes", "/enem", "/meu-estudo", "/revisao-pendente", "/turma", "/professores", "/nivelamento", "/criancas", "/despertar", "/consciencia", "/nucleos", "/turmas", "/escola", "/cursos", "/campus", "/vida", "/libras", "/aula-do-dia"] },

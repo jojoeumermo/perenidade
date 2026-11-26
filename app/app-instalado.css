@@ -942,7 +942,8 @@
 .app-podcasts-radio,
 .app-labs-cartao,
 .app-radio-tocador,
-.app-radio-emissora {
+.app-radio-emissora,
+.app-jornal-materia {
   box-sizing: border-box;
   width: calc(100% - 2rem);
   margin: 1rem 1rem 0;
@@ -962,7 +963,8 @@
 .app-podcasts-episodio .app-cartao-texto,
 .app-labs-cartao .app-cartao-texto,
 .app-radio-tocador .app-cartao-texto,
-.app-radio-emissora .app-cartao-texto {
+.app-radio-emissora .app-cartao-texto,
+.app-jornal-materia .app-cartao-texto {
   display: block;
   margin-top: 0.3rem;
   font-size: 0.9rem;
@@ -1024,3 +1026,10 @@
 :root[data-app] .app-radio-grupo h2 { margin-left: 1rem; margin-right: 1rem; }
 :root[data-app] .app-radio-grupo ul { list-style: none; margin: 0; padding: 0; }
 :root[data-app] .app-radio-tocador, :root[data-app] .app-radio-emissora { display: block; text-decoration: none; }
+
+/* Jornal dentro do app (Eu → Jornal): matérias em cartões de uma coluna, a em destaque no topo. */
+:root[data-app] .app-jornal-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-jornal-lista { list-style: none; margin: 0; padding: 0; }
+:root[data-app] .app-jornal-materia { display: block; text-decoration: none; }
+:root[data-app] .app-jornal-materia .app-cartao-aux { display: block; margin-top: 0.4rem; font-size: 0.8rem; opacity: 0.75; }
+:root[data-app] .app-jornal-selo { display: inline-block; margin-bottom: 0.35rem; padding: 0.1rem 0.5rem; background: #c21f16; color: #fff; font: 700 0.7rem/1.4 var(--font-sans, system-ui, sans-serif); letter-spacing: 0.08em; text-transform: uppercase; }
