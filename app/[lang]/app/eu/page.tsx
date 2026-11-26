@@ -72,7 +72,7 @@ export default async function EuDoApp({ params }: PageProps<"/[lang]/app/eu">) {
       </Link>
       {/* No aplicativo o convite ao apoio não abre sozinho na primeira tela (components/OpeningNotice.tsx): ele mora aqui. */}
       <AjudaNoApp titulo={textosDoAssistente(lang).botao} />
-      <Link href={localePath(lang, "/apoie")} className="app-cartao app-atalho-apoiar">
+      <Link href={localePath(lang, "/app/eu/apoio")} className="app-cartao app-atalho-apoiar">
         <span className="app-cartao-titulo app-cartao-titulo-menor">{n.apoiar}</span>
         <span className="app-cartao-texto">{n.apoiarLead}</span>
       </Link>
