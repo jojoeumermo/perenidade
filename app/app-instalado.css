@@ -1143,3 +1143,12 @@
 :root[data-app] .app-estatuto-corpo { margin: 0 1rem; min-width: 0; overflow-wrap: anywhere; }
 :root[data-app] .app-estatuto-corpo section { margin-top: 1.5rem; }
 :root[data-app] .app-estatuto-corpo ol { font-size: 1.05rem; line-height: 1.55; }
+
+/* Faixas coladas ao rolar (a "Entregar e corrigir" da prova, índices laterais) e âncoras: no app a barra de cima é a do
+   shell (fixa), não a do navegador; sem isto a faixa ficava por baixo dela. --app-topo vem de ShellDoApp. */
+:root[data-app]:not([data-leitor]) {
+  scroll-padding-top: calc(var(--app-topo, 3.5rem) + 0.75rem);
+}
+:root[data-app][data-topo-fixo]:not([data-leitor]) main [class*="sticky"][class*="top-"]:not([class*="bottom-"]):not([class*="top-["]) {
+  top: calc(var(--app-topo, 3.5rem) + 0.5rem);
+}
