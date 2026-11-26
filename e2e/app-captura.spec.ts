@@ -352,8 +352,10 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.waitForURL("**/app/eu/instituto/estatuto");
     await expect(page.locator("#estatuto")).toBeVisible();
     await foto(page, "app-estatuto");
-    await page.locator("#estatuto").scrollIntoViewIfNeeded();
+    await page.locator("#estatuto ~ ol > li").nth(6).scrollIntoViewIfNeeded();
     await foto(page, "app-estatuto-artigos");
+    await page.locator("#acessibilidade").scrollIntoViewIfNeeded();
+    await foto(page, "app-estatuto-acessibilidade");
   });
 
   test("dedicatória do app: o cartão da aba Eu abre o verbete, o busto e o texto", async ({ page }) => {
