@@ -32,7 +32,6 @@ export function SearchClient({ app = false }: { app?: boolean } = {}) {
 
   useEffect(() => {
     let cancelled = false;
-    setFailed(false);
     fetch(localePath(lang, "/indice.json"))
       .then((response) => {
         if (!response.ok) throw new Error(String(response.status));
@@ -85,7 +84,10 @@ export function SearchClient({ app = false }: { app?: boolean } = {}) {
         <div role="status" className={`app-estado ${failed ? "app-estado-erro" : "app-estado-carregando"}`}>
           <p>{failed ? t.search.failed : t.search.loading}</p>
           {failed && (
-            <button type="button" className="app-botao-contorno" onClick={() => setTentativa((n) => n + 1)}>
+            <button type="button" className="app-botao-contorno" onClick={() => {
+                setFailed(false);
+                setTentativa((n) => n + 1);
+              }}>
               {t.lesson.tryAgain}
             </button>
           )}
