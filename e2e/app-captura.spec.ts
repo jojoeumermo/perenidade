@@ -917,11 +917,28 @@ test.describe("margem sob a barra de baixo no fim das páginas, dentro do app (3
       await page.waitForTimeout(500);
       await foto(page, "jornada-diag-respondida");
     }
+    // Faixa "Entregar e corrigir" (sticky no componente compartilhado) contra o cabeçalho do app, em rolagens intermediárias.
+    for (const y of [0, 400, 900]) {
+      await page.evaluate((to) => window.scrollTo(0, to), y);
+      await page.waitForTimeout(500);
+      const m = await page.evaluate(() => {
+        const faixa = document.querySelector("#prova > div.sticky");
+        const cab = document.querySelector("header");
+        const art = document.querySelector("#questao-atual");
+        const r = (e: Element | null) => (e ? { top: Math.round(e.getBoundingClientRect().top), bottom: Math.round(e.getBoundingClientRect().bottom), pos: getComputedStyle(e).position, cssTop: getComputedStyle(e).top } : null);
+        return { y: Math.round(window.scrollY), faixa: r(faixa), cabecalho: r(cab), questao: r(art), altura: document.documentElement.style.getPropertyValue("--altura-topo"), topoFixo: document.documentElement.hasAttribute("data-topo-fixo"), rolou: document.documentElement.hasAttribute("data-rolou") };
+      });
+      console.log(`FAIXA-PROVA ${JSON.stringify(m)}`);
+      await foto(page, `faixa-prova-${y}`);
+    }
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await page.waitForTimeout(500);
     console.log(`MARGEM diagnostico-prova ${page.url()} ${JSON.stringify(await margem(page))}`);
     await foto(page, "margem-diagnostico-prova");
     await page.locator("header button[aria-label], header a[aria-label]").first().click({ timeout: 5000 }).catch(() => {});
     await page.waitForTimeout(800);
-    console.log(`JORNADA-DIAG-VOLTAR ${page.url()}`);
+    console.log(`JORNADA-DIAG-VOLTAR ${page.url()} radios=${await page.locator('input[type="radio"]').count()} h1=${await page.locator("h1").first().textContent().catch(() => "")} textoCurto=${JSON.stringify((await page.locator("main").innerText().catch(() => "")).slice(0, 160))}`);
+    await foto(page, "jornada-diag-voltar");
   });
 });
 
