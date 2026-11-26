@@ -11,7 +11,7 @@ export const areasPublicas = [
   // A Alumia (rede social) mudou de /comunidade para /alumia: o id continua "comunidade" para não perder o estado gravado no
   // banco, e o caminho antigo continua fechando junto (ele só redireciona, mas nunca abre por fora da interdição).
   { id: "comunidade", nome: "Alumia (rede social)", caminhos: ["/alumia", "/comunidade"] },
-  { id: "mural", nome: "Mural dos Trabalhadores e Mural de Saúde", caminhos: ["/app/eu/saude", "/mural", "/saude"] },
+  { id: "mural", nome: "Mural dos Trabalhadores e Mural de Saúde", caminhos: ["/app/eu/saude", "/app/eu/mural", "/mural", "/saude"] },
   { id: "reforco", nome: "Aula de reforço", caminhos: ["/reforco"] },
   { id: "contribuir", nome: "Contribuir, denunciar e relatar erros", caminhos: ["/contribuir", "/denunciar", "/relatar-erro"] },
   { id: "jornal", nome: "Jornal, notícias e boletim", caminhos: ["/app/eu/jornal", "/jornal", "/noticias"] },

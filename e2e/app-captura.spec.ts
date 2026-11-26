@@ -295,6 +295,17 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "app-saude");
   });
 
+  test("mural do app: o cartão da aba Eu abre regras, anúncios e como funciona", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/eu");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".app-atalho-mural").scrollIntoViewIfNeeded();
+    await page.locator(".app-atalho-mural").click();
+    await page.waitForURL("**/app/eu/mural");
+    await expect(page.locator(".app-mural-regras")).toBeVisible();
+    await foto(page, "app-mural");
+  });
+
   test("dedicatória do app: o cartão da aba Eu abre o verbete, o busto e o texto", async ({ page }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/eu");
