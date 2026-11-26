@@ -860,12 +860,15 @@ test.describe("margem sob a barra de baixo no fim das páginas, dentro do app (3
       }
       // O último conteúdo de fluxo normal: o folha (sem filhos) visível mais baixo que não está sob um elemento fixo.
       let base = 0;
+      let quem = "";
       for (const e of Array.from(document.body.querySelectorAll("*"))) {
         if (e.children.length > 0 || fixo(e)) continue;
+        const cs = getComputedStyle(e);
+        if (cs.visibility === "hidden" || cs.opacity === "0" || cs.display === "none") continue;
         const r = e.getBoundingClientRect();
-        if (r.height > 0 && r.width > 0 && r.bottom > base && r.bottom <= window.innerHeight + 2) base = r.bottom;
+        if (r.height > 1 && r.width > 1 && r.bottom > base && r.bottom <= window.innerHeight + 2) { base = r.bottom; quem = `${e.tagName.toLowerCase()}.${String(e.getAttribute("class") ?? "").slice(0, 40)} "${(e.textContent ?? "").trim().slice(0, 30)}"`; }
       }
-      return { conteudoBase: Math.round(base), barraTopo: Math.round(barraTopo), folga: Math.round(barraTopo - base), noFim: Math.round(window.scrollY + window.innerHeight) >= document.documentElement.scrollHeight - 2 };
+      return { quem, conteudoBase: Math.round(base), barraTopo: Math.round(barraTopo), folga: Math.round(barraTopo - base), noFim: Math.round(window.scrollY + window.innerHeight) >= document.documentElement.scrollHeight - 2 };
     });
   for (const rota of MARGEM) {
     test(`margem ${rota}`, async ({ page }) => {
@@ -889,12 +892,18 @@ test.describe("margem sob a barra de baixo no fim das páginas, dentro do app (3
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/enem/diagnostico", { waitUntil: "domcontentloaded" });
     await page.waitForLoadState("networkidle").catch(() => {});
+    const falhas: string[] = [];
+    page.on("response", (r) => { if (r.status() >= 400) falhas.push(`${r.status()} ${r.url().replace(/^https?:\/\/[^/]+/, "")}`); });
+    page.on("requestfailed", (r) => falhas.push(`falhou ${r.url().replace(/^https?:\/\/[^/]+/, "")}`));
     const comecar = page.locator('a:has-text("Começar a prova"), button:has-text("Começar a prova")');
     for (let i = 0; i < 3 && (await comecar.count()) > 0; i++) {
       await comecar.first().click({ timeout: 20000 });
       await page.waitForLoadState("networkidle").catch(() => {});
       await page.waitForTimeout(800);
     }
+    const carregou = await page.getByText("Carregando a prova").waitFor({ state: "detached", timeout: 40000 }).then(() => true).catch(() => false);
+    await page.waitForTimeout(800);
+    console.log(`JORNADA-DIAG-CARGA terminou=${carregou} pedidos-falhos=${falhas.join(" | ").slice(0, 400)}`);
     const opcoes = await page.locator('input[type="radio"]').count();
     console.log(`JORNADA-DIAG url=${page.url()} radios=${opcoes} h1=${await page.locator("h1").first().textContent().catch(() => "")}`);
     await foto(page, "jornada-diag-questao");
