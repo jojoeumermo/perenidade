@@ -54,8 +54,10 @@ export function TocarEmissora({ id, nome, lugar, url, ouvir, pausar, falhou }: {
   }, [eAtual, playing]);
 
   const tocar = () => {
+    const refazer = deuErro;
     setDeuErro(false);
-    if (eAtual) {
+    // Depois de uma falha, tentar de novo recarrega a transmissão (o <audio> com erro não se recupera só com "play").
+    if (eAtual && !refazer) {
       aguardando.current = !playing;
       radio.toggle();
     } else {

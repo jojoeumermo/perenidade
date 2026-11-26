@@ -1,8 +1,8 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Ouvir } from "@/components/podcast/Ouvir";
+import { type MouseEvent, useEffect, useRef, useState } from "react";
+import { faixaDoEpisodio, Ouvir } from "@/components/podcast/Ouvir";
 import type { Episodio } from "@/lib/podcast";
 import { radio, usePlayer } from "@/lib/radio";
 
@@ -56,9 +56,16 @@ export function OuvirNoApp({ episodio, fila, programa, rotulo, pausar, falhou }:
   }, [eAtual]);
 
   // O clique no botão (captura, antes do Ouvir): vai começar a tocar se este episódio não é o atual ou está pausado.
-  const aoClicar = () => {
+  // Depois de uma falha, tentar de novo recarrega a faixa (o <audio> com erro não se recupera só com "play"): a fila é posta de novo.
+  const aoClicar = (evento: MouseEvent) => {
+    const refazer = deuErro;
     setDeuErro(false);
-    aguardando.current = !eAtualRef.current || !tocandoRef.current;
+    aguardando.current = refazer || !eAtualRef.current || !tocandoRef.current;
+    if (refazer) {
+      evento.stopPropagation();
+      const lista = fila.some((e) => e.id === episodio.id) ? fila : [episodio];
+      radio.play(lista.map((e) => faixaDoEpisodio(e, programa)), lista.findIndex((e) => e.id === episodio.id));
+    }
   };
   return (
     <>
