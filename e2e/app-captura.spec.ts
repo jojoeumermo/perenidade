@@ -196,6 +196,19 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "app-ajuda-aberta");
   });
 
+  test("apoio do app: o cartão da aba Eu abre a tela própria, com o botão da campanha em outra aba", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/eu");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".app-atalho-apoiar").scrollIntoViewIfNeeded();
+    await page.locator(".app-atalho-apoiar").click();
+    await page.waitForURL("**/app/eu/apoio");
+    await expect(page.locator(".app-apoio-numeros li")).toHaveCount(3);
+    await expect(page.locator(".app-apoio-botao")).toHaveAttribute("target", "_blank");
+    await expect(page.locator(".app-apoio-botao")).toHaveAttribute("href", /^https:\/\/benfeitoria\.com\//);
+    await foto(page, "app-apoio");
+  });
+
   test("estados da busca do app: sem resultado e sem conexão com tentar de novo", async ({ page, context }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/estudar/buscar");
