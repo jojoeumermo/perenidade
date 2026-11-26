@@ -771,6 +771,7 @@ test.describe("varredura das rotas do site dentro do app (390 px)", () => {
   test.use({ ...CELULAR, userAgent: UA_APP });
   for (const rota of VARREDURA) {
     test(`varredura ${rota}`, async ({ page }) => {
+      page.on("pageerror", (e) => console.log(`ERRO-DE-PAGINA ${rota}: ${e.message.slice(0, 160).replace(/\n/g, " ")}`));
       await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
       const resposta = await page.goto(`/pt/${rota}`, { waitUntil: "domcontentloaded" });
       await page.waitForLoadState("networkidle").catch(() => {});
