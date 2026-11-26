@@ -284,6 +284,17 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "app-voluntarios");
   });
 
+  test("saúde do app: o cartão da aba Eu abre emergência, aviso, vitrine e como funciona", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/eu");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".app-atalho-saude").scrollIntoViewIfNeeded();
+    await page.locator(".app-atalho-saude").click();
+    await page.waitForURL("**/app/eu/saude");
+    await expect(page.locator('.app-saude-emergencia a[href="tel:192"]')).toBeVisible();
+    await foto(page, "app-saude");
+  });
+
   test("estados da busca do app: sem resultado e sem conexão com tentar de novo", async ({ page, context }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/estudar/buscar");
