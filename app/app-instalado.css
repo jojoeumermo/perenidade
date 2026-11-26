@@ -1084,7 +1084,8 @@
 :root[data-app] .app-dedicatoria-verbete h2 { margin: 0; font-size: 2.2rem; line-height: 1.1; }
 :root[data-app] .app-dedicatoria-silabas { font: 400 0.85rem/1 var(--font-mono, ui-monospace, monospace); opacity: 1; color: #3d352c; }
 :root[data-app] .app-dedicatoria-classe { margin: 0.6rem 0 0; font-style: italic; color: #3d352c; }
-:root[data-app] .app-dedicatoria-verbete ol { margin: 0.6rem 0 0; padding-left: 1.3rem; line-height: 1.45; }
+:root[data-app] .app-dedicatoria-verbete ol { margin: 0.6rem 0 0; padding-left: 1.3rem; line-height: 1.45; list-style: decimal outside; }
+:root[data-app] .app-dedicatoria-verbete li { display: list-item; padding-left: 0.2rem; }
 :root[data-app] .app-dedicatoria-etim { margin: 0.8rem 0 0; font-size: 0.9rem; line-height: 1.4; color: #3d352c; }
 :root[data-app] .app-dedicatoria-busto { display: block; width: 70%; max-width: 280px; height: auto; margin: 1.5rem auto 0; }
 :root[data-app] .app-dedicatoria-texto { margin: 1.25rem 1.25rem 0; text-align: center; font-size: 1.2rem; line-height: 1.5; }
