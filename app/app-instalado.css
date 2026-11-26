@@ -948,6 +948,8 @@
 .app-atalho-voluntarios,
 .app-atalho-saude,
 .app-atalho-dedicatoria,
+.app-atalho-mural,
+.app-mural-regras,
 .app-dedicatoria-verbete,
 .app-saude-emergencia,
 .app-saude-aviso,
@@ -1092,3 +1094,11 @@
 :root[data-app] .app-dedicatoria-texto p { margin: 0 0 1rem; }
 :root[data-app] .app-dedicatoria-fecho { font-size: 1.8rem; font-style: italic; font-weight: 600; color: #8a1c14; }
 :root[data-app] .app-dedicatoria-assina { font: 400 0.75rem/1.4 var(--font-mono, ui-monospace, monospace); letter-spacing: 0.15em; text-transform: uppercase; }
+
+/* Mural dos Trabalhadores dentro do app (Eu → Mural): regras em cartão, o mural do site e "como funciona". */
+:root[data-app] .app-mural-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-mural-regras ul { margin: 0.5rem 0 0; padding-left: 1.2rem; list-style: disc outside; line-height: 1.45; }
+:root[data-app] .app-mural-regras li { display: list-item; margin-top: 0.3rem; }
+:root[data-app] .app-mural-corpo { margin: 0 1rem; min-width: 0; }
+:root[data-app] .app-mural-como { margin: 0 1rem; }
+:root[data-app] .app-mural-como section { margin-top: 1.5rem; }
