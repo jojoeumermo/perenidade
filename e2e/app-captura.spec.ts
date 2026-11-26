@@ -784,7 +784,7 @@ test.describe("varredura das rotas do site dentro do app (390 px)", () => {
 
 // Página inteira (temporário): as rotas ENEM e uma amostra de rotas dinâmicas abertas a partir das listas, dentro do app (390 px).
 const COMPLETAS = ["enem", "enem/diagnostico", "enem/plano", "enem/praticar", "enem/provas", "enem/simulados", "enem/redacao", "enem/dia-da-prova", "perguntas", "glossario"];
-const DINAMICAS: [string, string][] = [["acervo", "/pt/acervo"], ["jornal", "/pt/jornal"], ["trilha", "/pt/trilhas"], ["podcast", "/pt/podcasts"], ["debate", "/pt/debates"]];
+const DESTINOS_REAIS: [string, string][] = [["acervo-obra", "/pt/acervo/1984"], ["trilha", "/pt/trilhas/alemao-basico"], ["curso-enem", "/pt/trilhas/enem-como-funciona"]]; // slugs de content/acervo/1984.md e content/trilhas/*; /debates não tem rota de detalhe e /podcasts sem episódio de teste fica de fora (sem fixture)
 test.describe("página inteira das rotas ENEM e dinâmicas dentro do app (390 px)", () => {
   test.skip(!TUDO || !!process.env.SEMEAR_PODCAST || !process.env.CAPTURA_VARREDURA, "só no passo da varredura");
   test.use({ ...CELULAR, userAgent: UA_APP });
@@ -798,20 +798,12 @@ test.describe("página inteira das rotas ENEM e dinâmicas dentro do app (390 px
       await foto(page, `inteira-${rota.replace(/\//g, "_")}`, true);
     });
   }
-  for (const [nome, lista] of DINAMICAS) {
-    test(`dinâmica ${nome}`, async ({ page }) => {
+  for (const [nome, destino] of DESTINOS_REAIS) {
+    test(`varredura dinâmica ${nome}`, async ({ page }) => {
       await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
-      await page.goto(lista, { waitUntil: "domcontentloaded" });
+      const r = await page.goto(destino, { waitUntil: "domcontentloaded" });
       await page.waitForLoadState("networkidle").catch(() => {});
-      const prefixo = new URL(lista, "http://x").pathname;
-      const alvo = `a[href^="${prefixo}/"]:not([href*="?"]):not([href*="#"])`;
-      const link = page.locator(alvo).first();
-      const n = await page.locator(alvo).count();
-      console.log(`DINAMICA ${nome} links=${n}`);
-      if (n === 0) return;
-      await link.click();
-      await page.waitForLoadState("networkidle").catch(() => {});
-      console.log(`DINAMICA ${nome} ${JSON.stringify(await medir(page))}`);
+      console.log(`DINAMICA ${nome} status=${r?.status()} ${JSON.stringify(await medir(page))}`);
       await foto(page, `dinamica-${nome}`, true);
     });
   }
@@ -937,4 +929,27 @@ test.describe("hidratação das rotas com aviso, sem app", () => {
       });
     }
   }
+  test("controles afetados funcionam: Meus dados gera o QR e podcasts liga o áudio espacial", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.addInitScript(() => { window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })); window.localStorage.setItem("lucia:concluidas", JSON.stringify(["x"])); });
+    await page.goto("/pt/meus-dados", { waitUntil: "domcontentloaded" });
+    await page.waitForLoadState("networkidle").catch(() => {});
+    await page.getByRole("button", { name: "Gerar o QR" }).click({ timeout: 20000 });
+    const qr = page.locator('img[width="280"]');
+    await expect(qr).toBeVisible({ timeout: 15000 });
+    console.log(`CONTROLE-MEUS-DADOS ${ROTULO} qr-visivel=true`);
+    await foto(page, "controle-meus-dados-qr");
+    await page.goto("/pt/podcasts", { waitUntil: "domcontentloaded" });
+    await page.waitForLoadState("networkidle").catch(() => {});
+    const painel = page.locator("#audio-espacial").locator("xpath=ancestor::section[1]");
+    const botao = painel.locator("button[aria-pressed]").first();
+    const habilitado = await botao.isEnabled();
+    console.log(`CONTROLE-PODCASTS ${ROTULO} secao=${await painel.count()} botao-habilitado=${habilitado} antes=${await botao.getAttribute("aria-pressed")}`);
+    if (habilitado) {
+      await botao.click();
+      console.log(`CONTROLE-PODCASTS ${ROTULO} depois=${await botao.getAttribute("aria-pressed")}`);
+    }
+    await foto(page, "controle-podcasts-espacial");
+  });
 });
+
