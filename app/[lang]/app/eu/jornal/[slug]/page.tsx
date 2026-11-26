@@ -7,15 +7,17 @@ import { ContarLeitura } from "@/components/jornal/MaisLidas";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { defaultLocale, fill, htmlLang, localePath } from "@/i18n/config";
-import { getArticles, getGlossary } from "@/lib/content";
+import { materiasDoApp, termosDoApp } from "@/lib/jornal/leitura-do-app";
 import { leiaTambem } from "@/lib/jornal/selecao";
 import { withLangs } from "@/lib/params";
 
 // O endereço de cada matéria é permanente: nenhuma expira (docs/jornal/EXPIRACAO.md). Mesma regra da página do site.
+// A leitura vem de lib/jornal/leitura-do-app.ts (só content/jornal e content/glossario), não de lib/content.ts: assim a função
+// desta rota não leva content/ inteiro no rastreio do build (conferir:rastreio).
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  const slugs = getArticles(defaultLocale).map((article) => ({ slug: article.slug }));
+  const slugs = materiasDoApp(defaultLocale).map((article) => ({ slug: article.slug }));
   return withLangs(slugs.length > 0 ? slugs : [{ slug: "em-breve" }]);
 }
 
@@ -27,13 +29,13 @@ export function generateStaticParams() {
 export default async function MateriaDoApp({ params }: PageProps<"/[lang]/app/eu/jornal/[slug]">) {
   const { lang, t } = await loadLang(params);
   const { slug } = await params;
-  const articles = getArticles(lang);
+  const articles = materiasDoApp(lang);
   const article = articles.find((item) => item.slug === slug);
   if (!article) notFound();
   const s = t.journal;
   const data = new Intl.DateTimeFormat(htmlLang[lang], { dateStyle: "long", timeZone: "UTC" });
   const curta = new Intl.DateTimeFormat(htmlLang[lang], { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
-  const terms = article.translated ? getGlossary(lang).filter((term) => term.translated).map(({ slug: sl, term, summary }) => ({ slug: sl, term, summary })) : [];
+  const terms = article.translated ? termosDoApp(lang).filter((term) => term.translated).map(({ slug: sl, term, summary }) => ({ slug: sl, term, summary })) : [];
   const outras = leiaTambem(articles, article.slug);
   const para = (sl: string) => localePath(lang, `/app/eu/jornal/${sl}`);
   return (
