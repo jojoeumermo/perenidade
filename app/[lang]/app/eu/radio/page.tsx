@@ -1,4 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import { TocarEmissora } from "@/components/app/TocarEmissora";
 import Link from "@/components/Link";
 import type { Station } from "@/components/RadioPage";
 import stations from "@/content/radios.json";
@@ -12,8 +13,8 @@ const FRENTES: Station["frente"][] = ["brasil", "latina", "mundo"];
 
 /**
  * Rádios do povo dentro do aplicativo (aba Eu): o diretório das emissoras por frente, cada uma com o link para o site
- * dela. O tocador com som contínuo (que acompanha a navegação) ainda é o do site: o cartão do topo leva a ele. Som não
- * foi provado em aparelho: é pendência registrada, não tratada como pronta.
+ * dela. As emissoras com transmissão têm um botão de ouvir que usa o mesmo tocador do site (o som acompanha a navegação
+ * pelo app); as outras só abrem o site delas. Som não foi provado em aparelho real: é pendência registrada, não tratada como pronta.
  */
 export default async function RadioDoApp({ params }: PageProps<"/[lang]/app/eu/radio">) {
   const { lang, t } = await loadLang(params);
@@ -39,7 +40,8 @@ export default async function RadioDoApp({ params }: PageProps<"/[lang]/app/eu/r
             {lista
               .filter((e) => e.frente === f)
               .map((e) => (
-                <li key={e.id}>
+                <li key={e.id} className={e.transmissao ? "app-radio-linha" : undefined}>
+                  {e.transmissao && <TocarEmissora id={e.id} nome={e.nome} lugar={e.lugar} url={e.transmissao} ouvir={t.radio.listen} pausar={t.radio.pause} />}
                   <a href={e.site} target="_blank" rel="noopener noreferrer" className="app-cartao app-radio-emissora" data-emissora={e.id}>
                     <span className="app-cartao-titulo app-cartao-titulo-menor">{e.nome}</span>
                     <span className="app-cartao-texto">{e.lugar} · {e.descricao}</span>
