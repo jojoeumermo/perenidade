@@ -295,6 +295,17 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await foto(page, "app-saude");
   });
 
+  test("dedicatória do app: o cartão da aba Eu abre o verbete, o busto e o texto", async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/app/eu");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".app-atalho-dedicatoria").scrollIntoViewIfNeeded();
+    await page.locator(".app-atalho-dedicatoria").click();
+    await page.waitForURL("**/app/eu/dedicatoria");
+    await expect(page.locator(".app-dedicatoria-verbete")).toBeVisible();
+    await foto(page, "app-dedicatoria");
+  });
+
   test("estados da busca do app: sem resultado e sem conexão com tentar de novo", async ({ page, context }) => {
     await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
     await page.goto("/pt/app/estudar/buscar");
