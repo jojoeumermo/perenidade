@@ -56,6 +56,20 @@ test.describe("site no navegador do computador (1280 px)", () => {
   }
 });
 
+test.describe("não encontrado no computador (1280 px): igual ao de sempre", () => {
+  test.use({ viewport: { width: 1280, height: 800 } });
+  test("computador nao-encontrado", async ({ page }) => {
+    const resposta = await page.goto("/pt/pagina-que-nao-existe");
+    expect(resposta?.status()).toBe(404);
+    await page.waitForLoadState("networkidle");
+    expect(await atributo(page, "data-app")).toBe(false);
+    await expect(page.locator("[data-nao-encontrado-app]")).toBeHidden();
+    await expect(page.getByRole("link", { name: "Página inicial" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Disciplinas" })).toBeVisible();
+    await foto(page, "site-computador-nao-encontrado");
+  });
+});
+
 test.describe("navegador do computador abre /pt/app (1280 px)", () => {
   test.skip(!TUDO, "o ramo-base não tem as rotas do app");
   test.use({ viewport: { width: 1280, height: 800 } });
@@ -349,7 +363,13 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     console.log(`NAOENCONTRADO app status=${resposta?.status()} data-app=${await atributo(page, "data-app")}`);
     await page.waitForLoadState("networkidle");
     await expect(page.locator("[data-nao-encontrado-app]")).toBeVisible();
+    await expect(page.locator("[data-nao-encontrado-app]")).toHaveAttribute("href", "/pt/app");
     await foto(page, "app-nao-encontrado");
+    await page.goto("/en/app/eu/page-that-does-not-exist");
+    await page.waitForLoadState("networkidle");
+    await expect(page.locator("[data-nao-encontrado-app]")).toHaveAttribute("href", "/en/app");
+    await page.locator("[data-nao-encontrado-app]").click();
+    await page.waitForURL("**/en/app");
     const r2 = await page.goto("/pt/pagina-que-nao-existe");
     console.log(`NAOENCONTRADO raiz status=${r2?.status()} data-app=${await atributo(page, "data-app")}`);
     await page.waitForLoadState("networkidle");

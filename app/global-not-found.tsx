@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { EB_Garamond, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import { InicioDoAppNaoEncontrado } from "@/components/app/InicioDoAppNaoEncontrado";
 import Link from "@/components/Link";
 import pt from "@/i18n/pt.json";
 import { prefsScript } from "@/lib/prefs";
@@ -42,9 +43,7 @@ export default function GlobalNotFound() {
           <p className="mx-auto mt-4 max-w-xl text-xl text-ink-soft">{t.text}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             {/* Só com <html data-app> (aplicativo instalado ou celular no navegador): volta para o início do app, onde está a barra de baixo. */}
-            <Link href="/pt/app" className="botao botao-prelo hidden app:inline-flex" data-nao-encontrado-app="">
-              Início do app
-            </Link>
+            <InicioDoAppNaoEncontrado className="botao botao-prelo hidden app:inline-flex">Início do app</InicioDoAppNaoEncontrado>
             <Link href="/pt/busca" className="botao botao-prelo app:hidden">
               {t.search}
             </Link>
