@@ -4,6 +4,7 @@ import type { Station } from "@/components/RadioPage";
 import stations from "@/content/radios.json";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
+import { textosDoAppNovo } from "@/components/app/textos-app";
 
 export const revalidate = 3600;
 
@@ -17,16 +18,17 @@ const FRENTES: Station["frente"][] = ["brasil", "latina", "mundo"];
 export default async function RadioDoApp({ params }: PageProps<"/[lang]/app/eu/radio">) {
   const { lang, t } = await loadLang(params);
   const s = t.radioPagina;
+  const n = textosDoAppNovo(lang);
   const lista = stations as Station[];
   return (
     <div className="app-hub app-radio-tela">
       <header className="app-hub-cabeca">
         <h1>{t.radio.title}</h1>
-        <p>{t.radio.lead}</p>
+        <p>{n.radioLead}</p>
       </header>
       <Link href={localePath(lang, "/radio")} className="app-cartao app-radio-tocador" data-radio-tocador="">
-        <span className="app-cartao-titulo app-cartao-titulo-menor">{t.nav.radio}</span>
-        <span className="app-cartao-texto">{lista.filter((e) => e.transmissao).length} {s.playHere.other}</span>
+        <span className="app-cartao-titulo app-cartao-titulo-menor">{n.radioTocador} →</span>
+        <span className="app-cartao-texto">{n.radioTocadorLead}</span>
       </Link>
       {FRENTES.map((f) => (
         <section key={f} className="app-radio-grupo" aria-labelledby={`radio-${f}`}>
