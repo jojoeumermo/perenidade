@@ -432,7 +432,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.goto("/pt/app/eu");
     await page.waitForLoadState("networkidle");
     await page.locator("a.app-atalho-apoiar").click();
-    await page.waitForURL(/\/pt\/apoie/);
+    await page.waitForURL(/\/pt\/app\/eu\/apoio$/);
     await page.waitForLoadState("networkidle");
     await foto(page, "voltar-3-apoie");
     await page.locator("button.shell-icone").first().click();
