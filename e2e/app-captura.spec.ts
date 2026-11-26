@@ -348,6 +348,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     const resposta = await page.goto("/pt/app/eu/pagina-que-nao-existe");
     console.log(`NAOENCONTRADO app status=${resposta?.status()} data-app=${await atributo(page, "data-app")}`);
     await page.waitForLoadState("networkidle");
+    await expect(page.locator("[data-nao-encontrado-app]")).toBeVisible();
     await foto(page, "app-nao-encontrado");
     const r2 = await page.goto("/pt/pagina-que-nao-existe");
     console.log(`NAOENCONTRADO raiz status=${r2?.status()} data-app=${await atributo(page, "data-app")}`);
