@@ -934,7 +934,9 @@
 .app-atalho-ajuda,
 .app-atalho-alumia,
 .app-atalho-apoiar,
-.app-atalho-caderno {
+.app-atalho-caderno,
+.app-apoio-botao,
+.app-apoio-mais {
   box-sizing: border-box;
   width: calc(100% - 2rem);
   margin: 1rem 1rem 0;
@@ -949,7 +951,8 @@
   cursor: pointer;
 }
 .app-atalho-alumia .app-cartao-texto,
-.app-atalho-apoiar .app-cartao-texto {
+.app-atalho-apoiar .app-cartao-texto,
+.app-apoio-botao .app-cartao-texto {
   display: block;
   margin-top: 0.3rem;
   font-size: 0.9rem;
@@ -977,10 +980,10 @@
 }
 
 /* Apoio dentro do app (aba Eu → Apoiar): contagens reais, botão da campanha e ida para a página completa. */
-:root[data-app] .app-apoio-tela { display: flex; flex-direction: column; gap: 0.9rem; }
+:root[data-app] .app-apoio-tela { display: flex; flex-direction: column; gap: 0; padding-bottom: 1.5rem; }
 :root[data-app] .app-apoio-numeros { list-style: none; margin: 0.6rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
 :root[data-app] .app-apoio-numeros li { display: flex; flex-direction: column; gap: 0.2rem; text-align: center; }
 :root[data-app] .app-apoio-numeros strong { font-size: 1.5rem; line-height: 1.1; }
 :root[data-app] .app-apoio-numeros span { font-size: 0.75rem; opacity: 0.8; }
-:root[data-app] .app-apoio-feito { padding: 1rem; border-radius: 1rem; border: 1px solid currentColor; border-color: color-mix(in srgb, currentColor 18%, transparent); }
+:root[data-app] .app-apoio-feito { margin: 1rem 1rem 0; padding: 1rem; border-radius: 1rem; border: 1px solid currentColor; border-color: color-mix(in srgb, currentColor 18%, transparent); }
 :root[data-app] .app-apoio-botao, :root[data-app] .app-apoio-mais { display: block; text-decoration: none; }
