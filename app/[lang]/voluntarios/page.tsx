@@ -14,44 +14,12 @@ import { I18nProvider } from "@/components/I18n";
 import { localePath } from "@/i18n/config";
 import { paginaMeta } from "@/lib/seo";
 import { getPage } from "@/lib/content";
+import { funcoes, secoes } from "@/lib/voluntarios-secoes";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/voluntarios">): Promise<Metadata> {
   const { lang } = await loadLang(params);
   const page = getPage("voluntarios", lang);
   return paginaMeta(lang, "/voluntarios", page.title, page.lead);
-}
-
-/** O texto da página em partes: a abertura e cada seção "## ". */
-function secoes(corpo: string): { abertura: string; partes: string[] } {
-  const pedacos = corpo.split(/\n(?=## )/);
-  const abertura = pedacos[0].startsWith("## ") ? "" : pedacos.shift()!;
-  return { abertura, partes: pedacos };
-}
-
-/**
- * Uma seção com "### " vira cartões: o título, uma ou duas frases à vista e o resto em "saiba mais". Resumos do mesmo
- * tamanho deixam os cartões iguais (com o parágrafo inteiro, um cartão tinha quatro linhas e o vizinho, doze).
- */
-function funcoes(secao: string): { cabeca: string; cartoes: { titulo: string; resumo: string; resto: string }[] } | null {
-  const [cabeca, ...blocos] = secao.split(/\n(?=### )/);
-  if (blocos.length === 0) return null;
-  return {
-    cabeca,
-    cartoes: blocos.map((bloco) => {
-      const [linha, ...corpo] = bloco.split("\n");
-      const texto = corpo.join("\n").trim();
-      const fim = texto.indexOf("\n\n") === -1 ? texto.length : texto.indexOf("\n\n");
-      // Fim de frase: ponto, interrogação ou exclamação seguidos de espaço, fora de lista e de link.
-      let corte = -1;
-      for (const m of texto.slice(0, fim).matchAll(/[.?!](?=\s)/g)) {
-        corte = m.index + 1;
-        if (corte >= 60) break;
-      }
-      if (corte === -1 || corte >= fim - 1) corte = fim;
-      const resumo = texto.slice(0, corte).trim();
-      return { titulo: linha.replace(/^###\s+/, "").trim(), resumo, resto: texto.slice(corte).trim() };
-    }),
-  };
 }
 
 // O voluntariado numa página só: três jeitos de ajudar no alto, as funções em cartões, as tarefas rápidas e a
