@@ -1,0 +1,50 @@
+name: Medir rastreio (temporário, PR #65)
+
+# TEMPORÁRIO (diagnóstico): monta o site e lista, por rota nova do app, quantos arquivos cada função leva no rastreio e de
+# onde vêm (content/, historico/, node_modules/<pacote>...). Não publica nada, sem segredo, contents:read. Sai do ramo
+# por commit próprio antes do master, junto com captura-app.yml.
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/medir-rastreio.yml"
+
+concurrency:
+  group: medir-rastreio-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  medir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Espaço em disco para o build
+        run: sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL /usr/share/swift
+      - run: npm run build
+      - name: Rastreio por rota
+        run: |
+          node - <<'JS'
+          const fs = require("fs"), path = require("path");
+          const raiz = process.cwd(), servidor = path.join(raiz, ".next", "server");
+          const funcoes = [];
+          const andar = (p) => { for (const e of fs.readdirSync(p, { withFileTypes: true })) { const q = path.join(p, e.name); if (e.isDirectory()) andar(q); else if (e.name.endsWith(".nft.json")) funcoes.push(q); } };
+          andar(servidor);
+          const alvos = ["app/[lang]/app/eu/jornal/[slug]/page", "app/[lang]/app/eu/jornal/page", "app/[lang]/app/eu/acervo/page", "app/[lang]/app/eu/mural/page", "app/[lang]/app/eu/plantao/page", "app/[lang]/app/eu/instituto/estatuto/page", "app/[lang]/app/eu/saude/page", "app/[lang]/app/page", "app/[lang]/jornal/[slug]/page", "app/[lang]/acervo/page"];
+          for (const alvo of alvos) {
+            const f = funcoes.find((x) => x.endsWith(alvo + ".js.nft.json"));
+            if (!f) { console.log("SEM FUNÇÃO:", alvo); continue; }
+            const arquivos = JSON.parse(fs.readFileSync(f, "utf8")).files.map((a) => path.relative(raiz, path.resolve(path.dirname(f), a)).replaceAll("\\", "/"));
+            const grupos = {};
+            for (const a of arquivos) { const p = a.split("/"); const k = p[0] === "node_modules" ? "node_modules/" + (p[1].startsWith("@") ? p[1] + "/" + p[2] : p[1]) : p[0] === "content" ? "content/" + (p[1] ?? "") : p[0]; grupos[k] = (grupos[k] ?? 0) + 1; }
+            const topo = Object.entries(grupos).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([k, n]) => `${k}=${n}`).join("  ");
+            console.log(`${alvo}: ${arquivos.length} arquivos | ${topo}`);
+          }
+          JS
