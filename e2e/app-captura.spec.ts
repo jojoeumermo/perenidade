@@ -804,8 +804,9 @@ test.describe("página inteira das rotas ENEM e dinâmicas dentro do app (390 px
       await page.goto(lista, { waitUntil: "domcontentloaded" });
       await page.waitForLoadState("networkidle").catch(() => {});
       const prefixo = new URL(lista, "http://x").pathname;
-      const link = page.locator(`main a[href^="${prefixo}/"]`).first();
-      const n = await page.locator(`main a[href^="${prefixo}/"]`).count();
+      const alvo = `a[href^="${prefixo}/"]:not([href*="?"]):not([href*="#"])`;
+      const link = page.locator(alvo).first();
+      const n = await page.locator(alvo).count();
       console.log(`DINAMICA ${nome} links=${n}`);
       if (n === 0) return;
       await link.click();
@@ -819,7 +820,7 @@ test.describe("página inteira das rotas ENEM e dinâmicas dentro do app (390 px
     await page.goto("/pt/app", { waitUntil: "domcontentloaded" });
     await page.goto("/pt/enem/diagnostico", { waitUntil: "domcontentloaded" });
     await page.waitForLoadState("networkidle").catch(() => {});
-    await page.getByRole("link", { name: /começar a prova/i }).first().click().catch(async () => { await page.getByRole("button", { name: /começar a prova/i }).first().click(); });
+    await page.locator('a:has-text("Começar a prova"), button:has-text("Começar a prova")').first().click({ timeout: 20000 });
     await page.waitForLoadState("networkidle").catch(() => {});
     console.log(`JORNADA-ENEM ${JSON.stringify(await medir(page))}`);
     await foto(page, "jornada-enem-prova", true);
