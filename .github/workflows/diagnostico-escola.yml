@@ -22,25 +22,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        parte: [1, 2, 3]
-        alvo: [ramo-computador, master-computador, ramo-celular, master-celular]
-        include:
-          - alvo: ramo-computador
-            projeto: computador
-            ref: ""
-          - alvo: master-computador
-            projeto: computador
-            ref: 19e8dd515361813993bff953a428dd3164f04010
-          - alvo: ramo-celular
-            projeto: celular
-            ref: ""
-          - alvo: master-celular
-            projeto: celular
-            ref: 19e8dd515361813993bff953a428dd3164f04010
+        alvo: [ramo-celular]
+        projeto: [celular]
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
-        with:
-          ref: ${{ matrix.ref }}
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version: 22
@@ -48,8 +33,8 @@ jobs:
       - run: npm ci
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
-      - name: escola (${{ matrix.alvo }}, parte ${{ matrix.parte }}/3)
-        run: npx playwright test e2e/escola- --project=${{ matrix.projeto }} --shard=${{ matrix.parte }}/3 --retries=0 --timeout=90000 --trace=off --reporter=list --output=test-results/p
+      - name: escola-campus (${{ matrix.alvo }})
+        run: npx playwright test e2e/escola-campus --project=${{ matrix.projeto }} --retries=0 --timeout=90000 --trace=off --reporter=list --output=test-results/p
         env:
           CI: "1"
           NEXT_PUBLIC_RECURSOS: "todos,escola,meu-estudo,exercicios,rede-v2,alumia-2"

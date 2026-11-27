@@ -7,6 +7,7 @@ import { textosDoAppNovo } from "@/components/app/textos-app";
 import { L } from "@/components/I18n";
 import { Ladrilhos } from "@/components/celular/Atalhos";
 import { JanelaAulaDaSemana } from "@/components/inicio/AulaDaSemana";
+import { QuadroDeAvisos } from "@/components/escola/QuadroDeAvisos";
 import { LambeDoDia } from "@/components/inicio/LambeDoDia";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
@@ -14,7 +15,9 @@ import { aulasDaSemana } from "@/lib/aula-da-semana";
 import { groups } from "@/lib/areas";
 import { corDaCapa } from "@/lib/capas";
 import { getBooks, getCatalog, getTracks } from "@/lib/content";
+import { quadroDaInicial } from "@/lib/escola/quadro-servidor";
 import { lambesDoCartaz } from "@/lib/lambes";
+import { ligado } from "@/lib/recursos";
 import { site } from "@/lib/site";
 import comecar from "@/content/comecar.json";
 
@@ -69,6 +72,9 @@ export default async function InicioDoApp({ params }: PageProps<"/[lang]/app">) 
     .slice(0, 12)
     .map((estante) => ({ slug: estante.slug, nome: t.areas[estante.slug][0], etapa: estante.grupo, aulas: `${numero(lang, estante.n)} ${estante.n === 1 ? t.common.lessons.one : t.common.lessons.other}`, cor: corDaCapa(estante.slug) }));
 
+  // E4-09: o quadro de avisos da Escola, só com ela ligada (e, dentro dele, só para quem volta), como na inicial do site.
+  const quadro = ligado("escola") ? quadroDaInicial(lang) : null;
+
   return (
     <div className="app-inicio">
       <SaudacaoDoApp />
@@ -85,6 +91,8 @@ export default async function InicioDoApp({ params }: PageProps<"/[lang]/app">) 
       <ContinuarDoApp textos={{ continuar: t.tracks.continue, retomar: t.tracks.resume, comecar: t.nav.start, comecarTexto: h.startText }} />
 
       <AulaDoDia aulas={aulasDoDia} />
+
+      {quadro && <QuadroDeAvisos {...quadro} className="block px-4 pt-6" />}
 
       <section className="app-secao" aria-label={n.atalhos}>
         <Ladrilhos chaves={["radio", "podcasts", "journal", "news", "glossary", "labs", "questionBank", "live"]} rotulo={n.atalhos} rotas={{ radio: "/app/eu/radio", podcasts: "/app/eu/podcasts", journal: "/app/eu/jornal", labs: "/app/jogos/laboratorios" }} />
