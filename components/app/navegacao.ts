@@ -5,11 +5,22 @@ import { paginaDeCima, trechosDoEndereco } from "./modo";
 
 let andou = false;
 let primeira = true;
+let ultimo = "";
 
-/** Chamada a cada mudança de endereço (a casca e a barra de cima); a primeira, a do carregamento, não conta. */
-export function registrarPagina(): void {
-  if (primeira) primeira = false;
-  else andou = true;
+/**
+ * Chamada a cada mudança de endereço (a casca e a barra de cima); a primeira, a do carregamento, não conta. Só vale como
+ * "andou" quando o endereço mudou de verdade: um remonte da casca (erro de hidratação, por exemplo) repete o mesmo endereço
+ * e não pode virar histórico, senão o voltar de um link direto sairia do site em vez de subir.
+ */
+export function registrarPagina(caminho = ""): void {
+  if (primeira) {
+    primeira = false;
+    ultimo = caminho;
+    return;
+  }
+  if (caminho !== "" && caminho === ultimo) return;
+  ultimo = caminho;
+  andou = true;
 }
 
 export const andouNoSite = () => andou;

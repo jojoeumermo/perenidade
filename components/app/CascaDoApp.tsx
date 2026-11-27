@@ -59,7 +59,7 @@ export function CascaDoApp() {
   useEffect(() => {
     pathRef.current = pathname;
     langRef.current = lang;
-    registrarPagina();
+    registrarPagina(pathname);
     avisarRota.current?.();
     avisarRota.current = null;
   }, [pathname, lang]);
