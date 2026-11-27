@@ -28,7 +28,6 @@ export interface TextosDoManifesto {
 }
 
 export function montarManifesto(lang: Locale, t: TextosDoManifesto): MetadataRoute.Manifest {
-  const inicio = localePath(lang, "/");
   const abas = textosDoApp(lang).abas;
   const icone = { src: "/marca-96.png", sizes: "96x96", type: "image/png" };
   return {
@@ -39,7 +38,8 @@ export function montarManifesto(lang: Locale, t: TextosDoManifesto): MetadataRou
     short_name: "Lúcia",
     description: `${site.name}, ${site.lema}. ${t.meta.description}`,
     lang: htmlLang[lang],
-    start_url: inicio,
+    // O aplicativo abre na própria Início do app (/app), não no site: quem instala quer o aplicativo.
+    start_url: localePath(lang, "/app"),
     // O escopo é o site todo: trocar de idioma dentro do aplicativo não abre o navegador.
     scope: "/",
     display: "standalone",
@@ -57,13 +57,12 @@ export function montarManifesto(lang: Locale, t: TextosDoManifesto): MetadataRou
       // Ícone com margem de segurança: o Android recorta em círculo, gota ou quadrado sem comer a estrela e o livro.
       { src: "/marca-recorte-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
-    // Os atalhos do ícone (toque longo). Os quatro primeiros são as abas do aplicativo (components/app/modo.ts); os outros
-    // dois aparecem nos lançadores que mostram mais de quatro.
+    // Os atalhos do ícone (toque longo). Os três primeiros são abas do aplicativo; a Alumia ficou de fora
+    // porque não existe no aplicativo instalado. Os dois últimos (acervo e rádio) seguem no site.
     shortcuts: [
-      { name: abas.estudar, short_name: abas.estudar, description: t.nav.disciplines, url: localePath(lang, "/trilhas"), icons: [icone] },
-      { name: abas.jogos, short_name: abas.jogos, url: localePath(lang, "/jogos"), icons: [icone] },
-      { name: t.nav.community, short_name: abas.comunidade, url: localePath(lang, "/alumia"), icons: [icone] },
-      { name: abas.eu, short_name: abas.eu, url: localePath(lang, "/meu-estudo"), icons: [icone] },
+      { name: abas.estudar, short_name: abas.estudar, description: t.nav.disciplines, url: localePath(lang, "/app/estudar"), icons: [icone] },
+      { name: abas.jogos, short_name: abas.jogos, url: localePath(lang, "/app/jogos"), icons: [icone] },
+      { name: abas.eu, short_name: abas.eu, url: localePath(lang, "/app/eu"), icons: [icone] },
       { name: t.nav.library, url: localePath(lang, "/acervo"), icons: [icone] },
       { name: t.nav.radio, url: localePath(lang, "/radio"), icons: [icone] },
     ],

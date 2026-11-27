@@ -4,25 +4,27 @@
 // (interno.areas_publicas, em supabase/install.sql): `npm run testar:interdicao` falha se as duas divergirem.
 // Sem os atalhos "@/" de propósito: o roteiro de conferência roda este arquivo direto no Node.
 
+// As abas /app/estudar e /app/jogos do aplicativo instalado mostram o conteúdo das áreas estudo e ferramentas: fecham junto com elas.
+// /app (início) e /app/eu são só casca e atalhos (as áreas que levam ficam fechadas pelos próprios caminhos) e só fecham com o site inteiro fora do ar.
 /** Cada área e os caminhos (depois do idioma) que ela fecha. Área nova: acrescente aqui, no banco e no painel. */
 export const areasPublicas = [
   // A Alumia (rede social) mudou de /comunidade para /alumia: o id continua "comunidade" para não perder o estado gravado no
   // banco, e o caminho antigo continua fechando junto (ele só redireciona, mas nunca abre por fora da interdição).
   { id: "comunidade", nome: "Alumia (rede social)", caminhos: ["/alumia", "/comunidade"] },
-  { id: "mural", nome: "Mural dos Trabalhadores e Mural de Saúde", caminhos: ["/mural", "/saude"] },
+  { id: "mural", nome: "Mural dos Trabalhadores e Mural de Saúde", caminhos: ["/app/eu/saude", "/app/eu/mural", "/mural", "/saude"] },
   { id: "reforco", nome: "Aula de reforço", caminhos: ["/reforco"] },
   { id: "contribuir", nome: "Contribuir, denunciar e relatar erros", caminhos: ["/contribuir", "/denunciar", "/relatar-erro"] },
-  { id: "jornal", nome: "Jornal, notícias e boletim", caminhos: ["/jornal", "/noticias"] },
-  { id: "radio", nome: "Rádio e podcasts", caminhos: ["/radio", "/podcasts"] },
-  { id: "acervo", nome: "Acervo, catálogo e autores", caminhos: ["/acervo", "/catalogo", "/autores"] },
-  { id: "estudo", nome: "Disciplinas, trilhas e aulas", caminhos: ["/trilhas", "/estantes", "/avulsos", "/comecar", "/perguntas", "/ao-vivo", "/plantao", "/questoes", "/enem", "/meu-estudo", "/revisao-pendente", "/turma", "/professores", "/nivelamento", "/criancas", "/despertar", "/consciencia", "/nucleos", "/turmas", "/escola", "/cursos", "/campus", "/vida", "/libras", "/aula-do-dia"] },
-  { id: "ferramentas", nome: "Ferramentas de prática e caderno", caminhos: ["/ferramentas", "/caderno", "/estudo-em-grupo", "/laboratorios", "/jogos", "/estudio-de-pratica", "/sala-livre"] },
-  { id: "memoria", nome: "Memorial, galeria e linha do tempo", caminhos: ["/memorial", "/galeria", "/linha-do-tempo", "/dedicatoria"] },
+  { id: "jornal", nome: "Jornal, notícias e boletim", caminhos: ["/app/eu/jornal", "/jornal", "/noticias"] },
+  { id: "radio", nome: "Rádio e podcasts", caminhos: ["/app/eu/podcasts", "/app/eu/radio", "/radio", "/podcasts"] },
+  { id: "acervo", nome: "Acervo, catálogo e autores", caminhos: ["/acervo", "/app/eu/acervo", "/catalogo", "/autores"] },
+  { id: "estudo", nome: "Disciplinas, trilhas e aulas", caminhos: ["/app/estudar", "/trilhas", "/estantes", "/avulsos", "/comecar", "/perguntas", "/ao-vivo", "/plantao", "/app/eu/plantao", "/questoes", "/enem", "/meu-estudo", "/revisao-pendente", "/turma", "/professores", "/nivelamento", "/criancas", "/despertar", "/consciencia", "/nucleos", "/turmas", "/escola", "/cursos", "/campus", "/vida", "/libras", "/aula-do-dia"] },
+  { id: "ferramentas", nome: "Ferramentas de prática e caderno", caminhos: ["/app/jogos", "/app/eu/caderno", "/ferramentas", "/caderno", "/estudo-em-grupo", "/laboratorios", "/jogos", "/estudio-de-pratica", "/sala-livre"] },
+  { id: "memoria", nome: "Memorial, galeria e linha do tempo", caminhos: ["/memorial", "/galeria", "/linha-do-tempo", "/dedicatoria", "/app/eu/dedicatoria"] },
   { id: "debate", nome: "Debates, checagens, falácias e glossário", caminhos: ["/debates", "/checagens", "/falacias", "/glossario", "/vale-o-escrito"] },
   { id: "materiais", nome: "Materiais de campanha", caminhos: ["/materiais"] },
   { id: "dados", nome: "Dados do povo", caminhos: ["/dados"] },
   { id: "videos", nome: "Vídeos e videoaulas", caminhos: ["/videos", "/videoaulas"] },
-  { id: "voluntariado", nome: "Voluntariado, apoio e o instituto", caminhos: ["/voluntarios", "/apoie", "/instituto", "/voluntarie-se", "/contribuidores", "/direitos-autorais", "/conduta", "/uso", "/eventos", "/divulgue", "/direitos", "/territorios", "/relatorio", "/imprensa"] },
+  { id: "voluntariado", nome: "Voluntariado, apoio e o instituto", caminhos: ["/voluntarios", "/app/eu/apoio", "/app/eu/instituto", "/app/eu/voluntarios", "/apoie", "/instituto", "/voluntarie-se", "/contribuidores", "/direitos-autorais", "/conduta", "/uso", "/eventos", "/divulgue", "/direitos", "/territorios", "/relatorio", "/imprensa"] },
   { id: "busca", nome: "Busca", caminhos: ["/busca"] },
   { id: "gaveta", nome: "Gaveta Aberta", caminhos: ["/gaveta"] },
 ] as const;

@@ -6,7 +6,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import vm from "node:vm";
-import { CHAVE_DA_FILA, IDIOMAS_DOS_AVISOS, LIMITES_DA_FILA, acompanharAtualizacao, descartarFila, enderecoDaFilaValido, enfileirar, enviarOuEnfileirar, esvaziarFila, lerFila, podeBuscarVersao, podeGuardarCasca, situacaoDoStatus, textosDeRede } from "../components/offline/offline.ts";
+import { CHAVE_DA_FILA, IDIOMAS_DOS_AVISOS, LIMITES_DA_FILA, acompanharAtualizacao, descartarFila, enderecoDaFilaValido, enfileirar, enviarOuEnfileirar, esvaziarFila, lerFila, podeBuscarVersao, RAIZES_DO_APP, podeGuardarCasca, situacaoDoStatus, textosDeRede } from "../components/offline/offline.ts";
 import { montarManifesto } from "../lib/manifesto.ts";
 import pt from "../i18n/pt.json" with { type: "json" };
 
@@ -202,7 +202,7 @@ await ok("os 6 idiomas da página 'sem conexão' têm todos os campos", async ()
   const amb = criarAmbiente();
   assert.deepEqual([...Object.keys(amb.sw.TEXTOS_SEM_REDE)].sort(), ["en", "es", "fr", "pt", "ru", "zh"]);
   for (const campos of Object.values(amb.sw.TEXTOS_SEM_REDE)) {
-    assert.equal(campos.length, 6);
+    assert.equal(campos.length, 7);
     for (const c of campos) assert.ok(c.trim().length > 0);
   }
 });
@@ -275,6 +275,10 @@ await ok("planoDaCasca: 5 telas + até 12 extras sem repetir; idioma ruim não g
   assert.deepEqual([...sw.planoDaCasca({ lang: "xx", extras })], []);
   assert.deepEqual([...sw.planoDaCasca(null)], []);
   assert.equal(sw.planoDaCasca({ lang: "en" }).length, 5);
+  const planoDoApp = sw.planoDaCasca({ lang: "pt", semAlumia: true });
+  assert.equal(planoDoApp.length, 4, "no aplicativo instalado a casca sai sem a tela da Alumia");
+  assert.ok(!planoDoApp.some((p) => p.endsWith("/alumia")), "nenhuma tela da Alumia no plano do app");
+  assert.ok(planoDoApp.includes("/pt/meu-estudo"), "as outras abas continuam no plano do app");
 });
 await ok("mensagem 'casca' guarda as 5 telas no cache da casca (e só o que falta); depois funcionam sem rede", async () => {
   const amb = criarAmbiente();
@@ -287,6 +291,17 @@ await ok("mensagem 'casca' guarda as 5 telas no cache da casca (e só o que falt
   assert.equal(amb.chamadas.buscas.length, antes, "não baixa de novo o que já tem");
   amb.estado.online = false;
   for (const t of ["/pt", "/pt/jogos", "/pt/meu-estudo", "/pt/trilhas/comece-aqui/aula-1"]) assert.equal((await amb.navegar(t)).status, 200, t);
+});
+await ok("telas próprias do app (/app, estudar, jogos, eu, buscar) entram na casca e abrem sem rede", async () => {
+  const amb = criarAmbiente();
+  const extras = RAIZES_DO_APP.map((r) => `/pt${r}`);
+  for (const e of extras) assert.equal(amb.sw.caminhoPermitido(e), e, e);
+  await amb.disparar("message", { data: { tipo: "casca", lang: "pt", semAlumia: true, extras } });
+  const guardadas = urls(amb, amb.sw.CASCA);
+  for (const e of extras) assert.ok(guardadas.includes(`https://lucia.test${e}`), e);
+  assert.ok(!guardadas.some((g) => g.endsWith("/alumia")), "app sem Alumia");
+  amb.estado.online = false;
+  for (const e of extras) assert.equal((await amb.navegar(e)).status, 200, e);
 });
 await ok("'casca' sem internet não tenta baixar nada e nunca lança", async () => {
   const amb = criarAmbiente({ online: false });
@@ -489,9 +504,10 @@ await ok("manifesto: standalone, orientação, atalhos do aplicativo e os antigo
     assert.equal(m.orientation, "any");
     assert.equal(m.scope, "/");
     assert.equal(m.id, `/${lang}`);
-    assert.equal(m.start_url, `/${lang}`);
+    assert.equal(m.start_url, `/${lang}/app`, "o aplicativo abre na Início do app");
     const urls = m.shortcuts.map((s) => s.url);
-    assert.deepEqual(urls.slice(0, 4), [`/${lang}/trilhas`, `/${lang}/jogos`, `/${lang}/alumia`, `/${lang}/meu-estudo`], "os 4 primeiros são as abas");
+    assert.deepEqual(urls.slice(0, 3), [`/${lang}/app/estudar`, `/${lang}/app/jogos`, `/${lang}/app/eu`], "os 3 primeiros são as abas do app");
+    assert.ok(!urls.some((u) => u.endsWith("/alumia")), "a Alumia não existe no aplicativo instalado");
     assert.ok(urls.includes(`/${lang}/acervo`) && urls.includes(`/${lang}/radio`), "os atalhos antigos continuam");
     for (const s of m.shortcuts) {
       assert.ok(s.name.trim().length > 0 && s.icons?.[0]?.src === "/marca-96.png" && s.icons[0].sizes === "96x96");
@@ -514,6 +530,20 @@ await ok("manifesto: screenshots só entram quando a lista (lib/capturas-app.jso
     }
   }
   assert.ok(ler("scripts/gerar-capturas-app.mjs").includes("capturas-app.json"));
+});
+
+await ok("página sem conexão: no app leva ao início do app no idioma do endereço; fora do app segue para as disciplinas", async () => {
+  const amb = criarAmbiente();
+  for (const lang of ["pt", "en", "es", "fr", "ru", "zh"]) {
+    const noApp = amb.sw.semRede(`/${lang}/app/eu/jornal`);
+    assert.ok(noApp.includes(`href="/${lang}/app"`), `${lang}: sem o link para o início do app`);
+    assert.ok(!noApp.includes("/trilhas"), `${lang}: ainda aponta para as disciplinas dentro do app`);
+    assert.equal(amb.sw.TEXTOS_SEM_REDE[lang].length, 7, `${lang}: faltou o texto do link do app`);
+    assert.ok(amb.sw.TEXTOS_SEM_REDE[lang][6].trim().length > 3);
+    const foraDoApp = amb.sw.semRede(`/${lang}/trilhas/historia`);
+    assert.ok(foraDoApp.includes(`href="/${lang}/trilhas"`) && !foraDoApp.includes("data-sem-rede-app"), `${lang}: fora do app mudou`);
+  }
+  assert.ok(!amb.sw.semRede("/pt/aplicativos").includes("data-sem-rede-app"), "/pt/aplicativos não é o app");
 });
 
 // ───── Cercas: rastreio do deploy e privacidade ─────

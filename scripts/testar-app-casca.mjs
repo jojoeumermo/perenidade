@@ -4,11 +4,12 @@
 // Sem rede, sem navegador. Uso: npm run testar:app-casca
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { ABAS, CONSULTA_CASCA, RAIZ_DA_ABA, abaDoEndereco, ehRaizDaAba, ehTelaCheiaPorEndereco, ehTelaComCascaPropria, paginaDeCima, trechosDoEndereco } from "../components/app/modo.ts";
+import { ABAS, CONSULTA_CASCA, RAIZ_DA_ABA, RAIZ_DO_APP, abaDoEndereco, ehRaizDaAba, ehRotaDoApp, ehTelaCheiaPorEndereco, ehTelaComCascaPropria, paginaDeCima, trechosDoEndereco } from "../components/app/modo.ts";
 import { GESTO, naBorda, progressoDoGesto, temGestoDoSistema, valeComoVoltar } from "../components/app/gesto.ts";
 import { andouNoSite, registrarPagina, voltarOuSubir } from "../components/app/navegacao.ts";
 import { escolherAulaDoDia, numeroDoDia } from "../components/app/aula-do-dia.ts";
 import { textosDoApp } from "../components/app/textos.ts";
+import { TEXTOS_DO_APP_NOVO, textosDoAppNovo } from "../components/app/textos-app.ts";
 import { pedirTela } from "../components/app/telas.ts";
 
 let n = 0;
@@ -111,12 +112,14 @@ ok("voltar: chegou por link de fora sobe para a página de cima; depois de andar
   const chamadas = [];
   const roteador = { back: () => chamadas.push("back"), push: (h) => chamadas.push(`push ${h}`) };
   assert.equal(andouNoSite(), false);
-  registrarPagina(); // a página que abriu: não conta como andar
+  registrarPagina("/pt/trilhas/a/b"); // a página que abriu: não conta como andar
+  assert.equal(andouNoSite(), false);
+  registrarPagina("/pt/trilhas/a/b"); // remonte da casca com o mesmo endereço (hidratação): também não conta
   assert.equal(andouNoSite(), false);
   assert.equal(voltarOuSubir(roteador, "/pt/trilhas/a/b", "pt", { length: 3 }), "subiu");
   assert.equal(voltarOuSubir(roteador, "/pt/trilhas", "pt", { length: 3 }), "subiu");
   assert.equal(voltarOuSubir(roteador, "/pt", "pt", { length: 3 }), "raiz");
-  registrarPagina(); // andou
+  registrarPagina("/pt/trilhas/a"); // endereço novo: andou
   assert.equal(andouNoSite(), true);
   assert.equal(voltarOuSubir(roteador, "/pt/trilhas/a/b", "pt", { length: 3 }), "voltou");
   assert.equal(voltarOuSubir(roteador, "/pt/trilhas/a/b", "pt", { length: 1 }), "subiu");
@@ -163,6 +166,21 @@ ok("telas: abrir a segunda fecha a primeira, e a que pediu por último não se f
   delete globalThis.window;
 });
 
+// ───── As rotas próprias do aplicativo instalado (/app) ─────
+ok("as rotas do app caem nas abas certas, têm raiz e não se misturam com o site", () => {
+  assert.equal(RAIZ_DO_APP, "/app");
+  assert.ok(ehRotaDoApp("/pt/app") && ehRotaDoApp("/pt/app/estudar") && ehRotaDoApp("/en/app/eu"));
+  assert.ok(!ehRotaDoApp("/pt") && !ehRotaDoApp("/pt/trilhas") && !ehRotaDoApp(null) && !ehRotaDoApp("/pt/apple") );
+  assert.equal(abaDoEndereco("/pt/app"), "inicio");
+  assert.equal(abaDoEndereco("/pt/app/estudar"), "estudar");
+  assert.equal(abaDoEndereco("/pt/app/jogos"), "jogos");
+  assert.equal(abaDoEndereco("/pt/app/eu"), "eu");
+  assert.equal(abaDoEndereco("/pt/app/nada"), null, "trecho desconhecido de /app não vira aba");
+  assert.ok(ehRaizDaAba("/pt/app") && ehRaizDaAba("/pt/app/estudar") && ehRaizDaAba("/pt/app/eu"));
+  assert.ok(!ehRaizDaAba("/pt/app/estudar/matematica"), "página funda do app não é raiz de aba");
+  assert.equal(paginaDeCima(["app"]), "/app");
+});
+
 // ───── Textos nos 6 idiomas ─────
 ok("textos: os 6 idiomas têm as 5 abas preenchidas e diferentes entre si; idioma desconhecido cai no português", () => {
   for (const lang of ["pt", "en", "es", "fr", "ru", "zh"]) {
@@ -173,6 +191,19 @@ ok("textos: os 6 idiomas têm as 5 abas preenchidas e diferentes entre si; idiom
   }
   assert.equal(textosDoApp("xx").abas.inicio, "Início");
   assert.notEqual(textosDoApp("en").abas.estudar, textosDoApp("pt").abas.estudar);
+});
+ok("textos novos do app: os 6 idiomas têm as mesmas chaves, preenchidas, e idioma desconhecido cai no português", () => {
+  const chavesDe = (valor, prefixo = "") =>
+    Object.entries(valor).flatMap(([chave, v]) => (v && typeof v === "object" ? chavesDe(v, `${prefixo}${chave}.`) : [`${prefixo}${chave}`])).sort();
+  const base = chavesDe(TEXTOS_DO_APP_NOVO.pt);
+  assert.ok(base.length > 10, "há um vocabulário de verdade, não só o nome das abas");
+  for (const lang of ["pt", "en", "es", "fr", "ru", "zh"]) {
+    assert.deepEqual(chavesDe(TEXTOS_DO_APP_NOVO[lang]), base, lang);
+    const achatado = JSON.stringify(TEXTOS_DO_APP_NOVO[lang]);
+    assert.ok(!/[ \t]{2,}\"\s*:\s*\"\"/.test(achatado) && !achatado.includes('":""'), `sem texto vazio em ${lang}`);
+  }
+  assert.deepEqual(textosDoAppNovo("xx"), TEXTOS_DO_APP_NOVO.pt);
+  assert.notEqual(textosDoAppNovo("en").estudarLead, textosDoAppNovo("pt").estudarLead, "a apresentação do Estudar é traduzida");
 });
 
 // ───── Cercas ─────

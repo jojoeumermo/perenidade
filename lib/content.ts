@@ -5,6 +5,9 @@ import { cache as perPage } from "react";
 import { defaultLocale, type Locale, locales } from "@/i18n/config";
 import { areaSlugs, licenses, stages, tools, type AreaSlug, type License, type Stage, type ToolId } from "./areas";
 import { parseFrontmatter } from "./frontmatter";
+import { eOriginal } from "./conteudo-campos";
+import { montarMateria, compararMaterias, montarTermo } from "./jornal/materia";
+import { dateOf, fail, isActive, minutesOf, optional, parseSources, slugOf, text, type Data } from "./conteudo-campos";
 import { type Exercicio, validarPratica } from "./pratica";
 import { plainText } from "./text";
 import { comFatosDaEdicao } from "./enem-conteudo";
@@ -318,23 +321,6 @@ export interface Question {
   links: { titulo: string; href: string }[];
 }
 
-type Data = Record<string, unknown>;
-
-function fail(file: string, message: string): never {
-  throw new Error(`Conteúdo inválido em ${file}: ${message}`);
-}
-
-function text(data: Data, key: string, file: string): string {
-  const value = data[key];
-  if (typeof value !== "string" || !value.trim()) fail(file, `o campo "${key}" é obrigatório`);
-  return value.trim();
-}
-
-function optional(data: Data, key: string): string | undefined {
-  const value = data[key];
-  return value === undefined || value === null ? undefined : String(value).trim();
-}
-
 function oneOf<T extends string>(data: Data, key: string, allowed: readonly T[], file: string): T {
   const value = text(data, key, file);
   if (!allowed.includes(value as T)) fail(file, `"${key}" deve ser um de: ${allowed.join(", ")}`);
@@ -345,30 +331,6 @@ function httpsUrl(data: Data, key: string, file: string): string {
   const url = text(data, key, file);
   if (!/^https:\/\/\S+$/.test(url)) fail(file, `"${key}" deve começar com https://`);
   return url;
-}
-
-function dateOf(data: Data, key: string, file: string): string {
-  const raw = data[key];
-  const value = raw instanceof Date ? raw.toISOString().slice(0, 10) : String(raw ?? "");
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) fail(file, `"${key}" deve ser uma data no formato AAAA-MM-DD`);
-  return value;
-}
-
-/** Fontes: lista de { titulo, autor, url, ano }. Todo material de ensino precisa de ao menos uma. */
-function parseSources(raw: unknown, file: string, required: boolean): Source[] {
-  if (raw === undefined || raw === null) {
-    if (required) fail(file, `falta o campo "fontes": todo material precisa citar ao menos uma fonte`);
-    return [];
-  }
-  if (!Array.isArray(raw)) fail(file, `"fontes" deve ser uma lista`);
-  const sources = raw.map((item: Data | string, i) => {
-    if (typeof item === "string") return { title: item };
-    const url = optional(item, "url");
-    if (url && !/^https?:\/\/\S+$/.test(url)) fail(file, `fontes[${i}]: o endereço deve começar com http:// ou https://`);
-    return { title: text(item, "titulo", file), author: optional(item, "autor"), url, year: optional(item, "ano") };
-  });
-  if (required && sources.length === 0) fail(file, `"fontes" precisa de ao menos um item`);
-  return sources;
 }
 
 function parseQuiz(raw: unknown, file: string): QuizQuestion[] {
@@ -425,14 +387,11 @@ function readJson<T>(file: string, fallback: T): T {
   }
 }
 
-// ativo: false tira o item do ar sem apagar o histórico (quarentena de denúncias).
-const isActive = (data: Data) => data.ativo !== false;
-
 /**
  * O arquivo é um original (aula, verbete, matéria)? Fora as traduções ("x.en.md") e as versões fáceis das aulas
  * ("x.facil.md", e as traduções delas, "x.facil.en.md"), que moram ao lado do original e nunca viram item nem idioma.
  */
-export const eOriginal = (name: string) => name.endsWith(".md") && !/\.[a-z]{2}\.md$/.test(name) && !/\.facil(\.[a-z]{2})?\.md$/.test(name);
+export { eOriginal } from "./conteudo-campos";
 
 /** Arquivos originais de uma pasta, sem as traduções ("x.en.md") nem as versões fáceis ("x.facil.md"). */
 function originals(dir: string): string[] {
@@ -456,13 +415,6 @@ export function versaoFacilDe(file: string, lang: Locale): { body: string; trans
   const { body } = parse(original);
   return body ? { body, translated: lang === defaultLocale } : null;
 }
-
-function slugOf(name: string, file: string): string {
-  if (!/^[a-z0-9-]+\.md$/.test(name)) fail(file, "use apenas letras minúsculas, números e hífens no nome do arquivo");
-  return name.replace(/\.md$/, "");
-}
-
-const minutesOf = (body: string) => Math.max(1, Math.ceil(plainText(body).split(" ").length / 180));
 
 /** Lê uma coleção simples: uma pasta de arquivos .md, um item por arquivo. */
 function collection<T>(dir: string, lang: Locale, build: (entry: { slug: string; file: string; data: Data; body: string; translated: boolean }) => T): T[] {
@@ -685,14 +637,7 @@ export const getTributes = cache((lang: Locale): Tribute[] =>
 );
 
 export const getGlossary = cache((lang: Locale): Term[] =>
-  collection("glossario", lang, ({ slug, file, data, body, translated }) => ({
-    slug,
-    term: text(data, "termo", file),
-    summary: text(data, "resumo", file),
-    body,
-    translated,
-    file,
-  })).sort((a, b) => a.term.localeCompare(b.term, lang)),
+  collection("glossario", lang, montarTermo).sort((a, b) => a.term.localeCompare(b.term, lang)),
 );
 
 /**
@@ -754,35 +699,7 @@ export const getGlossaryIndex = cache((lang: Locale): IndexedTerm[] => {
  * a matéria publicada fica no ar no endereço dela e no arquivo do Jornal.
  */
 export const getArticles = cache((lang: Locale): Article[] =>
-  collection("jornal", lang, ({ slug, file, data, body, translated }) => {
-    if (!body) fail(file, "o texto está vazio");
-    return {
-      slug,
-      title: text(data, "titulo", file),
-      subtitle: optional(data, "subtitulo") ?? "",
-      author: text(data, "autor", file),
-      date: dateOf(data, "data", file),
-      section: optional(data, "editoria") ?? "",
-      image: (() => {
-        const imagem = optional(data, "imagem") ?? "";
-        if (imagem && !/^\/[a-z0-9/_.-]+\.(webp|jpg|jpeg|png|avif)$/i.test(imagem)) fail(file, `"imagem" deve ser um arquivo do próprio site, como /imagens/jornal/foto.webp`);
-        if (imagem && !optional(data, "credito_imagem")) fail(file, `com "imagem", diga de quem é em "credito_imagem"`);
-        return imagem;
-      })(),
-      imageCredit: optional(data, "credito_imagem") ?? "",
-      sources: parseSources(data.fontes, file, true),
-      body,
-      minutes: minutesOf(body),
-      featured: data.destaque === true,
-      time: (() => {
-        const hora = optional(data, "hora") ?? "";
-        if (hora && !/^([01]\d|2[0-3]):[0-5]\d$/.test(hora)) fail(file, `"hora" deve estar no formato HH:MM (hora de Brasília)`);
-        return hora;
-      })(),
-      translated,
-      file,
-    };
-  }).sort((a, b) => b.date.localeCompare(a.date) || b.time.localeCompare(a.time) || a.slug.localeCompare(b.slug)),
+  collection("jornal", lang, montarMateria).sort(compararMaterias),
 );
 
 export const getFactChecks = cache((lang: Locale): FactCheck[] =>

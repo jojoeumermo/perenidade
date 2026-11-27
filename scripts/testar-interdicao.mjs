@@ -33,7 +33,10 @@ igual("versão do termo da Gaveta: site = banco", versaoNoSite, versaoNoBanco);
 const gerais = ["sobre", "guia", "privacidade", "termos", "status", "seguranca-digital", "certificado", "meus-dados", "historico", "explorar", "painel", "entrar", "fora-do-ar", "quem-somos", "creditos", "original", "por-onde-andei", "modo-seguro",
   // Onda R3: a transparência (relatórios, pedidos de órgãos públicos, canário) fica sempre aberta, como a privacidade: uma área
   // que a coordenação pudesse fechar faria o canário sumir sem aviso.
-  "transparencia"];
+  "transparencia",
+  // A casca do aplicativo instalado (/app, /app/estudar, /app/jogos, /app/eu): só reúne e leva às áreas, cada uma fecha pelo seu
+  // próprio caminho; o site inteiro fora do ar (interdição geral) fecha o /app junto.
+  "app"];
 // "por-onde-andei" é o histórico pessoal (fica no aparelho) e "modo-seguro" é a saída segura: nenhum dos dois pode
 // fechar quando a busca ou uma área for interditada (Etapa 4, E4-05).
 for (const pasta of fs.readdirSync(path.join(raiz, "app/[lang]"), { withFileTypes: true })) {
@@ -71,6 +74,39 @@ igual("Alumia: uma tela nova fecha junto", fechado("/en/alumia/atos", comunidade
 igual("Alumia: o caminho antigo também fecha", fechado("/pt/comunidade/p/x", comunidade), "comunidade");
 igual("Alumia: prefixo parecido não conta", fechado("/pt/alumiar", comunidade), null);
 igual("Alumia: área do caminho", areaDoCaminho("/alumia/organizacoes"), "comunidade");
+// O aplicativo instalado: as abas que mostram conteúdo de uma área fecham com ela, direto ou pelo idioma; o início e o Eu só fecham com o site todo.
+const soEstudo = { geral: false, areas: ["estudo"], mensagem: "" };
+const soFerramentas = { geral: false, areas: ["ferramentas"], mensagem: "" };
+igual("app: o caderno do app fecha com ferramentas e a busca do app com estudo", [fechado("/pt/app/eu/caderno", soFerramentas), fechado("/pt/app/eu/caderno", soEstudo), fechado("/pt/app/estudar/buscar", soEstudo), fechado("/pt/app/eu", soFerramentas)], ["ferramentas", null, "estudo", null]);
+const soVoluntariado = { geral: false, areas: ["voluntariado"], mensagem: "" };
+igual("app: o apoio do app fecha com a área voluntariado", [fechado("/pt/app/eu/apoio", soVoluntariado), fechado("/pt/app/eu/apoio", soEstudo)], ["voluntariado", null]);
+const soRadio = { geral: false, areas: ["radio"], mensagem: "" };
+igual("app: a rádio do app fecha com a área radio", [fechado("/pt/app/eu/radio", soRadio), fechado("/pt/app/eu/radio", soEstudo)], ["radio", null]);
+igual("app: o instituto do app fecha com a área voluntariado", [fechado("/pt/app/eu/instituto", soVoluntariado), fechado("/pt/app/eu/instituto", soEstudo)], ["voluntariado", null]);
+igual("app: o estatuto do app fecha com a área voluntariado", [fechado("/pt/app/eu/instituto/estatuto", soVoluntariado), fechado("/pt/app/eu/instituto/estatuto", soEstudo)], ["voluntariado", null]);
+igual("app: o voluntariado do app fecha com a área voluntariado", [fechado("/pt/app/eu/voluntarios", soVoluntariado), fechado("/pt/app/eu/voluntarios", soEstudo)], ["voluntariado", null]);
+const soMural = { geral: false, areas: ["mural"], mensagem: "" };
+igual("app: o mural de saúde do app fecha com a área mural", [fechado("/pt/app/eu/saude", soMural), fechado("/pt/app/eu/saude", soEstudo)], ["mural", null]);
+igual("app: o mural dos trabalhadores do app fecha com a área mural", [fechado("/pt/app/eu/mural", soMural), fechado("/pt/app/eu/mural", soEstudo)], ["mural", null]);
+const soAcervo = { geral: false, areas: ["acervo"], mensagem: "" };
+igual("app: o acervo do app fecha com a área acervo", [fechado("/pt/app/eu/acervo", soAcervo), fechado("/pt/app/eu/acervo", soEstudo)], ["acervo", null]);
+igual("app: o plantão do app fecha com a área estudo", [fechado("/pt/app/eu/plantao", soEstudo), fechado("/pt/app/eu/plantao", soAcervo)], ["estudo", null]);
+igual("app: a matéria do app fecha com a área jornal", [fechado("/pt/app/eu/jornal/qualquer", { geral: false, areas: ["jornal"], mensagem: "" }), fechado("/pt/app/eu/jornal/qualquer", soEstudo)], ["jornal", null]);
+const soMemoria = { geral: false, areas: ["memoria"], mensagem: "" };
+igual("app: a dedicatória do app fecha com a área memoria", [fechado("/pt/app/eu/dedicatoria", soMemoria), fechado("/pt/app/eu/dedicatoria", soEstudo)], ["memoria", null]);
+const soJornal = { geral: false, areas: ["jornal"], mensagem: "" };
+igual("app: o jornal do app fecha com a área jornal", [fechado("/pt/app/eu/jornal", soJornal), fechado("/pt/app/eu/jornal", soEstudo)], ["jornal", null]);
+igual("app: os podcasts do app fecham com a área radio", [fechado("/pt/app/eu/podcasts", soRadio), fechado("/pt/app/eu/podcasts", soEstudo)], ["radio", null]);
+igual("app: /app/estudar fecha com a área estudo", [fechado("/pt/app/estudar", soEstudo), fechado("/en/app/estudar", soEstudo)], ["estudo", "estudo"]);
+igual("app: /app/jogos fecha com a área ferramentas", [fechado("/pt/app/jogos", soFerramentas), fechado("/es/app/jogos", soFerramentas)], ["ferramentas", "ferramentas"]);
+igual("app: os laboratórios do app fecham com a área ferramentas (prefixo /app/jogos)", [fechado("/pt/app/jogos/laboratorios", soFerramentas), fechado("/pt/app/jogos/laboratorios", soEstudo)], ["ferramentas", null]);
+igual("app: estudo fechado não fecha jogos, início nem Eu", ["/pt/app/jogos", "/pt/app", "/pt/app/eu"].map((c) => fechado(c, soEstudo)), [null, null, null]);
+igual("app: ferramentas fechada não fecha estudar, início nem Eu", ["/pt/app/estudar", "/pt/app", "/pt/app/eu"].map((c) => fechado(c, soFerramentas)), [null, null, null]);
+igual("app: Alumia fechada não fecha nenhuma rota do app", ["/pt/app", "/pt/app/estudar", "/pt/app/jogos", "/pt/app/eu"].map((c) => fechado(c, comunidade)), [null, null, null, null]);
+igual("app: site fora do ar fecha as quatro rotas", ["/pt/app", "/pt/app/estudar", "/pt/app/jogos", "/pt/app/eu"].map((c) => fechado(c, tudo)), ["geral", "geral", "geral", "geral"]);
+igual("app: disciplina, trilha e aula do app fecham com a área estudo", ["/pt/app/estudar/historia", "/pt/app/estudar/historia/x", "/en/app/estudar/historia/x/y"].map((c) => fechado(c, soEstudo)), ["estudo", "estudo", "estudo"]);
+igual("app: aula do app aberta com só ferramentas fechada", fechado("/pt/app/estudar/historia/x/y", soFerramentas), null);
+igual("app: prefixo parecido não conta", fechado("/pt/app/estudar-mais", soEstudo), null);
 igual("contribuir fecha a denúncia junto", fechado("/pt/denunciar", { geral: false, areas: ["contribuir"], mensagem: "" }), "contribuir");
 
 igual("estado lido do site()", lerEstado({ faixa: "", interdicao: { geral: true, areas: ["mural", 3], mensagem: "x" } }), { geral: true, areas: ["mural"], mensagem: "x" });

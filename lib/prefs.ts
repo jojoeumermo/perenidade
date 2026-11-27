@@ -119,7 +119,7 @@ export function applyPrefs(prefs: Prefs) {
   if (prefs.lines || prefs.letters) root.setAttribute("data-spacing", "");
   else root.removeAttribute("data-spacing");
   if (reader) root.setAttribute("data-leitor", "");
-  if (isApp()) root.setAttribute("data-app", "");
+  if (isApp() || celularNoNavegador()) root.setAttribute("data-app", "");
   // A área da página (E7): o CSS do aparelho fraco e do "menos movimento" do instituto não vale dentro da Alumia.
   if (naAlumia()) root.setAttribute("data-na-alumia", "");
   else root.removeAttribute("data-na-alumia");
@@ -157,6 +157,23 @@ export function aparelhoFraco(): boolean {
   if (typeof navigator === "undefined") return false;
   const memoria = (navigator as { deviceMemory?: number }).deviceMemory;
   return typeof memoria === "number" && memoria > 0 && memoria <= 2;
+}
+
+/**
+ * Celular no navegador comum (toque e aparelho de tela pequena em qualquer orientação: o lado menor da tela até 768 px, fora da Alumia e sem leitor de tinta): veste o MESMO visual do aplicativo
+ * (<html data-app>), mas continua sendo o navegador: a Alumia segue acessível (sem data-sem-alumia). Mesma conta do script
+ * inline (lib/prefs-script.ts).
+ */
+let toqueGuardado: boolean | null = null;
+/** O aparelho é de toque? Decidido UMA vez por carga da página (como no script inline): um aparelho não troca de ponteiro no meio da leitura. */
+function toqueNaCarga(): boolean {
+  if (toqueGuardado === null) toqueGuardado = window.matchMedia("(pointer: coarse)").matches;
+  return toqueGuardado;
+}
+
+export function celularNoNavegador(): boolean {
+  if (typeof window === "undefined") return false;
+  return !naAlumia() && toqueNaCarga() && Math.min(window.screen.width, window.screen.height) <= 768 && !readerDevice.test(navigator.userAgent);
 }
 
 /** A página é da Alumia (endereço próprio ou /<idioma>/alumia)? A mesma conta do script inline (lib/prefs-script.ts). */

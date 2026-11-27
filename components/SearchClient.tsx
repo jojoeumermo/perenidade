@@ -18,13 +18,17 @@ const ORDEM_DOS_TIPOS = ["pagina", "trilha", "aula", "obra", "autor", "verbete",
 const ordemDoTipo = (tipo: string) => (ORDEM_DOS_TIPOS.includes(tipo) ? ORDEM_DOS_TIPOS.indexOf(tipo) : ORDEM_DOS_TIPOS.length);
 const chip = (ativo: boolean) => `cursor-pointer border-2 border-ink px-3 py-1.5 font-semibold ${ativo ? "bg-ink text-parchment" : "bg-parchment hover:border-oxblood hover:text-oxblood"}`;
 
-export function SearchClient() {
+/** No app, aulas e trilhas abrem no leitor do app (o "ir" deixa a página achar a disciplina); o resto segue para o site. */
+const noApp = (href: string) => (href.startsWith("/trilhas/") ? href.replace("/trilhas/", "/app/estudar/ir/") : href);
+
+export function SearchClient({ app = false }: { app?: boolean } = {}) {
   const { lang, t } = useI18n();
   const textosDaBusca = useTextosDaBusca();
   const params = useSearchParams();
   const [query, setQuery] = useState(params.get("q") ?? "");
   const [entries, setEntries] = useState<SearchEntry[] | null>(null);
   const [failed, setFailed] = useState(false);
+  const [tentativa, setTentativa] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -42,7 +46,7 @@ export function SearchClient() {
     return () => {
       cancelled = true;
     };
-  }, [lang]);
+  }, [lang, tentativa]);
 
   const search = useMemo(() => (entries ? buildSearch(entries, synonyms) : null), [entries]);
   const hits = search ? search(query) : [];
@@ -76,6 +80,19 @@ export function SearchClient() {
         <BuscaPorVoz aoOuvir={(texto) => setQuery(texto)} className="self-center pr-1" />
       </div>
 
+      {app && (failed || !entries) ? (
+        <div role="status" className={`app-estado ${failed ? "app-estado-erro" : "app-estado-carregando"}`}>
+          <p>{failed ? t.search.failed : t.search.loading}</p>
+          {failed && (
+            <button type="button" className="app-botao-contorno" onClick={() => {
+                setFailed(false);
+                setTentativa((n) => n + 1);
+              }}>
+              {t.lesson.tryAgain}
+            </button>
+          )}
+        </div>
+      ) : (
       <p role="status" className="mt-6 font-mono text-xs text-ink-soft">
         {failed
           ? t.search.failed
@@ -85,6 +102,7 @@ export function SearchClient() {
               ? plural(lang, hits.length, t.search.results)
               : fill(t.search.indexSize, { n: entries.length })}
       </p>
+      )}
 
       {entries && typed && <MelhorCaminho consulta={query} entradas={entries} />}
       {!typed && (
@@ -123,7 +141,7 @@ export function SearchClient() {
               <ul className="divide-y divide-rule">
                 {vistos.map(({ entry, snippet }) => (
                   <li key={entry.href}>
-                    <L href={entry.href} className="group block py-4">
+                    <L href={app ? noApp(entry.href) : entry.href} className="group block py-4">
                       {(entry.area || entry.context) && <p className="font-mono text-xs text-gold">{[entry.area, entry.context].filter(Boolean).join(" · ")}</p>}
                       <p className="mt-1 text-xl font-semibold group-hover:text-oxblood">{entry.title}</p>
                       <p className="mt-1 line-clamp-2 text-ink-soft">{snippet}</p>
@@ -140,7 +158,7 @@ export function SearchClient() {
           );
         })}
       {entries && typed && hits.length === 0 && (
-        <p className="mt-8 text-xl text-ink-soft">
+        <p className={app ? "app-estado app-estado-vazio" : "mt-8 text-xl text-ink-soft"}>
           {fill(t.search.nothingFor, { q: query.trim() })}{" "}
           <L href="/contribuir" className="underline hover:text-oxblood">{t.search.canContribute}</L>.
         </p>

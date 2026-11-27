@@ -21,6 +21,20 @@ export const RAIZ_DA_ABA: Record<AbaDoApp, string> = {
   eu: "/meu-estudo",
 };
 
+/**
+ * A experiência própria do aplicativo instalado (app/[lang]/app/..., docs/APP.md): as mesmas quatro abas do aplicativo,
+ * em endereços dela (sem a Alumia, que no aplicativo não existe). O navegador nunca vê estas rotas: quem abre /app fora
+ * do aplicativo é levado ao site (components/app/RedirecionarDoNavegador.tsx). A casca reconhece estes endereços só para
+ * marcar a aba e saber onde há "voltar".
+ */
+export const RAIZ_DO_APP = "/app";
+const TRECHOS_DO_APP: Record<string, AbaDoApp> = { "": "inicio", estudar: "estudar", jogos: "jogos", eu: "eu" };
+
+/** O endereço é da experiência própria do aplicativo instalado? Pura. */
+export function ehRotaDoApp(pathname: string | null | undefined): boolean {
+  return trechosDoEndereco(pathname)[0] === "app";
+}
+
 /** O primeiro trecho do endereço (depois do idioma) que pertence a cada aba. A ordem não importa: nenhum trecho se repete. */
 const TRECHOS_DA_ABA: Record<Exclude<AbaDoApp, "inicio">, readonly string[]> = {
   estudar: ["trilhas", "estantes", "acervo", "enem", "escola", "nivelamento", "questoes", "glossario", "estudo-em-grupo", "reforco", "professores", "materiais", "guia", "comecar", "busca"],
@@ -40,15 +54,18 @@ export function trechosDoEndereco(pathname: string | null | undefined): string[]
 export function abaDoEndereco(pathname: string | null | undefined): AbaDoApp | null {
   const trechos = trechosDoEndereco(pathname);
   if (trechos.length === 0) return "inicio";
+  if (trechos[0] === "app") return TRECHOS_DO_APP[trechos[1] ?? ""] ?? null;
   for (const aba of ABAS) if (aba !== "inicio" && TRECHOS_DA_ABA[aba].includes(trechos[0])) return aba;
   return null;
 }
 
 /** Está na tela-raiz da aba? Então não há "voltar": a barra de cima mostra a marca e o nome da aba. */
 export function ehRaizDaAba(pathname: string | null | undefined): boolean {
+  const trechos = trechosDoEndereco(pathname);
+  if (trechos[0] === "app") return trechos.length <= 2 && (trechos[1] ?? "") in TRECHOS_DO_APP;
   const aba = abaDoEndereco(pathname);
   if (!aba) return false;
-  return trechosDoEndereco(pathname).length <= trechosDoEndereco(RAIZ_DA_ABA[aba]).length;
+  return trechos.length <= trechosDoEndereco(RAIZ_DA_ABA[aba]).length;
 }
 
 /**
@@ -69,6 +86,7 @@ export function ehTelaComCascaPropria(pathname: string | null | undefined, redeV
 
 /** A página de cima de um endereço: a aula volta para a trilha, a trilha para as disciplinas, o resto para a aba. */
 export function paginaDeCima(trechos: string[]): string {
+  if (trechos[0] === "app") return trechos.length <= 1 ? RAIZ_DO_APP : `/app/${trechos.slice(1, -1).join("/")}`.replace(/\/$/, "") || RAIZ_DO_APP;
   if (trechos[0] === "estantes") return "/trilhas";
   const acima = trechos.slice(0, -1);
   return acima.length === 0 ? "/" : `/${acima.join("/")}`;

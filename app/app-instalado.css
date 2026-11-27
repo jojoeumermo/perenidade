@@ -1,0 +1,1182 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+
+/* ───── A experiência própria do aplicativo instalado (app/[lang]/app/..., components/app/ShellDoApp.tsx) ─────
+   Vale só com <html data-app> (lib/prefs-script.ts põe o atributo antes da primeira pintura: site instalado, WebView
+   ou TWA). No navegador — celular ou computador — NADA daqui aparece: os elementos saem escondidos e as regras não
+   casam. Fora do leitor de tinta (data-leitor), que continua com o desenho de livro.
+   Cores sempre pelas variáveis do site (papel, tinta, o vermelho do prelo): tema escuro, contraste e os modos de
+   acessibilidade continuam mandando. Sem desfoque nem sombra animada: precisa rodar liso em celular simples. */
+
+/* O portão: fora do aplicativo, a área /app não existe na tela; dentro dele, o aviso de "abra o site" some. */
+.so-no-app,
+.shell-do-app {
+  display: none;
+}
+.aviso-abrir-site {
+  margin: 3rem auto;
+  max-width: 30rem;
+  padding: 0 1.25rem;
+  text-align: center;
+  font: 500 1.05rem/1.5 var(--font-serif, Georgia, serif);
+}
+.aviso-abrir-site a {
+  color: #c21f16;
+  font-weight: 700;
+}
+
+:root[data-app] .aviso-abrir-site {
+  display: none;
+}
+
+:root[data-app]:not([data-leitor]) .so-no-app {
+  display: block;
+}
+
+/* ───── O chrome do aplicativo: as barras novas entram; as do site/casca saem ─────
+   A casca (CascaDoApp) continua ativa: gesto de voltar, transições e marcas em <html>. Só as barras trocam. Na folha da
+   aula a barra do celular fica: ela tem o ouvir, a letra e a régua de leitura, e a minha barra de cima sai. */
+:root[data-app]:not([data-leitor]) .app-casca-abas {
+  display: none !important;
+}
+:root[data-app]:not([data-leitor]) .barra-do-celular {
+  display: none !important;
+}
+:root[data-app]:not([data-leitor]) body:has(.folha-da-aula) .barra-do-celular {
+  display: block !important;
+}
+:root[data-app]:not([data-leitor]) body:has(.folha-da-aula) .shell-topo {
+  display: none;
+}
+
+/* Na folha da aula a barra de cima do app sai (a folha tem a própria): sem ela, sem o respiro dela também. */
+:root[data-app]:not([data-leitor]) body:has(.folha-da-aula) main#conteudo {
+  padding-top: 0;
+}
+
+:root[data-app]:not([data-leitor]) .shell-do-app {
+  display: block;
+}
+
+/* A barra de cima: papel com fio de tinta, a marca à esquerda (ou o voltar), o título no meio e a busca à direita. */
+.shell-topo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 3.5rem;
+  padding: calc(env(safe-area-inset-top, 0px) + 0.35rem) 0.75rem 0.35rem;
+  background: var(--parchment);
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink);
+  -webkit-user-select: none;
+  user-select: none;
+}
+.shell-marca {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: inherit;
+  text-decoration: none;
+}
+.shell-marca img {
+  border-radius: 0.45rem;
+}
+.shell-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 999px;
+  color: inherit;
+  cursor: pointer;
+}
+.shell-icone:active {
+  background: rgb(0 0 0 / 0.08);
+}
+.shell-titulo {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.15s ease-out;
+}
+.shell-titulo[data-visivel] {
+  opacity: 1;
+}
+.shell-topo[data-raiz] .shell-titulo {
+  display: none;
+}
+.shell-acoes {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+/* As abas de baixo: barra flutuante de tinta, quatro abas (sem a Alumia), a aberta com a pílula vermelha. */
+.shell-abas {
+  position: fixed;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: calc(0.6rem + var(--recuo-baixo));
+  z-index: 30;
+  max-width: 30rem;
+  margin: 0 auto;
+  border: 2px solid var(--borda-forte, #1f1a14);
+  border-radius: 1.35rem;
+  background: var(--ink);
+  color: var(--parchment);
+  box-shadow: 0 6px 0 rgb(0 0 0 / 0.28);
+}
+.shell-abas ul {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0.3rem;
+  list-style: none;
+}
+.shell-abas a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  min-height: 3.4rem;
+  padding: 0.35rem 0.25rem;
+  border-radius: 1rem;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1;
+  color: inherit;
+  text-decoration: none;
+}
+.shell-abas a[data-aberta] {
+  background: #c21f16;
+  color: #fff;
+  font-weight: 800;
+}
+.shell-abas a:not([data-aberta]):active {
+  background: rgb(255 255 255 / 0.12);
+}
+
+/* O conteúdo termina acima da barra flutuante. */
+:root[data-app]:not([data-leitor]) main#conteudo {
+  padding-top: calc(3.75rem + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(6rem + var(--recuo-baixo)) !important;
+}
+
+/* ───── O Início do aplicativo ───── */
+.app-inicio {
+  max-width: 30rem;
+  margin: 0 auto;
+  padding-bottom: 0.5rem;
+}
+.app-saudacao {
+  padding: 1.25rem 1rem 0;
+}
+.app-saudacao-data {
+  margin: 0;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--texto-meio, #4a4034);
+}
+.app-saudacao-ola {
+  margin: 0.35rem 0 0;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.05;
+}
+.app-saudacao-ola em {
+  color: #c21f16;
+}
+
+.app-busca {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 1rem 1rem 0;
+  padding-left: 0.8rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--folha, #fbf6e9);
+  color: var(--ink);
+}
+.app-busca svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  color: var(--texto-meio, #4a4034);
+}
+.app-busca input {
+  min-width: 0;
+  flex: 1;
+  padding: 0.8rem 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 1rem;
+  color: inherit;
+  outline: none;
+  text-overflow: ellipsis;
+}
+.app-busca button {
+  margin: 0.25rem;
+  padding: 0.5rem 0.8rem;
+  border: 0;
+  border-radius: 999px;
+  background: #c21f16;
+  color: #fff;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.app-continuar {
+  padding: 1rem 1rem 0;
+}
+.app-cartao {
+  display: block;
+  border-radius: 1.25rem;
+  padding: 1.1rem 1.15rem;
+  text-decoration: none;
+}
+.app-cartao-tinta {
+  border: 1.5px solid var(--borda-forte, #1f1a14);
+  background: #1f1a14;
+  color: #f4ecd8;
+  box-shadow: 4px 4px 0 #c21f16;
+}
+.app-cartao-rotulo {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #e0837a;
+}
+.app-cartao-titulo {
+  display: block;
+  margin-top: 0.4rem;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+.app-cartao-titulo-menor {
+  font-size: 1.25rem;
+}
+.app-cartao-aux {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.92rem;
+  color: #d9ccac;
+}
+.app-cartao-pe {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+}
+.app-pontos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+.app-pontos span {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: #c21f16;
+}
+.app-botao {
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: #c21f16;
+  padding: 0.5rem 1.1rem;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #fff;
+}
+.app-resumo {
+  margin: 0.6rem 0 0;
+  padding: 0 0.25rem;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.8rem;
+  color: var(--texto-meio, #4a4034);
+}
+
+.app-inicio .aula-do-dia {
+  margin: 1rem 1rem 0;
+}
+
+.app-secao {
+  margin-top: 1.5rem;
+}
+.app-secao-cabeca {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 1rem 0.6rem;
+}
+.app-titulo-secao {
+  margin: 0;
+  padding: 0 1rem 0.6rem;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.app-secao-cabeca .app-titulo-secao {
+  padding: 0;
+}
+.app-titulo-secao::before {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 4px;
+  margin-bottom: 0.5rem;
+  background: #c21f16;
+}
+.app-secao-cabeca .app-titulo-secao::before {
+  display: none;
+}
+.app-ver-tudo {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #c21f16;
+  text-decoration: none;
+}
+
+/* A fileira de estantes (cadernos), correndo de lado. */
+.app-estantes {
+  display: flex;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0 1rem 0.75rem;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.app-estantes li {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+.app-estantes .caderno {
+  display: flex;
+  flex-direction: column;
+  width: 8.75rem;
+  height: 11rem;
+  text-decoration: none;
+}
+.caderno-etapa {
+  padding: 0.75rem 0.6rem 0 1.75rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.caderno-nome {
+  display: block;
+  margin: 0.6rem 0.6rem 0 1.75rem;
+  padding: 0.35rem 0.5rem;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.05;
+}
+.caderno-aulas {
+  margin-top: auto;
+  padding: 0 0.6rem 0.75rem 1.75rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* A grade de atalhos e o muro reaproveitam o desenho do celular; aqui só os respiros do aplicativo. */
+.app-secao > nav[aria-label] {
+  padding: 0 1rem;
+}
+.app-secao .lambe-papel,
+.app-secao > section {
+  margin: 0 1rem;
+}
+
+/* ───── Avisos, temas e modos de acessibilidade ───── */
+/* Os avisos de rede sobem acima da barra flutuante. */
+:root[data-app] .aviso-rede {
+  bottom: calc(5.4rem + var(--recuo-baixo));
+}
+
+/* Contraste, e-ink e leitor de tinta: a barra de tinta vira papel com contorno, como as abas do site. */
+:root[data-app]:is([data-contrast], [data-eink]) .shell-abas {
+  background: var(--parchment) !important;
+  color: var(--ink) !important;
+  border-color: var(--ink) !important;
+  box-shadow: none;
+}
+:root[data-app]:is([data-contrast], [data-eink]) .shell-abas a[data-aberta] {
+  background: var(--ink) !important;
+  color: var(--parchment) !important;
+}
+:root[data-app]:is([data-contrast], [data-eink]) .app-cartao-tinta {
+  background: var(--parchment) !important;
+  color: var(--ink) !important;
+  box-shadow: none;
+}
+:root[data-app]:is([data-contrast], [data-eink]) .app-cartao-tinta :is(.app-cartao-rotulo, .app-cartao-aux) {
+  color: var(--ink) !important;
+}
+
+/* O aviso de "a Alumia não abre no aplicativo" no desenho novo. */
+:root[data-app]:not([data-leitor]) .al-fora-do-app {
+  min-height: 70dvh;
+  padding-bottom: calc(6rem + var(--recuo-baixo));
+}
+
+/* ───── Os hubs do aplicativo (Estudar, Jogos, Eu) ───── */
+.app-hub {
+  max-width: 30rem;
+  margin: 0 auto;
+  padding-bottom: 0.5rem;
+}
+.app-hub-cabeca {
+  padding: 1.25rem 1rem 0;
+}
+.app-hub-cabeca h1 {
+  margin: 0;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.9rem;
+  font-weight: 600;
+  line-height: 1.08;
+}
+.app-hub-cabeca h1::before {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 4px;
+  margin-bottom: 0.55rem;
+  background: #c21f16;
+}
+.app-hub-cabeca p {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--texto-meio, #4a4034);
+}
+
+/* A lista de disciplinas do Estudar. */
+.app-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0 1rem;
+  list-style: none;
+}
+.app-item-lista {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3.75rem;
+  padding: 0.6rem 0.9rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 1rem;
+  background: var(--folha, #fbf6e9);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: 2px 2px 0 var(--sombra, rgb(0 0 0 / 0.2));
+}
+.app-item-lista:active {
+  box-shadow: none;
+  transform: translate(1px, 1px);
+}
+.app-item-texto {
+  min-width: 0;
+  flex: 1;
+}
+.app-item-titulo {
+  display: block;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.app-item-aux {
+  display: block;
+  margin-top: 0.1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.8rem;
+  color: var(--texto-meio, #4a4034);
+}
+.app-item-num {
+  flex-shrink: 0;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--texto-meio, #4a4034);
+}
+
+/* A aba Jogos: a entrada de Laboratórios em cima; a tela de jogos reaproveitada perde o cabeçalhão de página. */
+.app-atalho-labs {
+  margin: 1rem 1rem 1.5rem;
+}
+.app-atalho-labs .app-cartao-titulo {
+  margin-top: 0;
+}
+.app-atalho-labs .app-cartao-aux {
+  margin-top: 0.35rem;
+}
+.app-hub-jogos > div:first-child,
+.app-hub-jogos > section:first-child {
+  margin-top: 0;
+}
+.app-atalho-enem {
+  margin: 1rem 1rem 0;
+}
+
+/* ───── A jornada de estudo: disciplina, trilha, aula ───── */
+.app-vazio {
+  margin: 0.5rem 1rem;
+  font: 0.95rem/1.4 var(--font-sans, system-ui, sans-serif);
+  color: var(--texto-meio, #4a4034);
+}
+.app-trilha-trilho,
+.app-aula-trilho {
+  margin: 0 0 0.35rem;
+  font: 0.68rem/1.3 var(--font-mono, monospace);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--texto-meio, #4a4034);
+}
+.app-progresso {
+  height: 0.4rem;
+  margin-top: 0.45rem;
+  overflow: hidden;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--parchment);
+}
+.app-progresso span {
+  display: block;
+  height: 100%;
+  background: #c21f16;
+}
+.app-item-aux-livre {
+  white-space: normal;
+  margin-top: 0.3rem;
+}
+.app-continuar-estudo,
+.app-resumo-progresso {
+  display: block;
+  margin: 1rem 1rem 0;
+  text-decoration: none;
+}
+.app-continuar-estudo {
+  background: var(--ink);
+  color: var(--parchment);
+}
+.app-continuar-estudo .app-cartao-rotulo,
+.app-continuar-estudo .app-cartao-aux {
+  color: inherit;
+  opacity: 0.85;
+}
+.app-link-forte {
+  display: inline-block;
+  margin-top: 0.8rem;
+  min-height: 2.75rem;
+  padding: 0.7rem 0;
+  font: 700 0.95rem/1.2 var(--font-sans, system-ui, sans-serif);
+  color: #c21f16;
+  text-decoration: none;
+}
+.app-passos {
+  counter-reset: none;
+}
+.app-passo-marca {
+  display: grid;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  font: 700 0.72rem/1 var(--font-mono, monospace);
+}
+.app-passo-marca[data-feita] {
+  background: var(--ink);
+  color: var(--parchment);
+}
+.app-item-lista[data-proxima] {
+  border-color: #c21f16;
+  box-shadow: 3px 3px 0 #c21f16;
+}
+.app-item-lista[data-pendente] {
+  opacity: 0.6;
+  box-shadow: none;
+  border-style: dashed;
+}
+
+/* Tela cheia (laboratório aberto): a barra de abas sai e o conteúdo usa o pé todo. Por endereço (data-tela-cheia-rota) só a de baixo
+   sai e a de cima fica com o voltar; pelo gancho da página (data-tela-cheia) saem as duas. As mesmas marcas da casca antiga. */
+:root[data-app]:is([data-tela-cheia], [data-tela-cheia-rota]) .shell-abas,
+:root[data-app][data-tela-cheia] .shell-topo {
+  display: none !important;
+}
+:root[data-app]:is([data-tela-cheia], [data-tela-cheia-rota]):not([data-leitor]) main#conteudo {
+  padding-bottom: var(--recuo-baixo) !important;
+}
+:root[data-app][data-tela-cheia]:not([data-leitor]) main#conteudo {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* O leitor da aula: sem barra de abas; a barra fixa de concluir fica no lugar dela. */
+:root[data-app] body:has(.app-aula) .shell-abas,
+/* Com a Escola ligada a barra de baixo do site também existe (BottomNav); no leitor da aula ela some junto com a do app. */
+:root[data-app] body:has(.app-aula) nav.abas-do-celular {
+  display: none;
+}
+:root[data-app]:not([data-leitor]) body:has(.app-aula) main#conteudo {
+  padding-bottom: calc(6.5rem + var(--recuo-baixo)) !important;
+}
+.app-aula {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 0.5rem 1.1rem 1rem;
+}
+.app-aula-cabeca h1 {
+  margin: 0;
+  font: 700 1.85rem/1.12 var(--font-serif, Georgia, serif);
+  text-wrap: balance;
+}
+.app-aula-resumo {
+  margin: 0.6rem 0 0;
+  font: italic 1.1rem/1.4 var(--font-serif, Georgia, serif);
+  color: var(--texto-meio, #4a4034);
+}
+.app-aula-texto {
+  margin-top: 1.2rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.app-aula-fim {
+  margin-top: 2rem;
+  padding-top: 1.2rem;
+  border-top: 2px solid var(--ink);
+}
+.app-aula-fim .app-cartao {
+  display: block;
+  text-decoration: none;
+}
+.app-aula-fim-texto {
+  font: 700 1.1rem/1.3 var(--font-serif, Georgia, serif);
+}
+.app-barra-aula {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1rem calc(0.65rem + var(--recuo-baixo));
+  border-top: 2px solid var(--ink);
+  background: var(--parchment);
+}
+.app-barra-aula-pos {
+  margin: 0 auto 0 0;
+  font: 0.7rem/1.2 var(--font-mono, monospace);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--texto-meio, #4a4034);
+}
+.app-barra-aula .app-botao,
+.app-botao-sec {
+  min-height: 2.9rem;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+}
+.app-botao-largo {
+  flex: 1;
+  margin-left: 0.4rem;
+}
+.app-barra-aula:has(.app-botao-largo) .app-barra-aula-pos {
+  display: none;
+}
+.app-botao-sec {
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: 700 0.85rem/1 var(--font-sans, system-ui, sans-serif);
+}
+
+/* Eu: números em linha e o painel completo recolhido. */
+.app-numeros {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin: 0.8rem 1rem 0;
+  padding: 0;
+  list-style: none;
+}
+.app-numeros li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.7rem 0.6rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 0.9rem;
+  background: var(--folha, #fbf6e9);
+}
+.app-numeros strong {
+  font: 700 1.5rem/1 var(--font-serif, Georgia, serif);
+}
+.app-numeros span {
+  font: 0.72rem/1.25 var(--font-sans, system-ui, sans-serif);
+  color: var(--texto-meio, #4a4034);
+}
+.app-mais {
+  margin: 1.2rem 1rem 0;
+}
+.app-mais > summary {
+  min-height: 2.75rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font: 700 0.95rem/1.2 var(--font-sans, system-ui, sans-serif);
+  color: #c21f16;
+}
+.app-grupo + .app-grupo {
+  margin-top: 1rem;
+}
+.app-grupo-nome {
+  margin: 0 1rem 0.4rem;
+  font: 700 0.72rem/1.2 var(--font-mono, monospace);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--texto-meio, #4a4034);
+}
+
+/* Jogos: catálogo em lista compacta (o jogo aberto usa o palco do próprio projeto). */
+.app-jogos {
+  padding-bottom: 1rem;
+}
+.app-jogo-destaque {
+  display: block;
+  margin: 1rem 1rem 0;
+}
+.app-jogo-destaque .app-botao {
+  margin-top: 0.8rem;
+  min-height: 2.75rem;
+  cursor: pointer;
+}
+.app-jogos-filtros {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+  padding: 0 1rem 0.25rem;
+  overflow-x: auto;
+}
+.app-jogos-filtros button {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.5rem;
+  padding: 0.4rem 0.85rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: 700 0.82rem/1 var(--font-sans, system-ui, sans-serif);
+  cursor: pointer;
+}
+.app-jogos-filtros button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--parchment);
+}
+.app-jogos-filtros button span {
+  font: 0.68rem/1 var(--font-mono, monospace);
+  opacity: 0.8;
+}
+.app-jogos-lead {
+  margin: 0 1rem 0.6rem;
+  font: 0.85rem/1.4 var(--font-sans, system-ui, sans-serif);
+  color: var(--texto-meio, #4a4034);
+}
+.app-jogo-linha {
+  width: calc(100% - 0px);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.app-jogo-cor {
+  flex-shrink: 0;
+  width: 0.5rem;
+  align-self: stretch;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink);
+}
+
+/* Aba Jogos com um jogo aberto: some a cabeça da aba e o atalho de laboratórios. */
+:root[data-app] .app-hub-jogos[data-jogo-aberto] > .app-hub-cabeca,
+:root[data-app] .app-hub-jogos[data-jogo-aberto] > .app-atalho-labs { display: none; }
+
+/* Deitado (largura acima de 768 px) o cabeçalho do site voltava e brigava com a barra de cima do app: no visual do app ele não existe em largura nenhuma. */
+:root[data-app]:not([data-leitor]) .cabecalho-site {
+  display: none !important;
+}
+
+/* Leitor: "Antes desta aula" e questões oficiais do ENEM (peças do app; sem classes do site). */
+.app-aula-antes,
+.app-aula-oficiais {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 2px solid #1f1a14;
+  border-radius: 1rem;
+  background: #f1ebde;
+  font: 400 0.95rem/1.45 var(--font-sans, system-ui, sans-serif);
+}
+.app-aula-antes ul,
+.app-aula-oficiais ul {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.app-aula-antes li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  padding: 0.25rem 0;
+}
+.app-aula-oficiais ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.app-aula-oficiais li a {
+  display: inline-block;
+  min-height: 2.75rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #1f1a14;
+  border-radius: 0.7rem;
+  background: #fffdf7;
+  color: inherit;
+  text-decoration: none;
+}
+.app-aula-oficiais h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1.2rem;
+}
+.app-aula-antes-rotulo {
+  margin: 0 0 0.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.7rem;
+  color: #c21f16;
+}
+.app-botao-contorno {
+  min-height: 2.75rem;
+  margin-top: 0.75rem;
+  padding: 0.6rem 1rem;
+  border: 2px solid #1f1a14;
+  border-radius: 0.8rem;
+  background: transparent;
+  font: 700 0.95rem/1.2 inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Porta do curso ENEM no app. */
+.app-enem-contagem {
+  padding: 1rem;
+  border: 2px solid #1f1a14;
+  border-radius: 1rem;
+  background: #f1ebde;
+}
+.app-item-em-breve {
+  opacity: 0.6;
+}
+
+/* Caderno no app: as peças do site esperam um contêiner com respiro lateral. */
+.app-caderno-corpo {
+  padding-inline: 1rem;
+  overflow-x: clip;
+}
+
+/* O "?" flutuante cobria texto no fim das telas do app: some aqui (leitor e telas cheias já o escondem). A ajuda mora na aba Eu e
+   abre a mesma janela. O painel aberto não é afetado: só o gatilho some. */
+:root[data-app] .assistente-gatilho {
+  display: none !important;
+}
+.app-atalho-ajuda,
+.app-atalho-alumia,
+.app-atalho-apoiar,
+.app-atalho-caderno,
+.app-apoio-botao,
+.app-apoio-mais,
+.app-atalho-podcasts,
+.app-podcasts-episodio,
+.app-podcasts-radio,
+.app-labs-cartao,
+.app-radio-tocador,
+.app-radio-emissora,
+.app-jornal-materia,
+.app-atalho-instituto,
+.app-atalho-voluntarios,
+.app-atalho-saude,
+.app-atalho-dedicatoria,
+.app-atalho-plantao,
+.app-plantao-aviso,
+.app-plantao-canal,
+.app-plantao-atalho,
+.app-atalho-acervo,
+.app-atalho-mural,
+.app-mural-regras,
+.app-dedicatoria-verbete,
+.app-saude-emergencia,
+.app-saude-aviso,
+.app-saude-como li,
+.app-saude-link,
+.app-voluntarios-cartao,
+.app-instituto-bloco,
+.app-instituto-valor,
+.app-instituto-estatuto {
+  box-sizing: border-box;
+  width: calc(100% - 2rem);
+  margin: 1rem 1rem 0;
+  border: 1.5px solid #1f1a14;
+  background: #fffdf7;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  box-shadow: 3px 3px 0 #1f1a14;
+}
+.app-atalho-ajuda {
+  cursor: pointer;
+}
+.app-atalho-alumia .app-cartao-texto,
+.app-atalho-apoiar .app-cartao-texto,
+.app-apoio-botao .app-cartao-texto,
+.app-podcasts-episodio .app-cartao-texto,
+.app-labs-cartao .app-cartao-texto,
+.app-radio-tocador .app-cartao-texto,
+.app-radio-emissora .app-cartao-texto,
+.app-jornal-materia .app-cartao-texto {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+/* Estados do app: carregando, erro (com "tentar de novo") e vazio. */
+.app-estado {
+  margin: 1.25rem 0;
+  padding: 1rem 1.1rem;
+  border: 1.5px dashed #1f1a14;
+  border-radius: 1rem;
+  background: #f1ebde;
+  font: 400 0.95rem/1.45 var(--font-sans, system-ui, sans-serif);
+}
+.app-estado p {
+  margin: 0;
+}
+.app-estado-erro {
+  border-style: solid;
+  border-color: #c21f16;
+}
+.app-estado-carregando {
+  opacity: 0.8;
+}
+
+/* Apoio dentro do app (aba Eu → Apoiar): contagens reais, botão da campanha e ida para a página completa. */
+:root[data-app] .app-apoio-tela { display: flex; flex-direction: column; gap: 0; padding-bottom: 1.5rem; }
+:root[data-app] .app-apoio-numeros { list-style: none; margin: 0.6rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+:root[data-app] .app-apoio-numeros li { display: flex; flex-direction: column; gap: 0.2rem; text-align: center; }
+:root[data-app] .app-apoio-numeros strong { font-size: 1.5rem; line-height: 1.1; }
+:root[data-app] .app-apoio-numeros span { font-size: 0.75rem; opacity: 0.8; }
+:root[data-app] .app-apoio-feito { margin: 1rem 1rem 0; padding: 1rem; border-radius: 1rem; border: 1px solid currentColor; border-color: color-mix(in srgb, currentColor 18%, transparent); }
+:root[data-app] .app-apoio-botao, :root[data-app] .app-apoio-mais { display: block; text-decoration: none; }
+
+/* Podcasts dentro do app (aba Eu → Podcasts): lista de episódios, onde assinar e o RSS. */
+:root[data-app] .app-podcasts-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-podcasts-lista { list-style: none; margin: 0; padding: 0; }
+:root[data-app] .app-podcasts-episodio, :root[data-app] .app-podcasts-radio, :root[data-app] .app-atalho-podcasts { display: block; text-decoration: none; }
+:root[data-app] .app-podcasts-assinar { margin: 1.25rem 1rem 0; }
+:root[data-app] .app-podcasts-assinar p { margin: 0.3rem 0 0.6rem; font-size: 0.9rem; line-height: 1.4; }
+:root[data-app] .app-podcasts-assinar ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+:root[data-app] .app-podcasts-assinar a { display: inline-block; padding: 0.45rem 0.8rem; border: 1.5px solid #1f1a14; border-radius: 999px; background: #fffdf7; color: inherit; text-decoration: none; font-weight: 600; font-size: 0.85rem; }
+:root[data-app] .app-podcasts-tela .app-estado { margin: 1.25rem 1rem 0; }
+
+/* Laboratórios dentro do app (aba Jogos e labs → Laboratórios): atalhos por finalidade e cartões de uma coluna. */
+:root[data-app] .app-labs-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-labs-atalhos { display: flex; gap: 0.5rem; overflow-x: auto; padding: 0.25rem 1rem 0.5rem; }
+:root[data-app] .app-labs-atalhos a { flex: none; padding: 0.4rem 0.8rem; border: 1.5px solid #1f1a14; border-radius: 999px; background: #fffdf7; color: inherit; text-decoration: none; font-weight: 600; font-size: 0.85rem; }
+:root[data-app] .app-labs-grupo { margin-top: 1.25rem; scroll-margin-top: 4rem; }
+:root[data-app] .app-labs-grupo h2, :root[data-app] .app-labs-serve { margin-left: 1rem; margin-right: 1rem; }
+:root[data-app] .app-labs-serve { margin-top: 0.25rem; font-size: 0.9rem; line-height: 1.4; }
+:root[data-app] .app-labs-grupo ul { list-style: none; margin: 0; padding: 0; }
+:root[data-app] .app-labs-cartao { display: block; text-decoration: none; }
+
+/* Rádios dentro do app (Eu → Podcasts → Rádio): diretório por frente, cartões de uma coluna. */
+:root[data-app] .app-radio-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-radio-grupo { margin-top: 1.25rem; }
+:root[data-app] .app-radio-grupo h2 { margin-left: 1rem; margin-right: 1rem; }
+:root[data-app] .app-radio-grupo ul { list-style: none; margin: 0; padding: 0; }
+:root[data-app] .app-radio-tocador, :root[data-app] .app-radio-emissora { display: block; text-decoration: none; }
+/* Emissora com transmissão: o botão redondo de ouvir (mesmo tocador do site) ao lado do cartão que abre o site dela. */
+:root[data-app] .app-radio-linha { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin: 1rem 1rem 0; }
+:root[data-app] .app-radio-erro { order: 3; flex-basis: 100%; margin: 0; padding: 0.5rem 0.75rem; border-left: 4px solid #c21f16; background: #fffdf7; font-size: 0.9rem; }
+:root[data-app] .app-radio-linha :is(.app-radio-emissora, .app-podcasts-episodio) { flex: 1; min-width: 0; width: auto; margin: 0; }
+:root[data-app] .app-radio-tocar { flex: none; display: flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; min-height: 44px; border: 1.5px solid #1f1a14; border-radius: 999px; background: #c21f16; color: #fff; box-shadow: 3px 3px 0 #1f1a14; cursor: pointer; }
+:root[data-app] .app-radio-tocar[aria-pressed="true"] { background: #1f1a14; }
+
+/* Jornal dentro do app (Eu → Jornal): matérias em cartões de uma coluna, a em destaque no topo. */
+:root[data-app] .app-jornal-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-jornal-lista { list-style: none; margin: 0; padding: 0; }
+:root[data-app] .app-jornal-materia { display: block; text-decoration: none; }
+:root[data-app] .app-jornal-materia .app-cartao-aux { display: block; margin-top: 0.4rem; font-size: 0.8rem; opacity: 1; color: #3d352c; font-weight: 600; }
+:root[data-app] .app-jornal-selo { display: inline-block; margin-bottom: 0.35rem; padding: 0.1rem 0.5rem; background: #c21f16; color: #fff; font: 700 0.7rem/1.4 var(--font-sans, system-ui, sans-serif); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* Instituto dentro do app (Eu → Instituto): blocos de texto e os valores em sanfona. */
+:root[data-app] .app-instituto-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-instituto-valores { list-style: none; margin: 0; padding: 0; }
+:root[data-app] .app-instituto-rotulo { margin: 0; font: 700 0.75rem/1.4 var(--font-mono, ui-monospace, monospace); letter-spacing: 0.2em; text-transform: uppercase; color: #8a1c14; }
+:root[data-app] .app-instituto-texto { margin: 0.4rem 0 0; font-size: 1.05rem; line-height: 1.5; }
+:root[data-app] .app-instituto-valor summary { cursor: pointer; font-weight: 700; list-style: none; }
+:root[data-app] .app-instituto-valor summary::-webkit-details-marker { display: none; }
+:root[data-app] .app-instituto-num { display: inline-block; margin-right: 0.4rem; font: 700 0.75rem/1 var(--font-mono, ui-monospace, monospace); color: #8a1c14; }
+:root[data-app] .app-instituto-estatuto { display: block; text-decoration: none; margin-bottom: 1rem; }
+:root[data-app] .app-instituto-valor .app-cartao-texto { display: block; margin-top: 0.5rem; }
+
+/* Voluntariado dentro do app (Eu → Voluntariado): cartões de uma coluna, texto e formulário do site. */
+:root[data-app] .app-voluntarios-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-voluntarios-jeitos { list-style: none; margin: 0; padding: 0; }
+:root[data-app] .app-voluntarios-texto { margin: 1rem 1rem 0; font-size: 1rem; line-height: 1.5; }
+:root[data-app] .app-voluntarios-cartao { display: block; }
+:root[data-app] .app-voluntarios-cartao > * + * { margin-top: 0.4rem; }
+:root[data-app] .app-voluntarios-cartao .app-cartao-texto { display: block; line-height: 1.4; }
+:root[data-app] .app-voluntarios-acao { display: block; margin-top: 0.6rem; font-weight: 700; color: #8a1c14; }
+:root[data-app] .app-voluntarios-mais summary { cursor: pointer; font-weight: 700; color: #8a1c14; }
+:root[data-app] .app-voluntarios-form { margin: 1.5rem 1rem 0; }
+
+/* Mural de Saúde dentro do app (Eu → Saúde): emergência e aviso primeiro, depois a vitrine do site e o "como funciona". */
+:root[data-app] .app-saude-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-saude-emergencia ul, :root[data-app] .app-saude-aviso ul, :root[data-app] .app-saude-como { list-style: none; margin: 0.4rem 0 0; padding: 0; }
+:root[data-app] .app-saude-emergencia li { display: flex; justify-content: space-between; align-items: baseline; padding: 0.35rem 0; }
+:root[data-app] .app-saude-emergencia a { font-size: 1.35rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+:root[data-app] .app-saude-aviso li { margin-top: 0.5rem; line-height: 1.4; font-size: 0.95rem; }
+:root[data-app] .app-saude-vitrine { margin: 1.25rem 1rem 0; }
+:root[data-app] .app-saude-como li { display: block; margin-bottom: 0; }
+:root[data-app] .app-saude-link { display: block; text-decoration: none; }
+
+/* Dedicatória dentro do app (Eu → Dedicatória): verbete, busto e texto da homenagem. */
+:root[data-app] .app-dedicatoria-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-dedicatoria-verbete h2 { margin: 0; font-size: 2.2rem; line-height: 1.1; }
+:root[data-app] .app-dedicatoria-silabas { font: 400 0.85rem/1 var(--font-mono, ui-monospace, monospace); opacity: 1; color: #3d352c; }
+:root[data-app] .app-dedicatoria-classe { margin: 0.6rem 0 0; font-style: italic; color: #3d352c; }
+:root[data-app] .app-dedicatoria-verbete ol { margin: 0.6rem 0 0; padding-left: 1.3rem; line-height: 1.45; list-style: decimal outside; }
+:root[data-app] .app-dedicatoria-verbete li { display: list-item; padding-left: 0.2rem; }
+:root[data-app] .app-dedicatoria-etim { margin: 0.8rem 0 0; font-size: 0.9rem; line-height: 1.4; color: #3d352c; }
+:root[data-app] .app-dedicatoria-busto { display: block; width: 70%; max-width: 280px; height: auto; margin: 1.5rem auto 0; }
+:root[data-app] .app-dedicatoria-texto { margin: 1.25rem 1.25rem 0; text-align: center; font-size: 1.2rem; line-height: 1.5; }
+:root[data-app] .app-dedicatoria-texto p { margin: 0 0 1rem; }
+:root[data-app] .app-dedicatoria-fecho { font-size: 1.8rem; font-style: italic; font-weight: 600; color: #8a1c14; }
+:root[data-app] .app-dedicatoria-assina { font: 400 0.75rem/1.4 var(--font-mono, ui-monospace, monospace); letter-spacing: 0.15em; text-transform: uppercase; }
+
+/* Mural dos Trabalhadores dentro do app (Eu → Mural): regras em cartão, o mural do site e "como funciona". */
+:root[data-app] .app-mural-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-mural-regras ul { margin: 0.5rem 0 0; padding-left: 1.2rem; list-style: disc outside; line-height: 1.45; }
+:root[data-app] .app-mural-regras li { display: list-item; margin-top: 0.3rem; }
+:root[data-app] .app-mural-corpo { margin: 0 1rem; min-width: 0; }
+:root[data-app] .app-mural-como { margin: 0 1rem; }
+:root[data-app] .app-mural-como section { margin-top: 1.5rem; }
+
+/* Acervo dentro do app (Eu → Acervo): a estante do site com busca e filtros, em coluna única. */
+:root[data-app] .app-acervo-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-acervo-corpo { margin: 0 1rem; min-width: 0; }
+
+/* Plantão de dúvidas dentro do app (Eu → Plantão): aviso, atalhos de busca e um cartão por canal. */
+:root[data-app] .app-plantao-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-plantao-texto { margin: 0.25rem 1rem 0.6rem; line-height: 1.45; color: #3d352c; }
+:root[data-app] .app-plantao-atalhos, :root[data-app] .app-plantao-canais { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+:root[data-app] .app-plantao-quem { margin: 0.3rem 0 0; font-weight: 600; }
+:root[data-app] .app-plantao-abrir { display: inline-flex; align-items: center; min-height: 44px; margin-top: 0.5rem; margin-right: 0.8rem; text-decoration: underline; color: #8a1c14; }
+
+/* Leitor de matéria do jornal dentro do app (Eu → Jornal → matéria): chapéu, manchete, assinatura, capa e texto. */
+:root[data-app] .app-materia-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-materia-cabeca { margin: 0 1rem; }
+:root[data-app] .app-materia-editoria { margin: 0.5rem 0 0; font: 600 0.72rem/1.2 var(--font-mono, ui-monospace, monospace); letter-spacing: 0.15em; text-transform: uppercase; color: #8a1c14; }
+:root[data-app] .app-materia-cabeca h1 { margin: 0.5rem 0 0; font-size: 2.1rem; line-height: 1.08; }
+:root[data-app] .app-materia-linha-fina { margin: 0.8rem 0 0; font-size: 1.2rem; line-height: 1.3; color: #3d352c; }
+:root[data-app] .app-materia-assinatura { margin: 1rem 0 0; padding: 0.6rem 0; border-top: 2px solid #1f1a14; border-bottom: 2px solid #1f1a14; font: 600 0.7rem/1.4 var(--font-mono, ui-monospace, monospace); letter-spacing: 0.08em; text-transform: uppercase; }
+:root[data-app] .app-materia-capa { margin: 1rem 1rem 0; }
+:root[data-app] .app-materia-capa img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border: 2px solid #1f1a14; }
+:root[data-app] .app-materia-capa figcaption { margin-top: 0.4rem; font: 400 0.68rem/1.3 var(--font-mono, ui-monospace, monospace); text-transform: uppercase; color: #3d352c; }
+:root[data-app] .app-materia-texto { margin: 1.25rem 1rem 0; min-width: 0; font-size: 1.1rem; line-height: 1.6; overflow-wrap: anywhere; }
+:root[data-app] .app-plantao-aviso + .app-titulo-secao { margin-top: 1.5rem; }
+
+/* Estatuto dentro do app (Eu → Instituto → Estatuto): os 13 artigos e a acessibilidade, na coluna do app. */
+:root[data-app] .app-estatuto-tela { display: flex; flex-direction: column; padding-bottom: 1.5rem; }
+:root[data-app] .app-estatuto-corpo { margin: 0 1rem; min-width: 0; overflow-wrap: anywhere; }
+:root[data-app] .app-estatuto-corpo section { margin-top: 1.5rem; }
+:root[data-app] .app-estatuto-corpo ol { font-size: 1.05rem; line-height: 1.55; }
+
+/* Faixas coladas ao rolar (a "Entregar e corrigir" da prova, índices laterais) e âncoras: no app a barra de cima é a do
+   shell (fixa), não a do navegador; sem isto a faixa ficava por baixo dela. --app-topo vem de ShellDoApp. */
+:root[data-app]:not([data-leitor]) {
+  scroll-padding-top: calc(var(--app-topo, 3.5rem) + 0.75rem);
+}
+:root[data-app][data-topo-fixo]:not([data-leitor]) main [class*="sticky"][class*="top-"]:not([class*="bottom-"]):not([class*="top-["]) {
+  top: calc(var(--app-topo, 3.5rem) + 0.5rem);
+}
+
+/*
+ * Mini-tocador do podcast no app: com capa, título, +30, velocidade, áudio espacial, abrir e fechar numa linha só, o título
+ * ficava com uns poucos pixels (esmagado) num celular de 360 a 412 px. Aqui o título ganha a linha de cima ao lado da capa e
+ * os botões dividem a linha de baixo por igual (cada um com pelo menos 44 px de toque). Só dentro do app (data-app).
+ */
+:root[data-app] .radio-player > div:first-child { flex-wrap: wrap; row-gap: 0.125rem; }
+:root[data-app] .radio-player > div:first-child > p { flex: 1 1 calc(100% - 3.75rem); }
+:root[data-app] .radio-player > div:first-child > :is(button, div):not(p) { flex: 1 1 0; min-width: 2.75rem; min-height: 2.75rem; display: flex; align-items: center; justify-content: center; }
+@media (max-width: 639px) {
+  :root[data-app] .radio-player > div:first-child > button.hidden:not(.app\:max-md\:block) { display: none; }
+}

@@ -2,7 +2,7 @@
 //
 // O aplicativo em dois aparelhos imitados (docs/TESTE-EM-APARELHO-REAL.md, docs/APP-LOJA.md):
 //   1. Galaxy S24, pelo navegador e dentro do WebView do aplicativo ("; wv)" + InstitutoLuciaApp, como o Capacitor se
-//      anuncia): casca de app (barra de baixo de 5 abas), nada rolando para o lado, tela cheia no laboratório.
+//      anuncia): casca de app (barra de baixo de 4 abas), nada rolando para o lado, tela cheia no laboratório.
 //   2. Celular de entrada: 360 x 640, CPU 4 vezes mais lenta, 3G lento. A mesma conferência, com tempo de abertura.
 // Imitar não é o mesmo que usar: o aparelho real continua sendo o roteiro de papel.
 //
@@ -27,14 +27,14 @@ async function rolouParaOLado(page: Page) {
 }
 
 async function temCasca(page: Page) {
-  return (await page.locator("nav.app-casca-abas").count()) > 0;
+  return (await page.locator("nav.shell-abas").count()) > 0;
 }
 
 function conferir(nome: string, uso: Parameters<typeof test.use>[0]) {
   test.describe(nome, () => {
     test.use(uso);
 
-    test("sem rolagem para o lado nas telas das 5 abas", async ({ page }) => {
+    test("sem rolagem para o lado nas telas das abas", async ({ page }) => {
       for (const caminho of PAGINAS) {
         await page.goto(caminho, { waitUntil: "domcontentloaded" });
         await page.waitForLoadState("load");
@@ -43,7 +43,7 @@ function conferir(nome: string, uso: Parameters<typeof test.use>[0]) {
       }
     });
 
-    test("barra de baixo com 5 abas e voltar pelo botão", async ({ page }, info) => {
+    test("barra de baixo com 4 abas e voltar pelo botão", async ({ page }, info) => {
       // O convite ao apoio abre já na primeira página e cobre a barra: fica fechado, como em e2e/ajuda.ts (abrir).
       await page.addInitScript(() => {
         if (!window.localStorage.getItem("lucia:aviso")) window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() }));
@@ -55,14 +55,16 @@ function conferir(nome: string, uso: Parameters<typeof test.use>[0]) {
         info.annotations.push({ type: "casca", description: "sem casca neste build (build anterior ao pacote app-casca)" });
         return;
       }
-      const abas = page.locator("nav.app-casca-abas a");
-      await expect(abas).toHaveCount(5);
+      // Quatro abas (Início, Estudar, Jogos e labs, Eu): a Alumia não é uma aba do app. No celular a casca do app é a mesma no
+      // navegador, e o endereço da raiz leva ao Início do app (/pt/app).
+      const abas = page.locator("nav.shell-abas a");
+      await expect(abas).toHaveCount(4);
       await abas.nth(2).click(); // Jogos e labs
-      await expect(page).toHaveURL(/\/pt\/jogos/);
+      await expect(page).toHaveURL(/\/pt\/app\/jogos/);
       await page.goBack();
-      await expect(page).toHaveURL(/\/pt\/?$/);
+      await expect(page).toHaveURL(/\/pt\/app\/?$/);
       // A barra da BottomNav do site não pode aparecer junto (sem barra dupla).
-      expect(await page.locator("nav.abas-do-celular:not(.app-casca-abas)").filter({ has: page.locator("a") }).evaluateAll((els) => els.filter((e) => getComputedStyle(e).display !== "none").length)).toBe(0);
+      expect(await page.locator("nav.abas-do-celular:not(.app-casca-abas):not(.shell-abas)").filter({ has: page.locator("a") }).evaluateAll((els) => els.filter((e) => getComputedStyle(e).display !== "none").length)).toBe(0);
     });
 
     test("laboratório aberto fica em tela cheia, sem a barra de baixo", async ({ page }, info) => {
@@ -71,7 +73,7 @@ function conferir(nome: string, uso: Parameters<typeof test.use>[0]) {
         info.annotations.push({ type: "casca", description: "sem casca neste build" });
         return;
       }
-      await expect(page.locator("nav.app-casca-abas")).toBeHidden();
+      await expect(page.locator("nav.shell-abas")).toBeHidden();
     });
   });
 }

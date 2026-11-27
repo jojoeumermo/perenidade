@@ -109,7 +109,10 @@ export function OpeningNotice({ initial, close }: { initial: Notice | null; clos
   const notice = avisoVale ? aviso : CONVITE;
   const [agora] = useState(() => Date.now());
   const fechado = notice === CONVITE ? Boolean(saved.apoio && agora - saved.apoio < TRINTA_DIAS) : saved.fechado === notice!.versao;
-  const show = Boolean(hydrated && lang === "pt" && !inside && !naAlumia && !fechado);
+  // No aplicativo instalado, o convite ao apoio não abre sozinho na primeira tela: o apoio mora como cartão na aba Eu.
+  // Avisos de verdade do painel continuam entrando. No navegador, nada muda.
+  const noApp = hydrated && typeof document !== "undefined" && document.documentElement.hasAttribute("data-app");
+  const show = Boolean(hydrated && lang === "pt" && !inside && !naAlumia && !fechado && !(noApp && notice === CONVITE));
 
   useEffect(() => {
     const element = dialog.current;

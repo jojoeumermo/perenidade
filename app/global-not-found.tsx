@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { EB_Garamond, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import { InicioDoAppNaoEncontrado } from "@/components/app/InicioDoAppNaoEncontrado";
 import Link from "@/components/Link";
 import pt from "@/i18n/pt.json";
 import { prefsScript } from "@/lib/prefs";
@@ -41,14 +42,16 @@ export default function GlobalNotFound() {
           <h1 className="mt-3 text-5xl font-semibold leading-tight [text-wrap:balance]">{t.title}</h1>
           <p className="mx-auto mt-4 max-w-xl text-xl text-ink-soft">{t.text}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link href="/pt/busca" className="botao botao-prelo">
+            {/* Só com <html data-app> (aplicativo instalado ou celular no navegador): volta para o início do app, onde está a barra de baixo. */}
+            <InicioDoAppNaoEncontrado className="botao botao-prelo hidden app:inline-flex">Início do app</InicioDoAppNaoEncontrado>
+            <Link href="/pt/busca" className="botao botao-prelo app:hidden">
               {t.search}
             </Link>
-            <Link href="/pt" className="botao botao-papel">
+            <Link href="/pt" className="botao botao-papel app:hidden">
               {t.home}
             </Link>
           </div>
-          <p className="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-2 font-sans text-sm">
+          <p className="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-2 font-sans text-sm app:hidden">
             <Link href="/pt/trilhas" className="underline hover:text-oxblood">
               {pt.nav.disciplines}
             </Link>
