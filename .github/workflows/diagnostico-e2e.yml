@@ -1,0 +1,46 @@
+name: Diagnóstico e2e (temporário, PR #65)
+
+# TEMPORÁRIO: o conjunto inteiro de e2e/ dividido em partes (o ponta-a-ponta.yml estoura os 40 min de uma vez só), no
+# computador e no celular. Mesma base do ponta-a-ponta.yml: Chrome do runner, banco de teste local, sem segredo,
+# contents:read. Sai do ramo por commit próprio.
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/diagnostico-e2e.yml"
+
+concurrency:
+  group: diagnostico-e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  parte:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        projeto: [computador, celular]
+        parte: [1, 2, 3, 4, 5, 6]
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      - name: e2e parte ${{ matrix.parte }}/6 (${{ matrix.projeto }})
+        run: npx playwright test --project=${{ matrix.projeto }} --grep-invert "fumaça:" --shard=${{ matrix.parte }}/6 --trace=retain-on-failure --reporter=list --output=test-results/p
+        env:
+          CI: "1"
+          ALUMIA_VOTO_SEGREDO: "segredo-so-de-teste-do-e2e-0123456789abcdef"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: failure()
+        with:
+          name: rastros-${{ matrix.projeto }}-${{ matrix.parte }}
+          path: test-results/
+          retention-days: 3
