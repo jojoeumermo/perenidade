@@ -21,6 +21,7 @@ async function fotoGeral(page: Page, nome: string, cheia = false) {
   await page.screenshot({ path: `test-results/capturas/${ROTULO}-${nome}.png`, fullPage: cheia, ...(nome.startsWith("site-") ? {} : { style: "nextjs-portal { display: none !important }" }) });
 }
 const foto = fotoGeral;
+
 const atributo = (page: Page, a: string) => page.evaluate((n) => document.documentElement.hasAttribute(n), a);
 
 // O aplicativo instalado é reconhecido pelo <html data-app>, posto pelo prefsScript (lib/prefs-script.ts) no modo standalone, no
@@ -107,6 +108,23 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     if (v.simula) await page.addInitScript(SIMULA_STANDALONE);
   });
   const foto = (page: Page, nome: string, cheia = false) => fotoGeral(page, `${v.id}-${nome}`, cheia);
+
+  // Fim da rolagem de uma tela do app: nenhum controle visível do conteúdo fica sob a barra de abas (medido), com foto da tela inteira.
+  async function fimDaTela(page: Page, nome: string, corpo: string) {
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await page.waitForTimeout(600);
+  const r = await page.evaluate((c) => {
+    const abas = document.querySelector(".shell-abas")?.getBoundingClientRect();
+    const itens = [...document.querySelectorAll(`${c} button, ${c} a, ${c} input, ${c} summary`)].filter((e) => (e as HTMLElement).offsetParent !== null && !e.closest("details:not([open]) > :not(summary)"));
+    const base = Math.max(0, ...itens.map((e) => e.getBoundingClientRect().bottom));
+    return { topoDasAbas: abas ? Math.round(abas.top) : null, fimDoUltimo: Math.round(base), controles: itens.length, folga: abas ? Math.round(abas.top - base) : null };
+  }, corpo);
+  console.log(`FIM-TELA ${nome} ${JSON.stringify(r)}`);
+  await foto(page, `${nome}-fim`);
+  await foto(page, `${nome}-inteira`, true);
+  expect(r.controles).toBeGreaterThan(0);
+  if (r.folga !== null) expect(r.folga).toBeGreaterThanOrEqual(-1);
+}
 
   test("primeira abertura do app: sem modal de apoio", async ({ page }) => {
     await page.goto("/pt/app");
@@ -342,6 +360,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.waitForURL("**/app/eu/saude");
     await expect(page.locator('.app-saude-emergencia a[href="tel:192"]')).toBeVisible();
     await foto(page, "app-saude");
+    await fimDaTela(page, "app-saude", "main");
   });
 
   test("mural do app: o cartão da aba Eu abre regras, anúncios e como funciona", async ({ page }) => {
@@ -366,6 +385,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.waitForURL("**/app/eu/acervo");
     await expect(page.locator(".app-acervo-corpo")).toBeVisible();
     await foto(page, "app-acervo");
+    await fimDaTela(page, "app-acervo", "main");
   });
 
   test("plantão do app: o cartão da aba Eu abre os canais de dúvida", async ({ page }) => {
@@ -377,6 +397,7 @@ for (const v of VARIANTES) test.describe(`app instalado (390 px, ${v.id})`, () =
     await page.waitForURL("**/app/eu/plantao");
     await expect(page.locator('.app-plantao-canal[data-canal="reforco"]')).toBeVisible();
     await foto(page, "app-plantao");
+    await fimDaTela(page, "app-plantao", "main");
   });
 
   test("matéria do app: abrir uma matéria da lista do jornal mostra o leitor do app", async ({ page }) => {
@@ -1029,7 +1050,7 @@ test.describe("margem sob a barra: faixa da prova no navegador do celular, fora 
     }
     await page.goto("/pt/enem/plano", { waitUntil: "domcontentloaded" });
     await page.waitForLoadState("networkidle").catch(() => {});
-    await page.locator(".barra-do-celular button[aria-label], .barra-do-celular a[aria-label]").first().click({ timeout: 8000 }).catch((e) => console.log(`VOLTAR-NAVEGADOR-ERRO ${String(e).slice(0, 80)}`));
+    await page.locator(".shell-topo button[aria-label]").first().click({ timeout: 8000 }).catch((e) => console.log(`VOLTAR-NAVEGADOR-ERRO ${String(e).slice(0, 80)}`));
     const subiu = await page.waitForURL((u) => u.pathname.replace(/\/$/, "") === "/pt/enem", { timeout: 10000 }).then(() => true).catch(() => false);
     console.log(`VOLTAR-NAVEGADOR enem/plano -> ${page.url()} subiu=${subiu}`);
   });
