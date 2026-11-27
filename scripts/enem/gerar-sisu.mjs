@@ -178,6 +178,52 @@ if (oficial.size > 0) {
   for (const o of novas) ofertas.set(`oficial:${o.cod}`, o);
 }
 
+const CORRECOES_PESOS_IFSP = {
+  319107: [1, 1, 1, 2, 1], // ENGENHARIA CIVIL - Votuporanga (antes: [1, 1, 1, 1, 1])
+  319109: [1, 2, 1, 2, 1], // MATEMÁTICA - Campos do Jordão (antes: [1, 1, 1, 1, 1])
+  319110: [1, 1, 2, 4, 2], // ENGENHARIA DE CONTROLE E AUTOMAÇÃO - São José dos Campos (antes: [1, 1, 1, 1, 1])
+  319112: [2, 1, 1, 1, 2], // LETRAS - Itaquaquecetuba (antes: [1, 1, 1, 1, 1])
+  319114: [2, 1, 2, 5, 3], // ENGENHARIA DE PRODUÇÃO - Registro (antes: [1, 1, 1, 1, 1])
+  319115: [2, 1, 2, 2, 2], // QUÍMICA INDUSTRIAL - Suzano (antes: [1, 1, 1, 1, 1])
+  319120: [3, 2, 1, 2, 3], // PEDAGOGIA - Jacareí (antes: [1, 1, 1, 1, 1])
+  319122: [1, 1, 1, 1, 2], // PEDAGOGIA - Registro (antes: [1, 1, 1, 1, 1])
+  319150: [1, 1, 2, 4, 2], // ENGENHARIA MECÂNICA - São José dos Campos (antes: [1, 1, 1, 1, 1])
+  319153: [3, 2, 5, 5, 3], // ENGENHARIA DE CONTROLE E AUTOMAÇÃO - Hortolândia (antes: [1, 1, 1, 1, 1])
+  319168: [1, 1, 1, 4, 2], // MATEMÁTICA - São José dos Campos (antes: [1, 1, 1, 1, 1])
+  319178: [1, 1, 1, 4, 2], // QUÍMICA - São José dos Campos (antes: [1, 1, 1, 1, 1])
+  319185: [1, 1, 1, 2, 2], // SISTEMAS DE INFORMAÇÃO - Votuporanga (antes: [1, 1, 1, 1, 1])
+  319191: [2, 1, 2, 2, 2], // QUÍMICA - Suzano (antes: [1, 1, 1, 1, 1])
+  319193: [1, 1, 2, 2, 1], // FÍSICA - Caraguatatuba (antes: [1, 1, 1, 1, 1])
+  319195: [1, 1, 1, 2, 1], // MATEMÁTICA - Itaquaquecetuba (antes: [1, 1, 1, 1, 1])
+  319199: [1, 1, 1, 3, 1], // MATEMÁTICA - Hortolândia (antes: [1, 1, 1, 1, 1])
+  319211: [3, 1, 1, 3, 2], // ANÁLISE E DESENVOLVIMENTO DE SISTEMAS - Hortolândia (antes: [1, 1, 1, 1, 1])
+  319212: [3, 2, 1, 1, 4], // PEDAGOGIA - Sorocaba (antes: [1, 1, 1, 1, 1])
+  319218: [2, 1, 1, 2, 1], // ENGENHARIA DE SOFTWARE - São Carlos (antes: [1, 1, 1, 1, 1])
+  319230: [2, 1, 1, 3, 2], // ENGENHARIA DE CONTROLE E AUTOMAÇÃO - Suzano (antes: [1, 1, 1, 1, 1])
+  319231: [2, 1, 1, 2, 2], // ADMINISTRAÇÃO - Jacareí (antes: [1, 1, 1, 1, 1])
+  319249: [1, 1, 1.5, 2, 1], // ENGENHARIA MECÂNICA - Itaquaquecetuba (antes: [1, 1, 1, 1, 1])
+  319251: [1, 1, 2, 2, 1], // ENGENHARIA DE COMPUTAÇÃO - Guarulhos (antes: [1, 1, 1, 1, 1])
+  319255: [2, 1, 1, 4, 2], // ANÁLISE E DESENVOLVIMENTO DE SISTEMAS - Caraguatatuba (antes: [1, 1, 1, 1, 1])
+  319276: [1, 1, 2, 3, 1], // ANÁLISE E DESENVOLVIMENTO DE SISTEMAS - Jacareí (antes: [1, 1, 1, 1, 1])
+  319277: [2, 1, 1, 2, 2], // GESTÃO DE RECURSOS HUMANOS - Sorocaba (antes: [1, 1, 1, 1, 1])
+  319281: [1, 1, 2, 1, 1], // FÍSICA - Registro (antes: [1, 1, 1, 1, 1])
+  319282: [2, 1, 1, 2, 2], // ADMINISTRAÇÃO - Suzano (antes: [1, 1, 1, 1, 1])
+  319284: [1, 1, 2, 2, 1], // ENGENHARIA DE CONTROLE E AUTOMAÇÃO - Guarulhos (antes: [1, 1, 1, 1, 1])
+  319285: [1, 1, 2, 1, 2], // CIÊNCIAS BIOLÓGICAS - Avaré (antes: [1, 1, 1, 1, 1])
+  319287: [1, 1, 1, 2, 2], // ENGENHARIA ELÉTRICA - Votuporanga (antes: [1, 1, 1, 1, 1])
+  319297: [1, 1, 1, 2, 1], // SISTEMAS DE INFORMAÇÃO - São Paulo (antes: [1, 1, 1, 1, 1])
+  319300: [3, 2, 1, 4, 5], // PROCESSOS GERENCIAIS - Caraguatatuba (antes: [1, 1, 1, 1, 1])
+};
+// Pesos do IFSP comprovadamente errados no sisu-data (todos os 141 cursos do IFSP
+// uniformemente [1,1,1,1,1], padrão de default da coleta). Os 34 valores abaixo foram
+// lidos do termo de adesão oficial do IFSP ao Sisu 2025
+// (processoseletivo.ifsp.edu.br/media/public/9/9l78z5fn5rx8o5v3yx2p0dpii/8t/8thpudl2rzefg6ccey70fb1td.pdf),
+// com duas extrações independentes conferindo iguais e identidade
+// campus+grau+turno confirmada curso a curso. Ordem: LC, CH, CN, MT, RED.
+for (const o of ofertas.values()) {
+  if (o.co in CORRECOES_PESOS_IFSP) o.p = CORRECOES_PESOS_IFSP[o.co];
+}
+
 // Só ofertas da edição mais nova (o catálogo do que dá para escolher agora), com ao menos uma nota de corte.
 const lista = [...ofertas.values()].filter((o) => (o.co || o.cod) && Object.keys(o.c).length > 0)
   .sort((a, b) => a.uf.localeCompare(b.uf) || a.ies.localeCompare(b.ies) || a.curso.localeCompare(b.curso));
@@ -192,7 +238,7 @@ const cortes = oficial.size > 0 ? {
   "2025": "Igual à nota final da chamada regular (conferido com o relatório oficial do MEC; onde o relatório registra 0 não há nota de corte para mostrar)",
 } : undefined;
 const saida = {
-  fonte: "Notas de corte e pesos do Sisu (MEC) coletados pelo projeto sisu-data (MIT): github.com/maiakanegae/sisu-data. As notas de corte foram conferidas com os relatórios oficiais do MEC (gov.br/mec/sisu); os pesos não constam nesses relatórios e não foram conferidos",
+  fonte: "Notas de corte e pesos do Sisu (MEC) coletados pelo projeto sisu-data (MIT): github.com/maiakanegae/sisu-data. As notas de corte foram conferidas com os relatórios oficiais do MEC (gov.br/mec/sisu); os pesos não constam nesses relatórios; vêm do sisu-data e estão sendo conferidos contra os termos de adesão oficiais de cada instituição — os do IFSP divergiam do termo oficial 2025 e foram corrigidos",
   gerado: new Date().toISOString().slice(0, 10),
   anos: ANOS,
   cortes,

@@ -103,5 +103,18 @@ for (const o of comCodigo)
   }
 console.log(`${comCodigo.length} entradas separadas por código MEC, todas as notas batendo com o código certo`);
 
+// pesos do IFSP corrigidos contra o termo de adesão oficial 2025 (ordem LC, CH, CN, MT, RED);
+// fonte e método no comentário de CORRECOES_PESOS_IFSP em gerar-sisu.mjs
+{
+  const esperado = { 319107: [1, 1, 1, 2, 1], 319109: [1, 2, 1, 2, 1], 319110: [1, 1, 2, 4, 2], 319112: [2, 1, 1, 1, 2], 319114: [2, 1, 2, 5, 3], 319115: [2, 1, 2, 2, 2], 319120: [3, 2, 1, 2, 3], 319122: [1, 1, 1, 1, 2], 319150: [1, 1, 2, 4, 2], 319153: [3, 2, 5, 5, 3], 319168: [1, 1, 1, 4, 2], 319178: [1, 1, 1, 4, 2], 319185: [1, 1, 1, 2, 2], 319191: [2, 1, 2, 2, 2], 319193: [1, 1, 2, 2, 1], 319195: [1, 1, 1, 2, 1], 319199: [1, 1, 1, 3, 1], 319211: [3, 1, 1, 3, 2], 319212: [3, 2, 1, 1, 4], 319218: [2, 1, 1, 2, 1], 319230: [2, 1, 1, 3, 2], 319231: [2, 1, 1, 2, 2], 319249: [1, 1, 1.5, 2, 1], 319251: [1, 1, 2, 2, 1], 319255: [2, 1, 1, 4, 2], 319276: [1, 1, 2, 3, 1], 319277: [2, 1, 1, 2, 2], 319281: [1, 1, 2, 1, 1], 319282: [2, 1, 1, 2, 2], 319284: [1, 1, 2, 2, 1], 319285: [1, 1, 2, 1, 2], 319287: [1, 1, 1, 2, 2], 319297: [1, 1, 1, 2, 1], 319300: [3, 2, 1, 4, 5] };
+  const achados = new Map(ofertas.filter((o) => o.co in esperado).map((o) => [o.co, o.p]));
+  ok(achados.size === Object.keys(esperado).length, `IFSP: esperadas ${Object.keys(esperado).length} ofertas com peso corrigido, achadas ${achados.size}`);
+  for (const [co, p] of Object.entries(esperado)) {
+    ok(JSON.stringify(achados.get(Number(co))) === JSON.stringify(p), `IFSP co_ies_curso ${co}: pesos ${JSON.stringify(achados.get(Number(co)))}, esperados ${JSON.stringify(p)}`);
+  }
+  console.log(`IFSP: ${achados.size} pesos corrigidos conferindo com o termo de adesão oficial 2025`);
+}
+
+
 if (falhas > 0) { console.error(`\n${falhas} falha(s)`); process.exit(1); }
 console.log("\ntodos os testes do Sisu passaram");
