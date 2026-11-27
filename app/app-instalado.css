@@ -650,6 +650,19 @@
   border-style: dashed;
 }
 
+/* Tela cheia (laboratório aberto): a barra de abas sai e o conteúdo usa o pé todo. Por endereço (data-tela-cheia-rota) só a de baixo
+   sai e a de cima fica com o voltar; pelo gancho da página (data-tela-cheia) saem as duas. As mesmas marcas da casca antiga. */
+:root[data-app]:is([data-tela-cheia], [data-tela-cheia-rota]) .shell-abas,
+:root[data-app][data-tela-cheia] .shell-topo {
+  display: none !important;
+}
+:root[data-app]:is([data-tela-cheia], [data-tela-cheia-rota]):not([data-leitor]) main#conteudo {
+  padding-bottom: var(--recuo-baixo) !important;
+}
+:root[data-app][data-tela-cheia]:not([data-leitor]) main#conteudo {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
 /* O leitor da aula: sem barra de abas; a barra fixa de concluir fica no lugar dela. */
 :root[data-app] body:has(.app-aula) .shell-abas {
   display: none;
