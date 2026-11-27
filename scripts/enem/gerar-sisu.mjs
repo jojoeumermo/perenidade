@@ -135,10 +135,20 @@ if (oficial.size > 0) {
       // anos sem relatório oficial (2020, 2021, 2023) não dá para atribuir a um código: ficam de fora das entradas novas
       anosPerdidos += Object.keys(base.c).filter((a) => !ANOS_OFICIAIS.includes(Number(a))).length;
     }
+    // O que distingue cada código, quando fonte oficial sustenta (termo de adesão / edital da IES, edição 2025):
+    // UFMS ingresso.ufms.br/files/2024/12/termo_adesao_694_UFMS-1.pdf (turnos/semestres de entrada);
+    // IFRN Edital 03/2025 retificado (habilitações). UEM e UFBA: o termo não distingue os códigos — fica só o código.
+    const DET_POR_COD = {
+      "15837": "matutino/vespertino, entrada no 1º semestre",
+      "1128355": "vespertino/noturno, entrada no 2º semestre",
+      "1357991": "habilitação Ciências Humanas e Sociais",
+      "1357992": "habilitação Matemática",
+    };
     for (const e of porCod.values()) {
       const meta = e.meta;
-      if (base) novas.push({ ...base, c: { ...e.c }, v: e.v || base.v, cod: e.cod, co: undefined });
-      else novas.push({ curso: meta.curso, grau: meta.grau, turno: meta.turno, campus: meta.campus, cidade: meta.cidade, uf: meta.uf, ies: meta.ies, sg: meta.sg, sm: 1, v: e.v, c: e.c, cod: e.cod });
+      const det = DET_POR_COD[e.cod] ? { det: DET_POR_COD[e.cod] } : {};
+      if (base) novas.push({ ...base, c: { ...e.c }, v: e.v || base.v, cod: e.cod, co: undefined, ...det });
+      else novas.push({ curso: meta.curso, grau: meta.grau, turno: meta.turno, campus: meta.campus, cidade: meta.cidade, uf: meta.uf, ies: meta.ies, sg: meta.sg, sm: 1, v: e.v, c: e.c, cod: e.cod, ...det });
     }
   }
   if (ambiguas.size) console.log(`chaves ambíguas separadas por código MEC: ${ambiguas.size} (→ ${novas.length} entradas; ${anosPerdidos} notas de anos sem conferência ficaram de fora)`);

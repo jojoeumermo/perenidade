@@ -39,6 +39,8 @@ export type OfertaSisu = {
   co?: number;
   /** Código MEC do curso (CO_IES_CURSO) quando o nome vale para mais de um código com cortes diferentes. */
   cod?: string;
+  /** O que distingue o código (turno/semestre de entrada, habilitação), quando fonte oficial sustenta. */
+  det?: string;
   /** Sem pesos divulgados (oferta que só existe nos relatórios oficiais): a média mostrada é a simples. */
   sm?: 1;
   /** A nota do ano mais novo veio do relatório oficial do MEC, não do scraping. */
