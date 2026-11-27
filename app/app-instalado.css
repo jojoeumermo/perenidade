@@ -665,7 +665,9 @@
 }
 
 /* O leitor da aula: sem barra de abas; a barra fixa de concluir fica no lugar dela. */
-:root[data-app] body:has(.app-aula) .shell-abas {
+:root[data-app] body:has(.app-aula) .shell-abas,
+/* Com a Escola ligada a barra de baixo do site também existe (BottomNav); no leitor da aula ela some junto com a do app. */
+:root[data-app] body:has(.app-aula) nav.abas-do-celular {
   display: none;
 }
 :root[data-app]:not([data-leitor]) body:has(.app-aula) main#conteudo {
