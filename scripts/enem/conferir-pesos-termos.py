@@ -27,18 +27,18 @@ def extrair(pdf):
     cru = subprocess.run(["pdftotext", str(pdf), "-"], capture_output=True, text=True).stdout
     nomes = {}
     for ln in cru.splitlines():
-        mn = re.match(r"^\s*(\d{4,7})\s*-\s*(.{3,120})$", ln.strip())
+        mn = re.match(r"^\s*(\d{3,7})\s*-\s*(.{3,120})$", ln.strip())
         if mn and mn.group(1) not in nomes:
             nomes[mn.group(1)] = mn.group(2).strip()
     KW = [("REDACAO", 4), ("NATUREZA", 2), ("HUMANAS", 1), ("LINGUAGENS", 0), ("MATEMATICA", 3)]
     out = {}
-    blocos = re.split(r"(?=^\s*\d{4,7} - [A-ZÀ-Ú])", txt, flags=re.M)
+    blocos = re.split(r"(?=^\s*\d{3,7} - [A-ZÀ-Ú])", txt, flags=re.M)
     # cidade do Local de Oferta mais recente antes de cada bloco
     locais = [(mm.start(), mm.group(1)) for mm in re.finditer(r"Local de Oferta: \d+ - [^()]+\(([^(),]+),\s*[A-Z]{2}\)", txt)]
     pos = 0
-    bounds = [mm.start() for mm in re.finditer(r"(?=^\s*\d{4,7} - [A-ZÀ-Ú])", txt, flags=re.M)]
+    bounds = [mm.start() for mm in re.finditer(r"(?=^\s*\d{3,7} - [A-ZÀ-Ú])", txt, flags=re.M)]
     for i, b in enumerate(blocos):
-        m = re.match(r"\s*(\d{4,7}) - (.+)", b)
+        m = re.match(r"\s*(\d{3,7}) - (.+)", b)
         if not m or "PERCENTUAIS" not in b[:6000]:
             continue
         cod, nome = m.group(1), m.group(2).strip()
