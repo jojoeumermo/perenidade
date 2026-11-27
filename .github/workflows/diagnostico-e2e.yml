@@ -16,6 +16,34 @@ permissions:
   contents: read
 
 jobs:
+  validacao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        projeto: [computador, celular]
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      - name: podcast com episódios semeados e lambes
+        run: npx playwright test e2e/zz-validacao --project=${{ matrix.projeto }} --retries=0 --reporter=list --output=test-results/p
+        env:
+          CI: "1"
+          SEMEAR_PODCAST: "3"
+          ALUMIA_VOTO_SEGREDO: "segredo-so-de-teste-do-e2e-0123456789abcdef"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: validacao-${{ matrix.projeto }}
+          path: test-results/
+          retention-days: 3
   parte:
     runs-on: ubuntu-latest
     timeout-minutes: 45
@@ -34,7 +62,7 @@ jobs:
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
       - name: e2e parte ${{ matrix.parte }}/6 (${{ matrix.projeto }})
-        run: npx playwright test --project=${{ matrix.projeto }} --grep-invert "fumaça:" --shard=${{ matrix.parte }}/6 --trace=retain-on-failure --reporter=list --output=test-results/p
+        run: npx playwright test --project=${{ matrix.projeto }} --grep-invert "fumaça:|podcast: episódio semeado|lambe do dia: amostra" --shard=${{ matrix.parte }}/6 --trace=retain-on-failure --reporter=list --output=test-results/p
         env:
           CI: "1"
           ALUMIA_VOTO_SEGREDO: "segredo-so-de-teste-do-e2e-0123456789abcdef"
