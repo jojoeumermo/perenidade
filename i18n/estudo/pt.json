@@ -676,7 +676,11 @@
       "cortesConferidos": "Notas de corte de 2020, 2022, 2023, 2024 e 2025: iguais à nota final da chamada regular, conferidas oferta por oferta com os relatórios oficiais do MEC.",
       "cortes2021": "2021: última parcial coletada da API; não validada — não encontramos relatório oficial da edição 2021/1.",
       "cortesPesos": "Pesos: coletados da API do Sisu na edição mais recente em que a oferta apareceu (2025 na maioria); não constam nos relatórios oficiais e não foram conferidos com os termos de adesão das universidades.",
-      "cortesSemNota": "Ofertas sem nota de 2025: o relatório oficial registra 0 nesses casos, então não há nota de corte para mostrar."
+      "cortesSemNota": "Ofertas sem nota de 2025: o relatório oficial registra 0 nesses casos, então não há nota de corte para mostrar.",
+      "semCorteTitulo": "Sem nota de corte nos dados históricos consultados (2020–2025)",
+      "semCorteTexto": "O relatório oficial do Sisu 2025 registra 0 na ampla concorrência desta oferta (ninguém classificado pela nota), e ela não tem nota de corte de 2020 a 2025 nos dados históricos consultados. Por isso o simulador não estima a sua chance aqui.",
+      "semCorteVagas": "Consta no Sisu {a} com {n} vagas na ampla concorrência.",
+      "semCorteSemVagas": "Consta no Sisu {a} sem vagas na ampla concorrência."
     },
     "escolas": {
       "titulo": "Ranking de escolas pelo Enem 2024",

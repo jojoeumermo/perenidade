@@ -3,7 +3,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { fill } from "@/i18n/config";
-import { mediaDaOferta, ultimoCorte, PROVAS_DO_SISU, type CatalogoSisu, type OfertaSisu, type ProvaDoSisu } from "@/lib/enem-sisu";
+import { mediaDaOferta, ultimoCorte, PROVAS_DO_SISU, type CatalogoSisu, type CatalogoSisuSemCorte, type OfertaSisu, type OfertaSisuSemCorte, type ProvaDoSisu } from "@/lib/enem-sisu";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
 
 const campo = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
@@ -17,6 +17,7 @@ export function SimuladorSisu({ nomes, s }: { nomes: Record<ProvaDoSisu, string>
   const [busca, setBusca] = useState("");
   const [uf, setUf] = useState("");
   const [catalogo, setCatalogo] = useState<CatalogoSisu | null>(null);
+  const [catalogoSemCorte, setCatalogoSemCorte] = useState<OfertaSisuSemCorte[]>([]);
   const [falha, setFalha] = useState(false);
 
   useEffect(() => {
@@ -24,12 +25,25 @@ export function SimuladorSisu({ nomes, s }: { nomes: Record<ProvaDoSisu, string>
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
       .then(setCatalogo)
       .catch(() => setFalha(true));
+    // arquivo pequeno à parte: ofertas do Sisu 2025 sem nota de corte nos dados consultados (aviso honesto)
+    fetch("/sisu/ofertas-sem-corte.json")
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then((d: CatalogoSisuSemCorte) => setCatalogoSemCorte(d.ofertas ?? []))
+      .catch(() => setCatalogoSemCorte([]));
   }, []);
 
   const ler = (v: string | undefined) => (v === undefined || v.trim() === "" ? undefined : Number(v.replace(",", ".")));
   const notasLidas = useMemo(() => Object.fromEntries(PROVAS_DO_SISU.map((p) => [p, ler(notas[p])])), [notas]);
 
   const ufs = useMemo(() => [...new Set((catalogo?.ofertas ?? []).map((o) => o.uf))].sort(), [catalogo]);
+  // ofertas sem corte nos dados consultados: só na busca (texto digitado), nunca por nota — não há estimativa
+  const semCorte = useMemo(() => {
+    const q = busca.normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase().trim();
+    if (q === "") return [];
+    const porTexto = (o: OfertaSisuSemCorte) =>
+      [o.curso, o.ies, o.sg, o.cidade, o.campus].some((t) => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase().includes(q));
+    return catalogoSemCorte.filter((o) => (uf === "" || o.uf === uf) && porTexto(o));
+  }, [catalogoSemCorte, busca, uf]);
   const achadas = useMemo(() => {
     if (!catalogo) return [];
     const q = busca.normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase().trim();
@@ -106,6 +120,23 @@ export function SimuladorSisu({ nomes, s }: { nomes: Record<ProvaDoSisu, string>
         ))}
         {catalogo !== null && achadas.length === 0 && <li className="font-sans text-sm">{s.semResultado}</li>}
       </ul>
+      {semCorte.length > 0 && (
+        <div className="mt-6">
+          <p className="font-mono text-xs uppercase">{s.semCorteTitulo}</p>
+          <ul className="mt-2 space-y-3">
+            {semCorte.slice(0, LIMITE).map((o) => (
+              <li key={`sc-${o.cod}-${o.campus}`} className="border-2 border-dashed border-ink bg-parchment p-4">
+                <p className="font-serif text-base">
+                  {o.curso} <span className="font-sans text-xs">({o.grau}, {o.turno.toLowerCase()})</span>
+                </p>
+                <p className="font-sans text-xs">{o.ies} ({o.sg}) — {o.campus}, {o.cidade}/{o.uf} · {s.codigoMec} {o.cod}</p>
+                <p className="mt-2 font-mono text-xs">{o.v > 0 ? fill(s.semCorteVagas, { n: String(o.v), a: "2025" }) : fill(s.semCorteSemVagas, { a: "2025" })}</p>
+                <p className="mt-1 font-sans text-xs">{s.semCorteTexto}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

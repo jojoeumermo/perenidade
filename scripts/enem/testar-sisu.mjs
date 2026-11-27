@@ -115,6 +115,52 @@ console.log(`${comCodigo.length} entradas separadas por código MEC, todas as no
   console.log(`IFSP: ${achados.size} pesos corrigidos conferindo com o termo de adesão oficial 2025`);
 }
 
+// 4) ofertas-sem-corte.json: exatamente as linhas oficiais de 2025 com nota 0 na ampla que o catálogo
+// não representa (nem por chave, nem por código); aviso honesto no simulador, nunca estimativa
+{
+  const arq = path.join(process.cwd(), "public", "sisu", "ofertas-sem-corte.json");
+  ok(fs.existsSync(arq), "falta public/sisu/ofertas-sem-corte.json (rode gerar-sisu.mjs)");
+  const sc = JSON.parse(fs.readFileSync(arq, "utf8"));
+  ok(sc.ano === 2025 && typeof sc.fonte === "string" && Array.isArray(sc.ofertas), "ofertas-sem-corte.json: estrutura inválida");
+  const oficial25 = [];
+  for (const linha of fs.readFileSync(path.join(dir, "data", "relatorios", "extraidos", "2025.csv"), "utf8").split("\n")) {
+    const c = linha.split(";");
+    if (c.length < 11 || c[0] === "co_ies_curso" || c[0] === "") continue;
+    const nota = numero(c[10]);
+    if (nota === null) continue;
+    oficial25.push({ cod: c[0].trim(), sg: c[1], campus: c[3].trim().replace(/\s+/g, " "), cidade: c[4], curso: c[6].trim().replace(/\s+/g, " "), grau: c[7], turno: c[8], v: Number(c[9]) || 0, nota });
+  }
+  const k6 = (x) => [norm(x.sg), norm(x.cidade), norm(x.campus), norm(x.curso), norm(x.grau), norm(x.turno)].join("|");
+  const chavesCatalogo = new Set(ofertas.map(chave6));
+  const codCatalogo = new Set(ofertas.filter((o) => o.cod).map((o) => o.cod));
+  const coCatalogo = new Set(ofertas.filter((o) => o.co).map((o) => String(o.co)));
+  const representada = (l) => chavesCatalogo.has(k6(l)) || codCatalogo.has(l.cod) || coCatalogo.has(l.cod);
+  // cada entrada do arquivo: identidade completa, casa com uma linha oficial 2025 de nota 0 e não está no catálogo
+  const chavesVistasSc = new Set();
+  for (const o of sc.ofertas) {
+    ok(o.curso && o.grau && o.turno && o.campus && o.cidade && o.uf && o.ies && o.sg && o.cod, `sem-corte sem identidade completa: ${o.sg}/${o.curso}`);
+    ok(Number.isInteger(o.v) && o.v >= 0, `sem-corte com vagas inválidas: ${o.sg}/${o.curso}`);
+    const chave = `${o.cod}|${norm(o.campus)}`;
+    ok(!chavesVistasSc.has(chave), `sem-corte repetida: ${chave}`);
+    chavesVistasSc.add(chave);
+    const oficial = oficial25.find((l) => l.cod === o.cod && k6(l) === k6(o));
+    ok(oficial && oficial.nota === 0, `sem-corte sem linha oficial 2025 de nota 0: ${o.cod} ${o.sg}/${o.curso}/${o.campus}`);
+    if (oficial) ok(oficial.v === o.v, `sem-corte com vagas diferentes do relatório oficial: ${o.cod} (${o.v} no JSON, ${oficial.v} oficial)`);
+    ok(!representada(o), `sem-corte já representada no catálogo: ${o.cod} ${o.sg}/${o.curso}`);
+  }
+  // conjunto exato: nenhuma linha oficial 2025 de nota 0 fora do catálogo pode faltar; nenhuma com nota > 0 pode sobrar fora
+  const esperadas = oficial25.filter((l) => l.nota === 0 && !representada(l));
+  ok(sc.ofertas.length === esperadas.length, `sem-corte: ${sc.ofertas.length} no JSON, ${esperadas.length} esperadas pelo relatório oficial`);
+  const comCorteFora = oficial25.filter((l) => l.nota > 0 && !representada(l));
+  ok(comCorteFora.length === 0, `${comCorteFora.length} linhas oficiais 2025 COM corte fora do catálogo e fora do sem-corte`);
+  // casos conhecidos da investigação (inclui vagas 0, que ficam distintas das de vagas positivas)
+  const conhecidos = { "1123027": 23, "5000477": 23, "99450": 23, "392254": 0, "1633932": 0 };
+  for (const [cod, v] of Object.entries(conhecidos)) {
+    const o = sc.ofertas.find((x) => x.cod === cod);
+    ok(o && o.v === v, `sem-corte: caso conhecido cod ${cod} com ${v} vagas não encontrado`);
+  }
+  console.log(`sem-corte: ${sc.ofertas.length} ofertas sem nota de corte 2020–2025 (${sc.ofertas.filter((o) => o.v > 0).length} com vagas na ampla em 2025, ${sc.ofertas.filter((o) => o.v === 0).length} com 0 vagas), conjunto exato contra o relatório oficial`);
+}
 
 if (falhas > 0) { console.error(`\n${falhas} falha(s)`); process.exit(1); }
 console.log("\ntodos os testes do Sisu passaram");

@@ -247,3 +247,34 @@ const saida = {
 fs.mkdirSync(path.join(process.cwd(), "public", "sisu"), { recursive: true });
 fs.writeFileSync(path.join(process.cwd(), "public", "sisu", "ofertas.json"), JSON.stringify(saida));
 console.log(`ofertas no JSON: ${lista.length} (${(fs.statSync(path.join(process.cwd(), "public", "sisu", "ofertas.json")).size / 1e6).toFixed(1)} MB)`);
+
+// ---- Ofertas do Sisu 2025 sem nota de corte nos dados consultados (2020–2025) ----
+// O relatório oficial de 2025 registra 0 na ampla concorrência dessas ofertas (ninguém classificado pela
+// nota) e elas não têm nenhuma nota de corte de 2020 a 2025 no catálogo. O ofertas.json exige ao menos um
+// corte, então elas ficam fora dele; aqui viram um arquivo separado, só de aviso no simulador (sem média,
+// sem estimativa), para não mudar o contrato do catálogo principal.
+if (oficial.get(2025)) {
+  const chave6o = (o) => [norm(o.sg), norm(o.cidade), norm(o.campus), norm(o.curso), norm(o.grau), norm(o.turno)].join("|");
+  const noCatalogo = new Set(lista.map(chave6o));
+  const codsNoCatalogo = new Set(lista.filter((o) => o.cod).map((o) => o.cod));
+  const cosNoCatalogo = new Set(lista.filter((o) => o.co).map((o) => String(o.co))); // o scraping trunca nomes longos; o código cobre esse caso
+  const semCorte = [];
+  let comCorteFora = 0;
+  for (const [k6, ls] of oficial.get(2025)) {
+    for (const l of ls) {
+      if (noCatalogo.has(k6) || codsNoCatalogo.has(l.cod) || cosNoCatalogo.has(l.cod)) continue;
+      if (l.nota > 0) { comCorteFora++; continue; } // não devia acontecer: a etapa de completar cria essas ofertas
+      semCorte.push({ curso: l.curso, grau: l.grau, turno: l.turno, campus: l.campus, cidade: l.cidade, uf: l.uf, ies: l.ies, sg: l.sg, v: l.v, cod: l.cod });
+    }
+  }
+  if (comCorteFora) console.log(`aviso: ${comCorteFora} linhas oficiais de 2025 COM corte fora do catálogo (conferir)`);
+  semCorte.sort((a, b) => a.uf.localeCompare(b.uf) || a.ies.localeCompare(b.ies) || a.curso.localeCompare(b.curso));
+  const saidaSemCorte = {
+    fonte: "Relatório oficial do MEC da chamada regular do Sisu 2025 (gov.br/mec/sisu): ofertas em que a ampla concorrência registrou nota 0 (sem classificado pela nota) e que não têm nota de corte de 2020 a 2025 nos dados consultados",
+    gerado: new Date().toISOString().slice(0, 10),
+    ano: 2025,
+    ofertas: semCorte,
+  };
+  fs.writeFileSync(path.join(process.cwd(), "public", "sisu", "ofertas-sem-corte.json"), JSON.stringify(saidaSemCorte));
+  console.log(`sem nota de corte 2020–2025: ${semCorte.length} ofertas (${semCorte.filter((o) => o.v > 0).length} com vagas na ampla em 2025, ${semCorte.filter((o) => o.v === 0).length} com 0 vagas)`);
+}

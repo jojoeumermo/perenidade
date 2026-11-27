@@ -56,6 +56,32 @@ export type CatalogoSisu = {
   ofertas: OfertaSisu[];
 };
 
+/** Uma oferta do Sisu 2025 em que o relatório oficial registrou 0 na ampla concorrência (ninguém
+ * classificado pela nota) e que não tem nota de corte de 2020 a 2025 nos dados consultados. Fica em
+ * public/sisu/ofertas-sem-corte.json e aparece no simulador só como aviso: sem média e sem estimativa. */
+export type OfertaSisuSemCorte = {
+  curso: string;
+  grau: string;
+  turno: string;
+  campus: string;
+  cidade: string;
+  uf: string;
+  ies: string;
+  sg: string;
+  /** Vagas da ampla concorrência no Sisu 2025 (relatório oficial); pode ser 0. */
+  v: number;
+  /** Código MEC do curso (CO_IES_CURSO) no Sisu 2025. */
+  cod: string;
+};
+
+export type CatalogoSisuSemCorte = {
+  fonte: string;
+  gerado: string;
+  /** Edição do relatório oficial de onde saíram as vagas (2025). */
+  ano: number;
+  ofertas: OfertaSisuSemCorte[];
+};
+
 /** A média ponderada das notas da pessoa com os pesos desta oferta (os pesos mudam de curso para curso). */
 export function mediaDaOferta(notas: Partial<Record<ProvaDoSisu, number>>, oferta: OfertaSisu): number | null {
   const pesos: Partial<Record<ProvaDoSisu, number>> = {};
