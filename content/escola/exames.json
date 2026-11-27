@@ -77,6 +77,28 @@
       "consultadoEm": "2026-10-30",
       "curso": "enem",
       "fato": "aplicacao-dia-2"
+    },
+    {
+      "exame": "ENEM",
+      "edicao": 2026,
+      "etapa": "Quando saiu o gabarito das provas objetivas",
+      "data": "2026-11-18",
+      "fonte": "https://www.gov.br/inep/pt-br/centrais-de-conteudo/noticias/enem/enem-2026-inep-libera-para-consulta-gabaritos-e-cadernos-de-questoes-do-exame",
+      "orgao": "Inep",
+      "consultadoEm": "2026-11-27",
+      "curso": "enem",
+      "fato": "gabarito-prazo"
+    },
+    {
+      "exame": "ENEM",
+      "edicao": 2026,
+      "etapa": "Data do resultado individual",
+      "data": "2027-01-18",
+      "fonte": "https://www.gov.br/inep/pt-br/centrais-de-conteudo/noticias/enem/resultados-do-enem-serao-divulgados-em-18-de-janeiro",
+      "orgao": "Inep",
+      "consultadoEm": "2026-11-27",
+      "curso": "enem",
+      "fato": "resultado-data"
     }
   ]
 }

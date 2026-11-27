@@ -338,7 +338,7 @@
     "faltaUm": "Falta 1 día para el 1.er día del examen ({data}).",
     "faltamDia2": "Faltan {n} días para el 2.º día del examen ({data}).",
     "ehHoje": "Hoy es día de examen. ¡Mucha suerte!",
-    "jaFoi": "El examen de {ano} ya se realizó. Las respuestas oficiales salen {gabarito}.",
+    "jaFoi": "El examen de {ano} ya se realizó. Las respuestas oficiales se publicaron el {gabarito}.",
     "datasProva": "1.er día: {d1}. 2.º día: {d2}.",
     "fonteDatas": "Fechas de la convocatoria del Inep (el organismo que aplica el examen), verificadas el {data}.",
     "secoes": {

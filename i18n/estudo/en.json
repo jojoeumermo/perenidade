@@ -338,7 +338,7 @@
     "faltaUm": "1 day until day 1 of the exam ({data}).",
     "faltamDia2": "{n} days until day 2 of the exam ({data}).",
     "ehHoje": "Today is exam day. Good luck!",
-    "jaFoi": "The {ano} exam has already taken place. The answer key comes out {gabarito}.",
+    "jaFoi": "The {ano} exam has already taken place. The answer key was published on {gabarito}.",
     "datasProva": "Day 1: {d1}. Day 2: {d2}.",
     "fonteDatas": "Dates from the Inep official notice (the agency that runs the exam), checked on {data}.",
     "secoes": {

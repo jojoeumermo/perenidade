@@ -91,7 +91,7 @@ if (edicao) {
   delete semTrecho.fatos["caneta"].trecho;
   recusa("edição: fato sem trecho conferido é recusado", () => validarEdicao(semTrecho), "trecho");
   const aConfirmar = structuredClone(bruta);
-  aConfirmar.fatos["resultado-data"].valor = "2027-01-15";
+  aConfirmar.fatos["sisu-2027-cronograma"].valor = "janeiro de 2027";
   recusa("edição: fato a confirmar não leva valor", () => validarEdicao(aConfirmar), "não leva");
   const { escreverFato } = await import("./enem-fatos.mjs");
   conferir("edição: o roteiro do EPUB escreve cada fato igual ao site", Object.values(edicao.fatos).every((f) => escreverFato(f) === formatarFato(f)));

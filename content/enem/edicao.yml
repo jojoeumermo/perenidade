@@ -58,6 +58,16 @@ fontes:
     orgao: "Inep"
     publicado: "2026-09-18"
     url: "https://www.gov.br/inep/pt-br/centrais-de-conteudo/acervo-linha-editorial/publicacoes-institucionais/avaliacoes-e-exames-da-educacao-basica/a-redacao-do-enem-2026-cartilha-do-a-participante"
+  noticia-gabaritos:
+    titulo: "Enem 2026: Inep libera para consulta gabaritos e Cadernos de Questões do exame"
+    orgao: "Inep"
+    publicado: "2026-11-18"
+    url: "https://www.gov.br/inep/pt-br/centrais-de-conteudo/noticias/enem/enem-2026-inep-libera-para-consulta-gabaritos-e-cadernos-de-questoes-do-exame"
+  noticia-resultado-18-1:
+    titulo: "Resultados do Enem serão divulgados em 18 de janeiro"
+    orgao: "Inep"
+    publicado: "2026-11-15"
+    url: "https://www.gov.br/inep/pt-br/centrais-de-conteudo/noticias/enem/resultados-do-enem-serao-divulgados-em-18-de-janeiro"
   pagina-participante:
     titulo: "Página do Participante"
     orgao: "Inep"
@@ -140,31 +150,27 @@ fatos:
     trecho: "publicou nesta terça-feira, 27 de outubro, os locais de prova da edição de 2026 do Exame Nacional do Ensino Médio"
     conferido: "2026-10-30"
   gabarito-prazo:
-    afirmacao: "Quando sai o gabarito das provas objetivas"
-    tipo: texto
-    valor: "até o 10º dia útil depois do 2º dia de provas, no Portal do Inep"
-    fonte: edital-64
-    item: "15.1"
-    trecho: "Os gabaritos das provas objetivas serão divulgados no Portal do Inep [...] até o 10° dia útil após o 2° dia de aplicação."
-    conferido: "2026-10-30"
+    afirmacao: "Quando saiu o gabarito das provas objetivas"
+    tipo: data
+    valor: "2026-11-18"
+    fonte: noticia-gabaritos
+    trecho: "divulga, nesta quarta-feira (18), os gabaritos e os Cadernos de Questões do Exame Nacional do Ensino Médio (Enem) 2026"
+    conferido: "2026-11-27"
   resultado-data:
     afirmacao: "Data do resultado individual"
     tipo: data
-    situacao: confirmar-no-edital
-    fonte: edital-64
-    item: "15.2"
-    trecho: "em data a ser divulgada pelo Inep"
-    nota: "O edital não fixa a data; o Inep anuncia depois da prova."
-    conferido: "2026-10-30"
+    valor: "2027-01-18"
+    fonte: noticia-resultado-18-1
+    trecho: "Os resultados do Exame Nacional do Ensino Médio (Enem) 2026 serão divulgados no dia 18 de janeiro de 2027."
+    conferido: "2026-11-27"
   reaplicacao-data:
     afirmacao: "Datas da reaplicação"
-    tipo: data
-    situacao: confirmar-no-edital
-    fonte: edital-64
-    item: "13.7"
-    trecho: "Haverá apenas uma reaplicação do Exame, em datas a serem divulgadas pelo Inep."
-    nota: "O edital não fixa a data; o pedido é feito na Página do Participante, em prazo que o Inep divulga."
-    conferido: "2026-10-30"
+    tipo: texto
+    valor: "15 e 16 de dezembro de 2026"
+    fonte: noticia-gabaritos
+    trecho: "As provas serão reaplicadas nos dias 15 e 16 de dezembro."
+    nota: "O pedido foi feito na Página do Participante até 20 de novembro de 2026."
+    conferido: "2026-11-27"
   treineiro-resultado:
     afirmacao: "Quando sai o resultado de quem fez como treineiro"
     tipo: texto
