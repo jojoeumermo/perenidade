@@ -84,7 +84,7 @@ export default async function InicioDoApp({ params }: PageProps<"/[lang]/app">) 
           <circle cx="10.5" cy="10.5" r="6.5" />
           <path d="M15.5 15.5 20 20" />
         </svg>
-        <input name="q" type="search" aria-label={h.searchLabel} placeholder={h.searchPlaceholder} />
+        <input name="q" type="search" aria-label={h.searchLabel} placeholder={t.nav.searchPlaceholder} />
         <button>{h.searchButton}</button>
       </form>
 
