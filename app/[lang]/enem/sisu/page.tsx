@@ -49,6 +49,7 @@ export default async function Page({ params }: PageProps<"/[lang]/enem/sisu">) {
         <li>{s.sisu.cortes2021}</li>
         <li>{s.sisu.cortesPesos}</li>
         <li>{s.sisu.cortesSemNota}</li>
+        <li>{s.sisu.cortesAusentes}</li>
       </ul>
       <p className="mt-2 font-mono text-xs">{s.sisu.conta}</p>
     </div>
