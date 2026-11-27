@@ -22,8 +22,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        alvo: [ramo-celular]
-        projeto: [celular]
+        projeto: [computador]
+        recursos: ["todos,escola,meu-estudo,exercicios,rede-v2,alumia-2", "escola,turmas,meu-estudo,exercicios"]
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
@@ -33,9 +33,9 @@ jobs:
       - run: npm ci
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
-      - name: escola-campus (${{ matrix.alvo }})
-        run: npx playwright test e2e/escola-campus --project=${{ matrix.projeto }} --retries=0 --timeout=90000 --trace=off --reporter=list --output=test-results/p
+      - name: diag escola (${{ matrix.recursos }})
+        run: npx playwright test e2e/zz-escola-diag --project=${{ matrix.projeto }} --retries=0 --timeout=90000 --trace=off --reporter=list --output=test-results/p
         env:
           CI: "1"
-          NEXT_PUBLIC_RECURSOS: "todos,escola,meu-estudo,exercicios,rede-v2,alumia-2"
+          NEXT_PUBLIC_RECURSOS: ${{ matrix.recursos }}
           ALUMIA_VOTO_SEGREDO: "segredo-so-de-teste-do-e2e-0123456789abcdef"
