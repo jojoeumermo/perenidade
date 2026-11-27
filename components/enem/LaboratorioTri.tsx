@@ -3,7 +3,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { fill } from "@/i18n/config";
-import { type AreaDoEnem, corrigirLetras, estimarEap, estimarMl, faixaPorAcertos, itensDaArea, notaDeGabaritoDaProva, notaDeThetaDaArea, type ProvaDoArquivo } from "@/lib/enem-tri";
+import { type AreaDoEnem, cenarioDeGabarito, corrigirLetras, estimarEap, estimarMl, faixaPorAcertos, itensDaArea, notaDeGabaritoDaProva, notaDeThetaDaArea, type ProvaDoArquivo } from "@/lib/enem-tri";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
 
 type S = TextosDoEstudo["enem"]["tri"];
@@ -28,6 +28,7 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
   const [prova, setProva] = useState<ProvaDoArquivo | null>(null);
   const [erro, setErro] = useState(false);
   const [marcas, setMarcas] = useState<Record<string, number[]>>({});
+  const [respAnulados, setRespAnulados] = useState<Record<string, Record<number, boolean>>>({});
   const [letras, setLetras] = useState("");
   const [n, setN] = useState(20);
   const cache = useRef(new Map<number, ProvaDoArquivo>());
@@ -63,7 +64,19 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
 
   const resposta = itens.map((i) => (i.fora ? null : marcados.has(i.co)));
   const itensModelo = itens.map((i) => ({ a: i.a ?? 1, b: i.b ?? 0, c: i.c ?? 0 }));
-  const est = useMemo(() => (itens.length ? estimarEap(itensModelo, resposta, { D, area, notaGabarito: bloco ? notaDeGabaritoDaProva(bloco, idioma) : undefined }) : null), [itens, marcados, D, area, bloco, idioma]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Itens anulados que mantiveram a letra do gabarito original (microdados 2025: a nota fixa exige acertá-los).
+  const anuladosComLetra = useMemo(() => itens.map((it, i) => ({ it, n: i + 1 })).filter(({ it }) => it.fora && it.g && it.g !== "X"), [itens]);
+  const respAnul = respAnulados[chave] ?? {};
+  const definirAnulado = (co: number, v: boolean | null) =>
+    setRespAnulados((m) => {
+      const atual = { ...(m[chave] ?? {}) };
+      if (v === null) delete atual[co]; else atual[co] = v;
+      return { ...m, [chave]: atual };
+    });
+  const anuladosArr = anuladosComLetra.map(({ it }) => respAnul[it.co] ?? null);
+  const notaGabarito = bloco ? notaDeGabaritoDaProva(bloco, idioma) : undefined;
+  const est = useMemo(() => (itens.length ? estimarEap(itensModelo, resposta, { D, area, notaGabarito, anuladosComLetra: anuladosArr }) : null), [itens, marcados, D, area, bloco, idioma, respAnulados]); // eslint-disable-line react-hooks/exhaustive-deps
+  const cenario = cenarioDeGabarito(resposta, anuladosArr);
   const ml = itens.length ? estimarMl(itensModelo, resposta, D) : null;
   const total = contados.length;
   const acertos = contados.filter((i) => marcados.has(i.co)).length;
@@ -185,11 +198,42 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
             </fieldset>
           </section>
 
+          {anuladosComLetra.length > 0 && (
+            <section className="mt-6 border-2 border-ink bg-parchment-deep p-5">
+              <h2 className="font-serif text-2xl font-semibold">{s.anuladosTitulo}</h2>
+              <p className="mt-1">{fill(s.anuladosTexto, { n: anuladosComLetra.length })}</p>
+              <ul className="mt-3 space-y-3">
+                {anuladosComLetra.map(({ it, n }) => (
+                  <li key={it.co} className="flex flex-wrap items-center gap-2">
+                    <span className="font-semibold">{fill(s.anuladoPergunta, { n, letra: it.g as string })}</span>
+                    <button type="button" className={`${claro} ${respAnul[it.co] === true ? "border-oxblood text-oxblood" : ""}`} aria-pressed={respAnul[it.co] === true} onClick={() => definirAnulado(it.co, true)}>{fill(s.anuladoSim, { letra: it.g as string })}</button>
+                    <button type="button" className={`${claro} ${respAnul[it.co] === false ? "border-oxblood text-oxblood" : ""}`} aria-pressed={respAnul[it.co] === false} onClick={() => definirAnulado(it.co, false)}>{s.anuladoNao}</button>
+                    <button type="button" className={claro} onClick={() => definirAnulado(it.co, null)}>{s.anuladoLimpar}</button>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           <section className="mt-6 border-2 border-ink bg-parchment-deep p-5">
             <h2 className="font-serif text-2xl font-semibold">{s.resultado}</h2>
             <div role="status" aria-live="polite">
-              <p className="mt-2 font-serif text-4xl font-semibold">{fill(s.notaEstimada, { nota: pontos(est.nota) })}</p>
-              <p className="mt-1 font-semibold">{fill(s.intervalo, { min: pontos(est.ic95[0]), max: pontos(est.ic95[1]) })}</p>
+              {cenario === "indefinido" && notaGabarito !== undefined ? (
+                <>
+                  <p className="mt-2 font-serif text-2xl font-semibold">{fill(s.cenarioFixa, { nota: pontos(notaGabarito) })}</p>
+                  <p className="mt-1 font-serif text-2xl font-semibold">{fill(s.cenarioEap, { nota: pontos(est.nota) })}</p>
+                  <p className="mt-1 text-xs">{s.cenarioObservado}</p>
+                </>
+              ) : (
+                <>
+                  <p className="mt-2 font-serif text-4xl font-semibold">{fill(s.notaEstimada, { nota: pontos(est.nota) })}</p>
+                  {cenario === "gabarito" && <p className="mt-1 text-xs">{s.cenarioFixaAplicada}</p>}
+                </>
+              )}
+              {cenario !== "gabarito" && (
+                // A margem é do modelo EAP; não existe intervalo estimado para a nota fixa observada (substituição).
+                <p className="mt-1 font-semibold">{fill(cenario === "indefinido" && notaGabarito !== undefined ? s.intervaloModelo : s.intervalo, { min: pontos(est.ic95[0]), max: pontos(est.ic95[1]) })}</p>
+              )}
               <p className="mt-1">{fill(s.contagem, { n: acertos, total })}</p>
               {f && f.max - f.min >= 1 && <p className="mt-1">{fill(s.faixa, { n: acertos, min: pontos(f.min), max: pontos(f.max) })}</p>}
               <p className="mt-1">{ml === null ? s.mlNao : fill(s.ml, { nota: pontos(notaDeThetaDaArea(ml, area)) })}</p>
