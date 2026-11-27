@@ -212,9 +212,9 @@
 .app-busca {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   margin: 1rem 1rem 0;
-  padding-left: 0.9rem;
+  padding-left: 0.8rem;
   border: 1.5px solid var(--ink);
   border-radius: 999px;
   background: var(--folha, #fbf6e9);
@@ -240,7 +240,7 @@
 }
 .app-busca button {
   margin: 0.25rem;
-  padding: 0.5rem 0.9rem;
+  padding: 0.5rem 0.8rem;
   border: 0;
   border-radius: 999px;
   background: #c21f16;
