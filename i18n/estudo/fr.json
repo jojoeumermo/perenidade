@@ -338,7 +338,7 @@
     "faltaUm": "Plus qu'1 jour avant le 1er jour d'examen ({data}).",
     "faltamDia2": "Plus que {n} jours avant le 2e jour d'examen ({data}).",
     "ehHoje": "C'est le jour de l'examen. Bon courage !",
-    "jaFoi": "L'examen de {ano} a déjà eu lieu. Le corrigé officiel sort {gabarito}.",
+    "jaFoi": "L'examen de {ano} a déjà eu lieu. Le corrigé officiel a été publié le {gabarito}.",
     "datasProva": "1er jour : {d1}. 2e jour : {d2}.",
     "fonteDatas": "Dates de l'avis officiel de l'Inep (l'organisme qui fait passer l'examen), vérifiées le {data}.",
     "secoes": {

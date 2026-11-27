@@ -94,7 +94,7 @@ Duas regras do edital:
 
 E mais uma: os três últimos participantes de cada sala {{enem:tres-ultimos}}.
 
-Levar o caderno vale a pena: com ele, você confere suas respostas quando o gabarito oficial sair, {{enem:gabarito-prazo}}. Para isso, anote no caderno a letra que você marcou em cada questão, além de passar para o cartão.
+Levar o caderno vale a pena: com ele, você confere suas respostas pelo gabarito oficial, que saiu em {{enem:gabarito-prazo}}. Para isso, anote no caderno a letra que você marcou em cada questão, além de passar para o cartão.
 
 ## Exemplo resolvido
 
