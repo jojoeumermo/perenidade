@@ -1,0 +1,56 @@
+name: Diagnóstico escola (temporário, PR #65)
+
+# TEMPORÁRIO: os specs e2e/escola-* precisam do servidor com NEXT_PUBLIC_RECURSOS ligando a Escola (veja o cabeçalho de
+# cada spec); o ponta-a-ponta.yml não define a variável. Aqui roda com ela, no ramo e no master, no computador e no celular.
+# Sai do ramo por commit próprio. Chrome do runner, banco local, sem segredo, contents:read.
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/diagnostico-escola.yml"
+
+concurrency:
+  group: diagnostico-escola-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  escola:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        parte: [1, 2, 3]
+        alvo: [ramo-computador, master-computador, ramo-celular, master-celular]
+        include:
+          - alvo: ramo-computador
+            projeto: computador
+            ref: ""
+          - alvo: master-computador
+            projeto: computador
+            ref: 19e8dd515361813993bff953a428dd3164f04010
+          - alvo: ramo-celular
+            projeto: celular
+            ref: ""
+          - alvo: master-celular
+            projeto: celular
+            ref: 19e8dd515361813993bff953a428dd3164f04010
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ matrix.ref }}
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      - name: escola (${{ matrix.alvo }}, parte ${{ matrix.parte }}/3)
+        run: npx playwright test e2e/escola- --project=${{ matrix.projeto }} --shard=${{ matrix.parte }}/3 --retries=0 --timeout=90000 --trace=off --reporter=list --output=test-results/p
+        env:
+          CI: "1"
+          NEXT_PUBLIC_RECURSOS: "todos,escola,meu-estudo,exercicios,rede-v2,alumia-2"
+          ALUMIA_VOTO_SEGREDO: "segredo-so-de-teste-do-e2e-0123456789abcdef"
