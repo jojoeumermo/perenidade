@@ -40,10 +40,21 @@ nota de gabarito de outro caderno da edição; não encontramos documento do Ine
 laboratório reproduz apenas o VALOR OBSERVADO, edição por edição: o campo `notaGabarito` de uma prova (em
 `public/tri/enem-AAAA.json`) guarda a nota que os microdados DAQUELA edição registram para o padrão perfeito, e o
 `estimarEap` a devolve quando todas as respostas válidas são acertos. Nenhum valor é extrapolado para outra prova
-ou ano. Valor atual: 2024 LC inglês 795,8, conferido por nós na população completa de 2024 (3,16 milhões de notas
-de LC). O analise-enem cataloga também 2025 (LC inglês 794,5, CN 858,7, MT 980,3), deixado de fora até conferirmos
-os microdados de 2025 por conta própria. Nas provas sem `notaGabarito`, a nota do modelo coincide com a oficial —
-é o caso de CH e MT 2024, onde os 617 gabaritantes receberam exatamente a nota que os parâmetros produzem.
+ou ano. Valores atuais: 2024 LC inglês 795,8, conferido por nós na população completa de 2024 (3,16 milhões de
+notas de LC); e 2025 — LC 794,5 (inglês n=84; espanhol n=1), CN 858,7 (n=67) e MT 980,3 (n=88) — conferidos por
+nós nos microdados oficiais de 2025 (RESULTADOS_2025.csv, 4.810.772 inscritos) em 22/11/2026. CH 2025 não precisa
+de valor: o modelo já reproduz a nota oficial dos 16 gabaritantes. Nas provas sem `notaGabarito`, a nota do modelo
+coincide com a oficial — é o caso de CH e MT 2024, onde os 617 gabaritantes receberam exatamente a nota que os
+parâmetros produzem.
+
+Detalhe observado em 2025: nas duas provas com item anulado que MANTEVE a letra do gabarito original (MT 1471,
+item 97593, letra "A"; CN 1483, item 96748, letra "B"), a nota fixa só foi registrada para quem acertou esse item
+também; quem gabaritou os itens ativos e errou (ou não respondeu) o anulado recebeu a nota EAP normal (MT 967,7;
+CN 852,4). Itens anulados com gabarito "X" não entram na regra. O laboratório reproduz isso com a opção
+`anuladosComLetra` do `estimarEap` e a função `cenarioDeGabarito`, e a página pergunta à pessoa sobre esses itens
+(sem resposta, mostra os dois cenários). Com a regra aplicada, a varredura dos 13.122.402 resultados de 2025
+(microdados, população completa) ficou com erro absoluto médio de 0,025 ponto por área e nenhum desvio acima de
+1 ponto; sem ela, os padrões perfeitos de LC, CN e MT erravam em média de 1,8 a 7,5 pontos (máximo 12,6).
 
 ## A constante D (dúvida resolvida em nov/2026)
 
@@ -94,7 +105,7 @@ decidir inscrição ou curso.
 - `components/enem/LaboratorioTri.tsx`, `app/[lang]/enem/laboratorio-tri/page.tsx`.
 - Textos: `i18n/estudo/pt.json` (`enem.tri`). Em en, es, fr, ru e zh ficou só o título; o resto aparece em português
   com o aviso de "ainda não traduzido" (as traduções antigas descreviam o laboratório de itens inventados).
-- Teste: `npm run testar:tri` (`scripts/testar-tri.mjs`, 457 conferências): contas feitas à mão, EAP contra integral por
+- Teste: `npm run testar:tri` (`scripts/testar-tri.mjs`, 539 conferências): contas feitas à mão, EAP contra integral por
   outro caminho, escala, quadratura, propriedades (coerência, monotonia), integridade dos 17 arquivos, 5 valores lidos do
   `ITENS_PROVA_2022.csv` e gabarito de cada questão ligada contra o do Inep.
 
