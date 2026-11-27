@@ -1165,3 +1165,16 @@
 :root[data-app][data-topo-fixo]:not([data-leitor]) main [class*="sticky"][class*="top-"]:not([class*="bottom-"]):not([class*="top-["]) {
   top: calc(var(--app-topo, 3.5rem) + 0.5rem);
 }
+
+/*
+ * Mini-tocador do podcast no app: com capa, título, +30, velocidade, áudio espacial, abrir e fechar numa linha só, o título
+ * ficava com uns poucos pixels (esmagado) num celular de 360 a 412 px. Aqui o título ganha a linha de cima ao lado da capa e
+ * os botões dividem a linha de baixo por igual (cada um com pelo menos 44 px de toque). Só dentro do app (data-app).
+ */
+:root[data-app] .radio-player > div:first-child { flex-wrap: wrap; row-gap: 0.125rem; }
+:root[data-app] .radio-player > div:first-child > p { flex: 1 1 calc(100% - 3.75rem); }
+:root[data-app] .radio-player > div:first-child > :is(button, div):not(p) { flex: 1 1 0; min-width: 2.75rem; min-height: 2.75rem; display: flex; align-items: center; justify-content: center; }
+@media (max-width: 639px) {
+  :root[data-app] .radio-player > div:first-child > button.hidden:not(.app\:max-md\:block) { display: none; }
+}
+:root[data-app] .radio-player button { font-variant-emoji: text; }
