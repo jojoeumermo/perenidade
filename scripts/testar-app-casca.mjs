@@ -112,12 +112,14 @@ ok("voltar: chegou por link de fora sobe para a página de cima; depois de andar
   const chamadas = [];
   const roteador = { back: () => chamadas.push("back"), push: (h) => chamadas.push(`push ${h}`) };
   assert.equal(andouNoSite(), false);
-  registrarPagina(); // a página que abriu: não conta como andar
+  registrarPagina("/pt/trilhas/a/b"); // a página que abriu: não conta como andar
+  assert.equal(andouNoSite(), false);
+  registrarPagina("/pt/trilhas/a/b"); // remonte da casca com o mesmo endereço (hidratação): também não conta
   assert.equal(andouNoSite(), false);
   assert.equal(voltarOuSubir(roteador, "/pt/trilhas/a/b", "pt", { length: 3 }), "subiu");
   assert.equal(voltarOuSubir(roteador, "/pt/trilhas", "pt", { length: 3 }), "subiu");
   assert.equal(voltarOuSubir(roteador, "/pt", "pt", { length: 3 }), "raiz");
-  registrarPagina(); // andou
+  registrarPagina("/pt/trilhas/a"); // endereço novo: andou
   assert.equal(andouNoSite(), true);
   assert.equal(voltarOuSubir(roteador, "/pt/trilhas/a/b", "pt", { length: 3 }), "voltou");
   assert.equal(voltarOuSubir(roteador, "/pt/trilhas/a/b", "pt", { length: 1 }), "subiu");
