@@ -900,8 +900,10 @@ test.describe("margem sob a barra de baixo no fim das páginas, dentro do app (3
       await page.waitForLoadState("networkidle").catch(() => {});
       const antes = await page.evaluate(() => window.history.length);
       await page.locator(".shell-topo button[aria-label]").first().click({ timeout: 8000 }).catch((e) => console.log(`VOLTAR-ERRO ${rota} ${String(e).slice(0, 80)}`));
-      await page.waitForTimeout(1800);
-      console.log(`VOLTAR ${rota} -> ${page.url()} historico=${antes} erros=${JSON.stringify(erros)}`);
+      const esperado = `/pt/${rota.split("/").slice(0, -1).join("/")}`;
+      const subiu = await page.waitForURL((u) => u.pathname.replace(/\/$/, "") === esperado, { timeout: 10000 }).then(() => true).catch(() => false);
+      await page.waitForLoadState("networkidle").catch(() => {});
+      console.log(`VOLTAR ${rota} -> ${page.url()} esperado=${esperado} subiu=${subiu} historico=${antes} erros=${JSON.stringify(erros)}`);
       await foto(page, `voltar-${rota.replace(/\//g, "_")}`);
     }
   });
@@ -993,6 +995,43 @@ test.describe("hidratação das rotas com aviso, sem app", () => {
       console.log(`CONTROLE-PODCASTS ${ROTULO} depois=${await botao.getAttribute("aria-pressed")}`);
     }
     await foto(page, "controle-podcasts-espacial");
+  });
+});
+
+test.describe("margem sob a barra: faixa da prova no navegador do celular, fora do app (390 px)", () => {
+  test.skip(!TUDO || !!process.env.SEMEAR_PODCAST || !process.env.CAPTURA_VARREDURA, "só no passo da varredura");
+  test.use({ ...CELULAR });
+  test("faixa Entregar e corrigir e voltar no navegador", async ({ page }) => {
+    test.setTimeout(150000);
+    await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() })));
+    await page.goto("/pt/enem/diagnostico", { waitUntil: "domcontentloaded" });
+    await page.waitForLoadState("networkidle").catch(() => {});
+    const comecar = page.locator('a:has-text("Começar a prova"), button:has-text("Começar a prova")');
+    for (let i = 0; i < 4; i++) {
+      await page.getByText("Carregando a prova").waitFor({ state: "detached", timeout: 40000 }).catch(() => {});
+      if ((await comecar.count()) === 0) break;
+      await comecar.first().click({ timeout: 20000 });
+      await page.waitForLoadState("networkidle").catch(() => {});
+      await page.waitForTimeout(800);
+    }
+    await page.locator('input[type="radio"]').nth(2).check({ force: true }).catch(() => {});
+    for (const y of [400, 900]) {
+      await page.evaluate((to) => window.scrollTo(0, to), y);
+      await page.waitForTimeout(500);
+      const m = await page.evaluate(() => {
+        const faixa = document.querySelector("#prova > div.sticky");
+        const barra = document.querySelector(".barra-do-celular");
+        const r = (e: Element | null) => (e ? { top: Math.round(e.getBoundingClientRect().top), bottom: Math.round(e.getBoundingClientRect().bottom), pos: getComputedStyle(e).position } : null);
+        return { y: Math.round(window.scrollY), faixa: r(faixa), barraDoCelular: r(barra), altura: document.documentElement.style.getPropertyValue("--altura-topo"), appAttr: document.documentElement.hasAttribute("data-app") };
+      });
+      console.log(`FAIXA-NAVEGADOR ${JSON.stringify(m)}`);
+      await foto(page, `faixa-navegador-${y}`);
+    }
+    await page.goto("/pt/enem/plano", { waitUntil: "domcontentloaded" });
+    await page.waitForLoadState("networkidle").catch(() => {});
+    await page.locator(".barra-do-celular button[aria-label], .barra-do-celular a[aria-label]").first().click({ timeout: 8000 }).catch((e) => console.log(`VOLTAR-NAVEGADOR-ERRO ${String(e).slice(0, 80)}`));
+    const subiu = await page.waitForURL((u) => u.pathname.replace(/\/$/, "") === "/pt/enem", { timeout: 10000 }).then(() => true).catch(() => false);
+    console.log(`VOLTAR-NAVEGADOR enem/plano -> ${page.url()} subiu=${subiu}`);
   });
 });
 
