@@ -22,10 +22,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        projeto: [computador, celular]
-        parte: [1, 2, 3, 4, 5, 6]
+        parte: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        alvo: [ramo-computador, master-computador, ramo-celular]
+        include:
+          - alvo: ramo-computador
+            projeto: computador
+            ref: ""
+          - alvo: master-computador
+            projeto: computador
+            ref: 19e8dd515361813993bff953a428dd3164f04010
+          - alvo: ramo-celular
+            projeto: celular
+            ref: ""
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ matrix.ref }}
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version: 22
@@ -33,14 +45,14 @@ jobs:
       - run: npm ci
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
-      - name: e2e parte ${{ matrix.parte }}/6 (${{ matrix.projeto }})
-        run: npx playwright test --project=${{ matrix.projeto }} --grep-invert "fumaça:" --shard=${{ matrix.parte }}/6 --trace=retain-on-failure --reporter=list --output=test-results/p
+      - name: e2e parte ${{ matrix.parte }}/12
+        run: npx playwright test --project=${{ matrix.projeto }} --grep-invert "fumaça:" --shard=${{ matrix.parte }}/12 --retries=0 --timeout=90000 --trace=off --reporter=list --output=test-results/p
         env:
           CI: "1"
           ALUMIA_VOTO_SEGREDO: "segredo-so-de-teste-do-e2e-0123456789abcdef"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: failure()
         with:
-          name: rastros-${{ matrix.projeto }}-${{ matrix.parte }}
+          name: rastros-${{ matrix.alvo }}-${{ matrix.parte }}
           path: test-results/
           retention-days: 3
