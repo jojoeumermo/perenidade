@@ -88,7 +88,7 @@ REGRESSAO = {
     "UFMS": {"15837": {"pesos": [1, 1, 2, 3, 2], "cidade": "Campo Grande"}},
     "UFRJ": {"14364": {"pesos": [1, 4, 1, 4, 3], "campus": "PRAIA VERMELHA"},
              "1125881": {"pesos": [1, 4, 1, 4, 3], "campus": "CIDADE UNIVERSITARIA"}},
-    "IFSP": {"319300": {"pesos": [3, 2, 1, 4, 5], "cidade": "Caraguatatuba"}},
+    "IFSP": {"1128376": {"pesos": [3, 2, 1, 4, 5], "cidade": "Caraguatatuba"}},
     "UFF": {"1122221": {"pesos": [2, 1, 1, 4, 2], "cidade": "Niterói"}},
 }
 def regressao(sigla, termo):
