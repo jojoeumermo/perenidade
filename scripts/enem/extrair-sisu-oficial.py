@@ -6,7 +6,9 @@ import openpyxl, csv, sys, os, unicodedata
 
 DIR = sys.argv[1]
 ARQS = {
+    2020: "Portal Sisu_Sisu 2020-1_Inscrições e notas de corte.xlsx",
     2022: "Portal Sisu_Inscrições e notas de corte_Sisu 2022-1.xlsx",
+    2023: "Portal Sisu_Sisu 2023-1_Inscrições e notas de corte.xlsx",
     2024: "Portal Sisu_Sisu 2024_Inscrições e notas de corte.xlsx",
     2025: "Portal Sisu_Sisu 2025_Inscrições e notas de corte.xlsx",
 }
@@ -21,11 +23,12 @@ for ano, nome in ARQS.items():
     it = ws.iter_rows(values_only=True)
     hdr = [str(h) for h in next(it)]
     ix = {h: i for i, h in enumerate(hdr)}
-    # 2022/1: TP_MOD_CONCORRENCIA="Ampla concorrência"; 2024/2025: TIPO_CONCORRENCIA="AC"
-    col_mod = "TIPO_CONCORRENCIA" if "TIPO_CONCORRENCIA" in ix else "TP_MOD_CONCORRENCIA"
+    # 2024/2025: TIPO_CONCORRENCIA="AC"; 2022/2023: TP_MOD_CONCORRENCIA; 2020: TP_MODALIDADE
+    # (os dois últimos com o nome por extenso, "Ampla concorrência")
+    col_mod = next(c for c in ("TIPO_CONCORRENCIA", "TP_MOD_CONCORRENCIA", "TP_MODALIDADE") if c in ix)
     def eh_ampla(v):
         v = str(v).strip().upper()
-        return v == "AC" or v.startswith("AMPLA")
+        return v in ("AC", "A") or v.startswith("AMPLA")  # 2024/25: "AC"; 2023: "A"; 2020/2022: por extenso
     n = 0
     with open(os.path.join(SAIDA, f"{ano}.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f, delimiter=";")

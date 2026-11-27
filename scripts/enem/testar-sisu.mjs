@@ -43,7 +43,7 @@ ok(catalogo.cortes && ["2020", "2021", "2022", "2023", "2024", "2025"].every((a)
 console.log(`estrutura: ${ofertas.length} ofertas (${comCod} separadas por código MEC), 0 repetidas`);
 
 // 2) comparação completa com os relatórios oficiais da chamada regular (2022/1, 2024, 2025)
-const ANOS_OFICIAIS = [2022, 2024, 2025];
+const ANOS_OFICIAIS = [2020, 2022, 2023, 2024, 2025];
 const oficial = new Map();
 for (const ano of ANOS_OFICIAIS) {
   const m = new Map();
@@ -57,6 +57,11 @@ for (const ano of ANOS_OFICIAIS) {
     m.get(chave).push({ cod: c[0].trim(), nota });
   }
   oficial.set(ano, m);
+  // contagens conhecidas das extrações (garante que a ampla foi filtrada com a coluna certa de cada formato:
+  // 2020 TP_MODALIDADE, 2022/2023 TP_MOD_CONCORRENCIA, 2024/2025 TIPO_CONCORRENCIA; 2023 codifica "A")
+  const esperado = { 2020: 6481, 2022: 6146, 2023: 6230, 2024: 6721, 2025: 6863 };
+  const total = [...m.values()].reduce((s2, l) => s2 + l.length, 0);
+  ok(total === esperado[ano], `extração ${ano}: ${total} linhas da ampla, esperadas ${esperado[ano]} (formato de modalidade mudou?)`);
 }
 let comparadas = 0, erradas = 0;
 const chave6 = (o) => [norm(o.sg), norm(o.cidade), norm(o.campus), norm(o.curso), norm(o.grau), norm(o.turno)].join("|");
@@ -72,7 +77,7 @@ for (const o of ofertas) {
   }
 }
 ok(erradas === 0, `${erradas} notas divergem dos relatórios oficiais`);
-console.log(`oficiais 2022/2024/2025: ${comparadas} notas comparadas, ${erradas} divergentes`);
+console.log(`oficiais 2020/2022/2023/2024/2025: ${comparadas} notas comparadas, ${erradas} divergentes`);
 
 // 3) toda oferta do relatório oficial de 2025 que está no catálogo tem corte de 2025 (ou 0 oficial = sem classificado)
 let semCorte = 0;
@@ -86,7 +91,17 @@ for (const [k6, ls] of oficial.get(2025)) {
   }
 }
 ok(semCorte === 0, `${semCorte} ofertas sem o corte oficial de 2025`);
-console.log(semCorte === 0 ? "oficial 2025: nenhum corte faltando; zeros oficiais sem corte no JSON" : "");
+const zeros25 = [...oficial.get(2025).values()].flat().filter((l) => l.nota === 0).length;
+console.log(semCorte === 0 ? `oficial 2025: nenhum corte faltando; ${zeros25} linhas oficiais com nota 0 ficaram sem corte no JSON (relatório não registra nota)` : "");
+// ofertas separadas por código MEC: cada nota tem que bater com a linha oficial DAQUELE código
+const comCodigo = ofertas.filter((o) => o.cod);
+ok(comCodigo.length >= 10, `esperadas ao menos 10 entradas separadas por código MEC, achadas ${comCodigo.length}`);
+for (const o of comCodigo)
+  for (const [ano, nota] of Object.entries(o.c)) {
+    const ls = (oficial.get(Number(ano))?.get(chave6(o)) ?? []).filter((l) => l.cod === o.cod);
+    ok(ls.some((l) => l.nota === nota), `entrada cod ${o.cod} (${o.sg} ${o.curso}) tem ${ano}=${nota} fora do relatório oficial`);
+  }
+console.log(`${comCodigo.length} entradas separadas por código MEC, todas as notas batendo com o código certo`);
 
 if (falhas > 0) { console.error(`\n${falhas} falha(s)`); process.exit(1); }
 console.log("\ntodos os testes do Sisu passaram");

@@ -672,12 +672,11 @@
       "carregando": "Carregando as ofertas do Sisu…",
       "falha": "Não foi possível carregar as ofertas agora.",
       "conta": "Média ponderada = (nota 1 × peso 1 + … + nota 5 × peso 5) ÷ (peso 1 + … + peso 5)",
-      "fonte": "Pesos e notas de corte do Sisu (MEC) coletados pelo projeto aberto sisu-data (licença MIT) e conferidos com os relatórios oficiais do MEC. São dados públicos, sem caráter oficial: confirme sempre no portal do Sisu.",
-      "cortes2024e2025": "2024 e 2025: iguais à nota final da chamada regular (conferido com o relatório oficial do MEC).",
-      "cortes2022": "2022: igual à nota final da chamada regular 2022/1 (conferido com o relatório oficial do MEC).",
-      "cortes2023": "2023: última parcial coletada da API; o relatório oficial disponível é de outra edição, então não foi conferido.",
-      "cortes2020e2021": "2020 e 2021: última parcial coletada da API; sem relatório oficial da mesma edição para conferir.",
-      "cortesSemNota": "Ofertas sem nota de 2025: o relatório oficial registra 0 (ninguém classificado na ampla), então não há corte para mostrar."
+      "fonte": "Notas de corte e pesos do Sisu (MEC) coletados pelo projeto aberto sisu-data (licença MIT). São dados públicos, sem caráter oficial: confirme sempre no portal do Sisu.",
+      "cortesConferidos": "Notas de corte de 2020, 2022, 2023, 2024 e 2025: iguais à nota final da chamada regular, conferidas oferta por oferta com os relatórios oficiais do MEC.",
+      "cortes2021": "2021: última parcial coletada da API; não validada — não encontramos relatório oficial da edição 2021/1.",
+      "cortesPesos": "Pesos: coletados da API do Sisu na edição mais recente em que a oferta apareceu (2025 na maioria); não constam nos relatórios oficiais e não foram conferidos com os termos de adesão das universidades.",
+      "cortesSemNota": "Ofertas sem nota de 2025: o relatório oficial registra 0 nesses casos, então não há nota de corte para mostrar."
     },
     "escolas": {
       "titulo": "Ranking de escolas pelo Enem 2024",

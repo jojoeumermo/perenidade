@@ -74,7 +74,7 @@ for (const ano of ANOS) {
 // então faltam cortes de 2025 — completados com o relatório oficial; (2) alguns nomes de curso valem para mais
 // de um código MEC (CO_IES_CURSO) com cortes diferentes, e o scraping não distingue (a última linha lida vencia) —
 // essas ofertas viram uma entrada por código, com as notas oficiais de cada um.
-const ANOS_OFICIAIS = [2022, 2024, 2025];
+const ANOS_OFICIAIS = [2020, 2022, 2023, 2024, 2025];
 const oficial = new Map(); // ano -> Map chave (sigla|cidade|campus|curso|grau|turno) -> linhas
 for (const ano of ANOS_OFICIAIS) {
   const arq = path.join(dir, "data", "relatorios", "extraidos", `${ano}.csv`);
@@ -174,15 +174,15 @@ const lista = [...ofertas.values()].filter((o) => (o.co || o.cod) && Object.keys
 // Proveniência por ano: o que cada nota de corte é. Conferido = idêntico, oferta por oferta, ao relatório
 // oficial da chamada regular (comparação refeita por testar-sisu.mjs a cada geração).
 const cortes = oficial.size > 0 ? {
-  "2020": "Última parcial coletada da API do Sisu (2020/1); sem relatório oficial da mesma edição para conferir",
-  "2021": "Última parcial coletada da API do Sisu (2021/1); sem relatório oficial da mesma edição para conferir",
+  "2020": "Igual à nota final da chamada regular 2020/1 (conferido com o relatório oficial do MEC)",
+  "2021": "Última parcial coletada da API do Sisu (2021/1); não validado — não encontramos relatório oficial da edição 2021/1 (o disponível é de 2021/2, edição diferente)",
   "2022": "Igual à nota final da chamada regular 2022/1 (conferido com o relatório oficial do MEC)",
-  "2023": "Última parcial coletada da API do Sisu (2023/1); o relatório oficial disponível é de 2023/2, edição diferente, então não foi conferido",
+  "2023": "Igual à nota final da chamada regular 2023/1 (conferido com o relatório oficial do MEC)",
   "2024": "Igual à nota final da chamada regular (conferido com o relatório oficial do MEC)",
-  "2025": "Nota final da chamada regular (conferido com o relatório oficial do MEC; as notas que a API não divulgou em parcial foram completadas com esse relatório)",
+  "2025": "Igual à nota final da chamada regular (conferido com o relatório oficial do MEC; onde o relatório registra 0 não há nota de corte para mostrar)",
 } : undefined;
 const saida = {
-  fonte: "Notas de corte e pesos do Sisu (MEC), coletados pelo projeto sisu-data (MIT): github.com/maiakanegae/sisu-data; notas conferidas e completadas com os relatórios oficiais do MEC (gov.br/mec/sisu)",
+  fonte: "Notas de corte e pesos do Sisu (MEC) coletados pelo projeto sisu-data (MIT): github.com/maiakanegae/sisu-data. As notas de corte foram conferidas com os relatórios oficiais do MEC (gov.br/mec/sisu); os pesos não constam nesses relatórios e não foram conferidos",
   gerado: new Date().toISOString().slice(0, 10),
   anos: ANOS,
   cortes,
