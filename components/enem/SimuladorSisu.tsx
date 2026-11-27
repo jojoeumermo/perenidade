@@ -87,12 +87,12 @@ export function SimuladorSisu({ nomes, s }: { nomes: Record<ProvaDoSisu, string>
       </p>
       <ul className="mt-2 space-y-3">
         {achadas.slice(0, LIMITE).map(({ o, media, corte }) => (
-          <li key={`${o.co}`} className="border-2 border-ink bg-parchment p-4">
+          <li key={`${o.co ?? o.cod}`} className="border-2 border-ink bg-parchment p-4">
             <p className="font-serif text-base">
               {o.curso} <span className="font-sans text-xs">({o.grau}, {o.turno.toLowerCase()})</span>
             </p>
-            <p className="font-sans text-xs">{o.ies} ({o.sg}) — {o.campus}, {o.cidade}/{o.uf}</p>
-            <p className="mt-2 font-mono text-xs">{s.pesosDaOferta}: {o.p.join(" · ")}</p>
+            <p className="font-sans text-xs">{o.ies} ({o.sg}) — {o.campus}, {o.cidade}/{o.uf}{o.cod ? ` · ${s.codigoMec} ${o.cod}` : ""}</p>
+            <p className="mt-2 font-mono text-xs">{o.sm ? s.semPesos : `${s.pesosDaOferta}: ${(o.p ?? []).join(" · ")}`}</p>
             <p className="mt-1 font-mono text-xs">
               {s.historico}:{" "}
               {Object.keys(o.c).sort().map((a) => `${a}: ${fmt(o.c[a])}`).join(" · ")}

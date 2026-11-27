@@ -660,6 +660,8 @@
       "uf": "UF",
       "todasUfs": "Todas",
       "pesosDaOferta": "Pesos (LC · CH · CN · MT · RED)",
+      "semPesos": "Pesos não divulgados; a média mostrada é a simples",
+      "codigoMec": "cód. MEC",
       "historico": "Corte da ampla concorrência",
       "suaMedia": "A sua média nesta oferta",
       "dentro": "{d} acima do corte de {a} ({c})",
@@ -670,7 +672,12 @@
       "carregando": "Carregando as ofertas do Sisu…",
       "falha": "Não foi possível carregar as ofertas agora.",
       "conta": "Média ponderada = (nota 1 × peso 1 + … + nota 5 × peso 5) ÷ (peso 1 + … + peso 5)",
-      "fonte": "Pesos e notas de corte do Sisu (MEC) coletados pelo projeto aberto sisu-data (licença MIT). São dados públicos, sem caráter oficial: confirme sempre no portal do Sisu."
+      "fonte": "Pesos e notas de corte do Sisu (MEC) coletados pelo projeto aberto sisu-data (licença MIT) e conferidos com os relatórios oficiais do MEC. São dados públicos, sem caráter oficial: confirme sempre no portal do Sisu.",
+      "cortes2024e2025": "2024 e 2025: iguais à nota final da chamada regular (conferido com o relatório oficial do MEC).",
+      "cortes2022": "2022: igual à nota final da chamada regular 2022/1 (conferido com o relatório oficial do MEC).",
+      "cortes2023": "2023: última parcial coletada da API; o relatório oficial disponível é de outra edição, então não foi conferido.",
+      "cortes2020e2021": "2020 e 2021: última parcial coletada da API; sem relatório oficial da mesma edição para conferir.",
+      "cortesSemNota": "Ofertas sem nota de 2025: o relatório oficial registra 0 (ninguém classificado na ampla), então não há corte para mostrar."
     },
     "escolas": {
       "titulo": "Ranking de escolas pelo Enem 2024",

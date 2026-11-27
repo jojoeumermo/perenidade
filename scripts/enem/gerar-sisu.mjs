@@ -69,13 +69,123 @@ for (const ano of ANOS) {
   console.log(`${ano}: ${n} ofertas lidas`);
 }
 
+// ---- Relatórios oficiais do MEC (chamada regular final; extraídos por extrair-sisu-oficial.py) ----
+// Corrige dois problemas comprovados do scraping: (1) a API parou de divulgar parciais de 2025 antes do fim,
+// então faltam cortes de 2025 — completados com o relatório oficial; (2) alguns nomes de curso valem para mais
+// de um código MEC (CO_IES_CURSO) com cortes diferentes, e o scraping não distingue (a última linha lida vencia) —
+// essas ofertas viram uma entrada por código, com as notas oficiais de cada um.
+const ANOS_OFICIAIS = [2022, 2024, 2025];
+const oficial = new Map(); // ano -> Map chave (sigla|cidade|campus|curso|grau|turno) -> linhas
+for (const ano of ANOS_OFICIAIS) {
+  const arq = path.join(dir, "data", "relatorios", "extraidos", `${ano}.csv`);
+  if (!fs.existsSync(arq)) { console.log(`oficial ${ano}: sem extração (rode extrair-sisu-oficial.py), pulando`); continue; }
+  const m = new Map();
+  for (const c of lerCsv(fs.readFileSync(arq, "utf8"))) {
+    if (c.length < 11 || c[0] === "co_ies_curso") continue;
+    const nota = numero(c[10]);
+    if (nota === null) continue;
+    const chave = [norm(c[1]), norm(c[4]), norm(c[3]), norm(c[6]), norm(c[7]), norm(c[8])].join("|");
+    if (!m.has(chave)) m.set(chave, []);
+    m.get(chave).push({
+      cod: c[0].trim(), sg: c[1], ies: c[2].trim().replace(/\s+/g, " "), campus: c[3].trim().replace(/\s+/g, " "),
+      cidade: c[4], uf: c[5], curso: c[6].trim().replace(/\s+/g, " "), grau: c[7], turno: c[8], v: Number(c[9]) || 0, nota,
+    });
+  }
+  oficial.set(ano, m);
+  console.log(`oficial ${ano}: ${[...m.values()].reduce((s, l) => s + l.length, 0)} linhas da ampla`);
+}
+
+if (oficial.size > 0) {
+  const chave6 = (o) => [norm(o.sg), norm(o.cidade), norm(o.campus), norm(o.curso), norm(o.grau), norm(o.turno)].join("|");
+  const porChave6 = new Map();
+  const colididas = new Set();
+  for (const o of ofertas.values()) {
+    const k6 = chave6(o);
+    if (porChave6.has(k6)) { colididas.add(k6); porChave6.delete(k6); }
+    else if (!colididas.has(k6)) porChave6.set(k6, o);
+  }
+  if (colididas.size) console.log(`aviso: ${colididas.size} chaves repetidas no catálogo ficam de fora da conferência oficial`);
+
+  // Chaves que o MEC registra com mais de um código de curso (ou com mais de uma nota para o mesmo código):
+  // o scraping colapsa tudo numa linha só, então aqui elas viram uma entrada por código.
+  const ambiguas = new Set();
+  for (const [, m] of oficial)
+    for (const [k6, ls] of m)
+      if (new Set(ls.map((l) => l.cod)).size > 1 || new Set(ls.map((l) => l.nota)).size > 1) ambiguas.add(k6);
+
+  const novas = [];
+  const removerK5 = new Set();
+  let anosPerdidos = 0;
+  for (const k6 of ambiguas) {
+    const base = porChave6.get(k6);
+    // Sem base no catálogo e sem oferta na edição mais nova, não entra (o catálogo é o que dá para escolher agora)
+    if (!base && !(oficial.get(Math.max(...ANOS_OFICIAIS))?.has(k6))) continue;
+    const porCod = new Map();
+    for (const [ano, m] of oficial) {
+      for (const l of m.get(k6) ?? []) {
+        if (!porCod.has(l.cod)) porCod.set(l.cod, { cod: l.cod, c: {}, v: 0, meta: l });
+        const e = porCod.get(l.cod);
+        // nota 0,0 no relatório oficial = ninguém classificado na ampla naquela vaga; não vira nota de corte
+        if (l.nota > 0) e.c[ano] = l.nota;
+        if (ano === Math.max(...ANOS_OFICIAIS)) e.v = l.v;
+      }
+    }
+    if (base) {
+      removerK5.add([norm(base.sg), norm(base.campus), norm(base.curso), norm(base.grau), norm(base.turno)].join("|"));
+      // anos sem relatório oficial (2020, 2021, 2023) não dá para atribuir a um código: ficam de fora das entradas novas
+      anosPerdidos += Object.keys(base.c).filter((a) => !ANOS_OFICIAIS.includes(Number(a))).length;
+    }
+    for (const e of porCod.values()) {
+      const meta = e.meta;
+      if (base) novas.push({ ...base, c: { ...e.c }, v: e.v || base.v, cod: e.cod, co: undefined });
+      else novas.push({ curso: meta.curso, grau: meta.grau, turno: meta.turno, campus: meta.campus, cidade: meta.cidade, uf: meta.uf, ies: meta.ies, sg: meta.sg, sm: 1, v: e.v, c: e.c, cod: e.cod });
+    }
+  }
+  if (ambiguas.size) console.log(`chaves ambíguas separadas por código MEC: ${ambiguas.size} (→ ${novas.length} entradas; ${anosPerdidos} notas de anos sem conferência ficaram de fora)`);
+
+  // Completa com o relatório oficial de 2025 as notas que a API não chegou a divulgar em parcial.
+  const of25 = oficial.get(2025);
+  if (of25) {
+    let completadas = 0, criadas = 0, semClassificado = 0;
+    for (const [k6, ls] of of25) {
+      if (ambiguas.has(k6) || colididas.has(k6) || ls.length === 0) continue;
+      const l = ls[0];
+      const base = porChave6.get(k6);
+      if (base) {
+        if (base.c[String(Math.max(...ANOS))] === undefined) {
+          if (l.nota > 0) { base.c[String(Math.max(...ANOS))] = l.nota; base.cf = 1; completadas++; }
+          else semClassificado++;
+        }
+      } else if (l.nota > 0) {
+        novas.push({ curso: l.curso, grau: l.grau, turno: l.turno, campus: l.campus, cidade: l.cidade, uf: l.uf, ies: l.ies, sg: l.sg, sm: 1, v: l.v, c: { [String(Math.max(...ANOS))]: l.nota }, cod: l.cod, cf: 1 });
+        criadas++;
+      } else semClassificado++;
+    }
+    console.log(`oficial ${Math.max(...ANOS)}: ${completadas} notas completadas, ${criadas} ofertas criadas, ${semClassificado} sem classificado na ampla (sem corte)`);
+  }
+
+  for (const k5 of removerK5) ofertas.delete(k5);
+  for (const o of novas) ofertas.set(`oficial:${o.cod}`, o);
+}
+
 // Só ofertas da edição mais nova (o catálogo do que dá para escolher agora), com ao menos uma nota de corte.
-const lista = [...ofertas.values()].filter((o) => o.co && Object.keys(o.c).length > 0)
+const lista = [...ofertas.values()].filter((o) => (o.co || o.cod) && Object.keys(o.c).length > 0)
   .sort((a, b) => a.uf.localeCompare(b.uf) || a.ies.localeCompare(b.ies) || a.curso.localeCompare(b.curso));
+// Proveniência por ano: o que cada nota de corte é. Conferido = idêntico, oferta por oferta, ao relatório
+// oficial da chamada regular (comparação refeita por testar-sisu.mjs a cada geração).
+const cortes = oficial.size > 0 ? {
+  "2020": "Última parcial coletada da API do Sisu (2020/1); sem relatório oficial da mesma edição para conferir",
+  "2021": "Última parcial coletada da API do Sisu (2021/1); sem relatório oficial da mesma edição para conferir",
+  "2022": "Igual à nota final da chamada regular 2022/1 (conferido com o relatório oficial do MEC)",
+  "2023": "Última parcial coletada da API do Sisu (2023/1); o relatório oficial disponível é de 2023/2, edição diferente, então não foi conferido",
+  "2024": "Igual à nota final da chamada regular (conferido com o relatório oficial do MEC)",
+  "2025": "Nota final da chamada regular (conferido com o relatório oficial do MEC; as notas que a API não divulgou em parcial foram completadas com esse relatório)",
+} : undefined;
 const saida = {
-  fonte: "Notas de corte e pesos do Sisu (MEC), coletados pelo projeto sisu-data (MIT): github.com/maiakanegae/sisu-data",
+  fonte: "Notas de corte e pesos do Sisu (MEC), coletados pelo projeto sisu-data (MIT): github.com/maiakanegae/sisu-data; notas conferidas e completadas com os relatórios oficiais do MEC (gov.br/mec/sisu)",
   gerado: new Date().toISOString().slice(0, 10),
   anos: ANOS,
+  cortes,
   ofertas: lista,
 };
 fs.mkdirSync(path.join(process.cwd(), "public", "sisu"), { recursive: true });

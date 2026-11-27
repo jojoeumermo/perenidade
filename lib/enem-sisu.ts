@@ -33,18 +33,31 @@ export type OfertaSisu = {
   uf: string;
   ies: string;
   sg: string;
-  p: [number, number, number, number, number];
+  p?: [number, number, number, number, number];
   v: number;
   c: Record<string, number>;
-  co: number;
+  co?: number;
+  /** Código MEC do curso (CO_IES_CURSO) quando o nome vale para mais de um código com cortes diferentes. */
+  cod?: string;
+  /** Sem pesos divulgados (oferta que só existe nos relatórios oficiais): a média mostrada é a simples. */
+  sm?: 1;
+  /** A nota do ano mais novo veio do relatório oficial do MEC, não do scraping. */
+  cf?: 1;
 };
 
-export type CatalogoSisu = { fonte: string; gerado: string; anos: number[]; ofertas: OfertaSisu[] };
+export type CatalogoSisu = {
+  fonte: string;
+  gerado: string;
+  anos: number[];
+  /** O que cada nota de corte é, ano a ano (conferida com relatório oficial ou última parcial coletada). */
+  cortes?: Record<string, string>;
+  ofertas: OfertaSisu[];
+};
 
 /** A média ponderada das notas da pessoa com os pesos desta oferta (os pesos mudam de curso para curso). */
 export function mediaDaOferta(notas: Partial<Record<ProvaDoSisu, number>>, oferta: OfertaSisu): number | null {
   const pesos: Partial<Record<ProvaDoSisu, number>> = {};
-  PROVAS_DO_SISU.forEach((prova, i) => (pesos[prova] = oferta.p[i]));
+  PROVAS_DO_SISU.forEach((prova, i) => (pesos[prova] = oferta.p?.[i] ?? 1)); // sem pesos (sm) cai na média simples
   return mediaPonderada(notas, pesos);
 }
 
