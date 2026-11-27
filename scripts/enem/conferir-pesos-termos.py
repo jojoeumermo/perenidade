@@ -82,12 +82,31 @@ def extrair(pdf):
 
 ofertas = json.load(open(OFERTAS, encoding="utf-8"))["ofertas"]
 fontes = json.load(open(DIR / "fontes.json", encoding="utf-8"))
+# Regressões fixas do extrator e do casamento (já houve troca cidade<->campus e
+# inversão CN/CH que inflaram números): se mexer no extrator, estes valores não podem mudar.
+REGRESSAO = {
+    "UFMS": {"15837": {"pesos": [1, 1, 2, 3, 2], "cidade": "Campo Grande"}},
+    "UFRJ": {"14364": {"pesos": [1, 4, 1, 4, 3], "campus": "PRAIA VERMELHA"},
+             "1125881": {"pesos": [1, 4, 1, 4, 3], "campus": "CIDADE UNIVERSITARIA"}},
+    "IFSP": {"319300": {"pesos": [3, 2, 1, 4, 5], "cidade": "Caraguatatuba"}},
+    "UFF": {"1122221": {"pesos": [2, 1, 1, 4, 2], "cidade": "Niterói"}},
+}
+def regressao(sigla, termo):
+    for cod, esp in REGRESSAO.get(sigla, {}).items():
+        t = termo.get(cod)
+        assert t, f"regressão {sigla} {cod}: código não extraído"
+        for campo, val in esp.items():
+            got = [float(x) for x in t[campo]] if campo == "pesos" else t.get(campo)
+            want = [float(x) for x in val] if campo == "pesos" else norm(val) if campo == "campus" else val
+            assert got == want, f"regressão {sigla} {cod} {campo}: {got} != {want}"
+
 total = {"codigos": 0, "comparados": 0, "iguais": 0, "divergentes": 0, "sem_par": 0}
 for sigla, url in fontes.items():
     pdf = DIR / f"{sigla}.pdf"
     if not pdf.exists():
         print(f"{sigla}: PDF ausente ({pdf})"); continue
     termo = extrair(pdf)
+    regressao(sigla, termo)
     nossas = [o for o in ofertas if o["sg"] == sigla]
     por_cod = {o.get("cod"): o for o in nossas if o.get("cod")}
     por_nome = {}
