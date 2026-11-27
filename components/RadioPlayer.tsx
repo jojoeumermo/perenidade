@@ -383,7 +383,11 @@ export function RadioPlayer() {
               ↺15
             </button>
             <button type="button" className={`${button} text-xl`} onClick={radio.toggle} aria-label={playing ? t.radio.pause : t.radio.play} title={playing ? t.radio.pause : t.radio.play}>
-              {playing ? "⏸" : "▶"}
+              <span className="app:hidden">{playing ? "⏸" : "▶"}</span>
+              {/* No app o glifo vira emoji colorido (laranja) em vários aparelhos; o ícone de traço segue a cor do tocador. */}
+              <svg aria-hidden viewBox="0 0 24 24" className="hidden h-6 w-6 app:block" fill="currentColor">
+                {playing ? <path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /> : <path d="M8 5v14l11-7z" />}
+              </svg>
             </button>
             <button type="button" className={`${button} font-mono text-xs`} onClick={() => radio.skip(30)} aria-label={t.radio.forward30} title={t.radio.forward30}>
               30↻

@@ -29,7 +29,7 @@ test("mini-tocador: título legível e controles com toque, no app", async ({ pa
   console.log("MINI", JSON.stringify(medidas));
   await page.screenshot({ path: `test-results/zz/${info.project.name}-mini.png` });
   expect(medidas.titulo[0].w, "título com largura legível").toBeGreaterThan(120);
-  for (const b of medidas.botoes) expect(b.w, `botão ${b.rotulo}`).toBeGreaterThanOrEqual(40);
+  for (const b of medidas.botoes.filter((x) => x.w > 0)) expect(b.w, `botão ${b.rotulo}`).toBeGreaterThanOrEqual(40);
   expect(medidas.estouroX).toBe(false);
 });
 

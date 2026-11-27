@@ -1177,4 +1177,3 @@
 @media (max-width: 639px) {
   :root[data-app] .radio-player > div:first-child > button.hidden:not(.app\:max-md\:block) { display: none; }
 }
-:root[data-app] .radio-player button { font-variant-emoji: text; }
