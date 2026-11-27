@@ -33,18 +33,59 @@ export type OfertaSisu = {
   uf: string;
   ies: string;
   sg: string;
-  p: [number, number, number, number, number];
+  p?: [number, number, number, number, number];
   v: number;
   c: Record<string, number>;
-  co: number;
+  co?: number;
+  /** Código MEC do curso (CO_IES_CURSO) quando o nome vale para mais de um código com cortes diferentes. */
+  cod?: string;
+  /** O que distingue o código (turno/semestre de entrada, habilitação), quando fonte oficial sustenta. */
+  det?: string;
+  /** Sem pesos divulgados (oferta que só existe nos relatórios oficiais): a média mostrada é a simples. */
+  sm?: 1;
+  /** A nota do ano mais novo veio do relatório oficial do MEC, não do scraping. */
+  cf?: 1;
 };
 
-export type CatalogoSisu = { fonte: string; gerado: string; anos: number[]; ofertas: OfertaSisu[] };
+export type CatalogoSisu = {
+  fonte: string;
+  gerado: string;
+  anos: number[];
+  /** O que cada nota de corte é, ano a ano (conferida com relatório oficial ou última parcial coletada). */
+  cortes?: Record<string, string>;
+  ofertas: OfertaSisu[];
+};
+
+/** Uma oferta do Sisu 2025 em que o relatório oficial registrou 0 na ampla concorrência
+ * e que não tem nota de corte de 2020 a 2025 nos dados consultados. Fica em
+ * public/sisu/ofertas-sem-corte.json e aparece no simulador só como aviso: sem média e sem estimativa. */
+export type OfertaSisuSemCorte = {
+  curso: string;
+  grau: string;
+  turno: string;
+  campus: string;
+  cidade: string;
+  uf: string;
+  ies: string;
+  sg: string;
+  /** Vagas da ampla concorrência no Sisu 2025 (relatório oficial); pode ser 0. */
+  v: number;
+  /** Código MEC do curso (CO_IES_CURSO) no Sisu 2025. */
+  cod: string;
+};
+
+export type CatalogoSisuSemCorte = {
+  fonte: string;
+  gerado: string;
+  /** Edição do relatório oficial de onde saíram as vagas (2025). */
+  ano: number;
+  ofertas: OfertaSisuSemCorte[];
+};
 
 /** A média ponderada das notas da pessoa com os pesos desta oferta (os pesos mudam de curso para curso). */
 export function mediaDaOferta(notas: Partial<Record<ProvaDoSisu, number>>, oferta: OfertaSisu): number | null {
   const pesos: Partial<Record<ProvaDoSisu, number>> = {};
-  PROVAS_DO_SISU.forEach((prova, i) => (pesos[prova] = oferta.p[i]));
+  PROVAS_DO_SISU.forEach((prova, i) => (pesos[prova] = oferta.p?.[i] ?? 1)); // sem pesos (sm) cai na média simples
   return mediaPonderada(notas, pesos);
 }
 

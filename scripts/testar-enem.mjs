@@ -246,7 +246,7 @@ conferir("seções do ENEM: aula de orientação na reta final não cobra", conf
   const { mediaDaOferta, ultimoCorte } = await import("../lib/enem-sisu.ts");
   const catalogo = JSON.parse(fs.readFileSync(new URL("../public/sisu/ofertas.json", import.meta.url), "utf8"));
   conferir("Sisu: catálogo com milhares de ofertas", catalogo.ofertas.length > 5000);
-  conferir("Sisu: toda oferta tem os 5 pesos positivos, uf e ao menos um corte", catalogo.ofertas.every((o) => o.p.length === 5 && o.p.every((p) => p > 0) && o.uf.length === 2 && Object.keys(o.c).length > 0));
+  conferir("Sisu: toda oferta tem os 5 pesos positivos (ou o aviso de média simples), uf e ao menos um corte", catalogo.ofertas.every((o) => ((o.sm === 1 && o.p === undefined) || (o.p.length === 5 && o.p.every((p) => p > 0))) && o.uf.length === 2 && Object.keys(o.c).length > 0));
   conferir("Sisu: cortes dentro de 0 a 1000 e anos de 2020 a 2025", catalogo.ofertas.every((o) => Object.entries(o.c).every(([a, n]) => Number(a) >= 2020 && Number(a) <= 2025 && n > 0 && n <= 1000)));
   const amostra = catalogo.ofertas.find((o) => o.p[0] !== o.p[1]);
   conferir("Sisu: média da oferta usa os pesos dela", mediaDaOferta(notas, amostra) === mediaPonderada(notas, { linguagens: amostra.p[0], humanas: amostra.p[1], natureza: amostra.p[2], matematica: amostra.p[3], redacao: amostra.p[4] }));

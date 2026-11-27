@@ -44,6 +44,13 @@ export default async function Page({ params }: PageProps<"/[lang]/enem/sisu">) {
         <a href="https://github.com/maiakanegae/sisu-data" className="underline hover:text-oxblood" rel="noopener noreferrer">sisu-data</a>{" · "}
         <a href={ed.fontes.sisu.url} className="underline hover:text-oxblood" rel="noopener noreferrer">{ed.fontes.sisu.titulo}</a>
       </p>
+      <ul className="mt-4 list-disc space-y-1 pl-5 font-sans text-xs">
+        <li>{s.sisu.cortesConferidos}</li>
+        <li>{s.sisu.cortes2021}</li>
+        <li>{s.sisu.cortesPesos}</li>
+        <li>{s.sisu.cortesSemNota}</li>
+        <li>{s.sisu.cortesAusentes}</li>
+      </ul>
       <p className="mt-2 font-mono text-xs">{s.sisu.conta}</p>
     </div>
   );
