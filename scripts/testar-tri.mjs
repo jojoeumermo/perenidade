@@ -5,7 +5,7 @@
 // ITENS_PROVA_2022.csv e contra o gabarito das questões do site. Uso: npm run testar:tri
 import fs from "node:fs";
 import path from "node:path";
-import { corrigirLetras, D_PADRAO, ePadraoPerfeito, ESCALA_POR_AREA, estimarEap, estimarMl, faixaPorAcertos, itensDaArea, notaDeGabaritoDaProva, notaDeTheta, notaDeThetaDaArea, probabilidadeD, quadratura, thetaDeNota, thetaDeNotaDaArea } from "../lib/enem-tri.ts";
+import { cenarioDeGabarito, corrigirLetras, D_PADRAO, ePadraoPerfeito, ESCALA_POR_AREA, estimarEap, estimarMl, faixaPorAcertos, itensDaArea, notaDeGabaritoDaProva, notaDeTheta, notaDeThetaDaArea, probabilidadeD, quadratura, thetaDeNota, thetaDeNotaDaArea } from "../lib/enem-tri.ts";
 
 let ok = 0;
 const falhas = [];
@@ -196,10 +196,33 @@ const json = (...p) => JSON.parse(fs.readFileSync(path.join(raiz, ...p), "utf8")
   const itEsp = itensDaArea(lc24, "espanhol");
   const gabEsp = estimarEap(itEsp, itEsp.map((i) => (i.fora ? null : true)), { area: "linguagens", notaGabarito: notaDeGabaritoDaProva(lc24, "espanhol") });
   conferir("2024 LC espanhol: sem exceção, o modelo já cai em 795,8 (±0,1)", perto(gabEsp.nota, 795.8, 0.1), gabEsp.nota.toFixed(2));
-  // 2025 tem exceções catalogadas no analise-enem (LC inglês 794,5; CN 858,7; MT 980,3), mas ainda não verificadas
-  // por nós nos microdados de 2025: ficam de fora até a conferência própria.
+  // 2025 VERIFICADO por nós nos microdados oficiais (RESULTADOS_2025.csv, 4.810.772 inscritos): LC 794,5
+  // (inglês n=84; espanhol n=1), CN 858,7 (n=67), MT 980,3 (n=88). CH não precisa: o modelo já dá 856,4 exato.
   const p25 = json("public", "tri", "enem-2025.json").areas;
-  conferir("2025: nenhuma nota de gabarito enquanto não verificamos os microdados de 2025", notaDeGabaritoDaProva(p25.linguagens, "ingles") === undefined && notaDeGabaritoDaProva(p25.natureza) === undefined && notaDeGabaritoDaProva(p25.matematica) === undefined);
+  conferir("2025: notas de gabarito verificadas nos microdados (LC 794,5 ing/esp; CN 858,7; MT 980,3; CH ausente)",
+    notaDeGabaritoDaProva(p25.linguagens, "ingles") === 794.5 && notaDeGabaritoDaProva(p25.linguagens, "espanhol") === 794.5
+    && notaDeGabaritoDaProva(p25.natureza) === 858.7 && notaDeGabaritoDaProva(p25.matematica) === 980.3 && notaDeGabaritoDaProva(p25.humanas) === undefined);
+  const lc25Ing = itensDaArea(p25.linguagens, "ingles");
+  const gab25 = estimarEap(lc25Ing, lc25Ing.map((i) => (i.fora ? null : true)), { area: "linguagens", notaGabarito: notaDeGabaritoDaProva(p25.linguagens, "ingles") });
+  conferir("2025 LC inglês: gabaritar devolve a nota oficial 794,5", gab25.nota === 794.5);
+  // Regra observada em 2025 para item anulado que MANTEVE a letra do gabarito (MT 1471: item 97593, "A"; CN 1483:
+  // item 96748, "B"): a nota fixa só sai para quem acertou esse item; quem gabaritou os ativos e o errou (ou não o
+  // respondeu) recebe a nota EAP normal (MT 967,7; CN 852,4). Itens anulados com gabarito "X" não contam.
+  for (const [nome, bloco, area, fixa, eap] of [["MT 1471", p25.matematica, "matematica", 980.3, 967.7], ["CN 1483", p25.natureza, "natureza", 858.7, 852.4]]) {
+    const its = itensDaArea(bloco);
+    const resp = its.map((i) => (i.fora ? null : true));
+    const anulados = its.filter((i) => i.fora && i.g && i.g !== "X");
+    conferir(`${nome}: a prova tem exatamente 1 anulado-com-letra`, anulados.length === 1, String(anulados.length));
+    const ng = notaDeGabaritoDaProva(bloco);
+    const certo = estimarEap(its, resp, { area, notaGabarito: ng, anuladosComLetra: [true] });
+    conferir(`${nome}: gabaritou tudo incluindo o anulado → nota fixa ${fixa}`, certo.nota === fixa);
+    const errado = estimarEap(its, resp, { area, notaGabarito: ng, anuladosComLetra: [false] });
+    conferir(`${nome}: gabaritou os ativos mas errou o anulado → EAP ${eap} (±0,1)`, perto(errado.nota, eap, 0.1), errado.nota.toFixed(2));
+    const semResp = estimarEap(its, resp, { area, notaGabarito: ng, anuladosComLetra: [null] });
+    conferir(`${nome}: sem resposta do anulado não concede a nota fixa`, perto(semResp.nota, eap, 0.1), semResp.nota.toFixed(2));
+    conferir(`${nome}: cenário gabarito/indefinido/comum`,
+      cenarioDeGabarito(resp, [true]) === "gabarito" && cenarioDeGabarito(resp, [null]) === "indefinido" && cenarioDeGabarito(resp, [false]) === "comum" && cenarioDeGabarito(resp.map((r, i) => (i === 0 ? false : r)), [true]) === "comum");
+  }
   // A faixa "acertei X" usa a mesma régua da área: no topo, todos os padrões coincidem com o EAP da área.
   const mt24 = itensDaArea(json("public", "tri", "enem-2024.json").areas.matematica).filter((i) => !i.fora);
   const fArea = faixaPorAcertos(mt24, { area: "matematica" });
