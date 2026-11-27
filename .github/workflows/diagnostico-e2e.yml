@@ -22,8 +22,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        parte: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-        alvo: [ramo-computador, master-computador, ramo-celular]
+        parte: [a, b, c, d]
+        alvo: [ramo-computador, master-computador, ramo-celular, master-celular]
         include:
           - alvo: ramo-computador
             projeto: computador
@@ -34,6 +34,17 @@ jobs:
           - alvo: ramo-celular
             projeto: celular
             ref: ""
+          - alvo: master-celular
+            projeto: celular
+            ref: 19e8dd515361813993bff953a428dd3164f04010
+          - parte: a
+            arquivos: "e2e/chat-grupo e2e/escola-acesso e2e/vozes e2e/fluxos"
+          - parte: b
+            arquivos: "e2e/escola-acompanhante"
+          - parte: c
+            arquivos: "e2e/escola-agentes"
+          - parte: d
+            arquivos: "e2e/p4-criacao-coletiva e2e/p4-presenca-print"
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
@@ -45,8 +56,8 @@ jobs:
       - run: npm ci
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
-      - name: e2e parte ${{ matrix.parte }}/12
-        run: npx playwright test --project=${{ matrix.projeto }} --grep-invert "fumaça:" --shard=${{ matrix.parte }}/12 --retries=0 --timeout=90000 --trace=off --reporter=list --output=test-results/p
+      - name: e2e grupo ${{ matrix.parte }}
+        run: npx playwright test --project=${{ matrix.projeto }} --grep-invert "fumaça:" ${{ matrix.arquivos }} --retries=0 --timeout=90000 --trace=off --reporter=list --output=test-results/p
         env:
           CI: "1"
           ALUMIA_VOTO_SEGREDO: "segredo-so-de-teste-do-e2e-0123456789abcdef"
