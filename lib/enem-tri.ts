@@ -156,7 +156,7 @@ function logVerossimilhancaD(itens: Item[], respostas: (boolean | null)[], theta
 export function estimarEap(
   itens: Item[],
   respostas: (boolean | null)[],
-  opcoes: { D?: number; pontos?: number; area?: AreaDoEnem; notaGabarito?: number } = {},
+  opcoes: { D?: number; pontos?: number; area?: AreaDoEnem; notaGabarito?: number; anuladosComLetra?: (boolean | null)[] } = {},
 ): Estimativa {
   const D = opcoes.D ?? D_PADRAO;
   const { x, w } = quadratura(opcoes.pontos ?? 40);
@@ -168,8 +168,11 @@ export function estimarEap(
   const dp = Math.sqrt(pesos.reduce((s, v, k) => s + v * (x[k] - theta) ** 2, 0) / total);
   const escala = opcoes.area ? ESCALA_POR_AREA[opcoes.area] : { slope: 100, intercept: 500 };
   const nota = (t: number) => escala.slope * t + escala.intercept;
-  if (opcoes.notaGabarito !== undefined && ePadraoPerfeito(respostas)) {
+  if (opcoes.notaGabarito !== undefined && ePadraoPerfeito(respostas) && (opcoes.anuladosComLetra?.every((r) => r === true) ?? true)) {
     // Nota de gabarito: o Inep atribui uma nota fixa a quem acerta tudo nesta prova (ver AreaDoArquivo.notaGabarito).
+    // Regra observada nos microdados de 2025: em prova com item anulado que manteve a letra do gabarito original,
+    // a nota fixa só sai para quem acertou esse item também; quem gabaritou só os ativos recebe a nota EAP normal.
+    // `anuladosComLetra[i]` = true (acertou), false (errou), null (não respondeu) — null NÃO concede a nota fixa.
     const ng = opcoes.notaGabarito;
     return { theta, dp, nota: ng, notaDp: 0, ic95: [ng, ng] };
   }
@@ -187,6 +190,20 @@ export function notaDeGabaritoDaProva(area: AreaDoArquivo, idioma: "ingles" | "e
 export function ePadraoPerfeito(respostas: (boolean | null)[]): boolean {
   const validas = respostas.filter((r) => r !== null && r !== undefined);
   return validas.length > 0 && validas.every(Boolean);
+}
+
+/**
+ * O cenário de quem gabaritou os itens ativos, para a UI decidir o que mostrar (microdados 2025: a nota fixa exige
+ * acertar também os itens anulados que mantiveram letra de gabarito):
+ * - "gabarito": padrão perfeito e anulados-com-letra todos certos (ou inexistentes) — vale a nota fixa;
+ * - "indefinido": padrão perfeito, mas falta resposta de anulado-com-letra — mostrar os dois cenários;
+ * - "comum": não é padrão perfeito, ou é perfeito mas errou anulado-com-letra — vale a nota EAP normal.
+ */
+export type CenarioDeGabarito = "comum" | "indefinido" | "gabarito";
+export function cenarioDeGabarito(respostas: (boolean | null)[], anuladosComLetra: (boolean | null)[] = []): CenarioDeGabarito {
+  if (!ePadraoPerfeito(respostas)) return "comum";
+  if (anuladosComLetra.every((r) => r === true)) return "gabarito";
+  return anuladosComLetra.some((r) => r === false) ? "comum" : "indefinido";
 }
 
 /** Máxima verossimilhança (grade, passo 0,01 em [−4, 4]); nulo quando acertou ou errou tudo (não há máximo). */
@@ -260,6 +277,9 @@ export interface AreaDoArquivo {
    * analise-enem descreve o desvio como a nota de gabarito de outro caderno da edição, mas cada valor aqui é só o
    * número que os microdados daquela edição registram, por prova e idioma, sem extrapolação. Linguagens usa o
    * objeto por idioma; as demais áreas usam o número direto. Ausente = a nota do modelo já coincide com a oficial.
+   * Detalhe observado em 2025: com item anulado que manteve a letra do gabarito (ex.: MT 1471, item 97593, letra
+   * "A"), a nota fixa só saiu para quem acertou esse item; quem gabaritou os ativos e o errou recebeu a nota EAP
+   * (967,7 em vez de 980,3). Ver estimarEap (opção anuladosComLetra) e cenarioDeGabarito.
    */
   notaGabarito?: number | { ingles?: number; espanhol?: number };
 }

@@ -13,6 +13,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
+import { wordlist } from "@scure/bip39/wordlists/english.js";
 import { criarBanco } from "./banco-local.mjs";
 import { conferenciaDe, contribuir, dividir, juntarContribuicoes, lerParte, paraOAmbiente, refazer } from "./segredos/cerimonia.mjs";
 import { impressaoDaRede, impressoesDaRede, lerSegredo } from "../lib/rede/painel/impressao.ts";
@@ -73,9 +75,13 @@ ok("ATAQUE K−1 = 2 partes NÃO refazem o segredo", nenhumDois);
 }
 ok("a parte vai e volta pelas palavras (33 bytes, com o número no fim)", lerParte(texto(partes[0])).length === 33 && lerParte(texto(partes[0]))[32] === partes[0].numero);
 {
-  const palavras = partes[0].palavras.split(" ");
-  palavras[5] = palavras[5] === "abandon" ? "ability" : "abandon";
-  await recusa("parte com uma palavra trocada é recusada (a soma de conferência do BIP-39)", () => lerParte(`${partes[0].numero}: ${palavras.join(" ")}`), "");
+  // Vetor FIXO com soma de conferência errada: 23 × "abandon" (índice 0) + "zoo". A soma BIP-39 dos 256 bits
+  // zero é o 1º byte do SHA-256 deles — calculado aqui com o crypto do Node, independente do @scure/bip39 que
+  // o lerParte usa. O teste anterior trocava uma palavra ao acaso por "abandon"/"ability" e a frase mutada
+  // seguia válida em ~1/256 das vezes (falha observada no CI em 27/11/2026; medida 11 em 3.000 mutações).
+  const soma = createHash("sha256").update(new Uint8Array(32)).digest()[0];
+  ok("o vetor fixo tem a soma errada de propósito (a palavra certa seria outra)", wordlist[soma] !== "zoo");
+  await recusa("parte com a soma de conferência errada é recusada (BIP-39)", () => lerParte(`${partes[0].numero}: ${"abandon ".repeat(23)}zoo`), "");
 }
 ok("a ferramenta não grava nada em disco", !/writeFile|appendFile|createWriteStream/.test(fs.readFileSync(path.join(raiz, "scripts/segredos/cerimonia.mjs"), "utf8")));
 
