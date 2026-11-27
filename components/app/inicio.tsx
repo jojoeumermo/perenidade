@@ -25,7 +25,7 @@ export function SaudacaoDoApp() {
   return (
     <div className="app-saudacao">
       <p className="app-saudacao-data">{data}</p>
-      <p className="app-saudacao-ola">
+      <h1 className="app-saudacao-ola">
         {cumprimento}
         {hydrated && nome ? (
           <>
@@ -33,7 +33,7 @@ export function SaudacaoDoApp() {
           </>
         ) : null}
         .
-      </p>
+      </h1>
     </div>
   );
 }
