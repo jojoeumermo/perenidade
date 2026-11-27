@@ -24,6 +24,7 @@ import {
   type Medidas,
 } from "@/lib/videoaula";
 import { linkDoYoutube, mensagemDoCanal, pedirAoCanal } from "@/lib/canal-youtube";
+import { pdfDeVerdade } from "@/lib/pdf";
 import { cleanSources, SourcesField, type SourceDraft } from "../Editor";
 import { useI18n } from "../I18n";
 import { useTrackOptions } from "../useTrackOptions";
@@ -394,6 +395,37 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
   const [segundos, setSegundos] = useState(0);
   const [progresso, setProgresso] = useState(0);
   const [aviso, setAviso] = useState("");
+
+  // A prévia abre num <object>, que EXECUTA HTML/SVG na nossa origem se o arquivo não for PDF de
+  // verdade (o accept do seletor é só sugestão e o type vem da extensão). Só entra PDF conferido.
+  // Cada escolha tem um número: se a pessoa escolhe outro arquivo enquanto o anterior ainda é conferido, só vale a última.
+  const escolhaDoPdf = useRef(0);
+  // O endereço do PDF aberto, para soltá-lo ao trocar, fechar ou sair da tela (fora do setPdf, que o StrictMode roda duas vezes).
+  const pdfAtual = useRef<string | null>(null);
+  function abrirPdf(url: string | null) {
+    if (pdfAtual.current) URL.revokeObjectURL(pdfAtual.current);
+    pdfAtual.current = url;
+    setPdf(url);
+  }
+  async function escolherPdf(f: File) {
+    const minha = ++escolhaDoPdf.current;
+    const bom = await pdfDeVerdade(f);
+    if (minha !== escolhaDoPdf.current) return;
+    if (!bom) {
+      setAviso("O arquivo não é um PDF de verdade. Se ele abre no seu leitor de PDF, salve de novo a partir dele e tente outra vez.");
+      return;
+    }
+    setAviso("");
+    abrirPdf(URL.createObjectURL(f));
+  }
+  useEffect(
+    () => () => {
+      escolhaDoPdf.current++;
+      if (pdfAtual.current) URL.revokeObjectURL(pdfAtual.current);
+      pdfAtual.current = null;
+    },
+    [],
+  );
   const espelho = useRef<HTMLVideoElement>(null);
   const fluxo = useRef<MediaStream | null>(null);
   const gravador = useRef<MediaRecorder | null>(null);
@@ -642,7 +674,7 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
             <label className="pn-elo inline-flex cursor-pointer items-center gap-1 rounded-[var(--pn-raio)] text-sm has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--pn-foco)]">
               <FileText aria-hidden className="h-4 w-4" />
               {pdf ? "Trocar o PDF" : "Mostrar um PDF"}
-              <input type="file" accept="application/pdf" className="sr-only" onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) { if (pdf) URL.revokeObjectURL(pdf); setPdf(URL.createObjectURL(f)); } }} />
+              <input type="file" accept="application/pdf" className="sr-only" onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) void escolherPdf(f); }} />
             </label>
           )}
           {estado === "parado" && (
@@ -670,7 +702,7 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
         <div className="border-t border-[var(--pn-borda)] p-4">
           <p className="text-xs text-ink-soft">
             O PDF abre aqui embaixo. Ao escolher a tela, compartilhe <strong>esta aba</strong>: o que você rolar no PDF entra na gravação.{" "}
-            <Botao variante="discreto" pequeno simbolo={X} onClick={() => { URL.revokeObjectURL(pdf); setPdf(null); }}>Fechar o PDF</Botao>
+            <Botao variante="discreto" pequeno simbolo={X} onClick={() => { escolhaDoPdf.current++; abrirPdf(null); }}>Fechar o PDF</Botao>
           </p>
           <object data={pdf} type="application/pdf" className="mt-2 h-[60vh] w-full rounded-[var(--pn-raio)] border border-[var(--pn-borda)]" aria-label="PDF da aula">
             <p className="p-3 text-ink-soft">Este navegador não mostra PDF aqui dentro: abra o arquivo em outra aba e compartilhe aquela aba.</p>
