@@ -34,7 +34,7 @@ def extrair(pdf):
     out = {}
     blocos = re.split(r"(?=^\s*\d{3,7} - [A-ZÀ-Ú])", txt, flags=re.M)
     # cidade do Local de Oferta mais recente antes de cada bloco
-    locais = [(mm.start(), mm.group(1)) for mm in re.finditer(r"Local de Oferta: \d+ - [^()]+\(([^(),]+),\s*[A-Z]{2}\)", txt)]
+    locais = [(mm.start(), mm.group(1).strip(), mm.group(2)) for mm in re.finditer(r"Local de Oferta: \d+ - ([^()]+)\(([^(),]+),\s*[A-Z]{2}\)", txt)]
     pos = 0
     bounds = [mm.start() for mm in re.finditer(r"(?=^\s*\d{3,7} - [A-ZÀ-Ú])", txt, flags=re.M)]
     for i, b in enumerate(blocos):
@@ -44,9 +44,11 @@ def extrair(pdf):
         cod, nome = m.group(1), m.group(2).strip()
         inicio = bounds[i - 1] if 0 < i <= len(bounds) else 0
         cidade = None
-        for li, cid in locais:
+        campus = None
+        for li, camp, cid in locais:
             if li < inicio:
                 cidade = cid.strip()
+                campus = camp
             else:
                 break
         mg = re.search(r"Grau:\s*([A-Za-zÀ-ú]+)", b)
@@ -74,7 +76,8 @@ def extrair(pdf):
         out[cod] = {"curso": nomes.get(cod, nome), "pesos": pesos,
                     "cidade": cidade,
                     "grau": norm(mg.group(1)) if mg else None,
-                    "turno": norm(mt.group(1)) if mt else None}
+                    "turno": norm(mt.group(1)) if mt else None,
+                    "campus": norm(campus) if campus else None}
     return out
 
 ofertas = json.load(open(OFERTAS, encoding="utf-8"))["ofertas"]
@@ -99,6 +102,10 @@ for sigla, url in fontes.items():
             if len(cand) > 1 and t.get("cidade"):
                 # cidade e filtro DURO: sem oferta naquela cidade, nao casa com outro campus
                 cand = [o for o in cand if norm(o.get("cidade", "")) == norm(t["cidade"])]
+            if len(cand) > 1 and t.get("campus"):
+                f = [o for o in cand if norm(o.get("campus", "")) == t["campus"]]
+                if f:
+                    cand = f
             if len(cand) > 1 and t.get("grau"):
                 cand = [o for o in cand if norm(o.get("grau", "")).split()[0:1] == [t["grau"]]]
             elif len(cand) == 1 and t.get("grau") and norm(cand[0].get("grau", "")).split()[0:1] != [t["grau"]]:
