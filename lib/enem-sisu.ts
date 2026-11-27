@@ -56,8 +56,8 @@ export type CatalogoSisu = {
   ofertas: OfertaSisu[];
 };
 
-/** Uma oferta do Sisu 2025 em que o relatório oficial registrou 0 na ampla concorrência (ninguém
- * classificado pela nota) e que não tem nota de corte de 2020 a 2025 nos dados consultados. Fica em
+/** Uma oferta do Sisu 2025 em que o relatório oficial registrou 0 na ampla concorrência
+ * e que não tem nota de corte de 2020 a 2025 nos dados consultados. Fica em
  * public/sisu/ofertas-sem-corte.json e aparece no simulador só como aviso: sem média e sem estimativa. */
 export type OfertaSisuSemCorte = {
   curso: string;

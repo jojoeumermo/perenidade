@@ -125,7 +125,7 @@ if (oficial.size > 0) {
       for (const l of m.get(k6) ?? []) {
         if (!porCod.has(l.cod)) porCod.set(l.cod, { cod: l.cod, c: {}, v: 0, meta: l });
         const e = porCod.get(l.cod);
-        // nota 0,0 no relatório oficial = ninguém classificado na ampla naquela vaga; não vira nota de corte
+        // nota 0,0 no relatório oficial não é nota de corte (o relatório não diz o motivo do 0); não vira corte
         if (l.nota > 0) e.c[ano] = l.nota;
         if (ano === Math.max(...ANOS_OFICIAIS)) e.v = l.v;
       }
@@ -249,8 +249,8 @@ fs.writeFileSync(path.join(process.cwd(), "public", "sisu", "ofertas.json"), JSO
 console.log(`ofertas no JSON: ${lista.length} (${(fs.statSync(path.join(process.cwd(), "public", "sisu", "ofertas.json")).size / 1e6).toFixed(1)} MB)`);
 
 // ---- Ofertas do Sisu 2025 sem nota de corte nos dados consultados (2020–2025) ----
-// O relatório oficial de 2025 registra 0 na ampla concorrência dessas ofertas (ninguém classificado pela
-// nota) e elas não têm nenhuma nota de corte de 2020 a 2025 no catálogo. O ofertas.json exige ao menos um
+// O relatório oficial de 2025 registra 0 na ampla concorrência dessas ofertas e elas não têm nenhuma
+// nota de corte de 2020 a 2025 no catálogo. O ofertas.json exige ao menos um
 // corte, então elas ficam fora dele; aqui viram um arquivo separado, só de aviso no simulador (sem média,
 // sem estimativa), para não mudar o contrato do catálogo principal.
 if (oficial.get(2025)) {
@@ -270,7 +270,7 @@ if (oficial.get(2025)) {
   if (comCorteFora) console.log(`aviso: ${comCorteFora} linhas oficiais de 2025 COM corte fora do catálogo (conferir)`);
   semCorte.sort((a, b) => a.uf.localeCompare(b.uf) || a.ies.localeCompare(b.ies) || a.curso.localeCompare(b.curso));
   const saidaSemCorte = {
-    fonte: "Relatório oficial do MEC da chamada regular do Sisu 2025 (gov.br/mec/sisu): ofertas em que a ampla concorrência registrou nota 0 (sem classificado pela nota) e que não têm nota de corte de 2020 a 2025 nos dados consultados",
+    fonte: "Relatório oficial do MEC da chamada regular do Sisu 2025 (gov.br/mec/sisu): ofertas em que a ampla concorrência registrou nota 0 e que não têm nota de corte de 2020 a 2025 nos dados consultados",
     gerado: new Date().toISOString().slice(0, 10),
     ano: 2025,
     ofertas: semCorte,

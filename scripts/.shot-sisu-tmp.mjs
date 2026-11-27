@@ -1,0 +1,17 @@
+import { chromium } from 'playwright-core';
+const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', args: ['--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--headless=new','--no-proxy-server'] });
+const page = await browser.newPage({ viewport: { width: 1100, height: 1500 } });
+page.on('pageerror', (e) => console.log('PAGEERROR:', String(e).slice(0,200)));
+setTimeout(() => { console.log('WATCHDOG'); process.exit(2); }, 70000);
+page.setDefaultTimeout(60000);
+await page.goto('http://127.0.0.1:3100/pt/enem/sisu', { waitUntil: 'domcontentloaded', timeout: 60000 });
+await page.waitForTimeout(2500);
+await page.evaluate(() => { for (const d of document.querySelectorAll('dialog[open]')) d.close(); });
+for (const inp of await page.$$('input[inputmode=decimal]')) await inp.fill('700');
+await page.locator('input[placeholder*="Medicina"]').fill('escola de teatro');
+await page.waitForTimeout(1200);
+await page.evaluate(() => window.scrollTo(0, 700));
+await page.screenshot({ path: '/downloads/sisu-separacao-codigos.png' });
+const t = await page.evaluate(() => document.body.innerText);
+console.log('codMEC:', t.includes('cód. MEC'), '| 24770:', t.includes('24770'), '| 34152:', t.includes('34152'), '| mediaSimples:', t.includes('média simples'), '| suaMedia:', t.includes('sua média nesta oferta'.toUpperCase()) || t.includes('a média nesta oferta'));
+await browser.close();

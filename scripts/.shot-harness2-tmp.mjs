@@ -1,0 +1,23 @@
+import { chromium } from 'playwright-core';
+const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--no-proxy-server', '--headless=new'] });
+const page = await browser.newPage({ viewport: { width: 1100, height: 1500 } });
+page.on('pageerror', (e) => console.log('PAGEERROR:', String(e).slice(0, 300)));
+page.setDefaultTimeout(30000);
+await page.goto('http://127.0.0.1:8899/harness.html', { waitUntil: 'load', timeout: 30000 });
+await page.waitForSelector('select', { timeout: 30000 });
+await page.evaluate(() => { const setter = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value').set; for (const s of document.querySelectorAll('select')) { if ([...s.options].some((o) => o.value === '2025')) { setter.call(s, '2025'); s.dispatchEvent(new Event('change', { bubbles: true })); break; } } });
+await page.waitForSelector('table tbody tr', { timeout: 30000 });
+await page.$$eval('input[type=checkbox]:not([disabled])', (els) => els.forEach((e) => e.click()));
+await page.waitForTimeout(1200);
+const ancorar = async (trecho) => page.evaluate((t) => { for (const el of document.querySelectorAll('h2,h3,p,div,section')) { if (el.innerText && el.innerText.startsWith(t)) { el.scrollIntoView({ block: 'start' }); return el.innerText.slice(0, 60); } } return null; }, trecho);
+console.log('ancora:', await ancorar('Questões anuladas'));
+await page.screenshot({ path: '/downloads/tri-2025-anulado-cenarios.png' });
+console.log('shot1');
+for (const b of await page.$$('button')) { const t = await b.innerText(); if (t.includes('Sim, marquei')) { await b.click(); break; } }
+await page.waitForTimeout(900);
+await page.evaluate(() => window.scrollBy(0, -60));
+await page.screenshot({ path: '/downloads/tri-2025-anulado-fixa.png' });
+console.log('shot2');
+const texto = await page.evaluate(() => document.body.innerText);
+console.log(texto.includes('980') ? 'VIU 980' : 'SEM 980', '|', texto.includes('967') ? 'VIU 967' : 'SEM 967');
+await browser.close();
