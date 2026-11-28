@@ -10,8 +10,14 @@
 // o campo novo. Itens seguem o formato vigente ({co, p, g, a, b, c, h} ou {co, p, g, aban, h}), sem ligação com
 // questões do site (sem "q").
 //
-// Uso:  node scripts/enem/gerar-variantes-tri.mjs 2022        (só este ano)
-//       node scripts/enem/gerar-variantes-tri.mjs --csv-dir pasta 2022
+// Uso:  node scripts/enem/gerar-variantes-tri.mjs 2022        (só este ano; só as áreas validadas, ver abaixo)
+//       node scripts/enem/gerar-variantes-tri.mjs --csv-dir pasta 2022   (lê pasta/itens-AAAA.csv em vez do zip)
+//       node scripts/enem/gerar-variantes-tri.mjs --areas natureza matematica 2022
+//
+// ÁREAS: por padrão regenera as áreas com validação populacional medida nos microdados (AREAS_VALIDADAS:
+// natureza/CN 1093, matematica/MT 1081 e linguagens/LC 1073, 2022; números e limites no corpo do PR).
+// Ficam fora, sem medição: cadernos especiais (CN 1165-1168, MT 1155-1158, LC 1145-1148) e humanas.
+// --areas permite regenerar um subconjunto.
 import fs from "node:fs";
 import path from "node:path";
 import { extrairEntrada, listarZip } from "./zip-remoto.mjs";
@@ -19,10 +25,23 @@ import { extrairEntrada, listarZip } from "./zip-remoto.mjs";
 const RAIZ = process.cwd();
 const DIR_TRI = path.join(RAIZ, "public", "tri");
 const AREAS = { linguagens: "LC", humanas: "CH", natureza: "CN", matematica: "MT" };
+// Áreas com validação populacional completa (efeito medido nos microdados com o estimador EAP do
+// repositório, antes/depois com o mesmo leitor). Só estas são regeneradas por padrão.
+const AREAS_VALIDADAS = ["natureza", "linguagens", "matematica"];
 
 const args = process.argv.slice(2);
 const iDir = args.indexOf("--csv-dir");
 const dirCsv = iDir >= 0 ? args[iDir + 1] : null;
+const iAreas = args.indexOf("--areas");
+const areasEscolhidas = new Set(
+  iAreas >= 0
+    ? args.slice(iAreas + 1).filter((a) => a in AREAS)
+    : AREAS_VALIDADAS,
+);
+if (iAreas >= 0 && areasEscolhidas.size === 0) {
+  console.error(`--areas: informe ao menos uma de: ${Object.keys(AREAS).join(", ")}`);
+  process.exit(1);
+}
 const anos = args.filter((a, i) => /^\d{4}$/.test(a) && (iDir < 0 || i !== iDir + 1)).map(Number);
 if (!anos.length) {
   console.error("informe ao menos um ano (gerar ano a ano, com auditoria por edição)");
@@ -86,6 +105,7 @@ for (const ano of anos) {
   const linhas = lerCsv(await csvDoAno(ano));
   const resumo = [];
   for (const [area, sigla] of Object.entries(AREAS)) {
+    if (!areasEscolhidas.has(area)) continue;
     const bloco = edicao.areas[area];
     if (!bloco) { resumo.push(`${area}: sem bloco no JSON`); continue; }
     const cosJson = new Set([...(bloco.itens || []), ...(bloco.idiomas ? [...bloco.idiomas.ingles, ...bloco.idiomas.espanhol] : [])].map((i) => i.co));

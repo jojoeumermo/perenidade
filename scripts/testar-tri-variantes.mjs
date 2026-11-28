@@ -2,7 +2,9 @@
 //
 // Regressão da estrutura "variantes" dos cadernos TRI (fase 1: Enem 2022): cadernos REGULARES cujo conjunto
 // de itens difere do caderno de referência publicado, mas tem ao menos um item em comum com ele — caso da
-// reaplicação 2022 CN (caderno 1093, 44/45 itens comuns com o 1087). Sem esses itens, o estimador media viés
+// reaplicação 2022 CN (caderno 1093, 44/45 itens comuns com o 1087), MT (1081, rótulo equivalente ao 1082 com os
+// mesmos 45 itens) e LC (1073). Medição populacional nos microdados 2022 (EAP do repositório, antes/depois, mesmo leitor):
+// ver corpo do PR. Cadernos especiais (CN 1165-1168, MT 1155-1158, LC 1145-1148) seguem sem cobertura. Sem esses itens, o estimador media viés
 // sistemático de até 15,1 pontos nos participantes do 1093 (n = 949; com a variante, nenhum caso acima de
 // 0,05 ponto — medido com o estimador EAP do repositório sobre os microdados oficiais).
 //
