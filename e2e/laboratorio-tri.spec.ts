@@ -12,14 +12,25 @@ import { vigiarErros } from "./ajuda";
 //   CAPTURAS=1 npx playwright test e2e/laboratorio-tri   → também guarda uma captura de cada estado em test-results/capturas/
 //
 // A primeira visita compila a página no servidor de desenvolvimento: folga de tempo só aqui.
-test.describe.configure({ timeout: 480_000 });
+test.describe.configure({ timeout: 240_000, retries: 0 });
 
 const CAMINHO = "/pt/enem/laboratorio-tri";
 
 async function abrirLab(page: Page) {
-  const resposta = await page.goto(CAMINHO, { waitUntil: "domcontentloaded", timeout: 300_000 });
+  // Diagnóstico: se o laboratório não aparecer, a falha diz o que o navegador viu (texto, erros, respostas ruins).
+  const visto: string[] = [];
+  page.on("console", (m) => { if (["error", "warning"].includes(m.type())) visto.push(`console ${m.type()}: ${m.text().slice(0, 200)}`); });
+  page.on("pageerror", (e) => visto.push(`exceção: ${String(e).slice(0, 200)}`));
+  page.on("requestfailed", (r) => visto.push(`falhou: ${r.url().slice(0, 120)}`));
+  page.on("response", (r) => { if (r.status() >= 400) visto.push(`http ${r.status()}: ${r.url().slice(0, 120)}`); });
+  const resposta = await page.goto(CAMINHO, { waitUntil: "domcontentloaded", timeout: 180_000 });
   expect(resposta?.status(), "a página existe (recurso enem-curso ligado no servidor?)").toBe(200);
-  await expect(page.locator("#tri-colar")).toBeVisible({ timeout: 120_000 });
+  try {
+    await page.locator("#tri-colar").waitFor({ state: "visible", timeout: 90_000 });
+  } catch {
+    const texto = (await page.locator("main").innerText().catch(() => "")).replace(/\s+/g, " ").slice(-500);
+    throw new Error(`o laboratório não apareceu em 90 s. Fim do texto da página: ${texto}\n${visto.slice(0, 12).join("\n")}`);
+  }
   return page.locator("section:has(#tri-colar)");
 }
 const seletorCaderno = (lab: Locator) => lab.locator("select").filter({ has: lab.page().locator("option", { hasText: /Prova \d+/ }) });
