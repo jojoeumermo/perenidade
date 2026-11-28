@@ -253,8 +253,10 @@ export interface ItemDoArquivo {
  * scripts/enem/gerar-variantes-tri.mjs.
  */
 export interface VarianteDoArquivo {
-  /** CO_PROVA dos cadernos que usam estes itens (rótulos equivalentes entram juntos). */
+  /** CO_PROVA dos cadernos que usam estes itens, como em ITENS_PROVA. */
   provas: number[];
+  /** TX_COR do caderno em ITENS_PROVA (a cor impressa na prova, como nos microdados). */
+  cor: string;
   itens: ItemDoArquivo[];
   idiomas?: { ingles: ItemDoArquivo[]; espanhol: ItemDoArquivo[] };
 }
@@ -286,19 +288,31 @@ export interface ProvaDoArquivo {
 
 export type ItemDaArea = ItemDoArquivo & { fora: boolean };
 
-/** Os cadernos de uma área que o arquivo cobre: o de referência primeiro, depois os das variantes. */
+/** Os cadernos de uma área que o arquivo cobre (referência primeiro, depois as variantes), com a cor de cada um. */
+export function cadernosDaArea(area: AreaDoArquivo): { prova: number; cor: string; referencia: boolean }[] {
+  return [
+    { prova: area.prova, cor: area.cor, referencia: true },
+    ...(area.variantes ?? []).flatMap((v) => v.provas.filter((p) => p !== area.prova).map((prova) => ({ prova, cor: v.cor, referencia: false }))),
+  ];
+}
+
+/** Só os números de prova de `cadernosDaArea`. */
 export function provasDaArea(area: AreaDoArquivo): number[] {
-  return [area.prova, ...(area.variantes ?? []).flatMap((v) => v.provas.filter((p) => p !== area.prova))];
+  return cadernosDaArea(area).map((c) => c.prova);
 }
 
 /**
  * Os itens de uma área na ordem do caderno (idioma antes dos comuns, em linguagens); `fora` marca os sem parâmetro.
- * Com `prova` de uma variante, devolve os itens daquele caderno; sem `prova` (ou com a de referência), os do caderno
- * de referência. Um número de prova que o arquivo não conhece cai no caderno de referência, como antes.
+ * Sem `prova`: os do caderno de referência (comportamento antigo). Com `prova`: os do caderno daquela prova; um número
+ * que a área não cobre (ver `provasDaArea`) lança erro em vez de cair em outro caderno sem avisar.
  */
 export function itensDaArea(area: AreaDoArquivo, idioma: "ingles" | "espanhol" = "ingles", prova?: number): ItemDaArea[] {
-  const variante = prova !== undefined && prova !== area.prova ? area.variantes?.find((v) => v.provas.includes(prova)) : undefined;
-  const fonte = variante ?? area;
+  let fonte: { itens: ItemDoArquivo[]; idiomas?: { ingles: ItemDoArquivo[]; espanhol: ItemDoArquivo[] } } = area;
+  if (prova !== undefined && prova !== area.prova) {
+    const variante = area.variantes?.find((v) => v.provas.includes(prova));
+    if (!variante) throw new Error(`itensDaArea: a prova ${prova} não está nesta área (cobertas: ${provasDaArea(area).join(", ")})`);
+    fonte = variante;
+  }
   const lista = fonte.idiomas ? [...fonte.idiomas[idioma], ...fonte.itens] : fonte.itens;
   return lista.map((i) => ({ ...i, fora: !!i.aban || i.a === undefined || i.b === undefined || i.c === undefined }));
 }

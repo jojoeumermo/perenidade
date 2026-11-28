@@ -124,7 +124,7 @@ for (const ano of anos) {
       if (cos.size === cosRef.size && [...cos].every((c) => cosRef.has(c))) continue; // mesma prova, outra cor
       const comuns = [...cos].filter((c) => cosJson.has(c)).length;
       if (comuns === 0) { fase2.push(prova); continue; }
-      const entrada = { provas: [Number(prova)], itens: itens.filter((i) => i.lingua === null).sort(ordem).map(fmt) };
+      const entrada = { provas: [Number(prova)], cor: l[0].TX_COR, itens: itens.filter((i) => i.lingua === null).sort(ordem).map(fmt) };
       if (sigla === "LC") {
         entrada.idiomas = {
           ingles: itens.filter((i) => i.lingua === 0).sort(ordem).map(fmt),

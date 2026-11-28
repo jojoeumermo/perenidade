@@ -5,7 +5,7 @@
 // ITENS_PROVA_2022.csv e contra o gabarito das questões do site. Uso: npm run testar:tri
 import fs from "node:fs";
 import path from "node:path";
-import { corrigirLetras, D_PADRAO, ePadraoPerfeito, ESCALA_POR_AREA, estimarEap, estimarMl, faixaPorAcertos, itensDaArea, notaDeGabaritoDaProva, notaDeTheta, notaDeThetaDaArea, probabilidadeD, provasDaArea, quadratura, thetaDeNota, thetaDeNotaDaArea } from "../lib/enem-tri.ts";
+import { corrigirLetras, D_PADRAO, ePadraoPerfeito, ESCALA_POR_AREA, estimarEap, estimarMl, faixaPorAcertos, itensDaArea, notaDeGabaritoDaProva, notaDeTheta, notaDeThetaDaArea, probabilidadeD, provasDaArea, cadernosDaArea, quadratura, thetaDeNota, thetaDeNotaDaArea } from "../lib/enem-tri.ts";
 
 let ok = 0;
 const falhas = [];
@@ -214,6 +214,8 @@ const json = (...p) => JSON.parse(fs.readFileSync(path.join(raiz, ...p), "utf8")
 {
   const a22 = json("public", "tri", "enem-2022.json").areas;
   conferir("provasDaArea: referência primeiro, depois a variante", JSON.stringify(provasDaArea(a22.natureza)) === "[1085,1093]" && JSON.stringify(provasDaArea(a22.matematica)) === "[1075,1081]" && JSON.stringify(provasDaArea(a22.linguagens)) === "[1065,1073]" && JSON.stringify(provasDaArea(a22.humanas)) === "[1055]");
+  const cores = Object.fromEntries(["natureza", "matematica", "linguagens"].map((ar) => [ar, cadernosDaArea(a22[ar]).map((c) => `${c.prova}:${c.cor}:${c.referencia ? "ref" : "var"}`).join(",")]));
+  conferir("cadernosDaArea: prova e cor de cada caderno (cores = TX_COR do ITENS_PROVA 2022)", cores.natureza === "1085:AZUL:ref,1093:VERDE:var" && cores.matematica === "1075:AZUL:ref,1081:LARANJA:var" && cores.linguagens === "1065:AZUL:ref,1073:VERDE:var", JSON.stringify(cores));
   const nota25 = (itens, area) => {
     const validos = itens.filter((i) => !i.fora);
     const faceis = new Set([...validos].sort((x, y) => x.b - y.b).slice(0, 25).map((i) => i.co));
@@ -229,10 +231,12 @@ const json = (...p) => JSON.parse(fs.readFileSync(path.join(raiz, ...p), "utf8")
     const A = a22[area];
     const base = itensDaArea(A, idioma);
     const sem = itensDaArea(A, idioma, A.prova);
-    const desc = itensDaArea(A, idioma, 9999);
+    let erroDesconhecida = "";
+    try { itensDaArea(A, idioma, 9999); } catch (e) { erroDesconhecida = String(e.message); }
     const v = itensDaArea(A, idioma, prova);
     const cosBase = new Set(base.map((i) => i.co));
-    conferir(`${area} ${idioma}: sem prova, com a de referência ou com prova desconhecida, nada muda`, JSON.stringify(sem) === JSON.stringify(base) && JSON.stringify(desc) === JSON.stringify(base));
+    conferir(`${area} ${idioma}: sem prova ou com a de referência, nada muda`, JSON.stringify(sem) === JSON.stringify(base));
+    conferir(`${area} ${idioma}: prova que a área não cobre dá erro, não cai em outro caderno`, /9999/.test(erroDesconhecida) && erroDesconhecida.includes(String(A.prova)), erroDesconhecida);
     conferir(`${area} ${idioma}: o caderno ${prova} tem 45 itens, ${novos} fora do caderno de referência`, v.length === 45 && v.filter((i) => !cosBase.has(i.co)).length === novos, `${v.length}/${v.filter((i) => !cosBase.has(i.co)).length}`);
     conferir(`${area} ${idioma}: itens da variante no formato vigente (a, b, c ou abandonado)`, v.every((i) => i.fora ? (i.aban === true || i.a === undefined) : (typeof i.a === "number" && typeof i.b === "number" && typeof i.c === "number")));
     conferir(`${area} ${idioma}: nota do padrão fixo no caderno de referência = ${notaBase}`, perto(nota25(base, area), notaBase, 0.001), String(nota25(base, area)));

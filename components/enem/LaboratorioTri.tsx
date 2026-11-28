@@ -3,7 +3,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { fill } from "@/i18n/config";
-import { type AreaDoEnem, corrigirLetras, estimarEap, estimarMl, faixaPorAcertos, itensDaArea, notaDeGabaritoDaProva, notaDeThetaDaArea, type ProvaDoArquivo, provasDaArea } from "@/lib/enem-tri";
+import { type AreaDoEnem, corrigirLetras, estimarEap, estimarMl, faixaPorAcertos, itensDaArea, notaDeGabaritoDaProva, notaDeThetaDaArea, type ProvaDoArquivo, cadernosDaArea } from "@/lib/enem-tri";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
 
 type S = TextosDoEstudo["enem"]["tri"];
@@ -30,7 +30,7 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
   const [marcas, setMarcas] = useState<Record<string, number[]>>({});
   const [letras, setLetras] = useState("");
   const [n, setN] = useState(20);
-  const [provaEscolhida, setProvaEscolhida] = useState<number | null>(null);
+  const [escolha, setEscolha] = useState<{ k: string; prova: number } | null>(null);
   const cache = useRef(new Map<number, ProvaDoArquivo>());
 
   useEffect(() => {
@@ -56,11 +56,15 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
   }, [ano]);
 
   const bloco = prova?.areas[area];
-  const cadernos = useMemo(() => (bloco ? provasDaArea(bloco) : []), [bloco]);
-  // Só vale o caderno escolhido se esta edição e esta área o têm; senão volta ao de referência.
-  const provaAtual = provaEscolhida !== null && cadernos.includes(provaEscolhida) ? provaEscolhida : bloco?.prova;
-  const chave = `${ano}-${area}-${idioma}-${provaAtual ?? ""}`;
-  const itens = useMemo(() => (bloco ? itensDaArea(bloco, idioma, provaAtual) : []), [bloco, idioma, provaAtual]);
+  const cadernos = useMemo(() => (bloco ? cadernosDaArea(bloco) : []), [bloco]);
+  // A escolha vale só para o ano e a área em que foi feita: ao trocar de ano ou de área o seletor volta ao caderno de
+  // referência, que aparece marcado. O idioma e o caderno entram na chave das marcas.
+  const escolhido = escolha && escolha.k === `${ano}-${area}` ? cadernos.find((c) => c.prova === escolha.prova) : undefined;
+  const atual = escolhido ?? cadernos[0];
+  const chave = `${ano}-${area}-${idioma}-${atual?.prova ?? ""}`;
+  const itens = useMemo(() => (bloco && atual ? itensDaArea(bloco, idioma, atual.prova) : []), [bloco, idioma, atual?.prova]); // eslint-disable-line react-hooks/exhaustive-deps
+  // As letras coladas valem para um caderno e um idioma: mudou um deles, o campo começa do zero (as marcas já são por chave).
+  useEffect(() => setLetras(""), [chave]);
   const contados = useMemo(() => itens.filter((i) => !i.fora), [itens]);
   const marcados = useMemo(() => new Set(marcas[chave] ?? []), [marcas, chave]);
   const definir = (cos: number[]) => setMarcas((m) => ({ ...m, [chave]: cos }));
@@ -108,17 +112,17 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
         </div>
         {erro && <p className="mt-3 font-semibold text-oxblood" role="alert">{s.erroCarregar}</p>}
         {!prova && !erro && <p className="mt-3" role="status">{s.carregando}</p>}
-        {bloco && cadernos.length > 1 && (
+        {bloco && atual && cadernos.length > 1 && (
           <label className="mt-3 flex flex-col gap-1 font-semibold">
             {s.cadernoEscolha}
-            <select className={campo} value={provaAtual} onChange={(e) => setProvaEscolhida(Number(e.target.value))}>
-              {cadernos.map((p) => <option key={p} value={p}>{p === bloco.prova ? fill(s.cadernoReferencia, { prova: p }) : fill(s.cadernoVariante, { prova: p })}</option>)}
+            <select className={campo} value={atual.prova} onChange={(e) => setEscolha({ k: `${ano}-${area}`, prova: Number(e.target.value) })}>
+              {cadernos.map((c) => <option key={c.prova} value={c.prova}>{fill(c.referencia ? s.cadernoReferencia : s.cadernoVariante, { prova: c.prova, cor: c.cor.toLowerCase() })}</option>)}
             </select>
           </label>
         )}
         {bloco && (
           <div className="mt-3 space-y-1">
-            <p>{provaAtual === bloco.prova ? fill(s.caderno, { cor: bloco.cor.toLowerCase(), prova: bloco.prova }) : fill(s.cadernoDaVariante, { prova: provaAtual ?? bloco.prova })}</p>
+            <p>{fill(atual?.referencia === false ? s.cadernoDaVariante : s.caderno, { cor: (atual?.cor ?? bloco.cor).toLowerCase(), prova: atual?.prova ?? bloco.prova })}</p>
             {bloco.ligadas > 0 && <p>{fill(s.ligadas, { n: bloco.ligadas })} <a href={hrefProvas} className="underline hover:text-oxblood">{s.provas}</a></p>}
             {fora > 0 && <p>{fill(s.foraDaConta, { n: fora })}</p>}
           </div>
