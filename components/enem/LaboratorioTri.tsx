@@ -85,7 +85,7 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
   const quantos = Math.max(0, Math.min(total, n));
 
   return (
-    <div className="mt-8 font-sans text-sm">
+    <div className="mt-8 font-sans text-sm" data-laboratorio-tri="">
       <p className="border-2 border-oxblood bg-parchment p-4 font-semibold">{s.aviso}</p>
 
       <section className="mt-6 border-2 border-ink bg-parchment-deep p-5">

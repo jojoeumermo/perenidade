@@ -31,8 +31,11 @@ async function abrirLab(page: Page) {
     const texto = (await page.locator("main").innerText().catch(() => "")).replace(/\s+/g, " ").slice(-500);
     throw new Error(`o laboratório não apareceu em 90 s. Fim do texto da página: ${texto}\n${visto.slice(0, 12).join("\n")}`);
   }
-  return page.locator("section:has(#tri-colar)");
+  // A raiz do laboratório (a página tem outras seções e seletores, como o de idioma do site).
+  return page.locator("[data-laboratorio-tri]");
 }
+const seletorAno = (lab: Locator) => lab.locator("select").filter({ has: lab.page().locator('option[value="2009"]') });
+const seletorArea = (lab: Locator) => lab.locator("select").filter({ has: lab.page().locator("option[value=natureza]") });
 const seletorCaderno = (lab: Locator) => lab.locator("select").filter({ has: lab.page().locator("option", { hasText: /Prova \d+/ }) });
 const seletorIdioma = (lab: Locator) => lab.locator("select").filter({ has: lab.page().locator("option[value=espanhol]") });
 const marcadas = (lab: Locator) => lab.locator("input[type=checkbox]:checked").count();
@@ -57,7 +60,7 @@ async function semRolagemLateral(page: Page, lab: Locator, estado: string) {
 test("laboratório da TRI: estados do seletor de caderno com nome oficial por código", async ({ page }, info) => {
   const erros = vigiarErros(page);
   const lab = await abrirLab(page);
-  await lab.locator("select").nth(1).selectOption("natureza");
+  await seletorArea(lab).selectOption("natureza");
   await expect(seletorCaderno(lab)).toBeVisible();
   const cn = await seletorCaderno(lab).locator("option").allTextContents();
   expect(cn.map((t) => t.match(/Prova (\d+)/)?.[1])).toEqual(["1085", "1093"]);
@@ -69,7 +72,7 @@ test("laboratório da TRI: estados do seletor de caderno com nome oficial por c�
   await semRolagemLateral(page, lab, "natureza 1093");
   await capturar(page, "2-natureza-1093", info);
 
-  await lab.locator("select").nth(1).selectOption("matematica");
+  await seletorArea(lab).selectOption("matematica");
   const mt = await seletorCaderno(lab).locator("option").allTextContents();
   expect(mt.map((t) => t.match(/Prova (\d+)/)?.[1])).toEqual(["1075", "1081", "1082"]);
   expect(mt[1]).toContain("sem descrição no dicionário do Inep");
@@ -85,7 +88,7 @@ test("laboratório da TRI: estados do seletor de caderno com nome oficial por c�
   await semRolagemLateral(page, lab, "matemática 1082");
   await capturar(page, "4-matematica-1082", info);
 
-  await lab.locator("select").nth(1).selectOption("linguagens");
+  await seletorArea(lab).selectOption("linguagens");
   const lc = await seletorCaderno(lab).locator("option").allTextContents();
   expect(lc.map((t) => t.match(/Prova (\d+)/)?.[1])).toEqual(["1065", "1073"]);
   await seletorCaderno(lab).selectOption("1073");
@@ -93,14 +96,14 @@ test("laboratório da TRI: estados do seletor de caderno com nome oficial por c�
   await semRolagemLateral(page, lab, "linguagens 1073");
   await capturar(page, "5-linguagens-1073", info);
 
-  await lab.locator("select").nth(0).selectOption("2021");
+  await seletorAno(lab).selectOption("2021");
   await expect(seletorCaderno(lab)).toHaveCount(0);
   expect(erros).toEqual([]);
 });
 
 test("laboratório da TRI: alternar caderno, idioma, ano e área não mistura nota nem respostas", async ({ page }, info) => {
   const lab = await abrirLab(page);
-  await lab.locator("select").nth(1).selectOption("natureza");
+  await seletorArea(lab).selectOption("natureza");
   await marcar(lab, 10);
   await lab.locator("#tri-colar").fill("ABCDE");
   const nota1085 = await nota(lab);
@@ -125,21 +128,21 @@ test("laboratório da TRI: alternar caderno, idioma, ano e área não mistura no
   expect(await nota(lab)).toBe(nota1093);
   await expect(lab.locator("#tri-colar")).toHaveValue("");
 
-  await lab.locator("select").nth(0).selectOption("2021");
+  await seletorAno(lab).selectOption("2021");
   expect(await marcadas(lab), "outro ano começa sem marcas").toBe(0);
-  await lab.locator("select").nth(0).selectOption("2022");
+  await seletorAno(lab).selectOption("2022");
   await expect(seletorCaderno(lab)).toHaveValue("1085");
   expect(await marcadas(lab)).toBe(10);
   expect(await nota(lab)).toBe(nota1085);
 
-  await lab.locator("select").nth(1).selectOption("matematica");
+  await seletorArea(lab).selectOption("matematica");
   expect(await marcadas(lab), "outra área começa sem marcas").toBe(0);
   await expect(seletorCaderno(lab)).toHaveValue("1075");
-  await lab.locator("select").nth(1).selectOption("natureza");
+  await seletorArea(lab).selectOption("natureza");
   await expect(seletorCaderno(lab)).toHaveValue("1085");
   expect(await marcadas(lab)).toBe(10);
 
-  await lab.locator("select").nth(1).selectOption("linguagens");
+  await seletorArea(lab).selectOption("linguagens");
   await marcar(lab, 2);
   const notaIngles = await nota(lab);
   await seletorIdioma(lab).selectOption("espanhol");
@@ -155,7 +158,7 @@ test("laboratório da TRI: alternar caderno, idioma, ano e área não mistura no
 test("laboratório da TRI: celular estreito (360 px) sem rolagem lateral com o rótulo mais longo", async ({ page }, info) => {
   await page.setViewportSize({ width: 360, height: 740 });
   const lab = await abrirLab(page);
-  await lab.locator("select").nth(1).selectOption("matematica");
+  await seletorArea(lab).selectOption("matematica");
   await seletorCaderno(lab).selectOption("1081");
   await semRolagemLateral(page, lab, "360 px matemática 1081");
   await capturar(page, "7-360px-1081", info);
