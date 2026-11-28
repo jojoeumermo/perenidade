@@ -97,7 +97,7 @@ function porCaderno(linhas, sigla) {
 }
 
 // Nomes dos cadernos no dicionário oficial (Dicionário_Microdados_Enem_AAAA.xlsx, aba das variáveis CO_PROVA_*, que
-// lista o tipo de cada caderno). Só entram os cadernos que o dicionário nomeia; o 1081 de MT aparece no ITENS_PROVA
+// lista o tipo de cada caderno). Só entram os códigos que o dicionário nomeia; o 1081 de MT aparece no ITENS_PROVA
 // mas o dicionário não o lista e não tem participantes nos microdados.
 const NOMES_DICIONARIO = { 2022: { 1093: "Verde - Videoprova - Libras", 1073: "Verde - Videoprova - Libras", 1082: "Laranja - Adaptada Ledor" } };
 
@@ -144,8 +144,10 @@ for (const ano of anos) {
       const comuns = [...cos].filter((c) => cosJson.has(c)).length;
       if (comuns === 0) { fase2.push(prova); continue; }
       const provas = [Number(prova), ...gemeos(linhas, sigla, prova, itens)].sort((x, y) => x - y);
-      const nome = provas.map((p) => NOMES_DICIONARIO[ano]?.[p]).find(Boolean);
-      const entrada = { provas, cor: l[0].TX_COR, ...(nome ? { nome } : {}), itens: itens.filter((i) => i.lingua === null).sort(ordem).map(fmt) };
+      // Nome oficial POR CÓDIGO de prova: mesmo conjunto de itens não prova mesma experiência/atendimento, então o nome
+      // do 1082 não é copiado para o 1081.
+      const nomes = Object.fromEntries(provas.filter((p) => NOMES_DICIONARIO[ano]?.[p]).map((p) => [p, NOMES_DICIONARIO[ano][p]]));
+      const entrada = { provas, cor: l[0].TX_COR, ...(Object.keys(nomes).length ? { nomes } : {}), itens: itens.filter((i) => i.lingua === null).sort(ordem).map(fmt) };
       if (sigla === "LC") {
         entrada.idiomas = {
           ingles: itens.filter((i) => i.lingua === 0).sort(ordem).map(fmt),

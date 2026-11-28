@@ -257,8 +257,8 @@ export interface VarianteDoArquivo {
   provas: number[];
   /** TX_COR do caderno em ITENS_PROVA (a cor impressa na prova, como nos microdados). */
   cor: string;
-  /** Nome do caderno no dicionário oficial dos microdados, quando o dicionário o lista (ex.: "Verde - Videoprova - Libras"). */
-  nome?: string;
+  /** Nome oficial no dicionário dos microdados, POR código de prova, só dos códigos que o dicionário lista (ex.: "Verde - Videoprova - Libras"). Código sem nome aqui não tem descrição oficial confirmada. */
+  nomes?: Record<string, string>;
   itens: ItemDoArquivo[];
   idiomas?: { ingles: ItemDoArquivo[]; espanhol: ItemDoArquivo[] };
 }
@@ -294,7 +294,7 @@ export type ItemDaArea = ItemDoArquivo & { fora: boolean };
 export function cadernosDaArea(area: AreaDoArquivo): { prova: number; cor: string; referencia: boolean; nome?: string }[] {
   return [
     { prova: area.prova, cor: area.cor, referencia: true },
-    ...(area.variantes ?? []).flatMap((v) => v.provas.filter((p) => p !== area.prova).map((prova) => ({ prova, cor: v.cor, referencia: false, nome: v.nome }))),
+    ...(area.variantes ?? []).flatMap((v) => v.provas.filter((p) => p !== area.prova).map((prova) => ({ prova, cor: v.cor, referencia: false, nome: v.nomes?.[String(prova)] }))),
   ];
 }
 

@@ -217,7 +217,7 @@ const json = (...p) => JSON.parse(fs.readFileSync(path.join(raiz, ...p), "utf8")
   const cores = Object.fromEntries(["natureza", "matematica", "linguagens"].map((ar) => [ar, cadernosDaArea(a22[ar]).map((c) => `${c.prova}:${c.cor}:${c.referencia ? "ref" : "var"}`).join(",")]));
   conferir("cadernosDaArea: prova e cor de cada caderno (cores = TX_COR do ITENS_PROVA 2022)", cores.natureza === "1085:AZUL:ref,1093:VERDE:var" && cores.matematica === "1075:AZUL:ref,1081:LARANJA:var,1082:LARANJA:var" && cores.linguagens === "1065:AZUL:ref,1073:VERDE:var", JSON.stringify(cores));
   const nomes = Object.fromEntries(["natureza", "matematica", "linguagens"].map((ar) => [ar, cadernosDaArea(a22[ar]).map((c) => `${c.prova}:${c.nome ?? "-"}`).join(",")]));
-  conferir("cadernosDaArea: nome do dicionário oficial (1081 não consta no dicionário)", nomes.natureza === "1085:-,1093:Verde - Videoprova - Libras" && nomes.matematica === "1075:-,1081:Laranja - Adaptada Ledor,1082:Laranja - Adaptada Ledor" && nomes.linguagens === "1065:-,1073:Verde - Videoprova - Libras", JSON.stringify(nomes));
+  conferir("cadernosDaArea: nome do dicionário oficial (1081 não consta no dicionário e não herda o nome do 1082)", nomes.natureza === "1085:-,1093:Verde - Videoprova - Libras" && nomes.matematica === "1075:-,1081:-,1082:Laranja - Adaptada Ledor" && nomes.linguagens === "1065:-,1073:Verde - Videoprova - Libras", JSON.stringify(nomes));
   const nota25 = (itens, area) => {
     const validos = itens.filter((i) => !i.fora);
     const faceis = new Set([...validos].sort((x, y) => x.b - y.b).slice(0, 25).map((i) => i.co));
@@ -251,7 +251,7 @@ const json = (...p) => JSON.parse(fs.readFileSync(path.join(raiz, ...p), "utf8")
   const t = json("i18n", "estudo", "pt.json").enem.tri;
   const texto = JSON.stringify(t).toLowerCase();
   conferir("textos: sem as palavras proibidas na interface", !/universidade|diploma/.test(texto));
-  conferir("textos: o seletor de caderno tem todas as chaves", ["cadernoEscolha", "cadernoReferencia", "cadernoVariante", "cadernoDaVariante"].every((c) => typeof t[c] === "string" && t[c].length > 0) && /\{prova\}/.test(t.cadernoReferencia + t.cadernoVariante + t.cadernoDaVariante));
+  conferir("textos: o seletor de caderno tem todas as chaves", ["cadernoEscolha", "cadernoReferencia", "cadernoVariante", "cadernoDaVariante", "cadernoSemNome", "cadernoNomeOficial", "cadernoSemNomeAviso", "respostasDoCaderno"].every((c) => typeof t[c] === "string" && t[c].length > 0) && /\{prova\}/.test(t.cadernoReferencia + t.cadernoVariante + t.cadernoDaVariante));
   conferir("textos: o aviso de estimativa existe e fala em margem de erro", /margem de erro/i.test(t.aviso) && /estimativa/i.test(t.aviso));
   conferir("textos: as fontes do Inep estão citadas", Array.isArray(t.fontes) && t.fontes.length >= 3 && t.fontes.every((f) => /^https:\/\/(download|www)\.[a-z.]*inep\.gov\.br|^https:\/\/www\.gov\.br\/inep/.test(f.url)));
   const gerador = fs.readFileSync(path.join(raiz, "scripts", "enem", "gerar-parametros-tri.mjs"), "utf8");
