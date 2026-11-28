@@ -64,7 +64,12 @@ function itensDoCaderno(linhas) {
     let a = num(r.NU_PARAM_A), b = num(r.NU_PARAM_B);
     const c = num(r.NU_PARAM_C);
     // Se algum ano vier na escala (500,100), volta para (0,1): b = (b500 − 500)/100 e a = a500·100.
-    if (b !== null && Math.abs(b) > 20) { b = (b - 500) / 100; a = a === null ? null : a * 100; }
+    // Exceção comprovada: item neutralizado pelo Inep já vem em logits com a ≈ 0,02 e b ≈ 61 (curva quase
+    // plana) — caso do 53958 (CN 2015), que a regra |b| > 20 convertia indevidamente para a = 1,929 e
+    // b = −4,3894541 e deslocava a nota de quem acertava em até 291,95 pontos (medido na população CN 2015).
+    // Na escala (500,100) o parâmetro a é a_logit·100, sempre muito acima de 0,05; a ≤ 0,05 com |b| > 20 é a
+    // assinatura de item neutralizado, não de escala (500,100).
+    if (b !== null && Math.abs(b) > 20 && a !== null && a > 0.05) { b = (b - 500) / 100; a = a * 100; }
     const aban = r.IN_ITEM_ABAN === "1" || a === null || b === null || c === null;
     return { co: Number(r.CO_ITEM), p: Number(r.CO_POSICAO), g: r.TX_GABARITO, a, b, c, aban, lingua: !r.TP_LINGUA ? null : Number(r.TP_LINGUA), hab: r.CO_HABILIDADE ? Number(r.CO_HABILIDADE) : null };
   });
