@@ -28,7 +28,7 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
   const [prova, setProva] = useState<ProvaDoArquivo | null>(null);
   const [erro, setErro] = useState(false);
   const [marcas, setMarcas] = useState<Record<string, number[]>>({});
-  const [letras, setLetras] = useState("");
+  const [letrasPor, setLetrasPor] = useState<Record<string, string>>({});
   const [n, setN] = useState(20);
   const [escolha, setEscolha] = useState<{ k: string; prova: number } | null>(null);
   const cache = useRef(new Map<number, ProvaDoArquivo>());
@@ -63,8 +63,9 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
   const atual = escolhido ?? cadernos[0];
   const chave = `${ano}-${area}-${idioma}-${atual?.prova ?? ""}`;
   const itens = useMemo(() => (bloco && atual ? itensDaArea(bloco, idioma, atual.prova) : []), [bloco, idioma, atual?.prova]); // eslint-disable-line react-hooks/exhaustive-deps
-  // As letras coladas valem para um caderno e um idioma: mudou um deles, o campo começa do zero (as marcas já são por chave).
-  useEffect(() => setLetras(""), [chave]);
+  // As letras coladas valem para um caderno e um idioma (como as marcas, são guardadas por chave): em outro caderno o campo começa vazio.
+  const letras = letrasPor[chave] ?? "";
+  const setLetras = (v: string) => setLetrasPor((m) => ({ ...m, [chave]: v }));
   const contados = useMemo(() => itens.filter((i) => !i.fora), [itens]);
   const marcados = useMemo(() => new Set(marcas[chave] ?? []), [marcas, chave]);
   const definir = (cos: number[]) => setMarcas((m) => ({ ...m, [chave]: cos }));
