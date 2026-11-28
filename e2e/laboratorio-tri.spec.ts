@@ -31,6 +31,9 @@ async function abrirLab(page: Page) {
     const texto = (await page.locator("main").innerText().catch(() => "")).replace(/\s+/g, " ").slice(-500);
     throw new Error(`o laboratório não apareceu em 90 s. Fim do texto da página: ${texto}\n${visto.slice(0, 12).join("\n")}`);
   }
+  // O aviso de abertura do site (dialog aberto) cobre a página e intercepta o clique: fechado pelo botão, como a pessoa faria.
+  const aviso = page.locator("dialog[open]").getByRole("button", { name: "Fechar" }).first();
+  if (await aviso.waitFor({ timeout: 5000 }).then(() => true, () => false)) await aviso.click();
   // A raiz do laboratório (a página tem outras seções e seletores, como o de idioma do site).
   return page.locator("[data-laboratorio-tri]");
 }
