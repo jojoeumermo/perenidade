@@ -118,13 +118,13 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
           <label className="mt-3 flex flex-col gap-1 font-semibold">
             {s.cadernoEscolha}
             <select className={campo} value={atual.prova} onChange={(e) => setEscolha({ k: `${ano}-${area}`, prova: Number(e.target.value) })}>
-              {cadernos.map((c) => <option key={c.prova} value={c.prova}>{fill(c.referencia ? s.cadernoReferencia : s.cadernoVariante, { prova: c.prova, cor: c.cor.toLowerCase() })}</option>)}
+              {cadernos.map((c) => <option key={c.prova} value={c.prova}>{fill(c.referencia ? s.cadernoReferencia : s.cadernoVariante, { prova: c.prova, cor: c.cor.toLowerCase() }) + (c.nome ? ` · ${c.nome}` : "")}</option>)}
             </select>
           </label>
         )}
         {bloco && (
           <div className="mt-3 space-y-1">
-            <p>{fill(atual?.referencia === false ? s.cadernoDaVariante : s.caderno, { cor: (atual?.cor ?? bloco.cor).toLowerCase(), prova: atual?.prova ?? bloco.prova })}</p>
+            <p>{fill(atual?.referencia === false ? s.cadernoDaVariante : s.caderno, { cor: (atual?.cor ?? bloco.cor).toLowerCase(), prova: atual?.prova ?? bloco.prova })}{atual?.nome ? ` (${atual.nome})` : ""}</p>
             {ligadas > 0 && <p>{fill(s.ligadas, { n: ligadas })} <a href={hrefProvas} className="underline hover:text-oxblood">{s.provas}</a></p>}
             {fora > 0 && <p>{fill(s.foraDaConta, { n: fora })}</p>}
           </div>

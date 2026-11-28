@@ -213,9 +213,11 @@ const json = (...p) => JSON.parse(fs.readFileSync(path.join(raiz, ...p), "utf8")
 // acertos, nenhum dado de participante). NÃO prova fidelidade à nota oficial: isso foi medido à parte, nos microdados.
 {
   const a22 = json("public", "tri", "enem-2022.json").areas;
-  conferir("provasDaArea: referência primeiro, depois a variante", JSON.stringify(provasDaArea(a22.natureza)) === "[1085,1093]" && JSON.stringify(provasDaArea(a22.matematica)) === "[1075,1081]" && JSON.stringify(provasDaArea(a22.linguagens)) === "[1065,1073]" && JSON.stringify(provasDaArea(a22.humanas)) === "[1055]");
+  conferir("provasDaArea: referência primeiro, depois a variante", JSON.stringify(provasDaArea(a22.natureza)) === "[1085,1093]" && JSON.stringify(provasDaArea(a22.matematica)) === "[1075,1081,1082]" && JSON.stringify(provasDaArea(a22.linguagens)) === "[1065,1073]" && JSON.stringify(provasDaArea(a22.humanas)) === "[1055]");
   const cores = Object.fromEntries(["natureza", "matematica", "linguagens"].map((ar) => [ar, cadernosDaArea(a22[ar]).map((c) => `${c.prova}:${c.cor}:${c.referencia ? "ref" : "var"}`).join(",")]));
-  conferir("cadernosDaArea: prova e cor de cada caderno (cores = TX_COR do ITENS_PROVA 2022)", cores.natureza === "1085:AZUL:ref,1093:VERDE:var" && cores.matematica === "1075:AZUL:ref,1081:LARANJA:var" && cores.linguagens === "1065:AZUL:ref,1073:VERDE:var", JSON.stringify(cores));
+  conferir("cadernosDaArea: prova e cor de cada caderno (cores = TX_COR do ITENS_PROVA 2022)", cores.natureza === "1085:AZUL:ref,1093:VERDE:var" && cores.matematica === "1075:AZUL:ref,1081:LARANJA:var,1082:LARANJA:var" && cores.linguagens === "1065:AZUL:ref,1073:VERDE:var", JSON.stringify(cores));
+  const nomes = Object.fromEntries(["natureza", "matematica", "linguagens"].map((ar) => [ar, cadernosDaArea(a22[ar]).map((c) => `${c.prova}:${c.nome ?? "-"}`).join(",")]));
+  conferir("cadernosDaArea: nome do dicionário oficial (1081 não consta no dicionário)", nomes.natureza === "1085:-,1093:Verde - Videoprova - Libras" && nomes.matematica === "1075:-,1081:Laranja - Adaptada Ledor,1082:Laranja - Adaptada Ledor" && nomes.linguagens === "1065:-,1073:Verde - Videoprova - Libras", JSON.stringify(nomes));
   const nota25 = (itens, area) => {
     const validos = itens.filter((i) => !i.fora);
     const faceis = new Set([...validos].sort((x, y) => x.b - y.b).slice(0, 25).map((i) => i.co));

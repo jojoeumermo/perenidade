@@ -249,7 +249,7 @@ export interface ItemDoArquivo {
 }
 /**
  * Um caderno REGULAR cujo conjunto de itens difere do caderno de referência da área (`AreaDoArquivo.prova`), mas
- * tem itens em comum com ele (caso da reaplicação 2022). Mesmo formato de itens. Gerado por
+ * tem itens em comum com ele (caso de CN 1093, MT 1081/1082 e LC 1073 em 2022: cadernos de acessibilidade, Libras e Ledor). Mesmo formato de itens. Gerado por
  * scripts/enem/gerar-variantes-tri.mjs.
  */
 export interface VarianteDoArquivo {
@@ -257,6 +257,8 @@ export interface VarianteDoArquivo {
   provas: number[];
   /** TX_COR do caderno em ITENS_PROVA (a cor impressa na prova, como nos microdados). */
   cor: string;
+  /** Nome do caderno no dicionário oficial dos microdados, quando o dicionário o lista (ex.: "Verde - Videoprova - Libras"). */
+  nome?: string;
   itens: ItemDoArquivo[];
   idiomas?: { ingles: ItemDoArquivo[]; espanhol: ItemDoArquivo[] };
 }
@@ -289,10 +291,10 @@ export interface ProvaDoArquivo {
 export type ItemDaArea = ItemDoArquivo & { fora: boolean };
 
 /** Os cadernos de uma área que o arquivo cobre (referência primeiro, depois as variantes), com a cor de cada um. */
-export function cadernosDaArea(area: AreaDoArquivo): { prova: number; cor: string; referencia: boolean }[] {
+export function cadernosDaArea(area: AreaDoArquivo): { prova: number; cor: string; referencia: boolean; nome?: string }[] {
   return [
     { prova: area.prova, cor: area.cor, referencia: true },
-    ...(area.variantes ?? []).flatMap((v) => v.provas.filter((p) => p !== area.prova).map((prova) => ({ prova, cor: v.cor, referencia: false }))),
+    ...(area.variantes ?? []).flatMap((v) => v.provas.filter((p) => p !== area.prova).map((prova) => ({ prova, cor: v.cor, referencia: false, nome: v.nome }))),
   ];
 }
 

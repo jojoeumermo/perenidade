@@ -2,7 +2,7 @@
 //
 // Acrescenta "variantes" aos arquivos public/tri/enem-AAAA.json: cadernos REGULARES (mesmas cores e filtros do
 // gerar-parametros-tri.mjs) cujo conjunto de itens difere do caderno de referência já publicado, mas tem ao menos
-// um item em comum com ele — caso da reaplicação 2022 CN (caderno 1093, 44/45 itens comuns), medido na validação
+// um item em comum com ele — caso de 2022 CN 1093 (44/45 itens comuns; videoprova Libras no dicionário oficial), medido na validação
 // TRI com viés sistemático de até 15 pts por falta desses itens. Cadernos sem nenhum item em comum (PPL, digital)
 // ficam fora desta fase e são só listados no resumo.
 //
@@ -96,6 +96,25 @@ function porCaderno(linhas, sigla) {
   return [...g.entries()].filter(([, l]) => new Set(l.map((r) => r.CO_ITEM + ":" + r.TP_LINGUA)).size <= 50 && l.length <= 50);
 }
 
+// Nomes dos cadernos no dicionário oficial (Dicionário_Microdados_Enem_AAAA.xlsx, aba das variáveis CO_PROVA_*, que
+// lista o tipo de cada caderno). Só entram os cadernos que o dicionário nomeia; o 1081 de MT aparece no ITENS_PROVA
+// mas o dicionário não o lista e não tem participantes nos microdados.
+const NOMES_DICIONARIO = { 2022: { 1093: "Verde - Videoprova - Libras", 1073: "Verde - Videoprova - Libras", 1082: "Laranja - Adaptada Ledor" } };
+
+// Outros cadernos da mesma área (inclusive os marcados IN_ITEM_ADAPTADO=1) com exatamente os mesmos itens, posições,
+// gabaritos e parâmetros: o mesmo caderno de questões com outro código de prova.
+function gemeos(linhas, sigla, prova, itens) {
+  const assinatura = (its) => JSON.stringify([...its].sort((x, y) => x.p - y.p || x.co - y.co || (x.lingua ?? -1) - (y.lingua ?? -1)).map((i) => [i.co, i.p, i.g, i.a, i.b, i.c, i.aban, i.lingua]));
+  const alvo = assinatura(itens);
+  const g = new Map();
+  for (const r of linhas) {
+    if (r.SG_AREA !== sigla || r.CO_PROVA === prova) continue;
+    if (!g.has(r.CO_PROVA)) g.set(r.CO_PROVA, []);
+    g.get(r.CO_PROVA).push(r);
+  }
+  return [...g.entries()].filter(([, l]) => assinatura(itensDoCaderno(l)) === alvo).map(([p]) => Number(p));
+}
+
 const fmt = (i) => ({ co: i.co, p: i.p, g: i.g, ...(i.aban ? { aban: true } : { a: i.a, b: i.b, c: i.c }), ...(i.hab ? { h: i.hab } : {}) });
 const ordem = (x, y) => x.p - y.p;
 
@@ -124,7 +143,9 @@ for (const ano of anos) {
       if (cos.size === cosRef.size && [...cos].every((c) => cosRef.has(c))) continue; // mesma prova, outra cor
       const comuns = [...cos].filter((c) => cosJson.has(c)).length;
       if (comuns === 0) { fase2.push(prova); continue; }
-      const entrada = { provas: [Number(prova)], cor: l[0].TX_COR, itens: itens.filter((i) => i.lingua === null).sort(ordem).map(fmt) };
+      const provas = [Number(prova), ...gemeos(linhas, sigla, prova, itens)].sort((x, y) => x - y);
+      const nome = provas.map((p) => NOMES_DICIONARIO[ano]?.[p]).find(Boolean);
+      const entrada = { provas, cor: l[0].TX_COR, ...(nome ? { nome } : {}), itens: itens.filter((i) => i.lingua === null).sort(ordem).map(fmt) };
       if (sigla === "LC") {
         entrada.idiomas = {
           ingles: itens.filter((i) => i.lingua === 0).sort(ordem).map(fmt),
