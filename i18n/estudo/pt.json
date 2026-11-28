@@ -577,7 +577,7 @@
           "cadernoVariante": "Prova {prova}, caderno {cor} (itens diferentes do caderno de referência)",
           "cadernoDaVariante": "Caderno {cor}, prova {prova} dos microdados do Inep, com itens diferentes do caderno de referência. As posições seguem este caderno.",
           "ligadas": "{n} destes itens têm a questão correspondente no banco de provas do site.",
-          "foraDaConta": "{n} item(ns) foram abandonados pelo Inep e ficam fora da conta, como no cálculo oficial.",
+          "foraDaConta": "{n} item(ns) estão marcados como abandonados (IN_ITEM_ABAN) nos microdados do Inep e ficam fora da conta.",
           "marcar": "2. Marque o que você acertou",
           "marcarTexto": "Marque os itens que você acertou. Item em branco ou errado fica desmarcado.",
           "colar": "Ou cole as suas respostas, em ordem, e o laboratório corrige pelo gabarito oficial",
