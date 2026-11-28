@@ -2,7 +2,7 @@
 //
 // Acrescenta "variantes" aos arquivos public/tri/enem-AAAA.json: cadernos REGULARES (mesmas cores e filtros do
 // gerar-parametros-tri.mjs) cujo conjunto de itens difere do caderno de referência já publicado, mas tem ao menos
-// um item em comum com ele — caso da reaplicação 2022 CN (caderno 1093, 44/45 itens comuns), medido na validação
+// um item em comum com ele — caso de 2022 CN 1093 (44/45 itens comuns; videoprova Libras no dicionário oficial), medido na validação
 // TRI com viés sistemático de até 15 pts por falta desses itens. Cadernos sem nenhum item em comum (PPL, digital)
 // ficam fora desta fase e são só listados no resumo.
 //
