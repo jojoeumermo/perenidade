@@ -5,7 +5,7 @@
 // ITENS_PROVA_2022.csv e contra o gabarito das questões do site. Uso: npm run testar:tri
 import fs from "node:fs";
 import path from "node:path";
-import { corrigirLetras, D_PADRAO, ePadraoPerfeito, ESCALA_POR_AREA, estimarEap, estimarMl, faixaPorAcertos, itensDaArea, notaDeGabaritoDaProva, notaDeTheta, notaDeThetaDaArea, probabilidadeD, quadratura, thetaDeNota, thetaDeNotaDaArea } from "../lib/enem-tri.ts";
+import { corrigirLetras, D_PADRAO, ePadraoPerfeito, ESCALA_POR_AREA, estimarEap, estimarMl, faixaPorAcertos, itensDaArea, notaDeGabaritoDaProva, notaDeTheta, notaDeThetaDaArea, probabilidadeD, provasDaArea, cadernosDaArea, quadratura, thetaDeNota, thetaDeNotaDaArea } from "../lib/enem-tri.ts";
 
 let ok = 0;
 const falhas = [];
@@ -207,11 +207,51 @@ const json = (...p) => JSON.parse(fs.readFileSync(path.join(raiz, ...p), "utf8")
   conferir("faixa por acertos usa a régua da área (topo coincide com o EAP da área)", perto(fArea[mt24.length].min, tudo.nota, 1e-9) && perto(fArea[mt24.length].max, tudo.nota, 1e-9));
 }
 
+// ── 6b. Cadernos com variante (Enem 2022: CN 1093, MT 1081, LC 1073) ──
+// Este teste trava DADO + CÓDIGO: que o laboratório consegue escolher os itens do caderno da variante e que a conta com
+// eles é a esperada. Os valores fixos abaixo vêm do próprio estimador (padrão determinístico: os 25 itens mais fáceis
+// acertos, nenhum dado de participante). NÃO prova fidelidade à nota oficial: isso foi medido à parte, nos microdados.
+{
+  const a22 = json("public", "tri", "enem-2022.json").areas;
+  conferir("provasDaArea: referência primeiro, depois a variante", JSON.stringify(provasDaArea(a22.natureza)) === "[1085,1093]" && JSON.stringify(provasDaArea(a22.matematica)) === "[1075,1081,1082]" && JSON.stringify(provasDaArea(a22.linguagens)) === "[1065,1073]" && JSON.stringify(provasDaArea(a22.humanas)) === "[1055]");
+  const cores = Object.fromEntries(["natureza", "matematica", "linguagens"].map((ar) => [ar, cadernosDaArea(a22[ar]).map((c) => `${c.prova}:${c.cor}:${c.referencia ? "ref" : "var"}`).join(",")]));
+  conferir("cadernosDaArea: prova e cor de cada caderno (cores = TX_COR do ITENS_PROVA 2022)", cores.natureza === "1085:AZUL:ref,1093:VERDE:var" && cores.matematica === "1075:AZUL:ref,1081:LARANJA:var,1082:LARANJA:var" && cores.linguagens === "1065:AZUL:ref,1073:VERDE:var", JSON.stringify(cores));
+  const nomes = Object.fromEntries(["natureza", "matematica", "linguagens"].map((ar) => [ar, cadernosDaArea(a22[ar]).map((c) => `${c.prova}:${c.nome ?? "-"}`).join(",")]));
+  conferir("cadernosDaArea: nome do dicionário oficial (1081 não consta no dicionário e não herda o nome do 1082)", nomes.natureza === "1085:-,1093:Verde - Videoprova - Libras" && nomes.matematica === "1075:-,1081:-,1082:Laranja - Adaptada Ledor" && nomes.linguagens === "1065:-,1073:Verde - Videoprova - Libras", JSON.stringify(nomes));
+  const nota25 = (itens, area) => {
+    const validos = itens.filter((i) => !i.fora);
+    const faceis = new Set([...validos].sort((x, y) => x.b - y.b).slice(0, 25).map((i) => i.co));
+    return estimarEap(validos.map((i) => ({ a: i.a, b: i.b, c: i.c })), validos.map((i) => faceis.has(i.co)), { area }).nota;
+  };
+  const casos = [
+    ["natureza", 1093, "ingles", 1, 684.89, 672.187],
+    ["matematica", 1081, "ingles", 5, 793.214, 801.847],
+    ["linguagens", 1073, "ingles", 4, 582.934, 580.46],
+    ["linguagens", 1073, "espanhol", 4, 582.296, 579.26],
+  ];
+  for (const [area, prova, idioma, novos, notaBase, notaVar] of casos) {
+    const A = a22[area];
+    const base = itensDaArea(A, idioma);
+    const sem = itensDaArea(A, idioma, A.prova);
+    let erroDesconhecida = "";
+    try { itensDaArea(A, idioma, 9999); } catch (e) { erroDesconhecida = String(e.message); }
+    const v = itensDaArea(A, idioma, prova);
+    const cosBase = new Set(base.map((i) => i.co));
+    conferir(`${area} ${idioma}: sem prova ou com a de referência, nada muda`, JSON.stringify(sem) === JSON.stringify(base));
+    conferir(`${area} ${idioma}: prova que a área não cobre dá erro, não cai em outro caderno`, /9999/.test(erroDesconhecida) && erroDesconhecida.includes(String(A.prova)), erroDesconhecida);
+    conferir(`${area} ${idioma}: o caderno ${prova} tem 45 itens, ${novos} fora do caderno de referência`, v.length === 45 && v.filter((i) => !cosBase.has(i.co)).length === novos, `${v.length}/${v.filter((i) => !cosBase.has(i.co)).length}`);
+    conferir(`${area} ${idioma}: itens da variante no formato vigente (a, b, c ou abandonado)`, v.every((i) => i.fora ? (i.aban === true || i.a === undefined) : (typeof i.a === "number" && typeof i.b === "number" && typeof i.c === "number")));
+    conferir(`${area} ${idioma}: nota do padrão fixo no caderno de referência = ${notaBase}`, perto(nota25(base, area), notaBase, 0.001), String(nota25(base, area)));
+    conferir(`${area} ${idioma}: nota do mesmo padrão no caderno ${prova} = ${notaVar}`, perto(nota25(v, area), notaVar, 0.001), String(nota25(v, area)));
+  }
+}
+
 // ── 7. Texto e script ──
 {
   const t = json("i18n", "estudo", "pt.json").enem.tri;
   const texto = JSON.stringify(t).toLowerCase();
   conferir("textos: sem as palavras proibidas na interface", !/universidade|diploma/.test(texto));
+  conferir("textos: o seletor de caderno tem todas as chaves", ["cadernoEscolha", "cadernoReferencia", "cadernoVariante", "cadernoDaVariante", "cadernoSemNome", "cadernoNomeOficial", "cadernoSemNomeAviso", "respostasDoCaderno"].every((c) => typeof t[c] === "string" && t[c].length > 0) && /\{prova\}/.test(t.cadernoReferencia + t.cadernoVariante + t.cadernoDaVariante));
   conferir("textos: o aviso de estimativa existe e fala em margem de erro", /margem de erro/i.test(t.aviso) && /estimativa/i.test(t.aviso));
   conferir("textos: as fontes do Inep estão citadas", Array.isArray(t.fontes) && t.fontes.length >= 3 && t.fontes.every((f) => /^https:\/\/(download|www)\.[a-z.]*inep\.gov\.br|^https:\/\/www\.gov\.br\/inep/.test(f.url)));
   const gerador = fs.readFileSync(path.join(raiz, "scripts", "enem", "gerar-parametros-tri.mjs"), "utf8");

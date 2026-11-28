@@ -29,7 +29,7 @@ const confere = (nome, ok, detalhe) => {
   if (!ok) falhas++;
 };
 
-const ESPERADAS = { natureza: { provas: [1093], itens: 45, comuns: 44 }, matematica: { provas: [1081], itens: 45 }, linguagens: { provas: [1073], itens: 40 } };
+const ESPERADAS = { natureza: { provas: [1093], itens: 45, comuns: 44 }, matematica: { provas: [1081, 1082], itens: 45 }, linguagens: { provas: [1073], itens: 40 } };
 
 for (const [area, esp] of Object.entries(ESPERADAS)) {
   const A = dados.areas[area];

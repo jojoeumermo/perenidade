@@ -247,6 +247,21 @@ export interface ItemDoArquivo {
   /** Id da questão correspondente em public/questoes/enem-AAAA.json, quando o site a tem. */
   q?: string;
 }
+/**
+ * Um caderno REGULAR cujo conjunto de itens difere do caderno de referência da área (`AreaDoArquivo.prova`), mas
+ * tem itens em comum com ele (caso de CN 1093, MT 1081/1082 e LC 1073 em 2022: cadernos de acessibilidade, Libras e Ledor). Mesmo formato de itens. Gerado por
+ * scripts/enem/gerar-variantes-tri.mjs.
+ */
+export interface VarianteDoArquivo {
+  /** CO_PROVA dos cadernos que usam estes itens, como em ITENS_PROVA. */
+  provas: number[];
+  /** TX_COR do caderno em ITENS_PROVA (a cor impressa na prova, como nos microdados). */
+  cor: string;
+  /** Nome oficial no dicionário dos microdados, POR código de prova, só dos códigos que o dicionário lista (ex.: "Verde - Videoprova - Libras"). Código sem nome aqui não tem descrição oficial confirmada. */
+  nomes?: Record<string, string>;
+  itens: ItemDoArquivo[];
+  idiomas?: { ingles: ItemDoArquivo[]; espanhol: ItemDoArquivo[] };
+}
 export interface AreaDoArquivo {
   prova: number;
   cor: string;
@@ -254,6 +269,8 @@ export interface AreaDoArquivo {
   ligadas: number;
   itens: ItemDoArquivo[];
   idiomas?: { ingles: ItemDoArquivo[]; espanhol: ItemDoArquivo[] };
+  /** Cadernos regulares com itens próprios (ver VarianteDoArquivo). Ausente = só o caderno de referência. */
+  variantes?: VarianteDoArquivo[];
   /**
    * Nota OBSERVADA nos microdados desta edição para quem acerta TUDO nesta prova ("nota de gabarito"), quando
    * diferente da nota que os parâmetros da própria prova produzem. Não é regra geral comprovada do Inep: o
@@ -273,8 +290,31 @@ export interface ProvaDoArquivo {
 
 export type ItemDaArea = ItemDoArquivo & { fora: boolean };
 
-/** Os itens de uma área na ordem do caderno (idioma antes dos comuns, em linguagens); `fora` marca os sem parâmetro. */
-export function itensDaArea(area: AreaDoArquivo, idioma: "ingles" | "espanhol" = "ingles"): ItemDaArea[] {
-  const lista = area.idiomas ? [...area.idiomas[idioma], ...area.itens] : area.itens;
+/** Os cadernos de uma área que o arquivo cobre (referência primeiro, depois as variantes), com a cor de cada um. */
+export function cadernosDaArea(area: AreaDoArquivo): { prova: number; cor: string; referencia: boolean; nome?: string }[] {
+  return [
+    { prova: area.prova, cor: area.cor, referencia: true },
+    ...(area.variantes ?? []).flatMap((v) => v.provas.filter((p) => p !== area.prova).map((prova) => ({ prova, cor: v.cor, referencia: false, nome: v.nomes?.[String(prova)] }))),
+  ];
+}
+
+/** Só os números de prova de `cadernosDaArea`. */
+export function provasDaArea(area: AreaDoArquivo): number[] {
+  return cadernosDaArea(area).map((c) => c.prova);
+}
+
+/**
+ * Os itens de uma área na ordem do caderno (idioma antes dos comuns, em linguagens); `fora` marca os sem parâmetro.
+ * Sem `prova`: os do caderno de referência (comportamento antigo). Com `prova`: os do caderno daquela prova; um número
+ * que a área não cobre (ver `provasDaArea`) lança erro em vez de cair em outro caderno sem avisar.
+ */
+export function itensDaArea(area: AreaDoArquivo, idioma: "ingles" | "espanhol" = "ingles", prova?: number): ItemDaArea[] {
+  let fonte: { itens: ItemDoArquivo[]; idiomas?: { ingles: ItemDoArquivo[]; espanhol: ItemDoArquivo[] } } = area;
+  if (prova !== undefined && prova !== area.prova) {
+    const variante = area.variantes?.find((v) => v.provas.includes(prova));
+    if (!variante) throw new Error(`itensDaArea: a prova ${prova} não está nesta área (cobertas: ${provasDaArea(area).join(", ")})`);
+    fonte = variante;
+  }
+  const lista = fonte.idiomas ? [...fonte.idiomas[idioma], ...fonte.itens] : fonte.itens;
   return lista.map((i) => ({ ...i, fora: !!i.aban || i.a === undefined || i.b === undefined || i.c === undefined }));
 }

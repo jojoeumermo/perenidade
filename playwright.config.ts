@@ -30,8 +30,8 @@ export default defineConfig({
     // A fumaça (e2e/fumaca.spec.ts) roda no computador e no Galaxy S24; o Pixel 7 fica com os outros fluxos, para a
     // suíte não rodar três vezes.
     { name: "celular", use: { ...devices["Pixel 7"], channel: "chrome" }, testIgnore: /visual|fumaca|aparelho-de-entrada|vale-o-escrito-lento/ },
-    // O Galaxy S24 pelo navegador do celular (o visual dentro do aplicativo é o de e2e/s24.spec.ts). Só a fumaça.
-    { name: "s24", use: { ...devices["Galaxy S24"], channel: "chrome" }, testMatch: /fumaca\.spec\.ts/ },
+    // O Galaxy S24 pelo navegador do celular (o visual dentro do aplicativo é o de e2e/s24.spec.ts). Só a fumaça e o Laboratório da TRI (e2e/laboratorio-tri.spec.ts).
+    { name: "s24", use: { ...devices["Galaxy S24"], channel: "chrome" }, testMatch: /fumaca\.spec\.ts|laboratorio-tri\.spec\.ts/ },
     // O celular de entrada (E4-04, R1-89): tela de 360x640, toque, e no próprio teste a CPU 4x mais lenta e a rede 3G lenta
     // (CDP). Só e2e/aparelho-de-entrada.spec.ts, que mede o LCP e o JS baixado: `npm run testar:entrada`.
     {

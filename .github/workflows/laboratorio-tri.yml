@@ -1,0 +1,51 @@
+name: Laboratório da TRI (página real)
+
+# O Laboratório da TRI na página real, num Chrome de verdade, no computador e no Galaxy S24 (e2e/laboratorio-tri.spec.ts):
+# estados do seletor de caderno, nomes oficiais por código de prova, alternância de caderno/idioma/ano/área sem nota nem
+# resposta de outro caderno, e a tela sem rolagem lateral. Sem segredo, sem serviço pago, sem publicar site nem preview:
+# o banco é o de teste local e descartável (npm run dev:local) e o teste só usa marcações sintéticas, nunca microdados de
+# pessoa. Roda em pull request que mexe no laboratório ou nos dados da TRI (inclusive rascunho) e sob pedido.
+#
+# Nenhum artefato é enviado: num repositório público qualquer conta do GitHub baixa artefatos, e capturas seriam uma
+# audiência nova. O resultado é o log do job e as asserções do teste.
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "components/enem/LaboratorioTri.tsx"
+      - "lib/enem-tri.ts"
+      - "public/tri/**"
+      - "i18n/estudo/**"
+      - "e2e/laboratorio-tri.spec.ts"
+      - "playwright.config.ts"
+      - ".github/workflows/laboratorio-tri.yml"
+
+concurrency:
+  group: laboratorio-tri-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  pagina-real:
+    if: github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      # O Chrome já vem instalado nas máquinas do GitHub: o Playwright usa ele (channel "chrome").
+      - name: Laboratório da TRI (computador e Galaxy S24)
+        run: npx playwright test e2e/laboratorio-tri --project=computador --project=s24 --output=test-results/laboratorio-tri
+        env:
+          CI: "1"
+          # A página fica atrás deste recurso; o servidor de teste local herda a variável.
+          NEXT_PUBLIC_RECURSOS: enem-curso
+          ALUMIA_VOTO_SEGREDO: "segredo-so-de-teste-do-e2e-0123456789abcdef"
