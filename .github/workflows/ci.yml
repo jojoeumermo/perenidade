@@ -81,10 +81,10 @@ jobs:
       # A cobertura contra a Matriz e a fila de revisão (só refazem os relatórios; falham se algum arquivo estiver errado).
       - run: npm run cobertura:enem
       - run: npm run fila:enem
-      # O laboratório da TRI (lib/enem-tri.ts): as 528 conferências do estimador e a trava da variante CN 1093
-      # (Enem 2022), que também garante que MT/LC/humanas seguem sem variantes até a validação delas.
+      # O laboratório da TRI (lib/enem-tri.ts): as 528 conferências do estimador e a trava das variantes de 2022
+      # (CN 1093, MT 1081, LC 1073), que também garante que humanas segue sem variante.
       - run: npm run testar:tri
-      - run: npm run testar:tri-variantes-cn
+      - run: npm run testar:tri-variantes
       # O jogo Rumos: os baralhos passam no validador, o motor faz o que promete e todas as cartas e desfechos são alcançáveis.
       - run: npm run testar:jogos
       # O que os recursos novos guardam no aparelho (Meu estudo, revisão dos erros, turma, metas) e a leitura das flags.

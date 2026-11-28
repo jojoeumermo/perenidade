@@ -107,7 +107,7 @@
     "testar:aovivo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-aovivo.mjs",
     "testar:depositos": "node scripts/testar-depositos.mjs",
     "testar:tri": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-tri.mjs",
-    "testar:tri-variantes-cn": "node scripts/testar-tri-variantes-cn.mjs",
+    "testar:tri-variantes": "node scripts/testar-tri-variantes.mjs",
     "testar:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-enem.mjs",
     "cobertura:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/cobertura-enem.mjs",
     "fila:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/fila-enem.mjs",

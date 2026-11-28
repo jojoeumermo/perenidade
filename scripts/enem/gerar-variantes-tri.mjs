@@ -14,11 +14,10 @@
 //       node scripts/enem/gerar-variantes-tri.mjs --csv-dir pasta 2022   (lê pasta/itens-AAAA.csv em vez do zip)
 //       node scripts/enem/gerar-variantes-tri.mjs --areas natureza matematica 2022
 //
-// ÁREAS: por padrão o script regenera SOMENTE as áreas com validação populacional completa
-// (AREAS_VALIDADAS abaixo — hoje só natureza/CN 2022, a 1093 medida na validação TRI). MT 1081 e LC
-// 1073 existem no branch tri-cadernos-variantes, mas NÃO foram validadas populacionalmente: gerá-las
-// exige --areas explícito e deve vir junto com a medição, o dado e o teste
-// (scripts/testar-tri-variantes-cn.mjs trava a ausência delas até lá).
+// ÁREAS: por padrão regenera as áreas com validação populacional medida nos microdados (AREAS_VALIDADAS:
+// natureza/CN 1093, matematica/MT 1081 e linguagens/LC 1073, 2022; números e limites no corpo do PR).
+// Ficam fora, sem medição: cadernos especiais (CN 1165-1168, MT 1155-1158, LC 1145-1148) e humanas.
+// --areas permite regenerar um subconjunto.
 import fs from "node:fs";
 import path from "node:path";
 import { extrairEntrada, listarZip } from "./zip-remoto.mjs";
@@ -28,7 +27,7 @@ const DIR_TRI = path.join(RAIZ, "public", "tri");
 const AREAS = { linguagens: "LC", humanas: "CH", natureza: "CN", matematica: "MT" };
 // Áreas com validação populacional completa (efeito medido nos microdados com o estimador EAP do
 // repositório, antes/depois com o mesmo leitor). Só estas são regeneradas por padrão.
-const AREAS_VALIDADAS = ["natureza"];
+const AREAS_VALIDADAS = ["natureza", "linguagens", "matematica"];
 
 const args = process.argv.slice(2);
 const iDir = args.indexOf("--csv-dir");
