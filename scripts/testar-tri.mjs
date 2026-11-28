@@ -129,10 +129,10 @@ const json = (...p) => JSON.parse(fs.readFileSync(path.join(raiz, ...p), "utf8")
         for (const i of itens) {
           if (i.fora) { abandonados++; conferir(`${rotulo} ${i.co}: item fora da conta não traz parâmetro`, i.aban === true || i.a === undefined); continue; }
           // Há itens publicados com parâmetros extremos (a de 0,05 a 8, b até 17): são os do Inep e ficam como estão.
-          // Item neutralizado pelo Inep (a ≤ 0,05 com |b| > 20, caso do 53958/CN 2015: a = 0,01929, b = 61,05459)
-          // também é oficial e fica como está — ver scripts/testar-tri-parametros.mjs.
-          const neutralizadoPeloInep = i.a > 0 && i.a <= 0.05 && Math.abs(i.b) > 20 && i.c >= 0 && i.c <= 0.5;
-          if (!(neutralizadoPeloInep || (i.a > 0 && i.a < 10 && Math.abs(i.b) < 20 && i.c >= 0 && i.c <= 0.5))) conferir(`${rotulo} ${i.co}: parâmetros plausíveis`, false, JSON.stringify(i));
+          // Exceção nomeada: 53958 (CN 2015), cujos parâmetros oficiais (a = 0,01929, b = 61,05459, c = 0,21513)
+          // têm efeito neutro na pontuação — fundamento e limites em scripts/testar-tri-parametros.mjs.
+          const excecao53958 = i.co === 53958 && i.a === 0.01929 && i.b === 61.05459 && i.c === 0.21513;
+          if (!(excecao53958 || (i.a > 0 && i.a < 10 && Math.abs(i.b) < 20 && i.c >= 0 && i.c <= 0.5))) conferir(`${rotulo} ${i.co}: parâmetros plausíveis`, false, JSON.stringify(i));
         }
       }
       conferir(`${rotulo}: ligadas ao site conferem com o contador`, [...A.itens, ...(A.idiomas?.espanhol ?? [])].filter((i) => i.q).length === A.ligadas);
