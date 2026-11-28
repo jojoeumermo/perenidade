@@ -64,7 +64,18 @@ function itensDoCaderno(linhas) {
     let a = num(r.NU_PARAM_A), b = num(r.NU_PARAM_B);
     const c = num(r.NU_PARAM_C);
     // Se algum ano vier na escala (500,100), volta para (0,1): b = (b500 − 500)/100 e a = a500·100.
-    if (b !== null && Math.abs(b) > 20) { b = (b - 500) / 100; a = a === null ? null : a * 100; }
+    // Exceção nomeada e fundamentada (CO_ITEM 53958, Enem 2015 CN): os parâmetros oficiais publicados pelo
+    // Inep para este item — a = 0,01929, b = 61,05459, c = 0,21513, idênticos nas 5 provas CN de 2015
+    // (235–238 e 252) — formam uma curva quase plana, isto é, têm efeito neutro na pontuação (acertar ou
+    // errar quase não muda θ). A regra |b| > 20 os convertia indevidamente para a = 1,929, b = −4,3894541,
+    // e o item deslocava a nota de quem acertava (medido na população regular CN 2015, n = 5.746.265, com o
+    // estimador EAP deste repositório: erro médio 53,53 e máximo 291,95 com o valor convertido; nenhum caso
+    // acima de 0,05 com os brutos oficiais). O Inep NÃO marcou o item como abandonado (IN_ITEM_ABAN = 0) e
+    // não localizamos documento oficial que o classifique — a exceção cobre o efeito medido dos parâmetros
+    // publicados, não uma classificação oficial. É o único item com |b| > 20 nos brutos de 2009–2022
+    // (censo das 14 edições; 2023–2025 ainda não verificados nos brutos — se surgir outro caso, ele segue
+    // a regra antiga e deve ser nomeado aqui após medição, não por assinatura numérica automática).
+    if (b !== null && Math.abs(b) > 20 && r.CO_ITEM !== "53958") { b = (b - 500) / 100; a = a === null ? null : a * 100; }
     const aban = r.IN_ITEM_ABAN === "1" || a === null || b === null || c === null;
     return { co: Number(r.CO_ITEM), p: Number(r.CO_POSICAO), g: r.TX_GABARITO, a, b, c, aban, lingua: !r.TP_LINGUA ? null : Number(r.TP_LINGUA), hab: r.CO_HABILIDADE ? Number(r.CO_HABILIDADE) : null };
   });

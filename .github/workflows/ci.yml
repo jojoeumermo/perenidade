@@ -81,6 +81,10 @@ jobs:
       # A cobertura contra a Matriz e a fila de revisão (só refazem os relatórios; falham se algum arquivo estiver errado).
       - run: npm run cobertura:enem
       - run: npm run fila:enem
+      # O laboratório da TRI (lib/enem-tri.ts): as 528 conferências do estimador e a trava dos parâmetros brutos
+      # do item 53958 (Enem 2015), que impedem regenerar o dado com a conversão indevida.
+      - run: npm run testar:tri
+      - run: npm run testar:tri-parametros
       # O jogo Rumos: os baralhos passam no validador, o motor faz o que promete e todas as cartas e desfechos são alcançáveis.
       - run: npm run testar:jogos
       # O que os recursos novos guardam no aparelho (Meu estudo, revisão dos erros, turma, metas) e a leitura das flags.
