@@ -78,6 +78,8 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
   const faixa = useMemo(() => (total ? faixaPorAcertos(contados.map((i) => ({ a: i.a as number, b: i.b as number, c: i.c as number })), { D, area }) : []), [contados, total, D, area]);
   const f = faixa[acertos];
   const fora = itens.length - total;
+  // Itens com questão no banco do site: o campo do arquivo vale para o caderno de referência; os cadernos de variante não têm ligação (sem `q`).
+  const ligadas = atual?.referencia === false ? itens.filter((i) => i.q).length : (bloco?.ligadas ?? 0);
   const porDificuldade = [...contados].sort((x, y) => (x.b as number) - (y.b as number));
   const quantos = Math.max(0, Math.min(total, n));
 
@@ -90,13 +92,13 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
         <div className="mt-3 flex flex-wrap gap-4">
           <label className="flex flex-col gap-1 font-semibold">
             {s.ano}
-            <select className={campo} value={ano} onChange={(e) => setAno(Number(e.target.value))}>
+            <select className={campo} value={ano} onChange={(e) => { setAno(Number(e.target.value)); setEscolha(null); }}>
               {ANOS.map((a) => <option key={a} value={a}>{a}</option>)}
             </select>
           </label>
           <label className="flex flex-col gap-1 font-semibold">
             {s.area}
-            <select className={campo} value={area} onChange={(e) => setArea(e.target.value as AreaDoEnem)}>
+            <select className={campo} value={area} onChange={(e) => { setArea(e.target.value as AreaDoEnem); setEscolha(null); }}>
               {AREAS.map((a) => <option key={a} value={a}>{s.areas[a]}</option>)}
             </select>
           </label>
@@ -123,7 +125,7 @@ export function LaboratorioTri({ s, hrefProvas }: { s: S; hrefProvas: string }) 
         {bloco && (
           <div className="mt-3 space-y-1">
             <p>{fill(atual?.referencia === false ? s.cadernoDaVariante : s.caderno, { cor: (atual?.cor ?? bloco.cor).toLowerCase(), prova: atual?.prova ?? bloco.prova })}</p>
-            {bloco.ligadas > 0 && <p>{fill(s.ligadas, { n: bloco.ligadas })} <a href={hrefProvas} className="underline hover:text-oxblood">{s.provas}</a></p>}
+            {ligadas > 0 && <p>{fill(s.ligadas, { n: ligadas })} <a href={hrefProvas} className="underline hover:text-oxblood">{s.provas}</a></p>}
             {fora > 0 && <p>{fill(s.foraDaConta, { n: fora })}</p>}
           </div>
         )}
